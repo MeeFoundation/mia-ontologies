@@ -16,7 +16,7 @@
     owl:imports <https://purl.org/cco/address> ;
     owl:imports <https://purl.org/cco/staging> ;
     dc:date "2026-04-12"^^xsd:date ;
-    owl:versionInfo "Version 3.0.5 - replace persona:Organization with cco:ont00001180"@en ;
+    owl:versionInfo "Version 3.0.6 - add holdsPaymentCard property and debit card support"@en ;
     rdfs:label "Mee Foundation Persona Ontology"@en ;
     rdfs:comment """Persona Ontology for the Mee Identity Agent.
                     
@@ -57,7 +57,11 @@
                               cco:ent00000003 ,
                               cco:ent00000005 ,
                               cco:ent00000006 ,
-                              cco:ent00000016 ;
+                              cco:ent00000016 ,
+                              cco:ent00000051 ,  # Debit Card
+                              cco:ent00000052 ,  # Credit Card Number (PAN)
+                              cco:ent00000053 ,  # CVV
+                              cco:ent00000054 ;  # Expiration Date Identifier
     
     # Document CCO classes used directly (note: use full IRIs, not cco: prefix)
     persona:usesCCOClass <https://purl.org/cco/ont00001262> ,  # Person
@@ -153,6 +157,13 @@ persona:hasSocialNetwork rdf:type owl:ObjectProperty ;
                     the network; the network contains only the people they relate to."""@en .
 
 
+persona:holdsPaymentCard rdf:type owl:ObjectProperty ;
+    rdfs:domain <https://purl.org/cco/ont00001262> ;  # Person
+    rdfs:range cco:ent00000049 ;                       # Payment Card
+    rdfs:label "holds payment card"@en ;
+    rdfs:comment "Links a Person to a Payment Card (credit, debit, or other) they hold."@en .
+
+
 #################################################################
 #    Usage Pattern Documentation on Specific Classes
 #################################################################
@@ -191,8 +202,14 @@ cco:ent00000023
     persona:usagePattern """Primary phone number. Required. Prefer E.164 format."""@en .
 
 cco:ent00000016
-    persona:usagePattern """Used to track address history with temporal bounds. Each designation 
-                            represents a person living at an address during a specific time period. 
-                            Use BFO 'occupies temporal region' to specify the time interval with 
-                            start and optional end dates. An open-ended interval (no end date) 
+    persona:usagePattern """Used to track address history with temporal bounds. Each designation
+                            represents a person living at an address during a specific time period.
+                            Use BFO 'occupies temporal region' to specify the time interval with
+                            start and optional end dates. An open-ended interval (no end date)
                             indicates current address. Supports N addresses over a person's lifetime."""@en .
+
+cco:ent00000051
+    persona:usagePattern """Debit card held by a Person, linked via persona:holdsPaymentCard.
+                            Designated by a CreditCardNumber (ent00000052), CVV (ent00000053),
+                            and ExpirationDateIdentifier (ent00000054) using ont00001879
+                            (designated by)."""@en .

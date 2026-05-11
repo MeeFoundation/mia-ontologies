@@ -11,7 +11,7 @@
 <http://www.example.org/mee> rdf:type owl:Ontology ;
     owl:imports <http://mee.foundation/ontologies/persona> ;
     dc:date "2026-04-12"^^xsd:date ;
-    owl:versionInfo "Version 3.0.16 - fix Height IRI to cco:ont00000967 (was ont00000367, Act of Military Training Instruction)"@en ;
+    owl:versionInfo "Version 3.0.17 - add Alice's VISA debit card"@en ;
     rdfs:label "Alice Walker - Example Instance Data"@en ;
     rdfs:comment """Example instance data for Alice Walker demonstrating the Mee Foundation 
                     Persona Ontology in practice.
@@ -136,9 +136,37 @@
 
     cco:ont00001780 :Paula_Walker ;  # has mother
 
+    # PAYMENT CARDS
+
+    persona:holdsPaymentCard :Alice_Debit_Card ;
+
     # SOCIAL NETWORK
 
     persona:hasSocialNetwork :Alice_Social_Network .
+
+
+#################################################################
+#    Payment Card
+#################################################################
+
+:Alice_Debit_Card rdf:type owl:NamedIndividual ,
+                           cco:ent00000051 ;  # Debit Card
+    rdfs:label "Alice Walker's VISA Debit Card"@en ;
+
+    <https://purl.org/cco/ont00001879> [  # designated by → Card Number
+        rdf:type cco:ent00000052 ;
+        <https://purl.org/cco/ont00001765> "4111-1111-1111-1111"
+    ] ;
+
+    <https://purl.org/cco/ont00001879> [  # designated by → CVV
+        rdf:type cco:ent00000053 ;
+        <https://purl.org/cco/ont00001765> "123"
+    ] ;
+
+    <https://purl.org/cco/ont00001879> [  # designated by → Expiration Date
+        rdf:type cco:ent00000054 ;
+        <https://purl.org/cco/ont00001765> "12/28"
+    ] .
 
 
 #################################################################
