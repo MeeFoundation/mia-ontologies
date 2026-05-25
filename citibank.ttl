@@ -32,7 +32,7 @@
 
 
 #################################################################
-#    Payment Card
+#    Payment Card issued to her by Citibank
 #################################################################
 
 :Alice_Debit_Card rdf:type owl:NamedIndividual ,
