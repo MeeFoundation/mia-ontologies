@@ -1,0 +1,75 @@
+@prefix : <http://www.example.org/mee#> .
+@prefix persona: <http://mee.foundation/ontologies/persona#> .
+@prefix cco: <https://purl.org/cco/> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix dc: <http://purl.org/dc/elements/1.1/> .
+@base <http://www.example.org/mee> .
+
+<http://www.example.org/mee/paradise> rdf:type owl:Ontology ;
+    owl:imports <http://mee.foundation/ontologies/persona> ;
+    dc:date "2026-05-25"^^xsd:date ;
+    owl:versionInfo "Version 1.0.0 - Alice Walker's Paradise residence persona"@en ;
+    rdfs:label "Alice Walker - Paradise Persona"@en ;
+    rdfs:comment """Alice Walker's Paradise whoness — representing her current residence in
+                    Paradise, CA (September 2025 to present).
+                    Correlated from :Alice_Walker:Self in self.ttl."""@en .
+
+
+#################################################################
+#    Alice Walker - Paradise Persona
+#################################################################
+
+:Alice_Walker:Paradise rdf:type owl:NamedIndividual ,
+                                persona:Persona ,
+                                persona:Municipality ;
+    rdfs:label "Alice Walker (Paradise)"@en ;
+    rdfs:comment "Alice Walker's persona in the context of her current Paradise, CA residence."@en ;
+
+    <https://purl.org/cco/ont00001879> :Address_Paradise .  # designated by → Paradise address
+
+
+#################################################################
+#    Paradise Residence History
+#################################################################
+
+:Paradise_Residence rdf:type owl:NamedIndividual ,
+                            cco:ent00000016 ;  # AddressDesignation
+    rdfs:label "Alice's Paradise Residence (2025-present)"@en ;
+    rdfs:comment "Alice has lived at this Paradise address since September 2025. No end date indicates current residence."@en ;
+    <http://purl.obolibrary.org/obo/BFO_0000139> :Alice_Walker:Paradise ;  # has participant
+    <https://purl.org/cco/ont00001879> :Address_Paradise ;                  # designated by
+    <http://purl.obolibrary.org/obo/BFO_0000153> :Interval_2025_Present .  # occupies temporal region
+
+:Interval_2025_Present rdf:type owl:NamedIndividual ,
+                                <http://purl.obolibrary.org/obo/BFO_0000038> ;  # TemporalInterval
+    rdfs:label "September 2025 to present"@en ;
+    rdfs:comment "Open-ended interval — absence of end date indicates current/ongoing."@en ;
+    cco:ent00000017 "2025-09-01"^^xsd:date .
+    # No cco:ent00000018 = still current
+
+:Address_Paradise rdf:type owl:NamedIndividual ,
+                          cco:ent00000010 ;  # USPostalAddress
+    rdfs:label "Paradise Address"@en ;
+    <http://purl.obolibrary.org/obo/BFO_0000178> [  # has continuant part → Street
+        rdf:type cco:ent00000011 ;
+        <https://purl.org/cco/ont00001765> "123 Sleepy Hollow"
+    ] ;
+    <http://purl.obolibrary.org/obo/BFO_0000178> [  # has continuant part → City
+        rdf:type cco:ent00000012 ;
+        <https://purl.org/cco/ont00001765> "Paradise"
+    ] ;
+    <http://purl.obolibrary.org/obo/BFO_0000178> [  # has continuant part → State
+        rdf:type cco:ent00000013 ;
+        <https://purl.org/cco/ont00001765> "CA"
+    ] ;
+    <http://purl.obolibrary.org/obo/BFO_0000178> [  # has continuant part → ZIP
+        rdf:type cco:ent00000015 ;
+        <https://purl.org/cco/ont00001765> "95969"
+    ] ;
+    <http://purl.obolibrary.org/obo/BFO_0000178> [  # has continuant part → Country
+        rdf:type cco:ent00000014 ;
+        <https://purl.org/cco/ont00001765> "USA"
+    ] .

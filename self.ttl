@@ -11,7 +11,7 @@
 <http://www.example.org/mee> rdf:type owl:Ontology ;
     owl:imports <http://mee.foundation/ontologies/persona> ;
     dc:date "2026-04-12"^^xsd:date ;
-    owl:versionInfo "Version 3.0.20 - move Boston residence to boston.ttl; add Boston correlation"@en ;
+    owl:versionInfo "Version 3.0.21 - move Paradise residence to paradise.ttl; add Paradise correlation"@en ;
     rdfs:label "Alice Walker - Selfness"@en ;
     rdfs:comment """Alice Walker's selfness — the central identity individual from which
                     context-specific Personas (whonesses) are correlated.
@@ -30,8 +30,9 @@
                     - Mother: Paula Walker
 
                     Correlated Personas:
-                    - :Alice_Walker:Citibank (citibank.ttl) — Citibank financial relationship
-                    - :Alice_Walker:Boston  (boston.ttl)   — Boston residence (2020-2025)"""@en .
+                    - :Alice_Walker:Citibank  (citibank.ttl)  — Citibank financial relationship
+                    - :Alice_Walker:Boston    (boston.ttl)    — Boston residence (2020-2025)
+                    - :Alice_Walker:Paradise  (paradise.ttl)  — Paradise residence (2025-present)"""@en .
 
 
 #################################################################
@@ -95,10 +96,6 @@
         rdfs:comment "E.164 format (international standard)"@en
     ] ;
     
-    # CURRENT POSTAL ADDRESS
-    
-    <https://purl.org/cco/ont00001879> :Address_Paradise ;
-    
     # PHYSICAL CHARACTERISTICS
     
     <http://purl.obolibrary.org/obo/BFO_0000196> :Alice_Height ;               # bearer of → Height quality
@@ -131,6 +128,7 @@
 
     persona:correlation :Alice_Walker:Citibank ;
     persona:correlation :Alice_Walker:Boston ;
+    persona:correlation :Alice_Walker:Paradise ;
 
     # SOCIAL NETWORK
 
@@ -150,58 +148,6 @@
     <https://purl.org/cco/ont00001983> :Alice_Height ;    # is a ratio measurement of
     <https://purl.org/cco/ont00001863> <https://purl.org/cco/ont00001677> ;  # uses measurement unit: Inch
     <https://purl.org/cco/ont00001769> "68"^^xsd:decimal .  # has decimal value
-
-
-#################################################################
-#    Address History - Temporal Tracking
-#################################################################
-
-###  Current Address: Paradise (2025-present)
-:Paradise_Residence rdf:type owl:NamedIndividual ,
-                            cco:ent00000016 ;
-    rdfs:label "Alice's Paradise Residence (2025-present)"@en ;
-    rdfs:comment "Alice has lived at this Paradise address since September 2025. No end date indicates current residence."@en ;
-    <http://purl.obolibrary.org/obo/BFO_0000139> :Alice_Walker:Self ;  # has participant
-    <https://purl.org/cco/ont00001879> :Address_Paradise ;  # designated by
-    <http://purl.obolibrary.org/obo/BFO_0000153> :Interval_2025_Present .  # occupies temporal region
-
-:Interval_2025_Present rdf:type owl:NamedIndividual ,
-                                <http://purl.obolibrary.org/obo/BFO_0000038> ;  # TemporalInterval
-    rdfs:label "September 2025 to present"@en ;
-    rdfs:comment "Open-ended interval - absence of end date indicates current/ongoing"@en ;
-    cco:ent00000017 "2025-09-01"^^xsd:date . #has start date
-    # No cco:ent00000018 = still current
-
-
-###  Paradise Address Details
-:Address_Paradise rdf:type owl:NamedIndividual ,
-                          cco:ent00000010 ; # UsPostalAddress
-    rdfs:label "Paradise Address"@en ;
-    
-    <http://purl.obolibrary.org/obo/BFO_0000178> [  # has continuant part → Street
-        rdf:type cco:ent00000011 ;
-        <https://purl.org/cco/ont00001765> "123 Sleepy Hollow"
-    ] ;
-    
-    <http://purl.obolibrary.org/obo/BFO_0000178> [  # has continuant part → City
-        rdf:type cco:ent00000012 ;
-        <https://purl.org/cco/ont00001765> "Paradise"
-    ] ;
-    
-    <http://purl.obolibrary.org/obo/BFO_0000178> [  # has continuant part → State
-        rdf:type cco:ent00000013 ;
-        <https://purl.org/cco/ont00001765> "CA"
-    ] ;
-    
-    <http://purl.obolibrary.org/obo/BFO_0000178> [  # has continuant part → ZIP
-        rdf:type cco:ent00000015 ;
-        <https://purl.org/cco/ont00001765> "95969"
-    ] ;
-    
-    <http://purl.obolibrary.org/obo/BFO_0000178> [  # has continuant part → Country
-        rdf:type cco:ent00000014 ;
-        <https://purl.org/cco/ont00001765> "USA"
-    ] .
 
 
 #################################################################
