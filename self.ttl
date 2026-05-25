@@ -11,15 +11,12 @@
 <http://www.example.org/mee> rdf:type owl:Ontology ;
     owl:imports <http://mee.foundation/ontologies/persona> ;
     dc:date "2026-04-12"^^xsd:date ;
-    owl:versionInfo "Version 3.0.28 - move email to google.ttl"@en ;
+    owl:versionInfo "Version 3.0.29 - move names to texas-birth-certificate.ttl"@en ;
     rdfs:label "Alice Walker - Selfness"@en ;
     rdfs:comment """Alice Walker's selfness — the central identity individual from which
                     context-specific Personas (whonesses) are correlated.
 
                     Person Details:
-                    - Legal Name: Margery Alice Walker
-                    - Goes By: Alice Walker
-                    - Maiden Name: Margery Alice Arnold
                     - Height: 68 inches
                     - Eye Color: Blue
                     - Hair Color: Grey
@@ -33,7 +30,8 @@
                     - :Alice_Walker:Colleagues (colleagues.ttl) — colleague relationships
                     - :Alice_Walker:ATT        (att.ttl)        — AT&T phone account
                     - :Alice_Walker:SSA        (ssa.ttl)        — Social Security Administration
-                    - :Alice_Walker:Google     (google.ttl)     — Google account (Gmail)"""@en .
+                    - :Alice_Walker:Google                (google.ttl)               — Google account (Gmail)
+                    - :Alice_Walker:TexasBirthCertificate (texas-birth-certificate.ttl) — legal name record"""@en .
 
 
 #################################################################
@@ -44,39 +42,8 @@
 :Alice_Walker:Self rdf:type owl:NamedIndividual ,
                        <https://purl.org/cco/ont00001262> ;  # Person
     rdfs:label "Alice Walker"@en ;
-    rdfs:comment "Person instance demonstrating peer name architecture and address history."@en ;
-    
-    # PEER NAMES (No hierarchical PersonName)
-    # Legal name: Margery Alice Walker
-    # Goes by: Alice Walker
-    
-    <https://purl.org/cco/ont00001879> [  # designated by → GivenName (legal first name)
-        rdf:type cco:ent00000002 ;
-        <https://purl.org/cco/ont00001765> "Margery"  # has text value
-    ] ;
-    
-    <https://purl.org/cco/ont00001879> [  # designated by → AdditionalName (middle name)
-        rdf:type cco:ent00000003 ;
-        <https://purl.org/cco/ont00001765> "Alice"
-    ] ;
-    
-    <https://purl.org/cco/ont00001879> [  # designated by → FamilyName
-        rdf:type cco:ent00000004 ;
-        <https://purl.org/cco/ont00001765> "Walker"
-    ] ;
-    
-    <https://purl.org/cco/ont00001879> [  # designated by → AlternateName (goes by)
-        rdf:type cco:ent00000006 ;
-        <https://purl.org/cco/ont00001765> "Alice Walker" ;
-        rdfs:comment "Name she goes by professionally and socially"@en
-    ] ;
+    rdfs:comment "Alice Walker's selfness — the central identity individual."@en ;
 
-    <https://purl.org/cco/ont00001879> [  # designated by → AlternateName (maiden name)
-        rdf:type cco:ent00000006 ;
-        <https://purl.org/cco/ont00001765> "Margery Alice Arnold" ;
-        rdfs:comment "Maiden name (former legal name before marriage)"@en
-    ] ;
-    
     # PHYSICAL CHARACTERISTICS
     
     <http://purl.obolibrary.org/obo/BFO_0000196> :Alice_Height ;               # bearer of → Height quality
@@ -115,6 +82,7 @@
     persona:correlation :Alice_Walker:ATT ;
     persona:correlation :Alice_Walker:SSA ;
     persona:correlation :Alice_Walker:Google ;
+    persona:correlation :Alice_Walker:TexasBirthCertificate ;
 
 
 
