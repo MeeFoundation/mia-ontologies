@@ -11,7 +11,7 @@
 <http://www.example.org/mee> rdf:type owl:Ontology ;
     owl:imports <http://mee.foundation/ontologies/persona> ;
     dc:date "2026-04-12"^^xsd:date ;
-    owl:versionInfo "Version 3.0.27 - move phone to att.ttl; move SSN to ssa.ttl"@en ;
+    owl:versionInfo "Version 3.0.28 - move email to google.ttl"@en ;
     rdfs:label "Alice Walker - Selfness"@en ;
     rdfs:comment """Alice Walker's selfness — the central identity individual from which
                     context-specific Personas (whonesses) are correlated.
@@ -20,7 +20,6 @@
                     - Legal Name: Margery Alice Walker
                     - Goes By: Alice Walker
                     - Maiden Name: Margery Alice Arnold
-                    - Email: awalker@gmail.com
                     - Height: 68 inches
                     - Eye Color: Blue
                     - Hair Color: Grey
@@ -33,7 +32,8 @@
                     - :Alice_Walker:Family      (family.ttl)      — family relationships
                     - :Alice_Walker:Colleagues (colleagues.ttl) — colleague relationships
                     - :Alice_Walker:ATT        (att.ttl)        — AT&T phone account
-                    - :Alice_Walker:SSA        (ssa.ttl)        — Social Security Administration"""@en .
+                    - :Alice_Walker:SSA        (ssa.ttl)        — Social Security Administration
+                    - :Alice_Walker:Google     (google.ttl)     — Google account (Gmail)"""@en .
 
 
 #################################################################
@@ -77,13 +77,6 @@
         rdfs:comment "Maiden name (former legal name before marriage)"@en
     ] ;
     
-    # CONTACT INFORMATION
-    
-    <https://purl.org/cco/ont00001879> [  # designated by → Email
-        rdf:type cco:ent00000024 ;
-        <https://purl.org/cco/ont00001765> "awalker@gmail.com"
-    ] ;
-    
     # PHYSICAL CHARACTERISTICS
     
     <http://purl.obolibrary.org/obo/BFO_0000196> :Alice_Height ;               # bearer of → Height quality
@@ -121,6 +114,7 @@
     persona:correlation :Alice_Walker:Colleagues ;
     persona:correlation :Alice_Walker:ATT ;
     persona:correlation :Alice_Walker:SSA ;
+    persona:correlation :Alice_Walker:Google ;
 
 
 
