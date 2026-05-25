@@ -11,7 +11,7 @@
 <http://www.example.org/mee/colleagues> rdf:type owl:Ontology ;
     owl:imports <http://mee.foundation/ontologies/persona> ;
     dc:date "2026-05-25"^^xsd:date ;
-    owl:versionInfo "Version 1.0.1 - add Paula_Walker:Colleagues and Bob_Johnston:Colleagues personas"@en ;
+    owl:versionInfo "Version 1.0.2 - merge :Bob_Johnston into :Bob_Johnston:Colleagues"@en ;
     rdfs:label "Alice Walker - Colleagues Persona"@en ;
     rdfs:comment """Alice Walker's colleagues whoness — representing her in the context of her
                     professional colleague relationships.
@@ -61,4 +61,16 @@
                                   persona:Persona ,
                                   persona:Colleague ;
     rdfs:label "Bob Johnston (Colleagues)"@en ;
-    rdfs:comment "Bob Johnston's persona in the context of his colleague relationship with Alice."@en .
+    rdfs:comment "Bob Johnston's persona in the context of his colleague relationship with Alice."@en ;
+
+    <https://purl.org/cco/ont00001879> [  # designated by → GivenName
+        rdf:type cco:ent00000002 ;
+        <https://purl.org/cco/ont00001765> "Bob"
+    ] ;
+
+    <https://purl.org/cco/ont00001879> [  # designated by → FamilyName
+        rdf:type cco:ent00000004 ;
+        <https://purl.org/cco/ont00001765> "Johnston"
+    ] ;
+
+    <http://purl.obolibrary.org/obo/BFO_0000196> :Bob_EmployeeOfAcme .  # bearer of → career role

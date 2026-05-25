@@ -11,7 +11,7 @@
 <http://www.example.org/mee> rdf:type owl:Ontology ;
     owl:imports <http://mee.foundation/ontologies/persona> ;
     dc:date "2026-04-12"^^xsd:date ;
-    owl:versionInfo "Version 3.0.29 - move names to texas-birth-certificate.ttl"@en ;
+    owl:versionInfo "Version 3.0.30 - move :Bob_Johnston to :Bob_Johnston:Colleagues in colleagues.ttl"@en ;
     rdfs:label "Alice Walker - Selfness"@en ;
     rdfs:comment """Alice Walker's selfness — the central identity individual from which
                     context-specific Personas (whonesses) are correlated.
@@ -120,29 +120,6 @@
     ] ;
 
     persona:correlation :Paula_Walker:Family .
-
-
-#################################################################
-#    Bob Johnston - Person Instance (Alice's colleague at Acme)
-#################################################################
-
-:Bob_Johnston rdf:type owl:NamedIndividual ,
-                       <https://purl.org/cco/ont00001262> ;  # Person
-    rdfs:label "Bob Johnston"@en ;
-
-    <https://purl.org/cco/ont00001879> [  # designated by → GivenName
-        rdf:type cco:ent00000002 ;
-        <https://purl.org/cco/ont00001765> "Bob"
-    ] ;
-
-    <https://purl.org/cco/ont00001879> [  # designated by → FamilyName
-        rdf:type cco:ent00000004 ;
-        <https://purl.org/cco/ont00001765> "Johnston"
-    ] ;
-
-    # CAREER ROLES
-
-    <http://purl.obolibrary.org/obo/BFO_0000196> :Bob_EmployeeOfAcme .  # bearer of
 
 
 #################################################################
