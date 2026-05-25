@@ -11,7 +11,7 @@
 <http://www.example.org/mee/citibank> rdf:type owl:Ontology ;
     owl:imports <http://mee.foundation/ontologies/persona> ;
     dc:date "2026-05-25"^^xsd:date ;
-    owl:versionInfo "Version 1.0.0 - Alice Walker's Citibank persona (financial context)"@en ;
+    owl:versionInfo "Version 1.0.1 - add persona:Company context type"@en ;
     rdfs:label "Alice Walker - Citibank Persona"@en ;
     rdfs:comment """Alice Walker's Citibank whoness — the context-specific Persona
                     representing Alice in her Citibank financial relationship.
@@ -23,7 +23,8 @@
 #################################################################
 
 :Alice_Walker:Citibank rdf:type owl:NamedIndividual ,
-                                persona:Persona ;
+                                persona:Persona ,
+                                persona:Company ;
     rdfs:label "Alice Walker (Citibank)"@en ;
     rdfs:comment "Alice Walker's persona in the context of her Citibank relationship."@en ;
 

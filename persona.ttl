@@ -16,7 +16,7 @@
     owl:imports <https://purl.org/cco/address> ;
     owl:imports <https://purl.org/cco/staging> ;
     dc:date "2026-04-12"^^xsd:date ;
-    owl:versionInfo "Version 3.0.7 - add Persona class and correlation property"@en ;
+    owl:versionInfo "Version 3.0.8 - add Context class hierarchy"@en ;
     rdfs:label "Mee Foundation Persona Ontology"@en ;
     rdfs:comment """Persona Ontology for the Mee Identity Agent.
                     
@@ -179,6 +179,59 @@ persona:correlation rdf:type owl:ObjectProperty ;
     rdfs:comment """Links a Person's selfness to one of their context-specific Personas
                     (whonesses). The selfness is the authoritative identity; each correlated
                     Persona represents that person within a particular context."""@en .
+
+
+#################################################################
+#    Persona Context Hierarchy
+#    A Persona individual is typed with both persona:Persona and one or more
+#    persona:Context subclasses to indicate the domain sphere it covers.
+#################################################################
+
+persona:Context rdf:type owl:Class ;
+    rdfs:label "Context"@en ;
+    rdfs:comment """A domain sphere that classifies a Persona by the area of life it
+                    represents. Not a subclass of Persona — a Persona individual is
+                    typed with BOTH persona:Persona AND a persona:Context subclass."""@en .
+
+persona:Career rdf:type owl:Class ;
+    rdfs:subClassOf persona:Context ;
+    rdfs:label "Career"@en ;
+    rdfs:comment "Professional roles, employment history, and career relationships."@en .
+
+persona:Company rdf:type owl:Class ;
+    rdfs:subClassOf persona:Context ;
+    rdfs:label "Company"@en ;
+    rdfs:comment "Relationship with a specific company, bank, or other institution."@en .
+
+persona:Government rdf:type owl:Class ;
+    rdfs:subClassOf persona:Context ;
+    rdfs:label "Government"@en ;
+    rdfs:comment "Government-issued credentials, tax records, and civic relationships."@en .
+
+persona:Possession rdf:type owl:Class ;
+    rdfs:subClassOf persona:Context ;
+    rdfs:label "Possession"@en ;
+    rdfs:comment "Owned assets, property, vehicles, and other possessions."@en .
+
+persona:Project rdf:type owl:Class ;
+    rdfs:subClassOf persona:Context ;
+    rdfs:label "Project"@en ;
+    rdfs:comment "Involvement in a specific project or initiative."@en .
+
+persona:Event rdf:type owl:Class ;
+    rdfs:subClassOf persona:Context ;
+    rdfs:label "Event"@en ;
+    rdfs:comment "Participation in or relationship to a specific event."@en .
+
+persona:Learning rdf:type owl:Class ;
+    rdfs:subClassOf persona:Context ;
+    rdfs:label "Learning"@en ;
+    rdfs:comment "Educational experiences, courses, and certifications."@en .
+
+persona:Topic rdf:type owl:Class ;
+    rdfs:subClassOf persona:Context ;
+    rdfs:label "Topic"@en ;
+    rdfs:comment "Interest in or expertise around a specific subject area."@en .
 
 
 #################################################################
