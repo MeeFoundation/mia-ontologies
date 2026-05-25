@@ -16,7 +16,7 @@
     owl:imports <https://purl.org/cco/address> ;
     owl:imports <https://purl.org/cco/staging> ;
     dc:date "2026-04-12"^^xsd:date ;
-    owl:versionInfo "Version 3.0.10 - add People context with Family, Friends, Professionals, Other subclasses"@en ;
+    owl:versionInfo "Version 3.0.11 - add Colleague subclass under Professionals"@en ;
     rdfs:label "Mee Foundation Persona Ontology"@en ;
     rdfs:comment """Persona Ontology for the Mee Identity Agent.
                     
@@ -267,6 +267,11 @@ persona:Professionals rdf:type owl:Class ;
     rdfs:subClassOf persona:People ;
     rdfs:label "Professionals"@en ;
     rdfs:comment "Relationship with a professional contact (colleague, advisor, etc.)."@en .
+
+persona:Colleague rdf:type owl:Class ;
+    rdfs:subClassOf persona:Professionals ;
+    rdfs:label "Colleague"@en ;
+    rdfs:comment "Relationship with a colleague — a person worked with in a professional setting."@en .
 
 persona:Other rdf:type owl:Class ;
     rdfs:subClassOf persona:People ;

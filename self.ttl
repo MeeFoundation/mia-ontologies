@@ -11,7 +11,7 @@
 <http://www.example.org/mee> rdf:type owl:Ontology ;
     owl:imports <http://mee.foundation/ontologies/persona> ;
     dc:date "2026-04-12"^^xsd:date ;
-    owl:versionInfo "Version 3.0.24 - remove Alice Friends social network"@en ;
+    owl:versionInfo "Version 3.0.25 - split colleagues network into colleagues.ttl"@en ;
     rdfs:label "Alice Walker - Selfness"@en ;
     rdfs:comment """Alice Walker's selfness — the central identity individual from which
                     context-specific Personas (whonesses) are correlated.
@@ -33,7 +33,8 @@
                     - :Alice_Walker:Citibank  (citibank.ttl)  — Citibank financial relationship
                     - :Alice_Walker:Boston    (boston.ttl)    — Boston residence (2020-2025)
                     - :Alice_Walker:Paradise  (paradise.ttl)  — Paradise residence (2025-present)
-                    - :Alice_Walker:Family    (family.ttl)    — family relationships"""@en .
+                    - :Alice_Walker:Family      (family.ttl)      — family relationships
+                    - :Alice_Walker:Colleagues (colleagues.ttl) — colleague relationships"""@en .
 
 
 #################################################################
@@ -131,6 +132,7 @@
     persona:correlation :Alice_Walker:Boston ;
     persona:correlation :Alice_Walker:Paradise ;
     persona:correlation :Alice_Walker:Family ;
+    persona:correlation :Alice_Walker:Colleagues ;
 
     # SOCIAL NETWORK
 
@@ -203,14 +205,7 @@
 :Alice_Social_Network rdf:type owl:NamedIndividual ,
                                cco:ont00001183 ;  # Social Network
     rdfs:label "Alice Walker's social network"@en ;
-    <http://purl.obolibrary.org/obo/BFO_0000051> :Alice_Colleagues_Network ;  # has part → Colleagues sub-group
     <http://purl.obolibrary.org/obo/BFO_0000051> :Alice_Other_Network .      # has part → Other sub-group
-
-:Alice_Colleagues_Network rdf:type owl:NamedIndividual ,
-                                  cco:ont00001183 ;  # Social Network
-    rdfs:label "Alice Walker's colleagues connections"@en ;
-    <http://purl.obolibrary.org/obo/BFO_0000115> :Paula_Walker:Self ;   # has member part (intersects with Family)
-    <http://purl.obolibrary.org/obo/BFO_0000115> :Bob_Johnston .  # has member part
 
 :Alice_Other_Network rdf:type owl:NamedIndividual ,
                               cco:ont00001183 ;  # Social Network

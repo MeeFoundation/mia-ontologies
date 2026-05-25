@@ -1,0 +1,42 @@
+@prefix : <http://www.example.org/mee#> .
+@prefix persona: <http://mee.foundation/ontologies/persona#> .
+@prefix cco: <https://purl.org/cco/> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix dc: <http://purl.org/dc/elements/1.1/> .
+@base <http://www.example.org/mee> .
+
+<http://www.example.org/mee/colleagues> rdf:type owl:Ontology ;
+    owl:imports <http://mee.foundation/ontologies/persona> ;
+    dc:date "2026-05-25"^^xsd:date ;
+    owl:versionInfo "Version 1.0.0 - Alice Walker's colleagues persona"@en ;
+    rdfs:label "Alice Walker - Colleagues Persona"@en ;
+    rdfs:comment """Alice Walker's colleagues whoness — representing her in the context of her
+                    professional colleague relationships.
+                    Correlated from :Alice_Walker:Self in self.ttl."""@en .
+
+
+#################################################################
+#    Alice Walker - Colleagues Persona
+#################################################################
+
+:Alice_Walker:Colleagues rdf:type owl:NamedIndividual ,
+                                  persona:Persona ,
+                                  persona:Colleague ;
+    rdfs:label "Alice Walker (Colleagues)"@en ;
+    rdfs:comment "Alice Walker's persona in the context of her colleague relationships."@en ;
+
+    persona:hasSocialNetwork :Alice_Colleagues_Network .
+
+
+#################################################################
+#    Alice's Colleagues Social Network
+#################################################################
+
+:Alice_Colleagues_Network rdf:type owl:NamedIndividual ,
+                                   cco:ont00001183 ;  # Social Network
+    rdfs:label "Alice Walker's colleagues connections"@en ;
+    <http://purl.obolibrary.org/obo/BFO_0000115> :Paula_Walker:Self ;  # has member part
+    <http://purl.obolibrary.org/obo/BFO_0000115> :Bob_Johnston .       # has member part
