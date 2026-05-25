@@ -1,0 +1,69 @@
+@prefix : <http://www.example.org/mee#> .
+@prefix persona: <http://mee.foundation/ontologies/persona#> .
+@prefix cco: <https://purl.org/cco/> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix dc: <http://purl.org/dc/elements/1.1/> .
+@base <http://www.example.org/mee> .
+
+<http://www.example.org/mee/boston> rdf:type owl:Ontology ;
+    owl:imports <http://mee.foundation/ontologies/persona> ;
+    dc:date "2026-05-25"^^xsd:date ;
+    owl:versionInfo "Version 1.0.0 - Alice Walker's Boston residence persona"@en ;
+    rdfs:label "Alice Walker - Boston Persona"@en ;
+    rdfs:comment """Alice Walker's Boston whoness — representing her residence in Boston, MA
+                    from 2020 to 2025. Correlated from :Alice_Walker:Self in self.ttl."""@en .
+
+
+#################################################################
+#    Alice Walker - Boston Persona
+#################################################################
+
+:Alice_Walker:Boston rdf:type owl:NamedIndividual ,
+                              persona:Persona ,
+                              persona:Municipality ;
+    rdfs:label "Alice Walker (Boston)"@en ;
+    rdfs:comment "Alice Walker's persona in the context of her Boston residence (2020-2025)."@en ;
+
+    <https://purl.org/cco/ont00001879> :Address_Boston .  # designated by → Boston address
+
+
+#################################################################
+#    Boston Residence History
+#################################################################
+
+:Boston_Residence rdf:type owl:NamedIndividual ,
+                           cco:ent00000016 ;  # AddressDesignation
+    rdfs:label "Alice's Boston Residence (2020-2025)"@en ;
+    rdfs:comment "Alice lived at this Boston address from 2020 to 2025."@en ;
+    <http://purl.obolibrary.org/obo/BFO_0000139> :Alice_Walker:Boston ;  # has participant
+    <https://purl.org/cco/ont00001879> :Address_Boston ;                  # designated by
+    <http://purl.obolibrary.org/obo/BFO_0000153> :Interval_2020_2025 .   # occupies temporal region
+
+:Interval_2020_2025 rdf:type owl:NamedIndividual ,
+                             <http://purl.obolibrary.org/obo/BFO_0000038> ;  # TemporalInterval
+    rdfs:label "2020-2025"@en ;
+    cco:ent00000017 "2020-01-01"^^xsd:date ;
+    cco:ent00000018 "2025-08-31"^^xsd:date .
+
+:Address_Boston rdf:type owl:NamedIndividual ,
+                         cco:ent00000010 ;  # USPostalAddress
+    rdfs:label "Boston Address"@en ;
+    <http://purl.obolibrary.org/obo/BFO_0000178> [  # has continuant part → Street
+        rdf:type cco:ent00000011 ;
+        <https://purl.org/cco/ont00001765> "456 Commonwealth Ave"
+    ] ;
+    <http://purl.obolibrary.org/obo/BFO_0000178> [  # has continuant part → City
+        rdf:type cco:ent00000012 ;
+        <https://purl.org/cco/ont00001765> "Boston"
+    ] ;
+    <http://purl.obolibrary.org/obo/BFO_0000178> [  # has continuant part → State
+        rdf:type cco:ent00000013 ;
+        <https://purl.org/cco/ont00001765> "MA"
+    ] ;
+    <http://purl.obolibrary.org/obo/BFO_0000178> [  # has continuant part → ZIP
+        rdf:type cco:ent00000015 ;
+        <https://purl.org/cco/ont00001765> "02215"
+    ] .

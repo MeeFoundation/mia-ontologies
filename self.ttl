@@ -11,7 +11,7 @@
 <http://www.example.org/mee> rdf:type owl:Ontology ;
     owl:imports <http://mee.foundation/ontologies/persona> ;
     dc:date "2026-04-12"^^xsd:date ;
-    owl:versionInfo "Version 3.0.19 - selfness file; move debit card to citibank.ttl; add correlation link"@en ;
+    owl:versionInfo "Version 3.0.20 - move Boston residence to boston.ttl; add Boston correlation"@en ;
     rdfs:label "Alice Walker - Selfness"@en ;
     rdfs:comment """Alice Walker's selfness — the central identity individual from which
                     context-specific Personas (whonesses) are correlated.
@@ -30,7 +30,8 @@
                     - Mother: Paula Walker
 
                     Correlated Personas:
-                    - :Alice_Walker:Citibank (citibank.ttl) — financial/banking context"""@en .
+                    - :Alice_Walker:Citibank (citibank.ttl) — Citibank financial relationship
+                    - :Alice_Walker:Boston  (boston.ttl)   — Boston residence (2020-2025)"""@en .
 
 
 #################################################################
@@ -129,6 +130,7 @@
     # CORRELATED PERSONAS (whonesses)
 
     persona:correlation :Alice_Walker:Citibank ;
+    persona:correlation :Alice_Walker:Boston ;
 
     # SOCIAL NETWORK
 
@@ -153,42 +155,6 @@
 #################################################################
 #    Address History - Temporal Tracking
 #################################################################
-
-###  Previous Address: Boston (2020-2025)
-:Boston_Residence rdf:type owl:NamedIndividual ,
-                           cco:ent00000016 ; # AddressDesignation
-    rdfs:label "Alice's Boston Residence (2020-2025)"@en ;
-    rdfs:comment "Alice lived at this Boston address from 2020 to 2025."@en ;
-    <http://purl.obolibrary.org/obo/BFO_0000139> :Alice_Walker:Self ;  # has participant
-    <https://purl.org/cco/ont00001879> :Address_Boston ;  # designated by
-    <http://purl.obolibrary.org/obo/BFO_0000153> :Interval_2020_2025 .  # occupies temporal region
-
-:Interval_2020_2025 rdf:type owl:NamedIndividual ,
-                             <http://purl.obolibrary.org/obo/BFO_0000038> ;  # TemporalInterval
-    rdfs:label "2020-2025"@en ;
-    cco:ent00000017 "2020-01-01"^^xsd:date ;
-    cco:ent00000018 "2025-08-31"^^xsd:date .
-
-:Address_Boston rdf:type owl:NamedIndividual ,
-                         cco:ent00000010 ;
-    rdfs:label "Boston Address"@en ;
-    <http://purl.obolibrary.org/obo/BFO_0000178> [  # has continuant part → Street
-        rdf:type cco:ent00000011 ;
-        <https://purl.org/cco/ont00001765> "456 Commonwealth Ave"
-    ] ;
-    <http://purl.obolibrary.org/obo/BFO_0000178> [  # has continuant part → City
-        rdf:type cco:ent00000012 ;
-        <https://purl.org/cco/ont00001765> "Boston"
-    ] ;
-    <http://purl.obolibrary.org/obo/BFO_0000178> [  # has continuant part → State
-        rdf:type cco:ent00000013 ;
-        <https://purl.org/cco/ont00001765> "MA"
-    ] ;
-    <http://purl.obolibrary.org/obo/BFO_0000178> [  # has continuant part → ZIP
-        rdf:type cco:ent00000015 ;
-        <https://purl.org/cco/ont00001765> "02215"
-    ] .
-
 
 ###  Current Address: Paradise (2025-present)
 :Paradise_Residence rdf:type owl:NamedIndividual ,
