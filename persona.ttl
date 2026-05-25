@@ -16,7 +16,7 @@
     owl:imports <https://purl.org/cco/address> ;
     owl:imports <https://purl.org/cco/staging> ;
     dc:date "2026-04-12"^^xsd:date ;
-    owl:versionInfo "Version 3.0.8 - add Context class hierarchy"@en ;
+    owl:versionInfo "Version 3.0.9 - add Federal, State, Municipality subclasses under Government"@en ;
     rdfs:label "Mee Foundation Persona Ontology"@en ;
     rdfs:comment """Persona Ontology for the Mee Identity Agent.
                     
@@ -207,6 +207,21 @@ persona:Government rdf:type owl:Class ;
     rdfs:subClassOf persona:Context ;
     rdfs:label "Government"@en ;
     rdfs:comment "Government-issued credentials, tax records, and civic relationships."@en .
+
+persona:Federal rdf:type owl:Class ;
+    rdfs:subClassOf persona:Government ;
+    rdfs:label "Federal"@en ;
+    rdfs:comment "Federal government context (e.g. passport, federal tax records)."@en .
+
+persona:State rdf:type owl:Class ;
+    rdfs:subClassOf persona:Government ;
+    rdfs:label "State"@en ;
+    rdfs:comment "State government context (e.g. driver's license, state tax records)."@en .
+
+persona:Municipality rdf:type owl:Class ;
+    rdfs:subClassOf persona:Government ;
+    rdfs:label "Municipality"@en ;
+    rdfs:comment "Municipal government context (e.g. local permits, library card)."@en .
 
 persona:Possession rdf:type owl:Class ;
     rdfs:subClassOf persona:Context ;
