@@ -11,7 +11,7 @@
 <http://www.example.org/mee> rdf:type owl:Ontology ;
     owl:imports <http://mee.foundation/ontologies/persona> ;
     dc:date "2026-04-12"^^xsd:date ;
-    owl:versionInfo "Version 3.0.25 - split colleagues network into colleagues.ttl"@en ;
+    owl:versionInfo "Version 3.0.26 - remove Alice social network"@en ;
     rdfs:label "Alice Walker - Selfness"@en ;
     rdfs:comment """Alice Walker's selfness — the central identity individual from which
                     context-specific Personas (whonesses) are correlated.
@@ -134,9 +134,6 @@
     persona:correlation :Alice_Walker:Family ;
     persona:correlation :Alice_Walker:Colleagues ;
 
-    # SOCIAL NETWORK
-
-    persona:hasSocialNetwork :Alice_Social_Network .
 
 
 #################################################################
@@ -196,20 +193,6 @@
     # CAREER ROLES
 
     <http://purl.obolibrary.org/obo/BFO_0000196> :Bob_EmployeeOfAcme .  # bearer of
-
-
-#################################################################
-#    Alice's Social Network
-#################################################################
-
-:Alice_Social_Network rdf:type owl:NamedIndividual ,
-                               cco:ont00001183 ;  # Social Network
-    rdfs:label "Alice Walker's social network"@en ;
-    <http://purl.obolibrary.org/obo/BFO_0000051> :Alice_Other_Network .      # has part → Other sub-group
-
-:Alice_Other_Network rdf:type owl:NamedIndividual ,
-                              cco:ont00001183 ;  # Social Network
-    rdfs:label "Alice Walker's other connections"@en .
 
 
 #################################################################
