@@ -16,7 +16,7 @@
     owl:imports <https://purl.org/cco/address> ;
     owl:imports <https://purl.org/cco/staging> ;
     dc:date "2026-04-12"^^xsd:date ;
-    owl:versionInfo "Version 3.0.6 - add holdsPaymentCard property and debit card support"@en ;
+    owl:versionInfo "Version 3.0.7 - add Persona class and correlation property"@en ;
     rdfs:label "Mee Foundation Persona Ontology"@en ;
     rdfs:comment """Persona Ontology for the Mee Identity Agent.
                     
@@ -162,6 +162,23 @@ persona:holdsPaymentCard rdf:type owl:ObjectProperty ;
     rdfs:range cco:ent00000049 ;                       # Payment Card
     rdfs:label "holds payment card"@en ;
     rdfs:comment "Links a Person to a Payment Card (credit, debit, or other) they hold."@en .
+
+
+persona:Persona rdf:type owl:Class ;
+    rdfs:subClassOf <https://purl.org/cco/ont00001262> ;  # Person
+    rdfs:label "Persona"@en ;
+    rdfs:comment """A context-specific facet of a Person — a whoness that represents how
+                    that person appears or is known within a particular relationship,
+                    institution, or domain. A Person may have multiple Personas."""@en .
+
+
+persona:correlation rdf:type owl:ObjectProperty ;
+    rdfs:domain <https://purl.org/cco/ont00001262> ;  # Person (selfness)
+    rdfs:range persona:Persona ;
+    rdfs:label "correlation"@en ;
+    rdfs:comment """Links a Person's selfness to one of their context-specific Personas
+                    (whonesses). The selfness is the authoritative identity; each correlated
+                    Persona represents that person within a particular context."""@en .
 
 
 #################################################################

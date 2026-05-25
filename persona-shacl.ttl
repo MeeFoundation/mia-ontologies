@@ -12,7 +12,7 @@
 # Imports Mee Identity Agent (MIA)'s Application Ontology (which imports the domains)
 <http://www.example.org/shapes> rdf:type owl:Ontology ;
     owl:imports <http://www.example.org/mia> ;
-    owl:versionInfo "Version 3.0.8 - add payment card validation shapes"@en ;
+    owl:versionInfo "Version 3.0.9 - exclude Persona subclass from PersonShape naming requirement; add PersonaShape"@en ;
     rdfs:label "Mee Identity Agent (MIA)'s SHACL Validation Shapes"@en ;
     rdfs:comment """SHACL validation shapes for the Mee Identty Agent.
                     
@@ -58,7 +58,17 @@
 
 :PersonShape
     a sh:NodeShape ;
-    sh:targetClass <https://purl.org/cco/ont00001262> ;  # Person
+    # Target all Persons that are NOT Personas. Personas carry no names themselves —
+    # names belong to the selfness individual. Requires SPARQL target support (Jena 4.x+).
+    sh:target [
+        a sh:SPARQLTarget ;
+        sh:select """
+            SELECT ?this WHERE {
+                ?this a <https://purl.org/cco/ont00001262> .
+                FILTER NOT EXISTS { ?this a <http://mee.foundation/ontologies/persona#Persona> }
+            }
+        """ ;
+    ] ;
     sh:message "Person must have either FullName OR (GivenName + FamilyName). Other designators are validated when present and typed."@en ;
 
     # Name Requirement: EITHER FullName OR (GivenName AND FamilyName)
@@ -433,6 +443,24 @@
         sh:class cco:ont00001180 ;  # Organization (CCO)
         sh:maxCount 1 ;
         sh:message "roleInOrganization, if present, must point to an Organization."@en
+    ] .
+
+#################################################################
+#  Persona validation
+#  A Persona is a context-specific facet of a Person. It carries no name of its
+#  own — names belong to the selfness. Only context-specific properties are validated.
+#################################################################
+
+:PersonaShape
+    a sh:NodeShape ;
+    sh:targetClass persona:Persona ;
+    sh:message "Persona validation: payment cards, if present, must be PaymentCards."@en ;
+
+    # Optional: payment cards (0..many)
+    sh:property [
+        sh:path persona:holdsPaymentCard ;
+        sh:class cco:ent00000049 ;  # Payment Card
+        sh:message "holdsPaymentCard must point to a PaymentCard."@en
     ] .
 
 #################################################################

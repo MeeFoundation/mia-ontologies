@@ -11,13 +11,13 @@
 <http://www.example.org/mee> rdf:type owl:Ontology ;
     owl:imports <http://mee.foundation/ontologies/persona> ;
     dc:date "2026-04-12"^^xsd:date ;
-    owl:versionInfo "Version 3.0.17 - add Alice's VISA debit card"@en ;
-    rdfs:label "Alice Walker - Example Instance Data"@en ;
-    rdfs:comment """Example instance data for Alice Walker demonstrating the Mee Foundation 
-                    Persona Ontology in practice.
-                    
+    owl:versionInfo "Version 3.0.19 - selfness file; move debit card to citibank.ttl; add correlation link"@en ;
+    rdfs:label "Alice Walker - Selfness"@en ;
+    rdfs:comment """Alice Walker's selfness — the central identity individual from which
+                    context-specific Personas (whonesses) are correlated.
+
                     Person Details:
-                    - Legal Name: Margery Alice Walker  
+                    - Legal Name: Margery Alice Walker
                     - Goes By: Alice Walker
                     - Maiden Name: Margery Alice Arnold
                     - SSN: 123-45-6788
@@ -29,18 +29,8 @@
                     - Hair Color: Grey
                     - Mother: Paula Walker
 
-                    DEMONSTRATES:
-                    - Peer name architecture (GivenName, AdditionalName, FamilyName as peers)
-                    - Maiden name represented as AlternateName (covers former legal names per CCO scope note)
-                    - Parent/child relationships using CCO AgentOntology properties (is parent of / is child of)
-                    - Social network partitioned into Family, Friends, Colleagues, Other sub-groups (BFO has part) with possible intersection
-                    - Career roles: FounderOfXYZ (persona:Founder) and EmployeeOfAcme (persona:Employee) inhering in Alice
-                    - Organizations: XYZ Corp linked to FounderOfXYZ via persona:roleInOrganization
-                    - New properties (ont00001879 designated by, ont00001765 has text value)
-                    - Slash URIs for all domain classes
-                    - Structured postal address with BFO_0000178 (has continuant part)
-                    - Address history tracking with temporal intervals
-                    - Open-ended intervals for current address"""@en .
+                    Correlated Personas:
+                    - :Alice_Walker:Citibank (citibank.ttl) — financial/banking context"""@en .
 
 
 #################################################################
@@ -48,7 +38,7 @@
 #################################################################
 
 ###  Person: Alice Walker
-:Alice_Walker rdf:type owl:NamedIndividual ,
+:Alice_Walker:Self rdf:type owl:NamedIndividual ,
                        <https://purl.org/cco/ont00001262> ;  # Person
     rdfs:label "Alice Walker"@en ;
     rdfs:comment "Person instance demonstrating peer name architecture and address history."@en ;
@@ -136,37 +126,13 @@
 
     cco:ont00001780 :Paula_Walker ;  # has mother
 
-    # PAYMENT CARDS
+    # CORRELATED PERSONAS (whonesses)
 
-    persona:holdsPaymentCard :Alice_Debit_Card ;
+    persona:correlation :Alice_Walker:Citibank ;
 
     # SOCIAL NETWORK
 
     persona:hasSocialNetwork :Alice_Social_Network .
-
-
-#################################################################
-#    Payment Card
-#################################################################
-
-:Alice_Debit_Card rdf:type owl:NamedIndividual ,
-                           cco:ent00000051 ;  # Debit Card
-    rdfs:label "Alice Walker's VISA Debit Card"@en ;
-
-    <https://purl.org/cco/ont00001879> [  # designated by → Card Number
-        rdf:type cco:ent00000052 ;
-        <https://purl.org/cco/ont00001765> "4111-1111-1111-1111"
-    ] ;
-
-    <https://purl.org/cco/ont00001879> [  # designated by → CVV
-        rdf:type cco:ent00000053 ;
-        <https://purl.org/cco/ont00001765> "123"
-    ] ;
-
-    <https://purl.org/cco/ont00001879> [  # designated by → Expiration Date
-        rdf:type cco:ent00000054 ;
-        <https://purl.org/cco/ont00001765> "12/28"
-    ] .
 
 
 #################################################################
@@ -193,7 +159,7 @@
                            cco:ent00000016 ; # AddressDesignation
     rdfs:label "Alice's Boston Residence (2020-2025)"@en ;
     rdfs:comment "Alice lived at this Boston address from 2020 to 2025."@en ;
-    <http://purl.obolibrary.org/obo/BFO_0000139> :Alice_Walker ;  # has participant
+    <http://purl.obolibrary.org/obo/BFO_0000139> :Alice_Walker:Self ;  # has participant
     <https://purl.org/cco/ont00001879> :Address_Boston ;  # designated by
     <http://purl.obolibrary.org/obo/BFO_0000153> :Interval_2020_2025 .  # occupies temporal region
 
@@ -229,7 +195,7 @@
                             cco:ent00000016 ;
     rdfs:label "Alice's Paradise Residence (2025-present)"@en ;
     rdfs:comment "Alice has lived at this Paradise address since September 2025. No end date indicates current residence."@en ;
-    <http://purl.obolibrary.org/obo/BFO_0000139> :Alice_Walker ;  # has participant
+    <http://purl.obolibrary.org/obo/BFO_0000139> :Alice_Walker:Self ;  # has participant
     <https://purl.org/cco/ont00001879> :Address_Paradise ;  # designated by
     <http://purl.obolibrary.org/obo/BFO_0000153> :Interval_2025_Present .  # occupies temporal region
 
