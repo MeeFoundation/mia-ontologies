@@ -11,7 +11,7 @@
 <http://www.example.org/mee/colleagues> rdf:type owl:Ontology ;
     owl:imports <http://mee.foundation/ontologies/persona> ;
     dc:date "2026-05-25"^^xsd:date ;
-    owl:versionInfo "Version 1.0.0 - Alice Walker's colleagues persona"@en ;
+    owl:versionInfo "Version 1.0.1 - add Paula_Walker:Colleagues and Bob_Johnston:Colleagues personas"@en ;
     rdfs:label "Alice Walker - Colleagues Persona"@en ;
     rdfs:comment """Alice Walker's colleagues whoness — representing her in the context of her
                     professional colleague relationships.
@@ -38,5 +38,27 @@
 :Alice_Colleagues_Network rdf:type owl:NamedIndividual ,
                                    cco:ont00001183 ;  # Social Network
     rdfs:label "Alice Walker's colleagues connections"@en ;
-    <http://purl.obolibrary.org/obo/BFO_0000115> :Paula_Walker:Self ;  # has member part
-    <http://purl.obolibrary.org/obo/BFO_0000115> :Bob_Johnston .       # has member part
+    <http://purl.obolibrary.org/obo/BFO_0000115> :Paula_Walker:Colleagues ;  # has member part
+    <http://purl.obolibrary.org/obo/BFO_0000115> :Bob_Johnston:Colleagues .  # has member part
+
+
+#################################################################
+#    Paula Walker - Colleagues Persona
+#################################################################
+
+:Paula_Walker:Colleagues rdf:type owl:NamedIndividual ,
+                                  persona:Persona ,
+                                  persona:Colleague ;
+    rdfs:label "Paula Walker (Colleagues)"@en ;
+    rdfs:comment "Paula Walker's persona in the context of her colleague relationship with Alice."@en .
+
+
+#################################################################
+#    Bob Johnston - Colleagues Persona
+#################################################################
+
+:Bob_Johnston:Colleagues rdf:type owl:NamedIndividual ,
+                                  persona:Persona ,
+                                  persona:Colleague ;
+    rdfs:label "Bob Johnston (Colleagues)"@en ;
+    rdfs:comment "Bob Johnston's persona in the context of his colleague relationship with Alice."@en .
