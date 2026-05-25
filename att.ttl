@@ -1,0 +1,36 @@
+@prefix : <http://www.example.org/mee#> .
+@prefix persona: <http://mee.foundation/ontologies/persona#> .
+@prefix cco: <https://purl.org/cco/> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix dc: <http://purl.org/dc/elements/1.1/> .
+@base <http://www.example.org/mee> .
+
+<http://www.example.org/mee/att> rdf:type owl:Ontology ;
+    owl:imports <http://mee.foundation/ontologies/persona> ;
+    dc:date "2026-05-25"^^xsd:date ;
+    owl:versionInfo "Version 1.0.0 - Alice Walker's AT&T persona (phone)"@en ;
+    rdfs:label "Alice Walker - AT&T Persona"@en ;
+    rdfs:comment """Alice Walker's AT&T whoness — representing her in the context of her
+                    AT&T phone account. Correlated from :Alice_Walker:Self in self.ttl.
+
+                    Phone: +15108149999"""@en .
+
+
+#################################################################
+#    Alice Walker - AT&T Persona
+#################################################################
+
+:Alice_Walker:ATT rdf:type owl:NamedIndividual ,
+                           persona:Persona ,
+                           persona:Company ;
+    rdfs:label "Alice Walker (AT&T)"@en ;
+    rdfs:comment "Alice Walker's persona in the context of her AT&T phone account."@en ;
+
+    <https://purl.org/cco/ont00001879> [  # designated by → Phone
+        rdf:type cco:ent00000023 ;
+        <https://purl.org/cco/ont00001765> "+15108149999" ;
+        rdfs:comment "E.164 format (international standard)"@en
+    ] .

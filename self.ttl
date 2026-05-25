@@ -11,7 +11,7 @@
 <http://www.example.org/mee> rdf:type owl:Ontology ;
     owl:imports <http://mee.foundation/ontologies/persona> ;
     dc:date "2026-04-12"^^xsd:date ;
-    owl:versionInfo "Version 3.0.26 - remove Alice social network"@en ;
+    owl:versionInfo "Version 3.0.27 - move phone to att.ttl; move SSN to ssa.ttl"@en ;
     rdfs:label "Alice Walker - Selfness"@en ;
     rdfs:comment """Alice Walker's selfness — the central identity individual from which
                     context-specific Personas (whonesses) are correlated.
@@ -20,9 +20,7 @@
                     - Legal Name: Margery Alice Walker
                     - Goes By: Alice Walker
                     - Maiden Name: Margery Alice Arnold
-                    - SSN: 123-45-6788
                     - Email: awalker@gmail.com
-                    - Phone: +15108149999
                     - Height: 68 inches
                     - Eye Color: Blue
                     - Hair Color: Grey
@@ -33,7 +31,9 @@
                     - :Alice_Walker:Boston    (boston.ttl)    — Boston residence (2020-2025)
                     - :Alice_Walker:Paradise  (paradise.ttl)  — Paradise residence (2025-present)
                     - :Alice_Walker:Family      (family.ttl)      — family relationships
-                    - :Alice_Walker:Colleagues (colleagues.ttl) — colleague relationships"""@en .
+                    - :Alice_Walker:Colleagues (colleagues.ttl) — colleague relationships
+                    - :Alice_Walker:ATT        (att.ttl)        — AT&T phone account
+                    - :Alice_Walker:SSA        (ssa.ttl)        — Social Security Administration"""@en .
 
 
 #################################################################
@@ -77,24 +77,11 @@
         rdfs:comment "Maiden name (former legal name before marriage)"@en
     ] ;
     
-    # IDENTIFIERS
-    
-    <https://purl.org/cco/ont00001879> [  # designated by → SSN
-        rdf:type cco:ent00000008 ;
-        <https://purl.org/cco/ont00001765> "123-45-6788"
-    ] ;
-    
     # CONTACT INFORMATION
     
     <https://purl.org/cco/ont00001879> [  # designated by → Email
         rdf:type cco:ent00000024 ;
         <https://purl.org/cco/ont00001765> "awalker@gmail.com"
-    ] ;
-    
-    <https://purl.org/cco/ont00001879> [  # designated by → Phone
-        rdf:type cco:ent00000023 ;
-        <https://purl.org/cco/ont00001765> "+15108149999" ;
-        rdfs:comment "E.164 format (international standard)"@en
     ] ;
     
     # PHYSICAL CHARACTERISTICS
@@ -132,6 +119,8 @@
     persona:correlation :Alice_Walker:Paradise ;
     persona:correlation :Alice_Walker:Family ;
     persona:correlation :Alice_Walker:Colleagues ;
+    persona:correlation :Alice_Walker:ATT ;
+    persona:correlation :Alice_Walker:SSA ;
 
 
 
