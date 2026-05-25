@@ -16,7 +16,7 @@
     owl:imports <https://purl.org/cco/address> ;
     owl:imports <https://purl.org/cco/staging> ;
     dc:date "2026-04-12"^^xsd:date ;
-    owl:versionInfo "Version 3.0.9 - add Federal, State, Municipality subclasses under Government"@en ;
+    owl:versionInfo "Version 3.0.10 - add People context with Family, Friends, Professionals, Other subclasses"@en ;
     rdfs:label "Mee Foundation Persona Ontology"@en ;
     rdfs:comment """Persona Ontology for the Mee Identity Agent.
                     
@@ -247,6 +247,31 @@ persona:Topic rdf:type owl:Class ;
     rdfs:subClassOf persona:Context ;
     rdfs:label "Topic"@en ;
     rdfs:comment "Interest in or expertise around a specific subject area."@en .
+
+persona:People rdf:type owl:Class ;
+    rdfs:subClassOf persona:Context ;
+    rdfs:label "People"@en ;
+    rdfs:comment "A Persona context covering relationships with specific people."@en .
+
+persona:Family rdf:type owl:Class ;
+    rdfs:subClassOf persona:People ;
+    rdfs:label "Family"@en ;
+    rdfs:comment "Relationship with a family member."@en .
+
+persona:Friends rdf:type owl:Class ;
+    rdfs:subClassOf persona:People ;
+    rdfs:label "Friends"@en ;
+    rdfs:comment "Relationship with a friend."@en .
+
+persona:Professionals rdf:type owl:Class ;
+    rdfs:subClassOf persona:People ;
+    rdfs:label "Professionals"@en ;
+    rdfs:comment "Relationship with a professional contact (colleague, advisor, etc.)."@en .
+
+persona:Other rdf:type owl:Class ;
+    rdfs:subClassOf persona:People ;
+    rdfs:label "Other"@en ;
+    rdfs:comment "Relationship with a person not fitting Family, Friends, or Professionals."@en .
 
 
 #################################################################
