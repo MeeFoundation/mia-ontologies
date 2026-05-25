@@ -11,7 +11,7 @@
 <http://www.example.org/mee> rdf:type owl:Ontology ;
     owl:imports <http://mee.foundation/ontologies/persona> ;
     dc:date "2026-04-12"^^xsd:date ;
-    owl:versionInfo "Version 3.0.22 - split family persona into family.ttl"@en ;
+    owl:versionInfo "Version 3.0.23 - rename :Paula_Walker to :Paula_Walker:Self"@en ;
     rdfs:label "Alice Walker - Selfness"@en ;
     rdfs:comment """Alice Walker's selfness — the central identity individual from which
                     context-specific Personas (whonesses) are correlated.
@@ -123,7 +123,7 @@
 
     # FAMILY RELATIONSHIPS
 
-    cco:ont00001780 :Paula_Walker ;  # has mother
+    cco:ont00001780 :Paula_Walker:Self ;  # has mother
 
     # CORRELATED PERSONAS (whonesses)
 
@@ -156,8 +156,8 @@
 #    Paula Walker - Person Instance (Alice's mother)
 #################################################################
 
-:Paula_Walker rdf:type owl:NamedIndividual ,
-                      <https://purl.org/cco/ont00001262> ;  # Person
+:Paula_Walker:Self rdf:type owl:NamedIndividual ,
+                           <https://purl.org/cco/ont00001262> ;  # Person
     rdfs:label "Paula Walker"@en ;
 
     <https://purl.org/cco/ont00001879> [  # designated by → GivenName
@@ -168,7 +168,9 @@
     <https://purl.org/cco/ont00001879> [  # designated by → FamilyName
         rdf:type cco:ent00000004 ;
         <https://purl.org/cco/ont00001765> "Walker"
-    ] .
+    ] ;
+
+    persona:correlation :Paula_Walker:Family .
 
 
 #################################################################
@@ -212,7 +214,7 @@
 :Alice_Colleagues_Network rdf:type owl:NamedIndividual ,
                                   cco:ont00001183 ;  # Social Network
     rdfs:label "Alice Walker's colleagues connections"@en ;
-    <http://purl.obolibrary.org/obo/BFO_0000115> :Paula_Walker ;   # has member part (intersects with Family)
+    <http://purl.obolibrary.org/obo/BFO_0000115> :Paula_Walker:Self ;   # has member part (intersects with Family)
     <http://purl.obolibrary.org/obo/BFO_0000115> :Bob_Johnston .  # has member part
 
 :Alice_Other_Network rdf:type owl:NamedIndividual ,
