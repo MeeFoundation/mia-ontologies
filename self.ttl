@@ -11,7 +11,7 @@
 <http://www.example.org/mee> rdf:type owl:Ontology ;
     owl:imports <http://mee.foundation/ontologies/persona> ;
     dc:date "2026-04-12"^^xsd:date ;
-    owl:versionInfo "Version 3.0.23 - rename :Paula_Walker to :Paula_Walker:Self"@en ;
+    owl:versionInfo "Version 3.0.24 - remove Alice Friends social network"@en ;
     rdfs:label "Alice Walker - Selfness"@en ;
     rdfs:comment """Alice Walker's selfness — the central identity individual from which
                     context-specific Personas (whonesses) are correlated.
@@ -203,13 +203,8 @@
 :Alice_Social_Network rdf:type owl:NamedIndividual ,
                                cco:ont00001183 ;  # Social Network
     rdfs:label "Alice Walker's social network"@en ;
-    <http://purl.obolibrary.org/obo/BFO_0000051> :Alice_Friends_Network ;     # has part → Friends sub-group
     <http://purl.obolibrary.org/obo/BFO_0000051> :Alice_Colleagues_Network ;  # has part → Colleagues sub-group
     <http://purl.obolibrary.org/obo/BFO_0000051> :Alice_Other_Network .      # has part → Other sub-group
-
-:Alice_Friends_Network rdf:type owl:NamedIndividual ,
-                              cco:ont00001183 ;  # Social Network
-    rdfs:label "Alice Walker's friends connections"@en .
 
 :Alice_Colleagues_Network rdf:type owl:NamedIndividual ,
                                   cco:ont00001183 ;  # Social Network
