@@ -15,14 +15,14 @@
     rdfs:label "Alice Walker - Citibank Persona"@en ;
     rdfs:comment """Alice Walker's Citibank whoness — the context-specific Persona
                     representing Alice in her Citibank financial relationship.
-                    Correlated from :Alice_Walker:Self in self.ttl."""@en .
+                    Correlated from :Alice_Walker-Self in self.ttl."""@en .
 
 
 #################################################################
 #    Alice Walker - Citibank Persona
 #################################################################
 
-:Alice_Walker:Citibank rdf:type owl:NamedIndividual ,
+:Alice_Walker-Citibank rdf:type owl:NamedIndividual ,
                                 persona:Persona ,
                                 persona:Company ;
     rdfs:label "Alice Walker (Citibank)"@en ;

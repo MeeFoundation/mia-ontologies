@@ -14,7 +14,7 @@
     owl:versionInfo "Version 1.0.0 - Alice Walker's Google persona (Gmail)"@en ;
     rdfs:label "Alice Walker - Google Persona"@en ;
     rdfs:comment """Alice Walker's Google whoness — representing her in the context of her
-                    Google account. Correlated from :Alice_Walker:Self in self.ttl.
+                    Google account. Correlated from :Alice_Walker-Self in self.ttl.
 
                     Email: awalker@gmail.com"""@en .
 
@@ -23,7 +23,7 @@
 #    Alice Walker - Google Persona
 #################################################################
 
-:Alice_Walker:Google rdf:type owl:NamedIndividual ,
+:Alice_Walker-Google rdf:type owl:NamedIndividual ,
                               persona:Persona ,
                               persona:Company ;
     rdfs:label "Alice Walker (Google)"@en ;

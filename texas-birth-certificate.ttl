@@ -15,7 +15,7 @@
     rdfs:label "Alice Walker - Texas Birth Certificate Persona"@en ;
     rdfs:comment """Alice Walker's Texas birth certificate whoness — representing her legal
                     name record as issued by the State of Texas.
-                    Correlated from :Alice_Walker:Self in self.ttl.
+                    Correlated from :Alice_Walker-Self in self.ttl.
 
                     Legal Name: Margery Alice Walker
                     Goes By: Alice Walker
@@ -26,7 +26,7 @@
 #    Alice Walker - Texas Birth Certificate Persona
 #################################################################
 
-:Alice_Walker:TexasBirthCertificate rdf:type owl:NamedIndividual ,
+:Alice_Walker-TexasBirthCertificate rdf:type owl:NamedIndividual ,
                                              persona:Persona ,
                                              persona:State ;
     rdfs:label "Alice Walker (Texas Birth Certificate)"@en ;

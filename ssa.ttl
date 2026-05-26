@@ -15,7 +15,7 @@
     rdfs:label "Alice Walker - SSA Persona"@en ;
     rdfs:comment """Alice Walker's SSA whoness — representing her in the context of her
                     Social Security Administration record.
-                    Correlated from :Alice_Walker:Self in self.ttl.
+                    Correlated from :Alice_Walker-Self in self.ttl.
 
                     SSN: 123-45-6788"""@en .
 
@@ -24,7 +24,7 @@
 #    Alice Walker - SSA Persona
 #################################################################
 
-:Alice_Walker:SSA rdf:type owl:NamedIndividual ,
+:Alice_Walker-SSA rdf:type owl:NamedIndividual ,
                            persona:Persona ,
                            persona:Federal ;
     rdfs:label "Alice Walker (SSA)"@en ;

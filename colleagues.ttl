@@ -11,18 +11,18 @@
 <http://www.example.org/mee/colleagues> rdf:type owl:Ontology ;
     owl:imports <http://mee.foundation/ontologies/persona> ;
     dc:date "2026-05-25"^^xsd:date ;
-    owl:versionInfo "Version 1.0.2 - merge :Bob_Johnston into :Bob_Johnston:Colleagues"@en ;
+    owl:versionInfo "Version 1.0.2 - merge :Bob_Johnston into :Bob_Johnston-Colleagues"@en ;
     rdfs:label "Alice Walker - Colleagues Persona"@en ;
     rdfs:comment """Alice Walker's colleagues whoness — representing her in the context of her
                     professional colleague relationships.
-                    Correlated from :Alice_Walker:Self in self.ttl."""@en .
+                    Correlated from :Alice_Walker-Self in self.ttl."""@en .
 
 
 #################################################################
 #    Alice Walker - Colleagues Persona
 #################################################################
 
-:Alice_Walker:Colleagues rdf:type owl:NamedIndividual ,
+:Alice_Walker-Colleagues rdf:type owl:NamedIndividual ,
                                   persona:Persona ,
                                   persona:Colleague ;
     rdfs:label "Alice Walker (Colleagues)"@en ;
@@ -38,15 +38,15 @@
 :Alice_Colleagues_Network rdf:type owl:NamedIndividual ,
                                    cco:ont00001183 ;  # Social Network
     rdfs:label "Alice Walker's colleagues connections"@en ;
-    <http://purl.obolibrary.org/obo/BFO_0000115> :Paula_Walker:Colleagues ;  # has member part
-    <http://purl.obolibrary.org/obo/BFO_0000115> :Bob_Johnston:Colleagues .  # has member part
+    <http://purl.obolibrary.org/obo/BFO_0000115> :Paula_Walker-Colleagues ;  # has member part
+    <http://purl.obolibrary.org/obo/BFO_0000115> :Bob_Johnston-Colleagues .  # has member part
 
 
 #################################################################
 #    Paula Walker - Colleagues Persona
 #################################################################
 
-:Paula_Walker:Colleagues rdf:type owl:NamedIndividual ,
+:Paula_Walker-Colleagues rdf:type owl:NamedIndividual ,
                                   persona:Persona ,
                                   persona:Colleague ;
     rdfs:label "Paula Walker (Colleagues)"@en ;
@@ -57,7 +57,7 @@
 #    Bob Johnston - Colleagues Persona
 #################################################################
 
-:Bob_Johnston:Colleagues rdf:type owl:NamedIndividual ,
+:Bob_Johnston-Colleagues rdf:type owl:NamedIndividual ,
                                   persona:Persona ,
                                   persona:Colleague ;
     rdfs:label "Bob Johnston (Colleagues)"@en ;

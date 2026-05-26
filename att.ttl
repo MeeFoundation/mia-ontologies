@@ -14,7 +14,7 @@
     owl:versionInfo "Version 1.0.0 - Alice Walker's AT&T persona (phone)"@en ;
     rdfs:label "Alice Walker - AT&T Persona"@en ;
     rdfs:comment """Alice Walker's AT&T whoness — representing her in the context of her
-                    AT&T phone account. Correlated from :Alice_Walker:Self in self.ttl.
+                    AT&T phone account. Correlated from :Alice_Walker-Self in self.ttl.
 
                     Phone: +15108149999"""@en .
 
@@ -23,7 +23,7 @@
 #    Alice Walker - AT&T Persona
 #################################################################
 
-:Alice_Walker:ATT rdf:type owl:NamedIndividual ,
+:Alice_Walker-ATT rdf:type owl:NamedIndividual ,
                            persona:Persona ,
                            persona:Company ;
     rdfs:label "Alice Walker (AT&T)"@en ;
