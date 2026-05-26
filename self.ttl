@@ -20,7 +20,7 @@
     owl:imports <http://www.example.org/mia/google> ;
     owl:imports <http://www.example.org/mia/texas-birth-certificate> ;
     dc:date "2026-04-12"^^xsd:date ;
-    owl:versionInfo "Version 3.0.34 - rename base URI from example.org/mee to example.org/mia"@en ;
+    owl:versionInfo "Version 3.0.35 - add career role comments to header"@en ;
     rdfs:label "Alice Walker - Selfness"@en ;
     rdfs:comment """Alice Walker's selfness — the essential individuality and sense of selfhood from which
                     context-specific Personas (whonesses) are correlated.
@@ -30,6 +30,7 @@
                     - Eye Color: Blue
                     - Hair Color: Grey
                     - Mother: Paula Walker
+                    - Career: Founder of XYZ Corp; Employee of Acme Corp
 
                     Correlated Personas:
                     - :Alice_Walker-Citibank  (citibank.ttl)  — Citibank financial relationship
