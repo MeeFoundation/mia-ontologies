@@ -10,10 +10,19 @@
 
 <http://www.example.org/mee> rdf:type owl:Ontology ;
     owl:imports <http://mee.foundation/ontologies/persona> ;
+    owl:imports <http://www.example.org/mee/citibank> ;
+    owl:imports <http://www.example.org/mee/boston> ;
+    owl:imports <http://www.example.org/mee/paradise> ;
+    owl:imports <http://www.example.org/mee/family> ;
+    owl:imports <http://www.example.org/mee/colleagues> ;
+    owl:imports <http://www.example.org/mee/att> ;
+    owl:imports <http://www.example.org/mee/ssa> ;
+    owl:imports <http://www.example.org/mee/google> ;
+    owl:imports <http://www.example.org/mee/texas-birth-certificate> ;
     dc:date "2026-04-12"^^xsd:date ;
-    owl:versionInfo "Version 3.0.32 - fix missing period terminating :Alice_Walker-Self"@en ;
+    owl:versionInfo "Version 3.0.33 - import all context files for Protege auto-loading"@en ;
     rdfs:label "Alice Walker - Selfness"@en ;
-    rdfs:comment """Alice Walker's selfness — the central identity individual from which
+    rdfs:comment """Alice Walker's selfness — the essential individuality and sense of selfhood from which
                     context-specific Personas (whonesses) are correlated.
 
                     Person Details:
