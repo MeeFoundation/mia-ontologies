@@ -11,7 +11,7 @@
 <http://www.example.org/mee> rdf:type owl:Ontology ;
     owl:imports <http://mee.foundation/ontologies/persona> ;
     dc:date "2026-04-12"^^xsd:date ;
-    owl:versionInfo "Version 3.0.31 - rename all :X:Y local names to :X-Y for Protege compatibility"@en ;
+    owl:versionInfo "Version 3.0.32 - fix missing period terminating :Alice_Walker-Self"@en ;
     rdfs:label "Alice Walker - Selfness"@en ;
     rdfs:comment """Alice Walker's selfness — the central identity individual from which
                     context-specific Personas (whonesses) are correlated.
@@ -82,7 +82,7 @@
     persona:correlation :Alice_Walker-ATT ;
     persona:correlation :Alice_Walker-SSA ;
     persona:correlation :Alice_Walker-Google ;
-    persona:correlation :Alice_Walker-TexasBirthCertificate ;
+    persona:correlation :Alice_Walker-TexasBirthCertificate .
 
 
 
