@@ -160,28 +160,3 @@
     persona:roleInOrganization :Acme_Corp .
 
 
-#################################################################
-#    PATTERN NOTES
-#################################################################
-
-# ADDRESS HISTORY PATTERN:
-# ------------------------
-# Track N addresses over a person's lifetime with temporal bounds.
-#
-# Each address designation has:
-# - Person (BFO has participant)
-# - Address (CCO designated by)
-# - Time interval (BFO occupies temporal region)
-#   - Start date (required)
-#   - End date (optional - absence = current address)
-#
-# Example queries:
-# - "Where did Alice live in 2023?" → Boston address
-# - "Where does Alice currently live?" → Paradise (no end date)
-# - "When did Alice live in Boston?" → 2020-01-01 to 2025-08-31
-# - "List all of Alice's addresses" → Boston, Paradise
-#
-# Extensible for future needs:
-# - Multiple simultaneous addresses (add type/role property)
-# - Move events (add Act of Change of Residence instances)
-# - Address roles (mailing, billing, legal - add properties)
