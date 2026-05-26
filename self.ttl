@@ -1,4 +1,4 @@
-@prefix : <http://www.example.org/mee#> .
+@prefix : <http://www.example.org/mia#> .
 @prefix persona: <http://mee.foundation/ontologies/persona#> .
 @prefix cco: <https://purl.org/cco/> .
 @prefix owl: <http://www.w3.org/2002/07/owl#> .
@@ -6,21 +6,21 @@
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 @prefix dc: <http://purl.org/dc/elements/1.1/> .
-@base <http://www.example.org/mee> .
+@base <http://www.example.org/mia> .
 
-<http://www.example.org/mee> rdf:type owl:Ontology ;
+<http://www.example.org/mia> rdf:type owl:Ontology ;
     owl:imports <http://mee.foundation/ontologies/persona> ;
-    owl:imports <http://www.example.org/mee/citibank> ;
-    owl:imports <http://www.example.org/mee/boston> ;
-    owl:imports <http://www.example.org/mee/paradise> ;
-    owl:imports <http://www.example.org/mee/family> ;
-    owl:imports <http://www.example.org/mee/colleagues> ;
-    owl:imports <http://www.example.org/mee/att> ;
-    owl:imports <http://www.example.org/mee/ssa> ;
-    owl:imports <http://www.example.org/mee/google> ;
-    owl:imports <http://www.example.org/mee/texas-birth-certificate> ;
+    owl:imports <http://www.example.org/mia/citibank> ;
+    owl:imports <http://www.example.org/mia/boston> ;
+    owl:imports <http://www.example.org/mia/paradise> ;
+    owl:imports <http://www.example.org/mia/family> ;
+    owl:imports <http://www.example.org/mia/colleagues> ;
+    owl:imports <http://www.example.org/mia/att> ;
+    owl:imports <http://www.example.org/mia/ssa> ;
+    owl:imports <http://www.example.org/mia/google> ;
+    owl:imports <http://www.example.org/mia/texas-birth-certificate> ;
     dc:date "2026-04-12"^^xsd:date ;
-    owl:versionInfo "Version 3.0.33 - import all context files for Protege auto-loading"@en ;
+    owl:versionInfo "Version 3.0.34 - rename base URI from example.org/mee to example.org/mia"@en ;
     rdfs:label "Alice Walker - Selfness"@en ;
     rdfs:comment """Alice Walker's selfness — the essential individuality and sense of selfhood from which
                     context-specific Personas (whonesses) are correlated.

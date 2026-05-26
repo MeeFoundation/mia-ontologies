@@ -1,4 +1,4 @@
-@prefix : <http://www.example.org/mee#> .
+@prefix : <http://www.example.org/mia#> .
 @prefix persona: <http://mee.foundation/ontologies/persona#> .
 @prefix cco: <https://purl.org/cco/> .
 @prefix owl: <http://www.w3.org/2002/07/owl#> .
@@ -6,9 +6,9 @@
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 @prefix dc: <http://purl.org/dc/elements/1.1/> .
-@base <http://www.example.org/mee> .
+@base <http://www.example.org/mia> .
 
-<http://www.example.org/mee/paradise> rdf:type owl:Ontology ;
+<http://www.example.org/mia/paradise> rdf:type owl:Ontology ;
     owl:imports <http://mee.foundation/ontologies/persona> ;
     dc:date "2026-05-25"^^xsd:date ;
     owl:versionInfo "Version 1.0.0 - Alice Walker's Paradise residence persona"@en ;
