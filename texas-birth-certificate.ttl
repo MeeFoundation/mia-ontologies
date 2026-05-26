@@ -37,28 +37,30 @@
     # Goes by: Alice Walker
 
     <https://purl.org/cco/ont00001879> [  # designated by → GivenName (legal first name)
-        rdf:type cco:ent00000002 ;
-        <https://purl.org/cco/ont00001765> "Margery"
+        rdf:type cco:ent00000002 ;  # GivenName
+        <https://purl.org/cco/ont00001765> "Margery"  # has text value
     ] ;
 
     <https://purl.org/cco/ont00001879> [  # designated by → AdditionalName (middle name)
-        rdf:type cco:ent00000003 ;
-        <https://purl.org/cco/ont00001765> "Alice"
+        rdf:type cco:ent00000003 ;  # AdditionalName
+        <https://purl.org/cco/ont00001765> "Alice"  # has text value
     ] ;
 
     <https://purl.org/cco/ont00001879> [  # designated by → FamilyName
-        rdf:type cco:ent00000004 ;
-        <https://purl.org/cco/ont00001765> "Walker"
+        rdf:type cco:ent00000004 ;  # FamilyName
+        <https://purl.org/cco/ont00001765> "Walker"  # has text value
     ] ;
 
     <https://purl.org/cco/ont00001879> [  # designated by → AlternateName (goes by)
-        rdf:type cco:ent00000006 ;
-        <https://purl.org/cco/ont00001765> "Alice Walker" ;
+        rdf:type cco:ent00000006 ;  # AlternateName
+        <https://purl.org/cco/ont00001765> "Alice Walker" ;  # has text value
         rdfs:comment "Name she goes by professionally and socially"@en
     ] ;
 
     <https://purl.org/cco/ont00001879> [  # designated by → AlternateName (maiden name)
-        rdf:type cco:ent00000006 ;
-        <https://purl.org/cco/ont00001765> "Margery Alice Arnold" ;
+        rdf:type cco:ent00000006 ;  # AlternateName
+        <https://purl.org/cco/ont00001765> "Margery Alice Arnold" ;  # has text value
         rdfs:comment "Maiden name (former legal name before marriage)"@en
     ] .
+
+

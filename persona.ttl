@@ -16,7 +16,7 @@
     owl:imports <https://purl.org/cco/address> ;
     owl:imports <https://purl.org/cco/staging> ;
     dc:date "2026-04-12"^^xsd:date ;
-    owl:versionInfo "Version 3.0.11 - add Colleague subclass under Professionals"@en ;
+    owl:versionInfo "Version 3.0.12 - add inline comments to usesRequiredClass and usesOptionalClass"@en ;
     rdfs:label "Mee Foundation Persona Ontology"@en ;
     rdfs:comment """Persona Ontology for the Mee Identity Agent.
                     
@@ -46,18 +46,18 @@
                     - Proper CCO properties (ont00001879, ont00001765, BFO_0000178)"""@en ;
     
     # Document which domain classes this application uses
-    persona:usesRequiredClass cco:ent00000002 ,
-                              cco:ent00000004 ,
-                              cco:ent00000008 ,
-                              cco:ent00000010 ,
-                              cco:ent00000023 ,
-                              cco:ent00000024 ;
-    
-    persona:usesOptionalClass cco:ent00000001 ,
-                              cco:ent00000003 ,
-                              cco:ent00000005 ,
-                              cco:ent00000006 ,
-                              cco:ent00000016 ,
+    persona:usesRequiredClass cco:ent00000002 ,  # GivenName
+                              cco:ent00000004 ,  # FamilyName
+                              cco:ent00000008 ,  # SocialSecurityNumber
+                              cco:ent00000010 ,  # USPostalAddress
+                              cco:ent00000023 ,  # TelephoneNumber
+                              cco:ent00000024 ;  # EmailAddress
+
+    persona:usesOptionalClass cco:ent00000001 ,  # FullName
+                              cco:ent00000003 ,  # AdditionalName (middle name)
+                              cco:ent00000005 ,  # Suffix (Jr., Sr., etc.)
+                              cco:ent00000006 ,  # AlternateName
+                              cco:ent00000016 ,  # AddressDesignation
                               cco:ent00000051 ,  # Debit Card
                               cco:ent00000052 ,  # Credit Card Number (PAN)
                               cco:ent00000053 ,  # CVV
@@ -70,9 +70,9 @@
                          <https://purl.org/cco/ont00001180> ;  # Organization
     
     # Document which properties this application uses (note: use full IRIs)
-    persona:usesCCOProperty <https://purl.org/cco/ont00001879> ,  # designated by
+    persona:usesCCOProperty <https://purl.org/cco/ont00001879> ,            # designated by
                             <http://purl.obolibrary.org/obo/BFO_0000178> ,  # has continuant part
-                            <https://purl.org/cco/ont00001765> ,  # has text value
+                            <https://purl.org/cco/ont00001765> ,            # has text value
                             <http://purl.obolibrary.org/obo/BFO_0000196> ,  # bearer of
                             <http://purl.obolibrary.org/obo/BFO_0000153> ,  # occupies temporal region
                             <http://purl.obolibrary.org/obo/BFO_0000139> .  # has participant
