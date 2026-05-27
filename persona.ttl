@@ -184,7 +184,7 @@ persona:correlation rdf:type owl:ObjectProperty ;
 #################################################################
 #    Persona Context Hierarchy
 #    A Persona individual is typed with both persona:Persona and one or more
-#    persona:Context subclasses to indicate the domain sphere it covers.
+#    persona:Context subclasses to indicate the nature of the context containing it.
 #################################################################
 
 persona:Context rdf:type owl:Class ;
