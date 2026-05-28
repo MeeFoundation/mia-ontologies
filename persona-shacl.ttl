@@ -12,7 +12,7 @@
 # Imports Mee Identity Agent (MIA)'s Application Ontology (which imports the domains)
 <http://www.example.org/shapes> rdf:type owl:Ontology ;
     owl:imports <http://www.example.org/mia> ;
-    owl:versionInfo "Version 3.0.16 - add CheckingAccount, OnlineServiceAccount, and accessesBankAccount shapes"@en ;
+    owl:versionInfo "Version 3.0.17 - rename holdsCheckingAccount to holdsBankAccount"@en ;
     rdfs:label "Mee Identity Agent (MIA)'s SHACL Validation Shapes"@en ;
     rdfs:comment """SHACL validation shapes for the Mee Identity Agent.
 
@@ -133,10 +133,10 @@
 
     # Optional: checking account (0..1)
     sh:property [
-        sh:path persona:holdsCheckingAccount ;
+        sh:path persona:holdsBankAccount ;
         sh:class persona:CheckingAccount ;
         sh:maxCount 1 ;
-        sh:message "A Persona may hold at most one CheckingAccount."@en
+        sh:message "A Persona may hold at most one bank account."@en
     ] ;
 
     # Optional: online service account (0..1)

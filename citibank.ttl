@@ -29,7 +29,7 @@
     rdfs:comment "Alice Walker's persona in the context of her Citibank relationship."@en ;
 
     persona:holdsPaymentCard :Alice_Debit_Card ;
-    persona:holdsCheckingAccount :Alice_Checking_Account ;
+    persona:holdsBankAccount :Alice_Checking_Account ;
     cco:ent00000045 :Alice_Citibank_Online .  # holds user account
 
 
@@ -87,6 +87,6 @@
     rdfs:label "Alice Walker's Citibank Online Account"@en ;
 
     cco:ent00000034 "Citibank" ;                   # has service name
-    cco:ent00000035 "alice.walker" ;               # has user handle (username)
+    cco:ent00000035 "awalker@gmail.com" ;               # has user handle (username)
     cco:ent00000036 "https://online.citi.com" ;    # has service URI
     persona:hasPassword "C1t1b@nk#2024!" .         # has password
