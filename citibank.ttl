@@ -10,8 +10,8 @@
 
 <http://www.example.org/mia/citibank> rdf:type owl:Ontology ;
     owl:imports <http://mee.foundation/ontologies/persona> ;
-    dc:date "2026-05-25"^^xsd:date ;
-    owl:versionInfo "Version 1.0.1 - add persona:Company context type"@en ;
+    dc:date "2026-05-27"^^xsd:date ;
+    owl:versionInfo "Version 1.0.2 - add checking account and online service account"@en ;
     rdfs:label "Alice Walker - Citibank Persona"@en ;
     rdfs:comment """Alice Walker's Citibank whoness — the context-specific Persona
                     representing Alice in her Citibank financial relationship.
@@ -28,18 +28,20 @@
     rdfs:label "Alice Walker (Citibank)"@en ;
     rdfs:comment "Alice Walker's persona in the context of her Citibank relationship."@en ;
 
-    persona:holdsPaymentCard :Alice_Debit_Card .
+    persona:holdsPaymentCard :Alice_Debit_Card ;
+    persona:holdsCheckingAccount :Alice_Checking_Account ;
+    cco:ent00000045 :Alice_Citibank_Online .  # holds user account
 
 
 #################################################################
-#    Payment Card issued to her by Citibank
+#    Debit Card
 #################################################################
 
 :Alice_Debit_Card rdf:type owl:NamedIndividual ,
                            cco:ent00000051 ;  # Debit Card
     rdfs:label "Alice Walker's VISA Debit Card"@en ;
 
-    <https://purl.org/cco/ont00001879> [  # designated by → Card Number
+    <https://purl.org/cco/ont00001879> [  # designated by → Card Number (PAN)
         rdf:type cco:ent00000052 ;
         <https://purl.org/cco/ont00001765> "4111-1111-1111-1111"
     ] ;
@@ -52,4 +54,39 @@
     <https://purl.org/cco/ont00001879> [  # designated by → Expiration Date
         rdf:type cco:ent00000054 ;
         <https://purl.org/cco/ont00001765> "12/28"
+    ] ;
+
+    persona:accessesBankAccount :Alice_Checking_Account .
+
+
+#################################################################
+#    Checking Account
+#################################################################
+
+:Alice_Checking_Account rdf:type owl:NamedIndividual ,
+                                 persona:CheckingAccount ;
+    rdfs:label "Alice Walker's Citibank Checking Account"@en ;
+
+    <https://purl.org/cco/ont00001879> [  # designated by → Account Number
+        rdf:type persona:CheckingAccountNumber ;
+        <https://purl.org/cco/ont00001765> "9876543210"
+    ] ;
+
+    <https://purl.org/cco/ont00001879> [  # designated by → Routing Number
+        rdf:type persona:RoutingNumber ;
+        <https://purl.org/cco/ont00001765> "021000089"
     ] .
+
+
+#################################################################
+#    Online Service Account
+#################################################################
+
+:Alice_Citibank_Online rdf:type owl:NamedIndividual ,
+                                cco:ent00000033 ;  # Online Service Account
+    rdfs:label "Alice Walker's Citibank Online Account"@en ;
+
+    cco:ent00000034 "Citibank" ;                   # has service name
+    cco:ent00000035 "alice.walker" ;               # has user handle (username)
+    cco:ent00000036 "https://online.citi.com" ;    # has service URI
+    persona:hasPassword "C1t1b@nk#2024!" .         # has password

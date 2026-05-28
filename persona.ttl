@@ -16,7 +16,7 @@
     owl:imports <https://purl.org/cco/address> ;
     owl:imports <https://purl.org/cco/staging> ;
     dc:date "2026-04-12"^^xsd:date ;
-    owl:versionInfo "Version 3.0.14 - remove Career Role classes and roleInOrganization property"@en ;
+    owl:versionInfo "Version 3.0.15 - add CheckingAccount, RoutingNumber, OnlineServiceAccount support"@en ;
     rdfs:label "Mee Foundation Persona Ontology"@en ;
     rdfs:comment """Persona Ontology for the Mee Identity Agent.
                     
@@ -62,19 +62,24 @@
                               cco:ent00000052 ,  # Credit Card Number (PAN)
                               cco:ent00000053 ,  # CVV
                               cco:ent00000054 ;  # Expiration Date Identifier
-    
+
     # Document CCO classes used directly (note: use full IRIs, not cco: prefix)
     persona:usesCCOClass <https://purl.org/cco/ont00001262> ,  # Person
                          <https://purl.org/cco/ont00001331> ,  # Legal Name
-                         <https://purl.org/cco/ont00000990> ;  # Nickname
-    
+                         <https://purl.org/cco/ont00000990> ,  # Nickname
+                         <https://purl.org/cco/ont00000033> ;  # Online Service Account (StagingOntology)
+
     # Document which properties this application uses (note: use full IRIs)
     persona:usesCCOProperty <https://purl.org/cco/ont00001879> ,            # designated by
                             <http://purl.obolibrary.org/obo/BFO_0000178> ,  # has continuant part
                             <https://purl.org/cco/ont00001765> ,            # has text value
                             <http://purl.obolibrary.org/obo/BFO_0000196> ,  # bearer of
                             <http://purl.obolibrary.org/obo/BFO_0000153> ,  # occupies temporal region
-                            <http://purl.obolibrary.org/obo/BFO_0000139> .  # has participant
+                            <http://purl.obolibrary.org/obo/BFO_0000139> ,  # has participant
+                            <https://purl.org/cco/ent00000045> ,            # holds user account
+                            <https://purl.org/cco/ent00000034> ,            # has service name
+                            <https://purl.org/cco/ent00000035> ,            # has user handle
+                            <https://purl.org/cco/ent00000036> .            # has service URI
 
 
 #################################################################
@@ -155,6 +160,41 @@ persona:correlation rdf:type owl:ObjectProperty ;
                     (whonesses). The selfness is the authoritative identity; each correlated
                     Persona represents that person within a particular
                     interaction context."""@en .
+
+
+#################################################################
+#    Financial Accounts
+#################################################################
+
+persona:CheckingAccount rdf:type owl:Class ;
+    rdfs:label "Checking Account"@en ;
+    rdfs:comment "A bank checking account held by a person, linked to a debit card."@en .
+
+persona:CheckingAccountNumber rdf:type owl:Class ;
+    rdfs:label "Checking Account Number"@en ;
+    rdfs:comment "An identifier designating a bank checking account. Used via designated by (ont00001879)."@en .
+
+persona:RoutingNumber rdf:type owl:Class ;
+    rdfs:label "Routing Number"@en ;
+    rdfs:comment "An ABA routing transit number identifying the financial institution. Used via designated by (ont00001879)."@en .
+
+persona:holdsCheckingAccount rdf:type owl:ObjectProperty ;
+    rdfs:domain <https://purl.org/cco/ont00001262> ;  # Person
+    rdfs:range persona:CheckingAccount ;
+    rdfs:label "holds checking account"@en ;
+    rdfs:comment "Links a Person or Persona to a CheckingAccount they hold."@en .
+
+persona:accessesBankAccount rdf:type owl:ObjectProperty ;
+    rdfs:domain cco:ent00000051 ;  # Debit Card
+    rdfs:range persona:CheckingAccount ;
+    rdfs:label "accesses bank account"@en ;
+    rdfs:comment "Links a DebitCard to the CheckingAccount it draws funds from."@en .
+
+persona:hasPassword rdf:type owl:DatatypeProperty ;
+    rdfs:domain cco:ent00000033 ;  # Online Service Account
+    rdfs:range xsd:string ;
+    rdfs:label "has password"@en ;
+    rdfs:comment "The password credential for an online service account."@en .
 
 
 #################################################################

@@ -12,7 +12,7 @@
 # Imports Mee Identity Agent (MIA)'s Application Ontology (which imports the domains)
 <http://www.example.org/shapes> rdf:type owl:Ontology ;
     owl:imports <http://www.example.org/mia> ;
-    owl:versionInfo "Version 3.0.15 - remove CareerRoleShape and OrganizationShape"@en ;
+    owl:versionInfo "Version 3.0.16 - add CheckingAccount, OnlineServiceAccount, and accessesBankAccount shapes"@en ;
     rdfs:label "Mee Identity Agent (MIA)'s SHACL Validation Shapes"@en ;
     rdfs:comment """SHACL validation shapes for the Mee Identity Agent.
 
@@ -129,6 +129,22 @@
         sh:path persona:holdsPaymentCard ;
         sh:class cco:ent00000049 ;  # Payment Card
         sh:message "holdsPaymentCard must point to a PaymentCard."@en
+    ] ;
+
+    # Optional: checking account (0..1)
+    sh:property [
+        sh:path persona:holdsCheckingAccount ;
+        sh:class persona:CheckingAccount ;
+        sh:maxCount 1 ;
+        sh:message "A Persona may hold at most one CheckingAccount."@en
+    ] ;
+
+    # Optional: online service account (0..1)
+    sh:property [
+        sh:path <https://purl.org/cco/ent00000045> ;  # holds user account
+        sh:class cco:ent00000033 ;  # Online Service Account
+        sh:maxCount 1 ;
+        sh:message "A Persona may hold at most one OnlineServiceAccount."@en
     ] .
 
 #################################################################
@@ -440,4 +456,62 @@
         sh:qualifiedValueShape [ sh:class cco:ent00000053 ] ;
         sh:qualifiedMaxCount 1 ;
         sh:message "A DebitCard may have at most one CVV."@en
+    ] ;
+
+    # Optional: linked checking account (0..1)
+    sh:property [
+        sh:path persona:accessesBankAccount ;
+        sh:class persona:CheckingAccount ;
+        sh:maxCount 1 ;
+        sh:message "A DebitCard may access at most one CheckingAccount."@en
+    ] .
+
+#################################################################
+#  Checking Account
+#################################################################
+
+:CheckingAccountShape
+    a sh:NodeShape ;
+    sh:targetClass persona:CheckingAccount ;
+    sh:message "A CheckingAccount must have exactly one account number and one routing number."@en ;
+
+    sh:property [
+        sh:path <https://purl.org/cco/ont00001879> ;  # designated by → Account Number
+        sh:qualifiedValueShape [ sh:class persona:CheckingAccountNumber ] ;
+        sh:qualifiedMinCount 1 ;
+        sh:qualifiedMaxCount 1 ;
+        sh:message "A CheckingAccount must be designated by exactly one CheckingAccountNumber."@en
+    ] ;
+
+    sh:property [
+        sh:path <https://purl.org/cco/ont00001879> ;  # designated by → Routing Number
+        sh:qualifiedValueShape [ sh:class persona:RoutingNumber ] ;
+        sh:qualifiedMinCount 1 ;
+        sh:qualifiedMaxCount 1 ;
+        sh:message "A CheckingAccount must be designated by exactly one RoutingNumber."@en
+    ] .
+
+#################################################################
+#  Online Service Account
+#################################################################
+
+:OnlineServiceAccountShape
+    a sh:NodeShape ;
+    sh:targetClass cco:ent00000033 ;  # Online Service Account
+    sh:message "An OnlineServiceAccount must have a service name and a user handle."@en ;
+
+    sh:property [
+        sh:path <https://purl.org/cco/ent00000034> ;  # has service name
+        sh:nodeKind sh:Literal ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:message "An OnlineServiceAccount must have exactly one service name."@en
+    ] ;
+
+    sh:property [
+        sh:path <https://purl.org/cco/ent00000035> ;  # has user handle
+        sh:nodeKind sh:Literal ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:message "An OnlineServiceAccount must have exactly one user handle (username)."@en
     ] .
