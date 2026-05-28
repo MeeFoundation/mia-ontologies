@@ -12,7 +12,7 @@
 # Imports Mee Identity Agent (MIA)'s Application Ontology (which imports the domains)
 <http://www.example.org/shapes> rdf:type owl:Ontology ;
     owl:imports <http://www.example.org/mia> ;
-    owl:versionInfo "Version 3.0.13 - narrow name requirement to BirthCertificatePersonaShape"@en ;
+    owl:versionInfo "Version 3.0.15 - remove CareerRoleShape and OrganizationShape"@en ;
     rdfs:label "Mee Identity Agent (MIA)'s SHACL Validation Shapes"@en ;
     rdfs:comment """SHACL validation shapes for the Mee Identity Agent.
 
@@ -48,7 +48,7 @@
             }
         """ ;
     ] ;
-    sh:message "Person (selfness) validation: physical characteristics, family relationships, career roles, and social network."@en ;
+    sh:message "Person (selfness) validation: physical characteristics and parent-child relationships."@en ;
 
     # Optional: scalp hair (0..1); hair color validated by :ScalpHairShape
     sh:property [
@@ -71,21 +71,6 @@
         sh:class <https://purl.org/cco/ont00001262> ;  # Person
         sh:maxCount 1 ;
         sh:message "The object of 'has mother' must be a Person."@en
-    ] ;
-
-    # Optional: social network (0..1)
-    sh:property [
-        sh:path persona:hasSocialNetwork ;
-        sh:class cco:ont00001183 ;  # Social Network
-        sh:maxCount 1 ;
-        sh:message "A Person may have at most one Social Network; it must be of type Social Network."@en
-    ] ;
-
-    # Optional: career roles (0..many)
-    sh:property [
-        sh:path <http://purl.obolibrary.org/obo/BFO_0000196> ;  # bearer of
-        sh:qualifiedValueShape [ sh:class persona:CareerRole ] ;
-        sh:message "Career roles borne by a Person must be instances of CareerRole."@en
     ] .
 
 #################################################################
@@ -129,6 +114,14 @@
         sh:qualifiedValueShape [ sh:class cco:ent00000010 ] ;
         sh:qualifiedMaxCount 1 ;
         sh:message "USPostalAddress is optional; if present and typed, it must validate."@en
+    ] ;
+
+    # Optional: social network (0..1)
+    sh:property [
+        sh:path persona:hasSocialNetwork ;
+        sh:class cco:ont00001183 ;  # Social Network
+        sh:maxCount 1 ;
+        sh:message "A Persona may have at most one Social Network; it must be of type Social Network."@en
     ] ;
 
     # Optional: payment cards (0..many)
@@ -416,31 +409,6 @@
         sh:message "All Social Network member parts must be Persons."@en
     ] .
 
-#################################################################
-#  Career & Organization
-#################################################################
-
-:CareerRoleShape
-    a sh:NodeShape ;
-    sh:targetClass persona:CareerRole ;
-    sh:message "CareerRole validation: roleInOrganization must point to an Organization."@en ;
-    sh:property [
-        sh:path persona:roleInOrganization ;
-        sh:class cco:ont00001180 ;  # Organization (CCO)
-        sh:maxCount 1 ;
-        sh:message "roleInOrganization, if present, must point to an Organization."@en
-    ] .
-
-:OrganizationShape
-    a sh:NodeShape ;
-    sh:targetClass cco:ont00001180 ;  # Organization (CCO)
-    sh:message "Organization must have an rdfs:label."@en ;
-    sh:property [
-        sh:path rdfs:label ;
-        sh:nodeKind sh:Literal ;
-        sh:minCount 1 ;
-        sh:message "An Organization must have at least one rdfs:label."@en
-    ] .
 
 #################################################################
 #  Payment cards

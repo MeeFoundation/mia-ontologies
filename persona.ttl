@@ -16,7 +16,7 @@
     owl:imports <https://purl.org/cco/address> ;
     owl:imports <https://purl.org/cco/staging> ;
     dc:date "2026-04-12"^^xsd:date ;
-    owl:versionInfo "Version 3.0.13 - add BirthCertificate context class"@en ;
+    owl:versionInfo "Version 3.0.14 - remove Career Role classes and roleInOrganization property"@en ;
     rdfs:label "Mee Foundation Persona Ontology"@en ;
     rdfs:comment """Persona Ontology for the Mee Identity Agent.
                     
@@ -66,8 +66,7 @@
     # Document CCO classes used directly (note: use full IRIs, not cco: prefix)
     persona:usesCCOClass <https://purl.org/cco/ont00001262> ,  # Person
                          <https://purl.org/cco/ont00001331> ,  # Legal Name
-                         <https://purl.org/cco/ont00000990> ,  # Nickname
-                         <https://purl.org/cco/ont00001180> ;  # Organization
+                         <https://purl.org/cco/ont00000990> ;  # Nickname
     
     # Document which properties this application uses (note: use full IRIs)
     persona:usesCCOProperty <https://purl.org/cco/ont00001879> ,            # designated by
@@ -117,43 +116,8 @@ persona:usagePattern rdf:type owl:AnnotationProperty ;
 
 
 #################################################################
-#    Career Roles
-#################################################################    
-
-persona:CareerRole rdf:type owl:Class ;
-    rdfs:subClassOf <http://purl.obolibrary.org/obo/BFO_0000023> ;  # BFO:Role
-    rdfs:label "Career Role"@en ;
-    rdfs:comment "A role that a person plays in the context of their professional career (e.g., founder, employee)."@en .
-
-persona:Founder rdf:type owl:Class ;
-    rdfs:subClassOf persona:CareerRole ;
-    rdfs:label "Founder"@en ;
-    rdfs:comment "A career role played by a person who establishes an organization or venture."@en .
-
-persona:Employee rdf:type owl:Class ;
-    rdfs:subClassOf persona:CareerRole ;
-    rdfs:label "Employee"@en ;
-    rdfs:comment "A career role played by a person employed by an organization."@en .
-
-persona:Advisor rdf:type owl:Class ;
-    rdfs:subClassOf persona:CareerRole ;
-    rdfs:label "Advisor"@en ;
-    rdfs:comment "A career role played by a person who provides expert guidance to an organization."@en .
-
-persona:Contributor rdf:type owl:Class ;
-    rdfs:subClassOf persona:CareerRole ;
-    rdfs:label "Contributor"@en ;
-    rdfs:comment "A career role played by a person who contributes to a project or organization without being a full employee."@en .
-
-persona:roleInOrganization rdf:type owl:ObjectProperty ;
-    rdfs:domain persona:CareerRole ;
-    rdfs:range cco:ont00001180 ;  # Organization (CCO)
-    rdfs:label "role in organization"@en ;
-    rdfs:comment "Links a CareerRole instance to the organization in which that role is played."@en .
-
-#################################################################
 #    Other properties
-#################################################################    
+#################################################################
 
 persona:hasSocialNetwork rdf:type owl:ObjectProperty ;
     rdfs:domain <https://purl.org/cco/ont00001262> ;  # Person

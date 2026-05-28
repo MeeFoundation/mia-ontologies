@@ -21,7 +21,7 @@
     owl:imports <http://www.example.org/mia/texas-birth-certificate> ;
     owl:imports <http://www.example.org/mia/florida-birth-certificate> ;
     dc:date "2026-05-27"^^xsd:date ;
-    owl:versionInfo "Version 3.0.36 - move Paula Walker's names to FloridaBirthCertificate persona"@en ;
+    owl:versionInfo "Version 3.0.37 - remove Career Role instances and organizations"@en ;
     rdfs:label "Alice Walker - Selfness"@en ;
     rdfs:comment """Alice Walker's selfness — the essential individuality and sense of selfhood from which
                     context-specific Personas (whonesses) are correlated.
@@ -31,7 +31,6 @@
                     - Eye Color: Blue
                     - Hair Color: Grey
                     - Mother: Paula Walker
-                    - Career: Founder of XYZ Corp; Employee of Acme Corp
 
                     Correlated Personas:
                     - :Alice_Walker-Citibank  (citibank.ttl)  — Citibank financial relationship
@@ -77,11 +76,6 @@
         ]
     ] ;
 
-    # CAREER ROLES
-
-    <http://purl.obolibrary.org/obo/BFO_0000196> :FounderOfXYZ ;    # bearer of
-    <http://purl.obolibrary.org/obo/BFO_0000196> :EmployeeOfAcme ;  # bearer of
-
     # FAMILY RELATIONSHIPS
 
     cco:ont00001780 :Paula_Walker-Self ;  # has mother
@@ -126,32 +120,5 @@
     persona:correlation :Paula_Walker-FloridaBirthCertificate ;
     persona:correlation :Paula_Walker-Family .
 
-
-#################################################################
-#    Career Roles
-#################################################################
-
-:XYZ_Corp rdf:type owl:NamedIndividual ,
-                   cco:ont00001180 ;  # Organization (CCO)
-    rdfs:label "XYZ Corp"@en .
-
-:Acme_Corp rdf:type owl:NamedIndividual ,
-                    cco:ont00001180 ;  # Organization (CCO)
-    rdfs:label "Acme Corp"@en .
-
-:FounderOfXYZ rdf:type owl:NamedIndividual ,
-                       persona:Founder ;
-    rdfs:label "Founder of XYZ"@en ;
-    persona:roleInOrganization :XYZ_Corp .
-
-:EmployeeOfAcme rdf:type owl:NamedIndividual ,
-                         persona:Employee ;
-    rdfs:label "Employee of Acme"@en ;
-    persona:roleInOrganization :Acme_Corp .
-
-:Bob_EmployeeOfAcme rdf:type owl:NamedIndividual ,
-                             persona:Employee ;
-    rdfs:label "Bob Johnston's Employee of Acme role"@en ;
-    persona:roleInOrganization :Acme_Corp .
 
 
