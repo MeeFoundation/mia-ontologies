@@ -16,6 +16,8 @@ from rdflib import BNode, Graph, Literal, Namespace, URIRef
 from rdflib.namespace import OWL, RDF, RDFS
 from graphviz import Digraph
 
+# ── Namespaces ────────────────────────────────────────────────────────────────
+PERSONA = Namespace("http://mee.foundation/ontologies/persona#")
 
 DESIGNATED_BY  = URIRef("https://purl.org/cco/ont00001879")
 HAS_TEXT_VALUE = URIRef("https://purl.org/cco/ont00001765")
