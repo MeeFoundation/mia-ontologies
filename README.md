@@ -26,7 +26,7 @@ Built on **BFO** (Basic Formal Ontology) and **CCO** (Common Core Ontologies), s
   - *Social Network*: sub-groups (via `has part`) must be Social Networks; members (via `has member part`) must be Persons
   - *Debit Card*: card number and expiration date required; CVV optional
 
-- **`self.ttl`** — Alice Walker's *selfness* — the central identity individual. Carries only properties intrinsic to the person (physical characteristics, parent-child relationships) and `persona:correlation` links to all context-specific Personas. Imports all context files below.
+- **`self.ttl`** — Alice Walker's *selfness* — her essential individuality or unique selfhood. Carries only properties intrinsic to the person (physical characteristics, parent-child relationships) and `persona:correlation` links to all context-specific Personas. Imports all context files below.
 
 ## Instance Data Architecture
 
@@ -48,7 +48,7 @@ A person's data is split across a **selfness** file and multiple **context files
 
 ## Architecture
 
-**Selfness and Personas**: A person's selfness is their essential individuality, personal identity, or unique selfhood represented by the Person entity in self.ttl. Multiple context-specific Personas (whonesses) are linked to it via `persona:correlation`. Each Persona represents the person within one interaction context with a government agency, a company, another person, or a group of people. A Persona carries only the data relevant to that context.
+**Selfness and Personas**: A person's selfness is their essential individuality or unique selfhood represented by the Person entity in self.ttl. Multiple context-specific Personas (whonesses) are linked to it via `persona:correlation`. Each Persona represents the person within one interaction context with a government agency, a company, another person, or a group of people. A Persona carries only the data relevant to that context.
 
 **Peer name pattern**: All name types (FullName, GivenName, FamilyName, AlternateName) connect directly to a Person or Persona via `designated by` (`ont00001879`). They are siblings, not nested under a PersonName parent. Legal names belong to BirthCertificate Personas; a preferred/goes-by name lives on the selfness since it applies across all contexts.
 
