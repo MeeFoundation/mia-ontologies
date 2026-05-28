@@ -21,7 +21,7 @@
     owl:imports <http://www.example.org/mia/texas-birth-certificate> ;
     owl:imports <http://www.example.org/mia/florida-birth-certificate> ;
     dc:date "2026-05-27"^^xsd:date ;
-    owl:versionInfo "Version 3.0.37 - remove Career Role instances and organizations"@en ;
+    owl:versionInfo "Version 3.0.38 - add AlternateName 'Alice Walker' (goes by) to selfness"@en ;
     rdfs:label "Alice Walker - Selfness"@en ;
     rdfs:comment """Alice Walker's selfness — the essential individuality and sense of selfhood from which
                     context-specific Personas (whonesses) are correlated.
@@ -56,6 +56,13 @@
                        <https://purl.org/cco/ont00001262> ;  # Person
     rdfs:label "Alice Walker"@en ;
     rdfs:comment "Alice Walker's selfness — the central identity individual."@en ;
+
+    # PREFERRED NAME (goes by across all contexts)
+    <https://purl.org/cco/ont00001879> [  # designated by → AlternateName
+        rdf:type cco:ent00000006 ;  # AlternateName
+        <https://purl.org/cco/ont00001765> "Alice Walker" ;  # has text value
+        rdfs:comment "Name she goes by professionally and socially"@en
+    ] ;
 
     # PHYSICAL CHARACTERISTICS
     

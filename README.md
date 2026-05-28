@@ -4,44 +4,72 @@ The persona ontology is an application profile over existing ontologies. It mode
 
 ## Purpose
 
-It defines a formal, machine-readable model of a real-world person's identity data — names, addresses, phone numbers, SSNs, physical characteristics, family relationships, social connections, and more — by reusing and constraining existing well-known ontologies rather than inventing new ones.
+It defines a formal, machine-readable model of a real-world person's identity data — names, addresses, phone numbers, SSNs, physical characteristics, parent-child relationships, social connections, payment cards, and more — by reusing and constraining existing well-known ontologies rather than inventing new ones.
 
 ## Ontological Foundation
 
 Built on **BFO** (Basic Formal Ontology) and **CCO** (Common Core Ontologies), specifically:
-- **PersonOntology** — person, name types, family relationships
+- **PersonOntology** — person, name types, parent-child relationships
 - **AddressOntology** — postal address structure
 - **StagingOntology** — staging area for terms pending promotion (phone numbers, email addresses, user accounts, etc.)
 - **AgentOntology** — agents and their properties (imported transitively via PersonOntology)
 
 ## Key Components
 
-- **`persona.ttl`** — The application ontology. Imports the domain ontologies above and documents which classes and properties Mee uses (required vs. optional). Also defines Mee-specific extension properties such as `persona:hasSocialNetwork`.
+- **`persona.ttl`** — The application ontology. Imports the domain ontologies above and documents which classes and properties Mee uses (required vs. optional). Also defines Mee-specific extension properties (`persona:hasSocialNetwork`, `persona:holdsPaymentCard`, `persona:correlation`) and the Persona context hierarchy.
 
 - **`persona-shacl.ttl`** — SHACL constraint rules defining how instance data must be structured. Validates:
-  - Person naming: FullName OR (GivenName + FamilyName) required; AlternateName (maiden name, preferred name) optional
-  - Identifiers: SSN format (`NNN-NN-NNNN`), email format, phone (E.164)
-  - Address: required street, city, state (USPS 2-letter), ZIP; optional country
-  - Physical characteristics: hair color (text value), eye color
-  - Family relationships: `is mother of` / `has mother` range must be a Person
-  - Social network: optional (0..1); sub-groups (via `has part`) must be Social Networks; members (via `has member part`) must be Persons
+  - *BirthCertificate Personas*: FullName OR (GivenName + FamilyName) required; optional AdditionalName, AlternateName, Nickname, Legal Name
+  - *All Personas*: SSN format (`NNN-NN-NNNN`), email format, phone (E.164), address cardinality, payment cards
+  - *US Postal Address*: required street, city, state (USPS 2-letter), ZIP; optional country
+  - *Person (selfness)*: scalp hair (0..1); `has mother` / `is mother of` range must be a Person
+  - *Social Network*: sub-groups (via `has part`) must be Social Networks; members (via `has member part`) must be Persons
+  - *Debit Card*: card number and expiration date required; CVV optional
 
-- **`example.ttl`** — A concrete RDF instance for "Margery Alice Walker" (goes by "Alice Walker") demonstrating the ontology in practice:
-  - Names: legal name, middle name, preferred name, maiden name (Margery Alice Arnold)
-  - Identifiers: SSN, email, phone
-  - Addresses: current (Paradise, CA, 2025–present) and previous (Boston, MA, 2020–2025) with temporal intervals
-  - Physical characteristics: height (68 in), eye color (blue), hair color (grey)
-  - Family: mother Paula Walker, linked via CCO `has mother` / `is mother of`
-  - Social network: partitioned into Family, Friends, Colleagues, and Other sub-groups (CCO Social Networks linked via BFO `has part`), with Paula Walker in both Family and Colleagues (demonstrating sub-group intersection) and Bob Johnston in Colleagues
+- **`self.ttl`** — Alice Walker's *selfness* — the central identity individual. Carries only properties intrinsic to the person (physical characteristics, parent-child relationships) and `persona:correlation` links to all context-specific Personas. Imports all context files below.
+
+## Instance Data Architecture
+
+A person's data is split across a **selfness** file and multiple **context files**, one per relationship or institutional context. Most names and all identifiers belong to context-specific Personas; the one exception is a preferred/goes-by name, which lives on the selfness as it applies across all contexts.
+
+| File | Context | Key data |
+|------|---------|----------|
+| `self.ttl` | Selfness | Height, eye color, hair color, mother; preferred name "Alice Walker" |
+| `texas-birth-certificate.ttl` | State (TX) | Legal names: Margery Alice Walker; maiden name Margery Alice Arnold |
+| `florida-birth-certificate.ttl` | State (FL) | Paula Walker's legal names |
+| `ssa.ttl` | Federal | SSN |
+| `google.ttl` | Company | Email address |
+| `att.ttl` | Company | Phone number |
+| `boston.ttl` | Municipality | Previous address — Boston, MA (2020–2025) with temporal interval |
+| `paradise.ttl` | Municipality | Current address — Paradise, CA (2025–present) |
+| `citibank.ttl` | Company | Debit card |
+| `family.ttl` | People/Family | Family social network with Paula Walker |
+| `colleagues.ttl` | People/Professionals | Colleagues social network with Bob Johnston |
 
 ## Architecture
 
-Names follow a **peer pattern** — all name types (FullName, GivenName, FamilyName, AlternateName) connect directly to Person via `designated by` (`ont00001879`). They are siblings, not nested under a PersonName parent.
+**Selfness and Personas**: A person's selfness is their essential individuality, personal identity, or unique selfhood represented by the Person entity in self.ttl. Multiple context-specific Personas (whonesses) are linked to it via `persona:correlation`. Each Persona represents the person within one interaction context with a government agency, a company, another person, or a group of people. A Persona carries only the data relevant to that context.
 
-Address history is tracked with **temporal intervals** — each address designation has a start date and an optional end date; absence of an end date indicates the current address.
+**Peer name pattern**: All name types (FullName, GivenName, FamilyName, AlternateName) connect directly to a Person or Persona via `designated by` (`ont00001879`). They are siblings, not nested under a PersonName parent. Legal names belong to BirthCertificate Personas; a preferred/goes-by name lives on the selfness since it applies across all contexts.
+
+**Address history**: Each address Persona carries a USPostalAddress and an `AddressDesignation` with a `TemporalInterval` (start date required; no end date = current address).
 
 ## Validation
 
+Validation requires Apache Jena. Merge all data files first, then validate:
+
 ```bash
-shaclvalidate -datafile example.ttl -shapesfile persona-shacl.ttl
+riot --output=turtle \
+  project_files/bfo-core.ttl project_files/PersonOntology.ttl \
+  project_files/AddressOntology.ttl project_files/StagingOntology.ttl \
+  persona.ttl self.ttl citibank.ttl boston.ttl paradise.ttl family.ttl \
+  colleagues.ttl att.ttl ssa.ttl google.ttl \
+  texas-birth-certificate.ttl florida-birth-certificate.ttl \
+  2>/dev/null > /tmp/mia-merged.ttl
+
+grep -v 'owl:imports' persona-shacl.ttl > /tmp/mia-shapes.ttl
+
+shacl validate --shapes /tmp/mia-shapes.ttl --data /tmp/mia-merged.ttl --text
 ```
+
+Expected output: `Conforms`
