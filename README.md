@@ -54,6 +54,23 @@ A person's data is split across a **selfness** file and multiple **context files
 
 **Address history**: Each address Persona carries a USPostalAddress and an `AddressDesignation` with a `TemporalInterval` (start date required; no end date = current address).
 
+## Diagrams
+
+`draw.py` generates a Graphviz diagram from any context `.ttl` file:
+
+```bash
+python3 draw.py citibank.ttl      # → citibank.png
+python3 draw.py paradise.ttl     # → paradise.png
+```
+
+**Dependencies** (one-time setup):
+```bash
+pip install rdflib graphviz
+brew install graphviz
+```
+
+Each diagram shows the Persona individual (yellow), supporting named individuals (white boxes), class labels (plain text), blank-node designator chains, and literal values (green).
+
 ## Validation
 
 Validation requires Apache Jena. Merge all data files first, then validate:
