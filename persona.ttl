@@ -16,7 +16,7 @@
     owl:imports <https://purl.org/cco/address> ;
     owl:imports <https://purl.org/cco/staging> ;
     dc:date "2026-04-12"^^xsd:date ;
-    owl:versionInfo "Version 3.0.12 - add inline comments to usesRequiredClass and usesOptionalClass"@en ;
+    owl:versionInfo "Version 3.0.13 - add BirthCertificate context class"@en ;
     rdfs:label "Mee Foundation Persona Ontology"@en ;
     rdfs:comment """Persona Ontology for the Mee Identity Agent.
                     
@@ -232,6 +232,11 @@ persona:State rdf:type owl:Class ;
     rdfs:subClassOf persona:Government ;
     rdfs:label "State"@en ;
     rdfs:comment "State government context (e.g. driver's license, state tax records)."@en .
+
+persona:BirthCertificate rdf:type owl:Class ;
+    rdfs:subClassOf persona:State ;
+    rdfs:label "Birth Certificate"@en ;
+    rdfs:comment "A state government context representing a person's birth certificate record."@en .
 
 persona:Municipality rdf:type owl:Class ;
     rdfs:subClassOf persona:Government ;

@@ -12,54 +12,33 @@
 # Imports Mee Identity Agent (MIA)'s Application Ontology (which imports the domains)
 <http://www.example.org/shapes> rdf:type owl:Ontology ;
     owl:imports <http://www.example.org/mia> ;
-    owl:versionInfo "Version 3.0.9 - exclude Persona subclass from PersonShape naming requirement; add PersonaShape"@en ;
+    owl:versionInfo "Version 3.0.13 - narrow name requirement to BirthCertificatePersonaShape"@en ;
     rdfs:label "Mee Identity Agent (MIA)'s SHACL Validation Shapes"@en ;
-    rdfs:comment """SHACL validation shapes for the Mee Identty Agent.
-                    
-                    This file demonstrates validation against:
-                    - Person Ontology terms
-                    - Postal Address Ontology terms  
-                    - Staging Ontology terms
-                    - CCO core terms (via full IRIs)
-                    
-                    IMPORTANT ARCHITECTURE CHANGE:
-                    The previous version of this file used hierarchical PersonName with has_part.
-                    New architecture uses PEER NAMES with direct designated_by relationship.
-                    All name types connect directly to Person, no intermediate PersonName.
-                    
-                    PROPERTY IRIS USED (CCO):
-                    - ont00001879 = designated by (Person ← Name/Address)
-                    - ont00001765 = has text value (Identifier → literal string)
-                    - BFO_0000178 = has continuant part (Address → components)
+    rdfs:comment """SHACL validation shapes for the Mee Identity Agent.
 
-                    NOTE ON "REQUIRED" TERMS:
-                    This ontology marks some classes as "required" for the identity agent schema.
-                    In this SHACL file, those terms are NOT required on every Person instance.
-                    Instead, SHACL (a) enforces core name requirements for Person, and (b) validates SSN/email/phone/address
-                    nodes when they are present and typed with the corresponding class.
+                    Architecture: peer names — all name types (FullName, GivenName, FamilyName, etc.)
+                    connect directly to Person via designated_by (ont00001879). No intermediate PersonName.
+
+                    PersonShape targets non-Persona Persons only. Names belong to context-specific
+                    Personas (e.g. a birth certificate Persona), not to the selfness. Identifier nodes
+                    (SSN, email, phone, address) are
+                    validated by their own NodeShapes when present and typed.
+
+                    Key property IRIs:
+                    - ont00001879  = designated by   (Person ← Name/Identifier)
+                    - ont00001765  = has text value   (Identifier → literal string)
+                    - BFO_0000178  = has continuant part (Address → components; Person → ScalpHair)
+                    - BFO_0000196  = bearer of        (Person/Hair → quality/role)
 """@en .
-#################################################################
-#  IRI constants used (full IRIs to avoid prefix drift)
-#################################################################
-
-# CCO: designated by (Person <- Identifier/Name/etc.)
-#   https://purl.org/cco/ont00001879
-# CCO: has text value (Identifier -> literal string)
-#   https://purl.org/cco/ont00001765
-# BFO: has continuant part (Address -> components)
-#   http://purl.obolibrary.org/obo/BFO_0000178
 
 #################################################################
-#  Person validation
-#  - Enforce Person naming rules.
-#  - Do NOT require SSN/email/phone/address per Person.
-#  - If those nodes exist and are typed, they are validated by their own NodeShapes.
+#  Person & Persona
 #################################################################
 
 :PersonShape
     a sh:NodeShape ;
-    # Target all Persons that are NOT Personas. Personas carry no names themselves —
-    # names belong to the selfness individual. Requires SPARQL target support (Jena 4.x+).
+    # Target all Persons that are NOT Personas. Names belong to context-specific Personas
+    # (e.g. a birth certificate Persona), not to the selfness. Requires SPARQL target support (Jena 4.x+).
     sh:target [
         a sh:SPARQLTarget ;
         sh:select """
@@ -69,17 +48,115 @@
             }
         """ ;
     ] ;
-    sh:message "Person must have either FullName OR (GivenName + FamilyName). Other designators are validated when present and typed."@en ;
+    sh:message "Person (selfness) validation: physical characteristics, family relationships, career roles, and social network."@en ;
 
-    # Name Requirement: EITHER FullName OR (GivenName AND FamilyName)
-    # Using qualified constraints avoids accidentally forcing *all* designated_by values to be name values.
+    # Optional: scalp hair (0..1); hair color validated by :ScalpHairShape
+    sh:property [
+        sh:path <http://purl.obolibrary.org/obo/BFO_0000178> ;  # has continuant part
+        sh:qualifiedValueShape [ sh:class cco:ont00000058 ] ;  # Scalp Hair
+        sh:qualifiedMaxCount 1 ;
+        sh:message "At most one ScalpHair continuant part may be asserted on a Person."@en
+    ] ;
+
+    # Optional: mother relationship (0..many)
+    sh:property [
+        sh:path cco:ont00001786 ;  # is mother of
+        sh:class <https://purl.org/cco/ont00001262> ;  # Person
+        sh:message "The object of 'is mother of' must be a Person."@en
+    ] ;
+
+    # Optional: has mother (0..1)
+    sh:property [
+        sh:path cco:ont00001780 ;  # has mother
+        sh:class <https://purl.org/cco/ont00001262> ;  # Person
+        sh:maxCount 1 ;
+        sh:message "The object of 'has mother' must be a Person."@en
+    ] ;
+
+    # Optional: social network (0..1)
+    sh:property [
+        sh:path persona:hasSocialNetwork ;
+        sh:class cco:ont00001183 ;  # Social Network
+        sh:maxCount 1 ;
+        sh:message "A Person may have at most one Social Network; it must be of type Social Network."@en
+    ] ;
+
+    # Optional: career roles (0..many)
+    sh:property [
+        sh:path <http://purl.obolibrary.org/obo/BFO_0000196> ;  # bearer of
+        sh:qualifiedValueShape [ sh:class persona:CareerRole ] ;
+        sh:message "Career roles borne by a Person must be instances of CareerRole."@en
+    ] .
+
+#################################################################
+#  Persona
+#  A Persona is a context-specific facet of a Person. Names and identifiers
+#  belong to Personas (e.g. a birth certificate Persona carries legal names).
+#################################################################
+
+:PersonaShape
+    a sh:NodeShape ;
+    sh:targetClass persona:Persona ;
+    sh:message "Persona validation: identifiers and payment cards validated when present and typed."@en ;
+
+    # Optional: SSN (0..1); validity enforced by :SSNShape
+    sh:property [
+        sh:path <https://purl.org/cco/ont00001879> ;  # designated by
+        sh:qualifiedValueShape [ sh:class cco:ent00000008 ] ;
+        sh:qualifiedMaxCount 1 ;
+        sh:message "At most one SocialSecurityNumber may be attached to a Persona."@en
+    ] ;
+
+    # Optional: email addresses (0..20); validity enforced by :EmailAddressShape
+    sh:property [
+        sh:path <https://purl.org/cco/ont00001879> ;  # designated by
+        sh:qualifiedValueShape [ sh:class cco:ent00000024 ] ;
+        sh:qualifiedMaxCount 20 ;
+        sh:message "EmailAddress values are optional; if present and typed, they must validate."@en
+    ] ;
+
+    # Optional: telephone numbers (0..20); validity enforced by :TelephoneNumberShape
+    sh:property [
+        sh:path <https://purl.org/cco/ont00001879> ;  # designated by
+        sh:qualifiedValueShape [ sh:class cco:ent00000023 ] ;
+        sh:qualifiedMaxCount 20 ;
+        sh:message "TelephoneNumber values are optional; if present and typed, they must validate."@en
+    ] ;
+
+    # Optional: US postal address (0..1); validity enforced by :USPostalAddressShape
+    sh:property [
+        sh:path <https://purl.org/cco/ont00001879> ;  # designated by
+        sh:qualifiedValueShape [ sh:class cco:ent00000010 ] ;
+        sh:qualifiedMaxCount 1 ;
+        sh:message "USPostalAddress is optional; if present and typed, it must validate."@en
+    ] ;
+
+    # Optional: payment cards (0..many)
+    sh:property [
+        sh:path persona:holdsPaymentCard ;
+        sh:class cco:ent00000049 ;  # Payment Card
+        sh:message "holdsPaymentCard must point to a PaymentCard."@en
+    ] .
+
+#################################################################
+#  Birth Certificate Persona
+#  A BirthCertificate Persona carries the person's legal name record.
+#  Name requirement is narrowed to this context rather than all Personas.
+#################################################################
+
+:BirthCertificatePersonaShape
+    a sh:NodeShape ;
+    sh:targetClass persona:BirthCertificate ;
+    sh:message "Birth certificate Persona must have either FullName OR (GivenName + FamilyName)."@en ;
+
+    # Name requirement: EITHER FullName OR (GivenName AND FamilyName)
     sh:or (
         [
             sh:property [
                 sh:path <https://purl.org/cco/ont00001879> ;  # designated by
                 sh:qualifiedValueShape [ sh:class cco:ent00000001 ] ;
                 sh:qualifiedMinCount 1 ;
-                sh:message "Person must be designated by at least one FullName, OR provide GivenName + FamilyName."@en
+                sh:message "Birth certificate Persona must be designated by at least one FullName, OR provide GivenName + FamilyName."@en
             ]
         ]
         [
@@ -89,7 +166,7 @@
                         sh:path <https://purl.org/cco/ont00001879> ;  # designated by
                         sh:qualifiedValueShape [ sh:class cco:ent00000002 ] ;
                         sh:qualifiedMinCount 1 ;
-                        sh:message "If no FullName is provided, Person must be designated by at least one GivenName."@en
+                        sh:message "If no FullName is provided, birth certificate Persona must be designated by at least one GivenName."@en
                     ]
                 ]
                 [
@@ -97,7 +174,7 @@
                         sh:path <https://purl.org/cco/ont00001879> ;  # designated by
                         sh:qualifiedValueShape [ sh:class cco:ent00000004 ] ;
                         sh:qualifiedMinCount 1 ;
-                        sh:message "If no FullName is provided, Person must be designated by at least one FamilyName."@en
+                        sh:message "If no FullName is provided, birth certificate Persona must be designated by at least one FamilyName."@en
                     ]
                 ]
             )
@@ -118,88 +195,28 @@
         ] ;
         sh:qualifiedMaxCount 50 ;
         sh:message "Optional name designators are allowed (up to 50 total across these types)."@en
-    ] ;
-
-    # Optional: SSN is allowed (0..1). Validity is enforced by :SSNShape on SSN nodes.
-    sh:property [
-        sh:path <https://purl.org/cco/ont00001879> ;  # designated by
-        sh:qualifiedValueShape [ sh:class cco:ent00000008 ] ;
-        sh:qualifiedMaxCount 1 ;
-        sh:message "At most one SocialSecurityNumber may be attached to a Person."@en
-    ] ;
-
-    # Optional: email addresses (0..many). Validity is enforced by :EmailAddressShape on EmailAddress nodes.
-    sh:property [
-        sh:path <https://purl.org/cco/ont00001879> ;  # designated by
-        sh:qualifiedValueShape [ sh:class cco:ent00000024 ] ;
-        sh:qualifiedMaxCount 20 ;
-        sh:message "EmailAddress values are optional; if present and typed, they must validate."@en
-    ] ;
-
-    # Optional: telephone numbers (0..many). Validity is enforced by :TelephoneNumberShape on TelephoneNumber nodes.
-    sh:property [
-        sh:path <https://purl.org/cco/ont00001879> ;  # designated by
-        sh:qualifiedValueShape [ sh:class cco:ent00000023 ] ;
-        sh:qualifiedMaxCount 20 ;
-        sh:message "TelephoneNumber values are optional; if present and typed, they must validate."@en
-    ] ;
-
-    # Optional: US postal address (0..1). Validity is enforced by :USPostalAddressShape on address nodes.
-    sh:property [
-        sh:path <https://purl.org/cco/ont00001879> ;  # designated by
-        sh:qualifiedValueShape [ sh:class cco:ent00000010 ] ;
-        sh:qualifiedMaxCount 1 ;
-        sh:message "USPostalAddress is optional; if present and typed, it must validate."@en
-    ] ;
-
-    # Optional: scalp hair (0..1), which in turn bears the hair color.
-    sh:property [
-        sh:path <http://purl.obolibrary.org/obo/BFO_0000178> ;  # has continuant part
-        sh:qualifiedValueShape [ sh:class cco:ont00000058 ] ;  # Scalp Hair
-        sh:qualifiedMaxCount 1 ;
-        sh:message "At most one ScalpHair continuant part may be asserted on a Person."@en
-    ] ;
-
-    # Optional: mother relationship (0..many). Range must be a Person.
-    sh:property [
-        sh:path cco:ont00001786 ;  # is mother of
-        sh:class <https://purl.org/cco/ont00001262> ;  # Person
-        sh:message "The object of 'is mother of' must be a Person."@en
-    ] ;
-
-    # Optional: has mother (0..1). Range must be a Person.
-    sh:property [
-        sh:path cco:ont00001780 ;  # has mother
-        sh:class <https://purl.org/cco/ont00001262> ;  # Person
-        sh:maxCount 1 ;
-        sh:message "The object of 'has mother' must be a Person."@en
-    ] ;
-
-    # Optional: social network (0..1). Range must be a Social Network.
-    sh:property [
-        sh:path persona:hasSocialNetwork ;
-        sh:class cco:ont00001183 ;  # Social Network
-        sh:maxCount 1 ;
-        sh:message "A Person may have at most one Social Network; it must be of type Social Network."@en
-    ] ;
-
-    # Optional: career roles (0..many). Range must be a CareerRole.
-    sh:property [
-        sh:path <http://purl.obolibrary.org/obo/BFO_0000196> ;  # bearer of
-        sh:qualifiedValueShape [ sh:class persona:CareerRole ] ;
-        sh:qualifiedMinCount 0 ;
-        sh:message "Career roles borne by a Person must be instances of CareerRole."@en
-    ] ;
-
-    # Optional: payment cards (0..many). Range must be a PaymentCard.
-    sh:property [
-        sh:path persona:holdsPaymentCard ;
-        sh:class cco:ent00000049 ;  # Payment Card
-        sh:message "The object of holdsPaymentCard must be a PaymentCard."@en
     ] .
 
 #################################################################
-#  SSN validation
+#  Name designators
+#################################################################
+
+:AlternateNameShape
+    a sh:NodeShape ;
+    sh:targetClass cco:ent00000006 ;  # AlternateName
+    sh:message "AlternateName must have exactly one text value (a non-empty string)."@en ;
+    sh:property [
+        sh:path <https://purl.org/cco/ont00001765> ;  # has text value
+        sh:nodeKind sh:Literal ;
+        sh:datatype xsd:string ;
+        sh:minLength 1 ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:message "AlternateName must have exactly one non-empty string text value."@en
+    ] .
+
+#################################################################
+#  Contact identifiers
 #################################################################
 
 :SSNShape
@@ -216,10 +233,6 @@
         sh:message "SSN must be exactly 9 digits in NNN-NN-NNNN format (e.g., 123-45-6789)."@en
     ] .
 
-#################################################################
-#  Email validation
-#################################################################
-
 :EmailAddressShape
     a sh:NodeShape ;
     sh:targetClass cco:ent00000024 ;
@@ -233,10 +246,6 @@
         sh:maxCount 1 ;
         sh:message "Must be valid email format: local-part@domain"@en
     ] .
-
-#################################################################
-#  Telephone validation
-#################################################################
 
 :TelephoneNumberShape
     a sh:NodeShape ;
@@ -253,7 +262,7 @@
     ] .
 
 #################################################################
-#  US Postal Address validation (qualified parts)
+#  US Postal Address
 #################################################################
 
 :USPostalAddressShape
@@ -305,11 +314,6 @@
         sh:message "May have at most one CountryName part."@en
     ] .
 
-#################################################################
-#  Component validations (if present and typed)
-#  These are optional but help catch bad literals when the parts are modeled as identifiers.
-#################################################################
-
 :USStateNameShape
     a sh:NodeShape ;
     sh:targetClass cco:ent00000013 ;
@@ -358,7 +362,7 @@
     ] .
 
 #################################################################
-#  Scalp Hair / Hair Color validation
+#  Physical characteristics
 #  Hair Color inheres in a portion of Scalp Hair, not directly in the Person.
 #  Pattern: Person -[has continuant part]-> ScalpHair -[bearer of]-> HairColor
 #################################################################
@@ -390,25 +394,7 @@
     ] .
 
 #################################################################
-#  AlternateName validation (maiden name, preferred name, etc.)
-#################################################################
-
-:AlternateNameShape
-    a sh:NodeShape ;
-    sh:targetClass cco:ent00000006 ;  # AlternateName
-    sh:message "AlternateName must have exactly one text value (a non-empty string)."@en ;
-    sh:property [
-        sh:path <https://purl.org/cco/ont00001765> ;  # has text value
-        sh:nodeKind sh:Literal ;
-        sh:datatype xsd:string ;
-        sh:minLength 1 ;
-        sh:minCount 1 ;
-        sh:maxCount 1 ;
-        sh:message "AlternateName must have exactly one non-empty string text value."@en
-    ] .
-
-#################################################################
-#  Social Network validation
+#  Social Network
 #################################################################
 
 :SocialNetworkShape
@@ -431,7 +417,7 @@
     ] .
 
 #################################################################
-#  Career Role validation
+#  Career & Organization
 #################################################################
 
 :CareerRoleShape
@@ -445,26 +431,19 @@
         sh:message "roleInOrganization, if present, must point to an Organization."@en
     ] .
 
-#################################################################
-#  Persona validation
-#  A Persona is a context-specific facet of a Person. It carries no name of its
-#  own — names belong to the selfness. Only context-specific properties are validated.
-#################################################################
-
-:PersonaShape
+:OrganizationShape
     a sh:NodeShape ;
-    sh:targetClass persona:Persona ;
-    sh:message "Persona validation: payment cards, if present, must be PaymentCards."@en ;
-
-    # Optional: payment cards (0..many)
+    sh:targetClass cco:ont00001180 ;  # Organization (CCO)
+    sh:message "Organization must have an rdfs:label."@en ;
     sh:property [
-        sh:path persona:holdsPaymentCard ;
-        sh:class cco:ent00000049 ;  # Payment Card
-        sh:message "holdsPaymentCard must point to a PaymentCard."@en
+        sh:path rdfs:label ;
+        sh:nodeKind sh:Literal ;
+        sh:minCount 1 ;
+        sh:message "An Organization must have at least one rdfs:label."@en
     ] .
 
 #################################################################
-#  Debit Card validation
+#  Payment cards
 #################################################################
 
 :DebitCardShape
@@ -473,11 +452,11 @@
     sh:message "A DebitCard must have a card number and expiration date."@en ;
 
     sh:property [
-        sh:path <https://purl.org/cco/ont00001879> ;  # designated by → Card Number
+        sh:path <https://purl.org/cco/ont00001879> ;  # designated by → Card Number (PAN)
         sh:qualifiedValueShape [ sh:class cco:ent00000052 ] ;
         sh:qualifiedMinCount 1 ;
         sh:qualifiedMaxCount 1 ;
-        sh:message "A DebitCard must be designated by exactly one CreditCardNumber."@en
+        sh:message "A DebitCard must be designated by exactly one CardNumber (PAN)."@en
     ] ;
 
     sh:property [
@@ -493,20 +472,4 @@
         sh:qualifiedValueShape [ sh:class cco:ent00000053 ] ;
         sh:qualifiedMaxCount 1 ;
         sh:message "A DebitCard may have at most one CVV."@en
-    ] .
-
-
-#################################################################
-#  Organization validation
-#################################################################
-
-:OrganizationShape
-    a sh:NodeShape ;
-    sh:targetClass cco:ont00001180 ;  # Organization (CCO)
-    sh:message "Organization must have an rdfs:label."@en ;
-    sh:property [
-        sh:path rdfs:label ;
-        sh:nodeKind sh:Literal ;
-        sh:minCount 1 ;
-        sh:message "An Organization must have at least one rdfs:label."@en
     ] .

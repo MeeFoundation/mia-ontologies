@@ -19,8 +19,9 @@
     owl:imports <http://www.example.org/mia/ssa> ;
     owl:imports <http://www.example.org/mia/google> ;
     owl:imports <http://www.example.org/mia/texas-birth-certificate> ;
-    dc:date "2026-04-12"^^xsd:date ;
-    owl:versionInfo "Version 3.0.35 - add career role comments to header"@en ;
+    owl:imports <http://www.example.org/mia/florida-birth-certificate> ;
+    dc:date "2026-05-27"^^xsd:date ;
+    owl:versionInfo "Version 3.0.36 - move Paula Walker's names to FloridaBirthCertificate persona"@en ;
     rdfs:label "Alice Walker - Selfness"@en ;
     rdfs:comment """Alice Walker's selfness — the essential individuality and sense of selfhood from which
                     context-specific Personas (whonesses) are correlated.
@@ -41,7 +42,10 @@
                     - :Alice_Walker-ATT        (att.ttl)        — AT&T phone account
                     - :Alice_Walker-SSA        (ssa.ttl)        — Social Security Administration
                     - :Alice_Walker-Google                (google.ttl)               — Google account (Gmail)
-                    - :Alice_Walker-TexasBirthCertificate (texas-birth-certificate.ttl) — legal name record"""@en .
+                    - :Alice_Walker-TexasBirthCertificate (texas-birth-certificate.ttl) — legal name record
+
+                    Paula Walker (Alice's mother):
+                    - :Paula_Walker-FloridaBirthCertificate (florida-birth-certificate.ttl) — legal name record"""@en .
 
 
 #################################################################
@@ -119,16 +123,7 @@
                            <https://purl.org/cco/ont00001262> ;  # Person
     rdfs:label "Paula Walker"@en ;
 
-    <https://purl.org/cco/ont00001879> [  # designated by → GivenName
-        rdf:type cco:ent00000002 ;
-        <https://purl.org/cco/ont00001765> "Paula"
-    ] ;
-
-    <https://purl.org/cco/ont00001879> [  # designated by → FamilyName
-        rdf:type cco:ent00000004 ;
-        <https://purl.org/cco/ont00001765> "Walker"
-    ] ;
-
+    persona:correlation :Paula_Walker-FloridaBirthCertificate ;
     persona:correlation :Paula_Walker-Family .
 
 

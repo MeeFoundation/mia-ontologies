@@ -1,0 +1,39 @@
+@prefix : <http://www.example.org/mia#> .
+@prefix persona: <http://mee.foundation/ontologies/persona#> .
+@prefix cco: <https://purl.org/cco/> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix dc: <http://purl.org/dc/elements/1.1/> .
+@base <http://www.example.org/mia> .
+
+<http://www.example.org/mia/florida-birth-certificate> rdf:type owl:Ontology ;
+    owl:imports <http://mee.foundation/ontologies/persona> ;
+    dc:date "2026-05-27"^^xsd:date ;
+    owl:versionInfo "Version 1.0.1 - use persona:BirthCertificate context type"@en ;
+    rdfs:label "Paula Walker - Florida Birth Certificate Persona"@en ;
+    rdfs:comment """Paula Walker's Florida birth certificate whoness — representing her legal
+                    name record as issued by the State of Florida.
+                    Correlated from :Paula_Walker-Self in self.ttl."""@en .
+
+
+#################################################################
+#    Paula Walker - Florida Birth Certificate Persona
+#################################################################
+
+:Paula_Walker-FloridaBirthCertificate rdf:type owl:NamedIndividual ,
+                                                persona:Persona ,
+                                                persona:BirthCertificate ;
+    rdfs:label "Paula Walker (Florida Birth Certificate)"@en ;
+    rdfs:comment "Paula Walker's persona in the context of her Florida birth certificate."@en ;
+
+    <https://purl.org/cco/ont00001879> [  # designated by → GivenName
+        rdf:type cco:ent00000002 ;  # GivenName
+        <https://purl.org/cco/ont00001765> "Paula"  # has text value
+    ] ;
+
+    <https://purl.org/cco/ont00001879> [  # designated by → FamilyName
+        rdf:type cco:ent00000004 ;  # FamilyName
+        <https://purl.org/cco/ont00001765> "Walker"  # has text value
+    ] .
