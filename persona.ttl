@@ -16,7 +16,7 @@
     owl:imports <https://purl.org/cco/address> ;
     owl:imports <https://purl.org/cco/staging> ;
     dc:date "2026-04-12"^^xsd:date ;
-    owl:versionInfo "Version 3.0.16 - rename holdsCheckingAccount to holdsBankAccount"@en ;
+    owl:versionInfo "Version 3.0.17 - contextType annotation property; BirthCertificate subClassOf Persona"@en ;
     rdfs:label "Mee Foundation Persona Ontology"@en ;
     rdfs:comment """Persona Ontology for the Mee Identity Agent.
                     
@@ -119,6 +119,14 @@ persona:usagePattern rdf:type owl:AnnotationProperty ;
     rdfs:comment """Describes how this application uses a particular class or property."""@en ;
     rdfs:domain owl:Class .
 
+persona:contextType rdf:type owl:AnnotationProperty ;
+    rdfs:label "context type"@en ;
+    rdfs:comment """Tags a context ontology (file) with the kind of relationship it represents —
+                    e.g. persona:Company, persona:Federal, persona:Municipality.
+                    Applied to the ontology IRI, not to the Persona individual."""@en ;
+    rdfs:domain owl:Ontology ;
+    rdfs:range persona:Context .
+
 
 #################################################################
 #    Other properties
@@ -150,8 +158,18 @@ persona:Persona rdf:type owl:Class ;
                     A Person may have multiple Personas."""@en .
 
 #################################################################
+#    BirthCertificate Persona — a Persona subtype with name constraints
+#################################################################
+persona:BirthCertificate rdf:type owl:Class ;
+    rdfs:subClassOf persona:Persona ;
+    rdfs:label "Birth Certificate Persona"@en ;
+    rdfs:comment """A Persona whose purpose is to carry a person's legal birth certificate
+                    name record. Subclass of Persona (not of Context) so that SHACL can
+                    target it directly with sh:targetClass to enforce name constraints."""@en .
+
+#################################################################
 #    correlation property - links a Person to a Persona
-#################################################################    
+#################################################################
 persona:correlation rdf:type owl:ObjectProperty ;
     rdfs:domain <https://purl.org/cco/ont00001262> ;  # Person (selfness)
     rdfs:range persona:Persona ;
@@ -199,18 +217,16 @@ persona:hasPassword rdf:type owl:DatatypeProperty ;
 
 #################################################################
 #    Persona Context Hierarchy
-#    A Persona individual is typed with both persona:Persona 
-#    and one or more persona:Context subclasses. The 
-#    latter indicate its interaction context.
+#    Context subclasses are used as values for the persona:contextType
+#    annotation property on ontology IRIs (context files), not as
+#    rdf:type assertions on Persona individuals.
 #################################################################
 
 persona:Context rdf:type owl:Class ;
     rdfs:label "Context"@en ;
-    rdfs:comment """A labeling class assigned to Persona to indicate the kind of
-                    interaction context within which it interacts with a company,
-                    government agency, another person or a group of people. 
-                    It is not a subclass of Persona — a Persona individual is
-                    typed with BOTH persona:Persona AND a persona:Context subclass."""@en .
+    rdfs:comment """Controlled vocabulary for the kind of interaction context a context file represents.
+                    Used as the value of persona:contextType on ontology IRIs, not as rdf:type
+                    on Persona individuals."""@en .
 
 persona:Career rdf:type owl:Class ;
     rdfs:subClassOf persona:Context ;
@@ -237,10 +253,6 @@ persona:State rdf:type owl:Class ;
     rdfs:label "State"@en ;
     rdfs:comment "State government context (e.g. driver's license, state tax records)."@en .
 
-persona:BirthCertificate rdf:type owl:Class ;
-    rdfs:subClassOf persona:State ;
-    rdfs:label "Birth Certificate"@en ;
-    rdfs:comment "A state government context representing a person's birth certificate record."@en .
 
 persona:Municipality rdf:type owl:Class ;
     rdfs:subClassOf persona:Government ;

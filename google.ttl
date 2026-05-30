@@ -11,7 +11,8 @@
 <http://www.example.org/mia/google> rdf:type owl:Ontology ;
     owl:imports <http://mee.foundation/ontologies/persona> ;
     dc:date "2026-05-25"^^xsd:date ;
-    owl:versionInfo "Version 1.0.0 - Alice Walker's Google persona (Gmail)"@en ;
+    owl:versionInfo "Version 1.0.1 - add contextType annotation; remove Company from Persona rdf:type"@en ;
+    persona:contextType persona:Company ;
     rdfs:label "Alice Walker - Google Persona"@en ;
     rdfs:comment """Alice Walker's Google whoness — representing her in the context of her
                     Google account. Correlated from :Alice_Walker-Self in self.ttl.
@@ -24,8 +25,7 @@
 #################################################################
 
 :Alice_Walker-Google rdf:type owl:NamedIndividual ,
-                              persona:Persona ,
-                              persona:Company ;
+                              persona:Persona ;
     rdfs:label "Alice Walker (Google)"@en ;
     rdfs:comment "Alice Walker's persona in the context of her Google account."@en ;
 

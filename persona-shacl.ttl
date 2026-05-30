@@ -12,7 +12,7 @@
 # Imports Mee Identity Agent (MIA)'s Application Ontology (which imports the domains)
 <http://www.example.org/shapes> rdf:type owl:Ontology ;
     owl:imports <http://www.example.org/mia> ;
-    owl:versionInfo "Version 3.0.17 - rename holdsCheckingAccount to holdsBankAccount"@en ;
+    owl:versionInfo "Version 3.0.18 - no shape changes; BirthCertificate now subClassOf Persona (still valid sh:targetClass)"@en ;
     rdfs:label "Mee Identity Agent (MIA)'s SHACL Validation Shapes"@en ;
     rdfs:comment """SHACL validation shapes for the Mee Identity Agent.
 

@@ -11,7 +11,8 @@
 <http://www.example.org/mia/texas-birth-certificate> rdf:type owl:Ontology ;
     owl:imports <http://mee.foundation/ontologies/persona> ;
     dc:date "2026-05-25"^^xsd:date ;
-    owl:versionInfo "Version 1.0.2 - move AlternateName 'Alice Walker' to self.ttl"@en ;
+    owl:versionInfo "Version 1.0.3 - add contextType annotation; BirthCertificate now subClassOf Persona"@en ;
+    persona:contextType persona:State ;
     rdfs:label "Alice Walker - Texas Birth Certificate Persona"@en ;
     rdfs:comment """Alice Walker's Texas birth certificate whoness — representing her legal
                     name record as issued by the State of Texas.

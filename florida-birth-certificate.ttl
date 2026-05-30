@@ -11,7 +11,8 @@
 <http://www.example.org/mia/florida-birth-certificate> rdf:type owl:Ontology ;
     owl:imports <http://mee.foundation/ontologies/persona> ;
     dc:date "2026-05-27"^^xsd:date ;
-    owl:versionInfo "Version 1.0.1 - use persona:BirthCertificate context type"@en ;
+    owl:versionInfo "Version 1.0.2 - add contextType annotation; BirthCertificate now subClassOf Persona"@en ;
+    persona:contextType persona:State ;
     rdfs:label "Paula Walker - Florida Birth Certificate Persona"@en ;
     rdfs:comment """Paula Walker's Florida birth certificate whoness — representing her legal
                     name record as issued by the State of Florida.

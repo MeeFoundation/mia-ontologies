@@ -11,7 +11,8 @@
 <http://www.example.org/mia/ssa> rdf:type owl:Ontology ;
     owl:imports <http://mee.foundation/ontologies/persona> ;
     dc:date "2026-05-25"^^xsd:date ;
-    owl:versionInfo "Version 1.0.0 - Alice Walker's Social Security Administration persona"@en ;
+    owl:versionInfo "Version 1.0.1 - add contextType annotation; remove Federal from Persona rdf:type"@en ;
+    persona:contextType persona:Federal ;
     rdfs:label "Alice Walker - SSA Persona"@en ;
     rdfs:comment """Alice Walker's SSA whoness — representing her in the context of her
                     Social Security Administration record.
@@ -25,8 +26,7 @@
 #################################################################
 
 :Alice_Walker-SSA rdf:type owl:NamedIndividual ,
-                           persona:Persona ,
-                           persona:Federal ;
+                           persona:Persona ;
     rdfs:label "Alice Walker (SSA)"@en ;
     rdfs:comment "Alice Walker's persona in the context of her Social Security Administration record."@en ;
 

@@ -11,7 +11,8 @@
 <http://www.example.org/mia/family> rdf:type owl:Ontology ;
     owl:imports <http://mee.foundation/ontologies/persona> ;
     dc:date "2026-05-25"^^xsd:date ;
-    owl:versionInfo "Version 1.0.0 - Alice Walker's family persona"@en ;
+    owl:versionInfo "Version 1.0.1 - add contextType annotation; remove Family from Persona rdf:type"@en ;
+    persona:contextType persona:Family ;
     rdfs:label "Alice Walker - Family Persona"@en ;
     rdfs:comment """Alice Walker's family whoness — representing her in the context of her
                     family relationships. Correlated from :Alice_Walker-Self in self.ttl."""@en .
@@ -22,8 +23,7 @@
 #################################################################
 
 :Alice_Walker-Family rdf:type owl:NamedIndividual ,
-                              persona:Persona ,
-                              persona:Family ;
+                              persona:Persona ;
     rdfs:label "Alice Walker (Family)"@en ;
     rdfs:comment "Alice Walker's persona in the context of her family relationships."@en ;
 
@@ -45,7 +45,6 @@
 #################################################################
 
 :Paula_Walker-Family rdf:type owl:NamedIndividual ,
-                              persona:Persona ,
-                              persona:Family ;
+                              persona:Persona ;
     rdfs:label "Paula Walker (Family)"@en ;
     rdfs:comment "Paula Walker's persona in the context of her family relationship with Alice."@en .

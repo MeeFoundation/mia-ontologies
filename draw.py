@@ -224,6 +224,23 @@ def main() -> None:
                 ln = lit_node(str(obj), str(ind) + str(pred) + str(obj))
                 dot.edge(src_nid, ln, label=lbl(pred))
 
+    # contextType annotation on the ontology IRI → styled graph label, top-right
+    ontology_iri = g.value(predicate=RDF.type, object=OWL.Ontology)
+    if ontology_iri:
+        ctype = g.value(ontology_iri, PERSONA.contextType)
+        if ctype:
+            dot.attr(
+                label=(
+                    f'<<TABLE BORDER="1" CELLBORDER="0" CELLPADDING="5" '
+                    f'BGCOLOR="lightblue" COLOR="steelblue" STYLE="rounded">'
+                    f'<TR><TD><FONT FACE="Helvetica" POINT-SIZE="10">'
+                    f'ContextType: {lbl(ctype)}'
+                    f'</FONT></TD></TR></TABLE>>'
+                ),
+                labelloc="t",
+                labeljust="r",
+            )
+
     out = str(src.with_suffix(""))
     dot.render(out, format="png", cleanup=True)
     print(f"Written: {out}.png")
