@@ -20,8 +20,9 @@
     owl:imports <http://www.example.org/mia/google> ;
     owl:imports <http://www.example.org/mia/texas-birth-certificate> ;
     owl:imports <http://www.example.org/mia/florida-birth-certificate> ;
+    owl:imports <http://www.example.org/mia/belongings> ;
     dc:date "2026-05-27"^^xsd:date ;
-    owl:versionInfo "Version 3.0.38 - add AlternateName 'Alice Walker' (goes by) to selfness"@en ;
+    owl:versionInfo "Version 3.0.40 - rename correlation to hasPersona"@en ;
     rdfs:label "Alice Walker - Selfness"@en ;
     rdfs:comment """Alice Walker's selfness — the essential individuality and sense of selfhood from which
                     context-specific Personas (whonesses) are correlated.
@@ -42,6 +43,7 @@
                     - :Alice_Walker-SSA        (ssa.ttl)        — Social Security Administration
                     - :Alice_Walker-Google                (google.ttl)               — Google account (Gmail)
                     - :Alice_Walker-TexasBirthCertificate (texas-birth-certificate.ttl) — legal name record
+                    - :Alice_Walker-Belongings           (belongings.ttl)              — wallet, driver's license, health insurance card
 
                     Paula Walker (Alice's mother):
                     - :Paula_Walker-FloridaBirthCertificate (florida-birth-certificate.ttl) — legal name record"""@en .
@@ -89,15 +91,16 @@
 
     # CORRELATED PERSONAS (whonesses)
 
-    persona:correlation :Alice_Walker-Citibank ;
-    persona:correlation :Alice_Walker-Boston ;
-    persona:correlation :Alice_Walker-Paradise ;
-    persona:correlation :Alice_Walker-Family ;
-    persona:correlation :Alice_Walker-Colleagues ;
-    persona:correlation :Alice_Walker-ATT ;
-    persona:correlation :Alice_Walker-SSA ;
-    persona:correlation :Alice_Walker-Google ;
-    persona:correlation :Alice_Walker-TexasBirthCertificate .
+    persona:hasPersona :Alice_Walker-Citibank ;
+    persona:hasPersona :Alice_Walker-Boston ;
+    persona:hasPersona :Alice_Walker-Paradise ;
+    persona:hasPersona :Alice_Walker-Family ;
+    persona:hasPersona :Alice_Walker-Colleagues ;
+    persona:hasPersona :Alice_Walker-ATT ;
+    persona:hasPersona :Alice_Walker-SSA ;
+    persona:hasPersona :Alice_Walker-Google ;
+    persona:hasPersona :Alice_Walker-TexasBirthCertificate ;
+    persona:hasPersona :Alice_Walker-Belongings .
 
 
 
@@ -124,8 +127,8 @@
                            <https://purl.org/cco/ont00001262> ;  # Person
     rdfs:label "Paula Walker"@en ;
 
-    persona:correlation :Paula_Walker-FloridaBirthCertificate ;
-    persona:correlation :Paula_Walker-Family .
+    persona:hasPersona :Paula_Walker-FloridaBirthCertificate ;
+    persona:hasPersona :Paula_Walker-Family .
 
 
 

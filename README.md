@@ -16,7 +16,7 @@ Built on **BFO** (Basic Formal Ontology) and **CCO** (Common Core Ontologies), s
 
 ## Key Components
 
-- **`persona.ttl`** — The application ontology. Imports the domain ontologies above and documents which classes and properties Mee uses (required vs. optional). Also defines Mee-specific extension properties (`persona:hasSocialNetwork`, `persona:holdsPaymentCard`, `persona:correlation`) and the Persona context hierarchy.
+- **`persona.ttl`** — The application ontology. Imports the domain ontologies above and documents which classes and properties Mee uses (required vs. optional). Also defines Mee-specific extension properties (`persona:hasSocialNetwork`, `persona:holdsPaymentCard`, `persona:hasPersona`) and the Persona context hierarchy.
 
 - **`persona-shacl.ttl`** — SHACL constraint rules defining how instance data must be structured. Validates:
   - *BirthCertificate Personas*: FullName OR (GivenName + FamilyName) required; optional AdditionalName, AlternateName, Nickname, Legal Name
@@ -26,7 +26,7 @@ Built on **BFO** (Basic Formal Ontology) and **CCO** (Common Core Ontologies), s
   - *Social Network*: sub-groups (via `has part`) must be Social Networks; members (via `has member part`) must be Persons
   - *Debit Card*: card number and expiration date required; CVV optional
 
-- **`self.ttl`** — Alice Walker's *selfness* — her essential individuality or unique selfhood. Carries only properties intrinsic to the person (physical characteristics, parent-child relationships) and `persona:correlation` links to all context-specific Personas. Imports all context files below.
+- **`self.ttl`** — Alice Walker's *selfness* — her essential individuality or unique selfhood. Carries only properties intrinsic to the person (physical characteristics, parent-child relationships) and `persona:hasPersona` links to all context-specific Personas. Imports all context files below.
 
 ## Instance Data Architecture
 
@@ -45,10 +45,11 @@ A person's data is split across a **selfness** file and multiple **context files
 | `citibank.ttl` | Company | Debit card |
 | `family.ttl` | People/Family | Family social network with Paula Walker |
 | `colleagues.ttl` | People/Professionals | Colleagues social network with Bob Johnston |
+| `belongings.ttl` | Possession | Wallet containing driver's license and health insurance card (with image scans) |
 
 ## Architecture
 
-**Selfness and Personas**: A person's selfness is their essential individuality or unique selfhood represented by the Person entity in self.ttl. Multiple context-specific Personas (whonesses) are linked to it via `persona:correlation`. Each Persona represents the person within one interaction context with a government agency, a company, another person, or a group of people. A Persona carries only the data relevant to that context.
+**Selfness and Personas**: A person's selfness is their essential individuality or unique selfhood represented by the Person entity in self.ttl. Multiple context-specific Personas (whonesses) are linked to it via `persona:hasPersona`. Each Persona represents the person within one interaction context with a government agency, a company, another person, or a group of people. A Persona carries only the data relevant to that context.
 
 **Peer name pattern**: All name types (FullName, GivenName, FamilyName, AlternateName) connect directly to a Person or Persona via `designated by` (`ont00001879`). They are siblings, not nested under a PersonName parent. Legal names belong to BirthCertificate Personas; a preferred/goes-by name lives on the selfness since it applies across all contexts.
 
@@ -81,7 +82,7 @@ riot --output=turtle \
   project_files/AddressOntology.ttl project_files/StagingOntology.ttl \
   persona.ttl self.ttl citibank.ttl boston.ttl paradise.ttl family.ttl \
   colleagues.ttl att.ttl ssa.ttl google.ttl \
-  texas-birth-certificate.ttl florida-birth-certificate.ttl \
+  texas-birth-certificate.ttl florida-birth-certificate.ttl belongings.ttl \
   2>/dev/null > /tmp/mia-merged.ttl
 
 grep -v 'owl:imports' persona-shacl.ttl > /tmp/mia-shapes.ttl

@@ -1,0 +1,56 @@
+@prefix : <http://www.example.org/mia#> .
+@prefix persona: <http://mee.foundation/ontologies/persona#> .
+@prefix cco: <https://purl.org/cco/> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix dc: <http://purl.org/dc/elements/1.1/> .
+@base <http://www.example.org/mia> .
+
+<http://www.example.org/mia/belongings> rdf:type owl:Ontology ;
+    owl:imports <http://mee.foundation/ontologies/persona> ;
+    dc:date "2026-05-27"^^xsd:date ;
+    owl:versionInfo "Version 1.0.1 - use BFO has continuant part for wallet→card containment"@en ;
+    persona:contextType persona:Possession ;
+    rdfs:label "Alice Walker - Belongings Persona"@en ;
+    rdfs:comment """Alice Walker's belongings persona — physical items she carries day-to-day.
+                    Correlated from :Alice_Walker-Self in self.ttl."""@en .
+
+
+#################################################################
+#    Alice Walker - Belongings Persona
+#################################################################
+
+:Alice_Walker-Belongings rdf:type owl:NamedIndividual ,
+                                   persona:Persona ;
+    rdfs:label "Alice Walker (Belongings)"@en ;
+    rdfs:comment "Alice Walker's persona in the context of her personal belongings."@en ;
+    persona:holdsWallet :Alice_Wallet .
+
+
+#################################################################
+#    Alice's Wallet and Physical Cards
+#################################################################
+
+:Alice_Wallet rdf:type owl:NamedIndividual ,
+                        persona:Wallet ;
+    rdfs:label "Alice Walker's Wallet"@en ;
+    <http://purl.obolibrary.org/obo/BFO_0000178> :Alice_DriversLicense ;    # has continuant part
+    <http://purl.obolibrary.org/obo/BFO_0000178> :Alice_HealthInsuranceCard .  # has continuant part
+
+
+:Alice_DriversLicense rdf:type owl:NamedIndividual ,
+                               persona:DriversLicense ;
+    rdfs:label "Alice Walker's Driver's License"@en ;
+    rdfs:comment "Alice Walker's physical Texas driver's license card."@en ;
+    persona:hasImageScan "file:///scans/alice-drivers-license.png"^^xsd:anyURI .
+    # persona:hasPhysicalRepresentation :Alice_DriversLicense  # future: assert on :Alice_Walker-DMV Persona when created
+
+
+:Alice_HealthInsuranceCard rdf:type owl:NamedIndividual ,
+                                    persona:HealthInsuranceCard ;
+    rdfs:label "Alice Walker's Health Insurance Card"@en ;
+    rdfs:comment "Alice Walker's physical health insurance membership card."@en ;
+    persona:hasImageScan "file:///scans/alice-health-insurance-card.png"^^xsd:anyURI .
+    # persona:hasPhysicalRepresentation :Alice_HealthInsuranceCard  # future: assert on :Alice_Walker-HealthInsurance Persona when created

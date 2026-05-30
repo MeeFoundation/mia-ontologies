@@ -12,7 +12,7 @@
 # Imports Mee Identity Agent (MIA)'s Application Ontology (which imports the domains)
 <http://www.example.org/shapes> rdf:type owl:Ontology ;
     owl:imports <http://www.example.org/mia> ;
-    owl:versionInfo "Version 3.0.18 - no shape changes; BirthCertificate now subClassOf Persona (still valid sh:targetClass)"@en ;
+    owl:versionInfo "Version 3.0.21 - PersonShape simplified: Personas no longer inferred as Persons"@en ;
     rdfs:label "Mee Identity Agent (MIA)'s SHACL Validation Shapes"@en ;
     rdfs:comment """SHACL validation shapes for the Mee Identity Agent.
 
@@ -37,17 +37,8 @@
 
 :PersonShape
     a sh:NodeShape ;
-    # Target all Persons that are NOT Personas. Names belong to context-specific Personas
-    # (e.g. a birth certificate Persona), not to the selfness. Requires SPARQL target support (Jena 4.x+).
-    sh:target [
-        a sh:SPARQLTarget ;
-        sh:select """
-            SELECT ?this WHERE {
-                ?this a <https://purl.org/cco/ont00001262> .
-                FILTER NOT EXISTS { ?this a <http://mee.foundation/ontologies/persona#Persona> }
-            }
-        """ ;
-    ] ;
+    # Targets Person instances only. Personas are now ICEs (not Persons), so no filter needed.
+    sh:targetClass <https://purl.org/cco/ont00001262> ;
     sh:message "Person (selfness) validation: physical characteristics and parent-child relationships."@en ;
 
     # Optional: scalp hair (0..1); hair color validated by :ScalpHairShape
@@ -145,6 +136,14 @@
         sh:class cco:ent00000033 ;  # Online Service Account
         sh:maxCount 1 ;
         sh:message "A Persona may hold at most one OnlineServiceAccount."@en
+    ] ;
+
+    # Optional: wallet (0..1)
+    sh:property [
+        sh:path persona:holdsWallet ;
+        sh:class persona:Wallet ;
+        sh:maxCount 1 ;
+        sh:message "A Persona may hold at most one wallet."@en
     ] .
 
 #################################################################
@@ -514,4 +513,30 @@
         sh:minCount 1 ;
         sh:maxCount 1 ;
         sh:message "An OnlineServiceAccount must have exactly one user handle (username)."@en
+    ] .
+
+#################################################################
+#  Physical Belongings
+#################################################################
+
+:WalletShape
+    a sh:NodeShape ;
+    sh:targetClass persona:Wallet ;
+    sh:message "Wallet continuant parts must be PhysicalCards."@en ;
+    sh:property [
+        sh:path <http://purl.obolibrary.org/obo/BFO_0000178> ;  # has continuant part
+        sh:class persona:PhysicalCard ;
+        sh:message "Items in a Wallet (via has continuant part) must be PhysicalCards."@en
+    ] .
+
+:PhysicalCardShape
+    a sh:NodeShape ;
+    sh:targetClass persona:PhysicalCard ;
+    sh:message "PhysicalCard validation: image scan must be a URI."@en ;
+    sh:property [
+        sh:path persona:hasImageScan ;
+        sh:nodeKind sh:Literal ;
+        sh:datatype xsd:anyURI ;
+        sh:maxCount 1 ;
+        sh:message "A PhysicalCard may have at most one image scan URI."@en
     ] .
