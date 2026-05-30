@@ -11,7 +11,7 @@
 <http://www.example.org/mia/texas-birth-certificate> rdf:type owl:Ontology ;
     owl:imports <http://mee.foundation/ontologies/persona> ;
     dc:date "2026-05-25"^^xsd:date ;
-    owl:versionInfo "Version 1.0.3 - add contextType annotation; BirthCertificate now subClassOf Persona"@en ;
+    owl:versionInfo "Version 1.0.4 - remove redundant persona:Persona from rdf:type (implied by BirthCertificate)"@en ;
     persona:contextType persona:State ;
     rdfs:label "Alice Walker - Texas Birth Certificate Persona"@en ;
     rdfs:comment """Alice Walker's Texas birth certificate whoness — representing her legal
@@ -27,7 +27,6 @@
 #################################################################
 
 :Alice_Walker-TexasBirthCertificate rdf:type owl:NamedIndividual ,
-                                             persona:Persona ,
                                              persona:BirthCertificate ;
     rdfs:label "Alice Walker (Texas Birth Certificate)"@en ;
     rdfs:comment "Alice Walker's persona in the context of her Texas birth certificate."@en ;
