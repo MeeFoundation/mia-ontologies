@@ -54,7 +54,7 @@ LABELS = {
     str(PERSONA.hasPersona):             "hasPersona",
     str(PERSONA.hasPassword):           "has password",
     str(PERSONA.holdsWallet):           "holdsWallet",
-    str(PERSONA.hasPhysicalRepresentation): "hasPhysicalRepresentation",
+    "http://purl.obolibrary.org/obo/BFO_0000101":  "is carrier of",
     str(PERSONA.hasImageScan):          "hasImageScan",
     # cco: entity classes (designators / identifiers)
     "https://purl.org/cco/ent00000001": "FullName",

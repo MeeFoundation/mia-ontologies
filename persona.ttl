@@ -16,7 +16,7 @@
     owl:imports <https://purl.org/cco/address> ;
     owl:imports <https://purl.org/cco/staging> ;
     dc:date "2026-04-12"^^xsd:date ;
-    owl:versionInfo "Version 3.0.22 - rename correlation to hasPersona; subPropertyOf cco:isSubjectOf"@en ;
+    owl:versionInfo "Version 3.0.23 - drop hasPhysicalRepresentation; use BFO_0000101 (is carrier of) directly"@en ;
     rdfs:label "Persona Ontology"@en ;
     rdfs:comment """Persona Ontology for the Mee Identity Agent.
                     
@@ -79,7 +79,8 @@
                             <https://purl.org/cco/ent00000034> ,            # has service name
                             <https://purl.org/cco/ent00000035> ,            # has user handle
                             <https://purl.org/cco/ent00000036> ,            # has service URI
-                            <https://purl.org/cco/ont00001801> .            # is subject of (parent of hasPersona)
+                            <https://purl.org/cco/ont00001801> ,            # is subject of (parent of hasPersona)
+                            <http://purl.obolibrary.org/obo/BFO_0000101> .  # is carrier of (PhysicalCard → Persona)
 
 
 #################################################################
@@ -252,13 +253,6 @@ persona:holdsWallet rdf:type owl:ObjectProperty ;
     rdfs:range persona:Wallet ;
     rdfs:label "holds wallet"@en ;
     rdfs:comment "Links a Persona to the physical wallet they carry."@en .
-
-persona:hasPhysicalRepresentation rdf:type owl:ObjectProperty ;
-    rdfs:domain persona:Persona ;
-    rdfs:range persona:PhysicalCard ;
-    rdfs:label "has physical representation"@en ;
-    rdfs:comment """Links a Persona to a physical card that represents it in the real world —
-                    e.g. an :Alice_Walker-DMV Persona has physical representation :Alice_DriversLicense."""@en .
 
 persona:hasImageScan rdf:type owl:DatatypeProperty ;
     rdfs:domain persona:PhysicalCard ;
