@@ -17,11 +17,11 @@
     owl:imports <https://purl.org/cco/staging> ;
     dc:date "2026-04-12"^^xsd:date ;
     owl:versionInfo "Version 3.0.17 - contextType annotation property; BirthCertificate subClassOf Persona"@en ;
-    rdfs:label "Mee Foundation Persona Ontology"@en ;
+    rdfs:label "Persona Ontology"@en ;
     rdfs:comment """Persona Ontology for the Mee Identity Agent.
                     
                     This application ontology extends PersonOntology, AddressOntology, 
-                    and StagingOntology for identity management use cases.
+                    and StagingOntology for the Mee identity agent 
                     
                     ARCHITECTURE:
                     This application ontology serves as:
@@ -35,15 +35,11 @@
                     - Application-specific patterns documented via usage annotations
                     
                     FEATURES:
-                    - Peer name architecture (not hierarchical PersonName)
+                    - Defines a BirthCertificate kind of Persona with a peer name architecture (not hierarchical PersonName)
                     - Slash URIs (content negotiation enabled)
                     - International standards alignment (Schema.org, FHIR, OpenID)
                     - Address history tracking (N addresses over lifetime with temporal bounds)
                     
-                    MIGRATION NOTE:
-                    This version uses the NEW PersonOntology architecture (v2.0) with:
-                    - Peer names (not hierarchical PersonName)
-                    - Proper CCO properties (ont00001879, ont00001765, BFO_0000178)"""@en ;
     
     # Document which domain classes this application uses
     persona:usesRequiredClass cco:ent00000002 ,  # GivenName
@@ -119,6 +115,33 @@ persona:usagePattern rdf:type owl:AnnotationProperty ;
     rdfs:comment """Describes how this application uses a particular class or property."""@en ;
     rdfs:domain owl:Class .
 
+
+#################################################################
+#    Persona - a context-specific facet of a Person
+#################################################################    
+persona:Persona rdf:type owl:Class ;
+    rdfs:subClassOf <https://purl.org/cco/ont00001262> ;  # Person
+    rdfs:label "Persona"@en ;
+    rdfs:comment """A context-specific facet of a Person. Who the Person is 
+                    in the context of their interactions with a specific company, 
+                    government agency, another person, or a group of people. 
+                    A Person may have multiple Personas."""@en .
+
+#################################################################
+#    correlation property - links a Person to a Persona
+#################################################################
+persona:correlation rdf:type owl:ObjectProperty ;
+    rdfs:domain <https://purl.org/cco/ont00001262> ;  # Person (selfness)
+    rdfs:range persona:Persona ;
+    rdfs:label "correlation"@en ;
+    rdfs:comment """Links a Person's "selfness" to one of their context-specific Personas
+                    (whonesses). The selfness is the authoritative identity; each correlated
+                    Persona represents that person within a particular
+                    interaction context."""@en .
+
+#################################################################
+#    contextType property  
+#################################################################    
 persona:contextType rdf:type owl:AnnotationProperty ;
     rdfs:label "context type"@en ;
     rdfs:comment """Tags a context ontology (file) with the kind of relationship it represents —
@@ -146,16 +169,6 @@ persona:holdsPaymentCard rdf:type owl:ObjectProperty ;
     rdfs:label "holds payment card"@en ;
     rdfs:comment "Links a Person to a Payment Card (credit, debit, or other) they hold."@en .
 
-#################################################################
-#    Persona - one facet of a Person
-#################################################################    
-persona:Persona rdf:type owl:Class ;
-    rdfs:subClassOf <https://purl.org/cco/ont00001262> ;  # Person
-    rdfs:label "Persona"@en ;
-    rdfs:comment """A context-specific facet of a Person. Who the Person is 
-                    in the context of their interactions with a specific company, 
-                    government agency, another person, or a group of people. 
-                    A Person may have multiple Personas."""@en .
 
 #################################################################
 #    BirthCertificate Persona — a Persona subtype with name constraints
@@ -167,21 +180,9 @@ persona:BirthCertificate rdf:type owl:Class ;
                     name record. Subclass of Persona (not of Context) so that SHACL can
                     target it directly with sh:targetClass to enforce name constraints."""@en .
 
-#################################################################
-#    correlation property - links a Person to a Persona
-#################################################################
-persona:correlation rdf:type owl:ObjectProperty ;
-    rdfs:domain <https://purl.org/cco/ont00001262> ;  # Person (selfness)
-    rdfs:range persona:Persona ;
-    rdfs:label "correlation"@en ;
-    rdfs:comment """Links a Person's "selfness" to one of their context-specific Personas
-                    (whonesses). The selfness is the authoritative identity; each correlated
-                    Persona represents that person within a particular
-                    interaction context."""@en .
-
 
 #################################################################
-#    Financial Accounts
+#    Banking-related 
 #################################################################
 
 persona:CheckingAccount rdf:type owl:Class ;
@@ -216,7 +217,7 @@ persona:hasPassword rdf:type owl:DatatypeProperty ;
 
 
 #################################################################
-#    Persona Context Hierarchy
+#    Context Hierarchy
 #    Context subclasses are used as values for the persona:contextType
 #    annotation property on ontology IRIs (context files), not as
 #    rdf:type assertions on Persona individuals.
@@ -225,8 +226,7 @@ persona:hasPassword rdf:type owl:DatatypeProperty ;
 persona:Context rdf:type owl:Class ;
     rdfs:label "Context"@en ;
     rdfs:comment """Controlled vocabulary for the kind of interaction context a context file represents.
-                    Used as the value of persona:contextType on ontology IRIs, not as rdf:type
-                    on Persona individuals."""@en .
+                    Used as the value of persona:contextType on ontology IRIs."""@en .
 
 persona:Career rdf:type owl:Class ;
     rdfs:subClassOf persona:Context ;
@@ -252,7 +252,6 @@ persona:State rdf:type owl:Class ;
     rdfs:subClassOf persona:Government ;
     rdfs:label "State"@en ;
     rdfs:comment "State government context (e.g. driver's license, state tax records)."@en .
-
 
 persona:Municipality rdf:type owl:Class ;
     rdfs:subClassOf persona:Government ;
