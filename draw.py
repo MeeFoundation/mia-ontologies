@@ -162,7 +162,8 @@ def main() -> None:
         i = nid("ind:" + str(iri))
         if i not in added:
             local = str(iri).split("#")[-1] if "#" in str(iri) else str(iri).split("/")[-1]
-            is_persona = (PERSONA.Persona, None) in [(t, None) for t in g.objects(iri, RDF.type)]
+            types = set(g.objects(iri, RDF.type))
+            is_persona = PERSONA.Persona in types or URIRef("https://purl.org/cco/ont00001262") in types
             fill = "yellow" if is_persona else "white"
             dot.node(i, f":{local}", shape="box", style="filled", fillcolor=fill)
             added.add(i)
@@ -172,6 +173,17 @@ def main() -> None:
         i = nid("lit:" + key)
         if i not in added:
             dot.node(i, value, shape="none", fontcolor="darkgreen", fontsize="10")
+            added.add(i)
+        return i
+
+    MIA_NS = "http://www.example.org/mia#"
+
+    def ext_node(iri: URIRef) -> str:
+        """Node for an individual defined in another context file."""
+        i = nid("ext:" + str(iri))
+        if i not in added:
+            local = str(iri).split("#")[-1] if "#" in str(iri) else str(iri).split("/")[-1]
+            dot.node(i, f":{local}", shape="box", style="dashed")
             added.add(i)
         return i
 
@@ -206,6 +218,8 @@ def main() -> None:
             elif isinstance(obj, URIRef):
                 if obj in individuals:
                     dot.edge(src_nid, ind_node(obj), label=lbl(pred))
+                elif str(obj).startswith(MIA_NS):
+                    dot.edge(src_nid, ext_node(obj), label=lbl(pred))
             elif isinstance(obj, Literal):
                 ln = lit_node(str(obj), str(ind) + str(pred) + str(obj))
                 dot.edge(src_nid, ln, label=lbl(pred))

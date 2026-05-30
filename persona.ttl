@@ -275,32 +275,32 @@ persona:Topic rdf:type owl:Class ;
 persona:People rdf:type owl:Class ;
     rdfs:subClassOf persona:Context ;
     rdfs:label "People"@en ;
-    rdfs:comment "A Persona context covering relationships with specific people."@en .
+    rdfs:comment "Interactions with all kinds of people."@en .
 
 persona:Family rdf:type owl:Class ;
     rdfs:subClassOf persona:People ;
     rdfs:label "Family"@en ;
-    rdfs:comment "Relationship with a family member."@en .
+    rdfs:comment "Interactions with family members."@en .
 
 persona:Friends rdf:type owl:Class ;
     rdfs:subClassOf persona:People ;
-    rdfs:label "Friends"@en ;
-    rdfs:comment "Relationship with a friend."@en .
+    rdfs:label "Interactions with friends"@en ;
+    rdfs:comment "."@en .
 
-persona:Professionals rdf:type owl:Class ;
+persona:Consultants rdf:type owl:Class ;
     rdfs:subClassOf persona:People ;
-    rdfs:label "Professionals"@en ;
-    rdfs:comment "Relationship with a professional contact (colleague, advisor, etc.)."@en .
+    rdfs:label "Consultants"@en ;
+    rdfs:comment "Interactions with consultants who provide services."@en .
 
-persona:Colleague rdf:type owl:Class ;
-    rdfs:subClassOf persona:Professionals ;
-    rdfs:label "Colleague"@en ;
-    rdfs:comment "Relationship with a colleague — a person worked with in a professional setting."@en .
+persona:Colleagues rdf:type owl:Class ;
+    rdfs:subClassOf persona:People ;
+    rdfs:label "Colleagues"@en ;
+    rdfs:comment "Interactions with others with whom you work."@en .
 
 persona:Other rdf:type owl:Class ;
     rdfs:subClassOf persona:People ;
     rdfs:label "Other"@en ;
-    rdfs:comment "Relationship with a person not fitting Family, Friends, or Professionals."@en .
+    rdfs:comment "Interactions with a person not fitting Family, Friends, Colleagues, or Consultants."@en .
 
 
 #################################################################
