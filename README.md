@@ -23,7 +23,7 @@ Built on **BFO** (Basic Formal Ontology) and **CCO** (Common Core Ontologies) as
   - *All Personas*: SSN format (`NNN-NN-NNNN`), email format, phone (E.164), address cardinality, payment cards, wallet
   - *US Postal Address*: required street, city, state (USPS 2-letter), ZIP; optional country
   - *Person (selfness)*: scalp hair (0..1); `has mother` / `is mother of` range must be a Person
-  - *Social Network*: sub-groups (via `has part`) must be Social Networks; members (via `has member part`) must be Persons
+  - *Social Network*: sub-groups (via `has part`) must be Social Networks; members (via `has member part`) must be Personas
   - *Debit Card*: card number and expiration date required; CVV optional
   - *Wallet*: `has continuant part` items must be PhysicalCards
   - *PhysicalCard*: image scan, if present, must be `xsd:anyURI` (max 1)
