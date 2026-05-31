@@ -14,9 +14,7 @@ Built on **BFO** (Basic Formal Ontology) and **CCO** (Common Core Ontologies) as
 - **StagingOntology** — staging area for terms pending promotion (phone numbers, email addresses, user accounts, etc.)
 - **AgentOntology** — agents and their properties (imported transitively via PersonOntology)
 
-## Key Components
-
-### Ontology files
+## Ontology Files
 
 - **`persona.ttl`** — The application ontology. Imports the domain ontologies above and documents which classes and properties Mee uses (required vs. optional). Also defines Mee-specific extension properties (`persona:hasSocialNetwork`, `persona:holdsPaymentCard`, `persona:hasPersona`) and the Persona context hierarchy.
 
