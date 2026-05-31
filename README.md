@@ -32,7 +32,7 @@ Built on **BFO** (Basic Formal Ontology) and **CCO** (Common Core Ontologies), s
 
 ## Instance Data Architecture
 
-A person's data is split across a **selfness** file and multiple **context files**, one per relationship or institutional context. Most names and all identifiers belong to context-specific Personas; the one exception is a preferred/goes-by name, which lives on the selfness as it applies across all contexts.
+A person's data is split across a **selfness** file (`self.ttl`) and multiple **context files**, one per relationship or institutional context. Most names and all identifiers belong to context-specific Personas; the one exception is a preferred/goes-by name, which lives on the selfness as it applies across all contexts.
 
 | File | Context type | Key data |
 |------|-------------|----------|
@@ -45,7 +45,6 @@ A person's data is split across a **selfness** file and multiple **context files
 | `florida-birth-certificate.ttl` | State (FL) | Paula Walker's legal names |
 | `google.ttl` | Company | Email address |
 | `paradise.ttl` | Municipality | Current address — Paradise, CA (2025–present) |
-| `self.ttl` | Selfness | Height, eye color, hair color, mother; preferred name "Alice Walker" |
 | `ssa.ttl` | Federal | SSN |
 | `texas-birth-certificate.ttl` | State (TX) | Legal names: Margery Alice Walker; maiden name Margery Alice Arnold |
 
