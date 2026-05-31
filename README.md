@@ -20,11 +20,13 @@ Built on **BFO** (Basic Formal Ontology) and **CCO** (Common Core Ontologies), s
 
 - **`persona-shacl.ttl`** — SHACL constraint rules defining how instance data must be structured. Validates:
   - *BirthCertificate Personas*: FullName OR (GivenName + FamilyName) required; optional AdditionalName, AlternateName, Nickname, Legal Name
-  - *All Personas*: SSN format (`NNN-NN-NNNN`), email format, phone (E.164), address cardinality, payment cards
+  - *All Personas*: SSN format (`NNN-NN-NNNN`), email format, phone (E.164), address cardinality, payment cards, wallet
   - *US Postal Address*: required street, city, state (USPS 2-letter), ZIP; optional country
   - *Person (selfness)*: scalp hair (0..1); `has mother` / `is mother of` range must be a Person
   - *Social Network*: sub-groups (via `has part`) must be Social Networks; members (via `has member part`) must be Persons
   - *Debit Card*: card number and expiration date required; CVV optional
+  - *Wallet*: `has continuant part` items must be PhysicalCards
+  - *PhysicalCard*: image scan, if present, must be `xsd:anyURI` (max 1)
 
 - **`self.ttl`** — Alice Walker's *selfness* — her essential individuality or unique selfhood. Carries only properties intrinsic to the person (physical characteristics, parent-child relationships) and `persona:hasPersona` links to all context-specific Personas. Imports all context files below.
 
@@ -49,7 +51,9 @@ A person's data is split across a **selfness** file and multiple **context files
 
 ## Architecture
 
-**Selfness and Personas**: A person's selfness is their essential individuality or unique selfhood represented by the Person entity in self.ttl. Multiple context-specific Personas (whonesses) are linked to it via `persona:hasPersona`. Each Persona represents the person within one interaction context with a government agency, a company, another person, or a group of people. A Persona carries only the data relevant to that context.
+**Selfness and Personas**: A person's selfness is their essential individuality or unique selfhood represented by the Person entity in self.ttl. A `persona:Persona` is an **Information Content Entity** (CCO `ont00000958`) — a context-specific profile *about* a Person, not itself a Person. Multiple Personas are linked to the selfness via `persona:hasPersona` (a subproperty of CCO `is subject of`). Each Persona carries only the data relevant to its interaction context.
+
+**Physical cards**: When a future context file creates a Persona for a credential issuer (e.g. DMV), the corresponding physical card in `belongings.ttl` links back using BFO `is carrier of` (`BFO_0000101`): the PhysicalCard individual is the carrier of the Persona (ICE).
 
 **Peer name pattern**: All name types (FullName, GivenName, FamilyName, AlternateName) connect directly to a Person or Persona via `designated by` (`ont00001879`). They are siblings, not nested under a PersonName parent. Legal names belong to BirthCertificate Personas; a preferred/goes-by name lives on the selfness since it applies across all contexts.
 
