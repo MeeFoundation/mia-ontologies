@@ -36,18 +36,18 @@ A person's data is split across a **selfness** file and multiple **context files
 
 | File | Context | Key data |
 |------|---------|----------|
-| `self.ttl` | Selfness | Height, eye color, hair color, mother; preferred name "Alice Walker" |
-| `texas-birth-certificate.ttl` | State (TX) | Legal names: Margery Alice Walker; maiden name Margery Alice Arnold |
-| `florida-birth-certificate.ttl` | State (FL) | Paula Walker's legal names |
-| `ssa.ttl` | Federal | SSN |
-| `google.ttl` | Company | Email address |
 | `att.ttl` | Company | Phone number |
-| `boston.ttl` | Municipality | Previous address — Boston, MA (2020–2025) with temporal interval |
-| `paradise.ttl` | Municipality | Current address — Paradise, CA (2025–present) |
-| `citibank.ttl` | Company | Debit card |
-| `family.ttl` | People/Family | Family social network with Paula Walker |
-| `colleagues.ttl` | People/Professionals | Colleagues social network with Bob Johnston |
 | `belongings.ttl` | Possession | Wallet containing driver's license and health insurance card (with image scans) |
+| `boston.ttl` | Municipality | Previous address — Boston, MA (2020–2025) with temporal interval |
+| `citibank.ttl` | Company | Debit card |
+| `colleagues.ttl` | People/Professionals | Colleagues social network with Bob Johnston |
+| `family.ttl` | People/Family | Family social network with Paula Walker |
+| `florida-birth-certificate.ttl` | State (FL) | Paula Walker's legal names |
+| `google.ttl` | Company | Email address |
+| `paradise.ttl` | Municipality | Current address — Paradise, CA (2025–present) |
+| `self.ttl` | Selfness | Height, eye color, hair color, mother; preferred name "Alice Walker" |
+| `ssa.ttl` | Federal | SSN |
+| `texas-birth-certificate.ttl` | State (TX) | Legal names: Margery Alice Walker; maiden name Margery Alice Arnold |
 
 ## Architecture
 
