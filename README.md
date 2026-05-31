@@ -51,8 +51,8 @@ The repository includes a worked example for a hypothetical person, Alice Walker
 | `florida-birth-certificate.ttl` | State (FL) | Paula Walker's legal names |
 | `google.ttl` | Company (Google) | Email address |
 | `paradise.ttl` | Municipality (Paradise)| Current address — Paradise, CA (2025–present) |
-| `ssa.ttl` | Federal | SSN |
-| `texas-birth-certificate.ttl` | State (TX) | Legal names: Margery Alice Walker; maiden name Margery Alice Arnold |
+| `ssa.ttl` | Federal (SSA.gov) | SSN |
+| `texas-birth-certificate.ttl` | State (texas.gov) | Legal names: Margery Alice Walker; maiden name Margery Alice Arnold |
 
 ## Design Patterns
 
