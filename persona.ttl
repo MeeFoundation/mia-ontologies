@@ -141,10 +141,9 @@ persona:hasPersona rdf:type owl:ObjectProperty ;
     rdfs:domain <https://purl.org/cco/ont00001262> ;  # Person (selfness)
     rdfs:range persona:Persona ;
     rdfs:label "has persona"@en ;
-    rdfs:comment """Links a Person's selfness to one of their context-specific Personas
-                    (whonesses). The selfness is the authoritative identity; each Persona
-                    is an Information Content Entity that represents that person within a
-                    particular interaction context."""@en .
+    rdfs:comment """links a Person (one’s "selfness", essential individuality, or a sense of 
+                    one's own unique personality and identity) to one of their context-specific 
+                    Personas (whonesses)"""@en .
 
 #################################################################
 #    contextType property  
