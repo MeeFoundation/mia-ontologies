@@ -1,10 +1,10 @@
 # Persona Ontology
 
-The persona ontology is an application profile over existing ontologies. It models the domain of natural people in the Mee Identity Agent (MIA). It documents in SHACL which classes and properties from other ontologies are used to describe a person.
+`persona.ttl` is an **application ontology** for the Mee Identity Agent (MIA). It imports and profiles existing domain ontologies — documenting which of their classes and properties Mee requires or uses — and extends them with Mee-specific classes and properties.
 
 ## Purpose
 
-It defines a formal, machine-readable model of a real-world person's identity data — names, addresses, phone numbers, SSNs, physical characteristics, parent-child relationships, social connections, payment cards, and more — by reusing and constraining existing well-known ontologies rather than inventing new ones.
+It defines a formal, machine-readable model of a real-world person's identity data — names, addresses, phone numbers, SSNs, physical characteristics, parent-child relationships, social connections, payment cards, and more — by reusing existing well-known ontologies wherever possible and defining new terms only where no suitable existing term exists.
 
 ## Ontological Foundation
 
