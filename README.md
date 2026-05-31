@@ -67,8 +67,8 @@ The repository includes a worked example for a hypothetical person, Alice Walker
 `draw.py` generates a Graphviz diagram from any context `.ttl` file:
 
 ```bash
-python3 draw.py citibank.ttl      # → citibank.png
-python3 draw.py paradise.ttl     # → paradise.png
+python3 draw.py example/contexts/citibank.ttl      # → example/contexts/citibank.png
+python3 draw.py example/contexts/paradise.ttl      # → example/contexts/paradise.png
 ```
 
 **Dependencies** (one-time setup):
@@ -87,9 +87,14 @@ Validation requires Apache Jena. The following validates Alice Walker's example 
 riot --output=turtle \
   project_files/bfo-core.ttl project_files/PersonOntology.ttl \
   project_files/AddressOntology.ttl project_files/StagingOntology.ttl \
-  persona.ttl self.ttl citibank.ttl boston.ttl paradise.ttl family.ttl \
-  colleagues.ttl att.ttl ssa.ttl google.ttl \
-  texas-birth-certificate.ttl florida-birth-certificate.ttl belongings.ttl \
+  persona.ttl example/self/self.ttl \
+  example/contexts/citibank.ttl example/contexts/boston.ttl \
+  example/contexts/paradise.ttl example/contexts/family.ttl \
+  example/contexts/colleagues.ttl example/contexts/att.ttl \
+  example/contexts/ssa.ttl example/contexts/google.ttl \
+  example/contexts/texas-birth-certificate.ttl \
+  example/contexts/florida-birth-certificate.ttl \
+  example/contexts/belongings.ttl \
   2>/dev/null > /tmp/mia-merged.ttl
 
 grep -v 'owl:imports' persona-shacl.ttl > /tmp/mia-shapes.ttl

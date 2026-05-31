@@ -4,7 +4,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project Overview
 
-This is an **RDF/OWL ontology project** — a formal semantic knowledge model for representing natural people's identity data in the Mee Identity Agent (MIA). It is an *application profile* ontology: it reuses and constrains existing well-known ontologies rather than defining new terms.
+This is an **RDF/OWL ontology project** — a formal semantic knowledge model for representing natural people's identity data in the Mee Identity Agent (MIA). It is an *application ontology*: it imports and profiles existing domain ontologies, documenting which classes and properties Mee uses, and extends them with Mee-specific terms.
 
 There are no build, compile, test, or lint commands. The files are Turtle (`.ttl`) loaded into semantic web tools (Protégé).
 
@@ -14,17 +14,17 @@ There are no build, compile, test, or lint commands. The files are Turtle (`.ttl
 |------|---------|
 | `persona.ttl` | Main application ontology — imports domain ontologies, annotates which classes/properties are required vs. optional for Mee |
 | `persona-shacl.ttl` | SHACL validation shapes — constraint rules for valid instance data (e.g., a BirthCertificate Persona must have FullName OR GivenName+FamilyName) |
-| `self.ttl` | Alice Walker's selfness — the central Person instance; imports all context files |
-| `citibank.ttl` | Alice's Citibank Persona — payment card |
-| `boston.ttl` | Alice's Boston Persona — residential address 2020–2025 |
-| `paradise.ttl` | Alice's Paradise Persona — current residential address |
-| `family.ttl` | Alice's Family Persona — family relationships and social network |
-| `colleagues.ttl` | Alice's Colleagues Persona — professional relationships and social network |
-| `att.ttl` | Alice's AT&T Persona — phone number |
-| `ssa.ttl` | Alice's SSA Persona — Social Security Number |
-| `google.ttl` | Alice's Google Persona — email address |
-| `texas-birth-certificate.ttl` | Alice's Texas Birth Certificate Persona — legal name record |
-| `florida-birth-certificate.ttl` | Paula Walker's Florida Birth Certificate Persona — legal name record |
+| `example/self/self.ttl` | Alice Walker's selfness — the central Person instance; imports all context files |
+| `example/contexts/citibank.ttl` | Alice's Citibank Persona — payment card |
+| `example/contexts/boston.ttl` | Alice's Boston Persona — residential address 2020–2025 |
+| `example/contexts/paradise.ttl` | Alice's Paradise Persona — current residential address |
+| `example/contexts/family.ttl` | Alice's Family Persona — family relationships and social network |
+| `example/contexts/colleagues.ttl` | Alice's Colleagues Persona — professional relationships and social network |
+| `example/contexts/att.ttl` | Alice's AT&T Persona — phone number |
+| `example/contexts/ssa.ttl` | Alice's SSA Persona — Social Security Number |
+| `example/contexts/google.ttl` | Alice's Google Persona — email address |
+| `example/contexts/texas-birth-certificate.ttl` | Alice's Texas Birth Certificate Persona — legal name record |
+| `example/contexts/florida-birth-certificate.ttl` | Paula Walker's Florida Birth Certificate Persona — legal name record |
 | `project_files/` | Reference materials: imported domain ontologies (PersonOntology.ttl, AddressOntology.ttl, StagingOntology.ttl), BFO/CCO source files, PDFs, docs |
 
 ## Architecture
@@ -32,30 +32,30 @@ There are no build, compile, test, or lint commands. The files are Turtle (`.ttl
 ### Three-Layer Design
 
 ```
-self.ttl (selfness)
+example/self/self.ttl (selfness)
   ├─ imports → persona.ttl (application profile)
   │             ├─ imports → PersonOntology.ttl
   │             ├─ imports → AddressOntology.ttl
   │             └─ imports → StagingOntology.ttl
   │                           └─ imports → BFO terms
-  ├─ imports → citibank.ttl
-  ├─ imports → boston.ttl
-  ├─ imports → paradise.ttl
-  ├─ imports → family.ttl
-  ├─ imports → colleagues.ttl
-  ├─ imports → att.ttl
-  ├─ imports → ssa.ttl
-  ├─ imports → google.ttl
-  ├─ imports → texas-birth-certificate.ttl
-  └─ imports → florida-birth-certificate.ttl
+  ├─ imports → example/contexts/citibank.ttl
+  ├─ imports → example/contexts/boston.ttl
+  ├─ imports → example/contexts/paradise.ttl
+  ├─ imports → example/contexts/family.ttl
+  ├─ imports → example/contexts/colleagues.ttl
+  ├─ imports → example/contexts/att.ttl
+  ├─ imports → example/contexts/ssa.ttl
+  ├─ imports → example/contexts/google.ttl
+  ├─ imports → example/contexts/texas-birth-certificate.ttl
+  └─ imports → example/contexts/florida-birth-certificate.ttl
 
 persona-shacl.ttl
-  └─ imports → self.ttl (which transitively imports everything above)
+  └─ imports → example/self/self.ttl (which transitively imports everything above)
 ```
 
 1. **Foundation**: BFO (Basic Formal Ontology) — provides temporal modeling (`TemporalInterval`) and core relations
 2. **Domain Ontologies** (in `project_files/`): PersonOntology, AddressOntology, StagingOntology
-3. **Application Profile** (`persona.ttl`): aggregates domain ontologies; uses annotation properties (`usesRequiredClass`, `usesOptionalClass`, `usesCCOClass`, `usesCCOProperty`) to document Mee's usage
+3. **Application Ontology** (`persona.ttl`): aggregates domain ontologies; uses annotation properties (`usesRequiredClass`, `usesOptionalClass`, `usesCCOClass`, `usesCCOProperty`) to document Mee's usage
 
 ### Key Architectural Patterns
 
@@ -102,7 +102,7 @@ Always update `persona-shacl.ttl` in the same edit session as the change that tr
 
 **SHACL validation** (e.g., using Apache Jena's `shaclvalidate`):
 ```bash
-shaclvalidate -datafile self.ttl -shapesfile persona-shacl.ttl
+shaclvalidate -datafile example/self/self.ttl -shapesfile persona-shacl.ttl
 ```
 
 **Protégé**: Load `persona.ttl`; Protégé will import the domain ontologies via IRI resolution. Use the reasoner (HermiT/Pellet) to check consistency.
