@@ -8,7 +8,7 @@ It defines a formal, machine-readable model of a real-world person's identity da
 
 ## Ontological Foundation
 
-Built on **BFO** (Basic Formal Ontology) and **CCO** (Common Core Ontologies) as the upper ontological foundation, and on three domain ontologies that extend CCO:
+Built on **BFO** (Basic Formal Ontology) and **CCO** (Common Core Ontologies) as the upper ontological foundation, and on domain ontologies that extend CCO:
 - **PersonOntology** — person, name types, parent-child relationships
 - **AddressOntology** — postal address structure
 - **StagingOntology** — staging area for terms pending promotion (phone numbers, email addresses, user accounts, etc.)
