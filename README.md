@@ -16,6 +16,8 @@ Built on **BFO** (Basic Formal Ontology) and **CCO** (Common Core Ontologies) as
 
 ## Key Components
 
+### Ontology files
+
 - **`persona.ttl`** — The application ontology. Imports the domain ontologies above and documents which classes and properties Mee uses (required vs. optional). Also defines Mee-specific extension properties (`persona:hasSocialNetwork`, `persona:holdsPaymentCard`, `persona:hasPersona`) and the Persona context hierarchy.
 
 - **`persona-shacl.ttl`** — SHACL constraint rules defining how instance data must be structured. Validates:
@@ -28,9 +30,15 @@ Built on **BFO** (Basic Formal Ontology) and **CCO** (Common Core Ontologies) as
   - *Wallet*: `has continuant part` items must be PhysicalCards
   - *PhysicalCard*: image scan, if present, must be `xsd:anyURI` (max 1)
 
+### Illustrative instance data: Alice Walker
+
+The repository includes a worked example representing a hypothetical person, Alice Walker, to demonstrate the ontology in use.
+
 - **`self.ttl`** — Alice Walker's *selfness* — her essential individuality or unique selfhood. Carries only properties intrinsic to the person (physical characteristics, parent-child relationships) and `persona:hasPersona` links to all context-specific Personas. Imports all context files below.
 
-## Instance Data Architecture
+## Illustrative Example: Alice Walker
+
+The following context files represent Alice Walker's data across various interaction contexts. Each file is an independent `owl:Ontology` linked to her selfness via `persona:hasPersona`.
 
 A person's data is split across a **selfness** file (`self.ttl`) and multiple **context files**, one per relationship or institutional context. Most names and all identifiers belong to context-specific Personas; the one exception is a preferred/goes-by name, which lives on the selfness as it applies across all contexts.
 
@@ -48,7 +56,7 @@ A person's data is split across a **selfness** file (`self.ttl`) and multiple **
 | `ssa.ttl` | Federal | SSN |
 | `texas-birth-certificate.ttl` | State (TX) | Legal names: Margery Alice Walker; maiden name Margery Alice Arnold |
 
-## Architecture
+## Design Patterns
 
 **Selfness and Personas**: A person's selfness is their essential individuality or unique selfhood represented by the Person entity in self.ttl. A `persona:Persona` is an **Information Content Entity** (CCO `ont00000958`) — a context-specific profile *about* a Person, not itself a Person. Multiple Personas are linked to the selfness via `persona:hasPersona` (a subproperty of CCO `is subject of`). Each Persona carries only the data relevant to its interaction context.
 
@@ -77,7 +85,7 @@ Each diagram shows the Persona individual (yellow), supporting named individuals
 
 ## Validation
 
-Validation requires Apache Jena. Merge all data files first, then validate:
+Validation requires Apache Jena. The following validates Alice Walker's example instance data against the SHACL shapes. Merge all data files first, then validate:
 
 ```bash
 riot --output=turtle \
