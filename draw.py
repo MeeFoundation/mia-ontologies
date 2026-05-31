@@ -104,6 +104,7 @@ LABELS = {
     "http://purl.obolibrary.org/obo/BFO_0000115":  "has member part",
     "http://purl.obolibrary.org/obo/BFO_0000153":  "occupies temporal region",
     "http://purl.obolibrary.org/obo/BFO_0000139":  "has participant",
+    "http://purl.obolibrary.org/obo/BFO_0000177":  "continuant part of",
     "http://purl.obolibrary.org/obo/BFO_0000178":  "has continuant part",
     "http://purl.obolibrary.org/obo/BFO_0000196":  "bearer of",
     "http://purl.obolibrary.org/obo/BFO_0000038":  "TemporalInterval",

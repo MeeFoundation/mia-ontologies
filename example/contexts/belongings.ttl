@@ -11,7 +11,7 @@
 <http://www.example.org/mia/belongings> rdf:type owl:Ontology ;
     owl:imports <http://mee.foundation/ontologies/persona> ;
     dc:date "2026-05-27"^^xsd:date ;
-    owl:versionInfo "Version 1.0.2 - forward refs updated: use BFO_0000101 (is carrier of) PhysicalCard→Persona"@en ;
+    owl:versionInfo "Version 1.0.3 - reverse containment: cards use BFO_0000177 (continuant part of) → Wallet"@en ;
     persona:contextType persona:Possession ;
     rdfs:label "Alice Walker - Belongings Persona"@en ;
     rdfs:comment """Alice Walker's belongings persona — physical items she carries day-to-day.
@@ -35,15 +35,14 @@
 
 :Alice_Wallet rdf:type owl:NamedIndividual ,
                         persona:Wallet ;
-    rdfs:label "Alice Walker's Wallet"@en ;
-    <http://purl.obolibrary.org/obo/BFO_0000178> :Alice_DriversLicense ;    # has continuant part
-    <http://purl.obolibrary.org/obo/BFO_0000178> :Alice_HealthInsuranceCard .  # has continuant part
+    rdfs:label "Alice Walker's Wallet"@en .
 
 
 :Alice_DriversLicense rdf:type owl:NamedIndividual ,
                                persona:DriversLicense ;
     rdfs:label "Alice Walker's Driver's License"@en ;
     rdfs:comment "Alice Walker's physical Texas driver's license card."@en ;
+    <http://purl.obolibrary.org/obo/BFO_0000177> :Alice_Wallet ;            # continuant part of
     persona:hasImageScan "file:///scans/alice-drivers-license.png"^^xsd:anyURI .
     # <http://purl.obolibrary.org/obo/BFO_0000101> :Alice_Walker-DMV  # future: is carrier of → :Alice_Walker-DMV Persona when created
 
@@ -52,5 +51,6 @@
                                     persona:HealthInsuranceCard ;
     rdfs:label "Alice Walker's Health Insurance Card"@en ;
     rdfs:comment "Alice Walker's physical health insurance membership card."@en ;
+    <http://purl.obolibrary.org/obo/BFO_0000177> :Alice_Wallet ;            # continuant part of
     persona:hasImageScan "file:///scans/alice-health-insurance-card.png"^^xsd:anyURI .
     # <http://purl.obolibrary.org/obo/BFO_0000101> :Alice_Walker-HealthInsurance  # future: is carrier of → :Alice_Walker-HealthInsurance Persona when created

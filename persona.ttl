@@ -16,7 +16,7 @@
     owl:imports <https://purl.org/cco/address> ;
     owl:imports <https://purl.org/cco/staging> ;
     dc:date "2026-04-12"^^xsd:date ;
-    owl:versionInfo "Version 3.0.23 - drop hasPhysicalRepresentation; use BFO_0000101 (is carrier of) directly"@en ;
+    owl:versionInfo "Version 3.0.24 - reverse wallet containment: add BFO_0000177 (continuant part of) to usesCCOProperty"@en ;
     rdfs:label "Persona Ontology"@en ;
     rdfs:comment """Persona Ontology for the Mee Identity Agent.
                     
@@ -70,7 +70,8 @@
 
     # Document which properties this application uses (note: use full IRIs)
     persona:usesCCOProperty <https://purl.org/cco/ont00001879> ,            # designated by
-                            <http://purl.obolibrary.org/obo/BFO_0000178> ,  # has continuant part
+                            <http://purl.obolibrary.org/obo/BFO_0000177> ,  # continuant part of (PhysicalCard → Wallet)
+                            <http://purl.obolibrary.org/obo/BFO_0000178> ,  # has continuant part (Address → parts; Person → ScalpHair)
                             <https://purl.org/cco/ont00001765> ,            # has text value
                             <http://purl.obolibrary.org/obo/BFO_0000196> ,  # bearer of
                             <http://purl.obolibrary.org/obo/BFO_0000153> ,  # occupies temporal region

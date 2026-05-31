@@ -12,7 +12,7 @@
 # Imports Mee Identity Agent (MIA)'s Application Ontology (which imports the domains)
 <http://www.example.org/shapes> rdf:type owl:Ontology ;
     owl:imports <http://www.example.org/mia> ;
-    owl:versionInfo "Version 3.0.22 - SocialNetworkShape: members must be Personas not Persons"@en ;
+    owl:versionInfo "Version 3.0.23 - reverse wallet containment: PhysicalCard uses BFO_0000177 (continuant part of) → Wallet"@en ;
     rdfs:label "Mee Identity Agent (MIA)'s SHACL Validation Shapes"@en ;
     rdfs:comment """SHACL validation shapes for the Mee Identity Agent.
 
@@ -27,6 +27,7 @@
                     Key property IRIs:
                     - ont00001879  = designated by   (Person ← Name/Identifier)
                     - ont00001765  = has text value   (Identifier → literal string)
+                    - BFO_0000177  = continuant part of  (PhysicalCard → Wallet)
                     - BFO_0000178  = has continuant part (Address → components; Person → ScalpHair)
                     - BFO_0000196  = bearer of        (Person/Hair → quality/role)
 """@en .
@@ -522,21 +523,27 @@
 :WalletShape
     a sh:NodeShape ;
     sh:targetClass persona:Wallet ;
-    sh:message "Wallet continuant parts must be PhysicalCards."@en ;
+    sh:message "Items stored in a Wallet (via inverse of continuant part of) must be PhysicalCards."@en ;
     sh:property [
-        sh:path <http://purl.obolibrary.org/obo/BFO_0000178> ;  # has continuant part
+        sh:path [ sh:inversePath <http://purl.obolibrary.org/obo/BFO_0000177> ] ;  # inverse of continuant part of
         sh:class persona:PhysicalCard ;
-        sh:message "Items in a Wallet (via has continuant part) must be PhysicalCards."@en
+        sh:message "Only PhysicalCards may declare this Wallet as their continuant whole."@en
     ] .
 
 :PhysicalCardShape
     a sh:NodeShape ;
     sh:targetClass persona:PhysicalCard ;
-    sh:message "PhysicalCard validation: image scan must be a URI."@en ;
+    sh:message "PhysicalCard validation: image scan must be a URI; wallet link must point to a Wallet."@en ;
     sh:property [
         sh:path persona:hasImageScan ;
         sh:nodeKind sh:Literal ;
         sh:datatype xsd:anyURI ;
         sh:maxCount 1 ;
         sh:message "A PhysicalCard may have at most one image scan URI."@en
+    ] ;
+    sh:property [
+        sh:path <http://purl.obolibrary.org/obo/BFO_0000177> ;  # continuant part of
+        sh:class persona:Wallet ;
+        sh:maxCount 1 ;
+        sh:message "A PhysicalCard's continuant whole (via continuant part of) must be a Wallet."@en
     ] .
