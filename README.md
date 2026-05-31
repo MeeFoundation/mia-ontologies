@@ -33,8 +33,8 @@ Rather than being a kind of Person, a `persona:Persona` is an **Information Cont
   - *Person (selfness)*: scalp hair (0..1); `has mother` / `is mother of` range must be a Person
   - *Social Network*: sub-groups (via `has part`) must be Social Networks; members (via `has member part`) must be Personas
   - *Debit Card*: card number and expiration date required; CVV optional
-  - *Wallet*: `has continuant part` items must be PhysicalCards
-  - *PhysicalCard*: image scan, if present, must be `xsd:anyURI` (max 1)
+  - *Wallet*: items declaring themselves `continuant part of` this wallet must be PhysicalCards
+  - *PhysicalCard*: image scan, if present, must be `xsd:anyURI` (max 1); `continuant part of` target, if present, must be a Wallet (max 1)
 
 ## Illustrative Example: Alice Walker
 
