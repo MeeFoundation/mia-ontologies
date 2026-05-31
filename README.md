@@ -30,7 +30,7 @@ Built on **BFO** (Basic Formal Ontology) and **CCO** (Common Core Ontologies) as
 
 ## Illustrative Example: Alice Walker
 
-The repository includes a worked example representing a hypothetical person, Alice Walker, to demonstrate the ontology in use. Her data is split across a **selfness** file (`self.ttl`) — carrying only properties intrinsic to her as a person (physical characteristics, parent-child relationships) and `persona:hasPersona` links to all context-specific Personas — and multiple **context files**, one per relationship or institutional context.
+The repository includes a worked example for a hypothetical person, Alice Walker, to demonstrate the ontology in use. Her data is split across a **selfness** file (`self.ttl`) and multiple **context files**, one per relationship or institutional context. The selfness carries only properties intrinsic to her as a person — physical characteristics, parent-child relationships, and `persona:hasPersona` links to her context-specific Personas.
 
 Most names and all identifiers belong to context-specific Personas; the one exception is a preferred/goes-by name, which lives on the selfness as it applies across all contexts. Each context file is an independent `owl:Ontology` linked to her selfness via `persona:hasPersona`.
 
