@@ -18,9 +18,9 @@ Built on **BFO** (Basic Formal Ontology) and **CCO** (Common Core Ontologies) as
 
 We represent a person as a combination of a single Person entity representing their **selfness** and multiple **context files**, one per relationship or institutional context.
 
-A person's selfness is their essential individuality or unique selfhood represented by the Person entity in a file called self.ttl. The selfness carries very few properties: only physical attributes and parent-child relationships. Most importantly, it carries `persona:hasPersona` links to context-specific Personas. Most names and all identifiers belong to those context-specific Personas; the one exception is a preferred/goes-by name, which lives on the selfness as it applies across all contexts.
+A person's selfness is their essential individuality or unique selfhood represented by the Person entity in `self.ttl`. The selfness carries very few properties: only physical attributes and parent-child relationships. Most importantly, it carries `persona:hasPersona` links to context-specific Personas. Most names and all identifiers belong to those context-specific Personas; the one exception is a preferred/goes-by name, which lives in `self.ttl` as it applies across all contexts.
 
-Rather than being a kind of Person, a `persona:Persona` is an **Information Content Entity** (CCO `ont00000958`) — a context-specific facet *of* a Person. Personas are linked to the selfness via `persona:hasPersona`, a subproperty of CCO `is subject of` (`ont00001801`). Each Persona carries only the data relevant to its specific context.
+Rather than being a kind of Person, a `persona:Persona` is an **Information Content Entity** (CCO `ont00000958`) — a context-specific facet *of* a Person. Personas are linked to the Person entity in `self.ttl` via `persona:hasPersona`, a subproperty of CCO `is subject of` (`ont00001801`). Each Persona carries only the data relevant to its specific context.
 
 ## Ontology Files
 
@@ -38,7 +38,7 @@ Rather than being a kind of Person, a `persona:Persona` is an **Information Cont
 
 ## Illustrative Example: Alice Walker
 
-The repository includes a worked example for a hypothetical person, Alice Walker, to demonstrate the ontology in use. Each context file is an independent `owl:Ontology` linked to her selfness via `persona:hasPersona`.
+The repository includes a worked example for a hypothetical person, Alice Walker, to demonstrate the ontology in use. Each context file is an independent `owl:Ontology` linked to her Person entity in `self.ttl` via `persona:hasPersona`.
 
 | Context file | Context type | Key data |
 |:-------------|:-------------|:---------|
@@ -58,7 +58,7 @@ The repository includes a worked example for a hypothetical person, Alice Walker
 
 **Physical cards**: When a future context file creates a Persona for a credential issuer (e.g. DMV), the corresponding physical card in `belongings.ttl` links back using BFO `is carrier of` (`BFO_0000101`): the PhysicalCard individual is the carrier of the Persona (ICE).
 
-**Peer name pattern**: All name types (FullName, GivenName, FamilyName, AlternateName) connect directly to a Person or Persona via `designated by` (`ont00001879`). They are siblings, not nested under a PersonName parent. Legal names belong to BirthCertificate Personas; a preferred/goes-by name lives on the selfness since it applies across all contexts.
+**Peer name pattern**: All name types (FullName, GivenName, FamilyName, AlternateName) connect directly to a Person or Persona via `designated by` (`ont00001879`). They are siblings, not nested under a PersonName parent. Legal names belong to BirthCertificate Personas; a preferred/goes-by name lives in `self.ttl` since it applies across all contexts.
 
 **Address history**: Each address Persona carries a USPostalAddress and an `AddressDesignation` with a `TemporalInterval` (start date required; no end date = current address).
 
