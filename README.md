@@ -30,17 +30,11 @@ Built on **BFO** (Basic Formal Ontology) and **CCO** (Common Core Ontologies) as
   - *Wallet*: `has continuant part` items must be PhysicalCards
   - *PhysicalCard*: image scan, if present, must be `xsd:anyURI` (max 1)
 
-### Illustrative instance data: Alice Walker
-
-The repository includes a worked example representing a hypothetical person, Alice Walker, to demonstrate the ontology in use.
-
-- **`self.ttl`** — Alice Walker's *selfness* — her essential individuality or unique selfhood. Carries only properties intrinsic to the person (physical characteristics, parent-child relationships) and `persona:hasPersona` links to all context-specific Personas. Imports all context files below.
-
 ## Illustrative Example: Alice Walker
 
-The following context files represent Alice Walker's data across various interaction contexts. Each file is an independent `owl:Ontology` linked to her selfness via `persona:hasPersona`.
+The repository includes a worked example representing a hypothetical person, Alice Walker, to demonstrate the ontology in use. Her data is split across a **selfness** file (`self.ttl`) — carrying only properties intrinsic to her as a person (physical characteristics, parent-child relationships) and `persona:hasPersona` links to all context-specific Personas — and multiple **context files**, one per relationship or institutional context.
 
-A person's data is split across a **selfness** file (`self.ttl`) and multiple **context files**, one per relationship or institutional context. Most names and all identifiers belong to context-specific Personas; the one exception is a preferred/goes-by name, which lives on the selfness as it applies across all contexts.
+Most names and all identifiers belong to context-specific Personas; the one exception is a preferred/goes-by name, which lives on the selfness as it applies across all contexts. Each context file is an independent `owl:Ontology` linked to her selfness via `persona:hasPersona`.
 
 | Context file | Context type | Key data |
 |:-------------|:-------------|:---------|
