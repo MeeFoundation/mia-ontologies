@@ -16,7 +16,7 @@
     owl:imports <https://purl.org/cco/address> ;
     owl:imports <https://purl.org/cco/staging> ;
     dc:date "2026-04-12"^^xsd:date ;
-    owl:versionInfo "Version 3.0.24 - reverse wallet containment: add BFO_0000177 (continuant part of) to usesCCOProperty"@en ;
+    owl:versionInfo "Version 3.0.25 - fix PhysicalPaymentCard and PhysicalSocialSecurityCard comments"@en ;
     rdfs:label "Persona Ontology"@en ;
     rdfs:comment """Persona Ontology for the Mee Identity Agent.
                     
@@ -171,12 +171,6 @@ persona:hasSocialNetwork rdf:type owl:ObjectProperty ;
                     not a member of the network; the network contains only the people they
                     relate to."""@en .
 
-persona:holdsPaymentCard rdf:type owl:ObjectProperty ;
-    rdfs:domain persona:Persona ;
-    rdfs:range cco:ent00000049 ;    # Payment Card
-    rdfs:label "holds payment card"@en ;
-    rdfs:comment "Links a Persona to a Payment Card (credit, debit, or other) it records."@en .
-
 
 #################################################################
 #    BirthCertificate Persona — a Persona subtype with name constraints
@@ -192,6 +186,12 @@ persona:BirthCertificate rdf:type owl:Class ;
 #################################################################
 #    Banking-related 
 #################################################################
+
+persona:holdsPaymentCard rdf:type owl:ObjectProperty ;
+    rdfs:domain persona:Persona ;
+    rdfs:range cco:ent00000049 ;    # Payment Card
+    rdfs:label "holds payment card"@en ;
+    rdfs:comment "Links a Persona to a Payment Card (credit, debit, or other) it records."@en .
 
 persona:CheckingAccount rdf:type owl:Class ;
     rdfs:label "Checking Account"@en ;
@@ -225,7 +225,7 @@ persona:hasPassword rdf:type owl:DatatypeProperty ;
 
 
 #################################################################
-#    Physical Belongings
+#    Physical Belongings: Physical cards
 #################################################################
 
 persona:PhysicalCard rdf:type owl:Class ;
@@ -238,15 +238,25 @@ persona:Wallet rdf:type owl:Class ;
     rdfs:label "Wallet"@en ;
     rdfs:comment "A physical wallet that holds cards and other personal documents."@en .
 
-persona:DriversLicense rdf:type owl:Class ;
+persona:PhysicalDriversLicense rdf:type owl:Class ;
     rdfs:subClassOf persona:PhysicalCard ;
-    rdfs:label "Driver's License"@en ;
-    rdfs:comment "A state-issued driver's license card."@en .
+    rdfs:label "Physical Driver's License"@en ;
+    rdfs:comment "A physical (e.g. plastic) state-issued driver's license card."@en .
 
-persona:HealthInsuranceCard rdf:type owl:Class ;
+persona:PhysicalHealthInsuranceCard rdf:type owl:Class ;
     rdfs:subClassOf persona:PhysicalCard ;
-    rdfs:label "Health Insurance Card"@en ;
-    rdfs:comment "A physical health insurance membership card."@en .
+    rdfs:label "Physical Health Insurance Card"@en ;
+    rdfs:comment "A physical (e.g. plastic) health insurance membership card."@en .
+
+persona:PhysicalPaymentCard rdf:type owl:Class ;
+    rdfs:subClassOf persona:PhysicalCard ;
+    rdfs:label "Physical Payment Card"@en ;
+    rdfs:comment "A physical plastic credit or debit card."@en .
+
+persona:PhysicalSocialSecurityCard rdf:type owl:Class ;
+    rdfs:subClassOf persona:PhysicalCard ;
+    rdfs:label "Physical Social Security Card"@en ;
+    rdfs:comment "A paper or plastic card issued by the Social Security Administration."@en .
 
 persona:holdsWallet rdf:type owl:ObjectProperty ;
     rdfs:domain persona:Persona ;
@@ -258,7 +268,7 @@ persona:hasImageScan rdf:type owl:DatatypeProperty ;
     rdfs:domain persona:PhysicalCard ;
     rdfs:range xsd:anyURI ;
     rdfs:label "has image scan"@en ;
-    rdfs:comment "A URI pointing to a scanned image of the physical card."@en .
+    rdfs:comment "A URI pointing to a scanned image of the physical (e.g. plastic, paper) card."@en .
 
 
 #################################################################

@@ -11,7 +11,7 @@
 <http://www.example.org/mia/belongings> rdf:type owl:Ontology ;
     owl:imports <http://mee.foundation/ontologies/persona> ;
     dc:date "2026-05-27"^^xsd:date ;
-    owl:versionInfo "Version 1.0.3 - reverse containment: cards use BFO_0000177 (continuant part of) → Wallet"@en ;
+    owl:versionInfo "Version 1.0.4 - update type assertions to renamed Physical* subclasses"@en ;
     persona:contextType persona:Possession ;
     rdfs:label "Alice Walker - Belongings Persona"@en ;
     rdfs:comment """Alice Walker's belongings persona — physical items she carries day-to-day.
@@ -39,7 +39,7 @@
 
 
 :Alice_DriversLicense rdf:type owl:NamedIndividual ,
-                               persona:DriversLicense ;
+                               persona:PhysicalDriversLicense ;
     rdfs:label "Alice Walker's Driver's License"@en ;
     rdfs:comment "Alice Walker's physical Texas driver's license card."@en ;
     <http://purl.obolibrary.org/obo/BFO_0000177> :Alice_Wallet ;            # continuant part of
@@ -48,7 +48,7 @@
 
 
 :Alice_HealthInsuranceCard rdf:type owl:NamedIndividual ,
-                                    persona:HealthInsuranceCard ;
+                                    persona:PhysicalHealthInsuranceCard ;
     rdfs:label "Alice Walker's Health Insurance Card"@en ;
     rdfs:comment "Alice Walker's physical health insurance membership card."@en ;
     <http://purl.obolibrary.org/obo/BFO_0000177> :Alice_Wallet ;            # continuant part of

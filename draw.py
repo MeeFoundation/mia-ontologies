@@ -44,8 +44,10 @@ LABELS = {
     str(PERSONA.RoutingNumber):         "Routing Number",
     str(PERSONA.PhysicalCard):          "PhysicalCard",
     str(PERSONA.Wallet):                "Wallet",
-    str(PERSONA.DriversLicense):        "DriversLicense",
-    str(PERSONA.HealthInsuranceCard):   "HealthInsuranceCard",
+    str(PERSONA.PhysicalDriversLicense):        "PhysicalDriversLicense",
+    str(PERSONA.PhysicalHealthInsuranceCard):   "PhysicalHealthInsuranceCard",
+    str(PERSONA.PhysicalPaymentCard):           "PhysicalPaymentCard",
+    str(PERSONA.PhysicalSocialSecurityCard):    "PhysicalSocialSecurityCard",
     # persona: properties
     str(PERSONA.holdsPaymentCard):      "holdsPaymentCard",
     str(PERSONA.holdsBankAccount):      "holdsBankAccount",
