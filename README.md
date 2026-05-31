@@ -34,8 +34,8 @@ Built on **BFO** (Basic Formal Ontology) and **CCO** (Common Core Ontologies), s
 
 A person's data is split across a **selfness** file and multiple **context files**, one per relationship or institutional context. Most names and all identifiers belong to context-specific Personas; the one exception is a preferred/goes-by name, which lives on the selfness as it applies across all contexts.
 
-| File | Context | Key data |
-|------|---------|----------|
+| File | Context type | Key data |
+|------|-------------|----------|
 | `att.ttl` | Company | Phone number |
 | `belongings.ttl` | Possession | Wallet containing driver's license and health insurance card (with image scans) |
 | `boston.ttl` | Municipality | Previous address — Boston, MA (2020–2025) with temporal interval |
