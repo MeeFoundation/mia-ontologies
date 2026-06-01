@@ -22,6 +22,8 @@ A person's selfness is their essential individuality or unique selfhood represen
 
 Rather than being a kind of Person, a `persona:Persona` is an **Information Content Entity** (CCO `ont00000958`) — a context-specific facet *of* a Person. Personas are linked to the Person entity in `self.ttl` via `persona:hasPersona`, a subproperty of CCO `is subject of` (`ont00001801`). Each Persona carries only the data relevant to its specific context.
 
+![Persona model](images/persona.png)
+
 ## Contexts
 
 Each context file carries a single Persona and is tagged with three orthogonal annotation properties that together classify its nature. All three are applied to the ontology IRI, not to the Persona individual.
