@@ -22,9 +22,29 @@ A person's selfness is their essential individuality or unique selfhood represen
 
 Rather than being a kind of Person, a `persona:Persona` is an **Information Content Entity** (CCO `ont00000958`) — a context-specific facet *of* a Person. Personas are linked to the Person entity in `self.ttl` via `persona:hasPersona`, a subproperty of CCO `is subject of` (`ont00001801`). Each Persona carries only the data relevant to its specific context.
 
+## Contexts
+
+Each context file carries a single Persona and is tagged with three orthogonal annotation properties that together classify its nature. All three are applied to the ontology IRI, not to the Persona individual.
+
+**`persona:contextType`** — The kind of relationship the context represents. Values form a subclass hierarchy under `persona:Context`:
+- `persona:Company` — a relationship with a company or institution (e.g. a bank, a phone carrier)
+- `persona:Government` and subtypes `Federal`, `State`, `Municipality` — a government relationship
+- `persona:People` and subtypes `Family`, `Colleagues`, etc. — a relationship with other people
+- `persona:Possession` — personal belongings
+
+**`persona:assertionType`** — Who is making the assertion:
+- `persona:SelfAsserted` — the person themselves is recording the data, even if the underlying information originates from a third party such as a bank or government agency
+- `persona:OtherAsserted` — a third party is asserting the data directly
+
+**`persona:subject`** — Whose identity the context file describes:
+- `persona:Self` — the file is about the identity owner
+- `persona:Other` — the file is about another person or entity
+
+For example, Alice's `texas-birth-certificate.ttl` is `contextType: State`, `assertionType: SelfAsserted`, `subject: Self` — a state government context recorded by Alice, about Alice. Her `florida-birth-certificate.ttl` is `contextType: State`, `assertionType: SelfAsserted`, `subject: Other` — also recorded by Alice, but describing her mother Paula.
+
 ## Ontology Files
 
-- **`persona.ttl`** — The application ontology. Imports the domain ontologies above and documents which classes and properties Mee uses (required vs. optional). Also defines Mee-specific extension properties (`persona:hasSocialNetwork`, `persona:hasPaymentCard`, `persona:hasPersona`), the Persona context hierarchy, and two annotation properties for tagging context files: `persona:contextType` (relationship kind) and `persona:assertionType` (`SelfAsserted` or `OtherAsserted`).
+- **`persona.ttl`** — The application ontology. Imports the domain ontologies above and documents which classes and properties Mee uses (required vs. optional). Also defines Mee-specific extension properties (`persona:hasSocialNetwork`, `persona:hasPaymentCard`, `persona:hasPersona`), the Persona context hierarchy, and three annotation properties for tagging context files: `persona:contextType`, `persona:assertionType`, and `persona:subject` (see **Contexts** above).
 
 - **`persona-shacl.ttl`** — SHACL constraint rules defining how instance data must be structured. Validates:
   - *BirthCertificate Personas*: FullName OR (GivenName + FamilyName) required; optional AdditionalName, AlternateName, Nickname, Legal Name
