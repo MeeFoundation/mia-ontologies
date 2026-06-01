@@ -90,15 +90,26 @@ A `p:Persona` with `contextType: p:Possession` models the physical items a perso
 * `p:PhysicalSocialSecurityCard` (subclass of `p:PhysicalCard`) — a paper or plastic card issued by the Social Security Administration.
 * `p:Wallet` — a physical wallet that holds cards, money, and other personal documents.
 
-## Banking & Accounts
+## Accounts
 
-Persona models bank accounts and online service credentials.
+An online service account (`OnlineServiceAccount`, CCO `ont00000033`) records a person's credentials and identity with an online service provider such as Google or AT&T.
+
+**Properties**
+
+* `holds user account` (CCO) — links a `p:Persona` to an `OnlineServiceAccount`.
+* `has service name` (CCO) — the name of the online service (e.g. "Google").
+* `has service URI` (CCO) — the URI of the online service.
+* `has user handle` (CCO) — the user's handle or username on the service.
+* `p:hasPassword` — the password credential for an `OnlineServiceAccount` (Persona ontology extension).
+
+## Banking
+
+A bank account is modeled as a `p:CheckingAccount` linked to a `p:Persona` and accessed via a debit card. Builds on the Accounts model above.
 
 **Properties**
 
 * `p:hasBankAccount` — links a `p:Persona` to a `p:CheckingAccount` it records.
 * `p:accessesBankAccount` — links a DebitCard to the `p:CheckingAccount` it draws funds from.
-* `p:hasPassword` — the password credential for an `OnlineServiceAccount` (CCO `ont00000033`).
 
 **Classes**
 
