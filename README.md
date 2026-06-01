@@ -137,8 +137,6 @@ The repository includes a worked example for a hypothetical person, Alice Walker
 
 Within Alice's self, `example/alice/self.ttl`, is `:Alice_Walker-Self`, a `Person` entity. She also has an entity representing her mother, `:Paula_Walker-Self`.
 
-Her `Person` is linked to multiple `p:Persona` facets in separate context files. For example `:Alice_Walker-Citibank` is the facet of Alice in the context of her interactions with Citibank--most notably as the issuer of her debit card.
-
 <p align="center"><img src="images/alice/alice(self).png" alt="Alice's self"></p>
 
 Each context file is an independent `owl:Ontology` linked to a `Person` entity in `example/alice/self.ttl` via `p:hasPersona`. All context files are `p:assertionType p:SelfAsserted` — Alice is the one recording all of this data, even when the underlying information originates from a third party.
