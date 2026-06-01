@@ -16,7 +16,7 @@ Built on **BFO** (Basic Formal Ontology) and **CCO** (Common Core Ontologies) as
 
 Throughout this document, `p:` is used as shorthand for the `persona:` namespace (`http://mee.foundation/ontologies/persona#`).
 
-## One `Person`, Multiple Personas
+## One Person, Multiple Personas
 
 We represent a person as a combination of a single `Person` entity representing their **selfness** and multiple **context files**, one per relationship or institutional context.
 
@@ -29,6 +29,7 @@ Rather than being a kind of `Person`, a `p:Persona` is an **Information Content 
 **Properties**
 
 * `p:hasPersona` — links a `Person` (one's "selfness", essential individuality, or a sense of one's own unique personality and identity) to one of their context-specific `p:Persona` instances.
+* `p:hasPhysicalCard` — links a `p:Persona` to a `p:PhysicalCard` carried outside of a wallet (see Belongings below).
 * `p:hasWallet` — links a `p:Persona` to a physical wallet (see Belongings below).
 
 **Classes**
