@@ -16,6 +16,20 @@ Built on **BFO** (Basic Formal Ontology) and **CCO** (Common Core Ontologies) as
 
 Throughout this document, `p:` is used as shorthand for the `persona:` namespace (`http://mee.foundation/ontologies/persona#`).
 
+## Ontology Files
+
+- **`persona.ttl`** — The application ontology. Imports the domain ontologies above and documents which classes and properties Mee uses (required vs. optional). Also defines Mee-specific extension properties (`p:hasSocialNetwork`, `p:hasPaymentCard`, `p:hasPersona`), the `p:Persona` context hierarchy, and three annotation properties for tagging context files: `p:contextType`, `p:assertionType`, and `p:subject` (see **Contexts** above).
+
+- **`persona-shacl.ttl`** — SHACL constraint rules defining how instance data must be structured. Validates:
+  - *`p:BirthCertificate` `p:Persona` instances*: FullName OR (GivenName + FamilyName) required; optional AdditionalName, AlternateName, Nickname, Legal Name
+  - *All `p:Persona` instances*: SSN format (`NNN-NN-NNNN`), email format, phone (E.164), address cardinality, payment cards, wallet
+  - *US Postal Address*: required street, city, state (USPS 2-letter), ZIP; optional country
+  - *`Person` (selfness)*: scalp hair (0..1); `has mother` / `is mother of` range must be a `Person`
+  - *Social Network*: sub-groups (via `has part`) must be Social Networks; members (via `has member part`) must be `p:Persona` instances
+  - *Debit Card*: card number and expiration date required; CVV optional
+  - *`p:Wallet`*: items declaring themselves `continuant part of` this wallet must be `p:PhysicalCard` instances
+  - *`p:PhysicalCard`*: image scan, if present, must be `xsd:anyURI` (max 1); `continuant part of` target, if present, must be a `p:Wallet` (max 1)
+
 ## One Person, Multiple Personas
 
 We represent a person as a combination of a single `Person` entity representing their **selfness** and multiple **context files**, one per relationship or institutional context.
@@ -116,20 +130,6 @@ A bank account is modeled as a `p:CheckingAccount` linked to a `p:Persona` and a
 * `p:CheckingAccount` — a bank checking account held by a person, linked to a debit card.
 * `p:CheckingAccountNumber` — an identifier designating a bank checking account, connected via `designated by` (`ont00001879`).
 * `p:RoutingNumber` — an ABA routing transit number identifying the financial institution, connected via `designated by`.
-
-## Ontology Files
-
-- **`persona.ttl`** — The application ontology. Imports the domain ontologies above and documents which classes and properties Mee uses (required vs. optional). Also defines Mee-specific extension properties (`p:hasSocialNetwork`, `p:hasPaymentCard`, `p:hasPersona`), the `p:Persona` context hierarchy, and three annotation properties for tagging context files: `p:contextType`, `p:assertionType`, and `p:subject` (see **Contexts** above).
-
-- **`persona-shacl.ttl`** — SHACL constraint rules defining how instance data must be structured. Validates:
-  - *`p:BirthCertificate` `p:Persona` instances*: FullName OR (GivenName + FamilyName) required; optional AdditionalName, AlternateName, Nickname, Legal Name
-  - *All `p:Persona` instances*: SSN format (`NNN-NN-NNNN`), email format, phone (E.164), address cardinality, payment cards, wallet
-  - *US Postal Address*: required street, city, state (USPS 2-letter), ZIP; optional country
-  - *`Person` (selfness)*: scalp hair (0..1); `has mother` / `is mother of` range must be a `Person`
-  - *Social Network*: sub-groups (via `has part`) must be Social Networks; members (via `has member part`) must be `p:Persona` instances
-  - *Debit Card*: card number and expiration date required; CVV optional
-  - *`p:Wallet`*: items declaring themselves `continuant part of` this wallet must be `p:PhysicalCard` instances
-  - *`p:PhysicalCard`*: image scan, if present, must be `xsd:anyURI` (max 1); `continuant part of` target, if present, must be a `p:Wallet` (max 1)
 
 ## Illustrative Example: Alice Walker
 
