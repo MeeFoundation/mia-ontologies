@@ -18,46 +18,46 @@ Built on **BFO** (Basic Formal Ontology) and **CCO** (Common Core Ontologies) as
 
 We represent a person as a combination of a single Person entity representing their **selfness** and multiple **context files**, one per relationship or institutional context.
 
-A person's selfness is their essential individuality or unique selfhood represented by the Person entity in `self.ttl`. The selfness carries very few properties: only physical attributes and parent-child relationships. Most importantly, it carries `persona:hasPersona` links to context-specific Personas. Most names and all identifiers belong to those context-specific Personas; the one exception is a preferred/goes-by name, which lives in `self.ttl` as it applies across all contexts.
+A person's selfness is their essential individuality or unique selfhood represented by a `Person` entity. The Person carries very few properties: only physical attributes and parent-child relationships. Most importantly, it carries `persona:hasPersona` links to context-specific `Personas`. Most names and all identifiers belong to those context-specific Personas; the one exception is a preferred/goes-by name, which belongs to the Person entity because it applies across all contexts.
 
-Rather than being a kind of Person, a `persona:Persona` is an **Information Content Entity** (CCO `ont00000958`) — a context-specific facet *of* a Person. Personas are linked to the Person entity in `self.ttl` via `persona:hasPersona`, a subproperty of CCO `is subject of` (`ont00001801`). Each Persona carries only the data relevant to its specific context.
+Rather than being a kind of Person, a `persona:Persona` is an **Information Content Entity** (CCO `ont00000958`) — a context-specific facet *of* a Person. Personas are linked to the Person entity via `persona:hasPersona`, a subproperty of CCO `is subject of` (`ont00001801`). Each Persona carries only the data relevant to its specific context.
 
 <p align="center"><img src="images/persona.png" alt="Persona model"></p>
 
 **Properties**
 
-* `persona:hasPersona` — links a Person (one's "selfness", essential individuality, or a sense of one's own unique personality and identity) to one of their context-specific Personas (whonesses).
-* `persona:hasWallet` — links a Persona to a physical wallet (see Wallets below)
+* `persona:hasPersona` — links a Person (one's "selfness", essential individuality, or a sense of one's own unique personality and identity) to one of their context-specific Personas.
+* `persona:hasWallet` — links a Persona to a physical wallet (see Wallets below).
 
 **Classes**
 
-* `persona:Persona` — an Information Content Entity that represents how a Person appears in the context of a specific interaction — with a company, government agency, another person, or a group of people. A Persona is not itself a Person; it is a profile, or whoness, that is about a Person. A Person may have multiple Personas, linked via `persona:hasPersona`.
-* `persona:Context` — Controlled vocabulary for the kind of interaction context a context file represents. Used as the value of `persona:contextType` on ontology IRIs.
-* `persona:BirthCertificate` — a Persona subtype whose purpose is to carry a person's legal birth name record as issued by a state.
+* `persona:Persona` — an Information Content Entity that represents how a person appears in the context of a specific interaction — with a company, government agency, another person, or a group of people. A Persona is a context-specific facet of that person linked via `persona:hasPersona`.
+* `persona:Context` — Controlled vocabulary for the kind of interaction context. Used as the value of `persona:contextType` on ontology IRIs.
+* `persona:BirthCertificate` — a `Persona` subtype whose purpose is to carry a person's legal birth name record as issued by a state agency.
 
 ## Contexts
 
-Each context file carries a single Persona and is tagged with three orthogonal annotation properties that together classify its nature. All three are applied to the ontology IRI.
+Each context contains a single `Persona`, and is tagged with three orthogonal annotation properties that together classify its nature. All three are applied to the ontology IRI.
 
-**`persona:contextType`** — The kind of relationship the context represents. Values form a subclass hierarchy under `persona:Context`:
-- `persona:Company` — a relationship with a company or institution (e.g. a bank, a phone carrier)
-- `persona:Government` and subtypes `Federal`, `State`, `Municipality` — a government relationship
-- `persona:People` and subtypes `Family`, `Colleagues`, etc. — a relationship with other people
-- `persona:Possession` — personal belongings
+**`persona:contextType`** — The nature of the interaction/relationship context. Values form a subclass hierarchy under `persona:Context`:
+- `persona:Company` — a relationship with a company or institution (e.g. a bank, or other service provider).
+- `persona:Government` and subtypes `Federal`, `State`, `Municipality` — a government relationship.
+- `persona:People` and subtypes `Family`, `Colleagues`, etc. — a relationship with other people.
+- `persona:Possession` — a person's belongings in the real world.
 
 <p align="center"><img src="images/persona-context.png" alt="contextType hierarchy"></p>
 
-Each context is represented by an `owl:Ontology`.
-
+Contexts can contain self-asserted or other-asserted information:
 **`persona:assertionType`** — Who is making the assertion:
-- `persona:SelfAsserted` — the person themselves is recording the data, even if the underlying information originates from a third party such as a bank or government agency
-- `persona:OtherAsserted` — a third party is asserting the data directly
+- `persona:SelfAsserted` — the Mia user is recording the data (using Mia), even if the underlying information originates from some other party such as a company, government agency, or another person.
+- `persona:OtherAsserted` — another person, company or government agency is asserting the data directly
 
 <p align="center"><img src="images/persona-assertionType.png" alt="assertionType hierarchy"></p>
 
+Contexts may be about the Mia user or about someone else or some other entity:
 **`persona:subject`** — Whose identity the context file describes:
-- `persona:Self` — the file is about the identity owner
-- `persona:Other` — the file is about another person or entity
+- `persona:Self` — the file is about the Mia user
+- `persona:Other` — the file is about another person, company or government agency.
 
 <p align="center"><img src="images/persona-subject.png" alt="subject hierarchy"></p>
 
