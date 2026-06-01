@@ -107,6 +107,10 @@ shaclvalidate -datafile example/alice/self.ttl -shapesfile persona-shacl.ttl
 
 **Protégé**: Load `persona.ttl`; Protégé will import the domain ontologies via IRI resolution. Use the reasoner (HermiT/Pellet) to check consistency.
 
+## README Coverage
+
+When checking what is or isn't documented in `README.md`, it is intentional and acceptable to omit the internal ontology documentation annotation properties (`usesRequiredClass`, `usesOptionalClass`, `usesCCOClass`, `usesCCOProperty`, `usagePattern`). These are infrastructure for self-documenting the ontology, not user-facing terms.
+
 ## Gitignore Notes
 
 `catalog-v001.xml` and `/project_files` are gitignored (Protégé IDE artifacts). The `project_files/` directory exists locally but is not tracked — it contains source domain ontologies and reference documents.

@@ -16,9 +16,9 @@ Built on **BFO** (Basic Formal Ontology) and **CCO** (Common Core Ontologies) as
 
 ## One Person, Multiple Personas
 
-We represent a person as a combination of a single Person entity representing their **selfness** and multiple **context files**, one per relationship or institutional context.
+We represent a person as a combination of a single `Person` entity representing their **selfness** and multiple **context files**, one per relationship or institutional context.
 
-A person's selfness is their essential individuality or unique selfhood represented by a `Person` entity. The Person carries very few properties: only physical attributes and parent-child relationships. Most importantly, it carries `persona:hasPersona` links to context-specific `Personas`. Most names and all identifiers belong to those context-specific Personas; the one exception is a preferred/goes-by name, which belongs to the Person entity because it applies across all contexts.
+A person's selfness is their essential individuality or unique selfhood represented by this one central `Person` entity. The `Person` carries very few properties: only physical attributes and parent-child relationships. Most importantly, it carries `persona:hasPersona` links to context-specific `Personas`. Most names and all identifiers belong to those context-specific Personas; the one exception is a preferred/goes-by name, which belongs to the Person entity because it applies across all contexts.
 
 Rather than being a kind of Person, a `persona:Persona` is an **Information Content Entity** (CCO `ont00000958`) — a context-specific facet *of* a Person. Personas are linked to the Person entity via `persona:hasPersona`, a subproperty of CCO `is subject of` (`ont00001801`). Each Persona carries only the data relevant to its specific context.
 
@@ -26,8 +26,8 @@ Rather than being a kind of Person, a `persona:Persona` is an **Information Cont
 
 **Properties**
 
-* `persona:hasPersona` — links a Person (one's "selfness", essential individuality, or a sense of one's own unique personality and identity) to one of their context-specific Personas.
-* `persona:hasWallet` — links a Persona to a physical wallet (see Wallets below).
+* `persona:hasPersona` — links a `Person` (one's "selfness", essential individuality, or a sense of one's own unique personality and identity) to one of their context-specific Personas.
+* `persona:hasWallet` — links a `Persona` to a physical wallet (see Belongings below).
 
 **Classes**
 
