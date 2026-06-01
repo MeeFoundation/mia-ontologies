@@ -20,31 +20,32 @@ Throughout this document, `p:` is used as shorthand for the `persona:` namespace
 
 We represent a person as a combination of a single `Person` entity representing their **selfness** and multiple **context files**, one per relationship or institutional context.
 
-A person's selfness is their essential individuality or unique selfhood represented by this one central `Person` entity. The `Person` carries very few properties: only physical attributes and parent-child relationships. Most importantly, it carries `p:hasPersona` links to context-specific `Personas`. Most names and all identifiers belong to those context-specific Personas; the one exception is a preferred/goes-by name, which belongs to the Person entity because it applies across all contexts.
+A person's selfness is their essential individuality or unique selfhood represented by this one central `Person` entity. The `Person` carries very few properties: only physical attributes and parent-child relationships. Most importantly, it carries `p:hasPersona` links to context-specific `p:Persona` instances. Most names and all identifiers belong to those context-specific `p:Persona` instances; the one exception is a preferred/goes-by name, which belongs to the Person entity because it applies across all contexts.
 
-Rather than being a kind of Person, a `p:Persona` is an **Information Content Entity** (CCO `ont00000958`) — a context-specific facet *of* a Person. Personas are linked to the Person entity via `p:hasPersona`, a subproperty of CCO `is subject of` (`ont00001801`). Each Persona carries only the data relevant to its specific context.
+Rather than being a kind of Person, a `p:Persona` is an **Information Content Entity** (CCO `ont00000958`) — a context-specific facet *of* a Person. `p:Persona` instances are linked to the Person entity via `p:hasPersona`, a subproperty of CCO `is subject of` (`ont00001801`). Each `p:Persona` carries only the data relevant to its specific context.
 
 <p align="center"><img src="images/persona.png" alt="Persona model"></p>
 
 **Properties**
 
-* `p:hasPersona` — links a `Person` (one's "selfness", essential individuality, or a sense of one's own unique personality and identity) to one of their context-specific Personas.
-* `p:hasWallet` — links a `Persona` to a physical wallet (see Belongings below).
+* `p:hasPersona` — links a `Person` (one's "selfness", essential individuality, or a sense of one's own unique personality and identity) to one of their context-specific `p:Persona` instances.
+* `p:hasWallet` — links a `p:Persona` to a physical wallet (see Belongings below).
 
 **Classes**
 
-* `p:Persona` — an Information Content Entity that represents how a person appears in the context of a specific interaction — with a company, government agency, another person, or a group of people. A Persona is a context-specific facet of that person linked via `p:hasPersona`.
+* `p:Persona` — an Information Content Entity that represents how a person appears in the context of a specific interaction — with a company, government agency, another person, or a group of people. A `p:Persona` is a context-specific facet of that person linked via `p:hasPersona`.
 * `p:Context` — Controlled vocabulary for the kind of interaction context. Used as the value of `p:contextType` on ontology IRIs.
-* `p:BirthCertificate` — a `Persona` subtype whose purpose is to carry a person's legal birth name record as issued by a state agency.
+* `p:BirthCertificate` — a `p:Persona` subtype whose purpose is to carry a person's legal birth name record as issued by a state agency.
 
 ## Contexts
 
-Each context contains a single `Persona`, and is tagged with three orthogonal annotation properties that together classify its nature. All three are applied to the ontology IRI.
+Each context contains a single `p:Persona`, and is tagged with three orthogonal annotation properties that together classify its nature. All three are applied to the ontology IRI.
 
 **`p:contextType`** — The nature of the interaction/relationship context. Values form a subclass hierarchy under `p:Context`:
+
 - `p:Company` — a relationship with a company or institution (e.g. a bank, or other service provider).
-- `p:Government` and subtypes `Federal`, `State`, `Municipality` — a government relationship.
-- `p:People` and subtypes `Family`, `Colleagues`, `Friends`, `Consultants`, `Other` — a relationship with other people.
+- `p:Government` and subtypes `p:Federal`, `p:State`, `p:Municipality` — a government relationship.
+- `p:People` and subtypes `p:Family`, `p:Colleagues`, `p:Friends`, `p:Consultants`, `p:Other` — a relationship with other people.
 - `p:Possession` — a person's belongings in the real world.
 - `p:Career` — professional roles, employment history, and career relationships.
 - `p:Project` — involvement in a specific project or initiative.
@@ -55,6 +56,7 @@ Each context contains a single `Persona`, and is tagged with three orthogonal an
 <p align="center"><img src="images/persona-context.png" alt="contextType hierarchy"></p>
 
 Contexts can contain self-asserted or other-asserted information:
+
 **`p:assertionType`** — Who is making the assertion. Values are subclasses of `p:AssertionType`:
 - `p:SelfAsserted` — the Mia user is recording the data (using Mia), even if the underlying information originates from some other party such as a company, government agency, or another person.
 - `p:OtherAsserted` — another person, company or government agency is asserting the data directly
@@ -62,6 +64,7 @@ Contexts can contain self-asserted or other-asserted information:
 <p align="center"><img src="images/persona-assertionType.png" alt="assertionType hierarchy"></p>
 
 Contexts may be about the Mia user or about someone else or some other entity:
+
 **`p:subject`** — Whose identity the context file describes. Values are subclasses of `p:SubjectType`:
 - `p:Self` — the file is about the Mia user
 - `p:Other` — the file is about another person, company or government agency.
@@ -70,24 +73,24 @@ Contexts may be about the Mia user or about someone else or some other entity:
 
 ## Belongings
 
-A Persona with `contextType: p:Possession` models the physical items a person carries or stores — their wallet, payment cards, driver's license, health insurance card, and other documents. Physical cards are `MaterialArtifact` subclasses and may be placed inside a wallet (via BFO `continuant part of`) or held directly by the Persona (via `p:hasPhysicalCard`). When a future context file creates a Persona for a card-issuing institution (e.g. a DMV), the corresponding physical card links back to that Persona using BFO `is carrier of`.
+A `p:Persona` with `contextType: p:Possession` models the physical items a person carries or stores — their wallet, payment cards, driver's license, health insurance card, and other documents. Physical cards are `MaterialArtifact` subclasses and may be placed inside a wallet (via BFO `continuant part of`) or held directly by the `p:Persona` (via `p:hasPhysicalCard`). When a future context file creates a `p:Persona` for a card-issuing institution (e.g. a DMV), the corresponding physical card links back to that `p:Persona` using BFO `is carrier of`.
 
 <p align="center"><img src="images/persona-card.png" alt="Belongings model"></p>
 
 **Properties**
 
-* `is carrier of` (from BFO) — used to link a physical card to its corresponding Persona in another context.
-* `p:hasPhysicalCard` — links a Persona to a PhysicalCard carried outside of a wallet (e.g. stored at home or kept separately).
-* `p:hasWallet` — links a Persona to the physical wallet they carry.
+* `is carrier of` (from BFO) — used to link a physical card to its corresponding `p:Persona` in another context.
+* `p:hasPhysicalCard` — links a `p:Persona` to a `p:PhysicalCard` carried outside of a wallet (e.g. stored at home or kept separately).
+* `p:hasWallet` — links a `p:Persona` to the physical wallet they carry.
 * `p:hasImageScan` — a link to a scanned image of this card.
 
 **Classes**
 
 * `p:PhysicalCard` — a physical plastic or paper card held in a wallet.
-* `p:PhysicalHealthInsuranceCard` (subclass of PhysicalCard) — a physical health insurance membership card.
-* `p:PhysicalDriversLicense` (subclass of PhysicalCard) — a state-issued driver's license card.
-* `p:PhysicalPaymentCard` (subclass of PhysicalCard) — a physical credit or debit card.
-* `p:PhysicalSocialSecurityCard` (subclass of PhysicalCard) — a paper or plastic card issued by the Social Security Administration.
+* `p:PhysicalHealthInsuranceCard` (subclass of `p:PhysicalCard`) — a physical health insurance membership card.
+* `p:PhysicalDriversLicense` (subclass of `p:PhysicalCard`) — a state-issued driver's license card.
+* `p:PhysicalPaymentCard` (subclass of `p:PhysicalCard`) — a physical credit or debit card.
+* `p:PhysicalSocialSecurityCard` (subclass of `p:PhysicalCard`) — a paper or plastic card issued by the Social Security Administration.
 * `p:Wallet` — a physical wallet that holds cards, money, and other personal documents.
 
 ## Banking & Accounts
@@ -96,7 +99,7 @@ Persona models bank accounts and online service credentials.
 
 **Properties**
 
-* `p:hasBankAccount` — links a Persona to a `p:CheckingAccount` it records.
+* `p:hasBankAccount` — links a `p:Persona` to a `p:CheckingAccount` it records.
 * `p:accessesBankAccount` — links a DebitCard to the `p:CheckingAccount` it draws funds from.
 * `p:hasPassword` — the password credential for an `OnlineServiceAccount` (CCO `ont00000033`).
 
@@ -108,17 +111,17 @@ Persona models bank accounts and online service credentials.
 
 ## Ontology Files
 
-- **`persona.ttl`** — The application ontology. Imports the domain ontologies above and documents which classes and properties Mee uses (required vs. optional). Also defines Mee-specific extension properties (`p:hasSocialNetwork`, `p:hasPaymentCard`, `p:hasPersona`), the Persona context hierarchy, and three annotation properties for tagging context files: `p:contextType`, `p:assertionType`, and `p:subject` (see **Contexts** above).
+- **`persona.ttl`** — The application ontology. Imports the domain ontologies above and documents which classes and properties Mee uses (required vs. optional). Also defines Mee-specific extension properties (`p:hasSocialNetwork`, `p:hasPaymentCard`, `p:hasPersona`), the `p:Persona` context hierarchy, and three annotation properties for tagging context files: `p:contextType`, `p:assertionType`, and `p:subject` (see **Contexts** above).
 
 - **`persona-shacl.ttl`** — SHACL constraint rules defining how instance data must be structured. Validates:
-  - *BirthCertificate Personas*: FullName OR (GivenName + FamilyName) required; optional AdditionalName, AlternateName, Nickname, Legal Name
-  - *All Personas*: SSN format (`NNN-NN-NNNN`), email format, phone (E.164), address cardinality, payment cards, wallet
+  - *`p:BirthCertificate` `p:Persona` instances*: FullName OR (GivenName + FamilyName) required; optional AdditionalName, AlternateName, Nickname, Legal Name
+  - *All `p:Persona` instances*: SSN format (`NNN-NN-NNNN`), email format, phone (E.164), address cardinality, payment cards, wallet
   - *US Postal Address*: required street, city, state (USPS 2-letter), ZIP; optional country
   - *Person (selfness)*: scalp hair (0..1); `has mother` / `is mother of` range must be a Person
-  - *Social Network*: sub-groups (via `has part`) must be Social Networks; members (via `has member part`) must be Personas
+  - *Social Network*: sub-groups (via `has part`) must be Social Networks; members (via `has member part`) must be `p:Persona` instances
   - *Debit Card*: card number and expiration date required; CVV optional
-  - *Wallet*: items declaring themselves `continuant part of` this wallet must be PhysicalCards
-  - *PhysicalCard*: image scan, if present, must be `xsd:anyURI` (max 1); `continuant part of` target, if present, must be a Wallet (max 1)
+  - *`p:Wallet`*: items declaring themselves `continuant part of` this wallet must be `p:PhysicalCard` instances
+  - *`p:PhysicalCard`*: image scan, if present, must be `xsd:anyURI` (max 1); `continuant part of` target, if present, must be a `p:Wallet` (max 1)
 
 ## Illustrative Example: Alice Walker
 
@@ -126,7 +129,7 @@ The repository includes a worked example for a hypothetical person, Alice Walker
 
 Within Alice's self, `example/alice/self.ttl`, is `:Alice_Walker-Self`, a Person entity. She also has an entity representing her mother, `:Paula_Walker-Self`. 
 
-Her Person is linked to multiple `Persona` facets in separate context files. For example `:Alice_Walker-Citibank` is the facet of Alice in the context of her interactions with Citibank--most notably as the issuer of her debit card.
+Her Person is linked to multiple `p:Persona` facets in separate context files. For example `:Alice_Walker-Citibank` is the facet of Alice in the context of her interactions with Citibank--most notably as the issuer of her debit card.
 
 <p align="center"><img src="images/alice/alice(self).png" alt="Alice's self"></p>
 
@@ -160,15 +163,15 @@ For the following context, `p:subject = Other` - that is, they are about another
 |:-------------|:-------------|:---------|:------|
 | `florida-birth-certificate.ttl` | State (FL) | Legal names | [view](images/paula-contexts/paula(florida-birth-certificate).png) |
 
-For example, Alice's `texas-birth-certificate.ttl` is `contextType: State`, `assertionType: SelfAsserted`, `subject: Self` — a state government context recorded by Alice, about Alice. Her `florida-birth-certificate.ttl` is `contextType: State`, `assertionType: SelfAsserted`, `subject: Other` — also recorded by Alice, but describing her mother Paula.
+For example, Alice's `texas-birth-certificate.ttl` is `p:contextType: p:State`, `p:assertionType: p:SelfAsserted`, `p:subject: p:Self` — a state government context recorded by Alice, about Alice. Her `florida-birth-certificate.ttl` is `p:contextType: p:State`, `p:assertionType: p:SelfAsserted`, `p:subject: p:Other` — also recorded by Alice, but describing her mother Paula.
 
 ## Design Patterns
 
-**Physical cards**: When a future context file creates a Persona for a credential issuer (e.g. DMV), the corresponding physical card in `belongings.ttl` links back using BFO `is carrier of` (`BFO_0000101`): the PhysicalCard individual is the carrier of the Persona (ICE).
+**Physical cards**: When a future context file creates a `p:Persona` for a credential issuer (e.g. DMV), the corresponding physical card in `belongings.ttl` links back using BFO `is carrier of` (`BFO_0000101`): the `p:PhysicalCard` individual is the carrier of the `p:Persona` (ICE).
 
-**Peer name pattern**: All name types (FullName, GivenName, FamilyName, AlternateName) connect directly to a Person or Persona via `designated by` (`ont00001879`). They are siblings, not nested under a PersonName parent. Legal names belong to BirthCertificate Personas; a preferred/goes-by name lives in `self.ttl` since it applies across all contexts.
+**Peer name pattern**: All name types (FullName, GivenName, FamilyName, AlternateName) connect directly to a Person or `p:Persona` via `designated by` (`ont00001879`). They are siblings, not nested under a PersonName parent. Legal names belong to `p:BirthCertificate` `p:Persona` instances; a preferred/goes-by name lives in `self.ttl` since it applies across all contexts.
 
-**Address history**: Each address Persona carries a USPostalAddress and an `AddressDesignation` with a `TemporalInterval` (start date required; no end date = current address).
+**Address history**: Each address `p:Persona` carries a USPostalAddress and an `AddressDesignation` with a `TemporalInterval` (start date required; no end date = current address).
 
 ## Diagrams
 
@@ -185,7 +188,7 @@ pip install rdflib graphviz
 brew install graphviz
 ```
 
-Each diagram shows the Persona individual (yellow), supporting named individuals (white boxes), class labels (plain text), blank-node designator chains, and literal values (green).
+Each diagram shows the `p:Persona` individual (yellow), supporting named individuals (white boxes), class labels (plain text), blank-node designator chains, and literal values (green).
 
 ## Validation
 
