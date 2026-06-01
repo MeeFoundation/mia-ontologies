@@ -107,8 +107,12 @@ Her Person has is linked to multiple `Persona` facets in separate context files.
 
 Each context file is an independent `owl:Ontology` linked to a Person entity in via `persona:hasPersona`. All context files are `persona:assertionType persona:SelfAsserted` — Alice is the one recording all of this data, even when the underlying information originates from a third party.
 
+Alice's `self.ttl`` also describes some physical characteristics of Alice shown below:
+
+<p align="center"><img src="images/alice/alice(self)+physical.png" alt="Alice's physical characteristics"></p>
+
 ### Alice Walker 
-For the following contexts, `persona:subject` = `Self` --that is, the contexts are about Alice.
+As we've mentioned, Alice interacts in a set of contexts. In the following each context carries `persona:subject = Self` which indicates that they are about Alice.
 
 | Context file | Context type | Key data | Image |
 |:-------------|:-------------|:---------|:------|
@@ -125,7 +129,7 @@ For the following contexts, `persona:subject` = `Self` --that is, the contexts a
 
 ### Paula Walker 
 
-For the following context, `persona:subject` = `Other` --that is, the contexts are about another person or entity. In this case her mother Paula Walker.
+For the following context, `persona:subject = Other` --that is, they are about another person or entity. In this case, her mother Paula Walker.
 
 | Context file | Context type | Key data | Image |
 |:-------------|:-------------|:---------|:------|
