@@ -24,6 +24,17 @@ Rather than being a kind of Person, a `persona:Persona` is an **Information Cont
 
 <p align="center"><img src="images/persona.png" alt="Persona model"></p>
 
+**Properties**
+
+* **hasPersona** - links a Person (one's "selfness", essential individuality, or a sense of one's own unique personality and identity) to one of their context-specific Personas (whonesses).
+* **hasWallet** - links a Persona to a physical wallet (see Wallets below)
+
+**Classes**
+
+* **Persona** - an Information Content Entity that represents how a Person appears in the context of a specific interaction — with a company, government agency, another person, or a group of people. A Persona is not itself a Person; it is a profile, or whoness, that is about a Person. A Person may have multiple Personas, linked via `persona:hasPersona`.
+* **Context** - Controlled vocabulary for the kind of interaction context a context file represents. Used as the value of `persona:contextType` on ontology IRIs.
+* **BirthCertificate** - a Persona subtype whose purpose is to carry a person's legal birth name record as issued by a state.
+
 ## Contexts
 
 Each context file carries a single Persona and is tagged with three orthogonal annotation properties that together classify its nature. All three are applied to the ontology IRI, not to the Persona individual.
@@ -35,6 +46,16 @@ Each context file carries a single Persona and is tagged with three orthogonal a
 - `persona:Possession` — personal belongings
 
 <p align="center"><img src="images/persona-context.png" alt="contextType hierarchy"></p>
+
+Each context is represented by an `owl:Ontology`.
+
+**Properties**
+
+* **contextType** - links an ontology to a type of context.
+
+**Classes**
+
+* **Context** - abstract superclass of a named vocabulary of subclasses defining kinds of contexts. Subclasses include `Career`, `Company`, `Government` (with `Federal`/`State`/`Municipality`), `Possession`, `People` (with `Family`/`Friends`/`Colleagues`/`Consultants`/`Other`)
 
 **`persona:assertionType`** — Who is making the assertion:
 - `persona:SelfAsserted` — the person themselves is recording the data, even if the underlying information originates from a third party such as a bank or government agency
@@ -49,6 +70,26 @@ Each context file carries a single Persona and is tagged with three orthogonal a
 <p align="center"><img src="images/persona-subject.png" alt="subject hierarchy"></p>
 
 For example, Alice's `texas-birth-certificate.ttl` is `contextType: State`, `assertionType: SelfAsserted`, `subject: Self` — a state government context recorded by Alice, about Alice. Her `florida-birth-certificate.ttl` is `contextType: State`, `assertionType: SelfAsserted`, `subject: Other` — also recorded by Alice, but describing her mother Paula.
+
+## Belongings
+
+A Persona with `contextType: persona:Possession` models the physical items a person carries or stores — their wallet, payment cards, driver's license, health insurance card, and other documents. Physical cards are `MaterialArtifact` subclasses and may be placed inside a wallet (via BFO `continuant part of`) or held directly by the Persona (via `persona:hasPhysicalCard`). When a future context file creates a Persona for a card-issuing institution (e.g. a DMV), the corresponding physical card links back to that Persona using BFO `is carrier of`.
+
+<p align="center"><img src="images/persona-card.png" alt="Belongings model"></p>
+
+**Properties**
+
+* **is carrier of (from BFO)** - used to link a physical card to its corresponding Persona in another context.
+* **hasImageScan** - a link to a scanned image of this card.
+
+**Classes**
+
+* **PhysicalCard** - a physical plastic or paper card held in a wallet.
+* **PhysicalHealthInsuranceCard** (subclass of PhysicalCard) - a physical health insurance membership card.
+* **PhysicalDriversLicense** (subclass of PhysicalCard) - a state-issued driver's license card.
+* **PhysicalPaymentCard** (subclass of PhysicalCard) - a physical credit or debit card.
+* **PhysicalSocialSecurityCard** (subclass of PhysicalCard) - a paper or plastic card issued by the Social Security Administration.
+* **Wallet** - a physical wallet that holds cards, money, and other personal documents.
 
 ## Ontology Files
 
