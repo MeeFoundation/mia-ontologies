@@ -55,17 +55,13 @@ Each context contains a single `p:Persona`, and is tagged with three orthogonal 
 
 <p align="center"><img src="images/persona-context.png" alt="contextType hierarchy"></p>
 
-Contexts can contain self-asserted or other-asserted information:
-
-**`p:assertionType`** — Who is making the assertion. Values are subclasses of `p:AssertionType`:
+**`p:assertionType`** — Who is making the assertion. Contexts can contain self-asserted or other-asserted information. Values are subclasses of `p:AssertionType`:
 - `p:SelfAsserted` — the Mia user is recording the data (using Mia), even if the underlying information originates from some other party such as a company, government agency, or another person.
 - `p:OtherAsserted` — another person, company or government agency is asserting the data directly
 
 <p align="center"><img src="images/persona-assertionType.png" alt="assertionType hierarchy"></p>
 
-Contexts may be about the Mia user or about someone else or some other entity:
-
-**`p:subject`** — Whose identity the context file describes. Values are subclasses of `p:SubjectType`:
+**`p:subject`** — Whose identity the context file describes. Contexts may be about the Mia user or about someone else or some other entity. Values are subclasses of `p:SubjectType`:
 - `p:Self` — the file is about the Mia user
 - `p:Other` — the file is about another person, company or government agency.
 
