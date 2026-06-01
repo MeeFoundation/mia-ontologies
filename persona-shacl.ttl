@@ -12,7 +12,7 @@
 # Imports Mee Identity Agent (MIA)'s Application Ontology (which imports the domains)
 <http://www.example.org/shapes> rdf:type owl:Ontology ;
     owl:imports <http://www.example.org/mia> ;
-    owl:versionInfo "Version 3.0.23 - reverse wallet containment: PhysicalCard uses BFO_0000177 (continuant part of) → Wallet"@en ;
+    owl:versionInfo "Version 3.0.25 - rename holds* to has* throughout"@en ;
     rdfs:label "Mee Identity Agent (MIA)'s SHACL Validation Shapes"@en ;
     rdfs:comment """SHACL validation shapes for the Mee Identity Agent.
 
@@ -118,14 +118,14 @@
 
     # Optional: payment cards (0..many)
     sh:property [
-        sh:path persona:holdsPaymentCard ;
+        sh:path persona:hasPaymentCard ;
         sh:class cco:ent00000049 ;  # Payment Card
-        sh:message "holdsPaymentCard must point to a PaymentCard."@en
+        sh:message "hasPaymentCard must point to a PaymentCard."@en
     ] ;
 
     # Optional: checking account (0..1)
     sh:property [
-        sh:path persona:holdsBankAccount ;
+        sh:path persona:hasBankAccount ;
         sh:class persona:CheckingAccount ;
         sh:maxCount 1 ;
         sh:message "A Persona may hold at most one bank account."@en
@@ -139,9 +139,16 @@
         sh:message "A Persona may hold at most one OnlineServiceAccount."@en
     ] ;
 
+    # Optional: physical cards held directly outside wallet (0..many)
+    sh:property [
+        sh:path persona:hasPhysicalCard ;
+        sh:class persona:PhysicalCard ;
+        sh:message "hasPhysicalCard must point to a PhysicalCard."@en
+    ] ;
+
     # Optional: wallet (0..1)
     sh:property [
-        sh:path persona:holdsWallet ;
+        sh:path persona:hasWallet ;
         sh:class persona:Wallet ;
         sh:maxCount 1 ;
         sh:message "A Persona may hold at most one wallet."@en

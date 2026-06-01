@@ -16,7 +16,7 @@
     owl:imports <https://purl.org/cco/address> ;
     owl:imports <https://purl.org/cco/staging> ;
     dc:date "2026-04-12"^^xsd:date ;
-    owl:versionInfo "Version 3.0.25 - fix PhysicalPaymentCard and PhysicalSocialSecurityCard comments"@en ;
+    owl:versionInfo "Version 3.0.27 - rename holds* properties to has* (hasWallet, hasPhysicalCard, hasPaymentCard, hasBankAccount)"@en ;
     rdfs:label "Persona Ontology"@en ;
     rdfs:comment """Persona Ontology for the Mee Identity Agent.
                     
@@ -187,7 +187,7 @@ persona:BirthCertificate rdf:type owl:Class ;
 #    Banking-related 
 #################################################################
 
-persona:holdsPaymentCard rdf:type owl:ObjectProperty ;
+persona:hasPaymentCard rdf:type owl:ObjectProperty ;
     rdfs:domain persona:Persona ;
     rdfs:range cco:ent00000049 ;    # Payment Card
     rdfs:label "holds payment card"@en ;
@@ -205,7 +205,7 @@ persona:RoutingNumber rdf:type owl:Class ;
     rdfs:label "Routing Number"@en ;
     rdfs:comment "An ABA routing transit number identifying the financial institution. Used via designated by (ont00001879)."@en .
 
-persona:holdsBankAccount rdf:type owl:ObjectProperty ;
+persona:hasBankAccount rdf:type owl:ObjectProperty ;
     rdfs:domain persona:Persona ;
     rdfs:range persona:CheckingAccount ;
     rdfs:label "holds bank account"@en ;
@@ -258,7 +258,13 @@ persona:PhysicalSocialSecurityCard rdf:type owl:Class ;
     rdfs:label "Physical Social Security Card"@en ;
     rdfs:comment "A paper or plastic card issued by the Social Security Administration."@en .
 
-persona:holdsWallet rdf:type owl:ObjectProperty ;
+persona:hasPhysicalCard rdf:type owl:ObjectProperty ;
+    rdfs:domain persona:Persona ;
+    rdfs:range persona:PhysicalCard ;
+    rdfs:label "holds physical card"@en ;
+    rdfs:comment "Links a Persona to a PhysicalCard carried outside of a wallet (e.g. stored at home or kept separately)."@en .
+
+persona:hasWallet rdf:type owl:ObjectProperty ;
     rdfs:domain persona:Persona ;
     rdfs:range persona:Wallet ;
     rdfs:label "holds wallet"@en ;
@@ -414,7 +420,7 @@ cco:ent00000016
                             indicates current address. Supports N addresses over a person's lifetime."""@en .
 
 cco:ent00000051
-    persona:usagePattern """Debit card held by a Person, linked via persona:holdsPaymentCard.
+    persona:usagePattern """Debit card held by a Person, linked via persona:hasPaymentCard.
                             Designated by a CreditCardNumber (ent00000052), CVV (ent00000053),
                             and ExpirationDateIdentifier (ent00000054) using ont00001879
                             (designated by)."""@en .

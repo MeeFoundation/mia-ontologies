@@ -49,13 +49,14 @@ LABELS = {
     str(PERSONA.PhysicalPaymentCard):           "PhysicalPaymentCard",
     str(PERSONA.PhysicalSocialSecurityCard):    "PhysicalSocialSecurityCard",
     # persona: properties
-    str(PERSONA.holdsPaymentCard):      "holdsPaymentCard",
+    str(PERSONA.hasPaymentCard):      "hasPaymentCard",
     str(PERSONA.holdsBankAccount):      "holdsBankAccount",
     str(PERSONA.accessesBankAccount):   "accessesBankAccount",
     str(PERSONA.hasSocialNetwork):      "hasSocialNetwork",
     str(PERSONA.hasPersona):             "hasPersona",
     str(PERSONA.hasPassword):           "has password",
-    str(PERSONA.holdsWallet):           "holdsWallet",
+    str(PERSONA.hasPhysicalCard):     "hasPhysicalCard",
+    str(PERSONA.hasWallet):           "hasWallet",
     "http://purl.obolibrary.org/obo/BFO_0000101":  "is carrier of",
     str(PERSONA.hasImageScan):          "hasImageScan",
     # cco: entity classes (designators / identifiers)

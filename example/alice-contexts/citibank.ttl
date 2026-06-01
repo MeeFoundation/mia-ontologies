@@ -11,7 +11,7 @@
 <http://www.example.org/mia/citibank> rdf:type owl:Ontology ;
     owl:imports <http://mee.foundation/ontologies/persona> ;
     dc:date "2026-05-27"^^xsd:date ;
-    owl:versionInfo "Version 1.0.3 - add contextType annotation; remove Company from Persona rdf:type"@en ;
+    owl:versionInfo "Version 1.0.4 - rename holdsPaymentCard/holdsBankAccount to hasPaymentCard/hasBankAccount"@en ;
     persona:contextType persona:Company ;
     rdfs:label "Alice Walker - Citibank Persona"@en ;
     rdfs:comment """Alice Walker's Citibank whoness — the context-specific Persona
@@ -28,8 +28,8 @@
     rdfs:label "Alice Walker (Citibank)"@en ;
     rdfs:comment "Alice Walker's persona in the context of her Citibank relationship."@en ;
 
-    persona:holdsPaymentCard :Alice_Debit_Card ;
-    persona:holdsBankAccount :Alice_Checking_Account ;
+    persona:hasPaymentCard :Alice_Debit_Card ;
+    persona:hasBankAccount :Alice_Checking_Account ;
     cco:ent00000045 :Alice_Citibank_Online .  # holds user account
 
 

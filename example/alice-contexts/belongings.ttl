@@ -11,7 +11,7 @@
 <http://www.example.org/mia/belongings> rdf:type owl:Ontology ;
     owl:imports <http://mee.foundation/ontologies/persona> ;
     dc:date "2026-05-27"^^xsd:date ;
-    owl:versionInfo "Version 1.0.4 - update type assertions to renamed Physical* subclasses"@en ;
+    owl:versionInfo "Version 1.0.6 - rename holdsWallet/holdsPhysicalCard to hasWallet/hasPhysicalCard"@en ;
     persona:contextType persona:Possession ;
     rdfs:label "Alice Walker - Belongings Persona"@en ;
     rdfs:comment """Alice Walker's belongings persona — physical items she carries day-to-day.
@@ -26,11 +26,15 @@
                                    persona:Persona ;
     rdfs:label "Alice Walker (Belongings)"@en ;
     rdfs:comment "Alice Walker's persona in the context of her personal belongings."@en ;
-    persona:holdsWallet :Alice_Wallet .
+    persona:hasWallet :Alice_Wallet ;
+    persona:hasPhysicalCard :Alice_HealthInsuranceCard ;   # not in wallet — carried separately
+    persona:hasPhysicalCard :Alice_SSNCard .               # not in wallet — stored at home for safety
 
 
 #################################################################
-#    Alice's Wallet and Physical Cards
+#    Alice's Wallet
+#    Cards in wallet: DriversLicense, PaymentCard
+#    Cards held directly (not in wallet): HealthInsuranceCard, SSNCard
 #################################################################
 
 :Alice_Wallet rdf:type owl:NamedIndividual ,
@@ -42,15 +46,27 @@
                                persona:PhysicalDriversLicense ;
     rdfs:label "Alice Walker's Driver's License"@en ;
     rdfs:comment "Alice Walker's physical Texas driver's license card."@en ;
-    <http://purl.obolibrary.org/obo/BFO_0000177> :Alice_Wallet ;            # continuant part of
+    <http://purl.obolibrary.org/obo/BFO_0000177> :Alice_Wallet ;            # continuant part of → in wallet
     persona:hasImageScan "file:///scans/alice-drivers-license.png"^^xsd:anyURI .
     # <http://purl.obolibrary.org/obo/BFO_0000101> :Alice_Walker-DMV  # future: is carrier of → :Alice_Walker-DMV Persona when created
+
+
+:Alice_PaymentCard rdf:type owl:NamedIndividual ,
+                            persona:PhysicalPaymentCard ;
+    rdfs:label "Alice Walker's Payment Card"@en ;
+    rdfs:comment "Alice Walker's physical debit card."@en ;
+    <http://purl.obolibrary.org/obo/BFO_0000177> :Alice_Wallet .            # continuant part of → in wallet
 
 
 :Alice_HealthInsuranceCard rdf:type owl:NamedIndividual ,
                                     persona:PhysicalHealthInsuranceCard ;
     rdfs:label "Alice Walker's Health Insurance Card"@en ;
     rdfs:comment "Alice Walker's physical health insurance membership card."@en ;
-    <http://purl.obolibrary.org/obo/BFO_0000177> :Alice_Wallet ;            # continuant part of
     persona:hasImageScan "file:///scans/alice-health-insurance-card.png"^^xsd:anyURI .
     # <http://purl.obolibrary.org/obo/BFO_0000101> :Alice_Walker-HealthInsurance  # future: is carrier of → :Alice_Walker-HealthInsurance Persona when created
+
+
+:Alice_SSNCard rdf:type owl:NamedIndividual ,
+                        persona:PhysicalSocialSecurityCard ;
+    rdfs:label "Alice Walker's Social Security Card"@en ;
+    rdfs:comment "Alice Walker's Social Security card — stored at home, not carried in wallet."@en .

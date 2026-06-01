@@ -24,7 +24,7 @@ Rather than being a kind of Person, a `persona:Persona` is an **Information Cont
 
 ## Ontology Files
 
-- **`persona.ttl`** — The application ontology. Imports the domain ontologies above and documents which classes and properties Mee uses (required vs. optional). Also defines Mee-specific extension properties (`persona:hasSocialNetwork`, `persona:holdsPaymentCard`, `persona:hasPersona`) and the Persona context hierarchy.
+- **`persona.ttl`** — The application ontology. Imports the domain ontologies above and documents which classes and properties Mee uses (required vs. optional). Also defines Mee-specific extension properties (`persona:hasSocialNetwork`, `persona:hasPaymentCard`, `persona:hasPersona`) and the Persona context hierarchy.
 
 - **`persona-shacl.ttl`** — SHACL constraint rules defining how instance data must be structured. Validates:
   - *BirthCertificate Personas*: FullName OR (GivenName + FamilyName) required; optional AdditionalName, AlternateName, Nickname, Legal Name
@@ -67,8 +67,8 @@ The repository includes a worked example for a hypothetical person, Alice Walker
 `draw.py` generates a Graphviz diagram from any context `.ttl` file:
 
 ```bash
-python3 draw.py example/contexts/citibank.ttl      # → example/contexts/citibank.png
-python3 draw.py example/contexts/paradise.ttl      # → example/contexts/paradise.png
+python3 draw.py example/alice-contexts/citibank.ttl      # → example/alice-contexts/citibank.png
+python3 draw.py example/alice-contexts/paradise.ttl      # → example/alice-contexts/paradise.png
 ```
 
 **Dependencies** (one-time setup):
@@ -87,14 +87,14 @@ Validation requires Apache Jena. The following validates Alice Walker's example 
 riot --output=turtle \
   project_files/bfo-core.ttl project_files/PersonOntology.ttl \
   project_files/AddressOntology.ttl project_files/StagingOntology.ttl \
-  persona.ttl example/self/self.ttl \
-  example/contexts/citibank.ttl example/contexts/boston.ttl \
-  example/contexts/paradise.ttl example/contexts/family.ttl \
-  example/contexts/colleagues.ttl example/contexts/att.ttl \
-  example/contexts/ssa.ttl example/contexts/google.ttl \
-  example/contexts/texas-birth-certificate.ttl \
-  example/contexts/florida-birth-certificate.ttl \
-  example/contexts/belongings.ttl \
+  persona.ttl example/alice/self.ttl \
+  example/alice-contexts/citibank.ttl example/alice-contexts/boston.ttl \
+  example/alice-contexts/paradise.ttl example/alice-contexts/family.ttl \
+  example/alice-contexts/colleagues.ttl example/alice-contexts/att.ttl \
+  example/alice-contexts/ssa.ttl example/alice-contexts/google.ttl \
+  example/alice-contexts/texas-birth-certificate.ttl \
+  example/paula-contexts/florida-birth-certificate.ttl \
+  example/alice-contexts/belongings.ttl \
   2>/dev/null > /tmp/mia-merged.ttl
 
 grep -v 'owl:imports' persona-shacl.ttl > /tmp/mia-shapes.ttl

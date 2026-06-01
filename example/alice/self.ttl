@@ -22,7 +22,7 @@
     owl:imports <http://www.example.org/mia/florida-birth-certificate> ;
     owl:imports <http://www.example.org/mia/belongings> ;
     dc:date "2026-05-27"^^xsd:date ;
-    owl:versionInfo "Version 3.0.41 - moved to example/self/ subfolder"@en ;
+    owl:versionInfo "Version 3.0.42 - florida-birth-certificate.ttl moved to example/paula-contexts/"@en ;
     rdfs:label "Alice Walker - Selfness"@en ;
     rdfs:comment """Alice Walker's selfness — the essential individuality and sense of selfhood from which
                     context-specific Personas (whonesses) are correlated.
@@ -46,7 +46,7 @@
                     - :Alice_Walker-Belongings           (belongings.ttl)              — wallet, driver's license, health insurance card
 
                     Paula Walker (Alice's mother):
-                    - :Paula_Walker-FloridaBirthCertificate (florida-birth-certificate.ttl) — legal name record"""@en .
+                    - :Paula_Walker-FloridaBirthCertificate (paula-contexts/florida-birth-certificate.ttl) — legal name record"""@en .
 
 
 #################################################################
