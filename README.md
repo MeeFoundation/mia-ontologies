@@ -32,13 +32,19 @@ Each context file carries a single Persona and is tagged with three orthogonal a
 - `persona:People` and subtypes `Family`, `Colleagues`, etc. — a relationship with other people
 - `persona:Possession` — personal belongings
 
+![contextType hierarchy](images/persona-context.png)
+
 **`persona:assertionType`** — Who is making the assertion:
 - `persona:SelfAsserted` — the person themselves is recording the data, even if the underlying information originates from a third party such as a bank or government agency
 - `persona:OtherAsserted` — a third party is asserting the data directly
 
+![assertionType hierarchy](images/persona-assertionType.png)
+
 **`persona:subject`** — Whose identity the context file describes:
 - `persona:Self` — the file is about the identity owner
 - `persona:Other` — the file is about another person or entity
+
+![subject hierarchy](images/persona-subject.png)
 
 For example, Alice's `texas-birth-certificate.ttl` is `contextType: State`, `assertionType: SelfAsserted`, `subject: Self` — a state government context recorded by Alice, about Alice. Her `florida-birth-certificate.ttl` is `contextType: State`, `assertionType: SelfAsserted`, `subject: Other` — also recorded by Alice, but describing her mother Paula.
 
