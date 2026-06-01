@@ -109,24 +109,24 @@ The repository includes a worked example for a hypothetical person, Alice Walker
 
 ### Alice Walker (`persona:subject` = `Self`)
 
-| Context file | Context type | Key data |
-|:-------------|:-------------|:---------|
-| `att.ttl` | Company (ATT) | Phone number |
-| `belongings.ttl` | Possession | Wallet (driver's license + payment card); health insurance card and SSN card held directly (with image scans) |
-| `boston.ttl` | Municipality (Boston) | Previous address — Boston, MA (2020–2025) with temporal interval |
-| `citibank.ttl` | Company (Citibank) | Debit card |
-| `colleagues.ttl` | People/Professionals | Colleagues social network with Bob Johnston |
-| `family.ttl` | People/Family | Family social network with Paula Walker |
-| `google.ttl` | Company (Google) | Email address |
-| `paradise.ttl` | Municipality (Paradise) | Current address — Paradise, CA (2025–present) |
-| `ssa.ttl` | Federal (SSA.gov) | SSN |
-| `texas-birth-certificate.ttl` | State (texas.gov) | Legal names: Margery Alice Walker; maiden name Margery Alice Arnold |
+| Context file | Context type | Key data | Image |
+|:-------------|:-------------|:---------|:------|
+| `att.ttl` | Company (ATT) | Phone number | [view](images/alice-contexts/alice(att).png) |
+| `belongings.ttl` | Possession | Wallet (driver's license + payment card); health insurance card and SSN card held directly (with image scans) | [view](images/alice-contexts/alice(belongings).png) |
+| `boston.ttl` | Municipality (Boston) | Previous address — Boston, MA (2020–2025) with temporal interval | [view](images/alice-contexts/alice(boston).png) |
+| `citibank.ttl` | Company (Citibank) | Debit card | [view](images/alice-contexts/alice(citibank).png) |
+| `colleagues.ttl` | People/Professionals | Colleagues social network with Bob Johnston | [view](images/alice-contexts/alice(colleagues).png) |
+| `family.ttl` | People/Family | Family social network with Paula Walker | [view](images/alice-contexts/alice(family).png) |
+| `google.ttl` | Company (Google) | Email address | [view](images/alice-contexts/alice(google).png) |
+| `paradise.ttl` | Municipality (Paradise) | Current address — Paradise, CA (2025–present) | [view](images/alice-contexts/alice(paradise).png) |
+| `ssa.ttl` | Federal (SSA.gov) | SSN | [view](images/alice-contexts/alice(ssa).png) |
+| `texas-birth-certificate.ttl` | State (texas.gov) | Legal names: Margery Alice Walker; maiden name Margery Alice Arnold | [view](images/alice-contexts/alice(texas-birth-certificate).png) |
 
 ### Paula Walker (`persona:subject` = `Other`)
 
-| Context file | Context type | Key data |
-|:-------------|:-------------|:---------|
-| `florida-birth-certificate.ttl` | State (FL) | Legal names |
+| Context file | Context type | Key data | Image |
+|:-------------|:-------------|:---------|:------|
+| `florida-birth-certificate.ttl` | State (FL) | Legal names | [view](images/paula-contexts/paula(florida-birth-certificate).png) |
 
 For example, Alice's `texas-birth-certificate.ttl` is `contextType: State`, `assertionType: SelfAsserted`, `subject: Self` — a state government context recorded by Alice, about Alice. Her `florida-birth-certificate.ttl` is `contextType: State`, `assertionType: SelfAsserted`, `subject: Other` — also recorded by Alice, but describing her mother Paula.
 
