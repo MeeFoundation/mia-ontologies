@@ -44,10 +44,10 @@ Each context contains a single `p:Persona`, and is tagged with three orthogonal 
 
 **`p:contextType`** — The nature of the interaction/relationship context. Values form a subclass hierarchy under `p:Context`:
 
-- `p:Company` — interactions with a company or institution.
+- `p:Company` — interactions with a company or other non-governmental organization.
 - `p:Government` and subtypes `p:Federal`, `p:State`, `p:Municipality` — interactions with government agencies.
 - `p:People` and subtypes `p:Family`, `p:Colleagues`, `p:Friends`, `p:Consultants`, `p:Other` — a relationship with other people.
-- `p:Possession` — a person's belongings in the real world.
+- `p:Possession` — a person's belongings or other things they possess in the real world.
 - `p:Career` — professional roles, employment history, and career relationships.
 - `p:Project` — involvement in a specific project or initiative.
 - `p:Event` — participation in or relationship to a specific event, e.g. a meeting.
