@@ -1,6 +1,6 @@
 # Persona Ontology
 
-`persona.ttl` is an **application ontology** for the Mee Identity Agent (MIA). It imports and profiles existing domain ontologies — documenting which of their classes and properties Mee requires or uses — and extends them with Mee-specific classes and properties.
+Persona is an **application ontology** for the Mee Identity Agent (Mia). It imports and profiles existing domain ontologies — documenting which of their classes and properties Mee requires or uses — and extends them with Mia-specific classes and properties.
 
 ## Purpose
 
