@@ -26,14 +26,14 @@ Rather than being a kind of Person, a `persona:Persona` is an **Information Cont
 
 **Properties**
 
-* **`hasPersona`** — links a Person (one's "selfness", essential individuality, or a sense of one's own unique personality and identity) to one of their context-specific Personas (whonesses).
-* **`hasWallet`** — links a Persona to a physical wallet (see Wallets below)
+* `persona:hasPersona` — links a Person (one's "selfness", essential individuality, or a sense of one's own unique personality and identity) to one of their context-specific Personas (whonesses).
+* `persona:hasWallet` — links a Persona to a physical wallet (see Wallets below)
 
 **Classes**
 
-* **`Persona`** — an Information Content Entity that represents how a Person appears in the context of a specific interaction — with a company, government agency, another person, or a group of people. A Persona is not itself a Person; it is a profile, or whoness, that is about a Person. A Person may have multiple Personas, linked via `persona:hasPersona`.
-* **`Context`** — Controlled vocabulary for the kind of interaction context a context file represents. Used as the value of `persona:contextType` on ontology IRIs.
-* **`BirthCertificate`** — a Persona subtype whose purpose is to carry a person's legal birth name record as issued by a state.
+* `persona:Persona` — an Information Content Entity that represents how a Person appears in the context of a specific interaction — with a company, government agency, another person, or a group of people. A Persona is not itself a Person; it is a profile, or whoness, that is about a Person. A Person may have multiple Personas, linked via `persona:hasPersona`.
+* `persona:Context` — Controlled vocabulary for the kind of interaction context a context file represents. Used as the value of `persona:contextType` on ontology IRIs.
+* `persona:BirthCertificate` — a Persona subtype whose purpose is to carry a person's legal birth name record as issued by a state.
 
 ## Contexts
 
@@ -69,17 +69,17 @@ A Persona with `contextType: persona:Possession` models the physical items a per
 
 **Properties**
 
-* **`is carrier of`** (from BFO) — used to link a physical card to its corresponding Persona in another context.
-* **`hasImageScan`** — a link to a scanned image of this card.
+* `is carrier of` (from BFO) — used to link a physical card to its corresponding Persona in another context.
+* `persona:hasImageScan` — a link to a scanned image of this card.
 
 **Classes**
 
-* **`PhysicalCard`** — a physical plastic or paper card held in a wallet.
-* **`PhysicalHealthInsuranceCard`** (subclass of PhysicalCard) — a physical health insurance membership card.
-* **`PhysicalDriversLicense`** (subclass of PhysicalCard) — a state-issued driver's license card.
-* **`PhysicalPaymentCard`** (subclass of PhysicalCard) — a physical credit or debit card.
-* **`PhysicalSocialSecurityCard`** (subclass of PhysicalCard) — a paper or plastic card issued by the Social Security Administration.
-* **`Wallet`** — a physical wallet that holds cards, money, and other personal documents.
+* `persona:PhysicalCard` — a physical plastic or paper card held in a wallet.
+* `persona:PhysicalHealthInsuranceCard` (subclass of PhysicalCard) — a physical health insurance membership card.
+* `persona:PhysicalDriversLicense` (subclass of PhysicalCard) — a state-issued driver's license card.
+* `persona:PhysicalPaymentCard` (subclass of PhysicalCard) — a physical credit or debit card.
+* `persona:PhysicalSocialSecurityCard` (subclass of PhysicalCard) — a paper or plastic card issued by the Social Security Administration.
+* `persona:Wallet` — a physical wallet that holds cards, money, and other personal documents.
 
 ## Ontology Files
 
@@ -127,7 +127,7 @@ As we've mentioned, Alice interacts in a set of contexts. In the following, each
 | `ssa.ttl` | Federal (SSA.gov) | SSN | [view](images/alice-contexts/alice(ssa).png) |
 | `texas-birth-certificate.ttl` | State (texas.gov) | Legal names: Margery Alice Walker; maiden name Margery Alice Arnold | [view](images/alice-contexts/alice(texas-birth-certificate).png) |
 
-### Paula Walker 
+### Alice's Paula Walker Context
 
 For the following context, `persona:subject = Other` - that is, they are about another person or entity which in this case is her mother, Paula Walker.
 
