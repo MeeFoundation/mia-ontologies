@@ -42,20 +42,25 @@ Each context contains a single `Persona`, and is tagged with three orthogonal an
 **`persona:contextType`** — The nature of the interaction/relationship context. Values form a subclass hierarchy under `persona:Context`:
 - `persona:Company` — a relationship with a company or institution (e.g. a bank, or other service provider).
 - `persona:Government` and subtypes `Federal`, `State`, `Municipality` — a government relationship.
-- `persona:People` and subtypes `Family`, `Colleagues`, etc. — a relationship with other people.
+- `persona:People` and subtypes `Family`, `Colleagues`, `Friends`, `Consultants`, `Other` — a relationship with other people.
 - `persona:Possession` — a person's belongings in the real world.
+- `persona:Career` — professional roles, employment history, and career relationships.
+- `persona:Project` — involvement in a specific project or initiative.
+- `persona:Event` — participation in or relationship to a specific event.
+- `persona:Learning` — educational experiences, courses, and certifications.
+- `persona:Topic` — interest in or expertise around a specific subject area.
 
 <p align="center"><img src="images/persona-context.png" alt="contextType hierarchy"></p>
 
 Contexts can contain self-asserted or other-asserted information:
-**`persona:assertionType`** — Who is making the assertion:
+**`persona:assertionType`** — Who is making the assertion. Values are subclasses of `persona:AssertionType`:
 - `persona:SelfAsserted` — the Mia user is recording the data (using Mia), even if the underlying information originates from some other party such as a company, government agency, or another person.
 - `persona:OtherAsserted` — another person, company or government agency is asserting the data directly
 
 <p align="center"><img src="images/persona-assertionType.png" alt="assertionType hierarchy"></p>
 
 Contexts may be about the Mia user or about someone else or some other entity:
-**`persona:subject`** — Whose identity the context file describes:
+**`persona:subject`** — Whose identity the context file describes. Values are subclasses of `persona:SubjectType`:
 - `persona:Self` — the file is about the Mia user
 - `persona:Other` — the file is about another person, company or government agency.
 
@@ -70,6 +75,8 @@ A Persona with `contextType: persona:Possession` models the physical items a per
 **Properties**
 
 * `is carrier of` (from BFO) — used to link a physical card to its corresponding Persona in another context.
+* `persona:hasPhysicalCard` — links a Persona to a PhysicalCard carried outside of a wallet (e.g. stored at home or kept separately).
+* `persona:hasWallet` — links a Persona to the physical wallet they carry.
 * `persona:hasImageScan` — a link to a scanned image of this card.
 
 **Classes**
@@ -80,6 +87,22 @@ A Persona with `contextType: persona:Possession` models the physical items a per
 * `persona:PhysicalPaymentCard` (subclass of PhysicalCard) — a physical credit or debit card.
 * `persona:PhysicalSocialSecurityCard` (subclass of PhysicalCard) — a paper or plastic card issued by the Social Security Administration.
 * `persona:Wallet` — a physical wallet that holds cards, money, and other personal documents.
+
+## Banking & Accounts
+
+Persona models bank accounts and online service credentials.
+
+**Properties**
+
+* `persona:hasBankAccount` — links a Persona to a `persona:CheckingAccount` it records.
+* `persona:accessesBankAccount` — links a DebitCard to the `persona:CheckingAccount` it draws funds from.
+* `persona:hasPassword` — the password credential for an `OnlineServiceAccount` (CCO `ont00000033`).
+
+**Classes**
+
+* `persona:CheckingAccount` — a bank checking account held by a person, linked to a debit card.
+* `persona:CheckingAccountNumber` — an identifier designating a bank checking account, connected via `designated by` (`ont00001879`).
+* `persona:RoutingNumber` — an ABA routing transit number identifying the financial institution, connected via `designated by`.
 
 ## Ontology Files
 

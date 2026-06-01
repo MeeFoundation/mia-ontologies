@@ -109,7 +109,7 @@ shaclvalidate -datafile example/alice/self.ttl -shapesfile persona-shacl.ttl
 
 ## README Coverage
 
-When checking what is or isn't documented in `README.md`, it is intentional and acceptable to omit the internal ontology documentation annotation properties (`usesRequiredClass`, `usesOptionalClass`, `usesCCOClass`, `usesCCOProperty`, `usagePattern`). These are infrastructure for self-documenting the ontology, not user-facing terms.
+All classes and properties defined in `persona.ttl` must be mentioned in `README.md` in the sections before the **Illustrative Example: Alice Walker** section. The only intentional exceptions are the internal ontology documentation annotation properties (`usesRequiredClass`, `usesOptionalClass`, `usesCCOClass`, `usesCCOProperty`, `usagePattern`), which are infrastructure for self-documenting the ontology, not user-facing terms.
 
 ## Gitignore Notes
 
