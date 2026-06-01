@@ -69,8 +69,6 @@ Each context is represented by an `owl:Ontology`.
 
 <p align="center"><img src="images/persona-subject.png" alt="subject hierarchy"></p>
 
-For example, Alice's `texas-birth-certificate.ttl` is `contextType: State`, `assertionType: SelfAsserted`, `subject: Self` — a state government context recorded by Alice, about Alice. Her `florida-birth-certificate.ttl` is `contextType: State`, `assertionType: SelfAsserted`, `subject: Other` — also recorded by Alice, but describing her mother Paula.
-
 ## Belongings
 
 A Persona with `contextType: persona:Possession` models the physical items a person carries or stores — their wallet, payment cards, driver's license, health insurance card, and other documents. Physical cards are `MaterialArtifact` subclasses and may be placed inside a wallet (via BFO `continuant part of`) or held directly by the Persona (via `persona:hasPhysicalCard`). When a future context file creates a Persona for a card-issuing institution (e.g. a DMV), the corresponding physical card links back to that Persona using BFO `is carrier of`.
@@ -129,6 +127,8 @@ The repository includes a worked example for a hypothetical person, Alice Walker
 | Context file | Context type | Key data |
 |:-------------|:-------------|:---------|
 | `florida-birth-certificate.ttl` | State (FL) | Legal names |
+
+For example, Alice's `texas-birth-certificate.ttl` is `contextType: State`, `assertionType: SelfAsserted`, `subject: Self` — a state government context recorded by Alice, about Alice. Her `florida-birth-certificate.ttl` is `contextType: State`, `assertionType: SelfAsserted`, `subject: Other` — also recorded by Alice, but describing her mother Paula.
 
 ## Design Patterns
 
