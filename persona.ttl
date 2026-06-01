@@ -16,7 +16,7 @@
     owl:imports <https://purl.org/cco/address> ;
     owl:imports <https://purl.org/cco/staging> ;
     dc:date "2026-04-12"^^xsd:date ;
-    owl:versionInfo "Version 3.0.27 - rename holds* properties to has* (hasWallet, hasPhysicalCard, hasPaymentCard, hasBankAccount)"@en ;
+    owl:versionInfo "Version 3.0.29 - add subject annotation property and SubjectType hierarchy"@en ;
     rdfs:label "Persona Ontology"@en ;
     rdfs:comment """Persona Ontology for the Mee Identity Agent.
                     
@@ -156,6 +156,62 @@ persona:contextType rdf:type owl:AnnotationProperty ;
                     Applied to the ontology IRI, not to the Persona individual."""@en ;
     rdfs:domain owl:Ontology ;
     rdfs:range persona:Context .
+
+persona:assertionType rdf:type owl:AnnotationProperty ;
+    rdfs:label "assertion type"@en ;
+    rdfs:comment """Tags a context ontology (file) with who is making the assertion —
+                    persona:SelfAsserted (the person themselves) or persona:OtherAsserted
+                    (a third party such as a company or government agency).
+                    Applied to the ontology IRI, not to the Persona individual."""@en ;
+    rdfs:domain owl:Ontology ;
+    rdfs:range persona:AssertionType .
+
+persona:subject rdf:type owl:AnnotationProperty ;
+    rdfs:label "subject"@en ;
+    rdfs:comment """Tags a context ontology (file) with whose identity it describes —
+                    persona:Self (the file is about the identity owner) or
+                    persona:Other (the file is about another person or entity).
+                    Applied to the ontology IRI, not to the Persona individual."""@en ;
+    rdfs:domain owl:Ontology ;
+    rdfs:range persona:SubjectType .
+
+
+#################################################################
+#    Assertion Type Hierarchy
+#################################################################
+
+persona:AssertionType rdf:type owl:Class ;
+    rdfs:label "Assertion Type"@en ;
+    rdfs:comment "Controlled vocabulary for who is asserting the data in a context file."@en .
+
+persona:SelfAsserted rdf:type owl:Class ;
+    rdfs:subClassOf persona:AssertionType ;
+    rdfs:label "Self-Asserted"@en ;
+    rdfs:comment "The data in this context file is asserted by the person themselves."@en .
+
+persona:OtherAsserted rdf:type owl:Class ;
+    rdfs:subClassOf persona:AssertionType ;
+    rdfs:label "Other-Asserted"@en ;
+    rdfs:comment "The data in this context file is asserted by a third party."@en .
+
+
+#################################################################
+#    Subject Type Hierarchy
+#################################################################
+
+persona:SubjectType rdf:type owl:Class ;
+    rdfs:label "Subject Type"@en ;
+    rdfs:comment "Controlled vocabulary for whose identity a context file describes."@en .
+
+persona:Self rdf:type owl:Class ;
+    rdfs:subClassOf persona:SubjectType ;
+    rdfs:label "Self"@en ;
+    rdfs:comment "The context file describes the identity owner themselves."@en .
+
+persona:Other rdf:type owl:Class ;
+    rdfs:subClassOf persona:SubjectType ;
+    rdfs:label "Other"@en ;
+    rdfs:comment "The context file describes another person or entity."@en .
 
 
 #################################################################

@@ -11,8 +11,10 @@
 <http://www.example.org/mia/citibank> rdf:type owl:Ontology ;
     owl:imports <http://mee.foundation/ontologies/persona> ;
     dc:date "2026-05-27"^^xsd:date ;
-    owl:versionInfo "Version 1.0.4 - rename holdsPaymentCard/holdsBankAccount to hasPaymentCard/hasBankAccount"@en ;
+    owl:versionInfo "Version 1.0.6 - add assertionType and subject annotations"@en ;
     persona:contextType persona:Company ;
+    persona:assertionType persona:SelfAsserted ;
+    persona:subject persona:Self ;
     rdfs:label "Alice Walker - Citibank Persona"@en ;
     rdfs:comment """Alice Walker's Citibank whoness — the context-specific Persona
                     representing Alice in her Citibank financial relationship.

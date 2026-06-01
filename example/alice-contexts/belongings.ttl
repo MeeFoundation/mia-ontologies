@@ -11,8 +11,10 @@
 <http://www.example.org/mia/belongings> rdf:type owl:Ontology ;
     owl:imports <http://mee.foundation/ontologies/persona> ;
     dc:date "2026-05-27"^^xsd:date ;
-    owl:versionInfo "Version 1.0.6 - rename holdsWallet/holdsPhysicalCard to hasWallet/hasPhysicalCard"@en ;
+    owl:versionInfo "Version 1.0.8 - add assertionType and subject annotations"@en ;
     persona:contextType persona:Possession ;
+    persona:assertionType persona:SelfAsserted ;
+    persona:subject persona:Self ;
     rdfs:label "Alice Walker - Belongings Persona"@en ;
     rdfs:comment """Alice Walker's belongings persona — physical items she carries day-to-day.
                     Correlated from :Alice_Walker-Self in self.ttl."""@en .

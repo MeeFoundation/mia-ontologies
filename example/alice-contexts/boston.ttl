@@ -11,8 +11,10 @@
 <http://www.example.org/mia/boston> rdf:type owl:Ontology ;
     owl:imports <http://mee.foundation/ontologies/persona> ;
     dc:date "2026-05-25"^^xsd:date ;
-    owl:versionInfo "Version 1.0.1 - add contextType annotation; remove Municipality from Persona rdf:type"@en ;
+    owl:versionInfo "Version 1.0.3 - add assertionType and subject annotations"@en ;
     persona:contextType persona:Municipality ;
+    persona:assertionType persona:SelfAsserted ;
+    persona:subject persona:Self ;
     rdfs:label "Alice Walker - Boston Persona"@en ;
     rdfs:comment """Alice Walker's Boston whoness — representing her residence in Boston, MA
                     from 2020 to 2025. Correlated from :Alice_Walker-Self in self.ttl."""@en .

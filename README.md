@@ -24,7 +24,7 @@ Rather than being a kind of Person, a `persona:Persona` is an **Information Cont
 
 ## Ontology Files
 
-- **`persona.ttl`** — The application ontology. Imports the domain ontologies above and documents which classes and properties Mee uses (required vs. optional). Also defines Mee-specific extension properties (`persona:hasSocialNetwork`, `persona:hasPaymentCard`, `persona:hasPersona`) and the Persona context hierarchy.
+- **`persona.ttl`** — The application ontology. Imports the domain ontologies above and documents which classes and properties Mee uses (required vs. optional). Also defines Mee-specific extension properties (`persona:hasSocialNetwork`, `persona:hasPaymentCard`, `persona:hasPersona`), the Persona context hierarchy, and two annotation properties for tagging context files: `persona:contextType` (relationship kind) and `persona:assertionType` (`SelfAsserted` or `OtherAsserted`).
 
 - **`persona-shacl.ttl`** — SHACL constraint rules defining how instance data must be structured. Validates:
   - *BirthCertificate Personas*: FullName OR (GivenName + FamilyName) required; optional AdditionalName, AlternateName, Nickname, Legal Name
@@ -38,21 +38,28 @@ Rather than being a kind of Person, a `persona:Persona` is an **Information Cont
 
 ## Illustrative Example: Alice Walker
 
-The repository includes a worked example for a hypothetical person, Alice Walker, to demonstrate the ontology in use. Each context file is an independent `owl:Ontology` linked to her Person entity in `self.ttl` via `persona:hasPersona`.
+The repository includes a worked example for a hypothetical person, Alice Walker, to demonstrate the ontology in use. Each context file is an independent `owl:Ontology` linked to a Person entity in `example/alice/self.ttl` via `persona:hasPersona`. All context files are `persona:assertionType persona:SelfAsserted` — Alice is the one recording all of this data, even when the underlying information originates from a third party.
+
+### Alice Walker (`persona:subject` = `Self`)
 
 | Context file | Context type | Key data |
 |:-------------|:-------------|:---------|
 | `att.ttl` | Company (ATT) | Phone number |
-| `belongings.ttl` | Possession | Wallet containing driver's license and health insurance card (with image scans) |
+| `belongings.ttl` | Possession | Wallet (driver's license + payment card); health insurance card and SSN card held directly (with image scans) |
 | `boston.ttl` | Municipality (Boston) | Previous address — Boston, MA (2020–2025) with temporal interval |
 | `citibank.ttl` | Company (Citibank) | Debit card |
 | `colleagues.ttl` | People/Professionals | Colleagues social network with Bob Johnston |
 | `family.ttl` | People/Family | Family social network with Paula Walker |
-| `florida-birth-certificate.ttl` | State (FL) | Paula Walker's legal names |
 | `google.ttl` | Company (Google) | Email address |
-| `paradise.ttl` | Municipality (Paradise)| Current address — Paradise, CA (2025–present) |
+| `paradise.ttl` | Municipality (Paradise) | Current address — Paradise, CA (2025–present) |
 | `ssa.ttl` | Federal (SSA.gov) | SSN |
 | `texas-birth-certificate.ttl` | State (texas.gov) | Legal names: Margery Alice Walker; maiden name Margery Alice Arnold |
+
+### Paula Walker (`persona:subject` = `Other`)
+
+| Context file | Context type | Key data |
+|:-------------|:-------------|:---------|
+| `florida-birth-certificate.ttl` | State (FL) | Legal names |
 
 ## Design Patterns
 

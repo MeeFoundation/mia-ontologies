@@ -11,8 +11,10 @@
 <http://www.example.org/mia/ssa> rdf:type owl:Ontology ;
     owl:imports <http://mee.foundation/ontologies/persona> ;
     dc:date "2026-05-25"^^xsd:date ;
-    owl:versionInfo "Version 1.0.1 - add contextType annotation; remove Federal from Persona rdf:type"@en ;
+    owl:versionInfo "Version 1.0.3 - add assertionType and subject annotations"@en ;
     persona:contextType persona:Federal ;
+    persona:assertionType persona:SelfAsserted ;
+    persona:subject persona:Self ;
     rdfs:label "Alice Walker - SSA Persona"@en ;
     rdfs:comment """Alice Walker's SSA whoness — representing her in the context of her
                     Social Security Administration record.
