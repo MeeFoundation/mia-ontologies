@@ -47,15 +47,7 @@ Each context file carries a single Persona and is tagged with three orthogonal a
 
 <p align="center"><img src="images/persona-context.png" alt="contextType hierarchy"></p>
 
-Each context is represented by an `owl:Ontology`.
-
-**Properties**
-
-* **contextType** - links an ontology to a type of context.
-
-**Classes**
-
-* **Context** - abstract superclass of a named vocabulary of subclasses defining kinds of contexts. Subclasses include `Career`, `Company`, `Government` (with `Federal`/`State`/`Municipality`), `Possession`, `People` (with `Family`/`Friends`/`Colleagues`/`Consultants`/`Other`)
+Each context is represented by an `owl:Ontology` file.
 
 **`persona:assertionType`** — Who is making the assertion:
 - `persona:SelfAsserted` — the person themselves is recording the data, even if the underlying information originates from a third party such as a bank or government agency
