@@ -16,13 +16,13 @@ Built on **BFO** (Basic Formal Ontology) and **CCO** (Common Core Ontologies) as
 
 Throughout this document, `p:` is used as shorthand for the `persona:` namespace (`http://mee.foundation/ontologies/persona#`).
 
-## One Person, Multiple Personas
+## One `Person`, Multiple Personas
 
 We represent a person as a combination of a single `Person` entity representing their **selfness** and multiple **context files**, one per relationship or institutional context.
 
-A person's selfness is their essential individuality or unique selfhood represented by this one central `Person` entity. The `Person` carries very few properties: only physical attributes and parent-child relationships. Most importantly, it carries `p:hasPersona` links to context-specific `p:Persona` instances. Most names and all identifiers belong to those context-specific `p:Persona` instances; the one exception is a preferred/goes-by name, which belongs to the Person entity because it applies across all contexts.
+A person's selfness is their essential individuality or unique selfhood represented by this one central `Person` entity. The `Person` carries very few properties: only physical attributes and parent-child relationships. Most importantly, it carries `p:hasPersona` links to context-specific `p:Persona` instances. Most names and all identifiers belong to those context-specific `p:Persona` instances; the one exception is a preferred/goes-by name, which belongs to the `Person` entity because it applies across all contexts.
 
-Rather than being a kind of Person, a `p:Persona` is an **Information Content Entity** (CCO `ont00000958`) — a context-specific facet *of* a Person. `p:Persona` instances are linked to the Person entity via `p:hasPersona`, a subproperty of CCO `is subject of` (`ont00001801`). Each `p:Persona` carries only the data relevant to its specific context.
+Rather than being a kind of `Person`, a `p:Persona` is an **Information Content Entity** (CCO `ont00000958`) — a context-specific facet *of* a `Person`. `p:Persona` instances are linked to the `Person` entity via `p:hasPersona`, a subproperty of CCO `is subject of` (`ont00001801`). Each `p:Persona` carries only the data relevant to its specific context.
 
 <p align="center"><img src="images/persona.png" alt="Persona model"></p>
 
@@ -113,7 +113,7 @@ Persona models bank accounts and online service credentials.
   - *`p:BirthCertificate` `p:Persona` instances*: FullName OR (GivenName + FamilyName) required; optional AdditionalName, AlternateName, Nickname, Legal Name
   - *All `p:Persona` instances*: SSN format (`NNN-NN-NNNN`), email format, phone (E.164), address cardinality, payment cards, wallet
   - *US Postal Address*: required street, city, state (USPS 2-letter), ZIP; optional country
-  - *Person (selfness)*: scalp hair (0..1); `has mother` / `is mother of` range must be a Person
+  - *`Person` (selfness)*: scalp hair (0..1); `has mother` / `is mother of` range must be a `Person`
   - *Social Network*: sub-groups (via `has part`) must be Social Networks; members (via `has member part`) must be `p:Persona` instances
   - *Debit Card*: card number and expiration date required; CVV optional
   - *`p:Wallet`*: items declaring themselves `continuant part of` this wallet must be `p:PhysicalCard` instances
@@ -123,13 +123,13 @@ Persona models bank accounts and online service credentials.
 
 The repository includes a worked example for a hypothetical person, Alice Walker, to demonstrate the ontology in use. 
 
-Within Alice's self, `example/alice/self.ttl`, is `:Alice_Walker-Self`, a Person entity. She also has an entity representing her mother, `:Paula_Walker-Self`. 
+Within Alice's self, `example/alice/self.ttl`, is `:Alice_Walker-Self`, a `Person` entity. She also has an entity representing her mother, `:Paula_Walker-Self`.
 
-Her Person is linked to multiple `p:Persona` facets in separate context files. For example `:Alice_Walker-Citibank` is the facet of Alice in the context of her interactions with Citibank--most notably as the issuer of her debit card.
+Her `Person` is linked to multiple `p:Persona` facets in separate context files. For example `:Alice_Walker-Citibank` is the facet of Alice in the context of her interactions with Citibank--most notably as the issuer of her debit card.
 
 <p align="center"><img src="images/alice/alice(self).png" alt="Alice's self"></p>
 
-Each context file is an independent `owl:Ontology` linked to a Person entity in `example/alice/self.ttl` via `p:hasPersona`. All context files are `p:assertionType p:SelfAsserted` — Alice is the one recording all of this data, even when the underlying information originates from a third party.
+Each context file is an independent `owl:Ontology` linked to a `Person` entity in `example/alice/self.ttl` via `p:hasPersona`. All context files are `p:assertionType p:SelfAsserted` — Alice is the one recording all of this data, even when the underlying information originates from a third party.
 
 Alice's `self.ttl` also describes some physical characteristics of Alice shown below:
 
@@ -165,7 +165,7 @@ For example, Alice's `texas-birth-certificate.ttl` is `p:contextType: p:State`, 
 
 **Physical cards**: When a future context file creates a `p:Persona` for a credential issuer (e.g. DMV), the corresponding physical card in `belongings.ttl` links back using BFO `is carrier of` (`BFO_0000101`): the `p:PhysicalCard` individual is the carrier of the `p:Persona` (ICE).
 
-**Peer name pattern**: All name types (FullName, GivenName, FamilyName, AlternateName) connect directly to a Person or `p:Persona` via `designated by` (`ont00001879`). They are siblings, not nested under a PersonName parent. Legal names belong to `p:BirthCertificate` `p:Persona` instances; a preferred/goes-by name lives in `self.ttl` since it applies across all contexts.
+**Peer name pattern**: All name types (FullName, GivenName, FamilyName, AlternateName) connect directly to a `Person` or `p:Persona` via `designated by` (`ont00001879`). They are siblings, not nested under a PersonName parent. Legal names belong to `p:BirthCertificate` `p:Persona` instances; a preferred/goes-by name lives in `self.ttl` since it applies across all contexts.
 
 **Address history**: Each address `p:Persona` carries a USPostalAddress and an `AddressDesignation` with a `TemporalInterval` (start date required; no end date = current address).
 
