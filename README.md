@@ -14,7 +14,7 @@ Built on **BFO** (Basic Formal Ontology) and **CCO** (Common Core Ontologies) as
 - **StagingOntology** — staging area for terms pending promotion (phone numbers, email addresses, user accounts, etc.)
 - **AgentOntology** — agents and their properties (imported transitively via PersonOntology)
 
-## One Person, multiple Personas
+## One Person, Multiple Personas
 
 We represent a person as a combination of a single Person entity representing their **selfness** and multiple **context files**, one per relationship or institutional context.
 
@@ -105,9 +105,18 @@ A Persona with `contextType: persona:Possession` models the physical items a per
 
 ## Illustrative Example: Alice Walker
 
-The repository includes a worked example for a hypothetical person, Alice Walker, to demonstrate the ontology in use. Each context file is an independent `owl:Ontology` linked to a Person entity in `example/alice/self.ttl` via `persona:hasPersona`. All context files are `persona:assertionType persona:SelfAsserted` — Alice is the one recording all of this data, even when the underlying information originates from a third party.
+The repository includes a worked example for a hypothetical person, Alice Walker, to demonstrate the ontology in use. 
 
-### Alice Walker (`persona:subject` = `Self`)
+Within Alice's self, `example/alice/self.ttl`, is `:Alice_Walker-Self`, a Person entity. She also has an entity representing her mother, `:Paula_Walker-Self`. 
+
+Her Person has is linked to multiple `Persona` facets in separate context files. For example `:Alice_Walker-Citibank` is the facet of Alice in the context of her interactions with Citibank--most notably as the issuer of her debit card.
+
+<p align="center"><img src="images/alice/alice(self).png" alt="Alice's self"></p>
+
+Each context file is an independent `owl:Ontology` linked to a Person entity in via `persona:hasPersona`. All context files are `persona:assertionType persona:SelfAsserted` — Alice is the one recording all of this data, even when the underlying information originates from a third party.
+
+### Alice Walker 
+For the following contexts, `persona:subject` = `Self` --that is, the contexts are about Alice.
 
 | Context file | Context type | Key data | Image |
 |:-------------|:-------------|:---------|:------|
@@ -122,7 +131,9 @@ The repository includes a worked example for a hypothetical person, Alice Walker
 | `ssa.ttl` | Federal (SSA.gov) | SSN | [view](images/alice-contexts/alice(ssa).png) |
 | `texas-birth-certificate.ttl` | State (texas.gov) | Legal names: Margery Alice Walker; maiden name Margery Alice Arnold | [view](images/alice-contexts/alice(texas-birth-certificate).png) |
 
-### Paula Walker (`persona:subject` = `Other`)
+### Paula Walker 
+
+For the following context, `persona:subject` = `Other` --that is, the contexts are about another person or entity. In this case her mother Paula Walker.
 
 | Context file | Context type | Key data | Image |
 |:-------------|:-------------|:---------|:------|
