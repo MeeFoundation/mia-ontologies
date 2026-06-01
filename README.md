@@ -47,7 +47,7 @@ Each context file carries a single Persona and is tagged with three orthogonal a
 
 <p align="center"><img src="images/persona-context.png" alt="contextType hierarchy"></p>
 
-Each context is represented by an `owl:Ontology` file.
+Each context is represented by an `owl:Ontology`.
 
 **`persona:assertionType`** — Who is making the assertion:
 - `persona:SelfAsserted` — the person themselves is recording the data, even if the underlying information originates from a third party such as a bank or government agency
@@ -101,11 +101,11 @@ The repository includes a worked example for a hypothetical person, Alice Walker
 
 Within Alice's self, `example/alice/self.ttl`, is `:Alice_Walker-Self`, a Person entity. She also has an entity representing her mother, `:Paula_Walker-Self`. 
 
-Her Person has is linked to multiple `Persona` facets in separate context files. For example `:Alice_Walker-Citibank` is the facet of Alice in the context of her interactions with Citibank--most notably as the issuer of her debit card.
+Her Person is linked to multiple `Persona` facets in separate context files. For example `:Alice_Walker-Citibank` is the facet of Alice in the context of her interactions with Citibank--most notably as the issuer of her debit card.
 
 <p align="center"><img src="images/alice/alice(self).png" alt="Alice's self"></p>
 
-Each context file is an independent `owl:Ontology` linked to a Person entity in via `persona:hasPersona`. All context files are `persona:assertionType persona:SelfAsserted` — Alice is the one recording all of this data, even when the underlying information originates from a third party.
+Each context file is an independent `owl:Ontology` linked to a Person entity in `example/alice/self.ttl` via `persona:hasPersona`. All context files are `persona:assertionType persona:SelfAsserted` — Alice is the one recording all of this data, even when the underlying information originates from a third party.
 
 Alice's `self.ttl` also describes some physical characteristics of Alice shown below:
 
