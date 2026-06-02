@@ -1,0 +1,188 @@
+@prefix context: <http://mee.foundation/ontologies/context#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix dc: <http://purl.org/dc/elements/1.1/> .
+@base <http://mee.foundation/ontologies/context> .
+
+<http://mee.foundation/ontologies/context> rdf:type owl:Ontology ;
+    owl:versionIRI <http://mee.foundation/ontologies/context/1.0.1> ;
+    dc:date "2026-06-01"^^xsd:date ;
+    owl:versionInfo "Version 1.0.1 - switch all terms from persona: to context: namespace"@en ;
+    rdfs:label "Context Ontology"@en ;
+    rdfs:comment """Context Ontology for the Mee Identity Agent.
+
+                    Defines controlled vocabularies for classifying context ontology files:
+                    - contextType: the kind of relationship a context file represents
+                    - assertionType: who is asserting the data (self vs. third party)
+                    - subject: whose identity the file describes (Self vs. ThirdParty)
+
+                    Peer of persona.ttl; imported directly by each context file."""@en .
+
+
+#################################################################
+#    Annotation Properties for Context File Classification
+#################################################################
+
+context:contextType rdf:type owl:AnnotationProperty ;
+    rdfs:label "context type"@en ;
+    rdfs:comment """Tags a context ontology (file) with the kind of relationship it represents —
+                    e.g. context:Company, context:Federal, context:Municipality.
+                    Applied to the ontology IRI, not to the Persona individual."""@en ;
+    rdfs:domain owl:Ontology ;
+    rdfs:range context:Context .
+
+context:assertionType rdf:type owl:AnnotationProperty ;
+    rdfs:label "assertion type"@en ;
+    rdfs:comment """Tags a context ontology (file) with who is making the assertion —
+                    context:SelfAsserted (the person themselves) or context:OtherAsserted
+                    (a third party such as a company or government agency).
+                    Applied to the ontology IRI, not to the Persona individual."""@en ;
+    rdfs:domain owl:Ontology ;
+    rdfs:range context:AssertionType .
+
+context:subject rdf:type owl:AnnotationProperty ;
+    rdfs:label "subject"@en ;
+    rdfs:comment """Tags a context ontology (file) with whose identity it describes —
+                    context:Self (the file is about the identity owner) or
+                    context:ThirdParty (the file is about another person or entity).
+                    Applied to the ontology IRI, not to the Persona individual."""@en ;
+    rdfs:domain owl:Ontology ;
+    rdfs:range context:SubjectType .
+
+
+#################################################################
+#    Assertion Type Hierarchy
+#################################################################
+
+context:AssertionType rdf:type owl:Class ;
+    rdfs:label "Assertion Type"@en ;
+    rdfs:comment "Controlled vocabulary for who is asserting the data in a context file."@en .
+
+context:SelfAsserted rdf:type owl:Class ;
+    rdfs:subClassOf context:AssertionType ;
+    rdfs:label "Self-Asserted"@en ;
+    rdfs:comment "The data in this context file is asserted by the person themselves."@en .
+
+context:OtherAsserted rdf:type owl:Class ;
+    rdfs:subClassOf context:AssertionType ;
+    rdfs:label "Other-Asserted"@en ;
+    rdfs:comment "The data in this context file is asserted by a third party."@en .
+
+
+#################################################################
+#    Subject Type Hierarchy
+#################################################################
+
+context:SubjectType rdf:type owl:Class ;
+    rdfs:label "Subject Type"@en ;
+    rdfs:comment "Controlled vocabulary for whose identity a context file describes."@en .
+
+context:Self rdf:type owl:Class ;
+    rdfs:subClassOf context:SubjectType ;
+    rdfs:label "Self"@en ;
+    rdfs:comment "The context file describes the identity owner themselves."@en .
+
+context:Other rdf:type owl:Class ;
+    rdfs:subClassOf context:SubjectType ;
+    rdfs:label "Other"@en ;
+    rdfs:comment "The context file describes another person or entity (not the identity owner)."@en .
+
+
+#################################################################
+#    Context Hierarchy
+#    Context subclasses are used as values for the context:contextType
+#    annotation property on ontology IRIs (context files), not as
+#    rdf:type assertions on Persona individuals.
+#################################################################
+
+context:Context rdf:type owl:Class ;
+    rdfs:label "Context"@en ;
+    rdfs:comment """Controlled vocabulary for the kind of interaction context a context file represents.
+                    Used as the value of context:contextType on ontology IRIs."""@en .
+
+context:Career rdf:type owl:Class ;
+    rdfs:subClassOf context:Context ;
+    rdfs:label "Career"@en ;
+    rdfs:comment "Professional roles, employment history, and career relationships."@en .
+
+context:Company rdf:type owl:Class ;
+    rdfs:subClassOf context:Context ;
+    rdfs:label "Company"@en ;
+    rdfs:comment "Relationship with a specific company, bank, or other institution."@en .
+
+context:Government rdf:type owl:Class ;
+    rdfs:subClassOf context:Context ;
+    rdfs:label "Government"@en ;
+    rdfs:comment "Government-issued credentials, tax records, and civic relationships."@en .
+
+context:Federal rdf:type owl:Class ;
+    rdfs:subClassOf context:Government ;
+    rdfs:label "Federal"@en ;
+    rdfs:comment "Federal government context (e.g. passport, federal tax records)."@en .
+
+context:State rdf:type owl:Class ;
+    rdfs:subClassOf context:Government ;
+    rdfs:label "State"@en ;
+    rdfs:comment "State government context (e.g. driver's license, state tax records)."@en .
+
+context:Municipality rdf:type owl:Class ;
+    rdfs:subClassOf context:Government ;
+    rdfs:label "Municipality"@en ;
+    rdfs:comment "Municipal government context (e.g. local permits, library card)."@en .
+
+context:Possession rdf:type owl:Class ;
+    rdfs:subClassOf context:Context ;
+    rdfs:label "Possession"@en ;
+    rdfs:comment "Owned assets, property, vehicles, and other possessions."@en .
+
+context:Project rdf:type owl:Class ;
+    rdfs:subClassOf context:Context ;
+    rdfs:label "Project"@en ;
+    rdfs:comment "Involvement in a specific project or initiative."@en .
+
+context:Event rdf:type owl:Class ;
+    rdfs:subClassOf context:Context ;
+    rdfs:label "Event"@en ;
+    rdfs:comment "Participation in or relationship to a specific event."@en .
+
+context:Learning rdf:type owl:Class ;
+    rdfs:subClassOf context:Context ;
+    rdfs:label "Learning"@en ;
+    rdfs:comment "Educational experiences, courses, and certifications."@en .
+
+context:Topic rdf:type owl:Class ;
+    rdfs:subClassOf context:Context ;
+    rdfs:label "Topic"@en ;
+    rdfs:comment "Interest in or expertise around a specific subject area."@en .
+
+context:People rdf:type owl:Class ;
+    rdfs:subClassOf context:Context ;
+    rdfs:label "People"@en ;
+    rdfs:comment "Interactions with all kinds of people."@en .
+
+context:Family rdf:type owl:Class ;
+    rdfs:subClassOf context:People ;
+    rdfs:label "Family"@en ;
+    rdfs:comment "Interactions with family members."@en .
+
+context:Friends rdf:type owl:Class ;
+    rdfs:subClassOf context:People ;
+    rdfs:label "Friends"@en ;
+    rdfs:comment "Interactions with friends."@en .
+
+context:Consultants rdf:type owl:Class ;
+    rdfs:subClassOf context:People ;
+    rdfs:label "Consultants"@en ;
+    rdfs:comment "Interactions with consultants who provide services."@en .
+
+context:Colleagues rdf:type owl:Class ;
+    rdfs:subClassOf context:People ;
+    rdfs:label "Colleagues"@en ;
+    rdfs:comment "Interactions with others with whom you work."@en .
+
+context:Other rdf:type owl:Class ;
+    rdfs:subClassOf context:People ;
+    rdfs:label "Other"@en ;
+    rdfs:comment "Interactions with a person not fitting Family, Friends, Colleagues, or Consultants."@en .

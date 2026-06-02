@@ -1,5 +1,6 @@
 @prefix : <http://www.example.org/mia#> .
 @prefix persona: <http://mee.foundation/ontologies/persona#> .
+@prefix context: <http://mee.foundation/ontologies/context#> .
 @prefix cco: <https://purl.org/cco/> .
 @prefix owl: <http://www.w3.org/2002/07/owl#> .
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
@@ -10,11 +11,12 @@
 
 <http://www.example.org/mia/florida-birth-certificate> rdf:type owl:Ontology ;
     owl:imports <http://mee.foundation/ontologies/persona> ;
-    dc:date "2026-05-27"^^xsd:date ;
-    owl:versionInfo "Version 1.0.5 - add assertionType and subject annotations"@en ;
-    persona:contextType persona:State ;
-    persona:assertionType persona:SelfAsserted ;
-    persona:subject persona:Other ;
+    owl:imports <http://mee.foundation/ontologies/context> ;
+    dc:date "2026-06-01"^^xsd:date ;
+    owl:versionInfo "Version 1.0.8 - use context: prefix for context vocabulary"@en ;
+    context:contextType context:State ;
+    context:assertionType context:SelfAsserted ;
+    context:subject context:Other ;
     rdfs:label "Paula Walker - Florida Birth Certificate Persona"@en ;
     rdfs:comment """Paula Walker's Florida birth certificate whoness — representing her legal
                     name record as issued by the State of Florida.

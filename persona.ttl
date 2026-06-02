@@ -15,25 +15,25 @@
     owl:imports <https://purl.org/cco/person> ;
     owl:imports <https://purl.org/cco/address> ;
     owl:imports <https://purl.org/cco/staging> ;
-    dc:date "2026-04-12"^^xsd:date ;
-    owl:versionInfo "Version 3.0.29 - add subject annotation property and SubjectType hierarchy"@en ;
+    dc:date "2026-06-01"^^xsd:date ;
+    owl:versionInfo "Version 3.0.31 - context.ttl is a peer; context files import it directly"@en ;
     rdfs:label "Persona Ontology"@en ;
     rdfs:comment """Persona Ontology for the Mee Identity Agent.
-                    
-                    This application ontology extends PersonOntology, AddressOntology, 
-                    and StagingOntology for the Mee identity agent 
-                    
+
+                    This application ontology extends PersonOntology, AddressOntology,
+                    and StagingOntology for the Mee identity agent
+
                     ARCHITECTURE:
                     This application ontology serves as:
-                    1. Aggregation point (imports 3 domain ontologies)
+                    1. Aggregation point (imports 3 domain ontologies + context.ttl)
                     2. Documentation (annotations show which classes Persona uses)
                     3. Extension point (Persona-specific terms: future: accounts, service providers)
-                    
+
                     GOVERNANCE MODEL:
                     - Domain ontologies (Person, Address, Staging): Import unchanged
                     - Persona extensions: Added here, may be promoted to domain ontologies if proven useful
                     - Application-specific patterns documented via usage annotations
-                    
+
                     FEATURES:
                     - Defines a BirthCertificate kind of Persona with a peer name architecture (not hierarchical PersonName)
                     - Slash URIs (content negotiation enabled)
@@ -105,7 +105,7 @@ persona:usesOptionalClass rdf:type owl:AnnotationProperty ;
 persona:usesCCOClass rdf:type owl:AnnotationProperty ;
     rdfs:label "uses CCO class"@en ;
     rdfs:comment """Indicates a class from CCO core ontologies that this application uses directly
-                    (not subclassed in domain ontologies). Values are full IRIs like 
+                    (not subclassed in domain ontologies). Values are full IRIs like
                     <https://purl.org/cco/ont00001262>."""@en ;
     rdfs:domain owl:Ontology ;
     rdfs:range owl:Class .
@@ -142,76 +142,9 @@ persona:hasPersona rdf:type owl:ObjectProperty ;
     rdfs:domain <https://purl.org/cco/ont00001262> ;  # Person (selfness)
     rdfs:range persona:Persona ;
     rdfs:label "has persona"@en ;
-    rdfs:comment """links a Person (one’s "selfness", essential individuality, or a sense of 
-                    one's own unique personality and identity) to one of their context-specific 
+    rdfs:comment """links a Person (one's "selfness", essential individuality, or a sense of
+                    one's own unique personality and identity) to one of their context-specific
                     Personas (whonesses)"""@en .
-
-#################################################################
-#    contextType property  
-#################################################################    
-persona:contextType rdf:type owl:AnnotationProperty ;
-    rdfs:label "context type"@en ;
-    rdfs:comment """Tags a context ontology (file) with the kind of relationship it represents —
-                    e.g. persona:Company, persona:Federal, persona:Municipality.
-                    Applied to the ontology IRI, not to the Persona individual."""@en ;
-    rdfs:domain owl:Ontology ;
-    rdfs:range persona:Context .
-
-persona:assertionType rdf:type owl:AnnotationProperty ;
-    rdfs:label "assertion type"@en ;
-    rdfs:comment """Tags a context ontology (file) with who is making the assertion —
-                    persona:SelfAsserted (the person themselves) or persona:OtherAsserted
-                    (a third party such as a company or government agency).
-                    Applied to the ontology IRI, not to the Persona individual."""@en ;
-    rdfs:domain owl:Ontology ;
-    rdfs:range persona:AssertionType .
-
-persona:subject rdf:type owl:AnnotationProperty ;
-    rdfs:label "subject"@en ;
-    rdfs:comment """Tags a context ontology (file) with whose identity it describes —
-                    persona:Self (the file is about the identity owner) or
-                    persona:Other (the file is about another person or entity).
-                    Applied to the ontology IRI, not to the Persona individual."""@en ;
-    rdfs:domain owl:Ontology ;
-    rdfs:range persona:SubjectType .
-
-
-#################################################################
-#    Assertion Type Hierarchy
-#################################################################
-
-persona:AssertionType rdf:type owl:Class ;
-    rdfs:label "Assertion Type"@en ;
-    rdfs:comment "Controlled vocabulary for who is asserting the data in a context file."@en .
-
-persona:SelfAsserted rdf:type owl:Class ;
-    rdfs:subClassOf persona:AssertionType ;
-    rdfs:label "Self-Asserted"@en ;
-    rdfs:comment "The data in this context file is asserted by the person themselves."@en .
-
-persona:OtherAsserted rdf:type owl:Class ;
-    rdfs:subClassOf persona:AssertionType ;
-    rdfs:label "Other-Asserted"@en ;
-    rdfs:comment "The data in this context file is asserted by a third party."@en .
-
-
-#################################################################
-#    Subject Type Hierarchy
-#################################################################
-
-persona:SubjectType rdf:type owl:Class ;
-    rdfs:label "Subject Type"@en ;
-    rdfs:comment "Controlled vocabulary for whose identity a context file describes."@en .
-
-persona:Self rdf:type owl:Class ;
-    rdfs:subClassOf persona:SubjectType ;
-    rdfs:label "Self"@en ;
-    rdfs:comment "The context file describes the identity owner themselves."@en .
-
-persona:Other rdf:type owl:Class ;
-    rdfs:subClassOf persona:SubjectType ;
-    rdfs:label "Other"@en ;
-    rdfs:comment "The context file describes another person or entity."@en .
 
 
 #################################################################
@@ -240,7 +173,7 @@ persona:BirthCertificate rdf:type owl:Class ;
 
 
 #################################################################
-#    Banking-related 
+#    Banking-related
 #################################################################
 
 persona:hasPaymentCard rdf:type owl:ObjectProperty ;
@@ -334,132 +267,34 @@ persona:hasImageScan rdf:type owl:DatatypeProperty ;
 
 
 #################################################################
-#    Context Hierarchy
-#    Context subclasses are used as values for the persona:contextType
-#    annotation property on ontology IRIs (context files), not as
-#    rdf:type assertions on Persona individuals.
-#################################################################
-
-persona:Context rdf:type owl:Class ;
-    rdfs:label "Context"@en ;
-    rdfs:comment """Controlled vocabulary for the kind of interaction context a context file represents.
-                    Used as the value of persona:contextType on ontology IRIs."""@en .
-
-persona:Career rdf:type owl:Class ;
-    rdfs:subClassOf persona:Context ;
-    rdfs:label "Career"@en ;
-    rdfs:comment "Professional roles, employment history, and career relationships."@en .
-
-persona:Company rdf:type owl:Class ;
-    rdfs:subClassOf persona:Context ;
-    rdfs:label "Company"@en ;
-    rdfs:comment "Relationship with a specific company, bank, or other institution."@en .
-
-persona:Government rdf:type owl:Class ;
-    rdfs:subClassOf persona:Context ;
-    rdfs:label "Government"@en ;
-    rdfs:comment "Government-issued credentials, tax records, and civic relationships."@en .
-
-persona:Federal rdf:type owl:Class ;
-    rdfs:subClassOf persona:Government ;
-    rdfs:label "Federal"@en ;
-    rdfs:comment "Federal government context (e.g. passport, federal tax records)."@en .
-
-persona:State rdf:type owl:Class ;
-    rdfs:subClassOf persona:Government ;
-    rdfs:label "State"@en ;
-    rdfs:comment "State government context (e.g. driver's license, state tax records)."@en .
-
-persona:Municipality rdf:type owl:Class ;
-    rdfs:subClassOf persona:Government ;
-    rdfs:label "Municipality"@en ;
-    rdfs:comment "Municipal government context (e.g. local permits, library card)."@en .
-
-persona:Possession rdf:type owl:Class ;
-    rdfs:subClassOf persona:Context ;
-    rdfs:label "Possession"@en ;
-    rdfs:comment "Owned assets, property, vehicles, and other possessions."@en .
-
-persona:Project rdf:type owl:Class ;
-    rdfs:subClassOf persona:Context ;
-    rdfs:label "Project"@en ;
-    rdfs:comment "Involvement in a specific project or initiative."@en .
-
-persona:Event rdf:type owl:Class ;
-    rdfs:subClassOf persona:Context ;
-    rdfs:label "Event"@en ;
-    rdfs:comment "Participation in or relationship to a specific event."@en .
-
-persona:Learning rdf:type owl:Class ;
-    rdfs:subClassOf persona:Context ;
-    rdfs:label "Learning"@en ;
-    rdfs:comment "Educational experiences, courses, and certifications."@en .
-
-persona:Topic rdf:type owl:Class ;
-    rdfs:subClassOf persona:Context ;
-    rdfs:label "Topic"@en ;
-    rdfs:comment "Interest in or expertise around a specific subject area."@en .
-
-persona:People rdf:type owl:Class ;
-    rdfs:subClassOf persona:Context ;
-    rdfs:label "People"@en ;
-    rdfs:comment "Interactions with all kinds of people."@en .
-
-persona:Family rdf:type owl:Class ;
-    rdfs:subClassOf persona:People ;
-    rdfs:label "Family"@en ;
-    rdfs:comment "Interactions with family members."@en .
-
-persona:Friends rdf:type owl:Class ;
-    rdfs:subClassOf persona:People ;
-    rdfs:label "Interactions with friends"@en ;
-    rdfs:comment "."@en .
-
-persona:Consultants rdf:type owl:Class ;
-    rdfs:subClassOf persona:People ;
-    rdfs:label "Consultants"@en ;
-    rdfs:comment "Interactions with consultants who provide services."@en .
-
-persona:Colleagues rdf:type owl:Class ;
-    rdfs:subClassOf persona:People ;
-    rdfs:label "Colleagues"@en ;
-    rdfs:comment "Interactions with others with whom you work."@en .
-
-persona:Other rdf:type owl:Class ;
-    rdfs:subClassOf persona:People ;
-    rdfs:label "Other"@en ;
-    rdfs:comment "Interactions with a person not fitting Family, Friends, Colleagues, or Consultants."@en .
-
-
-#################################################################
 #    Usage Pattern Documentation on Specific Classes
 #################################################################
 
 cco:ent00000001
-    persona:usagePattern """Persona accepts FullName as complete string alternative 
-                            to structured components. SHACL validation: EITHER FullName OR 
+    persona:usagePattern """Persona accepts FullName as complete string alternative
+                            to structured components. SHACL validation: EITHER FullName OR
                             (GivenName + FamilyName) required."""@en .
 
 cco:ent00000002
-    persona:usagePattern """Legal first name. Required if FullName not provided. 
+    persona:usagePattern """Legal first name. Required if FullName not provided.
                             Multiple GivenNames allowed (e.g., 'Mary Anne')."""@en .
 
 cco:ent00000004
     persona:usagePattern """Legal last/surname. Required if FullName not provided."""@en .
 
 cco:ent00000003
-    persona:usagePattern """Middle names or additional given names. Optional. 
+    persona:usagePattern """Middle names or additional given names. Optional.
                             Use for names person goes by that aren't their legal first name."""@en .
 
 cco:ent00000006
-    persona:usagePattern """Any alternative form of the person's name (nicknames, 
+    persona:usagePattern """Any alternative form of the person's name (nicknames,
                             preferred names, previous names). Optional."""@en .
 
 cco:ent00000008
     persona:usagePattern """US SSN in format NNN-NN-NNNN. Required for identity verification."""@en .
 
 cco:ent00000010
-    persona:usagePattern """Primary residential address. Required. Must include street, 
+    persona:usagePattern """Primary residential address. Required. Must include street,
                             city, state, ZIP. Country optional."""@en .
 
 cco:ent00000024

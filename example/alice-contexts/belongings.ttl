@@ -1,5 +1,6 @@
 @prefix : <http://www.example.org/mia#> .
 @prefix persona: <http://mee.foundation/ontologies/persona#> .
+@prefix context: <http://mee.foundation/ontologies/context#> .
 @prefix cco: <https://purl.org/cco/> .
 @prefix owl: <http://www.w3.org/2002/07/owl#> .
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
@@ -10,11 +11,12 @@
 
 <http://www.example.org/mia/belongings> rdf:type owl:Ontology ;
     owl:imports <http://mee.foundation/ontologies/persona> ;
-    dc:date "2026-05-27"^^xsd:date ;
-    owl:versionInfo "Version 1.0.8 - add assertionType and subject annotations"@en ;
-    persona:contextType persona:Possession ;
-    persona:assertionType persona:SelfAsserted ;
-    persona:subject persona:Self ;
+    owl:imports <http://mee.foundation/ontologies/context> ;
+    dc:date "2026-06-01"^^xsd:date ;
+    owl:versionInfo "Version 1.0.10 - use context: prefix for context vocabulary"@en ;
+    context:contextType context:Possession ;
+    context:assertionType context:SelfAsserted ;
+    context:subject context:Self ;
     rdfs:label "Alice Walker - Belongings Persona"@en ;
     rdfs:comment """Alice Walker's belongings persona — physical items she carries day-to-day.
                     Correlated from :Alice_Walker-Self in self.ttl."""@en .
