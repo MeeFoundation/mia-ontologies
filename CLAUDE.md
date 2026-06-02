@@ -63,7 +63,7 @@ persona-shacl.ttl
 
 **Peer name pattern** (not hierarchical): All name types (FullName, GivenName, FamilyName, AlternateName) connect directly to a Persona via `ont00001879` (designated by). They are siblings, not nested. Names belong to BirthCertificate Personas, not to the selfness.
 
-**Address history pattern**: `AddressDesignation` links Person → Address → `TemporalInterval`. Open-ended intervals (no `hasEndDate`) indicate current address. See `TEMPORAL_TRACKING_SOLUTION.md` for details.
+**Address history pattern**: `AddressDesignation` links Person → Address → `TemporalInterval`. Open-ended intervals (no `hasEndDate`) indicate current address.
 
 ### Key Identifiers
 
