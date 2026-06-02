@@ -39,7 +39,7 @@ A person's selfness is their essential individuality or unique selfhood represen
 
 Rather than being a kind of `Person`, a `p:Persona` is an **Information Content Entity** (CCO `ont00000958`) — a context-specific facet *of* a `Person`. `p:Persona` instances are linked to the `Person` entity via `p:hasPersona`, a subproperty of CCO `is subject of` (`ont00001801`). Each `p:Persona` carries only the data relevant to its specific context.
 
-<p align="center"><img src="images/persona.png" alt="Persona model"></p>
+<p align="center"><img src="images/persona-ontology/persona.png" alt="Persona model"></p>
 
 **Properties**
 
@@ -56,7 +56,7 @@ Rather than being a kind of `Person`, a `p:Persona` is an **Information Content 
 
 A `p:Persona` within a context of `c:contextType: c:Possession` models the physical items a person carries or stores — their wallet, payment cards, driver's license, health insurance card, and other documents. Physical cards are `MaterialArtifact` subclasses and may be placed inside a wallet (via BFO `continuant part of`) or held directly by the `p:Persona` (via `p:hasPhysicalCard`). When a future context file creates a `p:Persona` for a card-issuing institution (e.g. a DMV), the corresponding physical card links back to that `p:Persona` using BFO `is carrier of`.
 
-<p align="center"><img src="images/persona-card.png" alt="Belongings model"></p>
+<p align="center"><img src="images/persona-ontology/persona-card.png" alt="Belongings model"></p>
 
 **Properties**
 
@@ -117,19 +117,19 @@ The Context ontology (`context.ttl`) defines the controlled vocabularies used to
 - `c:Learning` — information gathered from personal experience.
 - `c:Topic` — pieces of existing, general knowledge selected by a person to be useful to them.
 
-<p align="center"><img src="images/persona-context.png" alt="contextType hierarchy"></p>
+<p align="center"><img src="images/context-ontology/context-type.png" alt="contextType hierarchy"></p>
 
 **`c:assertionType`** — Who is making the assertion. Contexts can contain self-asserted or other-asserted information. Values are subclasses of `c:AssertionType`:
 - `c:SelfAsserted` — the Mia user is recording the data (using Mia), even if the underlying information originates from some other party such as a company, government agency, or another person.
 - `c:OtherAsserted` — another person, company or government agency is asserting the data directly.
 
-<p align="center"><img src="images/persona-assertionType.png" alt="assertionType hierarchy"></p>
+<p align="center"><img src="images/context-ontology/context-assertionType.png" alt="assertionType hierarchy"></p>
 
 **`c:subject`** — Whose identity the context file describes. Contexts may be about the Mia user or about someone else or some other entity. Values are subclasses of `c:SubjectType`:
 - `c:Self` — the file is about the Mia user.
 - `c:Other` — the file is about another person, company or government agency.
 
-<p align="center"><img src="images/persona-subject.png" alt="subject hierarchy"></p>
+<p align="center"><img src="images/context-ontology/context-subject.png" alt="subject hierarchy"></p>
 
 ### Context Ontology Files
 
