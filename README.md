@@ -103,7 +103,7 @@ A bank account is modeled as a `p:CheckingAccount` linked to a `p:Persona` and a
 
 ## Context Ontology
 
-The Context ontology (`context.ttl`) defines the controlled vocabularies used to classify each context file along three orthogonal dimensions: what kind of relationship the context represents (`c:contextType`), who is making the assertions it contains (`c:assertionType`), and whose identity it describes (`c:subject`). Value hierarchies are defined for each (`c:Context`, `c:AssertionType`, `c:SubjectType` and their subclasses). 
+The Context ontology (`context.ttl`) defines the controlled vocabularies used to classify each context file along three orthogonal dimensions: what kind of relationship the context represents (`c:contextType`) such as relationships with family members or interactions with a bank, who is making the assertions it contains (`c:assertionType`), and who it is about (`c:subject`). Value hierarchies are defined for each (`c:Context`, `c:AssertionType`, `c:SubjectType` and their subclasses). 
 
 **`c:contextType`** — The nature of the interaction/relationship context. Values form a subclass hierarchy under `c:Context`:
 
