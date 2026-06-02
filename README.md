@@ -135,7 +135,7 @@ The diagram below shows four kinds of contexts related to a hypothetical Mia use
 
 <p align="center"><img src="images/context-ontology/quadrants.png" alt="a quadrant of context types"></p>
 
-In the lower right shows a context that Alice might share with other people or companies. In it, she asserts that her driver's license number is S43228943, having almost certainly copied that number from her physical driver's license. The context in the lower right carries the same information as the lower left, but because it is being asserted by the RMV it is more likely to be trusted by a recipient, especially if this information is conveyed via secure channel.
+In the lower right shows a context that Alice might share with other people or companies. In it, she asserts that her driver's license number is S43228943, having almost certainly copied that number from her physical driver's license. The context in the lower right carries the same information as the lower left, but because it is being asserted by the RMV it is more likely to be trusted by a recipient, especially if this information is conveyed via secure channel and the claims are cryptographically bound to the identity of the RMV.
 
 ### Context Ontology File
 
