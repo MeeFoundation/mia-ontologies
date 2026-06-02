@@ -1,5 +1,5 @@
 # Mia Ontologies
-Information about people in Mia is represented using the Persona ontology. This information lives in a set of contexts described by the Context ontology. In this document we provide an overview of both ontologies and then present illustrative example of Mia data based on a hypothetical Mia user, Alice Walker. Throughout this document, `p:` is used as shorthand for the `persona:` namespace (`http://mee.foundation/ontologies/persona#`) and `c:` as shorthand for the `context:` namespace (`http://mee.foundation/ontologies/context#`).
+Mia represents information about a person using two complementary ontologies. The **Persona ontology** models identity data — names, addresses, phone numbers, relationships, payment cards, and more — structured around the concept of a *persona*: a coherent slice of a person's identity as presented in a particular context. The **Context ontology** describes those contexts themselves — what kind of entity asserted the data, who it is about, and how authoritative it is. This document provides an overview of both ontologies, then illustrates them with example Mia data for a hypothetical user, Alice Walker. Throughout, `p:` is shorthand for the `persona:` namespace (`http://mee.foundation/ontologies/persona#`) and `c:` for the `context:` namespace (`http://mee.foundation/ontologies/context#`).
 
 ## Persona Ontology
 
