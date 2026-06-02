@@ -4,7 +4,10 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project Overview
 
-This is an **RDF/OWL ontology project** — a formal semantic knowledge model for representing natural people's identity data in the Mee Identity Agent (MIA). It is an *application ontology*: it imports and profiles existing domain ontologies, documenting which classes and properties Mee uses, and extends them with Mee-specific terms.
+This is an **RDF/OWL ontology project** — a formal semantic knowledge model for representing natural people's identity data in the Mee Identity Agent (MIA). It comprises two peer application ontologies:
+
+- **Persona ontology** (`persona.ttl`): models identity data — names, addresses, identifiers, relationships, payment cards, and more — structured around context-specific `Persona` instances linked to a central `Person` entity. Imports and profiles existing domain ontologies, documenting which of their classes and properties Mee uses, and extends them with Mia-specific terms.
+- **Context ontology** (`context.ttl`): defines controlled vocabularies for classifying context files — what broad category of interaction is involved (`contextType`), who asserted the data (`assertionType`), and whose identity the file describes (`subject`).
 
 There are no build, compile, test, or lint commands. The files are Turtle (`.ttl`) loaded into semantic web tools (Protégé).
 
@@ -12,7 +15,8 @@ There are no build, compile, test, or lint commands. The files are Turtle (`.ttl
 
 | File | Purpose |
 |------|---------|
-| `persona.ttl` | Main application ontology — imports domain ontologies, annotates which classes/properties are required vs. optional for Mee |
+| `persona.ttl` | Persona ontology — imports domain ontologies, annotates which classes/properties are required vs. optional for Mee, defines Mia-specific classes and properties |
+| `context.ttl` | Context ontology — controlled vocabularies for classifying context files (`contextType`, `assertionType`, `subject`) |
 | `persona-shacl.ttl` | SHACL validation shapes — constraint rules for valid instance data (e.g., a BirthCertificate Persona must have FullName OR GivenName+FamilyName) |
 | `example/alice/self.ttl` | Alice Walker's selfness — the central Person instance; imports all context files |
 | `example/alice-contexts/citibank.ttl` | Alice's Citibank Persona — payment card |
@@ -55,7 +59,9 @@ persona-shacl.ttl
 
 1. **Foundation**: BFO (Basic Formal Ontology) — provides temporal modeling (`TemporalInterval`) and core relations
 2. **Domain Ontologies** (in `project_files/`): PersonOntology, AddressOntology, StagingOntology
-3. **Application Ontology** (`persona.ttl`): aggregates domain ontologies; uses annotation properties (`usesRequiredClass`, `usesOptionalClass`, `usesCCOClass`, `usesCCOProperty`) to document Mee's usage
+3. **Application Ontologies** (peer, not nested):
+   - `persona.ttl`: aggregates domain ontologies; uses annotation properties (`usesRequiredClass`, `usesOptionalClass`, `usesCCOClass`, `usesCCOProperty`) to document Mee's usage
+   - `context.ttl`: defines `contextType`, `assertionType`, and `subject` vocabularies; imported directly by each context file
 
 ### Key Architectural Patterns
 
@@ -79,7 +85,7 @@ Classes and properties use numeric IRIs. The most common:
 
 ## Versioning
 
-Before committing any change to `self.ttl`, any context file, `persona.ttl`, or `persona-shacl.ttl`, increment the **minor version number** in that file's `owl:versionInfo` annotation and update the description to summarise the change. For example:
+Before committing any change to `self.ttl`, any context file, `persona.ttl`, `context.ttl`, or `persona-shacl.ttl`, increment the **minor version number** in that file's `owl:versionInfo` annotation and update the description to summarise the change. For example:
 
 ```
 owl:versionInfo "Version 3.0.3 - added social network"@en
@@ -91,7 +97,7 @@ owl:versionInfo "Version 3.0.4 - added birth date"@en
 
 ## Keeping Files in Sync
 
-Whenever changes are made to `self.ttl`, any context file, or `persona.ttl`, `persona-shacl.ttl` must be updated to match:
+Whenever changes are made to `self.ttl`, any context file, `persona.ttl`, or `context.ttl`, `persona-shacl.ttl` must be updated to match:
 
 - **New property usage in a context file or `self.ttl`** (e.g., a new physical characteristic, relationship, or identifier added to a Person or Persona instance) → add or extend a SHACL shape to validate that property on the relevant target class.
 - **New class or property defined in `persona.ttl`** (e.g., `persona:hasSocialNetwork`) → add a SHACL shape that constrains how instances of the domain class may or must use it.
@@ -109,9 +115,9 @@ shaclvalidate -datafile example/alice/self.ttl -shapesfile persona-shacl.ttl
 
 ## README Coverage
 
-All classes and properties defined in `persona.ttl` must be mentioned in `README.md` in the sections before the **Illustrative Example: Alice Walker** section. The only intentional exceptions are the internal ontology documentation annotation properties (`usesRequiredClass`, `usesOptionalClass`, `usesCCOClass`, `usesCCOProperty`, `usagePattern`), which are infrastructure for self-documenting the ontology, not user-facing terms.
+All classes and properties defined in `persona.ttl` and `context.ttl` must be mentioned in `README.md` in the sections before the **Illustrative Example: Alice Walker** section. The only intentional exceptions are the internal ontology documentation annotation properties (`usesRequiredClass`, `usesOptionalClass`, `usesCCOClass`, `usesCCOProperty`, `usagePattern`), which are infrastructure for self-documenting the ontology, not user-facing terms.
 
-In `README.md`, every mention of a class defined in `persona.ttl` must appear in backticks with the `p:` prefix (e.g. `p:Persona`, `p:Wallet`). Every capitalized mention of `Person` (the CCO class) must also appear in backticks. These formatting rules do **not** apply inside headings or subheadings.
+In `README.md`, every mention of a class defined in `persona.ttl` must appear in backticks with the `p:` prefix (e.g. `p:Persona`, `p:Wallet`), and every mention of a class or property defined in `context.ttl` must appear in backticks with the `c:` prefix (e.g. `c:contextType`, `c:SelfAsserted`). Every capitalized mention of `Person` (the CCO class) must also appear in backticks. These formatting rules do **not** apply inside headings or subheadings.
 
 ## Gitignore Notes
 
