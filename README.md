@@ -133,7 +133,7 @@ The Context ontology (`context.ttl`) defines the controlled vocabularies used to
 
 Shown in the quadrants of the diagram below are four kinds of contexts related to a hypothetical Mia user Alice's interactions with a Registry of Motor Vehicles (RMV) agency. At the top are contexts where the RMV itself is the subject, and at the bottom where Alice is the subject. At the left are contexts where Alice has made the assertions (e.g. Alice's Mia has written the claims into the context) and at the right are contexts where the RMV as the "other" has written the claims. 
 
-<p align="center"><img src="images/context-ontology/quadrant.png" alt="a quadrant of context types"></p>
+<p align="center"><img src="images/context-ontology/quadrants.png" alt="a quadrant of context types"></p>
 
 ### Context Ontology File
 
