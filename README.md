@@ -131,7 +131,7 @@ The Context ontology (`context.ttl`) defines the controlled vocabularies used to
 
 <p align="center"><img src="images/context-ontology/context-subject.png" alt="subject hierarchy"></p>
 
-### Context Ontology Files
+### Context Ontology File
 
 - **`context.ttl`** — The Context ontology. It defines three dimensions of characteristics of the context containers that hold the information about people defined using the Persona ontology. 
 
