@@ -150,7 +150,7 @@ Alice's `self.ttl` also describes some physical characteristics of Alice shown b
 <p align="center"><img src="images/alice/alice(self)+physical.png" alt="Alice's physical characteristics"></p>
 
 ### Alice Walker's Contexts
-As we've mentioned, Alice interacts in a set of contexts. In the following, each context carries `c:subject = c:Self` which indicates that they are about Alice.
+As we've mentioned, Alice interacts in a set of contexts. In the following, each context carries `c:subject c:Self`, indicating they are about Alice.
 
 | Context file | Context type | Key data | Image |
 |:-------------|:-------------|:---------|:------|
@@ -167,7 +167,7 @@ As we've mentioned, Alice interacts in a set of contexts. In the following, each
 
 ### Alice's Paula Walker Context
 
-For the following context, `c:subject = c:Other` — that is, they are about another person or entity which in this case is her mother, Paula Walker.
+For the following context, `c:subject c:Other` — they are about another person, in this case her mother, Paula Walker.
 
 | Context file | Context type | Key data | Image |
 |:-------------|:-------------|:---------|:------|
