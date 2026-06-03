@@ -33,11 +33,13 @@ Built on **BFO** (Basic Formal Ontology) and **CCO** (Common Core Ontologies) as
 
 ### One Person, Multiple Personas
 
-We represent a person as a combination of a single `Person` entity representing their **selfness** and multiple **context files**, one per relationship or institutional context.
+We represent a person as a combination of a single `Person` entity along with multiple `p:Personas`, one per relationship or institutional context.
 
 A person's selfness is their essential individuality or unique selfhood represented by this one central `Person` entity. The `Person` carries very few properties: only physical attributes and parent-child relationships. Most importantly, it carries `p:hasPersona` links to context-specific `p:Persona` instances. Most names and all identifiers belong to those context-specific `p:Persona` instances; the one exception is a preferred/goes-by name, which belongs to the `Person` entity because it applies across all contexts.
 
-Rather than being a kind of `Person`, a `p:Persona` is an **Information Content Entity** (CCO `ont00000958`) — a context-specific facet *of* a `Person`. `p:Persona` instances are linked to the `Person` entity via `p:hasPersona`, a subproperty of CCO `is subject of` (`ont00001801`). Each `p:Persona` carries only the data relevant to its specific context. A `p:Persona` can itself carry `p:hasPersona`. This allows intermediate, branch level `Personas` which in turn have leaf level `Personas`.
+Rather than being a kind of `Person`, a `p:Persona` is an **Information Content Entity** (CCO `ont00000958`) — a context-specific facet *of* a `Person`. `p:Persona` instances are linked to the `Person` entity via `p:hasPersona`, a subproperty of CCO `is subject of` (`ont00001801`). Each `p:Persona` carries only the data relevant to its specific context. 
+
+A `p:Persona` can itself carry `p:hasPersona`. This allows intermediate, branch level `p:Personas` which in turn link to leaf level `p:Personas`. Each intermediate `p:Persona` acts as a bundle of attributes which can be inherited by multiple leaf `p:Personas` to which it is linked.
 
 <p align="center"><img src="images/persona-ontology/persona.png" alt="Persona model"></p>
 
