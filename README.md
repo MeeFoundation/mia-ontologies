@@ -152,7 +152,7 @@ In the lower right shows a context that Alice might share with other people or c
 
 The repository includes a worked example for a hypothetical person, Alice Walker, to demonstrate the ontology in use.
 
-Within Alice's self, `example/alice/self.ttl`, is `:Alice_Walker-Self`, a `Person` entity. She also has an entity representing her mother, `:Paula_Walker-Self`. This 
+Within Alice's self, `example/alice/self.ttl`, is `:Alice_Walker-Self`, a `Person` entity. She also has an entity representing her mother, `:Paula_Walker-Self`. These entities have `p:hasPersona` links to `p:Personas`--each in its own context outside the self container.
 
 <p align="center"><img src="images/alice/alice(self).png" alt="Alice's self"></p>
 
