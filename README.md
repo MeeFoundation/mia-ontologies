@@ -105,7 +105,12 @@ A bank account is modeled as a `p:CheckingAccount` linked to a `p:Persona` and a
 
 ## Context Ontology
 
-The Context ontology (`context.ttl`) defines the controlled vocabularies used to classify each context file along three orthogonal dimensions: what kind of relationship the context represents (`c:contextType`) such as relationships with family members or interactions with a bank, who is making the assertions it contains (`c:assertionType`), and who it is about (`c:subject`). Value hierarchies are defined for each (`c:Context`, `c:AssertionType`, `c:SubjectType` and their subclasses). 
+A context is a container of information about one `p:Persona`. It is implemented as a `.ttl` file that also contains an owl:Ontology. The context ontology defines a set of three kinds of properties of this owl:Ontology that describe three orthogonal dimensions of the context:
+
+- What kind of relationship the context represents (`c:contextType`) such as relationships with family members or interactions with a bank
+- Who is making the assertions it contains (`c:assertionType`)
+- Who it is about (`c:subject`). 
+Value hierarchies are defined for `c:ContextType`, `c:AssertionType`, `c:SubjectType` and their subclasses. 
 
 **`c:contextType`** — The nature of the interaction/relationship context. Values form a subclass hierarchy under `c:Context`:
 
@@ -141,24 +146,22 @@ In the lower right shows a context that Alice might share with other people or c
 
 ### Context Ontology File
 
-- **`context.ttl`** — The Context ontology. It defines three dimensions of characteristics of the context containers that hold the information about people defined using the Persona ontology. 
+- **`context.ttl`** — The Context ontology. 
 
 ## Illustrative Example: Alice Walker
 
 The repository includes a worked example for a hypothetical person, Alice Walker, to demonstrate the ontology in use.
 
-Within Alice's self, `example/alice/self.ttl`, is `:Alice_Walker-Self`, a `Person` entity. She also has an entity representing her mother, `:Paula_Walker-Self`.
+Within Alice's self, `example/alice/self.ttl`, is `:Alice_Walker-Self`, a `Person` entity. She also has an entity representing her mother, `:Paula_Walker-Self`. This 
 
 <p align="center"><img src="images/alice/alice(self).png" alt="Alice's self"></p>
-
-Each context file is an independent `owl:Ontology` linked to a `Person` entity in `example/alice/self.ttl` via `p:hasPersona`. These context files are `c:assertionType c:SelfAsserted` — Alice is the one recording all of this data, even when the underlying information originates from a third party.
 
 Alice's `self.ttl` also describes some physical characteristics of Alice shown below:
 
 <p align="center"><img src="images/alice/alice(self)+physical.png" alt="Alice's physical characteristics"></p>
 
 ### Alice Walker's Contexts
-As we've mentioned, Alice interacts in a set of contexts. In the following, each context carries `c:subject c:Self`, indicating they are about Alice.
+As we've mentioned, Alice interacts in a set of contexts. In the following, each context carries `c:subject c:Self`, indicating they are about Alice. These context files are `c:assertionType c:SelfAsserted` — Alice is the one recording all of this data, even when the underlying information originates from a third party.
 
 | Context file | Context type | Key data | Image |
 |:-------------|:-------------|:---------|:------|
