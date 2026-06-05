@@ -188,7 +188,7 @@ For example, Alice's `texas-birth-certificate.ttl` is `c:contextCategory: c:Stat
 
 ### Alice's and Paula's Contexts
 
-Shown below is a map of all of Alice and Paula's contexts
+Shown below is a map of Alice and Paula's contexts. Note: two contexts in parentheses are placeholders (Bob and James) added to illustrate how context categories may be used/
 
 <p align="center"><img src="images/alice-contexts/context-map.png" alt="Alice's physical characteristics"></p>
 
