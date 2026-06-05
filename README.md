@@ -114,7 +114,7 @@ Value hierarchies are defined for `c:ContextCategory`, `c:AssertionType`, `c:Sub
 
 **`c:contextCategory`** — The nature of the interaction/relationship context. Values form a subclass hierarchy under `c:ContextCategory`:
 
-- `c:Company`  and subtypes `c:Health`, `c:Finance` — interactions with a company or other non-governmental organization.
+- `c:Company` and subtypes `c:Health`, `c:Finance` — interactions with a company or other non-governmental organization.
 - `c:Government` and subtypes `c:Federal`, `c:State`, `c:Municipality` — interactions with government agencies.
 - `c:People` and subtypes `c:Family`, `c:Colleagues`, `c:Friends`, `c:Consultants` — a relationship with other people.
 - `c:Possession` — a person's belongings or other things they possess in the real world.
