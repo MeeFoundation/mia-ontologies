@@ -124,7 +124,7 @@ Value hierarchies are defined for `c:ContextCategory`, `c:AssertionType`, `c:Sub
 - `c:Learning` — information gathered from personal experience.
 - `c:Topic` — pieces of existing, general knowledge selected by a person to be useful to them.
 
-<p align="center"><img src="images/context-ontology/context-type.png" alt="contextType hierarchy"></p>
+<p align="center"><img src="images/context-ontology/context-category.png" alt="contextType hierarchy"></p>
 
 **`c:assertionType`** — Who is making the assertion. Contexts can contain self-asserted or other-asserted information. Values are subclasses of `c:AssertionType`:
 - `c:SelfAsserted` — the Mia user is recording the data (using Mia), even if the underlying information originates from some other party such as a company, government agency, or another person.
