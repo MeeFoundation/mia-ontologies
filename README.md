@@ -1,5 +1,5 @@
 # Mia Ontologies
-The Mee Identity Agent (Mia) represents information about a person using two complementary ontologies. The **Persona ontology** models identity data — names, addresses, phone numbers, relationships, payment cards, and more — structured around the concept of a *persona*: a coherent slice of a person's identity as presented in a particular context. The **Context ontology** describes those contexts themselves — what broad category of interaction or relationship is involved (relationships with family members, interactions with a bank, etc.), who it is about, and who asserted the data. The **Identity ontology** models the identifiers used by individuals, informal groups of people and corporations sharing data on the Personal Data Network.
+The Mee Identity Agent (Mia) represents information about a person using two complementary ontologies. The **Persona ontology** models identity data — names, addresses, phone numbers, relationships, payment cards, and more — structured around the concept of a *persona*: a coherent slice of a person's identity as presented in a particular context. The **Context ontology** describes those contexts themselves — what broad category of interaction or relationship is involved (relationships with family members, interactions with a bank, etc.), who it is about, and who asserted the data. The **Identity ontology** models the identifiers used by individuals, informal groups of people, and corporations sharing data on the Personal Data Network.
 
 This document provides an overview of all three ontologies, then illustrates them with example Mia data for a hypothetical user, Alice Walker. Throughout, `p:` is shorthand for the `persona:` namespace (`http://mee.foundation/ontologies/persona#`), `c:` for the `context:` namespace (`http://mee.foundation/ontologies/context#`), and `i:` for the `identity:` namespace (`http://mee.foundation/ontologies/identity#`).
 
@@ -108,9 +108,9 @@ A bank account is modeled as a `p:CheckingAccount` linked to a `p:Persona` and a
 A context is a container of information about one `p:Persona`. It is implemented as a `.ttl` file that also contains an owl:Ontology. The context ontology defines a set of three kinds of properties of this owl:Ontology that describe three orthogonal dimensions of the context:
 
 - What is the category of context (`c:contextCategory`), e.g. relationships with family members, interactions with a bank, etc.
-- Who is making the assertions it contains (`c:assertionType`)
+- Who is making the assertions it contains (`c:assertedBy`)
 - Who it is about (`c:subjectType`). 
-Value hierarchies are defined for `c:ContextCategory`, `c:AssertionType`, `c:SubjectType` and their subclasses. 
+Value hierarchies are defined for `c:ContextCategory`, `c:SubjectType` and their subclasses; `c:assertedBy` takes a value from the `i:MeeIdentity` hierarchy defined in identity.ttl.
 
 **`c:contextCategory`** — The nature of the interaction/relationship context. Values form a subclass hierarchy under `c:ContextCategory`:
 
@@ -126,11 +126,11 @@ Value hierarchies are defined for `c:ContextCategory`, `c:AssertionType`, `c:Sub
 
 <p align="center"><img src="images/context-ontology/context-category.png" alt="contextType hierarchy"></p>
 
-**`c:assertionType`** — Who is making the assertion. Contexts can contain self-asserted or other-asserted information. Values are subclasses of `c:AssertionType`:
-- `c:SelfAsserted` — the Mia user is recording the data (using Mia), even if the underlying information originates from some other party such as a company, government agency, or another person.
-- `c:OtherAsserted` — another person, company or government agency is asserting the data directly.
-
-<p align="center"><img src="images/context-ontology/context-assertionType.png" alt="assertionType hierarchy"></p>
+**`c:assertedBy`** — Who is making the assertion. Values are subclasses of `i:MeeIdentity` from the Identity ontology:
+- `i:Self` — the Mia user is recording the data, even if the underlying information originates from some other party such as a company, government agency, or another person.
+- `i:Individual` — another human Mia user is asserting the data directly.
+- `i:Group` — a group of Mia users is asserting the data.
+- `i:Corporation` — a corporate legal entity is asserting the data directly.
 
 **`c:subjectType`** — Whose identity the context file describes. Contexts may be about the Mia user or about someone else or some other entity. Values are subclasses of `c:SubjectType`:
 - `c:Self` — the file is about the Mia user.
@@ -176,7 +176,7 @@ Alice's `self.ttl` also describes some physical characteristics of Alice shown b
 
 
 ### Alice Walker's Contexts
-As we've mentioned, Alice interacts in a set of contexts. In the following, each context carries `c:subjectType c:Self`, indicating they are about Alice. These context files are `c:assertionType c:SelfAsserted` — Alice is the one recording all of this data, even when the underlying information originates from a third party.
+As we've mentioned, Alice interacts in a set of contexts. In the following, each context carries `c:subjectType c:Self`, indicating they are about Alice. These context files are `c:assertedBy i:Self` — Alice is the one recording all of this data, even when the underlying information originates from a third party.
 
 | Context file | Context type | Key data | Image |
 |:-------------|:-------------|:---------|:------|
@@ -199,7 +199,7 @@ For the following context, `c:subjectType c:Other` — they are about another pe
 |:-------------|:-------------|:---------|:------|
 | `florida-birth-certificate.ttl` | State (FL) | Legal names | [view](images/paula-contexts/paula(florida-birth-certificate).png) |
 
-For example, Alice's `texas-birth-certificate.ttl` is `c:contextCategory: c:State`, `c:assertionType: c:SelfAsserted`, `c:subjectType: c:Self` — a state government context recorded by Alice, about Alice. Her `florida-birth-certificate.ttl` is `c:contextCategory: c:State`, `c:assertionType: c:SelfAsserted`, `c:subjectType: c:Other` — also recorded by Alice, but describing her mother Paula.
+For example, Alice's `texas-birth-certificate.ttl` is `c:contextCategory: c:State`, `c:assertedBy: i:Self`, `c:subjectType: c:Self` — a state government context recorded by Alice, about Alice. Her `florida-birth-certificate.ttl` is `c:contextCategory: c:State`, `c:assertedBy: i:Self`, `c:subjectType: c:Other` — also recorded by Alice, but describing her mother Paula.
 
 ### Alice's and Paula's Contexts
 

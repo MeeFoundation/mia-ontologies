@@ -1,4 +1,5 @@
 @prefix context: <http://mee.foundation/ontologies/context#> .
+@prefix identity: <http://mee.foundation/ontologies/identity#> .
 @prefix owl: <http://www.w3.org/2002/07/owl#> .
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
@@ -9,16 +10,17 @@
 <http://mee.foundation/ontologies/context> rdf:type owl:Ontology ;
     owl:versionIRI <http://mee.foundation/ontologies/context/1.0.1> ;
     dc:date "2026-06-01"^^xsd:date ;
-    owl:versionInfo "Version 1.0.5 - renamed subject to subjectType"@en ;
+    owl:imports <http://mee.foundation/ontologies/identity> ;
+    owl:versionInfo "Version 1.0.6 - replaced assertionType/AssertionType with assertedBy pointing to identity:MeeIdentity"@en ;
     rdfs:label "Context Ontology"@en ;
     rdfs:comment """Context Ontology for the Mee Identity Agent.
 
                     Defines controlled vocabularies for classifying context ontology files:
-                    - contextType: the kind of relationship a context file represents
-                    - assertionType: who is asserting the data (self vs. third party)
-                    - subject: whose identity the file describes (Self vs. ThirdParty)
+                    - contextCategory: the kind of relationship a context file represents
+                    - assertedBy: the identity asserting the data (an identity:MeeIdentity subclass)
+                    - subjectType: whose identity the file describes (Self vs. Other)
 
-                    Peer of persona.ttl; imported directly by each context file."""@en .
+                    Peer of persona.ttl and identity.ttl; imported directly by each context file."""@en .
 
 
 #################################################################
@@ -33,14 +35,13 @@ context:contextCategory rdf:type owl:AnnotationProperty ;
     rdfs:domain owl:Ontology ;
     rdfs:range context:ContextCategory .
 
-context:assertionType rdf:type owl:AnnotationProperty ;
-    rdfs:label "assertion type"@en ;
-    rdfs:comment """Tags a context ontology (file) with who is making the assertion —
-                    context:SelfAsserted (the person themselves) or context:OtherAsserted
-                    (a third party such as a company or government agency).
+context:assertedBy rdf:type owl:AnnotationProperty ;
+    rdfs:label "asserted by"@en ;
+    rdfs:comment """Tags a context ontology (file) with the kind of identity making the assertion —
+                    a subclass of identity:MeeIdentity (e.g. identity:Self, identity:Corporation).
                     Applied to the ontology IRI, not to the Persona individual."""@en ;
     rdfs:domain owl:Ontology ;
-    rdfs:range context:AssertionType .
+    rdfs:range identity:MeeIdentity .
 
 context:subjectType rdf:type owl:AnnotationProperty ;
     rdfs:label "subject"@en ;
@@ -51,24 +52,6 @@ context:subjectType rdf:type owl:AnnotationProperty ;
     rdfs:domain owl:Ontology ;
     rdfs:range context:SubjectType .
 
-
-#################################################################
-#    Assertion Type Hierarchy
-#################################################################
-
-context:AssertionType rdf:type owl:Class ;
-    rdfs:label "Assertion Type"@en ;
-    rdfs:comment "Controlled vocabulary for who is asserting the data in a context file."@en .
-
-context:SelfAsserted rdf:type owl:Class ;
-    rdfs:subClassOf context:AssertionType ;
-    rdfs:label "Self-Asserted"@en ;
-    rdfs:comment "The data in this context file is asserted by the person themselves."@en .
-
-context:OtherAsserted rdf:type owl:Class ;
-    rdfs:subClassOf context:AssertionType ;
-    rdfs:label "Other-Asserted"@en ;
-    rdfs:comment "The data in this context file is asserted by a third party."@en .
 
 
 #################################################################

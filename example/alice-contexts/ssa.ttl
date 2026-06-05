@@ -1,6 +1,7 @@
 @prefix : <http://www.example.org/mia#> .
 @prefix persona: <http://mee.foundation/ontologies/persona#> .
 @prefix context: <http://mee.foundation/ontologies/context#> .
+@prefix identity: <http://mee.foundation/ontologies/identity#> .
 @prefix cco: <https://purl.org/cco/> .
 @prefix owl: <http://www.w3.org/2002/07/owl#> .
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
@@ -15,7 +16,7 @@
     dc:date "2026-06-01"^^xsd:date ;
     owl:versionInfo "Version 1.0.5 - use context: prefix for context vocabulary"@en ;
     context:contextCategory context:Federal ;
-    context:assertionType context:SelfAsserted ;
+    context:assertedBy identity:Self ;
     context:subjectType context:Self ;
     rdfs:label "Alice Walker - SSA Persona"@en ;
     rdfs:comment """Alice Walker's SSA whoness — representing her in the context of her
