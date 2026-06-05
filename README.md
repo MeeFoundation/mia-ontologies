@@ -1,5 +1,5 @@
 # Mia Ontologies
-The Mee Identity Agent (Mia) represents information about a person using two complementary ontologies. The **Persona ontology** models identity data — names, addresses, phone numbers, relationships, payment cards, and more — structured around the concept of a *persona*: a coherent slice of a person's identity as presented in a particular context. The **Context ontology** describes those contexts themselves — what broad category of interaction or relationship is involved (relationships with family members, interactions with a bank, etc.), who it is about, and who asserted the data. This document provides an overview of both ontologies, then illustrates them with example Mia data for a hypothetical user, Alice Walker. Throughout, `p:` is shorthand for the `persona:` namespace (`http://mee.foundation/ontologies/persona#`) and `c:` for the `context:` namespace (`http://mee.foundation/ontologies/context#`).
+The Mee Identity Agent (Mia) represents information about a person using two complementary ontologies. The **Persona ontology** models identity data — names, addresses, phone numbers, relationships, payment cards, and more — structured around the concept of a *persona*: a coherent slice of a person's identity as presented in a particular context. The **Context ontology** describes those contexts themselves — what broad category of interaction or relationship is involved (relationships with family members, interactions with a bank, etc.), who it is about, and who asserted the data. This document provides an overview of both ontologies, then illustrates them with example Mia data for a hypothetical user, Alice Walker. Throughout, `p:` is shorthand for the `persona:` namespace (`http://mee.foundation/ontologies/persona#`), `c:` for the `context:` namespace (`http://mee.foundation/ontologies/context#`), and `i:` for the `identity:` namespace (`http://mee.foundation/ontologies/identity#`).
 
 ## Persona Ontology
 
@@ -148,13 +148,13 @@ In the lower right shows a context that Alice might share with other people or c
 
 ## Identity Ontology
 
-The Identity ontology is used to describe the kinds of identities that Mia can communicate with over the internet using Personal Data Network protocols. The root class, `p:MeeIdentity`, has three subclasses:
+The Identity ontology is used to describe the kinds of identities that Mia can communicate with over the internet using Personal Data Network protocols. The root class, `i:MeeIdentity`, has three subclasses:
 
 <p align="center"><img src="images/identity-ontology/identity.png" alt="types of MeeIdentities"></p>
 
-* `p:Individual` - an identifier of a human Mia user. The identity of the current Mia user is an instance of the subclass, `p:Self`
-* `p:Group` - an identifier of a group of Mia users
-* `p:Corporation` - an identifier of a corporate legal entity
+* `i:Individual` - an identifier of a human Mia user. The identity of the current Mia user is an instance of the subclass, `i:Self`
+* `i:Group` - an identifier of a group of Mia users
+* `i:Corporation` - an identifier of a corporate legal entity
 
 ### Identity Ontology File
 

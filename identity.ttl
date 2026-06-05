@@ -1,0 +1,48 @@
+@prefix identity: <http://mee.foundation/ontologies/identity#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix dc: <http://purl.org/dc/elements/1.1/> .
+@base <http://mee.foundation/ontologies/identity> .
+
+<http://mee.foundation/ontologies/identity> rdf:type owl:Ontology ;
+    owl:versionIRI <http://mee.foundation/ontologies/identity/1.0.0> ;
+    dc:date "2026-06-05"^^xsd:date ;
+    owl:versionInfo "Version 1.0.0 - initial identity ontology"@en ;
+    rdfs:label "Identity Ontology"@en ;
+    rdfs:comment """Identity Ontology for the Mee Identity Agent.
+
+                    Describes the kinds of identities that Mia can communicate with
+                    over the internet using Personal Data Network protocols.
+
+                    Peer of persona.ttl and context.ttl."""@en .
+
+
+#################################################################
+#    Identity Hierarchy
+#################################################################
+
+identity:MeeIdentity rdf:type owl:Class ;
+    rdfs:label "Mee Identity"@en ;
+    rdfs:comment "Root class for all kinds of identities that Mia can communicate with over the internet using Personal Data Network protocols."@en .
+
+identity:Individual rdf:type owl:Class ;
+    rdfs:subClassOf identity:MeeIdentity ;
+    rdfs:label "Individual"@en ;
+    rdfs:comment "An identifier of a human Mia user."@en .
+
+identity:Self rdf:type owl:Class ;
+    rdfs:subClassOf identity:Individual ;
+    rdfs:label "Self"@en ;
+    rdfs:comment "The identity of the current Mia user."@en .
+
+identity:Group rdf:type owl:Class ;
+    rdfs:subClassOf identity:MeeIdentity ;
+    rdfs:label "Group"@en ;
+    rdfs:comment "An identifier of a group of Mia users."@en .
+
+identity:Corporation rdf:type owl:Class ;
+    rdfs:subClassOf identity:MeeIdentity ;
+    rdfs:label "Corporation"@en ;
+    rdfs:comment "An identifier of a corporate legal entity."@en .
