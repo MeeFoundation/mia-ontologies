@@ -107,7 +107,7 @@ A bank account is modeled as a `p:CheckingAccount` linked to a `p:Persona` and a
 
 A context is a container of information about one `p:Persona`. It is implemented as a `.ttl` file that also contains an owl:Ontology. The context ontology defines a set of three kinds of properties of this owl:Ontology that describe three orthogonal dimensions of the context:
 
-- What kind of relationship the context represents (`c:contextCategory`) such as relationships with family members or interactions with a bank
+- What is the category of context (`c:contextCategory`), e.g. relationships with family members, interactions with a bank, etc.
 - Who is making the assertions it contains (`c:assertionType`)
 - Who it is about (`c:subjectType`). 
 Value hierarchies are defined for `c:ContextCategory`, `c:AssertionType`, `c:SubjectType` and their subclasses. 
