@@ -14,9 +14,9 @@
     owl:imports <http://mee.foundation/ontologies/context> ;
     dc:date "2026-06-01"^^xsd:date ;
     owl:versionInfo "Version 1.0.10 - use context: prefix for context vocabulary"@en ;
-    context:contextType context:Possession ;
+    context:contextCategory context:Possession ;
     context:assertionType context:SelfAsserted ;
-    context:subject context:Self ;
+    context:subjectType context:Self ;
     rdfs:label "Alice Walker - Belongings Persona"@en ;
     rdfs:comment """Alice Walker's belongings persona — physical items she carries day-to-day.
                     Correlated from :Alice_Walker-Self in self.ttl."""@en .

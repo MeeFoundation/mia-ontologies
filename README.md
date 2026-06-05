@@ -56,7 +56,7 @@ A `p:Persona` can itself carry `p:hasPersona`. This allows intermediate, branch 
 
 ### Belongings
 
-A `p:Persona` within a context of `c:contextType: c:Possession` models the physical items a person carries or stores — their wallet, payment cards, driver's license, health insurance card, and other documents. Physical cards are `MaterialArtifact` subclasses and may be placed inside a wallet (via BFO `continuant part of`) or held directly by the `p:Persona` (via `p:hasPhysicalCard`). When a future context file creates a `p:Persona` for a card-issuing institution (e.g. a DMV), the corresponding physical card links back to that `p:Persona` using BFO `is carrier of`.
+A `p:Persona` within a context of `c:contextCategory: c:Possession` models the physical items a person carries or stores — their wallet, payment cards, driver's license, health insurance card, and other documents. Physical cards are `MaterialArtifact` subclasses and may be placed inside a wallet (via BFO `continuant part of`) or held directly by the `p:Persona` (via `p:hasPhysicalCard`). When a future context file creates a `p:Persona` for a card-issuing institution (e.g. a DMV), the corresponding physical card links back to that `p:Persona` using BFO `is carrier of`.
 
 <p align="center"><img src="images/persona-ontology/persona-card.png" alt="Belongings model"></p>
 
@@ -107,16 +107,16 @@ A bank account is modeled as a `p:CheckingAccount` linked to a `p:Persona` and a
 
 A context is a container of information about one `p:Persona`. It is implemented as a `.ttl` file that also contains an owl:Ontology. The context ontology defines a set of three kinds of properties of this owl:Ontology that describe three orthogonal dimensions of the context:
 
-- What kind of relationship the context represents (`c:contextType`) such as relationships with family members or interactions with a bank
+- What kind of relationship the context represents (`c:contextCategory`) such as relationships with family members or interactions with a bank
 - Who is making the assertions it contains (`c:assertionType`)
-- Who it is about (`c:subject`). 
-Value hierarchies are defined for `c:ContextType`, `c:AssertionType`, `c:SubjectType` and their subclasses. 
+- Who it is about (`c:subjectType`). 
+Value hierarchies are defined for `c:ContextCategory`, `c:AssertionType`, `c:SubjectType` and their subclasses. 
 
-**`c:contextType`** — The nature of the interaction/relationship context. Values form a subclass hierarchy under `c:Context`:
+**`c:contextCategory`** — The nature of the interaction/relationship context. Values form a subclass hierarchy under `c:ContextCategory`:
 
 - `c:Company` — interactions with a company or other non-governmental organization.
 - `c:Government` and subtypes `c:Federal`, `c:State`, `c:Municipality` — interactions with government agencies.
-- `c:People` and subtypes `c:Family`, `c:Colleagues`, `c:Friends`, `c:Consultants`, `c:Other` — a relationship with other people.
+- `c:People` and subtypes `c:Family`, `c:Colleagues`, `c:Friends`, `c:Consultants` — a relationship with other people.
 - `c:Possession` — a person's belongings or other things they possess in the real world.
 - `c:Career` — professional roles, employment history, and career relationships.
 - `c:Project` — involvement in a specific project or initiative.
@@ -132,7 +132,7 @@ Value hierarchies are defined for `c:ContextType`, `c:AssertionType`, `c:Subject
 
 <p align="center"><img src="images/context-ontology/context-assertionType.png" alt="assertionType hierarchy"></p>
 
-**`c:subject`** — Whose identity the context file describes. Contexts may be about the Mia user or about someone else or some other entity. Values are subclasses of `c:SubjectType`:
+**`c:subjectType`** — Whose identity the context file describes. Contexts may be about the Mia user or about someone else or some other entity. Values are subclasses of `c:SubjectType`:
 - `c:Self` — the file is about the Mia user.
 - `c:Other` — the file is about another person, company or government agency.
 
@@ -161,7 +161,7 @@ Alice's `self.ttl` also describes some physical characteristics of Alice shown b
 <p align="center"><img src="images/alice/alice(self)+physical.png" alt="Alice's physical characteristics"></p>
 
 ### Alice Walker's Contexts
-As we've mentioned, Alice interacts in a set of contexts. In the following, each context carries `c:subject c:Self`, indicating they are about Alice. These context files are `c:assertionType c:SelfAsserted` — Alice is the one recording all of this data, even when the underlying information originates from a third party.
+As we've mentioned, Alice interacts in a set of contexts. In the following, each context carries `c:subjectType c:Self`, indicating they are about Alice. These context files are `c:assertionType c:SelfAsserted` — Alice is the one recording all of this data, even when the underlying information originates from a third party.
 
 | Context file | Context type | Key data | Image |
 |:-------------|:-------------|:---------|:------|
@@ -178,13 +178,13 @@ As we've mentioned, Alice interacts in a set of contexts. In the following, each
 
 ### Alice's Paula Walker Context
 
-For the following context, `c:subject c:Other` — they are about another person, in this case her mother, Paula Walker.
+For the following context, `c:subjectType c:Other` — they are about another person, in this case her mother, Paula Walker.
 
 | Context file | Context type | Key data | Image |
 |:-------------|:-------------|:---------|:------|
 | `florida-birth-certificate.ttl` | State (FL) | Legal names | [view](images/paula-contexts/paula(florida-birth-certificate).png) |
 
-For example, Alice's `texas-birth-certificate.ttl` is `c:contextType: c:State`, `c:assertionType: c:SelfAsserted`, `c:subject: c:Self` — a state government context recorded by Alice, about Alice. Her `florida-birth-certificate.ttl` is `c:contextType: c:State`, `c:assertionType: c:SelfAsserted`, `c:subject: c:Other` — also recorded by Alice, but describing her mother Paula.
+For example, Alice's `texas-birth-certificate.ttl` is `c:contextCategory: c:State`, `c:assertionType: c:SelfAsserted`, `c:subjectType: c:Self` — a state government context recorded by Alice, about Alice. Her `florida-birth-certificate.ttl` is `c:contextCategory: c:State`, `c:assertionType: c:SelfAsserted`, `c:subjectType: c:Other` — also recorded by Alice, but describing her mother Paula.
 
 ## Design Patterns
 

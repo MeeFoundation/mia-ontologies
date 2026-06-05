@@ -14,9 +14,9 @@
     owl:imports <http://mee.foundation/ontologies/context> ;
     dc:date "2026-06-01"^^xsd:date ;
     owl:versionInfo "Version 1.0.5 - use context: prefix for context vocabulary"@en ;
-    context:contextType context:Federal ;
+    context:contextCategory context:Federal ;
     context:assertionType context:SelfAsserted ;
-    context:subject context:Self ;
+    context:subjectType context:Self ;
     rdfs:label "Alice Walker - SSA Persona"@en ;
     rdfs:comment """Alice Walker's SSA whoness — representing her in the context of her
                     Social Security Administration record.

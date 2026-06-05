@@ -14,9 +14,9 @@
     owl:imports <http://mee.foundation/ontologies/context> ;
     dc:date "2026-06-01"^^xsd:date ;
     owl:versionInfo "Version 1.0.5 - use context: prefix for context vocabulary"@en ;
-    context:contextType context:Company ;
+    context:contextCategory context:Company ;
     context:assertionType context:SelfAsserted ;
-    context:subject context:Self ;
+    context:subjectType context:Self ;
     rdfs:label "Alice Walker - Google Persona"@en ;
     rdfs:comment """Alice Walker's Google whoness — representing her in the context of her
                     Google account. Correlated from :Alice_Walker-Self in self.ttl.

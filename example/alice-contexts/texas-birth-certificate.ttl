@@ -14,9 +14,9 @@
     owl:imports <http://mee.foundation/ontologies/context> ;
     dc:date "2026-06-01"^^xsd:date ;
     owl:versionInfo "Version 1.0.8 - use context: prefix for context vocabulary"@en ;
-    context:contextType context:State ;
+    context:contextCategory context:State ;
     context:assertionType context:SelfAsserted ;
-    context:subject context:Self ;
+    context:subjectType context:Self ;
     rdfs:label "Alice Walker - Texas Birth Certificate Persona"@en ;
     rdfs:comment """Alice Walker's Texas birth certificate whoness — representing her legal
                     name record as issued by the State of Texas.

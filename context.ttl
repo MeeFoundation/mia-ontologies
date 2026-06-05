@@ -9,7 +9,7 @@
 <http://mee.foundation/ontologies/context> rdf:type owl:Ontology ;
     owl:versionIRI <http://mee.foundation/ontologies/context/1.0.1> ;
     dc:date "2026-06-01"^^xsd:date ;
-    owl:versionInfo "Version 1.0.1 - switch all terms from persona: to context: namespace"@en ;
+    owl:versionInfo "Version 1.0.5 - renamed subject to subjectType"@en ;
     rdfs:label "Context Ontology"@en ;
     rdfs:comment """Context Ontology for the Mee Identity Agent.
 
@@ -25,13 +25,13 @@
 #    Annotation Properties for Context File Classification
 #################################################################
 
-context:contextType rdf:type owl:AnnotationProperty ;
+context:contextCategory rdf:type owl:AnnotationProperty ;
     rdfs:label "context type"@en ;
     rdfs:comment """Tags a context ontology (file) with the kind of relationship it represents —
                     e.g. context:Company, context:Federal, context:Municipality.
                     Applied to the ontology IRI, not to the Persona individual."""@en ;
     rdfs:domain owl:Ontology ;
-    rdfs:range context:Context .
+    rdfs:range context:ContextCategory .
 
 context:assertionType rdf:type owl:AnnotationProperty ;
     rdfs:label "assertion type"@en ;
@@ -42,7 +42,7 @@ context:assertionType rdf:type owl:AnnotationProperty ;
     rdfs:domain owl:Ontology ;
     rdfs:range context:AssertionType .
 
-context:subject rdf:type owl:AnnotationProperty ;
+context:subjectType rdf:type owl:AnnotationProperty ;
     rdfs:label "subject"@en ;
     rdfs:comment """Tags a context ontology (file) with whose identity it describes —
                     context:Self (the file is about the identity owner) or
@@ -91,29 +91,91 @@ context:Other rdf:type owl:Class ;
 
 
 #################################################################
-#    Context Hierarchy
-#    Context subclasses are used as values for the context:contextType
-#    annotation property on ontology IRIs (context files), not as
-#    rdf:type assertions on Persona individuals.
+#    Context Categories
+#    Subclasses are used as values for the context:contextCategory
+#    annotation property on ontology IRIs (context files)
 #################################################################
 
-context:Context rdf:type owl:Class ;
-    rdfs:label "Context"@en ;
-    rdfs:comment """Controlled vocabulary for the kind of interaction context a context file represents.
-                    Used as the value of context:contextType on ontology IRIs."""@en .
+context:ContextCategory rdf:type owl:Class ;
+    rdfs:label "ContextCategory"@en ;
+    rdfs:comment """Controlled vocabulary for categories of contexts. 
+                    Used as the value of context:contextCategory on ontology IRIs."""@en .
 
-context:Career rdf:type owl:Class ;
-    rdfs:subClassOf context:Context ;
-    rdfs:label "Career"@en ;
-    rdfs:comment "Professional roles, employment history, and career relationships."@en .
+context:Possession rdf:type owl:Class ;
+    rdfs:subClassOf context:ContextCategory ;
+    rdfs:label "Possession"@en ;
+    rdfs:comment "Owned assets, property, vehicles, and other possessions."@en .
+
+context:Project rdf:type owl:Class ;
+    rdfs:subClassOf context:ContextCategory ;
+    rdfs:label "Project"@en ;
+    rdfs:comment "Involvement in a specific project or initiative."@en .
+
+context:Event rdf:type owl:Class ;
+    rdfs:subClassOf context:ContextCategory ;
+    rdfs:label "Event"@en ;
+    rdfs:comment "Participation in or relationship to a specific event."@en .
+
+context:Learning rdf:type owl:Class ;
+    rdfs:subClassOf context:ContextCategory ;
+    rdfs:label "Learning"@en ;
+    rdfs:comment "Educational experiences, courses, and certifications."@en .
+
+context:Topic rdf:type owl:Class ;
+    rdfs:subClassOf context:ContextCategory ;
+    rdfs:label "Topic"@en ;
+    rdfs:comment "Interest in or expertise around a specific subject area."@en .
+
+#################################################################
+#    Company and subclasses
+#################################################################
 
 context:Company rdf:type owl:Class ;
-    rdfs:subClassOf context:Context ;
+    rdfs:subClassOf context:ContextCategory ;
     rdfs:label "Company"@en ;
     rdfs:comment "Relationship with a specific company, bank, or other institution."@en .
 
+context:Finance rdf:type owl:Class ;
+    rdfs:subClassOf context:Company ;
+    rdfs:label "Finance"@en ;
+    rdfs:comment "Financial services company"@en .    
+
+context:Health rdf:type owl:Class ;
+    rdfs:subClassOf context:Company ;
+    rdfs:label "Health"@en ;
+    rdfs:comment "Health and wellness company"@en .        
+
+#################################################################
+#    Career and subclasses
+#################################################################
+
+context:Career rdf:type owl:Class ;
+    rdfs:subClassOf context:ContextCategory ;
+    rdfs:label "Career"@en ;
+    rdfs:comment "Professional roles, employment history, and career relationships."@en .
+
+context:Employee rdf:type owl:Class ;
+    rdfs:subClassOf context:Career ;
+    rdfs:label "Employee"@en ;
+    rdfs:comment "Related to being an employee."@en .
+
+context:Contributor rdf:type owl:Class ;
+    rdfs:subClassOf context:Career ;
+    rdfs:label "Contributor"@en ;
+    rdfs:comment "Related to contributing to initiatives started or led by others."@en .
+
+context:Creator rdf:type owl:Class ;
+    rdfs:subClassOf context:Career ;
+    rdfs:label "Creator"@en ;
+    rdfs:comment "Related to being a creator, inventor, founder, author of something."@en .
+
+
+#################################################################
+#    Government and subclasses
+#################################################################
+
 context:Government rdf:type owl:Class ;
-    rdfs:subClassOf context:Context ;
+    rdfs:subClassOf context:ContextCategory ;
     rdfs:label "Government"@en ;
     rdfs:comment "Government-issued credentials, tax records, and civic relationships."@en .
 
@@ -132,33 +194,12 @@ context:Municipality rdf:type owl:Class ;
     rdfs:label "Municipality"@en ;
     rdfs:comment "Municipal government context (e.g. local permits, library card)."@en .
 
-context:Possession rdf:type owl:Class ;
-    rdfs:subClassOf context:Context ;
-    rdfs:label "Possession"@en ;
-    rdfs:comment "Owned assets, property, vehicles, and other possessions."@en .
-
-context:Project rdf:type owl:Class ;
-    rdfs:subClassOf context:Context ;
-    rdfs:label "Project"@en ;
-    rdfs:comment "Involvement in a specific project or initiative."@en .
-
-context:Event rdf:type owl:Class ;
-    rdfs:subClassOf context:Context ;
-    rdfs:label "Event"@en ;
-    rdfs:comment "Participation in or relationship to a specific event."@en .
-
-context:Learning rdf:type owl:Class ;
-    rdfs:subClassOf context:Context ;
-    rdfs:label "Learning"@en ;
-    rdfs:comment "Educational experiences, courses, and certifications."@en .
-
-context:Topic rdf:type owl:Class ;
-    rdfs:subClassOf context:Context ;
-    rdfs:label "Topic"@en ;
-    rdfs:comment "Interest in or expertise around a specific subject area."@en .
+#################################################################
+#    People and subclasses
+#################################################################
 
 context:People rdf:type owl:Class ;
-    rdfs:subClassOf context:Context ;
+    rdfs:subClassOf context:ContextCategory ;
     rdfs:label "People"@en ;
     rdfs:comment "Interactions with all kinds of people."@en .
 
@@ -181,8 +222,3 @@ context:Colleagues rdf:type owl:Class ;
     rdfs:subClassOf context:People ;
     rdfs:label "Colleagues"@en ;
     rdfs:comment "Interactions with others with whom you work."@en .
-
-context:Other rdf:type owl:Class ;
-    rdfs:subClassOf context:People ;
-    rdfs:label "Other"@en ;
-    rdfs:comment "Interactions with a person not fitting Family, Friends, Colleagues, or Consultants."@en .

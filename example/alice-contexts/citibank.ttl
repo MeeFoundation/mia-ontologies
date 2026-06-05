@@ -14,9 +14,9 @@
     owl:imports <http://mee.foundation/ontologies/context> ;
     dc:date "2026-06-01"^^xsd:date ;
     owl:versionInfo "Version 1.0.8 - use context: prefix for context vocabulary"@en ;
-    context:contextType context:Company ;
+    context:contextCategory context:Company ;
     context:assertionType context:SelfAsserted ;
-    context:subject context:Self ;
+    context:subjectType context:Self ;
     rdfs:label "Alice Walker - Citibank Persona"@en ;
     rdfs:comment """Alice Walker's Citibank whoness — the context-specific Persona
                     representing Alice in her Citibank financial relationship.
