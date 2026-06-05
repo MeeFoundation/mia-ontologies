@@ -46,8 +46,6 @@ A `p:Persona` can itself carry `p:hasPersona`. This allows intermediate, branch 
 **Properties**
 
 * `p:hasPersona` — links a `Person` (one's "selfness", essential individuality, or a sense of one's own unique personality and identity) to one of their context-specific `p:Persona` instances.
-* `p:hasPhysicalCard` — links a `p:Persona` to a `p:PhysicalCard` carried outside of a wallet (see Belongings below).
-* `p:hasWallet` — links a `p:Persona` to a physical wallet (see Belongings below).
 
 **Classes**
 
@@ -63,9 +61,9 @@ A `p:Persona` within a context of `c:contextCategory: c:Possession` models the p
 **Properties**
 
 * `is carrier of` (from BFO) — used to link a physical card to its corresponding `p:Persona` in another context.
-* `p:hasPhysicalCard` — links a `p:Persona` to a `p:PhysicalCard` carried outside of a wallet (e.g. stored at home or kept separately).
-* `p:hasWallet` — links a `p:Persona` to the physical wallet they carry.
+* `p:hasWallet` — links a `p:Persona` to a physical wallet (see Belongings below).
 * `p:hasImageScan` — a link to a scanned image of this card.
+* `p:hasPhysicalCard` — links a `p:Persona` to a `p:PhysicalCard` carried outside of a wallet (see Belongings below).
 
 **Classes**
 
@@ -148,6 +146,20 @@ In the lower right shows a context that Alice might share with other people or c
 
 - **`context.ttl`** — The Context ontology. 
 
+## Identity Ontology
+
+The Identity ontology is used to describe the kinds of identities that Mia can communicate with over the internet using Personal Data Network protocols. The root class, `p:MeeIdentity`, has three subclasses:
+
+<p align="center"><img src="images/idenity-ontology/idenity.png" alt="a quadrant of context types"></p>
+
+* `p:Individual` - an identifier of a human Mia user. The identity of the current Mia user is an instance of the subclass, `p:Self`
+* `p:Group` - an identifier of a group of Mia users
+* `p:Corporation` - an identifier of a corporate legal entity
+
+### Identity Ontology File
+
+- **`identity.ttl`** — The Identity ontology. 
+
 ## Illustrative Example: Alice Walker
 
 The repository includes a worked example for a hypothetical person, Alice Walker, to demonstrate the ontology in use.
@@ -159,6 +171,7 @@ Within Alice's self, `example/alice/self.ttl`, is `:Alice_Walker-Self`, a `Perso
 Alice's `self.ttl` also describes some physical characteristics of Alice shown below:
 
 <p align="center"><img src="images/alice/alice(self)+physical.png" alt="Alice's physical characteristics"></p>
+
 
 ### Alice Walker's Contexts
 As we've mentioned, Alice interacts in a set of contexts. In the following, each context carries `c:subjectType c:Self`, indicating they are about Alice. These context files are `c:assertionType c:SelfAsserted` — Alice is the one recording all of this data, even when the underlying information originates from a third party.
