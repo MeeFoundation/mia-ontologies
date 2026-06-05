@@ -108,8 +108,8 @@ A bank account is a `p:CheckingAccount` linked to a `p:Persona` and accessed via
 A context is a container of information about one main `p:Persona` which is the *subject* of the context, its claims, and in some cases the `p:Persona` facets of other people. A context is implemented as a `.ttl` file that by convention contains an owl:Ontology. The context ontology defines three properties of this owl:Ontology that describe three orthogonal dimensions of the context:
 
 - What is the category of context (`c:contextCategory`), e.g. relationships with family members, interactions with a bank, etc.
-- Who is making the assertions it contains (`c:assertedBy`) - its value is a `i:MeeIdentity`
-- Who it is about (`c:subject`) -its value is a `i:MeeIdentity`
+- Who is making the assertions the context contains (`c:assertedBy`) - its value is a `i:MeeIdentity`
+- Who is the context mainly about (`c:subject`) - its value is a `i:MeeIdentity`
 `c:contextCategory` takes values from the `c:ContextCategory` hierarchy; both `c:assertedBy` and `c:subject` take values from the `i:MeeIdentity` hierarchy defined in identity.ttl.
 
 **`c:contextCategory`** — The nature of the interaction/relationship context. Values form a subclass hierarchy under `c:ContextCategory`:
@@ -136,7 +136,7 @@ A context is a container of information about one main `p:Persona` which is the 
 - `i:Self` — the file is about the Mia user.
 - `i:Individual` — the file is about another human Mia user.
 - `i:Group` — the file is about a group of Mia users.
-- `i:Organization` — the file is about a organization.
+- `i:Organization` — the file is about an organization (legal corporation or government agency).
 
 <p align="center"><img src="images/context-ontology/context-subject.png" alt="subject hierarchy"></p>
 
