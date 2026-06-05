@@ -11,14 +11,14 @@
     owl:versionIRI <http://mee.foundation/ontologies/context/1.0.1> ;
     dc:date "2026-06-01"^^xsd:date ;
     owl:imports <http://mee.foundation/ontologies/identity> ;
-    owl:versionInfo "Version 1.0.6 - replaced assertionType/AssertionType with assertedBy pointing to identity:MeeIdentity"@en ;
+    owl:versionInfo "Version 1.0.7 - replaced subjectType/SubjectType with subject pointing to identity:MeeIdentity"@en ;
     rdfs:label "Context Ontology"@en ;
     rdfs:comment """Context Ontology for the Mee Identity Agent.
 
                     Defines controlled vocabularies for classifying context ontology files:
                     - contextCategory: the kind of relationship a context file represents
                     - assertedBy: the identity asserting the data (an identity:MeeIdentity subclass)
-                    - subjectType: whose identity the file describes (Self vs. Other)
+                    - subject: whose identity the file describes (an identity:MeeIdentity subclass)
 
                     Peer of persona.ttl and identity.ttl; imported directly by each context file."""@en .
 
@@ -43,34 +43,15 @@ context:assertedBy rdf:type owl:AnnotationProperty ;
     rdfs:domain owl:Ontology ;
     rdfs:range identity:MeeIdentity .
 
-context:subjectType rdf:type owl:AnnotationProperty ;
+context:subject rdf:type owl:AnnotationProperty ;
     rdfs:label "subject"@en ;
     rdfs:comment """Tags a context ontology (file) with whose identity it describes —
-                    context:Self (the file is about the identity owner) or
-                    context:ThirdParty (the file is about another person or entity).
+                    a subclass of identity:MeeIdentity (e.g. identity:Self, identity:Individual).
                     Applied to the ontology IRI, not to the Persona individual."""@en ;
     rdfs:domain owl:Ontology ;
-    rdfs:range context:SubjectType .
+    rdfs:range identity:MeeIdentity .
 
 
-
-#################################################################
-#    Subject Type Hierarchy
-#################################################################
-
-context:SubjectType rdf:type owl:Class ;
-    rdfs:label "Subject Type"@en ;
-    rdfs:comment "Controlled vocabulary for whose identity a context file describes."@en .
-
-context:Self rdf:type owl:Class ;
-    rdfs:subClassOf context:SubjectType ;
-    rdfs:label "Self"@en ;
-    rdfs:comment "The context file describes the identity owner themselves."@en .
-
-context:Other rdf:type owl:Class ;
-    rdfs:subClassOf context:SubjectType ;
-    rdfs:label "Other"@en ;
-    rdfs:comment "The context file describes another person or entity (not the identity owner)."@en .
 
 
 #################################################################

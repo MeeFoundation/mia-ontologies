@@ -17,7 +17,7 @@
     owl:versionInfo "Version 1.0.8 - use context: prefix for context vocabulary"@en ;
     context:contextCategory context:Colleagues ;
     context:assertedBy identity:Self ;
-    context:subjectType context:Self ;
+    context:subject identity:Self ;
     rdfs:label "Alice Walker - Colleagues Persona"@en ;
     rdfs:comment """Alice Walker's colleagues whoness — representing her in the context of her
                     professional colleague relationships.

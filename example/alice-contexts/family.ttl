@@ -17,7 +17,7 @@
     owl:versionInfo "Version 1.0.5 - use context: prefix for context vocabulary"@en ;
     context:contextCategory context:Family ;
     context:assertedBy identity:Self ;
-    context:subjectType context:Self ;
+    context:subject identity:Self ;
     rdfs:label "Alice Walker - Family Persona"@en ;
     rdfs:comment """Alice Walker's family whoness — representing her in the context of her
                     family relationships. Correlated from :Alice_Walker-Self in self.ttl."""@en .

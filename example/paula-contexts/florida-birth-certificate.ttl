@@ -17,7 +17,7 @@
     owl:versionInfo "Version 1.0.8 - use context: prefix for context vocabulary"@en ;
     context:contextCategory context:State ;
     context:assertedBy identity:Self ;
-    context:subjectType context:Other ;
+    context:subject identity:Individual ;
     rdfs:label "Paula Walker - Florida Birth Certificate Persona"@en ;
     rdfs:comment """Paula Walker's Florida birth certificate whoness — representing her legal
                     name record as issued by the State of Florida.

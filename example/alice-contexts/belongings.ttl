@@ -17,7 +17,7 @@
     owl:versionInfo "Version 1.0.10 - use context: prefix for context vocabulary"@en ;
     context:contextCategory context:Possession ;
     context:assertedBy identity:Self ;
-    context:subjectType context:Self ;
+    context:subject identity:Self ;
     rdfs:label "Alice Walker - Belongings Persona"@en ;
     rdfs:comment """Alice Walker's belongings persona — physical items she carries day-to-day.
                     Correlated from :Alice_Walker-Self in self.ttl."""@en .

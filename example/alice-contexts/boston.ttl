@@ -17,7 +17,7 @@
     owl:versionInfo "Version 1.0.5 - use context: prefix for context vocabulary"@en ;
     context:contextCategory context:Municipality ;
     context:assertedBy identity:Self ;
-    context:subjectType context:Self ;
+    context:subject identity:Self ;
     rdfs:label "Alice Walker - Boston Persona"@en ;
     rdfs:comment """Alice Walker's Boston whoness — representing her residence in Boston, MA
                     from 2020 to 2025. Correlated from :Alice_Walker-Self in self.ttl."""@en .

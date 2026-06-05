@@ -109,8 +109,8 @@ A context is a container of information about one `p:Persona`. It is implemented
 
 - What is the category of context (`c:contextCategory`), e.g. relationships with family members, interactions with a bank, etc.
 - Who is making the assertions it contains (`c:assertedBy`)
-- Who it is about (`c:subjectType`). 
-Value hierarchies are defined for `c:ContextCategory`, `c:SubjectType` and their subclasses; `c:assertedBy` takes a value from the `i:MeeIdentity` hierarchy defined in identity.ttl.
+- Who it is about (`c:subject`). 
+`c:contextCategory` takes values from the `c:ContextCategory` hierarchy; both `c:assertedBy` and `c:subject` take values from the `i:MeeIdentity` hierarchy defined in identity.ttl.
 
 **`c:contextCategory`** — The nature of the interaction/relationship context. Values form a subclass hierarchy under `c:ContextCategory`:
 
@@ -132,9 +132,11 @@ Value hierarchies are defined for `c:ContextCategory`, `c:SubjectType` and their
 - `i:Group` — a group of Mia users is asserting the data.
 - `i:Corporation` — a corporate legal entity is asserting the data directly.
 
-**`c:subjectType`** — Whose identity the context file describes. Contexts may be about the Mia user or about someone else or some other entity. Values are subclasses of `c:SubjectType`:
-- `c:Self` — the file is about the Mia user.
-- `c:Other` — the file is about another person, company or government agency.
+**`c:subject`** — Whose identity the context file describes. Values are subclasses of `i:MeeIdentity` from the Identity ontology:
+- `i:Self` — the file is about the Mia user.
+- `i:Individual` — the file is about another human Mia user.
+- `i:Group` — the file is about a group of Mia users.
+- `i:Corporation` — the file is about a corporate legal entity.
 
 <p align="center"><img src="images/context-ontology/context-subject.png" alt="subject hierarchy"></p>
 
@@ -176,7 +178,7 @@ Alice's `self.ttl` also describes some physical characteristics of Alice shown b
 
 
 ### Alice Walker's Contexts
-As we've mentioned, Alice interacts in a set of contexts. In the following, each context carries `c:subjectType c:Self`, indicating they are about Alice. These context files are `c:assertedBy i:Self` — Alice is the one recording all of this data, even when the underlying information originates from a third party.
+As we've mentioned, Alice interacts in a set of contexts. In the following, each context carries `c:subject i:Self`, indicating they are about Alice. These context files are `c:assertedBy i:Self` — Alice is the one recording all of this data, even when the underlying information originates from a third party.
 
 | Context file | Context type | Key data | Image |
 |:-------------|:-------------|:---------|:------|
@@ -193,13 +195,13 @@ As we've mentioned, Alice interacts in a set of contexts. In the following, each
 
 ### Alice's Paula Walker Context
 
-For the following context, `c:subjectType c:Other` — they are about another person, in this case her mother, Paula Walker.
+For the following context, `c:subject i:Individual` — they are about another person, in this case her mother, Paula Walker.
 
 | Context file | Context type | Key data | Image |
 |:-------------|:-------------|:---------|:------|
 | `florida-birth-certificate.ttl` | State (FL) | Legal names | [view](images/paula-contexts/paula(florida-birth-certificate).png) |
 
-For example, Alice's `texas-birth-certificate.ttl` is `c:contextCategory: c:State`, `c:assertedBy: i:Self`, `c:subjectType: c:Self` — a state government context recorded by Alice, about Alice. Her `florida-birth-certificate.ttl` is `c:contextCategory: c:State`, `c:assertedBy: i:Self`, `c:subjectType: c:Other` — also recorded by Alice, but describing her mother Paula.
+For example, Alice's `texas-birth-certificate.ttl` is `c:contextCategory: c:State`, `c:assertedBy: i:Self`, `c:subject: i:Self` — a state government context recorded by Alice, about Alice. Her `florida-birth-certificate.ttl` is `c:contextCategory: c:State`, `c:assertedBy: i:Self`, `c:subject: i:Individual` — also recorded by Alice, but describing her mother Paula.
 
 ### Alice's and Paula's Contexts
 
