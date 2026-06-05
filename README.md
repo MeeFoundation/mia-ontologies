@@ -56,7 +56,7 @@ A `p:Persona` can itself carry `p:hasPersona`. This allows intermediate, branch 
 
 ### Belongings
 
-A `p:Persona` within a context of `c:contextCategory: c:Possession` models the physical items a person carries or stores — their wallet, payment cards, driver's license, health insurance card, and other documents. Physical cards are `MaterialArtifact` subclasses and may be placed inside a wallet (via BFO `continuant part of`) or held directly by the `p:Persona` (via `p:hasPhysicalCard`). When a future context file creates a `p:Persona` for a card-issuing institution (e.g. a DMV), the corresponding physical card links back to that `p:Persona` using BFO `is carrier of`.
+A `p:Persona` within a context of `c:contextCategory: c:Possession` models the physical items a person carries or stores — their wallet, payment cards, driver's license, health insurance card, and other documents. Physical cards are `MaterialArtifact` subclasses and may be placed inside a wallet (via BFO `continuant part of`) or held directly by the `p:Persona` (via `p:hasPhysicalCard`).
 
 <p align="center"><img src="images/persona-ontology/persona-card.png" alt="Belongings model"></p>
 
