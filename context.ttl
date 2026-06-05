@@ -38,7 +38,7 @@ context:contextCategory rdf:type owl:AnnotationProperty ;
 context:assertedBy rdf:type owl:AnnotationProperty ;
     rdfs:label "asserted by"@en ;
     rdfs:comment """Tags a context ontology (file) with the kind of identity making the assertion —
-                    a subclass of identity:MeeIdentity (e.g. identity:Self, identity:Corporation).
+                    a subclass of identity:MeeIdentity (e.g. identity:Self, identity:Organization).
                     Applied to the ontology IRI, not to the Persona individual."""@en ;
     rdfs:domain owl:Ontology ;
     rdfs:range identity:MeeIdentity .

@@ -5,7 +5,7 @@ This document provides an overview of all three ontologies, then illustrates the
 
 ## Persona Ontology
 
-Persona is an **application ontology** for the Mee Identity Agent (Mia). It imports and profiles existing domain ontologies — documenting which of their classes and properties Mia requires or uses — and extends them with Mia-specific classes and properties.
+Persona is an application ontology for the Mee Identity Agent (Mia). It imports and profiles existing domain ontologies — documenting which of their classes and properties Mia requires or uses — and extends them with Mia-specific classes and properties.
 
 ### Purpose
 
@@ -130,13 +130,13 @@ A context is a container of information about one `p:Persona`. It is implemented
 - `i:Self` — the Mia user is recording the data, even if the underlying information originates from some other party such as a company, government agency, or another person.
 - `i:Individual` — another human Mia user is asserting the data directly.
 - `i:Group` — a group of Mia users is asserting the data.
-- `i:Corporation` — a corporate legal entity is asserting the data directly.
+- `i:Organization` — a organization is asserting the data directly.
 
 **`c:subject`** — Whose identity the context file describes. Values are subclasses of `i:MeeIdentity` from the Identity ontology:
 - `i:Self` — the file is about the Mia user.
 - `i:Individual` — the file is about another human Mia user.
 - `i:Group` — the file is about a group of Mia users.
-- `i:Corporation` — the file is about a corporate legal entity.
+- `i:Organization` — the file is about a organization.
 
 <p align="center"><img src="images/context-ontology/context-subject.png" alt="subject hierarchy"></p>
 
@@ -158,7 +158,7 @@ The Identity ontology is used to describe the kinds of identities that Mia can c
 
 * `i:Individual` - an identifier of a human Mia user. The identity of the current Mia user is an instance of the subclass, `i:Self`
 * `i:Group` - an identifier of a group of Mia users
-* `i:Corporation` - an identifier of a corporate legal entity
+* `i:Organization` - an identifier of a organization
 
 ### Identity Ontology File
 

@@ -9,7 +9,7 @@
 <http://mee.foundation/ontologies/identity> rdf:type owl:Ontology ;
     owl:versionIRI <http://mee.foundation/ontologies/identity/1.0.0> ;
     dc:date "2026-06-05"^^xsd:date ;
-    owl:versionInfo "Version 1.0.0 - initial identity ontology"@en ;
+    owl:versionInfo "Version 1.0.1 - renamed Corporation to Organization"@en ;
     rdfs:label "Identity Ontology"@en ;
     rdfs:comment """Identity Ontology for the Mee Identity Agent.
 
@@ -42,7 +42,7 @@ identity:Group rdf:type owl:Class ;
     rdfs:label "Group"@en ;
     rdfs:comment "An identifier of a group of Mia users."@en .
 
-identity:Corporation rdf:type owl:Class ;
+identity:Organization rdf:type owl:Class ;
     rdfs:subClassOf identity:MeeIdentity ;
-    rdfs:label "Corporation"@en ;
-    rdfs:comment "An identifier of a corporate legal entity."@en .
+    rdfs:label "Organization"@en ;
+    rdfs:comment "An identifier of an organization (company, government agency, non-profit, etc.)."@en .
