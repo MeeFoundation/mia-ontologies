@@ -150,7 +150,7 @@ In the lower right shows a context that Alice might share with other people or c
 
 The Identity ontology is used to describe the kinds of identities that Mia can communicate with over the internet using Personal Data Network protocols. The root class, `p:MeeIdentity`, has three subclasses:
 
-<p align="center"><img src="images/idenity-ontology/idenity.png" alt="a quadrant of context types"></p>
+<p align="center"><img src="images/identity-ontology/idenity.png" alt="types of MeeIdentities"></p>
 
 * `p:Individual` - an identifier of a human Mia user. The identity of the current Mia user is an instance of the subclass, `p:Self`
 * `p:Group` - an identifier of a group of Mia users
