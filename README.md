@@ -186,6 +186,12 @@ For the following context, `c:subjectType c:Other` — they are about another pe
 
 For example, Alice's `texas-birth-certificate.ttl` is `c:contextCategory: c:State`, `c:assertionType: c:SelfAsserted`, `c:subjectType: c:Self` — a state government context recorded by Alice, about Alice. Her `florida-birth-certificate.ttl` is `c:contextCategory: c:State`, `c:assertionType: c:SelfAsserted`, `c:subjectType: c:Other` — also recorded by Alice, but describing her mother Paula.
 
+### Alice's and Paula's Contexts
+
+Shown below is a map of all of Alice and Paula's contexts
+
+<p align="center"><img src="images/alice-contexts/context-map.png" alt="Alice's physical characteristics"></p>
+
 ## Design Patterns
 
 **Physical cards**: When a future context file creates a `p:Persona` for a credential issuer (e.g. DMV), the corresponding physical card in `belongings.ttl` links back using BFO `is carrier of` (`BFO_0000101`): the `p:PhysicalCard` individual is the carrier of the `p:Persona` (ICE).
