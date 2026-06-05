@@ -74,7 +74,7 @@ A `p:Persona` within a context of `c:contextCategory: c:Possession` models the p
 * `p:PhysicalDriversLicense` (subclass of `p:PhysicalCard`) — a state-issued driver's license card.
 * `p:PhysicalPaymentCard` (subclass of `p:PhysicalCard`) — a physical credit or debit card.
 * `p:PhysicalSocialSecurityCard` (subclass of `p:PhysicalCard`) — a paper or plastic card issued by the Social Security Administration.
-* `p:Wallet` — a physical wallet that holds cards, money, and other personal documents.
+* `p:Wallet` — a physical wallet that can hold cash as well as various kinds of paper or plastic identity or payment cards.
 
 ### Accounts
 
@@ -90,7 +90,7 @@ An online service account (`OnlineServiceAccount`, CCO `ont00000033`) records a 
 
 ### Banking
 
-A bank account is modeled as a `p:CheckingAccount` linked to a `p:Persona` and accessed via a debit card. Builds on the Accounts model above.
+A bank account is a `p:CheckingAccount` linked to a `p:Persona` and accessed via a debit card. It builds on the Accounts model above.
 
 **Properties**
 
@@ -105,11 +105,11 @@ A bank account is modeled as a `p:CheckingAccount` linked to a `p:Persona` and a
 
 ## Context Ontology
 
-A context is a container of information about one `p:Persona`. It is implemented as a `.ttl` file that also contains an owl:Ontology. The context ontology defines a set of three kinds of properties of this owl:Ontology that describe three orthogonal dimensions of the context:
+A context is a container of information about one main `p:Persona` which is the *subject* of the context, its claims, and in some cases the `p:Persona` facets of other people. A context is implemented as a `.ttl` file that by convention contains an owl:Ontology. The context ontology defines three properties of this owl:Ontology that describe three orthogonal dimensions of the context:
 
 - What is the category of context (`c:contextCategory`), e.g. relationships with family members, interactions with a bank, etc.
-- Who is making the assertions it contains (`c:assertedBy`)
-- Who it is about (`c:subject`). 
+- Who is making the assertions it contains (`c:assertedBy`) - its value is a `i:MeeIdentity`
+- Who it is about (`c:subject`) -its value is a `i:MeeIdentity`
 `c:contextCategory` takes values from the `c:ContextCategory` hierarchy; both `c:assertedBy` and `c:subject` take values from the `i:MeeIdentity` hierarchy defined in identity.ttl.
 
 **`c:contextCategory`** — The nature of the interaction/relationship context. Values form a subclass hierarchy under `c:ContextCategory`:
