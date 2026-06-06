@@ -116,9 +116,10 @@ A context is a container of information about one main `p:Persona` which is the 
 
 - `c:Company` and subtypes `c:Health`, `c:Finance` — interactions with a company or other non-governmental organization.
 - `c:Government` and subtypes `c:Federal`, `c:State`, `c:Municipality` — interactions with government agencies.
-- `c:People` and subtypes `c:Family`, `c:Colleagues`, `c:Friends`, `c:Consultants` — a relationship with other people.
+- `c:Person` and subtypes `c:Family`, `c:Colleague`, `c:Friend`, `c:Consultant` — a relationship with other people.
 - `c:Possession` — a person's belongings or other things they possess in the real world.
 - `c:Career` — professional roles, employment history, and career relationships.
+- `c:Pet` - relationship with pets.
 - `c:Project` — involvement in a specific project or initiative.
 - `c:Event` — participation in or relationship to a specific event, e.g. a meeting.
 - `c:Learning` — information gathered from personal experience.
@@ -140,11 +141,11 @@ A context is a container of information about one main `p:Persona` which is the 
 
 <p align="center"><img src="images/context-ontology/context-subject.png" alt="subject hierarchy"></p>
 
-The diagram below shows four kinds of contexts related to a hypothetical Mia user, Alice, and her interactions with a Registry of Motor Vehicles (RMV) agency. Across the top are contexts where the RMV itself is the subject, and at the bottom where Alice is the subject. At the left are contexts where Alice has made the assertions (e.g. Alice's Mia has written the claims into the context) and at the right are contexts where the RMV as the "other" has written the claims. 
+The diagram below shows four kinds of contexts related to a hypothetical Mia user, Alice, and her interactions with a Department of Motor Vehicles (DMV) agency. Across the top are contexts where the DMV itself is the subject, and at the bottom where Alice is the subject. At the left are contexts where Alice has made the assertions (e.g. Alice's Mia has written the claims into the context) and at the right are contexts where the RMV as the "other" has written the claims. 
 
 <p align="center"><img src="images/context-ontology/quadrants.png" alt="a quadrant of context types"></p>
 
-In the lower right shows a context that Alice might share with other people or companies. In it, she asserts that her driver's license number is S43228943, having almost certainly copied that number from her physical driver's license. The context in the lower right carries the same information as the lower left, but because it is being asserted by the RMV it is more likely to be trusted by a recipient, especially if this information is conveyed via secure channel and the claims are cryptographically bound to the identity of the RMV.
+In the lower right shows a context that Alice might share with other people or companies. In it, she asserts that her driver's license number is S43228943, having almost certainly copied that number from her physical driver's license. The context in the lower right carries the same information as the lower left, but because it is being asserted by the DMV it is more likely to be trusted by a recipient, especially if this information is conveyed via secure channel and the claims are cryptographically bound to the identity of the DMV.
 
 ### Context Ontology File
 
