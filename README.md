@@ -125,13 +125,11 @@ A context is a container of information about one main `p:Persona` which is the 
 - `c:Company` and subtypes `c:Health`, `c:Finance` — interactions with a company or other non-governmental organization.
 - `c:Government` and subtypes `c:Federal`, `c:State`, `c:Municipality` — interactions with government agencies.
 - `c:Person` and subtypes `c:Family`, `c:Colleague`, `c:Friend`, `c:Consultant` — a relationship with other people.
-- `c:Possession` — a person's belongings or other things they possess in the real world.
+- `c:Possession` and subtypes `c:Automobile`, `c:Pet` — a person's belongings or other things they possess in the real world.
 - `c:Career` and subtypes `c:Employee`, `c:Contributor`, `c:Creator` — professional roles, employment history, and career relationships.
-- `c:Pet` — taking care of pets.
 - `c:Project` — involvement in a specific project or initiative.
 - `c:Event` — participation in or relationship to a specific event, e.g. a meeting.
-- `c:Learning` — information gathered from personal experience.
-- `c:Topic` — pieces of existing, general knowledge selected by a person to be useful to them.
+- `c:Knowledge` and subtype `c:Learning` — pieces of existing, general knowledge selected by a person to be useful to them.
 
 <p align="center"><img src="images/context-ontology/context-category.png" alt="contextType hierarchy"></p>
 
@@ -218,6 +216,15 @@ Shown below is a map of Alice and Paula's contexts.
 
 <p align="center"><img src="images/alice-contexts/context-map.png" alt="Alice's physical characteristics"></p>
 
+Notes on the labeled contexts in the diagram above.
+1. What Alice claims about herself in the context of her relationship with Paula. Alice may choose to share this with Paula.
+2. What Clice claims about Paula in the context of her relationship with Paula. Alice may choose to share this with Paula.
+3. What Paula claims about Alice in some context Paula has defined for her relationship with Alice. This context has been shared by Paula with Alice.
+4. What Paula claims about herself in the context of her relationship with Alice. This context has been shared by Paula with Alice.
+5. What Alice claims about herself in the context of role as an employee of Acme. The `p:Persona` within this context is an example of an intermediate, branch `p:Persona` that may link to other sub-Personas of Alice (via `p:hasPersona`) or link to the Personas of other people (via `p:knows`). 
+6. What Alice claims about Paula in Alice's role as an employee of Acme. She may choose to share this with others.
+7. What Alice claims about herself in the context of a shared group called Bridge Club. Alice's claims are shared with all members of the Bridge Club.
+8. What Paula claims about herself in the context of the same shared group called Bridge Club. These claims are visible to Alice because all claims about all members are shared with all the other members.
 
 ## Diagrams
 

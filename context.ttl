@@ -11,7 +11,7 @@
     owl:versionIRI <http://mee.foundation/ontologies/context/1.0.1> ;
     dc:date "2026-06-01"^^xsd:date ;
     owl:imports <http://mee.foundation/ontologies/identity> ;
-    owl:versionInfo "Version 1.0.8 - rename People/Colleagues/Friends/Consultants to singular; add Pet"@en ;
+    owl:versionInfo "Version 1.0.10 - renamed Topic to Knowledge"@en ;
     rdfs:label "Context Ontology"@en ;
     rdfs:comment """Context Ontology for the Mee Identity Agent.
 
@@ -70,6 +70,16 @@ context:Possession rdf:type owl:Class ;
     rdfs:label "Possession"@en ;
     rdfs:comment "Owned assets, property, vehicles, and other possessions."@en .
 
+context:Automobile rdf:type owl:Class ;
+    rdfs:subClassOf context:Possession ;
+    rdfs:label "Automobile"@en ;
+    rdfs:comment "Owning and maintaining an automobile."@en .
+
+context:Pet rdf:type owl:Class ;
+    rdfs:subClassOf context:Possession ;
+    rdfs:label "Pet"@en ;
+    rdfs:comment "Taking care of pets."@en .
+
 context:Project rdf:type owl:Class ;
     rdfs:subClassOf context:ContextCategory ;
     rdfs:label "Project"@en ;
@@ -80,15 +90,15 @@ context:Event rdf:type owl:Class ;
     rdfs:label "Event"@en ;
     rdfs:comment "Participation in or relationship to a specific event."@en .
 
-context:Learning rdf:type owl:Class ;
+context:Knowledge rdf:type owl:Class ;
     rdfs:subClassOf context:ContextCategory ;
+    rdfs:label "Knowledge"@en ;
+    rdfs:comment "Interest in or expertise around a specific subject area."@en .
+
+context:Learning rdf:type owl:Class ;
+    rdfs:subClassOf context:Knowledge ;
     rdfs:label "Learning"@en ;
     rdfs:comment "Educational experiences, courses, and certifications."@en .
-
-context:Topic rdf:type owl:Class ;
-    rdfs:subClassOf context:ContextCategory ;
-    rdfs:label "Topic"@en ;
-    rdfs:comment "Interest in or expertise around a specific subject area."@en .
 
 #################################################################
 #    Company and subclasses
@@ -186,12 +196,3 @@ context:Colleague rdf:type owl:Class ;
     rdfs:subClassOf context:Person ;
     rdfs:label "Colleague"@en ;
     rdfs:comment "Interactions with others with whom you work."@en .
-
-#################################################################
-#    Pet
-#################################################################
-
-context:Pet rdf:type owl:Class ;
-    rdfs:subClassOf context:ContextCategory ;
-    rdfs:label "Pet"@en ;
-    rdfs:comment "Taking care of pets."@en .
