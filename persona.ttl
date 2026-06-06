@@ -16,7 +16,7 @@
     owl:imports <https://purl.org/cco/address> ;
     owl:imports <https://purl.org/cco/staging> ;
     dc:date "2026-06-01"^^xsd:date ;
-    owl:versionInfo "Version 3.0.32 - added p:knows property"@en ;
+    owl:versionInfo "Version 3.0.31 - context.ttl is a peer; context files import it directly"@en ;
     rdfs:label "Persona Ontology"@en ;
     rdfs:comment """Persona Ontology for the Mee Identity Agent.
 
@@ -159,12 +159,6 @@ persona:hasSocialNetwork rdf:type owl:ObjectProperty ;
                     with whom the person has relationships in that context. The Persona is
                     not a member of the network; the network contains only the people they
                     relate to."""@en .
-
-persona:knows rdf:type owl:ObjectProperty ;
-    rdfs:domain persona:Persona ;
-    rdfs:range persona:Persona ;
-    rdfs:label "knows"@en ;
-    rdfs:comment "Links a Persona to another Persona that the person knows."@en .
 
 
 #################################################################

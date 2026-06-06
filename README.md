@@ -43,14 +43,11 @@ A`p:Persona` is an Information Content Entity (CCO `ont00000958`) — a context-
 
 A `p:Persona` can itself carry `p:hasPersona`. This allows intermediate, branch level `p:Personas` which in turn link to leaf level `p:Personas`. The claims of intermediate `p:Personas` are inherited by leaf `p:Personas` to which they are linked.
 
-Finally, a `p:Persona` can carry `p:knows` links to the `p:Personas` of other people. 
-
 <p align="center"><img src="images/persona-ontology/persona.png" alt="Persona model"></p>
 
 **Properties**
 
 * `p:hasPersona` — links a `Person` (one's "selfness", essential individuality, or a sense of one's own unique personality and identity) to one of their context-specific `p:Persona` instances.
-* `p:knows` — links a `p:Persona` to another `p:Persona` that the person knows.
 
 **Classes**
 
