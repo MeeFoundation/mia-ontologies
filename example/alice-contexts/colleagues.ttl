@@ -15,7 +15,7 @@
     owl:imports <http://mee.foundation/ontologies/context> ;
     dc:date "2026-06-01"^^xsd:date ;
     owl:versionInfo "Version 1.0.8 - use context: prefix for context vocabulary"@en ;
-    context:contextCategory context:Colleagues ;
+    context:contextCategory context:Colleague ;
     context:assertedBy identity:Self ;
     context:subject identity:Self ;
     rdfs:label "Alice Walker - Colleagues Persona"@en ;

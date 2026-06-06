@@ -194,4 +194,4 @@ context:Colleague rdf:type owl:Class ;
 context:Pet rdf:type owl:Class ;
     rdfs:subClassOf context:ContextCategory ;
     rdfs:label "Pet"@en ;
-    rdfs:comment "Interactions or records relating to a pet."@en .
+    rdfs:comment "Taking care of pets."@en .

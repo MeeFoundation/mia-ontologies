@@ -118,8 +118,8 @@ A context is a container of information about one main `p:Persona` which is the 
 - `c:Government` and subtypes `c:Federal`, `c:State`, `c:Municipality` — interactions with government agencies.
 - `c:Person` and subtypes `c:Family`, `c:Colleague`, `c:Friend`, `c:Consultant` — a relationship with other people.
 - `c:Possession` — a person's belongings or other things they possess in the real world.
-- `c:Career` — professional roles, employment history, and career relationships.
-- `c:Pet` - relationship with pets.
+- `c:Career` and subtypes `c:Employee`, `c:Contributor`, `c:Creator` — professional roles, employment history, and career relationships.
+- `c:Pet` — taking care of pets.
 - `c:Project` — involvement in a specific project or initiative.
 - `c:Event` — participation in or relationship to a specific event, e.g. a meeting.
 - `c:Learning` — information gathered from personal experience.
