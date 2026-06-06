@@ -11,7 +11,7 @@
     owl:versionIRI <http://mee.foundation/ontologies/context/1.0.1> ;
     dc:date "2026-06-01"^^xsd:date ;
     owl:imports <http://mee.foundation/ontologies/identity> ;
-    owl:versionInfo "Version 1.0.7 - replaced subjectType/SubjectType with subject pointing to identity:MeeIdentity"@en ;
+    owl:versionInfo "Version 1.0.8 - rename People/Colleagues/Friends/Consultants to singular; add Pet"@en ;
     rdfs:label "Context Ontology"@en ;
     rdfs:comment """Context Ontology for the Mee Identity Agent.
 
@@ -159,30 +159,39 @@ context:Municipality rdf:type owl:Class ;
     rdfs:comment "Municipal government context (e.g. local permits, library card)."@en .
 
 #################################################################
-#    People and subclasses
+#    Person and subclasses
 #################################################################
 
-context:People rdf:type owl:Class ;
+context:Person rdf:type owl:Class ;
     rdfs:subClassOf context:ContextCategory ;
-    rdfs:label "People"@en ;
+    rdfs:label "Person"@en ;
     rdfs:comment "Interactions with all kinds of people."@en .
 
 context:Family rdf:type owl:Class ;
-    rdfs:subClassOf context:People ;
+    rdfs:subClassOf context:Person ;
     rdfs:label "Family"@en ;
     rdfs:comment "Interactions with family members."@en .
 
-context:Friends rdf:type owl:Class ;
-    rdfs:subClassOf context:People ;
-    rdfs:label "Friends"@en ;
+context:Friend rdf:type owl:Class ;
+    rdfs:subClassOf context:Person ;
+    rdfs:label "Friend"@en ;
     rdfs:comment "Interactions with friends."@en .
 
-context:Consultants rdf:type owl:Class ;
-    rdfs:subClassOf context:People ;
-    rdfs:label "Consultants"@en ;
+context:Consultant rdf:type owl:Class ;
+    rdfs:subClassOf context:Person ;
+    rdfs:label "Consultant"@en ;
     rdfs:comment "Interactions with consultants who provide services."@en .
 
-context:Colleagues rdf:type owl:Class ;
-    rdfs:subClassOf context:People ;
-    rdfs:label "Colleagues"@en ;
+context:Colleague rdf:type owl:Class ;
+    rdfs:subClassOf context:Person ;
+    rdfs:label "Colleague"@en ;
     rdfs:comment "Interactions with others with whom you work."@en .
+
+#################################################################
+#    Pet
+#################################################################
+
+context:Pet rdf:type owl:Class ;
+    rdfs:subClassOf context:ContextCategory ;
+    rdfs:label "Pet"@en ;
+    rdfs:comment "Interactions or records relating to a pet."@en .
