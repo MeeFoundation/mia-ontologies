@@ -103,7 +103,7 @@ A bank account is a `p:CheckingAccount` linked to a `p:Persona` and accessed via
 * `p:CheckingAccountNumber` — an identifier designating a bank checking account, connected via `designated by` (`ont00001879`).
 * `p:RoutingNumber` — an ABA routing transit number identifying the financial institution, connected via `designated by`.
 
-### Ontology modeling details
+### Modeling details
 
 A few details related to modeling names and addresses in the Persona Ontology:
 
