@@ -105,7 +105,7 @@ A bank account is a `p:CheckingAccount` linked to a `p:Persona` and accessed via
 
 ### Ontology modeling details
 
-A few details related to modeling names and addresses in the Persona Ontology
+A few details related to modeling names and addresses in the Persona Ontology:
 
 **Peer name pattern**: All name types (FullName, GivenName, FamilyName, AlternateName) connect directly to a `Person` or `p:Persona` via `designated by` (`ont00001879`). They are siblings, not nested under a PersonName parent. Legal names belong to `p:BirthCertificate` `p:Persona` instances; a preferred/goes-by name lives in `self.ttl` since it applies across all contexts.
 
