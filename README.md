@@ -48,6 +48,7 @@ A `p:Persona` can itself carry `p:hasPersona`. This allows intermediate, branch 
 **Properties**
 
 * `p:hasPersona` — links a `Person` (one's "selfness", essential individuality, or a sense of one's own unique personality and identity) to one of their context-specific `p:Persona` instances.
+* `p:knows` — links a `p:Persona` to another `p:Persona` that the person knows.
 
 **Classes**
 
