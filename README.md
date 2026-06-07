@@ -122,15 +122,15 @@ A context is a container of information about one main `p:Persona` which is the 
 
 **`c:contextCategory`** — The nature of the interaction/relationship context. Values form a subclass hierarchy under `c:ContextCategory`:
 
-- `c:Social` — a context whose subject is the Self persona *and* that links to the personas of other people. The context file contains data about both the identity owner and other individuals. Examples: family relationships, colleague networks, friend groups.
+- `c:Social` — a context whose subject is one of the Self's `p:Personas` *and* that includes a social network with `has member` links to the `p:personas` of other people in other contexts.  Examples: family relationships, colleague networks, friend groups.
   - `c:Group` — interactions with a formal or informal group of people.
   - `c:Collection` and subtypes `c:Family`, `c:Colleague`, `c:Friend`, `c:Consultant` — interactions with individual people in a person's life.
-- `c:Personal` — a context whose only subject is the Self persona. It describes the identity owner's relationship with an institution, role, possession, or area of knowledge — no other person's persona appears in it. Examples: a bank account, a driver's license, a car.
-  - `c:Work` and subtypes `c:Employee`, `c:Contributor`, `c:Creator` — professional roles, employment history, and career relationships.
-  - `c:Company` and subtypes `c:Health`, `c:Finance` — interactions with a company or other non-governmental organization.
-  - `c:Event` — participation in or relationship to a specific event, e.g. a meeting.
+- `c:Personal` — a context containing only one of the Self's `p:Personas` -- no other person's `p:Persona` appears in it. It describes the Self's relationship with (and interactions with) a specific institution, role, possession, or area of knowledge. Examples: a bank account, a driver's license, a car.
+  - `c:Work` and subtypes `c:Employee`, `c:Contributor`, `c:Creator` — professional roles.
+  - `c:Company` and subtypes `c:Health`, `c:Finance` — interactions and/or relationship with a company or other non-governmental organization.
+  - `c:Event` — participation in or relationship to a specific event, e.g. a face-to-face or online meeting.
   - `c:Government` and subtypes `c:Federal`, `c:State`, `c:Municipality` — interactions with government agencies.
-  - `c:Knowledge` and subtype `c:Learning` — pieces of existing, general knowledge selected by a person to be useful to them.
+  - `c:Knowledge` general knowledge selected by a person to be useful to them. It has a subtype `c:Learning` which is knowledge gained through personal experience.
   - `c:Possession` and subtypes `c:Automobile`, `c:Pet`, `c:Dwelling` — a person's belongings or other things they possess, rent, or lease.
   - `c:Project` — involvement in a specific project or initiative.
 
