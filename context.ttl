@@ -11,7 +11,7 @@
     owl:versionIRI <http://mee.foundation/ontologies/context/1.0.1> ;
     dc:date "2026-06-01"^^xsd:date ;
     owl:imports <http://mee.foundation/ontologies/identity> ;
-    owl:versionInfo "Version 1.0.14 - renamed MultiPersona/SinglePersona to Social/Personal"@en ;
+    owl:versionInfo "Version 1.0.15 - renamed Career to Work"@en ;
     rdfs:label "Context Ontology"@en ;
     rdfs:comment """Context Ontology for the Mee Identity Agent.
 
@@ -113,23 +113,23 @@ context:Personal rdf:type owl:Class ;
     rdfs:label "Personal"@en ;
     rdfs:comment "Contexts involving interactions with a single entity — company, government, role, or possession."@en .
 
-context:Career rdf:type owl:Class ;
+context:Work rdf:type owl:Class ;
     rdfs:subClassOf context:Personal ;
-    rdfs:label "Career"@en ;
+    rdfs:label "Work"@en ;
     rdfs:comment "Professional roles, employment history, and career relationships."@en .
 
 context:Employee rdf:type owl:Class ;
-    rdfs:subClassOf context:Career ;
+    rdfs:subClassOf context:Work ;
     rdfs:label "Employee"@en ;
     rdfs:comment "Related to being an employee."@en .
 
 context:Contributor rdf:type owl:Class ;
-    rdfs:subClassOf context:Career ;
+    rdfs:subClassOf context:Work ;
     rdfs:label "Contributor"@en ;
     rdfs:comment "Related to contributing to initiatives started or led by others."@en .
 
 context:Creator rdf:type owl:Class ;
-    rdfs:subClassOf context:Career ;
+    rdfs:subClassOf context:Work ;
     rdfs:label "Creator"@en ;
     rdfs:comment "Related to being a creator, inventor, founder, author of something."@en .
 

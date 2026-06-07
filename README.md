@@ -126,7 +126,7 @@ A context is a container of information about one main `p:Persona` which is the 
   - `c:Group` — interactions with a formal or informal group of people.
   - `c:Collection` and subtypes `c:Family`, `c:Colleague`, `c:Friend`, `c:Consultant` — interactions with individual people in a person's life.
 - `c:Personal` — a context whose only subject is the Self persona. It describes the identity owner's relationship with an institution, role, possession, or area of knowledge — no other person's persona appears in it. Examples: a bank account, a driver's license, a car.
-  - `c:Career` and subtypes `c:Employee`, `c:Contributor`, `c:Creator` — professional roles, employment history, and career relationships.
+  - `c:Work` and subtypes `c:Employee`, `c:Contributor`, `c:Creator` — professional roles, employment history, and career relationships.
   - `c:Company` and subtypes `c:Health`, `c:Finance` — interactions with a company or other non-governmental organization.
   - `c:Event` — participation in or relationship to a specific event, e.g. a meeting.
   - `c:Government` and subtypes `c:Federal`, `c:State`, `c:Municipality` — interactions with government agencies.
