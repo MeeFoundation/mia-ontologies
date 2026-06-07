@@ -1,5 +1,6 @@
 @prefix : <http://mee.foundation/ontologies/persona#> .
-@prefix persona: <http://mee.foundation/ontologies/persona#> .
+@prefix p: <http://mee.foundation/ontologies/persona#> .
+@prefix identity: <http://mee.foundation/ontologies/identity#> .
 @prefix cco: <https://purl.org/cco/> .
 @prefix owl: <http://www.w3.org/2002/07/owl#> .
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
@@ -15,8 +16,9 @@
     owl:imports <https://purl.org/cco/person> ;
     owl:imports <https://purl.org/cco/address> ;
     owl:imports <https://purl.org/cco/staging> ;
+    owl:imports <http://mee.foundation/ontologies/identity> ;
     dc:date "2026-06-01"^^xsd:date ;
-    owl:versionInfo "Version 3.0.31 - context.ttl is a peer; context files import it directly"@en ;
+    owl:versionInfo "Version 3.0.32 - added p:hasIdentity property; imports identity.ttl"@en ;
     rdfs:label "Persona Ontology"@en ;
     rdfs:comment """Persona Ontology for the Mee Identity Agent.
 
@@ -42,14 +44,14 @@
                     """@en ;
 
     # Document which domain classes this application uses
-    persona:usesRequiredClass cco:ent00000002 ,  # GivenName
+    p:usesRequiredClass cco:ent00000002 ,  # GivenName
                               cco:ent00000004 ,  # FamilyName
                               cco:ent00000008 ,  # SocialSecurityNumber
                               cco:ent00000010 ,  # USPostalAddress
                               cco:ent00000023 ,  # TelephoneNumber
                               cco:ent00000024 ;  # EmailAddress
 
-    persona:usesOptionalClass cco:ent00000001 ,  # FullName
+    p:usesOptionalClass cco:ent00000001 ,  # FullName
                               cco:ent00000003 ,  # AdditionalName (middle name)
                               cco:ent00000005 ,  # Suffix (Jr., Sr., etc.)
                               cco:ent00000006 ,  # AlternateName
@@ -60,7 +62,7 @@
                               cco:ent00000054 ;  # Expiration Date Identifier
 
     # Document CCO classes used directly (note: use full IRIs, not cco: prefix)
-    persona:usesCCOClass <https://purl.org/cco/ont00001262> ,  # Person
+    p:usesCCOClass <https://purl.org/cco/ont00001262> ,  # Person
                          <https://purl.org/cco/ont00001331> ,  # Legal Name
                          <https://purl.org/cco/ont00000990> ,  # Nickname
                          <https://purl.org/cco/ont00000033> ,  # Online Service Account (StagingOntology)
@@ -69,7 +71,7 @@
                          <https://purl.org/cco/ont00000958> ;  # Information Content Entity
 
     # Document which properties this application uses (note: use full IRIs)
-    persona:usesCCOProperty <https://purl.org/cco/ont00001879> ,            # designated by
+    p:usesCCOProperty <https://purl.org/cco/ont00001879> ,            # designated by
                             <http://purl.obolibrary.org/obo/BFO_0000177> ,  # continuant part of (PhysicalCard → Wallet)
                             <http://purl.obolibrary.org/obo/BFO_0000178> ,  # has continuant part (Address → parts; Person → ScalpHair)
                             <https://purl.org/cco/ont00001765> ,            # has text value
@@ -88,21 +90,21 @@
 #    Annotation Properties for Usage Documentation
 #################################################################
 
-persona:usesRequiredClass rdf:type owl:AnnotationProperty ;
+p:usesRequiredClass rdf:type owl:AnnotationProperty ;
     rdfs:label "uses required class"@en ;
     rdfs:comment """Indicates a class from domain ontologies that this application REQUIRES.
                     These classes are mandatory in Persona's SHACL validation."""@en ;
     rdfs:domain owl:Ontology ;
     rdfs:range owl:Class .
 
-persona:usesOptionalClass rdf:type owl:AnnotationProperty ;
+p:usesOptionalClass rdf:type owl:AnnotationProperty ;
     rdfs:label "uses optional class"@en ;
     rdfs:comment """Indicates a class from domain ontologies that this application OPTIONALLY uses.
                     These classes are allowed but not required in Persona's SHACL validation."""@en ;
     rdfs:domain owl:Ontology ;
     rdfs:range owl:Class .
 
-persona:usesCCOClass rdf:type owl:AnnotationProperty ;
+p:usesCCOClass rdf:type owl:AnnotationProperty ;
     rdfs:label "uses CCO class"@en ;
     rdfs:comment """Indicates a class from CCO core ontologies that this application uses directly
                     (not subclassed in domain ontologies). Values are full IRIs like
@@ -110,13 +112,13 @@ persona:usesCCOClass rdf:type owl:AnnotationProperty ;
     rdfs:domain owl:Ontology ;
     rdfs:range owl:Class .
 
-persona:usesCCOProperty rdf:type owl:AnnotationProperty ;
+p:usesCCOProperty rdf:type owl:AnnotationProperty ;
     rdfs:label "uses CCO property"@en ;
     rdfs:comment """Indicates an object or data property from CCO that this application uses.
                     Values are full IRIs like <https://purl.org/cco/ont00001879>."""@en ;
     rdfs:domain owl:Ontology .
 
-persona:usagePattern rdf:type owl:AnnotationProperty ;
+p:usagePattern rdf:type owl:AnnotationProperty ;
     rdfs:label "usage pattern"@en ;
     rdfs:comment """Describes how this application uses a particular class or property."""@en ;
     rdfs:domain owl:Class .
@@ -125,22 +127,22 @@ persona:usagePattern rdf:type owl:AnnotationProperty ;
 #################################################################
 #    Persona - a context-specific information profile of a Person
 #################################################################
-persona:Persona rdf:type owl:Class ;
+p:Persona rdf:type owl:Class ;
     rdfs:subClassOf <https://purl.org/cco/ont00000958> ;  # Information Content Entity
     rdfs:label "Persona"@en ;
     rdfs:comment """An Information Content Entity that represents how a Person appears
                     in the context of a specific interaction — with a company, government
                     agency, another person, or a group of people. A Persona is not itself
                     a Person; it is a profile, or whoness, that is about a Person.
-                    A Person may have multiple Personas, linked via persona:hasPersona."""@en .
+                    A Person may have multiple Personas, linked via p:hasPersona."""@en .
 
 #################################################################
 #    hasPersona property - links a Person to a Persona (ICE)
 #################################################################
-persona:hasPersona rdf:type owl:ObjectProperty ;
+p:hasPersona rdf:type owl:ObjectProperty ;
     rdfs:subPropertyOf <https://purl.org/cco/ont00001801> ;  # is subject of (Entity → ICE)
     rdfs:domain <https://purl.org/cco/ont00001262> ;  # Person (selfness)
-    rdfs:range persona:Persona ;
+    rdfs:range p:Persona ;
     rdfs:label "has persona"@en ;
     rdfs:comment """links a Person (one's "selfness", essential individuality, or a sense of
                     one's own unique personality and identity) to one of their context-specific
@@ -151,8 +153,14 @@ persona:hasPersona rdf:type owl:ObjectProperty ;
 #    Other properties
 #################################################################
 
-persona:hasSocialNetwork rdf:type owl:ObjectProperty ;
-    rdfs:domain persona:Persona ;
+p:hasIdentity rdf:type owl:ObjectProperty ;
+    rdfs:domain p:Persona ;
+    rdfs:range identity:PDNidentity ;
+    rdfs:label "has identity"@en ;
+    rdfs:comment "Links a Persona to a PDN identity — the identifier used to communicate with this Persona over the Personal Data Network."@en .
+
+p:hasSocialNetwork rdf:type owl:ObjectProperty ;
+    rdfs:domain p:Persona ;
     rdfs:range cco:ont00001183 ;    # Social Network
     rdfs:label "has social network"@en ;
     rdfs:comment """Links a Persona to a Social Network — the set of other people
@@ -164,8 +172,8 @@ persona:hasSocialNetwork rdf:type owl:ObjectProperty ;
 #################################################################
 #    BirthCertificate Persona — a Persona subtype with name constraints
 #################################################################
-persona:BirthCertificate rdf:type owl:Class ;
-    rdfs:subClassOf persona:Persona ;
+p:BirthCertificate rdf:type owl:Class ;
+    rdfs:subClassOf p:Persona ;
     rdfs:label "Birth Certificate Persona"@en ;
     rdfs:comment """A Persona whose purpose is to carry a person's legal birth certificate
                     name record. Subclass of Persona (not of Context) so that SHACL can
@@ -176,37 +184,37 @@ persona:BirthCertificate rdf:type owl:Class ;
 #    Banking-related
 #################################################################
 
-persona:hasPaymentCard rdf:type owl:ObjectProperty ;
-    rdfs:domain persona:Persona ;
+p:hasPaymentCard rdf:type owl:ObjectProperty ;
+    rdfs:domain p:Persona ;
     rdfs:range cco:ent00000049 ;    # Payment Card
     rdfs:label "holds payment card"@en ;
     rdfs:comment "Links a Persona to a Payment Card (credit, debit, or other) it records."@en .
 
-persona:CheckingAccount rdf:type owl:Class ;
+p:CheckingAccount rdf:type owl:Class ;
     rdfs:label "Checking Account"@en ;
     rdfs:comment "A bank checking account held by a person, linked to a debit card."@en .
 
-persona:CheckingAccountNumber rdf:type owl:Class ;
+p:CheckingAccountNumber rdf:type owl:Class ;
     rdfs:label "Checking Account Number"@en ;
     rdfs:comment "An identifier designating a bank checking account. Used via designated by (ont00001879)."@en .
 
-persona:RoutingNumber rdf:type owl:Class ;
+p:RoutingNumber rdf:type owl:Class ;
     rdfs:label "Routing Number"@en ;
     rdfs:comment "An ABA routing transit number identifying the financial institution. Used via designated by (ont00001879)."@en .
 
-persona:hasBankAccount rdf:type owl:ObjectProperty ;
-    rdfs:domain persona:Persona ;
-    rdfs:range persona:CheckingAccount ;
+p:hasBankAccount rdf:type owl:ObjectProperty ;
+    rdfs:domain p:Persona ;
+    rdfs:range p:CheckingAccount ;
     rdfs:label "holds bank account"@en ;
     rdfs:comment "Links a Persona to a bank account it records."@en .
 
-persona:accessesBankAccount rdf:type owl:ObjectProperty ;
+p:accessesBankAccount rdf:type owl:ObjectProperty ;
     rdfs:domain cco:ent00000051 ;  # Debit Card
-    rdfs:range persona:CheckingAccount ;
+    rdfs:range p:CheckingAccount ;
     rdfs:label "accesses bank account"@en ;
     rdfs:comment "Links a DebitCard to the CheckingAccount it draws funds from."@en .
 
-persona:hasPassword rdf:type owl:DatatypeProperty ;
+p:hasPassword rdf:type owl:DatatypeProperty ;
     rdfs:domain cco:ent00000033 ;  # Online Service Account
     rdfs:range xsd:string ;
     rdfs:label "has password"@en ;
@@ -217,50 +225,50 @@ persona:hasPassword rdf:type owl:DatatypeProperty ;
 #    Physical Belongings: Physical cards
 #################################################################
 
-persona:PhysicalCard rdf:type owl:Class ;
+p:PhysicalCard rdf:type owl:Class ;
     rdfs:subClassOf <https://purl.org/cco/ont00000995> ;  # MaterialArtifact
     rdfs:label "Physical Card"@en ;
     rdfs:comment "A physical card (e.g. driver's license, health insurance card) carried in a wallet."@en .
 
-persona:Wallet rdf:type owl:Class ;
+p:Wallet rdf:type owl:Class ;
     rdfs:subClassOf <https://purl.org/cco/ont00000020> ;  # Container (subclass of MaterialArtifact)
     rdfs:label "Wallet"@en ;
     rdfs:comment "A physical wallet that holds cards and other personal documents."@en .
 
-persona:PhysicalDriversLicense rdf:type owl:Class ;
-    rdfs:subClassOf persona:PhysicalCard ;
+p:PhysicalDriversLicense rdf:type owl:Class ;
+    rdfs:subClassOf p:PhysicalCard ;
     rdfs:label "Physical Driver's License"@en ;
     rdfs:comment "A physical (e.g. plastic) state-issued driver's license card."@en .
 
-persona:PhysicalHealthInsuranceCard rdf:type owl:Class ;
-    rdfs:subClassOf persona:PhysicalCard ;
+p:PhysicalHealthInsuranceCard rdf:type owl:Class ;
+    rdfs:subClassOf p:PhysicalCard ;
     rdfs:label "Physical Health Insurance Card"@en ;
     rdfs:comment "A physical (e.g. plastic) health insurance membership card."@en .
 
-persona:PhysicalPaymentCard rdf:type owl:Class ;
-    rdfs:subClassOf persona:PhysicalCard ;
+p:PhysicalPaymentCard rdf:type owl:Class ;
+    rdfs:subClassOf p:PhysicalCard ;
     rdfs:label "Physical Payment Card"@en ;
     rdfs:comment "A physical plastic credit or debit card."@en .
 
-persona:PhysicalSocialSecurityCard rdf:type owl:Class ;
-    rdfs:subClassOf persona:PhysicalCard ;
+p:PhysicalSocialSecurityCard rdf:type owl:Class ;
+    rdfs:subClassOf p:PhysicalCard ;
     rdfs:label "Physical Social Security Card"@en ;
     rdfs:comment "A paper or plastic card issued by the Social Security Administration."@en .
 
-persona:hasPhysicalCard rdf:type owl:ObjectProperty ;
-    rdfs:domain persona:Persona ;
-    rdfs:range persona:PhysicalCard ;
+p:hasPhysicalCard rdf:type owl:ObjectProperty ;
+    rdfs:domain p:Persona ;
+    rdfs:range p:PhysicalCard ;
     rdfs:label "holds physical card"@en ;
     rdfs:comment "Links a Persona to a PhysicalCard carried outside of a wallet (e.g. stored at home or kept separately)."@en .
 
-persona:hasWallet rdf:type owl:ObjectProperty ;
-    rdfs:domain persona:Persona ;
-    rdfs:range persona:Wallet ;
+p:hasWallet rdf:type owl:ObjectProperty ;
+    rdfs:domain p:Persona ;
+    rdfs:range p:Wallet ;
     rdfs:label "holds wallet"@en ;
     rdfs:comment "Links a Persona to the physical wallet they carry."@en .
 
-persona:hasImageScan rdf:type owl:DatatypeProperty ;
-    rdfs:domain persona:PhysicalCard ;
+p:hasImageScan rdf:type owl:DatatypeProperty ;
+    rdfs:domain p:PhysicalCard ;
     rdfs:range xsd:anyURI ;
     rdfs:label "has image scan"@en ;
     rdfs:comment "A URI pointing to a scanned image of the physical (e.g. plastic, paper) card."@en .
@@ -271,47 +279,47 @@ persona:hasImageScan rdf:type owl:DatatypeProperty ;
 #################################################################
 
 cco:ent00000001
-    persona:usagePattern """Persona accepts FullName as complete string alternative
+    p:usagePattern """Persona accepts FullName as complete string alternative
                             to structured components. SHACL validation: EITHER FullName OR
                             (GivenName + FamilyName) required."""@en .
 
 cco:ent00000002
-    persona:usagePattern """Legal first name. Required if FullName not provided.
+    p:usagePattern """Legal first name. Required if FullName not provided.
                             Multiple GivenNames allowed (e.g., 'Mary Anne')."""@en .
 
 cco:ent00000004
-    persona:usagePattern """Legal last/surname. Required if FullName not provided."""@en .
+    p:usagePattern """Legal last/surname. Required if FullName not provided."""@en .
 
 cco:ent00000003
-    persona:usagePattern """Middle names or additional given names. Optional.
+    p:usagePattern """Middle names or additional given names. Optional.
                             Use for names person goes by that aren't their legal first name."""@en .
 
 cco:ent00000006
-    persona:usagePattern """Any alternative form of the person's name (nicknames,
+    p:usagePattern """Any alternative form of the person's name (nicknames,
                             preferred names, previous names). Optional."""@en .
 
 cco:ent00000008
-    persona:usagePattern """US SSN in format NNN-NN-NNNN. Required for identity verification."""@en .
+    p:usagePattern """US SSN in format NNN-NN-NNNN. Required for identity verification."""@en .
 
 cco:ent00000010
-    persona:usagePattern """Primary residential address. Required. Must include street,
+    p:usagePattern """Primary residential address. Required. Must include street,
                             city, state, ZIP. Country optional."""@en .
 
 cco:ent00000024
-    persona:usagePattern """Primary email address. Required for account access."""@en .
+    p:usagePattern """Primary email address. Required for account access."""@en .
 
 cco:ent00000023
-    persona:usagePattern """Primary phone number. Required. Prefer E.164 format."""@en .
+    p:usagePattern """Primary phone number. Required. Prefer E.164 format."""@en .
 
 cco:ent00000016
-    persona:usagePattern """Used to track address history with temporal bounds. Each designation
+    p:usagePattern """Used to track address history with temporal bounds. Each designation
                             represents a person living at an address during a specific time period.
                             Use BFO 'occupies temporal region' to specify the time interval with
                             start and optional end dates. An open-ended interval (no end date)
                             indicates current address. Supports N addresses over a person's lifetime."""@en .
 
 cco:ent00000051
-    persona:usagePattern """Debit card held by a Person, linked via persona:hasPaymentCard.
+    p:usagePattern """Debit card held by a Person, linked via p:hasPaymentCard.
                             Designated by a CreditCardNumber (ent00000052), CVV (ent00000053),
                             and ExpirationDateIdentifier (ent00000054) using ont00001879
                             (designated by)."""@en .

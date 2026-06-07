@@ -12,10 +12,7 @@
     owl:versionInfo "Version 1.0.1 - renamed Corporation to Organization"@en ;
     rdfs:label "Identity Ontology"@en ;
     rdfs:comment """Identity Ontology for the Mee Identity Agent.
-
-                    Describes the kinds of identities that Mia can communicate with
-                    over the internet using Personal Data Network protocols.
-
+                    Describes the kinds of identities used in the Personal Data Network.
                     Peer of persona.ttl and context.ttl."""@en .
 
 
@@ -23,26 +20,21 @@
 #    Identity Hierarchy
 #################################################################
 
-identity:MeeIdentity rdf:type owl:Class ;
+identity:PDNidentity rdf:type owl:Class ;
     rdfs:label "Mee Identity"@en ;
     rdfs:comment "Root class for all kinds of identities that Mia can communicate with over the internet using Personal Data Network protocols."@en .
 
 identity:Individual rdf:type owl:Class ;
-    rdfs:subClassOf identity:MeeIdentity ;
+    rdfs:subClassOf identity:PDNidentity ;
     rdfs:label "Individual"@en ;
     rdfs:comment "An identifier of a human Mia user."@en .
 
-identity:Self rdf:type owl:Class ;
-    rdfs:subClassOf identity:Individual ;
-    rdfs:label "Self"@en ;
-    rdfs:comment "The identity of the current Mia user."@en .
-
 identity:Group rdf:type owl:Class ;
-    rdfs:subClassOf identity:MeeIdentity ;
+    rdfs:subClassOf identity:PDNidentity ;
     rdfs:label "Group"@en ;
     rdfs:comment "An identifier of a group of Mia users."@en .
 
 identity:Organization rdf:type owl:Class ;
-    rdfs:subClassOf identity:MeeIdentity ;
+    rdfs:subClassOf identity:PDNidentity ;
     rdfs:label "Organization"@en ;
     rdfs:comment "An identifier of an organization (company, government agency, non-profit, etc.)."@en .

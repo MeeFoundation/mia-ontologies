@@ -11,14 +11,14 @@
     owl:versionIRI <http://mee.foundation/ontologies/context/1.0.1> ;
     dc:date "2026-06-01"^^xsd:date ;
     owl:imports <http://mee.foundation/ontologies/identity> ;
-    owl:versionInfo "Version 1.0.15 - renamed Career to Work"@en ;
+    owl:versionInfo "Version 1.0.16 - update MeeIdentity references to PDNidentity"@en ;
     rdfs:label "Context Ontology"@en ;
     rdfs:comment """Context Ontology for the Mee Identity Agent.
 
                     Defines controlled vocabularies for classifying context ontology files:
                     - contextCategory: the kind of relationship a context file represents
-                    - assertedBy: the identity asserting the data (an identity:MeeIdentity subclass)
-                    - subject: whose identity the file describes (an identity:MeeIdentity subclass)
+                    - assertedBy: the identity asserting the data (an identity:PDNidentity subclass)
+                    - subject: whose identity the file describes (an identity:PDNidentity subclass)
 
                     Peer of persona.ttl and identity.ttl; imported directly by each context file."""@en .
 
@@ -38,18 +38,18 @@ context:contextCategory rdf:type owl:AnnotationProperty ;
 context:assertedBy rdf:type owl:AnnotationProperty ;
     rdfs:label "asserted by"@en ;
     rdfs:comment """Tags a context ontology (file) with the kind of identity making the assertion —
-                    a subclass of identity:MeeIdentity (e.g. identity:Self, identity:Organization).
+                    a subclass of identity:PDNidentity (e.g. identity:Self, identity:Organization).
                     Applied to the ontology IRI, not to the Persona individual."""@en ;
     rdfs:domain owl:Ontology ;
-    rdfs:range identity:MeeIdentity .
+    rdfs:range identity:PDNidentity .
 
 context:subject rdf:type owl:AnnotationProperty ;
     rdfs:label "subject"@en ;
     rdfs:comment """Tags a context ontology (file) with whose identity it describes —
-                    a subclass of identity:MeeIdentity (e.g. identity:Self, identity:Individual).
+                    a subclass of identity:PDNidentity (e.g. identity:Self, identity:Individual).
                     Applied to the ontology IRI, not to the Persona individual."""@en ;
     rdfs:domain owl:Ontology ;
-    rdfs:range identity:MeeIdentity .
+    rdfs:range identity:PDNidentity .
 
 
 

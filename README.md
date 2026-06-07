@@ -48,6 +48,7 @@ A `p:Persona` can itself carry `p:hasPersona`. This allows intermediate, branch 
 **Properties**
 
 * `p:hasPersona` — links a `Person` (one's "selfness", essential individuality, or a sense of one's own unique personality and identity) to one of their context-specific `p:Persona` instances.
+* `p:hasIdentity` — links a `p:Persona` to a `i:PDNidentity` — the identifier used to communicate with this Persona over the Personal Data Network.
 
 **Classes**
 
@@ -116,9 +117,9 @@ A few details related to modeling names and addresses in the Persona Ontology:
 A context is a container of information about one main `p:Persona` which is the *subject* of the context, its claims, and in some cases the `p:Persona` facets of other people. A context is implemented as a `.ttl` file that by convention contains an owl:Ontology. The context ontology defines three properties of this owl:Ontology that describe three orthogonal dimensions of the context:
 
 - What is the category of context (`c:contextCategory`), e.g. relationships with family members, interactions with a bank, etc.
-- Who is making the assertions the context contains (`c:assertedBy`) - its value is a `i:MeeIdentity`
-- Who is the context mainly about (`c:subject`) - its value is a `i:MeeIdentity`
-`c:contextCategory` takes values from the `c:ContextCategory` hierarchy; both `c:assertedBy` and `c:subject` take values from the `i:MeeIdentity` hierarchy defined in identity.ttl.
+- Who is making the assertions the context contains (`c:assertedBy`) - its value is a `i:PDNidentity`
+- Who is the context mainly about (`c:subject`) - its value is a `i:PDNidentity`
+`c:contextCategory` takes values from the `c:ContextCategory` hierarchy; both `c:assertedBy` and `c:subject` take values from the `i:PDNidentity` hierarchy defined in identity.ttl.
 
 **`c:contextCategory`** — The nature of the interaction/relationship context. Values form a subclass hierarchy under `c:ContextCategory`:
 
@@ -136,13 +137,13 @@ A context is a container of information about one main `p:Persona` which is the 
 
 <p align="center"><img src="images/context-ontology/context-category.png" alt="contextType hierarchy"></p>
 
-**`c:assertedBy`** — Who is making the assertion. Values are subclasses of `i:MeeIdentity` from the Identity ontology:
+**`c:assertedBy`** — Who is making the assertion. Values are subclasses of `i:PDNidentity` from the Identity ontology:
 - `i:Self` — the Mia user is recording the data, even if the underlying information originates from some other party such as a company, government agency, or another person.
 - `i:Individual` — another human Mia user is asserting the data directly.
 - `i:Group` — a group of Mia users is asserting the data.
 - `i:Organization` — a organization is asserting the data directly.
 
-**`c:subject`** — Whose identity the context file describes. Values are subclasses of `i:MeeIdentity` from the Identity ontology:
+**`c:subject`** — Whose identity the context file describes. Values are subclasses of `i:PDNidentity` from the Identity ontology:
 - `i:Self` — the file is about the Mia user.
 - `i:Individual` — the file is about another human Mia user.
 - `i:Group` — the file is about a group of Mia users.
@@ -162,7 +163,7 @@ In the lower right shows a context that Alice might share with other people or c
 
 ## Identity Ontology
 
-The Identity ontology is used to describe the kinds of identities that Mia can communicate with over the internet using Personal Data Network protocols. The root class, `i:MeeIdentity`, has three subclasses:
+The Identity ontology is used to describe the kinds of identities that Mia can communicate with over the internet using Personal Data Network protocols. The root class, `i:PDNidentity`, has three subclasses:
 
 <p align="center"><img src="images/identity-ontology/identity.png" alt="types of MeeIdentities"></p>
 
