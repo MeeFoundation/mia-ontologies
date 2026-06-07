@@ -219,14 +219,7 @@ Shown below is a map of Alice and Paula's contexts.
 <p align="center"><img src="images/alice-contexts/context-map.png" alt="Alice's physical characteristics"></p>
 
 Notes on the labeled contexts in the diagram above.
-1. What Alice claims about herself in the context of her relationship with Paula. Alice may choose to share this with Paula.
-2. What Clice claims about Paula in the context of her relationship with Paula. Alice may choose to share this with Paula.
-3. What Paula claims about Alice in some context Paula has defined for her relationship with Alice. This context has been shared by Paula with Alice.
-4. What Paula claims about herself in the context of her relationship with Alice. This context has been shared by Paula with Alice.
-5. What Alice claims about herself in the context of role as an employee of Acme. The `p:Persona` within this context is an example of an intermediate, branch `p:Persona` that may link to other sub-Personas of Alice (via `p:hasPersona`) or link to the Personas of other people (via `p:knows`). 
-6. What Alice claims about Paula in Alice's role as an employee of Acme. She may choose to share this with others.
-7. What Alice claims about herself in the context of a shared group called Bridge Club. Alice's claims are shared with all members of the Bridge Club.
-8. What Paula claims about herself in the context of the same shared group called Bridge Club. These claims are visible to Alice because all claims about all members are shared with all the other members.
+1. (to be written)
 
 ## Diagrams
 
