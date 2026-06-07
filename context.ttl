@@ -11,7 +11,7 @@
     owl:versionIRI <http://mee.foundation/ontologies/context/1.0.1> ;
     dc:date "2026-06-01"^^xsd:date ;
     owl:imports <http://mee.foundation/ontologies/identity> ;
-    owl:versionInfo "Version 1.0.10 - renamed Topic to Knowledge"@en ;
+    owl:versionInfo "Version 1.0.11 - added Dwelling as subclass of Possession"@en ;
     rdfs:label "Context Ontology"@en ;
     rdfs:comment """Context Ontology for the Mee Identity Agent.
 
@@ -79,6 +79,11 @@ context:Pet rdf:type owl:Class ;
     rdfs:subClassOf context:Possession ;
     rdfs:label "Pet"@en ;
     rdfs:comment "Taking care of pets."@en .
+
+context:Dwelling rdf:type owl:Class ;
+    rdfs:subClassOf context:Possession ;
+    rdfs:label "Dwelling"@en ;
+    rdfs:comment "Owning or renting a home or other dwelling."@en .
 
 context:Project rdf:type owl:Class ;
     rdfs:subClassOf context:ContextCategory ;

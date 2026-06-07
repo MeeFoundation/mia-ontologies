@@ -125,7 +125,7 @@ A context is a container of information about one main `p:Persona` which is the 
 - `c:Company` and subtypes `c:Health`, `c:Finance` — interactions with a company or other non-governmental organization.
 - `c:Government` and subtypes `c:Federal`, `c:State`, `c:Municipality` — interactions with government agencies.
 - `c:Person` and subtypes `c:Family`, `c:Colleague`, `c:Friend`, `c:Consultant` — a relationship with other people.
-- `c:Possession` and subtypes `c:Automobile`, `c:Pet` — a person's belongings or other things they possess in the real world.
+- `c:Possession` and subtypes `c:Automobile`, `c:Pet`, `c:Dwelling` — a person's belongings or other things they possess in the real world.
 - `c:Career` and subtypes `c:Employee`, `c:Contributor`, `c:Creator` — professional roles, employment history, and career relationships.
 - `c:Project` — involvement in a specific project or initiative.
 - `c:Event` — participation in or relationship to a specific event, e.g. a meeting.
@@ -185,7 +185,9 @@ Alice's `self.ttl` also describes some physical characteristics of Alice shown b
 
 
 ### Alice Walker's Contexts
-As we've mentioned, Alice interacts in a set of contexts. In the following, each context carries `c:subject i:Self`, indicating they are about Alice. These context files are `c:assertedBy i:Self` — Alice is the one recording all of this data, even when the underlying information originates from a third party.
+As we've mentioned, Alice interacts in a set of contexts. In the following, each context carries `c:subject i:Self`, indicating they are about Alice. These context files are `c:assertedBy i:Self` — Alice is the one recording all of this data, even when the underlying information originates from a third party. 
+
+For example, Alice's `texas-birth-certificate.ttl` has `c:contextCategory:` = `c:State`, `c:assertedBy:` = `i:Self`, and  `c:subject:` = `i:Self` — a state government context recorded by Alice, about Alice. As another example, her `florida-birth-certificate.ttl` context is `c:contextCategory: c:State`, `c:assertedBy: i:Self`, `c:subject: i:Individual` — also recorded by Alice, but describing her mother Paula.
 
 | Context file | Context type | Key data | Image |
 |:-------------|:-------------|:---------|:------|
@@ -208,7 +210,7 @@ For the following context, `c:subject i:Individual` — they are about another p
 |:-------------|:-------------|:---------|:------|
 | `florida-birth-certificate.ttl` | State (FL) | Legal names | [view](images/paula-contexts/paula(florida-birth-certificate).png) |
 
-For example, Alice's `texas-birth-certificate.ttl` is `c:contextCategory: c:State`, `c:assertedBy: i:Self`, `c:subject: i:Self` — a state government context recorded by Alice, about Alice. Her `florida-birth-certificate.ttl` is `c:contextCategory: c:State`, `c:assertedBy: i:Self`, `c:subject: i:Individual` — also recorded by Alice, but describing her mother Paula.
+
 
 ### Alice's and Paula's Contexts
 
