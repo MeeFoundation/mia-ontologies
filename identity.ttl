@@ -9,7 +9,7 @@
 <http://mee.foundation/ontologies/identity> rdf:type owl:Ontology ;
     owl:versionIRI <http://mee.foundation/ontologies/identity/1.0.0> ;
     dc:date "2026-06-05"^^xsd:date ;
-    owl:versionInfo "Version 1.0.1 - renamed Corporation to Organization"@en ;
+    owl:versionInfo "Version 1.0.2 - PDNidentity is a subclass of Information Content Entity"@en ;
     rdfs:label "Identity Ontology"@en ;
     rdfs:comment """Identity Ontology for the Mee Identity Agent.
                     Describes the kinds of identities used in the Personal Data Network.
@@ -21,6 +21,7 @@
 #################################################################
 
 identity:PDNidentity rdf:type owl:Class ;
+    rdfs:subClassOf <https://purl.org/cco/ont00000958> ;  # Information Content Entity
     rdfs:label "Mee Identity"@en ;
     rdfs:comment "Root class for all kinds of identities that Mia can communicate with over the internet using Personal Data Network protocols."@en .
 

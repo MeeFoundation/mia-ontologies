@@ -1,7 +1,10 @@
 # Mia Ontologies
-The Mee Identity Agent (Mia) represents information about a person using three complementary ontologies. The **Persona ontology** models identity data — names, addresses, phone numbers, relationships, payment cards, and more — structured around the concept of a *persona*: a coherent slice of a person's identity as presented in a particular context. The **Context ontology** describes those contexts themselves — what broad category of interaction or relationship is involved (relationships with family members, interactions with a bank, etc.), who it is about, and who asserted the data. The **Identity ontology** models the identifiers used by individuals, informal groups of people, and corporations sharing data on the Personal Data Network.
+The Mee Identity Agent (Mia) represents information about a person using three complementary ontologies. 
+- **Persona ontology** models identity data — names, addresses, phone numbers, relationships, payment cards, and more — structured around the concept of a *persona*: a coherent slice of a person's identity as presented in a particular context. 
+- **Context ontology** describes contexts - broad categories of interaction or relationship  involved (relationships with family members, interactions with a bank, etc.), who it is about, and who asserted the data. 
+- **Identity ontology** models the identifier (`i:PDNidentity`) used by individuals (i.e. Mia users), informal groups of people (Mia users), and corporations sharing data as nodes on the Personal Data Network.
 
-This document provides an overview of all three ontologies, then illustrates them with example Mia data for a hypothetical user, Alice Walker. Throughout, `p:` is shorthand for the `persona:` namespace (`http://mee.foundation/ontologies/persona#`), `c:` for the `context:` namespace (`http://mee.foundation/ontologies/context#`), and `i:` for the `identity:` namespace (`http://mee.foundation/ontologies/identity#`).
+This document provides an overview of all three ontologies, then illustrates them with sample Mia data for a hypothetical user, Alice Walker. Throughout, `p:` is shorthand for the `persona:` namespace (`http://mee.foundation/ontologies/persona#`), `c:` for the `context:` namespace (`http://mee.foundation/ontologies/context#`), and `i:` for the `identity:` namespace (`http://mee.foundation/ontologies/identity#`).
 
 ## Persona Ontology
 
@@ -23,7 +26,7 @@ Built on **BFO** (Basic Formal Ontology) and **CCO** (Common Core Ontologies) as
 
 - **`persona.ttl`** — The Persona ontology. Imports the domain ontologies above and documents which classes and properties Mia uses (required vs. optional). Defines Mia-specific extension properties (`p:hasPersona`, `p:hasSocialNetwork`, `p:hasPaymentCard`, `p:hasBankAccount`, etc.) and the core Persona data model classes (`p:Persona`, `p:BirthCertificate`, physical card classes, banking classes, and others).
 
-- **`persona-shacl.ttl`** — SHACL constraint rules defining how instance data must be structured. Validates:
+- **`persona-shacl.ttl`** — SHACL constraint rules defining the shape `p:Personas`. Validates properties including:
   - *`p:BirthCertificate` `p:Persona` instances*: FullName OR (GivenName + FamilyName) required; optional AdditionalName, AlternateName, Nickname, Legal Name
   - *All `p:Persona` instances*: SSN format (`NNN-NN-NNNN`), email format, phone (E.164), address cardinality, payment cards, wallet
   - *US Postal Address*: required street, city, state (USPS 2-letter), ZIP; optional country
@@ -48,7 +51,7 @@ A `p:Persona` can itself carry `p:hasPersona`. This allows intermediate, branch 
 **Properties**
 
 * `p:hasPersona` — links a `Person` (one's "selfness", essential individuality, or a sense of one's own unique personality and identity) to one of their context-specific `p:Persona` instances.
-* `p:hasIdentity` — links a `p:Persona` to a `i:PDNidentity` — the identifier used to communicate with this Persona over the Personal Data Network.
+* `p:hasPDNidentity` — links a `p:Persona` to a `i:PDNidentity` — the identifier used to communicate with this Persona over the Personal Data Network. Sub-property of CCO `designated by`.
 
 **Classes**
 
@@ -57,7 +60,10 @@ A `p:Persona` can itself carry `p:hasPersona`. This allows intermediate, branch 
 
 ### Belongings
 
-A `p:Persona` within a context of `c:contextCategory: c:Possession` models the physical items a person carries or stores — their wallet, payment cards, driver's license, health insurance card, and other documents. Physical cards are `MaterialArtifact` subclasses and may be placed inside a wallet (via BFO `continuant part of`) or held directly by the `p:Persona` (via `p:hasPhysicalCard`).
+A `p:Persona` within a context of category `c:contextCategory: c:Possession` models the physical items a person carries, owns, possesses, rents or leases. 
+
+ - Physical plastic/paper cards are `MaterialArtifact` subclasses that include driver's license, health insurance card, payment card, etc.
+ - Physical wallets - Cards and may be placed inside a wallet (via BFO `continuant part of`) or held directly by the `p:Persona` (via `p:hasPhysicalCard`).
 
 <p align="center"><img src="images/persona-ontology/persona-card.png" alt="Belongings model"></p>
 

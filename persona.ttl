@@ -18,7 +18,7 @@
     owl:imports <https://purl.org/cco/staging> ;
     owl:imports <http://mee.foundation/ontologies/identity> ;
     dc:date "2026-06-01"^^xsd:date ;
-    owl:versionInfo "Version 3.0.32 - added p:hasIdentity property; imports identity.ttl"@en ;
+    owl:versionInfo "Version 3.0.33 - renamed hasIdentity to hasPDNidentity; sub-property of ont00001879"@en ;
     rdfs:label "Persona Ontology"@en ;
     rdfs:comment """Persona Ontology for the Mee Identity Agent.
 
@@ -153,11 +153,12 @@ p:hasPersona rdf:type owl:ObjectProperty ;
 #    Other properties
 #################################################################
 
-p:hasIdentity rdf:type owl:ObjectProperty ;
+p:hasPDNidentity rdf:type owl:ObjectProperty ;
+    rdfs:subPropertyOf <https://purl.org/cco/ont00001879> ;  # designated by
     rdfs:domain p:Persona ;
     rdfs:range identity:PDNidentity ;
-    rdfs:label "has identity"@en ;
-    rdfs:comment "Links a Persona to a PDN identity — the identifier used to communicate with this Persona over the Personal Data Network."@en .
+    rdfs:label "has PDN identity"@en ;
+    rdfs:comment "Links a Persona to a PDN identity — the identifier used to communicate with this Persona over the Personal Data Network. Sub-property of CCO designated by (ont00001879)."@en .
 
 p:hasSocialNetwork rdf:type owl:ObjectProperty ;
     rdfs:domain p:Persona ;
