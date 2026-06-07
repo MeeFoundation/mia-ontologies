@@ -122,14 +122,17 @@ A context is a container of information about one main `p:Persona` which is the 
 
 **`c:contextCategory`** — The nature of the interaction/relationship context. Values form a subclass hierarchy under `c:ContextCategory`:
 
-- `c:Company` and subtypes `c:Health`, `c:Finance` — interactions with a company or other non-governmental organization.
-- `c:Government` and subtypes `c:Federal`, `c:State`, `c:Municipality` — interactions with government agencies.
-- `c:Person` and subtypes `c:Family`, `c:Colleague`, `c:Friend`, `c:Consultant` — a relationship with other people.
-- `c:Possession` and subtypes `c:Automobile`, `c:Pet`, `c:Dwelling` — a person's belongings or other things they possess in the real world.
-- `c:Career` and subtypes `c:Employee`, `c:Contributor`, `c:Creator` — professional roles, employment history, and career relationships.
-- `c:Project` — involvement in a specific project or initiative.
-- `c:Event` — participation in or relationship to a specific event, e.g. a meeting.
-- `c:Knowledge` and subtype `c:Learning` — pieces of existing, general knowledge selected by a person to be useful to them.
+- `c:Social` — a context whose subject is the Self persona *and* that links to the personas of other people. The context file contains data about both the identity owner and other individuals. Examples: family relationships, colleague networks, friend groups.
+  - `c:Group` — interactions with a formal or informal group of people.
+  - `c:Collection` and subtypes `c:Family`, `c:Colleague`, `c:Friend`, `c:Consultant` — interactions with individual people in a person's life.
+- `c:Personal` — a context whose only subject is the Self persona. It describes the identity owner's relationship with an institution, role, possession, or area of knowledge — no other person's persona appears in it. Examples: a bank account, a driver's license, a car.
+  - `c:Career` and subtypes `c:Employee`, `c:Contributor`, `c:Creator` — professional roles, employment history, and career relationships.
+  - `c:Company` and subtypes `c:Health`, `c:Finance` — interactions with a company or other non-governmental organization.
+  - `c:Event` — participation in or relationship to a specific event, e.g. a meeting.
+  - `c:Government` and subtypes `c:Federal`, `c:State`, `c:Municipality` — interactions with government agencies.
+  - `c:Knowledge` and subtype `c:Learning` — pieces of existing, general knowledge selected by a person to be useful to them.
+  - `c:Possession` and subtypes `c:Automobile`, `c:Pet`, `c:Dwelling` — a person's belongings or other things they possess, rent, or lease.
+  - `c:Project` — involvement in a specific project or initiative.
 
 <p align="center"><img src="images/context-ontology/context-category.png" alt="contextType hierarchy"></p>
 
