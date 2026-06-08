@@ -21,8 +21,7 @@
 
                     PersonShape targets non-Persona Persons only. Names belong to context-specific
                     Personas (e.g. a birth certificate Persona), not to the selfness. Identifier nodes
-                    (SSN, email, phone, address) are
-                    validated by their own NodeShapes when present and typed.
+                    (SSN, email, phone, address) are validated by their own NodeShapes when present and typed.
 
                     Key property IRIs:
                     - ont00001879  = designated by   (Person ← Name/Identifier)
