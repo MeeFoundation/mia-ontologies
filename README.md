@@ -222,10 +222,9 @@ For the following context, `c:subject i:Individual` — they are about another p
 | `florida-birth-certificate.ttl` | State (FL) | Legal names | [view](images/paula-contexts/paula(florida-birth-certificate).png) |
 
 
-
 ### Alice's and Paula's Contexts
 
-Shown below is a map of Alice and Paula's contexts. 
+Shown below is an overview of the example contexts in Alice's Mia.
 
 <p align="center"><img src="images/alice-contexts/context-map.png" alt="Alice's physical characteristics"></p>
 
