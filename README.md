@@ -52,6 +52,7 @@ A `p:Persona` can itself carry `p:hasPersona`. This allows intermediate, branch 
 
 * `p:hasPersona` — links a `Person` (one's "selfness", essential individuality, or a sense of one's own unique personality and identity) to one of their context-specific `p:Persona` instances.
 * `p:hasPDNidentity` — links a `p:Persona` to a `i:PDNidentity` — the identifier used to communicate with this Persona over the Personal Data Network. Sub-property of CCO `designated by`.
+* `p:dyad` — links a `p:Persona` to a corresponding `p:Persona` about the same subject, but asserted by the other party rather than by the Self.
 
 **Classes**
 
@@ -131,7 +132,7 @@ A context is a container of information about one main `p:Persona` which is the 
 
 - `c:Social` — a context whose subject is one of the Self's `p:Personas` *and* that includes a social network with `has member` links to the `p:personas` of other people in other contexts.  Examples: family relationships, colleague networks, friend groups.
   - `c:Group` — interactions with a formal or informal group of people.
-  - `c:Collection` and subtypes `c:Family`, `c:Colleague`, `c:Friend`, `c:Consultant` — interactions with individual people in a person's life.
+  - `c:Collection` and subtypes `c:Family`, `c:Colleagues`, `c:Friends`, `c:Consultants` — interactions with individual people in a person's life.
 - `c:Personal` — a context containing only one of the Self's `p:Personas` -- no other person's `p:Persona` appears in it. It describes the Self's relationship with (and interactions with) a specific institution, role, possession, or area of knowledge. Examples: a bank account, a driver's license, a car.
   - `c:Work` and subtypes `c:Employee`, `c:Contributor`, `c:Creator` — professional roles.
   - `c:Company` and subtypes `c:Health`, `c:Finance` — interactions and/or relationship with a company or other non-governmental organization.

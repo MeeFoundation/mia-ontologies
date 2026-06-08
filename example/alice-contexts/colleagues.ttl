@@ -14,8 +14,8 @@
     owl:imports <http://mee.foundation/ontologies/persona> ;
     owl:imports <http://mee.foundation/ontologies/context> ;
     dc:date "2026-06-01"^^xsd:date ;
-    owl:versionInfo "Version 1.0.8 - use context: prefix for context vocabulary"@en ;
-    context:contextCategory context:Colleague ;
+    owl:versionInfo "Version 1.0.9 - rename Colleague to Colleagues"@en ;
+    context:contextCategory context:Colleagues ;
     context:assertedBy identity:Self ;
     context:subject identity:Self ;
     rdfs:label "Alice Walker - Colleagues Persona"@en ;

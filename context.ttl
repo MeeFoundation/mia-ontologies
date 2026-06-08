@@ -11,7 +11,7 @@
     owl:versionIRI <http://mee.foundation/ontologies/context/1.0.1> ;
     dc:date "2026-06-01"^^xsd:date ;
     owl:imports <http://mee.foundation/ontologies/identity> ;
-    owl:versionInfo "Version 1.0.16 - update MeeIdentity references to PDNidentity"@en ;
+    owl:versionInfo "Version 1.0.18 - rename Friend to Friends, Consultant to Consultants"@en ;
     rdfs:label "Context Ontology"@en ;
     rdfs:comment """Context Ontology for the Mee Identity Agent.
 
@@ -89,19 +89,19 @@ context:Family rdf:type owl:Class ;
     rdfs:label "Family"@en ;
     rdfs:comment "Interactions with family members."@en .
 
-context:Friend rdf:type owl:Class ;
+context:Friends rdf:type owl:Class ;
     rdfs:subClassOf context:Collection ;
-    rdfs:label "Friend"@en ;
+    rdfs:label "Friends"@en ;
     rdfs:comment "Interactions with friends."@en .
 
-context:Consultant rdf:type owl:Class ;
+context:Consultants rdf:type owl:Class ;
     rdfs:subClassOf context:Collection ;
-    rdfs:label "Consultant"@en ;
+    rdfs:label "Consultants"@en ;
     rdfs:comment "Interactions with consultants who provide services."@en .
 
-context:Colleague rdf:type owl:Class ;
+context:Colleagues rdf:type owl:Class ;
     rdfs:subClassOf context:Collection ;
-    rdfs:label "Colleague"@en ;
+    rdfs:label "Colleagues"@en ;
     rdfs:comment "Interactions with others with whom you work."@en .
 
 #################################################################

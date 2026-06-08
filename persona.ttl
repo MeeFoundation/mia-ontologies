@@ -18,7 +18,7 @@
     owl:imports <https://purl.org/cco/staging> ;
     owl:imports <http://mee.foundation/ontologies/identity> ;
     dc:date "2026-06-01"^^xsd:date ;
-    owl:versionInfo "Version 3.0.33 - renamed hasIdentity to hasPDNidentity; sub-property of ont00001879"@en ;
+    owl:versionInfo "Version 3.0.34 - add p:dyad property"@en ;
     rdfs:label "Persona Ontology"@en ;
     rdfs:comment """Persona Ontology for the Mee Identity Agent.
 
@@ -267,6 +267,12 @@ p:hasWallet rdf:type owl:ObjectProperty ;
     rdfs:range p:Wallet ;
     rdfs:label "holds wallet"@en ;
     rdfs:comment "Links a Persona to the physical wallet they carry."@en .
+
+p:dyad rdf:type owl:ObjectProperty ;
+    rdfs:domain p:Persona ;
+    rdfs:range p:Persona ;
+    rdfs:label "dyad"@en ;
+    rdfs:comment "Links a Persona to a corresponding Persona about the same subject, but asserted by the other party rather than by the Self."@en .
 
 p:hasImageScan rdf:type owl:DatatypeProperty ;
     rdfs:domain p:PhysicalCard ;
