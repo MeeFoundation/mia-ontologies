@@ -227,9 +227,9 @@ The Identity ontology is used to describe the kinds of identities that Mia can c
 
 <p align="center"><img src="images/identity-ontology/identity.png" alt="types of MeeIdentities"></p>
 
-* `i:Individual` - an identifier of a Mia user. The identity of the current Mia user is an instance of the subclass, `i:Self`
-* `i:Group` - an identifier of a group of Mia users
-* `i:Organization` - an identifier of a organization
+* `i:Individual` - an identifier of a Mia user. The identity of *this* Mia's user is an instance of the subclass, `i:Self`
+* `i:Group` - an identifier of a `g:Group` of Mia users (`p:Personas`) and/or `o:Organizations`.
+* `i:Organization` - an identifier of an `o:Organization`.
 
 ### Identity Ontology File
 
