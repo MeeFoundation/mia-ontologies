@@ -1,0 +1,32 @@
+@prefix : <http://mee.foundation/ontologies/group/shapes#> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix g: <http://mee.foundation/ontologies/group#> .
+@prefix identity: <http://mee.foundation/ontologies/identity#> .
+
+<http://mee.foundation/ontologies/group/shapes> rdf:type owl:Ontology ;
+    owl:imports <http://mee.foundation/ontologies/group> ;
+    owl:versionInfo "Version 1.0.0 - initial"@en ;
+    rdfs:label "Group Ontology SHACL Validation Shapes"@en ;
+    rdfs:comment "SHACL validation shapes for the Group Ontology."@en .
+
+
+#################################################################
+#  Group
+#################################################################
+
+:GroupShape
+    a sh:NodeShape ;
+    sh:targetClass g:Group ;
+    sh:message "Group validation: must have exactly one identity:hasIdentity of type identity:Group."@en ;
+
+    sh:property [
+        sh:path identity:hasIdentity ;
+        sh:qualifiedValueShape [ sh:class identity:Group ] ;
+        sh:qualifiedMinCount 1 ;
+        sh:qualifiedMaxCount 1 ;
+        sh:message "A g:Group must have exactly one identity:hasIdentity value of type identity:Group."@en
+    ] .

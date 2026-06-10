@@ -1,0 +1,34 @@
+@prefix : <http://mee.foundation/ontologies/identity/shapes#> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix identity: <http://mee.foundation/ontologies/identity#> .
+
+<http://mee.foundation/ontologies/identity/shapes> rdf:type owl:Ontology ;
+    owl:imports <http://mee.foundation/ontologies/identity> ;
+    owl:versionInfo "Version 1.0.0 - initial"@en ;
+    rdfs:label "Identity Ontology SHACL Validation Shapes"@en ;
+    rdfs:comment """SHACL validation shapes for the Identity Ontology.
+                    Validates that identity:Individual, identity:Group, and identity:Organization
+                    instances are well-formed PDN identity nodes."""@en .
+
+
+#################################################################
+#  PDN Identity
+#################################################################
+
+:PDNidentityShape
+    a sh:NodeShape ;
+    sh:targetClass identity:PDNidentity ;
+    sh:message "PDNidentity validation: must be typed as one of the known identity subclasses."@en ;
+    sh:property [
+        sh:path rdf:type ;
+        sh:or (
+            [ sh:hasValue identity:Individual ]
+            [ sh:hasValue identity:Group ]
+            [ sh:hasValue identity:Organization ]
+        ) ;
+        sh:message "A PDNidentity must be typed as identity:Individual, identity:Group, or identity:Organization."@en
+    ] .

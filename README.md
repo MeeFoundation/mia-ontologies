@@ -1,10 +1,14 @@
 # Mia Ontologies
-The Mee Identity Agent (Mia) represents information about a person using three complementary ontologies. 
-- **Persona ontology** models identity data — names, addresses, phone numbers, relationships, payment cards, and more — structured around the concept of a *persona*: a coherent slice of a person's identity as presented in a particular context. 
-- **Context ontology** describes contexts - broad categories of interaction or relationship  involved (relationships with family members, interactions with a bank, etc.), who it is about, and who asserted the data. 
-- **Identity ontology** models the identifier (`i:PDNidentity`) used by individuals (i.e. Mia users), informal groups of people (Mia users), and corporations sharing data as nodes on the Personal Data Network.
+Mia's five ontologies fall into two tiers. Three **domain ontologies** each model a distinct kind of PDN participant:
+- **Persona ontology** — models a real person's identity data: names, addresses, phone numbers, relationships, payment cards, and more, structured around context-specific *personas*.
+- **Group ontology** — models groups or communities of Mia users on the Personal Data Network.
+- **Organization ontology** — models organisations (companies, government agencies, non-profits, etc.) on the Personal Data Network.
 
-This document provides an overview of all three ontologies, then illustrates them with sample Mia data for a hypothetical user, Alice Walker. Throughout, `p:` is shorthand for the `persona:` namespace (`http://mee.foundation/ontologies/persona#`), `c:` for the `context:` namespace (`http://mee.foundation/ontologies/context#`), and `i:` for the `identity:` namespace (`http://mee.foundation/ontologies/identity#`).
+Two **supporting ontologies** serve all three domains:
+- **Context ontology** — a container for any domain entity's data; classifies the kind of interaction, who asserted the data, and whose identity is described.
+- **Identity ontology** — an orthogonal concept of PDN addressability; assigns each persona, group, or organisation a unique `i:PDNidentity` identifier for network communication.
+
+This document provides an overview of all five ontologies, then illustrates them with sample Mia data for a hypothetical user, Alice Walker. Throughout, `p:` is shorthand for the `persona:` namespace (`http://mee.foundation/ontologies/persona#`), `c:` for the `context:` namespace (`http://mee.foundation/ontologies/context#`), `i:` for the `identity:` namespace (`http://mee.foundation/ontologies/identity#`), `g:` for the `group:` namespace (`http://mee.foundation/ontologies/group#`), and `o:` for the `organization:` namespace (`http://mee.foundation/ontologies/organization#`).
 
 ## Persona Ontology
 
@@ -51,7 +55,7 @@ A `p:Persona` can itself carry `p:hasPersona`. This allows intermediate, branch 
 **Properties**
 
 * `p:hasPersona` — links a `Person` (one's "selfness", essential individuality, or a sense of one's own unique personality and identity) to one of their context-specific `p:Persona` instances.
-* `p:hasPDNidentity` — links a `p:Persona` to a `i:PDNidentity` — the identifier used to communicate with this Persona over the Personal Data Network. Sub-property of CCO `designated by`.
+* `i:hasIdentity` — links a `p:Persona` to a `i:PDNidentity` — the identifier used to communicate with this Persona over the Personal Data Network. Sub-property of CCO `designated by`.
 * `p:dyad` — links a `p:Persona` to a corresponding `p:Persona` about the same subject, but asserted by the other party rather than by the Self.
 
 **Classes**
@@ -119,6 +123,46 @@ A few details related to modeling names and addresses in the Persona Ontology:
 
 **Address history**: Each address `p:Persona` carries a USPostalAddress and an `AddressDesignation` with a `TemporalInterval` (start date required; no end date = current address).
 
+### Validation
+
+`persona-shacl.ttl` validates instance data against the Persona ontology. Key constraints: `p:BirthCertificate` instances must have FullName OR (GivenName + FamilyName); SSNs must match `NNN-NN-NNNN` format; US postal addresses must have street, city, state (USPS 2-letter code), and ZIP; debit cards must have a card number and expiration date; a `p:Persona` may have at most one `i:hasIdentity`. The Persona Ontology Files section above lists the full set of constraints.
+
+## Group Ontology
+
+The Group ontology models groups or communities that participate in the Personal Data Network. A group has a PDN identity — an `i:Group` identifier — that allows Mia to communicate with it as a node on the network.
+
+<p align="center"><img src="images/group-ontology/group.png" alt="Group model"></p>
+
+**Classes**
+
+* `g:Group` — a group or community of people on the Personal Data Network.
+
+### Group Ontology File
+
+- **`group.ttl`** — The Group ontology. Imports `identity.ttl`.
+
+### Validation
+
+`group-shacl.ttl` validates `g:Group` instances. Key constraint: each `g:Group` must have exactly one `i:hasIdentity` value of type `i:Group`.
+
+## Organization Ontology
+
+The Organization ontology models organizations — companies, government agencies, non-profits, and other institutions — that participate in the Personal Data Network. An organization has a PDN identity — an `i:Organization` identifier — that allows Mia to communicate with it as a node on the network.
+
+<p align="center"><img src="images/organization-ontology/organization.png" alt="Organization model"></p>
+
+**Classes**
+
+* `o:Organization` — an organization on the Personal Data Network.
+
+### Organization Ontology File
+
+- **`organization.ttl`** — The Organization ontology. Imports `identity.ttl`.
+
+### Validation
+
+`organization-shacl.ttl` validates `o:Organization` instances. Key constraint: each `o:Organization` must have exactly one `i:hasIdentity` value of type `i:Organization`.
+
 ## Context Ontology
 
 A context is a container of information about one main `p:Persona` which is the *subject* of the context, its claims, and in some cases the `p:Persona` facets of other people. A context is implemented as a `.ttl` file that by convention contains an owl:Ontology. The context ontology defines three properties of this owl:Ontology that describe three orthogonal dimensions of the context:
@@ -168,6 +212,10 @@ In the lower right shows a context that Alice might share with other people or c
 
 - **`context.ttl`** — The Context ontology. 
 
+### Validation
+
+`context-shacl.ttl` validates context file ontology IRIs. Key constraint: any ontology annotated with `c:contextCategory` must also declare exactly one `c:assertedBy` and one `c:subject`.
+
 ## Identity Ontology
 
 The Identity ontology is used to describe the kinds of identities that Mia can communicate with over the internet using Personal Data Network protocols. The root class, `i:PDNidentity`, has three subclasses:
@@ -181,6 +229,10 @@ The Identity ontology is used to describe the kinds of identities that Mia can c
 ### Identity Ontology File
 
 - **`identity.ttl`** — The Identity ontology. 
+
+### Validation
+
+`identity-shacl.ttl` validates `i:PDNidentity` instances. Key constraint: each instance must be typed as exactly one of `i:Individual`, `i:Group`, or `i:Organization`.
 
 ## Illustrative Example: Alice Walker
 

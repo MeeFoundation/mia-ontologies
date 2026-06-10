@@ -18,7 +18,7 @@
     owl:imports <https://purl.org/cco/staging> ;
     owl:imports <http://mee.foundation/ontologies/identity> ;
     dc:date "2026-06-01"^^xsd:date ;
-    owl:versionInfo "Version 3.0.34 - add p:dyad property"@en ;
+    owl:versionInfo "Version 3.0.36 - add maxQualifiedCardinality 1 on identity:hasIdentity for p:Persona"@en ;
     rdfs:label "Persona Ontology"@en ;
     rdfs:comment """Persona Ontology for the Mee Identity Agent.
 
@@ -129,6 +129,12 @@ p:usagePattern rdf:type owl:AnnotationProperty ;
 #################################################################
 p:Persona rdf:type owl:Class ;
     rdfs:subClassOf <https://purl.org/cco/ont00000958> ;  # Information Content Entity
+    rdfs:subClassOf [
+        rdf:type owl:Restriction ;
+        owl:onProperty identity:hasIdentity ;
+        owl:maxQualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+        owl:onClass identity:PDNidentity
+    ] ;
     rdfs:label "Persona"@en ;
     rdfs:comment """An Information Content Entity that represents how a Person appears
                     in the context of a specific interaction — with a company, government
@@ -152,13 +158,6 @@ p:hasPersona rdf:type owl:ObjectProperty ;
 #################################################################
 #    Other properties
 #################################################################
-
-p:hasPDNidentity rdf:type owl:ObjectProperty ;
-    rdfs:subPropertyOf <https://purl.org/cco/ont00001879> ;  # designated by
-    rdfs:domain p:Persona ;
-    rdfs:range identity:PDNidentity ;
-    rdfs:label "has PDN identity"@en ;
-    rdfs:comment "Links a Persona to a PDN identity — the identifier used to communicate with this Persona over the Personal Data Network. Sub-property of CCO designated by (ont00001879)."@en .
 
 p:hasSocialNetwork rdf:type owl:ObjectProperty ;
     rdfs:domain p:Persona ;
