@@ -253,40 +253,48 @@ Alice's `self.ttl` also describes some physical characteristics of Alice shown b
 
 
 ### Alice Walker's Contexts
-As we've mentioned, Alice interacts in a set of contexts. In the following, each context carries `c:subject i:Self`, indicating they are about Alice. These context files are `c:assertedBy i:Self` — Alice is the one recording all of this data, even when the underlying information originates from a third party. 
+
+As we've mentioned, Alice interacts with other people, organizations and groups in a set of contexts of different types. 
+
+
+in a set of contexts. In the following, each context carries `c:subject i:Self`, indicating they are about Alice. These context files are `c:assertedBy i:Self` — Alice is the one recording all of this data, even when the underlying information originates from a third party. 
 
 For example, Alice's `texas-birth-certificate.ttl` has `c:contextCategory:` = `c:State`, `c:assertedBy:` = `i:Self`, and  `c:subject:` = `i:Self` — a state government context recorded by Alice, about Alice. As another example, her `florida-birth-certificate.ttl` context is `c:contextCategory: c:State`, `c:assertedBy: i:Self`, `c:subject: i:Individual` — also recorded by Alice, but describing her mother Paula.
 
+The contexts in the following table are all about Alice. That is, they have a c:subject property whose value is one of Alice's PDNidenties. They are also all asserted by Alice --Alice is making these claims about herself. That is, they have a c:assertedBy property whose value is also one of Alice's PDNidentities.
+
 | Context file | Context type | Key data | Image |
 |:-------------|:-------------|:---------|:------|
+| `google.ttl` | Company (Google) | Email address | [view](images/alice-contexts/alice(google).png) |
 | `att.ttl` | Company (ATT) | Phone number | [view](images/alice-contexts/alice(att).png) |
-| `belongings.ttl` | Possession | Wallet (driver's license + payment card); health insurance card and SSN card held directly (with image scans) | [view](images/alice-contexts/alice(belongings).png) |
+| `texas-birth-certificate.ttl` | State (texas.gov) | Legal names: Margery Alice Walker; maiden name Margery Alice Arnold | [view](images/alice-contexts/alice(texas-birth-certificate).png) |
+| `paradise.ttl` | Municipality (Paradise) | Current address — Paradise, CA (2025–present) | [view](images/alice-contexts/alice(paradise).png) |
 | `boston.ttl` | Municipality (Boston) | Previous address — Boston, MA (2020–2025) with temporal interval | [view](images/alice-contexts/alice(boston).png) |
+(family).png) |
+| `ssa.ttl` | Federal (SSA.gov) | SSN | [view](images/alice-contexts/alice(ssa).png) |
+| `bhs.ttl` | Group (BHS) | BHS profile | |
 | `colleagues.ttl` | People/Professionals | Colleagues social network with Bob Johnston | [view](images/alice-contexts/alice(colleagues).png) |
 | `family.ttl` | People/Family | Family social network with Paula Walker | [view](images/alice-contexts/alice(family).png) |
-| `google.ttl` | Company (Google) | Email address | [view](images/alice-contexts/alice(google).png) |
-| `paradise.ttl` | Municipality (Paradise) | Current address — Paradise, CA (2025–present) | [view](images/alice-contexts/alice(paradise).png) |
-| `ssa.ttl` | Federal (SSA.gov) | SSN | [view](images/alice-contexts/alice(ssa).png) |
-| `texas-birth-certificate.ttl` | State (texas.gov) | Legal names: Margery Alice Walker; maiden name Margery Alice Arnold | [view](images/alice-contexts/alice(texas-birth-certificate).png) |
+| `belongings.ttl` | Possession | Wallet (driver's license + payment card); health insurance card and SSN card held directly (with image scans) | [view](images/alice-contexts/alice(belongings).png) |
 
-The following table shows contexts that are about Alice, but asserted by others.
+The following table lists contexts that are *about* Alice, but asserted by others. The Citibank context is asserted by the Citibank organization making claims about Alice. 
+
 | Context file | Context type | Key data | Image |
 |:-------------|:-------------|:---------|:------|
 | `citibank.ttl` | Company (Citibank) | Debit card | [view](images/alice-contexts/alice(citibank).png) |
 
 
-### Alice's Paula Walker Context
-
-For the following context, `c:subject i:Individual` — they are about another person, in this case her mother, Paula Walker.
+For the following table lists contexts that are about other people (in this case her mother, Paula Walker), and asserted by Paula Walker. 
 
 | Context file | Context type | Key data | Image |
 |:-------------|:-------------|:---------|:------|
-| `florida-birth-certificate.ttl` | State (FL) | Legal names | [view](images/paula-contexts/paula(florida-birth-certificate).png) |
+| `paula(by-alice).ttl` | Family | What Alice claims about Paula |  |
+| `paula(by-paula).ttl` | Family | What Paula claims about Paula |  |
 
 
-### Alice's and Paula's Contexts
+### Alice's Contexts
 
-Shown below is an overview of the example contexts in Alice's Mia.
+Here is an overview of the example contexts in Alice's Mia.
 
 <p align="center"><img src="images/alice-contexts/context-map.png" alt="Alice's physical characteristics"></p>
 
