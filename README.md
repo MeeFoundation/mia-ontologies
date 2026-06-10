@@ -252,7 +252,7 @@ Alice's `self.ttl` also describes some physical characteristics of Alice shown b
 <p align="center"><img src="images/alice/alice(self)+physical.png" alt="Alice's physical characteristics"></p>
 
 
-### Alice Walker's Contexts
+### Alice's Contexts
 
 As we've mentioned, Alice interacts with other people, organizations and groups in a set of contexts of different types. 
 
