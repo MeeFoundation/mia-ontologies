@@ -261,7 +261,6 @@ For example, Alice's `texas-birth-certificate.ttl` has `c:contextCategory:` = `c
 | `att.ttl` | Company (ATT) | Phone number | [view](images/alice-contexts/alice(att).png) |
 | `belongings.ttl` | Possession | Wallet (driver's license + payment card); health insurance card and SSN card held directly (with image scans) | [view](images/alice-contexts/alice(belongings).png) |
 | `boston.ttl` | Municipality (Boston) | Previous address — Boston, MA (2020–2025) with temporal interval | [view](images/alice-contexts/alice(boston).png) |
-
 | `colleagues.ttl` | People/Professionals | Colleagues social network with Bob Johnston | [view](images/alice-contexts/alice(colleagues).png) |
 | `family.ttl` | People/Family | Family social network with Paula Walker | [view](images/alice-contexts/alice(family).png) |
 | `google.ttl` | Company (Google) | Email address | [view](images/alice-contexts/alice(google).png) |
