@@ -1,20 +1,20 @@
 # Mia Ontologies
 
-This file describes the ontologies used by the Mee Identity Agent (Mia) software application. 
-Each Mia lives within the **Personal Data Network** (PDN). The PDN is a data-sharing network whose nodes are three kinds of participants: individual Mia users, groups of Mia users, and organizations (government agencies, companies, and nonprofits).
+This document describes the ontologies used by the Mee Identity Agent (Mia) software application. 
+Each Mia lives within the Personal Data Network (PDN). The PDN is a data-sharing network whose nodes are three kinds of participants: individual Mia users, groups of Mia users, and organizations (government agencies, companies, and nonprofits).
 
-Mia's ontologies import and profile existing ontologies — documenting which of their classes and properties Mia requires or uses — and extending them with Mia-specific classes and properties They are built on **BFO** (Basic Formal Ontology) and **CCO** (Common Core Ontologies) as the upper ontological foundation, and on domain ontologies that extend CCO:
+Mia ontologies that import and profile existing ontologies — documenting which of their classes and properties Mia requires or uses — and extending them with Mia-specific classes and properties They are built on BFO (Basic Formal Ontology) and CCO (Common Core Ontologies) as the upper ontological foundation, and on domain ontologies that extend CCO:
 - **PersonOntology** — person, name types, parent-child relationships
 - **AddressOntology** — postal address structure
 - **StagingOntology** — staging area for terms pending promotion (phone numbers, email addresses, user accounts, etc.)
 - **AgentOntology** — agents and their properties (imported transitively via PersonOntology)
 
-Mia's five ontologies fall into two tiers. The first three are **domain ontologies** that model a distinct kind of PDN node:
+The first two ontologies are **domain ontologies** that model a distinct kind of PDN node:
 - **Persona ontology** — models a real person's identity data: names, addresses, phone numbers, relationships, payment cards, and more, structured around context-specific *personas*.
-- **Group ontology** — models groups or communities of Mia users on the PDN.
 - **Organization ontology** — models organizations (companies, government agencies, non-profits, etc.) on the PDN.
 
-The last two are **supporting ontologies** that support all three domains:
+The last three are **supporting ontologies** that support all three domains:
+- **Group ontology** — a group made up of individuals and/or organizations.
 - **Context ontology** — a container for information about people, groups, and organizations. A context also holds metadata about the category of context, who asserted the data, and which entity is primarily being described.
 - **Identity ontology** — types of PDN network identifiers.
 
@@ -29,24 +29,7 @@ We first present an overview of the five ontologies and then illustrates them th
 
 ## Persona Ontology
 
-The Persona ontology defines a formal, machine-readable model of a real-world person's identity data — names, addresses, phone numbers, SSNs, physical characteristics, parent-child relationships, social connections, payment cards, and much more — by reusing existing well-known ontologies wherever possible and defining new terms only where no suitable existing term exists.
-
-
-### Persona Ontology Files
-
-- **`persona.ttl`** — The Persona ontology. Imports the domain ontologies above and documents which classes and properties Mia uses (required vs. optional). Defines Mia-specific extension properties (`p:hasPersona`, `p:hasSocialNetwork`, `p:hasPaymentCard`, `p:hasBankAccount`, etc.) and the core Persona data model classes (`p:Persona`, `p:BirthCertificate`, physical card classes, banking classes, and others).
-
-- **`persona-shacl.ttl`** — SHACL constraint rules defining the shape `p:Personas`. Validates properties including:
-  - *`p:BirthCertificate` `p:Persona` instances*: FullName OR (GivenName + FamilyName) required; optional AdditionalName, AlternateName, Nickname, Legal Name
-  - *All `p:Persona` instances*: SSN format (`NNN-NN-NNNN`), email format, phone (E.164), address cardinality, payment cards, wallet
-  - *US Postal Address*: required street, city, state (USPS 2-letter), ZIP; optional country
-  - *`Person` (selfness)*: scalp hair (0..1); `has mother` / `is mother of` range must be a `Person`
-  - *Social Network*: sub-groups (via `has part`) must be Social Networks; members (via `has member part`) must be `p:Persona` instances
-  - *Debit Card*: card number and expiration date required; CVV optional
-  - *`p:Wallet`*: items declaring themselves `continuant part of` this wallet must be `p:PhysicalCard` instances
-  - *`p:PhysicalCard`*: image scan, if present, must be `xsd:anyURI` (max 1); `continuant part of` target, if present, must be a `p:Wallet` (max 1)
-
-### One Person with Multiple Personas
+The Persona ontology defines a formal, machine-readable model of a real-world person's identity data — names, addresses, phone numbers, SSNs, physical characteristics, parent-child relationships, social connections, payment cards, etc., — by reusing existing well-known ontologies wherever possible and defining new terms only where no suitable existing term exists.
 
 We represent a person as a single `Person` entity along with multiple `p:Personas`, one per relationship or institutional context.
 
@@ -57,6 +40,10 @@ A`p:Persona` is an Information Content Entity (CCO `ont00000958`) — a context-
 A `p:Persona` can itself carry `p:hasPersona`. This allows intermediate, branch level `p:Personas` which in turn link to leaf level `p:Personas`. The claims of intermediate `p:Personas` are inherited by leaf `p:Personas` to which they are linked.
 
 <p align="center"><img src="images/persona-ontology/persona.png" alt="Persona model"></p>
+
+### Key properties and classes
+
+This section describes the most fundamental properties and classes in the Persona ontology. The interconnection of a Person object in the Self container with multiple Persona objects in separate contexts. 
 
 **Properties**
 
@@ -69,9 +56,9 @@ A `p:Persona` can itself carry `p:hasPersona`. This allows intermediate, branch 
 * `p:Persona` — an Information Content Entity that represents how a person appears in the context of a specific interaction — with a company, government agency, another person, or a group of people. A `p:Persona` is a context-specific facet of that person linked via `p:hasPersona`.
 * `p:BirthCertificate` — a `p:Persona` subtype whose purpose is to carry a person's legal birth name record as issued by a state agency.
 
-### Possessions
+### Possession-related properties and classes
 
-A `p:Persona` within a context of category `c:contextCategory: c:Possession` models the physical items a person carries, owns, possesses, rents or leases. 
+This section describes properties and classes related to things a person has, holds, possesses, purchased, or rents. 
 
  - Physical plastic/paper cards are `MaterialArtifact` subclasses that include driver's license, health insurance card, payment card, etc.
  - Physical wallets - Cards and may be placed inside a wallet (via BFO `continuant part of`) or held directly by the `p:Persona` (via `p:hasPhysicalCard`).
@@ -96,7 +83,7 @@ A `p:Persona` within a context of category `c:contextCategory: c:Possession` mod
 
 ### Accounts
 
-An online service account (`OnlineServiceAccount`, CCO `ont00000033`) records a person's credentials and identity with an online service provider such as Google or AT&T.
+This section describes properties and classes related to a person's relationship with an only service provider. An online service account (`OnlineServiceAccount`, CCO `ont00000033`) records a person's credentials and identity with an online service provider such as Google or AT&T.
 
 **Properties**
 
@@ -106,9 +93,9 @@ An online service account (`OnlineServiceAccount`, CCO `ont00000033`) records a 
 * `has user handle` (CCO) — the user's handle or username on the service.
 * `p:hasPassword` — the password credential for an `OnlineServiceAccount` (Persona ontology extension).
 
-### Banking
+### Finance-related properties and classes
 
-A bank account is a `p:CheckingAccount` linked to a `p:Persona` and accessed via a debit card. It builds on the Accounts model above.
+This section describes properties and classes related to a person's interactions with financial institutions.
 
 **Properties**
 
@@ -123,11 +110,25 @@ A bank account is a `p:CheckingAccount` linked to a `p:Persona` and accessed via
 
 ### Modeling details
 
-A few details related to modeling names and addresses in the Persona Ontology:
+This section describes a few details related to modeling names and addresses.
 
 **Peer name pattern**: All name types (FullName, GivenName, FamilyName, AlternateName) connect directly to a `Person` or `p:Persona` via `designated by` (`ont00001879`). They are siblings, not nested under a PersonName parent. Legal names belong to `p:BirthCertificate` `p:Persona` instances; a preferred/goes-by name lives in `self.ttl` since it applies across all contexts.
 
 **Address history**: Each address `p:Persona` carries a USPostalAddress and an `AddressDesignation` with a `TemporalInterval` (start date required; no end date = current address).
+
+### Persona Ontology Files
+
+- **`persona.ttl`** — The Persona ontology. Imports the domain ontologies above and documents which classes and properties Mia uses (required vs. optional). Defines Mia-specific extension properties (`p:hasPersona`, `p:hasSocialNetwork`, `p:hasPaymentCard`, `p:hasBankAccount`, etc.) and the core Persona data model classes (`p:Persona`, `p:BirthCertificate`, physical card classes, banking classes, and others).
+
+- **`persona-shacl.ttl`** — SHACL constraint rules defining the shape `p:Personas`. Validates properties including:
+  - *`p:BirthCertificate` `p:Persona` instances*: FullName OR (GivenName + FamilyName) required; optional AdditionalName, AlternateName, Nickname, Legal Name
+  - *All `p:Persona` instances*: SSN format (`NNN-NN-NNNN`), email format, phone (E.164), address cardinality, payment cards, wallet
+  - *US Postal Address*: required street, city, state (USPS 2-letter), ZIP; optional country
+  - *`Person` (selfness)*: scalp hair (0..1); `has mother` / `is mother of` range must be a `Person`
+  - *Social Network*: sub-groups (via `has part`) must be Social Networks; members (via `has member part`) must be `p:Persona` instances
+  - *Debit Card*: card number and expiration date required; CVV optional
+  - *`p:Wallet`*: items declaring themselves `continuant part of` this wallet must be `p:PhysicalCard` instances
+  - *`p:PhysicalCard`*: image scan, if present, must be `xsd:anyURI` (max 1); `continuant part of` target, if present, must be a `p:Wallet` (max 1)
 
 ### Validation
 
@@ -135,7 +136,7 @@ A few details related to modeling names and addresses in the Persona Ontology:
 
 ## Group Ontology
 
-The Group ontology models groups or communities that participate in the Personal Data Network. A group has a PDN identity — an `i:Group` identifier — that allows Mia to communicate with it as a node on the network.
+The Group ontology introduces the concept of a shared group whose members are individuals and/or organizations. The group itself is a shared object that is shared with all of its members. In addition to individuals and organizations have PDN identifiers, a group itself has a PDN identity as a node on the PDN network. 
 
 <p align="center"><img src="images/group-ontology/group.png" alt="Group model"></p>
 
