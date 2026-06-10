@@ -276,12 +276,15 @@ The contexts in the following table are all about Alice. That is, they have a c:
 | `family.ttl` | People/Family | Family social network with Paula Walker | [view](images/alice-contexts/alice(family).png) |
 | `belongings.ttl` | Possession | Wallet (driver's license + payment card); health insurance card and SSN card held directly (with image scans) | [view](images/alice-contexts/alice(belongings).png) |
 
-The following table lists contexts that are *about* Alice, but asserted by others. The Citibank context is asserted by the Citibank organization making claims about Alice. 
+The following table lists contexts that are *about* Alice, but asserted by others. The Citibank context is asserted by the Citibank organization; it making claims about Alice. 
 
 | Context file | Context type | Key data | Image |
 |:-------------|:-------------|:---------|:------|
 | `citibank.ttl` | Company (Citibank) | Debit card | [view](images/alice-contexts/alice(citibank).png) |
+<!--->
 | `alice(by-bob)` | Colleagues | What Bob says about Alice |  |
+--->
+
 
 <!---
 Rhe following table lists contexts that are about other people (Paula and Bob).
