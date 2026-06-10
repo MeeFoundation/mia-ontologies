@@ -10,7 +10,12 @@ Two **supporting ontologies** serve all three domains:
 - **Context ontology** — a container for information about people, groups, and organizations. A context also holds metadata about the category of context, who asserted the data, and which entity is primarily being described.
 - **Identity ontology** — types of PDN network identifiers.
 
-This document provides an overview of all five ontologies, then illustrates them with sample Mia data for a hypothetical user, Alice Walker. Throughout, `p:` is shorthand for the `persona:` namespace (`http://mee.foundation/ontologies/persona#`), `c:` for the `context:` namespace (`http://mee.foundation/ontologies/context#`), `i:` for the `identity:` namespace (`http://mee.foundation/ontologies/identity#`), `g:` for the `group:` namespace (`http://mee.foundation/ontologies/group#`), and `o:` for the `organization:` namespace (`http://mee.foundation/ontologies/organization#`).
+This document provides an overview of all five ontologies, then illustrates them with sample Mia data for a hypothetical user, Alice Walker. Throughout, we use these shorthands:
+- `p:` is shorthand for the `persona:` namespace (`http://mee.foundation/ontologies/persona#`)
+- `c:` for the `context:` namespace (`http://mee.foundation/ontologies/context#`)
+- `i:` for the `identity:` namespace (`http://mee.foundation/ontologies/identity#`)
+- `g:` for the `group:` namespace (`http://mee.foundation/ontologies/group#`)
+- `o:` for the `organization:` namespace (`http://mee.foundation/ontologies/organization#`).
 
 ## Persona Ontology
 
