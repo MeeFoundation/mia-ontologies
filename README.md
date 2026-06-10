@@ -261,13 +261,19 @@ For example, Alice's `texas-birth-certificate.ttl` has `c:contextCategory:` = `c
 | `att.ttl` | Company (ATT) | Phone number | [view](images/alice-contexts/alice(att).png) |
 | `belongings.ttl` | Possession | Wallet (driver's license + payment card); health insurance card and SSN card held directly (with image scans) | [view](images/alice-contexts/alice(belongings).png) |
 | `boston.ttl` | Municipality (Boston) | Previous address — Boston, MA (2020–2025) with temporal interval | [view](images/alice-contexts/alice(boston).png) |
-| `citibank.ttl` | Company (Citibank) | Debit card | [view](images/alice-contexts/alice(citibank).png) |
+
 | `colleagues.ttl` | People/Professionals | Colleagues social network with Bob Johnston | [view](images/alice-contexts/alice(colleagues).png) |
 | `family.ttl` | People/Family | Family social network with Paula Walker | [view](images/alice-contexts/alice(family).png) |
 | `google.ttl` | Company (Google) | Email address | [view](images/alice-contexts/alice(google).png) |
 | `paradise.ttl` | Municipality (Paradise) | Current address — Paradise, CA (2025–present) | [view](images/alice-contexts/alice(paradise).png) |
 | `ssa.ttl` | Federal (SSA.gov) | SSN | [view](images/alice-contexts/alice(ssa).png) |
 | `texas-birth-certificate.ttl` | State (texas.gov) | Legal names: Margery Alice Walker; maiden name Margery Alice Arnold | [view](images/alice-contexts/alice(texas-birth-certificate).png) |
+
+The following table shows contexts that are about Alice, but asserted by others.
+| Context file | Context type | Key data | Image |
+|:-------------|:-------------|:---------|:------|
+| `citibank.ttl` | Company (Citibank) | Debit card | [view](images/alice-contexts/alice(citibank).png) |
+
 
 ### Alice's Paula Walker Context
 
