@@ -251,12 +251,11 @@ Alice's `self.ttl` also describes some physical characteristics of Alice shown b
 
 <p align="center"><img src="images/alice/alice(self)+physical.png" alt="Alice's physical characteristics"></p>
 
-
 ### Alice's Contexts
 
-As we've mentioned, Alice interacts with other people, organizations and groups in a set of contexts of different types. 
+As we've mentioned, Alice interacts with other people, organizations and groups in contexts of different types. 
 
-The contexts in the following table are all about Alice. That is, they have a c:subject property whose value is one of Alice's PDNidenties. They are also all asserted by Alice --Alice is making these claims about herself. That is, they have a c:assertedBy property whose value is also one of Alice's PDNidentities.
+The contexts in the following table are all *about* Alice. That is, they have a c:subject property whose value is one of Alice's PDNidenties. They are also all asserted *by* Alice --Alice is making these claims about herself. That is, they have a c:assertedBy property whose value is one of Alice's PDNidentities.
 
 | Context file | Context type | Key data | Image |
 |:-------------|:-------------|:---------|:------|
