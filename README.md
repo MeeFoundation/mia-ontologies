@@ -1,8 +1,10 @@
 # Mia Ontologies
-Mia's five ontologies fall into two tiers. Three **domain ontologies** each model a distinct kind of PDN participant:
+The **Personal Data Network** (PDN) is a data-sharing network whose nodes are three kinds of participants: individual Mia users, groups of Mia users, and organizations (government agencies, companies, and nonprofits).
+
+Mia's five ontologies fall into two tiers. Three **domain ontologies** each model a distinct kind of PDN node:
 - **Persona ontology** — models a real person's identity data: names, addresses, phone numbers, relationships, payment cards, and more, structured around context-specific *personas*.
-- **Group ontology** — models groups or communities of Mia users on the Personal Data Network.
-- **Organization ontology** — models organisations (companies, government agencies, non-profits, etc.) on the Personal Data Network.
+- **Group ontology** — models groups or communities of Mia users on the PDN.
+- **Organization ontology** — models organisations (companies, government agencies, non-profits, etc.) on the PDN.
 
 Two **supporting ontologies** serve all three domains:
 - **Context ontology** — a container for any domain entity's data; classifies the kind of interaction, who asserted the data, and whose identity is described.
