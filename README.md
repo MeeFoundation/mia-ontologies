@@ -283,7 +283,9 @@ The following table lists contexts that are *about* Alice, but asserted by other
 | `citibank.ttl` | Company (Citibank) | Debit card | [view](images/alice-contexts/alice(citibank).png) |
 | `alice(by-bob)` | Colleagues | What Bob says about Alice |  |
 
-For the following table lists contexts that are about other people (Paula and Bob).
+<!---
+Rhe following table lists contexts that are about other people (Paula and Bob).
+
 
 | Context file | Context type | Key data | Image |
 |:-------------|:-------------|:---------|:------|
@@ -292,7 +294,7 @@ For the following table lists contexts that are about other people (Paula and Bo
 | `paula(by-paula-BHS).ttl` | BHS | What Paula claims about herself in BHS |  |
 | `bob(by-alice).ttl` | Colleagues | What Alice claims about Bob |  |
 | `bob(by-bob).ttl` | Colleagues | What Bob claims about Bob |  |
-
+--->
 
 ### Alice's Contexts
 
