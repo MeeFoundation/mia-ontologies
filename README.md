@@ -206,8 +206,6 @@ A context is a container of information whose primary subject is one of the thre
 - `i:Group` — the file is about a group of Mia users.
 - `i:Organization` — the file is about an organization (legal corporation or government agency).
 
-<p align="center"><img src="images/context-ontology/context-subject.png" alt="subject hierarchy"></p>
-
 The diagram below shows four kinds of contexts related to a hypothetical Mia user, Alice, and her interactions with a Department of Motor Vehicles (DMV) agency. Across the top are contexts where the DMV itself is the subject, and at the bottom where Alice is the subject. At the left are contexts where Alice has made the assertions (e.g. Alice's Mia has written the claims into the context) and at the right are contexts where the RMV as the "other" has written the claims. 
 
 <p align="center"><img src="images/context-ontology/quadrants.png" alt="a quadrant of context types"></p>
