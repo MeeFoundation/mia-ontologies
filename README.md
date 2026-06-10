@@ -136,7 +136,7 @@ This section describes a few details related to modeling names and addresses.
 
 ## Group Ontology
 
-The Group ontology introduces the concept of a shared group whose members are individuals and/or organizations. The group itself is a shared object that is shared with all of its members. In addition to individuals and organizations have PDN identifiers, a group itself has a PDN identity as a node on the PDN network. 
+The Group ontology introduces the concept of a shared group whose members are individuals and/or organizations. The group object *itself* (i.e. the set object) as well as any attached properties are shared with all of its members. In addition to individuals and organizations have PDN identifiers, a group itself has a PDN identity as a node on the PDN network. 
 
 <p align="center"><img src="images/group-ontology/group.png" alt="Group model"></p>
 
