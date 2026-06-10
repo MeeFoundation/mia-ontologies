@@ -282,14 +282,17 @@ The following table lists contexts that are *about* Alice, but asserted by other
 | Context file | Context type | Key data | Image |
 |:-------------|:-------------|:---------|:------|
 | `citibank.ttl` | Company (Citibank) | Debit card | [view](images/alice-contexts/alice(citibank).png) |
+| `alice(by-bob)` | Colleagues | What Bob says about Alice |  |
 
-
-For the following table lists contexts that are about other people (in this case her mother, Paula Walker), and asserted by Paula Walker. 
+For the following table lists contexts that are about other people (Paula and Bob).
 
 | Context file | Context type | Key data | Image |
 |:-------------|:-------------|:---------|:------|
 | `paula(by-alice).ttl` | Family | What Alice claims about Paula |  |
 | `paula(by-paula).ttl` | Family | What Paula claims about Paula |  |
+| `paula(by-paula-BHS).ttl` | BHS | What Paula claims about herself in BHS |  |
+| `bob(by-alice).ttl` | Colleagues | What Alice claims about Bob |  |
+| `bob(by-bob).ttl` | Colleagues | What Bob claims about Bob |  |
 
 
 ### Alice's Contexts
