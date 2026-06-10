@@ -1,37 +1,36 @@
 # Mia Ontologies
-The **Personal Data Network** (PDN) is a data-sharing network whose nodes are three kinds of participants: individual Mia users, groups of Mia users, and organizations (government agencies, companies, and nonprofits).
 
-Mia's five ontologies fall into two tiers. Three **domain ontologies** each model a distinct kind of PDN node:
+This file describes the ontologies used by the Mee Identity Agent (Mia) software application. 
+Each Mia lives within the **Personal Data Network** (PDN). The PDN is a data-sharing network whose nodes are three kinds of participants: individual Mia users, groups of Mia users, and organizations (government agencies, companies, and nonprofits).
+
+Mia's ontologies import and profile existing ontologies — documenting which of their classes and properties Mia requires or uses — and extending them with Mia-specific classes and properties They are built on **BFO** (Basic Formal Ontology) and **CCO** (Common Core Ontologies) as the upper ontological foundation, and on domain ontologies that extend CCO:
+- **PersonOntology** — person, name types, parent-child relationships
+- **AddressOntology** — postal address structure
+- **StagingOntology** — staging area for terms pending promotion (phone numbers, email addresses, user accounts, etc.)
+- **AgentOntology** — agents and their properties (imported transitively via PersonOntology)
+
+Mia's five ontologies fall into two tiers. The first three are **domain ontologies** that model a distinct kind of PDN node:
 - **Persona ontology** — models a real person's identity data: names, addresses, phone numbers, relationships, payment cards, and more, structured around context-specific *personas*.
 - **Group ontology** — models groups or communities of Mia users on the PDN.
-- **Organization ontology** — models organisations (companies, government agencies, non-profits, etc.) on the PDN.
+- **Organization ontology** — models organizations (companies, government agencies, non-profits, etc.) on the PDN.
 
-Two **supporting ontologies** serve all three domains:
+The last two are **supporting ontologies** that support all three domains:
 - **Context ontology** — a container for information about people, groups, and organizations. A context also holds metadata about the category of context, who asserted the data, and which entity is primarily being described.
 - **Identity ontology** — types of PDN network identifiers.
 
-This document provides an overview of all five ontologies, then illustrates them with sample Mia data for a hypothetical user, Alice Walker. Throughout, we use these shorthands:
+ Throughout, we use these shorthands:
 - `p:` is shorthand for the `persona:` namespace (`http://mee.foundation/ontologies/persona#`)
 - `c:` for the `context:` namespace (`http://mee.foundation/ontologies/context#`)
 - `i:` for the `identity:` namespace (`http://mee.foundation/ontologies/identity#`)
 - `g:` for the `group:` namespace (`http://mee.foundation/ontologies/group#`)
 - `o:` for the `organization:` namespace (`http://mee.foundation/ontologies/organization#`).
 
+We first present an overview of the five ontologies and then illustrates them through a sample dataset for a hypothetical user, Alice Walker.
+
 ## Persona Ontology
 
-Persona is an application ontology for the Mee Identity Agent (Mia). It imports and profiles existing domain ontologies — documenting which of their classes and properties Mia requires or uses — and extends them with Mia-specific classes and properties.
+The Persona ontology defines a formal, machine-readable model of a real-world person's identity data — names, addresses, phone numbers, SSNs, physical characteristics, parent-child relationships, social connections, payment cards, and much more — by reusing existing well-known ontologies wherever possible and defining new terms only where no suitable existing term exists.
 
-### Purpose
-
-It defines a formal, machine-readable model of a real-world person's identity data — names, addresses, phone numbers, SSNs, physical characteristics, parent-child relationships, social connections, payment cards, and more — by reusing existing well-known ontologies wherever possible and defining new terms only where no suitable existing term exists.
-
-### Ontological Foundation
-
-Built on **BFO** (Basic Formal Ontology) and **CCO** (Common Core Ontologies) as the upper ontological foundation, and on domain ontologies that extend CCO:
-- **PersonOntology** — person, name types, parent-child relationships
-- **AddressOntology** — postal address structure
-- **StagingOntology** — staging area for terms pending promotion (phone numbers, email addresses, user accounts, etc.)
-- **AgentOntology** — agents and their properties (imported transitively via PersonOntology)
 
 ### Persona Ontology Files
 
@@ -70,7 +69,7 @@ A `p:Persona` can itself carry `p:hasPersona`. This allows intermediate, branch 
 * `p:Persona` — an Information Content Entity that represents how a person appears in the context of a specific interaction — with a company, government agency, another person, or a group of people. A `p:Persona` is a context-specific facet of that person linked via `p:hasPersona`.
 * `p:BirthCertificate` — a `p:Persona` subtype whose purpose is to carry a person's legal birth name record as issued by a state agency.
 
-### Belongings
+### Possessions
 
 A `p:Persona` within a context of category `c:contextCategory: c:Possession` models the physical items a person carries, owns, possesses, rents or leases. 
 
