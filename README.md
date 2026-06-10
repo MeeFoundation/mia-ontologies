@@ -201,10 +201,10 @@ A context is a container of information whose primary subject is one of the thre
 - `i:Organization` — a organization is asserting the data directly.
 
 **`c:subject`** — Whose identity the context file describes. Values are subclasses of `i:PDNidentity` from the Identity ontology:
-- `i:Self` — the file is about the Mia user.
-- `i:Individual` — the file is about another human Mia user.
-- `i:Group` — the file is about a group of Mia users.
-- `i:Organization` — the file is about an organization (legal corporation or government agency).
+- `i:Self` — the context is primarily about the Mia user.
+- `i:Individual` — the context is primarily about another human Mia user.
+- `i:Group` — the context is primarily about a group of Mia users.
+- `i:Organization` — the context is primarily about an organization (legal corporation or government agency).
 
 The diagram below shows four kinds of contexts related to a hypothetical Mia user, Alice, and her interactions with a Department of Motor Vehicles (DMV) agency. Across the top are contexts where the DMV itself is the subject, and at the bottom where Alice is the subject. At the left are contexts where Alice has made the assertions (e.g. Alice's Mia has written the claims into the context) and at the right are contexts where the RMV as the "other" has written the claims. 
 
