@@ -256,11 +256,6 @@ Alice's `self.ttl` also describes some physical characteristics of Alice shown b
 
 As we've mentioned, Alice interacts with other people, organizations and groups in a set of contexts of different types. 
 
-
-in a set of contexts. In the following, each context carries `c:subject i:Self`, indicating they are about Alice. These context files are `c:assertedBy i:Self` — Alice is the one recording all of this data, even when the underlying information originates from a third party. 
-
-For example, Alice's `texas-birth-certificate.ttl` has `c:contextCategory:` = `c:State`, `c:assertedBy:` = `i:Self`, and  `c:subject:` = `i:Self` — a state government context recorded by Alice, about Alice. As another example, her `florida-birth-certificate.ttl` context is `c:contextCategory: c:State`, `c:assertedBy: i:Self`, `c:subject: i:Individual` — also recorded by Alice, but describing her mother Paula.
-
 The contexts in the following table are all about Alice. That is, they have a c:subject property whose value is one of Alice's PDNidenties. They are also all asserted by Alice --Alice is making these claims about herself. That is, they have a c:assertedBy property whose value is also one of Alice's PDNidentities.
 
 | Context file | Context type | Key data | Image |
