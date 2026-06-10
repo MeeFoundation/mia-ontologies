@@ -141,7 +141,7 @@ The Group ontology models groups or communities that participate in the Personal
 
 **Classes**
 
-* `g:Group` — a group or community of people on the Personal Data Network.
+* **`g:Group`** — a group or community of people on the Personal Data Network.
 
 ### Group Ontology File
 
@@ -159,7 +159,7 @@ The Organization ontology models organizations — companies, government agencie
 
 **Classes**
 
-* `o:Organization` — an organization on the Personal Data Network.
+* **`o:Organization`** — an organization on the Personal Data Network.
 
 ### Organization Ontology File
 
@@ -171,7 +171,7 @@ The Organization ontology models organizations — companies, government agencie
 
 ## Context Ontology
 
-A context is a container of information about one main `p:Persona` which is the *subject* of the context, its claims, and in some cases the `p:Persona` facets of other people. A context is implemented as a `.ttl` file that by convention contains an owl:Ontology. The context ontology defines three properties of this owl:Ontology that describe three orthogonal dimensions of the context:
+A context is a container of information whose primary subject is one of the three kinds of PDN node: a `p:Persona` (representing a context-specific facet of a person), a `g:Group`, or an `o:Organization`. It holds the subject's claims and, in the case of a `p:Persona` subject, may also include the `p:Persona` facets of other people in that context. A context is implemented as a `.ttl` file that by convention contains an owl:Ontology. The context ontology defines three properties of this owl:Ontology that describe three orthogonal dimensions of the context:
 
 - What is the category of context (`c:contextCategory`), e.g. relationships with family members, interactions with a bank, etc.
 - Who is making the assertions the context contains (`c:assertedBy`) - its value is a `i:PDNidentity`
