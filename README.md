@@ -196,7 +196,7 @@ A context is a container of information whose primary subject is one of the thre
 
 **`c:assertedBy`** — Who is making the assertion. Values are subclasses of `i:PDNidentity` from the Identity ontology:
 - `i:Self` — the Mia user is recording the data, even if the underlying information originates from some other party such as a company, government agency, or another person.
-- `i:Individual` — another human Mia user is asserting the data directly.
+- `i:Individual` — another Mia user is asserting the data directly.
 - `i:Group` — a group of Mia users is asserting the data.
 - `i:Organization` — a organization is asserting the data directly.
 
@@ -226,7 +226,7 @@ The Identity ontology is used to describe the kinds of identities that Mia can c
 
 <p align="center"><img src="images/identity-ontology/identity.png" alt="types of MeeIdentities"></p>
 
-* `i:Individual` - an identifier of a human Mia user. The identity of the current Mia user is an instance of the subclass, `i:Self`
+* `i:Individual` - an identifier of a Mia user. The identity of the current Mia user is an instance of the subclass, `i:Self`
 * `i:Group` - an identifier of a group of Mia users
 * `i:Organization` - an identifier of a organization
 
