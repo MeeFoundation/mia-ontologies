@@ -1,7 +1,7 @@
 # Mia Ontologies
 
 This document describes the ontologies used by the Mee Identity Agent (Mia) software application. 
-Each Mia lives within the Personal Data Network (PDN). The PDN is a data-sharing network whose nodes are three kinds of participants: individual Mia users, groups of Mia users, and organizations (government agencies, companies, and nonprofits).
+Each Mia lives within the Personal Data Network (PDN), a data-sharing network whose nodes are three kinds of participants: individual Mia users, groups of Mia users, and organizations (government agencies, companies, and nonprofits).
 
 Mia ontologies that import and profile existing ontologies — documenting which of their classes and properties Mia requires or uses — and extending them with Mia-specific classes and properties They are built on BFO (Basic Formal Ontology) and CCO (Common Core Ontologies) as the upper ontological foundation, and on domain ontologies that extend CCO:
 - **PersonOntology** — person, name types, parent-child relationships
