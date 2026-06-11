@@ -3,7 +3,7 @@
 This document describes the ontologies used by the Mee Identity Agent (Mia) software application. 
 Each Mia lives within the Personal Data Network (PDN), a data-sharing network with three kinds of participants: individual Mia users, groups of Mia users and/or organizations, and organizations (government agencies, companies, and nonprofits).
 
-Mia ontologies import and profile existing ontologies — documenting which of their classes and properties Mia requires or uses — and extending them with Mia-specific classes and properties They are built on BFO (Basic Formal Ontology) and CCO (Common Core Ontologies) as the upper ontological foundation, and on domain ontologies that extend CCO:
+Mia ontologies import and profile existing ontologies — documenting which of their classes and properties Mia requires or uses — and extending them with Mia-specific classes and properties. They are built on BFO (Basic Formal Ontology) and CCO (Common Core Ontologies) as the upper ontological foundation, and on domain ontologies that extend CCO:
 - **PersonOntology** — person, name types, parent-child relationships
 - **AddressOntology** — postal address structure
 - **StagingOntology** — staging area for terms pending promotion (phone numbers, email addresses, user accounts, etc.)
@@ -18,14 +18,14 @@ The last three are **supporting ontologies** that support all three domains:
 - **Context ontology** — a container for information about people, groups, and organizations. A context also holds metadata about the category of context, who asserted the data, and which entity is primarily being described.
 - **Identity ontology** — types of PDN network identifiers.
 
- Throughout, we use these shorthands:
+Throughout, we use these shorthands:
 - `p:` is shorthand for the `persona:` namespace (`http://mee.foundation/ontologies/persona#`)
 - `c:` for the `context:` namespace (`http://mee.foundation/ontologies/context#`)
 - `i:` for the `identity:` namespace (`http://mee.foundation/ontologies/identity#`)
 - `g:` for the `group:` namespace (`http://mee.foundation/ontologies/group#`)
 - `o:` for the `organization:` namespace (`http://mee.foundation/ontologies/organization#`).
 
-We first present an overview of the five ontologies and then illustrates them through a sample dataset for a hypothetical user, Alice Walker.
+We first present an overview of the five ontologies and then illustrate them through a sample dataset for a hypothetical user, Alice Walker.
 
 ## Persona Ontology
 
@@ -43,7 +43,7 @@ A `p:Persona` can itself carry `p:hasPersona`. This allows intermediate, branch 
 
 ### Key properties and classes
 
-This section describes the most fundamental properties and classes in the Persona ontology. The interconnection of a Person object in the Self container with multiple Persona objects in separate contexts. 
+This section describes the most fundamental properties and classes in the Persona ontology. The interconnection of a Person object in the Self container with multiple Persona objects in separate contexts forms the foundational graph structure. 
 
 **Properties**
 
@@ -61,7 +61,7 @@ This section describes the most fundamental properties and classes in the Person
 This section describes properties and classes related to things a person has, holds, possesses, purchased, or rents. 
 
  - Physical plastic/paper cards are `MaterialArtifact` subclasses that include driver's license, health insurance card, payment card, etc.
- - Physical wallets - Cards and may be placed inside a wallet (via BFO `continuant part of`) or held directly by the `p:Persona` (via `p:hasPhysicalCard`).
+ - Physical wallets - Cards may be placed in a wallet (via BFO `continuant part of`) or held directly by the `p:Persona` (via `p:hasPhysicalCard`).
 
 <p align="center"><img src="images/persona-ontology/persona-card.png" alt="Belongings model"></p>
 
@@ -136,7 +136,7 @@ This section describes a few details related to modeling names and addresses.
 
 ## Group Ontology
 
-The Group ontology introduces the concept of a shared group whose members are individuals and/or organizations. The group object *itself* (i.e. the set object) as well as any attached properties are shared with all of its members. In addition to individuals and organizations have PDN identifiers, a group itself has a PDN identity as a node on the PDN network. 
+The Group ontology introduces the concept of a shared group whose members are individuals and/or organizations. The group object *itself* (i.e. the set object) as well as any attached properties are shared with all of its members. In addition to individuals and organizations having PDN identifiers, a group itself has a PDN identity as a node on the PDN network. 
 
 <p align="center"><img src="images/group-ontology/group.png" alt="Group model"></p>
 
@@ -181,7 +181,7 @@ A context is a container of information whose primary subject is one of the thre
 
 **`c:contextCategory`** — The nature of the interaction/relationship context. Values form a subclass hierarchy under `c:ContextCategory`:
 
-- `c:Social` — a context whose subject is one of the Self's `p:Personas` *and* that includes a social network with `has member` links to the `p:personas` of other people in other contexts.  Examples: family relationships, colleague networks, friend groups.
+- `c:Social` — a context whose subject is one of the Self's `p:Personas` *and* that includes a social network with `has member` links to the `p:Personas` of other people in other contexts.  Examples: family relationships, colleague networks, friend groups.
   - `c:Group` — interactions with a formal or informal group of people.
   - `c:Collection` and subtypes `c:Family`, `c:Colleagues`, `c:Friends`, `c:Consultants` — interactions with individual people in a person's life.
 - `c:Personal` — a context containing only one of the Self's `p:Personas` -- no other person's `p:Persona` appears in it. It describes the Self's relationship with (and interactions with) a specific institution, role, possession, or area of knowledge. Examples: a bank account, a driver's license, a car.
@@ -199,7 +199,7 @@ A context is a container of information whose primary subject is one of the thre
 - `i:Self` — the Mia user is recording the data, even if the underlying information originates from some other party such as a company, government agency, or another person.
 - `i:Individual` — another Mia user is asserting the data directly.
 - `i:Group` — a group of Mia users is asserting the data.
-- `i:Organization` — a organization is asserting the data directly.
+- `i:Organization` — an organization is asserting the data directly.
 
 **`c:subject`** — Whose identity the context file describes. Values are subclasses of `i:PDNidentity` from the Identity ontology:
 - `i:Self` — the context is primarily about the Mia user.
@@ -207,11 +207,11 @@ A context is a container of information whose primary subject is one of the thre
 - `i:Group` — the context is primarily about a group of Mia users.
 - `i:Organization` — the context is primarily about an organization (legal corporation or government agency).
 
-The diagram below shows four kinds of contexts related to a hypothetical Mia user, Alice, and her interactions with a Department of Motor Vehicles (DMV) agency. Across the top are contexts where the DMV itself is the subject, and at the bottom where Alice is the subject. At the left are contexts where Alice has made the assertions (e.g. Alice's Mia has written the claims into the context) and at the right are contexts where the RMV as the "other" has written the claims. 
+The diagram below shows four kinds of contexts related to a hypothetical Mia user, Alice, and her interactions with a Department of Motor Vehicles (DMV) agency. Across the top are contexts where the DMV itself is the subject, and at the bottom where Alice is the subject. At the left are contexts where Alice has made the assertions (e.g. Alice's Mia has written the claims into the context) and at the right are contexts where the DMV as the "other" has written the claims. 
 
 <p align="center"><img src="images/context-ontology/quadrants.png" alt="a quadrant of context types"></p>
 
-In the lower right shows a context that Alice might share with other people or companies. In it, she asserts that her driver's license number is S43228943, having almost certainly copied that number from her physical driver's license. The context in the lower right carries the same information as the lower left, but because it is being asserted by the DMV it is more likely to be trusted by a recipient, especially if this information is conveyed via secure channel and the claims are cryptographically bound to the identity of the DMV.
+The lower right shows a context that Alice might share with other people or companies. In it, she asserts that her driver's license number is S43228943, having almost certainly copied that number from her physical driver's license. The context in the lower right carries the same information as the lower left, but because it is being asserted by the DMV it is more likely to be trusted by a recipient, especially if this information is conveyed via secure channel and the claims are cryptographically bound to the identity of the DMV.
 
 ### Context Ontology File
 
@@ -243,7 +243,7 @@ The Identity ontology is used to describe the kinds of identities that Mia can c
 
 The repository includes a worked example for a hypothetical person, Alice Walker, to demonstrate the ontology in use.
 
-Within Alice's self, `example/alice/self.ttl`, is `:Alice_Walker-Self`, a `Person` entity. She also has an entity representing her mother, `:Paula_Walker-Self`. These entities have `p:hasPersona` links to `p:Personas`--each in its own context outside the self container.
+Within Alice's self, `example/alice/self.ttl`, is `:Alice_Walker-Self`, a `Person` entity. She also has an entity representing her mother, `:Paula_Walker-Self`. These entities have `p:hasPersona` links to `p:Personas`- each in its own context outside the self container.
 
 <p align="center"><img src="images/alice/alice(self).png" alt="Alice's self"></p>
 
@@ -255,7 +255,7 @@ Alice's `self.ttl` also describes some physical characteristics of Alice shown b
 
 As we've mentioned, Alice interacts with other people, organizations and groups in contexts of different types. 
 
-The contexts in the following table are all *about* Alice. That is, they have a c:subject property whose value is one of Alice's PDNidenties. They are also all asserted *by* Alice --Alice is making these claims about herself. That is, they have a c:assertedBy property whose value is one of Alice's PDNidentities.
+The contexts in the following table are all *about* Alice. That is, they have a c:subject property whose value is one of Alice's PDNidenties. They are also all asserted *by* Alice - Alice is making these claims about herself. That is, they have a c:assertedBy property whose value is one of Alice's PDNidentities.
 
 | Context file | Context type | Key data | Image |
 |:-------------|:-------------|:---------|:------|
@@ -270,7 +270,7 @@ The contexts in the following table are all *about* Alice. That is, they have a 
 | `family.ttl` | People/Family | Family social network with Paula Walker | [view](images/alice-contexts/alice(family).png) |
 | `belongings.ttl` | Possession | Wallet (driver's license + payment card); health insurance card and SSN card held directly (with image scans) | [view](images/alice-contexts/alice(belongings).png) |
 
-The following table lists contexts that are *about* Alice, but asserted by others. The Citibank context is asserted by the Citibank organization; it making claims about Alice. 
+The following table lists contexts that are *about* Alice, but asserted by others. The Citibank context is asserted by the Citibank organization; it makes claims about Alice. 
 
 | Context file | Context type | Key data | Image |
 |:-------------|:-------------|:---------|:------|
