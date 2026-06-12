@@ -277,9 +277,9 @@ The Identity ontology is used to describe the kinds of identities that Mia can c
 
 `identity-shacl.ttl` validates `i:PDNidentity` instances. Key constraint: each instance must be typed as exactly one of `i:Individual`, `i:Group`, or `i:Organization`.
 
-## Illustrative Example: Alice Walker
+## Illustrative Example: Alice 
 
-The repository includes a worked example for a hypothetical person, Alice Walker, to demonstrate the five Mia ontologies in use.
+We now describe a worked example for a hypothetical Mia user, Alice Walker.
 
 Within Alice's self context is `:Alice_Walker-Self`, a `Person` entity. It is linked via `p:hasPersona` links to multiple `p:Personas`- each in its own context outside the self context container (`example/alice/self.ttl`).
 
