@@ -18,7 +18,7 @@
     owl:imports <https://purl.org/cco/staging> ;
     owl:imports <http://mee.foundation/ontologies/identity> ;
     dc:date "2026-06-01"^^xsd:date ;
-    owl:versionInfo "Version 3.0.36 - add maxQualifiedCardinality 1 on identity:hasIdentity for p:Persona"@en ;
+    owl:versionInfo "Version 3.0.37 - add p:copiedFrom annotation property"@en ;
     rdfs:label "Persona Ontology"@en ;
     rdfs:comment """Persona Ontology for the Mee Identity Agent.
 
@@ -266,6 +266,13 @@ p:hasWallet rdf:type owl:ObjectProperty ;
     rdfs:range p:Wallet ;
     rdfs:label "holds wallet"@en ;
     rdfs:comment "Links a Persona to the physical wallet they carry."@en .
+
+p:copiedFrom rdf:type owl:AnnotationProperty ;
+    rdfs:label "copied from"@en ;
+    rdfs:comment """Indicates the source context ontology from which a claim (designator or address)
+                    was copied into this context. Applied to the blank node or named individual
+                    carrying the copied claim. Value is the ontology IRI of the source context."""@en ;
+    rdfs:range owl:Ontology .
 
 p:dyad rdf:type owl:ObjectProperty ;
     rdfs:domain p:Persona ;

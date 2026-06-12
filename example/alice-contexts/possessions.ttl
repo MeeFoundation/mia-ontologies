@@ -14,23 +14,23 @@
     owl:imports <http://mee.foundation/ontologies/persona> ;
     owl:imports <http://mee.foundation/ontologies/context> ;
     dc:date "2026-06-01"^^xsd:date ;
-    owl:versionInfo "Version 1.0.11 - add context:name"@en ;
+    owl:versionInfo "Version 1.0.12 - rename Belongings to Possessions"@en ;
     context:contextCategory context:Possession ;
     context:assertedBy identity:Self ;
     context:subject identity:Self ;
-    context:name "Posessions" ;
-    rdfs:label "Alice Walker - Posessions Persona"@en ;
+    context:name "Possessions" ;
+    rdfs:label "Alice Walker - Possessions Persona"@en ;
     rdfs:comment """Alice Walker's posessions persona — physical items she carries day-to-day.
                     Correlated from :Alice_Walker-Self in self.ttl."""@en .
 
 
 #################################################################
-#    Alice Walker - Posessions Persona
+#    Alice Walker - Possessions Persona
 #################################################################
 
-:Alice_Walker-Posessions rdf:type owl:NamedIndividual ,
+:Alice_Walker-Possessions rdf:type owl:NamedIndividual ,
                                    persona:Persona ;
-    rdfs:label "Alice Walker (Posessions)"@en ;
+    rdfs:label "Alice Walker (Possessions)"@en ;
     rdfs:comment "Alice Walker's persona in the context of her personal posessions."@en ;
     persona:hasWallet :Alice_Wallet ;
     persona:hasPhysicalCard :Alice_HealthInsuranceCard ;   # not in wallet — carried separately

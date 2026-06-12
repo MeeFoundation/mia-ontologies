@@ -50,6 +50,7 @@ This section describes the most fundamental properties and classes in the Person
 * `p:hasPersona` — links a `Person` (one's "selfness", essential individuality, or a sense of one's own unique personality and identity) to one of their context-specific `p:Persona` instances.
 * `i:hasIdentity` — links a `p:Persona` to a `i:PDNidentity` — the identifier used to communicate with this Persona over the Personal Data Network. Sub-property of CCO `designated by`.
 * `p:dyad` — links a `p:Persona` to a corresponding `p:Persona` about the same subject, but asserted by the other party rather than by the Self.
+* `p:copiedFrom` — annotates a claim (blank node designator or named individual) to indicate the source context ontology from which it was copied. Value is the source context's ontology IRI.
 
 **Classes**
 
@@ -266,7 +267,7 @@ The contexts in the table below are all *about* Alice. That is, they have a c:su
 | `paradise.ttl`     | Municipality | Current address — Paradise, CA (2025–present) | [view](images/alice-contexts/alice(paradise).png) |
 | `boston.ttl`       | Municipality | Previous address — Boston, MA (2020–2025) with temporal interval | [view](images/alice-contexts/alice(boston).png) |
 | `ssa.ttl`          | Federal      | SSN | [view](images/alice-contexts/alice(ssa).png) |
-| `bhs.ttl` (TODO)   | Group        | BHS profile includes email, phone and current address | [view](images/alice-contexts/alice(bhs).png) |
+| `bhs.ttl`          | Group        | BHS profile includes email, phone and current address | [view](images/alice-contexts/alice(bhs).png) |
 | `colleagues.ttl`   | People       | Colleagues social network with Bob Johnston | [view](images/alice-contexts/alice(colleagues).png) |
 | `family.ttl`       | Family       | Family social network with Paula Walker | [view](images/alice-contexts/alice(family).png) |
 | `possessions.ttl`  | Possession   | Wallet (driver's license + payment card); health insurance and SSN card | [view](images/alice-contexts/alice(possessions).png) |

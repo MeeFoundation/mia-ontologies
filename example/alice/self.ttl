@@ -21,8 +21,9 @@
     owl:imports <http://www.example.org/mia/texas-birth-certificate> ;
     owl:imports <http://www.example.org/mia/florida-birth-certificate> ;
     owl:imports <http://www.example.org/mia/belongings> ;
+    owl:imports <http://www.example.org/mia/bhs> ;
     dc:date "2026-05-27"^^xsd:date ;
-    owl:versionInfo "Version 3.0.42 - florida-birth-certificate.ttl moved to example/paula-contexts/"@en ;
+    owl:versionInfo "Version 3.0.44 - rename Alice_Walker-Belongings to Alice_Walker-Possessions"@en ;
     rdfs:label "Alice Walker - Selfness"@en ;
     rdfs:comment """Alice Walker's selfness — the essential individuality and sense of selfhood from which
                     context-specific Personas (whonesses) are correlated.
@@ -43,7 +44,8 @@
                     - :Alice_Walker-SSA        (ssa.ttl)        — Social Security Administration
                     - :Alice_Walker-Google                (google.ttl)               — Google account (Gmail)
                     - :Alice_Walker-TexasBirthCertificate (texas-birth-certificate.ttl) — legal name record
-                    - :Alice_Walker-Belongings           (belongings.ttl)              — wallet, driver's license, health insurance card
+                    - :Alice_Walker-Possessions           (belongings.ttl)              — wallet, driver's license, health insurance card
+                    - :Alice_Walker-BHS                  (bhs.ttl)                     — BHS group profile (address, phone, email)
 
                     Paula Walker (Alice's mother):
                     - :Paula_Walker-FloridaBirthCertificate (paula-contexts/florida-birth-certificate.ttl) — legal name record"""@en .
@@ -100,7 +102,8 @@
     persona:hasPersona :Alice_Walker-SSA ;
     persona:hasPersona :Alice_Walker-Google ;
     persona:hasPersona :Alice_Walker-TexasBirthCertificate ;
-    persona:hasPersona :Alice_Walker-Belongings .
+    persona:hasPersona :Alice_Walker-Possessions ;
+    persona:hasPersona :Alice_Walker-BHS .
 
 
 
