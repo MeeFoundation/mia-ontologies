@@ -309,7 +309,7 @@ Notes on the labeled contexts in the diagram above:
 
 As we've mentioned, Alice interacts with other people, organizations and groups in contexts of different types with each context holding a distinct `p:Persona` facet.
 
-The contexts in the table below are all *about* Alice. That is, they have a c:subject property whose value is one of Alice's PDNidenties. They are also all asserted *by* Alice - Alice is making these claims about herself. That is, they have a c:assertedBy property whose value is one of Alice's PDNidentities. These files are all in the `alice-contexts` subfolder.
+The contexts in the table below are *about* Alice and thus they have a c:subject property whose value is one of Alice's PDNidenties. They are also all asserted *by* Alice - Alice is making these claims about herself- and for that reason they have a c:assertedBy property whose value is also one of Alice's PDNidentities. These .ttl files mentioned are in the `alice-contexts` subfolder.
 
 | #  | Context file        | Context type | Key data | Image |
 |--- |:--------------------|:-------------|:---------|:------|
