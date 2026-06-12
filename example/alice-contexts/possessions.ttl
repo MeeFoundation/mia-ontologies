@@ -10,27 +10,28 @@
 @prefix dc: <http://purl.org/dc/elements/1.1/> .
 @base <http://www.example.org/mia> .
 
-<http://www.example.org/mia/belongings> rdf:type owl:Ontology ;
+<http://www.example.org/mia/posessions> rdf:type owl:Ontology ;
     owl:imports <http://mee.foundation/ontologies/persona> ;
     owl:imports <http://mee.foundation/ontologies/context> ;
     dc:date "2026-06-01"^^xsd:date ;
-    owl:versionInfo "Version 1.0.10 - use context: prefix for context vocabulary"@en ;
+    owl:versionInfo "Version 1.0.11 - add context:name"@en ;
     context:contextCategory context:Possession ;
     context:assertedBy identity:Self ;
     context:subject identity:Self ;
-    rdfs:label "Alice Walker - Belongings Persona"@en ;
-    rdfs:comment """Alice Walker's belongings persona — physical items she carries day-to-day.
+    context:name "Posessions" ;
+    rdfs:label "Alice Walker - Posessions Persona"@en ;
+    rdfs:comment """Alice Walker's posessions persona — physical items she carries day-to-day.
                     Correlated from :Alice_Walker-Self in self.ttl."""@en .
 
 
 #################################################################
-#    Alice Walker - Belongings Persona
+#    Alice Walker - Posessions Persona
 #################################################################
 
-:Alice_Walker-Belongings rdf:type owl:NamedIndividual ,
+:Alice_Walker-Posessions rdf:type owl:NamedIndividual ,
                                    persona:Persona ;
-    rdfs:label "Alice Walker (Belongings)"@en ;
-    rdfs:comment "Alice Walker's persona in the context of her personal belongings."@en ;
+    rdfs:label "Alice Walker (Posessions)"@en ;
+    rdfs:comment "Alice Walker's persona in the context of her personal posessions."@en ;
     persona:hasWallet :Alice_Wallet ;
     persona:hasPhysicalCard :Alice_HealthInsuranceCard ;   # not in wallet — carried separately
     persona:hasPhysicalCard :Alice_SSNCard .               # not in wallet — stored at home for safety

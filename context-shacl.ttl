@@ -9,12 +9,12 @@
 
 <http://mee.foundation/ontologies/context/shapes> rdf:type owl:Ontology ;
     owl:imports <http://mee.foundation/ontologies/context> ;
-    owl:versionInfo "Version 1.0.0 - initial"@en ;
+    owl:versionInfo "Version 1.0.1 - require exactly one context:name"@en ;
     rdfs:label "Context Ontology SHACL Validation Shapes"@en ;
     rdfs:comment """SHACL validation shapes for the Context Ontology.
 
                     Targets context file ontology IRIs (any resource that bears a
-                    context:contextCategory annotation) and validates that the three
+                    context:contextCategory annotation) and validates that the four
                     required classification annotations are each present exactly once.
 
                     Note: context:contextCategory values are OWL classes (subclasses of
@@ -58,4 +58,13 @@
         sh:maxCount 1 ;
         sh:nodeKind sh:IRI ;
         sh:message "A context file ontology must have exactly one context:subject annotation."@en
+    ] ;
+
+    # Exactly one name (plain string)
+    sh:property [
+        sh:path context:name ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:datatype xsd:string ;
+        sh:message "A context file ontology must have exactly one context:name annotation."@en
     ] .

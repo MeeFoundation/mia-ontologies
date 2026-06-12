@@ -172,8 +172,9 @@ The Organization ontology models organizations — companies, government agencie
 
 ## Context Ontology
 
-A context is a container of information whose primary subject is one of the three kinds of PDN node: a `p:Persona` (representing a context-specific facet of a person), a `g:Group`, or an `o:Organization`. It holds the subject's claims and, in the case of a `p:Persona` subject, may also include the `p:Persona` facets of other people in that context. A context is implemented as a `.ttl` file that by convention contains an owl:Ontology. The context ontology defines three properties of this owl:Ontology that describe three orthogonal dimensions of the context:
+A context is a container of information whose primary subject is one of the three kinds of PDN node: a `p:Persona` (representing a context-specific facet of a person), a `g:Group`, or an `o:Organization`. It holds the subject's claims and, in the case of a `p:Persona` subject, may also include the `p:Persona` facets of other people in that context. A context is implemented as a `.ttl` file that by convention contains an owl:Ontology. The context ontology defines four required properties of this owl:Ontology:
 
+- A human-readable name for the context (`c:name`) — a plain string, e.g. `"Citibank"`.
 - What is the category of context (`c:contextCategory`), e.g. relationships with family members, interactions with a bank, etc.
 - Who is making the assertions the context contains (`c:assertedBy`) - its value is a `i:PDNidentity`
 - Who is the context mainly about (`c:subject`) - its value is a `i:PDNidentity`
@@ -219,7 +220,7 @@ The lower right shows a context that Alice might share with other people or comp
 
 ### Validation
 
-`context-shacl.ttl` validates context file ontology IRIs. Key constraint: any ontology annotated with `c:contextCategory` must also declare exactly one `c:assertedBy` and one `c:subject`.
+`context-shacl.ttl` validates context file ontology IRIs. Key constraint: any ontology annotated with `c:contextCategory` must also declare exactly one `c:name`, `c:assertedBy`, and `c:subject`.
 
 ## Identity Ontology
 

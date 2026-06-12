@@ -11,7 +11,7 @@
     owl:versionIRI <http://mee.foundation/ontologies/context/1.0.1> ;
     dc:date "2026-06-01"^^xsd:date ;
     owl:imports <http://mee.foundation/ontologies/identity> ;
-    owl:versionInfo "Version 1.0.18 - rename Friend to Friends, Consultant to Consultants"@en ;
+    owl:versionInfo "Version 1.0.19 - add context:name annotation property"@en ;
     rdfs:label "Context Ontology"@en ;
     rdfs:comment """Context Ontology for the Mee Identity Agent.
 
@@ -50,6 +50,13 @@ context:subject rdf:type owl:AnnotationProperty ;
                     Applied to the ontology IRI, not to the Persona individual."""@en ;
     rdfs:domain owl:Ontology ;
     rdfs:range identity:PDNidentity .
+
+context:name rdf:type owl:AnnotationProperty ;
+    rdfs:label "name"@en ;
+    rdfs:comment """A human-readable name for this context ontology (file).
+                    Applied to the ontology IRI, not to the Persona individual."""@en ;
+    rdfs:domain owl:Ontology ;
+    rdfs:range xsd:string .
 
 
 

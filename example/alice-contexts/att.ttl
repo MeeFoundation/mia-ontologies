@@ -14,10 +14,11 @@
     owl:imports <http://mee.foundation/ontologies/persona> ;
     owl:imports <http://mee.foundation/ontologies/context> ;
     dc:date "2026-06-01"^^xsd:date ;
-    owl:versionInfo "Version 1.0.5 - use context: prefix for context vocabulary"@en ;
+    owl:versionInfo "Version 1.0.6 - add context:name"@en ;
     context:contextCategory context:Company ;
     context:assertedBy identity:Self ;
     context:subject identity:Self ;
+    context:name "AT&T" ;
     rdfs:label "Alice Walker - AT&T Persona"@en ;
     rdfs:comment """Alice Walker's AT&T whoness — representing her in the context of her
                     AT&T phone account. Correlated from :Alice_Walker-Self in self.ttl.

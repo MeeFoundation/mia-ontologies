@@ -14,10 +14,11 @@
     owl:imports <http://mee.foundation/ontologies/persona> ;
     owl:imports <http://mee.foundation/ontologies/context> ;
     dc:date "2026-06-01"^^xsd:date ;
-    owl:versionInfo "Version 1.0.5 - use context: prefix for context vocabulary"@en ;
+    owl:versionInfo "Version 1.0.6 - add context:name"@en ;
     context:contextCategory context:Municipality ;
     context:assertedBy identity:Self ;
     context:subject identity:Self ;
+    context:name "Boston" ;
     rdfs:label "Alice Walker - Boston Persona"@en ;
     rdfs:comment """Alice Walker's Boston whoness — representing her residence in Boston, MA
                     from 2020 to 2025. Correlated from :Alice_Walker-Self in self.ttl."""@en .
