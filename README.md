@@ -77,7 +77,20 @@ Each template class has a corresponding SHACL shape in `persona-shacl.ttl` (`:Bi
 - **Required**: either a `FullName` designator **or** both a `GivenName` and a `FamilyName` designator (via `designated by`, `ont00001879`) — these alternatives are expressed with `sh:or`.
 - **Optional**: `AdditionalName` (middle name), `AlternateName` (e.g. maiden name), `Nickname`, and `Legal Name` designators are permitted but not required.
 
-### Possession-related properties and classes
+### Social classes and properties 
+
+This section describes classes and properties related to a person's social network.
+
+**Classes**
+
+* `cco:ont00001183` - Social Network
+
+**Properties**
+
+* `p:hasSocialNetwork` - a social network that a person is a member of
+* `BFO_0000115` - has member part
+
+### Possession-related classes and properties
 
 This section describes properties and classes related to things a person has, holds, possesses, purchased, or rents. 
 
@@ -166,17 +179,13 @@ The Group ontology introduces the concept of a shared group whose members are in
 
 * **`g:Group`** — a group or community of people on the Personal Data Network.
 
-**Properties**
-
-Group members are linked directly from `g:Group` via `BFO_0000115` (has member part). Members may be `p:Persona` instances or `o:Organization` instances.
-
 ### Group Ontology File
 
 - **`group.ttl`** — The Group ontology. Imports `identity.ttl`.
 
 ### Validation
 
-`group-shacl.ttl` validates `g:Group` instances. Key constraints: each `g:Group` must have exactly one `i:hasIdentity` value of type `i:Group`; all members (via `BFO_0000115`) must be `p:Persona` or `o:Organization` instances.
+`group-shacl.ttl` validates `g:Group` instances. Key constraint: each `g:Group` must have exactly one `i:hasIdentity` value of type `i:Group`.
 
 ## Organization Ontology
 
@@ -280,49 +289,6 @@ Alice's `self.ttl` context also describes some of her physical characteristics s
 
 <p align="center"><img src="images/alice/alice(self)+physical.png" alt="Alice's physical characteristics"></p>
 
-### Alice's Personas and Contexts
-
-As we've mentioned, Alice interacts with other people, organizations and groups in contexts of different types with each context holding a distinct `p:Persona` facet.
-
-The contexts in the table below are all *about* Alice. That is, they have a c:subject property whose value is one of Alice's PDNidenties. They are also all asserted *by* Alice - Alice is making these claims about herself. That is, they have a c:assertedBy property whose value is one of Alice's PDNidentities.
-
-| Context file       | Context type | Key data | Image |
-|:-------------------|:-------------|:---------|:------|
-| `google.ttl`       | Company      | Email address | [view](images/alice-contexts/alice(google).png) |
-| `att.ttl`          | Company      | Phone number | [view](images/alice-contexts/alice(att).png) |
-| `tx-birth-cert.ttl`| State        | Legal names: Margery Alice Walker; maiden name Margery Alice Arnold | [view](images/alice-contexts/alice(texas-birth-certificate).png) |
-| `paradise.ttl`     | Municipality | Current address — Paradise, CA (2025–present) | [view](images/alice-contexts/alice(paradise).png) |
-| `boston.ttl`       | Municipality | Previous address — Boston, MA (2020–2025) with temporal interval | [view](images/alice-contexts/alice(boston).png) |
-| `ssa.ttl`          | Federal      | SSN | [view](images/alice-contexts/alice(ssa).png) |
-| `bhs.ttl` 🆕       | Group        | BHS profile includes email, phone and current address | [view](images/alice-contexts/alice(bhs).png) |
-| `colleagues.ttl`   | Colleagues   | Alice's social network with colleageus Bob and Paula | [view](images/alice-contexts/alice(colleagues).png) |
-| `family.ttl`       | Family       | Family social network with Paula Walker | [view](images/alice-contexts/alice(family).png) |
-| `possessions.ttl`  | Possession   | Wallet (driver's license + payment card); health insurance and SSN card | [view](images/alice-contexts/alice(possessions).png) |
-| `acme.ttl` (TODO)  | Employee     | Colleagues, Customers, Projects |  |
-
-The following table lists contexts that are *about* Alice, but asserted by others. The Citibank context is asserted by the Citibank organization; it makes claims about Alice. 
-
-| Context file       | Context type | Key data | Image |
-|:-------------------|:-------------|:---------|:------|
-| `citibank.ttl`     | Company      | Debit card | [view](images/alice-contexts/alice(citibank).png) |
-<!---
-| `alice(by-bob)` | Colleagues | What Bob says about Alice |  |
---->
-
-
-<!---
-Rhe following table lists contexts that are about other people (Paula and Bob).
-
-
-| Context file              | Context type | Key data | Image |
-|:--------------------------|:-------------|:---------|:------|
-| `paula(by-alice).ttl`     | Family       | What Alice claims about Paula |  |
-| `paula(by-paula).ttl`     | Family       | What Paula claims about Paula |  |
-| `paula(by-paula-BHS).ttl` | Group        | What Paula claims about herself in BHS |  |
-| `bob(by-alice).ttl`       | Colleagues   | What Alice claims about Bob |  |
-| `bob(by-bob).ttl`         | Colleagues   | What Bob claims about Bob |  |
---->
-
 ### Alice's Contexts
 
 Here is an overview of the contexts in Alice's Mia.
@@ -336,8 +302,53 @@ Notes on the labeled contexts in the diagram above.
 4. What Alice's colleague Bob claims about Alice likely in response to Alice sharing some contact and profile information with him.
 5. What Alice claims about Bob a person she currently or previously works with at some organization.
 6. What Bob claims about Bob (e.g. contact information) that he decided to share with Alice.
-7. What Alice claims about herself (i.e. standard BHS profile schema information) in the BHS community context.
-8. A shared Group context shared by all members of BHS (including Alice and Paula).
+8. A shared Group context shared by all members of BHS (including Alice and Bob).
+10. What Bob claims about himself (his profile) in the BHS group
+
+### Alice's Personas and Contexts
+
+As we've mentioned, Alice interacts with other people, organizations and groups in contexts of different types with each context holding a distinct `p:Persona` facet.
+
+The contexts in the table below are all *about* Alice. That is, they have a c:subject property whose value is one of Alice's PDNidenties. They are also all asserted *by* Alice - Alice is making these claims about herself. That is, they have a c:assertedBy property whose value is one of Alice's PDNidentities. These files are all in the `alice-contexts` subfolder.
+
+| # | Context file        | Context type | Key data | Image |
+|---|:--------------------|:-------------|:---------|:------|
+|   | `google.ttl`        | Company      | Email address | [view](images/alice-contexts/alice(google).png) |
+|   | `att.ttl`           | Company      | Phone number | [view](images/alice-contexts/alice(att).png) |
+|   | `tx-birth-cert.ttl` | State        | Legal names: Margery Alice Walker; maiden name Margery Alice Arnold | [view](images/alice-contexts/alice(texas-birth-certificate).png) |
+|   | `paradise.ttl`      | Municipality | Current address — Paradise, CA (2025–present) | [view](images/alice-contexts/alice(paradise).png) |
+|   | `boston.ttl`        | Municipality | Previous address — Boston, MA (2020–2025) with temporal interval | [view](images/alice-contexts/alice(boston).png) |
+|   | `ssa.ttl`           | Federal      | SSN | [view](images/alice-contexts/alice(ssa).png) |
+| 7 | `bhs.ttl` 🆕         | Group        | BHS profile includes email, phone and current address | [view](images/alice-contexts/alice(bhs).png) |
+|   | `colleagues.ttl`    | Colleagues   | Alice's social network with colleageus Bob and Paula | [view](images/alice-contexts/alice(colleagues).png) |
+|   | `family.ttl`        | Family       | Family social network with Paula Walker | [view](images/alice-contexts/alice(family).png) |
+|   | `possessions.ttl`   | Possession   | Wallet (driver's license + payment card); health insurance and SSN card | [view](images/alice-contexts/alice(possessions).png) |
+|   | `acme.ttl` (TODO)    | Employee     | Colleagues, Customers, Projects |  |
+
+The following table lists contexts that are *about* Alice, but asserted by others. The Citibank context is asserted by the Citibank organization; it makes claims about Alice. 
+
+| # | Context file       | Context type | Key data | Image |
+|---|:-------------------|:-------------|:---------|:------|
+| 9 | `citibank.ttl`     | Company      | Debit card | [view](images/alice-contexts/alice(citibank).png) |
+<!---
+| `alice(by-bob)` | Colleagues | What Bob says about Alice |  |
+--->
+
+
+<!---
+The following table lists contexts that are about other people (Paula and Bob).
+
+
+| Context file              | Context type | Key data | Image |
+|:--------------------------|:-------------|:---------|:------|
+| `paula(by-alice).ttl`     | Family       | What Alice claims about Paula |  |
+| `paula(by-paula).ttl`     | Family       | What Paula claims about Paula |  |
+| `paula(by-paula-BHS).ttl` | Group        | What Paula claims about herself in BHS |  |
+| `bob(by-alice).ttl`       | Colleagues   | What Alice claims about Bob |  |
+| `bob(by-bob).ttl`         | Colleagues   | What Bob claims about Bob |  |
+--->
+
+
 
 ## Diagrams
 

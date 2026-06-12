@@ -20,8 +20,7 @@
     context:subject identity:Individual ;
     context:name "Colleague of Alice" ;
     rdfs:label "Bob Johnston - Colleague of Alice Persona"@en ;
-    rdfs:comment """Bob Johnston's colleague whoness — representing him in the context of his
-                    colleague relationship with Alice Walker.
+    rdfs:comment """Representing Bob Johnston in the context of his relationship as a colleague of Alice Walker.
                     Referenced from Alice's colleagues social network in alice-contexts/colleagues.ttl."""@en .
 
 
