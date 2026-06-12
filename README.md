@@ -295,15 +295,15 @@ Here is an overview of the contexts in Alice's Mia.
 
 <p align="center"><img src="images/alice-contexts/context-map.png" alt="Alice's physical characteristics"></p>
 
-Notes on the labeled contexts in the diagram above.
-1. What Alice claims about her Acme employee colleague, Paula
-2. What Alice claims about her mother, Paula, in the context of Alice's family
-3. What Paula claims about herself and shares back to Alice likely in response to Alice sharing some contact and profile information about herself with Paula.
-4. What Alice's colleague Bob claims about Alice likely in response to Alice sharing some contact and profile information with him.
-5. What Alice claims about Bob a person she currently or previously works with at some organization.
-6. What Bob claims about Bob (e.g. contact information) that he decided to share with Alice.
-8. A shared Group context shared by all members of BHS (including Alice and Bob).
-10. What Bob claims about himself (his profile) in the BHS group
+Notes on the labeled contexts in the diagram above:
+- (1) What Alice claims about her Acme employee colleague, Paula
+- (2) What Alice claims about her mother, Paula, in the context of Alice's family
+- (3) What Paula claims about herself and shares back to Alice likely in response to Alice sharing some contact and profile information about herself with Paula.
+- (4) What Alice's colleague Bob claims about Alice likely in response to Alice sharing some contact and profile information with him.
+- (5) What Alice claims about Bob a person she currently or previously works with at some organization.
+- (6) What Bob claims about Bob (e.g. contact information) that he decided to share with Alice.
+- (8) A shared Group context shared by all members of BHS (including Alice and Bob).
+- (10) What Bob claims about himself (his profile) in the BHS group
 
 ### Alice's Personas and Contexts
 
