@@ -303,7 +303,7 @@ Notes on the labeled contexts in the diagram above:
 - (5) What Alice claims about Bob a person she currently or previously works with at some organization.
 - (6) What Bob claims about Bob (e.g. contact information) that he decided to share with Alice.
 - (8) A shared Group context shared by all members of BHS (including Alice and Bob).
-- (10) What Bob claims about himself (his profile) in the BHS group
+
 
 ### Alice's Personas and Contexts
 
