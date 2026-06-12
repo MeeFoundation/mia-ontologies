@@ -13,8 +13,9 @@
 <http://www.example.org/mia/florida-birth-certificate> rdf:type owl:Ontology ;
     owl:imports <http://mee.foundation/ontologies/persona> ;
     owl:imports <http://mee.foundation/ontologies/context> ;
+    owl:imports <http://mee.foundation/ontologies/persona-templates> ;
     dc:date "2026-06-01"^^xsd:date ;
-    owl:versionInfo "Version 1.0.9 - add context:name"@en ;
+    owl:versionInfo "Version 1.0.10 - import context-templates for p:BirthCertificate"@en ;
     context:contextCategory context:State ;
     context:assertedBy identity:Self ;
     context:subject identity:Individual ;

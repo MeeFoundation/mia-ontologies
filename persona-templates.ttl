@@ -1,0 +1,30 @@
+@prefix persona: <http://mee.foundation/ontologies/persona#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix dc: <http://purl.org/dc/elements/1.1/> .
+@base <http://mee.foundation/ontologies/persona-templates> .
+
+<http://mee.foundation/ontologies/persona-templates> rdf:type owl:Ontology ;
+    owl:imports <http://mee.foundation/ontologies/persona> ;
+    dc:date "2026-06-12"^^xsd:date ;
+    owl:versionInfo "Version 1.0.0 - initial; defines p:BirthCertificate"@en ;
+    rdfs:label "Persona Templates Ontology"@en ;
+    rdfs:comment """Reusable p:Persona subtypes that are too specific for persona.ttl
+                    but shared across multiple context files.
+
+                    Currently defines:
+                    - p:BirthCertificate: a Persona carrying a legal birth name record"""@en .
+
+
+#################################################################
+#    BirthCertificate Persona — a Persona subtype with name constraints
+#################################################################
+
+persona:BirthCertificate rdf:type owl:Class ;
+    rdfs:subClassOf persona:Persona ;
+    rdfs:label "Birth Certificate Persona"@en ;
+    rdfs:comment """A Persona whose purpose is to carry a person's legal birth certificate
+                    name record. Subclass of Persona so that SHACL can target it directly
+                    with sh:targetClass to enforce name constraints."""@en .

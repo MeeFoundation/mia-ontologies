@@ -18,7 +18,7 @@
     owl:imports <https://purl.org/cco/staging> ;
     owl:imports <http://mee.foundation/ontologies/identity> ;
     dc:date "2026-06-01"^^xsd:date ;
-    owl:versionInfo "Version 3.0.38 - add rdfs:domain to p:copiedFrom"@en ;
+    owl:versionInfo "Version 3.0.39 - move p:BirthCertificate to context-templates.ttl"@en ;
     rdfs:label "Persona Ontology"@en ;
     rdfs:comment """Persona Ontology for the Mee Identity Agent.
 
@@ -37,7 +37,7 @@
                     - Application-specific patterns documented via usage annotations
 
                     FEATURES:
-                    - Defines a BirthCertificate kind of Persona with a peer name architecture (not hierarchical PersonName)
+                    - Peer name architecture (not hierarchical PersonName)
                     - Slash URIs (content negotiation enabled)
                     - International standards alignment (Schema.org, FHIR, OpenID)
                     - Address history tracking (N addresses over lifetime with temporal bounds)
@@ -167,17 +167,6 @@ p:hasSocialNetwork rdf:type owl:ObjectProperty ;
                     with whom the person has relationships in that context. The Persona is
                     not a member of the network; the network contains only the people they
                     relate to."""@en .
-
-
-#################################################################
-#    BirthCertificate Persona — a Persona subtype with name constraints
-#################################################################
-p:BirthCertificate rdf:type owl:Class ;
-    rdfs:subClassOf p:Persona ;
-    rdfs:label "Birth Certificate Persona"@en ;
-    rdfs:comment """A Persona whose purpose is to carry a person's legal birth certificate
-                    name record. Subclass of Persona (not of Context) so that SHACL can
-                    target it directly with sh:targetClass to enforce name constraints."""@en .
 
 
 #################################################################

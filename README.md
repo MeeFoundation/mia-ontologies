@@ -119,7 +119,8 @@ This section describes a few details related to modeling names and addresses.
 
 ### Persona Ontology Files
 
-- **`persona.ttl`** — The Persona ontology. Imports the domain ontologies above and documents which classes and properties Mia uses (required vs. optional). Defines Mia-specific extension properties (`p:hasPersona`, `p:hasSocialNetwork`, `p:hasPaymentCard`, `p:hasBankAccount`, etc.) and the core Persona data model classes (`p:Persona`, `p:BirthCertificate`, physical card classes, banking classes, and others).
+- **`persona.ttl`** — The Persona ontology. Imports the domain ontologies above and documents which classes and properties Mia uses (required vs. optional). Defines Mia-specific extension properties (`p:hasPersona`, `p:hasSocialNetwork`, `p:hasPaymentCard`, `p:hasBankAccount`, etc.) and the core Persona data model classes (`p:Persona`, physical card classes, banking classes, and others).
+- **`persona-templates.ttl`** — Reusable `p:Persona` subtypes that are too specific for `persona.ttl` but shared across multiple context files. Currently defines `p:BirthCertificate`. Imported by context files that need it.
 
 - **`persona-shacl.ttl`** — SHACL constraint rules defining the shape `p:Personas`. Validates properties including:
   - *`p:BirthCertificate` `p:Persona` instances*: FullName OR (GivenName + FamilyName) required; optional AdditionalName, AlternateName, Nickname, Legal Name
