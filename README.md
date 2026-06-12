@@ -38,11 +38,10 @@ We first present an overview of the five ontologies and then illustrate them thr
 
 ## Persona Ontology
 
-The Persona ontology defines a formal, machine-readable model of a real-world person's identity data — names, addresses, phone numbers, SSNs, physical characteristics, parent-child relationships, social connections, payment cards, etc., — by reusing existing well-known ontologies wherever possible and defining new terms only where no suitable existing term exists.
+The Persona ontology defines a formal, machine-readable model of a person. It is used by Mia to represent the user and to bi-directionally synchronize this information with other Mia users on a Presonal Data Netowrk that includes other Mia users as well as groups and organizations. 
 
-We represent a person as a single `Person` entity along with multiple `p:Personas`, one per relationship or institutional context.
 
-A person's selfness is their essential individuality or unique selfhood. It is represented by one central `Person` entity. This `Person` per se carries few properties: only physical attributes and parent-child relationships. Most importantly, it carries `p:hasPersona` links to context-specific `p:Persona` instances. Most names, identifiers and other attributes (often called claims) belong to those context-specific `p:Persona` instances; the one exception is a preferred/goes-by name, which belongs to the `Person` entity because it applies across all contexts.
+We represent a person as a single `Person` entity (their essential individuality or unique selfhood), along with multiple `p:Personas`, one per relationship or institutional context. Each Persona carries the information relevant to a each context. It can include names, addresses, phone numbers, SSNs, physical characteristics, parent-child relationships, social connections, payment cards, knowledge artefacts, events, meeting notes, ... a huge variety of information types. To do so, it reuses existing well-known ontologies wherever possible and defining new terms only where no suitable existing term exists.
 
 A`p:Persona` is an Information Content Entity (CCO `ont00000958`) — a context-specific facet of a `Person`. `p:Persona` instances are linked to the `Person` entity via `p:hasPersona`, a subproperty of CCO `is subject of` (`ont00001801`). Each `p:Persona` carries the claims relevant to its specific context. 
 
