@@ -269,7 +269,7 @@ The contexts in the table below are all *about* Alice. That is, they have a c:su
 | `colleagues.ttl`   | People       | Colleagues social network with Bob Johnston | [view](images/alice-contexts/alice(colleagues).png) |
 | `family.ttl`       | Family       | Family social network with Paula Walker | [view](images/alice-contexts/alice(family).png) |
 | `possessions.ttl`  | Possession   | Wallet (driver's license + payment card); health insurance and SSN card | [view](images/alice-contexts/alice(possessions).png) |
-| `acme.ttl`         | Employee     | Colleagues, Customers, Projects |  |
+| `acme.ttl` (TODO)  | Employee     | Colleagues, Customers, Projects |  |
 
 The following table lists contexts that are *about* Alice, but asserted by others. The Citibank context is asserted by the Citibank organization; it makes claims about Alice. 
 
