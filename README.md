@@ -241,40 +241,41 @@ The Identity ontology is used to describe the kinds of identities that Mia can c
 
 ## Illustrative Example: Alice Walker
 
-The repository includes a worked example for a hypothetical person, Alice Walker, to demonstrate the ontology in use.
+The repository includes a worked example for a hypothetical person, Alice Walker, to demonstrate the five Mia ontologies in use.
 
-Within Alice's self, `example/alice/self.ttl`, is `:Alice_Walker-Self`, a `Person` entity. She also has an entity representing her mother, `:Paula_Walker-Self`. These entities have `p:hasPersona` links to `p:Personas`- each in its own context outside the self container.
+Within Alice's self context is `:Alice_Walker-Self`, a `Person` entity. It is linked via `p:hasPersona` links to multiple `p:Personas`- each in its own context outside the self context container (`example/alice/self.ttl`).
 
 <p align="center"><img src="images/alice/alice(self).png" alt="Alice's self"></p>
 
-Alice's `self.ttl` also describes some physical characteristics of Alice shown below:
+Alice's `self.ttl` context also describes some of her physical characteristics shown below:
 
 <p align="center"><img src="images/alice/alice(self)+physical.png" alt="Alice's physical characteristics"></p>
 
-### Alice's Contexts
+### Alice's Personas and Contexts
 
-As we've mentioned, Alice interacts with other people, organizations and groups in contexts of different types. 
+As we've mentioned, Alice interacts with other people, organizations and groups in contexts of different types with each context holding a distinct `p:Persona` facet.
 
-The contexts in the following table are all *about* Alice. That is, they have a c:subject property whose value is one of Alice's PDNidenties. They are also all asserted *by* Alice - Alice is making these claims about herself. That is, they have a c:assertedBy property whose value is one of Alice's PDNidentities.
+The contexts in the table below are all *about* Alice. That is, they have a c:subject property whose value is one of Alice's PDNidenties. They are also all asserted *by* Alice - Alice is making these claims about herself. That is, they have a c:assertedBy property whose value is one of Alice's PDNidentities.
 
-| Context file | Context type | Key data | Image |
-|:-------------|:-------------|:---------|:------|
-| `google.ttl` | Company (Google) | Email address | [view](images/alice-contexts/alice(google).png) |
-| `att.ttl` | Company (ATT) | Phone number | [view](images/alice-contexts/alice(att).png) |
-| `texas-birth-certificate.ttl` | State (texas.gov) | Legal names: Margery Alice Walker; maiden name Margery Alice Arnold | [view](images/alice-contexts/alice(texas-birth-certificate).png) |
-| `paradise.ttl` | Municipality (Paradise) | Current address — Paradise, CA (2025–present) | [view](images/alice-contexts/alice(paradise).png) |
-| `boston.ttl` | Municipality (Boston) | Previous address — Boston, MA (2020–2025) with temporal interval | [view](images/alice-contexts/alice(boston).png) |
-| `ssa.ttl` | Federal (SSA.gov) | SSN | [view](images/alice-contexts/alice(ssa).png) |
-| `bhs.ttl` | Group (BHS) | BHS profile | |
-| `colleagues.ttl` | People/Professionals | Colleagues social network with Bob Johnston | [view](images/alice-contexts/alice(colleagues).png) |
-| `family.ttl` | People/Family | Family social network with Paula Walker | [view](images/alice-contexts/alice(family).png) |
-| `belongings.ttl` | Possession | Wallet (driver's license + payment card); health insurance card and SSN card held directly (with image scans) | [view](images/alice-contexts/alice(belongings).png) |
+| Context file       | Context type | Key data | Image |
+|:-------------------|:-------------|:---------|:------|
+| `google.ttl`       | Company      | Email address | [view](images/alice-contexts/alice(google).png) |
+| `att.ttl`          | Company      | Phone number | [view](images/alice-contexts/alice(att).png) |
+| `tx-birth-cert.ttl`| State        | Legal names: Margery Alice Walker; maiden name Margery Alice Arnold | [view](images/alice-contexts/alice(texas-birth-certificate).png) |
+| `paradise.ttl`     | Municipality | Current address — Paradise, CA (2025–present) | [view](images/alice-contexts/alice(paradise).png) |
+| `boston.ttl`       | Municipality | Previous address — Boston, MA (2020–2025) with temporal interval | [view](images/alice-contexts/alice(boston).png) |
+| `ssa.ttl`          | Federal      | SSN | [view](images/alice-contexts/alice(ssa).png) |
+| `bhs.ttl` (TODO)   | Group        | BHS profile | [view](images/alice-contexts/alice(paradise).png) |
+| `colleagues.ttl`   | People       | Colleagues social network with Bob Johnston | [view](images/alice-contexts/alice(colleagues).png) |
+| `family.ttl`       | Family       | Family social network with Paula Walker | [view](images/alice-contexts/alice(family).png) |
+| `possessions.ttl`  | Possession   | Wallet (driver's license + payment card); health insurance and SSN card | [view](images/alice-contexts/alice(possessions).png) |
+| `acme.ttl`         | Employee     | Colleagues, Customers, Projects |  |
 
 The following table lists contexts that are *about* Alice, but asserted by others. The Citibank context is asserted by the Citibank organization; it makes claims about Alice. 
 
-| Context file | Context type | Key data | Image |
-|:-------------|:-------------|:---------|:------|
-| `citibank.ttl` | Company (Citibank) | Debit card | [view](images/alice-contexts/alice(citibank).png) |
+| Context file       | Context type | Key data | Image |
+|:-------------------|:-------------|:---------|:------|
+| `citibank.ttl`     | Company      | Debit card | [view](images/alice-contexts/alice(citibank).png) |
 <!--->
 | `alice(by-bob)` | Colleagues | What Bob says about Alice |  |
 --->
@@ -284,13 +285,13 @@ The following table lists contexts that are *about* Alice, but asserted by other
 Rhe following table lists contexts that are about other people (Paula and Bob).
 
 
-| Context file | Context type | Key data | Image |
-|:-------------|:-------------|:---------|:------|
-| `paula(by-alice).ttl` | Family | What Alice claims about Paula |  |
-| `paula(by-paula).ttl` | Family | What Paula claims about Paula |  |
-| `paula(by-paula-BHS).ttl` | BHS | What Paula claims about herself in BHS |  |
-| `bob(by-alice).ttl` | Colleagues | What Alice claims about Bob |  |
-| `bob(by-bob).ttl` | Colleagues | What Bob claims about Bob |  |
+| Context file              | Context type | Key data | Image |
+|:--------------------------|:-------------|:---------|:------|
+| `paula(by-alice).ttl`     | Family       | What Alice claims about Paula |  |
+| `paula(by-paula).ttl`     | Family       | What Paula claims about Paula |  |
+| `paula(by-paula-BHS).ttl` | Group        | What Paula claims about herself in BHS |  |
+| `bob(by-alice).ttl`       | Colleagues   | What Alice claims about Bob |  |
+| `bob(by-bob).ttl`         | Colleagues   | What Bob claims about Bob |  |
 --->
 
 ### Alice's Contexts
