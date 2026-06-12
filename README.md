@@ -53,16 +53,19 @@ A `p:Persona` can itself carry `p:hasPersona`. This allows intermediate, branch 
 
 This section describes the most fundamental properties and classes in the Persona ontology. The interconnection of a Person object in the Self container with multiple Persona objects in separate contexts forms the foundational graph structure. 
 
-**Properties**
+**Classes**
+
+* `p:Persona` — an Information Content Entity that represents how a person appears in the context of a specific interaction — with a company, government agency, another person, or a group of people. A `p:Persona` is a context-specific facet of that person linked via `p:hasPersona`.
+
+**p:Persona Properties**
 
 * `p:hasPersona` — links a `Person` (one's "selfness", essential individuality, or a sense of one's own unique personality and identity) to one of their context-specific `p:Persona` instances.
 * `i:hasIdentity` — links a `p:Persona` to a `i:PDNidentity` — the identifier used to communicate with this Persona over the Personal Data Network. Sub-property of CCO `designated by`.
 * `p:dyad` — links a `p:Persona` to a corresponding `p:Persona` about the same subject, but asserted by the other party rather than by the Self.
+
+**Other Properties**
+
 * `p:copiedFrom` — annotates a claim (blank node designator or named individual) to indicate the source context ontology from which it was copied. Domain: `Information Content Entity` (`cco:ont00000958`); range: the source context's ontology IRI. 🆕
-
-**Classes**
-
-* `p:Persona` — an Information Content Entity that represents how a person appears in the context of a specific interaction — with a company, government agency, another person, or a group of people. A `p:Persona` is a context-specific facet of that person linked via `p:hasPersona`.
 
 ### Persona templates
 
@@ -85,13 +88,6 @@ This section describes properties and classes related to things a person has, ho
 
 <p align="center"><img src="images/persona-ontology/persona-card.png" alt="Belongings model"></p>
 
-**Properties**
-
-* `is carrier of` (from BFO) — used to link a physical card to its corresponding `p:Persona` in another context.
-* `p:hasWallet` — links a `p:Persona` to a physical wallet (see Belongings below).
-* `p:hasImageScan` — a link to a scanned image of this card.
-* `p:hasPhysicalCard` — links a `p:Persona` to a `p:PhysicalCard` carried outside of a wallet (see Belongings below).
-
 **Classes**
 
 * `p:PhysicalCard` — a physical plastic or paper card held in a wallet.
@@ -100,6 +96,13 @@ This section describes properties and classes related to things a person has, ho
 * `p:PhysicalPaymentCard` (subclass of `p:PhysicalCard`) — a physical credit or debit card.
 * `p:PhysicalSocialSecurityCard` (subclass of `p:PhysicalCard`) — a paper or plastic card issued by the Social Security Administration.
 * `p:Wallet` — a physical wallet that can hold cash as well as various kinds of paper or plastic identity or payment cards.
+
+**Properties**
+
+* `is carrier of` (from BFO) — used to link a physical card to its corresponding `p:Persona` in another context.
+* `p:hasWallet` — links a `p:Persona` to a physical wallet (see Belongings below).
+* `p:hasImageScan` — a link to a scanned image of this card.
+* `p:hasPhysicalCard` — links a `p:Persona` to a `p:PhysicalCard` carried outside of a wallet (see Belongings below).
 
 ### Accounts
 
@@ -113,20 +116,20 @@ This section describes properties and classes related to a person's relationship
 * `has user handle` (CCO) — the user's handle or username on the service.
 * `p:hasPassword` — the password credential for an `OnlineServiceAccount` (Persona ontology extension).
 
-### Finance-related properties and classes
+### Finance-related classes and properties
 
 This section describes properties and classes related to a person's interactions with financial institutions.
-
-**Properties**
-
-* `p:hasBankAccount` — links a `p:Persona` to a `p:CheckingAccount` it records.
-* `p:accessesBankAccount` — links a DebitCard to the `p:CheckingAccount` it draws funds from.
 
 **Classes**
 
 * `p:CheckingAccount` — a bank checking account held by a person, linked to a debit card.
 * `p:CheckingAccountNumber` — an identifier designating a bank checking account, connected via `designated by` (`ont00001879`).
 * `p:RoutingNumber` — an ABA routing transit number identifying the financial institution, connected via `designated by`.
+
+**Properties**
+
+* `p:hasBankAccount` — links a `p:Persona` to a `p:CheckingAccount` it records.
+* `p:accessesBankAccount` — links a DebitCard to the `p:CheckingAccount` it draws funds from.
 
 ### Modeling details
 
@@ -248,6 +251,8 @@ The lower right shows a context that Alice might share with other people or comp
 The Identity ontology is used to describe the kinds of identities that Mia can communicate with over the internet using Personal Data Network protocols. The root class, `i:PDNidentity`, has three subclasses:
 
 <p align="center"><img src="images/identity-ontology/identity.png" alt="types of MeeIdentities"></p>
+
+**Classes**
 
 * `i:Individual` - an identifier of a Mia user. The identity of *this* Mia's user is an instance of the subclass, `i:Self`
 * `i:Group` - an identifier of a `g:Group` of Mia users (`p:Personas`) and/or `o:Organizations`.
