@@ -309,39 +309,39 @@ Notes on the labeled contexts in the diagram above:
 
 As we've mentioned, Alice interacts with other people, organizations and groups in contexts of different types with each context holding a distinct `p:Persona` facet.
 
-The contexts in the table below are *about* Alice and thus they have a c:subject property whose value is one of Alice's PDNidenties. They are also all asserted *by* Alice - Alice is making these claims about herself- and for that reason they have a c:assertedBy property whose value is also one of Alice's PDNidentities. These .ttl files mentioned are in the `alice-contexts` subfolder.
+The contexts in the table below are *about* Alice and thus they have a c:subject property whose value is one of Alice's PDNidenties. They are also all asserted *by* Alice - Alice is making these claims about herself- and for that reason they have a c:assertedBy property whose value is also one of Alice's PDNidentities. The .ttl files mentioned are in the `alice-contexts` subfolder.
 
-| #  | Context file        | Context type | Key data | Image |
-|--- |:--------------------|:-------------|:---------|:------|
-| 11 | [google.ttl](example/alice-contexts/google.ttl)               | Company      | Gmail address | [view](images/alice-contexts/alice(google).png) |
-| 12 | [att.ttl](example/alice-contexts/att.ttl)                     | Company      | Phone number | [view](images/alice-contexts/alice(att).png) |
-| 13 | [tx-birth-cert.ttl](example/alice-contexts/tx-birth-cert.ttl) | State        | Legal names: Margery Alice Walker; maiden name Margery Alice Arnold | [view](images/alice-contexts/alice(texas-birth-certificate).png) |
-| 14 | [paradise.ttl](example/alice-contexts/paradise.ttl)           | Municipality | Current address — Paradise, CA (2025–present) | [view](images/alice-contexts/alice(paradise).png) |
-| 15 | [boston.ttl](example/alice-contexts/boston.ttl)               | Municipality | Previous address — Boston, MA (2020–2025) with temporal interval | [view](images/alice-contexts/alice(boston).png) |
-| 16 | [ssa.ttl](example/alice-contexts/ssa.ttl)                     | Federal      | SSN | [view](images/alice-contexts/alice(ssa).png) |
-| 7  | [bhs.ttl](example/alice-contexts/bhs.ttl) 🆕                  | Group        | BHS profile includes email, phone and current address | [view](images/alice-contexts/alice(bhs).png) |
-| 17 | [colleagues.ttl](example/alice-contexts/colleagues.ttl)       | Colleagues   | Collection of colleagues (including Bob) | [view](images/alice-contexts/alice(colleagues).png) |
-| 18 | [family.ttl](example/alice-contexts/family.ttl)               | Family       | Collection of family members | [view](images/alice-contexts/alice(family).png) |
-| 19 | [possessions.ttl](example/alice-contexts/possessions.ttl)     | Possession   | Wallet (driver's license + payment card); health insurance and SSN card | [view](images/alice-contexts/alice(possessions).png) |
-| 20 | `acme.ttl` (TODO)                                               | Employee     | Colleagues, Customers, Projects |  |
+| #  | Context file                                                  | Context type | Key data                                                         | Image                                                              |
+|--- |:--------------------------------------------------------------|:-------------|:-----------------------------------------------------------------|:-------------------------------------------------------------------|
+| 11 | [google.ttl](example/alice-contexts/google.ttl)               | Company      | Gmail address                                                    | [view](images/example/alice-contexts/alice(google).png)            |
+| 12 | [att.ttl](example/alice-contexts/att.ttl)                     | Company      | Phone number                                                     | [view](images/example/alice-contexts/alice(att).png)               |
+| 13 | [tx-birth-cert.ttl](example/alice-contexts/tx-birth-cert.ttl) | State        | Legal names, maiden name                                         | [view](images/example/alice-contexts/alice(tx-birth-cert).png)     |
+| 14 | [paradise.ttl](example/alice-contexts/paradise.ttl)           | Municipality | Current address — Paradise, CA (2025–present)                    | [view](images/example/alice-contexts/alice(paradise).png)          |
+| 15 | [boston.ttl](example/alice-contexts/boston.ttl)               | Municipality | Previous address — Boston, MA (2020–2025) with temporal interval | [view](images/example/alice-contexts/alice(boston).png)            |
+| 16 | [ssa.ttl](example/alice-contexts/ssa.ttl)                     | Federal      | Social security number (SSN)                                     | [view](images/example/alice-contexts/alice(ssa).png)               |
+| 7  | [bhs.ttl](example/alice-contexts/bhs.ttl) 🆕                  | Group        | BHS profile includes email, phone and current address            | [view](images/example/alice-contexts/alice(bhs).png)               |
+| 17 | [colleagues.ttl](example/alice-contexts/colleagues.ttl)       | Colleagues   | Collection of colleagues (including Bob)                         | [view](images/example/alice-contexts/alice(colleagues).png)        |
+| 18 | [family.ttl](example/alice-contexts/family.ttl)               | Family       | Collection of family members                                     | [view](images/example/alice-contexts/alice(family).png)            |
+| 19 | [possessions.ttl](example/alice-contexts/possessions.ttl)     | Possession   | Wallet (driver's license + payment card); health ins., SSN card  | [view](images/example/alice-contexts/alice(possessions).png)       |
+| 20 | `acme.ttl` (TODO)                                             | Employee     | Colleagues, Customers, Projects                                  |                                                                    |
 
 The following table lists contexts that are *about* Alice, but asserted by others. The Citibank context is asserted by the Citibank organization; it makes claims about Alice. 
 
-| #  | Context file       | Context type | Key data | Image |
-|----|:-------------------|:-------------|:---------|:------|
-| 10  | [citibank.ttl](example/alice-contexts/citibank.ttl) | Company | Debit card | [view](images/alice-contexts/alice(citibank).png) |
-<!---
-| `alice(by-bob)` | Colleagues | What Bob says about Alice |  |
---->
+| #  | Context file                                                  | Context type | Key data                                                         | Image                                                              |
+|--- |:--------------------------------------------------------------|:-------------|:-----------------------------------------------------------------|:-------------------------------------------------------------------|
+| 10  | [citibank.ttl](example/alice-contexts/citibank.ttl)          | Company      | Debit card                                                       | [view](images/example/alice-contexts/alice(citibank).png)          |
+
+The following table lists contexts that are about other people (Paula and Bob). Bob's contexts are in example/bob-contexts and Paula's are in example/paula-contexts.
+
+| #  | Context file                                                  | Context type | Key data                                                         | Image                                                              |
+|--- |:--------------------------------------------------------------|:-------------|:-----------------------------------------------------------------|:-------------------------------------------------------------------|
+| 9  | [bhs.ttl](example/bob-contexts/bhs.ttl)                       | Group        | Bob's BHS profile (email, phone, address) asserted by himself    | [view](images/example/bob-contexts/bob(bhs).png)                   |
 
 
 <!---
-The following table lists contexts that are about other people (Paula and Bob).
-
-
-| Context file              | Context type | Key data | Image |
-|:--------------------------|:-------------|:---------|:------|
 | `paula(by-alice).ttl`     | Family       | What Alice claims about Paula |  |
+
+
 | `paula(by-paula).ttl`     | Family       | What Paula claims about Paula |  |
 | `paula(by-paula-BHS).ttl` | Group        | What Paula claims about herself in BHS |  |
 | `bob(by-alice).ttl`       | Colleagues   | What Alice claims about Bob |  |
