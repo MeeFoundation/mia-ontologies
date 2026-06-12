@@ -20,8 +20,7 @@
     context:subject identity:Individual ;
     context:name "Boston Hub Society" ;
     rdfs:label "Bob Johnson - BHS Persona"@en ;
-    rdfs:comment """Bob Johnson's BHS whoness — representing Bob in the context of his
-                    Boston Hub Society membership, as seen from Alice's Mia.
+    rdfs:comment """Bob Johnson's profile int the BHS directory as seen in Alice's Mia.
                     Referenced from Alice's BHS social network in alice-contexts/bhs.ttl."""@en .
 
 

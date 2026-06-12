@@ -329,7 +329,7 @@ The following table lists contexts that are *about* Alice, but asserted by other
 
 | #  | Context file       | Context type | Key data | Image |
 |----|:-------------------|:-------------|:---------|:------|
-| 9  | [citibank.ttl](example/alice-contexts/citibank.ttl) | Company | Debit card | [view](images/alice-contexts/alice(citibank).png) |
+| 10  | [citibank.ttl](example/alice-contexts/citibank.ttl) | Company | Debit card | [view](images/alice-contexts/alice(citibank).png) |
 <!---
 | `alice(by-bob)` | Colleagues | What Bob says about Alice |  |
 --->
