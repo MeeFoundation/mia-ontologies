@@ -12,7 +12,7 @@
 # Imports Mee Identity Agent (MIA)'s Application Ontology (which imports the domains)
 <http://www.example.org/shapes> rdf:type owl:Ontology ;
     owl:imports <http://www.example.org/mia> ;
-    owl:versionInfo "Version 3.0.26 - remove p:hasSocialNetwork and SocialNetworkShape; group members use BFO_0000115 directly"@en ;
+    owl:versionInfo "Version 3.0.26 - restore hasSocialNetwork/SocialNetworkShape for Persona contexts; group members use BFO_0000115 directly on g:Group"@en ;
     rdfs:label "Mee Identity Agent (MIA)'s SHACL Validation Shapes"@en ;
     rdfs:comment """SHACL validation shapes for the Mee Identity Agent.
 
@@ -105,6 +105,14 @@
         sh:qualifiedValueShape [ sh:class cco:ent00000010 ] ;
         sh:qualifiedMaxCount 1 ;
         sh:message "USPostalAddress is optional; if present and typed, it must validate."@en
+    ] ;
+
+    # Optional: social network (0..1)
+    sh:property [
+        sh:path persona:hasSocialNetwork ;
+        sh:class cco:ont00001183 ;  # Social Network
+        sh:maxCount 1 ;
+        sh:message "A Persona may have at most one Social Network; it must be of type Social Network."@en
     ] ;
 
     # Optional: payment cards (0..many)
@@ -399,6 +407,31 @@
         sh:maxCount 1 ;
         sh:message "HairColor must have exactly one non-empty string text value."@en
     ] .
+
+
+#################################################################
+#  Social Network
+#################################################################
+
+:SocialNetworkShape
+    a sh:NodeShape ;
+    sh:targetClass cco:ont00001183 ;  # Social Network
+    sh:message "Social Network validation: sub-groups must be Social Networks; members must be Personas."@en ;
+
+    # Sub-groups: BFO has part → Social Network (e.g. Family, Colleague, Other)
+    sh:property [
+        sh:path <http://purl.obolibrary.org/obo/BFO_0000051> ;  # has part
+        sh:class cco:ont00001183 ;  # Social Network
+        sh:message "Social Network parts (sub-groups) must themselves be Social Networks."@en
+    ] ;
+
+    # Members: BFO has member part → Persona (ICE representing a person in this context)
+    sh:property [
+        sh:path <http://purl.obolibrary.org/obo/BFO_0000115> ;  # has member part
+        sh:class persona:Persona ;
+        sh:message "All Social Network member parts must be Personas."@en
+    ] .
+
 
 #################################################################
 #  Payment cards
