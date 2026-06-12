@@ -283,17 +283,17 @@ The repository includes a worked example for a hypothetical person, Alice Walker
 
 Within Alice's self context is `:Alice_Walker-Self`, a `Person` entity. It is linked via `p:hasPersona` links to multiple `p:Personas`- each in its own context outside the self context container (`example/alice/self.ttl`).
 
-<p align="center"><img src="images/alice/alice(self).png" alt="Alice's self"></p>
+<p align="center"><img src="images/example/alice/alice(self).png" alt="Alice's self"></p>
 
 Alice's `self.ttl` context also describes some of her physical characteristics shown below:
 
-<p align="center"><img src="images/alice/alice(self)+physical.png" alt="Alice's physical characteristics"></p>
+<p align="center"><img src="images/example/alice/alice(self)+physical.png" alt="Alice's physical characteristics"></p>
 
 ### Alice's Contexts
 
 Here is an overview of the contexts in Alice's Mia.
 
-<p align="center"><img src="images/alice-contexts/context-map.png" alt="Alice's physical characteristics"></p>
+<p align="center"><img src="images/example/alice-contexts/context-map.png" alt="Alice's physical characteristics"></p>
 
 Notes on the labeled contexts in the diagram above:
 - (1) What Alice claims about her Acme employee colleague, Paula
