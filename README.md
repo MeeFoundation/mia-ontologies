@@ -313,7 +313,7 @@ The contexts in the table below are *about* Alice and thus they have a c:subject
 
 | #  | Context file        | Context type | Key data | Image |
 |--- |:--------------------|:-------------|:---------|:------|
-| 11 | [google.ttl](example/alice-contexts/google.ttl)               | Company      | Email address | [view](images/alice-contexts/alice(google).png) |
+| 11 | [google.ttl](example/alice-contexts/google.ttl)               | Company      | Gmail address | [view](images/alice-contexts/alice(google).png) |
 | 12 | [att.ttl](example/alice-contexts/att.ttl)                     | Company      | Phone number | [view](images/alice-contexts/alice(att).png) |
 | 13 | [tx-birth-cert.ttl](example/alice-contexts/tx-birth-cert.ttl) | State        | Legal names: Margery Alice Walker; maiden name Margery Alice Arnold | [view](images/alice-contexts/alice(texas-birth-certificate).png) |
 | 14 | [paradise.ttl](example/alice-contexts/paradise.ttl)           | Municipality | Current address — Paradise, CA (2025–present) | [view](images/alice-contexts/alice(paradise).png) |
