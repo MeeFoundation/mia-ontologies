@@ -265,7 +265,7 @@ The contexts in the table below are all *about* Alice. That is, they have a c:su
 | `paradise.ttl`     | Municipality | Current address — Paradise, CA (2025–present) | [view](images/alice-contexts/alice(paradise).png) |
 | `boston.ttl`       | Municipality | Previous address — Boston, MA (2020–2025) with temporal interval | [view](images/alice-contexts/alice(boston).png) |
 | `ssa.ttl`          | Federal      | SSN | [view](images/alice-contexts/alice(ssa).png) |
-| `bhs.ttl` (TODO)   | Group        | BHS profile | [view](images/alice-contexts/alice(paradise).png) |
+| `bhs.ttl` (TODO)   | Group        | BHS profile | [view](images/alice-contexts/alice(bhs).png) |
 | `colleagues.ttl`   | People       | Colleagues social network with Bob Johnston | [view](images/alice-contexts/alice(colleagues).png) |
 | `family.ttl`       | Family       | Family social network with Paula Walker | [view](images/alice-contexts/alice(family).png) |
 | `possessions.ttl`  | Possession   | Wallet (driver's license + payment card); health insurance and SSN card | [view](images/alice-contexts/alice(possessions).png) |
