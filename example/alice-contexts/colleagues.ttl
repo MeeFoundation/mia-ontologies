@@ -13,8 +13,8 @@
 <http://www.example.org/mia/colleagues> rdf:type owl:Ontology ;
     owl:imports <http://mee.foundation/ontologies/persona> ;
     owl:imports <http://mee.foundation/ontologies/context> ;
-    dc:date "2026-06-01"^^xsd:date ;
-    owl:versionInfo "Version 1.0.10 - add context:name"@en ;
+    dc:date "2026-06-12"^^xsd:date ;
+    owl:versionInfo "Version 1.0.11 - move Paula and Bob personas to their own context files"@en ;
     context:contextCategory context:Colleagues ;
     context:assertedBy identity:Self ;
     context:subject identity:Self ;
@@ -46,35 +46,3 @@
     rdfs:label "Alice Walker's colleagues connections"@en ;
     <http://purl.obolibrary.org/obo/BFO_0000115> :Paula_Walker-Colleagues ;  # has member part
     <http://purl.obolibrary.org/obo/BFO_0000115> :Bob_Johnston-Colleagues .  # has member part
-
-
-#################################################################
-#    Paula Walker - Colleagues Persona
-#################################################################
-
-:Paula_Walker-Colleagues rdf:type owl:NamedIndividual ,
-                                  persona:Persona ;
-    rdfs:label "Paula Walker (Colleagues)"@en ;
-    rdfs:comment "Paula Walker's persona in the context of her colleague relationship with Alice."@en .
-
-
-#################################################################
-#    Bob Johnston - Colleagues Persona
-#################################################################
-
-:Bob_Johnston-Colleagues rdf:type owl:NamedIndividual ,
-                                  persona:Persona ;
-    rdfs:label "Bob Johnston (Colleagues)"@en ;
-    rdfs:comment "Bob Johnston's persona in the context of his colleague relationship with Alice."@en ;
-
-    <https://purl.org/cco/ont00001879> [  # designated by → GivenName
-        rdf:type cco:ent00000002 ;
-        <https://purl.org/cco/ont00001765> "Bob"
-    ] ;
-
-    <https://purl.org/cco/ont00001879> [  # designated by → FamilyName
-        rdf:type cco:ent00000004 ;
-        <https://purl.org/cco/ont00001765> "Johnston"
-    ] ;
-
-    <http://purl.obolibrary.org/obo/BFO_0000196> :Bob_EmployeeOfAcme .  # bearer of → career role

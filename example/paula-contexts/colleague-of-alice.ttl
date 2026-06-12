@@ -1,0 +1,34 @@
+@prefix : <http://www.example.org/mia#> .
+@prefix persona: <http://mee.foundation/ontologies/persona#> .
+@prefix context: <http://mee.foundation/ontologies/context#> .
+@prefix identity: <http://mee.foundation/ontologies/identity#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix dc: <http://purl.org/dc/elements/1.1/> .
+@base <http://www.example.org/mia> .
+
+<http://www.example.org/mia/paula-colleague-of-alice> rdf:type owl:Ontology ;
+    owl:imports <http://mee.foundation/ontologies/persona> ;
+    owl:imports <http://mee.foundation/ontologies/context> ;
+    dc:date "2026-06-12"^^xsd:date ;
+    owl:versionInfo "Version 1.0.0 - initial"@en ;
+    context:contextCategory context:Colleagues ;
+    context:assertedBy identity:Self ;
+    context:subject identity:Individual ;
+    context:name "Colleague of Alice" ;
+    rdfs:label "Paula Walker - Colleague of Alice Persona"@en ;
+    rdfs:comment """Paula Walker's colleague whoness — representing her in the context of her
+                    colleague relationship with Alice Walker.
+                    Correlated from :Paula_Walker-Self in self.ttl."""@en .
+
+
+#################################################################
+#    Paula Walker - Colleague of Alice Persona
+#################################################################
+
+:Paula_Walker-Colleagues rdf:type owl:NamedIndividual ,
+                                  persona:Persona ;
+    rdfs:label "Paula Walker (Colleagues)"@en ;
+    rdfs:comment "Paula Walker's persona in the context of her colleague relationship with Alice."@en .

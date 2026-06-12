@@ -24,8 +24,10 @@
     owl:imports <http://www.example.org/mia/bhs> ;
     owl:imports <http://www.example.org/mia/bob-bhs> ;
     owl:imports <http://www.example.org/mia/bhs-group> ;
-    dc:date "2026-05-27"^^xsd:date ;
-    owl:versionInfo "Version 3.0.46 - add BHS group context"@en ;
+    owl:imports <http://www.example.org/mia/paula-colleague-of-alice> ;
+    owl:imports <http://www.example.org/mia/bob-colleague-of-alice> ;
+    dc:date "2026-06-12"^^xsd:date ;
+    owl:versionInfo "Version 3.0.47 - move Paula and Bob colleague personas to own context files"@en ;
     rdfs:label "Alice Walker - Selfness"@en ;
     rdfs:comment """Alice Walker's selfness — the essential individuality and sense of selfhood from which
                     context-specific Personas (whonesses) are correlated.
@@ -55,8 +57,12 @@
                     Boston Hub Society (group):
                     - :BHS_Group                         (bhs-contexts/bhs-group.ttl)  — BHS group instance with social network
 
+                    Bob Johnston (colleagues):
+                    - :Bob_Johnston-Colleagues           (bob-contexts/colleague-of-alice.ttl) — colleague persona
+
                     Paula Walker (Alice's mother):
-                    - :Paula_Walker-FloridaBirthCertificate (paula-contexts/florida-birth-certificate.ttl) — legal name record"""@en .
+                    - :Paula_Walker-FloridaBirthCertificate (paula-contexts/florida-birth-certificate.ttl) — legal name record
+                    - :Paula_Walker-Colleagues              (paula-contexts/colleague-of-alice.ttl)        — colleague persona"""@en .
 
 
 #################################################################
@@ -139,7 +145,8 @@
     rdfs:label "Paula Walker"@en ;
 
     persona:hasPersona :Paula_Walker-FloridaBirthCertificate ;
-    persona:hasPersona :Paula_Walker-Family .
+    persona:hasPersona :Paula_Walker-Family ;
+    persona:hasPersona :Paula_Walker-Colleagues .
 
 
 
