@@ -13,7 +13,7 @@
     owl:imports <http://mee.foundation/ontologies/identity> ;
     owl:imports <https://purl.org/cco/agent> ;
     dc:date "2026-06-12"^^xsd:date ;
-    owl:versionInfo "Version 1.0.1 - subclass g:Group under cco:ont00000300 (CCO Group of Agents)"@en ;
+    owl:versionInfo "Version 1.0.3 - remove g:hasSocialNetwork; members linked directly via BFO_0000115"@en ;
     rdfs:label "Group Ontology"@en ;
     rdfs:comment """Group Ontology for the Mee Identity Agent.
                     Describes groups or communities that participate in the Personal Data Network.

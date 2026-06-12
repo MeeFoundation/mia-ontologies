@@ -6,10 +6,13 @@
 @prefix owl: <http://www.w3.org/2002/07/owl#> .
 @prefix g: <http://mee.foundation/ontologies/group#> .
 @prefix identity: <http://mee.foundation/ontologies/identity#> .
+@prefix persona: <http://mee.foundation/ontologies/persona#> .
+@prefix o: <http://mee.foundation/ontologies/organization#> .
+@prefix obo: <http://purl.obolibrary.org/obo/> .
 
 <http://mee.foundation/ontologies/group/shapes> rdf:type owl:Ontology ;
     owl:imports <http://mee.foundation/ontologies/group> ;
-    owl:versionInfo "Version 1.0.0 - initial"@en ;
+    owl:versionInfo "Version 1.0.1 - add member constraint (BFO_0000115 targets must be p:Persona or o:Organization)"@en ;
     rdfs:label "Group Ontology SHACL Validation Shapes"@en ;
     rdfs:comment "SHACL validation shapes for the Group Ontology."@en .
 
@@ -29,4 +32,14 @@
         sh:qualifiedMinCount 1 ;
         sh:qualifiedMaxCount 1 ;
         sh:message "A g:Group must have exactly one identity:hasIdentity value of type identity:Group."@en
+    ] ;
+
+    # Members: BFO has member part → p:Persona or o:Organization
+    sh:property [
+        sh:path obo:BFO_0000115 ;
+        sh:or (
+            [ sh:class persona:Persona ]
+            [ sh:class o:Organization ]
+        ) ;
+        sh:message "All group member parts (BFO_0000115) must be p:Persona or o:Organization instances."@en
     ] .

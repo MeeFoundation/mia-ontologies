@@ -14,7 +14,7 @@
     owl:imports <http://mee.foundation/ontologies/persona> ;
     owl:imports <http://mee.foundation/ontologies/context> ;
     dc:date "2026-06-11"^^xsd:date ;
-    owl:versionInfo "Version 1.0.4 - remove p:copiedFrom annotations"@en ;
+    owl:versionInfo "Version 1.0.6 - social network moved to bhs-contexts/bhs-group.ttl"@en ;
     context:contextCategory context:Group ;
     context:assertedBy identity:Self ;
     context:subject identity:Self ;
@@ -31,7 +31,7 @@
 :Alice_Walker-BHS rdf:type owl:NamedIndividual ,
                            persona:Persona ;
     rdfs:label "Alice Walker (BHS)"@en ;
-    rdfs:comment "Alice Walker's persona in the context of her BHS group profile."@en ;
+    rdfs:comment "Alice Walker's persona in the context of her BHS group (aka her BHS profile)."@en ;
 
     <https://purl.org/cco/ont00001879> :Address_BHS ;  # designated by → current address
 

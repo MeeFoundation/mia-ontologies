@@ -22,8 +22,10 @@
     owl:imports <http://www.example.org/mia/florida-birth-certificate> ;
     owl:imports <http://www.example.org/mia/belongings> ;
     owl:imports <http://www.example.org/mia/bhs> ;
+    owl:imports <http://www.example.org/mia/bob-bhs> ;
+    owl:imports <http://www.example.org/mia/bhs-group> ;
     dc:date "2026-05-27"^^xsd:date ;
-    owl:versionInfo "Version 3.0.44 - rename Alice_Walker-Belongings to Alice_Walker-Possessions"@en ;
+    owl:versionInfo "Version 3.0.46 - add BHS group context"@en ;
     rdfs:label "Alice Walker - Selfness"@en ;
     rdfs:comment """Alice Walker's selfness — the essential individuality and sense of selfhood from which
                     context-specific Personas (whonesses) are correlated.
@@ -46,6 +48,12 @@
                     - :Alice_Walker-TexasBirthCertificate (texas-birth-certificate.ttl) — legal name record
                     - :Alice_Walker-Possessions           (belongings.ttl)              — wallet, driver's license, health insurance card
                     - :Alice_Walker-BHS                  (bhs.ttl)                     — BHS group profile (address, phone, email)
+
+                    Bob Johnson (BHS member):
+                    - :Bob_Johnson-BHS                   (bob-contexts/bhs.ttl)        — BHS member persona
+
+                    Boston Hub Society (group):
+                    - :BHS_Group                         (bhs-contexts/bhs-group.ttl)  — BHS group instance with social network
 
                     Paula Walker (Alice's mother):
                     - :Paula_Walker-FloridaBirthCertificate (paula-contexts/florida-birth-certificate.ttl) — legal name record"""@en .

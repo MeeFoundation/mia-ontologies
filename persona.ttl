@@ -18,7 +18,7 @@
     owl:imports <https://purl.org/cco/staging> ;
     owl:imports <http://mee.foundation/ontologies/identity> ;
     dc:date "2026-06-01"^^xsd:date ;
-    owl:versionInfo "Version 3.0.40 - remove p:copiedFrom"@en ;
+    owl:versionInfo "Version 3.0.41 - remove p:hasSocialNetwork; group members now use BFO_0000115 directly"@en ;
     rdfs:label "Persona Ontology"@en ;
     rdfs:comment """Persona Ontology for the Mee Identity Agent.
 
@@ -158,15 +158,6 @@ p:hasPersona rdf:type owl:ObjectProperty ;
 #################################################################
 #    Other properties
 #################################################################
-
-p:hasSocialNetwork rdf:type owl:ObjectProperty ;
-    rdfs:domain p:Persona ;
-    rdfs:range cco:ont00001183 ;    # Social Network
-    rdfs:label "has social network"@en ;
-    rdfs:comment """Links a Persona to a Social Network — the set of other people
-                    with whom the person has relationships in that context. The Persona is
-                    not a member of the network; the network contains only the people they
-                    relate to."""@en .
 
 
 #################################################################
