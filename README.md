@@ -313,23 +313,23 @@ The contexts in the table below are all *about* Alice. That is, they have a c:su
 
 | #  | Context file        | Context type | Key data | Image |
 |--- |:--------------------|:-------------|:---------|:------|
-| 11 | [`google.ttl`](example/alice-contexts/google.ttl)               | Company      | Email address | [view](images/alice-contexts/alice(google).png) |
-| 12 | [`att.ttl`](example/alice-contexts/att.ttl)                     | Company      | Phone number | [view](images/alice-contexts/alice(att).png) |
-| 13 | [`tx-birth-cert.ttl`](example/alice-contexts/tx-birth-cert.ttl) | State        | Legal names: Margery Alice Walker; maiden name Margery Alice Arnold | [view](images/alice-contexts/alice(texas-birth-certificate).png) |
-| 14 | [`paradise.ttl`](example/alice-contexts/paradise.ttl)           | Municipality | Current address — Paradise, CA (2025–present) | [view](images/alice-contexts/alice(paradise).png) |
-| 15 | [`boston.ttl`](example/alice-contexts/boston.ttl)               | Municipality | Previous address — Boston, MA (2020–2025) with temporal interval | [view](images/alice-contexts/alice(boston).png) |
-| 16 | [`ssa.ttl`](example/alice-contexts/ssa.ttl)                     | Federal      | SSN | [view](images/alice-contexts/alice(ssa).png) |
-| 7  | [`bhs.ttl`](example/alice-contexts/bhs.ttl) 🆕                  | Group        | BHS profile includes email, phone and current address | [view](images/alice-contexts/alice(bhs).png) |
-| 17 | [`colleagues.ttl`](example/alice-contexts/colleagues.ttl)       | Colleagues   | Collection of colleagues (including Bob) | [view](images/alice-contexts/alice(colleagues).png) |
-| 18 | [`family.ttl`](example/alice-contexts/family.ttl)               | Family       | Collection of family members | [view](images/alice-contexts/alice(family).png) |
-| 19 | [`possessions.ttl`](example/alice-contexts/possessions.ttl)     | Possession   | Wallet (driver's license + payment card); health insurance and SSN card | [view](images/alice-contexts/alice(possessions).png) |
+| 11 | [google.ttl](example/alice-contexts/google.ttl)               | Company      | Email address | [view](images/alice-contexts/alice(google).png) |
+| 12 | [att.ttl](example/alice-contexts/att.ttl)                     | Company      | Phone number | [view](images/alice-contexts/alice(att).png) |
+| 13 | [tx-birth-cert.ttl](example/alice-contexts/tx-birth-cert.ttl) | State        | Legal names: Margery Alice Walker; maiden name Margery Alice Arnold | [view](images/alice-contexts/alice(texas-birth-certificate).png) |
+| 14 | [paradise.ttl](example/alice-contexts/paradise.ttl)           | Municipality | Current address — Paradise, CA (2025–present) | [view](images/alice-contexts/alice(paradise).png) |
+| 15 | [boston.ttl](example/alice-contexts/boston.ttl)               | Municipality | Previous address — Boston, MA (2020–2025) with temporal interval | [view](images/alice-contexts/alice(boston).png) |
+| 16 | [ssa.ttl](example/alice-contexts/ssa.ttl)                     | Federal      | SSN | [view](images/alice-contexts/alice(ssa).png) |
+| 7  | [bhs.ttl](example/alice-contexts/bhs.ttl) 🆕                  | Group        | BHS profile includes email, phone and current address | [view](images/alice-contexts/alice(bhs).png) |
+| 17 | [colleagues.ttl](example/alice-contexts/colleagues.ttl)       | Colleagues   | Collection of colleagues (including Bob) | [view](images/alice-contexts/alice(colleagues).png) |
+| 18 | [family.ttl](example/alice-contexts/family.ttl)               | Family       | Collection of family members | [view](images/alice-contexts/alice(family).png) |
+| 19 | [possessions.ttl](example/alice-contexts/possessions.ttl)     | Possession   | Wallet (driver's license + payment card); health insurance and SSN card | [view](images/alice-contexts/alice(possessions).png) |
 | 20 | `acme.ttl` (TODO)                                               | Employee     | Colleagues, Customers, Projects |  |
 
 The following table lists contexts that are *about* Alice, but asserted by others. The Citibank context is asserted by the Citibank organization; it makes claims about Alice. 
 
 | #  | Context file       | Context type | Key data | Image |
 |----|:-------------------|:-------------|:---------|:------|
-| 9  | [`citibank.ttl`](example/alice-contexts/citibank.ttl) | Company | Debit card | [view](images/alice-contexts/alice(citibank).png) |
+| 9  | [citibank.ttl](example/alice-contexts/citibank.ttl) | Company | Debit card | [view](images/alice-contexts/alice(citibank).png) |
 <!---
 | `alice(by-bob)` | Colleagues | What Bob says about Alice |  |
 --->
