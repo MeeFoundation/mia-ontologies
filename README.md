@@ -293,7 +293,7 @@ Alice's `self.ttl` context also describes some of her physical characteristics s
 
 Here is an overview of the contexts in Alice's Mia.
 
-<p align="center"><img src="images/example/alice-contexts/context-map.png" alt="Alice's physical characteristics"></p>
+<p align="center"><img src="images/example/context-map.png" alt="Alice's physical characteristics"></p>
 
 Notes on the labeled contexts in the diagram above:
 - (1) What Alice claims about her Acme employee colleague, Paula
