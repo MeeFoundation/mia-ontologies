@@ -55,6 +55,13 @@ This section describes the most fundamental properties and classes in the Person
 **Classes**
 
 * `p:Persona` — an Information Content Entity that represents how a person appears in the context of a specific interaction — with a company, government agency, another person, or a group of people. A `p:Persona` is a context-specific facet of that person linked via `p:hasPersona`.
+
+### Persona templates
+
+This section describes a `p:Persona` subtype that can be thought of as templates for the personas used in specific kinds of contexts. We have at present one example:
+
+<p align="center"><img src="images/persona-ontology/persona-templates.png" alt="persona templates model"></p>
+
 * `p:BirthCertificate` — a `p:Persona` subtype whose purpose is to carry a person's legal birth name record as issued by a state agency.
 
 ### Possession-related properties and classes
