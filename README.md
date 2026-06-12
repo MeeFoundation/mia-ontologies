@@ -58,7 +58,7 @@ This section describes the most fundamental properties and classes in the Person
 
 ### Persona templates
 
-This section describes a `p:Persona` subtype that can be thought of as templates for the personas used in specific kinds of contexts. We have at present one example:
+This section describes a `p:Persona` subtypes that can be thought of as templates for the personas used in specific kinds of contexts. We have at present one example:
 
 <p align="center"><img src="images/persona-ontology/persona-templates.png" alt="persona templates model"></p>
 
