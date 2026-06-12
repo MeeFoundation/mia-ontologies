@@ -64,6 +64,10 @@ This section describes a `p:Persona` subtypes that can be thought of as template
 
 * `p:BirthCertificate` — a `p:Persona` subtype whose purpose is to carry a person's legal birth name record as issued by a state agency.
 
+Each template class has a corresponding SHACL shape in `persona-shacl.ttl` (`:BirthCertificatePersonaShape`) that enforces the cardinality and optionality rules for its name properties. For `p:BirthCertificate` the rules are:
+- **Required**: either a `FullName` designator **or** both a `GivenName` and a `FamilyName` designator (via `designated by`, `ont00001879`) — these alternatives are expressed with `sh:or`.
+- **Optional**: `AdditionalName` (middle name), `AlternateName` (e.g. maiden name), `Nickname`, and `Legal Name` designators are permitted but not required.
+
 ### Possession-related properties and classes
 
 This section describes properties and classes related to things a person has, holds, possesses, purchased, or rents. 
