@@ -300,7 +300,6 @@ Notes on the labeled contexts in the diagram above:
 - (2) What Alice claims about her mother, Paula, in the context of Alice's family
 - (3) What Paula claims about herself and shares back to Alice likely in response to Alice sharing some contact and profile information about herself with Paula.
 - (4) What Alice's colleague Bob claims about Alice likely in response to Alice sharing some contact and profile information with him.
-- (5) What Alice claims about Bob a person she currently or previously works with at some organization.
 - (6) What Bob claims about Bob (e.g. contact information) that he decided to share with Alice.
 - (8) A shared Group context shared by all members of BHS (including Alice and Bob).
 
@@ -335,7 +334,8 @@ The following table lists contexts that are about other people (Paula and Bob). 
 
 | #  | Context file                                                  | Context type | Key data                                                         | Image                                                              |
 |--- |:--------------------------------------------------------------|:-------------|:-----------------------------------------------------------------|:-------------------------------------------------------------------|
-| 9  | [bhs.ttl](example/bob-contexts/bhs.ttl)                       | Group        | Bob's BHS profile (email, phone, address) asserted by himself    | [view](images/example/bob-contexts/bob(bhs).png)                   |
+| 9  | [bhs.ttl](example/bob-contexts/bob(bhs).ttl)                  | Group        | Bob's BHS profile (email, phone, address) asserted by himself    | [view](images/example/bob-contexts/bob(bhs).png)                   |
+| 5  | [bob(colleague...)](example/bob-contexts/bob(colleague-of-alice).ttl) | Colleagues | Personal notes Alice has made about her colleague Bob | [view](images/example/bob-contexts/bob(colleague-of-alice).png) |
 
 
 <!---

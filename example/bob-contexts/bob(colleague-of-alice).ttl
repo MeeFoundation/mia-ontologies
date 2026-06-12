@@ -1,6 +1,7 @@
 @prefix : <http://www.example.org/mia#> .
 @prefix persona: <http://mee.foundation/ontologies/persona#> .
 @prefix context: <http://mee.foundation/ontologies/context#> .
+@prefix cco: <https://purl.org/cco/> .
 @prefix owl: <http://www.w3.org/2002/07/owl#> .
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
@@ -12,7 +13,7 @@
     owl:imports <http://mee.foundation/ontologies/persona> ;
     owl:imports <http://mee.foundation/ontologies/context> ;
     dc:date "2026-06-12"^^xsd:date ;
-    owl:versionInfo "Version 1.0.2 - rename individual to Bob_Johnson-Bob-colleague-of-alice, assertedBy Alice_Walker-Self, name Bob"@en ;
+    owl:versionInfo "Version 1.0.3 - add Person Note for fav drink"@en ;
     context:contextCategory context:Colleagues ;
     context:assertedBy :Alice_Walker-Self ;
     context:subject :Bob_Johnson-Bob-colleague-of-alice ;
@@ -29,4 +30,9 @@
 :Bob_Johnson-Bob-colleague-of-alice rdf:type owl:NamedIndividual ,
                                              persona:Persona ;
     rdfs:label "Bob Johnson (Bob-colleague-of-alice)"@en ;
-    rdfs:comment "Bob Johnson's persona in the context of his colleagial relationship with Alice Walker, as asserted by Alice."@en .
+    rdfs:comment "Bob Johnson's persona in the context of his colleagial relationship with Alice Walker, as asserted by Alice."@en ;
+
+    <https://purl.org/cco/ont00001917> [  # described by → Person Note
+        rdf:type cco:ent00000048 ;
+        <https://purl.org/cco/ont00001765> "Fav drink: oat milk cappuccino"
+    ] .
