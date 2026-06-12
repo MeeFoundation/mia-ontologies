@@ -3,7 +3,6 @@
 ## ✨ What's New (week of 2026-06-09)
 
 - **`c:name`** — new required annotation property on every context file (human-readable name string)
-- **`p:copiedFrom`** — new annotation property to trace claims copied from another context
 - **`bhs.ttl`** — new Boston Hub Society group context for Alice (address, phone, email)
 - **`persona-templates.ttl`** — new utility ontology; `p:BirthCertificate` moved here from `persona.ttl`
 
@@ -65,7 +64,6 @@ This section describes the most fundamental properties and classes in the Person
 
 **Other Properties**
 
-* `p:copiedFrom` — annotates a claim (blank node designator or named individual) to indicate the source context ontology from which it was copied. Domain: `Information Content Entity` (`cco:ont00000958`); range: the source context's ontology IRI. 🆕
 
 ### Persona templates
 

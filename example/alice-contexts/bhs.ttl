@@ -14,7 +14,7 @@
     owl:imports <http://mee.foundation/ontologies/persona> ;
     owl:imports <http://mee.foundation/ontologies/context> ;
     dc:date "2026-06-11"^^xsd:date ;
-    owl:versionInfo "Version 1.0.3 - annotate copied claims with p:copiedFrom"@en ;
+    owl:versionInfo "Version 1.0.4 - remove p:copiedFrom annotations"@en ;
     context:contextCategory context:Group ;
     context:assertedBy identity:Self ;
     context:subject identity:Self ;
@@ -37,14 +37,12 @@
 
     <https://purl.org/cco/ont00001879> [  # designated by → Phone
         rdf:type cco:ent00000023 ;
-        <https://purl.org/cco/ont00001765> "+15108149999" ;
-        persona:copiedFrom <http://www.example.org/mia/att>
+        <https://purl.org/cco/ont00001765> "+15108149999"
     ] ;
 
     <https://purl.org/cco/ont00001879> [  # designated by → Email
         rdf:type cco:ent00000024 ;
-        <https://purl.org/cco/ont00001765> "awalker@gmail.com" ;
-        persona:copiedFrom <http://www.example.org/mia/google>
+        <https://purl.org/cco/ont00001765> "awalker@gmail.com"
     ] .
 
 
@@ -55,7 +53,6 @@
 :Address_BHS rdf:type owl:NamedIndividual ,
                       cco:ent00000010 ;  # USPostalAddress
     rdfs:label "Alice Walker's BHS Address"@en ;
-    persona:copiedFrom <http://www.example.org/mia/paradise> ;
     <http://purl.obolibrary.org/obo/BFO_0000178> [  # has continuant part → Street
         rdf:type cco:ent00000011 ;
         <https://purl.org/cco/ont00001765> "123 Sleepy Hollow"
