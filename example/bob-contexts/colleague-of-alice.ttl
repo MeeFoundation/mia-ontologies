@@ -14,7 +14,7 @@
     owl:imports <http://mee.foundation/ontologies/persona> ;
     owl:imports <http://mee.foundation/ontologies/context> ;
     dc:date "2026-06-12"^^xsd:date ;
-    owl:versionInfo "Version 1.0.0 - initial"@en ;
+    owl:versionInfo "Version 1.0.1 - remove Bob_EmployeeOfAcme"@en ;
     context:contextCategory context:Colleagues ;
     context:assertedBy identity:Self ;
     context:subject identity:Individual ;
@@ -42,15 +42,6 @@
     <https://purl.org/cco/ont00001879> [  # designated by → FamilyName
         rdf:type cco:ent00000004 ;
         <https://purl.org/cco/ont00001765> "Johnston"
-    ] ;
-
-    <http://purl.obolibrary.org/obo/BFO_0000196> :Bob_EmployeeOfAcme .  # bearer of → career role
+    ] .
 
 
-#################################################################
-#    Bob Johnston's Career Role
-#################################################################
-
-:Bob_EmployeeOfAcme rdf:type owl:NamedIndividual ;
-    rdfs:label "Bob Johnston - Employee of Acme"@en ;
-    rdfs:comment "Bob Johnston's role as an employee of Acme."@en .
