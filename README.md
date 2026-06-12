@@ -343,7 +343,7 @@ riot --output=turtle \
   example/alice-contexts/ssa.ttl example/alice-contexts/google.ttl \
   example/alice-contexts/texas-birth-certificate.ttl \
   example/paula-contexts/florida-birth-certificate.ttl \
-  example/alice-contexts/belongings.ttl \
+  example/alice-contexts/possessions.ttl \
   2>/dev/null > /tmp/mia-merged.ttl
 
 grep -v 'owl:imports' persona-shacl.ttl > /tmp/mia-shapes.ttl
