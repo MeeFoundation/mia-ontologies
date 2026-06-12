@@ -1,0 +1,32 @@
+@prefix : <http://www.example.org/mia#> .
+@prefix persona: <http://mee.foundation/ontologies/persona#> .
+@prefix context: <http://mee.foundation/ontologies/context#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix dc: <http://purl.org/dc/elements/1.1/> .
+@base <http://www.example.org/mia> .
+
+<http://www.example.org/mia/bob-colleague-of-alice> rdf:type owl:Ontology ;
+    owl:imports <http://mee.foundation/ontologies/persona> ;
+    owl:imports <http://mee.foundation/ontologies/context> ;
+    dc:date "2026-06-12"^^xsd:date ;
+    owl:versionInfo "Version 1.0.2 - rename individual to Bob_Johnson-Bob-colleague-of-alice, assertedBy Alice_Walker-Self, name Bob"@en ;
+    context:contextCategory context:Colleagues ;
+    context:assertedBy :Alice_Walker-Self ;
+    context:subject :Bob_Johnson-Bob-colleague-of-alice ;
+    context:name "Bob" ;
+    rdfs:label "Bob Johnson - Colleague of Alice Persona"@en ;
+    rdfs:comment """Bob Johnson's persona in the context of his colleague relationship with Alice Walker,
+                    as asserted by Alice. Referenced from Alice's colleagues social network in alice-contexts/colleagues.ttl."""@en .
+
+
+#################################################################
+#    Bob Johnson - Colleague of Alice Persona
+#################################################################
+
+:Bob_Johnson-Bob-colleague-of-alice rdf:type owl:NamedIndividual ,
+                                             persona:Persona ;
+    rdfs:label "Bob Johnson (Bob-colleague-of-alice)"@en ;
+    rdfs:comment "Bob Johnson's persona in the context of his colleagial relationship with Alice Walker, as asserted by Alice."@en .

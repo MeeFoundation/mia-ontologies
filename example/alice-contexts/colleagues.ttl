@@ -14,7 +14,7 @@
     owl:imports <http://mee.foundation/ontologies/persona> ;
     owl:imports <http://mee.foundation/ontologies/context> ;
     dc:date "2026-06-12"^^xsd:date ;
-    owl:versionInfo "Version 1.0.11 - move Paula and Bob personas to their own context files"@en ;
+    owl:versionInfo "Version 1.0.12 - update Bob member reference to Bob_Johnson-Bob-colleague-of-alice"@en ;
     context:contextCategory context:Colleagues ;
     context:assertedBy identity:Self ;
     context:subject identity:Self ;
@@ -45,4 +45,4 @@
                                    cco:ont00001183 ;  # Social Network
     rdfs:label "Alice Walker's colleagues connections"@en ;
     <http://purl.obolibrary.org/obo/BFO_0000115> :Paula_Walker-Colleagues ;  # has member part
-    <http://purl.obolibrary.org/obo/BFO_0000115> :Bob_Johnston-Colleagues .  # has member part
+    <http://purl.obolibrary.org/obo/BFO_0000115> :Bob_Johnson-Bob-colleague-of-alice .  # has member part
