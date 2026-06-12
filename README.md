@@ -1,5 +1,14 @@
 # Mia Ontologies
 
+## ✨ What's New (week of 2026-06-09)
+
+- **`c:name`** — new required annotation property on every context file (human-readable name string)
+- **`p:copiedFrom`** — new annotation property to trace claims copied from another context
+- **`bhs.ttl`** — new Boston Hub Society group context for Alice (address, phone, email)
+- **`persona-templates.ttl`** — new utility ontology; `p:BirthCertificate` moved here from `persona.ttl`
+
+---
+
 This document describes the ontologies used by the Mee Identity Agent (Mia) software application. 
 Each Mia lives within the Personal Data Network (PDN), a data-sharing network with three kinds of participants: individual Mia users, groups of Mia users and/or organizations, and organizations (government agencies, companies, and nonprofits).
 
@@ -50,7 +59,7 @@ This section describes the most fundamental properties and classes in the Person
 * `p:hasPersona` — links a `Person` (one's "selfness", essential individuality, or a sense of one's own unique personality and identity) to one of their context-specific `p:Persona` instances.
 * `i:hasIdentity` — links a `p:Persona` to a `i:PDNidentity` — the identifier used to communicate with this Persona over the Personal Data Network. Sub-property of CCO `designated by`.
 * `p:dyad` — links a `p:Persona` to a corresponding `p:Persona` about the same subject, but asserted by the other party rather than by the Self.
-* `p:copiedFrom` — annotates a claim (blank node designator or named individual) to indicate the source context ontology from which it was copied. Domain: `Information Content Entity` (`cco:ont00000958`); range: the source context's ontology IRI.
+* `p:copiedFrom` — annotates a claim (blank node designator or named individual) to indicate the source context ontology from which it was copied. Domain: `Information Content Entity` (`cco:ont00000958`); range: the source context's ontology IRI. 🆕
 
 **Classes**
 
@@ -62,7 +71,7 @@ This section describes a `p:Persona` subtypes that can be thought of as template
 
 <p align="center"><img src="images/persona-ontology/persona-templates.png" alt="persona templates model"></p>
 
-* `p:BirthCertificate` — a `p:Persona` subtype whose purpose is to carry a person's legal birth name record as issued by a state agency.
+* `p:BirthCertificate` — a `p:Persona` subtype whose purpose is to carry a person's legal birth name record as issued by a state agency. 🆕
 
 Each template class has a corresponding SHACL shape in `persona-shacl.ttl` (`:BirthCertificatePersonaShape`) that enforces the cardinality and optionality rules for its name properties. For `p:BirthCertificate` the rules are:
 - **Required**: either a `FullName` designator **or** both a `GivenName` and a `FamilyName` designator (via `designated by`, `ont00001879`) — these alternatives are expressed with `sh:or`.
@@ -187,7 +196,7 @@ The Organization ontology models organizations — companies, government agencie
 
 A context is a container of information whose primary subject is one of the three kinds of PDN node: a `p:Persona` (representing a context-specific facet of a person), a `g:Group`, or an `o:Organization`. It holds the subject's claims and, in the case of a `p:Persona` subject, may also include the `p:Persona` facets of other people in that context. A context is implemented as a `.ttl` file that by convention contains an owl:Ontology. The context ontology defines four required properties of this owl:Ontology:
 
-- A human-readable name for the context (`c:name`) — a plain string, e.g. `"Citibank"`.
+- A human-readable name for the context (`c:name`) — a plain string, e.g. `"Citibank"`. 🆕
 - What is the category of context (`c:contextCategory`), e.g. relationships with family members, interactions with a bank, etc.
 - Who is making the assertions the context contains (`c:assertedBy`) - its value is a `i:PDNidentity`
 - Who is the context mainly about (`c:subject`) - its value is a `i:PDNidentity`
@@ -279,7 +288,7 @@ The contexts in the table below are all *about* Alice. That is, they have a c:su
 | `paradise.ttl`     | Municipality | Current address — Paradise, CA (2025–present) | [view](images/alice-contexts/alice(paradise).png) |
 | `boston.ttl`       | Municipality | Previous address — Boston, MA (2020–2025) with temporal interval | [view](images/alice-contexts/alice(boston).png) |
 | `ssa.ttl`          | Federal      | SSN | [view](images/alice-contexts/alice(ssa).png) |
-| `bhs.ttl`          | Group        | BHS profile includes email, phone and current address | [view](images/alice-contexts/alice(bhs).png) |
+| `bhs.ttl` 🆕       | Group        | BHS profile includes email, phone and current address | [view](images/alice-contexts/alice(bhs).png) |
 | `colleagues.ttl`   | People       | Colleagues social network with Bob Johnston | [view](images/alice-contexts/alice(colleagues).png) |
 | `family.ttl`       | Family       | Family social network with Paula Walker | [view](images/alice-contexts/alice(family).png) |
 | `possessions.ttl`  | Possession   | Wallet (driver's license + payment card); health insurance and SSN card | [view](images/alice-contexts/alice(possessions).png) |
