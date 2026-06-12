@@ -18,7 +18,7 @@
     owl:imports <https://purl.org/cco/staging> ;
     owl:imports <http://mee.foundation/ontologies/identity> ;
     dc:date "2026-06-01"^^xsd:date ;
-    owl:versionInfo "Version 3.0.37 - add p:copiedFrom annotation property"@en ;
+    owl:versionInfo "Version 3.0.38 - add rdfs:domain to p:copiedFrom"@en ;
     rdfs:label "Persona Ontology"@en ;
     rdfs:comment """Persona Ontology for the Mee Identity Agent.
 
@@ -272,6 +272,7 @@ p:copiedFrom rdf:type owl:AnnotationProperty ;
     rdfs:comment """Indicates the source context ontology from which a claim (designator or address)
                     was copied into this context. Applied to the blank node or named individual
                     carrying the copied claim. Value is the ontology IRI of the source context."""@en ;
+    rdfs:domain <https://purl.org/cco/ont00000958> ;  # Information Content Entity
     rdfs:range owl:Ontology .
 
 p:dyad rdf:type owl:ObjectProperty ;

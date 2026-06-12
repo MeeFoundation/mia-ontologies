@@ -50,7 +50,7 @@ This section describes the most fundamental properties and classes in the Person
 * `p:hasPersona` — links a `Person` (one's "selfness", essential individuality, or a sense of one's own unique personality and identity) to one of their context-specific `p:Persona` instances.
 * `i:hasIdentity` — links a `p:Persona` to a `i:PDNidentity` — the identifier used to communicate with this Persona over the Personal Data Network. Sub-property of CCO `designated by`.
 * `p:dyad` — links a `p:Persona` to a corresponding `p:Persona` about the same subject, but asserted by the other party rather than by the Self.
-* `p:copiedFrom` — annotates a claim (blank node designator or named individual) to indicate the source context ontology from which it was copied. Value is the source context's ontology IRI.
+* `p:copiedFrom` — annotates a claim (blank node designator or named individual) to indicate the source context ontology from which it was copied. Domain: `Information Content Entity` (`cco:ont00000958`); range: the source context's ontology IRI.
 
 **Classes**
 
