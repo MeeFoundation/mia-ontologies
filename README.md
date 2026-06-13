@@ -288,7 +288,7 @@ We now describe a worked example for a hypothetical Mia user, Alice Walker.
 
 Within Alice's self context is `:Alice_Walker-Self`, a `Person` entity. It is linked via `p:hasPersona` links to multiple `p:Personas`- each in its own context outside the self context container (`example/alice/alice(self)alice.ttl`).
 
-<p align="center"><img src="images/example/alice/alice(self).png" alt="Alice's self"></p>
+<p align="center"><img src="images/example/alice/alice(self)alice.png" alt="Alice's self"></p>
 
 Alice's `alice(self)alice.ttl` context also describes some of her physical characteristics shown below:
 
