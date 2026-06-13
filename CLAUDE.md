@@ -130,6 +130,8 @@ After any change to context files or the context map diagram, verify the followi
 
 **Check 2 — Filename convention**: Every context filename must follow `<about>(<context-name>)<asserted-by>[.(<parent-context>)]`. The `<asserted-by>` segment must be a real entity identifier (e.g. `alice`, `bob`, `paula`) — except for `c:Group` contexts, where it must be the literal string `members`. Where a parent segment `.(X)` is present, the parent context file must exist. The hierarchy implied by the segments must match the radial structure in `context-map.png`.
 
+**Check 3 — Orange arrows (hasMember)**: For every orange arrow from circle A to circle B in `context-map.png`, the source context file (A) must contain a `persona:hasSocialNetwork` individual of type `cco:ont00001183` (Social Network), and that network must have a `BFO_0000115` (has member part) triple pointing to the `p:Persona` individual defined in the target context file (B).
+
 ## Keeping Files in Sync
 
 Whenever changes are made to `alice(self)alice.ttl`, any context file, `persona.ttl`, or `context.ttl`, `persona-shacl.ttl` must be updated to match:
