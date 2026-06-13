@@ -10,33 +10,33 @@
 @prefix dc: <http://purl.org/dc/elements/1.1/> .
 @base <http://www.example.org/mia> .
 
-<http://www.example.org/mia/ssa> rdf:type owl:Ontology ;
+<http://www.example.org/mia/att> rdf:type owl:Ontology ;
     owl:imports <http://mee.foundation/ontologies/persona> ;
     owl:imports <http://mee.foundation/ontologies/context> ;
     dc:date "2026-06-01"^^xsd:date ;
-    owl:versionInfo "Version 1.0.7 - update self.ttl ref to alice(self)alice.ttl"@en ;
-    context:contextCategory context:Federal ;
+    owl:versionInfo "Version 1.0.8 - rename file to alice(X)alice.ttl pattern"@en ;
+    context:contextCategory context:Company ;
     context:assertedBy identity:Self ;
     context:subject identity:Self ;
-    context:name "Social Security Administration" ;
-    rdfs:label "Alice Walker - SSA Persona"@en ;
-    rdfs:comment """Alice Walker's SSA whoness — representing her in the context of her
-                    Social Security Administration record.
-                    Correlated from :Alice_Walker-Self in alice(self)alice.ttl.
+    context:name "AT&T" ;
+    rdfs:label "Alice Walker - AT&T Persona"@en ;
+    rdfs:comment """Alice Walker's AT&T whoness — representing her in the context of her
+                    AT&T phone account. Correlated from :Alice_Walker-Self in alice(self)alice.ttl.
 
-                    SSN: 123-45-6788"""@en .
+                    Phone: +15108149999"""@en .
 
 
 #################################################################
-#    Alice Walker - SSA Persona
+#    Alice Walker - AT&T Persona
 #################################################################
 
-:Alice_Walker-SSA rdf:type owl:NamedIndividual ,
+:Alice_Walker-ATT rdf:type owl:NamedIndividual ,
                            persona:Persona ;
-    rdfs:label "Alice Walker (SSA)"@en ;
-    rdfs:comment "Alice Walker's persona in the context of her Social Security Administration record."@en ;
+    rdfs:label "Alice Walker (AT&T)"@en ;
+    rdfs:comment "Alice Walker's persona in the context of her AT&T phone account."@en ;
 
-    <https://purl.org/cco/ont00001879> [  # designated by → SSN
-        rdf:type cco:ent00000008 ;
-        <https://purl.org/cco/ont00001765> "123-45-6788"
+    <https://purl.org/cco/ont00001879> [  # designated by → Phone
+        rdf:type cco:ent00000023 ;
+        <https://purl.org/cco/ont00001765> "+15108149999" ;
+        rdfs:comment "E.164 format (international standard)"@en
     ] .

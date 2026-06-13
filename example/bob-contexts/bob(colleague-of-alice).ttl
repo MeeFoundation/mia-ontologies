@@ -13,14 +13,14 @@
     owl:imports <http://mee.foundation/ontologies/persona> ;
     owl:imports <http://mee.foundation/ontologies/context> ;
     dc:date "2026-06-12"^^xsd:date ;
-    owl:versionInfo "Version 1.0.4 - rename contextCategory to context:Colleague"@en ;
+    owl:versionInfo "Version 1.0.5 - update alice-contexts ref to alice(colleagues)alice.ttl"@en ;
     context:contextCategory context:Colleague ;
     context:assertedBy :Alice_Walker-Self ;
     context:subject :Bob_Johnson-Bob-colleague-of-alice ;
     context:name "Bob" ;
     rdfs:label "Bob Johnson - Colleague of Alice Persona"@en ;
     rdfs:comment """Bob Johnson's persona in the context of his colleague relationship with Alice Walker,
-                    as asserted by Alice. Referenced from Alice's colleagues social network in alice-contexts/colleagues.ttl."""@en .
+                    as asserted by Alice. Referenced from Alice's colleagues social network in alice-contexts/alice(colleagues)alice.ttl."""@en .
 
 
 #################################################################

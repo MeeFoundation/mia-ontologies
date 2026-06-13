@@ -10,33 +10,32 @@
 @prefix dc: <http://purl.org/dc/elements/1.1/> .
 @base <http://www.example.org/mia> .
 
-<http://www.example.org/mia/att> rdf:type owl:Ontology ;
+<http://www.example.org/mia/google> rdf:type owl:Ontology ;
     owl:imports <http://mee.foundation/ontologies/persona> ;
     owl:imports <http://mee.foundation/ontologies/context> ;
     dc:date "2026-06-01"^^xsd:date ;
-    owl:versionInfo "Version 1.0.7 - update self.ttl ref to alice(self)alice.ttl"@en ;
+    owl:versionInfo "Version 1.0.8 - rename file to alice(X)alice.ttl pattern"@en ;
     context:contextCategory context:Company ;
     context:assertedBy identity:Self ;
     context:subject identity:Self ;
-    context:name "AT&T" ;
-    rdfs:label "Alice Walker - AT&T Persona"@en ;
-    rdfs:comment """Alice Walker's AT&T whoness — representing her in the context of her
-                    AT&T phone account. Correlated from :Alice_Walker-Self in alice(self)alice.ttl.
+    context:name "Google" ;
+    rdfs:label "Alice Walker - Google Persona"@en ;
+    rdfs:comment """Alice Walker's Google whoness — representing her in the context of her
+                    Google account. Correlated from :Alice_Walker-Self in alice(self)alice.ttl.
 
-                    Phone: +15108149999"""@en .
+                    Email: awalker@gmail.com"""@en .
 
 
 #################################################################
-#    Alice Walker - AT&T Persona
+#    Alice Walker - Google Persona
 #################################################################
 
-:Alice_Walker-ATT rdf:type owl:NamedIndividual ,
-                           persona:Persona ;
-    rdfs:label "Alice Walker (AT&T)"@en ;
-    rdfs:comment "Alice Walker's persona in the context of her AT&T phone account."@en ;
+:Alice_Walker-Google rdf:type owl:NamedIndividual ,
+                              persona:Persona ;
+    rdfs:label "Alice Walker (Google)"@en ;
+    rdfs:comment "Alice Walker's persona in the context of her Google account."@en ;
 
-    <https://purl.org/cco/ont00001879> [  # designated by → Phone
-        rdf:type cco:ent00000023 ;
-        <https://purl.org/cco/ont00001765> "+15108149999" ;
-        rdfs:comment "E.164 format (international standard)"@en
+    <https://purl.org/cco/ont00001879> [  # designated by → Email
+        rdf:type cco:ent00000024 ;
+        <https://purl.org/cco/ont00001765> "awalker@gmail.com"
     ] .

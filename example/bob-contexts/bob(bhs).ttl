@@ -14,14 +14,14 @@
     owl:imports <http://mee.foundation/ontologies/persona> ;
     owl:imports <http://mee.foundation/ontologies/context> ;
     dc:date "2026-06-12"^^xsd:date ;
-    owl:versionInfo "Version 1.0.0 - initial"@en ;
+    owl:versionInfo "Version 1.0.1 - update alice-contexts ref to alice(bhs)alice.ttl"@en ;
     context:contextCategory context:Group ;
     context:assertedBy identity:Self ;
     context:subject identity:Individual ;
     context:name "Boston Hub Society" ;
     rdfs:label "Bob Johnson - BHS Persona"@en ;
     rdfs:comment """Bob Johnson's profile int the BHS directory as seen in Alice's Mia.
-                    Referenced from Alice's BHS social network in alice-contexts/bhs.ttl."""@en .
+                    Referenced from Alice's BHS social network in alice-contexts/alice(bhs)alice.ttl."""@en .
 
 
 #################################################################

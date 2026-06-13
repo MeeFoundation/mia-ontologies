@@ -19,15 +19,15 @@ There are no build, compile, test, or lint commands. The files are Turtle (`.ttl
 | `context.ttl` | Context ontology — controlled vocabularies for classifying context files (`contextType`, `assertionType`, `subject`) |
 | `persona-shacl.ttl` | SHACL validation shapes — constraint rules for valid instance data (e.g., a BirthCertificate Persona must have FullName OR GivenName+FamilyName) |
 | `example/alice/alice(self)alice.ttl` | Alice Walker's selfness — the central Person instance; imports all context files |
-| `example/alice-contexts/citibank.ttl` | Alice's Citibank Persona — payment card |
-| `example/alice-contexts/boston.ttl` | Alice's Boston Persona — residential address 2020–2025 |
-| `example/alice-contexts/paradise.ttl` | Alice's Paradise Persona — current residential address |
-| `example/alice-contexts/family.ttl` | Alice's Family Persona — family relationships and social network |
-| `example/alice-contexts/colleagues.ttl` | Alice's Colleagues Persona — professional relationships and social network |
-| `example/alice-contexts/att.ttl` | Alice's AT&T Persona — phone number |
-| `example/alice-contexts/ssa.ttl` | Alice's SSA Persona — Social Security Number |
-| `example/alice-contexts/google.ttl` | Alice's Google Persona — email address |
-| `example/alice-contexts/texas-birth-certificate.ttl` | Alice's Texas Birth Certificate Persona — legal name record |
+| `example/alice-contexts/alice(citibank)alice.ttl` | Alice's Citibank Persona — payment card |
+| `example/alice-contexts/alice(boston)alice.ttl` | Alice's Boston Persona — residential address 2020–2025 |
+| `example/alice-contexts/alice(paradise)alice.ttl` | Alice's Paradise Persona — current residential address |
+| `example/alice-contexts/alice(family)alice.ttl` | Alice's Family Persona — family relationships and social network |
+| `example/alice-contexts/alice(colleagues)alice.ttl` | Alice's Colleagues Persona — professional relationships and social network |
+| `example/alice-contexts/alice(att)alice.ttl` | Alice's AT&T Persona — phone number |
+| `example/alice-contexts/alice(ssa)alice.ttl` | Alice's SSA Persona — Social Security Number |
+| `example/alice-contexts/alice(google)alice.ttl` | Alice's Google Persona — email address |
+| `example/alice-contexts/alice(tx-birth-cert)alice.ttl` | Alice's Texas Birth Certificate Persona — legal name record |
 | `example/paula-contexts/florida-birth-certificate.ttl` | Paula Walker's Florida Birth Certificate Persona — legal name record |
 | `project_files/` | Reference materials: imported domain ontologies (PersonOntology.ttl, AddressOntology.ttl, StagingOntology.ttl), BFO/CCO source files, PDFs, docs |
 
@@ -42,15 +42,15 @@ example/alice/alice(self)alice.ttl (selfness)
   │             ├─ imports → AddressOntology.ttl
   │             └─ imports → StagingOntology.ttl
   │                           └─ imports → BFO terms
-  ├─ imports → example/alice-contexts/citibank.ttl
-  ├─ imports → example/alice-contexts/boston.ttl
-  ├─ imports → example/alice-contexts/paradise.ttl
-  ├─ imports → example/alice-contexts/family.ttl
-  ├─ imports → example/alice-contexts/colleagues.ttl
-  ├─ imports → example/alice-contexts/att.ttl
-  ├─ imports → example/alice-contexts/ssa.ttl
-  ├─ imports → example/alice-contexts/google.ttl
-  ├─ imports → example/alice-contexts/texas-birth-certificate.ttl
+  ├─ imports → example/alice-contexts/alice(citibank)alice.ttl
+  ├─ imports → example/alice-contexts/alice(boston)alice.ttl
+  ├─ imports → example/alice-contexts/alice(paradise)alice.ttl
+  ├─ imports → example/alice-contexts/alice(family)alice.ttl
+  ├─ imports → example/alice-contexts/alice(colleagues)alice.ttl
+  ├─ imports → example/alice-contexts/alice(att)alice.ttl
+  ├─ imports → example/alice-contexts/alice(ssa)alice.ttl
+  ├─ imports → example/alice-contexts/alice(google)alice.ttl
+  ├─ imports → example/alice-contexts/alice(tx-birth-cert)alice.ttl
   └─ imports → example/paula-contexts/florida-birth-certificate.ttl
 
 persona-shacl.ttl

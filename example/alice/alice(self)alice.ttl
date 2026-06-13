@@ -27,7 +27,7 @@
     owl:imports <http://www.example.org/mia/paula-colleague-of-alice> ;
     owl:imports <http://www.example.org/mia/bob-colleague-of-alice> ;
     dc:date "2026-06-12"^^xsd:date ;
-    owl:versionInfo "Version 3.0.48 - rename file from self.ttl to alice(self)alice.ttl"@en ;
+    owl:versionInfo "Version 3.0.49 - update context file refs to alice(X)alice.ttl pattern"@en ;
     rdfs:label "Alice Walker - Selfness"@en ;
     rdfs:comment """Alice Walker's selfness — the essential individuality and sense of selfhood from which
                     context-specific Personas (whonesses) are correlated.
@@ -39,17 +39,17 @@
                     - Mother: Paula Walker
 
                     Correlated Personas:
-                    - :Alice_Walker-Citibank  (citibank.ttl)  — Citibank financial relationship
-                    - :Alice_Walker-Boston    (boston.ttl)    — Boston residence (2020-2025)
-                    - :Alice_Walker-Paradise  (paradise.ttl)  — Paradise residence (2025-present)
-                    - :Alice_Walker-Family      (family.ttl)      — family relationships
-                    - :Alice_Walker-Colleagues (colleagues.ttl) — colleague relationships
-                    - :Alice_Walker-ATT        (att.ttl)        — AT&T phone account
-                    - :Alice_Walker-SSA        (ssa.ttl)        — Social Security Administration
-                    - :Alice_Walker-Google                (google.ttl)               — Google account (Gmail)
-                    - :Alice_Walker-TexasBirthCertificate (texas-birth-certificate.ttl) — legal name record
+                    - :Alice_Walker-Citibank  (alice(citibank)alice.ttl)  — Citibank financial relationship
+                    - :Alice_Walker-Boston    (alice(boston)alice.ttl)    — Boston residence (2020-2025)
+                    - :Alice_Walker-Paradise  (alice(paradise)alice.ttl)  — Paradise residence (2025-present)
+                    - :Alice_Walker-Family      (alice(family)alice.ttl)      — family relationships
+                    - :Alice_Walker-Colleagues (alice(colleagues)alice.ttl) — colleague relationships
+                    - :Alice_Walker-ATT        (alice(att)alice.ttl)        — AT&T phone account
+                    - :Alice_Walker-SSA        (alice(ssa)alice.ttl)        — Social Security Administration
+                    - :Alice_Walker-Google                (alice(google)alice.ttl)               — Google account (Gmail)
+                    - :Alice_Walker-TexasBirthCertificate (alice(tx-birth-cert)alice.ttl) — legal name record
                     - :Alice_Walker-Possessions           (belongings.ttl)              — wallet, driver's license, health insurance card
-                    - :Alice_Walker-BHS                  (bhs.ttl)                     — BHS group profile (address, phone, email)
+                    - :Alice_Walker-BHS                  (alice(bhs)alice.ttl)                     — BHS group profile (address, phone, email)
 
                     Bob Johnson (BHS member):
                     - :Bob_Johnson-BHS                   (bob-contexts/bhs.ttl)        — BHS member persona

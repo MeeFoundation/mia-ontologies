@@ -313,29 +313,29 @@ The contexts in the table below are *about* Alice and thus they have a c:subject
 
 | #  | Context file                                                  | Context type | Key data                                                         | Image                                                              |
 |--- |:--------------------------------------------------------------|:-------------|:-----------------------------------------------------------------|:-------------------------------------------------------------------|
-| 11 | [google.ttl](example/alice-contexts/google.ttl)               | Company      | Gmail address                                                    | [view](images/example/alice-contexts/alice(google).png)            |
-| 12 | [att.ttl](example/alice-contexts/att.ttl)                     | Company      | Phone number                                                     | [view](images/example/alice-contexts/alice(att).png)               |
-| 13 | [tx-birth-cert.ttl](example/alice-contexts/tx-birth-cert.ttl) | State        | Legal names, maiden name                                         | [view](images/example/alice-contexts/alice(tx-birth-cert).png)     |
-| 14 | [paradise.ttl](example/alice-contexts/paradise.ttl)           | Municipality | Current address — Paradise, CA (2025–present)                    | [view](images/example/alice-contexts/alice(paradise).png)          |
-| 15 | [boston.ttl](example/alice-contexts/boston.ttl)               | Municipality | Previous address — Boston, MA (2020–2025) with temporal interval | [view](images/example/alice-contexts/alice(boston).png)            |
-| 16 | [ssa.ttl](example/alice-contexts/ssa.ttl)                     | Federal      | Social security number (SSN)                                     | [view](images/example/alice-contexts/alice(ssa).png)               |
-| 7  | [bhs.ttl](example/alice-contexts/bhs.ttl) 🆕                  | Group        | BHS profile includes email, phone and current address            | [view](images/example/alice-contexts/alice(bhs).png)               |
-| 17 | [colleagues.ttl](example/alice-contexts/colleagues.ttl)       | Colleagues   | Collection of colleagues (including Bob)                         | [view](images/example/alice-contexts/alice(colleagues).png)        |
-| 18 | [family.ttl](example/alice-contexts/family.ttl)               | Family       | Collection of family members                                     | [view](images/example/alice-contexts/alice(family).png)            |
-| 19 | [possessions.ttl](example/alice-contexts/possessions.ttl)     | Possession   | Wallet (driver's license + payment card); health ins., SSN card  | [view](images/example/alice-contexts/alice(possessions).png)       |
+| 11 | [alice(google)alice.ttl](example/alice-contexts/alice(google)alice.ttl)               | Company      | Gmail address                                                    | [view](images/example/alice-contexts/alice(google).png)            |
+| 12 | [alice(att)alice.ttl](example/alice-contexts/alice(att)alice.ttl)                     | Company      | Phone number                                                     | [view](images/example/alice-contexts/alice(att).png)               |
+| 13 | [alice(tx-birth-cert)alice.ttl](example/alice-contexts/alice(tx-birth-cert)alice.ttl) | State        | Legal names, maiden name                                         | [view](images/example/alice-contexts/alice(tx-birth-cert).png)     |
+| 14 | [alice(paradise)alice.ttl](example/alice-contexts/alice(paradise)alice.ttl)           | Municipality | Current address — Paradise, CA (2025–present)                    | [view](images/example/alice-contexts/alice(paradise).png)          |
+| 15 | [alice(boston)alice.ttl](example/alice-contexts/alice(boston)alice.ttl)               | Municipality | Previous address — Boston, MA (2020–2025) with temporal interval | [view](images/example/alice-contexts/alice(boston).png)            |
+| 16 | [alice(ssa)alice.ttl](example/alice-contexts/alice(ssa)alice.ttl)                     | Federal      | Social security number (SSN)                                     | [view](images/example/alice-contexts/alice(ssa).png)               |
+| 7  | [alice(bhs)alice.ttl](example/alice-contexts/alice(bhs)alice.ttl) 🆕                  | Group        | BHS profile includes email, phone and current address            | [view](images/example/alice-contexts/alice(bhs).png)               |
+| 17 | [alice(colleagues)alice.ttl](example/alice-contexts/alice(colleagues)alice.ttl)       | Colleagues   | Collection of colleagues (including Bob)                         | [view](images/example/alice-contexts/alice(colleagues).png)        |
+| 18 | [alice(family)alice.ttl](example/alice-contexts/alice(family)alice.ttl)               | Family       | Collection of family members                                     | [view](images/example/alice-contexts/alice(family).png)            |
+| 19 | [alice(possessions)alice.ttl](example/alice-contexts/alice(possessions)alice.ttl)     | Possession   | Wallet (driver's license + payment card); health ins., SSN card  | [view](images/example/alice-contexts/alice(possessions).png)       |
 | 20 | `acme.ttl` (TODO)                                             | Employee     | Colleagues, Customers, Projects                                  |                                                                    |
 
 The following table lists contexts that are *about* Alice, but asserted by others. The Citibank context is asserted by the Citibank organization; it makes claims about Alice. 
 
 | #  | Context file                                                  | Context type | Key data                                                         | Image                                                              |
 |--- |:--------------------------------------------------------------|:-------------|:-----------------------------------------------------------------|:-------------------------------------------------------------------|
-| 10  | [citibank.ttl](example/alice-contexts/citibank.ttl)          | Company      | Debit card                                                       | [view](images/example/alice-contexts/alice(citibank).png)          |
+| 10  | [alice(citibank)alice.ttl](example/alice-contexts/alice(citibank)alice.ttl)          | Company      | Debit card                                                       | [view](images/example/alice-contexts/alice(citibank).png)          |
 
 The following table lists contexts that are about other people (Paula and Bob). Bob's contexts are in example/bob-contexts and Paula's are in example/paula-contexts.
 
 | #  | Context file                                                  | Context type | Key data                                                         | Image                                                              |
 |--- |:--------------------------------------------------------------|:-------------|:-----------------------------------------------------------------|:-------------------------------------------------------------------|
-| 9  | [bhs.ttl](example/bob-contexts/bob(bhs).ttl)                  | Group        | Bob's BHS profile (email, phone, address) asserted by himself    | [view](images/example/bob-contexts/bob(bhs).png)                   |
+| 9  | [alice(bhs)alice.ttl](example/bob-contexts/bob(bhs).ttl)                  | Group        | Bob's BHS profile (email, phone, address) asserted by himself    | [view](images/example/bob-contexts/bob(bhs).png)                   |
 | 5  | [bob(colleague...)](example/bob-contexts/bob(colleague-of-alice).ttl) | Colleagues | Personal notes Alice has made about her colleague Bob | [view](images/example/bob-contexts/bob(colleague-of-alice).png) |
 | 6 | in progress...
 
@@ -346,8 +346,8 @@ The following table lists contexts that are about other people (Paula and Bob). 
 `draw.py` generates a Graphviz diagram from any context `.ttl` file:
 
 ```bash
-python3 draw.py example/alice-contexts/citibank.ttl      # → example/alice-contexts/citibank.png
-python3 draw.py example/alice-contexts/paradise.ttl      # → example/alice-contexts/paradise.png
+python3 draw.py example/alice-contexts/alice(citibank)alice.ttl      # → example/alice-contexts/citibank.png
+python3 draw.py example/alice-contexts/alice(paradise)alice.ttl      # → example/alice-contexts/paradise.png
 ```
 
 **Dependencies** (one-time setup):
@@ -367,13 +367,13 @@ riot --output=turtle \
   project_files/bfo-core.ttl project_files/PersonOntology.ttl \
   project_files/AddressOntology.ttl project_files/StagingOntology.ttl \
   persona.ttl context.ttl "example/alice/alice(self)alice.ttl" \
-  example/alice-contexts/citibank.ttl example/alice-contexts/boston.ttl \
-  example/alice-contexts/paradise.ttl example/alice-contexts/family.ttl \
-  example/alice-contexts/colleagues.ttl example/alice-contexts/att.ttl \
-  example/alice-contexts/ssa.ttl example/alice-contexts/google.ttl \
-  example/alice-contexts/texas-birth-certificate.ttl \
+  example/alice-contexts/alice(citibank)alice.ttl example/alice-contexts/alice(boston)alice.ttl \
+  example/alice-contexts/alice(paradise)alice.ttl example/alice-contexts/alice(family)alice.ttl \
+  example/alice-contexts/alice(colleagues)alice.ttl example/alice-contexts/alice(att)alice.ttl \
+  example/alice-contexts/alice(ssa)alice.ttl example/alice-contexts/alice(google)alice.ttl \
+  example/alice-contexts/alice(tx-birth-cert)alice.ttl \
   example/paula-contexts/florida-birth-certificate.ttl \
-  example/alice-contexts/possessions.ttl \
+  example/alice-contexts/alice(possessions)alice.ttl \
   2>/dev/null > /tmp/mia-merged.ttl
 
 grep -v 'owl:imports' persona-shacl.ttl > /tmp/mia-shapes.ttl
