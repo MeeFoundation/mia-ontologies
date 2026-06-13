@@ -13,7 +13,7 @@
     owl:imports <http://mee.foundation/ontologies/persona> ;
     owl:imports <http://mee.foundation/ontologies/context> ;
     dc:date "2026-06-12"^^xsd:date ;
-    owl:versionInfo "Version 1.0.1 - rename contextCategory to context:Colleague"@en ;
+    owl:versionInfo "Version 1.0.2 - update self.ttl ref to alice(self)alice.ttl"@en ;
     context:contextCategory context:Colleague ;
     context:assertedBy identity:Self ;
     context:subject identity:Individual ;
@@ -21,7 +21,7 @@
     rdfs:label "Paula Walker - Colleague of Alice Persona"@en ;
     rdfs:comment """Paula Walker's colleague whoness — representing her in the context of her
                     colleague relationship with Alice Walker.
-                    Correlated from :Paula_Walker-Self in self.ttl."""@en .
+                    Correlated from :Paula_Walker-Self in alice(self)alice.ttl."""@en .
 
 
 #################################################################

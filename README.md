@@ -146,7 +146,7 @@ This section describes properties and classes related to a person's interactions
 
 This section describes a few details related to modeling names and addresses.
 
-**Peer name pattern**: All name types (FullName, GivenName, FamilyName, AlternateName) connect directly to a `Person` or `p:Persona` via `designated by` (`ont00001879`). They are siblings, not nested under a PersonName parent. Legal names belong to `p:BirthCertificate` `p:Persona` instances; a preferred/goes-by name lives in `self.ttl` since it applies across all contexts.
+**Peer name pattern**: All name types (FullName, GivenName, FamilyName, AlternateName) connect directly to a `Person` or `p:Persona` via `designated by` (`ont00001879`). They are siblings, not nested under a PersonName parent. Legal names belong to `p:BirthCertificate` `p:Persona` instances; a preferred/goes-by name lives in `alice(self)alice.ttl` since it applies across all contexts.
 
 **Address history**: Each address `p:Persona` carries a USPostalAddress and an `AddressDesignation` with a `TemporalInterval` (start date required; no end date = current address).
 
@@ -282,11 +282,11 @@ The Identity ontology is used to describe the kinds of identities that Mia can c
 
 We now describe a worked example for a hypothetical Mia user, Alice Walker.
 
-Within Alice's self context is `:Alice_Walker-Self`, a `Person` entity. It is linked via `p:hasPersona` links to multiple `p:Personas`- each in its own context outside the self context container (`example/alice/self.ttl`).
+Within Alice's self context is `:Alice_Walker-Self`, a `Person` entity. It is linked via `p:hasPersona` links to multiple `p:Personas`- each in its own context outside the self context container (`example/alice/alice(self)alice.ttl`).
 
 <p align="center"><img src="images/example/alice/alice(self).png" alt="Alice's self"></p>
 
-Alice's `self.ttl` context also describes some of her physical characteristics shown below:
+Alice's `alice(self)alice.ttl` context also describes some of her physical characteristics shown below:
 
 <p align="center"><img src="images/example/alice/alice(self)+physical.png" alt="Alice's physical characteristics"></p>
 
@@ -366,7 +366,7 @@ Validation requires Apache Jena. The following validates Alice Walker's example 
 riot --output=turtle \
   project_files/bfo-core.ttl project_files/PersonOntology.ttl \
   project_files/AddressOntology.ttl project_files/StagingOntology.ttl \
-  persona.ttl context.ttl example/alice/self.ttl \
+  persona.ttl context.ttl "example/alice/alice(self)alice.ttl" \
   example/alice-contexts/citibank.ttl example/alice-contexts/boston.ttl \
   example/alice-contexts/paradise.ttl example/alice-contexts/family.ttl \
   example/alice-contexts/colleagues.ttl example/alice-contexts/att.ttl \

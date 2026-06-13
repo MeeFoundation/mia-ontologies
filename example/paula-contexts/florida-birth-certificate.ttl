@@ -15,7 +15,7 @@
     owl:imports <http://mee.foundation/ontologies/context> ;
     owl:imports <http://mee.foundation/ontologies/persona-templates> ;
     dc:date "2026-06-01"^^xsd:date ;
-    owl:versionInfo "Version 1.0.10 - import context-templates for p:BirthCertificate"@en ;
+    owl:versionInfo "Version 1.0.11 - update self.ttl ref to alice(self)alice.ttl"@en ;
     context:contextCategory context:State ;
     context:assertedBy identity:Self ;
     context:subject identity:Individual ;
@@ -23,7 +23,7 @@
     rdfs:label "Paula Walker - Florida Birth Certificate Persona"@en ;
     rdfs:comment """Paula Walker's Florida birth certificate whoness — representing her legal
                     name record as issued by the State of Florida.
-                    Correlated from :Paula_Walker-Self in self.ttl."""@en .
+                    Correlated from :Paula_Walker-Self in alice(self)alice.ttl."""@en .
 
 
 #################################################################

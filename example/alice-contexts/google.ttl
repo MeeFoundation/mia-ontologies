@@ -14,14 +14,14 @@
     owl:imports <http://mee.foundation/ontologies/persona> ;
     owl:imports <http://mee.foundation/ontologies/context> ;
     dc:date "2026-06-01"^^xsd:date ;
-    owl:versionInfo "Version 1.0.6 - add context:name"@en ;
+    owl:versionInfo "Version 1.0.7 - update self.ttl ref to alice(self)alice.ttl"@en ;
     context:contextCategory context:Company ;
     context:assertedBy identity:Self ;
     context:subject identity:Self ;
     context:name "Google" ;
     rdfs:label "Alice Walker - Google Persona"@en ;
     rdfs:comment """Alice Walker's Google whoness — representing her in the context of her
-                    Google account. Correlated from :Alice_Walker-Self in self.ttl.
+                    Google account. Correlated from :Alice_Walker-Self in alice(self)alice.ttl.
 
                     Email: awalker@gmail.com"""@en .
 

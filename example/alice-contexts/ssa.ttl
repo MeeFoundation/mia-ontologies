@@ -14,7 +14,7 @@
     owl:imports <http://mee.foundation/ontologies/persona> ;
     owl:imports <http://mee.foundation/ontologies/context> ;
     dc:date "2026-06-01"^^xsd:date ;
-    owl:versionInfo "Version 1.0.6 - add context:name"@en ;
+    owl:versionInfo "Version 1.0.7 - update self.ttl ref to alice(self)alice.ttl"@en ;
     context:contextCategory context:Federal ;
     context:assertedBy identity:Self ;
     context:subject identity:Self ;
@@ -22,7 +22,7 @@
     rdfs:label "Alice Walker - SSA Persona"@en ;
     rdfs:comment """Alice Walker's SSA whoness — representing her in the context of her
                     Social Security Administration record.
-                    Correlated from :Alice_Walker-Self in self.ttl.
+                    Correlated from :Alice_Walker-Self in alice(self)alice.ttl.
 
                     SSN: 123-45-6788"""@en .
 

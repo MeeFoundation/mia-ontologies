@@ -18,7 +18,7 @@ There are no build, compile, test, or lint commands. The files are Turtle (`.ttl
 | `persona.ttl` | Persona ontology — imports domain ontologies, annotates which classes/properties are required vs. optional for Mee, defines Mia-specific classes and properties |
 | `context.ttl` | Context ontology — controlled vocabularies for classifying context files (`contextType`, `assertionType`, `subject`) |
 | `persona-shacl.ttl` | SHACL validation shapes — constraint rules for valid instance data (e.g., a BirthCertificate Persona must have FullName OR GivenName+FamilyName) |
-| `example/alice/self.ttl` | Alice Walker's selfness — the central Person instance; imports all context files |
+| `example/alice/alice(self)alice.ttl` | Alice Walker's selfness — the central Person instance; imports all context files |
 | `example/alice-contexts/citibank.ttl` | Alice's Citibank Persona — payment card |
 | `example/alice-contexts/boston.ttl` | Alice's Boston Persona — residential address 2020–2025 |
 | `example/alice-contexts/paradise.ttl` | Alice's Paradise Persona — current residential address |
@@ -36,7 +36,7 @@ There are no build, compile, test, or lint commands. The files are Turtle (`.ttl
 ### Three-Layer Design
 
 ```
-example/alice/self.ttl (selfness)
+example/alice/alice(self)alice.ttl (selfness)
   ├─ imports → persona.ttl (application profile)
   │             ├─ imports → PersonOntology.ttl
   │             ├─ imports → AddressOntology.ttl
@@ -54,7 +54,7 @@ example/alice/self.ttl (selfness)
   └─ imports → example/paula-contexts/florida-birth-certificate.ttl
 
 persona-shacl.ttl
-  └─ imports → example/alice/self.ttl (which transitively imports everything above)
+  └─ imports → example/alice/alice(self)alice.ttl (which transitively imports everything above)
 ```
 
 1. **Foundation**: BFO (Basic Formal Ontology) — provides temporal modeling (`TemporalInterval`) and core relations
@@ -65,7 +65,7 @@ persona-shacl.ttl
 
 ### Key Architectural Patterns
 
-**Selfness and Personas**: A Person's selfness (`self.ttl`) is the central identity individual. It carries only properties intrinsic to the person (physical characteristics, parent-child relationships). All other data — names, identifiers, addresses, payment cards — belongs to context-specific Personas, each in its own file.
+**Selfness and Personas**: A Person's selfness (`alice(self)alice.ttl`) is the central identity individual. It carries only properties intrinsic to the person (physical characteristics, parent-child relationships). All other data — names, identifiers, addresses, payment cards — belongs to context-specific Personas, each in its own file.
 
 **Peer name pattern** (not hierarchical): All name types (FullName, GivenName, FamilyName, AlternateName) connect directly to a Persona via `ont00001879` (designated by). They are siblings, not nested. Names belong to BirthCertificate Personas, not to the selfness.
 
@@ -85,7 +85,7 @@ Classes and properties use numeric IRIs. The most common:
 
 ## Versioning
 
-Before committing any change to `self.ttl`, any context file, `persona.ttl`, `context.ttl`, or `persona-shacl.ttl`, increment the **minor version number** in that file's `owl:versionInfo` annotation and update the description to summarise the change. For example:
+Before committing any change to `alice(self)alice.ttl`, any context file, `persona.ttl`, `context.ttl`, or `persona-shacl.ttl`, increment the **minor version number** in that file's `owl:versionInfo` annotation and update the description to summarise the change. For example:
 
 ```
 owl:versionInfo "Version 3.0.3 - added social network"@en
@@ -97,9 +97,9 @@ owl:versionInfo "Version 3.0.4 - added birth date"@en
 
 ## Keeping Files in Sync
 
-Whenever changes are made to `self.ttl`, any context file, `persona.ttl`, or `context.ttl`, `persona-shacl.ttl` must be updated to match:
+Whenever changes are made to `alice(self)alice.ttl`, any context file, `persona.ttl`, or `context.ttl`, `persona-shacl.ttl` must be updated to match:
 
-- **New property usage in a context file or `self.ttl`** (e.g., a new physical characteristic, relationship, or identifier added to a Person or Persona instance) → add or extend a SHACL shape to validate that property on the relevant target class.
+- **New property usage in a context file or `alice(self)alice.ttl`** (e.g., a new physical characteristic, relationship, or identifier added to a Person or Persona instance) → add or extend a SHACL shape to validate that property on the relevant target class.
 - **New class or property defined in `persona.ttl`** (e.g., `persona:hasSocialNetwork`) → add a SHACL shape that constrains how instances of the domain class may or must use it.
 
 Always update `persona-shacl.ttl` in the same edit session as the change that triggers it.
@@ -108,7 +108,7 @@ Always update `persona-shacl.ttl` in the same edit session as the change that tr
 
 **SHACL validation** (e.g., using Apache Jena's `shaclvalidate`):
 ```bash
-shaclvalidate -datafile example/alice/self.ttl -shapesfile persona-shacl.ttl
+shaclvalidate -datafile example/alice/alice(self)alice.ttl -shapesfile persona-shacl.ttl
 ```
 
 **Protégé**: Load `persona.ttl`; Protégé will import the domain ontologies via IRI resolution. Use the reasoner (HermiT/Pellet) to check consistency.
