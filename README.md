@@ -318,7 +318,7 @@ The contexts in the table below are *about* Alice and asserted *by* Alice. The .
 | 17 | [alice(bob)alice.ttl](example/alice-contexts/alice(bob)alice.ttl)                     | Person       | Alice's 1:1 context with Bob; social network with Bob as member  | [view](images/example/alice-contexts/alice(bob)alice.png)|
 | 18 | [alice(family)alice.ttl](example/alice-contexts/alice(family)alice.ttl)               | Family       | Family social network with Paula as member                       | [view](images/example/alice-contexts/alice(family)alice.png) |
 | 19 | [alice(possessions)alice.ttl](example/alice-contexts/alice(possessions)alice.ttl)     | Possession   | Wallet (driver's license + payment card); health ins., SSN card  | [view](images/example/alice-contexts/alice(possessions)alice.png) |
-| 20 | [alice(acme)alice.ttl](example/alice-contexts/alice(acme)alice.ttl)                   | Employee     | Acme employee context; social network with Paula as member       | *(todo)*|
+| 20 | [alice(acme)alice.ttl](example/alice-contexts/alice(acme)alice.ttl)                   | Employee     | Acme employee context; company email; works with Paula      | [view](images/example/alice-contexts/alice(acme)alice.png)|
 
 The following table lists contexts that are *about* Alice but asserted by others.
 
