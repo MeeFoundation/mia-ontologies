@@ -1,0 +1,49 @@
+@prefix : <http://www.example.org/mia#> .
+@prefix persona: <http://mee.foundation/ontologies/persona#> .
+@prefix context: <http://mee.foundation/ontologies/context#> .
+@prefix identity: <http://mee.foundation/ontologies/identity#> .
+@prefix cco: <https://purl.org/cco/> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix dc: <http://purl.org/dc/elements/1.1/> .
+@base <http://www.example.org/mia> .
+
+# diagram label = 3
+
+<http://www.example.org/mia/paula-family-paula> rdf:type owl:Ontology ;
+    owl:imports <http://mee.foundation/ontologies/persona> ;
+    owl:imports <http://mee.foundation/ontologies/context> ;
+    dc:date "2026-06-12"^^xsd:date ;
+    owl:versionInfo "Version 1.0.0 - initial"@en ;
+    context:contextCategory context:Family ;
+    context:assertedBy :Paula_Walker-Self ;
+    context:subject :Paula_Walker-Self ;
+    context:name "Paula" ;
+    rdfs:label "Paula Walker - Family Persona (Paula's own)"@en ;
+    rdfs:comment """Paula Walker's own self-asserted family persona.
+                    Paired (dyad) with paula(paula)alice.(family).ttl — Alice's view of Paula in the family context.
+                    Correlated from :Paula_Walker-Self in paula(self)paula.ttl."""@en .
+
+
+#################################################################
+#    Paula Walker - Family Persona (self-asserted)
+#################################################################
+
+:Paula_Walker-Family rdf:type owl:NamedIndividual ,
+                              persona:Persona ;
+    rdfs:label "Paula Walker (Family)"@en ;
+    rdfs:comment "Paula Walker's self-asserted family persona."@en ;
+
+    persona:hasSocialNetwork :Paula_Family_Network .
+
+
+#################################################################
+#    Paula's Family Social Network
+#################################################################
+
+:Paula_Family_Network rdf:type owl:NamedIndividual ,
+                               cco:ont00001183 ;  # Social Network
+    rdfs:label "Paula Walker's family connections"@en ;
+    <http://purl.obolibrary.org/obo/BFO_0000115> :Alice_Walker-Family .  # has member part
