@@ -8,22 +8,46 @@
 
 <http://mee.foundation/ontologies/persona-templates> rdf:type owl:Ontology ;
     dc:date "2026-06-13"^^xsd:date ;
-    owl:versionInfo "Version 1.0.1 - remove back-import of persona (persona.ttl now imports this file)"@en ;
+    owl:versionInfo "Version 1.0.3 - introduce PersonaTemplate as intermediate superclass"@en ;
     rdfs:label "Persona Templates Ontology"@en ;
     rdfs:comment """Reusable p:Persona subtypes that are too specific for persona.ttl
                     but shared across multiple context files.
 
-                    Currently defines:
-                    - p:BirthCertificate: a Persona carrying a legal birth name record"""@en .
+                    Class hierarchy:
+                    p:Persona → p:PersonaTemplate → p:BirthCertificate
+                                                  → p:BusinessCard"""@en .
 
 
 #################################################################
-#    BirthCertificate Persona — a Persona subtype with name constraints
+#    PersonaTemplate — abstract superclass for all template subtypes
+#################################################################
+
+persona:PersonaTemplate rdf:type owl:Class ;
+    rdfs:subClassOf persona:Persona ;
+    rdfs:label "Persona Template"@en ;
+    rdfs:comment """Abstract superclass for Persona subtypes defined in this file.
+                    Subclass of p:Persona; all concrete template types subclass this."""@en .
+
+
+#################################################################
+#    BirthCertificate Persona
 #################################################################
 
 persona:BirthCertificate rdf:type owl:Class ;
-    rdfs:subClassOf persona:Persona ;
+    rdfs:subClassOf persona:PersonaTemplate ;
     rdfs:label "Birth Certificate Persona"@en ;
     rdfs:comment """A Persona whose purpose is to carry a person's legal birth certificate
-                    name record. Subclass of Persona so that SHACL can target it directly
-                    with sh:targetClass to enforce name constraints."""@en .
+                    name record. Subclass of PersonaTemplate so that SHACL can target it
+                    directly with sh:targetClass to enforce name constraints."""@en .
+
+
+#################################################################
+#    BusinessCard Persona
+#################################################################
+
+persona:BusinessCard rdf:type owl:Class ;
+    rdfs:subClassOf persona:PersonaTemplate ;
+    rdfs:label "Business Card Persona"@en ;
+    rdfs:comment """A Persona whose purpose is to carry the identity claims printed on a
+                    business card: given name, family name, email address, telephone number,
+                    and optionally an employer organisation name."""@en .

@@ -54,20 +54,22 @@ This section describes the most fundamental properties and classes in the Person
 * `i:hasIdentity` — links a `p:Persona` to a `i:PDNidentity` — the identifier used to communicate with this Persona over the Personal Data Network. Sub-property of CCO `designated by`.
 * `p:dyad` — links a `p:Persona` to a corresponding `p:Persona` about the same subject, but asserted by the other party rather than by the user.
 
-**Other Properties**
 
+### Persona Templates
 
-### Persona templates
-
-This section describes a `p:Persona` subtypes that can be thought of as templates for the personas used in specific kinds of contexts. We have at present one example:
+`p:PersonaTemplate` is an abstract subclass of `p:Persona` that serves as the common superclass for all reusable, context-type-specific Persona subtypes. These subtypes are defined in `persona-templates.ttl` and have corresponding SHACL shapes in `persona-templates-shacl.ttl` (imported by `persona-shacl.ttl`).
 
 <p align="center"><img src="images/persona-ontology/persona-templates.png" alt="persona templates model"></p>
 
-* `p:BirthCertificate` — a `p:Persona` subtype whose purpose is to carry a person's legal birth name record as issued by a state agency.
+The two currently defined subclasses are:
 
-Each template class has a corresponding SHACL shape in `persona-shacl.ttl` (`:BirthCertificatePersonaShape`) that enforces the cardinality and optionality rules for its name properties. For `p:BirthCertificate` the rules are:
-- **Required**: either a `FullName` designator **or** both a `GivenName` and a `FamilyName` designator (via `designated by`, `ont00001879`) — these alternatives are expressed with `sh:or`.
-- **Optional**: `AdditionalName` (middle name), `AlternateName` (e.g. maiden name), `Nickname`, and `Legal Name` designators are permitted but not required.
+* `p:BirthCertificate` — carries a person's legal birth name record as issued by a state agency. SHACL shape `:BirthCertificatePersonaShape` enforces:
+  - **Required**: either a `FullName` designator **or** both a `GivenName` and a `FamilyName` designator (via `designated by`, `ont00001879`) — expressed with `sh:or`.
+  - **Optional**: `AdditionalName` (middle name), `AlternateName` (e.g. maiden name), `Nickname`, and `Legal Name` designators.
+
+* `p:BusinessCard` — carries the identity claims printed on a business card. SHACL shape `:BusinessCardShape` enforces:
+  - **Required (1..1)**: `GivenName`, `FamilyName`, `Email`, and `TelephoneNumber` designators.
+  - **Optional (0..1)**: `OrganizationName` designator (employer name).
 
 ### Social classes and properties 
 
@@ -138,17 +140,20 @@ This section describes properties and classes related to a person's interactions
 
 This section describes a few details related to modeling names and addresses.
 
-**Peer name pattern**: All name types (FullName, GivenName, FamilyName, AlternateName) connect directly to a `Person` or `p:Persona` via `designated by` (`ont00001879`). They are siblings, not nested under a PersonName parent. Legal names belong to `p:BirthCertificate` `p:Persona` instances; a preferred/goes-by name lives in `alice(self)alice.ttl` since it applies across all contexts.
+**Peer name pattern**: All name types (FullName, GivenName, FamilyName, AlternateName) connect directly to a `Person` or `p:Persona` via `designated by` (`ont00001879`). They are siblings, not nested under a PersonName parent. Legal names belong to `p:BirthCertificate` instances; a preferred/goes-by name lives in `alice(self)alice.ttl` since it applies across all contexts.
 
 **Address history**: Each address `p:Persona` carries a USPostalAddress and an `AddressDesignation` with a `TemporalInterval` (start date required; no end date = current address).
 
 ### Persona Ontology Files
 
 - **`persona.ttl`** — The Persona ontology. Imports the domain ontologies above and documents which classes and properties Mia uses (required vs. optional). Defines Mia-specific extension properties (`p:hasPersona`, `p:hasSocialNetwork`, `p:hasPaymentCard`, `p:hasBankAccount`, etc.) and the core Persona data model classes (`p:Persona`, physical card classes, banking classes, and others).
-- **`persona-templates.ttl`** — Reusable `p:Persona` subtypes that are too specific for `persona.ttl` but shared across multiple context files. Currently defines `p:BirthCertificate`. Imported by context files that need it.
+- **`persona-templates.ttl`** — Defines `p:PersonaTemplate` (abstract subclass of `p:Persona`) and the two concrete subtypes `p:BirthCertificate` and `p:BusinessCard`. Imported by `persona.ttl` so all context files inherit these classes transitively.
 
-- **`persona-shacl.ttl`** — SHACL constraint rules defining the shape `p:Personas`. Validates properties including:
-  - *`p:BirthCertificate` `p:Persona` instances*: FullName OR (GivenName + FamilyName) required; optional AdditionalName, AlternateName, Nickname, Legal Name
+- **`persona-templates-shacl.ttl`** — SHACL shapes for `p:PersonaTemplate` subtypes. Imported by `persona-shacl.ttl`. Defines `:BusinessCardShape` (GivenName/FamilyName/Email/Phone required 1..1; OrganizationName optional 0..1).
+
+- **`persona-shacl.ttl`** — SHACL constraint rules for all `p:Persona` instances. Imports `persona-templates-shacl.ttl`. Validates properties including:
+  - *`p:BirthCertificate` instances*: FullName OR (GivenName + FamilyName) required; optional AdditionalName, AlternateName, Nickname, Legal Name
+  - *`p:BusinessCard` instances*: GivenName, FamilyName, Email, TelephoneNumber required (1..1); OrganizationName optional (0..1)
   - *All `p:Persona` instances*: SSN format (`NNN-NN-NNNN`), email format, phone (E.164), address cardinality, payment cards, wallet
   - *US Postal Address*: required street, city, state (USPS 2-letter), ZIP; optional country
   - *`Person` (selfness)*: scalp hair (0..1); `has mother` / `is mother of` range must be a `Person`

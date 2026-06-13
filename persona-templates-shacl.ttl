@@ -1,0 +1,68 @@
+@prefix : <http://www.example.org/shapes#> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix cco: <https://purl.org/cco/> .
+@prefix persona: <http://mee.foundation/ontologies/persona#> .
+@prefix dc: <http://purl.org/dc/elements/1.1/> .
+
+<http://www.example.org/shapes/persona-templates> rdf:type owl:Ontology ;
+    owl:imports <http://mee.foundation/ontologies/persona-templates> ;
+    dc:date "2026-06-13"^^xsd:date ;
+    owl:versionInfo "Version 1.0.0 - initial; BusinessCardShape"@en ;
+    rdfs:label "Persona Templates SHACL Validation Shapes"@en ;
+    rdfs:comment """SHACL shapes for persona subtypes defined in persona-templates.ttl.
+                    Imported by persona-shacl.ttl so a single -shapesfile covers everything."""@en .
+
+
+#################################################################
+#  BusinessCard Persona
+#  Required: GivenName, FamilyName, Email, TelephoneNumber (each 1..1)
+#  Optional: OrganizationName (0..1)
+#################################################################
+
+:BusinessCardShape
+    a sh:NodeShape ;
+    sh:targetClass persona:BusinessCard ;
+    sh:message "BusinessCard Persona validation: name, email and phone are required (1..1)."@en ;
+
+    sh:property [
+        sh:path <https://purl.org/cco/ont00001879> ;  # designated by → GivenName
+        sh:qualifiedValueShape [ sh:class cco:ent00000002 ] ;
+        sh:qualifiedMinCount 1 ;
+        sh:qualifiedMaxCount 1 ;
+        sh:message "A BusinessCard Persona must have exactly one GivenName."@en
+    ] ;
+
+    sh:property [
+        sh:path <https://purl.org/cco/ont00001879> ;  # designated by → FamilyName
+        sh:qualifiedValueShape [ sh:class cco:ent00000004 ] ;
+        sh:qualifiedMinCount 1 ;
+        sh:qualifiedMaxCount 1 ;
+        sh:message "A BusinessCard Persona must have exactly one FamilyName."@en
+    ] ;
+
+    sh:property [
+        sh:path <https://purl.org/cco/ont00001879> ;  # designated by → Email
+        sh:qualifiedValueShape [ sh:class cco:ent00000024 ] ;
+        sh:qualifiedMinCount 1 ;
+        sh:qualifiedMaxCount 1 ;
+        sh:message "A BusinessCard Persona must have exactly one Email address."@en
+    ] ;
+
+    sh:property [
+        sh:path <https://purl.org/cco/ont00001879> ;  # designated by → TelephoneNumber
+        sh:qualifiedValueShape [ sh:class cco:ent00000023 ] ;
+        sh:qualifiedMinCount 1 ;
+        sh:qualifiedMaxCount 1 ;
+        sh:message "A BusinessCard Persona must have exactly one telephone number."@en
+    ] ;
+
+    sh:property [
+        sh:path <https://purl.org/cco/ont00001879> ;  # designated by → OrganizationName
+        sh:qualifiedValueShape [ sh:class cco:ent00000047 ] ;
+        sh:qualifiedMaxCount 1 ;
+        sh:message "A BusinessCard Persona may have at most one OrganizationName."@en
+    ] .

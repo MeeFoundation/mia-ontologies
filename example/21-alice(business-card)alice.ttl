@@ -15,7 +15,7 @@
     owl:imports <http://mee.foundation/ontologies/persona> ;
     owl:imports <http://mee.foundation/ontologies/context> ;
     dc:date "2026-06-13"^^xsd:date ;
-    owl:versionInfo "Version 1.0.0 - initial"@en ;
+    owl:versionInfo "Version 1.0.1 - type persona as BusinessCard subclass"@en ;
     context:contextCategory context:Employee ;
     context:assertedBy :Alice_Walker-Self ;
     context:subject :Alice_Walker-Self ;
@@ -30,7 +30,7 @@
 #################################################################
 
 :Alice_Walker-BusinessCard rdf:type owl:NamedIndividual ,
-                                    persona:Persona ;
+                                    persona:BusinessCard ;
     rdfs:label "Alice Walker (Business Card)"@en ;
     rdfs:comment "Alice Walker's business card persona — name, contact, and employer as printed on card."@en ;
 
