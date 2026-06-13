@@ -17,8 +17,9 @@
     owl:imports <https://purl.org/cco/address> ;
     owl:imports <https://purl.org/cco/staging> ;
     owl:imports <http://mee.foundation/ontologies/identity> ;
+    owl:imports <http://mee.foundation/ontologies/persona-templates> ;
     dc:date "2026-06-01"^^xsd:date ;
-    owl:versionInfo "Version 3.0.42 - add ent00000047 OrganizationName to usesOptionalClass"@en ;
+    owl:versionInfo "Version 3.0.43 - import persona-templates as companion module"@en ;
     rdfs:label "Persona Ontology"@en ;
     rdfs:comment """Persona Ontology for the Mee Identity Agent.
 

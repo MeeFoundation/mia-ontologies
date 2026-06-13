@@ -7,9 +7,8 @@
 @base <http://mee.foundation/ontologies/persona-templates> .
 
 <http://mee.foundation/ontologies/persona-templates> rdf:type owl:Ontology ;
-    owl:imports <http://mee.foundation/ontologies/persona> ;
-    dc:date "2026-06-12"^^xsd:date ;
-    owl:versionInfo "Version 1.0.0 - initial; defines p:BirthCertificate"@en ;
+    dc:date "2026-06-13"^^xsd:date ;
+    owl:versionInfo "Version 1.0.1 - remove back-import of persona (persona.ttl now imports this file)"@en ;
     rdfs:label "Persona Templates Ontology"@en ;
     rdfs:comment """Reusable p:Persona subtypes that are too specific for persona.ttl
                     but shared across multiple context files.
