@@ -324,7 +324,7 @@ The following table lists contexts that are *about* Alice but asserted by others
 
 | #  | Context file                                                                         | Context type | Key data                             | Diagram |
 |--- |:-------------------------------------------------------------------------------------|:-------------|:-------------------------------------|:--------|
-| 4  | [alice(alice)bob.(bob).ttl](example/alice-contexts/alice(alice)bob.(bob).ttl)        | Person       | Alice as seen by Bob (dyad with #17) | *(todo)*|
+| 4  | [alice(alice)bob.(bob).ttl](example/alice-contexts/alice(alice)bob.(bob).ttl)        | Person       | Alice as seen by Bob (dyad with #17) | [view](images/example/alice-contexts/alice(alice)bob.(bob).png)|
 | 10 | [alice(citibank)alice.ttl](example/alice-contexts/alice(citibank)alice.ttl)          | Finance      | Debit card                           | [view](images/example/alice-contexts/alice(citibank)citibank.png) |
 
 The following table lists contexts about other people (Paula and Bob) or groups (Boston Hub Society) in Alice's Mia. Files are in `bob-contexts`, `paula-contexts`, and `bhs-contexts`.
