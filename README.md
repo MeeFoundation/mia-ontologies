@@ -336,7 +336,7 @@ The following table lists contexts that are about other people (Paula and Bob). 
 | #  | Context file                                                  | Context type | Key data                                                         | Image                                                              |
 |--- |:--------------------------------------------------------------|:-------------|:-----------------------------------------------------------------|:-------------------------------------------------------------------|
 | 9  | [alice(bhs)alice.ttl](example/bob-contexts/bob(bob)bob.(bhs).ttl)                  | Group        | Bob's BHS profile (email, phone, address) asserted by himself    | [view](images/example/bob-contexts/bob(bhs).png)                   |
-| 5  | [bob(colleague...)](example/bob-contexts/bob(colleague-of-alice).ttl) | Colleagues | Personal notes Alice has made about her colleague Bob | [view](images/example/bob-contexts/bob(colleague-of-alice).png) |
+| 5  | [bob(colleague...)](example/bob-contexts/bob(bob)alice.ttl) | Colleagues | Personal notes Alice has made about her colleague Bob | [view](images/example/bob-contexts/bob(colleague-of-alice).png) |
 | 6 | in progress...
 
 
