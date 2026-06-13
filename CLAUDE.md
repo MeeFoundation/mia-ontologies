@@ -78,6 +78,8 @@ Context filenames encode a **right-to-left hierarchy** of contexts, reading from
 1. The trailing `.(self)` segment (the central Self level) is always omitted.
 2. In the second and subsequent segments, only `(<context-name>)` is kept — the `<about>` and `<asserted-by>` strings are omitted.
 
+**Exception — `c:Group` contexts**: A group context (`contextCategory context:Group`) has no single asserter — any permitted member can write to it and changes replicate to all members. For group contexts, the `<asserted-by>` segment is replaced with the literal string `members` rather than an individual entity name. Example: `bhs(bhs)members.ttl` — about BHS, context "bhs", assertedBy the group's members collectively.
+
 **Examples:**
 
 | Filename | Full (unabbreviated) form | Meaning |
@@ -86,12 +88,13 @@ Context filenames encode a **right-to-left hierarchy** of contexts, reading from
 | `paula(paula)alice.(family).ttl` | `paula(paula)alice.alice(family)alice.alice(self)alice.ttl` | About Paula, context "paula", asserted by Alice; child of Alice's Family context |
 | `bob(bob)alice.(bob).ttl` | `bob(bob)alice.alice(bob)alice.alice(self)alice.ttl` | About Bob, context "bob", asserted by Alice; child of Alice's Bob (1:1) context |
 | `bob(bob)bob.(bhs).ttl` | `bob(bob)bob.alice(bhs)alice.alice(self)alice.ttl` | About Bob, context "bob", asserted by Bob; child of Alice's BHS context |
+| `bhs(bhs)members.ttl` | `bhs(bhs)members.alice(self)alice.ttl` | About BHS, context "bhs", asserted by group members collectively (`c:Group` exception) |
 
 ### Key Architectural Patterns
 
-**Selfness and Personas**: A Person's selfness (`alice(self)alice.ttl`) is the central identity individual. It carries only properties intrinsic to the person (physical characteristics, parent-child relationships). All other data — names, identifiers, addresses, payment cards — belongs to context-specific Personas, each in its own file.
+**Selfness and Personas**: A Person's selfness (`alice(self)alice.ttl`) is the central identity individual. It carries only properties intrinsic to the person (physical characteristics. All other data — names, identifiers, addresses, payment cards — belongs to context-specific Personas, each in its own file.
 
-**Peer name pattern** (not hierarchical): All name types (FullName, GivenName, FamilyName, AlternateName) connect directly to a Persona via `ont00001879` (designated by). They are siblings, not nested. Names belong to BirthCertificate Personas, not to the selfness.
+**Peer name pattern** (not hierarchical): All name types (FullName, GivenName, FamilyName, AlternateName) connect directly to a Persona via `ont00001879` (designated by). They are siblings, not nested. Names belong to Personas not to Persons. 
 
 **Address history pattern**: `AddressDesignation` links Person → Address → `TemporalInterval`. Open-ended intervals (no `hasEndDate`) indicate current address.
 
@@ -124,6 +127,8 @@ owl:versionInfo "Version 3.0.4 - added birth date"@en
 After any change to context files or the context map diagram, verify the following:
 
 **Check 1 — Diagram ↔ files ↔ README coverage**: Every labeled circle in `images/example/context-map.png` must have (a) a corresponding `.ttl` file in the appropriate directory and (b) a row in one of the tables in the **Alice's Personas and Contexts** section of `README.md`. Conversely, every row in those tables must correspond to a circle in the diagram and a file that actually exists.
+
+**Check 2 — Filename convention**: Every context filename must follow `<about>(<context-name>)<asserted-by>[.(<parent-context>)]`. The `<asserted-by>` segment must be a real entity identifier (e.g. `alice`, `bob`, `paula`) — except for `c:Group` contexts, where it must be the literal string `members`. Where a parent segment `.(X)` is present, the parent context file must exist. The hierarchy implied by the segments must match the radial structure in `context-map.png`.
 
 ## Keeping Files in Sync
 
