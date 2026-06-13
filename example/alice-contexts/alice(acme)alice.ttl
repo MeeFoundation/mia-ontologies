@@ -1,0 +1,49 @@
+@prefix : <http://www.example.org/mia#> .
+@prefix persona: <http://mee.foundation/ontologies/persona#> .
+@prefix context: <http://mee.foundation/ontologies/context#> .
+@prefix identity: <http://mee.foundation/ontologies/identity#> .
+@prefix cco: <https://purl.org/cco/> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix dc: <http://purl.org/dc/elements/1.1/> .
+@base <http://www.example.org/mia> .
+
+# diagram label = 20
+
+<http://www.example.org/mia/acme> rdf:type owl:Ontology ;
+    owl:imports <http://mee.foundation/ontologies/persona> ;
+    owl:imports <http://mee.foundation/ontologies/context> ;
+    owl:imports <http://www.example.org/mia/paula-colleague-of-alice> ;
+    dc:date "2026-06-12"^^xsd:date ;
+    owl:versionInfo "Version 1.0.0 - initial"@en ;
+    context:contextCategory context:Employee ;
+    context:assertedBy :Alice_Walker-Self ;
+    context:subject :Alice_Walker-Self ;
+    context:name "Acme" ;
+    rdfs:label "Alice Walker - Acme Persona"@en ;
+    rdfs:comment """Alice Walker's employee whoness at Acme.
+                    Correlated from :Alice_Walker-Self in alice(self)alice.ttl."""@en .
+
+
+#################################################################
+#    Alice Walker - Acme Persona
+#################################################################
+
+:Alice_Walker-Acme rdf:type owl:NamedIndividual ,
+                            persona:Persona ;
+    rdfs:label "Alice Walker (Acme)"@en ;
+    rdfs:comment "Alice Walker's persona in the context of her employment at Acme."@en ;
+
+    persona:hasSocialNetwork :Alice_Acme_Network .
+
+
+#################################################################
+#    Alice's Acme Social Network
+#################################################################
+
+:Alice_Acme_Network rdf:type owl:NamedIndividual ,
+                             cco:ont00001183 ;  # Social Network
+    rdfs:label "Alice Walker's Acme connections"@en ;
+    <http://purl.obolibrary.org/obo/BFO_0000115> :Paula_Walker-Colleagues .  # has member part
