@@ -67,8 +67,8 @@ The two currently defined subclasses are:
   - **Optional**: `AdditionalName` (middle name), `AlternateName` (e.g. maiden name), `Nickname`, and `Legal Name` designators.
 
 * `p:BusinessCard` — carries the identity claims printed on a business card. SHACL shape `:BusinessCardShape` enforces:
-  - **Required (1..1)**: `GivenName`, `FamilyName`, `Email`, and `TelephoneNumber` designators.
-  - **Optional (0..1)**: `OrganizationName` designator (employer name).
+  - **Required**: exactly one each of `GivenName`, `FamilyName`, `Email`, and `TelephoneNumber` designators.
+  - **Optional**: `OrganizationName` designator (employer name).
 
 ### Social classes and properties 
 
