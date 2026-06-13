@@ -148,11 +148,11 @@ This section describes a few details related to modeling names and addresses.
 - **`persona.ttl`** — The Persona ontology. Imports the domain ontologies above and documents which classes and properties Mia uses (required vs. optional). Defines Mia-specific extension properties (`p:hasPersona`, `p:hasSocialNetwork`, `p:hasPaymentCard`, `p:hasBankAccount`, etc.) and the core Persona data model classes (`p:Persona`, physical card classes, banking classes, and others).
 - **`persona-templates.ttl`** — Defines `p:PersonaTemplate` (abstract subclass of `p:Persona`) and the two concrete subtypes `p:BirthCertificate` and `p:BusinessCard`. Imported by `persona.ttl` so all context files inherit these classes transitively.
 
-- **`persona-templates-shacl.ttl`** — SHACL shapes for `p:PersonaTemplate` subtypes. Imported by `persona-shacl.ttl`. Defines `:BusinessCardShape` (GivenName/FamilyName/Email/Phone required 1..1; OrganizationName optional 0..1).
-
-- **`persona-shacl.ttl`** — SHACL constraint rules for all `p:Persona` instances. Imports `persona-templates-shacl.ttl`. Validates properties including:
+- **`persona-templates-shacl.ttl`** — SHACL shapes for `p:PersonaTemplate` subtypes. Imported by `persona-shacl.ttl`. Validates properties including:
   - *`p:BirthCertificate` instances*: FullName OR (GivenName + FamilyName) required; optional AdditionalName, AlternateName, Nickname, Legal Name
   - *`p:BusinessCard` instances*: GivenName, FamilyName, Email, TelephoneNumber required (1..1); OrganizationName optional (0..1)
+
+- **`persona-shacl.ttl`** — SHACL constraint rules for all `p:Persona` instances. Imports `persona-templates-shacl.ttl`. Validates properties including:
   - *All `p:Persona` instances*: SSN format (`NNN-NN-NNNN`), email format, phone (E.164), address cardinality, payment cards, wallet
   - *US Postal Address*: required street, city, state (USPS 2-letter), ZIP; optional country
   - *`Person` (selfness)*: scalp hair (0..1); `has mother` / `is mother of` range must be a `Person`
