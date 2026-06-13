@@ -219,7 +219,8 @@ A context is a container of information whose primary subject is one of the thre
 
 - `c:Social` — a context whose subject is one of the Self's `p:Personas` *and* that includes a social network with `has member` links to the `p:Personas` of other people in other contexts.  Examples: family relationships, colleague networks, friend groups.
   - `c:Group` — interactions with a formal or informal group of people.
-  - `c:Collection` and subtypes `c:Family`, `c:Colleagues`, `c:Friends`, `c:Consultants` — interactions with individual people in a person's life.
+  - `c:Collection` — a context that aggregates a set of 1:1 `c:Person` contexts; allows a Mia user to group individual people contexts into a named collection.
+  - `c:Person` and subtypes `c:Family`, `c:Colleague`, `c:Friend`, `c:Consultant` — interactions with individual people in a person's life.
 - `c:Personal` — a context containing only one of the Self's `p:Personas` -- no other person's `p:Persona` appears in it. It describes the Self's relationship with (and interactions with) a specific institution, role, possession, or area of knowledge. Examples: a bank account, a driver's license, a car.
   - `c:Work` and subtypes `c:Employee`, `c:Contributor`, `c:Creator` — professional roles.
   - `c:Company` and subtypes `c:Health`, `c:Finance` — interactions and/or relationship with a company or other non-governmental organization.
@@ -336,17 +337,7 @@ The following table lists contexts that are about other people (Paula and Bob). 
 |--- |:--------------------------------------------------------------|:-------------|:-----------------------------------------------------------------|:-------------------------------------------------------------------|
 | 9  | [bhs.ttl](example/bob-contexts/bob(bhs).ttl)                  | Group        | Bob's BHS profile (email, phone, address) asserted by himself    | [view](images/example/bob-contexts/bob(bhs).png)                   |
 | 5  | [bob(colleague...)](example/bob-contexts/bob(colleague-of-alice).ttl) | Colleagues | Personal notes Alice has made about her colleague Bob | [view](images/example/bob-contexts/bob(colleague-of-alice).png) |
-
-
-<!---
-| `paula(by-alice).ttl`     | Family       | What Alice claims about Paula |  |
-
-
-| `paula(by-paula).ttl`     | Family       | What Paula claims about Paula |  |
-| `paula(by-paula-BHS).ttl` | Group        | What Paula claims about herself in BHS |  |
-| `bob(by-alice).ttl`       | Colleagues   | What Alice claims about Bob |  |
-| `bob(by-bob).ttl`         | Colleagues   | What Bob claims about Bob |  |
---->
+| 6 | in progress...
 
 
 

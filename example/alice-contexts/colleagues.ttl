@@ -14,8 +14,8 @@
     owl:imports <http://mee.foundation/ontologies/persona> ;
     owl:imports <http://mee.foundation/ontologies/context> ;
     dc:date "2026-06-12"^^xsd:date ;
-    owl:versionInfo "Version 1.0.12 - update Bob member reference to Bob_Johnson-Bob-colleague-of-alice"@en ;
-    context:contextCategory context:Colleagues ;
+    owl:versionInfo "Version 1.0.13 - rename contextCategory to context:Colleague"@en ;
+    context:contextCategory context:Colleague ;
     context:assertedBy identity:Self ;
     context:subject identity:Self ;
     context:name "Colleagues" ;

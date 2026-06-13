@@ -11,7 +11,7 @@
     owl:versionIRI <http://mee.foundation/ontologies/context/1.0.1> ;
     dc:date "2026-06-01"^^xsd:date ;
     owl:imports <http://mee.foundation/ontologies/identity> ;
-    owl:versionInfo "Version 1.0.19 - add context:name annotation property"@en ;
+    owl:versionInfo "Version 1.0.24 - add Collection subclass of Social"@en ;
     rdfs:label "Context Ontology"@en ;
     rdfs:comment """Context Ontology for the Mee Identity Agent.
 
@@ -89,26 +89,33 @@ context:Group rdf:type owl:Class ;
 context:Collection rdf:type owl:Class ;
     rdfs:subClassOf context:Social ;
     rdfs:label "Collection"@en ;
+    rdfs:comment """A context that aggregates a set of 1:1 Person contexts (contextCategory=c:Person).
+                    A Mia user creates a Collection context to group individual c:Person contexts together
+                    into a named collection (e.g. a colleagues list or friends group)."""@en .
+
+context:Person rdf:type owl:Class ;
+    rdfs:subClassOf context:Social ;
+    rdfs:label "Person"@en ;
     rdfs:comment "Interactions with all kinds of people."@en .
 
 context:Family rdf:type owl:Class ;
-    rdfs:subClassOf context:Collection ;
+    rdfs:subClassOf context:Person ;
     rdfs:label "Family"@en ;
     rdfs:comment "Interactions with family members."@en .
 
-context:Friends rdf:type owl:Class ;
-    rdfs:subClassOf context:Collection ;
-    rdfs:label "Friends"@en ;
+context:Friend rdf:type owl:Class ;
+    rdfs:subClassOf context:Person ;
+    rdfs:label "Friend"@en ;
     rdfs:comment "Interactions with friends."@en .
 
-context:Consultants rdf:type owl:Class ;
-    rdfs:subClassOf context:Collection ;
-    rdfs:label "Consultants"@en ;
+context:Consultant rdf:type owl:Class ;
+    rdfs:subClassOf context:Person ;
+    rdfs:label "Consultant"@en ;
     rdfs:comment "Interactions with consultants who provide services."@en .
 
-context:Colleagues rdf:type owl:Class ;
-    rdfs:subClassOf context:Collection ;
-    rdfs:label "Colleagues"@en ;
+context:Colleague rdf:type owl:Class ;
+    rdfs:subClassOf context:Person ;
+    rdfs:label "Colleague"@en ;
     rdfs:comment "Interactions with others with whom you work."@en .
 
 #################################################################
