@@ -372,7 +372,7 @@ riot --output=turtle \
   example/alice-contexts/alice(colleagues)alice.ttl example/alice-contexts/alice(att)alice.ttl \
   example/alice-contexts/alice(ssa)alice.ttl example/alice-contexts/alice(google)alice.ttl \
   example/alice-contexts/alice(tx-birth-cert)alice.ttl \
-  example/paula-contexts/florida-birth-certificate.ttl \
+  example/paula-contexts/paula(fl-birth-cert)alice.ttl \
   example/alice-contexts/alice(possessions)alice.ttl \
   2>/dev/null > /tmp/mia-merged.ttl
 

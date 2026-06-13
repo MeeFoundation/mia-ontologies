@@ -15,7 +15,7 @@
     owl:imports <http://mee.foundation/ontologies/context> ;
     owl:imports <http://mee.foundation/ontologies/persona-templates> ;
     dc:date "2026-06-01"^^xsd:date ;
-    owl:versionInfo "Version 1.0.11 - update self.ttl ref to alice(self)alice.ttl"@en ;
+    owl:versionInfo "Version 1.0.12 - rename to paula(fl-birth-cert)alice.ttl"@en ;
     context:contextCategory context:State ;
     context:assertedBy identity:Self ;
     context:subject identity:Individual ;
