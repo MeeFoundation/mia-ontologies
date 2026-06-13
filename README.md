@@ -306,38 +306,38 @@ As we've mentioned, Alice interacts with other people, organizations and groups 
 
 The contexts in the table below are *about* Alice and asserted *by* Alice. The .ttl files are in the `alice-contexts` subfolder.
 
-| #  | Context file                                                                          | Context type | Key data                                                         |
-|--- |:--------------------------------------------------------------------------------------|:-------------|:-----------------------------------------------------------------|
-| 7  | [alice(bhs)alice.ttl](example/alice-contexts/alice(bhs)alice.ttl)                     | Group        | BHS profile: email, phone and current address                    |
-| 11 | [alice(google)alice.ttl](example/alice-contexts/alice(google)alice.ttl)               | Company      | Gmail address                                                    |
-| 12 | [alice(att)alice.ttl](example/alice-contexts/alice(att)alice.ttl)                     | Company      | Phone number                                                     |
-| 13 | [alice(tx-birth-cert)alice.ttl](example/alice-contexts/alice(tx-birth-cert)alice.ttl) | State        | Legal names, maiden name                                         |
-| 14 | [alice(paradise)alice.ttl](example/alice-contexts/alice(paradise)alice.ttl)           | Municipality | Current address — Paradise, CA (2025–present)                    |
-| 15 | [alice(boston)alice.ttl](example/alice-contexts/alice(boston)alice.ttl)               | Municipality | Previous address — Boston, MA (2020–2025) with temporal interval |
-| 16 | [alice(ssa)alice.ttl](example/alice-contexts/alice(ssa)alice.ttl)                     | Federal      | Social security number (SSN)                                     |
-| 17 | [alice(bob)alice.ttl](example/alice-contexts/alice(bob)alice.ttl)                     | Person       | Alice's 1:1 context with Bob; social network with Bob as member  |
-| 18 | [alice(family)alice.ttl](example/alice-contexts/alice(family)alice.ttl)               | Family       | Family social network with Paula as member                       |
-| 19 | [alice(possessions)alice.ttl](example/alice-contexts/alice(possessions)alice.ttl)     | Possession   | Wallet (driver's license + payment card); health ins., SSN card  |
-| 20 | [alice(acme)alice.ttl](example/alice-contexts/alice(acme)alice.ttl)                   | Employee     | Acme employee context; social network with Paula as member       |
+| #  | Context file                                                                          | Context type | Key data                                                         | Diagram |
+|--- |:--------------------------------------------------------------------------------------|:-------------|:-----------------------------------------------------------------|:--------|
+| 7  | [alice(bhs)alice.ttl](example/alice-contexts/alice(bhs)alice.ttl)                     | Group        | BHS profile: email, phone and current address                    | *(todo)*|
+| 11 | [alice(google)alice.ttl](example/alice-contexts/alice(google)alice.ttl)               | Company      | Gmail address                                                    | [view](images/example/alice-contexts/alice(google)alice.png) |
+| 12 | [alice(att)alice.ttl](example/alice-contexts/alice(att)alice.ttl)                     | Company      | Phone number                                                     | [view](images/example/alice-contexts/alice(att)alice.png) |
+| 13 | [alice(tx-birth-cert)alice.ttl](example/alice-contexts/alice(tx-birth-cert)alice.ttl) | State        | Legal names, maiden name                                         | [view](images/example/alice-contexts/alice(tx-birth-cert)alice.png) |
+| 14 | [alice(paradise)alice.ttl](example/alice-contexts/alice(paradise)alice.ttl)           | Municipality | Current address — Paradise, CA (2025–present)                    | [view](images/example/alice-contexts/alice(paradise)alice.png) |
+| 15 | [alice(boston)alice.ttl](example/alice-contexts/alice(boston)alice.ttl)               | Municipality | Previous address — Boston, MA (2020–2025) with temporal interval | [view](images/example/alice-contexts/alice(boston)alice.png) |
+| 16 | [alice(ssa)alice.ttl](example/alice-contexts/alice(ssa)alice.ttl)                     | Federal      | Social security number (SSN)                                     | [view](images/example/alice-contexts/alice(ssa)alice.png) |
+| 17 | [alice(bob)alice.ttl](example/alice-contexts/alice(bob)alice.ttl)                     | Person       | Alice's 1:1 context with Bob; social network with Bob as member  | *(todo)*|
+| 18 | [alice(family)alice.ttl](example/alice-contexts/alice(family)alice.ttl)               | Family       | Family social network with Paula as member                       | [view](images/example/alice-contexts/alice(family)alice.png) |
+| 19 | [alice(possessions)alice.ttl](example/alice-contexts/alice(possessions)alice.ttl)     | Possession   | Wallet (driver's license + payment card); health ins., SSN card  | [view](images/example/alice-contexts/alice(possessions)alice.png) |
+| 20 | [alice(acme)alice.ttl](example/alice-contexts/alice(acme)alice.ttl)                   | Employee     | Acme employee context; social network with Paula as member       | *(todo)*|
 
 The following table lists contexts that are *about* Alice but asserted by others.
 
-| #  | Context file                                                                         | Context type | Key data                             |
-|--- |:-------------------------------------------------------------------------------------|:-------------|:-------------------------------------|
-| 4  | [alice(alice)bob.(bob).ttl](example/alice-contexts/alice(alice)bob.(bob).ttl)        | Person       | Alice as seen by Bob (dyad with #17) |
-| 10 | [alice(citibank)alice.ttl](example/alice-contexts/alice(citibank)alice.ttl)          | Finance      | Debit card                           |
+| #  | Context file                                                                         | Context type | Key data                             | Diagram |
+|--- |:-------------------------------------------------------------------------------------|:-------------|:-------------------------------------|:--------|
+| 4  | [alice(alice)bob.(bob).ttl](example/alice-contexts/alice(alice)bob.(bob).ttl)        | Person       | Alice as seen by Bob (dyad with #17) | *(todo)*|
+| 10 | [alice(citibank)alice.ttl](example/alice-contexts/alice(citibank)alice.ttl)          | Finance      | Debit card                           | [view](images/example/alice-contexts/alice(citibank)citibank.png) |
 
 The following table lists contexts about other people (Paula and Bob) or groups (Boston Hub Society) in Alice's Mia. Files are in `bob-contexts`, `paula-contexts`, and `bhs-contexts`.
 
-| #  | Context file                                                                                     | Context type | Key data                                                         |
-|--- |:-------------------------------------------------------------------------------------------------|:-------------|:-----------------------------------------------------------------|
-| 1  | [paula(Paula)alice.(acme).ttl](example/paula-contexts/paula(Paula)alice.(acme).ttl)              | Colleague    | Paula as Alice's Acme colleague (Alice-asserted)                 |
-| 2  | [paula(paula)alice.(family).ttl](example/paula-contexts/paula(paula)alice.(family).ttl)          | Family       | Paula as Alice's family member (Alice-asserted)                  |
-| 3  | [paula(paula)paula.(family).ttl](example/paula-contexts/paula(paula)paula.(family).ttl)          | Family       | Paula's own family persona; social network with Alice (dyad #2)  |
-| 5  | [bob(bob)alice.(bob).ttl](example/bob-contexts/bob(bob)alice.(bob).ttl)                          | Person       | Alice's notes about Bob; fav drink: oat milk cappuccino          |
-| 6  | [bob(bob)bob.(bob).ttl](example/bob-contexts/bob(bob)bob.(bob).ttl)                              | Person       | Bob's self-asserted Bob persona (dyad with #5)                   |
-| 8  | [bhs(bhs)members.ttl](example/bhs-contexts/bhs(bhs)members.ttl)                                  | Group        | BHS group instance with Alice and Bob as members                 |
-| 9  | [bob(bob)bob.(bhs).ttl](example/bob-contexts/bob(bob)bob.(bhs).ttl)                              | Group        | Bob's BHS member persona (name, email, phone, address)           |
+| #  | Context file                                                                                     | Context type | Key data                                                         | Diagram |
+|--- |:-------------------------------------------------------------------------------------------------|:-------------|:-----------------------------------------------------------------|:--------|
+| 1  | [paula(Paula)alice.(acme).ttl](example/paula-contexts/paula(Paula)alice.(acme).ttl)              | Colleague    | Paula as Alice's Acme colleague (Alice-asserted)                 | *(todo)*|
+| 2  | [paula(paula)alice.(family).ttl](example/paula-contexts/paula(paula)alice.(family).ttl)          | Family       | Paula as Alice's family member (Alice-asserted)                  | *(todo)*|
+| 3  | [paula(paula)paula.(family).ttl](example/paula-contexts/paula(paula)paula.(family).ttl)          | Family       | Paula's own family persona; social network with Alice (dyad #2)  | *(todo)*|
+| 5  | [bob(bob)alice.(bob).ttl](example/bob-contexts/bob(bob)alice.(bob).ttl)                          | Person       | Alice's notes about Bob; fav drink: oat milk cappuccino          | [view](images/example/bob-contexts/bob(bob)alice.(bob).png) |
+| 6  | [bob(bob)bob.(bob).ttl](example/bob-contexts/bob(bob)bob.(bob).ttl)                              | Person       | Bob's self-asserted Bob persona (dyad with #5)                   | *(todo)*|
+| 8  | [bhs(bhs)members.ttl](example/bhs-contexts/bhs(bhs)members.ttl)                                  | Group        | BHS group instance with Alice and Bob as members                 | *(todo)*|
+| 9  | [bob(bob)bob.(bhs).ttl](example/bob-contexts/bob(bob)bob.(bhs).ttl)                              | Group        | Bob's BHS member persona (name, email, phone, address)           | [view](images/example/bob-contexts/bob(bob)bob.(bhs).png) |
 
 
 

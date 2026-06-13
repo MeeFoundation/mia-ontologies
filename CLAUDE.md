@@ -151,6 +151,10 @@ A Persona that is not reachable by either mechanism is an orphan. Note: `persona
 
 **Check 9 — Validation command completeness**: The `riot` merge command in the `## Validation` section of `README.md` must include every `.ttl` file in the project except: (a) files in `project_files/` (listed explicitly as foundation ontologies at the head of the command), (b) files in any `under-development/` directory, and (c) `persona-shacl.ttl` (used separately as the shapes file). The preferred implementation uses `find` with `-not -path "*/under-development/*"` so that newly added files are included automatically without a manual README update. If the `find` pattern changes (e.g. a new exclusion is added), update the README command to match.
 
+**Check 10 — PNG file location**: The diagram PNG for a context file must be stored in `images/example/<about>-contexts/`, where `<about>` is the first segment of the context filename (e.g. `alice(bhs)alice.ttl` → `images/example/alice-contexts/`). Selfness files (`<X>(self)<X>.ttl`) are an exception — their PNGs live in `images/example/<X>/`. Files in `under-development/` are excluded.
+
+**Check 11 — PNG filename convention**: Within `images/example/<about>-contexts/`, every diagram PNG must use the same base filename as the corresponding `.ttl` file, with `.png` substituted for `.ttl`. The full convention mirrors the TTL naming rule: `<about>(<context-name>)<assertedBy>[.(<parent-context>)].png`. For example, `alice(bhs)alice.ttl` → `alice(bhs)alice.png`; `bob(bob)bob.(bhs).ttl` → `bob(bob)bob.(bhs).png`. If the PNG does not yet exist, the README Diagram cell must be marked `*(todo)*` rather than left blank.
+
 ## Keeping Files in Sync
 
 Whenever changes are made to `alice(self)alice.ttl`, any context file, `persona.ttl`, or `context.ttl`, `persona-shacl.ttl` must be updated to match:
