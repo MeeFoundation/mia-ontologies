@@ -1,10 +1,14 @@
 # Mia Ontologies
 
-## ✨ What's New (week of 2026-06-09)
+## ✨ What's New (week of 2026-06-13)
 
-- **`c:name`** — new required annotation property on every context file (human-readable name string)
-- **`bhs.ttl`** — new Boston Hub Society group context for Alice (address, phone, email)
-- **`persona-templates.ttl`** — new utility ontology; `p:BirthCertificate` moved here from `persona.ttl`
+- **Integrity checks 7–9** added to `CLAUDE.md`: contextCategory label ↔ TTL agreement (diagram is authoritative), no orphan Personas, and validation command completeness
+- **`context-map.png`** updated: new `hasMember` arrow from Bob's Self to Alice (By Bob) circle; `Paula's Self` and `Bob's Self` circles added
+- **`alice(citibank)alice.ttl`** — `contextCategory` corrected from `Company` to `Finance`
+- **`bob(bob)alice.(bob).ttl`** — `contextCategory` corrected from `Colleague` to `Person`
+- **`bob(self)bob.ttl`** — `BFO_0000115` hasMember link added to `:Alice_Walker-ByBob` (resolves orphan Persona)
+- **`paula(fl-birth-cert)alice.ttl`** — moved to `paula-contexts/under-development/` (work in progress)
+- **Validation command** in `README.md` replaced with a `find`-based pipeline that automatically includes all `.ttl` files (excluding `project_files/`, `under-development/`, and `persona-shacl.ttl`)
 
 ---
 
