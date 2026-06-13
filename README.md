@@ -353,13 +353,13 @@ Each diagram shows the `p:Persona` individual (yellow), supporting named individ
 
 ## Validation
 
-Validation requires Apache Jena. The following validates all instance data against the SHACL shapes. The `find` command automatically picks up every `.ttl` file except the foundation ontologies in `project_files/` (listed explicitly), files in any `under-development/` directory, and `persona-shacl.ttl` (used separately as the shapes file).
+Validation requires Apache Jena. The first `find` picks up every `.ttl` file as data except the foundation ontologies in `project_files/` (listed explicitly), files in any `under-development/` directory, and all `*-shacl.ttl` files (collected separately as shapes). The second `find` gathers all `*-shacl.ttl` files as shapes, stripping their `owl:imports` to prevent the validator re-loading the data graph.
 
 ```bash
 find . -name "*.ttl" \
   -not -path "*/project_files/*" \
   -not -path "*/under-development/*" \
-  -not -name "persona-shacl.ttl" \
+  -not -name "*-shacl.ttl" \
   -print0 | sort -z | xargs -0 \
   riot --output=turtle \
   project_files/bfo-core.ttl \
@@ -368,7 +368,9 @@ find . -name "*.ttl" \
   project_files/StagingOntology.ttl \
   2>/dev/null > /tmp/mia-merged.ttl
 
-grep -v 'owl:imports' persona-shacl.ttl > /tmp/mia-shapes.ttl
+find . -name "*-shacl.ttl" \
+  -not -path "*/under-development/*" \
+  -print0 | sort -z | xargs -0 cat | grep -v 'owl:imports' > /tmp/mia-shapes.ttl
 
 shacl validate --shapes /tmp/mia-shapes.ttl --data /tmp/mia-merged.ttl --text
 ```
