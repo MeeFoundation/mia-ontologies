@@ -63,7 +63,7 @@ This section describes a `p:Persona` subtypes that can be thought of as template
 
 <p align="center"><img src="images/persona-ontology/persona-templates.png" alt="persona templates model"></p>
 
-* `p:BirthCertificate` — a `p:Persona` subtype whose purpose is to carry a person's legal birth name record as issued by a state agency. 🆕
+* `p:BirthCertificate` — a `p:Persona` subtype whose purpose is to carry a person's legal birth name record as issued by a state agency.
 
 Each template class has a corresponding SHACL shape in `persona-shacl.ttl` (`:BirthCertificatePersonaShape`) that enforces the cardinality and optionality rules for its name properties. For `p:BirthCertificate` the rules are:
 - **Required**: either a `FullName` designator **or** both a `GivenName` and a `FamilyName` designator (via `designated by`, `ont00001879`) — these alternatives are expressed with `sh:or`.
@@ -201,7 +201,7 @@ The Organization ontology models organizations — companies, government agencie
 
 A context is a container of information whose primary subject is one of the three kinds of PDN node: a `p:Persona` (representing a context-specific facet of a person), a `g:Group`, or an `o:Organization`. It holds the subject's claims and, in the case of a `p:Persona` subject, may also include the `p:Persona` facets of other people in that context. A context is implemented as a `.ttl` file that by convention contains an owl:Ontology. The context ontology defines four required properties of this owl:Ontology:
 
-- A human-readable name for the context (`c:name`) — a plain string, e.g. `"Citibank"`. 🆕
+- A human-readable name for the context (`c:name`) — a plain string, e.g. `"Citibank"`.
 - What is the category of context (`c:contextCategory`), e.g. relationships with family members, interactions with a bank, etc.
 - Who is making the assertions the context contains (`c:assertedBy`) - its value is a `i:PDNidentity`
 - Who is the context mainly about (`c:subject`) - its value is a `i:PDNidentity`
