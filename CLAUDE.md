@@ -134,6 +134,8 @@ After any change to context files or the context map diagram, verify the followi
 
 **Check 4 — Dyad symmetry**: If context A contains a `p:Persona` with a `persona:dyad` link pointing to a `p:Persona` in context B, then context B must contain the reciprocal `persona:dyad` link pointing back to the persona in context A. Dyad links must always be bidirectional.
 
+**Check 5 — Dyad cardinality**: A `p:Persona` must have at most one `persona:dyad` property. A persona can be paired with only one other persona.
+
 ## Keeping Files in Sync
 
 Whenever changes are made to `alice(self)alice.ttl`, any context file, `persona.ttl`, or `context.ttl`, `persona-shacl.ttl` must be updated to match:
