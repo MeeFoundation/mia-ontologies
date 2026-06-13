@@ -132,6 +132,8 @@ After any change to context files or the context map diagram, verify the followi
 
 **Check 3 — Orange arrows (hasMember)**: For every orange arrow from circle A to circle B in `context-map.png`, the source context file (A) must contain a `persona:hasSocialNetwork` individual of type `cco:ont00001183` (Social Network), and that network must have a `BFO_0000115` (has member part) triple pointing to the `p:Persona` individual defined in the target context file (B).
 
+**Check 4 — Dyad symmetry**: If context A contains a `p:Persona` with a `persona:dyad` link pointing to a `p:Persona` in context B, then context B must contain the reciprocal `persona:dyad` link pointing back to the persona in context A. Dyad links must always be bidirectional.
+
 ## Keeping Files in Sync
 
 Whenever changes are made to `alice(self)alice.ttl`, any context file, `persona.ttl`, or `context.ttl`, `persona-shacl.ttl` must be updated to match:
