@@ -12,7 +12,7 @@
 # Imports Mee Identity Agent (MIA)'s Application Ontology (which imports the domains)
 <http://www.example.org/shapes> rdf:type owl:Ontology ;
     owl:imports <http://www.example.org/mia> ;
-    owl:versionInfo "Version 3.0.27 - add dyad maxCount 1 constraint to PersonaShape"@en ;
+    owl:versionInfo "Version 3.0.28 - add hasPersona tree-structure SPARQL constraint"@en ;
     rdfs:label "Mee Identity Agent (MIA)'s SHACL Validation Shapes"@en ;
     rdfs:comment """SHACL validation shapes for the Mee Identity Agent.
 
@@ -543,6 +543,29 @@
         sh:class persona:PhysicalCard ;
         sh:message "Only PhysicalCards may declare this Wallet as their continuant whole."@en
     ] .
+
+#################################################################
+#  hasPersona tree-structure check (Check 6)
+#  Every Persona may appear as the object of persona:hasPersona
+#  from at most one parent — enforcing a tree, not a DAG.
+#################################################################
+
+:PersonaTreeShape
+    a sh:NodeShape ;
+    sh:targetClass persona:Persona ;
+    sh:sparql [
+        a sh:SPARQLConstraint ;
+        sh:message "A Persona must have at most one hasPersona parent (tree structure — not a DAG)."@en ;
+        sh:select """
+            PREFIX persona: <http://mee.foundation/ontologies/persona#>
+            SELECT ?this WHERE {
+                ?parent1 persona:hasPersona ?this .
+                ?parent2 persona:hasPersona ?this .
+                FILTER(?parent1 != ?parent2)
+            }
+        """
+    ] .
+
 
 :PhysicalCardShape
     a sh:NodeShape ;
