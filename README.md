@@ -308,7 +308,7 @@ The contexts in the table below are *about* Alice and asserted *by* Alice. The .
 
 | #  | Context file                                                                          | Context type | Key data                                                         | Diagram |
 |--- |:--------------------------------------------------------------------------------------|:-------------|:-----------------------------------------------------------------|:--------|
-| 7  | [alice(bhs)alice.ttl](example/alice-contexts/alice(bhs)alice.ttl)                     | Group        | BHS profile: email, phone and current address                    | *(todo)*|
+| 7  | [alice(bhs)alice.ttl](example/alice-contexts/alice(bhs)alice.ttl)                     | Group        | BHS profile: email, phone and current address                    | [view](images/example/alice-contexts/alice(bhs)alice.png)|
 | 11 | [alice(google)alice.ttl](example/alice-contexts/alice(google)alice.ttl)               | Company      | Gmail address                                                    | [view](images/example/alice-contexts/alice(google)alice.png) |
 | 12 | [alice(att)alice.ttl](example/alice-contexts/alice(att)alice.ttl)                     | Company      | Phone number                                                     | [view](images/example/alice-contexts/alice(att)alice.png) |
 | 13 | [alice(tx-birth-cert)alice.ttl](example/alice-contexts/alice(tx-birth-cert)alice.ttl) | State        | Legal names, maiden name                                         | [view](images/example/alice-contexts/alice(tx-birth-cert)alice.png) |
