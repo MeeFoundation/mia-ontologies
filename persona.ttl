@@ -18,8 +18,9 @@
     owl:imports <https://purl.org/cco/staging> ;
     owl:imports <http://mee.foundation/ontologies/identity> ;
     owl:imports <http://mee.foundation/ontologies/persona-templates> ;
+    owl:imports <http://mee.foundation/ontologies/persona-jscontact> ;
     dc:date "2026-06-01"^^xsd:date ;
-    owl:versionInfo "Version 3.0.43 - import persona-templates as companion module"@en ;
+    owl:versionInfo "Version 3.0.44 - import persona-jscontact; add Birthdate/Title/Surname2/Nickname to usesOptionalClass"@en ;
     rdfs:label "Persona Ontology"@en ;
     rdfs:comment """Persona Ontology for the Mee Identity Agent.
 
@@ -57,11 +58,15 @@
                               cco:ent00000005 ,  # Suffix (Jr., Sr., etc.)
                               cco:ent00000006 ,  # AlternateName
                               cco:ent00000016 ,  # AddressDesignation
+                              cco:ent00000046 ,  # Birthdate
                               cco:ent00000047 ,  # OrganizationName
                               cco:ent00000051 ,  # Debit Card
                               cco:ent00000052 ,  # Credit Card Number (PAN)
                               cco:ent00000053 ,  # CVV
-                              cco:ent00000054 ;  # Expiration Date Identifier
+                              cco:ent00000054 ,  # Expiration Date Identifier
+                              cco:ent00000057 ,  # Title (HonorificPrefix: Dr., Mr., Prof.)
+                              cco:ent00000058 ,  # Surname2 (maternal surname)
+                              cco:ont00000990 ;  # Nickname (CCO core)
 
     # Document CCO classes used directly (note: use full IRIs, not cco: prefix)
     p:usesCCOClass <https://purl.org/cco/ont00001262> ,  # Person

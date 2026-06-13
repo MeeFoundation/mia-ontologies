@@ -1,0 +1,204 @@
+@prefix persona: <http://mee.foundation/ontologies/persona#> .
+@prefix cco: <https://purl.org/cco/> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix dc: <http://purl.org/dc/elements/1.1/> .
+@base <http://mee.foundation/ontologies/persona-jscontact> .
+
+<http://mee.foundation/ontologies/persona-jscontact> rdf:type owl:Ontology ;
+    owl:imports <https://purl.org/cco/person> ;
+    dc:date "2026-06-13"^^xsd:date ;
+    owl:versionInfo "Version 1.0.0 - initial; JSContact-aligned classes and properties"@en ;
+    rdfs:label "Persona JSContact Extension Ontology"@en ;
+    rdfs:comment """Extension classes and properties that align the Persona ontology with the
+                    JSContact standard (RFC 9553). Imported by persona.ttl; do not import
+                    persona.ttl from here (would create a circular import).
+
+                    Coverage:
+                    §  Name components   — Credential, Title/HonorificPrefix (CCO ent00000057)
+                    §  Contact channels  — contactContext, phoneFeature labels
+                    §  Online services   — WebURL designator, serviceLabel
+                    §  Organisation      — OrganizationUnit, JobTitle designators
+                    §  Anniversaries     — Anniversary class + properties
+                    §  Personal info     — PersonalInfo class (hobbies, interests, expertise)
+                    §  Media             — hasPhoto"""@en .
+
+
+#################################################################
+#  1. Contact Channel Annotation Properties
+#     Used on designated-by blank nodes to record JSContact context
+#     labels (work/home/other) and phone feature flags.
+#################################################################
+
+persona:contactContext rdf:type owl:AnnotationProperty ;
+    rdfs:label "contact context"@en ;
+    rdfs:comment """JSContact 'contexts' key on an email, phone, or address entry.
+                    Controlled vocabulary: 'work', 'home', 'other', 'billing' (address),
+                    'delivery' (address)."""@en ;
+    rdfs:range xsd:string .
+
+persona:phoneFeature rdf:type owl:AnnotationProperty ;
+    rdfs:label "phone feature"@en ;
+    rdfs:comment """JSContact phone 'features' flag. Repeat the property for multiple features.
+                    Controlled vocabulary: 'voice', 'fax', 'text', 'video', 'pager',
+                    'textphone'."""@en ;
+    rdfs:range xsd:string .
+
+persona:serviceLabel rdf:type owl:AnnotationProperty ;
+    rdfs:label "service label"@en ;
+    rdfs:comment """JSContact 'service' field on an onlineServices entry. Identifies which
+                    platform the OnlineServiceAccount or WebURL belongs to.
+                    Examples: 'twitter', 'linkedin', 'github', 'mastodon'."""@en ;
+    rdfs:range xsd:string .
+
+
+#################################################################
+#  2. Name Component Designator Classes
+#     All are subclasses of cco:ont00000003 (Designative Name),
+#     consistent with GivenName, FamilyName, OrganizationName, etc.
+#################################################################
+
+persona:Credential rdf:type owl:Class ;
+    rdfs:subClassOf cco:ont00000003 ;  # Designative Name
+    rdfs:label "Credential"@en ;
+    rdfs:comment """A post-nominal professional or academic credential that follows a
+                    person's name. Examples: 'MD', 'PhD', 'Esq.', 'CPA', 'MBA'.
+                    Distinct from cco:ent00000057 (Title/HonorificPrefix) which precedes
+                    the name, and from cco:ent00000005 (Suffix) which covers generational
+                    suffixes (Jr., Sr., III).
+                    JSContact: name component kind 'credential'."""@en .
+
+
+#################################################################
+#  3. Online Service Designator Class
+#################################################################
+
+persona:WebURL rdf:type owl:Class ;
+    rdfs:subClassOf cco:ont00000003 ;  # Designative Name
+    rdfs:label "Web URL"@en ;
+    rdfs:comment """A URL that designates a person's web presence — personal website, blog,
+                    portfolio, or profile page. Distinct from cco:ent00000033
+                    (OnlineServiceAccount) which represents a login-based account.
+                    Attach persona:serviceLabel to identify the platform where relevant.
+                    JSContact: onlineServices entry with a URI value."""@en .
+
+
+#################################################################
+#  4. Organisation Designator Classes
+#################################################################
+
+persona:OrganizationUnit rdf:type owl:Class ;
+    rdfs:subClassOf cco:ont00000003 ;  # Designative Name
+    rdfs:label "Organization Unit"@en ;
+    rdfs:comment """A Designative Name identifying a department, division, or other
+                    sub-unit within an organization. Typically paired with an
+                    OrganizationName (cco:ent00000047) on the same Persona.
+                    Examples: 'Engineering', 'Sales', 'R&D'.
+                    JSContact: organizations[*].units array entry."""@en .
+
+persona:JobTitle rdf:type owl:Class ;
+    rdfs:subClassOf cco:ont00000003 ;  # Designative Name
+    rdfs:label "Job Title"@en ;
+    rdfs:comment """A Designative Name for a person's position or role within an
+                    organisation. Examples: 'Software Engineer', 'VP of Sales',
+                    'Chief Medical Officer'.
+                    Distinct from cco:ent00000057 (Title/HonorificPrefix) which is an
+                    honorific preceding the name (Dr., Prof., Mr.).
+                    JSContact: titles[*].name."""@en .
+
+
+#################################################################
+#  5. Anniversary Class and Properties
+#     A named individual of type p:Anniversary is attached to a
+#     Persona via persona:hasAnniversary.
+#################################################################
+
+persona:Anniversary rdf:type owl:Class ;
+    rdfs:label "Anniversary"@en ;
+    rdfs:comment """A personally significant recurring date, such as a wedding anniversary
+                    or other custom commemoration. Birthdays use cco:ent00000046 (Birthdate)
+                    directly on the Persona via designated-by; Anniversary covers all other
+                    recurring dates.
+                    JSContact: anniversaries map (excluding 'birth' and 'death' kinds)."""@en .
+
+persona:hasAnniversary rdf:type owl:ObjectProperty ;
+    rdfs:label "has anniversary"@en ;
+    rdfs:comment "Links a p:Persona to one of its Anniversary individuals."@en ;
+    rdfs:range persona:Anniversary .
+
+persona:anniversaryKind rdf:type owl:DatatypeProperty ;
+    rdfs:label "anniversary kind"@en ;
+    rdfs:comment """The type of anniversary. Controlled vocabulary: 'wedding', 'custom'.
+                    JSContact: anniversaries[*].kind."""@en ;
+    rdfs:domain persona:Anniversary ;
+    rdfs:range xsd:string .
+
+persona:anniversaryDate rdf:type owl:DatatypeProperty ;
+    rdfs:label "anniversary date"@en ;
+    rdfs:comment """The calendar date of the anniversary. Use xsd:date ('YYYY-MM-DD') for
+                    fully known dates; xsd:gMonthDay ('--MM-DD') for day/month only.
+                    JSContact: anniversaries[*].date."""@en ;
+    rdfs:domain persona:Anniversary .
+
+persona:anniversaryLabel rdf:type owl:DatatypeProperty ;
+    rdfs:label "anniversary label"@en ;
+    rdfs:comment """Human-readable label for a 'custom' anniversary.
+                    JSContact: anniversaries[*].label."""@en ;
+    rdfs:domain persona:Anniversary ;
+    rdfs:range xsd:string .
+
+
+#################################################################
+#  6. PersonalInfo Class and Properties
+#     A named individual of type p:PersonalInfo is attached to a
+#     Persona via persona:hasPersonalInfo.
+#################################################################
+
+persona:PersonalInfo rdf:type owl:Class ;
+    rdfs:label "Personal Info"@en ;
+    rdfs:comment """A record of a person's hobby, personal interest, or area of expertise.
+                    JSContact: personalInfo map entries."""@en .
+
+persona:hasPersonalInfo rdf:type owl:ObjectProperty ;
+    rdfs:label "has personal info"@en ;
+    rdfs:comment "Links a p:Persona to one of its PersonalInfo individuals."@en ;
+    rdfs:range persona:PersonalInfo .
+
+persona:personalInfoKind rdf:type owl:DatatypeProperty ;
+    rdfs:label "personal info kind"@en ;
+    rdfs:comment """The category of personal information.
+                    Controlled vocabulary: 'expertise', 'hobby', 'interest'.
+                    JSContact: personalInfo[*].kind."""@en ;
+    rdfs:domain persona:PersonalInfo ;
+    rdfs:range xsd:string .
+
+persona:personalInfoValue rdf:type owl:DatatypeProperty ;
+    rdfs:label "personal info value"@en ;
+    rdfs:comment """The subject matter — e.g. 'rock climbing', 'jazz piano', 'Rust'.
+                    JSContact: personalInfo[*].value."""@en ;
+    rdfs:domain persona:PersonalInfo ;
+    rdfs:range xsd:string .
+
+persona:personalInfoLevel rdf:type owl:DatatypeProperty ;
+    rdfs:label "personal info level"@en ;
+    rdfs:comment """Self-assessed proficiency level for expertise entries.
+                    Controlled vocabulary: 'high', 'medium', 'low'.
+                    JSContact: personalInfo[*].level."""@en ;
+    rdfs:domain persona:PersonalInfo ;
+    rdfs:range xsd:string .
+
+
+#################################################################
+#  7. Photo Property
+#################################################################
+
+persona:hasPhoto rdf:type owl:DatatypeProperty ;
+    rdfs:label "has photo"@en ;
+    rdfs:comment """A URI pointing to a photo or avatar image for this Persona.
+                    Repeat the property for multiple photos (e.g. work headshot vs
+                    informal photo). Use persona:contactContext as an annotation on
+                    the reified statement if context labeling is needed.
+                    JSContact: photos[*].uri."""@en ;
+    rdfs:range xsd:anyURI .

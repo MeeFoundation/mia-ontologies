@@ -148,6 +148,8 @@ This section describes a few details related to modeling names and addresses.
 - **`persona.ttl`** — The Persona ontology. Imports the domain ontologies above and documents which classes and properties Mia uses (required vs. optional). Defines Mia-specific extension properties (`p:hasPersona`, `p:hasSocialNetwork`, `p:hasPaymentCard`, `p:hasBankAccount`, etc.) and the core Persona data model classes (`p:Persona`, physical card classes, banking classes, and others).
 - **`persona-templates.ttl`** — Defines `p:PersonaTemplate` (abstract subclass of `p:Persona`) and the two concrete subtypes `p:BirthCertificate` and `p:BusinessCard`. Imported by `persona.ttl` so all context files inherit these classes transitively.
 
+- **`persona-jscontact.ttl`** — JSContact (RFC 9553) alignment extension. Imported by `persona.ttl`. Defines new designator classes (`p:Credential`, `p:WebURL`, `p:OrganizationUnit`, `p:JobTitle`), complex information classes (`p:Anniversary`, `p:PersonalInfo`), annotation properties for contact channel labels (`p:contactContext`, `p:phoneFeature`, `p:serviceLabel`), and `p:hasPhoto`.
+
 - **`persona-templates-shacl.ttl`** — SHACL shapes for `p:PersonaTemplate` subtypes. Imported by `persona-shacl.ttl`. Validates properties including:
   - *`p:BirthCertificate` instances*: FullName OR (GivenName + FamilyName) required; optional AdditionalName, AlternateName, Nickname, Legal Name
   - *`p:BusinessCard` instances*: GivenName, FamilyName, Email, TelephoneNumber required (1..1); OrganizationName optional (0..1)

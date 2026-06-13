@@ -18,6 +18,9 @@ There are no build, compile, test, or lint commands. The files are Turtle (`.ttl
 | `persona.ttl` | Persona ontology — imports domain ontologies, annotates which classes/properties are required vs. optional for Mee, defines Mia-specific classes and properties |
 | `context.ttl` | Context ontology — controlled vocabularies for classifying context files (`contextType`, `assertionType`, `subject`) |
 | `persona-shacl.ttl` | SHACL validation shapes — constraint rules for valid instance data (e.g., a BirthCertificate Persona must have FullName OR GivenName+FamilyName) |
+| `persona-templates.ttl` | Persona template subclasses — defines `p:PersonaTemplate` (abstract superclass) and its two concrete subclasses `p:BirthCertificate` and `p:BusinessCard` |
+| `persona-templates-shacl.ttl` | SHACL shapes for persona templates — validates required/optional properties on `p:BirthCertificate` and `p:BusinessCard` instances |
+| `persona-jscontact.ttl` | JSContact (RFC 9553) extension — designator classes (Credential, WebURL, OrganizationUnit, JobTitle), annotation properties (contactContext, phoneFeature, serviceLabel), Anniversary and PersonalInfo classes, hasPhoto |
 | `example/alice(self)alice.ttl` | Alice Walker's selfness — the central Person instance; imports all context files |
 | `example/paula(self)paula.ttl` | Paula Walker's selfness — the central Person instance for Paula |
 | `example/bob(self)bob.ttl` | Bob Johnson's selfness — the central Person instance for Bob |
@@ -29,6 +32,7 @@ There are no build, compile, test, or lint commands. The files are Turtle (`.ttl
 | `example/16-alice(ssa)alice.ttl` | Alice's SSA Persona — Social Security Number |
 | `example/11-alice(google)alice.ttl` | Alice's Google Persona — email address |
 | `example/13-alice(tx-birth-cert)alice.ttl` | Alice's Texas Birth Certificate Persona — legal name record |
+| `example/21-alice(business-card)alice.ttl` | Alice's Business Card Persona — employer, job title, email, phone |
 | `example/under-development/paula(fl-birth-cert)alice.ttl` | Paula Walker's Florida Birth Certificate Persona — legal name record (under development) |
 | `project_files/` | Reference materials: imported domain ontologies (PersonOntology.ttl, AddressOntology.ttl, StagingOntology.ttl), BFO/CCO source files, PDFs, docs |
 
