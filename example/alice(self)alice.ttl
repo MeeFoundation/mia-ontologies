@@ -34,7 +34,7 @@
     owl:imports <http://www.example.org/mia/bob(bob)bob.(bob)> ;
     owl:imports <http://www.example.org/mia/alice(acme)alice> ;
     dc:date "2026-06-12"^^xsd:date ;
-    owl:versionInfo "Version 3.0.68 - align imported IRIs with filenames"@en ;
+    owl:versionInfo "Version 3.0.69 - flatten directory structure"@en ;
     rdfs:label "Alice Walker - Selfness"@en ;
     rdfs:comment """Alice Walker's selfness — the essential individuality and sense of selfhood from which
                     context-specific Personas (whonesses) are correlated.
@@ -61,20 +61,20 @@
                     - :Alice_Walker-ByBob                (04-alice(alice)bob.(bob).ttl)               — Alice as seen by Bob (dyad with above)
 
                     Bob Johnson:
-                    - :Bob_Johnson-Self                  (bob/bob(self)bob.ttl)                          — selfness
-                    - :Bob_Johnson-BHS                   (bob-contexts/09-bob(bob)bob.(bhs).ttl)         — BHS member persona
-                    - :Bob_Johnson-Bob                   (bob-contexts/06-bob(bob)bob.(bob).ttl)         — Bob persona (self-asserted, dyad with #5)
-                    - :Bob_Johnson-as-known-by-alice (bob-contexts/05-bob(bob)alice.(bob).ttl)       — colleague persona (Alice's view)
+                    - :Bob_Johnson-Self                  (bob(self)bob.ttl)                    — selfness
+                    - :Bob_Johnson-BHS                   (09-bob(bob)bob.(bhs).ttl)            — BHS member persona
+                    - :Bob_Johnson-Bob                   (06-bob(bob)bob.(bob).ttl)            — Bob persona (self-asserted, dyad with #5)
+                    - :Bob_Johnson-as-known-by-alice     (05-bob(bob)alice.(bob).ttl)          — colleague persona (Alice's view)
 
                     Boston Hub Society (group):
-                    - :BHS_Group                         (bhs-contexts/08-bhs(bhs)members.ttl)           — BHS group instance with social network
+                    - :BHS_Group                         (08-bhs(bhs)members.ttl)              — BHS group instance with social network
 
                     Paula Walker (Alice's mother):
-                    - :Paula_Walker-Self                    (paula/paula(self)paula.ttl)                        — selfness
-                    - :Paula_Walker-FloridaBirthCertificate (paula-contexts/paula(fl-birth-cert)alice.ttl)      — legal name record
-                    - :Paula_Walker-as-colleague-of-Alice-at-Acme              (paula-contexts/01-paula(Paula)alice.(acme).ttl)     — colleague persona
-                    - :Paula_Walker-Family                  (paula-contexts/02-paula(paula)alice.(family).ttl)  — family persona (Alice's view)
-                    - :Paula_Walker-Family                  (paula-contexts/03-paula(paula)paula.(family).ttl)  — family persona (Paula's own, dyad with above)"""@en .
+                    - :Paula_Walker-Self                    (paula(self)paula.ttl)                        — selfness
+                    - :Paula_Walker-FloridaBirthCertificate (under-development/paula(fl-birth-cert)alice.ttl) — legal name record
+                    - :Paula_Walker-as-colleague-of-Alice-at-Acme (01-paula(Paula)alice.(acme).ttl)       — colleague persona
+                    - :Paula_Walker-Family                  (02-paula(paula)alice.(family).ttl)           — family persona (Alice's view)
+                    - :Paula_Walker-Family                  (03-paula(paula)paula.(family).ttl)           — family persona (Paula's own, dyad with above)"""@en .
 
 
 #################################################################

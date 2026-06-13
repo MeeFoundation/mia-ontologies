@@ -18,18 +18,18 @@ There are no build, compile, test, or lint commands. The files are Turtle (`.ttl
 | `persona.ttl` | Persona ontology — imports domain ontologies, annotates which classes/properties are required vs. optional for Mee, defines Mia-specific classes and properties |
 | `context.ttl` | Context ontology — controlled vocabularies for classifying context files (`contextType`, `assertionType`, `subject`) |
 | `persona-shacl.ttl` | SHACL validation shapes — constraint rules for valid instance data (e.g., a BirthCertificate Persona must have FullName OR GivenName+FamilyName) |
-| `example/alice/alice(self)alice.ttl` | Alice Walker's selfness — the central Person instance; imports all context files |
-| `example/paula/paula(self)paula.ttl` | Paula Walker's selfness — the central Person instance for Paula |
-| `example/bob/bob(self)bob.ttl` | Bob Johnson's selfness — the central Person instance for Bob |
-| `example/alice-contexts/10-alice(citibank)alice.ttl` | Alice's Citibank Persona — payment card |
-| `example/alice-contexts/15-alice(boston)alice.ttl` | Alice's Boston Persona — residential address 2020–2025 |
-| `example/alice-contexts/14-alice(paradise)alice.ttl` | Alice's Paradise Persona — current residential address |
-| `example/alice-contexts/18-alice(family)alice.ttl` | Alice's Family Persona — family relationships and social network |
-| `example/alice-contexts/12-alice(att)alice.ttl` | Alice's AT&T Persona — phone number |
-| `example/alice-contexts/16-alice(ssa)alice.ttl` | Alice's SSA Persona — Social Security Number |
-| `example/alice-contexts/11-alice(google)alice.ttl` | Alice's Google Persona — email address |
-| `example/alice-contexts/13-alice(tx-birth-cert)alice.ttl` | Alice's Texas Birth Certificate Persona — legal name record |
-| `example/paula-contexts/under-development/paula(fl-birth-cert)alice.ttl` | Paula Walker's Florida Birth Certificate Persona — legal name record (under development) |
+| `example/alice(self)alice.ttl` | Alice Walker's selfness — the central Person instance; imports all context files |
+| `example/paula(self)paula.ttl` | Paula Walker's selfness — the central Person instance for Paula |
+| `example/bob(self)bob.ttl` | Bob Johnson's selfness — the central Person instance for Bob |
+| `example/10-alice(citibank)alice.ttl` | Alice's Citibank Persona — payment card |
+| `example/15-alice(boston)alice.ttl` | Alice's Boston Persona — residential address 2020–2025 |
+| `example/14-alice(paradise)alice.ttl` | Alice's Paradise Persona — current residential address |
+| `example/18-alice(family)alice.ttl` | Alice's Family Persona — family relationships and social network |
+| `example/12-alice(att)alice.ttl` | Alice's AT&T Persona — phone number |
+| `example/16-alice(ssa)alice.ttl` | Alice's SSA Persona — Social Security Number |
+| `example/11-alice(google)alice.ttl` | Alice's Google Persona — email address |
+| `example/13-alice(tx-birth-cert)alice.ttl` | Alice's Texas Birth Certificate Persona — legal name record |
+| `example/under-development/paula(fl-birth-cert)alice.ttl` | Paula Walker's Florida Birth Certificate Persona — legal name record (under development) |
 | `project_files/` | Reference materials: imported domain ontologies (PersonOntology.ttl, AddressOntology.ttl, StagingOntology.ttl), BFO/CCO source files, PDFs, docs |
 
 ## Architecture
@@ -37,24 +37,24 @@ There are no build, compile, test, or lint commands. The files are Turtle (`.ttl
 ### Three-Layer Design
 
 ```
-example/alice/alice(self)alice.ttl (selfness)
+example/alice(self)alice.ttl (selfness)
   ├─ imports → persona.ttl (application profile)
   │             ├─ imports → PersonOntology.ttl
   │             ├─ imports → AddressOntology.ttl
   │             └─ imports → StagingOntology.ttl
   │                           └─ imports → BFO terms
-  ├─ imports → example/alice-contexts/10-alice(citibank)alice.ttl
-  ├─ imports → example/alice-contexts/15-alice(boston)alice.ttl
-  ├─ imports → example/alice-contexts/14-alice(paradise)alice.ttl
-  ├─ imports → example/alice-contexts/18-alice(family)alice.ttl
-  ├─ imports → example/alice-contexts/12-alice(att)alice.ttl
-  ├─ imports → example/alice-contexts/16-alice(ssa)alice.ttl
-  ├─ imports → example/alice-contexts/11-alice(google)alice.ttl
-  ├─ imports → example/alice-contexts/13-alice(tx-birth-cert)alice.ttl
-  └─ imports → (plus bob-contexts, paula-contexts, bhs-contexts — see alice(self)alice.ttl)
+  ├─ imports → example/10-alice(citibank)alice.ttl
+  ├─ imports → example/15-alice(boston)alice.ttl
+  ├─ imports → example/14-alice(paradise)alice.ttl
+  ├─ imports → example/18-alice(family)alice.ttl
+  ├─ imports → example/12-alice(att)alice.ttl
+  ├─ imports → example/16-alice(ssa)alice.ttl
+  ├─ imports → example/11-alice(google)alice.ttl
+  ├─ imports → example/13-alice(tx-birth-cert)alice.ttl
+  └─ imports → (plus bob, paula, bhs context files — see alice(self)alice.ttl for full list)
 
 persona-shacl.ttl
-  └─ imports → example/alice/alice(self)alice.ttl (which transitively imports everything above)
+  └─ imports → example/alice(self)alice.ttl (which transitively imports everything above)
 ```
 
 1. **Foundation**: BFO (Basic Formal Ontology) — provides temporal modeling (`TemporalInterval`) and core relations
@@ -151,9 +151,9 @@ A Persona that is not reachable by either mechanism is an orphan. Note: `persona
 
 **Check 9 — Validation command completeness**: The `riot` merge command in the `## Validation` section of `README.md` must include every `.ttl` file in the project except: (a) files in `project_files/` (listed explicitly as foundation ontologies at the head of the command), (b) files in any `under-development/` directory, and (c) `persona-shacl.ttl` (used separately as the shapes file). The preferred implementation uses `find` with `-not -path "*/under-development/*"` so that newly added files are included automatically without a manual README update. If the `find` pattern changes (e.g. a new exclusion is added), update the README command to match.
 
-**Check 10 — PNG file location**: The diagram PNG for a context file must be stored in `images/example/<about>-contexts/`, where `<about>` is the first segment of the context filename (e.g. `alice(bhs)alice.ttl` → `images/example/alice-contexts/`). Selfness files (`<X>(self)<X>.ttl`) are an exception — their PNGs live in `images/example/<X>/`. Files in `under-development/` are excluded.
+**Check 10 — PNG file location**: The diagram PNG for every context file and selfness file must be stored directly in `images/example/` (flat, no subfolders). Files in `under-development/` are excluded.
 
-**Check 11 — PNG filename convention**: Within `images/example/<about>-contexts/`, every diagram PNG must use the same base filename as the corresponding `.ttl` file, with `.png` substituted for `.ttl` (including the `NN-` numeric prefix where present). For example, `07-alice(bhs)alice.ttl` → `07-alice(bhs)alice.png`; `09-bob(bob)bob.(bhs).ttl` → `09-bob(bob)bob.(bhs).png`. If the PNG does not yet exist, the README Diagram cell must be marked `*(todo)*` rather than left blank.
+**Check 11 — PNG filename convention**: Every diagram PNG in `images/example/` must use the same base filename as the corresponding `.ttl` file in `example/`, with `.png` substituted for `.ttl` (including the `NN-` numeric prefix where present). For example, `07-alice(bhs)alice.ttl` → `07-alice(bhs)alice.png`; `alice(self)alice.ttl` → `alice(self)alice.png`. If the PNG does not yet exist, the README Diagram cell must be marked `*(todo)*` rather than left blank.
 
 ## Keeping Files in Sync
 
