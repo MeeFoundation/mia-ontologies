@@ -26,8 +26,9 @@
     owl:imports <http://www.example.org/mia/bhs-group> ;
     owl:imports <http://www.example.org/mia/paula-colleague-of-alice> ;
     owl:imports <http://www.example.org/mia/bob-colleague-of-alice> ;
+    owl:imports <http://www.example.org/mia/bob> ;
     dc:date "2026-06-12"^^xsd:date ;
-    owl:versionInfo "Version 3.0.53 - update bob colleague ref to bob(bob)alice.(bob).ttl"@en ;
+    owl:versionInfo "Version 3.0.54 - import alice(bob)alice.ttl"@en ;
     rdfs:label "Alice Walker - Selfness"@en ;
     rdfs:comment """Alice Walker's selfness — the essential individuality and sense of selfhood from which
                     context-specific Personas (whonesses) are correlated.
@@ -50,6 +51,7 @@
                     - :Alice_Walker-TexasBirthCertificate (alice(tx-birth-cert)alice.ttl) — legal name record
                     - :Alice_Walker-Possessions           (belongings.ttl)              — wallet, driver's license, health insurance card
                     - :Alice_Walker-BHS                  (alice(bhs)alice.ttl)                     — BHS group profile (address, phone, email)
+                    - :Alice_Walker-Bob                  (alice(bob)alice.ttl)                     — 1:1 relationship with Bob Johnson
 
                     Bob Johnson (BHS member):
                     - :Bob_Johnson-BHS                   (bob-contexts/bob(bob)bob.(bhs).ttl)        — BHS member persona

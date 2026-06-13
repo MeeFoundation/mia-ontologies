@@ -1,0 +1,46 @@
+@prefix : <http://www.example.org/mia#> .
+@prefix persona: <http://mee.foundation/ontologies/persona#> .
+@prefix context: <http://mee.foundation/ontologies/context#> .
+@prefix identity: <http://mee.foundation/ontologies/identity#> .
+@prefix cco: <https://purl.org/cco/> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix dc: <http://purl.org/dc/elements/1.1/> .
+@base <http://www.example.org/mia> .
+
+<http://www.example.org/mia/bob> rdf:type owl:Ontology ;
+    owl:imports <http://mee.foundation/ontologies/persona> ;
+    owl:imports <http://mee.foundation/ontologies/context> ;
+    dc:date "2026-06-12"^^xsd:date ;
+    owl:versionInfo "Version 1.0.0 - initial"@en ;
+    context:contextCategory context:Person ;
+    context:assertedBy :Alice_Walker-Self ;
+    context:subject :Alice_Walker-Self ;
+    context:name "Bob" ;
+    rdfs:label "Alice Walker - Bob Persona"@en ;
+    rdfs:comment """Alice Walker's persona in the context of her 1:1 relationship with Bob Johnson.
+                    Correlated from :Alice_Walker-Self in alice(self)alice.ttl."""@en .
+
+
+#################################################################
+#    Alice Walker - Bob Persona
+#################################################################
+
+:Alice_Walker-Bob rdf:type owl:NamedIndividual ,
+                            persona:Persona ;
+    rdfs:label "Alice Walker (Bob)"@en ;
+    rdfs:comment "Alice Walker's persona in the context of her 1:1 relationship with Bob Johnson."@en ;
+
+    persona:hasSocialNetwork :Alice_Bob_Network .
+
+
+#################################################################
+#    Alice's Bob Social Network
+#################################################################
+
+:Alice_Bob_Network rdf:type owl:NamedIndividual ,
+                             cco:ont00001183 ;  # Social Network
+    rdfs:label "Alice Walker's Bob connection"@en ;
+    <http://purl.obolibrary.org/obo/BFO_0000115> :Bob_Johnson-Bob-colleague-of-alice .  # has member part
