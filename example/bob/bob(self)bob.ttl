@@ -19,7 +19,7 @@
                     context-specific Personas (whonesses) are correlated.
 
                     Correlated Personas:
-                    - :Bob_Johnson-Bob-colleague-of-alice (bob-contexts/bob(bob)alice.(bob).ttl) — colleague persona (Alice's view)
+                    - :Bob_Johnson-as-known-by-alice (bob-contexts/bob(bob)alice.(bob).ttl) — colleague persona (Alice's view)
                     - :Bob_Johnson-Bob                   (bob-contexts/bob(bob)bob.(bob).ttl)   — Bob persona (self-asserted, dyad with #5)
                     - :Bob_Johnson-BHS                   (bob-contexts/bob(bob)bob.(bhs).ttl)   — BHS member persona
                     - :Alice_Walker-ByBob                (alice-contexts/alice(alice)bob.(bob).ttl) — Alice's persona as asserted by Bob (hasMember)"""@en .
@@ -35,6 +35,6 @@
     rdfs:comment "Bob Johnson's selfness — the central identity individual."@en ;
 
     persona:hasPersona :Bob_Johnson-Bob ;
-    persona:hasPersona :Bob_Johnson-Bob-colleague-of-alice ;
+    persona:hasPersona :Bob_Johnson-as-known-by-alice ;
     persona:hasPersona :Bob_Johnson-BHS ;
     <http://purl.obolibrary.org/obo/BFO_0000115> :Alice_Walker-ByBob .  # has member part → Alice's persona asserted by Bob

@@ -15,7 +15,7 @@
     owl:imports <http://mee.foundation/ontologies/persona> ;
     owl:imports <http://mee.foundation/ontologies/context> ;
     dc:date "2026-06-12"^^xsd:date ;
-    owl:versionInfo "Version 1.0.1 - add dyad link to Bob_Johnson-Bob-colleague-of-alice"@en ;
+    owl:versionInfo "Version 1.0.2 - rename individual to Bob_Johnson-as-known-by-alice"@en ;
     context:contextCategory context:Person ;
     context:assertedBy :Bob_Johnson-Self ;
     context:subject :Bob_Johnson-Self ;
@@ -45,4 +45,4 @@
         <https://purl.org/cco/ont00001765> "Johnson"  # has text value
     ] ;
 
-    persona:dyad :Bob_Johnson-Bob-colleague-of-alice .  # dyad: Alice's view of Bob
+    persona:dyad :Bob_Johnson-as-known-by-alice .  # dyad: Alice's view of Bob

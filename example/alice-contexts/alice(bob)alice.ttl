@@ -16,7 +16,7 @@
     owl:imports <http://mee.foundation/ontologies/persona> ;
     owl:imports <http://mee.foundation/ontologies/context> ;
     dc:date "2026-06-12"^^xsd:date ;
-    owl:versionInfo "Version 1.0.1 - add diagram label"@en ;
+    owl:versionInfo "Version 1.0.2 - rename individual to Bob_Johnson-as-known-by-alice"@en ;
     context:contextCategory context:Person ;
     context:assertedBy :Alice_Walker-Self ;
     context:subject :Alice_Walker-Self ;
@@ -47,4 +47,4 @@
 :Alice_Bob_Network rdf:type owl:NamedIndividual ,
                              cco:ont00001183 ;  # Social Network
     rdfs:label "Alice Walker's Bob connection"@en ;
-    <http://purl.obolibrary.org/obo/BFO_0000115> :Bob_Johnson-Bob-colleague-of-alice .  # has member part
+    <http://purl.obolibrary.org/obo/BFO_0000115> :Bob_Johnson-as-known-by-alice .  # has member part

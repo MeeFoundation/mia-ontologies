@@ -18,7 +18,7 @@
     owl:versionInfo "Version 1.0.10 - fix contextCategory to Person"@en ;
     context:contextCategory context:Person ;
     context:assertedBy :Alice_Walker-Self ;
-    context:subject :Bob_Johnson-Bob-colleague-of-alice ;
+    context:subject :Bob_Johnson-as-known-by-alice ;
     context:name "Bob" ;
     rdfs:label "Bob Johnson - Bob Persona (Alice's view)"@en ;
     rdfs:comment """Bob Johnson's persona in Alice's 1:1 Bob context, as asserted by Alice."""@en .
@@ -28,7 +28,7 @@
 #    Bob Johnson - Colleague of Alice Persona
 #################################################################
 
-:Bob_Johnson-Bob-colleague-of-alice rdf:type owl:NamedIndividual ,
+:Bob_Johnson-as-known-by-alice rdf:type owl:NamedIndividual ,
                                              persona:Persona ;
     rdfs:label "Bob Johnson (Bob-colleague-of-alice)"@en ;
     rdfs:comment "Bob Johnson's persona in the context of his colleagial relationship with Alice Walker, as asserted by Alice."@en ;
