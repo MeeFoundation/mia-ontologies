@@ -12,14 +12,14 @@
     owl:imports <http://mee.foundation/ontologies/persona> ;
     owl:imports <http://www.example.org/mia/paula-family-paula> ;
     dc:date "2026-06-12"^^xsd:date ;
-    owl:versionInfo "Version 1.0.2 - update hasPersona to Paula_Walker-FamilySelf"@en ;
+    owl:versionInfo "Version 1.0.3 - rename individual to Paula_Walker-as-colleague-of-Alice-at-Acme"@en ;
     rdfs:label "Paula Walker - Selfness"@en ;
     rdfs:comment """Paula Walker's selfness — the essential individuality and sense of selfhood from which
                     context-specific Personas (whonesses) are correlated.
 
                     Correlated Personas:
                     - :Paula_Walker-FloridaBirthCertificate (paula-contexts/paula(fl-birth-cert)alice.ttl)    — legal name record
-                    - :Paula_Walker-Colleagues              (paula-contexts/paula(Paula)alice.(acme).ttl)     — colleague persona
+                    - :Paula_Walker-as-colleague-of-Alice-at-Acme              (paula-contexts/paula(Paula)alice.(acme).ttl)     — colleague persona
                     - :Paula_Walker-Family                  (paula-contexts/paula(paula)alice.(family).ttl)   — family persona (Alice's view)
                     - :Paula_Walker-FamilySelf              (paula-contexts/paula(paula)paula.(family).ttl)   — family persona (self-asserted, dyad with above)"""@en .
 
@@ -36,4 +36,4 @@
     persona:hasPersona :Paula_Walker-FloridaBirthCertificate ;
     persona:hasPersona :Paula_Walker-Family ;
     persona:hasPersona :Paula_Walker-FamilySelf ;
-    persona:hasPersona :Paula_Walker-Colleagues .
+    persona:hasPersona :Paula_Walker-as-colleague-of-Alice-at-Acme .

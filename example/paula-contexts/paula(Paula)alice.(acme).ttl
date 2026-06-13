@@ -15,7 +15,7 @@
     owl:imports <http://mee.foundation/ontologies/persona> ;
     owl:imports <http://mee.foundation/ontologies/context> ;
     dc:date "2026-06-12"^^xsd:date ;
-    owl:versionInfo "Version 1.0.4 - rename to paula(Paula)alice.(acme).ttl"@en ;
+    owl:versionInfo "Version 1.0.5 - rename individual to Paula_Walker-as-colleague-of-Alice-at-Acme"@en ;
     context:contextCategory context:Colleague ;
     context:assertedBy identity:Self ;
     context:subject identity:Individual ;
@@ -30,7 +30,7 @@
 #    Paula Walker - Colleague of Alice Persona
 #################################################################
 
-:Paula_Walker-Colleagues rdf:type owl:NamedIndividual ,
+:Paula_Walker-as-colleague-of-Alice-at-Acme rdf:type owl:NamedIndividual ,
                                   persona:Persona ;
     rdfs:label "Paula Walker (Colleagues)"@en ;
     rdfs:comment "Paula Walker's persona in the context of her colleague relationship with Alice."@en .

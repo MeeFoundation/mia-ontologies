@@ -17,7 +17,7 @@
     owl:imports <http://mee.foundation/ontologies/context> ;
     owl:imports <http://www.example.org/mia/paula-colleague-of-alice> ;
     dc:date "2026-06-12"^^xsd:date ;
-    owl:versionInfo "Version 1.0.0 - initial"@en ;
+    owl:versionInfo "Version 1.0.2 - rename individual to Paula_Walker-as-colleague-of-Alice-at-Acme"@en ;
     context:contextCategory context:Employee ;
     context:assertedBy :Alice_Walker-Self ;
     context:subject :Alice_Walker-Self ;
@@ -36,6 +36,11 @@
     rdfs:label "Alice Walker (Acme)"@en ;
     rdfs:comment "Alice Walker's persona in the context of her employment at Acme."@en ;
 
+    <https://purl.org/cco/ont00001879> [  # designated by → Email
+        rdf:type cco:ent00000024 ;  # Email
+        <https://purl.org/cco/ont00001765> "alice@acme.com"  # has text value
+    ] ;
+
     persona:hasSocialNetwork :Alice_Acme_Network .
 
 
@@ -46,4 +51,4 @@
 :Alice_Acme_Network rdf:type owl:NamedIndividual ,
                              cco:ont00001183 ;  # Social Network
     rdfs:label "Alice Walker's Acme connections"@en ;
-    <http://purl.obolibrary.org/obo/BFO_0000115> :Paula_Walker-Colleagues .  # has member part
+    <http://purl.obolibrary.org/obo/BFO_0000115> :Paula_Walker-as-colleague-of-Alice-at-Acme .  # has member part
