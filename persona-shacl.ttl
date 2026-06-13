@@ -12,7 +12,7 @@
 # Imports Mee Identity Agent (MIA)'s Application Ontology (which imports the domains)
 <http://www.example.org/shapes> rdf:type owl:Ontology ;
     owl:imports <http://www.example.org/mia> ;
-    owl:versionInfo "Version 3.0.26 - restore hasSocialNetwork/SocialNetworkShape for Persona contexts; group members use BFO_0000115 directly on g:Group"@en ;
+    owl:versionInfo "Version 3.0.27 - add dyad maxCount 1 constraint to PersonaShape"@en ;
     rdfs:label "Mee Identity Agent (MIA)'s SHACL Validation Shapes"@en ;
     rdfs:comment """SHACL validation shapes for the Mee Identity Agent.
 
@@ -151,6 +151,13 @@
         sh:class persona:Wallet ;
         sh:maxCount 1 ;
         sh:message "A Persona may hold at most one wallet."@en
+    ] ;
+
+    sh:property [
+        sh:path persona:dyad ;
+        sh:class persona:Persona ;
+        sh:maxCount 1 ;
+        sh:message "A Persona may have at most one dyad link."@en
     ] .
 
 #################################################################
