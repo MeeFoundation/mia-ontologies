@@ -296,15 +296,6 @@ Here is an overview of the contexts in Alice's Mia.
 
 <p align="center"><img src="images/example/context-map.png" alt="Alice's physical characteristics"></p>
 
-Notes on the labeled contexts in the diagram above:
-- (1) What Alice claims about her Acme employee colleague, Paula
-- (2) What Alice claims about her mother, Paula, in the context of Alice's family
-- (3) What Paula claims about herself and shares back to Alice likely in response to Alice sharing some contact and profile information about herself with Paula.
-- (4) What Alice's colleague Bob claims about Alice likely in response to Alice sharing some contact and profile information with him.
-- (6) What Bob claims about Bob (e.g. contact information) that he decided to share with Alice.
-- (8) A shared Group context shared by all members of BHS (including Alice and Bob).
-
-
 ### Alice's Personas and Contexts
 
 As we've mentioned, Alice interacts with other people, organizations and groups in contexts of different types with each context holding a distinct `p:Persona` facet.
@@ -332,7 +323,7 @@ The following table lists contexts that are *about* Alice but asserted by others
 | 4  | [alice(alice)bob.(bob).ttl](example/alice-contexts/alice(alice)bob.(bob).ttl)        | Person       | Alice as seen by Bob (dyad with #17) |
 | 10 | [alice(citibank)alice.ttl](example/alice-contexts/alice(citibank)alice.ttl)          | Finance      | Debit card                           |
 
-The following table lists contexts about other people (Paula and Bob) in Alice's Mia. Files are in `bob-contexts`, `paula-contexts`, and `bhs-contexts`.
+The following table lists contexts about other people (Paula and Bob) or groups (Boston Hub Society) in Alice's Mia. Files are in `bob-contexts`, `paula-contexts`, and `bhs-contexts`.
 
 | #  | Context file                                                                                     | Context type | Key data                                                         |
 |--- |:-------------------------------------------------------------------------------------------------|:-------------|:-----------------------------------------------------------------|
