@@ -1,0 +1,61 @@
+@prefix : <http://www.example.org/mia#> .
+@prefix persona: <http://mee.foundation/ontologies/persona#> .
+@prefix context: <http://mee.foundation/ontologies/context#> .
+@prefix cco: <https://purl.org/cco/> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix dc: <http://purl.org/dc/elements/1.1/> .
+@base <http://www.example.org/mia> .
+
+# diagram label = 21
+
+<http://www.example.org/mia/alice(business-card)alice> rdf:type owl:Ontology ;
+    owl:imports <http://mee.foundation/ontologies/persona> ;
+    owl:imports <http://mee.foundation/ontologies/context> ;
+    dc:date "2026-06-13"^^xsd:date ;
+    owl:versionInfo "Version 1.0.0 - initial"@en ;
+    context:contextCategory context:Employee ;
+    context:assertedBy :Alice_Walker-Self ;
+    context:subject :Alice_Walker-Self ;
+    context:name "Business Card" ;
+    rdfs:label "Alice Walker - Business Card Persona"@en ;
+    rdfs:comment """Alice Walker's business card persona.
+                    Correlated from :Alice_Walker-Self in alice(self)alice.ttl."""@en .
+
+
+#################################################################
+#    Alice Walker - Business Card Persona
+#################################################################
+
+:Alice_Walker-BusinessCard rdf:type owl:NamedIndividual ,
+                                    persona:Persona ;
+    rdfs:label "Alice Walker (Business Card)"@en ;
+    rdfs:comment "Alice Walker's business card persona — name, contact, and employer as printed on card."@en ;
+
+    <https://purl.org/cco/ont00001879> [  # designated by → GivenName
+        rdf:type cco:ent00000002 ;  # GivenName
+        <https://purl.org/cco/ont00001765> "Alice"  # has text value
+    ] ;
+
+    <https://purl.org/cco/ont00001879> [  # designated by → FamilyName
+        rdf:type cco:ent00000004 ;  # FamilyName
+        <https://purl.org/cco/ont00001765> "Walker"  # has text value
+    ] ;
+
+    <https://purl.org/cco/ont00001879> [  # designated by → Email
+        rdf:type cco:ent00000024 ;  # Email
+        <https://purl.org/cco/ont00001765> "alice@acme.com"  # has text value
+    ] ;
+
+    <https://purl.org/cco/ont00001879> [  # designated by → Phone
+        rdf:type cco:ent00000023 ;  # TelephoneNumber
+        <https://purl.org/cco/ont00001765> "+15108149999" ;  # has text value (E.164 format)
+        rdfs:comment "E.164 format (international standard)"@en
+    ] ;
+
+    <https://purl.org/cco/ont00001879> [  # designated by → OrganizationName
+        rdf:type cco:ent00000047 ;  # OrganizationName
+        <https://purl.org/cco/ont00001765> "Acme"  # has text value
+    ] .

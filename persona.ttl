@@ -18,7 +18,7 @@
     owl:imports <https://purl.org/cco/staging> ;
     owl:imports <http://mee.foundation/ontologies/identity> ;
     dc:date "2026-06-01"^^xsd:date ;
-    owl:versionInfo "Version 3.0.41 - restore p:hasSocialNetwork (used by Persona contexts); group members use BFO_0000115 directly on g:Group"@en ;
+    owl:versionInfo "Version 3.0.42 - add ent00000047 OrganizationName to usesOptionalClass"@en ;
     rdfs:label "Persona Ontology"@en ;
     rdfs:comment """Persona Ontology for the Mee Identity Agent.
 
@@ -56,6 +56,7 @@
                               cco:ent00000005 ,  # Suffix (Jr., Sr., etc.)
                               cco:ent00000006 ,  # AlternateName
                               cco:ent00000016 ,  # AddressDesignation
+                              cco:ent00000047 ,  # OrganizationName
                               cco:ent00000051 ,  # Debit Card
                               cco:ent00000052 ,  # Credit Card Number (PAN)
                               cco:ent00000053 ,  # CVV

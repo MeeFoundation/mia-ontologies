@@ -319,6 +319,7 @@ The contexts in the table below are *about* Alice and asserted *by* Alice. All `
 | 18 | [18-alice(family)alice.ttl](example/18-alice(family)alice.ttl)               | Family       | Family social network with Paula as member                       | [view](images/example/18-alice(family)alice.png) |
 | 19 | [19-alice(possessions)alice.ttl](example/19-alice(possessions)alice.ttl)     | Possession   | Wallet (driver's license + payment card); health ins., SSN card  | [view](images/example/19-alice(possessions)alice.png) |
 | 20 | [20-alice(acme)alice.ttl](example/20-alice(acme)alice.ttl)                   | Employee     | Acme employee context; company email; works with Paula      | [view](images/example/20-alice(acme)alice.png)|
+| 21 | [21-alice(business-card)alice.ttl](example/21-alice(business-card)alice.ttl) | Employee     | Business card — given name, family name, email, phone, employer | [view](images/example/21-alice(business-card)alice.png) |
 
 The following table lists contexts that are *about* Alice but asserted by others.
 
