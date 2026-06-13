@@ -67,7 +67,7 @@ The two currently defined subclasses are:
   - **Optional**: `AdditionalName` (middle name), `AlternateName` (e.g. maiden name), `Nickname`, and `Legal Name` designators.
 
 * `p:BusinessCard` — carries the identity claims printed on a business card. SHACL shape `:BusinessCardShape` enforces:
-  - **Required**: exactly one each of `GivenName`, `FamilyName`, `Email`, and `TelephoneNumber` designators.
+  - **Required**: exactly one of `GivenName`, `FamilyName`, `Email`, and `TelephoneNumber` designators.
   - **Optional**: `OrganizationName` designator (employer name).
 
 ### Social classes and properties 
@@ -80,8 +80,8 @@ This section describes classes and properties related to a person's social netwo
 
 **Properties**
 
-* `p:hasSocialNetwork` - a social network that a person is a member of
-* `BFO_0000115` - has member part
+* `p:hasSocialNetwork` - a social network - other people known by the Persona carrying the social network. The holder is not included as a member part of the social network object, but *is* considered to be a part of it by virtue of holding the network entity.
+* `BFO_0000115` - has member part. Links to `p:Persona` members of this network.
 
 ### Possession-related classes and properties
 
@@ -90,7 +90,7 @@ This section describes properties and classes related to things a person has, ho
  - Physical plastic/paper cards are `MaterialArtifact` subclasses that include driver's license, health insurance card, payment card, etc.
  - Physical wallets - Cards may be placed in a wallet (via BFO `continuant part of`) or held directly by the `p:Persona` (via `p:hasPhysicalCard`).
 
-<p align="center"><img src="images/persona-ontology/persona-card.png" alt="Belongings model"></p>
+<p align="center"><img src="images/persona-ontology/persona-card.png" alt="Card possessions model"></p>
 
 **Classes**
 
@@ -288,7 +288,7 @@ Alice's `alice(self)alice.ttl` context also describes some of her physical chara
 
 ### Alice's Contexts
 
-Here is an overview of the contexts in Alice's Mia.
+Here is an overview of the contexts in Alice's Mia. 
 
 <p align="center"><img src="images/example/context-map.png" alt="Alice's physical characteristics"></p>
 
