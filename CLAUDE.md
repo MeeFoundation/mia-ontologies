@@ -138,6 +138,8 @@ After any change to context files or the context map diagram, verify the followi
 
 **Check 6 — hasPersona tree structure**: The directed graph formed by `persona:hasPersona` links must be a tree (not a DAG). Every `p:Persona` must appear as the object of `persona:hasPersona` from at most one subject. A persona that is the target of two or more `hasPersona` links from different sources has two parents — a violation of tree structure.
 
+**Check 7 — contextCategory label ↔ TTL agreement**: For every labeled circle in `images/example/context-map.png`, the light-blue label attached to that circle shows a `contextCategory` value (e.g. "Company", "Federal", "Group"). That value must exactly match the local name of the `c:contextCategory` object in the corresponding `.ttl` file (e.g. `context:contextCategory context:Company`). If the label and the TTL value differ, the diagram and the data are out of sync and one must be corrected to match the other.
+
 ## Keeping Files in Sync
 
 Whenever changes are made to `alice(self)alice.ttl`, any context file, `persona.ttl`, or `context.ttl`, `persona-shacl.ttl` must be updated to match:
