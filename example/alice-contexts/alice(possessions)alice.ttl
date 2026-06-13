@@ -10,11 +10,13 @@
 @prefix dc: <http://purl.org/dc/elements/1.1/> .
 @base <http://www.example.org/mia> .
 
+# diagram label = 19
+
 <http://www.example.org/mia/posessions> rdf:type owl:Ontology ;
     owl:imports <http://mee.foundation/ontologies/persona> ;
     owl:imports <http://mee.foundation/ontologies/context> ;
     dc:date "2026-06-01"^^xsd:date ;
-    owl:versionInfo "Version 1.0.14 - rename file to alice(X)alice.ttl pattern"@en ;
+    owl:versionInfo "Version 1.0.15 - add diagram label"@en ;
     context:contextCategory context:Possession ;
     context:assertedBy identity:Self ;
     context:subject identity:Self ;

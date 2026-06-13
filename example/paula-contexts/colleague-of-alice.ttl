@@ -9,11 +9,13 @@
 @prefix dc: <http://purl.org/dc/elements/1.1/> .
 @base <http://www.example.org/mia> .
 
+# diagram label = 1
+
 <http://www.example.org/mia/paula-colleague-of-alice> rdf:type owl:Ontology ;
     owl:imports <http://mee.foundation/ontologies/persona> ;
     owl:imports <http://mee.foundation/ontologies/context> ;
     dc:date "2026-06-12"^^xsd:date ;
-    owl:versionInfo "Version 1.0.2 - update self.ttl ref to alice(self)alice.ttl"@en ;
+    owl:versionInfo "Version 1.0.3 - add diagram label"@en ;
     context:contextCategory context:Colleague ;
     context:assertedBy identity:Self ;
     context:subject identity:Individual ;
