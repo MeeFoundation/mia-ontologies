@@ -27,7 +27,7 @@
     owl:imports <http://www.example.org/mia/paula-colleague-of-alice> ;
     owl:imports <http://www.example.org/mia/bob-colleague-of-alice> ;
     dc:date "2026-06-12"^^xsd:date ;
-    owl:versionInfo "Version 3.0.52 - update bob colleague ref to bob(bob)alice.ttl"@en ;
+    owl:versionInfo "Version 3.0.53 - update bob colleague ref to bob(bob)alice.(bob).ttl"@en ;
     rdfs:label "Alice Walker - Selfness"@en ;
     rdfs:comment """Alice Walker's selfness — the essential individuality and sense of selfhood from which
                     context-specific Personas (whonesses) are correlated.
@@ -58,7 +58,7 @@
                     - :BHS_Group                         (bhs-contexts/bhs(bhs)members.ttl)  — BHS group instance with social network
 
                     Bob Johnston (colleagues):
-                    - :Bob_Johnston-Colleagues           (bob-contexts/bob(bob)alice.ttl) — colleague persona
+                    - :Bob_Johnston-Colleagues           (bob-contexts/bob(bob)alice.(bob).ttl) — colleague persona
 
                     Paula Walker (Alice's mother):
                     - :Paula_Walker-FloridaBirthCertificate (paula-contexts/florida-birth-certificate.ttl) — legal name record

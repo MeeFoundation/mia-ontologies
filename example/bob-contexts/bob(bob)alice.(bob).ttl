@@ -13,7 +13,7 @@
     owl:imports <http://mee.foundation/ontologies/persona> ;
     owl:imports <http://mee.foundation/ontologies/context> ;
     dc:date "2026-06-12"^^xsd:date ;
-    owl:versionInfo "Version 1.0.6 - rename file to bob(bob)alice.ttl"@en ;
+    owl:versionInfo "Version 1.0.7 - rename file to bob(bob)alice.(bob).ttl"@en ;
     context:contextCategory context:Colleague ;
     context:assertedBy :Alice_Walker-Self ;
     context:subject :Bob_Johnson-Bob-colleague-of-alice ;

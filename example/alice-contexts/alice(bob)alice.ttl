@@ -1,0 +1,75 @@
+@prefix : <http://www.example.org/mia#> .
+@prefix persona: <http://mee.foundation/ontologies/persona#> .
+@prefix context: <http://mee.foundation/ontologies/context#> .
+@prefix identity: <http://mee.foundation/ontologies/identity#> .
+@prefix cco: <https://purl.org/cco/> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix dc: <http://purl.org/dc/elements/1.1/> .
+@base <http://www.example.org/mia> .
+
+<http://www.example.org/mia/bhs> rdf:type owl:Ontology ;
+    owl:imports <http://mee.foundation/ontologies/persona> ;
+    owl:imports <http://mee.foundation/ontologies/context> ;
+    dc:date "2026-06-11"^^xsd:date ;
+    owl:versionInfo "Version 1.0.8 - rename file to alice(X)alice.ttl pattern"@en ;
+    context:contextCategory context:Group ;
+    context:assertedBy identity:Self ;
+    context:subject identity:Self ;
+    context:name "Boston Hub Society" ;
+    rdfs:label "Alice Walker - BHS Persona"@en ;
+    rdfs:comment """Alice Walker's BHS whoness — representing her in the context of her
+                    BHS group profile. Correlated from :Alice_Walker-Self in alice(self)alice.ttl."""@en .
+
+
+#################################################################
+#    Alice Walker - BHS Persona
+#################################################################
+
+:Alice_Walker-BHS rdf:type owl:NamedIndividual ,
+                           persona:Persona ;
+    rdfs:label "Alice Walker (BHS)"@en ;
+    rdfs:comment "Alice Walker's persona in the context of her BHS group (aka her BHS profile)."@en ;
+
+    <https://purl.org/cco/ont00001879> :Address_BHS ;  # designated by → current address
+
+    <https://purl.org/cco/ont00001879> [  # designated by → Phone
+        rdf:type cco:ent00000023 ;
+        <https://purl.org/cco/ont00001765> "+15108149999"
+    ] ;
+
+    <https://purl.org/cco/ont00001879> [  # designated by → Email
+        rdf:type cco:ent00000024 ;
+        <https://purl.org/cco/ont00001765> "awalker@gmail.com"
+    ] .
+
+
+#################################################################
+#    Address
+#################################################################
+
+:Address_BHS rdf:type owl:NamedIndividual ,
+                      cco:ent00000010 ;  # USPostalAddress
+    rdfs:label "Alice Walker's BHS Address"@en ;
+    <http://purl.obolibrary.org/obo/BFO_0000178> [  # has continuant part → Street
+        rdf:type cco:ent00000011 ;
+        <https://purl.org/cco/ont00001765> "123 Sleepy Hollow"
+    ] ;
+    <http://purl.obolibrary.org/obo/BFO_0000178> [  # has continuant part → City
+        rdf:type cco:ent00000012 ;
+        <https://purl.org/cco/ont00001765> "Paradise"
+    ] ;
+    <http://purl.obolibrary.org/obo/BFO_0000178> [  # has continuant part → State
+        rdf:type cco:ent00000013 ;
+        <https://purl.org/cco/ont00001765> "CA"
+    ] ;
+    <http://purl.obolibrary.org/obo/BFO_0000178> [  # has continuant part → ZIP
+        rdf:type cco:ent00000015 ;
+        <https://purl.org/cco/ont00001765> "95969"
+    ] ;
+    <http://purl.obolibrary.org/obo/BFO_0000178> [  # has continuant part → Country
+        rdf:type cco:ent00000014 ;
+        <https://purl.org/cco/ont00001765> "USA"
+    ] .
