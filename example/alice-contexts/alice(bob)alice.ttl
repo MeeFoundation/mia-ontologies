@@ -35,7 +35,9 @@
     rdfs:label "Alice Walker (Bob)"@en ;
     rdfs:comment "Alice Walker's persona in the context of her 1:1 relationship with Bob Johnson."@en ;
 
-    persona:hasSocialNetwork :Alice_Bob_Network .
+    persona:hasSocialNetwork :Alice_Bob_Network ;
+
+    persona:dyad :Alice_Walker-ByBob .  # dyad: Alice as seen by Bob
 
 
 #################################################################

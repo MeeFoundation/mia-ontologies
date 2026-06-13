@@ -16,7 +16,7 @@
     owl:imports <http://mee.foundation/ontologies/persona> ;
     owl:imports <http://mee.foundation/ontologies/context> ;
     dc:date "2026-06-12"^^xsd:date ;
-    owl:versionInfo "Version 1.0.0 - initial"@en ;
+    owl:versionInfo "Version 1.0.1 - add dyad link to Paula_Walker-FamilySelf"@en ;
     context:contextCategory context:Family ;
     context:assertedBy :Alice_Walker-Self ;
     context:subject :Paula_Walker-Self ;
@@ -44,4 +44,6 @@
     <https://purl.org/cco/ont00001879> [  # designated by → FamilyName
         rdf:type cco:ent00000004 ;  # FamilyName
         <https://purl.org/cco/ont00001765> "Walker"  # has text value
-    ] .
+    ] ;
+
+    persona:dyad :Paula_Walker-FamilySelf .  # dyad: Paula's self-asserted family persona

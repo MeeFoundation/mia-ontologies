@@ -16,7 +16,7 @@
     owl:imports <http://mee.foundation/ontologies/persona> ;
     owl:imports <http://mee.foundation/ontologies/context> ;
     dc:date "2026-06-12"^^xsd:date ;
-    owl:versionInfo "Version 1.0.1 - remove erroneous hasMember link to Alice_Walker-Family"@en ;
+    owl:versionInfo "Version 1.0.2 - rename persona to Paula_Walker-FamilySelf; add dyad link"@en ;
     context:contextCategory context:Family ;
     context:assertedBy :Paula_Walker-Self ;
     context:subject :Paula_Walker-Self ;
@@ -31,8 +31,10 @@
 #    Paula Walker - Family Persona (self-asserted)
 #################################################################
 
-:Paula_Walker-Family rdf:type owl:NamedIndividual ,
-                              persona:Persona ;
-    rdfs:label "Paula Walker (Family)"@en ;
+:Paula_Walker-FamilySelf rdf:type owl:NamedIndividual ,
+                                  persona:Persona ;
+    rdfs:label "Paula Walker (Family — self-asserted)"@en ;
     rdfs:comment "Paula Walker's self-asserted family persona."@en ;
+
+    persona:dyad :Paula_Walker-Family .  # dyad: Alice's view of Paula in family context
 

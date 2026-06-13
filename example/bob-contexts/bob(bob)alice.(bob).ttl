@@ -15,7 +15,7 @@
     owl:imports <http://mee.foundation/ontologies/persona> ;
     owl:imports <http://mee.foundation/ontologies/context> ;
     dc:date "2026-06-12"^^xsd:date ;
-    owl:versionInfo "Version 1.0.8 - add diagram label"@en ;
+    owl:versionInfo "Version 1.0.9 - add dyad link to Bob_Johnson-Bob"@en ;
     context:contextCategory context:Colleague ;
     context:assertedBy :Alice_Walker-Self ;
     context:subject :Bob_Johnson-Bob-colleague-of-alice ;
@@ -37,4 +37,6 @@
     <https://purl.org/cco/ont00001917> [  # described by → Person Note
         rdf:type cco:ent00000048 ;
         <https://purl.org/cco/ont00001765> "Fav drink: oat milk cappuccino"
-    ] .
+    ] ;
+
+    persona:dyad :Bob_Johnson-Bob .  # dyad: Bob's self-asserted Bob persona
