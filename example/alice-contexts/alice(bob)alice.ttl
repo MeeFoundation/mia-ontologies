@@ -16,7 +16,7 @@
     owl:imports <http://mee.foundation/ontologies/persona> ;
     owl:imports <http://mee.foundation/ontologies/context> ;
     dc:date "2026-06-12"^^xsd:date ;
-    owl:versionInfo "Version 1.0.2 - rename individual to Bob_Johnson-as-known-by-alice"@en ;
+    owl:versionInfo "Version 1.0.3 - add GivenName and FamilyName to Alice_Walker-Bob"@en ;
     context:contextCategory context:Person ;
     context:assertedBy :Alice_Walker-Self ;
     context:subject :Alice_Walker-Self ;
@@ -27,13 +27,23 @@
 
 
 #################################################################
-#    Alice Walker - Bob Persona
+#    Alice Walker - the facet of herself she shows to Bob
 #################################################################
 
 :Alice_Walker-Bob rdf:type owl:NamedIndividual ,
                             persona:Persona ;
     rdfs:label "Alice Walker (Bob)"@en ;
-    rdfs:comment "Alice Walker's persona in the context of her 1:1 relationship with Bob Johnson."@en ;
+    rdfs:comment "Alice Walker's persona in the context of her 1:1 relationship with Bob."@en ;
+
+    <https://purl.org/cco/ont00001879> [  # designated by → GivenName
+        rdf:type cco:ent00000002 ;  # GivenName
+        <https://purl.org/cco/ont00001765> "Alice"  # has text value
+    ] ;
+
+    <https://purl.org/cco/ont00001879> [  # designated by → FamilyName
+        rdf:type cco:ent00000004 ;  # FamilyName
+        <https://purl.org/cco/ont00001765> "Walker"  # has text value
+    ] ;
 
     persona:hasSocialNetwork :Alice_Bob_Network ;
 

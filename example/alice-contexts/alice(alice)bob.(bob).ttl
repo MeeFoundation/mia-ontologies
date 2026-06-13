@@ -15,7 +15,7 @@
     owl:imports <http://mee.foundation/ontologies/persona> ;
     owl:imports <http://mee.foundation/ontologies/context> ;
     dc:date "2026-06-12"^^xsd:date ;
-    owl:versionInfo "Version 1.0.1 - add dyad link to Alice_Walker-Bob"@en ;
+    owl:versionInfo "Version 1.0.2 - replace name designators with Person Note"@en ;
     context:contextCategory context:Person ;
     context:assertedBy :Bob_Johnson-Self ;
     context:subject :Alice_Walker-Self ;
@@ -33,16 +33,11 @@
 :Alice_Walker-ByBob rdf:type owl:NamedIndividual ,
                              persona:Persona ;
     rdfs:label "Alice Walker (by Bob)"@en ;
-    rdfs:comment "Alice Walker's persona in Bob Johnson's view of her."@en ;
+    rdfs:comment "Claims (annotations mostly) about Alice by Bob."@en ;
 
-    <https://purl.org/cco/ont00001879> [  # designated by → GivenName
-        rdf:type cco:ent00000002 ;  # GivenName
-        <https://purl.org/cco/ont00001765> "Alice"  # has text value
-    ] ;
-
-    <https://purl.org/cco/ont00001879> [  # designated by → FamilyName
-        rdf:type cco:ent00000004 ;  # FamilyName
-        <https://purl.org/cco/ont00001765> "Walker"  # has text value
+    <https://purl.org/cco/ont00001917> [  # described by → Person Note
+        rdf:type cco:ent00000048 ;
+        <https://purl.org/cco/ont00001765> "Favorite drink: pepsi"
     ] ;
 
     persona:dyad :Alice_Walker-Bob .  # dyad: Alice's own 1:1 Bob persona
