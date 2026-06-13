@@ -16,8 +16,8 @@
     owl:imports <http://mee.foundation/ontologies/persona> ;
     owl:imports <http://mee.foundation/ontologies/context> ;
     dc:date "2026-06-01"^^xsd:date ;
-    owl:versionInfo "Version 1.0.12 - add diagram label"@en ;
-    context:contextCategory context:Company ;
+    owl:versionInfo "Version 1.0.13 - fix contextCategory to Finance"@en ;
+    context:contextCategory context:Finance ;
     context:assertedBy identity:Self ;
     context:subject identity:Self ;
     context:name "Citibank" ;

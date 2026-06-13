@@ -124,11 +124,13 @@ owl:versionInfo "Version 3.0.4 - added birth date"@en
 
 ## Integrity Checks
 
-After any change to context files or the context map diagram, verify the following:
+Files inside any directory named `under-development/` (at any depth) are works-in-progress and must be **excluded from all integrity checks** below.
 
-**Check 1 — Diagram ↔ files ↔ README coverage**: Every labeled circle in `images/example/context-map.png` must have (a) a corresponding `.ttl` file in the appropriate directory and (b) a row in one of the tables in the **Alice's Personas and Contexts** section of `README.md`. Conversely, every row in those tables must correspond to a circle in the diagram and a file that actually exists.
+After any change to context files or the context map diagram, verify the following. **`images/example/context-map.png` is the authoritative source of truth.** When a discrepancy is found between the diagram and any `.ttl` file or `README.md` entry, the diagram wins — update the files to match the diagram, not the other way around.
 
-**Check 2 — Filename convention**: Every context filename must follow `<about>(<context-name>)<asserted-by>[.(<parent-context>)]`. The `<asserted-by>` segment must be a real entity identifier (e.g. `alice`, `bob`, `paula`) — except for `c:Group` contexts, where it must be the literal string `members`. Where a parent segment `.(X)` is present, the parent context file must exist. The hierarchy implied by the segments must match the radial structure in `context-map.png`.
+**Check 1 — Diagram ↔ files ↔ README coverage**: Every labeled circle in `images/example/context-map.png` must have (a) a corresponding `.ttl` file in the appropriate directory and (b) a row in one of the tables in the **Alice's Personas and Contexts** section of `README.md`. Conversely, every row in those tables must correspond to a circle in the diagram and a file that actually exists. If a circle exists in the diagram but has no `.ttl` file or README row, create them to match the diagram.
+
+**Check 2 — Filename convention**: Every context filename must follow `<about>(<context-name>)<asserted-by>[.(<parent-context>)]`. The `<asserted-by>` segment must be a real entity identifier (e.g. `alice`, `bob`, `paula`) — except for `c:Group` contexts, where it must be the literal string `members`. Where a parent segment `.(X)` is present, the parent context file must exist. The hierarchy implied by the segments must match the radial structure in `context-map.png`. If a filename conflicts with the diagram's hierarchy, rename the file to match the diagram.
 
 **Check 3 — Orange arrows (hasMember)**: For every orange arrow from circle A to circle B in `context-map.png`, the source context file (A) must contain a `persona:hasSocialNetwork` individual of type `cco:ont00001183` (Social Network), and that network must have a `BFO_0000115` (has member part) triple pointing to the `p:Persona` individual defined in the target context file (B).
 
@@ -138,7 +140,16 @@ After any change to context files or the context map diagram, verify the followi
 
 **Check 6 — hasPersona tree structure**: The directed graph formed by `persona:hasPersona` links must be a tree (not a DAG). Every `p:Persona` must appear as the object of `persona:hasPersona` from at most one subject. A persona that is the target of two or more `hasPersona` links from different sources has two parents — a violation of tree structure.
 
-**Check 7 — contextCategory label ↔ TTL agreement**: For every labeled circle in `images/example/context-map.png`, the light-blue label attached to that circle shows a `contextCategory` value (e.g. "Company", "Federal", "Group"). That value must exactly match the local name of the `c:contextCategory` object in the corresponding `.ttl` file (e.g. `context:contextCategory context:Company`). If the label and the TTL value differ, the diagram and the data are out of sync and one must be corrected to match the other.
+**Check 7 — contextCategory label ↔ TTL agreement**: For every labeled circle in `images/example/context-map.png`, the light-blue label attached to that circle shows a `contextCategory` value (e.g. "Finance", "Federal", "Group"). That value must exactly match the local name of the `c:contextCategory` object in the corresponding `.ttl` file (e.g. `context:contextCategory context:Finance`). Read the diagram label independently before consulting the TTL — do not let the TTL value anchor your reading of the diagram. If the label and the TTL value differ, the diagram is authoritative — update the TTL to match the diagram.
+
+**Check 8 — No orphan Personas**: Every `p:Persona` individual must be reachable via at least one of the following two link types from a `cco:ont00001262` (Person) individual or another `p:Persona` individual:
+
+- **`persona:hasPersona`** — valid only when all contexts along the chain share the same `c:subject` value (i.e. the entire branch describes the same person). A `hasPersona` link that would cross a subject boundary is not a valid parent link.
+- **`BFO_0000115`** (has member part) — a `hasMember` link from a Person or Persona to a Persona. This is the correct parent link for cross-person contexts where the `c:subject` differs from the asserting person's tree (e.g. Bob's Self linking to Alice's persona asserted by Bob via an orange `hasMember` arrow in the diagram).
+
+A Persona that is not reachable by either mechanism is an orphan. Note: `persona:dyad` does not satisfy this requirement — it is a lateral peer link, not a parent link.
+
+**Check 9 — Validation command completeness**: The `riot` merge command in the `## Validation` section of `README.md` must include every `.ttl` file in the project except: (a) files in `project_files/` (listed explicitly as foundation ontologies at the head of the command), (b) files in any `under-development/` directory, and (c) `persona-shacl.ttl` (used separately as the shapes file). The preferred implementation uses `find` with `-not -path "*/under-development/*"` so that newly added files are included automatically without a manual README update. If the `find` pattern changes (e.g. a new exclusion is added), update the README command to match.
 
 ## Keeping Files in Sync
 

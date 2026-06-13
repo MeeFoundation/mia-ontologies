@@ -356,20 +356,19 @@ Each diagram shows the `p:Persona` individual (yellow), supporting named individ
 
 ## Validation
 
-Validation requires Apache Jena. The following validates Alice Walker's example instance data against the SHACL shapes. Merge all data files first, then validate:
+Validation requires Apache Jena. The following validates all instance data against the SHACL shapes. The `find` command automatically picks up every `.ttl` file except the foundation ontologies in `project_files/` (listed explicitly), files in any `under-development/` directory, and `persona-shacl.ttl` (used separately as the shapes file).
 
 ```bash
-riot --output=turtle \
-  project_files/bfo-core.ttl project_files/PersonOntology.ttl \
-  project_files/AddressOntology.ttl project_files/StagingOntology.ttl \
-  persona.ttl context.ttl "example/alice/alice(self)alice.ttl" \
-  example/alice-contexts/alice(citibank)alice.ttl example/alice-contexts/alice(boston)alice.ttl \
-  example/alice-contexts/alice(paradise)alice.ttl example/alice-contexts/alice(family)alice.ttl \
-  example/alice-contexts/alice(colleagues)alice.ttl example/alice-contexts/alice(att)alice.ttl \
-  example/alice-contexts/alice(ssa)alice.ttl example/alice-contexts/alice(google)alice.ttl \
-  example/alice-contexts/alice(tx-birth-cert)alice.ttl \
-  example/paula-contexts/paula(fl-birth-cert)alice.ttl \
-  example/alice-contexts/alice(possessions)alice.ttl \
+find . -name "*.ttl" \
+  -not -path "*/project_files/*" \
+  -not -path "*/under-development/*" \
+  -not -name "persona-shacl.ttl" \
+  -print0 | sort -z | xargs -0 \
+  riot --output=turtle \
+  project_files/bfo-core.ttl \
+  project_files/PersonOntology.ttl \
+  project_files/AddressOntology.ttl \
+  project_files/StagingOntology.ttl \
   2>/dev/null > /tmp/mia-merged.ttl
 
 grep -v 'owl:imports' persona-shacl.ttl > /tmp/mia-shapes.ttl
