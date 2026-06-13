@@ -29,12 +29,12 @@ We first present an overview of the five ontologies and then illustrate them thr
 
 ## Persona Ontology
 
-The Persona ontology defines a formal, machine-readable model of a person. It is used by Mia to represent the user and to bi-directionally synchronize this information with other Mia users on a Presonal Data Netowrk that includes other Mia users as well as groups and organizations. 
+The Persona ontology defines a formal, machine-readable model of a person. It is used by Mia to represent the user and to bi-directionally synchronize this information with other Mia users on a Personal Data Network that includes other Mia users as well as groups and organizations. 
 
 
-We represent a person as a single `Person` entity (their essential individuality or unique selfhood), along with multiple `p:Personas`, one per relationship or institutional context. Each Persona carries the information relevant to a each context. It can include names, addresses, phone numbers, SSNs, physical characteristics, parent-child relationships, social connections, payment cards, knowledge artefacts, events, meeting notes, ... a huge variety of information types. To do so, it reuses existing well-known ontologies wherever possible and defining new terms only where no suitable existing term exists.
+We represent a person as a single `Person` entity (their essential individuality or unique selfhood), along with multiple `p:Personas`, one per relationship or institutional context. Each Persona carries the information relevant to each context. It can include names, addresses, phone numbers, SSNs, physical characteristics, parent-child relationships, social connections, payment cards, knowledge artifacts, events, meeting notes, ... a huge variety of information types. To do so, it reuses existing well-known ontologies wherever possible and defining new terms only where no suitable existing term exists.
 
-A`p:Persona` is an Information Content Entity (CCO `ont00000958`) — a context-specific facet of a `Person`. `p:Persona` instances are linked to the `Person` entity via `p:hasPersona`, a subproperty of CCO `is subject of` (`ont00001801`). Each `p:Persona` carries the claims relevant to its specific context. 
+A`p:Persona` is an Information Content Entity (CCO `ont00000958`) — a context-specific facet of a `Person`. `p:Persona` instances are linked to the `Person` entity via `p:hasPersona`, a sub-property of CCO `is subject of` (`ont00001801`). Each `p:Persona` carries the claims relevant to its specific context. 
 
 A `p:Persona` can itself carry `p:hasPersona`. This allows intermediate, branch level `p:Personas` which in turn link to leaf level `p:Personas`. The claims of intermediate `p:Personas` are inherited by leaf `p:Personas` to which they are linked.
 
@@ -54,10 +54,9 @@ This section describes the most fundamental properties and classes in the Person
 * `i:hasIdentity` — links a `p:Persona` to a `i:PDNidentity` — the identifier used to communicate with this Persona over the Personal Data Network. Sub-property of CCO `designated by`.
 * `p:dyad` — links a `p:Persona` to a corresponding `p:Persona` about the same subject, but asserted by the other party rather than by the user.
 
-
 ### Persona Templates
 
-`p:PersonaTemplate` is an abstract subclass of `p:Persona` that serves as the common superclass for all reusable, context-type-specific Persona subtypes. These subtypes are defined in `persona-templates.ttl` and have corresponding SHACL shapes in `persona-templates-shacl.ttl` (imported by `persona-shacl.ttl`).
+`p:PersonaTemplate` is an abstract subclass of `p:Persona` that serves as the common super class for all reusable, context-type-specific Persona subtypes. These subtypes are defined in `persona-templates.ttl` and have corresponding SHACL shapes in `persona-templates-shacl.ttl` (imported by `persona-shacl.ttl`).
 
 <p align="center"><img src="images/persona-ontology/persona-templates.png" alt="persona templates model"></p>
 
@@ -168,13 +167,13 @@ This section describes a few details related to modeling names and addresses.
 
 ## Group Ontology
 
-The Group ontology introduces the concept of a shared group whose members are individuals and/or organizations. The group object *itself* (i.e. the set object) as well as any attached properties are shared with all of its members. In addition to individuals and organizations having PDN identifiers, a group itself has a PDN identity as a node on the PDN network. 
+The Group ontology introduces the concept of a *shared* group (`g:Group`) whose members are individuals and/or organizations. The group entity *itself* as well as any attached properties are shared with all of its members. Like individuals and organizations, `g:Groups` also have their on PDN identifiers and can be communicated with as with any other node on the PDN network. 
 
 <p align="center"><img src="images/group-ontology/group.png" alt="Group model"></p>
 
 **Classes**
 
-* **`g:Group`** — a group or community of people on the Personal Data Network.
+* **`g:Group`** — a group of people and/organizations on the Personal Data Network.
 
 ### Group Ontology File
 
@@ -186,13 +185,13 @@ The Group ontology introduces the concept of a shared group whose members are in
 
 ## Organization Ontology
 
-The Organization ontology models organizations — companies, government agencies, non-profits, and other institutions — that participate in the Personal Data Network. An organization has a PDN identity — an `i:Organization` identifier — that allows Mia to communicate with it as a node on the network.
+The Organization ontology models organizations — companies, government agencies, nonprofits, and other institutions — that participate in the Personal Data Network. An organization has a PDN identity — an `i:Organization` identifier — that allows Mia to communicate with it as with any other node on the network.
 
 <p align="center"><img src="images/organization-ontology/organization.png" alt="Organization model"></p>
 
 **Classes**
 
-* **`o:Organization`** — an organization on the Personal Data Network.
+* **`o:Organization`** — an organization (company, government agency, corporation, nonprofit, etc.) on the Personal Data Network.
 
 ### Organization Ontology File
 
