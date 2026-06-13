@@ -14,7 +14,6 @@
     owl:imports <http://www.example.org/mia/boston> ;
     owl:imports <http://www.example.org/mia/paradise> ;
     owl:imports <http://www.example.org/mia/family> ;
-    owl:imports <http://www.example.org/mia/colleagues> ;
     owl:imports <http://www.example.org/mia/att> ;
     owl:imports <http://www.example.org/mia/ssa> ;
     owl:imports <http://www.example.org/mia/google> ;
@@ -35,7 +34,7 @@
     owl:imports <http://www.example.org/mia/bob-bob> ;
     owl:imports <http://www.example.org/mia/acme> ;
     dc:date "2026-06-12"^^xsd:date ;
-    owl:versionInfo "Version 3.0.63 - import alice(acme)alice.ttl"@en ;
+    owl:versionInfo "Version 3.0.64 - delete alice(colleagues)alice.ttl"@en ;
     rdfs:label "Alice Walker - Selfness"@en ;
     rdfs:comment """Alice Walker's selfness — the essential individuality and sense of selfhood from which
                     context-specific Personas (whonesses) are correlated.
@@ -51,7 +50,6 @@
                     - :Alice_Walker-Boston    (alice(boston)alice.ttl)    — Boston residence (2020-2025)
                     - :Alice_Walker-Paradise  (alice(paradise)alice.ttl)  — Paradise residence (2025-present)
                     - :Alice_Walker-Family      (alice(family)alice.ttl)      — family relationships
-                    - :Alice_Walker-Colleagues (alice(colleagues)alice.ttl) — colleague relationships
                     - :Alice_Walker-ATT        (alice(att)alice.ttl)        — AT&T phone account
                     - :Alice_Walker-SSA        (alice(ssa)alice.ttl)        — Social Security Administration
                     - :Alice_Walker-Google                (alice(google)alice.ttl)               — Google account (Gmail)
@@ -125,7 +123,6 @@
     persona:hasPersona :Alice_Walker-Boston ;
     persona:hasPersona :Alice_Walker-Paradise ;
     persona:hasPersona :Alice_Walker-Family ;
-    persona:hasPersona :Alice_Walker-Colleagues ;
     persona:hasPersona :Alice_Walker-ATT ;
     persona:hasPersona :Alice_Walker-SSA ;
     persona:hasPersona :Alice_Walker-Google ;
