@@ -28,7 +28,7 @@ There are no build, compile, test, or lint commands. The files are Turtle (`.ttl
 | `example/alice-contexts/alice(ssa)alice.ttl` | Alice's SSA Persona — Social Security Number |
 | `example/alice-contexts/alice(google)alice.ttl` | Alice's Google Persona — email address |
 | `example/alice-contexts/alice(tx-birth-cert)alice.ttl` | Alice's Texas Birth Certificate Persona — legal name record |
-| `example/paula-contexts/florida-birth-certificate.ttl` | Paula Walker's Florida Birth Certificate Persona — legal name record |
+| `example/paula-contexts/paula(fl-birth-cert)alice.ttl` | Paula Walker's Florida Birth Certificate Persona — legal name record |
 | `project_files/` | Reference materials: imported domain ontologies (PersonOntology.ttl, AddressOntology.ttl, StagingOntology.ttl), BFO/CCO source files, PDFs, docs |
 
 ## Architecture
@@ -51,7 +51,7 @@ example/alice/alice(self)alice.ttl (selfness)
   ├─ imports → example/alice-contexts/alice(ssa)alice.ttl
   ├─ imports → example/alice-contexts/alice(google)alice.ttl
   ├─ imports → example/alice-contexts/alice(tx-birth-cert)alice.ttl
-  └─ imports → example/paula-contexts/florida-birth-certificate.ttl
+  └─ imports → example/paula-contexts/paula(fl-birth-cert)alice.ttl
 
 persona-shacl.ttl
   └─ imports → example/alice/alice(self)alice.ttl (which transitively imports everything above)
@@ -62,6 +62,28 @@ persona-shacl.ttl
 3. **Application Ontologies** (peer, not nested):
    - `persona.ttl`: aggregates domain ontologies; uses annotation properties (`usesRequiredClass`, `usesOptionalClass`, `usesCCOClass`, `usesCCOProperty`) to document Mee's usage
    - `context.ttl`: defines `contextType`, `assertionType`, and `subject` vocabularies; imported directly by each context file
+
+### Context File Naming Convention
+
+Context filenames encode a **right-to-left hierarchy** of contexts, reading from the outermost context inward toward the central "Self".
+
+**Full unabbreviated structure** (one segment per hierarchy level, separated by `.`):
+```
+<about>(<context-name>)<asserted-by>.<about>(<context-name>)<asserted-by>. … .<about>(self)<asserted-by>.ttl
+```
+
+**Abbreviation rules applied in practice:**
+1. The trailing `.(self)` segment (the central Self level) is always omitted.
+2. In the second and subsequent segments, only `(<context-name>)` is kept — the `<about>` and `<asserted-by>` strings are omitted.
+
+**Examples:**
+
+| Filename | Full (unabbreviated) form | Meaning |
+|----------|--------------------------|---------|
+| `alice(citibank)alice.ttl` | `alice(citibank)alice.alice(self)alice.ttl` | About Alice, context "citibank", asserted by Alice; child of Alice's Self |
+| `paula(paula)alice.(family).ttl` | `paula(paula)alice.alice(family)alice.alice(self)alice.ttl` | About Paula, context "paula", asserted by Alice; child of Alice's Family context |
+| `bob(bob)alice.(bob).ttl` | `bob(bob)alice.alice(bob)alice.alice(self)alice.ttl` | About Bob, context "bob", asserted by Alice; child of Alice's Bob (1:1) context |
+| `bob(bob)bob.(bhs).ttl` | `bob(bob)bob.alice(bhs)alice.alice(self)alice.ttl` | About Bob, context "bob", asserted by Bob; child of Alice's BHS context |
 
 ### Key Architectural Patterns
 

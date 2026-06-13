@@ -1,0 +1,47 @@
+@prefix : <http://www.example.org/mia#> .
+@prefix persona: <http://mee.foundation/ontologies/persona#> .
+@prefix context: <http://mee.foundation/ontologies/context#> .
+@prefix identity: <http://mee.foundation/ontologies/identity#> .
+@prefix cco: <https://purl.org/cco/> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix dc: <http://purl.org/dc/elements/1.1/> .
+@base <http://www.example.org/mia> .
+
+# diagram label = 2
+
+<http://www.example.org/mia/paula-family> rdf:type owl:Ontology ;
+    owl:imports <http://mee.foundation/ontologies/persona> ;
+    owl:imports <http://mee.foundation/ontologies/context> ;
+    dc:date "2026-06-12"^^xsd:date ;
+    owl:versionInfo "Version 1.0.0 - initial"@en ;
+    context:contextCategory context:Family ;
+    context:assertedBy :Alice_Walker-Self ;
+    context:subject :Paula_Walker-Self ;
+    context:name "Paula" ;
+    rdfs:label "Paula Walker - Family Persona (Alice's view)"@en ;
+    rdfs:comment """Paula Walker's family persona as seen by Alice Walker.
+                    Member of :Alice_Family_Network in alice(family)alice.ttl.
+                    Correlated from :Paula_Walker-Self in alice(self)alice.ttl."""@en .
+
+
+#################################################################
+#    Paula Walker - Family Persona
+#################################################################
+
+:Paula_Walker-Family rdf:type owl:NamedIndividual ,
+                              persona:Persona ;
+    rdfs:label "Paula Walker (Family)"@en ;
+    rdfs:comment "Paula Walker's persona in the context of her family relationship with Alice."@en ;
+
+    <https://purl.org/cco/ont00001879> [  # designated by → GivenName
+        rdf:type cco:ent00000002 ;  # GivenName
+        <https://purl.org/cco/ont00001765> "Paula"  # has text value
+    ] ;
+
+    <https://purl.org/cco/ont00001879> [  # designated by → FamilyName
+        rdf:type cco:ent00000004 ;  # FamilyName
+        <https://purl.org/cco/ont00001765> "Walker"  # has text value
+    ] .
