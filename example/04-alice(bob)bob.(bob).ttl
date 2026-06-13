@@ -11,23 +11,23 @@
 
 # diagram label = 4
 
-<http://www.example.org/mia/alice(alice)bob.(bob)> rdf:type owl:Ontology ;
+<http://www.example.org/mia/alice(bob)bob.(bob)> rdf:type owl:Ontology ;
     owl:imports <http://mee.foundation/ontologies/persona> ;
     owl:imports <http://mee.foundation/ontologies/context> ;
-    dc:date "2026-06-12"^^xsd:date ;
-    owl:versionInfo "Version 1.0.3 - align ontology IRI with filename"@en ;
+    dc:date "2026-06-13"^^xsd:date ;
+    owl:versionInfo "Version 1.0.4 - rename context name from alice to bob"@en ;
     context:contextCategory context:Person ;
     context:assertedBy :Bob_Johnson-Self ;
     context:subject :Alice_Walker-Self ;
-    context:name "Alice" ;
-    rdfs:label "Alice Walker - Alice Persona (Bob's view)"@en ;
+    context:name "Bob" ;
+    rdfs:label "Alice Walker - Bob Persona (Bob's view)"@en ;
     rdfs:comment """Alice Walker's persona as seen by Bob Johnson.
                     Paired (dyad) with alice(bob)alice.ttl — Alice's own 1:1 Bob context.
                     Correlated from :Alice_Walker-Self in alice(self)alice.ttl."""@en .
 
 
 #################################################################
-#    Alice Walker - Alice Persona (Bob's view)
+#    Alice Walker - Bob Persona (Bob's view)
 #################################################################
 
 :Alice_Walker-ByBob rdf:type owl:NamedIndividual ,

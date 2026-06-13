@@ -29,12 +29,12 @@
     owl:imports <http://www.example.org/mia/paula(paula)alice.(family)> ;
     owl:imports <http://www.example.org/mia/paula(self)paula> ;
     owl:imports <http://www.example.org/mia/paula(paula)paula.(family)> ;
-    owl:imports <http://www.example.org/mia/alice(alice)bob.(bob)> ;
+    owl:imports <http://www.example.org/mia/alice(bob)bob.(bob)> ;
     owl:imports <http://www.example.org/mia/bob(self)bob> ;
     owl:imports <http://www.example.org/mia/bob(bob)bob.(bob)> ;
     owl:imports <http://www.example.org/mia/alice(acme)alice> ;
-    dc:date "2026-06-12"^^xsd:date ;
-    owl:versionInfo "Version 3.0.69 - flatten directory structure"@en ;
+    dc:date "2026-06-13"^^xsd:date ;
+    owl:versionInfo "Version 3.0.70 - rename context #4 to alice(bob)bob.(bob)"@en ;
     rdfs:label "Alice Walker - Selfness"@en ;
     rdfs:comment """Alice Walker's selfness — the essential individuality and sense of selfhood from which
                     context-specific Personas (whonesses) are correlated.
@@ -58,7 +58,7 @@
                     - :Alice_Walker-Acme                 (20-alice(acme)alice.ttl)                    — Acme employee context
                     - :Alice_Walker-BHS                  (07-alice(bhs)alice.ttl)                     — BHS group profile (address, phone, email)
                     - :Alice_Walker-Bob                  (17-alice(bob)alice.ttl)                     — 1:1 relationship with Bob Johnson
-                    - :Alice_Walker-ByBob                (04-alice(alice)bob.(bob).ttl)               — Alice as seen by Bob (dyad with above)
+                    - :Alice_Walker-ByBob                (04-alice(bob)bob.(bob).ttl)                — Alice as seen by Bob (dyad with above)
 
                     Bob Johnson:
                     - :Bob_Johnson-Self                  (bob(self)bob.ttl)                    — selfness
