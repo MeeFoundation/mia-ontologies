@@ -27,7 +27,7 @@
     owl:imports <http://www.example.org/mia/paula-colleague-of-alice> ;
     owl:imports <http://www.example.org/mia/bob-colleague-of-alice> ;
     dc:date "2026-06-12"^^xsd:date ;
-    owl:versionInfo "Version 3.0.49 - update context file refs to alice(X)alice.ttl pattern"@en ;
+    owl:versionInfo "Version 3.0.50 - update bhs-group.ttl ref to bhs(bhs)members.ttl"@en ;
     rdfs:label "Alice Walker - Selfness"@en ;
     rdfs:comment """Alice Walker's selfness — the essential individuality and sense of selfhood from which
                     context-specific Personas (whonesses) are correlated.
@@ -55,7 +55,7 @@
                     - :Bob_Johnson-BHS                   (bob-contexts/bhs.ttl)        — BHS member persona
 
                     Boston Hub Society (group):
-                    - :BHS_Group                         (bhs-contexts/bhs-group.ttl)  — BHS group instance with social network
+                    - :BHS_Group                         (bhs-contexts/bhs(bhs)members.ttl)  — BHS group instance with social network
 
                     Bob Johnston (colleagues):
                     - :Bob_Johnston-Colleagues           (bob-contexts/colleague-of-alice.ttl) — colleague persona

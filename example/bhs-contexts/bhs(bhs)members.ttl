@@ -13,7 +13,7 @@
     owl:imports <http://mee.foundation/ontologies/group> ;
     owl:imports <http://mee.foundation/ontologies/context> ;
     dc:date "2026-06-12"^^xsd:date ;
-    owl:versionInfo "Version 1.0.1 - members linked directly from BHS_Group via BFO_0000115"@en ;
+    owl:versionInfo "Version 1.0.2 - rename file to bhs(bhs)members.ttl"@en ;
     context:contextCategory context:Group ;
     context:assertedBy identity:Self ;
     context:subject identity:Group ;
