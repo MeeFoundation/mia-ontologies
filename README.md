@@ -276,7 +276,7 @@ The Identity ontology is used to describe the kinds of identities that Mia can c
 
 ## Illustrative Example: Alice 
 
-This section describes the dataset stored locally within Mia of a hypothetical user, Alice Walker.
+This section describes the local Mia dataset for a hypothetical user, Alice Walker. 
 
 Within Alice's self context is `:Alice_Walker-Self`, a `Person` entity. It is linked via `p:hasPersona` links to multiple `p:Personas`- each in its own context outside the self context container (`example/alice(self)alice.ttl`).
 
