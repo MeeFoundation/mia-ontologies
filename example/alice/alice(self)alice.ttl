@@ -28,8 +28,9 @@
     owl:imports <http://www.example.org/mia/bob-colleague-of-alice> ;
     owl:imports <http://www.example.org/mia/bob> ;
     owl:imports <http://www.example.org/mia/paula-family> ;
+    owl:imports <http://www.example.org/mia/paula-self> ;
     dc:date "2026-06-12"^^xsd:date ;
-    owl:versionInfo "Version 3.0.57 - import paula(paula)alice.(family).ttl"@en ;
+    owl:versionInfo "Version 3.0.58 - move Paula_Walker-Self to paula(self)paula.ttl"@en ;
     rdfs:label "Alice Walker - Selfness"@en ;
     rdfs:comment """Alice Walker's selfness — the essential individuality and sense of selfhood from which
                     context-specific Personas (whonesses) are correlated.
@@ -64,9 +65,10 @@
                     - :Bob_Johnston-Colleagues           (bob-contexts/bob(bob)alice.(bob).ttl) — colleague persona
 
                     Paula Walker (Alice's mother):
+                    - :Paula_Walker-Self                    (paula/paula(self)paula.ttl)                      — selfness
                     - :Paula_Walker-FloridaBirthCertificate (paula-contexts/paula(fl-birth-cert)alice.ttl)    — legal name record
-                    - :Paula_Walker-Colleagues              (paula-contexts/paula(Paula)alice.(acme).ttl)  — colleague persona
-                    - :Paula_Walker-Family                  (paula-contexts/paula(paula)alice.(family).ttl) — family persona (Alice's view)"""@en .
+                    - :Paula_Walker-Colleagues              (paula-contexts/paula(Paula)alice.(acme).ttl)     — colleague persona
+                    - :Paula_Walker-Family                  (paula-contexts/paula(paula)alice.(family).ttl)   — family persona (Alice's view)"""@en .
 
 
 #################################################################
@@ -138,19 +140,6 @@
     <https://purl.org/cco/ont00001983> :Alice_Height ;    # is a ratio measurement of
     <https://purl.org/cco/ont00001863> <https://purl.org/cco/ont00001677> ;  # uses measurement unit: Inch
     <https://purl.org/cco/ont00001769> "68"^^xsd:decimal .  # has decimal value
-
-
-#################################################################
-#    Paula Walker - Person Instance (Alice's mother)
-#################################################################
-
-:Paula_Walker-Self rdf:type owl:NamedIndividual ,
-                           <https://purl.org/cco/ont00001262> ;  # Person
-    rdfs:label "Paula Walker"@en ;
-
-    persona:hasPersona :Paula_Walker-FloridaBirthCertificate ;
-    persona:hasPersona :Paula_Walker-Family ;
-    persona:hasPersona :Paula_Walker-Colleagues .
 
 
 
