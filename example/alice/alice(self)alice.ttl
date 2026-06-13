@@ -28,7 +28,7 @@
     owl:imports <http://www.example.org/mia/bob-colleague-of-alice> ;
     owl:imports <http://www.example.org/mia/bob> ;
     dc:date "2026-06-12"^^xsd:date ;
-    owl:versionInfo "Version 3.0.54 - import alice(bob)alice.ttl"@en ;
+    owl:versionInfo "Version 3.0.55 - rename paula colleague file to paula(Paula)alice.(acme).ttl"@en ;
     rdfs:label "Alice Walker - Selfness"@en ;
     rdfs:comment """Alice Walker's selfness — the essential individuality and sense of selfhood from which
                     context-specific Personas (whonesses) are correlated.
@@ -64,7 +64,7 @@
 
                     Paula Walker (Alice's mother):
                     - :Paula_Walker-FloridaBirthCertificate (paula-contexts/florida-birth-certificate.ttl) — legal name record
-                    - :Paula_Walker-Colleagues              (paula-contexts/colleague-of-alice.ttl)        — colleague persona"""@en .
+                    - :Paula_Walker-Colleagues              (paula-contexts/paula(Paula)alice.(acme).ttl)  — colleague persona"""@en .
 
 
 #################################################################
