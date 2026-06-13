@@ -16,7 +16,7 @@
     owl:imports <http://mee.foundation/ontologies/persona> ;
     owl:imports <http://mee.foundation/ontologies/context> ;
     dc:date "2026-06-12"^^xsd:date ;
-    owl:versionInfo "Version 1.0.0 - initial"@en ;
+    owl:versionInfo "Version 1.0.1 - remove erroneous hasMember link to Alice_Walker-Family"@en ;
     context:contextCategory context:Family ;
     context:assertedBy :Paula_Walker-Self ;
     context:subject :Paula_Walker-Self ;
@@ -36,14 +36,3 @@
     rdfs:label "Paula Walker (Family)"@en ;
     rdfs:comment "Paula Walker's self-asserted family persona."@en ;
 
-    persona:hasSocialNetwork :Paula_Family_Network .
-
-
-#################################################################
-#    Paula's Family Social Network
-#################################################################
-
-:Paula_Family_Network rdf:type owl:NamedIndividual ,
-                               cco:ont00001183 ;  # Social Network
-    rdfs:label "Paula Walker's family connections"@en ;
-    <http://purl.obolibrary.org/obo/BFO_0000115> :Alice_Walker-Family .  # has member part
