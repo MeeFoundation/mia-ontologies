@@ -1,0 +1,34 @@
+@prefix : <http://www.example.org/mia#> .
+@prefix persona: <http://mee.foundation/ontologies/persona#> .
+@prefix cco: <https://purl.org/cco/> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix dc: <http://purl.org/dc/elements/1.1/> .
+@base <http://www.example.org/mia> .
+
+<http://www.example.org/mia/bob-self> rdf:type owl:Ontology ;
+    owl:imports <http://mee.foundation/ontologies/persona> ;
+    dc:date "2026-06-12"^^xsd:date ;
+    owl:versionInfo "Version 1.0.0 - initial"@en ;
+    rdfs:label "Bob Johnson - Selfness"@en ;
+    rdfs:comment """Bob Johnson's selfness — the essential individuality and sense of selfhood from which
+                    context-specific Personas (whonesses) are correlated.
+
+                    Correlated Personas:
+                    - :Bob_Johnson-Bob-colleague-of-alice (bob-contexts/bob(bob)alice.(bob).ttl) — colleague persona (Alice's view)
+                    - :Bob_Johnson-BHS                   (bob-contexts/bob(bob)bob.(bhs).ttl)   — BHS member persona"""@en .
+
+
+#################################################################
+#    Bob Johnson - Person Instance
+#################################################################
+
+:Bob_Johnson-Self rdf:type owl:NamedIndividual ,
+                           <https://purl.org/cco/ont00001262> ;  # Person
+    rdfs:label "Bob Johnson"@en ;
+    rdfs:comment "Bob Johnson's selfness — the central identity individual."@en ;
+
+    persona:hasPersona :Bob_Johnson-Bob-colleague-of-alice ;
+    persona:hasPersona :Bob_Johnson-BHS .

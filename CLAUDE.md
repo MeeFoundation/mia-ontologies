@@ -20,6 +20,7 @@ There are no build, compile, test, or lint commands. The files are Turtle (`.ttl
 | `persona-shacl.ttl` | SHACL validation shapes — constraint rules for valid instance data (e.g., a BirthCertificate Persona must have FullName OR GivenName+FamilyName) |
 | `example/alice/alice(self)alice.ttl` | Alice Walker's selfness — the central Person instance; imports all context files |
 | `example/paula/paula(self)paula.ttl` | Paula Walker's selfness — the central Person instance for Paula |
+| `example/bob/bob(self)bob.ttl` | Bob Johnson's selfness — the central Person instance for Bob |
 | `example/alice-contexts/alice(citibank)alice.ttl` | Alice's Citibank Persona — payment card |
 | `example/alice-contexts/alice(boston)alice.ttl` | Alice's Boston Persona — residential address 2020–2025 |
 | `example/alice-contexts/alice(paradise)alice.ttl` | Alice's Paradise Persona — current residential address |
