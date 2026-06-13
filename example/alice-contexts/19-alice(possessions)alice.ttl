@@ -16,7 +16,7 @@
     owl:imports <http://mee.foundation/ontologies/persona> ;
     owl:imports <http://mee.foundation/ontologies/context> ;
     dc:date "2026-06-01"^^xsd:date ;
-    owl:versionInfo "Version 1.0.15 - add diagram label"@en ;
+    owl:versionInfo "Version 1.0.16 - align ontology IRI with filename"@en ;
     context:contextCategory context:Possession ;
     context:assertedBy identity:Self ;
     context:subject identity:Self ;

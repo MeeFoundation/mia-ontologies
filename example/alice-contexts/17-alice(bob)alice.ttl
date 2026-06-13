@@ -12,11 +12,11 @@
 
 # diagram label = 17
 
-<http://www.example.org/mia/bob> rdf:type owl:Ontology ;
+<http://www.example.org/mia/alice(bob)alice> rdf:type owl:Ontology ;
     owl:imports <http://mee.foundation/ontologies/persona> ;
     owl:imports <http://mee.foundation/ontologies/context> ;
     dc:date "2026-06-12"^^xsd:date ;
-    owl:versionInfo "Version 1.0.3 - add GivenName and FamilyName to Alice_Walker-Bob"@en ;
+    owl:versionInfo "Version 1.0.4 - align ontology IRI with filename"@en ;
     context:contextCategory context:Person ;
     context:assertedBy :Alice_Walker-Self ;
     context:subject :Alice_Walker-Self ;

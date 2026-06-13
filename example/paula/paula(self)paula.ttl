@@ -8,11 +8,11 @@
 @prefix dc: <http://purl.org/dc/elements/1.1/> .
 @base <http://www.example.org/mia> .
 
-<http://www.example.org/mia/paula-self> rdf:type owl:Ontology ;
+<http://www.example.org/mia/paula(self)paula> rdf:type owl:Ontology ;
     owl:imports <http://mee.foundation/ontologies/persona> ;
-    owl:imports <http://www.example.org/mia/paula-family-paula> ;
+    owl:imports <http://www.example.org/mia/paula(paula)paula.(family)> ;
     dc:date "2026-06-12"^^xsd:date ;
-    owl:versionInfo "Version 1.0.4 - add numeric prefix to context filenames"@en ;
+    owl:versionInfo "Version 1.0.5 - align ontology IRI with filename"@en ;
     rdfs:label "Paula Walker - Selfness"@en ;
     rdfs:comment """Paula Walker's selfness — the essential individuality and sense of selfhood from which
                     context-specific Personas (whonesses) are correlated.

@@ -8,12 +8,12 @@
 @prefix dc: <http://purl.org/dc/elements/1.1/> .
 @base <http://www.example.org/mia> .
 
-<http://www.example.org/mia/bob-self> rdf:type owl:Ontology ;
+<http://www.example.org/mia/bob(self)bob> rdf:type owl:Ontology ;
     owl:imports <http://mee.foundation/ontologies/persona> ;
-    owl:imports <http://www.example.org/mia/bob-bob> ;
-    owl:imports <http://www.example.org/mia/alice-by-bob> ;
+    owl:imports <http://www.example.org/mia/bob(bob)bob.(bob)> ;
+    owl:imports <http://www.example.org/mia/alice(alice)bob.(bob)> ;
     dc:date "2026-06-13"^^xsd:date ;
-    owl:versionInfo "Version 1.0.3 - add numeric prefix to context filenames"@en ;
+    owl:versionInfo "Version 1.0.4 - align ontology IRI with filename"@en ;
     rdfs:label "Bob Johnson - Selfness"@en ;
     rdfs:comment """Bob Johnson's selfness — the essential individuality and sense of selfhood from which
                     context-specific Personas (whonesses) are correlated.

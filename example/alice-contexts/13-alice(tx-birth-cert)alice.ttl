@@ -12,12 +12,12 @@
 
 # diagram label = 13
 
-<http://www.example.org/mia/texas-birth-certificate> rdf:type owl:Ontology ;
+<http://www.example.org/mia/alice(tx-birth-cert)alice> rdf:type owl:Ontology ;
     owl:imports <http://mee.foundation/ontologies/persona> ;
     owl:imports <http://mee.foundation/ontologies/context> ;
     owl:imports <http://mee.foundation/ontologies/persona-templates> ;
     dc:date "2026-06-01"^^xsd:date ;
-    owl:versionInfo "Version 1.0.13 - add diagram label"@en ;
+    owl:versionInfo "Version 1.0.14 - align ontology IRI with filename"@en ;
     context:contextCategory context:State ;
     context:assertedBy identity:Self ;
     context:subject identity:Self ;

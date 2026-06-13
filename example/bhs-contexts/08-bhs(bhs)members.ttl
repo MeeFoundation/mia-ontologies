@@ -11,11 +11,11 @@
 
 # diagram label = 8
 
-<http://www.example.org/mia/bhs-group> rdf:type owl:Ontology ;
+<http://www.example.org/mia/bhs(bhs)members> rdf:type owl:Ontology ;
     owl:imports <http://mee.foundation/ontologies/group> ;
     owl:imports <http://mee.foundation/ontologies/context> ;
     dc:date "2026-06-12"^^xsd:date ;
-    owl:versionInfo "Version 1.0.3 - add diagram label"@en ;
+    owl:versionInfo "Version 1.0.4 - align ontology IRI with filename"@en ;
     context:contextCategory context:Group ;
     context:assertedBy identity:Self ;
     context:subject identity:Group ;

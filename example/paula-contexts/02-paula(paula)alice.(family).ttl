@@ -12,11 +12,11 @@
 
 # diagram label = 2
 
-<http://www.example.org/mia/paula-family> rdf:type owl:Ontology ;
+<http://www.example.org/mia/paula(paula)alice.(family)> rdf:type owl:Ontology ;
     owl:imports <http://mee.foundation/ontologies/persona> ;
     owl:imports <http://mee.foundation/ontologies/context> ;
     dc:date "2026-06-12"^^xsd:date ;
-    owl:versionInfo "Version 1.0.1 - add dyad link to Paula_Walker-FamilySelf"@en ;
+    owl:versionInfo "Version 1.0.2 - align ontology IRI with filename"@en ;
     context:contextCategory context:Family ;
     context:assertedBy :Alice_Walker-Self ;
     context:subject :Paula_Walker-Self ;
