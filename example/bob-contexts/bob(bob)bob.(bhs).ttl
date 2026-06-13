@@ -14,7 +14,7 @@
     owl:imports <http://mee.foundation/ontologies/persona> ;
     owl:imports <http://mee.foundation/ontologies/context> ;
     dc:date "2026-06-12"^^xsd:date ;
-    owl:versionInfo "Version 1.0.1 - update alice-contexts ref to alice(bhs)alice.ttl"@en ;
+    owl:versionInfo "Version 1.0.2 - rename file to bob(bob)bob.(bhs).ttl"@en ;
     context:contextCategory context:Group ;
     context:assertedBy identity:Self ;
     context:subject identity:Individual ;
