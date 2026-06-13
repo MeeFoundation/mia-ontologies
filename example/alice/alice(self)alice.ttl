@@ -34,7 +34,7 @@
     owl:imports <http://www.example.org/mia/bob-bob> ;
     owl:imports <http://www.example.org/mia/acme> ;
     dc:date "2026-06-12"^^xsd:date ;
-    owl:versionInfo "Version 3.0.66 - rename individual to Paula_Walker-as-colleague-of-Alice-at-Acme"@en ;
+    owl:versionInfo "Version 3.0.67 - add numeric prefix to context filenames"@en ;
     rdfs:label "Alice Walker - Selfness"@en ;
     rdfs:comment """Alice Walker's selfness — the essential individuality and sense of selfhood from which
                     context-specific Personas (whonesses) are correlated.
@@ -46,35 +46,35 @@
                     - Mother: Paula Walker
 
                     Correlated Personas:
-                    - :Alice_Walker-Citibank  (alice(citibank)alice.ttl)  — Citibank financial relationship
-                    - :Alice_Walker-Boston    (alice(boston)alice.ttl)    — Boston residence (2020-2025)
-                    - :Alice_Walker-Paradise  (alice(paradise)alice.ttl)  — Paradise residence (2025-present)
-                    - :Alice_Walker-Family      (alice(family)alice.ttl)      — family relationships
-                    - :Alice_Walker-ATT        (alice(att)alice.ttl)        — AT&T phone account
-                    - :Alice_Walker-SSA        (alice(ssa)alice.ttl)        — Social Security Administration
-                    - :Alice_Walker-Google                (alice(google)alice.ttl)               — Google account (Gmail)
-                    - :Alice_Walker-TexasBirthCertificate (alice(tx-birth-cert)alice.ttl) — legal name record
-                    - :Alice_Walker-Possessions           (belongings.ttl)              — wallet, driver's license, health insurance card
-                    - :Alice_Walker-Acme                 (alice(acme)alice.ttl)                    — Acme employee context
-                    - :Alice_Walker-BHS                  (alice(bhs)alice.ttl)                     — BHS group profile (address, phone, email)
-                    - :Alice_Walker-Bob                  (alice(bob)alice.ttl)                     — 1:1 relationship with Bob Johnson
-                    - :Alice_Walker-ByBob                (alice(alice)bob.(bob).ttl)               — Alice as seen by Bob (dyad with above)
+                    - :Alice_Walker-Citibank  (10-alice(citibank)alice.ttl)  — Citibank financial relationship
+                    - :Alice_Walker-Boston    (15-alice(boston)alice.ttl)    — Boston residence (2020-2025)
+                    - :Alice_Walker-Paradise  (14-alice(paradise)alice.ttl)  — Paradise residence (2025-present)
+                    - :Alice_Walker-Family      (18-alice(family)alice.ttl)      — family relationships
+                    - :Alice_Walker-ATT        (12-alice(att)alice.ttl)        — AT&T phone account
+                    - :Alice_Walker-SSA        (16-alice(ssa)alice.ttl)        — Social Security Administration
+                    - :Alice_Walker-Google                (11-alice(google)alice.ttl)               — Google account (Gmail)
+                    - :Alice_Walker-TexasBirthCertificate (13-alice(tx-birth-cert)alice.ttl) — legal name record
+                    - :Alice_Walker-Possessions           (19-alice(possessions)alice.ttl)  — wallet, driver's license, health insurance card
+                    - :Alice_Walker-Acme                 (20-alice(acme)alice.ttl)                    — Acme employee context
+                    - :Alice_Walker-BHS                  (07-alice(bhs)alice.ttl)                     — BHS group profile (address, phone, email)
+                    - :Alice_Walker-Bob                  (17-alice(bob)alice.ttl)                     — 1:1 relationship with Bob Johnson
+                    - :Alice_Walker-ByBob                (04-alice(alice)bob.(bob).ttl)               — Alice as seen by Bob (dyad with above)
 
                     Bob Johnson:
-                    - :Bob_Johnson-Self                  (bob/bob(self)bob.ttl)                       — selfness
-                    - :Bob_Johnson-BHS                   (bob-contexts/bob(bob)bob.(bhs).ttl)          — BHS member persona
-                    - :Bob_Johnson-Bob                   (bob-contexts/bob(bob)bob.(bob).ttl)          — Bob persona (self-asserted, dyad with #5)
-                    - :Bob_Johnson-as-known-by-alice (bob-contexts/bob(bob)alice.(bob).ttl)       — colleague persona (Alice's view)
+                    - :Bob_Johnson-Self                  (bob/bob(self)bob.ttl)                          — selfness
+                    - :Bob_Johnson-BHS                   (bob-contexts/09-bob(bob)bob.(bhs).ttl)         — BHS member persona
+                    - :Bob_Johnson-Bob                   (bob-contexts/06-bob(bob)bob.(bob).ttl)         — Bob persona (self-asserted, dyad with #5)
+                    - :Bob_Johnson-as-known-by-alice (bob-contexts/05-bob(bob)alice.(bob).ttl)       — colleague persona (Alice's view)
 
                     Boston Hub Society (group):
-                    - :BHS_Group                         (bhs-contexts/bhs(bhs)members.ttl)            — BHS group instance with social network
+                    - :BHS_Group                         (bhs-contexts/08-bhs(bhs)members.ttl)           — BHS group instance with social network
 
                     Paula Walker (Alice's mother):
-                    - :Paula_Walker-Self                    (paula/paula(self)paula.ttl)                      — selfness
-                    - :Paula_Walker-FloridaBirthCertificate (paula-contexts/paula(fl-birth-cert)alice.ttl)    — legal name record
-                    - :Paula_Walker-as-colleague-of-Alice-at-Acme              (paula-contexts/paula(Paula)alice.(acme).ttl)     — colleague persona
-                    - :Paula_Walker-Family                  (paula-contexts/paula(paula)alice.(family).ttl)   — family persona (Alice's view)
-                    - :Paula_Walker-Family                  (paula-contexts/paula(paula)paula.(family).ttl)   — family persona (Paula's own, dyad with above)"""@en .
+                    - :Paula_Walker-Self                    (paula/paula(self)paula.ttl)                        — selfness
+                    - :Paula_Walker-FloridaBirthCertificate (paula-contexts/paula(fl-birth-cert)alice.ttl)      — legal name record
+                    - :Paula_Walker-as-colleague-of-Alice-at-Acme              (paula-contexts/01-paula(Paula)alice.(acme).ttl)     — colleague persona
+                    - :Paula_Walker-Family                  (paula-contexts/02-paula(paula)alice.(family).ttl)  — family persona (Alice's view)
+                    - :Paula_Walker-Family                  (paula-contexts/03-paula(paula)paula.(family).ttl)  — family persona (Paula's own, dyad with above)"""@en .
 
 
 #################################################################

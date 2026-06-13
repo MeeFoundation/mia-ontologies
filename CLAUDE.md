@@ -21,16 +21,15 @@ There are no build, compile, test, or lint commands. The files are Turtle (`.ttl
 | `example/alice/alice(self)alice.ttl` | Alice Walker's selfness — the central Person instance; imports all context files |
 | `example/paula/paula(self)paula.ttl` | Paula Walker's selfness — the central Person instance for Paula |
 | `example/bob/bob(self)bob.ttl` | Bob Johnson's selfness — the central Person instance for Bob |
-| `example/alice-contexts/alice(citibank)alice.ttl` | Alice's Citibank Persona — payment card |
-| `example/alice-contexts/alice(boston)alice.ttl` | Alice's Boston Persona — residential address 2020–2025 |
-| `example/alice-contexts/alice(paradise)alice.ttl` | Alice's Paradise Persona — current residential address |
-| `example/alice-contexts/alice(family)alice.ttl` | Alice's Family Persona — family relationships and social network |
-| `example/alice-contexts/alice(colleagues)alice.ttl` | Alice's Colleagues Persona — professional relationships and social network |
-| `example/alice-contexts/alice(att)alice.ttl` | Alice's AT&T Persona — phone number |
-| `example/alice-contexts/alice(ssa)alice.ttl` | Alice's SSA Persona — Social Security Number |
-| `example/alice-contexts/alice(google)alice.ttl` | Alice's Google Persona — email address |
-| `example/alice-contexts/alice(tx-birth-cert)alice.ttl` | Alice's Texas Birth Certificate Persona — legal name record |
-| `example/paula-contexts/paula(fl-birth-cert)alice.ttl` | Paula Walker's Florida Birth Certificate Persona — legal name record |
+| `example/alice-contexts/10-alice(citibank)alice.ttl` | Alice's Citibank Persona — payment card |
+| `example/alice-contexts/15-alice(boston)alice.ttl` | Alice's Boston Persona — residential address 2020–2025 |
+| `example/alice-contexts/14-alice(paradise)alice.ttl` | Alice's Paradise Persona — current residential address |
+| `example/alice-contexts/18-alice(family)alice.ttl` | Alice's Family Persona — family relationships and social network |
+| `example/alice-contexts/12-alice(att)alice.ttl` | Alice's AT&T Persona — phone number |
+| `example/alice-contexts/16-alice(ssa)alice.ttl` | Alice's SSA Persona — Social Security Number |
+| `example/alice-contexts/11-alice(google)alice.ttl` | Alice's Google Persona — email address |
+| `example/alice-contexts/13-alice(tx-birth-cert)alice.ttl` | Alice's Texas Birth Certificate Persona — legal name record |
+| `example/paula-contexts/under-development/paula(fl-birth-cert)alice.ttl` | Paula Walker's Florida Birth Certificate Persona — legal name record (under development) |
 | `project_files/` | Reference materials: imported domain ontologies (PersonOntology.ttl, AddressOntology.ttl, StagingOntology.ttl), BFO/CCO source files, PDFs, docs |
 
 ## Architecture
@@ -44,16 +43,15 @@ example/alice/alice(self)alice.ttl (selfness)
   │             ├─ imports → AddressOntology.ttl
   │             └─ imports → StagingOntology.ttl
   │                           └─ imports → BFO terms
-  ├─ imports → example/alice-contexts/alice(citibank)alice.ttl
-  ├─ imports → example/alice-contexts/alice(boston)alice.ttl
-  ├─ imports → example/alice-contexts/alice(paradise)alice.ttl
-  ├─ imports → example/alice-contexts/alice(family)alice.ttl
-  ├─ imports → example/alice-contexts/alice(colleagues)alice.ttl
-  ├─ imports → example/alice-contexts/alice(att)alice.ttl
-  ├─ imports → example/alice-contexts/alice(ssa)alice.ttl
-  ├─ imports → example/alice-contexts/alice(google)alice.ttl
-  ├─ imports → example/alice-contexts/alice(tx-birth-cert)alice.ttl
-  └─ imports → example/paula-contexts/paula(fl-birth-cert)alice.ttl
+  ├─ imports → example/alice-contexts/10-alice(citibank)alice.ttl
+  ├─ imports → example/alice-contexts/15-alice(boston)alice.ttl
+  ├─ imports → example/alice-contexts/14-alice(paradise)alice.ttl
+  ├─ imports → example/alice-contexts/18-alice(family)alice.ttl
+  ├─ imports → example/alice-contexts/12-alice(att)alice.ttl
+  ├─ imports → example/alice-contexts/16-alice(ssa)alice.ttl
+  ├─ imports → example/alice-contexts/11-alice(google)alice.ttl
+  ├─ imports → example/alice-contexts/13-alice(tx-birth-cert)alice.ttl
+  └─ imports → (plus bob-contexts, paula-contexts, bhs-contexts — see alice(self)alice.ttl)
 
 persona-shacl.ttl
   └─ imports → example/alice/alice(self)alice.ttl (which transitively imports everything above)
@@ -78,17 +76,19 @@ Context filenames encode a **right-to-left hierarchy** of contexts, reading from
 1. The trailing `.(self)` segment (the central Self level) is always omitted.
 2. In the second and subsequent segments, only `(<context-name>)` is kept — the `<about>` and `<asserted-by>` strings are omitted.
 
+**Numeric prefix**: Context files that appear as labeled circles in `context-map.png` carry a zero-padded two-digit prefix matching their diagram label number: `NN-<about>(<context-name>)<asserted-by>[.(<parent-context>)].ttl` (e.g. `10-alice(citibank)alice.ttl`). Context files without a diagram label number have no prefix. Selfness files (`<X>(self)<X>.ttl`) never carry a prefix.
+
 **Exception — `c:Group` contexts**: A group context (`contextCategory context:Group`) has no single asserter — any permitted member can write to it and changes replicate to all members. For group contexts, the `<asserted-by>` segment is replaced with the literal string `members` rather than an individual entity name. Example: `bhs(bhs)members.ttl` — about BHS, context "bhs", assertedBy the group's members collectively.
 
 **Examples:**
 
 | Filename | Full (unabbreviated) form | Meaning |
 |----------|--------------------------|---------|
-| `alice(citibank)alice.ttl` | `alice(citibank)alice.alice(self)alice.ttl` | About Alice, context "citibank", asserted by Alice; child of Alice's Self |
-| `paula(paula)alice.(family).ttl` | `paula(paula)alice.alice(family)alice.alice(self)alice.ttl` | About Paula, context "paula", asserted by Alice; child of Alice's Family context |
-| `bob(bob)alice.(bob).ttl` | `bob(bob)alice.alice(bob)alice.alice(self)alice.ttl` | About Bob, context "bob", asserted by Alice; child of Alice's Bob (1:1) context |
-| `bob(bob)bob.(bhs).ttl` | `bob(bob)bob.alice(bhs)alice.alice(self)alice.ttl` | About Bob, context "bob", asserted by Bob; child of Alice's BHS context |
-| `bhs(bhs)members.ttl` | `bhs(bhs)members.alice(self)alice.ttl` | About BHS, context "bhs", asserted by group members collectively (`c:Group` exception) |
+| `10-alice(citibank)alice.ttl` | `alice(citibank)alice.alice(self)alice.ttl` | About Alice, context "citibank", asserted by Alice; child of Alice's Self |
+| `02-paula(paula)alice.(family).ttl` | `paula(paula)alice.alice(family)alice.alice(self)alice.ttl` | About Paula, context "paula", asserted by Alice; child of Alice's Family context |
+| `05-bob(bob)alice.(bob).ttl` | `bob(bob)alice.alice(bob)alice.alice(self)alice.ttl` | About Bob, context "bob", asserted by Alice; child of Alice's Bob (1:1) context |
+| `09-bob(bob)bob.(bhs).ttl` | `bob(bob)bob.alice(bhs)alice.alice(self)alice.ttl` | About Bob, context "bob", asserted by Bob; child of Alice's BHS context |
+| `08-bhs(bhs)members.ttl` | `bhs(bhs)members.alice(self)alice.ttl` | About BHS, context "bhs", asserted by group members collectively (`c:Group` exception) |
 
 ### Key Architectural Patterns
 
@@ -130,7 +130,7 @@ After any change to context files or the context map diagram, verify the followi
 
 **Check 1 — Diagram ↔ files ↔ README coverage**: Every labeled circle in `images/example/context-map.png` must have (a) a corresponding `.ttl` file in the appropriate directory and (b) a row in one of the tables in the **Alice's Personas and Contexts** section of `README.md`. Conversely, every row in those tables must correspond to a circle in the diagram and a file that actually exists. If a circle exists in the diagram but has no `.ttl` file or README row, create them to match the diagram.
 
-**Check 2 — Filename convention**: Every context filename must follow `<about>(<context-name>)<asserted-by>[.(<parent-context>)]`. The `<asserted-by>` segment must be a real entity identifier (e.g. `alice`, `bob`, `paula`) — except for `c:Group` contexts, where it must be the literal string `members`. Where a parent segment `.(X)` is present, the parent context file must exist. The hierarchy implied by the segments must match the radial structure in `context-map.png`. If a filename conflicts with the diagram's hierarchy, rename the file to match the diagram.
+**Check 2 — Filename convention**: Every context filename must follow `[NN-]<about>(<context-name>)<asserted-by>[.(<parent-context>)]`, where the optional `NN-` is the zero-padded two-digit diagram label number for files that appear as labeled circles in `context-map.png`. The `<asserted-by>` segment must be a real entity identifier (e.g. `alice`, `bob`, `paula`) — except for `c:Group` contexts, where it must be the literal string `members`. Where a parent segment `.(X)` is present, the parent context file must exist. The hierarchy implied by the segments must match the radial structure in `context-map.png`. If a filename conflicts with the diagram's hierarchy, rename the file to match the diagram.
 
 **Check 3 — Orange arrows (hasMember)**: For every orange arrow from circle A to circle B in `context-map.png`, the source context file (A) must contain a `persona:hasSocialNetwork` individual of type `cco:ont00001183` (Social Network), and that network must have a `BFO_0000115` (has member part) triple pointing to the `p:Persona` individual defined in the target context file (B).
 
@@ -153,7 +153,7 @@ A Persona that is not reachable by either mechanism is an orphan. Note: `persona
 
 **Check 10 — PNG file location**: The diagram PNG for a context file must be stored in `images/example/<about>-contexts/`, where `<about>` is the first segment of the context filename (e.g. `alice(bhs)alice.ttl` → `images/example/alice-contexts/`). Selfness files (`<X>(self)<X>.ttl`) are an exception — their PNGs live in `images/example/<X>/`. Files in `under-development/` are excluded.
 
-**Check 11 — PNG filename convention**: Within `images/example/<about>-contexts/`, every diagram PNG must use the same base filename as the corresponding `.ttl` file, with `.png` substituted for `.ttl`. The full convention mirrors the TTL naming rule: `<about>(<context-name>)<assertedBy>[.(<parent-context>)].png`. For example, `alice(bhs)alice.ttl` → `alice(bhs)alice.png`; `bob(bob)bob.(bhs).ttl` → `bob(bob)bob.(bhs).png`. If the PNG does not yet exist, the README Diagram cell must be marked `*(todo)*` rather than left blank.
+**Check 11 — PNG filename convention**: Within `images/example/<about>-contexts/`, every diagram PNG must use the same base filename as the corresponding `.ttl` file, with `.png` substituted for `.ttl` (including the `NN-` numeric prefix where present). For example, `07-alice(bhs)alice.ttl` → `07-alice(bhs)alice.png`; `09-bob(bob)bob.(bhs).ttl` → `09-bob(bob)bob.(bhs).png`. If the PNG does not yet exist, the README Diagram cell must be marked `*(todo)*` rather than left blank.
 
 ## Keeping Files in Sync
 

@@ -13,15 +13,15 @@
     owl:imports <http://www.example.org/mia/bob-bob> ;
     owl:imports <http://www.example.org/mia/alice-by-bob> ;
     dc:date "2026-06-13"^^xsd:date ;
-    owl:versionInfo "Version 1.0.2 - add hasMember link to Alice_Walker-ByBob"@en ;
+    owl:versionInfo "Version 1.0.3 - add numeric prefix to context filenames"@en ;
     rdfs:label "Bob Johnson - Selfness"@en ;
     rdfs:comment """Bob Johnson's selfness — the essential individuality and sense of selfhood from which
                     context-specific Personas (whonesses) are correlated.
 
                     Correlated Personas:
-                    - :Bob_Johnson-as-known-by-alice (bob-contexts/bob(bob)alice.(bob).ttl) — colleague persona (Alice's view)
-                    - :Bob_Johnson-Bob                   (bob-contexts/bob(bob)bob.(bob).ttl)   — Bob persona (self-asserted, dyad with #5)
-                    - :Bob_Johnson-BHS                   (bob-contexts/bob(bob)bob.(bhs).ttl)   — BHS member persona
+                    - :Bob_Johnson-as-known-by-alice (bob-contexts/05-bob(bob)alice.(bob).ttl) — colleague persona (Alice's view)
+                    - :Bob_Johnson-Bob                   (bob-contexts/06-bob(bob)bob.(bob).ttl)   — Bob persona (self-asserted, dyad with #5)
+                    - :Bob_Johnson-BHS                   (bob-contexts/09-bob(bob)bob.(bhs).ttl)   — BHS member persona
                     - :Alice_Walker-ByBob                (alice-contexts/alice(alice)bob.(bob).ttl) — Alice's persona as asserted by Bob (hasMember)"""@en .
 
 
