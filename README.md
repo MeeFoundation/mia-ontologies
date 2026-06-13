@@ -60,7 +60,7 @@ This section describes the most fundamental properties and classes in the Person
 
 <p align="center"><img src="images/persona-ontology/persona-templates.png" alt="persona templates model"></p>
 
-The two currently defined subclasses are:
+The three currently defined subclasses are:
 
 * `p:BirthCertificate` — carries a person's legal birth name record as issued by a state agency. SHACL shape `:BirthCertificatePersonaShape` enforces:
   - **Required**: either a `FullName` designator **or** both a `GivenName` and a `FamilyName` designator (via `designated by`, `ont00001879`) — expressed with `sh:or`.
@@ -69,6 +69,56 @@ The two currently defined subclasses are:
 * `p:BusinessCard` — carries the identity claims printed on a business card. SHACL shape `:BusinessCardShape` enforces:
   - **Required**: exactly one of `GivenName`, `FamilyName`, `Email`, and `TelephoneNumber` designators.
   - **Optional**: `OrganizationName` designator (employer name).
+
+* `p:JSContactCard` — carries a full JSContact card (RFC 9553). All fields are optional; SHACL shape `:JSContactCardShape` enforces maximum cardinality on the single-valued name and organisation components. See the [JSContact field coverage table](#jscontact-field-coverage) below for the complete mapping.
+
+#### JSContact field coverage
+
+The table below maps every JSContact (RFC 9553) property to its representation in the Persona ontology. Properties contributed by `persona-jscontact.ttl` are marked **JSC**.
+
+| JSContact Property | Card. | Ontology Representation | Via | SHACL constraint |
+|---|:---:|---|---|:---:|
+| `name.full` | 0..1 | `cco:ent00000001` FullName | `designated by` | max 1 |
+| `name.given` | 0..1 | `cco:ent00000002` GivenName | `designated by` | max 1 |
+| `name.surname` | 0..1 | `cco:ent00000004` FamilyName | `designated by` | max 1 |
+| `name.given2` | 0..1 | `cco:ent00000003` AdditionalName | `designated by` | max 1 |
+| `name.surname2` | 0..1 | `cco:ent00000058` Surname2 | `designated by` | max 1 |
+| `name.prefix` | 0..1 | `cco:ent00000057` Title/HonorificPrefix | `designated by` | max 1 |
+| `name.suffix` | 0..1 | `cco:ent00000005` Suffix (Jr., Sr., III) | `designated by` | max 1 |
+| `name.credential` | 0..1 | **JSC** `p:Credential` (MD, PhD, Esq.) | `designated by` | max 1 |
+| `nicknames` | 0..1 | `cco:ont00000990` Nickname | `designated by` | max 1 |
+| `name.altName` | 0..1 | `cco:ent00000006` AlternateName | `designated by` | max 1 |
+| `emails` | 0..N | `cco:ent00000024` EmailAddress | `designated by` | — |
+| ↳ `contexts` | 0..N | **JSC** `p:contactContext` annotation | annotation property | — |
+| `phones` | 0..N | `cco:ent00000023` TelephoneNumber | `designated by` | — |
+| ↳ `contexts` | 0..N | **JSC** `p:contactContext` annotation | annotation property | — |
+| ↳ `features` | 0..N | **JSC** `p:phoneFeature` annotation | annotation property | — |
+| `addresses` | 0..N | `cco:ent00000010` USPostalAddress | (address pattern) | — |
+| ↳ `contexts` | 0..N | **JSC** `p:contactContext` annotation | annotation property | — |
+| `anniversaries` (birth) | 0..1 | `cco:ent00000046` Birthdate | `designated by` | max 1 |
+| `anniversaries` (other) | 0..N | **JSC** `p:Anniversary` | `p:hasAnniversary` | — |
+| ↳ `kind` | — | **JSC** `p:anniversaryKind` | datatype property | — |
+| ↳ `date` | — | **JSC** `p:anniversaryDate` | datatype property | — |
+| ↳ `label` | — | **JSC** `p:anniversaryLabel` | datatype property | — |
+| `organizations[].name` | 0..1 | `cco:ent00000047` OrganizationName | `designated by` | max 1 |
+| `organizations[].units` | 0..1 | **JSC** `p:OrganizationUnit` | `designated by` | max 1 |
+| `titles[].name` | 0..1 | **JSC** `p:JobTitle` | `designated by` | max 1 |
+| `onlineServices` (account) | 0..N | `cco:ont00000033` OnlineServiceAccount | `holds user account` | — |
+| `onlineServices` (URL) | 0..N | **JSC** `p:WebURL` | `designated by` | — |
+| ↳ `service` | 0..N | **JSC** `p:serviceLabel` annotation | annotation property | — |
+| `personalInfo` | 0..N | **JSC** `p:PersonalInfo` | `p:hasPersonalInfo` | — |
+| ↳ `kind` | — | **JSC** `p:personalInfoKind` | datatype property | — |
+| ↳ `value` | — | **JSC** `p:personalInfoValue` | datatype property | — |
+| ↳ `level` | — | **JSC** `p:personalInfoLevel` | datatype property | — |
+| `photos[].uri` | 0..N | **JSC** `p:hasPhoto` (xsd:anyURI) | datatype property | — |
+| `legalName` | 0..1 | `cco:ont00001331` Legal Name | `designated by` | — |
+| `uid` | 1 | IRI of the `p:Persona` individual | — | — |
+| `notes` | 0..N | Person Note via `has text value` | `designated by` | — |
+| `relatedTo` | 0..N | `p:dyad` (peer); `BFO_0000115` (member) | object property | — |
+| `updated` | 0..1 | `owl:versionInfo` on the context file | annotation | — |
+| `language` | 0..1 | *(not yet mapped)* | — | — |
+| `categories` | 0..N | *(not yet mapped)* | — | — |
+| `preferredLanguages` | 0..N | *(not yet mapped)* | — | — |
 
 ### Social classes and properties 
 
