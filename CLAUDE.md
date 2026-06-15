@@ -86,6 +86,11 @@ Context filenames follow a single flat pattern:
 
 **`context:assertedBy` vocabulary**: The TTL annotation uses `identity:Self` for self-asserted contexts (the Mia user entered the data), a specific Person individual (e.g. `:Bob_Johnson-Self`) for peer-asserted contexts, and `identity:Organization` only when the asserting organization is itself a PDN node. In the example data **only Citibank is a PDN node**, so only `10-alice(citibank)citibank.ttl` uses `assertedBy identity:Organization`. All other organization-related contexts (Google, AT&T, SSA, etc.) use `assertedBy identity:Self` because Alice self-enters that data — those organizations are not PDN-interoperable.
 
+**"Other" asserters**: When the asserter is someone other than the current Mia user (`identity:Self`), the asserter is one of:
+- `identity:Individual` — another Mia user (a different person, e.g. Bob asserting data about Alice)
+- `identity:Organization` — a company, nonprofit, or government agency that is a PDN node
+- `identity:Group` — a group of Mia users
+
 The parent-context hierarchy (which context is a child of which) is expressed via `persona:hasPersona` and `BFO_0000115` links in the TTL files, not in the filename.
 
 **Examples:**
