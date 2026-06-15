@@ -11,12 +11,12 @@
 
 # diagram label = 6
 
-<http://www.example.org/mia/bob(bob)bob.(bob)> rdf:type owl:Ontology ;
+<http://www.example.org/mia/bob(bob)bob> rdf:type owl:Ontology ;
     owl:imports <http://mee.foundation/ontologies/persona> ;
     owl:imports <http://mee.foundation/ontologies/context> ;
     owl:imports <http://www.example.org/mia/alice(bob)bob> ;
-    dc:date "2026-06-13"^^xsd:date ;
-    owl:versionInfo "Version 1.0.5 - update import to alice(bob)bob"@en ;
+    dc:date "2026-06-15"^^xsd:date ;
+    owl:versionInfo "Version 1.0.6 - rename to bob(bob)bob"@en ;
     context:contextCategory context:Person ;
     context:assertedBy :Bob_Johnson-Self ;
     context:subject :Bob_Johnson-Self ;
