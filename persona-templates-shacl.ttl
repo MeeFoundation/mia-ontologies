@@ -100,7 +100,7 @@
         sh:message "A JSContactCard may have at most one Birthdate."@en
     ] ;
 
-    # ── Organisation fields (OrganizationName required; others max 1) ────────
+    # ── Organization fields (OrganizationName required; others max 1) ────────
     sh:property [
         sh:path <https://purl.org/cco/ont00001879> ;
         sh:qualifiedValueShape [ sh:class cco:ent00000047 ] ;
