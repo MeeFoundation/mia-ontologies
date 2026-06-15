@@ -156,9 +156,9 @@ owl:versionInfo "Version 3.0.4 - added birth date"@en
 
 Files inside any directory named `under-development/` (at any depth) are works-in-progress and must be **excluded from all integrity checks** below.
 
-After any change to context files or the context map diagram, verify the following. **`images/example/context-map.png` is the authoritative source of truth.** When a discrepancy is found between the diagram and any `.ttl` file or `README.md` entry, the diagram wins — update the files to match the diagram, not the other way around.
+After any change to context files or the context map diagram, verify the following. **`example/images/context-map.png` is the authoritative source of truth.** When a discrepancy is found between the diagram and any `.ttl` file or `README.md` entry, the diagram wins — update the files to match the diagram, not the other way around.
 
-**Check 1 — Diagram ↔ files ↔ README coverage**: Every labeled circle in `images/example/context-map.png` must have (a) a corresponding `.ttl` file in the appropriate directory and (b) a row in one of the tables in the **Alice's Personas and Contexts** section of `README.md`. Conversely, every row in those tables must correspond to a circle in the diagram and a file that actually exists. If a circle exists in the diagram but has no `.ttl` file or README row, create them to match the diagram.
+**Check 1 — Diagram ↔ files ↔ README coverage**: Every labeled circle in `example/images/context-map.png` must have (a) a corresponding `.ttl` file in the appropriate directory and (b) a row in one of the tables in the **Alice's Personas and Contexts** section of `README.md`. Conversely, every row in those tables must correspond to a circle in the diagram and a file that actually exists. If a circle exists in the diagram but has no `.ttl` file or README row, create them to match the diagram.
 
 **Check 2 — Filename convention**: Every context filename must follow `[NN-]<about>(<context-name>)<asserted-by>.ttl`, where the optional `NN-` is the zero-padded two-digit diagram label number for files that appear as labeled circles in `context-map.png`. The `<asserted-by>` segment must be a real entity identifier (e.g. `alice`, `bob`, `paula`) — except for `c:Group` contexts, where it must be the literal string `members`. If a filename does not match this pattern, rename it to conform.
 
@@ -172,7 +172,7 @@ After any change to context files or the context map diagram, verify the followi
 
 **Check 6 — hasPersona tree structure**: The directed graph formed by `persona:hasPersona` links must be a tree (not a DAG). Every `p:Persona` must appear as the object of `persona:hasPersona` from at most one subject. A persona that is the target of two or more `hasPersona` links from different sources has two parents — a violation of tree structure.
 
-**Check 7 — contextCategory label ↔ TTL agreement**: For every labeled circle in `images/example/context-map.png`, the light-blue label attached to that circle shows a `contextCategory` value (e.g. "Finance", "Federal", "Group"). That value must exactly match the local name of the `c:contextCategory` object in the corresponding `.ttl` file (e.g. `context:contextCategory context:Finance`). Read the diagram label independently before consulting the TTL — do not let the TTL value anchor your reading of the diagram. If the label and the TTL value differ, the diagram is authoritative — update the TTL to match the diagram.
+**Check 7 — contextCategory label ↔ TTL agreement**: For every labeled circle in `example/images/context-map.png`, the light-blue label attached to that circle shows a `contextCategory` value (e.g. "Finance", "Federal", "Group"). That value must exactly match the local name of the `c:contextCategory` object in the corresponding `.ttl` file (e.g. `context:contextCategory context:Finance`). Read the diagram label independently before consulting the TTL — do not let the TTL value anchor your reading of the diagram. If the label and the TTL value differ, the diagram is authoritative — update the TTL to match the diagram.
 
 **Check 8 — No orphan Personas**: Every `p:Persona` individual must be reachable via at least one of the following two link types from a `cco:ont00001262` (Person) individual or another `p:Persona` individual:
 
@@ -183,9 +183,9 @@ A Persona that is not reachable by either mechanism is an orphan. Note: `persona
 
 **Check 9 — Validation command completeness**: The `## Validation` section of `README.md` must use two `find` commands: (1) a data merge that includes every `.ttl` file except files in `project_files/` (listed explicitly as foundation ontologies), files in any `under-development/` directory, and all `*-shacl.ttl` files; (2) a shapes merge that gathers all `*-shacl.ttl` files (excluding `under-development/`) and strips their `owl:imports`. Both commands must use `find` with `-not -name "*-shacl.ttl"` / `-name "*-shacl.ttl"` patterns so that newly added shacl files are included automatically without a manual README update. If either `find` pattern changes, update the README command to match.
 
-**Check 10 — PNG file location**: The diagram PNG for every context file and selfness file must be stored directly in `images/example/` (flat, no subfolders). Files in `under-development/` are excluded.
+**Check 10 — PNG file location**: The diagram PNG for every context file and selfness file must be stored directly in `example/images/` (flat, no subfolders — not `images/example/`). Files in `under-development/` are excluded.
 
-**Check 11 — PNG filename convention**: Every diagram PNG in `images/example/` must use the same base filename as the corresponding `.ttl` file in `example/`, with `.png` substituted for `.ttl` (including the `NN-` numeric prefix where present). For example, `07-alice(bhs)alice.ttl` → `07-alice(bhs)alice.png`; `alice(self)alice.ttl` → `alice(self)alice.png`. If the PNG does not yet exist, the README Diagram cell must be marked `*(todo)*` rather than left blank.
+**Check 11 — PNG filename convention**: Every diagram PNG in `example/images/` must use the same base filename as the corresponding `.ttl` file in `example/`, with `.png` substituted for `.ttl` (including the `NN-` numeric prefix where present). For example, `07-alice(bhs)alice.ttl` → `07-alice(bhs)alice.png`; `alice(self)alice.ttl` → `alice(self)alice.png`. If the PNG does not yet exist, the README Diagram cell must be marked `*(todo)*` rather than left blank.
 
 ## Keeping Files in Sync
 
