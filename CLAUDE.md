@@ -24,7 +24,7 @@ There are no build, compile, test, or lint commands. The files are Turtle (`.ttl
 | `example/alice(self)alice.ttl` | Alice Walker's selfness — the central Person instance; imports all context files |
 | `example/paula(self)paula.ttl` | Paula Walker's selfness — the central Person instance for Paula |
 | `example/bob(self)bob.ttl` | Bob Johnson's selfness — the central Person instance for Bob |
-| `example/10-alice(citibank)alice.ttl` | Alice's Citibank Persona — payment card |
+| `example/10-alice(citibank)citibank.ttl` | Alice's Citibank Persona — payment card |
 | `example/15-alice(boston)alice.ttl` | Alice's Boston Persona — residential address 2020–2025 |
 | `example/14-alice(paradise)alice.ttl` | Alice's Paradise Persona — current residential address |
 | `example/18-alice(family)alice.ttl` | Alice's Family Persona — family relationships and social network |
@@ -47,7 +47,7 @@ example/alice(self)alice.ttl (selfness)
   │             ├─ imports → AddressOntology.ttl
   │             └─ imports → StagingOntology.ttl
   │                           └─ imports → BFO terms
-  ├─ imports → example/10-alice(citibank)alice.ttl
+  ├─ imports → example/10-alice(citibank)citibank.ttl
   ├─ imports → example/15-alice(boston)alice.ttl
   ├─ imports → example/14-alice(paradise)alice.ttl
   ├─ imports → example/18-alice(family)alice.ttl
@@ -90,7 +90,7 @@ The parent-context hierarchy (which context is a child of which) is expressed vi
 
 | Filename | About | Context | Asserted by |
 |----------|-------|---------|-------------|
-| `10-alice(citibank)alice.ttl` | Alice | citibank | Alice |
+| `10-alice(citibank)citibank.ttl` | Alice | citibank | Citibank |
 | `02-paula(family)alice.ttl` | Paula | family | Alice |
 | `04-alice(bob)bob.ttl` | Alice | bob | Bob |
 | `09-bob(bhs)bob.ttl` | Bob | bhs | Bob |

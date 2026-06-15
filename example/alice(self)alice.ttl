@@ -10,7 +10,7 @@
 
 <http://www.example.org/mia> rdf:type owl:Ontology ;
     owl:imports <http://mee.foundation/ontologies/persona> ;
-    owl:imports <http://www.example.org/mia/alice(citibank)alice> ;
+    owl:imports <http://www.example.org/mia/alice(citibank)citibank> ;
     owl:imports <http://www.example.org/mia/alice(boston)alice> ;
     owl:imports <http://www.example.org/mia/alice(paradise)alice> ;
     owl:imports <http://www.example.org/mia/alice(family)alice> ;
@@ -35,7 +35,7 @@
     owl:imports <http://www.example.org/mia/alice(acme)alice> ;
     owl:imports <http://www.example.org/mia/alice(business-card)alice> ;
     dc:date "2026-06-13"^^xsd:date ;
-    owl:versionInfo "Version 3.0.82 - add hasPersona for Alice_Walker-Bob (Check 8 fix)"@en ;
+    owl:versionInfo "Version 3.0.83 - rename citibank import to alice(citibank)citibank"@en ;
     rdfs:label "Alice Walker - Selfness"@en ;
     rdfs:comment """Alice Walker's selfness — the essential individuality and sense of selfhood from which
                     context-specific Personas (whonesses) are correlated.
@@ -47,7 +47,7 @@
                     - Mother: Paula Walker
 
                     Correlated Personas:
-                    - :Alice_Walker-Citibank  (10-alice(citibank)alice.ttl)  — Citibank financial relationship
+                    - :Alice_Walker-Citibank  (10-alice(citibank)citibank.ttl)  — Citibank financial relationship
                     - :Alice_Walker-Boston    (15-alice(boston)alice.ttl)    — Boston residence (2020-2025)
                     - :Alice_Walker-Paradise  (14-alice(paradise)alice.ttl)  — Paradise residence (2025-present)
                     - :Alice_Walker-Family      (18-alice(family)alice.ttl)      — family relationships

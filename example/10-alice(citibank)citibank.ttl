@@ -12,19 +12,19 @@
 
 # diagram label = 10
 
-<http://www.example.org/mia/alice(citibank)alice> rdf:type owl:Ontology ;
+<http://www.example.org/mia/alice(citibank)citibank> rdf:type owl:Ontology ;
     owl:imports <http://mee.foundation/ontologies/persona> ;
     owl:imports <http://mee.foundation/ontologies/context> ;
-    dc:date "2026-06-01"^^xsd:date ;
-    owl:versionInfo "Version 1.0.14 - align ontology IRI with filename"@en ;
+    dc:date "2026-06-15"^^xsd:date ;
+    owl:versionInfo "Version 1.0.15 - rename to alice(citibank)citibank; assertedBy Organization"@en ;
     context:contextCategory context:Finance ;
-    context:assertedBy identity:Self ;
-    context:subject identity:Self ;
+    context:assertedBy identity:Organization ;
+    context:subject identity:Individual ;
     context:name "Citibank" ;
     rdfs:label "Alice Walker - Citibank Persona"@en ;
     rdfs:comment """Alice Walker's Citibank whoness — the context-specific Persona
                     representing Alice in her Citibank financial relationship.
-                    Correlated from :Alice_Walker-Self in alice(self)alice.ttl."""@en .
+                    Asserted by Citibank (Organization). Correlated from :Alice_Walker-Self in alice(self)alice.ttl."""@en .
 
 
 #################################################################
