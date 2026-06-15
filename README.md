@@ -72,9 +72,14 @@ The three currently defined subclasses are:
   - **Max 1** on all single-valued name and organisation components.
   See the [JSContact field coverage table](#jscontact-field-coverage) below for the complete mapping.
 
+* `p:DriversLicense` — carries the identity claims on a state-issued driver's license. SHACL shape `:DriversLicenseShape` enforces:
+  - **Required**: `FullName` **or** (`GivenName` + `FamilyName`); exactly one `Birthdate` (`cco:ent00000046`); exactly one `p:DriversLicenseNumber`; exactly one `ExpirationDateIdentifier` (`cco:ent00000054`).
+  - **Optional**: `AdditionalName`; `p:IssuingJurisdiction` (USPS 2-letter state code, validated by `USStateNameShape`); `PostalAddress`; `p:hasPhoto`.
+  Note: `p:PhysicalDriversLicense` (in `persona.ttl`) models the physical card object held in a wallet — `p:DriversLicense` is the persona template that models the identity data the license asserts.
+
 #### JSContact field coverage
 
-The table below maps every JSContact (RFC 9553) property to its representation in the Persona ontology. Properties contributed by `persona-jscontact.ttl` are marked **JSC**.
+The table below maps every JSContact (RFC 9553) property to its representation in the Persona ontology. Properties defined in `persona-templates.ttl` for JSContact alignment are marked **JSC**.
 
 | JSContact Property | Card. | Ontology Representation | Via | SHACL constraint |
 |---|:---:|---|---|:---:|
@@ -196,13 +201,12 @@ This section describes a few details related to modeling names and addresses.
 ### Persona Ontology Files
 
 - **`persona.ttl`** — The Persona ontology. Imports the domain ontologies above and documents which classes and properties Mia uses (required vs. optional). Defines Mia-specific extension properties (`p:hasPersona`, `p:hasSocialNetwork`, `p:hasPaymentCard`, `p:hasBankAccount`, etc.) and the core Persona data model classes (`p:Persona`, physical card classes, banking classes, and others).
-- **`persona-templates.ttl`** — Defines `p:PersonaTemplate` (abstract subclass of `p:Persona`) and the two concrete subtypes `p:BirthCertificate` and `p:JSContactCard`. Imported by `persona.ttl` so all context files inherit these classes transitively.
-
-- **`persona-jscontact.ttl`** — JSContact (RFC 9553) alignment extension. Imported by `persona.ttl`. Defines new designator classes (`p:Credential`, `p:WebURL`, `p:OrganizationUnit`, `p:JobTitle`), complex information classes (`p:Anniversary`, `p:PersonalInfo`), annotation properties for contact channel labels (`p:contactContext`, `p:phoneFeature`, `p:serviceLabel`), and `p:hasPhoto`.
+- **`persona-templates.ttl`** — Defines `p:PersonaTemplate` (abstract subclass of `p:Persona`) and the three concrete subtypes `p:BirthCertificate`, `p:JSContactCard`, and `p:DriversLicense`. Also defines related designator classes (`p:DriversLicenseNumber`, `p:IssuingJurisdiction`, `p:Credential`, `p:WebURL`, `p:OrganizationUnit`, `p:JobTitle`), complex information classes (`p:Anniversary`, `p:PersonalInfo`), annotation properties for JSContact channel labels (`p:contactContext`, `p:phoneFeature`, `p:serviceLabel`), and `p:hasPhoto`. Imported by `persona.ttl` so all context files inherit these classes transitively.
 
 - **`persona-templates-shacl.ttl`** — SHACL shapes for `p:PersonaTemplate` subtypes. Imported by `persona-shacl.ttl`. Validates properties including:
   - *`p:BirthCertificate` instances*: FullName OR (GivenName + FamilyName) required; optional AdditionalName, AlternateName, Nickname, Legal Name
   - *`p:JSContactCard` instances*: OrganizationName required (1..1); at least one Email or TelephoneNumber required; all name components and OrganizationUnit/JobTitle optional (0..1 each)
+  - *`p:DriversLicense` instances*: FullName OR (GivenName + FamilyName) required; Birthdate, DriversLicenseNumber, ExpirationDateIdentifier required (1..1 each); IssuingJurisdiction, PostalAddress, and hasPhoto optional
 
 - **`persona-shacl.ttl`** — SHACL constraint rules for all `p:Persona` instances. Imports `persona-templates-shacl.ttl`. Validates properties including:
   - *All `p:Persona` instances*: SSN format (`NNN-NN-NNNN`), email format, phone (E.164), address cardinality, payment cards, wallet
@@ -364,6 +368,7 @@ The contexts in the table below are *about* Alice and asserted *by* Alice. All `
 | 19 | [19-alice(possessions)alice.ttl](example/19-alice(possessions)alice.ttl)     | Possession   | Wallet (driver's license + payment card); health ins., SSN card  | [view](images/example/19-alice(possessions)alice.png) |
 | 20 | [20-alice(acme)alice.ttl](example/20-alice(acme)alice.ttl)                   | Employee     | Acme employee context; company email; works with Paula      | [view](images/example/20-alice(acme)alice.png)|
 | 21 | [21-alice(business-card)alice.ttl](example/21-alice(business-card)alice.ttl) | Employee     | Business card — given name, family name, email, phone, employer | [view](images/example/21-alice(business-card)alice.png) |
+| 22 | [22-alice(driverslicense)alice.ttl](example/22-alice(driverslicense)alice.ttl) | State       | California driver's license — legal name, DOB, DL#, expiry, photo | *(todo)* |
 
 The following table lists contexts that are *about* Alice but asserted by others.
 

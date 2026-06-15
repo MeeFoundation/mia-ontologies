@@ -18,9 +18,8 @@
     owl:imports <https://purl.org/cco/staging> ;
     owl:imports <http://mee.foundation/ontologies/identity> ;
     owl:imports <http://mee.foundation/ontologies/persona-templates> ;
-    owl:imports <http://mee.foundation/ontologies/persona-jscontact> ;
-    dc:date "2026-06-01"^^xsd:date ;
-    owl:versionInfo "Version 3.0.44 - import persona-jscontact; add Birthdate/Title/Surname2/Nickname to usesOptionalClass"@en ;
+    dc:date "2026-06-15"^^xsd:date ;
+    owl:versionInfo "Version 3.0.45 - remove persona-jscontact import (content merged into persona-templates.ttl)"@en ;
     rdfs:label "Persona Ontology"@en ;
     rdfs:comment """Persona Ontology for the Mee Identity Agent.
 

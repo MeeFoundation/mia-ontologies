@@ -18,9 +18,8 @@ There are no build, compile, test, or lint commands. The files are Turtle (`.ttl
 | `persona.ttl` | Persona ontology — imports domain ontologies, annotates which classes/properties are required vs. optional for Mee, defines Mia-specific classes and properties |
 | `context.ttl` | Context ontology — controlled vocabularies for classifying context files (`contextType`, `assertionType`, `subject`) |
 | `persona-shacl.ttl` | SHACL validation shapes — constraint rules for valid instance data (e.g., a BirthCertificate Persona must have FullName OR GivenName+FamilyName) |
-| `persona-templates.ttl` | Persona template subclasses — defines `p:PersonaTemplate` (abstract superclass) and concrete subclasses `p:BirthCertificate`, `p:JSContactCard`, `p:DriversLicense`; also defines `persona:DriversLicenseNumber` designator class |
+| `persona-templates.ttl` | Persona template subclasses — defines `p:PersonaTemplate` (abstract superclass) and concrete subclasses `p:BirthCertificate`, `p:JSContactCard`, `p:DriversLicense`; also defines related designator classes (`persona:DriversLicenseNumber`, `persona:IssuingJurisdiction`, `persona:Credential`, `persona:WebURL`, `persona:OrganizationUnit`, `persona:JobTitle`), complex classes (`persona:Anniversary`, `persona:PersonalInfo`), and properties (`persona:hasAnniversary`, `persona:hasPhoto`, etc.) |
 | `persona-templates-shacl.ttl` | SHACL shapes for persona templates — validates required/optional properties on `p:BirthCertificate`, `p:JSContactCard`, and `p:DriversLicense` instances |
-| `persona-jscontact.ttl` | JSContact (RFC 9553) extension — designator classes (Credential, WebURL, OrganizationUnit, JobTitle), annotation properties (contactContext, phoneFeature, serviceLabel), Anniversary and PersonalInfo classes, hasPhoto |
 | `project_files/` | Reference materials: imported domain ontologies (PersonOntology.ttl, AddressOntology.ttl, StagingOntology.ttl), BFO/CCO source files, PDFs, docs |
 
 ## Example Files
