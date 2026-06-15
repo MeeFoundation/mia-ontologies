@@ -30,6 +30,11 @@ identity:Individual rdf:type owl:Class ;
     rdfs:label "Individual"@en ;
     rdfs:comment "An identifier of a human Mia user."@en .
 
+identity:Self rdf:type owl:Class ;
+    rdfs:subClassOf identity:Individual ;
+    rdfs:label "Self"@en ;
+    rdfs:comment "An identifier of the current Mia user."@en .    
+
 identity:Group rdf:type owl:Class ;
     rdfs:subClassOf identity:PDNidentity ;
     rdfs:label "Group"@en ;
