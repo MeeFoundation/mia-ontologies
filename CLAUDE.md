@@ -84,6 +84,8 @@ Context filenames follow a single flat pattern:
 
 **Exception — `c:Group` contexts**: A group context (`contextCategory context:Group`) has no single asserter — any permitted member can write to it and changes replicate to all members. The `<asserted-by>` segment is the literal `members` rather than an individual name. Example: `08-bhs(bhs)members.ttl` — about BHS, context "bhs", asserted by the group's members collectively.
 
+**`context:assertedBy` vocabulary**: The TTL annotation uses `identity:Self` for self-asserted contexts (the Mia user entered the data), a specific Person individual (e.g. `:Bob_Johnson-Self`) for peer-asserted contexts, and `identity:Organization` only when the asserting organization is itself a PDN node. In the example data **only Citibank is a PDN node**, so only `10-alice(citibank)citibank.ttl` uses `assertedBy identity:Organization`. All other organization-related contexts (Google, AT&T, SSA, etc.) use `assertedBy identity:Self` because Alice self-enters that data — those organizations are not PDN-interoperable.
+
 The parent-context hierarchy (which context is a child of which) is expressed via `persona:hasPersona` and `BFO_0000115` links in the TTL files, not in the filename.
 
 **Examples:**
