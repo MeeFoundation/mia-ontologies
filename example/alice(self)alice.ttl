@@ -36,7 +36,7 @@
     owl:imports <http://www.example.org/mia/alice(business-card)alice> ;
     owl:imports <http://www.example.org/mia/alice(driverslicense)alice> ;
     dc:date "2026-06-15"^^xsd:date ;
-    owl:versionInfo "Version 3.0.84 - add alice(driverslicense)alice context"@en ;
+    owl:versionInfo "Version 3.0.85 - update driverslicense context to California"@en ;
     rdfs:label "Alice Walker - Selfness"@en ;
     rdfs:comment """Alice Walker's selfness — the essential individuality and sense of selfhood from which
                     context-specific Personas (whonesses) are correlated.
@@ -59,7 +59,7 @@
                     - :Alice_Walker-Possessions           (19-alice(possessions)alice.ttl)  — wallet, driver's license, health insurance card
                     - :Alice_Walker-Acme                 (20-alice(acme)alice.ttl)                    — Acme employee context
                     - :Alice_Walker-BusinessCard         (21-alice(business-card)alice.ttl)           — business card (name, email, phone, employer)
-                    - :Alice_Walker-DriversLicense       (22-alice(driverslicense)alice.ttl)          — Texas driver's licence (name, DOB, DL#, expiry)
+                    - :Alice_Walker-DriversLicense       (22-alice(driverslicense)alice.ttl)          — California driver's licence (name, DOB, DL#, expiry)
                     - :Alice_Walker-BHS                  (07-alice(bhs)alice.ttl)                     — BHS group profile (address, phone, email)
                     - :Alice_Walker-Bob                  (17-alice(bob)alice.ttl)                     — 1:1 relationship with Bob Johnson
                     - :Alice_Walker-ByBob                (04-alice(bob)bob.ttl)                — Alice as seen by Bob (dyad with above)

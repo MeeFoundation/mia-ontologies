@@ -17,16 +17,16 @@
     owl:imports <http://mee.foundation/ontologies/context> ;
     owl:imports <http://mee.foundation/ontologies/persona-templates> ;
     dc:date "2026-06-15"^^xsd:date ;
-    owl:versionInfo "Version 1.0.0 - initial"@en ;
+    owl:versionInfo "Version 1.0.1 - California jurisdiction; add IssuingJurisdiction and photo"@en ;
     context:contextCategory context:State ;
     context:assertedBy identity:Self ;
     context:subject identity:Self ;
     context:name "Driver's License" ;
     rdfs:label "Alice Walker - Driver's License"@en ;
-    rdfs:comment """What Alice Walker states about her Texas-issued driver's license.
+    rdfs:comment """What Alice Walker states about her California-issued driver's license.
                     Correlated from :Alice_Walker-Self in alice(self)alice.ttl.
                     Legal Name: Margery Alice Walker
-                    DL#: 12345678 (placeholder)"""@en .
+                    DL#: A1234567 (placeholder)"""@en .
 
 
 #################################################################
@@ -36,7 +36,7 @@
 :Alice_Walker-DriversLicense rdf:type owl:NamedIndividual ,
                                       persona:DriversLicense ;
     rdfs:label "Alice Walker (Driver's License)"@en ;
-    rdfs:comment "Alice Walker's Texas state-issued driver's licence identity data."@en ;
+    rdfs:comment "Alice Walker's California state-issued driver's licence identity data."@en ;
 
     # ── Legal name (matches Texas Birth Certificate) ─────────────────────────
 
@@ -71,5 +71,16 @@
 
     <https://purl.org/cco/ont00001879> [  # designated by → DriversLicenseNumber
         rdf:type persona:DriversLicenseNumber ;
-        <https://purl.org/cco/ont00001765> "12345678"  # placeholder Texas DL number
-    ] .
+        <https://purl.org/cco/ont00001765> "A1234567"  # placeholder California DL number
+    ] ;
+
+    # ── Issuing jurisdiction ─────────────────────────────────────────────────
+
+    <https://purl.org/cco/ont00001879> [  # designated by → IssuingJurisdiction
+        rdf:type persona:IssuingJurisdiction ;
+        <https://purl.org/cco/ont00001765> "California"
+    ] ;
+
+    # ── Photo ────────────────────────────────────────────────────────────────
+
+    persona:hasPhoto "https://example.org/alice-dl-photo.jpg"^^xsd:anyURI .

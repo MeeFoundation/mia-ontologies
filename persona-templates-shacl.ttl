@@ -11,7 +11,7 @@
 <http://www.example.org/shapes/persona-templates> rdf:type owl:Ontology ;
     owl:imports <http://mee.foundation/ontologies/persona-templates> ;
     dc:date "2026-06-15"^^xsd:date ;
-    owl:versionInfo "Version 1.0.3 - add DriversLicenseShape"@en ;
+    owl:versionInfo "Version 1.0.4 - DriversLicenseShape: add IssuingJurisdiction and hasPhoto"@en ;
     rdfs:label "Persona Templates SHACL Validation Shapes"@en ;
     rdfs:comment """SHACL shapes for persona subtypes defined in persona-templates.ttl.
                     Imported by persona-shacl.ttl so a single -shapesfile covers everything."""@en .
@@ -141,6 +141,8 @@
 #            DriversLicenseNumber (persona:DriversLicenseNumber, 1..1)
 #            ExpirationDateIdentifier (ent00000054, 1..1)
 #  Optional: AdditionalName (ent00000003, 0..1), PostalAddress (ent00000010, 0..1)
+#            IssuingJurisdiction (persona:IssuingJurisdiction, 0..1)
+#            Photo (persona:hasPhoto, 0..1)
 #################################################################
 
 :DriversLicenseShape
@@ -218,4 +220,18 @@
         sh:qualifiedValueShape [ sh:class cco:ent00000010 ] ;  # USPostalAddress
         sh:qualifiedMaxCount 1 ;
         sh:message "A DriversLicense Persona may have at most one residential address."@en
+    ] ;
+
+    sh:property [
+        sh:path <https://purl.org/cco/ont00001879> ;
+        sh:qualifiedValueShape [ sh:class persona:IssuingJurisdiction ] ;
+        sh:qualifiedMaxCount 1 ;
+        sh:message "A DriversLicense Persona may have at most one IssuingJurisdiction."@en
+    ] ;
+
+    sh:property [
+        sh:path persona:hasPhoto ;
+        sh:maxCount 1 ;
+        sh:datatype xsd:anyURI ;
+        sh:message "A DriversLicense Persona may have at most one photo."@en
     ] .
