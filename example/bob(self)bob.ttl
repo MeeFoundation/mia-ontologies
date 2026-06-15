@@ -13,7 +13,7 @@
     owl:imports <http://www.example.org/mia/bob(bob)bob> ;
     owl:imports <http://www.example.org/mia/alice(bob)bob.(bob)> ;
     dc:date "2026-06-13"^^xsd:date ;
-    owl:versionInfo "Version 1.0.9 - rename context #6 to bob(bob)bob"@en ;
+    owl:versionInfo "Version 1.0.10 - rename context #9 to bob(bhs)bob"@en ;
     rdfs:label "Bob Johnson - Selfness"@en ;
     rdfs:comment """Bob Johnson's selfness — the essential individuality and sense of selfhood from which
                     context-specific Personas (whonesses) are correlated.
@@ -21,7 +21,7 @@
                     Correlated Personas:
                     - :Bob_Johnson-as-known-by-alice (05-bob(bob)alice.ttl)         — colleague persona (Alice's view)
                     - :Bob_Johnson-Bob                   (06-bob(bob)bob.ttl)    — Bob persona (self-asserted, dyad with #5)
-                    - :Bob_Johnson-BHS                   (09-bob(bob)bob.(bhs).ttl)    — BHS member persona
+                    - :Bob_Johnson-BHS                   (09-bob(bhs)bob.ttl)    — BHS member persona
                     - :Alice_Walker-ByBob                (04-alice(bob)bob.ttl)  — Alice's persona as asserted by Bob (hasMember)"""@en .
 
 

@@ -12,11 +12,11 @@
 
 # diagram label = 9
 
-<http://www.example.org/mia/bob(bob)bob.(bhs)> rdf:type owl:Ontology ;
+<http://www.example.org/mia/bob(bhs)bob> rdf:type owl:Ontology ;
     owl:imports <http://mee.foundation/ontologies/persona> ;
     owl:imports <http://mee.foundation/ontologies/context> ;
-    dc:date "2026-06-12"^^xsd:date ;
-    owl:versionInfo "Version 1.0.4 - align ontology IRI with filename"@en ;
+    dc:date "2026-06-15"^^xsd:date ;
+    owl:versionInfo "Version 1.0.5 - rename to bob(bhs)bob"@en ;
     context:contextCategory context:Group ;
     context:assertedBy identity:Self ;
     context:subject identity:Individual ;
