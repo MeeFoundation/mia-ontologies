@@ -18,8 +18,8 @@ There are no build, compile, test, or lint commands. The files are Turtle (`.ttl
 | `persona.ttl` | Persona ontology — imports domain ontologies, annotates which classes/properties are required vs. optional for Mee, defines Mia-specific classes and properties |
 | `context.ttl` | Context ontology — controlled vocabularies for classifying context files (`contextType`, `assertionType`, `subject`) |
 | `persona-shacl.ttl` | SHACL validation shapes — constraint rules for valid instance data (e.g., a BirthCertificate Persona must have FullName OR GivenName+FamilyName) |
-| `persona-templates.ttl` | Persona template subclasses — defines `p:PersonaTemplate` (abstract superclass) and its two concrete subclasses `p:BirthCertificate` and `p:BusinessCard` |
-| `persona-templates-shacl.ttl` | SHACL shapes for persona templates — validates required/optional properties on `p:BirthCertificate` and `p:BusinessCard` instances |
+| `persona-templates.ttl` | Persona template subclasses — defines `p:PersonaTemplate` (abstract superclass) and its two concrete subclasses `p:BirthCertificate` and `p:JSContactCard` |
+| `persona-templates-shacl.ttl` | SHACL shapes for persona templates — validates required/optional properties on `p:BirthCertificate` and `p:JSContactCard` instances |
 | `persona-jscontact.ttl` | JSContact (RFC 9553) extension — designator classes (Credential, WebURL, OrganizationUnit, JobTitle), annotation properties (contactContext, phoneFeature, serviceLabel), Anniversary and PersonalInfo classes, hasPhoto |
 | `example/alice(self)alice.ttl` | Alice Walker's selfness — the central Person instance; imports all context files |
 | `example/paula(self)paula.ttl` | Paula Walker's selfness — the central Person instance for Paula |

@@ -13,7 +13,7 @@
 <http://www.example.org/shapes> rdf:type owl:Ontology ;
     owl:imports <http://www.example.org/mia> ;
     owl:imports <http://www.example.org/shapes/persona-templates> ;
-    owl:versionInfo "Version 3.0.30 - import persona-templates-shacl for BusinessCardShape"@en ;
+    owl:versionInfo "Version 3.0.31 - import persona-templates-shacl for JSContactCardShape"@en ;
     rdfs:label "Mee Identity Agent (MIA)'s SHACL Validation Shapes"@en ;
     rdfs:comment """SHACL validation shapes for the Mee Identity Agent.
 

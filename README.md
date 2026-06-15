@@ -66,11 +66,11 @@ The three currently defined subclasses are:
   - **Required**: either a `FullName` designator **or** both a `GivenName` and a `FamilyName` designator (via `designated by`, `ont00001879`) — expressed with `sh:or`.
   - **Optional**: `AdditionalName` (middle name), `AlternateName` (e.g. maiden name), `Nickname`, and `Legal Name` designators.
 
-* `p:BusinessCard` — carries the identity claims printed on a business card. SHACL shape `:BusinessCardShape` enforces:
-  - **Required**: exactly one of `GivenName`, `FamilyName`, `Email`, and `TelephoneNumber` designators.
-  - **Optional**: `OrganizationName` designator (employer name).
-
-* `p:JSContactCard` — carries a full JSContact card (RFC 9553). All fields are optional; SHACL shape `:JSContactCardShape` enforces maximum cardinality on the single-valued name and organisation components. See the [JSContact field coverage table](#jscontact-field-coverage) below for the complete mapping.
+* `p:JSContactCard` — carries professional contact details in the JSContact (RFC 9553) format. SHACL shape `:JSContactCardShape` enforces:
+  - **Required**: exactly one `OrganizationName` designator; at least one `Email` or `TelephoneNumber` designator.
+  - **Optional**: all name components, `OrganizationUnit`, `JobTitle`, addresses, online services, anniversaries, personal info, photo.
+  - **Max 1** on all single-valued name and organisation components.
+  See the [JSContact field coverage table](#jscontact-field-coverage) below for the complete mapping.
 
 #### JSContact field coverage
 
@@ -196,13 +196,13 @@ This section describes a few details related to modeling names and addresses.
 ### Persona Ontology Files
 
 - **`persona.ttl`** — The Persona ontology. Imports the domain ontologies above and documents which classes and properties Mia uses (required vs. optional). Defines Mia-specific extension properties (`p:hasPersona`, `p:hasSocialNetwork`, `p:hasPaymentCard`, `p:hasBankAccount`, etc.) and the core Persona data model classes (`p:Persona`, physical card classes, banking classes, and others).
-- **`persona-templates.ttl`** — Defines `p:PersonaTemplate` (abstract subclass of `p:Persona`) and the two concrete subtypes `p:BirthCertificate` and `p:BusinessCard`. Imported by `persona.ttl` so all context files inherit these classes transitively.
+- **`persona-templates.ttl`** — Defines `p:PersonaTemplate` (abstract subclass of `p:Persona`) and the two concrete subtypes `p:BirthCertificate` and `p:JSContactCard`. Imported by `persona.ttl` so all context files inherit these classes transitively.
 
 - **`persona-jscontact.ttl`** — JSContact (RFC 9553) alignment extension. Imported by `persona.ttl`. Defines new designator classes (`p:Credential`, `p:WebURL`, `p:OrganizationUnit`, `p:JobTitle`), complex information classes (`p:Anniversary`, `p:PersonalInfo`), annotation properties for contact channel labels (`p:contactContext`, `p:phoneFeature`, `p:serviceLabel`), and `p:hasPhoto`.
 
 - **`persona-templates-shacl.ttl`** — SHACL shapes for `p:PersonaTemplate` subtypes. Imported by `persona-shacl.ttl`. Validates properties including:
   - *`p:BirthCertificate` instances*: FullName OR (GivenName + FamilyName) required; optional AdditionalName, AlternateName, Nickname, Legal Name
-  - *`p:BusinessCard` instances*: GivenName, FamilyName, Email, TelephoneNumber required (1..1); OrganizationName optional (0..1)
+  - *`p:JSContactCard` instances*: OrganizationName required (1..1); at least one Email or TelephoneNumber required; all name components and OrganizationUnit/JobTitle optional (0..1 each)
 
 - **`persona-shacl.ttl`** — SHACL constraint rules for all `p:Persona` instances. Imports `persona-templates-shacl.ttl`. Validates properties including:
   - *All `p:Persona` instances*: SSN format (`NNN-NN-NNNN`), email format, phone (E.164), address cardinality, payment cards, wallet

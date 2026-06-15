@@ -7,15 +7,14 @@
 @base <http://mee.foundation/ontologies/persona-templates> .
 
 <http://mee.foundation/ontologies/persona-templates> rdf:type owl:Ontology ;
-    dc:date "2026-06-13"^^xsd:date ;
-    owl:versionInfo "Version 1.0.4 - add JSContactCard PersonaTemplate subclass"@en ;
+    dc:date "2026-06-15"^^xsd:date ;
+    owl:versionInfo "Version 1.0.5 - drop BusinessCard; JSContactCard is now the business-card template"@en ;
     rdfs:label "Persona Templates Ontology"@en ;
     rdfs:comment """Reusable p:Persona subtypes that are too specific for persona.ttl
                     but shared across multiple context files.
 
                     Class hierarchy:
                     p:Persona → p:PersonaTemplate → p:BirthCertificate
-                                                  → p:BusinessCard
                                                   → p:JSContactCard"""@en .
 
 
@@ -43,27 +42,15 @@ persona:BirthCertificate rdf:type owl:Class ;
 
 
 #################################################################
-#    BusinessCard Persona
-#################################################################
-
-persona:BusinessCard rdf:type owl:Class ;
-    rdfs:subClassOf persona:PersonaTemplate ;
-    rdfs:label "Business Card Persona"@en ;
-    rdfs:comment """A Persona whose purpose is to carry the identity claims printed on a
-                    business card: given name, family name, email address, telephone number,
-                    and optionally an employer organisation name."""@en .
-
-
-#################################################################
 #    JSContactCard Persona
 #################################################################
 
 persona:JSContactCard rdf:type owl:Class ;
     rdfs:subClassOf persona:PersonaTemplate ;
     rdfs:label "JSContact Card Persona"@en ;
-    rdfs:comment """A Persona whose purpose is to carry a full JSContact card (RFC 9553).
-                    Covers all JSContact properties: name components (given, surname, prefix,
-                    suffix, credential, etc.), contact channels (emails, phones, addresses),
-                    organisation (name, unit, job title), online services, anniversaries,
-                    personal info, and photo. All fields are optional; SHACL shape enforces
-                    maximum cardinality on single-valued name and organisation components."""@en .
+    rdfs:comment """A Persona whose purpose is to carry professional contact details in the
+                    JSContact (RFC 9553) format. OrganizationName and at least one contact
+                    channel (email or phone) are required. All other fields — name components,
+                    OrganizationUnit, JobTitle, addresses, online services, anniversaries,
+                    personal info, photo — are optional. SHACL shape enforces these constraints
+                    plus maximum cardinality on single-valued name and organisation components."""@en .

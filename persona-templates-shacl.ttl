@@ -10,77 +10,25 @@
 
 <http://www.example.org/shapes/persona-templates> rdf:type owl:Ontology ;
     owl:imports <http://mee.foundation/ontologies/persona-templates> ;
-    dc:date "2026-06-13"^^xsd:date ;
-    owl:versionInfo "Version 1.0.1 - add JSContactCardShape"@en ;
+    dc:date "2026-06-15"^^xsd:date ;
+    owl:versionInfo "Version 1.0.2 - drop BusinessCardShape; require OrganizationName and at least one contact on JSContactCard"@en ;
     rdfs:label "Persona Templates SHACL Validation Shapes"@en ;
     rdfs:comment """SHACL shapes for persona subtypes defined in persona-templates.ttl.
                     Imported by persona-shacl.ttl so a single -shapesfile covers everything."""@en .
 
 
-#################################################################
-#  BusinessCard Persona
-#  Required: GivenName, FamilyName, Email, TelephoneNumber (each 1..1)
-#  Optional: OrganizationName (0..1)
-#################################################################
-
-:BusinessCardShape
-    a sh:NodeShape ;
-    sh:targetClass persona:BusinessCard ;
-    sh:message "BusinessCard Persona validation: name, email and phone are required (1..1)."@en ;
-
-    sh:property [
-        sh:path <https://purl.org/cco/ont00001879> ;  # designated by → GivenName
-        sh:qualifiedValueShape [ sh:class cco:ent00000002 ] ;
-        sh:qualifiedMinCount 1 ;
-        sh:qualifiedMaxCount 1 ;
-        sh:message "A BusinessCard Persona must have exactly one GivenName."@en
-    ] ;
-
-    sh:property [
-        sh:path <https://purl.org/cco/ont00001879> ;  # designated by → FamilyName
-        sh:qualifiedValueShape [ sh:class cco:ent00000004 ] ;
-        sh:qualifiedMinCount 1 ;
-        sh:qualifiedMaxCount 1 ;
-        sh:message "A BusinessCard Persona must have exactly one FamilyName."@en
-    ] ;
-
-    sh:property [
-        sh:path <https://purl.org/cco/ont00001879> ;  # designated by → Email
-        sh:qualifiedValueShape [ sh:class cco:ent00000024 ] ;
-        sh:qualifiedMinCount 1 ;
-        sh:qualifiedMaxCount 1 ;
-        sh:message "A BusinessCard Persona must have exactly one Email address."@en
-    ] ;
-
-    sh:property [
-        sh:path <https://purl.org/cco/ont00001879> ;  # designated by → TelephoneNumber
-        sh:qualifiedValueShape [ sh:class cco:ent00000023 ] ;
-        sh:qualifiedMinCount 1 ;
-        sh:qualifiedMaxCount 1 ;
-        sh:message "A BusinessCard Persona must have exactly one telephone number."@en
-    ] ;
-
-    sh:property [
-        sh:path <https://purl.org/cco/ont00001879> ;  # designated by → OrganizationName
-        sh:qualifiedValueShape [ sh:class cco:ent00000047 ] ;
-        sh:qualifiedMaxCount 1 ;
-        sh:message "A BusinessCard Persona may have at most one OrganizationName."@en
-    ] .
-
 
 #################################################################
 #  JSContactCard Persona
-#  All fields optional; max-cardinality enforced on single-valued
-#  name components and organisation fields (matching JSContact's
-#  structured-name model where each component appears at most once).
-#  Multi-valued channels (emails, phones, addresses, online services,
-#  anniversaries, personalInfo) carry no upper-bound constraint.
+#  Required: OrganizationName (1..1); at least one of Email or TelephoneNumber
+#  Optional: all name components, OrganizationUnit, JobTitle, addresses,
+#             online services, anniversaries, personalInfo, photo
 #################################################################
 
 :JSContactCardShape
     a sh:NodeShape ;
     sh:targetClass persona:JSContactCard ;
-    sh:message "JSContactCard Persona validation: single-valued name/org components."@en ;
+    sh:message "JSContactCard Persona validation: OrganizationName required, at least one email or phone required, max 1 per name/org component."@en ;
 
     # ── Name components (max 1 each) ────────────────────────────────────────
     sh:property [
@@ -152,12 +100,13 @@
         sh:message "A JSContactCard may have at most one Birthdate."@en
     ] ;
 
-    # ── Organisation fields (max 1 each) ────────────────────────────────────
+    # ── Organisation fields (OrganizationName required; others max 1) ────────
     sh:property [
         sh:path <https://purl.org/cco/ont00001879> ;
         sh:qualifiedValueShape [ sh:class cco:ent00000047 ] ;
+        sh:qualifiedMinCount 1 ;
         sh:qualifiedMaxCount 1 ;
-        sh:message "A JSContactCard may have at most one OrganizationName."@en
+        sh:message "A JSContactCard must have exactly one OrganizationName."@en
     ] ;
     sh:property [
         sh:path <https://purl.org/cco/ont00001879> ;
@@ -170,7 +119,13 @@
         sh:qualifiedValueShape [ sh:class persona:JobTitle ] ;
         sh:qualifiedMaxCount 1 ;
         sh:message "A JSContactCard may have at most one JobTitle."@en
-    ] .
+    ] ;
+
+    # ── Contact channel (at least one required) ─────────────────────────────
+    sh:or (
+        [ sh:property [ sh:path <https://purl.org/cco/ont00001879> ; sh:qualifiedValueShape [ sh:class cco:ent00000024 ] ; sh:qualifiedMinCount 1 ] ]
+        [ sh:property [ sh:path <https://purl.org/cco/ont00001879> ; sh:qualifiedValueShape [ sh:class cco:ent00000023 ] ; sh:qualifiedMinCount 1 ] ]
+    ) .
     # ── Multi-valued channels (no upper bound) ──────────────────────────────
     # EmailAddress (ent00000024), TelephoneNumber (ent00000023),
     # USPostalAddress (ent00000010), OnlineServiceAccount (ont00000033),
