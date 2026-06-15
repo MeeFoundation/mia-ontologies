@@ -17,7 +17,7 @@
     owl:imports <http://mee.foundation/ontologies/context> ;
     owl:imports <http://mee.foundation/ontologies/persona-templates> ;
     dc:date "2026-06-15"^^xsd:date ;
-    owl:versionInfo "Version 1.0.1 - California jurisdiction; add IssuingJurisdiction and photo"@en ;
+    owl:versionInfo "Version 1.0.2 - IssuingJurisdiction value changed to USPS abbreviation 'CA'"@en ;
     context:contextCategory context:State ;
     context:assertedBy identity:Self ;
     context:subject identity:Self ;
@@ -78,7 +78,7 @@
 
     <https://purl.org/cco/ont00001879> [  # designated by → IssuingJurisdiction
         rdf:type persona:IssuingJurisdiction ;
-        <https://purl.org/cco/ont00001765> "California"
+        <https://purl.org/cco/ont00001765> "CA"
     ] ;
 
     # ── Photo ────────────────────────────────────────────────────────────────

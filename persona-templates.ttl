@@ -1,4 +1,5 @@
 @prefix persona: <http://mee.foundation/ontologies/persona#> .
+@prefix cco: <https://purl.org/cco/> .
 @prefix owl: <http://www.w3.org/2002/07/owl#> .
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
@@ -8,7 +9,7 @@
 
 <http://mee.foundation/ontologies/persona-templates> rdf:type owl:Ontology ;
     dc:date "2026-06-15"^^xsd:date ;
-    owl:versionInfo "Version 1.0.7 - add IssuingJurisdiction designator class"@en ;
+    owl:versionInfo "Version 1.0.8 - IssuingJurisdiction: subclass ent00000013 for USPS vocabulary; fix cco: prefix"@en ;
     rdfs:label "Persona Templates Ontology"@en ;
     rdfs:comment """Reusable p:Persona subtypes that are too specific for persona.ttl
                     but shared across multiple context files.
@@ -43,13 +44,6 @@ persona:BirthCertificate rdf:type owl:Class ;
 
 
 #################################################################
-#    JSContactCard Persona
-#################################################################
-
-
-
-
-#################################################################
 #    DriversLicense Designator and Persona
 #################################################################
 
@@ -63,12 +57,13 @@ persona:DriversLicenseNumber rdf:type owl:Class ;
                     the physical plastic card carried in a wallet."""@en .
 
 persona:IssuingJurisdiction rdf:type owl:Class ;
-    rdfs:subClassOf cco:ont00000003 ;  # Designative Name
+    rdfs:subClassOf cco:ent00000013 ;  # StateName (subclass of Designative Name)
     rdfs:label "Issuing Jurisdiction"@en ;
-    rdfs:comment """A Designative Name identifying the state, province, or country that issued
-                    a government document (driver's license, passport, etc.). Used on a
-                    DriversLicense Persona via designated by (ont00001879). Value is typically
-                    a state name or abbreviation, e.g. 'California' or 'CA'."""@en .
+    rdfs:comment """The US state (or territory) that issued a government document such as a
+                    driver's licence. Subclasses cco:ent00000013 (StateName) so that the
+                    existing USStateNameShape in persona-shacl.ttl automatically enforces
+                    the USPS 2-letter abbreviation controlled vocabulary (e.g. 'CA', 'TX').
+                    Used on a DriversLicense Persona via designated by (ont00001879)."""@en .
 
 persona:DriversLicense rdf:type owl:Class ;
     rdfs:subClassOf persona:PersonaTemplate ;
