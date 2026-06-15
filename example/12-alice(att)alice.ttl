@@ -22,9 +22,8 @@
     context:subject identity:Self ;
     context:name "AT&T" ;
     rdfs:label "Alice Walker - AT&T Persona"@en ;
-    rdfs:comment """Alice Walker's AT&T whoness — representing her in the context of her
-                    AT&T phone account. Correlated from :Alice_Walker-Self in alice(self)alice.ttl.
-
+    rdfs:comment """What Alice states about herself in the context of her AT&T account.
+                    Correlated from :Alice_Walker-Self in alice(self)alice.ttl.
                     Phone: +15108149999"""@en .
 
 
@@ -35,7 +34,6 @@
 :Alice_Walker-ATT rdf:type owl:NamedIndividual ,
                            persona:Persona ;
     rdfs:label "Alice Walker (AT&T)"@en ;
-    rdfs:comment "Alice Walker's persona in the context of her AT&T phone account."@en ;
 
     <https://purl.org/cco/ont00001879> [  # designated by → Phone
         rdf:type cco:ent00000023 ;

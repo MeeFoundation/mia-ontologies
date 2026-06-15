@@ -22,10 +22,8 @@
     context:subject identity:Self ;
     context:name "Paradise" ;
     rdfs:label "Alice Walker - Paradise Persona"@en ;
-    rdfs:comment """Alice Walker's Paradise whoness — representing her current residence in
-                    Paradise, CA (September 2025 to present).
+    rdfs:comment """What Alice Walker claims current residence in Paradise, CA (September 2025 to present).
                     Correlated from :Alice_Walker-Self in alice(self)alice.ttl.
-
                     Current Address: 123 Sleepy Hollow, Paradise, CA 95969, USA (since Sept 2025)"""@en .
 
 
@@ -36,7 +34,6 @@
 :Alice_Walker-Paradise rdf:type owl:NamedIndividual ,
                                 persona:Persona ;
     rdfs:label "Alice Walker (Paradise)"@en ;
-    rdfs:comment "Alice Walker's persona in the context of her current Paradise, CA residence."@en ;
 
     <https://purl.org/cco/ont00001879> :Address_Paradise .  # designated by → Paradise address
 

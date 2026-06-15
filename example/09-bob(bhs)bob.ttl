@@ -22,7 +22,7 @@
     context:subject identity:Individual ;
     context:name "Boston Hub Society" ;
     rdfs:label "Bob Johnson - BHS Persona"@en ;
-    rdfs:comment """Bob Johnson's profile int the BHS directory as seen in Alice's Mia.
+    rdfs:comment """What Bob statest about himself (i.e. his profile) in the context of the Boston Hub Society.
                     Referenced from Alice's BHS social network in alice-contexts/alice(bhs)alice.ttl."""@en .
 
 
@@ -33,7 +33,6 @@
 :Bob_Johnson-BHS rdf:type owl:NamedIndividual ,
                           persona:Persona ;
     rdfs:label "Bob Johnson (BHS)"@en ;
-    rdfs:comment "Bob Johnson's persona in the context of his Boston Hub Society membership."@en ;
 
     <https://purl.org/cco/ont00001879> [  # designated by → GivenName
         rdf:type cco:ent00000002 ;

@@ -22,7 +22,7 @@
     context:subject identity:Self ;
     context:name "Possessions" ;
     rdfs:label "Alice Walker - Possessions Persona"@en ;
-    rdfs:comment """Alice Walker's posessions persona — physical items she carries day-to-day.
+    rdfs:comment """What Alice Walker states are her posessions — physical items she carries day-to-day.
                     Correlated from :Alice_Walker-Self in alice(self)alice.ttl."""@en .
 
 
@@ -33,7 +33,6 @@
 :Alice_Walker-Possessions rdf:type owl:NamedIndividual ,
                                    persona:Persona ;
     rdfs:label "Alice Walker (Possessions)"@en ;
-    rdfs:comment "Alice Walker's persona in the context of her personal posessions."@en ;
     persona:hasWallet :Alice_Wallet ;
     persona:hasPhysicalCard :Alice_HealthInsuranceCard ;   # not in wallet — carried separately
     persona:hasPhysicalCard :Alice_SSNCard .               # not in wallet — stored at home for safety

@@ -22,8 +22,8 @@
     context:subject identity:Self ;
     context:name "Boston" ;
     rdfs:label "Alice Walker - Boston Persona"@en ;
-    rdfs:comment """Alice Walker's Boston whoness — representing her residence in Boston, MA
-                    from 2020 to 2025. Correlated from :Alice_Walker-Self in alice(self)alice.ttl."""@en .
+    rdfs:comment """What Alice Walker claims is her previous residence in Boston, MA from 2020 to 2025. 
+                    Correlated from :Alice_Walker-Self in alice(self)alice.ttl."""@en .
 
 
 #################################################################
@@ -33,7 +33,6 @@
 :Alice_Walker-Boston rdf:type owl:NamedIndividual ,
                               persona:Persona ;
     rdfs:label "Alice Walker (Boston)"@en ;
-    rdfs:comment "Alice Walker's persona in the context of her Boston residence (2020-2025)."@en ;
 
     <https://purl.org/cco/ont00001879> :Address_Boston .  # designated by → Boston address
 

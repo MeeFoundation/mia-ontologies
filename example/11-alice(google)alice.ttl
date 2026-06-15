@@ -22,9 +22,8 @@
     context:subject identity:Self ;
     context:name "Google" ;
     rdfs:label "Alice Walker - Google Persona"@en ;
-    rdfs:comment """Alice Walker's Google whoness — representing her in the context of her
-                    Google account. Correlated from :Alice_Walker-Self in alice(self)alice.ttl.
-
+    rdfs:comment """What Alice states about herself in the context of her Google (gmail) account.
+                    Correlated from :Alice_Walker-Self in alice(self)alice.ttl.
                     Email: awalker@gmail.com"""@en .
 
 
@@ -35,7 +34,6 @@
 :Alice_Walker-Google rdf:type owl:NamedIndividual ,
                               persona:Persona ;
     rdfs:label "Alice Walker (Google)"@en ;
-    rdfs:comment "Alice Walker's persona in the context of her Google account."@en ;
 
     <https://purl.org/cco/ont00001879> [  # designated by → Email
         rdf:type cco:ent00000024 ;

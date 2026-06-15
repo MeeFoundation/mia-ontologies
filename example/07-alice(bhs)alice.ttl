@@ -21,9 +21,9 @@
     context:assertedBy identity:Self ;
     context:subject identity:Self ;
     context:name "Boston Hub Society" ;
-    rdfs:label "Alice Walker - BHS Persona"@en ;
-    rdfs:comment """Alice Walker's BHS whoness — representing her in the context of her
-                    BHS group profile. Correlated from :Alice_Walker-Self in alice(self)alice.ttl."""@en .
+    rdfs:label "Alice Walker - BHS Profile"@en ;
+    rdfs:comment """What Alice statest about herself (i.e. her profile) in the context of the Boston Hub Society.  
+                    Correlated from :Alice_Walker-Self in alice(self)alice.ttl."""@en .
 
 
 #################################################################
