@@ -16,10 +16,10 @@
     owl:imports <http://mee.foundation/ontologies/persona> ;
     owl:imports <http://mee.foundation/ontologies/context> ;
     dc:date "2026-06-15"^^xsd:date ;
-    owl:versionInfo "Version 1.0.15 - rename to alice(citibank)citibank; assertedBy Organization"@en ;
+    owl:versionInfo "Version 1.0.16 - subject back to identity:Self (now defined)"@en ;
     context:contextCategory context:Finance ;
     context:assertedBy identity:Organization ;
-    context:subject identity:Individual ;
+    context:subject identity:Self ;
     context:name "Citibank" ;
     rdfs:label "Alice Walker - Citibank Persona"@en ;
     rdfs:comment """Alice Walker's Citibank whoness — the context-specific Persona
