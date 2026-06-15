@@ -69,7 +69,7 @@ The three currently defined subclasses are:
 * `p:JSContactCard` — carries professional contact details in the JSContact (RFC 9553) format. SHACL shape `:JSContactCardShape` enforces:
   - **Required**: exactly one `OrganizationName` designator; at least one `Email` or `TelephoneNumber` designator.
   - **Optional**: all name components, `OrganizationUnit`, `JobTitle`, addresses, online services, anniversaries, personal info, photo.
-  - **Max 1** on all single-valued name and organisation components.
+  - **Max 1** on all single-valued name and organization components.
   See the [JSContact field coverage table](#jscontact-field-coverage) below for the complete mapping.
 
 * `p:DriversLicense` — carries the identity claims on a state-issued driver's license. SHACL shape `:DriversLicenseShape` enforces:
