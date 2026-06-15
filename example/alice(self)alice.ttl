@@ -35,7 +35,7 @@
     owl:imports <http://www.example.org/mia/alice(acme)alice> ;
     owl:imports <http://www.example.org/mia/alice(business-card)alice> ;
     dc:date "2026-06-13"^^xsd:date ;
-    owl:versionInfo "Version 3.0.81 - rename context #9 to bob(bhs)bob"@en ;
+    owl:versionInfo "Version 3.0.82 - add hasPersona for Alice_Walker-Bob (Check 8 fix)"@en ;
     rdfs:label "Alice Walker - Selfness"@en ;
     rdfs:comment """Alice Walker's selfness — the essential individuality and sense of selfhood from which
                     context-specific Personas (whonesses) are correlated.
@@ -132,7 +132,8 @@
     persona:hasPersona :Alice_Walker-Possessions ;
     persona:hasPersona :Alice_Walker-Acme ;
     persona:hasPersona :Alice_Walker-BHS ;
-    persona:hasPersona :Alice_Walker-BusinessCard .
+    persona:hasPersona :Alice_Walker-BusinessCard ;
+    persona:hasPersona :Alice_Walker-Bob .
 
 
 

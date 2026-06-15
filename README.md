@@ -370,7 +370,7 @@ The following table lists contexts that are *about* Alice but asserted by others
 | #  | Context file                                                                         | Context type | Key data                             | Diagram |
 |--- |:-------------------------------------------------------------------------------------|:-------------|:-------------------------------------|:--------|
 | 4  | [04-alice(bob)bob.ttl](example/04-alice(bob)bob.ttl)            | Person       | Alice as seen by Bob (dyad with #17) | [view](images/example/04-alice(bob)bob.png)|
-| 10 | [10-alice(citibank)alice.ttl](example/10-alice(citibank)alice.ttl)          | Finance      | Debit card                           | [view](images/example/10-alice(citibank)citibank.png) |
+| 10 | [10-alice(citibank)alice.ttl](example/10-alice(citibank)alice.ttl)          | Finance      | Debit card                           | [view](images/example/10-alice(citibank)alice.png) |
 
 The following table lists contexts about other people (Paula and Bob) or groups (Boston Hub Society) in Alice's Mia. All files are in `example/`.
 
