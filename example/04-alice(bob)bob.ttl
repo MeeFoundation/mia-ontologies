@@ -20,9 +20,9 @@
     context:assertedBy :Bob_Johnson-Self ;
     context:subject :Alice_Walker-Self ;
     context:name "Bob" ;
-    rdfs:label "Alice Walker - Bob Persona (Bob's view)"@en ;
-    rdfs:comment """Alice Walker's persona as seen by Bob Johnson.
-                    Paired (dyad) with alice(bob)alice.ttl — Alice's own 1:1 Bob context.
+    rdfs:label "Alice Walker - in her relationship with Bob)"@en ;
+    rdfs:comment """What Bob states about Alice in the context of their (1:1) relationship
+                    Paired (dyad) with alice(bob)alice.ttl (#17) 
                     Correlated from :Alice_Walker-Self in alice(self)alice.ttl."""@en .
 
 
@@ -32,8 +32,7 @@
 
 :Alice_Walker-ByBob rdf:type owl:NamedIndividual ,
                              persona:Persona ;
-    rdfs:label "Alice Walker (by Bob)"@en ;
-    rdfs:comment "Claims (annotations mostly) about Alice by Bob."@en ;
+    rdfs:label "Alice Walker by Bob"@en ;
 
     <https://purl.org/cco/ont00001917> [  # described by → Person Note
         rdf:type cco:ent00000048 ;

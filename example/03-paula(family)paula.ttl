@@ -21,9 +21,8 @@
     context:assertedBy :Paula_Walker-Self ;
     context:subject :Paula_Walker-Self ;
     context:name "Family" ;
-    rdfs:label "Paula Walker - Family Persona (Paula's own)"@en ;
-    rdfs:comment """Paula Walker's own self-asserted family persona.
-                    Paired (dyad) with 02-paula(family)alice.ttl — Alice's view of Paula in the family context.
+    rdfs:label "Paula Walker - member of Alice's family"@en ;
+    rdfs:comment """What Paula states about herself in the context of her familial relationship with Alice.
                     Correlated from :Paula_Walker-Self in paula(self)paula.ttl."""@en .
 
 
@@ -33,8 +32,7 @@
 
 :Paula_Walker-FamilySelf rdf:type owl:NamedIndividual ,
                                   persona:Persona ;
-    rdfs:label "Paula Walker (Family — self-asserted)"@en ;
-    rdfs:comment "Paula Walker's self-asserted family persona."@en ;
+    rdfs:label "Paula Walker (Family) self-asserted"@en ;
 
     persona:dyad :Paula_Walker-Family .  # dyad: Alice's view of Paula in family context
 

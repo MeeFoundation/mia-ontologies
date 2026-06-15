@@ -20,9 +20,8 @@
     context:assertedBy identity:Self ;
     context:subject identity:Individual ;
     context:name "Acme" ;
-    rdfs:label "Paula Walker - Colleague of Alice Persona"@en ;
-    rdfs:comment """Paula Walker's colleague whoness — representing her in the context of her
-                    colleague relationship with Alice Walker.
+    rdfs:label "Paula Walker - Colleague of Alice"@en ;
+    rdfs:comment """What Alice says about Paula in the context of them both working at Acme.
                     Correlated from :Paula_Walker-Self in alice(self)alice.ttl."""@en .
 
 
@@ -32,5 +31,5 @@
 
 :Paula_Walker-as-colleague-of-Alice-at-Acme rdf:type owl:NamedIndividual ,
                                   persona:Persona ;
-    rdfs:label "Paula Walker (Colleagues)"@en ;
-    rdfs:comment "Paula Walker's persona in the context of her colleague relationship with Alice."@en .
+    rdfs:label "Paula Walker (Acme)"@en .
+

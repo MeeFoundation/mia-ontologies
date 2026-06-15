@@ -21,8 +21,8 @@
     context:assertedBy :Alice_Walker-Self ;
     context:subject :Paula_Walker-Self ;
     context:name "Family" ;
-    rdfs:label "Paula Walker - Family Persona (Alice's view)"@en ;
-    rdfs:comment """Paula Walker's family persona as seen by Alice Walker.
+    rdfs:label "Paula Walker - Alice's family member "@en ;
+    rdfs:comment """What Alice states about Paula in the context of their family relationship
                     Member of :Alice_Family_Network in alice(family)alice.ttl.
                     Correlated from :Paula_Walker-Self in alice(self)alice.ttl."""@en .
 
@@ -34,7 +34,6 @@
 :Paula_Walker-Family rdf:type owl:NamedIndividual ,
                               persona:Persona ;
     rdfs:label "Paula Walker (Family)"@en ;
-    rdfs:comment "Paula Walker's persona in the context of her family relationship with Alice."@en ;
 
     <https://purl.org/cco/ont00001879> [  # designated by → GivenName
         rdf:type cco:ent00000002 ;  # GivenName
