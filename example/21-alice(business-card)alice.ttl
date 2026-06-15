@@ -75,7 +75,7 @@
 
     <https://purl.org/cco/ont00001879> [  # designated by → JobTitle
         rdf:type persona:JobTitle ;
-        <https://purl.org/cco/ont00001765> "Senior Software Engineer"
+        <https://purl.org/cco/ont00001765> "Software Engineer"
     ] ;
 
     # ── Online services ──────────────────────────────────────────────────────
