@@ -24,7 +24,7 @@
     owl:imports <http://www.example.org/mia/bob(bob)bob.(bhs)> ;
     owl:imports <http://www.example.org/mia/bhs(bhs)members> ;
     owl:imports <http://www.example.org/mia/paula(acme)alice> ;
-    owl:imports <http://www.example.org/mia/bob(bob)alice.(bob)> ;
+    owl:imports <http://www.example.org/mia/bob(bob)alice> ;
     owl:imports <http://www.example.org/mia/alice(bob)alice> ;
     owl:imports <http://www.example.org/mia/paula(family)alice> ;
     owl:imports <http://www.example.org/mia/paula(self)paula> ;
@@ -35,7 +35,7 @@
     owl:imports <http://www.example.org/mia/alice(acme)alice> ;
     owl:imports <http://www.example.org/mia/alice(business-card)alice> ;
     dc:date "2026-06-13"^^xsd:date ;
-    owl:versionInfo "Version 3.0.77 - rename context #3 to paula(family)paula"@en ;
+    owl:versionInfo "Version 3.0.78 - rename context #5 to bob(bob)alice"@en ;
     rdfs:label "Alice Walker - Selfness"@en ;
     rdfs:comment """Alice Walker's selfness — the essential individuality and sense of selfhood from which
                     context-specific Personas (whonesses) are correlated.
@@ -66,7 +66,7 @@
                     - :Bob_Johnson-Self                  (bob(self)bob.ttl)                    — selfness
                     - :Bob_Johnson-BHS                   (09-bob(bob)bob.(bhs).ttl)            — BHS member persona
                     - :Bob_Johnson-Bob                   (06-bob(bob)bob.(bob).ttl)            — Bob persona (self-asserted, dyad with #5)
-                    - :Bob_Johnson-as-known-by-alice     (05-bob(bob)alice.(bob).ttl)          — colleague persona (Alice's view)
+                    - :Bob_Johnson-as-known-by-alice     (05-bob(bob)alice.ttl)          — colleague persona (Alice's view)
 
                     Boston Hub Society (group):
                     - :BHS_Group                         (08-bhs(bhs)members.ttl)              — BHS group instance with social network

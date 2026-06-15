@@ -11,11 +11,11 @@
 
 # diagram label = 5
 
-<http://www.example.org/mia/bob(bob)alice.(bob)> rdf:type owl:Ontology ;
+<http://www.example.org/mia/bob(bob)alice> rdf:type owl:Ontology ;
     owl:imports <http://mee.foundation/ontologies/persona> ;
     owl:imports <http://mee.foundation/ontologies/context> ;
-    dc:date "2026-06-12"^^xsd:date ;
-    owl:versionInfo "Version 1.0.11 - align ontology IRI with filename"@en ;
+    dc:date "2026-06-15"^^xsd:date ;
+    owl:versionInfo "Version 1.0.12 - rename to bob(bob)alice"@en ;
     context:contextCategory context:Person ;
     context:assertedBy :Alice_Walker-Self ;
     context:subject :Bob_Johnson-as-known-by-alice ;

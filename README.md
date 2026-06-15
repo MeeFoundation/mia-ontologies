@@ -379,7 +379,7 @@ The following table lists contexts about other people (Paula and Bob) or groups 
 | 1  | [01-paula(acme)alice.ttl](example/01-paula(acme)alice.ttl)                              | Colleague    | Paula as Alice's Acme colleague (Alice-asserted)                 | *(todo)*|
 | 2  | [02-paula(family)alice.ttl](example/02-paula(family)alice.ttl)                          | Family       | Paula as Alice's family member (Alice-asserted)                  | *(todo)*|
 | 3  | [03-paula(family)paula.ttl](example/03-paula(family)paula.ttl)          | Family       | Paula's own family persona; social network with Alice (dyad #2)  | *(todo)*|
-| 5  | [05-bob(bob)alice.(bob).ttl](example/05-bob(bob)alice.(bob).ttl)                          | Person       | Alice's notes about Bob; fav drink: oat milk cappuccino          | [view](images/example/05-bob(bob)alice.(bob).png) |
+| 5  | [05-bob(bob)alice.ttl](example/05-bob(bob)alice.ttl)                          | Person       | Alice's notes about Bob; fav drink: oat milk cappuccino          | [view](images/example/05-bob(bob)alice.png) |
 | 6  | [06-bob(bob)bob.(bob).ttl](example/06-bob(bob)bob.(bob).ttl)                              | Person       | Bob's self-asserted Bob persona (dyad with #5)                   | *(todo)*|
 | 8  | [08-bhs(bhs)members.ttl](example/08-bhs(bhs)members.ttl)                                  | Group        | BHS group instance with Alice and Bob as members                 | [view](images/example/08-bhs(bhs)members.png) |
 | 9  | [09-bob(bob)bob.(bhs).ttl](example/09-bob(bob)bob.(bhs).ttl)                              | Group        | Bob's BHS member persona (name, email, phone, address)           | [view](images/example/09-bob(bob)bob.(bhs).png) |
