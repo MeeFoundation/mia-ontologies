@@ -213,6 +213,20 @@ All classes and properties defined in `persona.ttl` and `context.ttl` must be me
 
 In `README.md`, every mention of a class defined in `persona.ttl` must appear in backticks with the `p:` prefix (e.g. `p:Persona`, `p:Wallet`), and every mention of a class or property defined in `context.ttl` must appear in backticks with the `c:` prefix (e.g. `c:contextType`, `c:SelfAsserted`). Every capitalized mention of `Person` (the CCO class) must also appear in backticks. These formatting rules do **not** apply inside headings or subheadings.
 
+## Catalog Files
+
+Two `catalog-v001.xml` files map ontology IRIs to local file paths so Protégé can resolve `owl:imports` without hitting the network:
+
+- **`catalog-v001.xml`** (repo root) — used when opening root-level files (`persona.ttl`, `persona-shacl.ttl`, etc.) directly. Uses **relative** paths from the repo root.
+- **`example/catalog-v001.xml`** — used when opening a context file from the `example/` directory directly. Uses **absolute** `file://` paths.
+
+**Whenever a `.ttl` file is created, deleted, renamed, or moved**, update both catalog files to match:
+- **Create**: add a `<uri>` entry in both catalogs with the new file's ontology IRI (from its `rdf:type owl:Ontology` declaration) and its path.
+- **Delete**: remove the corresponding `<uri>` entry from both catalogs.
+- **Rename or move**: update the `uri=` path attribute in both catalogs.
+
+The `id` attribute is a human-readable label (no functional significance); keep it consistent with the file's short name or diagram number.
+
 ## Gitignore Notes
 
-`catalog-v001.xml` and `/project_files` are gitignored (Protégé IDE artifacts). The `project_files/` directory exists locally but is not tracked — it contains source domain ontologies and reference documents.
+`/project_files` is gitignored. The `project_files/` directory exists locally but is not tracked — it contains source domain ontologies and reference documents.
