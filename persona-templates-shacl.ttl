@@ -11,7 +11,7 @@
 <http://www.example.org/shapes/persona-templates> rdf:type owl:Ontology ;
     owl:imports <http://mee.foundation/ontologies/persona-templates> ;
     dc:date "2026-06-15"^^xsd:date ;
-    owl:versionInfo "Version 1.0.2 - drop BusinessCardShape; require OrganizationName and at least one contact on JSContactCard"@en ;
+    owl:versionInfo "Version 1.0.3 - add DriversLicenseShape"@en ;
     rdfs:label "Persona Templates SHACL Validation Shapes"@en ;
     rdfs:comment """SHACL shapes for persona subtypes defined in persona-templates.ttl.
                     Imported by persona-shacl.ttl so a single -shapesfile covers everything."""@en .
@@ -132,3 +132,90 @@
     # WebURL (persona:WebURL), Anniversary (via persona:hasAnniversary),
     # PersonalInfo (via persona:hasPersonalInfo), Photo (via persona:hasPhoto)
     # — no sh:qualifiedMaxCount constraint; JSContact allows multiples.
+
+
+#################################################################
+#  DriversLicense Persona
+#  Required: FullName (1..1) OR (GivenName 1..1 + FamilyName 1..1)
+#            DateOfBirth (ent00000046, 1..1)
+#            DriversLicenseNumber (persona:DriversLicenseNumber, 1..1)
+#            ExpirationDateIdentifier (ent00000054, 1..1)
+#  Optional: AdditionalName (ent00000003, 0..1), PostalAddress (ent00000010, 0..1)
+#################################################################
+
+:DriversLicenseShape
+    a sh:NodeShape ;
+    sh:targetClass persona:DriversLicense ;
+    sh:message "DriversLicense Persona validation: name, date of birth, license number, and expiration date are required."@en ;
+
+    # ── Name: FullName OR (GivenName + FamilyName) ───────────────────────────
+    sh:or (
+        [
+            sh:property [
+                sh:path <https://purl.org/cco/ont00001879> ;
+                sh:qualifiedValueShape [ sh:class cco:ent00000001 ] ;
+                sh:qualifiedMinCount 1 ;
+                sh:message "A DriversLicense Persona must be designated by a FullName, OR provide GivenName + FamilyName."@en
+            ]
+        ]
+        [
+            sh:and (
+                [
+                    sh:property [
+                        sh:path <https://purl.org/cco/ont00001879> ;
+                        sh:qualifiedValueShape [ sh:class cco:ent00000002 ] ;
+                        sh:qualifiedMinCount 1 ;
+                        sh:message "If no FullName is provided, a DriversLicense Persona must have at least one GivenName."@en
+                    ]
+                ]
+                [
+                    sh:property [
+                        sh:path <https://purl.org/cco/ont00001879> ;
+                        sh:qualifiedValueShape [ sh:class cco:ent00000004 ] ;
+                        sh:qualifiedMinCount 1 ;
+                        sh:message "If no FullName is provided, a DriversLicense Persona must have at least one FamilyName."@en
+                    ]
+                ]
+            )
+        ]
+    ) ;
+
+    # ── Required: DateOfBirth, LicenseNumber, ExpirationDate ─────────────────
+    sh:property [
+        sh:path <https://purl.org/cco/ont00001879> ;
+        sh:qualifiedValueShape [ sh:class cco:ent00000046 ] ;  # Birthdate
+        sh:qualifiedMinCount 1 ;
+        sh:qualifiedMaxCount 1 ;
+        sh:message "A DriversLicense Persona must have exactly one DateOfBirth."@en
+    ] ;
+
+    sh:property [
+        sh:path <https://purl.org/cco/ont00001879> ;
+        sh:qualifiedValueShape [ sh:class persona:DriversLicenseNumber ] ;
+        sh:qualifiedMinCount 1 ;
+        sh:qualifiedMaxCount 1 ;
+        sh:message "A DriversLicense Persona must have exactly one DriversLicenseNumber."@en
+    ] ;
+
+    sh:property [
+        sh:path <https://purl.org/cco/ont00001879> ;
+        sh:qualifiedValueShape [ sh:class cco:ent00000054 ] ;  # ExpirationDateIdentifier
+        sh:qualifiedMinCount 1 ;
+        sh:qualifiedMaxCount 1 ;
+        sh:message "A DriversLicense Persona must have exactly one ExpirationDateIdentifier."@en
+    ] ;
+
+    # ── Optional fields ──────────────────────────────────────────────────────
+    sh:property [
+        sh:path <https://purl.org/cco/ont00001879> ;
+        sh:qualifiedValueShape [ sh:class cco:ent00000003 ] ;  # AdditionalName
+        sh:qualifiedMaxCount 1 ;
+        sh:message "A DriversLicense Persona may have at most one AdditionalName."@en
+    ] ;
+
+    sh:property [
+        sh:path <https://purl.org/cco/ont00001879> ;
+        sh:qualifiedValueShape [ sh:class cco:ent00000010 ] ;  # USPostalAddress
+        sh:qualifiedMaxCount 1 ;
+        sh:message "A DriversLicense Persona may have at most one residential address."@en
+    ] .

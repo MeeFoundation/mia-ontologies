@@ -1,0 +1,75 @@
+@prefix : <http://www.example.org/mia#> .
+@prefix persona: <http://mee.foundation/ontologies/persona#> .
+@prefix context: <http://mee.foundation/ontologies/context#> .
+@prefix identity: <http://mee.foundation/ontologies/identity#> .
+@prefix cco: <https://purl.org/cco/> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix dc: <http://purl.org/dc/elements/1.1/> .
+@base <http://www.example.org/mia> .
+
+# diagram label = 22
+
+<http://www.example.org/mia/alice(driverslicense)alice> rdf:type owl:Ontology ;
+    owl:imports <http://mee.foundation/ontologies/persona> ;
+    owl:imports <http://mee.foundation/ontologies/context> ;
+    owl:imports <http://mee.foundation/ontologies/persona-templates> ;
+    dc:date "2026-06-15"^^xsd:date ;
+    owl:versionInfo "Version 1.0.0 - initial"@en ;
+    context:contextCategory context:State ;
+    context:assertedBy identity:Self ;
+    context:subject identity:Self ;
+    context:name "Driver's License" ;
+    rdfs:label "Alice Walker - Driver's License"@en ;
+    rdfs:comment """What Alice Walker states about her Texas-issued driver's license.
+                    Correlated from :Alice_Walker-Self in alice(self)alice.ttl.
+                    Legal Name: Margery Alice Walker
+                    DL#: 12345678 (placeholder)"""@en .
+
+
+#################################################################
+#    Alice Walker - Driver's License Persona
+#################################################################
+
+:Alice_Walker-DriversLicense rdf:type owl:NamedIndividual ,
+                                      persona:DriversLicense ;
+    rdfs:label "Alice Walker (Driver's License)"@en ;
+    rdfs:comment "Alice Walker's Texas state-issued driver's licence identity data."@en ;
+
+    # ── Legal name (matches Texas Birth Certificate) ─────────────────────────
+
+    <https://purl.org/cco/ont00001879> [  # designated by → GivenName (legal first name)
+        rdf:type cco:ent00000002 ;  # GivenName
+        <https://purl.org/cco/ont00001765> "Margery"
+    ] ;
+
+    <https://purl.org/cco/ont00001879> [  # designated by → AdditionalName (middle name)
+        rdf:type cco:ent00000003 ;  # AdditionalName
+        <https://purl.org/cco/ont00001765> "Alice"
+    ] ;
+
+    <https://purl.org/cco/ont00001879> [  # designated by → FamilyName
+        rdf:type cco:ent00000004 ;  # FamilyName
+        <https://purl.org/cco/ont00001765> "Walker"
+    ] ;
+
+    # ── Dates ────────────────────────────────────────────────────────────────
+
+    <https://purl.org/cco/ont00001879> [  # designated by → Birthdate
+        rdf:type cco:ent00000046 ;  # Birthdate
+        <https://purl.org/cco/ont00001765> "1985-07-04"
+    ] ;
+
+    <https://purl.org/cco/ont00001879> [  # designated by → ExpirationDateIdentifier
+        rdf:type cco:ent00000054 ;  # ExpirationDateIdentifier
+        <https://purl.org/cco/ont00001765> "2031-07-04"
+    ] ;
+
+    # ── License number ───────────────────────────────────────────────────────
+
+    <https://purl.org/cco/ont00001879> [  # designated by → DriversLicenseNumber
+        rdf:type persona:DriversLicenseNumber ;
+        <https://purl.org/cco/ont00001765> "12345678"  # placeholder Texas DL number
+    ] .

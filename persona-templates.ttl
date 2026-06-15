@@ -8,14 +8,15 @@
 
 <http://mee.foundation/ontologies/persona-templates> rdf:type owl:Ontology ;
     dc:date "2026-06-15"^^xsd:date ;
-    owl:versionInfo "Version 1.0.5 - drop BusinessCard; JSContactCard is now the business-card template"@en ;
+    owl:versionInfo "Version 1.0.6 - add DriversLicense template and DriversLicenseNumber designator"@en ;
     rdfs:label "Persona Templates Ontology"@en ;
     rdfs:comment """Reusable p:Persona subtypes that are too specific for persona.ttl
                     but shared across multiple context files.
 
                     Class hierarchy:
                     p:Persona → p:PersonaTemplate → p:BirthCertificate
-                                                  → p:JSContactCard"""@en .
+                                                  → p:JSContactCard
+                                                  → p:DriversLicense"""@en .
 
 
 #################################################################
@@ -39,6 +40,37 @@ persona:BirthCertificate rdf:type owl:Class ;
     rdfs:comment """A Persona whose purpose is to carry a person's legal birth certificate
                     name record. Subclass of PersonaTemplate so that SHACL can target it
                     directly with sh:targetClass to enforce name constraints."""@en .
+
+
+#################################################################
+#    JSContactCard Persona
+#################################################################
+
+
+
+
+#################################################################
+#    DriversLicense Designator and Persona
+#################################################################
+
+persona:DriversLicenseNumber rdf:type owl:Class ;
+    rdfs:subClassOf cco:ont00000003 ;  # Designative Name
+    rdfs:label "Driver's License Number"@en ;
+    rdfs:comment """A Designative Name identifying a person by their state-issued
+                    driver's licence number (e.g. a US DMV licence number string).
+                    Used on a DriversLicense Persona via designated by (ont00001879).
+                    Distinct from p:PhysicalDriversLicense (in persona.ttl), which models
+                    the physical plastic card carried in a wallet."""@en .
+
+persona:DriversLicense rdf:type owl:Class ;
+    rdfs:subClassOf persona:PersonaTemplate ;
+    rdfs:label "Driver's License Persona"@en ;
+    rdfs:comment """A Persona whose purpose is to carry the identity claims on a state-issued
+                    driver's license: legal name, date of birth, driver's license number, and
+                    expiration date. Residential address is optional.
+                    Note: p:PhysicalDriversLicense (in persona.ttl) models the physical card
+                    object carried in a wallet; this class models the identity data the
+                    license asserts."""@en .
 
 
 #################################################################
