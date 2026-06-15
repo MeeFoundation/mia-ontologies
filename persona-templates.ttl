@@ -32,7 +32,7 @@ persona:PersonaTemplate rdf:type owl:Class ;
 
 
 #################################################################
-#    BirthCertificate Persona
+#    BirthCertificate Template and related properties
 #################################################################
 
 persona:BirthCertificate rdf:type owl:Class ;
@@ -44,7 +44,7 @@ persona:BirthCertificate rdf:type owl:Class ;
 
 
 #################################################################
-#    DriversLicense Designator and Persona
+#    DriversLicense Template and related properties
 #################################################################
 
 persona:DriversLicenseNumber rdf:type owl:Class ;
@@ -77,7 +77,7 @@ persona:DriversLicense rdf:type owl:Class ;
 
 
 #################################################################
-#    JSContactCard Persona
+#    JSContactCard Template and related properties
 #################################################################
 
 persona:JSContactCard rdf:type owl:Class ;
