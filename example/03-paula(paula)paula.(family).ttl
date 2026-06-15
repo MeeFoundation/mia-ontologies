@@ -23,7 +23,7 @@
     context:name "Paula" ;
     rdfs:label "Paula Walker - Family Persona (Paula's own)"@en ;
     rdfs:comment """Paula Walker's own self-asserted family persona.
-                    Paired (dyad) with paula(paula)alice.(family).ttl — Alice's view of Paula in the family context.
+                    Paired (dyad) with 02-paula(Family)alice.ttl — Alice's view of Paula in the family context.
                     Correlated from :Paula_Walker-Self in paula(self)paula.ttl."""@en .
 
 

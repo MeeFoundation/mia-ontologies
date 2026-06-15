@@ -12,15 +12,15 @@
 
 # diagram label = 2
 
-<http://www.example.org/mia/paula(paula)alice.(family)> rdf:type owl:Ontology ;
+<http://www.example.org/mia/paula(Family)alice> rdf:type owl:Ontology ;
     owl:imports <http://mee.foundation/ontologies/persona> ;
     owl:imports <http://mee.foundation/ontologies/context> ;
-    dc:date "2026-06-12"^^xsd:date ;
-    owl:versionInfo "Version 1.0.2 - align ontology IRI with filename"@en ;
+    dc:date "2026-06-14"^^xsd:date ;
+    owl:versionInfo "Version 1.0.3 - rename to paula(Family)alice; context name Family"@en ;
     context:contextCategory context:Family ;
     context:assertedBy :Alice_Walker-Self ;
     context:subject :Paula_Walker-Self ;
-    context:name "Paula" ;
+    context:name "Family" ;
     rdfs:label "Paula Walker - Family Persona (Alice's view)"@en ;
     rdfs:comment """Paula Walker's family persona as seen by Alice Walker.
                     Member of :Alice_Family_Network in alice(family)alice.ttl.

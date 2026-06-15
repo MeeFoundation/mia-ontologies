@@ -26,7 +26,7 @@
     owl:imports <http://www.example.org/mia/paula(Acme)alice> ;
     owl:imports <http://www.example.org/mia/bob(bob)alice.(bob)> ;
     owl:imports <http://www.example.org/mia/alice(bob)alice> ;
-    owl:imports <http://www.example.org/mia/paula(paula)alice.(family)> ;
+    owl:imports <http://www.example.org/mia/paula(Family)alice> ;
     owl:imports <http://www.example.org/mia/paula(self)paula> ;
     owl:imports <http://www.example.org/mia/paula(paula)paula.(family)> ;
     owl:imports <http://www.example.org/mia/alice(bob)bob.(bob)> ;
@@ -35,7 +35,7 @@
     owl:imports <http://www.example.org/mia/alice(acme)alice> ;
     owl:imports <http://www.example.org/mia/alice(business-card)alice> ;
     dc:date "2026-06-13"^^xsd:date ;
-    owl:versionInfo "Version 3.0.73 - rename context #1 to paula(Acme)alice"@en ;
+    owl:versionInfo "Version 3.0.74 - rename context #2 to paula(Family)alice"@en ;
     rdfs:label "Alice Walker - Selfness"@en ;
     rdfs:comment """Alice Walker's selfness — the essential individuality and sense of selfhood from which
                     context-specific Personas (whonesses) are correlated.
@@ -75,7 +75,7 @@
                     - :Paula_Walker-Self                    (paula(self)paula.ttl)                        — selfness
                     - :Paula_Walker-FloridaBirthCertificate (under-development/paula(fl-birth-cert)alice.ttl) — legal name record
                     - :Paula_Walker-as-colleague-of-Alice-at-Acme (01-paula(Acme)alice.ttl)              — colleague persona
-                    - :Paula_Walker-Family                  (02-paula(paula)alice.(family).ttl)           — family persona (Alice's view)
+                    - :Paula_Walker-Family                  (02-paula(Family)alice.ttl)                   — family persona (Alice's view)
                     - :Paula_Walker-Family                  (03-paula(paula)paula.(family).ttl)           — family persona (Paula's own, dyad with above)"""@en .
 
 
