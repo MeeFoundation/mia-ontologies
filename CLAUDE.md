@@ -69,30 +69,32 @@ persona-shacl.ttl
 
 ### Context File Naming Convention
 
-Context filenames encode a **right-to-left hierarchy** of contexts, reading from the outermost context inward toward the central "Self".
+Context filenames follow a single flat pattern:
 
-**Full unabbreviated structure** (one segment per hierarchy level, separated by `.`):
 ```
-<about>(<context-name>)<asserted-by>.<about>(<context-name>)<asserted-by>. … .<about>(self)<asserted-by>.ttl
+[NN-]<about>(<context-name>)<asserted-by>.ttl
 ```
 
-**Abbreviation rules applied in practice:**
-1. The trailing `.(self)` segment (the central Self level) is always omitted.
-2. In the second and subsequent segments, only `(<context-name>)` is kept — the `<about>` and `<asserted-by>` strings are omitted.
+| Segment | Meaning |
+|---------|---------|
+| `NN-` | Zero-padded two-digit diagram label number; omitted for files that have no diagram circle. Selfness files (`<X>(self)<X>.ttl`) never carry a prefix. |
+| `<about>` | The entity the Persona is about (e.g. `alice`, `bob`, `paula`, `bhs`). |
+| `(<context-name>)` | Lowercase name identifying the context or relationship (e.g. `(citibank)`, `(family)`, `(bhs)`). |
+| `<asserted-by>` | Who asserted the data — a real entity identifier (e.g. `alice`, `bob`, `paula`) or the literal `members` for `c:Group` contexts where any permitted member may write. |
 
-**Numeric prefix**: Context files that appear as labeled circles in `context-map.png` carry a zero-padded two-digit prefix matching their diagram label number: `NN-<about>(<context-name>)<asserted-by>[.(<parent-context>)].ttl` (e.g. `10-alice(citibank)alice.ttl`). Context files without a diagram label number have no prefix. Selfness files (`<X>(self)<X>.ttl`) never carry a prefix.
+**Exception — `c:Group` contexts**: A group context (`contextCategory context:Group`) has no single asserter — any permitted member can write to it and changes replicate to all members. The `<asserted-by>` segment is the literal `members` rather than an individual name. Example: `08-bhs(bhs)members.ttl` — about BHS, context "bhs", asserted by the group's members collectively.
 
-**Exception — `c:Group` contexts**: A group context (`contextCategory context:Group`) has no single asserter — any permitted member can write to it and changes replicate to all members. For group contexts, the `<asserted-by>` segment is replaced with the literal string `members` rather than an individual entity name. Example: `bhs(bhs)members.ttl` — about BHS, context "bhs", assertedBy the group's members collectively.
+The parent-context hierarchy (which context is a child of which) is expressed via `persona:hasPersona` and `BFO_0000115` links in the TTL files, not in the filename.
 
 **Examples:**
 
-| Filename | Full (unabbreviated) form | Meaning |
-|----------|--------------------------|---------|
-| `10-alice(citibank)alice.ttl` | `alice(citibank)alice.alice(self)alice.ttl` | About Alice, context "citibank", asserted by Alice; child of Alice's Self |
-| `02-paula(paula)alice.(family).ttl` | `paula(paula)alice.alice(family)alice.alice(self)alice.ttl` | About Paula, context "paula", asserted by Alice; child of Alice's Family context |
-| `05-bob(bob)alice.(bob).ttl` | `bob(bob)alice.alice(bob)alice.alice(self)alice.ttl` | About Bob, context "bob", asserted by Alice; child of Alice's Bob (1:1) context |
-| `09-bob(bob)bob.(bhs).ttl` | `bob(bob)bob.alice(bhs)alice.alice(self)alice.ttl` | About Bob, context "bob", asserted by Bob; child of Alice's BHS context |
-| `08-bhs(bhs)members.ttl` | `bhs(bhs)members.alice(self)alice.ttl` | About BHS, context "bhs", asserted by group members collectively (`c:Group` exception) |
+| Filename | About | Context | Asserted by |
+|----------|-------|---------|-------------|
+| `10-alice(citibank)alice.ttl` | Alice | citibank | Alice |
+| `02-paula(family)alice.ttl` | Paula | family | Alice |
+| `04-alice(bob)bob.ttl` | Alice | bob | Bob |
+| `09-bob(bhs)bob.ttl` | Bob | bhs | Bob |
+| `08-bhs(bhs)members.ttl` | BHS | bhs | members (group) |
 
 ### Key Architectural Patterns
 
@@ -134,7 +136,7 @@ After any change to context files or the context map diagram, verify the followi
 
 **Check 1 — Diagram ↔ files ↔ README coverage**: Every labeled circle in `images/example/context-map.png` must have (a) a corresponding `.ttl` file in the appropriate directory and (b) a row in one of the tables in the **Alice's Personas and Contexts** section of `README.md`. Conversely, every row in those tables must correspond to a circle in the diagram and a file that actually exists. If a circle exists in the diagram but has no `.ttl` file or README row, create them to match the diagram.
 
-**Check 2 — Filename convention**: Every context filename must follow `[NN-]<about>(<context-name>)<asserted-by>[.(<parent-context>)]`, where the optional `NN-` is the zero-padded two-digit diagram label number for files that appear as labeled circles in `context-map.png`. The `<asserted-by>` segment must be a real entity identifier (e.g. `alice`, `bob`, `paula`) — except for `c:Group` contexts, where it must be the literal string `members`. Where a parent segment `.(X)` is present, the parent context file must exist. The hierarchy implied by the segments must match the radial structure in `context-map.png`. If a filename conflicts with the diagram's hierarchy, rename the file to match the diagram.
+**Check 2 — Filename convention**: Every context filename must follow `[NN-]<about>(<context-name>)<asserted-by>.ttl`, where the optional `NN-` is the zero-padded two-digit diagram label number for files that appear as labeled circles in `context-map.png`. The `<asserted-by>` segment must be a real entity identifier (e.g. `alice`, `bob`, `paula`) — except for `c:Group` contexts, where it must be the literal string `members`. If a filename does not match this pattern, rename it to conform.
 
 **Check 3 — Orange arrows (hasMember)**: For every orange arrow from circle A to circle B in `context-map.png`, the source context file (A) must contain a `persona:hasSocialNetwork` individual of type `cco:ont00001183` (Social Network), and that network must have a `BFO_0000115` (has member part) triple pointing to the `p:Persona` individual defined in the target context file (B).
 
