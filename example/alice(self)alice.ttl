@@ -35,7 +35,7 @@
     owl:imports <http://www.example.org/mia/alice(acme)alice> ;
     owl:imports <http://www.example.org/mia/alice(business-card)alice> ;
     dc:date "2026-06-13"^^xsd:date ;
-    owl:versionInfo "Version 3.0.71 - add context #21 business-card"@en ;
+    owl:versionInfo "Version 3.0.72 - retype #21 business-card as JSContactCard"@en ;
     rdfs:label "Alice Walker - Selfness"@en ;
     rdfs:comment """Alice Walker's selfness — the essential individuality and sense of selfhood from which
                     context-specific Personas (whonesses) are correlated.

@@ -14,8 +14,8 @@
 <http://www.example.org/mia/alice(business-card)alice> rdf:type owl:Ontology ;
     owl:imports <http://mee.foundation/ontologies/persona> ;
     owl:imports <http://mee.foundation/ontologies/context> ;
-    dc:date "2026-06-13"^^xsd:date ;
-    owl:versionInfo "Version 1.0.1 - type persona as BusinessCard subclass"@en ;
+    dc:date "2026-06-14"^^xsd:date ;
+    owl:versionInfo "Version 1.0.2 - retype as JSContactCard; add contactContext, phoneFeature, JobTitle, OrganizationUnit, WebURL"@en ;
     context:contextCategory context:Employee ;
     context:assertedBy :Alice_Walker-Self ;
     context:subject :Alice_Walker-Self ;
@@ -26,36 +26,62 @@
 
 
 #################################################################
-#    Alice Walker - Business Card Persona
+#    Alice Walker - Business Card Persona (JSContactCard)
 #################################################################
 
 :Alice_Walker-BusinessCard rdf:type owl:NamedIndividual ,
-                                    persona:BusinessCard ;
+                                    persona:JSContactCard ;
     rdfs:label "Alice Walker (Business Card)"@en ;
-    rdfs:comment "Alice Walker's business card persona — name, contact, and employer as printed on card."@en ;
+    rdfs:comment "Alice Walker's JSContact card persona — professional contact details taking details from her Acme context."@en ;
+
+    # ── Name components ──────────────────────────────────────────────────────
 
     <https://purl.org/cco/ont00001879> [  # designated by → GivenName
-        rdf:type cco:ent00000002 ;  # GivenName
-        <https://purl.org/cco/ont00001765> "Alice"  # has text value
+        rdf:type cco:ent00000002 ;
+        <https://purl.org/cco/ont00001765> "Alice"
     ] ;
 
     <https://purl.org/cco/ont00001879> [  # designated by → FamilyName
-        rdf:type cco:ent00000004 ;  # FamilyName
-        <https://purl.org/cco/ont00001765> "Walker"  # has text value
+        rdf:type cco:ent00000004 ;
+        <https://purl.org/cco/ont00001765> "Walker"
     ] ;
 
-    <https://purl.org/cco/ont00001879> [  # designated by → Email
-        rdf:type cco:ent00000024 ;  # Email
-        <https://purl.org/cco/ont00001765> "alice@acme.com"  # has text value
+    # ── Contact channels ─────────────────────────────────────────────────────
+
+    <https://purl.org/cco/ont00001879> [  # designated by → EmailAddress (work)
+        rdf:type cco:ent00000024 ;
+        <https://purl.org/cco/ont00001765> "alice@acme.com" ;
+        persona:contactContext "work"
     ] ;
 
-    <https://purl.org/cco/ont00001879> [  # designated by → Phone
-        rdf:type cco:ent00000023 ;  # TelephoneNumber
-        <https://purl.org/cco/ont00001765> "+15108149999" ;  # has text value (E.164 format)
-        rdfs:comment "E.164 format (international standard)"@en
+    <https://purl.org/cco/ont00001879> [  # designated by → TelephoneNumber (work, voice)
+        rdf:type cco:ent00000023 ;
+        <https://purl.org/cco/ont00001765> "+15108149999" ;
+        persona:contactContext "work" ;
+        persona:phoneFeature "voice"
     ] ;
+
+    # ── Organisation ─────────────────────────────────────────────────────────
 
     <https://purl.org/cco/ont00001879> [  # designated by → OrganizationName
-        rdf:type cco:ent00000047 ;  # OrganizationName
-        <https://purl.org/cco/ont00001765> "Acme"  # has text value
+        rdf:type cco:ent00000047 ;
+        <https://purl.org/cco/ont00001765> "Acme"
+    ] ;
+
+    <https://purl.org/cco/ont00001879> [  # designated by → OrganizationUnit (department)
+        rdf:type persona:OrganizationUnit ;
+        <https://purl.org/cco/ont00001765> "Engineering"
+    ] ;
+
+    <https://purl.org/cco/ont00001879> [  # designated by → JobTitle
+        rdf:type persona:JobTitle ;
+        <https://purl.org/cco/ont00001765> "Senior Software Engineer"
+    ] ;
+
+    # ── Online services ──────────────────────────────────────────────────────
+
+    <https://purl.org/cco/ont00001879> [  # designated by → WebURL (LinkedIn profile)
+        rdf:type persona:WebURL ;
+        <https://purl.org/cco/ont00001765> "https://www.linkedin.com/in/alicewalker" ;
+        persona:serviceLabel "linkedin"
     ] .
