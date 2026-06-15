@@ -21,20 +21,37 @@ There are no build, compile, test, or lint commands. The files are Turtle (`.ttl
 | `persona-templates.ttl` | Persona template subclasses — defines `p:PersonaTemplate` (abstract superclass) and its two concrete subclasses `p:BirthCertificate` and `p:JSContactCard` |
 | `persona-templates-shacl.ttl` | SHACL shapes for persona templates — validates required/optional properties on `p:BirthCertificate` and `p:JSContactCard` instances |
 | `persona-jscontact.ttl` | JSContact (RFC 9553) extension — designator classes (Credential, WebURL, OrganizationUnit, JobTitle), annotation properties (contactContext, phoneFeature, serviceLabel), Anniversary and PersonalInfo classes, hasPhoto |
-| `example/alice(self)alice.ttl` | Alice Walker's selfness — the central Person instance; imports all context files |
-| `example/paula(self)paula.ttl` | Paula Walker's selfness — the central Person instance for Paula |
-| `example/bob(self)bob.ttl` | Bob Johnson's selfness — the central Person instance for Bob |
+| `project_files/` | Reference materials: imported domain ontologies (PersonOntology.ttl, AddressOntology.ttl, StagingOntology.ttl), BFO/CCO source files, PDFs, docs |
+
+## Example Files
+
+| File | Purpose |
+|------|---------|
+| `example/alice(self)alice.ttl` | Alice Walker's selfness — central Person instance; imports all context files |
+| `example/paula(self)paula.ttl` | Paula Walker's selfness — central Person instance for Paula |
+| `example/bob(self)bob.ttl` | Bob Johnson's selfness — central Person instance for Bob |
+| `example/01-paula(acme)alice.ttl` | Paula Walker as Alice's Acme colleague — asserted by Alice |
+| `example/02-paula(family)alice.ttl` | Paula Walker as Alice's family member — name and relationship; asserted by Alice |
+| `example/03-paula(family)paula.ttl` | Paula Walker in family context — self-asserted; dyad with 02 |
+| `example/04-alice(bob)bob.ttl` | Alice Walker in Bob context — Bob's view of Alice with personal notes |
+| `example/05-bob(bob)alice.ttl` | Bob Johnson in Bob context — Alice's view of Bob with personal notes; dyad with 06 |
+| `example/06-bob(bob)bob.ttl` | Bob Johnson in Bob context — self-asserted name; dyad with 05 |
+| `example/07-alice(bhs)alice.ttl` | Alice Walker's Boston Hub Society profile — address and phone |
+| `example/08-bhs(bhs)members.ttl` | Boston Hub Society — g:Group instance with Alice and Bob as members |
+| `example/09-bob(bhs)bob.ttl` | Bob Johnson's Boston Hub Society profile — name; self-asserted |
 | `example/10-alice(citibank)citibank.ttl` | Alice's Citibank Persona — payment card |
-| `example/15-alice(boston)alice.ttl` | Alice's Boston Persona — residential address 2020–2025 |
-| `example/14-alice(paradise)alice.ttl` | Alice's Paradise Persona — current residential address |
-| `example/18-alice(family)alice.ttl` | Alice's Family Persona — family relationships and social network |
-| `example/12-alice(att)alice.ttl` | Alice's AT&T Persona — phone number |
-| `example/16-alice(ssa)alice.ttl` | Alice's SSA Persona — Social Security Number |
 | `example/11-alice(google)alice.ttl` | Alice's Google Persona — email address |
+| `example/12-alice(att)alice.ttl` | Alice's AT&T Persona — phone number |
 | `example/13-alice(tx-birth-cert)alice.ttl` | Alice's Texas Birth Certificate Persona — legal name record |
+| `example/14-alice(paradise)alice.ttl` | Alice's Paradise Persona — current residential address |
+| `example/15-alice(boston)alice.ttl` | Alice's Boston Persona — residential address 2020–2025 |
+| `example/16-alice(ssa)alice.ttl` | Alice's SSA Persona — Social Security Number |
+| `example/17-alice(bob)alice.ttl` | Alice Walker in Bob context — Alice's self-asserted persona shown to Bob; dyad with 04 |
+| `example/18-alice(family)alice.ttl` | Alice's Family Persona — family relationships and social network |
+| `example/19-alice(possessions)alice.ttl` | Alice's Possessions Persona — wallet, health insurance card, SSN card |
+| `example/20-alice(acme)alice.ttl` | Alice's Acme Persona — employee context; imports Paula's Acme persona |
 | `example/21-alice(business-card)alice.ttl` | Alice's Business Card Persona — employer, job title, email, phone |
 | `example/under-development/paula(fl-birth-cert)alice.ttl` | Paula Walker's Florida Birth Certificate Persona — legal name record (under development) |
-| `project_files/` | Reference materials: imported domain ontologies (PersonOntology.ttl, AddressOntology.ttl, StagingOntology.ttl), BFO/CCO source files, PDFs, docs |
 
 ## Architecture
 
