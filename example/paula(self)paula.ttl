@@ -19,7 +19,7 @@
 
                     Correlated Personas:
                     - :Paula_Walker-FloridaBirthCertificate (under-development/paula(fl-birth-cert)alice.ttl) — legal name record
-                    - :Paula_Walker-as-colleague-of-Alice-at-Acme (01-paula(Acme)alice.ttl)              — colleague persona
+                    - :Paula_Walker-as-colleague-of-Alice-at-Acme (01-paula(acme)alice.ttl)              — colleague persona
                     - :Paula_Walker-Family                        (02-paula(Family)alice.ttl)             — family persona (Alice's view)
                     - :Paula_Walker-FamilySelf                    (03-paula(paula)paula.(family).ttl)     — family persona (self-asserted, dyad with above)"""@en .
 

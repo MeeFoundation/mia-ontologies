@@ -11,11 +11,11 @@
 
 # diagram label = 1
 
-<http://www.example.org/mia/paula(Acme)alice> rdf:type owl:Ontology ;
+<http://www.example.org/mia/paula(acme)alice> rdf:type owl:Ontology ;
     owl:imports <http://mee.foundation/ontologies/persona> ;
     owl:imports <http://mee.foundation/ontologies/context> ;
     dc:date "2026-06-14"^^xsd:date ;
-    owl:versionInfo "Version 1.0.7 - rename to paula(Acme)alice; context name Acme"@en ;
+    owl:versionInfo "Version 1.0.8 - lowercase IRI to paula(acme)alice"@en ;
     context:contextCategory context:Colleague ;
     context:assertedBy identity:Self ;
     context:subject identity:Individual ;
