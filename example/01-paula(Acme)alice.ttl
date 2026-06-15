@@ -11,15 +11,15 @@
 
 # diagram label = 1
 
-<http://www.example.org/mia/paula(Paula)alice.(acme)> rdf:type owl:Ontology ;
+<http://www.example.org/mia/paula(Acme)alice> rdf:type owl:Ontology ;
     owl:imports <http://mee.foundation/ontologies/persona> ;
     owl:imports <http://mee.foundation/ontologies/context> ;
-    dc:date "2026-06-12"^^xsd:date ;
-    owl:versionInfo "Version 1.0.6 - align ontology IRI with filename"@en ;
+    dc:date "2026-06-14"^^xsd:date ;
+    owl:versionInfo "Version 1.0.7 - rename to paula(Acme)alice; context name Acme"@en ;
     context:contextCategory context:Colleague ;
     context:assertedBy identity:Self ;
     context:subject identity:Individual ;
-    context:name "Colleague of Alice" ;
+    context:name "Acme" ;
     rdfs:label "Paula Walker - Colleague of Alice Persona"@en ;
     rdfs:comment """Paula Walker's colleague whoness — representing her in the context of her
                     colleague relationship with Alice Walker.

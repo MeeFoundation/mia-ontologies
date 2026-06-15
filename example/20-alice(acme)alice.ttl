@@ -15,9 +15,9 @@
 <http://www.example.org/mia/alice(acme)alice> rdf:type owl:Ontology ;
     owl:imports <http://mee.foundation/ontologies/persona> ;
     owl:imports <http://mee.foundation/ontologies/context> ;
-    owl:imports <http://www.example.org/mia/paula(Paula)alice.(acme)> ;
+    owl:imports <http://www.example.org/mia/paula(Acme)alice> ;
     dc:date "2026-06-12"^^xsd:date ;
-    owl:versionInfo "Version 1.0.3 - align ontology IRI with filename"@en ;
+    owl:versionInfo "Version 1.0.4 - update import to paula(Acme)alice"@en ;
     context:contextCategory context:Employee ;
     context:assertedBy :Alice_Walker-Self ;
     context:subject :Alice_Walker-Self ;

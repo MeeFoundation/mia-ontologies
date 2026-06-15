@@ -376,7 +376,7 @@ The following table lists contexts about other people (Paula and Bob) or groups 
 
 | #  | Context file                                                                                     | Context type | Key data                                                         | Diagram |
 |--- |:-------------------------------------------------------------------------------------------------|:-------------|:-----------------------------------------------------------------|:--------|
-| 1  | [01-paula(Paula)alice.(acme).ttl](example/01-paula(Paula)alice.(acme).ttl)              | Colleague    | Paula as Alice's Acme colleague (Alice-asserted)                 | *(todo)*|
+| 1  | [01-paula(Acme)alice.ttl](example/01-paula(Acme)alice.ttl)                              | Colleague    | Paula as Alice's Acme colleague (Alice-asserted)                 | *(todo)*|
 | 2  | [02-paula(paula)alice.(family).ttl](example/02-paula(paula)alice.(family).ttl)          | Family       | Paula as Alice's family member (Alice-asserted)                  | *(todo)*|
 | 3  | [03-paula(paula)paula.(family).ttl](example/03-paula(paula)paula.(family).ttl)          | Family       | Paula's own family persona; social network with Alice (dyad #2)  | *(todo)*|
 | 5  | [05-bob(bob)alice.(bob).ttl](example/05-bob(bob)alice.(bob).ttl)                          | Person       | Alice's notes about Bob; fav drink: oat milk cappuccino          | [view](images/example/05-bob(bob)alice.(bob).png) |
