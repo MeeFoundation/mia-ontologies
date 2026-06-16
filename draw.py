@@ -233,7 +233,7 @@ def main() -> None:
                 tv = g.value(obj, HAS_TEXT_VALUE)
                 if tv:
                     ln = lit_node(str(tv), str(ind) + str(obj))
-                    dot.edge(bid, ln, label="has text value", fontsize="9")
+                    dot.edge(bid, ln, fontsize="9")
             elif isinstance(obj, URIRef):
                 if obj in individuals:
                     dot.edge(src_nid, ind_node(obj), label=lbl(pred))
