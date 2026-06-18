@@ -268,17 +268,16 @@ A context is a container of information whose primary subject is one of the thre
 - The template type for specialized context files (`c:template`) — its value is a `p:PersonaTemplate` subclass (e.g. `persona:BirthCertificate`, `persona:JSContactCard`, `persona:DriversLicense`). Present only on context files that conform to a specific template.
 - The dyad partner for 1:1 relationship context files (`c:dyad`) — its value is the IRI of the partner context file's `owl:Ontology`. If context file A carries `c:dyad` pointing to context file B, then B must carry `c:dyad` pointing back to A.
 
-`c:contextCategory` takes values from the `c:ContextCategory` hierarchy; both `c:assertedBy` and `c:subject` take values from the `i:PDNidentity` hierarchy defined in identity.ttl.
-
 **`c:contextCategory`** — The nature of the interaction/relationship context. Values form a subclass hierarchy under `c:ContextCategory`:
 
-- `c:MultiPerson` — a context whose subject is the Self *and* that includes a social network with `has member` links to `persona:Person` individuals of other people in other contexts. Examples: family relationships, colleague networks, friend groups.
+- `c:MultiPerson` — a context that contains multiple `persona:Person` instances.
   - `c:Group` — interactions with a formal or informal group of people.
+- `c:SinglePerson` — a context that contains exactly one `persona:Person` instance.
   - `c:Person` and subtypes `c:FamilyMember`, `c:Friend`, `c:Consultant` — interactions with individual people in a person's life.
-- `c:SinglePerson` — a context containing only a `persona:Person` slice for the Self — no other person's `persona:Person` appears in it. It describes the Self's relationship with (and interactions with) a specific institution, role, possession, or area of knowledge. Examples: a bank account, a driver's license, a car.
   - `c:Work` and subtypes `c:Employee`, `c:Contributor`, `c:Creator` — professional roles.
-  - `c:Company` and subtype `c:Health` — interactions and/or relationship with a company or other non-governmental organization.
-  - `c:Finance` — information about personal finances not related to any interactions with banks, financial institutions or government agencies.
+  - `c:Company` and subtypes `c:FinancialServices`, `c:Healthcare` — interactions and/or relationship with a company or other non-governmental organization.
+  - `c:Finances` — information about personal finances not related to any interactions with banks, financial institutions or government agencies.
+  - `c:Health` — personal health and wellness information not related to any specific healthcare provider.
   - `c:Event` and subtypes `c:Meeting`, `c:Conference`, `c:Party` — participation in or relationship to a specific event, e.g. a face-to-face or online meeting.
   - `c:Government` and subtypes `c:Federal`, `c:State`, `c:Municipality` — interactions with government agencies.
   - `c:Note` general knowledge selected by a person to be useful to them. It has a subtype `c:Learning` which is knowledge gained through personal experience.
@@ -378,7 +377,7 @@ The following table lists contexts that are *about* Alice but asserted by others
 | #  | Context file                                                                         | Context type | Key data                             | Diagram |
 |--- |:-------------------------------------------------------------------------------------|:-------------|:-------------------------------------|:--------|
 | 4  | [04-alice(bob)bob.ttl](example/04-alice(bob)bob.ttl)            | Person       | Alice as seen by Bob (dyad with #17) | [view](example/images/04-alice(bob)bob.png)|
-| 10 | [10-alice(citibank)citibank.ttl](example/10-alice(citibank)citibank.ttl)    | Finance      | Debit card                           | [view](example/images/10-alice(citibank)citibank.png) |
+| 10 | [10-alice(citibank)citibank.ttl](example/10-alice(citibank)citibank.ttl)    | FinancialServices | Debit card                      | [view](example/images/10-alice(citibank)citibank.png) |
 
 The following table lists contexts about other people (Paula and Bob) or groups (Boston Hub Society) in Alice's Mia. All files are in `example/`.
 

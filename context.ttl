@@ -11,7 +11,7 @@
     owl:versionIRI <http://mee.foundation/ontologies/context/1.0.1> ;
     dc:date "2026-06-01"^^xsd:date ;
     owl:imports <http://mee.foundation/ontologies/identity> ;
-    owl:versionInfo "Version 1.0.34 - rename context:Family to context:FamilyMember"@en ;
+    owl:versionInfo "Version 1.0.35 - rename Finance→Finances, Health→Healthcare; add Health (SinglePerson) and FinancialServices (Company)"@en ;
     rdfs:label "Context Ontology"@en ;
     rdfs:comment """Context Ontology for the Mee Identity Agent.
 
@@ -163,22 +163,40 @@ context:Creator rdf:type owl:Class ;
 
 #################################################################
 #    c:Company Contexts and subclasses
-#################################################################    
+#################################################################
 
 context:Company rdf:type owl:Class ;
     rdfs:subClassOf context:SinglePerson ;
     rdfs:label "Company"@en ;
     rdfs:comment "Relationship with a specific company, bank, or other institution."@en .
 
-context:Finance rdf:type owl:Class ;
+context:FinancialServices rdf:type owl:Class ;
+    rdfs:subClassOf context:Company ;
+    rdfs:label "FinancialServices"@en ;
+    rdfs:comment "Relationship with a bank or other financial services institution."@en .
+
+context:Healthcare rdf:type owl:Class ;
+    rdfs:subClassOf context:Company ;
+    rdfs:label "Healthcare"@en ;
+    rdfs:comment "Relationship with a healthcare provider or health insurance company."@en .
+
+#################################################################
+#    c:Finances Context (personal finance, no institution)
+#################################################################
+
+context:Finances rdf:type owl:Class ;
     rdfs:subClassOf context:SinglePerson ;
-    rdfs:label "Finance"@en ;
+    rdfs:label "Finances"@en ;
     rdfs:comment "Information about personal finances not related to any interactions with banks, financial institutions or government agencies."@en .
 
+#################################################################
+#    c:Health Context (personal wellness, no provider)
+#################################################################
+
 context:Health rdf:type owl:Class ;
-    rdfs:subClassOf context:Company ;
+    rdfs:subClassOf context:SinglePerson ;
     rdfs:label "Health"@en ;
-    rdfs:comment "Health and wellness related "@en .
+    rdfs:comment "Personal health and wellness information not related to any specific healthcare provider."@en .
 
 #################################################################
 #    c:Event Contexts and subclasses
