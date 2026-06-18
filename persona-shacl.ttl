@@ -11,11 +11,11 @@
 
 <http://www.example.org/shapes> rdf:type owl:Ontology ;
     owl:imports <http://www.example.org/mia> ;
-    owl:versionInfo "Version 4.0.0 - unified persona:Person model; merged PersonShape and PersonaShape; removed hasPersona/dyad constraints; template shapes moved to shacl/"@en ;
+    owl:versionInfo "Version 4.0.2 - remove OrganizationName maxCount (multiple per person valid in contexts model)"@en ;
     rdfs:label "Mee Identity Agent (MIA)'s SHACL Validation Shapes"@en ;
     rdfs:comment """SHACL validation shapes for the Mee Identity Agent.
 
-                    Architecture: named-graph slices — each context file contains exactly one
+                    Architecture: named-graph contexts — each context file contains exactly one
                     persona:Person individual identified by a unified IRI (e.g. :Alice_Walker).
                     PersonShape targets all persona:Person individuals across all context files.
 
@@ -29,7 +29,7 @@
 
 #################################################################
 #  Person
-#  Each context file slice contains exactly one persona:Person.
+#  Each context file contains exactly one persona:Person.
 #  All identity data — names, identifiers, addresses, cards — attach here.
 #################################################################
 
@@ -85,28 +85,19 @@
         sh:message "TelephoneNumber values are optional; if present and typed, they must validate."@en
     ] ;
 
-    # Optional: organization name (0..1)
+    # Optional: organization names (0..many); each context may carry its own OrganizationName
     sh:property [
         sh:path <https://purl.org/cco/ont00001879> ;  # designated by
         sh:qualifiedValueShape [ sh:class cco:ent00000047 ] ;  # OrganizationName
-        sh:qualifiedMaxCount 1 ;
-        sh:message "At most one OrganizationName may be attached to a Person."@en
+        sh:qualifiedMinCount 0 ;
+        sh:message "OrganizationName values, if present, must be of class cco:ent00000047."@en
     ] ;
 
-    # Optional: US postal address (0..1); validity enforced by :USPostalAddressShape
-    sh:property [
-        sh:path <https://purl.org/cco/ont00001879> ;  # designated by
-        sh:qualifiedValueShape [ sh:class cco:ent00000010 ] ;
-        sh:qualifiedMaxCount 1 ;
-        sh:message "USPostalAddress is optional; if present and typed, it must validate."@en
-    ] ;
-
-    # Optional: social network (0..1)
+    # Optional: social networks (0..many); each context may carry its own social network
     sh:property [
         sh:path persona:hasSocialNetwork ;
         sh:class cco:ont00001183 ;  # Social Network
-        sh:maxCount 1 ;
-        sh:message "A Person may have at most one Social Network; it must be of type Social Network."@en
+        sh:message "hasSocialNetwork values must be of type Social Network."@en
     ] ;
 
     # Optional: payment cards (0..many)
@@ -360,7 +351,7 @@
         sh:message "Social Network parts (sub-groups) must themselves be Social Networks."@en
     ] ;
 
-    # Members: BFO has member part → Person (unified IRI for same person across slices)
+    # Members: BFO has member part → Person (unified IRI for same person across contexts)
     sh:property [
         sh:path <http://purl.obolibrary.org/obo/BFO_0000115> ;  # has member part
         sh:class persona:Person ;

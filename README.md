@@ -433,6 +433,7 @@ find . -name "*.ttl" \
   2>/dev/null > /tmp/mia-merged.ttl
 
 find . -name "*-shacl.ttl" \
+  -not -path "*/project_files/*" \
   -not -path "*/under-development/*" \
   -not -path "*/shacl/*" \
   -print0 | sort -z | xargs -0 cat | grep -v 'owl:imports' > /tmp/mia-shapes.ttl
@@ -457,16 +458,19 @@ riot --output=turtle \
   2>/dev/null > /tmp/mia-base.ttl
 
 # BirthCertificate — 13-alice(tx-birth-cert)alice.ttl
-cat /tmp/mia-base.ttl "example/13-alice(tx-birth-cert)alice.ttl" > /tmp/data-birth-cert.ttl
-shacl validate --shapes shacl/birthcertificate-shacl.ttl --data /tmp/data-birth-cert.ttl --text
+riot --output=turtle /tmp/mia-base.ttl "example/13-alice(tx-birth-cert)alice.ttl" 2>/dev/null > /tmp/data-birth-cert.ttl
+grep -v 'owl:imports' shacl/birthcertificate-shacl.ttl > /tmp/shapes-birth-cert.ttl
+shacl validate --shapes /tmp/shapes-birth-cert.ttl --data /tmp/data-birth-cert.ttl --text
 
 # JSContactCard — 21-alice(business-card)alice.ttl
-cat /tmp/mia-base.ttl "example/21-alice(business-card)alice.ttl" > /tmp/data-jscontact.ttl
-shacl validate --shapes shacl/jscontactcard-shacl.ttl --data /tmp/data-jscontact.ttl --text
+riot --output=turtle /tmp/mia-base.ttl "example/21-alice(business-card)alice.ttl" 2>/dev/null > /tmp/data-jscontact.ttl
+grep -v 'owl:imports' shacl/jscontactcard-shacl.ttl > /tmp/shapes-jscontact.ttl
+shacl validate --shapes /tmp/shapes-jscontact.ttl --data /tmp/data-jscontact.ttl --text
 
 # DriversLicense — 22-alice(driverslicense)alice.ttl
-cat /tmp/mia-base.ttl "example/22-alice(driverslicense)alice.ttl" > /tmp/data-dl.ttl
-shacl validate --shapes shacl/driverslicense-shacl.ttl --data /tmp/data-dl.ttl --text
+riot --output=turtle /tmp/mia-base.ttl "example/22-alice(driverslicense)alice.ttl" 2>/dev/null > /tmp/data-dl.ttl
+grep -v 'owl:imports' shacl/driverslicense-shacl.ttl > /tmp/shapes-dl.ttl
+shacl validate --shapes /tmp/shapes-dl.ttl --data /tmp/data-dl.ttl --text
 ```
 
 Expected output for each: `Conforms`
