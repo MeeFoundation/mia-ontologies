@@ -48,76 +48,6 @@ This section describes the most fundamental properties and classes in the Person
 
 * `i:hasIdentity` — links a `persona:Person` to a `i:PDNidentity` — the identifier used to communicate with this Person over the Personal Data Network. Sub-property of CCO `designated by`.
 
-### Persona Templates
-
-`p:PersonaTemplate` is an abstract classification class that serves as the common superclass for all reusable, context-type-specific template labels. These labels are defined in `persona-templates.ttl`. A context file declares its template by annotating its `owl:Ontology` header with `c:template` rather than by typing its `persona:Person` individual. Per-template SHACL files live in the `shacl/` subdirectory.
-
-<p align="center"><img src="images/persona-ontology/persona-templates.png" alt="persona templates model"></p>
-
-The three currently defined subclasses of `p:PersonaTemplate` are:
-
-* `p:BirthCertificate` — label for context files that carry a person's legal birth name record as issued by a state agency. Used as the value of `c:template persona:BirthCertificate` on the ontology header. SHACL shape `:BirthCertificatePersonShape` (in `shacl/birthcertificate-shacl.ttl`) enforces:
-  - **Required**: either a `FullName` designator **or** both a `GivenName` and a `FamilyName` designator (via `designated by`, `ont00001879`) — expressed with `sh:or`.
-  - **Optional**: `AdditionalName` (middle name), `AlternateName` (e.g. maiden name), `Nickname`, and `Legal Name` designators.
-
-* `p:JSContactCard` — label for context files that carry professional contact details in the JSContact (RFC 9553) format. Used as the value of `c:template persona:JSContactCard`. SHACL shape `:JSContactCardPersonShape` (in `shacl/jscontactcard-shacl.ttl`) enforces:
-  - **Required**: exactly one `OrganizationName` designator; at least one `Email` or `TelephoneNumber` designator.
-  - **Optional**: all name components, `OrganizationUnit`, `JobTitle`, addresses, online services, anniversaries, personal info, photo.
-  - **Max 1** on all single-valued name and organization components.
-  See the [JSContact field coverage table](#jscontact-field-coverage) below for the complete mapping.
-
-* `p:DriversLicense` — label for context files that carry the identity claims on a state-issued driver's license. Used as the value of `c:template persona:DriversLicense`. SHACL shape `:DriversLicensePersonShape` (in `shacl/driverslicense-shacl.ttl`) enforces:
-  - **Required**: `FullName` **or** (`GivenName` + `FamilyName`); exactly one `Birthdate` (`cco:ent00000046`); exactly one `p:DriversLicenseNumber`; exactly one `ExpirationDateIdentifier` (`cco:ent00000054`).
-  - **Optional**: `AdditionalName`; `p:IssuingJurisdiction` (USPS 2-letter state code, validated by `USStateNameShape`); `PostalAddress`; `p:hasPhoto`.
-  Note: `p:PhysicalDriversLicense` (in `persona.ttl`) models the physical card object held in a wallet — `p:DriversLicense` is the template label that marks a context file as carrying driver's license identity data.
-
-#### JSContact field coverage
-
-The table below maps every JSContact (RFC 9553) property to its representation in the Persona ontology. Properties defined in `persona-templates.ttl` for JSContact alignment are marked **JSC**.
-
-| JSContact Property | Card. | Ontology Representation | Via | SHACL constraint |
-|---|:---:|---|---|:---:|
-| `name.full` | 0..1 | `cco:ent00000001` FullName | `designated by` | max 1 |
-| `name.given` | 0..1 | `cco:ent00000002` GivenName | `designated by` | max 1 |
-| `name.surname` | 0..1 | `cco:ent00000004` FamilyName | `designated by` | max 1 |
-| `name.given2` | 0..1 | `cco:ent00000003` AdditionalName | `designated by` | max 1 |
-| `name.surname2` | 0..1 | `cco:ent00000058` Surname2 | `designated by` | max 1 |
-| `name.prefix` | 0..1 | `cco:ent00000057` Title/HonorificPrefix | `designated by` | max 1 |
-| `name.suffix` | 0..1 | `cco:ent00000005` Suffix (Jr., Sr., III) | `designated by` | max 1 |
-| `name.credential` | 0..1 | **JSC** `p:Credential` (MD, PhD, Esq.) | `designated by` | max 1 |
-| `nicknames` | 0..1 | `cco:ont00000990` Nickname | `designated by` | max 1 |
-| `name.altName` | 0..1 | `cco:ent00000006` AlternateName | `designated by` | max 1 |
-| `emails` | 0..N | `cco:ent00000024` EmailAddress | `designated by` | — |
-| ↳ `contexts` | 0..N | **JSC** `p:contactContext` annotation | annotation property | — |
-| `phones` | 0..N | `cco:ent00000023` TelephoneNumber | `designated by` | — |
-| ↳ `contexts` | 0..N | **JSC** `p:contactContext` annotation | annotation property | — |
-| ↳ `features` | 0..N | **JSC** `p:phoneFeature` annotation | annotation property | — |
-| `addresses` | 0..N | `cco:ent00000010` USPostalAddress | (address pattern) | — |
-| ↳ `contexts` | 0..N | **JSC** `p:contactContext` annotation | annotation property | — |
-| `anniversaries` (birth) | 0..1 | `cco:ent00000046` Birthdate | `designated by` | max 1 |
-| `anniversaries` (other) | 0..N | **JSC** `p:Anniversary` | `p:hasAnniversary` | — |
-| ↳ `kind` | — | **JSC** `p:anniversaryKind` | datatype property | — |
-| ↳ `date` | — | **JSC** `p:anniversaryDate` | datatype property | — |
-| ↳ `label` | — | **JSC** `p:anniversaryLabel` | datatype property | — |
-| `organizations[].name` | 0..1 | `cco:ent00000047` OrganizationName | `designated by` | max 1 |
-| `organizations[].units` | 0..1 | **JSC** `p:OrganizationUnit` | `designated by` | max 1 |
-| `titles[].name` | 0..1 | **JSC** `p:JobTitle` | `designated by` | max 1 |
-| `onlineServices` (account) | 0..N | `cco:ont00000033` OnlineServiceAccount | `holds user account` | — |
-| `onlineServices` (URL) | 0..N | **JSC** `p:WebURL` | `designated by` | — |
-| ↳ `service` | 0..N | **JSC** `p:serviceLabel` annotation | annotation property | — |
-| `personalInfo` | 0..N | **JSC** `p:PersonalInfo` | `p:hasPersonalInfo` | — |
-| ↳ `kind` | — | **JSC** `p:personalInfoKind` | datatype property | — |
-| ↳ `value` | — | **JSC** `p:personalInfoValue` | datatype property | — |
-| ↳ `level` | — | **JSC** `p:personalInfoLevel` | datatype property | — |
-| `photos[].uri` | 0..N | **JSC** `p:hasPhoto` (xsd:anyURI) | datatype property | — |
-| `legalName` | 0..1 | `cco:ont00001331` Legal Name | `designated by` | — |
-| `uid` | 1 | IRI of the `persona:Person` individual | — | — |
-| `notes` | 0..N | Person Note via `has text value` | `designated by` | — |
-| `relatedTo` | 0..N | `c:dyad` (graph-level peer); `BFO_0000115` (member) | annotation / object property | — |
-| `updated` | 0..1 | `owl:versionInfo` on the context file | annotation | — |
-| `language` | 0..1 | *(not yet mapped)* | — | — |
-| `categories` | 0..N | *(not yet mapped)* | — | — |
-| `preferredLanguages` | 0..N | *(not yet mapped)* | — | — |
 
 ### Social classes and properties 
 
@@ -191,6 +121,78 @@ This section describes a few details related to modeling names and addresses.
 **Peer name pattern**: All name types (FullName, GivenName, FamilyName, AlternateName) connect directly to a `persona:Person` via `designated by` (`ont00001879`). They are siblings, not nested under a PersonName parent. Legal names belong to the birth certificate context file (annotated `c:template persona:BirthCertificate`); a preferred/goes-by name lives in `alice(self)alice.ttl` since it applies across all contexts.
 
 **Address history**: Each address context file carries a `persona:Person` with a USPostalAddress and an `AddressDesignation` with a `TemporalInterval` (start date required; no end date = current address).
+
+### Persona Templates
+
+`p:PersonaTemplate` is an abstract classification class that serves as the common superclass for all reusable, context-type-specific template labels. These labels are defined in `persona-templates.ttl`. A context file declares its template by annotating its `owl:Ontology` header with `c:template` rather than by typing its `persona:Person` individual. Per-template SHACL files live in the `shacl/` subdirectory.
+
+<p align="center"><img src="images/persona-ontology/persona-templates.png" alt="persona templates model"></p>
+
+The three currently defined subclasses of `p:PersonaTemplate` are:
+
+* `p:BirthCertificate` — label for context files that carry a person's legal birth name record as issued by a state agency. Used as the value of `c:template persona:BirthCertificate` on the ontology header. SHACL shape `:BirthCertificatePersonShape` (in `shacl/birthcertificate-shacl.ttl`) enforces:
+  - **Required**: either a `FullName` designator **or** both a `GivenName` and a `FamilyName` designator (via `designated by`, `ont00001879`) — expressed with `sh:or`.
+  - **Optional**: `AdditionalName` (middle name), `AlternateName` (e.g. maiden name), `Nickname`, and `Legal Name` designators.
+
+* `p:JSContactCard` — label for context files that carry professional contact details in the JSContact (RFC 9553) format. Used as the value of `c:template persona:JSContactCard`. SHACL shape `:JSContactCardPersonShape` (in `shacl/jscontactcard-shacl.ttl`) enforces:
+  - **Required**: exactly one `OrganizationName` designator; at least one `Email` or `TelephoneNumber` designator.
+  - **Optional**: all name components, `OrganizationUnit`, `JobTitle`, addresses, online services, anniversaries, personal info, photo.
+  - **Max 1** on all single-valued name and organization components.
+  See the [JSContact field coverage table](#jscontact-field-coverage) below for the complete mapping.
+
+* `p:DriversLicense` — label for context files that carry the identity claims on a state-issued driver's license. Used as the value of `c:template persona:DriversLicense`. SHACL shape `:DriversLicensePersonShape` (in `shacl/driverslicense-shacl.ttl`) enforces:
+  - **Required**: `FullName` **or** (`GivenName` + `FamilyName`); exactly one `Birthdate` (`cco:ent00000046`); exactly one `p:DriversLicenseNumber`; exactly one `ExpirationDateIdentifier` (`cco:ent00000054`).
+  - **Optional**: `AdditionalName`; `p:IssuingJurisdiction` (USPS 2-letter state code, validated by `USStateNameShape`); `PostalAddress`; `p:hasPhoto`.
+  Note: `p:PhysicalDriversLicense` (in `persona.ttl`) models the physical card object held in a wallet — `p:DriversLicense` is the template label that marks a context file as carrying driver's license identity data.
+
+#### JSContact field coverage
+
+The table below maps every JSContact (RFC 9553) property to its representation in the Persona ontology. Properties defined in `persona-templates.ttl` for JSContact alignment are marked **JSC**.
+
+| JSContact Property | Card. | Ontology Representation | Via | SHACL constraint |
+|---|:---:|---|---|:---:|
+| `name.full` | 0..1 | `cco:ent00000001` FullName | `designated by` | max 1 |
+| `name.given` | 0..1 | `cco:ent00000002` GivenName | `designated by` | max 1 |
+| `name.surname` | 0..1 | `cco:ent00000004` FamilyName | `designated by` | max 1 |
+| `name.given2` | 0..1 | `cco:ent00000003` AdditionalName | `designated by` | max 1 |
+| `name.surname2` | 0..1 | `cco:ent00000058` Surname2 | `designated by` | max 1 |
+| `name.prefix` | 0..1 | `cco:ent00000057` Title/HonorificPrefix | `designated by` | max 1 |
+| `name.suffix` | 0..1 | `cco:ent00000005` Suffix (Jr., Sr., III) | `designated by` | max 1 |
+| `name.credential` | 0..1 | **JSC** `p:Credential` (MD, PhD, Esq.) | `designated by` | max 1 |
+| `nicknames` | 0..1 | `cco:ont00000990` Nickname | `designated by` | max 1 |
+| `name.altName` | 0..1 | `cco:ent00000006` AlternateName | `designated by` | max 1 |
+| `emails` | 0..N | `cco:ent00000024` EmailAddress | `designated by` | — |
+| ↳ `contexts` | 0..N | **JSC** `p:contactContext` annotation | annotation property | — |
+| `phones` | 0..N | `cco:ent00000023` TelephoneNumber | `designated by` | — |
+| ↳ `contexts` | 0..N | **JSC** `p:contactContext` annotation | annotation property | — |
+| ↳ `features` | 0..N | **JSC** `p:phoneFeature` annotation | annotation property | — |
+| `addresses` | 0..N | `cco:ent00000010` USPostalAddress | (address pattern) | — |
+| ↳ `contexts` | 0..N | **JSC** `p:contactContext` annotation | annotation property | — |
+| `anniversaries` (birth) | 0..1 | `cco:ent00000046` Birthdate | `designated by` | max 1 |
+| `anniversaries` (other) | 0..N | **JSC** `p:Anniversary` | `p:hasAnniversary` | — |
+| ↳ `kind` | — | **JSC** `p:anniversaryKind` | datatype property | — |
+| ↳ `date` | — | **JSC** `p:anniversaryDate` | datatype property | — |
+| ↳ `label` | — | **JSC** `p:anniversaryLabel` | datatype property | — |
+| `organizations[].name` | 0..1 | `cco:ent00000047` OrganizationName | `designated by` | max 1 |
+| `organizations[].units` | 0..1 | **JSC** `p:OrganizationUnit` | `designated by` | max 1 |
+| `titles[].name` | 0..1 | **JSC** `p:JobTitle` | `designated by` | max 1 |
+| `onlineServices` (account) | 0..N | `cco:ont00000033` OnlineServiceAccount | `holds user account` | — |
+| `onlineServices` (URL) | 0..N | **JSC** `p:WebURL` | `designated by` | — |
+| ↳ `service` | 0..N | **JSC** `p:serviceLabel` annotation | annotation property | — |
+| `personalInfo` | 0..N | **JSC** `p:PersonalInfo` | `p:hasPersonalInfo` | — |
+| ↳ `kind` | — | **JSC** `p:personalInfoKind` | datatype property | — |
+| ↳ `value` | — | **JSC** `p:personalInfoValue` | datatype property | — |
+| ↳ `level` | — | **JSC** `p:personalInfoLevel` | datatype property | — |
+| `photos[].uri` | 0..N | **JSC** `p:hasPhoto` (xsd:anyURI) | datatype property | — |
+| `legalName` | 0..1 | `cco:ont00001331` Legal Name | `designated by` | — |
+| `uid` | 1 | IRI of the `persona:Person` individual | — | — |
+| `notes` | 0..N | Person Note via `has text value` | `designated by` | — |
+| `relatedTo` | 0..N | `c:dyad` (graph-level peer); `BFO_0000115` (member) | annotation / object property | — |
+| `updated` | 0..1 | `owl:versionInfo` on the context file | annotation | — |
+| `language` | 0..1 | *(not yet mapped)* | — | — |
+| `categories` | 0..N | *(not yet mapped)* | — | — |
+| `preferredLanguages` | 0..N | *(not yet mapped)* | — | — |
+
 
 ### Persona Ontology Files
 
@@ -320,7 +322,7 @@ The Identity ontology is used to describe the kinds of identities that Mia can c
 **Classes**
 
 * `i:Individual` - an identifier of a Mia user. The identity of *this* Mia's user is an instance of the subclass, `i:Self`
-* `i:Group` - an identifier of a `g:Group` of Mia users (`p:Personas`) and/or `o:Organizations`.
+* `i:Group` - an identifier of a `g:Group` of Mia users and/or `o:Organizations`.
 * `i:Organization` - an identifier of an `o:Organization`.
 
 ### Identity Ontology File
@@ -365,7 +367,7 @@ The contexts in the table below are *about* Alice and asserted *by* Alice. All `
 | 15 | [15-alice(boston)alice.ttl](example/15-alice(boston)alice.ttl)               | Municipality | Previous address — Boston, MA (2020–2025) with temporal interval | [view](example/images/15-alice(boston)alice.png) |
 | 16 | [16-alice(ssa)alice.ttl](example/16-alice(ssa)alice.ttl)                     | Federal      | Social security number (SSN)                                     | [view](example/images/16-alice(ssa)alice.png) |
 | 17 | [17-alice(bob)alice.ttl](example/17-alice(bob)alice.ttl)                     | Person       | Alice's 1:1 context with Bob; social network with Bob as member  | [view](example/images/17-alice(bob)alice.png)|
-| 18 | [18-alice(family)alice.ttl](example/18-alice(family)alice.ttl)               | Family       | Family social network with Paula as member                       | [view](example/images/18-alice(family)alice.png) |
+| 18 | [18-alice(family)alice.ttl](example/18-alice(family)alice.ttl)               | FamilyMember | Family social network with Paula as member                       | [view](example/images/18-alice(family)alice.png) |
 | 19 | [19-alice(possessions)alice.ttl](example/19-alice(possessions)alice.ttl)     | Possession   | Wallet (driver's license + payment card); health ins., SSN card  | [view](example/images/19-alice(possessions)alice.png) |
 | 20 | [20-alice(acme)alice.ttl](example/20-alice(acme)alice.ttl)                   | Employee     | Acme employee context; company email; works with Paula      | [view](example/images/20-alice(acme)alice.png)|
 | 21 | [21-alice(business-card)alice.ttl](example/21-alice(business-card)alice.ttl) | Employee     | Business card — given name, family name, email, phone, employer | [view](example/images/21-alice(business-card)alice.png) |
@@ -383,8 +385,8 @@ The following table lists contexts about other people (Paula and Bob) or groups 
 | #  | Context file                                                                                     | Context type | Key data                                                         | Diagram |
 |--- |:-------------------------------------------------------------------------------------------------|:-------------|:-----------------------------------------------------------------|:--------|
 | 1  | [01-paula(acme)alice.ttl](example/01-paula(acme)alice.ttl)                              | Employee     | Paula as Alice's Acme colleague (Alice-asserted)                 | *(todo)*|
-| 2  | [02-paula(family)alice.ttl](example/02-paula(family)alice.ttl)                          | Family       | Paula as Alice's family member (Alice-asserted)                  | *(todo)*|
-| 3  | [03-paula(family)paula.ttl](example/03-paula(family)paula.ttl)          | Family       | Paula's own family persona; social network with Alice (dyad #2)  | *(todo)*|
+| 2  | [02-paula(family)alice.ttl](example/02-paula(family)alice.ttl)                          | FamilyMember | Paula as Alice's family member (Alice-asserted)                  | *(todo)*|
+| 3  | [03-paula(family)paula.ttl](example/03-paula(family)paula.ttl)          | FamilyMember | Paula's own family persona; social network with Alice (dyad #2)  | *(todo)*|
 | 5  | [05-bob(bob)alice.ttl](example/05-bob(bob)alice.ttl)                          | Person       | Alice's notes about Bob; fav drink: oat milk cappuccino          | [view](example/images/05-bob(bob)alice.png) |
 | 6  | [06-bob(bob)bob.ttl](example/06-bob(bob)bob.ttl)                              | Person       | Bob's self-asserted Bob persona (dyad with #5)                   | *(todo)*|
 | 8  | [08-bhs(bhs)members.ttl](example/08-bhs(bhs)members.ttl)                                  | Group        | BHS group instance with Alice and Bob as members                 | [view](example/images/08-bhs(bhs)members.png) |
@@ -411,7 +413,11 @@ Each diagram shows the `persona:Person` individual (yellow), supporting named in
 
 ## Validation
 
-Validation requires Apache Jena. The first `find` picks up every `.ttl` file as data except the foundation ontologies in `project_files/` (listed explicitly), files in any `under-development/` directory, and all `*-shacl.ttl` files (collected separately as shapes). The second `find` gathers all `*-shacl.ttl` files as shapes, stripping their `owl:imports` to prevent the validator re-loading the data graph.
+Validation requires Apache Jena and runs in two tiers.
+
+### Tier 1 — general validation (all context files)
+
+`persona-shacl.ttl` applies to every `persona:Person` individual across all context files. The first `find` merges all data; the second collects only the root-level `*-shacl.ttl` files as shapes (the `shacl/` template files are excluded here — they must be run per-file; see Tier 2).
 
 ```bash
 find . -name "*.ttl" \
@@ -428,9 +434,39 @@ find . -name "*.ttl" \
 
 find . -name "*-shacl.ttl" \
   -not -path "*/under-development/*" \
+  -not -path "*/shacl/*" \
   -print0 | sort -z | xargs -0 cat | grep -v 'owl:imports' > /tmp/mia-shapes.ttl
 
 shacl validate --shapes /tmp/mia-shapes.ttl --data /tmp/mia-merged.ttl --text
 ```
 
 Expected output: `Conforms`
+
+### Tier 2 — per-template validation (individual context files)
+
+The `shacl/` shapes use `sh:targetClass persona:Person`, which would incorrectly fire on every person slice if applied to the full merged dataset. Instead, each template SHACL file is run against only the relevant context file merged with the foundation ontologies.
+
+```bash
+# Shared base: foundation ontologies + persona + context
+riot --output=turtle \
+  project_files/bfo-core.ttl \
+  project_files/PersonOntology.ttl \
+  project_files/AddressOntology.ttl \
+  project_files/StagingOntology.ttl \
+  persona.ttl persona-templates.ttl context.ttl \
+  2>/dev/null > /tmp/mia-base.ttl
+
+# BirthCertificate — 13-alice(tx-birth-cert)alice.ttl
+cat /tmp/mia-base.ttl "example/13-alice(tx-birth-cert)alice.ttl" > /tmp/data-birth-cert.ttl
+shacl validate --shapes shacl/birthcertificate-shacl.ttl --data /tmp/data-birth-cert.ttl --text
+
+# JSContactCard — 21-alice(business-card)alice.ttl
+cat /tmp/mia-base.ttl "example/21-alice(business-card)alice.ttl" > /tmp/data-jscontact.ttl
+shacl validate --shapes shacl/jscontactcard-shacl.ttl --data /tmp/data-jscontact.ttl --text
+
+# DriversLicense — 22-alice(driverslicense)alice.ttl
+cat /tmp/mia-base.ttl "example/22-alice(driverslicense)alice.ttl" > /tmp/data-dl.ttl
+shacl validate --shapes shacl/driverslicense-shacl.ttl --data /tmp/data-dl.ttl --text
+```
+
+Expected output for each: `Conforms`

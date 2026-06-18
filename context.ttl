@@ -77,8 +77,6 @@ context:dyad rdf:type owl:AnnotationProperty ;
     rdfs:range owl:Ontology .
 
 
-
-
 #################################################################
 #    Context Categories
 #    Subclasses are used as values for the context:contextCategory

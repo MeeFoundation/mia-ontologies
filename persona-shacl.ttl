@@ -19,11 +19,6 @@
                     persona:Person individual identified by a unified IRI (e.g. :Alice_Walker).
                     PersonShape targets all persona:Person individuals across all context files.
 
-                    Per-template SHACL files live in shacl/:
-                      shacl/birthcertificate-shacl.ttl
-                      shacl/jscontactcard-shacl.ttl
-                      shacl/driverslicense-shacl.ttl
-
                     Key property IRIs:
                     - ont00001879  = designated by   (Person ← Name/Identifier)
                     - ont00001765  = has text value   (Identifier → literal string)

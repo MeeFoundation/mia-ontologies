@@ -17,9 +17,11 @@ There are no build, compile, test, or lint commands. The files are Turtle (`.ttl
 |------|---------|
 | `persona.ttl` | Persona ontology — imports domain ontologies, annotates which classes/properties are required vs. optional for Mee, defines Mia-specific classes and properties |
 | `context.ttl` | Context ontology — controlled vocabularies for classifying context files (`contextType`, `assertionType`, `subject`) |
-| `persona-shacl.ttl` | SHACL validation shapes — constraint rules for valid instance data (e.g., a BirthCertificate Persona must have FullName OR GivenName+FamilyName) |
-| `persona-templates.ttl` | Persona template subclasses — defines `p:PersonaTemplate` (abstract superclass) and concrete subclasses `p:BirthCertificate`, `p:JSContactCard`, `p:DriversLicense`; also defines related designator classes (`persona:DriversLicenseNumber`, `persona:IssuingJurisdiction`, `persona:Credential`, `persona:WebURL`, `persona:OrganizationUnit`, `persona:JobTitle`), complex classes (`persona:Anniversary`, `persona:PersonalInfo`), and properties (`persona:hasAnniversary`, `persona:hasPhoto`, etc.) |
-| `persona-templates-shacl.ttl` | SHACL shapes for persona templates — validates required/optional properties on `p:BirthCertificate`, `p:JSContactCard`, and `p:DriversLicense` instances |
+| `persona-shacl.ttl` | SHACL validation shapes — constraint rules for all `persona:Person` instances (SSN format, address cardinality, payment cards, wallet, social network, etc.) |
+| `persona-templates.ttl` | Persona template labels — defines `p:PersonaTemplate` (abstract classification superclass) and concrete label subclasses `p:BirthCertificate`, `p:JSContactCard`, `p:DriversLicense`; also defines related designator classes (`persona:DriversLicenseNumber`, `persona:IssuingJurisdiction`, `persona:Credential`, `persona:WebURL`, `persona:OrganizationUnit`, `persona:JobTitle`), complex classes (`persona:Anniversary`, `persona:PersonalInfo`), and properties (`persona:hasAnniversary`, `persona:hasPhoto`, etc.) |
+| `shacl/birthcertificate-shacl.ttl` | Per-template SHACL shapes for birth certificate context files — run against the individual context file, not merged data |
+| `shacl/jscontactcard-shacl.ttl` | Per-template SHACL shapes for JSContactCard context files — run against the individual context file, not merged data |
+| `shacl/driverslicense-shacl.ttl` | Per-template SHACL shapes for driver's license context files — run against the individual context file, not merged data |
 | `project_files/` | Reference materials: imported domain ontologies (PersonOntology.ttl, AddressOntology.ttl, StagingOntology.ttl), BFO/CCO source files, PDFs, docs |
 
 ## Example Files
@@ -181,7 +183,7 @@ After any change to context files or the context map diagram, verify the followi
 
 A Persona that is not reachable by either mechanism is an orphan. Note: `persona:dyad` does not satisfy this requirement — it is a lateral peer link, not a parent link.
 
-**Check 9 — Validation command completeness**: The `## Validation` section of `README.md` must use two `find` commands: (1) a data merge that includes every `.ttl` file except files in `project_files/` (listed explicitly as foundation ontologies), files in any `under-development/` directory, and all `*-shacl.ttl` files; (2) a shapes merge that gathers all `*-shacl.ttl` files (excluding `under-development/`) and strips their `owl:imports`. Both commands must use `find` with `-not -name "*-shacl.ttl"` / `-name "*-shacl.ttl"` patterns so that newly added shacl files are included automatically without a manual README update. If either `find` pattern changes, update the README command to match.
+**Check 9 — Validation command completeness**: The `## Validation` section of `README.md` must document two tiers. Tier 1 uses two `find` commands: (1) a data merge that includes every `.ttl` file except files in `project_files/` (listed explicitly as foundation ontologies), files in any `under-development/` directory, and all `*-shacl.ttl` files; (2) a shapes merge that gathers `*-shacl.ttl` files (excluding `under-development/` **and** `shacl/`) and strips their `owl:imports` — the `shacl/` per-template files must be excluded here because they target `persona:Person` and would fire incorrectly on all individuals when applied to merged data. Tier 2 lists explicit per-file commands for each template context file paired with its `shacl/*-shacl.ttl` file. If the `find` patterns change, update the README commands to match.
 
 **Check 10 — PNG file location**: The diagram PNG for every context file and selfness file must be stored directly in `example/images/` (flat, no subfolders — not `images/example/`). Files in `under-development/` are excluded.
 
