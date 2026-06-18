@@ -269,16 +269,16 @@ A context is a container of information whose primary subject is one of the thre
 
 **`c:contextCategory`** — The nature of the interaction/relationship context. Values form a subclass hierarchy under `c:ContextCategory`:
 
-- `c:Social` — a context whose subject is one of the Self's `p:Personas` *and* that includes a social network with `has member` links to the `p:Personas` of other people in other contexts.  Examples: family relationships, colleague networks, friend groups.
+- `c:MultiPerson` — a context whose subject is one of the Self's `p:Personas` *and* that includes a social network with `has member` links to the `p:Personas` of other people in other contexts.  Examples: family relationships, colleague networks, friend groups.
   - `c:Group` — interactions with a formal or informal group of people.
-  - `c:Collection` — a context that aggregates a set of 1:1 `c:Person` contexts; allows a Mia user to group individual people contexts into a named collection.
-  - `c:Person` and subtypes `c:Family`, `c:Colleague`, `c:Friend`, `c:Consultant` — interactions with individual people in a person's life.
-- `c:Personal` — a context containing only one of the Self's `p:Personas` -- no other person's `p:Persona` appears in it. It describes the Self's relationship with (and interactions with) a specific institution, role, possession, or area of knowledge. Examples: a bank account, a driver's license, a car.
+  - `c:Person` and subtypes `c:Family`, `c:Friend`, `c:Consultant` — interactions with individual people in a person's life.
+- `c:SinglePerson` — a context containing only one of the Self's `p:Personas` -- no other person's `p:Persona` appears in it. It describes the Self's relationship with (and interactions with) a specific institution, role, possession, or area of knowledge. Examples: a bank account, a driver's license, a car.
   - `c:Work` and subtypes `c:Employee`, `c:Contributor`, `c:Creator` — professional roles.
-  - `c:Company` and subtypes `c:Health`, `c:Finance` — interactions and/or relationship with a company or other non-governmental organization.
-  - `c:Event` — participation in or relationship to a specific event, e.g. a face-to-face or online meeting.
+  - `c:Company` and subtype `c:Health` — interactions and/or relationship with a company or other non-governmental organization.
+  - `c:Finance` — information about personal finances not related to any interactions with banks, financial institutions or government agencies.
+  - `c:Event` and subtypes `c:Meeting`, `c:Conference`, `c:Party` — participation in or relationship to a specific event, e.g. a face-to-face or online meeting.
   - `c:Government` and subtypes `c:Federal`, `c:State`, `c:Municipality` — interactions with government agencies.
-  - `c:Knowledge` general knowledge selected by a person to be useful to them. It has a subtype `c:Learning` which is knowledge gained through personal experience.
+  - `c:Note` general knowledge selected by a person to be useful to them. It has a subtype `c:Learning` which is knowledge gained through personal experience.
   - `c:Possession` and subtypes `c:Automobile`, `c:Pet`, `c:Dwelling` — a person's belongings or other things they possess, rent, or lease.
   - `c:Project` — involvement in a specific project or initiative.
 
@@ -381,7 +381,7 @@ The following table lists contexts about other people (Paula and Bob) or groups 
 
 | #  | Context file                                                                                     | Context type | Key data                                                         | Diagram |
 |--- |:-------------------------------------------------------------------------------------------------|:-------------|:-----------------------------------------------------------------|:--------|
-| 1  | [01-paula(acme)alice.ttl](example/01-paula(acme)alice.ttl)                              | Colleague    | Paula as Alice's Acme colleague (Alice-asserted)                 | *(todo)*|
+| 1  | [01-paula(acme)alice.ttl](example/01-paula(acme)alice.ttl)                              | Employee     | Paula as Alice's Acme colleague (Alice-asserted)                 | *(todo)*|
 | 2  | [02-paula(family)alice.ttl](example/02-paula(family)alice.ttl)                          | Family       | Paula as Alice's family member (Alice-asserted)                  | *(todo)*|
 | 3  | [03-paula(family)paula.ttl](example/03-paula(family)paula.ttl)          | Family       | Paula's own family persona; social network with Alice (dyad #2)  | *(todo)*|
 | 5  | [05-bob(bob)alice.ttl](example/05-bob(bob)alice.ttl)                          | Person       | Alice's notes about Bob; fav drink: oat milk cappuccino          | [view](example/images/05-bob(bob)alice.png) |

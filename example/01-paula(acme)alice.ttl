@@ -15,8 +15,8 @@
     owl:imports <http://mee.foundation/ontologies/persona> ;
     owl:imports <http://mee.foundation/ontologies/context> ;
     dc:date "2026-06-14"^^xsd:date ;
-    owl:versionInfo "Version 1.0.8 - lowercase IRI to paula(acme)alice"@en ;
-    context:contextCategory context:Colleague ;
+    owl:versionInfo "Version 1.0.9 - contextCategory changed from Colleague to Employee"@en ;
+    context:contextCategory context:Employee ;
     context:assertedBy identity:Self ;
     context:subject identity:Individual ;
     context:name "Acme" ;

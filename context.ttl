@@ -11,7 +11,7 @@
     owl:versionIRI <http://mee.foundation/ontologies/context/1.0.1> ;
     dc:date "2026-06-01"^^xsd:date ;
     owl:imports <http://mee.foundation/ontologies/identity> ;
-    owl:versionInfo "Version 1.0.24 - add Collection subclass of Social"@en ;
+    owl:versionInfo "Version 1.0.32 - update comment on Finance"@en ;
     rdfs:label "Context Ontology"@en ;
     rdfs:comment """Context Ontology for the Mee Identity Agent.
 
@@ -76,25 +76,19 @@ context:ContextCategory rdf:type owl:Class ;
 #    Social and subclasses
 #################################################################
 
-context:Social rdf:type owl:Class ;
+context:MultiPerson rdf:type owl:Class ;
     rdfs:subClassOf context:ContextCategory ;
-    rdfs:label "Social"@en ;
+    rdfs:label "MultiPerson"@en ;
     rdfs:comment "Contexts involving interactions with multiple people or groups."@en .
 
 context:Group rdf:type owl:Class ;
-    rdfs:subClassOf context:Social ;
+    rdfs:subClassOf context:MultiPerson ;
     rdfs:label "Group"@en ;
     rdfs:comment "Interactions with a formal or informal group of people."@en .
 
-context:Collection rdf:type owl:Class ;
-    rdfs:subClassOf context:Social ;
-    rdfs:label "Collection"@en ;
-    rdfs:comment """A context that aggregates a set of 1:1 Person contexts (contextCategory=c:Person).
-                    A Mia user creates a Collection context to group individual c:Person contexts together
-                    into a named collection (e.g. a colleagues list or friends group)."""@en .
 
 context:Person rdf:type owl:Class ;
-    rdfs:subClassOf context:Social ;
+    rdfs:subClassOf context:MultiPerson ;
     rdfs:label "Person"@en ;
     rdfs:comment "Interactions with all kinds of people."@en .
 
@@ -113,22 +107,18 @@ context:Consultant rdf:type owl:Class ;
     rdfs:label "Consultant"@en ;
     rdfs:comment "Interactions with consultants who provide services."@en .
 
-context:Colleague rdf:type owl:Class ;
-    rdfs:subClassOf context:Person ;
-    rdfs:label "Colleague"@en ;
-    rdfs:comment "Interactions with others with whom you work."@en .
 
 #################################################################
 #    Personal and subclasses
 #################################################################
 
-context:Personal rdf:type owl:Class ;
+context:SinglePerson rdf:type owl:Class ;
     rdfs:subClassOf context:ContextCategory ;
-    rdfs:label "Personal"@en ;
+    rdfs:label "SinglePerson"@en ;
     rdfs:comment "Contexts involving interactions with a single entity — company, government, role, or possession."@en .
 
 context:Work rdf:type owl:Class ;
-    rdfs:subClassOf context:Personal ;
+    rdfs:subClassOf context:SinglePerson ;
     rdfs:label "Work"@en ;
     rdfs:comment "Professional roles, employment history, and career relationships."@en .
 
@@ -148,14 +138,14 @@ context:Creator rdf:type owl:Class ;
     rdfs:comment "Related to being a creator, inventor, founder, author of something."@en .
 
 context:Company rdf:type owl:Class ;
-    rdfs:subClassOf context:Personal ;
+    rdfs:subClassOf context:SinglePerson ;
     rdfs:label "Company"@en ;
     rdfs:comment "Relationship with a specific company, bank, or other institution."@en .
 
 context:Finance rdf:type owl:Class ;
-    rdfs:subClassOf context:Company ;
+    rdfs:subClassOf context:SinglePerson ;
     rdfs:label "Finance"@en ;
-    rdfs:comment "Financial services company"@en .
+    rdfs:comment "Information about personal finances not related to any interactions with banks, financial institutions or government agencies."@en .
 
 context:Health rdf:type owl:Class ;
     rdfs:subClassOf context:Company ;
@@ -163,12 +153,27 @@ context:Health rdf:type owl:Class ;
     rdfs:comment "Health and wellness company"@en .
 
 context:Event rdf:type owl:Class ;
-    rdfs:subClassOf context:Personal ;
+    rdfs:subClassOf context:SinglePerson ;
     rdfs:label "Event"@en ;
     rdfs:comment "Participation in or relationship to a specific event."@en .
 
+context:Meeting rdf:type owl:Class ;
+    rdfs:subClassOf context:Event ;
+    rdfs:label "Meeting"@en ;
+    rdfs:comment "A meeting or appointment."@en .
+
+context:Conference rdf:type owl:Class ;
+    rdfs:subClassOf context:Event ;
+    rdfs:label "Conference"@en ;
+    rdfs:comment "A conference or professional gathering."@en .
+
+context:Party rdf:type owl:Class ;
+    rdfs:subClassOf context:Event ;
+    rdfs:label "Party"@en ;
+    rdfs:comment "A party or social celebration."@en .
+
 context:Government rdf:type owl:Class ;
-    rdfs:subClassOf context:Personal ;
+    rdfs:subClassOf context:SinglePerson ;
     rdfs:label "Government"@en ;
     rdfs:comment "Government-issued credentials, tax records, and civic relationships."@en .
 
@@ -187,18 +192,18 @@ context:Municipality rdf:type owl:Class ;
     rdfs:label "Municipality"@en ;
     rdfs:comment "Municipal government context (e.g. local permits, library card)."@en .
 
-context:Knowledge rdf:type owl:Class ;
-    rdfs:subClassOf context:Personal ;
-    rdfs:label "Knowledge"@en ;
-    rdfs:comment "Interest in or expertise around a specific subject area."@en .
+context:Note rdf:type owl:Class ;
+    rdfs:subClassOf context:SinglePerson ;
+    rdfs:label "Note"@en ;
+    rdfs:comment "Notes about topics not covered by any other context category."@en .
 
 context:Learning rdf:type owl:Class ;
-    rdfs:subClassOf context:Knowledge ;
+    rdfs:subClassOf context:Note ;
     rdfs:label "Learning"@en ;
     rdfs:comment "Educational experiences, courses, and certifications."@en .
 
 context:Possession rdf:type owl:Class ;
-    rdfs:subClassOf context:Personal ;
+    rdfs:subClassOf context:SinglePerson ;
     rdfs:label "Possession"@en ;
     rdfs:comment "Owned assets, property, vehicles, and other possessions."@en .
 
@@ -218,6 +223,6 @@ context:Dwelling rdf:type owl:Class ;
     rdfs:comment "Owning or renting a home or other dwelling."@en .
 
 context:Project rdf:type owl:Class ;
-    rdfs:subClassOf context:Personal ;
+    rdfs:subClassOf context:SinglePerson ;
     rdfs:label "Project"@en ;
     rdfs:comment "Involvement in a specific project or initiative."@en .
