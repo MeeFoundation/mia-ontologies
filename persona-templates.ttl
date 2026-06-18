@@ -9,15 +9,16 @@
 
 <http://mee.foundation/ontologies/persona-templates> rdf:type owl:Ontology ;
     dc:date "2026-06-15"^^xsd:date ;
-    owl:versionInfo "Version 1.0.9 - merge persona-jscontact content into JSContactCard section"@en ;
+    owl:versionInfo "Version 2.0.0 - PersonaTemplate no longer subclasses Persona; used as context:template annotation values"@en ;
     rdfs:label "Persona Templates Ontology"@en ;
-    rdfs:comment """Reusable p:Persona subtypes that are too specific for persona.ttl
-                    but shared across multiple context files.
+    rdfs:comment """Template type classification used as values for the context:template annotation property.
+                    Each concrete template type (BirthCertificate, JSContactCard, DriversLicense) identifies
+                    which per-template SHACL shapes file to apply when validating a context file.
 
-                    Class hierarchy:
-                    p:Persona → p:PersonaTemplate → p:BirthCertificate
-                                                  → p:JSContactCard
-                                                  → p:DriversLicense"""@en .
+                    Class hierarchy (classification only — not types on individuals):
+                    p:PersonaTemplate → p:BirthCertificate
+                                      → p:JSContactCard
+                                      → p:DriversLicense"""@en .
 
 
 #################################################################
@@ -25,10 +26,10 @@
 #################################################################
 
 persona:PersonaTemplate rdf:type owl:Class ;
-    rdfs:subClassOf persona:Persona ;
     rdfs:label "Persona Template"@en ;
-    rdfs:comment """Abstract superclass for Persona subtypes defined in this file.
-                    Subclass of p:Persona; all concrete template types subclass this."""@en .
+    rdfs:comment """Abstract superclass for template type labels used as values for context:template.
+                    Concrete subtypes (BirthCertificate, JSContactCard, DriversLicense) identify
+                    which SHACL shapes file applies to a given context file."""@en .
 
 
 #################################################################
@@ -37,10 +38,11 @@ persona:PersonaTemplate rdf:type owl:Class ;
 
 persona:BirthCertificate rdf:type owl:Class ;
     rdfs:subClassOf persona:PersonaTemplate ;
-    rdfs:label "Birth Certificate Persona"@en ;
-    rdfs:comment """A Persona whose purpose is to carry a person's legal birth certificate
-                    name record. Subclass of PersonaTemplate so that SHACL can target it
-                    directly with sh:targetClass to enforce name constraints."""@en .
+    rdfs:label "Birth Certificate"@en ;
+    rdfs:comment """Template type label for a context whose purpose is to carry a person's legal
+                    birth certificate name record. Used as the value of context:template on the
+                    context file's ontology IRI. Selects shacl/birthcertificate-shacl.ttl for
+                    validation."""@en .
 
 
 #################################################################
@@ -67,10 +69,12 @@ persona:IssuingJurisdiction rdf:type owl:Class ;
 
 persona:DriversLicense rdf:type owl:Class ;
     rdfs:subClassOf persona:PersonaTemplate ;
-    rdfs:label "Driver's License Persona"@en ;
-    rdfs:comment """A Persona whose purpose is to carry the identity claims on a state-issued
-                    driver's license: legal name, date of birth, driver's license number, and
-                    expiration date. Residential address is optional.
+    rdfs:label "Driver's License"@en ;
+    rdfs:comment """Template type label for a context whose purpose is to carry the identity
+                    claims on a state-issued driver's license: legal name, date of birth,
+                    driver's license number, and expiration date. Residential address is optional.
+                    Used as the value of context:template on the context file's ontology IRI.
+                    Selects shacl/driverslicense-shacl.ttl for validation.
                     Note: p:PhysicalDriversLicense (in persona.ttl) models the physical card
                     object carried in a wallet; this class models the identity data the
                     license asserts."""@en .
@@ -82,13 +86,12 @@ persona:DriversLicense rdf:type owl:Class ;
 
 persona:JSContactCard rdf:type owl:Class ;
     rdfs:subClassOf persona:PersonaTemplate ;
-    rdfs:label "JSContact Card Persona"@en ;
-    rdfs:comment """A Persona whose purpose is to carry professional contact details in the
-                    JSContact (RFC 9553) format. OrganizationName and at least one contact
-                    channel (email or phone) are required. All other fields — name components,
-                    OrganizationUnit, JobTitle, addresses, online services, anniversaries,
-                    personal info, photo — are optional. SHACL shape enforces these constraints
-                    plus maximum cardinality on single-valued name and organisation components."""@en .
+    rdfs:label "JSContact Card"@en ;
+    rdfs:comment """Template type label for a context whose purpose is to carry professional
+                    contact details in the JSContact (RFC 9553) format. OrganizationName and
+                    at least one contact channel (email or phone) are required. Used as the
+                    value of context:template on the context file's ontology IRI.
+                    Selects shacl/jscontactcard-shacl.ttl for validation."""@en .
 
 
 #  1. Contact Channel Annotation Properties

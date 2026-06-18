@@ -15,28 +15,27 @@
     owl:imports <http://mee.foundation/ontologies/persona> ;
     owl:imports <http://mee.foundation/ontologies/context> ;
     dc:date "2026-06-13"^^xsd:date ;
-    owl:versionInfo "Version 1.0.5 - rename to alice(bob)bob"@en ;
+    owl:versionInfo "Version 2.0.0 - unified persona:Person IRI model; dyad moved to graph level"@en ;
     context:contextCategory context:Person ;
-    context:assertedBy :Bob_Johnson-Self ;
-    context:subject :Alice_Walker-Self ;
+    context:assertedBy :Bob_Johnson ;
+    context:subject :Alice_Walker ;
     context:name "Bob" ;
+    context:dyad <http://www.example.org/mia/alice(bob)alice> ;
     rdfs:label "Alice Walker - in her relationship with Bob)"@en ;
     rdfs:comment """What Bob states about Alice in the context of their (1:1) relationship
                     Paired (dyad) with alice(bob)alice.ttl (#17) 
-                    Correlated from :Alice_Walker-Self in alice(self)alice.ttl."""@en .
+                    Shares IRI :Alice_Walker with alice(self)alice.ttl."""@en .
 
 
 #################################################################
 #    Alice Walker - Bob Persona (Bob's view)
 #################################################################
 
-:Alice_Walker-ByBob rdf:type owl:NamedIndividual ,
-                             persona:Persona ;
+:Alice_Walker rdf:type owl:NamedIndividual ,
+               persona:Person ;
     rdfs:label "Alice Walker by Bob"@en ;
 
     <https://purl.org/cco/ont00001917> [  # described by → Person Note
         rdf:type cco:ent00000048 ;
         <https://purl.org/cco/ont00001765> "Favorite drink: pepsi"
-    ] ;
-
-    persona:dyad :Alice_Walker-Bob .  # dyad: Alice's own 1:1 Bob persona
+    ] .

@@ -19,7 +19,7 @@
     owl:imports <http://mee.foundation/ontologies/identity> ;
     owl:imports <http://mee.foundation/ontologies/persona-templates> ;
     dc:date "2026-06-15"^^xsd:date ;
-    owl:versionInfo "Version 3.0.45 - remove persona-jscontact import (content merged into persona-templates.ttl)"@en ;
+    owl:versionInfo "Version 4.0.0 - replace Persona/hasPersona with unified persona:Person named-graph model"@en ;
     rdfs:label "Persona Ontology"@en ;
     rdfs:comment """Persona Ontology for the Mee Identity Agent.
 
@@ -68,13 +68,12 @@
                               cco:ont00000990 ;  # Nickname (CCO core)
 
     # Document CCO classes used directly (note: use full IRIs, not cco: prefix)
-    p:usesCCOClass <https://purl.org/cco/ont00001262> ,  # Person
+    p:usesCCOClass <https://purl.org/cco/ont00001262> ,  # Person (superclass of persona:Person)
                          <https://purl.org/cco/ont00001331> ,  # Legal Name
                          <https://purl.org/cco/ont00000990> ,  # Nickname
                          <https://purl.org/cco/ont00000033> ,  # Online Service Account (StagingOntology)
                          <https://purl.org/cco/ont00000995> ,  # MaterialArtifact
-                         <https://purl.org/cco/ont00000020> ,  # Container
-                         <https://purl.org/cco/ont00000958> ;  # Information Content Entity
+                         <https://purl.org/cco/ont00000020> ;  # Container
 
     # Document which properties this application uses (note: use full IRIs)
     p:usesCCOProperty <https://purl.org/cco/ont00001879> ,            # designated by
@@ -88,8 +87,7 @@
                             <https://purl.org/cco/ent00000034> ,            # has service name
                             <https://purl.org/cco/ent00000035> ,            # has user handle
                             <https://purl.org/cco/ent00000036> ,            # has service URI
-                            <https://purl.org/cco/ont00001801> ,            # is subject of (parent of hasPersona)
-                            <http://purl.obolibrary.org/obo/BFO_0000101> .  # is carrier of (PhysicalCard → Persona)
+                            <http://purl.obolibrary.org/obo/BFO_0000101> .  # is carrier of (PhysicalCard → Person)
 
 
 #################################################################
@@ -131,34 +129,16 @@ p:usagePattern rdf:type owl:AnnotationProperty ;
 
 
 #################################################################
-#    Persona - a context-specific information profile of a Person
+#    Person - Mee-specific extension of cco:Person
 #################################################################
-p:Persona rdf:type owl:Class ;
-    rdfs:subClassOf <https://purl.org/cco/ont00000958> ;  # Information Content Entity
-    rdfs:subClassOf [
-        rdf:type owl:Restriction ;
-        owl:onProperty identity:hasIdentity ;
-        owl:maxQualifiedCardinality "1"^^xsd:nonNegativeInteger ;
-        owl:onClass identity:PDNidentity
-    ] ;
-    rdfs:label "Persona"@en ;
-    rdfs:comment """An Information Content Entity that represents how a Person appears
-                    in the context of a specific interaction — with a company, government
-                    agency, another person, or a group of people. A Persona is not itself
-                    a Person; it is a profile, or whoness, that is about a Person.
-                    A Person may have multiple Personas, linked via p:hasPersona."""@en .
-
-#################################################################
-#    hasPersona property - links a Person to a Persona (ICE)
-#################################################################
-p:hasPersona rdf:type owl:ObjectProperty ;
-    rdfs:subPropertyOf <https://purl.org/cco/ont00001801> ;  # is subject of (Entity → ICE)
-    rdfs:domain <https://purl.org/cco/ont00001262> ;  # Person (selfness)
-    rdfs:range p:Persona ;
-    rdfs:label "has persona"@en ;
-    rdfs:comment """links a Person (one's "selfness", essential individuality, or a sense of
-                    one's own unique personality and identity) to one of their context-specific
-                    Personas (whonesses)"""@en .
+p:Person rdf:type owl:Class ;
+    rdfs:subClassOf <https://purl.org/cco/ont00001262> ;  # CCO Person
+    rdfs:label "Person"@en ;
+    rdfs:comment """A Mee-specific extension of CCO Person. Each context file (named graph)
+                    contains exactly one persona:Person individual representing the subject
+                    of that context. The same IRI is used for the same real-world person
+                    across all context files — each file is a named-graph slice of that
+                    person's identity data."""@en .
 
 
 #################################################################
@@ -166,7 +146,7 @@ p:hasPersona rdf:type owl:ObjectProperty ;
 #################################################################
 
 p:hasSocialNetwork rdf:type owl:ObjectProperty ;
-    rdfs:domain p:Persona ;
+    rdfs:domain p:Person ;
     rdfs:range cco:ont00001183 ;    # Social Network
     rdfs:label "has social network"@en ;
     rdfs:comment """Links a Persona to a Social Network — the set of other people
@@ -180,7 +160,7 @@ p:hasSocialNetwork rdf:type owl:ObjectProperty ;
 #################################################################
 
 p:hasPaymentCard rdf:type owl:ObjectProperty ;
-    rdfs:domain p:Persona ;
+    rdfs:domain p:Person ;
     rdfs:range cco:ent00000049 ;    # Payment Card
     rdfs:label "holds payment card"@en ;
     rdfs:comment "Links a Persona to a Payment Card (credit, debit, or other) it records."@en .
@@ -198,7 +178,7 @@ p:RoutingNumber rdf:type owl:Class ;
     rdfs:comment "An ABA routing transit number identifying the financial institution. Used via designated by (ont00001879)."@en .
 
 p:hasBankAccount rdf:type owl:ObjectProperty ;
-    rdfs:domain p:Persona ;
+    rdfs:domain p:Person ;
     rdfs:range p:CheckingAccount ;
     rdfs:label "holds bank account"@en ;
     rdfs:comment "Links a Persona to a bank account it records."@en .
@@ -251,22 +231,16 @@ p:PhysicalSocialSecurityCard rdf:type owl:Class ;
     rdfs:comment "A paper or plastic card issued by the Social Security Administration."@en .
 
 p:hasPhysicalCard rdf:type owl:ObjectProperty ;
-    rdfs:domain p:Persona ;
+    rdfs:domain p:Person ;
     rdfs:range p:PhysicalCard ;
     rdfs:label "holds physical card"@en ;
     rdfs:comment "Links a Persona to a PhysicalCard carried outside of a wallet (e.g. stored at home or kept separately)."@en .
 
 p:hasWallet rdf:type owl:ObjectProperty ;
-    rdfs:domain p:Persona ;
+    rdfs:domain p:Person ;
     rdfs:range p:Wallet ;
     rdfs:label "holds wallet"@en ;
     rdfs:comment "Links a Persona to the physical wallet they carry."@en .
-
-p:dyad rdf:type owl:ObjectProperty ;
-    rdfs:domain p:Persona ;
-    rdfs:range p:Persona ;
-    rdfs:label "dyad"@en ;
-    rdfs:comment "Links a Persona to a corresponding Persona about the same subject, but asserted by the other party rather than by the Self."@en .
 
 p:hasImageScan rdf:type owl:DatatypeProperty ;
     rdfs:domain p:PhysicalCard ;

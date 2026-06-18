@@ -12,28 +12,22 @@
     owl:imports <http://mee.foundation/ontologies/persona> ;
     owl:imports <http://www.example.org/mia/paula(family)paula> ;
     dc:date "2026-06-12"^^xsd:date ;
-    owl:versionInfo "Version 1.0.9 - rename context #3 to paula(family)paula"@en ;
+    owl:versionInfo "Version 2.0.0 - unified persona:Person IRI model; remove hasPersona links"@en ;
     rdfs:label "Paula Walker - Selfness"@en ;
-    rdfs:comment """Paula Walker's selfness — the essential individuality and sense of selfhood from which
-                    context-specific Personas (whonesses) are correlated.
+    rdfs:comment """Paula Walker's selfness — the central identity individual. The same IRI (:Paula_Walker)
+                    is used in every context file about Paula; each file is a named-graph slice.
 
-                    Correlated Personas:
-                    - :Paula_Walker-FloridaBirthCertificate (under-development/paula(fl-birth-cert)alice.ttl) — legal name record
-                    - :Paula_Walker-as-colleague-of-Alice-at-Acme (01-paula(acme)alice.ttl)              — colleague persona
-                    - :Paula_Walker-Family                        (02-paula(family)alice.ttl)             — family persona (Alice's view)
-                    - :Paula_Walker-FamilySelf                    (03-paula(family)paula.ttl)     — family persona (self-asserted, dyad with above)"""@en .
+                    Paula's context files (all use :Paula_Walker):
+                    - 01-paula(acme)alice.ttl   — Paula as Alice's Acme colleague (Alice-asserted)
+                    - 02-paula(family)alice.ttl — Paula's family persona (Alice-asserted)
+                    - 03-paula(family)paula.ttl — Paula's family persona (self-asserted, dyad with 02)"""@en .
 
 
 #################################################################
 #    Paula Walker - Person Instance
 #################################################################
 
-:Paula_Walker-Self rdf:type owl:NamedIndividual ,
-                            <https://purl.org/cco/ont00001262> ;  # Person
+:Paula_Walker rdf:type owl:NamedIndividual ,
+                       persona:Person ;
     rdfs:label "Paula Walker"@en ;
-    rdfs:comment "Paula Walker's selfness — the central identity individual."@en ;
-
-    persona:hasPersona :Paula_Walker-FloridaBirthCertificate ;
-    persona:hasPersona :Paula_Walker-Family ;
-    persona:hasPersona :Paula_Walker-FamilySelf ;
-    persona:hasPersona :Paula_Walker-as-colleague-of-Alice-at-Acme .
+    rdfs:comment "Paula Walker's selfness — the central identity individual."@en .

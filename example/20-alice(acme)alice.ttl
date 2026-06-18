@@ -17,22 +17,22 @@
     owl:imports <http://mee.foundation/ontologies/context> ;
     owl:imports <http://www.example.org/mia/paula(acme)alice> ;
     dc:date "2026-06-12"^^xsd:date ;
-    owl:versionInfo "Version 1.0.4 - update import to paula(acme)alice"@en ;
+    owl:versionInfo "Version 2.0.0 - unified persona:Person IRI model; update hasMember link"@en ;
     context:contextCategory context:Employee ;
-    context:assertedBy :Alice_Walker-Self ;
-    context:subject :Alice_Walker-Self ;
+    context:assertedBy :Alice_Walker ;
+    context:subject :Alice_Walker ;
     context:name "Acme" ;
     rdfs:label "Alice Walker - Acme Persona"@en ;
     rdfs:comment """Alice Walker's employee whoness at Acme.
-                    Correlated from :Alice_Walker-Self in alice(self)alice.ttl."""@en .
+                    Shares IRI :Alice_Walker with alice(self)alice.ttl."""@en .
 
 
 #################################################################
 #    Alice Walker - Acme Persona
 #################################################################
 
-:Alice_Walker-Acme rdf:type owl:NamedIndividual ,
-                            persona:Persona ;
+:Alice_Walker rdf:type owl:NamedIndividual ,
+               persona:Person ;
     rdfs:label "Alice Walker (Acme)"@en ;
     rdfs:comment "Alice Walker's persona in the context of her employment at Acme."@en ;
 
@@ -51,4 +51,4 @@
 :Alice_Acme_Network rdf:type owl:NamedIndividual ,
                              cco:ont00001183 ;  # Social Network
     rdfs:label "Alice Walker's Acme connections"@en ;
-    <http://purl.obolibrary.org/obo/BFO_0000115> :Paula_Walker-as-colleague-of-Alice-at-Acme .  # has member part
+    <http://purl.obolibrary.org/obo/BFO_0000115> :Paula_Walker .  # has member part

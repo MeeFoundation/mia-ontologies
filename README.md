@@ -32,50 +32,44 @@ We first present an overview of the five ontologies and then illustrate them thr
 The Persona ontology defines a formal, machine-readable model of a person. It is used by Mia to represent the user and to bi-directionally synchronize this information with other Mia users on a Personal Data Network that includes other Mia users as well as groups and organizations. 
 
 
-We represent a person as a single `Person` entity (their essential individuality or unique selfhood), along with multiple `p:Personas`, one per relationship or institutional context. Each Persona carries the information relevant to each context. It can include names, addresses, phone numbers, SSNs, physical characteristics, parent-child relationships, social connections, payment cards, knowledge artifacts, events, meeting notes, ... a huge variety of information types. To do so, it reuses existing well-known ontologies wherever possible and defining new terms only where no suitable existing term exists.
-
-A`p:Persona` is an Information Content Entity (CCO `ont00000958`) — a context-specific facet of a `Person`. `p:Persona` instances are linked to the `Person` entity via `p:hasPersona`, a sub-property of CCO `is subject of` (`ont00001801`). Each `p:Persona` carries the claims relevant to its specific context. 
-
-A `p:Persona` can itself carry `p:hasPersona`. This allows intermediate, branch level `p:Personas` which in turn link to leaf level `p:Personas`. The claims of intermediate `p:Personas` are inherited by leaf `p:Personas` to which they are linked.
+We represent a person using the `persona:Person` class — a Mee-specific subclass of CCO `Person` (`cco:ont00001262`). Each context file contains exactly one `persona:Person` individual, identified by a unified IRI (e.g. `:Alice_Walker`) that is shared across all context files about that person. These context files function as *named-graph slices* — each is an independent snapshot of that person's identity in a specific relationship or institutional context, carrying the claims relevant to that context: names, addresses, phone numbers, SSNs, physical characteristics, parent-child relationships, social connections, payment cards, and more. The Persona ontology reuses existing well-known ontologies wherever possible and defines new terms only where no suitable existing term exists.
 
 <p align="center"><img src="images/persona-ontology/persona.png" alt="Persona model"></p>
 
 ### Key properties and classes
 
-This section describes the most fundamental properties and classes in the Persona ontology. The interconnection of a Person object in the Self container with multiple Persona objects in separate contexts forms the foundational graph structure. 
+This section describes the most fundamental properties and classes in the Persona ontology. A person's identity data is spread across multiple named-graph slice files, each containing one `persona:Person` individual with the same unified IRI.
 
 **Classes**
 
-* `p:Persona` — an Information Content Entity that represents how a person appears in the context of a specific interaction — with a company, government agency, another person, or a group of people. A `p:Persona` is a context-specific facet of that person linked via `p:hasPersona`.
+* `persona:Person` — a Mee-specific subclass of CCO `Person` (`cco:ont00001262`). Each context file (named-graph slice) contains exactly one `persona:Person` individual. The same IRI is used for the same person across all context files (e.g. `:Alice_Walker` appears in every context file about Alice Walker). All identity data — names, identifiers, addresses, social networks, payment cards, and more — attaches to this individual.
 
-**p:Persona Properties**
+**Properties**
 
-* `p:hasPersona` — links a `Person` (one's "selfness", essential individuality, or a sense of one's own unique personality and identity) to one of their context-specific `p:Persona` instances.
-* `i:hasIdentity` — links a `p:Persona` to a `i:PDNidentity` — the identifier used to communicate with this Persona over the Personal Data Network. Sub-property of CCO `designated by`.
-* `p:dyad` — links a `p:Persona` to a corresponding `p:Persona` about the same subject, but asserted by the other party rather than by the user.
+* `i:hasIdentity` — links a `persona:Person` to a `i:PDNidentity` — the identifier used to communicate with this Person over the Personal Data Network. Sub-property of CCO `designated by`.
 
 ### Persona Templates
 
-`p:PersonaTemplate` is an abstract subclass of `p:Persona` that serves as the common super class for all reusable, context-type-specific Persona subtypes. These subtypes are defined in `persona-templates.ttl` and have corresponding SHACL shapes in `persona-templates-shacl.ttl` (imported by `persona-shacl.ttl`).
+`p:PersonaTemplate` is an abstract classification class that serves as the common superclass for all reusable, context-type-specific template labels. These labels are defined in `persona-templates.ttl`. A context file declares its template by annotating its `owl:Ontology` header with `c:template` rather than by typing its `persona:Person` individual. Per-template SHACL files live in the `shacl/` subdirectory.
 
 <p align="center"><img src="images/persona-ontology/persona-templates.png" alt="persona templates model"></p>
 
-The three currently defined subclasses are:
+The three currently defined subclasses of `p:PersonaTemplate` are:
 
-* `p:BirthCertificate` — carries a person's legal birth name record as issued by a state agency. SHACL shape `:BirthCertificatePersonaShape` enforces:
+* `p:BirthCertificate` — label for context files that carry a person's legal birth name record as issued by a state agency. Used as the value of `c:template persona:BirthCertificate` on the ontology header. SHACL shape `:BirthCertificatePersonShape` (in `shacl/birthcertificate-shacl.ttl`) enforces:
   - **Required**: either a `FullName` designator **or** both a `GivenName` and a `FamilyName` designator (via `designated by`, `ont00001879`) — expressed with `sh:or`.
   - **Optional**: `AdditionalName` (middle name), `AlternateName` (e.g. maiden name), `Nickname`, and `Legal Name` designators.
 
-* `p:JSContactCard` — carries professional contact details in the JSContact (RFC 9553) format. SHACL shape `:JSContactCardShape` enforces:
+* `p:JSContactCard` — label for context files that carry professional contact details in the JSContact (RFC 9553) format. Used as the value of `c:template persona:JSContactCard`. SHACL shape `:JSContactCardPersonShape` (in `shacl/jscontactcard-shacl.ttl`) enforces:
   - **Required**: exactly one `OrganizationName` designator; at least one `Email` or `TelephoneNumber` designator.
   - **Optional**: all name components, `OrganizationUnit`, `JobTitle`, addresses, online services, anniversaries, personal info, photo.
   - **Max 1** on all single-valued name and organization components.
   See the [JSContact field coverage table](#jscontact-field-coverage) below for the complete mapping.
 
-* `p:DriversLicense` — carries the identity claims on a state-issued driver's license. SHACL shape `:DriversLicenseShape` enforces:
+* `p:DriversLicense` — label for context files that carry the identity claims on a state-issued driver's license. Used as the value of `c:template persona:DriversLicense`. SHACL shape `:DriversLicensePersonShape` (in `shacl/driverslicense-shacl.ttl`) enforces:
   - **Required**: `FullName` **or** (`GivenName` + `FamilyName`); exactly one `Birthdate` (`cco:ent00000046`); exactly one `p:DriversLicenseNumber`; exactly one `ExpirationDateIdentifier` (`cco:ent00000054`).
   - **Optional**: `AdditionalName`; `p:IssuingJurisdiction` (USPS 2-letter state code, validated by `USStateNameShape`); `PostalAddress`; `p:hasPhoto`.
-  Note: `p:PhysicalDriversLicense` (in `persona.ttl`) models the physical card object held in a wallet — `p:DriversLicense` is the persona template that models the identity data the license asserts.
+  Note: `p:PhysicalDriversLicense` (in `persona.ttl`) models the physical card object held in a wallet — `p:DriversLicense` is the template label that marks a context file as carrying driver's license identity data.
 
 #### JSContact field coverage
 
@@ -117,9 +111,9 @@ The table below maps every JSContact (RFC 9553) property to its representation i
 | ↳ `level` | — | **JSC** `p:personalInfoLevel` | datatype property | — |
 | `photos[].uri` | 0..N | **JSC** `p:hasPhoto` (xsd:anyURI) | datatype property | — |
 | `legalName` | 0..1 | `cco:ont00001331` Legal Name | `designated by` | — |
-| `uid` | 1 | IRI of the `p:Persona` individual | — | — |
+| `uid` | 1 | IRI of the `persona:Person` individual | — | — |
 | `notes` | 0..N | Person Note via `has text value` | `designated by` | — |
-| `relatedTo` | 0..N | `p:dyad` (peer); `BFO_0000115` (member) | object property | — |
+| `relatedTo` | 0..N | `c:dyad` (graph-level peer); `BFO_0000115` (member) | annotation / object property | — |
 | `updated` | 0..1 | `owl:versionInfo` on the context file | annotation | — |
 | `language` | 0..1 | *(not yet mapped)* | — | — |
 | `categories` | 0..N | *(not yet mapped)* | — | — |
@@ -135,15 +129,15 @@ This section describes classes and properties related to a person's social netwo
 
 **Properties**
 
-* `p:hasSocialNetwork` - a social network - other people known by the Persona carrying the social network. The holder is not included as a member part of the social network object, but *is* considered to be a part of it by virtue of holding the network entity.
-* `BFO_0000115` - has member part. Links to `p:Persona` members of this network.
+* `p:hasSocialNetwork` - a social network — other people known by the `persona:Person` carrying the social network. The holder is not included as a member part of the social network object, but *is* considered to be a part of it by virtue of holding the network entity.
+* `BFO_0000115` - has member part. Links to `persona:Person` members of this network.
 
 ### Possession-related classes and properties
 
 This section describes properties and classes related to things a person has, holds, possesses, purchased, or rents. 
 
  - Physical plastic/paper cards are `MaterialArtifact` subclasses that include driver's license, health insurance card, payment card, etc.
- - Physical wallets - Cards may be placed in a wallet (via BFO `continuant part of`) or held directly by the `p:Persona` (via `p:hasPhysicalCard`).
+ - Physical wallets - Cards may be placed in a wallet (via BFO `continuant part of`) or held directly by the `persona:Person` (via `p:hasPhysicalCard`).
 
 <p align="center"><img src="images/persona-ontology/persona-card.png" alt="Card possessions model"></p>
 
@@ -158,10 +152,10 @@ This section describes properties and classes related to things a person has, ho
 
 **Properties**
 
-* `is carrier of` (from BFO) — used to link a physical card to its corresponding `p:Persona` in another context.
-* `p:hasWallet` — links a `p:Persona` to a physical wallet (see Belongings below).
+* `is carrier of` (from BFO) — used to link a physical card to its corresponding `persona:Person` in another context.
+* `p:hasWallet` — links a `persona:Person` to a physical wallet (see Belongings below).
 * `p:hasImageScan` — a link to a scanned image of this card.
-* `p:hasPhysicalCard` — links a `p:Persona` to a `p:PhysicalCard` carried outside of a wallet (see Belongings below).
+* `p:hasPhysicalCard` — links a `persona:Person` to a `p:PhysicalCard` carried outside of a wallet (see Belongings below).
 
 ### Accounts
 
@@ -169,7 +163,7 @@ This section describes properties and classes related to a person's relationship
 
 **Properties**
 
-* `holds user account` (CCO) — links a `p:Persona` to an `OnlineServiceAccount`.
+* `holds user account` (CCO) — links a `persona:Person` to an `OnlineServiceAccount`.
 * `has service name` (CCO) — the name of the online service (e.g. "Google").
 * `has service URI` (CCO) — the URI of the online service.
 * `has user handle` (CCO) — the user's handle or username on the service.
@@ -187,39 +181,43 @@ This section describes properties and classes related to a person's interactions
 
 **Properties**
 
-* `p:hasBankAccount` — links a `p:Persona` to a `p:CheckingAccount` it records.
+* `p:hasBankAccount` — links a `persona:Person` to a `p:CheckingAccount` it records.
 * `p:accessesBankAccount` — links a DebitCard to the `p:CheckingAccount` it draws funds from.
 
 ### Modeling details
 
 This section describes a few details related to modeling names and addresses.
 
-**Peer name pattern**: All name types (FullName, GivenName, FamilyName, AlternateName) connect directly to a `Person` or `p:Persona` via `designated by` (`ont00001879`). They are siblings, not nested under a PersonName parent. Legal names belong to `p:BirthCertificate` instances; a preferred/goes-by name lives in `alice(self)alice.ttl` since it applies across all contexts.
+**Peer name pattern**: All name types (FullName, GivenName, FamilyName, AlternateName) connect directly to a `persona:Person` via `designated by` (`ont00001879`). They are siblings, not nested under a PersonName parent. Legal names belong to the birth certificate context file (annotated `c:template persona:BirthCertificate`); a preferred/goes-by name lives in `alice(self)alice.ttl` since it applies across all contexts.
 
-**Address history**: Each address `p:Persona` carries a USPostalAddress and an `AddressDesignation` with a `TemporalInterval` (start date required; no end date = current address).
+**Address history**: Each address context file carries a `persona:Person` with a USPostalAddress and an `AddressDesignation` with a `TemporalInterval` (start date required; no end date = current address).
 
 ### Persona Ontology Files
 
-- **`persona.ttl`** — The Persona ontology. Imports the domain ontologies above and documents which classes and properties Mia uses (required vs. optional). Defines Mia-specific extension properties (`p:hasPersona`, `p:hasSocialNetwork`, `p:hasPaymentCard`, `p:hasBankAccount`, etc.) and the core Persona data model classes (`p:Persona`, physical card classes, banking classes, and others).
-- **`persona-templates.ttl`** — Defines `p:PersonaTemplate` (abstract subclass of `p:Persona`) and the three concrete subtypes `p:BirthCertificate`, `p:JSContactCard`, and `p:DriversLicense`. Also defines related designator classes (`p:DriversLicenseNumber`, `p:IssuingJurisdiction`, `p:Credential`, `p:WebURL`, `p:OrganizationUnit`, `p:JobTitle`), complex information classes (`p:Anniversary`, `p:PersonalInfo`), annotation properties for JSContact channel labels (`p:contactContext`, `p:phoneFeature`, `p:serviceLabel`), and `p:hasPhoto`. Imported by `persona.ttl` so all context files inherit these classes transitively.
+- **`persona.ttl`** — The Persona ontology. Imports the domain ontologies above and documents which classes and properties Mia uses (required vs. optional). Defines `persona:Person` (Mee-specific subclass of CCO `Person`), Mia-specific extension properties (`p:hasSocialNetwork`, `p:hasPaymentCard`, `p:hasBankAccount`, etc.), and the core data model classes (physical card classes, banking classes, and others).
+- **`persona-templates.ttl`** — Defines `p:PersonaTemplate` (abstract classification superclass) and the three concrete subtypes `p:BirthCertificate`, `p:JSContactCard`, and `p:DriversLicense`. These are used as values of the `c:template` annotation on context file ontology headers — they classify the context file, not the `persona:Person` individual inside it. Also defines related designator classes (`p:DriversLicenseNumber`, `p:IssuingJurisdiction`, `p:Credential`, `p:WebURL`, `p:OrganizationUnit`, `p:JobTitle`), complex information classes (`p:Anniversary`, `p:PersonalInfo`), annotation properties for JSContact channel labels (`p:contactContext`, `p:phoneFeature`, `p:serviceLabel`), and `p:hasPhoto`. Imported by `persona.ttl` so all context files inherit these classes transitively.
 
-- **`persona-templates-shacl.ttl`** — SHACL shapes for `p:PersonaTemplate` subtypes. Imported by `persona-shacl.ttl`. Validates properties including:
-  - *`p:BirthCertificate` instances*: FullName OR (GivenName + FamilyName) required; optional AdditionalName, AlternateName, Nickname, Legal Name
-  - *`p:JSContactCard` instances*: OrganizationName required (1..1); at least one Email or TelephoneNumber required; all name components and OrganizationUnit/JobTitle optional (0..1 each)
-  - *`p:DriversLicense` instances*: FullName OR (GivenName + FamilyName) required; Birthdate, DriversLicenseNumber, ExpirationDateIdentifier required (1..1 each); IssuingJurisdiction, PostalAddress, and hasPhoto optional
+- **`shacl/birthcertificate-shacl.ttl`** — SHACL shapes for birth certificate context files (`c:template persona:BirthCertificate`). Validates `persona:Person` instances found in those files:
+  - FullName OR (GivenName + FamilyName) required; optional AdditionalName, AlternateName, Nickname, Legal Name.
 
-- **`persona-shacl.ttl`** — SHACL constraint rules for all `p:Persona` instances. Imports `persona-templates-shacl.ttl`. Validates properties including:
-  - *All `p:Persona` instances*: SSN format (`NNN-NN-NNNN`), email format, phone (E.164), address cardinality, payment cards, wallet
+- **`shacl/jscontactcard-shacl.ttl`** — SHACL shapes for JSContactCard context files (`c:template persona:JSContactCard`). Validates `persona:Person` instances:
+  - OrganizationName required (1..1); at least one Email or TelephoneNumber required; all name components and OrganizationUnit/JobTitle optional (0..1 each).
+
+- **`shacl/driverslicense-shacl.ttl`** — SHACL shapes for driver's license context files (`c:template persona:DriversLicense`). Validates `persona:Person` instances:
+  - FullName OR (GivenName + FamilyName) required; Birthdate, DriversLicenseNumber, ExpirationDateIdentifier required (1..1 each); IssuingJurisdiction, PostalAddress, and hasPhoto optional.
+
+- **`persona-shacl.ttl`** — SHACL constraint rules for all `persona:Person` individuals across all context files. Validates properties including:
+  - *All `persona:Person` instances*: SSN format (`NNN-NN-NNNN`), email format, phone (E.164), address cardinality, payment cards, wallet, social network, bank account
   - *US Postal Address*: required street, city, state (USPS 2-letter), ZIP; optional country
-  - *`Person` (selfness)*: scalp hair (0..1); `has mother` / `is mother of` range must be a `Person`
-  - *Social Network*: sub-groups (via `has part`) must be Social Networks; members (via `has member part`) must be `p:Persona` instances
+  - *`persona:Person`*: scalp hair (0..1); `has mother` / `is mother of` range must be a `persona:Person`
+  - *Social Network*: sub-groups (via `has part`) must be Social Networks; members (via `has member part`) must be `persona:Person` instances
   - *Debit Card*: card number and expiration date required; CVV optional
   - *`p:Wallet`*: items declaring themselves `continuant part of` this wallet must be `p:PhysicalCard` instances
   - *`p:PhysicalCard`*: image scan, if present, must be `xsd:anyURI` (max 1); `continuant part of` target, if present, must be a `p:Wallet` (max 1)
 
 ### Validation
 
-`persona-shacl.ttl` validates instance data against the Persona ontology. Key constraints: `p:BirthCertificate` instances must have FullName OR (GivenName + FamilyName); SSNs must match `NNN-NN-NNNN` format; US postal addresses must have street, city, state (USPS 2-letter code), and ZIP; debit cards must have a card number and expiration date; a `p:Persona` may have at most one `i:hasIdentity`. The Persona Ontology Files section above lists the full set of constraints.
+`persona-shacl.ttl` validates all `persona:Person` instances. Key constraints: SSNs must match `NNN-NN-NNNN` format; US postal addresses must have street, city, state (USPS 2-letter code), and ZIP; debit cards must have a card number and expiration date. Per-template SHACL files in `shacl/` add additional constraints: birth certificate files require FullName OR (GivenName + FamilyName); JSContactCard files require OrganizationName and at least one contact channel; driver's license files require name, DOB, license number, and expiration date. The Persona Ontology Files section above lists the full set of constraints.
 
 ## Group Ontology
 
@@ -259,20 +257,23 @@ The Organization ontology models organizations — companies, government agencie
 
 ## Context Ontology
 
-A context is a container of information whose primary subject is one of the three kinds of PDN node: a `p:Persona` (representing a context-specific facet of a person), a `g:Group`, or an `o:Organization`. It holds the subject's claims and, in the case of a `p:Persona` subject, may also include the `p:Persona` facets of other people in that context. A context is implemented as a `.ttl` file that by convention contains an owl:Ontology. The context ontology defines four required properties of this owl:Ontology:
+A context is a container of information whose primary subject is one of the three kinds of PDN node: a `persona:Person` individual (a named-graph slice of a person's identity in a specific context), a `g:Group`, or an `o:Organization`. It holds the subject's claims and, in the case of a `persona:Person` subject, may also include `persona:Person` individuals for other people in that context. A context is implemented as a `.ttl` file that by convention contains an `owl:Ontology`. The context ontology defines properties of this `owl:Ontology` header:
 
 - A human-readable name for the context (`c:name`) — a plain string, e.g. `"Citibank"`.
 - What is the category of context (`c:contextCategory`), e.g. relationships with family members, interactions with a bank, etc.
-- Who is making the assertions the context contains (`c:assertedBy`) - its value is a `i:PDNidentity`
-- Who is the context mainly about (`c:subject`) - its value is a `i:PDNidentity`
+- Who is making the assertions the context contains (`c:assertedBy`) — its value is a `i:PDNidentity`.
+- Who is the context mainly about (`c:subject`) — its value is a `i:PDNidentity`.
+- The template type for specialized context files (`c:template`) — its value is a `p:PersonaTemplate` subclass (e.g. `persona:BirthCertificate`, `persona:JSContactCard`, `persona:DriversLicense`). Present only on context files that conform to a specific template.
+- The dyad partner for 1:1 relationship context files (`c:dyad`) — its value is the IRI of the partner context file's `owl:Ontology`. If context file A carries `c:dyad` pointing to context file B, then B must carry `c:dyad` pointing back to A.
+
 `c:contextCategory` takes values from the `c:ContextCategory` hierarchy; both `c:assertedBy` and `c:subject` take values from the `i:PDNidentity` hierarchy defined in identity.ttl.
 
 **`c:contextCategory`** — The nature of the interaction/relationship context. Values form a subclass hierarchy under `c:ContextCategory`:
 
-- `c:MultiPerson` — a context whose subject is one of the Self's `p:Personas` *and* that includes a social network with `has member` links to the `p:Personas` of other people in other contexts.  Examples: family relationships, colleague networks, friend groups.
+- `c:MultiPerson` — a context whose subject is the Self *and* that includes a social network with `has member` links to `persona:Person` individuals of other people in other contexts. Examples: family relationships, colleague networks, friend groups.
   - `c:Group` — interactions with a formal or informal group of people.
   - `c:Person` and subtypes `c:Family`, `c:Friend`, `c:Consultant` — interactions with individual people in a person's life.
-- `c:SinglePerson` — a context containing only one of the Self's `p:Personas` -- no other person's `p:Persona` appears in it. It describes the Self's relationship with (and interactions with) a specific institution, role, possession, or area of knowledge. Examples: a bank account, a driver's license, a car.
+- `c:SinglePerson` — a context containing only a `persona:Person` slice for the Self — no other person's `persona:Person` appears in it. It describes the Self's relationship with (and interactions with) a specific institution, role, possession, or area of knowledge. Examples: a bank account, a driver's license, a car.
   - `c:Work` and subtypes `c:Employee`, `c:Contributor`, `c:Creator` — professional roles.
   - `c:Company` and subtype `c:Health` — interactions and/or relationship with a company or other non-governmental organization.
   - `c:Finance` — information about personal finances not related to any interactions with banks, financial institutions or government agencies.
@@ -332,9 +333,9 @@ The Identity ontology is used to describe the kinds of identities that Mia can c
 
 ## Illustrative Example: Alice 
 
-This section describes the local Mia dataset for a hypothetical user, Alice Walker. 
+This section describes the local Mia dataset for a hypothetical user, Alice Walker.
 
-Within Alice's self context is `:Alice_Walker-Self`, a `Person` entity. It is linked via `p:hasPersona` links to multiple `p:Personas`- each in its own context outside the self context container (`example/alice(self)alice.ttl`).
+Within Alice's self context is `:Alice_Walker`, a `persona:Person` individual. The same IRI, `:Alice_Walker`, is used for Alice in every context file — each file is a named-graph slice of her identity in a specific context. The self context (`example/alice(self)alice.ttl`) imports all of Alice's other context files.
 
 <p align="center"><img src="example/images/alice(self)alice.png" alt="Alice's self"></p>
 
@@ -350,7 +351,7 @@ Here is an overview of the contexts in Alice's Mia.
 
 ### Alice's Personas and Contexts
 
-As we've mentioned, Alice interacts with other people, organizations and groups in contexts of different types with each context holding a distinct `p:Persona` facet.
+Alice interacts with other people, organizations and groups in contexts of different types, with each context file holding a `persona:Person` slice of her identity.
 
 The contexts in the table below are *about* Alice and asserted *by* Alice. All `.ttl` files are in the `example/` folder.
 
@@ -406,7 +407,7 @@ pip install rdflib graphviz
 brew install graphviz
 ```
 
-Each diagram shows the `p:Persona` individual (yellow), supporting named individuals (white boxes), class labels (plain text), blank-node designator chains, and literal values (green).
+Each diagram shows the `persona:Person` individual (yellow), supporting named individuals (white boxes), class labels (plain text), blank-node designator chains, and literal values (green).
 
 ## Validation
 

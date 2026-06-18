@@ -16,7 +16,7 @@
     owl:imports <http://mee.foundation/ontologies/persona> ;
     owl:imports <http://mee.foundation/ontologies/context> ;
     dc:date "2026-06-01"^^xsd:date ;
-    owl:versionInfo "Version 1.0.10 - align ontology IRI with filename"@en ;
+    owl:versionInfo "Version 2.0.0 - unified persona:Person IRI model"@en ;
     context:contextCategory context:Federal ;
     context:assertedBy identity:Self ;
     context:subject identity:Self ;
@@ -24,7 +24,7 @@
     rdfs:label "Alice Walker - SSA Persona"@en ;
     rdfs:comment """Alice Walker's SSA whoness — representing her in the context of her
                     Social Security Administration record.
-                    Correlated from :Alice_Walker-Self in alice(self)alice.ttl.
+                    Shares IRI :Alice_Walker with alice(self)alice.ttl.
 
                     SSN: 123-45-6788"""@en .
 
@@ -33,8 +33,8 @@
 #    Alice Walker - SSA Persona
 #################################################################
 
-:Alice_Walker-SSA rdf:type owl:NamedIndividual ,
-                           persona:Persona ;
+:Alice_Walker rdf:type owl:NamedIndividual ,
+               persona:Person ;
     rdfs:label "Alice Walker (SSA)"@en ;
     rdfs:comment "Alice Walker's persona in the context of her Social Security Administration record."@en ;
 

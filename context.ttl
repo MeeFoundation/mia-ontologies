@@ -11,7 +11,7 @@
     owl:versionIRI <http://mee.foundation/ontologies/context/1.0.1> ;
     dc:date "2026-06-01"^^xsd:date ;
     owl:imports <http://mee.foundation/ontologies/identity> ;
-    owl:versionInfo "Version 1.0.32 - update comment on Finance"@en ;
+    owl:versionInfo "Version 1.0.33 - add context:template and context:dyad annotation properties"@en ;
     rdfs:label "Context Ontology"@en ;
     rdfs:comment """Context Ontology for the Mee Identity Agent.
 
@@ -54,9 +54,27 @@ context:subject rdf:type owl:AnnotationProperty ;
 context:name rdf:type owl:AnnotationProperty ;
     rdfs:label "name"@en ;
     rdfs:comment """A human-readable name for this context ontology (file).
-                    Applied to the ontology IRI, not to the Persona individual."""@en ;
+                    Applied to the ontology IRI, not to the Person individual."""@en ;
     rdfs:domain owl:Ontology ;
     rdfs:range xsd:string .
+
+context:template rdf:type owl:AnnotationProperty ;
+    rdfs:label "template"@en ;
+    rdfs:comment """Tags a context ontology (file) with the persona template type that applies to it.
+                    Value is one of the persona:PersonaTemplate subclasses
+                    (persona:BirthCertificate, persona:JSContactCard, persona:DriversLicense).
+                    Used to select the appropriate per-template SHACL shapes file for validation.
+                    Applied to the ontology IRI."""@en ;
+    rdfs:domain owl:Ontology ;
+    rdfs:range <http://mee.foundation/ontologies/persona#PersonaTemplate> .
+
+context:dyad rdf:type owl:AnnotationProperty ;
+    rdfs:label "dyad"@en ;
+    rdfs:comment """Tags a context ontology (file) with the IRI of its dyad partner context —
+                    the reciprocal context about the same relationship asserted by the other party.
+                    Applied to the ontology IRI. Must be symmetric: if A dyad B then B dyad A."""@en ;
+    rdfs:domain owl:Ontology ;
+    rdfs:range owl:Ontology .
 
 
 

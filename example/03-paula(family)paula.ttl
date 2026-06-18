@@ -16,23 +16,22 @@
     owl:imports <http://mee.foundation/ontologies/persona> ;
     owl:imports <http://mee.foundation/ontologies/context> ;
     dc:date "2026-06-14"^^xsd:date ;
-    owl:versionInfo "Version 1.0.4 - rename to paula(family)paula; context name Family"@en ;
+    owl:versionInfo "Version 2.0.0 - unified persona:Person IRI model; dyad moved to graph level"@en ;
     context:contextCategory context:Family ;
-    context:assertedBy :Paula_Walker-Self ;
-    context:subject :Paula_Walker-Self ;
+    context:assertedBy :Paula_Walker ;
+    context:subject :Paula_Walker ;
     context:name "Family" ;
+    context:dyad <http://www.example.org/mia/paula(family)alice> ;
     rdfs:label "Paula Walker - member of Alice's family"@en ;
     rdfs:comment """What Paula states about herself in the context of her familial relationship with Alice.
-                    Correlated from :Paula_Walker-Self in paula(self)paula.ttl."""@en .
+                    Shares IRI :Paula_Walker with paula(self)paula.ttl."""@en .
 
 
 #################################################################
 #    Paula Walker - Family Persona (self-asserted)
 #################################################################
 
-:Paula_Walker-FamilySelf rdf:type owl:NamedIndividual ,
-                                  persona:Persona ;
-    rdfs:label "Paula Walker (Family) self-asserted"@en ;
-
-    persona:dyad :Paula_Walker-Family .  # dyad: Alice's view of Paula in family context
+:Paula_Walker rdf:type owl:NamedIndividual ,
+               persona:Person ;
+    rdfs:label "Paula Walker (Family) self-asserted"@en .
 

@@ -17,14 +17,15 @@
     owl:imports <http://mee.foundation/ontologies/context> ;
     owl:imports <http://mee.foundation/ontologies/persona-templates> ;
     dc:date "2026-06-01"^^xsd:date ;
-    owl:versionInfo "Version 1.0.14 - align ontology IRI with filename"@en ;
+    owl:versionInfo "Version 2.0.0 - unified persona:Person IRI model; template moved to graph level"@en ;
     context:contextCategory context:State ;
     context:assertedBy identity:Self ;
     context:subject identity:Self ;
     context:name "Texas Birth Certificate" ;
+    context:template persona:BirthCertificate ;
     rdfs:label "Alice Walker - Texas Birth Certificate"@en ;
     rdfs:comment """What Alice Walker states about her Texas-issued birth certificate
-                    Correlated from :Alice_Walker-Self in alice(self)alice.ttl.
+                    Shares IRI :Alice_Walker with alice(self)alice.ttl.
                     Legal Name: Margery Alice Walker
                     Maiden Name: Margery Alice Arnold"""@en .
 
@@ -33,8 +34,8 @@
 #    Alice Walker - Texas Birth Certificate Persona
 #################################################################
 
-:Alice_Walker-TexasBirthCertificate rdf:type owl:NamedIndividual ,
-                                             persona:BirthCertificate ;
+:Alice_Walker rdf:type owl:NamedIndividual ,
+               persona:Person ;
     rdfs:label "Alice Walker (Texas Birth Certificate)"@en ;
 
     # PEER NAMES (No hierarchical PersonName)

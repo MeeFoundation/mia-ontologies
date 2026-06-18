@@ -9,20 +9,20 @@
 @prefix mia: <http://www.example.org/mia#> .
 @prefix persona: <http://mee.foundation/ontologies/persona#> .
 
-# Imports Mee Identity Agent (MIA)'s Application Ontology (which imports the domains)
 <http://www.example.org/shapes> rdf:type owl:Ontology ;
     owl:imports <http://www.example.org/mia> ;
-    owl:imports <http://www.example.org/shapes/persona-templates> ;
-    owl:versionInfo "Version 3.0.31 - import persona-templates-shacl for JSContactCardShape"@en ;
+    owl:versionInfo "Version 4.0.0 - unified persona:Person model; merged PersonShape and PersonaShape; removed hasPersona/dyad constraints; template shapes moved to shacl/"@en ;
     rdfs:label "Mee Identity Agent (MIA)'s SHACL Validation Shapes"@en ;
     rdfs:comment """SHACL validation shapes for the Mee Identity Agent.
 
-                    Architecture: peer names — all name types (FullName, GivenName, FamilyName, etc.)
-                    connect directly to Person via designated_by (ont00001879). No intermediate PersonName.
+                    Architecture: named-graph slices — each context file contains exactly one
+                    persona:Person individual identified by a unified IRI (e.g. :Alice_Walker).
+                    PersonShape targets all persona:Person individuals across all context files.
 
-                    PersonShape targets non-Persona Persons only. Names belong to context-specific
-                    Personas (e.g. a birth certificate Persona), not to the selfness. Identifier nodes
-                    (SSN, email, phone, address) are validated by their own NodeShapes when present and typed.
+                    Per-template SHACL files live in shacl/:
+                      shacl/birthcertificate-shacl.ttl
+                      shacl/jscontactcard-shacl.ttl
+                      shacl/driverslicense-shacl.ttl
 
                     Key property IRIs:
                     - ont00001879  = designated by   (Person ← Name/Identifier)
@@ -33,14 +33,15 @@
 """@en .
 
 #################################################################
-#  Person & Persona
+#  Person
+#  Each context file slice contains exactly one persona:Person.
+#  All identity data — names, identifiers, addresses, cards — attach here.
 #################################################################
 
 :PersonShape
     a sh:NodeShape ;
-    # Targets Person instances only. Personas are now ICEs (not Persons), so no filter needed.
-    sh:targetClass <https://purl.org/cco/ont00001262> ;
-    sh:message "Person (selfness) validation: physical characteristics and parent-child relationships."@en ;
+    sh:targetClass persona:Person ;
+    sh:message "Person validation: physical characteristics, identifiers, and relationship properties."@en ;
 
     # Optional: scalp hair (0..1); hair color validated by :ScalpHairShape
     sh:property [
@@ -53,35 +54,24 @@
     # Optional: mother relationship (0..many)
     sh:property [
         sh:path cco:ont00001786 ;  # is mother of
-        sh:class <https://purl.org/cco/ont00001262> ;  # Person
+        sh:class persona:Person ;
         sh:message "The object of 'is mother of' must be a Person."@en
     ] ;
 
     # Optional: has mother (0..1)
     sh:property [
         sh:path cco:ont00001780 ;  # has mother
-        sh:class <https://purl.org/cco/ont00001262> ;  # Person
+        sh:class persona:Person ;
         sh:maxCount 1 ;
         sh:message "The object of 'has mother' must be a Person."@en
-    ] .
-
-#################################################################
-#  Persona
-#  A Persona is a context-specific facet of a Person. Names and identifiers
-#  belong to Personas (e.g. a birth certificate Persona carries legal names).
-#################################################################
-
-:PersonaShape
-    a sh:NodeShape ;
-    sh:targetClass persona:Persona ;
-    sh:message "Persona validation: identifiers and payment cards validated when present and typed."@en ;
+    ] ;
 
     # Optional: SSN (0..1); validity enforced by :SSNShape
     sh:property [
         sh:path <https://purl.org/cco/ont00001879> ;  # designated by
         sh:qualifiedValueShape [ sh:class cco:ent00000008 ] ;
         sh:qualifiedMaxCount 1 ;
-        sh:message "At most one SocialSecurityNumber may be attached to a Persona."@en
+        sh:message "At most one SocialSecurityNumber may be attached to a Person."@en
     ] ;
 
     # Optional: email addresses (0..20); validity enforced by :EmailAddressShape
@@ -105,7 +95,7 @@
         sh:path <https://purl.org/cco/ont00001879> ;  # designated by
         sh:qualifiedValueShape [ sh:class cco:ent00000047 ] ;  # OrganizationName
         sh:qualifiedMaxCount 1 ;
-        sh:message "At most one OrganizationName may be attached to a Persona."@en
+        sh:message "At most one OrganizationName may be attached to a Person."@en
     ] ;
 
     # Optional: US postal address (0..1); validity enforced by :USPostalAddressShape
@@ -121,7 +111,7 @@
         sh:path persona:hasSocialNetwork ;
         sh:class cco:ont00001183 ;  # Social Network
         sh:maxCount 1 ;
-        sh:message "A Persona may have at most one Social Network; it must be of type Social Network."@en
+        sh:message "A Person may have at most one Social Network; it must be of type Social Network."@en
     ] ;
 
     # Optional: payment cards (0..many)
@@ -136,7 +126,7 @@
         sh:path persona:hasBankAccount ;
         sh:class persona:CheckingAccount ;
         sh:maxCount 1 ;
-        sh:message "A Persona may hold at most one bank account."@en
+        sh:message "A Person may hold at most one bank account."@en
     ] ;
 
     # Optional: online service account (0..1)
@@ -144,7 +134,7 @@
         sh:path <https://purl.org/cco/ent00000045> ;  # holds user account
         sh:class cco:ent00000033 ;  # Online Service Account
         sh:maxCount 1 ;
-        sh:message "A Persona may hold at most one OnlineServiceAccount."@en
+        sh:message "A Person may hold at most one OnlineServiceAccount."@en
     ] ;
 
     # Optional: physical cards held directly outside wallet (0..many)
@@ -159,73 +149,7 @@
         sh:path persona:hasWallet ;
         sh:class persona:Wallet ;
         sh:maxCount 1 ;
-        sh:message "A Persona may hold at most one wallet."@en
-    ] ;
-
-    sh:property [
-        sh:path persona:dyad ;
-        sh:class persona:Persona ;
-        sh:maxCount 1 ;
-        sh:message "A Persona may have at most one dyad link."@en
-    ] .
-
-#################################################################
-#  Birth Certificate Persona
-#  A BirthCertificate Persona carries the person's legal name record.
-#  Name requirement is narrowed to this context rather than all Personas.
-#################################################################
-
-:BirthCertificatePersonaShape
-    a sh:NodeShape ;
-    sh:targetClass persona:BirthCertificate ;
-    sh:message "Birth certificate Persona must have either FullName OR (GivenName + FamilyName)."@en ;
-
-    # Name requirement: EITHER FullName OR (GivenName AND FamilyName)
-    sh:or (
-        [
-            sh:property [
-                sh:path <https://purl.org/cco/ont00001879> ;  # designated by
-                sh:qualifiedValueShape [ sh:class cco:ent00000001 ] ;
-                sh:qualifiedMinCount 1 ;
-                sh:message "Birth certificate Persona must be designated by at least one FullName, OR provide GivenName + FamilyName."@en
-            ]
-        ]
-        [
-            sh:and (
-                [
-                    sh:property [
-                        sh:path <https://purl.org/cco/ont00001879> ;  # designated by
-                        sh:qualifiedValueShape [ sh:class cco:ent00000002 ] ;
-                        sh:qualifiedMinCount 1 ;
-                        sh:message "If no FullName is provided, birth certificate Persona must be designated by at least one GivenName."@en
-                    ]
-                ]
-                [
-                    sh:property [
-                        sh:path <https://purl.org/cco/ont00001879> ;  # designated by
-                        sh:qualifiedValueShape [ sh:class cco:ent00000004 ] ;
-                        sh:qualifiedMinCount 1 ;
-                        sh:message "If no FullName is provided, birth certificate Persona must be designated by at least one FamilyName."@en
-                    ]
-                ]
-            )
-        ]
-    ) ;
-
-    # Optional name components (not required; validated by type only)
-    sh:property [
-        sh:path <https://purl.org/cco/ont00001879> ;  # designated by
-        sh:qualifiedValueShape [
-            sh:or (
-                [ sh:class cco:ent00000003 ]
-                [ sh:class cco:ent00000005 ]
-                [ sh:class cco:ent00000006 ]
-                [ sh:class <https://purl.org/cco/ont00000990> ]  # Nickname
-                [ sh:class <https://purl.org/cco/ont00001331> ]  # Legal Name
-            )
-        ] ;
-        sh:qualifiedMaxCount 50 ;
-        sh:message "Optional name designators are allowed (up to 50 total across these types)."@en
+        sh:message "A Person may hold at most one wallet."@en
     ] .
 
 #################################################################
@@ -432,7 +356,7 @@
 :SocialNetworkShape
     a sh:NodeShape ;
     sh:targetClass cco:ont00001183 ;  # Social Network
-    sh:message "Social Network validation: sub-groups must be Social Networks; members must be Personas."@en ;
+    sh:message "Social Network validation: sub-groups must be Social Networks; members must be Persons."@en ;
 
     # Sub-groups: BFO has part → Social Network (e.g. Family, Colleague, Other)
     sh:property [
@@ -441,11 +365,11 @@
         sh:message "Social Network parts (sub-groups) must themselves be Social Networks."@en
     ] ;
 
-    # Members: BFO has member part → Persona (ICE representing a person in this context)
+    # Members: BFO has member part → Person (unified IRI for same person across slices)
     sh:property [
         sh:path <http://purl.obolibrary.org/obo/BFO_0000115> ;  # has member part
-        sh:class persona:Persona ;
-        sh:message "All Social Network member parts must be Personas."@en
+        sh:class persona:Person ;
+        sh:message "All Social Network member parts must be Persons."@en
     ] .
 
 
@@ -552,29 +476,6 @@
         sh:class persona:PhysicalCard ;
         sh:message "Only PhysicalCards may declare this Wallet as their continuant whole."@en
     ] .
-
-#################################################################
-#  hasPersona tree-structure check (Check 6)
-#  Every Persona may appear as the object of persona:hasPersona
-#  from at most one parent — enforcing a tree, not a DAG.
-#################################################################
-
-:PersonaTreeShape
-    a sh:NodeShape ;
-    sh:targetClass persona:Persona ;
-    sh:sparql [
-        a sh:SPARQLConstraint ;
-        sh:message "A Persona must have at most one hasPersona parent (tree structure — not a DAG)."@en ;
-        sh:select """
-            PREFIX persona: <http://mee.foundation/ontologies/persona#>
-            SELECT ?this WHERE {
-                ?parent1 persona:hasPersona ?this .
-                ?parent2 persona:hasPersona ?this .
-                FILTER(?parent1 != ?parent2)
-            }
-        """
-    ] .
-
 
 :PhysicalCardShape
     a sh:NodeShape ;

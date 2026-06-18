@@ -16,23 +16,24 @@
     owl:imports <http://mee.foundation/ontologies/persona> ;
     owl:imports <http://mee.foundation/ontologies/context> ;
     dc:date "2026-06-14"^^xsd:date ;
-    owl:versionInfo "Version 1.0.4 - lowercase IRI to paula(family)alice"@en ;
+    owl:versionInfo "Version 2.0.0 - unified persona:Person IRI model; dyad moved to graph level"@en ;
     context:contextCategory context:Family ;
-    context:assertedBy :Alice_Walker-Self ;
-    context:subject :Paula_Walker-Self ;
+    context:assertedBy :Alice_Walker ;
+    context:subject :Paula_Walker ;
     context:name "Family" ;
+    context:dyad <http://www.example.org/mia/paula(family)paula> ;
     rdfs:label "Paula Walker - Alice's family member "@en ;
-    rdfs:comment """What Alice states about Paula in the context of their family relationship
+    rdfs:comment """What Alice states about Paula in the context of their family relationship.
                     Member of :Alice_Family_Network in alice(family)alice.ttl.
-                    Correlated from :Paula_Walker-Self in alice(self)alice.ttl."""@en .
+                    Shares IRI :Paula_Walker with paula(self)paula.ttl."""@en .
 
 
 #################################################################
 #    Paula Walker - Family Persona
 #################################################################
 
-:Paula_Walker-Family rdf:type owl:NamedIndividual ,
-                              persona:Persona ;
+:Paula_Walker rdf:type owl:NamedIndividual ,
+               persona:Person ;
     rdfs:label "Paula Walker (Family)"@en ;
 
     <https://purl.org/cco/ont00001879> [  # designated by → GivenName
@@ -43,6 +44,4 @@
     <https://purl.org/cco/ont00001879> [  # designated by → FamilyName
         rdf:type cco:ent00000004 ;  # FamilyName
         <https://purl.org/cco/ont00001765> "Walker"  # has text value
-    ] ;
-
-    persona:dyad :Paula_Walker-FamilySelf .  # dyad: Paula's self-asserted family persona
+    ] .

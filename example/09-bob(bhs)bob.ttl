@@ -16,7 +16,7 @@
     owl:imports <http://mee.foundation/ontologies/persona> ;
     owl:imports <http://mee.foundation/ontologies/context> ;
     dc:date "2026-06-15"^^xsd:date ;
-    owl:versionInfo "Version 1.0.5 - rename to bob(bhs)bob"@en ;
+    owl:versionInfo "Version 2.0.0 - unified persona:Person IRI model"@en ;
     context:contextCategory context:Group ;
     context:assertedBy identity:Self ;
     context:subject identity:Individual ;
@@ -30,8 +30,8 @@
 #    Bob Johnson - BHS Persona
 #################################################################
 
-:Bob_Johnson-BHS rdf:type owl:NamedIndividual ,
-                          persona:Persona ;
+:Bob_Johnson rdf:type owl:NamedIndividual ,
+              persona:Person ;
     rdfs:label "Bob Johnson (BHS)"@en ;
 
     <https://purl.org/cco/ont00001879> [  # designated by → GivenName

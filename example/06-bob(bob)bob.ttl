@@ -16,23 +16,24 @@
     owl:imports <http://mee.foundation/ontologies/context> ;
     owl:imports <http://www.example.org/mia/alice(bob)bob> ;
     dc:date "2026-06-15"^^xsd:date ;
-    owl:versionInfo "Version 1.0.6 - rename to bob(bob)bob"@en ;
+    owl:versionInfo "Version 2.0.0 - unified persona:Person IRI model; dyad moved to graph level"@en ;
     context:contextCategory context:Person ;
-    context:assertedBy :Bob_Johnson-Self ;
-    context:subject :Bob_Johnson-Self ;
+    context:assertedBy :Bob_Johnson ;
+    context:subject :Bob_Johnson ;
     context:name "Bob" ;
+    context:dyad <http://www.example.org/mia/bob(bob)alice> ;
     rdfs:label "Bob Johnson - Bob Persona (Bob's own)"@en ;
     rdfs:comment """Bob Johnson's self-asserted Bob persona.
                     Paired (dyad) with bob(bob)alice.(bob).ttl — Alice's view of Bob in the 1:1 Bob context.
-                    Correlated from :Bob_Johnson-Self in bob(self)bob.ttl."""@en .
+                    Shares IRI :Bob_Johnson with bob(self)bob.ttl."""@en .
 
 
 #################################################################
 #    Bob Johnson - Bob Persona (self-asserted)
 #################################################################
 
-:Bob_Johnson-Bob rdf:type owl:NamedIndividual ,
-                          persona:Persona ;
+:Bob_Johnson rdf:type owl:NamedIndividual ,
+              persona:Person ;
     rdfs:label "Bob Johnson (Bob)"@en ;
     rdfs:comment "Bob Johnson's self-asserted persona in the 1:1 Bob context."@en ;
 
@@ -46,8 +47,7 @@
         <https://purl.org/cco/ont00001765> "Johnson"  # has text value
     ] ;
 
-    persona:hasSocialNetwork :Bob_Bob_Network ;
-    persona:dyad :Bob_Johnson-as-known-by-alice .  # dyad: Alice's view of Bob
+    persona:hasSocialNetwork :Bob_Bob_Network .
 
 
 #################################################################
@@ -57,4 +57,4 @@
 :Bob_Bob_Network rdf:type owl:NamedIndividual ,
                           cco:ont00001183 ;  # Social Network
     rdfs:label "Bob Johnson's Bob connection"@en ;
-    <http://purl.obolibrary.org/obo/BFO_0000115> :Alice_Walker-ByBob .  # has member part
+    <http://purl.obolibrary.org/obo/BFO_0000115> :Alice_Walker .  # has member part

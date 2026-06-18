@@ -15,22 +15,23 @@
     owl:imports <http://mee.foundation/ontologies/persona> ;
     owl:imports <http://mee.foundation/ontologies/context> ;
     dc:date "2026-06-14"^^xsd:date ;
-    owl:versionInfo "Version 1.0.2 - retype as JSContactCard; add contactContext, phoneFeature, JobTitle, OrganizationUnit, WebURL"@en ;
+    owl:versionInfo "Version 2.0.0 - unified persona:Person IRI model; template moved to graph level"@en ;
     context:contextCategory context:Employee ;
-    context:assertedBy :Alice_Walker-Self ;
-    context:subject :Alice_Walker-Self ;
+    context:assertedBy :Alice_Walker ;
+    context:subject :Alice_Walker ;
     context:name "Business Card" ;
+    context:template persona:JSContactCard ;
     rdfs:label "Alice Walker - Business Card Persona"@en ;
     rdfs:comment """Alice Walker's business card persona.
-                    Correlated from :Alice_Walker-Self in alice(self)alice.ttl."""@en .
+                    Shares IRI :Alice_Walker with alice(self)alice.ttl."""@en .
 
 
 #################################################################
 #    Alice Walker - Business Card Persona (JSContactCard)
 #################################################################
 
-:Alice_Walker-BusinessCard rdf:type owl:NamedIndividual ,
-                                    persona:JSContactCard ;
+:Alice_Walker rdf:type owl:NamedIndividual ,
+               persona:Person ;
     rdfs:label "Alice Walker (Business Card)"@en ;
     rdfs:comment "Alice Walker's JSContact card persona — professional contact details taking details from her Acme context."@en ;
 

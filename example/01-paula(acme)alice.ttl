@@ -15,21 +15,21 @@
     owl:imports <http://mee.foundation/ontologies/persona> ;
     owl:imports <http://mee.foundation/ontologies/context> ;
     dc:date "2026-06-14"^^xsd:date ;
-    owl:versionInfo "Version 1.0.9 - contextCategory changed from Colleague to Employee"@en ;
+    owl:versionInfo "Version 2.0.0 - unified persona:Person IRI model"@en ;
     context:contextCategory context:Employee ;
     context:assertedBy identity:Self ;
     context:subject identity:Individual ;
     context:name "Acme" ;
     rdfs:label "Paula Walker - Colleague of Alice"@en ;
     rdfs:comment """What Alice says about Paula in the context of them both working at Acme.
-                    Correlated from :Paula_Walker-Self in alice(self)alice.ttl."""@en .
+                    Shares IRI :Paula_Walker with alice(self)alice.ttl."""@en .
 
 
 #################################################################
 #    Paula Walker - Colleague of Alice Persona
 #################################################################
 
-:Paula_Walker-as-colleague-of-Alice-at-Acme rdf:type owl:NamedIndividual ,
-                                  persona:Persona ;
+:Paula_Walker rdf:type owl:NamedIndividual ,
+               persona:Person ;
     rdfs:label "Paula Walker (Acme)"@en .
 

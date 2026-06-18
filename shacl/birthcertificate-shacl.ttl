@@ -1,0 +1,77 @@
+@prefix : <http://www.example.org/shapes#> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix cco: <https://purl.org/cco/> .
+@prefix persona: <http://mee.foundation/ontologies/persona#> .
+@prefix dc: <http://purl.org/dc/elements/1.1/> .
+
+<http://www.example.org/shapes/birthcertificate> rdf:type owl:Ontology ;
+    owl:imports <http://mee.foundation/ontologies/persona> ;
+    dc:date "2026-06-18"^^xsd:date ;
+    owl:versionInfo "Version 1.0.0 - initial; moved from persona-shacl.ttl; target updated to persona:Person"@en ;
+    rdfs:label "Birth Certificate Template SHACL Shapes"@en ;
+    rdfs:comment """SHACL shapes for validating context files carrying context:template persona:BirthCertificate.
+                    Apply in addition to persona-shacl.ttl when validating a birth certificate context file."""@en .
+
+
+#################################################################
+#  Birth Certificate Person
+#  A birth certificate context file carries the person's legal name record.
+#  Requires: FullName (1..1) OR (GivenName (1..1) AND FamilyName (1..1))
+#################################################################
+
+:BirthCertificatePersonShape
+    a sh:NodeShape ;
+    sh:targetClass persona:Person ;
+    sh:message "Birth certificate Person must have either FullName OR (GivenName + FamilyName)."@en ;
+
+    # Name requirement: EITHER FullName OR (GivenName AND FamilyName)
+    sh:or (
+        [
+            sh:property [
+                sh:path <https://purl.org/cco/ont00001879> ;  # designated by
+                sh:qualifiedValueShape [ sh:class cco:ent00000001 ] ;
+                sh:qualifiedMinCount 1 ;
+                sh:message "Birth certificate Person must be designated by at least one FullName, OR provide GivenName + FamilyName."@en
+            ]
+        ]
+        [
+            sh:and (
+                [
+                    sh:property [
+                        sh:path <https://purl.org/cco/ont00001879> ;  # designated by
+                        sh:qualifiedValueShape [ sh:class cco:ent00000002 ] ;
+                        sh:qualifiedMinCount 1 ;
+                        sh:message "If no FullName is provided, birth certificate Person must be designated by at least one GivenName."@en
+                    ]
+                ]
+                [
+                    sh:property [
+                        sh:path <https://purl.org/cco/ont00001879> ;  # designated by
+                        sh:qualifiedValueShape [ sh:class cco:ent00000004 ] ;
+                        sh:qualifiedMinCount 1 ;
+                        sh:message "If no FullName is provided, birth certificate Person must be designated by at least one FamilyName."@en
+                    ]
+                ]
+            )
+        ]
+    ) ;
+
+    # Optional name components (not required; validated by type only)
+    sh:property [
+        sh:path <https://purl.org/cco/ont00001879> ;  # designated by
+        sh:qualifiedValueShape [
+            sh:or (
+                [ sh:class cco:ent00000003 ]
+                [ sh:class cco:ent00000005 ]
+                [ sh:class cco:ent00000006 ]
+                [ sh:class <https://purl.org/cco/ont00000990> ]  # Nickname
+                [ sh:class <https://purl.org/cco/ont00001331> ]  # Legal Name
+            )
+        ] ;
+        sh:qualifiedMaxCount 50 ;
+        sh:message "Optional name designators are allowed (up to 50 total across these types)."@en
+    ] .

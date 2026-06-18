@@ -16,14 +16,14 @@
     owl:imports <http://mee.foundation/ontologies/persona> ;
     owl:imports <http://mee.foundation/ontologies/context> ;
     dc:date "2026-06-01"^^xsd:date ;
-    owl:versionInfo "Version 1.0.10 - align ontology IRI with filename"@en ;
+    owl:versionInfo "Version 2.0.0 - unified persona:Person IRI model"@en ;
     context:contextCategory context:Company ;
     context:assertedBy identity:Self ;
     context:subject identity:Self ;
     context:name "Google" ;
     rdfs:label "Alice Walker - Google Persona"@en ;
     rdfs:comment """What Alice states about herself in the context of her Google (gmail) account.
-                    Correlated from :Alice_Walker-Self in alice(self)alice.ttl.
+                    Shares IRI :Alice_Walker with alice(self)alice.ttl.
                     Email: awalker@gmail.com"""@en .
 
 
@@ -31,8 +31,8 @@
 #    Alice Walker - Google Persona
 #################################################################
 
-:Alice_Walker-Google rdf:type owl:NamedIndividual ,
-                              persona:Persona ;
+:Alice_Walker rdf:type owl:NamedIndividual ,
+               persona:Person ;
     rdfs:label "Alice Walker (Google)"@en ;
 
     <https://purl.org/cco/ont00001879> [  # designated by → Email

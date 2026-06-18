@@ -13,28 +13,27 @@
     owl:imports <http://www.example.org/mia/bob(bob)bob> ;
     owl:imports <http://www.example.org/mia/alice(bob)bob.(bob)> ;
     dc:date "2026-06-13"^^xsd:date ;
-    owl:versionInfo "Version 1.0.10 - rename context #9 to bob(bhs)bob"@en ;
+    owl:versionInfo "Version 2.0.0 - unified persona:Person IRI model; remove hasPersona links"@en ;
     rdfs:label "Bob Johnson - Selfness"@en ;
-    rdfs:comment """Bob Johnson's selfness — the essential individuality and sense of selfhood from which
-                    context-specific Personas (whonesses) are correlated.
+    rdfs:comment """Bob Johnson's selfness — the central identity individual. The same IRI (:Bob_Johnson)
+                    is used in every context file about Bob; each file is a named-graph slice.
 
-                    Correlated Personas:
-                    - :Bob_Johnson-as-known-by-alice (05-bob(bob)alice.ttl)         — colleague persona (Alice's view)
-                    - :Bob_Johnson-Bob                   (06-bob(bob)bob.ttl)    — Bob persona (self-asserted, dyad with #5)
-                    - :Bob_Johnson-BHS                   (09-bob(bhs)bob.ttl)    — BHS member persona
-                    - :Alice_Walker-ByBob                (04-alice(bob)bob.ttl)  — Alice's persona as asserted by Bob (hasMember)"""@en .
+                    Bob's context files (all use :Bob_Johnson):
+                    - 05-bob(bob)alice.ttl  — Alice's notes about Bob
+                    - 06-bob(bob)bob.ttl    — Bob's self-asserted persona (dyad with 05)
+                    - 09-bob(bhs)bob.ttl    — BHS member persona
+
+                    Also links to (via BFO_0000115 hasMember):
+                    - :Alice_Walker in 04-alice(bob)bob.ttl — Alice as asserted by Bob"""@en .
 
 
 #################################################################
 #    Bob Johnson - Person Instance
 #################################################################
 
-:Bob_Johnson-Self rdf:type owl:NamedIndividual ,
-                           <https://purl.org/cco/ont00001262> ;  # Person
+:Bob_Johnson rdf:type owl:NamedIndividual ,
+                      persona:Person ;
     rdfs:label "Bob Johnson"@en ;
     rdfs:comment "Bob Johnson's selfness — the central identity individual."@en ;
 
-    persona:hasPersona :Bob_Johnson-Bob ;
-    persona:hasPersona :Bob_Johnson-as-known-by-alice ;
-    persona:hasPersona :Bob_Johnson-BHS ;
-    <http://purl.obolibrary.org/obo/BFO_0000115> :Alice_Walker-ByBob .  # has member part → Alice's persona asserted by Bob
+    <http://purl.obolibrary.org/obo/BFO_0000115> :Alice_Walker .  # has member part → Alice as asserted by Bob
