@@ -11,7 +11,7 @@
     owl:versionIRI <http://mee.foundation/ontologies/context/1.0.1> ;
     dc:date "2026-06-01"^^xsd:date ;
     owl:imports <http://mee.foundation/ontologies/identity> ;
-    owl:versionInfo "Version 1.0.33 - add context:template and context:dyad annotation properties"@en ;
+    owl:versionInfo "Version 1.0.34 - rename context:Family to context:FamilyMember"@en ;
     rdfs:label "Context Ontology"@en ;
     rdfs:comment """Context Ontology for the Mee Identity Agent.
 
@@ -91,7 +91,7 @@ context:ContextCategory rdf:type owl:Class ;
                     Used as the value of context:contextCategory on ontology IRIs."""@en .
 
 #################################################################
-#    Social and subclasses
+#    MultiPerson Contexts and subclasses
 #################################################################
 
 context:MultiPerson rdf:type owl:Class ;
@@ -105,15 +105,28 @@ context:Group rdf:type owl:Class ;
     rdfs:comment "Interactions with a formal or informal group of people."@en .
 
 
+#################################################################
+#    SinglePerson Contexts and subclasses
+#################################################################
+
+context:SinglePerson rdf:type owl:Class ;
+    rdfs:subClassOf context:ContextCategory ;
+    rdfs:label "SinglePerson"@en ;
+    rdfs:comment "Contexts involving interactions with a single entity — company, government, or person."@en .
+
+#################################################################
+#    c:Person Contexts and subclasses
+#################################################################
+
 context:Person rdf:type owl:Class ;
-    rdfs:subClassOf context:MultiPerson ;
+    rdfs:subClassOf context:SinglePerson ;
     rdfs:label "Person"@en ;
     rdfs:comment "Interactions with all kinds of people."@en .
 
-context:Family rdf:type owl:Class ;
+context:FamilyMember rdf:type owl:Class ;
     rdfs:subClassOf context:Person ;
-    rdfs:label "Family"@en ;
-    rdfs:comment "Interactions with family members."@en .
+    rdfs:label "FamilyMember"@en ;
+    rdfs:comment "Interactions with a family member."@en .
 
 context:Friend rdf:type owl:Class ;
     rdfs:subClassOf context:Person ;
@@ -125,15 +138,9 @@ context:Consultant rdf:type owl:Class ;
     rdfs:label "Consultant"@en ;
     rdfs:comment "Interactions with consultants who provide services."@en .
 
-
 #################################################################
-#    Personal and subclasses
+#    c:Work Contexts and subclasses
 #################################################################
-
-context:SinglePerson rdf:type owl:Class ;
-    rdfs:subClassOf context:ContextCategory ;
-    rdfs:label "SinglePerson"@en ;
-    rdfs:comment "Contexts involving interactions with a single entity — company, government, role, or possession."@en .
 
 context:Work rdf:type owl:Class ;
     rdfs:subClassOf context:SinglePerson ;
@@ -155,6 +162,11 @@ context:Creator rdf:type owl:Class ;
     rdfs:label "Creator"@en ;
     rdfs:comment "Related to being a creator, inventor, founder, author of something."@en .
 
+
+#################################################################
+#    c:Company Contexts and subclasses
+#################################################################    
+
 context:Company rdf:type owl:Class ;
     rdfs:subClassOf context:SinglePerson ;
     rdfs:label "Company"@en ;
@@ -168,7 +180,11 @@ context:Finance rdf:type owl:Class ;
 context:Health rdf:type owl:Class ;
     rdfs:subClassOf context:Company ;
     rdfs:label "Health"@en ;
-    rdfs:comment "Health and wellness company"@en .
+    rdfs:comment "Health and wellness related "@en .
+
+#################################################################
+#    c:Event Contexts and subclasses
+#################################################################    
 
 context:Event rdf:type owl:Class ;
     rdfs:subClassOf context:SinglePerson ;
@@ -190,6 +206,10 @@ context:Party rdf:type owl:Class ;
     rdfs:label "Party"@en ;
     rdfs:comment "A party or social celebration."@en .
 
+#################################################################
+#    c:Government Contexts and subclasses
+################################################################# 
+
 context:Government rdf:type owl:Class ;
     rdfs:subClassOf context:SinglePerson ;
     rdfs:label "Government"@en ;
@@ -210,6 +230,10 @@ context:Municipality rdf:type owl:Class ;
     rdfs:label "Municipality"@en ;
     rdfs:comment "Municipal government context (e.g. local permits, library card)."@en .
 
+#################################################################
+#    c:Note Contexts and subclasses
+################################################################# 
+
 context:Note rdf:type owl:Class ;
     rdfs:subClassOf context:SinglePerson ;
     rdfs:label "Note"@en ;
@@ -218,7 +242,11 @@ context:Note rdf:type owl:Class ;
 context:Learning rdf:type owl:Class ;
     rdfs:subClassOf context:Note ;
     rdfs:label "Learning"@en ;
-    rdfs:comment "Educational experiences, courses, and certifications."@en .
+    rdfs:comment "Knowledge gained from personal experience"@en .
+
+#################################################################
+#    c:Possession Contexts and subclasses
+################################################################# 
 
 context:Possession rdf:type owl:Class ;
     rdfs:subClassOf context:SinglePerson ;
@@ -239,6 +267,10 @@ context:Dwelling rdf:type owl:Class ;
     rdfs:subClassOf context:Possession ;
     rdfs:label "Dwelling"@en ;
     rdfs:comment "Owning or renting a home or other dwelling."@en .
+
+#################################################################
+#    c:Project Contexts and subclasses
+################################################################# 
 
 context:Project rdf:type owl:Class ;
     rdfs:subClassOf context:SinglePerson ;

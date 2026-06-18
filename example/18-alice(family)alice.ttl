@@ -16,8 +16,8 @@
     owl:imports <http://mee.foundation/ontologies/persona> ;
     owl:imports <http://mee.foundation/ontologies/context> ;
     dc:date "2026-06-01"^^xsd:date ;
-    owl:versionInfo "Version 2.0.0 - unified persona:Person IRI model; update hasMember link"@en ;
-    context:contextCategory context:Family ;
+    owl:versionInfo "Version 2.0.1 - rename contextCategory to FamilyMember"@en ;
+    context:contextCategory context:FamilyMember ;
     context:assertedBy identity:Self ;
     context:subject identity:Self ;
     context:name "Family" ;

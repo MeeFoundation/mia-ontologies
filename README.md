@@ -272,7 +272,7 @@ A context is a container of information whose primary subject is one of the thre
 
 - `c:MultiPerson` — a context whose subject is the Self *and* that includes a social network with `has member` links to `persona:Person` individuals of other people in other contexts. Examples: family relationships, colleague networks, friend groups.
   - `c:Group` — interactions with a formal or informal group of people.
-  - `c:Person` and subtypes `c:Family`, `c:Friend`, `c:Consultant` — interactions with individual people in a person's life.
+  - `c:Person` and subtypes `c:FamilyMember`, `c:Friend`, `c:Consultant` — interactions with individual people in a person's life.
 - `c:SinglePerson` — a context containing only a `persona:Person` slice for the Self — no other person's `persona:Person` appears in it. It describes the Self's relationship with (and interactions with) a specific institution, role, possession, or area of knowledge. Examples: a bank account, a driver's license, a car.
   - `c:Work` and subtypes `c:Employee`, `c:Contributor`, `c:Creator` — professional roles.
   - `c:Company` and subtype `c:Health` — interactions and/or relationship with a company or other non-governmental organization.
