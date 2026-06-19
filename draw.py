@@ -1,14 +1,16 @@
 #!/usr/bin/env python3
 """
-draw.py  —  Generate a Graphviz diagram from a Persona context .ttl file.
+draw.py  —  Generate a Graphviz diagram from a Persona context DataBook or .ttl file.
 
-Usage:   python draw.py <context_file.ttl>
-Output:  <context_file>.png next to the input file.
+Usage:   python draw.py <context_file.databook.md>
+         python draw.py <context_file.ttl>
+Output:  <stem>.png next to the input file (e.g. example/images/22-alice(...).png).
 
-Requires: pip install rdflib graphviz   +   brew install graphviz
+Requires: pip install rdflib graphviz pyyaml   +   brew install graphviz
 """
 
 import sys
+import yaml
 from hashlib import md5
 from pathlib import Path
 
@@ -143,15 +145,73 @@ def nid(key: str) -> str:
     return "n" + md5(key.encode()).hexdigest()[:12]
 
 
+def load_databook(path: Path) -> tuple[Graph, str | None]:
+    """Parse a .databook.md file: extract YAML frontmatter and turtle block content."""
+    content = path.read_text()
+    lines = content.split("\n")
+
+    # Extract YAML frontmatter between the first pair of --- delimiters
+    fm_start = fm_end = -1
+    for i, line in enumerate(lines):
+        if line.strip() == "---":
+            if fm_start < 0:
+                fm_start = i
+            elif fm_end < 0:
+                fm_end = i
+                break
+
+    frontmatter = {}
+    if fm_start >= 0 and fm_end > fm_start:
+        try:
+            frontmatter = yaml.safe_load("\n".join(lines[fm_start + 1:fm_end])) or {}
+        except yaml.YAMLError:
+            pass
+
+    # Extract turtle block content, skipping <!-- databook:* --> comment lines
+    turtle_lines = []
+    in_fence = False
+    for line in lines[fm_end + 1:]:
+        if line.strip() == "```turtle":
+            in_fence = True
+            continue
+        if in_fence and line.strip() == "```":
+            in_fence = False
+            continue
+        if in_fence and not line.startswith("<!-- databook:"):
+            turtle_lines.append(line)
+
+    g = Graph()
+    if turtle_lines:
+        g.parse(data="\n".join(turtle_lines), format="turtle")
+
+    context_category = (frontmatter.get("mia") or {}).get("contextCategory")
+    return g, context_category
+
+
 def main() -> None:
     if len(sys.argv) < 2:
-        sys.exit("Usage: python draw.py <context_file.ttl>")
+        sys.exit("Usage: python draw.py <context_file.databook.md|.ttl>")
     src = Path(sys.argv[1])
     if not src.exists():
         sys.exit(f"File not found: {src}")
 
-    g = Graph()
-    g.parse(str(src), format="turtle")
+    context_category_label = None
+
+    if src.name.endswith(".databook.md"):
+        g, ctx_cat = load_databook(src)
+        if ctx_cat:
+            context_category_label = ctx_cat
+        stem = src.name[: -len(".databook.md")]
+        out = str(src.parent / stem)
+    else:
+        g = Graph()
+        g.parse(str(src), format="turtle")
+        ontology_iri = g.value(predicate=RDF.type, object=OWL.Ontology)
+        if ontology_iri:
+            ctype = g.value(ontology_iri, PERSONA.contextType)
+            if ctype:
+                context_category_label = lbl(ctype)
+        out = str(src.with_suffix(""))
 
     individuals = {
         s for s in g.subjects(RDF.type, OWL.NamedIndividual)
@@ -243,24 +303,19 @@ def main() -> None:
                 ln = lit_node(str(obj), str(ind) + str(pred) + str(obj))
                 dot.edge(src_nid, ln, label=lbl(pred))
 
-    # contextType annotation on the ontology IRI → styled graph label, top-right
-    ontology_iri = g.value(predicate=RDF.type, object=OWL.Ontology)
-    if ontology_iri:
-        ctype = g.value(ontology_iri, PERSONA.contextType)
-        if ctype:
-            dot.attr(
-                label=(
-                    f'<<TABLE BORDER="1" CELLBORDER="0" CELLPADDING="5" '
-                    f'BGCOLOR="lightblue" COLOR="steelblue" STYLE="rounded">'
-                    f'<TR><TD><FONT FACE="Helvetica" POINT-SIZE="10">'
-                    f'ContextType: {lbl(ctype)}'
-                    f'</FONT></TD></TR></TABLE>>'
-                ),
-                labelloc="t",
-                labeljust="r",
-            )
+    if context_category_label:
+        dot.attr(
+            label=(
+                f'<<TABLE BORDER="1" CELLBORDER="0" CELLPADDING="5" '
+                f'BGCOLOR="lightblue" COLOR="steelblue" STYLE="rounded">'
+                f'<TR><TD><FONT FACE="Helvetica" POINT-SIZE="10">'
+                f'ContextCategory: {context_category_label}'
+                f'</FONT></TD></TR></TABLE>>'
+            ),
+            labelloc="t",
+            labeljust="r",
+        )
 
-    out = str(src.with_suffix(""))
     dot.render(out, format="png", cleanup=True)
     print(f"Written: {out}.png")
 

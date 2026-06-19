@@ -402,16 +402,16 @@ The following table lists contexts about other people (Paula and Bob) or groups 
 
 ## Diagrams
 
-`draw.py` generates a Graphviz diagram from any context `.ttl` file:
+`draw.py` generates a Graphviz diagram from any context DataBook file:
 
 ```bash
-python3 draw.py example/10-alice(citibank)citibank.ttl      # → example/images/10-alice(citibank)citibank.png
-python3 draw.py example/14-alice(paradise)alice.ttl      # → example/images/14-alice(paradise)alice.png
+python3 draw.py example/10-alice(citibank)citibank.databook.md
+python3 draw.py example/14-alice(paradise)alice.databook.md
 ```
 
 **Dependencies** (one-time setup):
 ```bash
-pip install rdflib graphviz
+pip install rdflib graphviz pyyaml
 brew install graphviz
 ```
 
