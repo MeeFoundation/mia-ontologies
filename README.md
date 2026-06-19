@@ -260,7 +260,7 @@ The Organization ontology models organizations — companies, government agencie
 
 A context is a container of information whose primary subject is one of the three kinds of PDN node: a `persona:Person` individual (a named-graph slice of a person's identity in a specific context), a `g:Group`, or an `o:Organization`. It holds the subject's claims and, in the case of a `persona:Person` subject, may also include `persona:Person` individuals for other people in that context.
 
-A context is implemented as a **DataBook** (`.databook.md`) file. File-level metadata — name, category, asserter, subject, template, and dyad — is carried in the YAML frontmatter under the `mia:` key rather than as RDF triples. The context ontology (`context.ttl`) defines the controlled vocabularies that those YAML fields reference:
+A context is implemented as a **[DataBook](https://github.com/w3c-cg/holon/tree/main/architectures/databook)** (`.databook.md`) file. File-level metadata — name, category, asserter, subject, template, and dyad — is carried in the YAML frontmatter under the `mia:` key rather than as RDF triples. The context ontology (`context.ttl`) defines the controlled vocabularies that those YAML fields reference:
 
 - `mia.name` — a human-readable name for the context, e.g. `"Citibank"`.
 - `mia.contextCategory` — the nature of the interaction/relationship context; its value is a prefixed name of a `c:ContextCategory` subclass, e.g. `"context:FamilyMember"`.
@@ -419,7 +419,7 @@ Each diagram shows the `persona:Person` individual (yellow), supporting named in
 
 ## Validation
 
-Validation requires [Apache Jena](https://jena.apache.org/) (`riot`, `shacl`) and the DataBook CLI (`databook`; install: `cd /tmp/holon/architectures/databook/implementations/js && npm install && npm install -g .`). SHACL shapes remain plain Turtle (`.ttl`).
+Validation requires [Apache Jena](https://jena.apache.org/) (`riot`, `shacl`) and the [DataBook CLI](https://github.com/w3c-cg/holon/tree/main/architectures/databook/implementations/js) (`databook`; install: `cd /tmp/holon/architectures/databook/implementations/js && npm install && npm install -g .`). SHACL shapes remain plain Turtle (`.ttl`).
 
 ### Quick check — DataBook syntax
 
