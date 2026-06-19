@@ -1,4 +1,4 @@
-# DataBook Migration Analysis: MIA Context Files
+# DataBook Migration Analysis: Mia Context Files
 
 **Date:** 2026-06-18  
 **Spec:** [DataBook Handbook](https://github.com/w3c-cg/holon/blob/main/architectures/databook/databook-handbook.databook.md)  
@@ -9,7 +9,7 @@
 
 ## 1. Background
 
-Each MIA context file is currently a `.ttl` (Turtle RDF) file that acts as a "poor man's named graph." Because plain Turtle has no native support for named graphs or graph-level metadata, we work around this limitation by declaring an `owl:Ontology` and hanging annotation properties off its IRI:
+Each Mia context file is currently a `.ttl` (Turtle RDF) file that acts as a "poor man's named graph." Because plain Turtle has no native support for named graphs or graph-level metadata, we work around this limitation by declaring an `owl:Ontology` and hanging annotation properties off its IRI:
 
 ```turtle
 <http://www.example.org/mia/alice(citibank)citibank> rdf:type owl:Ontology ;
