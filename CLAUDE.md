@@ -32,8 +32,8 @@ There are no build, compile, test, or lint commands. The files are Turtle (`.ttl
 | `example/paula(self)paula.ttl` | Paula Walker's selfness — central Person instance for Paula |
 | `example/bob(self)bob.ttl` | Bob Johnson's selfness — central Person instance for Bob |
 | `example/01-paula(acme)alice.ttl` | Paula Walker as Alice's Acme colleague — asserted by Alice |
-| `example/02-paula(family)alice.ttl` | Paula Walker as Alice's family member — name and relationship; asserted by Alice |
-| `example/03-paula(family)paula.ttl` | Paula Walker in family context — self-asserted; dyad with 02 |
+| `example/02-paula(familymember)alice.databook.md` | Paula Walker as Alice's family member — name and relationship; asserted by Alice |
+| `example/03-paula(familymember)paula.databook.md` | Paula Walker in family context — self-asserted; dyad with 02 |
 | `example/04-alice(bob)bob.ttl` | Alice Walker in Bob context — Bob's view of Alice with personal notes |
 | `example/05-bob(bob)alice.ttl` | Bob Johnson in Bob context — Alice's view of Bob with personal notes; dyad with 06 |
 | `example/06-bob(bob)bob.ttl` | Bob Johnson in Bob context — self-asserted name; dyad with 05 |
@@ -48,7 +48,7 @@ There are no build, compile, test, or lint commands. The files are Turtle (`.ttl
 | `example/15-alice(boston)alice.ttl` | Alice's Boston Persona — residential address 2020–2025 |
 | `example/16-alice(ssa)alice.ttl` | Alice's SSA Persona — Social Security Number |
 | `example/17-alice(bob)alice.ttl` | Alice Walker in Bob context — Alice's self-asserted persona shown to Bob; dyad with 04 |
-| `example/18-alice(family)alice.ttl` | Alice's Family Persona — family relationships and social network |
+| `example/18-alice(familymember)alice.databook.md` | Alice's Family Persona — family relationships and social network |
 | `example/19-alice(possessions)alice.ttl` | Alice's Possessions Persona — wallet, health insurance card, SSN card |
 | `example/20-alice(acme)alice.ttl` | Alice's Acme Persona — employee context; imports Paula's Acme persona |
 | `example/21-alice(business-card)alice.ttl` | Alice's Business Card Persona — employer, job title, email, phone |
@@ -69,7 +69,7 @@ example/alice(self)alice.ttl (selfness)
   ├─ imports → example/10-alice(citibank)citibank.ttl
   ├─ imports → example/15-alice(boston)alice.ttl
   ├─ imports → example/14-alice(paradise)alice.ttl
-  ├─ imports → example/18-alice(family)alice.ttl
+  ├─ imports → example/18-alice(familymember)alice.databook.md
   ├─ imports → example/12-alice(att)alice.ttl
   ├─ imports → example/16-alice(ssa)alice.ttl
   ├─ imports → example/11-alice(google)alice.ttl
@@ -98,7 +98,7 @@ Context filenames follow a single flat pattern:
 |---------|---------|
 | `NN-` | Zero-padded two-digit diagram label number; omitted for files that have no diagram circle. Selfness files (`<X>(self)<X>.ttl`) never carry a prefix. |
 | `<about>` | The entity the Persona is about (e.g. `alice`, `bob`, `paula`, `bhs`). |
-| `(<context-name>)` | Lowercase name identifying the context or relationship (e.g. `(citibank)`, `(family)`, `(bhs)`). |
+| `(<context-name>)` | Lowercase name identifying the context or relationship. For named-entity contexts (a specific company, person, place, or group), use the entity's own name (e.g. `(citibank)`, `(bhs)`, `(bob)`). For categorical contexts, use the lowercase local name of the `c:contextCategory` (e.g. `(familymember)` for `context:FamilyMember`, `(employee)` for `context:Employee`). |
 | `<asserted-by>` | Who asserted the data — a real entity identifier (e.g. `alice`, `bob`, `paula`) or the literal `members` for `c:Group` contexts where any permitted member may write. |
 
 **Exception — `c:Group` contexts**: A group context (`contextCategory context:Group`) has no single asserter — any permitted member can write to it and changes replicate to all members. The `<asserted-by>` segment is the literal `members` rather than an individual name. Example: `08-bhs(bhs)members.ttl` — about BHS, context "bhs", asserted by the group's members collectively.
@@ -117,7 +117,7 @@ The parent-context hierarchy (which context is a child of which) is expressed vi
 | Filename | About | Context | Asserted by |
 |----------|-------|---------|-------------|
 | `10-alice(citibank)citibank.ttl` | Alice | citibank | Citibank |
-| `02-paula(family)alice.ttl` | Paula | family | Alice |
+| `02-paula(familymember)alice.databook.md` | Paula | familymember | Alice |
 | `04-alice(bob)bob.ttl` | Alice | bob | Bob |
 | `09-bob(bhs)bob.ttl` | Bob | bhs | Bob |
 | `08-bhs(bhs)members.ttl` | BHS | bhs | members (group) |
