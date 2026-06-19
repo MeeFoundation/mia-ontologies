@@ -357,7 +357,7 @@ Here is an overview of the contexts in Alice's Mia.
 
 <p align="center"><img src="example/images/context-map.png" alt="Alice's physical characteristics"></p>
 
-### Alice's Context Files
+#### Context Files
 
 Alice interacts with other people, organizations and groups in contexts of different types, with each context file holding a named-graph slice of her identity.
 
