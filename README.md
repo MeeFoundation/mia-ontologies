@@ -419,9 +419,20 @@ Each diagram shows the `persona:Person` individual (yellow), supporting named in
 
 ## Validation
 
-Validation requires [Apache Jena](https://jena.apache.org/) (`riot`, `shacl`). It runs in two tiers.
+Validation requires [Apache Jena](https://jena.apache.org/) (`riot`, `shacl`) and the DataBook CLI (`databook`; install: `cd /tmp/holon/architectures/databook/implementations/js && npm install && npm install -g .`). SHACL shapes remain plain Turtle (`.ttl`).
 
-Context files are in DataBook (`.databook.md`) format. Turtle is extracted from each file using `databook extract` (install: `cd /tmp/holon/architectures/databook/implementations/js && npm install && npm install -g .`). SHACL shapes remain plain Turtle (`.ttl`).
+### Quick check — DataBook syntax
+
+Verify that every DataBook file has valid YAML frontmatter and well-formed block annotations:
+
+```bash
+for f in $(find example -name "*.databook.md" \
+             -not -path "*/under-development/*" | sort); do
+  databook head "$f" -q > /dev/null || echo "FAIL: $f"
+done
+```
+
+A file that fails here will also fail silently in `databook extract`, producing no Turtle output and causing downstream `riot` or SHACL errors that are harder to trace.
 
 ### Tier 1 — general validation (all context files)
 
