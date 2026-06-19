@@ -365,38 +365,38 @@ The contexts in the table below are *about* Alice and asserted *by* Alice. All `
 
 | #  | Context file                                                                          | Context type | Key data                                                         | Diagram |
 |--- |:--------------------------------------------------------------------------------------|:-------------|:-----------------------------------------------------------------|:--------|
-| 7  | [07-alice(bhs)alice.databook.md](example/07-alice(bhs)alice.databook.md)                     | Group        | BHS profile: email, phone and current address                    | [view](example/images/07-alice(bhs)alice.png)|
-| 11 | [11-alice(google)alice.databook.md](example/11-alice(google)alice.databook.md)               | Company      | Gmail address                                                    | [view](example/images/11-alice(google)alice.png) |
-| 12 | [12-alice(att)alice.databook.md](example/12-alice(att)alice.databook.md)                     | Company      | Phone number                                                     | [view](example/images/12-alice(att)alice.png) |
-| 13 | [13-alice(tx-birth-cert)alice.databook.md](example/13-alice(tx-birth-cert)alice.databook.md) | State        | Legal names, maiden name                                         | [view](example/images/13-alice(tx-birth-cert)alice.png) |
-| 14 | [14-alice(paradise)alice.databook.md](example/14-alice(paradise)alice.databook.md)           | Municipality | Current address — Paradise, CA (2025–present)                    | [view](example/images/14-alice(paradise)alice.png) |
-| 15 | [15-alice(boston)alice.databook.md](example/15-alice(boston)alice.databook.md)               | Municipality | Previous address — Boston, MA (2020–2025) with temporal interval | [view](example/images/15-alice(boston)alice.png) |
-| 16 | [16-alice(ssa)alice.databook.md](example/16-alice(ssa)alice.databook.md)                     | Federal      | Social security number (SSN)                                     | [view](example/images/16-alice(ssa)alice.png) |
-| 17 | [17-alice(bob)alice.databook.md](example/17-alice(bob)alice.databook.md)                     | Person       | Alice's 1:1 context with Bob; social network with Bob as member  | [view](example/images/17-alice(bob)alice.png)|
-| 18 | [18-alice(familymember)alice.databook.md](example/18-alice(familymember)alice.databook.md) | FamilyMember | Family social network with Paula as member | [view](example/images/18-alice(familymember)alice.png) |
-| 19 | [19-alice(possessions)alice.databook.md](example/19-alice(possessions)alice.databook.md)     | Possession   | Wallet (driver's license + payment card); health ins., SSN card  | [view](example/images/19-alice(possessions)alice.png) |
-| 20 | [20-alice(acme)alice.databook.md](example/20-alice(acme)alice.databook.md)                   | Employee     | Acme employee context; company email; works with Paula      | [view](example/images/20-alice(acme)alice.png)|
-| 21 | [21-alice(business-card)alice.databook.md](example/21-alice(business-card)alice.databook.md) | Employee     | Business card — given name, family name, email, phone, employer | [view](example/images/21-alice(business-card)alice.png) |
-| 22 | [22-alice(driverslicense)alice.databook.md](example/22-alice(driverslicense)alice.databook.md) | State       | California driver's license — legal name, DOB, DL#, expiry, photo | [view](example/images/22-alice(driverslicense)alice.png) |
+| 7  | [07-alice(bhs)alice](example/07-alice(bhs)alice.databook.md)                     | Group        | BHS profile: email, phone and current address                    | [view](example/images/07-alice(bhs)alice.png)|
+| 11 | [11-alice(google)alice](example/11-alice(google)alice.databook.md)               | Company      | Gmail address                                                    | [view](example/images/11-alice(google)alice.png) |
+| 12 | [12-alice(att)alice](example/12-alice(att)alice.databook.md)                     | Company      | Phone number                                                     | [view](example/images/12-alice(att)alice.png) |
+| 13 | [13-alice(tx-birth-cert)alice](example/13-alice(tx-birth-cert)alice.databook.md) | State        | Legal names, maiden name                                         | [view](example/images/13-alice(tx-birth-cert)alice.png) |
+| 14 | [14-alice(paradise)alice](example/14-alice(paradise)alice.databook.md)           | Municipality | Current address — Paradise, CA (2025–present)                    | [view](example/images/14-alice(paradise)alice.png) |
+| 15 | [15-alice(boston)alice](example/15-alice(boston)alice.databook.md)               | Municipality | Previous address — Boston, MA (2020–2025) with temporal interval | [view](example/images/15-alice(boston)alice.png) |
+| 16 | [16-alice(ssa)alice](example/16-alice(ssa)alice.databook.md)                     | Federal      | Social security number (SSN)                                     | [view](example/images/16-alice(ssa)alice.png) |
+| 17 | [17-alice(bob)alice](example/17-alice(bob)alice.databook.md)                     | Person       | Alice's 1:1 context with Bob; social network with Bob as member  | [view](example/images/17-alice(bob)alice.png)|
+| 18 | [18-alice(familymember)alice](example/18-alice(familymember)alice.databook.md)   | FamilyMember | Family social network with Paula as member                       | [view](example/images/18-alice(familymember)alice.png) |
+| 19 | [19-alice(possessions)alice](example/19-alice(possessions)alice.databook.md)     | Possession   | Wallet (driver's license + payment card); health ins., SSN card  | [view](example/images/19-alice(possessions)alice.png) |
+| 20 | [20-alice(acme)alice](example/20-alice(acme)alice.databook.md)                   | Employee     | Acme employee context; company email; works with Paula           | [view](example/images/20-alice(acme)alice.png)|
+| 21 | [21-alice(business-card)alice](example/21-alice(business-card)alice.databook.md) | Employee     | Business card — given name, family name, email, phone, employer  | [view](example/images/21-alice(business-card)alice.png) |
+| 22 | [22-alice(driverslicense)alice](example/22-alice(driverslicense)alice.databook.md) | State      | California driver's license — legal name, DOB, DL#, expiry, photo | [view](example/images/22-alice(driverslicense)alice.png) |
 
 The following table lists contexts that are *about* Alice but asserted by others.
 
 | #  | Context file                                                                         | Context type | Key data                             | Diagram |
 |--- |:-------------------------------------------------------------------------------------|:-------------|:-------------------------------------|:--------|
-| 4  | [04-alice(bob)bob.databook.md](example/04-alice(bob)bob.databook.md)            | Person       | Alice as seen by Bob (dyad with #17) | [view](example/images/04-alice(bob)bob.png)|
-| 10 | [10-alice(citibank)citibank.databook.md](example/10-alice(citibank)citibank.databook.md)    | FinancialServices | Debit card                      | [view](example/images/10-alice(citibank)citibank.png) |
+| 4  | [04-alice(bob)bob](example/04-alice(bob)bob.databook.md)                         | Person            | Alice as seen by Bob (dyad with #17) | [view](example/images/04-alice(bob)bob.png)|
+| 10 | [10-alice(citibank)citibank](example/10-alice(citibank)citibank.databook.md)     | FinancialServices | Debit card                           | [view](example/images/10-alice(citibank)citibank.png) |
 
 The following table lists contexts about other people (Paula and Bob) or groups (Boston Hub Society) in Alice's Mia. All files are in `example/`.
 
 | #  | Context file                                                                                     | Context type | Key data                                                         | Diagram |
 |--- |:-------------------------------------------------------------------------------------------------|:-------------|:-----------------------------------------------------------------|:--------|
-| 1  | [01-paula(acme)alice.databook.md](example/01-paula(acme)alice.databook.md)                              | Employee     | Paula as Alice's Acme colleague (Alice-asserted)                 | *(todo)*|
-| 2  | [02-paula(familymember)alice.databook.md](example/02-paula(familymember)alice.databook.md) | FamilyMember | Paula as Alice's family member (Alice-asserted)                  | *(todo)*|
-| 3  | [03-paula(familymember)paula.databook.md](example/03-paula(familymember)paula.databook.md) | FamilyMember | Paula's own family persona; social network with Alice (dyad #2)  | *(todo)*|
-| 5  | [05-bob(bob)alice.databook.md](example/05-bob(bob)alice.databook.md)                          | Person       | Alice's notes about Bob; fav drink: oat milk cappuccino          | [view](example/images/05-bob(bob)alice.png) |
-| 6  | [06-bob(bob)bob.databook.md](example/06-bob(bob)bob.databook.md)                              | Person       | Bob's self-asserted Bob persona (dyad with #5)                   | *(todo)*|
-| 8  | [08-bhs(bhs)members.databook.md](example/08-bhs(bhs)members.databook.md)                                  | Group        | BHS group instance with Alice and Bob as members                 | [view](example/images/08-bhs(bhs)members.png) |
-| 9  | [09-bob(bhs)bob.databook.md](example/09-bob(bhs)bob.databook.md)                              | Group        | Bob's BHS member persona (name, email, phone, address)           | [view](example/images/09-bob(bhs)bob.png) |
+| 1  | [01-paula(acme)alice](example/01-paula(acme)alice.databook.md)           | Employee     | Paula as Alice's Acme colleague (Alice-asserted)                | *(todo)*|
+| 2  | [02-paula(familymember)alice](example/02-paula(familymember)alice.databook.md) | FamilyMember | Paula as Alice's family member (Alice-asserted)           | *(todo)*|
+| 3  | [03-paula(familymember)paula](example/03-paula(familymember)paula.databook.md) | FamilyMember | Paula's own family persona; social network with Alice (dyad #2) | *(todo)*|
+| 5  | [05-bob(bob)alice](example/05-bob(bob)alice.databook.md)                 | Person       | Alice's notes about Bob; fav drink: oat milk cappuccino         | [view](example/images/05-bob(bob)alice.png) |
+| 6  | [06-bob(bob)bob](example/06-bob(bob)bob.databook.md)                     | Person       | Bob's self-asserted Bob persona (dyad with #5)                  | *(todo)*|
+| 8  | [08-bhs(bhs)members](example/08-bhs(bhs)members.databook.md)             | Group        | BHS group instance with Alice and Bob as members                | [view](example/images/08-bhs(bhs)members.png) |
+| 9  | [09-bob(bhs)bob](example/09-bob(bhs)bob.databook.md)                     | Group        | Bob's BHS member persona (name, email, phone, address)          | [view](example/images/09-bob(bhs)bob.png) |
 
 
 
