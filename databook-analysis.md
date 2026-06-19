@@ -22,7 +22,7 @@ Each Mia context file is currently a `.ttl` (Turtle RDF) file that acts as a "po
     owl:versionInfo "Version 2.0.1"@en ;
     rdfs:label "Alice Walker - Citibank Persona"@en .
 
-:Alice_Walker rdf:type persona:Person ;
+:Self rdf:type persona:Person ;
     persona:hasPaymentCard :Alice_Debit_Card .
 ```
 
@@ -145,7 +145,7 @@ The `owl:Ontology` declaration exists in our current `.ttl` files solely as a ve
     context:name "Citibank" ;
     rdfs:label "Alice Walker - Citibank Persona"@en .
 
-:Alice_Walker rdf:type owl:NamedIndividual , persona:Person ;
+:Self rdf:type owl:NamedIndividual , persona:Person ;
     persona:hasPaymentCard :Alice_Debit_Card ;
     persona:hasBankAccount :Alice_Checking_Account .
 ```
@@ -198,7 +198,7 @@ account, plus an online service account for `online.citi.com`.
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
 
-:Alice_Walker rdf:type rdf:NamedIndividual , persona:Person ;
+:Self rdf:type rdf:NamedIndividual , persona:Person ;
     rdfs:label "Alice Walker (Citibank)"@en ;
     persona:hasPaymentCard :Alice_Debit_Card ;
     persona:hasBankAccount :Alice_Checking_Account ;

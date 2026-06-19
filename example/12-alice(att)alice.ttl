@@ -16,14 +16,14 @@
     owl:imports <http://mee.foundation/ontologies/persona> ;
     owl:imports <http://mee.foundation/ontologies/context> ;
     dc:date "2026-06-01"^^xsd:date ;
-    owl:versionInfo "Version 2.0.0 - unified persona:Person IRI model"@en ;
+    owl:versionInfo "Version 2.0.1 - rename :Alice_Walker to :Self"@en ;
     context:contextCategory context:Company ;
     context:assertedBy identity:Self ;
     context:subject identity:Self ;
     context:name "AT&T" ;
     rdfs:label "Alice Walker - AT&T Persona"@en ;
     rdfs:comment """What Alice states about herself in the context of her AT&T account.
-                    Shares IRI :Alice_Walker with alice(self)alice.ttl.
+                    Shares IRI :Self with alice(self)alice.ttl.
                     Phone: +15108149999"""@en .
 
 
@@ -31,7 +31,7 @@
 #    Alice Walker - AT&T Persona
 #################################################################
 
-:Alice_Walker rdf:type owl:NamedIndividual ,
+:Self rdf:type owl:NamedIndividual ,
                persona:Person ;
     rdfs:label "Alice Walker (AT&T)"@en ;
 

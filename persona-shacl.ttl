@@ -11,12 +11,13 @@
 
 <http://www.example.org/shapes> rdf:type owl:Ontology ;
     owl:imports <http://www.example.org/mia> ;
-    owl:versionInfo "Version 4.0.2 - remove OrganizationName maxCount (multiple per person valid in contexts model)"@en ;
+    owl:versionInfo "Version 4.0.3 - update comment: persona:Person IRI is :Self for Mia user"@en ;
     rdfs:label "Mee Identity Agent (MIA)'s SHACL Validation Shapes"@en ;
     rdfs:comment """SHACL validation shapes for the Mee Identity Agent.
 
                     Architecture: named-graph contexts — each context file contains exactly one
-                    persona:Person individual identified by a unified IRI (e.g. :Alice_Walker).
+                    persona:Person individual. The Mia user's individual uses the IRI :Self across
+                    all of their context files; other people use locally-assigned named IRIs.
                     PersonShape targets all persona:Person individuals across all context files.
 
                     Key property IRIs:

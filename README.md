@@ -32,17 +32,17 @@ We first present an overview of the five ontologies and then illustrate them thr
 The Persona ontology defines a formal, machine-readable model of a person. It is used by Mia to represent the user and to bi-directionally synchronize this information with other Mia users on a Personal Data Network that includes other Mia users as well as groups and organizations. 
 
 
-We represent a person using the `persona:Person` class — a Mee-specific subclass of CCO `Person` (`cco:ont00001262`). Each context file contains exactly one `persona:Person` individual, identified by a unified IRI (e.g. `:Alice_Walker`) that is shared across all context files about that person. These context files function as *named-graph slices* — each is an independent snapshot of that person's identity in a specific relationship or institutional context, carrying the claims relevant to that context: names, addresses, phone numbers, SSNs, physical characteristics, parent-child relationships, social connections, payment cards, and more. The Persona ontology reuses existing well-known ontologies wherever possible and defines new terms only where no suitable existing term exists.
+We represent a person using the `persona:Person` class — a Mee-specific subclass of CCO `Person` (`cco:ont00001262`). Each context file contains exactly one `persona:Person` individual. The Mia user's own `persona:Person` individual always uses the IRI `:Self` across all of their context files; other people, groups, and organizations are assigned locally-minted named IRIs (e.g. `:Bob_Johnson`). These context files function as *named-graph slices* — each is an independent snapshot of an identity in a specific relationship or institutional context, carrying the claims relevant to that context: names, addresses, phone numbers, SSNs, physical characteristics, parent-child relationships, social connections, payment cards, and more. The Persona ontology reuses existing well-known ontologies wherever possible and defines new terms only where no suitable existing term exists.
 
 <p align="center"><img src="images/persona-ontology/persona.png" alt="Persona model"></p>
 
 ### Key properties and classes
 
-This section describes the most fundamental properties and classes in the Persona ontology. A person's identity data is spread across multiple named-graph slice files, each containing one `persona:Person` individual with the same unified IRI.
+This section describes the most fundamental properties and classes in the Persona ontology. A person's identity data is spread across multiple named-graph slice files, each containing one `persona:Person` individual. The Mia user's slices share the IRI `:Self`; each other person's slices share their locally-assigned named IRI.
 
 **Classes**
 
-* `persona:Person` — a Mee-specific subclass of CCO `Person` (`cco:ont00001262`). Each context file (named-graph slice) contains exactly one `persona:Person` individual. The same IRI is used for the same person across all context files (e.g. `:Alice_Walker` appears in every context file about Alice Walker). All identity data — names, identifiers, addresses, social networks, payment cards, and more — attaches to this individual.
+* `persona:Person` — a Mee-specific subclass of CCO `Person` (`cco:ont00001262`). Each context file (named-graph slice) contains exactly one `persona:Person` individual. The Mia user's own `persona:Person` always uses the IRI `:Self`, shared across all of their context files. Other people, groups, and organizations are assigned locally-minted named IRIs (e.g. `:Bob_Johnson`, `:Paula_Walker`). `:Self` is a local IRI and is never exposed externally over the PDN, so there are no collisions between Mia instances. All identity data — names, identifiers, addresses, social networks, payment cards, and more — attaches to this individual.
 
 **Properties**
 
@@ -336,7 +336,9 @@ The Identity ontology is used to describe the kinds of identities that Mia can c
 
 This section describes the local Mia dataset for a hypothetical user, Alice Walker.
 
-Within Alice's self context is `:Alice_Walker`, a `persona:Person` individual. The same IRI, `:Alice_Walker`, is used for Alice in every context file — each file is a named-graph slice of her identity in a specific context. The self context (`example/alice(self)alice.ttl`) imports all of Alice's other context files.
+All context files in this example are resident in Alice's Mia. Some are authored by Alice (self-asserted data she entered directly); others are data received from peers over PDN and stored locally. In either case, Alice is the Mia user, so her `persona:Person` individual uses the IRI `:Self` across all of her context files. Other people — Bob Johnson, Paula Walker — and groups such as BHS use locally-assigned named IRIs (e.g. `:Bob_Johnson`, `:Paula_Walker`, `:BHS`). When data arrives from a peer's Mia (where that peer was `:Self` in their own instance), Alice's Mia assigns them a locally-minted identifier; once a PDN connection is established, that identifier resolves to their PDN ID.
+
+Within Alice's self context is `:Self`, a `persona:Person` individual. The same IRI, `:Self`, is used in every context file that is about Alice — each file is a named-graph slice of her identity in a specific context. The self context (`example/alice(self)alice.ttl`) imports all of Alice's other context files.
 
 <p align="center"><img src="example/images/alice(self)alice.png" alt="Alice's self"></p>
 

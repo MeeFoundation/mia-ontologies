@@ -16,21 +16,21 @@
     owl:imports <http://mee.foundation/ontologies/persona> ;
     owl:imports <http://mee.foundation/ontologies/context> ;
     dc:date "2026-06-01"^^xsd:date ;
-    owl:versionInfo "Version 2.0.0 - unified persona:Person IRI model"@en ;
+    owl:versionInfo "Version 2.0.1 - rename :Alice_Walker to :Self"@en ;
     context:contextCategory context:Possession ;
     context:assertedBy identity:Self ;
     context:subject identity:Self ;
     context:name "Possessions" ;
     rdfs:label "Alice Walker - Possessions Persona"@en ;
     rdfs:comment """What Alice Walker states are her posessions — physical items she carries day-to-day.
-                    Shares IRI :Alice_Walker with alice(self)alice.ttl."""@en .
+                    Shares IRI :Self with alice(self)alice.ttl."""@en .
 
 
 #################################################################
 #    Alice Walker - Possessions Persona
 #################################################################
 
-:Alice_Walker rdf:type owl:NamedIndividual ,
+:Self rdf:type owl:NamedIndividual ,
                persona:Person ;
     rdfs:label "Alice Walker (Possessions)"@en ;
     persona:hasWallet :Alice_Wallet ;
@@ -55,7 +55,7 @@
     rdfs:comment "Alice Walker's physical Texas driver's license card."@en ;
     <http://purl.obolibrary.org/obo/BFO_0000177> :Alice_Wallet ;            # continuant part of → in wallet
     persona:hasImageScan "file:///scans/alice-drivers-license.png"^^xsd:anyURI .
-    # <http://purl.obolibrary.org/obo/BFO_0000101> :Alice_Walker-DMV  # future: is carrier of → :Alice_Walker-DMV Persona when created
+    # <http://purl.obolibrary.org/obo/BFO_0000101> :Self-DMV  # future: is carrier of → :Self-DMV Persona when created
 
 
 :Alice_PaymentCard rdf:type owl:NamedIndividual ,
@@ -70,7 +70,7 @@
     rdfs:label "Alice Walker's Health Insurance Card"@en ;
     rdfs:comment "Alice Walker's physical health insurance membership card."@en ;
     persona:hasImageScan "file:///scans/alice-health-insurance-card.png"^^xsd:anyURI .
-    # <http://purl.obolibrary.org/obo/BFO_0000101> :Alice_Walker-HealthInsurance  # future: is carrier of → :Alice_Walker-HealthInsurance Persona when created
+    # <http://purl.obolibrary.org/obo/BFO_0000101> :Self-HealthInsurance  # future: is carrier of → :Self-HealthInsurance Persona when created
 
 
 :Alice_SSNCard rdf:type owl:NamedIndividual ,

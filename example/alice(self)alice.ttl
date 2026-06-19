@@ -36,9 +36,9 @@
     owl:imports <http://www.example.org/mia/alice(business-card)alice> ;
     owl:imports <http://www.example.org/mia/alice(driverslicense)alice> ;
     dc:date "2026-06-15"^^xsd:date ;
-    owl:versionInfo "Version 4.0.0 - unified persona:Person IRI model; remove hasPersona links"@en ;
+    owl:versionInfo "Version 4.0.1 - rename :Alice_Walker to :Self"@en ;
     rdfs:label "Alice Walker - Selfness"@en ;
-    rdfs:comment """Alice Walker's selfness — the central identity individual. The same IRI (:Alice_Walker)
+    rdfs:comment """Alice Walker's selfness — the central identity individual. The same IRI (:Self)
                     is used in every context file about Alice; each file is a named-graph slice.
 
                     Person Details:
@@ -47,7 +47,7 @@
                     - Hair Color: Grey
                     - Mother: :Paula_Walker
 
-                    Alice's context files (all use :Alice_Walker as the persona:Person IRI):
+                    Alice's context files (all use :Self as the persona:Person IRI):
                     - 10-alice(citibank)citibank.ttl    — Citibank financial relationship
                     - 15-alice(boston)alice.ttl         — Boston residence (2020-2025)
                     - 14-alice(paradise)alice.ttl       — Paradise residence (2025-present)
@@ -85,7 +85,7 @@
 #################################################################
 
 ###  Person: Alice Walker
-:Alice_Walker rdf:type owl:NamedIndividual ,
+:Self rdf:type owl:NamedIndividual ,
                        persona:Person ;
     rdfs:label "Alice Walker"@en ;
     rdfs:comment "Alice Walker's selfness — the central identity individual."@en ;

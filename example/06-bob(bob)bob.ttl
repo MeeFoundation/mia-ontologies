@@ -16,7 +16,7 @@
     owl:imports <http://mee.foundation/ontologies/context> ;
     owl:imports <http://www.example.org/mia/alice(bob)bob> ;
     dc:date "2026-06-15"^^xsd:date ;
-    owl:versionInfo "Version 2.0.0 - unified persona:Person IRI model; dyad moved to graph level"@en ;
+    owl:versionInfo "Version 2.0.1 - rename :Alice_Walker to :Self"@en ;
     context:contextCategory context:Person ;
     context:assertedBy :Bob_Johnson ;
     context:subject :Bob_Johnson ;
@@ -57,4 +57,4 @@
 :Bob_Bob_Network rdf:type owl:NamedIndividual ,
                           cco:ont00001183 ;  # Social Network
     rdfs:label "Bob Johnson's Bob connection"@en ;
-    <http://purl.obolibrary.org/obo/BFO_0000115> :Alice_Walker .  # has member part
+    <http://purl.obolibrary.org/obo/BFO_0000115> :Self .  # has member part

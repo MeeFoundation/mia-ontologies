@@ -16,21 +16,21 @@
     owl:imports <http://mee.foundation/ontologies/persona> ;
     owl:imports <http://mee.foundation/ontologies/context> ;
     dc:date "2026-06-01"^^xsd:date ;
-    owl:versionInfo "Version 2.0.0 - unified persona:Person IRI model"@en ;
+    owl:versionInfo "Version 2.0.1 - rename :Alice_Walker to :Self"@en ;
     context:contextCategory context:Municipality ;
     context:assertedBy identity:Self ;
     context:subject identity:Self ;
     context:name "Boston" ;
     rdfs:label "Alice Walker - Boston Persona"@en ;
     rdfs:comment """What Alice Walker claims is her previous residence in Boston, MA from 2020 to 2025. 
-                    Shares IRI :Alice_Walker with alice(self)alice.ttl."""@en .
+                    Shares IRI :Self with alice(self)alice.ttl."""@en .
 
 
 #################################################################
 #    Alice Walker - Boston Persona
 #################################################################
 
-:Alice_Walker rdf:type owl:NamedIndividual ,
+:Self rdf:type owl:NamedIndividual ,
                persona:Person ;
     rdfs:label "Alice Walker (Boston)"@en ;
 
@@ -45,7 +45,7 @@
                            cco:ent00000016 ;  # AddressDesignation
     rdfs:label "Alice's Boston Residence (2020-2025)"@en ;
     rdfs:comment "Alice lived at this Boston address from 2020 to 2025."@en ;
-    <http://purl.obolibrary.org/obo/BFO_0000139> :Alice_Walker ;  # has participant
+    <http://purl.obolibrary.org/obo/BFO_0000139> :Self ;  # has participant
     <https://purl.org/cco/ont00001879> :Address_Boston ;                  # designated by
     <http://purl.obolibrary.org/obo/BFO_0000153> :Interval_2020_2025 .   # occupies temporal region
 

@@ -15,23 +15,23 @@
     owl:imports <http://mee.foundation/ontologies/persona> ;
     owl:imports <http://mee.foundation/ontologies/context> ;
     dc:date "2026-06-13"^^xsd:date ;
-    owl:versionInfo "Version 2.0.0 - unified persona:Person IRI model; dyad moved to graph level"@en ;
+    owl:versionInfo "Version 2.0.1 - rename :Alice_Walker to :Self"@en ;
     context:contextCategory context:Person ;
     context:assertedBy :Bob_Johnson ;
-    context:subject :Alice_Walker ;
+    context:subject :Self ;
     context:name "Bob" ;
     context:dyad <http://www.example.org/mia/alice(bob)alice> ;
     rdfs:label "Alice Walker - in her relationship with Bob)"@en ;
     rdfs:comment """What Bob states about Alice in the context of their (1:1) relationship
                     Paired (dyad) with alice(bob)alice.ttl (#17) 
-                    Shares IRI :Alice_Walker with alice(self)alice.ttl."""@en .
+                    Shares IRI :Self with alice(self)alice.ttl."""@en .
 
 
 #################################################################
 #    Alice Walker - Bob Persona (Bob's view)
 #################################################################
 
-:Alice_Walker rdf:type owl:NamedIndividual ,
+:Self rdf:type owl:NamedIndividual ,
                persona:Person ;
     rdfs:label "Alice Walker by Bob"@en ;
 

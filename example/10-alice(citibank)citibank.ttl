@@ -16,7 +16,7 @@
     owl:imports <http://mee.foundation/ontologies/persona> ;
     owl:imports <http://mee.foundation/ontologies/context> ;
     dc:date "2026-06-15"^^xsd:date ;
-    owl:versionInfo "Version 2.0.1 - contextCategory Finance → FinancialServices"@en ;
+    owl:versionInfo "Version 2.0.2 - rename :Alice_Walker to :Self"@en ;
     context:contextCategory context:FinancialServices ;
     context:assertedBy identity:Organization ;
     context:subject identity:Self ;
@@ -24,14 +24,14 @@
     rdfs:label "Alice Walker - Citibank Persona"@en ;
     rdfs:comment """Alice Walker's Citibank whoness — the context-specific Persona
                     representing Alice in her Citibank financial relationship.
-                    Asserted by Citibank (Organization). Shares IRI :Alice_Walker with alice(self)alice.ttl."""@en .
+                    Asserted by Citibank (Organization). Shares IRI :Self with alice(self)alice.ttl."""@en .
 
 
 #################################################################
 #    Alice Walker - Citibank Persona
 #################################################################
 
-:Alice_Walker rdf:type owl:NamedIndividual ,
+:Self rdf:type owl:NamedIndividual ,
                persona:Person ;
     rdfs:label "Alice Walker (Citibank)"@en ;
     rdfs:comment "Alice Walker's persona in the context of her Citibank relationship."@en ;

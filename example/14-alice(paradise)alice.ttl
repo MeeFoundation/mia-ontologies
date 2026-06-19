@@ -16,14 +16,14 @@
     owl:imports <http://mee.foundation/ontologies/persona> ;
     owl:imports <http://mee.foundation/ontologies/context> ;
     dc:date "2026-06-01"^^xsd:date ;
-    owl:versionInfo "Version 2.0.0 - unified persona:Person IRI model"@en ;
+    owl:versionInfo "Version 2.0.1 - rename :Alice_Walker to :Self"@en ;
     context:contextCategory context:Municipality ;
     context:assertedBy identity:Self ;
     context:subject identity:Self ;
     context:name "Paradise" ;
     rdfs:label "Alice Walker - Paradise Persona"@en ;
     rdfs:comment """What Alice Walker claims current residence in Paradise, CA (September 2025 to present).
-                    Shares IRI :Alice_Walker with alice(self)alice.ttl.
+                    Shares IRI :Self with alice(self)alice.ttl.
                     Current Address: 123 Sleepy Hollow, Paradise, CA 95969, USA (since Sept 2025)"""@en .
 
 
@@ -31,7 +31,7 @@
 #    Alice Walker - Paradise Persona
 #################################################################
 
-:Alice_Walker rdf:type owl:NamedIndividual ,
+:Self rdf:type owl:NamedIndividual ,
                persona:Person ;
     rdfs:label "Alice Walker (Paradise)"@en ;
 
@@ -46,7 +46,7 @@
                             cco:ent00000016 ;  # AddressDesignation
     rdfs:label "Alice's Paradise Residence (2025-present)"@en ;
     rdfs:comment "Alice has lived at this Paradise address since September 2025. No end date indicates current residence."@en ;
-    <http://purl.obolibrary.org/obo/BFO_0000139> :Alice_Walker ;  # has participant
+    <http://purl.obolibrary.org/obo/BFO_0000139> :Self ;  # has participant
     <https://purl.org/cco/ont00001879> :Address_Paradise ;                  # designated by
     <http://purl.obolibrary.org/obo/BFO_0000153> :Interval_2025_Present .  # occupies temporal region
 

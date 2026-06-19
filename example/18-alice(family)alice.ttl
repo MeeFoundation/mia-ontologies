@@ -16,21 +16,21 @@
     owl:imports <http://mee.foundation/ontologies/persona> ;
     owl:imports <http://mee.foundation/ontologies/context> ;
     dc:date "2026-06-01"^^xsd:date ;
-    owl:versionInfo "Version 2.0.1 - rename contextCategory to FamilyMember"@en ;
+    owl:versionInfo "Version 2.0.2 - rename :Alice_Walker to :Self"@en ;
     context:contextCategory context:FamilyMember ;
     context:assertedBy identity:Self ;
     context:subject identity:Self ;
     context:name "Family" ;
     rdfs:label "Alice Walker - Family Persona"@en ;
     rdfs:comment """Alice Walker's family whoness — representing her in the context of her
-                    family relationships. Shares IRI :Alice_Walker with alice(self)alice.ttl."""@en .
+                    family relationships. Shares IRI :Self with alice(self)alice.ttl."""@en .
 
 
 #################################################################
 #    Alice Walker - Family Persona
 #################################################################
 
-:Alice_Walker rdf:type owl:NamedIndividual ,
+:Self rdf:type owl:NamedIndividual ,
                persona:Person ;
     rdfs:label "Alice Walker (Family)"@en ;
     rdfs:comment "Alice Walker's persona in the context of her family relationships."@en ;

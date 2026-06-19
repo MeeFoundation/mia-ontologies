@@ -16,7 +16,7 @@
     owl:imports <http://mee.foundation/ontologies/persona> ;
     owl:imports <http://mee.foundation/ontologies/context> ;
     dc:date "2026-06-15"^^xsd:date ;
-    owl:versionInfo "Version 2.0.0 - unified persona:Person IRI model; template moved to graph level"@en ;
+    owl:versionInfo "Version 2.0.1 - rename :Alice_Walker to :Self"@en ;
     context:contextCategory context:State ;
     context:assertedBy identity:Self ;
     context:subject identity:Self ;
@@ -24,7 +24,7 @@
     context:template persona:DriversLicense ;
     rdfs:label "Alice Walker - Driver's License"@en ;
     rdfs:comment """What Alice Walker states about her California-issued driver's license.
-                    Shares IRI :Alice_Walker with alice(self)alice.ttl.
+                    Shares IRI :Self with alice(self)alice.ttl.
                     Legal Name: Margery Alice Walker
                     DL#: A1234567 (placeholder)"""@en .
 
@@ -33,7 +33,7 @@
 #    Alice Walker - Driver's License Persona
 #################################################################
 
-:Alice_Walker rdf:type owl:NamedIndividual ,
+:Self rdf:type owl:NamedIndividual ,
                persona:Person ;
     rdfs:label "Alice Walker (Driver's License)"@en ;
     rdfs:comment "Alice Walker's California state-issued driver's licence identity data."@en ;
