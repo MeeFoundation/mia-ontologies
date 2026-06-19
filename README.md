@@ -363,7 +363,7 @@ Alice interacts with other people, organizations and groups in contexts of diffe
 
 The contexts in the table below are *about* Alice and asserted *by* Alice. All `.databook.md` files are in the `example/` folder.
 
-| #  | Context file                                                                          | Context type | Key data                                                         | Diagram |
+| #  | DataBook file                                                                          | Context type | Key data                                                         | Diagram |
 |--- |:--------------------------------------------------------------------------------------|:-------------|:-----------------------------------------------------------------|:--------|
 | 7  | [07-alice(bhs)alice](example/07-alice(bhs)alice.databook.md)                     | Group        | BHS profile: email, phone and current address                    | [view](example/images/07-alice(bhs)alice.png)|
 | 11 | [11-alice(google)alice](example/11-alice(google)alice.databook.md)               | Company      | Gmail address                                                    | [view](example/images/11-alice(google)alice.png) |
@@ -381,14 +381,14 @@ The contexts in the table below are *about* Alice and asserted *by* Alice. All `
 
 The following table lists contexts that are *about* Alice but asserted by others.
 
-| #  | Context file                                                                         | Context type | Key data                             | Diagram |
+| #  | DataBook file                                                                         | Context type | Key data                             | Diagram |
 |--- |:-------------------------------------------------------------------------------------|:-------------|:-------------------------------------|:--------|
 | 4  | [04-alice(bob)bob](example/04-alice(bob)bob.databook.md)                         | Person            | Alice as seen by Bob (dyad with #17) | [view](example/images/04-alice(bob)bob.png)|
 | 10 | [10-alice(citibank)citibank](example/10-alice(citibank)citibank.databook.md)     | FinancialServices | Debit card                           | [view](example/images/10-alice(citibank)citibank.png) |
 
 The following table lists contexts about other people (Paula and Bob) or groups (Boston Hub Society) in Alice's Mia. All files are in `example/`.
 
-| #  | Context file                                                                                     | Context type | Key data                                                         | Diagram |
+| #  | DataBook file                                                                                     | Context type | Key data                                                         | Diagram |
 |--- |:-------------------------------------------------------------------------------------------------|:-------------|:-----------------------------------------------------------------|:--------|
 | 1  | [01-paula(acme)alice](example/01-paula(acme)alice.databook.md)           | Employee     | Paula as Alice's Acme colleague (Alice-asserted)                | *(todo)*|
 | 2  | [02-paula(familymember)alice](example/02-paula(familymember)alice.databook.md) | FamilyMember | Paula as Alice's family member (Alice-asserted)           | *(todo)*|
