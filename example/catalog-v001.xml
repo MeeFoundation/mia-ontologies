@@ -21,13 +21,7 @@
     <uri id="organization"             name="http://mee.foundation/ontologies/organization"
          uri="file:/Users/paul/Documents/Work/GitHub/mia-ontologies/organization.ttl"/>
 
-    <!-- ── Selfness files ───────────────────────────────────────────────── -->
-    <uri id="alice-self"  name="http://www.example.org/mia"
-         uri="file:/Users/paul/Documents/Work/GitHub/mia-ontologies/example/alice(self)alice.ttl"/>
-    <uri id="bob-self"    name="http://www.example.org/mia/bob(self)bob"
-         uri="file:/Users/paul/Documents/Work/GitHub/mia-ontologies/example/bob(self)bob.ttl"/>
-    <uri id="paula-self"  name="http://www.example.org/mia/paula(self)paula"
-         uri="file:/Users/paul/Documents/Work/GitHub/mia-ontologies/example/paula(self)paula.ttl"/>
+    <!-- ── Selfness files (now DataBook — loaded via triplestore, not owl:imports) ── -->
 
     <!-- ── Under-development ────────────────────────────────────────────── -->
     <uri id="florida-birth-certificate" name="http://www.example.org/mia/florida-birth-certificate"

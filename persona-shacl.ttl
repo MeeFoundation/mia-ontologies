@@ -10,8 +10,7 @@
 @prefix persona: <http://mee.foundation/ontologies/persona#> .
 
 <http://www.example.org/shapes> rdf:type owl:Ontology ;
-    owl:imports <http://www.example.org/mia> ;
-    owl:versionInfo "Version 4.0.3 - update comment: persona:Person IRI is :Self for Mia user"@en ;
+    owl:versionInfo "Version 4.0.4 - remove owl:imports of alice(self)alice; data loaded via triplestore"@en ;
     rdfs:label "Mee Identity Agent (MIA)'s SHACL Validation Shapes"@en ;
     rdfs:comment """SHACL validation shapes for the Mee Identity Agent.
 
