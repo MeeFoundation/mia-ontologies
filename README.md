@@ -258,14 +258,16 @@ The Organization ontology models organizations — companies, government agencie
 
 ## Context Ontology
 
-A context is a container of information whose primary subject is one of the three kinds of PDN node: a `persona:Person` individual (a named-graph slice of a person's identity in a specific context), a `g:Group`, or an `o:Organization`. It holds the subject's claims and, in the case of a `persona:Person` subject, may also include `persona:Person` individuals for other people in that context. A context is implemented as a `.ttl` file that by convention contains an `owl:Ontology`. The context ontology defines properties of this `owl:Ontology` header:
+A context is a container of information whose primary subject is one of the three kinds of PDN node: a `persona:Person` individual (a named-graph slice of a person's identity in a specific context), a `g:Group`, or an `o:Organization`. It holds the subject's claims and, in the case of a `persona:Person` subject, may also include `persona:Person` individuals for other people in that context.
 
-- A human-readable name for the context (`c:name`) — a plain string, e.g. `"Citibank"`.
-- What is the category of context (`c:contextCategory`), e.g. relationships with family members, interactions with a bank, etc.
-- Who is making the assertions the context contains (`c:assertedBy`) — its value is a `i:PDNidentity`.
-- Who is the context mainly about (`c:subject`) — its value is a `i:PDNidentity`.
-- The template type for specialized context files (`c:template`) — its value is a `p:PersonaTemplate` subclass (e.g. `persona:BirthCertificate`, `persona:JSContactCard`, `persona:DriversLicense`). Present only on context files that conform to a specific template.
-- The dyad partner for 1:1 relationship context files (`c:dyad`) — its value is the IRI of the partner context file's `owl:Ontology`. If context file A carries `c:dyad` pointing to context file B, then B must carry `c:dyad` pointing back to A.
+A context is implemented as a **DataBook** (`.databook.md`) file. File-level metadata — name, category, asserter, subject, template, and dyad — is carried in the YAML frontmatter under the `mia:` key rather than as RDF triples. The context ontology (`context.ttl`) defines the controlled vocabularies that those YAML fields reference:
+
+- `mia.name` — a human-readable name for the context, e.g. `"Citibank"`.
+- `mia.contextCategory` — the nature of the interaction/relationship context; its value is a prefixed name of a `c:ContextCategory` subclass, e.g. `"context:FamilyMember"`.
+- `mia.assertedBy` — who is making the assertions; its value is a prefixed name of a `i:PDNidentity` individual, e.g. `"identity:Self"`.
+- `mia.subject` — whose identity the context file describes; its value is a prefixed name of a `i:PDNidentity` individual, e.g. `"identity:Self"`.
+- `mia.template` — present only on context files that conform to a specific template; its value is a `p:PersonaTemplate` subclass (e.g. `"persona:BirthCertificate"`, `"persona:JSContactCard"`, `"persona:DriversLicense"`).
+- `mia.dyad` — the IRI of the partner DataBook in a 1:1 relationship context. If context A carries `mia.dyad` pointing to context B, then B must carry `mia.dyad` pointing back to A.
 
 **`c:contextCategory`** — The nature of the interaction/relationship context. Values form a subclass hierarchy under `c:ContextCategory`:
 
@@ -305,11 +307,11 @@ The lower right shows a context that Alice might share with other people or comp
 
 ### Context Ontology File
 
-- **`context.ttl`** — The Context ontology. 
+- **`context.ttl`** — The Context ontology, defining `c:ContextCategory` and its subclass hierarchy, and the `c:contextCategory`, `c:assertedBy`, `c:subject`, `c:name`, `c:template`, and `c:dyad` properties. These terms are referenced by name in the YAML frontmatter of each DataBook context file.
 
 ### Validation
 
-`context-shacl.ttl` validates context file ontology IRIs. Key constraint: any ontology annotated with `c:contextCategory` must also declare exactly one `c:name`, `c:assertedBy`, and `c:subject`.
+Context file metadata (name, category, asserter, subject) is declared in YAML frontmatter and validated at authoring time by convention rather than by a SHACL shape. `context-shacl.ttl` contains shapes written for the legacy TTL ontology format (where these fields were `owl:Ontology` annotations) and no longer fires against DataBook files.
 
 ## Identity Ontology
 
