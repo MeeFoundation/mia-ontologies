@@ -120,7 +120,7 @@ Each MIA context file is a `.ttl` file acting as a "poor man's named graph": an 
 | `context:subject` | `mia.subject:` in YAML **and** hidden turtle block | |
 | `context:template` | `mia.template:` in YAML **and** hidden turtle block | |
 | `context:dyad` | `mia.dyad:` in YAML **and** hidden turtle block | |
-| `owl:imports` | Hidden turtle block | No native OWL-imports equivalent in databook |
+| `owl:imports` | Not needed | Ontologies pre-loaded into triplestore; no file-level import chain |
 | *(absent today)* | `graph.named_graph: {id}#graph` | New — real named-graph IRI |
 | *(absent today)* | `shapes:` | Formal SHACL pointer |
 | *(absent today)* | `process:` | PROV-O provenance stamp |
@@ -191,24 +191,6 @@ process:
 Alice Walker's financial relationship with Citibank. Citibank is a PDN Organization
 node and directly asserts this context. It holds a debit card linked to a checking
 account, plus an online service account for `online.citi.com`.
-
-## Context Classification
-
-<!-- databook:id: context-metadata -->
-<!-- mode=hidden -->
-```turtle
-@prefix context: <http://mee.foundation/ontologies/context#> .
-@prefix identity: <http://mee.foundation/ontologies/identity#> .
-@prefix owl: <http://www.w3.org/2002/07/owl#> .
-@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
-
-<http://www.example.org/mia/alice(citibank)citibank> rdf:type owl:Ontology ;
-    owl:imports <http://mee.foundation/ontologies/persona> ;
-    owl:imports <http://mee.foundation/ontologies/context> ;
-    context:contextCategory context:FinancialServices ;
-    context:assertedBy identity:Organization ;
-    context:subject identity:Self .
-` ``
 
 ## Identity Data
 
