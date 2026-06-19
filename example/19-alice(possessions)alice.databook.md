@@ -1,34 +1,46 @@
+---
+id: http://www.example.org/mia/posessions
+title: "Alice Walker — Possessions"
+type: databook
+version: 2.0.2
+created: 2026-06-01
+description: >
+  Alice Walker's possessions context. Records the physical cards she carries day-to-day:
+  a wallet containing her driver's license and payment card, plus a health insurance card
+  and Social Security card held separately.
+mia:
+  name: "Possessions"
+  contextCategory: "context:Possession"
+  assertedBy: "identity:Self"
+  subject: "identity:Self"
+graph:
+  named_graph: http://www.example.org/mia/posessions#graph
+  rdf_version: "1.1"
+shapes:
+  - http://www.example.org/shapes
+process:
+  transformer: human
+  timestamp: 2026-06-19T00:00:00Z
+  agent:
+    name: Paul Trevithick
+    role: author
+---
+
+## Overview
+
+This context captures Alice Walker's day-to-day physical possessions. Her wallet holds her driver's license and payment card. Her health insurance card is carried separately (not in the wallet). Her Social Security card is stored at home for safety.
+
+## Identity Data
+
+<!-- databook:id: alice-possessions-identity -->
+<!-- databook:graph: http://www.example.org/mia/posessions#graph -->
+```turtle
 @prefix : <http://www.example.org/mia#> .
 @prefix persona: <http://mee.foundation/ontologies/persona#> .
-@prefix context: <http://mee.foundation/ontologies/context#> .
-@prefix identity: <http://mee.foundation/ontologies/identity#> .
-@prefix cco: <https://purl.org/cco/> .
 @prefix owl: <http://www.w3.org/2002/07/owl#> .
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
-@prefix dc: <http://purl.org/dc/elements/1.1/> .
-@base <http://www.example.org/mia> .
-
-# diagram label = 19
-
-<http://www.example.org/mia/posessions> rdf:type owl:Ontology ;
-    owl:imports <http://mee.foundation/ontologies/persona> ;
-    owl:imports <http://mee.foundation/ontologies/context> ;
-    dc:date "2026-06-01"^^xsd:date ;
-    owl:versionInfo "Version 2.0.1 - rename :Alice_Walker to :Self"@en ;
-    context:contextCategory context:Possession ;
-    context:assertedBy identity:Self ;
-    context:subject identity:Self ;
-    context:name "Possessions" ;
-    rdfs:label "Alice Walker - Possessions Persona"@en ;
-    rdfs:comment """What Alice Walker states are her posessions — physical items she carries day-to-day.
-                    Shares IRI :Self with alice(self)alice.ttl."""@en .
-
-
-#################################################################
-#    Alice Walker - Possessions Persona
-#################################################################
 
 :Self rdf:type owl:NamedIndividual ,
                persona:Person ;
@@ -37,12 +49,6 @@
     persona:hasPhysicalCard :Alice_HealthInsuranceCard ;   # not in wallet — carried separately
     persona:hasPhysicalCard :Alice_SSNCard .               # not in wallet — stored at home for safety
 
-
-#################################################################
-#    Alice's Wallet
-#    Cards in wallet: DriversLicense, PaymentCard
-#    Cards held directly (not in wallet): HealthInsuranceCard, SSNCard
-#################################################################
 
 :Alice_Wallet rdf:type owl:NamedIndividual ,
                         persona:Wallet ;
@@ -55,7 +61,6 @@
     rdfs:comment "Alice Walker's physical Texas driver's license card."@en ;
     <http://purl.obolibrary.org/obo/BFO_0000177> :Alice_Wallet ;            # continuant part of → in wallet
     persona:hasImageScan "file:///scans/alice-drivers-license.png"^^xsd:anyURI .
-    # <http://purl.obolibrary.org/obo/BFO_0000101> :Self-DMV  # future: is carrier of → :Self-DMV Persona when created
 
 
 :Alice_PaymentCard rdf:type owl:NamedIndividual ,
@@ -70,10 +75,10 @@
     rdfs:label "Alice Walker's Health Insurance Card"@en ;
     rdfs:comment "Alice Walker's physical health insurance membership card."@en ;
     persona:hasImageScan "file:///scans/alice-health-insurance-card.png"^^xsd:anyURI .
-    # <http://purl.obolibrary.org/obo/BFO_0000101> :Self-HealthInsurance  # future: is carrier of → :Self-HealthInsurance Persona when created
 
 
 :Alice_SSNCard rdf:type owl:NamedIndividual ,
                         persona:PhysicalSocialSecurityCard ;
     rdfs:label "Alice Walker's Social Security Card"@en ;
     rdfs:comment "Alice Walker's Social Security card — stored at home, not carried in wallet."@en .
+```

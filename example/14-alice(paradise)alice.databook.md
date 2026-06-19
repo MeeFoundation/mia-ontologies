@@ -1,35 +1,46 @@
+---
+id: http://www.example.org/mia/alice(paradise)alice
+title: "Alice Walker — Paradise (Current Address)"
+type: databook
+version: 2.0.2
+created: 2026-06-01
+description: >
+  Alice Walker's current residential address in Paradise, CA (September 2025 to present).
+  Self-asserted by Alice; open-ended temporal interval indicates this is her current address.
+mia:
+  name: "Paradise"
+  contextCategory: "context:Municipality"
+  assertedBy: "identity:Self"
+  subject: "identity:Self"
+graph:
+  named_graph: http://www.example.org/mia/alice(paradise)alice#graph
+  rdf_version: "1.1"
+shapes:
+  - http://www.example.org/shapes
+process:
+  transformer: human
+  timestamp: 2026-06-19T00:00:00Z
+  agent:
+    name: Paul Trevithick
+    role: author
+---
+
+## Overview
+
+This context captures Alice Walker's current residential address: 123 Sleepy Hollow, Paradise, CA 95969. The address designation has a start date of September 2025 and no end date, indicating it is her current residence. See `15-alice(boston)alice` for her previous address.
+
+## Identity Data
+
+<!-- databook:id: alice-paradise-identity -->
+<!-- databook:graph: http://www.example.org/mia/alice(paradise)alice#graph -->
+```turtle
 @prefix : <http://www.example.org/mia#> .
 @prefix persona: <http://mee.foundation/ontologies/persona#> .
-@prefix context: <http://mee.foundation/ontologies/context#> .
-@prefix identity: <http://mee.foundation/ontologies/identity#> .
 @prefix cco: <https://purl.org/cco/> .
 @prefix owl: <http://www.w3.org/2002/07/owl#> .
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
-@prefix dc: <http://purl.org/dc/elements/1.1/> .
-@base <http://www.example.org/mia> .
-
-# diagram label = 14
-
-<http://www.example.org/mia/alice(paradise)alice> rdf:type owl:Ontology ;
-    owl:imports <http://mee.foundation/ontologies/persona> ;
-    owl:imports <http://mee.foundation/ontologies/context> ;
-    dc:date "2026-06-01"^^xsd:date ;
-    owl:versionInfo "Version 2.0.1 - rename :Alice_Walker to :Self"@en ;
-    context:contextCategory context:Municipality ;
-    context:assertedBy identity:Self ;
-    context:subject identity:Self ;
-    context:name "Paradise" ;
-    rdfs:label "Alice Walker - Paradise Persona"@en ;
-    rdfs:comment """What Alice Walker claims current residence in Paradise, CA (September 2025 to present).
-                    Shares IRI :Self with alice(self)alice.ttl.
-                    Current Address: 123 Sleepy Hollow, Paradise, CA 95969, USA (since Sept 2025)"""@en .
-
-
-#################################################################
-#    Alice Walker - Paradise Persona
-#################################################################
 
 :Self rdf:type owl:NamedIndividual ,
                persona:Person ;
@@ -37,10 +48,6 @@
 
     <https://purl.org/cco/ont00001879> :Address_Paradise .  # designated by → Paradise address
 
-
-#################################################################
-#    Paradise Residence History
-#################################################################
 
 :Paradise_Residence rdf:type owl:NamedIndividual ,
                             cco:ent00000016 ;  # AddressDesignation
@@ -80,3 +87,4 @@
         rdf:type cco:ent00000014 ;
         <https://purl.org/cco/ont00001765> "USA"
     ] .
+```

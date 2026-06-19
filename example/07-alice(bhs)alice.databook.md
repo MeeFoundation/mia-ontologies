@@ -1,34 +1,45 @@
+---
+id: http://www.example.org/mia/alice(bhs)alice
+title: "Alice Walker — Boston Hub Society Profile"
+type: databook
+version: 2.0.2
+created: 2026-06-11
+description: >
+  Alice Walker's self-asserted BHS profile, including her current address, phone number,
+  and email address as shared with the Boston Hub Society group.
+mia:
+  name: "Boston Hub Society"
+  contextCategory: "context:Group"
+  assertedBy: "identity:Self"
+  subject: "identity:Self"
+graph:
+  named_graph: http://www.example.org/mia/alice(bhs)alice#graph
+  rdf_version: "1.1"
+shapes:
+  - http://www.example.org/shapes
+process:
+  transformer: human
+  timestamp: 2026-06-19T00:00:00Z
+  agent:
+    name: Paul Trevithick
+    role: author
+---
+
+## Overview
+
+This context captures Alice Walker's BHS profile — the identity data she shares with the Boston Hub Society group. It includes her current Paradise, CA address, her phone number, and her Gmail address.
+
+## Identity Data
+
+<!-- databook:id: alice-bhs-identity -->
+<!-- databook:graph: http://www.example.org/mia/alice(bhs)alice#graph -->
+```turtle
 @prefix : <http://www.example.org/mia#> .
 @prefix persona: <http://mee.foundation/ontologies/persona#> .
-@prefix context: <http://mee.foundation/ontologies/context#> .
-@prefix identity: <http://mee.foundation/ontologies/identity#> .
 @prefix cco: <https://purl.org/cco/> .
 @prefix owl: <http://www.w3.org/2002/07/owl#> .
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
-@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
-@prefix dc: <http://purl.org/dc/elements/1.1/> .
-@base <http://www.example.org/mia> .
-
-# diagram label = 7
-
-<http://www.example.org/mia/alice(bhs)alice> rdf:type owl:Ontology ;
-    owl:imports <http://mee.foundation/ontologies/persona> ;
-    owl:imports <http://mee.foundation/ontologies/context> ;
-    dc:date "2026-06-11"^^xsd:date ;
-    owl:versionInfo "Version 2.0.1 - rename :Alice_Walker to :Self"@en ;
-    context:contextCategory context:Group ;
-    context:assertedBy identity:Self ;
-    context:subject identity:Self ;
-    context:name "Boston Hub Society" ;
-    rdfs:label "Alice Walker - BHS Profile"@en ;
-    rdfs:comment """What Alice statest about herself (i.e. her profile) in the context of the Boston Hub Society.  
-                    Shares IRI :Self with alice(self)alice.ttl."""@en .
-
-
-#################################################################
-#    Alice Walker - BHS Persona
-#################################################################
 
 :Self rdf:type owl:NamedIndividual ,
                persona:Person ;
@@ -47,10 +58,6 @@
         <https://purl.org/cco/ont00001765> "awalker@gmail.com"
     ] .
 
-
-#################################################################
-#    Address
-#################################################################
 
 :Address_BHS rdf:type owl:NamedIndividual ,
                       cco:ent00000010 ;  # USPostalAddress
@@ -75,3 +82,4 @@
         rdf:type cco:ent00000014 ;
         <https://purl.org/cco/ont00001765> "USA"
     ] .
+```

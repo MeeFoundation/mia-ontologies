@@ -29,52 +29,6 @@
     <uri id="paula-self"  name="http://www.example.org/mia/paula(self)paula"
          uri="example/paula(self)paula.ttl"/>
 
-    <!-- ── Context files ────────────────────────────────────────────────── -->
-    <uri id="01" name="http://www.example.org/mia/paula(acme)alice"
-         uri="example/01-paula(acme)alice.ttl"/>
-    <uri id="02" name="http://www.example.org/mia/paula(family)alice"
-         uri="example/02-paula(family)alice.ttl"/>
-    <uri id="03" name="http://www.example.org/mia/paula(family)paula"
-         uri="example/03-paula(family)paula.ttl"/>
-    <uri id="04" name="http://www.example.org/mia/alice(bob)bob"
-         uri="example/04-alice(bob)bob.ttl"/>
-    <uri id="05" name="http://www.example.org/mia/bob(bob)alice"
-         uri="example/05-bob(bob)alice.ttl"/>
-    <uri id="06" name="http://www.example.org/mia/bob(bob)bob"
-         uri="example/06-bob(bob)bob.ttl"/>
-    <uri id="07" name="http://www.example.org/mia/alice(bhs)alice"
-         uri="example/07-alice(bhs)alice.ttl"/>
-    <uri id="08" name="http://www.example.org/mia/bhs(bhs)members"
-         uri="example/08-bhs(bhs)members.ttl"/>
-    <uri id="09" name="http://www.example.org/mia/bob(bhs)bob"
-         uri="example/09-bob(bhs)bob.ttl"/>
-    <uri id="10" name="http://www.example.org/mia/alice(citibank)citibank"
-         uri="example/10-alice(citibank)citibank.ttl"/>
-    <uri id="11" name="http://www.example.org/mia/alice(google)alice"
-         uri="example/11-alice(google)alice.ttl"/>
-    <uri id="12" name="http://www.example.org/mia/alice(att)alice"
-         uri="example/12-alice(att)alice.ttl"/>
-    <uri id="13" name="http://www.example.org/mia/alice(tx-birth-cert)alice"
-         uri="example/13-alice(tx-birth-cert)alice.ttl"/>
-    <uri id="14" name="http://www.example.org/mia/alice(paradise)alice"
-         uri="example/14-alice(paradise)alice.ttl"/>
-    <uri id="15" name="http://www.example.org/mia/alice(boston)alice"
-         uri="example/15-alice(boston)alice.ttl"/>
-    <uri id="16" name="http://www.example.org/mia/alice(ssa)alice"
-         uri="example/16-alice(ssa)alice.ttl"/>
-    <uri id="17" name="http://www.example.org/mia/alice(bob)alice"
-         uri="example/17-alice(bob)alice.ttl"/>
-    <uri id="18" name="http://www.example.org/mia/alice(family)alice"
-         uri="example/18-alice(family)alice.ttl"/>
-    <uri id="19" name="http://www.example.org/mia/alice(possessions)alice"
-         uri="example/19-alice(possessions)alice.ttl"/>
-    <uri id="20" name="http://www.example.org/mia/alice(acme)alice"
-         uri="example/20-alice(acme)alice.ttl"/>
-    <uri id="21" name="http://www.example.org/mia/alice(business-card)alice"
-         uri="example/21-alice(business-card)alice.ttl"/>
-    <uri id="22" name="http://www.example.org/mia/alice(driverslicense)alice"
-         uri="example/22-alice(driverslicense)alice.ttl"/>
-
     <!-- ── Under-development ────────────────────────────────────────────── -->
     <uri id="florida-birth-certificate" name="http://www.example.org/mia/florida-birth-certificate"
          uri="example/under-development/paula(fl-birth-cert)alice.ttl"/>

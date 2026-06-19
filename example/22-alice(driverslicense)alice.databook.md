@@ -1,37 +1,48 @@
+---
+id: http://www.example.org/mia/alice(driverslicense)alice
+title: "Alice Walker — Driver's License"
+type: databook
+version: 2.0.2
+created: 2026-06-15
+description: >
+  Alice Walker's California driver's license context. Records her legal name, date of birth,
+  license number, expiration date, issuing jurisdiction, and photo. Self-asserted by Alice.
+mia:
+  name: "Driver's License"
+  contextCategory: "context:State"
+  assertedBy: "identity:Self"
+  subject: "identity:Self"
+  template: "persona:DriversLicense"
+graph:
+  named_graph: http://www.example.org/mia/alice(driverslicense)alice#graph
+  rdf_version: "1.1"
+shapes:
+  - http://www.example.org/shapes
+  - http://www.example.org/shapes/driverslicense
+process:
+  transformer: human
+  timestamp: 2026-06-19T00:00:00Z
+  agent:
+    name: Paul Trevithick
+    role: author
+---
+
+## Overview
+
+This context captures Alice Walker's California driver's license identity data. Alice self-enters her legal name (Margery Alice Walker), date of birth (1985-07-04), California license number (A1234567), expiration date (2031-07-04), issuing jurisdiction (CA), and a photo. Validated by the `DriversLicense` per-template SHACL shapes.
+
+## Identity Data
+
+<!-- databook:id: alice-driverslicense-identity -->
+<!-- databook:graph: http://www.example.org/mia/alice(driverslicense)alice#graph -->
+```turtle
 @prefix : <http://www.example.org/mia#> .
 @prefix persona: <http://mee.foundation/ontologies/persona#> .
-@prefix context: <http://mee.foundation/ontologies/context#> .
-@prefix identity: <http://mee.foundation/ontologies/identity#> .
 @prefix cco: <https://purl.org/cco/> .
 @prefix owl: <http://www.w3.org/2002/07/owl#> .
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
-@prefix dc: <http://purl.org/dc/elements/1.1/> .
-@base <http://www.example.org/mia> .
-
-# diagram label = 22
-
-<http://www.example.org/mia/alice(driverslicense)alice> rdf:type owl:Ontology ;
-    owl:imports <http://mee.foundation/ontologies/persona> ;
-    owl:imports <http://mee.foundation/ontologies/context> ;
-    dc:date "2026-06-15"^^xsd:date ;
-    owl:versionInfo "Version 2.0.1 - rename :Alice_Walker to :Self"@en ;
-    context:contextCategory context:State ;
-    context:assertedBy identity:Self ;
-    context:subject identity:Self ;
-    context:name "Driver's License" ;
-    context:template persona:DriversLicense ;
-    rdfs:label "Alice Walker - Driver's License"@en ;
-    rdfs:comment """What Alice Walker states about her California-issued driver's license.
-                    Shares IRI :Self with alice(self)alice.ttl.
-                    Legal Name: Margery Alice Walker
-                    DL#: A1234567 (placeholder)"""@en .
-
-
-#################################################################
-#    Alice Walker - Driver's License Persona
-#################################################################
 
 :Self rdf:type owl:NamedIndividual ,
                persona:Person ;
@@ -84,3 +95,4 @@
     # ── Photo ────────────────────────────────────────────────────────────────
 
     persona:hasPhoto "https://example.org/alice-dl-photo.jpg"^^xsd:anyURI .
+```

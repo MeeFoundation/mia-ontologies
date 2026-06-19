@@ -1,34 +1,47 @@
+---
+id: http://www.example.org/mia/alice(business-card)alice
+title: "Alice Walker — Business Card"
+type: databook
+version: 2.0.2
+created: 2026-06-14
+description: >
+  Alice Walker's JSContactCard business card persona. Records her professional contact
+  details: name, work email, work phone, employer, department, job title, and LinkedIn URL.
+mia:
+  name: "Business Card"
+  contextCategory: "context:Employee"
+  assertedBy: ":Self"
+  subject: ":Self"
+  template: "persona:JSContactCard"
+graph:
+  named_graph: http://www.example.org/mia/alice(business-card)alice#graph
+  rdf_version: "1.1"
+shapes:
+  - http://www.example.org/shapes
+  - http://www.example.org/shapes/jscontactcard
+process:
+  transformer: human
+  timestamp: 2026-06-19T00:00:00Z
+  agent:
+    name: Paul Trevithick
+    role: author
+---
+
+## Overview
+
+This context captures Alice Walker's professional business card in JSContactCard format. It records her full name, work email (alice@acme.com), work phone (+15108149999), employer (Acme), department (Engineering), job title (Software Engineer), and LinkedIn profile URL. Validated by the `JSContactCard` per-template SHACL shapes.
+
+## Identity Data
+
+<!-- databook:id: alice-business-card-identity -->
+<!-- databook:graph: http://www.example.org/mia/alice(business-card)alice#graph -->
+```turtle
 @prefix : <http://www.example.org/mia#> .
 @prefix persona: <http://mee.foundation/ontologies/persona#> .
-@prefix context: <http://mee.foundation/ontologies/context#> .
 @prefix cco: <https://purl.org/cco/> .
 @prefix owl: <http://www.w3.org/2002/07/owl#> .
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
-@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
-@prefix dc: <http://purl.org/dc/elements/1.1/> .
-@base <http://www.example.org/mia> .
-
-# diagram label = 21
-
-<http://www.example.org/mia/alice(business-card)alice> rdf:type owl:Ontology ;
-    owl:imports <http://mee.foundation/ontologies/persona> ;
-    owl:imports <http://mee.foundation/ontologies/context> ;
-    dc:date "2026-06-14"^^xsd:date ;
-    owl:versionInfo "Version 2.0.1 - rename :Alice_Walker to :Self"@en ;
-    context:contextCategory context:Employee ;
-    context:assertedBy :Self ;
-    context:subject :Self ;
-    context:name "Business Card" ;
-    context:template persona:JSContactCard ;
-    rdfs:label "Alice Walker - Business Card Persona"@en ;
-    rdfs:comment """Alice Walker's business card persona.
-                    Shares IRI :Self with alice(self)alice.ttl."""@en .
-
-
-#################################################################
-#    Alice Walker - Business Card Persona (JSContactCard)
-#################################################################
 
 :Self rdf:type owl:NamedIndividual ,
                persona:Person ;
@@ -86,3 +99,4 @@
         <https://purl.org/cco/ont00001765> "https://www.linkedin.com/in/alicewalker" ;
         persona:serviceLabel "linkedin"
     ] .
+```

@@ -10,33 +10,11 @@
 
 <http://www.example.org/mia> rdf:type owl:Ontology ;
     owl:imports <http://mee.foundation/ontologies/persona> ;
-    owl:imports <http://www.example.org/mia/alice(citibank)citibank> ;
-    owl:imports <http://www.example.org/mia/alice(boston)alice> ;
-    owl:imports <http://www.example.org/mia/alice(paradise)alice> ;
-    owl:imports <http://www.example.org/mia/alice(family)alice> ;
-    owl:imports <http://www.example.org/mia/alice(att)alice> ;
-    owl:imports <http://www.example.org/mia/alice(ssa)alice> ;
-    owl:imports <http://www.example.org/mia/alice(google)alice> ;
-    owl:imports <http://www.example.org/mia/alice(tx-birth-cert)alice> ;
     owl:imports <http://www.example.org/mia/florida-birth-certificate> ;
-    owl:imports <http://www.example.org/mia/alice(possessions)alice> ;
-    owl:imports <http://www.example.org/mia/alice(bhs)alice> ;
-    owl:imports <http://www.example.org/mia/bob(bhs)bob> ;
-    owl:imports <http://www.example.org/mia/bhs(bhs)members> ;
-    owl:imports <http://www.example.org/mia/paula(acme)alice> ;
-    owl:imports <http://www.example.org/mia/bob(bob)alice> ;
-    owl:imports <http://www.example.org/mia/alice(bob)alice> ;
-    owl:imports <http://www.example.org/mia/paula(family)alice> ;
     owl:imports <http://www.example.org/mia/paula(self)paula> ;
-    owl:imports <http://www.example.org/mia/paula(family)paula> ;
-    owl:imports <http://www.example.org/mia/alice(bob)bob> ;
     owl:imports <http://www.example.org/mia/bob(self)bob> ;
-    owl:imports <http://www.example.org/mia/bob(bob)bob> ;
-    owl:imports <http://www.example.org/mia/alice(acme)alice> ;
-    owl:imports <http://www.example.org/mia/alice(business-card)alice> ;
-    owl:imports <http://www.example.org/mia/alice(driverslicense)alice> ;
-    dc:date "2026-06-15"^^xsd:date ;
-    owl:versionInfo "Version 4.0.1 - rename :Alice_Walker to :Self"@en ;
+    dc:date "2026-06-19"^^xsd:date ;
+    owl:versionInfo "Version 4.0.2 - migrate numbered context files to DataBook format"@en ;
     rdfs:label "Alice Walker - Selfness"@en ;
     rdfs:comment """Alice Walker's selfness — the central identity individual. The same IRI (:Self)
                     is used in every context file about Alice; each file is a named-graph slice.
@@ -47,37 +25,9 @@
                     - Hair Color: Grey
                     - Mother: :Paula_Walker
 
-                    Alice's context files (all use :Self as the persona:Person IRI):
-                    - 10-alice(citibank)citibank.ttl    — Citibank financial relationship
-                    - 15-alice(boston)alice.ttl         — Boston residence (2020-2025)
-                    - 14-alice(paradise)alice.ttl       — Paradise residence (2025-present)
-                    - 18-alice(family)alice.ttl         — family relationships
-                    - 12-alice(att)alice.ttl            — AT&T phone account
-                    - 16-alice(ssa)alice.ttl            — Social Security Administration
-                    - 11-alice(google)alice.ttl         — Google account (Gmail)
-                    - 13-alice(tx-birth-cert)alice.ttl  — legal name record (BirthCertificate template)
-                    - 19-alice(possessions)alice.ttl    — wallet, driver's license, health insurance card
-                    - 20-alice(acme)alice.ttl           — Acme employee context
-                    - 21-alice(business-card)alice.ttl  — business card (JSContactCard template)
-                    - 22-alice(driverslicense)alice.ttl — California driver's license (DriversLicense template)
-                    - 07-alice(bhs)alice.ttl            — BHS group profile (address, phone, email)
-                    - 17-alice(bob)alice.ttl            — 1:1 relationship context with Bob
-                    - 04-alice(bob)bob.ttl              — Alice as seen by Bob (dyad with 17)
-
-                    Bob Johnson (all use :Bob_Johnson):
-                    - bob(self)bob.ttl                  — selfness
-                    - 09-bob(bhs)bob.ttl                — BHS member persona
-                    - 06-bob(bob)bob.ttl                — self-asserted Bob persona (dyad with 05)
-                    - 05-bob(bob)alice.ttl              — Alice's notes about Bob
-
-                    Boston Hub Society (group):
-                    - 08-bhs(bhs)members.ttl            — BHS group instance with social network
-
-                    Paula Walker (Alice's mother; all use :Paula_Walker):
-                    - paula(self)paula.ttl              — selfness
-                    - 01-paula(acme)alice.ttl           — Paula as Alice's Acme colleague
-                    - 02-paula(family)alice.ttl         — family persona (Alice's view)
-                    - 03-paula(family)paula.ttl         — Paula's family persona (dyad with 02)"""@en .
+                    Numbered context files (01-22) have migrated to DataBook (.databook.md) format
+                    and are no longer imported here. They are loaded directly into the triplestore
+                    (Fuseki) via databook extract. Selfness files (bob, paula) remain as .ttl."""@en .
 
 
 #################################################################
