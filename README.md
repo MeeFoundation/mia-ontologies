@@ -311,7 +311,7 @@ The lower right shows a context that Alice might share with other people or comp
 
 ### Validation
 
-Context file metadata (name, category, asserter, subject) is declared in YAML frontmatter and validated at authoring time by convention rather than by a SHACL shape. `context-shacl.ttl` contains shapes written for the legacy TTL ontology format (where these fields were `owl:Ontology` annotations) and no longer fires against DataBook files.
+Context file metadata (name, category, asserter, subject) is declared in YAML frontmatter and validated at authoring time by convention. There is no SHACL validation for context file metadata.
 
 ## Identity Ontology
 
