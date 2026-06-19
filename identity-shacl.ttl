@@ -5,10 +5,13 @@
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
 @prefix owl: <http://www.w3.org/2002/07/owl#> .
 @prefix identity: <http://mee.foundation/ontologies/identity#> .
+@prefix persona: <http://mee.foundation/ontologies/persona#> .
+@prefix g: <http://mee.foundation/ontologies/group#> .
+@prefix o: <http://mee.foundation/ontologies/organization#> .
 
 <http://mee.foundation/ontologies/identity/shapes> rdf:type owl:Ontology ;
     owl:imports <http://mee.foundation/ontologies/identity> ;
-    owl:versionInfo "Version 1.0.0 - initial"@en ;
+    owl:versionInfo "Version 1.0.2 - add HasIdentityDomainShape; fix PDNidentityShape to use sh:class"@en ;
     rdfs:label "Identity Ontology SHACL Validation Shapes"@en ;
     rdfs:comment """SHACL validation shapes for the Identity Ontology.
                     Validates that identity:Individual, identity:Group, and identity:Organization
@@ -19,16 +22,28 @@
 #  PDN Identity
 #################################################################
 
+:HasIdentityDomainShape
+    a sh:NodeShape ;
+    sh:targetSubjectsOf identity:hasIdentity ;
+    sh:or (
+        [ sh:class persona:Person ]
+        [ sh:class g:Group ]
+        [ sh:class o:Organization ]
+    ) ;
+    sh:message "identity:hasIdentity may only be used by persona:Person, g:Group, or o:Organization individuals."@en .
+
+
+#################################################################
+#  PDN Identity
+#################################################################
+
 :PDNidentityShape
     a sh:NodeShape ;
     sh:targetClass identity:PDNidentity ;
     sh:message "PDNidentity validation: must be typed as one of the known identity subclasses."@en ;
-    sh:property [
-        sh:path rdf:type ;
-        sh:or (
-            [ sh:hasValue identity:Individual ]
-            [ sh:hasValue identity:Group ]
-            [ sh:hasValue identity:Organization ]
-        ) ;
-        sh:message "A PDNidentity must be typed as identity:Individual, identity:Group, or identity:Organization."@en
-    ] .
+    sh:or (
+        [ sh:class identity:Individual ]
+        [ sh:class identity:Group ]
+        [ sh:class identity:Organization ]
+    ) ;
+    sh:message "A PDNidentity must be typed as identity:Individual, identity:Group, or identity:Organization."@en .
