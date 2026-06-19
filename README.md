@@ -357,9 +357,9 @@ Here is an overview of the contexts in Alice's Mia.
 
 <p align="center"><img src="example/images/context-map.png" alt="Alice's physical characteristics"></p>
 
-### Alice's Personas and Contexts
+### Alice's Context Files
 
-Alice interacts with other people, organizations and groups in contexts of different types, with each context file holding a `persona:Person` slice of her identity.
+Alice interacts with other people, organizations and groups in contexts of different types, with each context file holding a named-graph slice of her identity.
 
 The contexts in the table below are *about* Alice and asserted *by* Alice. All `.databook.md` files are in the `example/` folder.
 
