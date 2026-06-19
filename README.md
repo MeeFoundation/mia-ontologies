@@ -417,31 +417,36 @@ Each diagram shows the `persona:Person` individual (yellow), supporting named in
 
 ## Validation
 
-Validation requires Apache Jena and runs in two tiers.
+Validation requires [Apache Jena](https://jena.apache.org/) (`riot`, `shacl`) and the [DataBook CLI](https://databook.example.org) (`databook`). It runs in two tiers.
+
+Context files are now in DataBook (`.databook.md`) format. The DataBook CLI's `databook extract` command reads a DataBook file and writes its embedded turtle block(s) to stdout. SHACL shapes remain plain Turtle (`.ttl`).
 
 ### Tier 1 — general validation (all context files)
 
-`persona-shacl.ttl` applies to every `persona:Person` individual across all context files. The first `find` merges all data; the second collects only the root-level `*-shacl.ttl` files as shapes (the `shacl/` template files are excluded here — they must be run per-file; see Tier 2).
+`persona-shacl.ttl` applies to every `persona:Person` individual across all context files.
 
 ```bash
-find . -name "*.ttl" \
-  -not -path "*/project_files/*" \
-  -not -path "*/under-development/*" \
-  -not -name "*-shacl.ttl" \
-  -print0 | sort -z | xargs -0 \
-  riot --output=turtle \
+# Step 1 — extract turtle from every DataBook file (excluding under-development)
+for f in $(find example -name "*.databook.md" \
+             -not -path "*/under-development/*" | sort); do
+  databook extract "$f"
+done > /tmp/mia-data.ttl
+
+# Step 2 — merge data with all ontology files and foundation ontologies
+riot --output=turtle \
   project_files/bfo-core.ttl \
   project_files/PersonOntology.ttl \
   project_files/AddressOntology.ttl \
   project_files/StagingOntology.ttl \
+  persona.ttl persona-templates.ttl context.ttl \
+  identity.ttl group.ttl organization.ttl \
+  /tmp/mia-data.ttl \
   2>/dev/null > /tmp/mia-merged.ttl
 
-find . -name "*-shacl.ttl" \
-  -not -path "*/project_files/*" \
-  -not -path "*/under-development/*" \
-  -not -path "*/shacl/*" \
-  -print0 | sort -z | xargs -0 cat | grep -v 'owl:imports' > /tmp/mia-shapes.ttl
+# Step 3 — collect shapes (shacl/ per-template files excluded — see Tier 2)
+grep -v 'owl:imports' persona-shacl.ttl > /tmp/mia-shapes.ttl
 
+# Step 4 — validate
 shacl validate --shapes /tmp/mia-shapes.ttl --data /tmp/mia-merged.ttl --text
 ```
 
@@ -449,30 +454,34 @@ Expected output: `Conforms`
 
 ### Tier 2 — per-template validation (individual context files)
 
-The `shacl/` shapes use `sh:targetClass persona:Person`, which would incorrectly fire on every person slice if applied to the full merged dataset. Instead, each template SHACL file is run against only the relevant context file merged with the foundation ontologies.
+The `shacl/` shapes use `sh:targetClass persona:Person`, which would incorrectly fire on every person slice if applied to the full merged dataset. Each template SHACL file is run against only the relevant context file merged with the foundation ontologies.
 
 ```bash
-# Shared base: foundation ontologies + persona + context
+# Shared base: foundation ontologies + application ontologies
 riot --output=turtle \
   project_files/bfo-core.ttl \
   project_files/PersonOntology.ttl \
   project_files/AddressOntology.ttl \
   project_files/StagingOntology.ttl \
   persona.ttl persona-templates.ttl context.ttl \
+  identity.ttl group.ttl organization.ttl \
   2>/dev/null > /tmp/mia-base.ttl
 
-# BirthCertificate — 13-alice(tx-birth-cert)alice.ttl
-riot --output=turtle /tmp/mia-base.ttl "example/13-alice(tx-birth-cert)alice.ttl" 2>/dev/null > /tmp/data-birth-cert.ttl
+# BirthCertificate — 13-alice(tx-birth-cert)alice.databook.md
+databook extract "example/13-alice(tx-birth-cert)alice.databook.md" > /tmp/data-birth-cert-raw.ttl
+riot --output=turtle /tmp/mia-base.ttl /tmp/data-birth-cert-raw.ttl 2>/dev/null > /tmp/data-birth-cert.ttl
 grep -v 'owl:imports' shacl/birthcertificate-shacl.ttl > /tmp/shapes-birth-cert.ttl
 shacl validate --shapes /tmp/shapes-birth-cert.ttl --data /tmp/data-birth-cert.ttl --text
 
-# JSContactCard — 21-alice(business-card)alice.ttl
-riot --output=turtle /tmp/mia-base.ttl "example/21-alice(business-card)alice.ttl" 2>/dev/null > /tmp/data-jscontact.ttl
+# JSContactCard — 21-alice(business-card)alice.databook.md
+databook extract "example/21-alice(business-card)alice.databook.md" > /tmp/data-jscontact-raw.ttl
+riot --output=turtle /tmp/mia-base.ttl /tmp/data-jscontact-raw.ttl 2>/dev/null > /tmp/data-jscontact.ttl
 grep -v 'owl:imports' shacl/jscontactcard-shacl.ttl > /tmp/shapes-jscontact.ttl
 shacl validate --shapes /tmp/shapes-jscontact.ttl --data /tmp/data-jscontact.ttl --text
 
-# DriversLicense — 22-alice(driverslicense)alice.ttl
-riot --output=turtle /tmp/mia-base.ttl "example/22-alice(driverslicense)alice.ttl" 2>/dev/null > /tmp/data-dl.ttl
+# DriversLicense — 22-alice(driverslicense)alice.databook.md
+databook extract "example/22-alice(driverslicense)alice.databook.md" > /tmp/data-dl-raw.ttl
+riot --output=turtle /tmp/mia-base.ttl /tmp/data-dl-raw.ttl 2>/dev/null > /tmp/data-dl.ttl
 grep -v 'owl:imports' shacl/driverslicense-shacl.ttl > /tmp/shapes-dl.ttl
 shacl validate --shapes /tmp/shapes-dl.ttl --data /tmp/data-dl.ttl --text
 ```
