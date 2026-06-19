@@ -218,7 +218,7 @@ The table below maps every JSContact (RFC 9553) property to its representation i
 
 ### Validation
 
-`persona-shacl.ttl` validates all `persona:Person` instances. Key constraints: SSNs must match `NNN-NN-NNNN` format; US postal addresses must have street, city, state (USPS 2-letter code), and ZIP; debit cards must have a card number and expiration date. Per-template SHACL files in `shacl/` add additional constraints: birth certificate files require FullName OR (GivenName + FamilyName); JSContactCard files require OrganizationName and at least one contact channel; driver's license files require name, DOB, license number, and expiration date. The Persona Ontology Files section above lists the full set of constraints.
+`persona-shacl.ttl` runs against merged data from all context files (Tier 1 validation). Per-template SHACL files in `shacl/` run against individual context files (Tier 2): birth certificate, JSContactCard, and driver's license each have their own shape file and are validated separately to avoid their `sh:targetClass persona:Person` constraints firing on every person slice in the merged dataset. See the [Validation](#validation) section for commands.
 
 ## Group Ontology
 
