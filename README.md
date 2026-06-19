@@ -417,9 +417,9 @@ Each diagram shows the `persona:Person` individual (yellow), supporting named in
 
 ## Validation
 
-Validation requires [Apache Jena](https://jena.apache.org/) (`riot`, `shacl`) and the [DataBook CLI](https://databook.example.org) (`databook`). It runs in two tiers.
+Validation requires [Apache Jena](https://jena.apache.org/) (`riot`, `shacl`). It runs in two tiers.
 
-Context files are now in DataBook (`.databook.md`) format. The DataBook CLI's `databook extract` command reads a DataBook file and writes its embedded turtle block(s) to stdout. SHACL shapes remain plain Turtle (`.ttl`).
+Context files are in DataBook (`.databook.md`) format. Turtle is extracted from each file's fenced ` ```turtle ``` ` block using `awk`. SHACL shapes remain plain Turtle (`.ttl`).
 
 ### Tier 1 — general validation (all context files)
 
@@ -429,7 +429,7 @@ Context files are now in DataBook (`.databook.md`) format. The DataBook CLI's `d
 # Step 1 — extract turtle from every DataBook file (excluding under-development)
 for f in $(find example -name "*.databook.md" \
              -not -path "*/under-development/*" | sort); do
-  databook extract "$f"
+  awk '/^```turtle$/{p=1;next} /^```$/{p=0} p{print}' "$f"
 done > /tmp/mia-data.ttl
 
 # Step 2 — merge data with all ontology files and foundation ontologies
@@ -468,19 +468,19 @@ riot --output=turtle \
   2>/dev/null > /tmp/mia-base.ttl
 
 # BirthCertificate — 13-alice(tx-birth-cert)alice.databook.md
-databook extract "example/13-alice(tx-birth-cert)alice.databook.md" > /tmp/data-birth-cert-raw.ttl
+awk '/^```turtle$/{p=1;next} /^```$/{p=0} p{print}' "example/13-alice(tx-birth-cert)alice.databook.md" > /tmp/data-birth-cert-raw.ttl
 riot --output=turtle /tmp/mia-base.ttl /tmp/data-birth-cert-raw.ttl 2>/dev/null > /tmp/data-birth-cert.ttl
 grep -v 'owl:imports' shacl/birthcertificate-shacl.ttl > /tmp/shapes-birth-cert.ttl
 shacl validate --shapes /tmp/shapes-birth-cert.ttl --data /tmp/data-birth-cert.ttl --text
 
 # JSContactCard — 21-alice(business-card)alice.databook.md
-databook extract "example/21-alice(business-card)alice.databook.md" > /tmp/data-jscontact-raw.ttl
+awk '/^```turtle$/{p=1;next} /^```$/{p=0} p{print}' "example/21-alice(business-card)alice.databook.md" > /tmp/data-jscontact-raw.ttl
 riot --output=turtle /tmp/mia-base.ttl /tmp/data-jscontact-raw.ttl 2>/dev/null > /tmp/data-jscontact.ttl
 grep -v 'owl:imports' shacl/jscontactcard-shacl.ttl > /tmp/shapes-jscontact.ttl
 shacl validate --shapes /tmp/shapes-jscontact.ttl --data /tmp/data-jscontact.ttl --text
 
 # DriversLicense — 22-alice(driverslicense)alice.databook.md
-databook extract "example/22-alice(driverslicense)alice.databook.md" > /tmp/data-dl-raw.ttl
+awk '/^```turtle$/{p=1;next} /^```$/{p=0} p{print}' "example/22-alice(driverslicense)alice.databook.md" > /tmp/data-dl-raw.ttl
 riot --output=turtle /tmp/mia-base.ttl /tmp/data-dl-raw.ttl 2>/dev/null > /tmp/data-dl.ttl
 grep -v 'owl:imports' shacl/driverslicense-shacl.ttl > /tmp/shapes-dl.ttl
 shacl validate --shapes /tmp/shapes-dl.ttl --data /tmp/data-dl.ttl --text
