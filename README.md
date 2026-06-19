@@ -88,7 +88,7 @@ This section describes properties and classes related to things a person has, ho
 
 ### Accounts
 
-This section describes properties and classes related to a person's relationship with an only service provider. An online service account (`OnlineServiceAccount`, CCO `ont00000033`) records a person's credentials and identity with an online service provider such as Google or AT&T.
+This section describes properties and classes related to a person's relationship with an online service provider. An online service account (`OnlineServiceAccount`, CCO `ont00000033`) records a person's credentials and identity with an online service provider such as Google or AT&T.
 
 **Properties**
 
@@ -117,29 +117,29 @@ This section describes properties and classes related to a person's interactions
 
 This section describes a few details related to modeling names and addresses.
 
-**Peer name pattern**: All name types (FullName, GivenName, FamilyName, AlternateName) connect directly to a `persona:Person` via `designated by` (`ont00001879`). They are siblings, not nested under a PersonName parent. Legal names belong to the birth certificate context file (annotated `c:template persona:BirthCertificate`); a preferred/goes-by name lives in `alice(self)alice.ttl` since it applies across all contexts.
+**Peer name pattern**: All name types (FullName, GivenName, FamilyName, AlternateName) connect directly to a `persona:Person` via `designated by` (`ont00001879`). They are siblings, not nested under a PersonName parent. Legal names belong to the birth certificate context file (annotated `c:template persona:BirthCertificate`); a preferred/goes-by name lives in `alice(self)alice.databook.md` since it applies across all contexts.
 
 **Address history**: Each address context file carries a `persona:Person` with a USPostalAddress and an `AddressDesignation` with a `TemporalInterval` (start date required; no end date = current address).
 
 ### Persona Templates
 
-`p:PersonaTemplate` is an abstract classification class that serves as the common superclass for all reusable, context-type-specific template labels. These labels are defined in `persona-templates.ttl`. A context file declares its template by annotating its `owl:Ontology` header with `c:template` rather than by typing its `persona:Person` individual. Per-template SHACL files live in the `shacl/` subdirectory.
+`p:PersonaTemplate` is an abstract classification class that serves as the common superclass for all reusable, context-type-specific template labels. These labels are defined in `persona-templates.ttl`. A context file declares its template in the YAML frontmatter as `mia.template` rather than by typing its `persona:Person` individual. Per-template SHACL files live in the `shacl/` subdirectory.
 
 <p align="center"><img src="images/persona-ontology/persona-templates.png" alt="persona templates model"></p>
 
 The three currently defined subclasses of `p:PersonaTemplate` are:
 
-* `p:BirthCertificate` — label for context files that carry a person's legal birth name record as issued by a state agency. Used as the value of `c:template persona:BirthCertificate` on the ontology header. SHACL shape `:BirthCertificatePersonShape` (in `shacl/birthcertificate-shacl.ttl`) enforces:
+* `p:BirthCertificate` — label for context files that carry a person's legal birth name record as issued by a state agency. Declared in the YAML frontmatter as `mia.template: "persona:BirthCertificate"`. SHACL shape `:BirthCertificatePersonShape` (in `shacl/birthcertificate-shacl.ttl`) enforces:
   - **Required**: either a `FullName` designator **or** both a `GivenName` and a `FamilyName` designator (via `designated by`, `ont00001879`) — expressed with `sh:or`.
   - **Optional**: `AdditionalName` (middle name), `AlternateName` (e.g. maiden name), `Nickname`, and `Legal Name` designators.
 
-* `p:JSContactCard` — label for context files that carry professional contact details in the JSContact (RFC 9553) format. Used as the value of `c:template persona:JSContactCard`. SHACL shape `:JSContactCardPersonShape` (in `shacl/jscontactcard-shacl.ttl`) enforces:
+* `p:JSContactCard` — label for context files that carry professional contact details in the JSContact (RFC 9553) format. Declared in the YAML frontmatter as `mia.template: "persona:JSContactCard"`. SHACL shape `:JSContactCardPersonShape` (in `shacl/jscontactcard-shacl.ttl`) enforces:
   - **Required**: exactly one `OrganizationName` designator; at least one `Email` or `TelephoneNumber` designator.
   - **Optional**: all name components, `OrganizationUnit`, `JobTitle`, addresses, online services, anniversaries, personal info, photo.
   - **Max 1** on all single-valued name and organization components.
   See the [JSContact field coverage table](#jscontact-field-coverage) below for the complete mapping.
 
-* `p:DriversLicense` — label for context files that carry the identity claims on a state-issued driver's license. Used as the value of `c:template persona:DriversLicense`. SHACL shape `:DriversLicensePersonShape` (in `shacl/driverslicense-shacl.ttl`) enforces:
+* `p:DriversLicense` — label for context files that carry the identity claims on a state-issued driver's license. Declared in the YAML frontmatter as `mia.template: "persona:DriversLicense"`. SHACL shape `:DriversLicensePersonShape` (in `shacl/driverslicense-shacl.ttl`) enforces:
   - **Required**: `FullName` **or** (`GivenName` + `FamilyName`); exactly one `Birthdate` (`cco:ent00000046`); exactly one `p:DriversLicenseNumber`; exactly one `ExpirationDateIdentifier` (`cco:ent00000054`).
   - **Optional**: `AdditionalName`; `p:IssuingJurisdiction` (USPS 2-letter state code, validated by `USStateNameShape`); `PostalAddress`; `p:hasPhoto`.
   Note: `p:PhysicalDriversLicense` (in `persona.ttl`) models the physical card object held in a wallet — `p:DriversLicense` is the template label that marks a context file as carrying driver's license identity data.
@@ -187,7 +187,7 @@ The table below maps every JSContact (RFC 9553) property to its representation i
 | `uid` | 1 | IRI of the `persona:Person` individual | — | — |
 | `notes` | 0..N | Person Note via `has text value` | `designated by` | — |
 | `relatedTo` | 0..N | `c:dyad` (graph-level peer); `BFO_0000115` (member) | annotation / object property | — |
-| `updated` | 0..1 | `owl:versionInfo` on the context file | annotation | — |
+| `updated` | 0..1 | `version:` in the DataBook YAML frontmatter | YAML field | — |
 | `language` | 0..1 | *(not yet mapped)* | — | — |
 | `categories` | 0..N | *(not yet mapped)* | — | — |
 | `preferredLanguages` | 0..N | *(not yet mapped)* | — | — |
@@ -196,7 +196,7 @@ The table below maps every JSContact (RFC 9553) property to its representation i
 ### Persona Ontology Files
 
 - **`persona.ttl`** — The Persona ontology. Imports the domain ontologies above and documents which classes and properties Mia uses (required vs. optional). Defines `persona:Person` (Mee-specific subclass of CCO `Person`), Mia-specific extension properties (`p:hasSocialNetwork`, `p:hasPaymentCard`, `p:hasBankAccount`, etc.), and the core data model classes (physical card classes, banking classes, and others).
-- **`persona-templates.ttl`** — Defines `p:PersonaTemplate` (abstract classification superclass) and the three concrete subtypes `p:BirthCertificate`, `p:JSContactCard`, and `p:DriversLicense`. These are used as values of the `c:template` annotation on context file ontology headers — they classify the context file, not the `persona:Person` individual inside it. Also defines related designator classes (`p:DriversLicenseNumber`, `p:IssuingJurisdiction`, `p:Credential`, `p:WebURL`, `p:OrganizationUnit`, `p:JobTitle`), complex information classes (`p:Anniversary`, `p:PersonalInfo`), annotation properties for JSContact channel labels (`p:contactContext`, `p:phoneFeature`, `p:serviceLabel`), and `p:hasPhoto`. Imported by `persona.ttl` so all context files inherit these classes transitively.
+- **`persona-templates.ttl`** — Defines `p:PersonaTemplate` (abstract classification superclass) and the three concrete subtypes `p:BirthCertificate`, `p:JSContactCard`, and `p:DriversLicense`. These are used as values of `mia.template` in the DataBook YAML frontmatter — they classify the context file, not the `persona:Person` individual inside it. Also defines related designator classes (`p:DriversLicenseNumber`, `p:IssuingJurisdiction`, `p:Credential`, `p:WebURL`, `p:OrganizationUnit`, `p:JobTitle`), complex information classes (`p:Anniversary`, `p:PersonalInfo`), annotation properties for JSContact channel labels (`p:contactContext`, `p:phoneFeature`, `p:serviceLabel`), and `p:hasPhoto`. Imported by `persona.ttl` so all context files inherit these classes transitively.
 
 - **`shacl/birthcertificate-shacl.ttl`** — SHACL shapes for birth certificate context files (`c:template persona:BirthCertificate`). Validates `persona:Person` instances found in those files:
   - FullName OR (GivenName + FamilyName) required; optional AdditionalName, AlternateName, Nickname, Legal Name.
@@ -222,13 +222,13 @@ The table below maps every JSContact (RFC 9553) property to its representation i
 
 ## Group Ontology
 
-The Group ontology introduces the concept of a *shared* group (`g:Group`) whose members are individuals and/or organizations. The group entity *itself* as well as any attached properties are shared with all of its members. Like individuals and organizations, `g:Groups` also have their on PDN identifiers and can be communicated with as with any other node on the PDN network. 
+The Group ontology introduces the concept of a *shared* group (`g:Group`) whose members are individuals and/or organizations. The group entity *itself* as well as any attached properties are shared with all of its members. Like individuals and organizations, `g:Groups` also have their own PDN identifiers and can be communicated with as with any other node on the PDN network. 
 
 <p align="center"><img src="images/group-ontology/group.png" alt="Group model"></p>
 
 **Classes**
 
-* **`g:Group`** — a group of people and/organizations on the Personal Data Network.
+* `g:Group` — a group of people and/or organizations on the Personal Data Network.
 
 ### Group Ontology File
 
@@ -246,7 +246,7 @@ The Organization ontology models organizations — companies, government agencie
 
 **Classes**
 
-* **`o:Organization`** — an organization (company, government agency, corporation, nonprofit, etc.) on the Personal Data Network.
+* `o:Organization` — an organization (company, government agency, corporation, nonprofit, etc.) on the Personal Data Network.
 
 ### Organization Ontology File
 
@@ -281,7 +281,7 @@ A context is implemented as a **[DataBook](https://github.com/w3c-cg/holon/tree/
   - `c:Health` — personal health and wellness information not related to any specific healthcare provider.
   - `c:Event` and subtypes `c:Meeting`, `c:Conference`, `c:Party` — participation in or relationship to a specific event, e.g. a face-to-face or online meeting.
   - `c:Government` and subtypes `c:Federal`, `c:State`, `c:Municipality` — interactions with government agencies.
-  - `c:Note` general knowledge selected by a person to be useful to them. It has a subtype `c:Learning` which is knowledge gained through personal experience.
+  - `c:Note` — general knowledge selected by a person to be useful to them. It has a subtype `c:Learning` which is knowledge gained through personal experience.
   - `c:Possession` and subtypes `c:Automobile`, `c:Pet`, `c:Dwelling` — a person's belongings or other things they possess, rent, or lease.
   - `c:Project` — involvement in a specific project or initiative.
 
@@ -303,7 +303,7 @@ The diagram below shows four kinds of contexts related to a hypothetical Mia use
 
 <p align="center"><img src="images/context-ontology/quadrants.png" alt="a quadrant of context types"></p>
 
-The lower right shows a context that Alice might share with other people or companies. In it, she asserts that her driver's license number is S43228943, having almost certainly copied that number from her physical driver's license. The context in the lower right carries the same information as the lower left, but because it is being asserted by the DMV it is more likely to be trusted by a recipient, especially if this information is conveyed via secure channel and the claims are cryptographically bound to the identity of the DMV.
+The lower left shows a context that Alice might share with other people or companies. In it, she asserts that her driver's license number is S43228943, having almost certainly copied that number from her physical driver's license. The context in the lower right carries the same information as the lower left, but because it is being asserted by the DMV it is more likely to be trusted by a recipient, especially if this information is conveyed via secure channel and the claims are cryptographically bound to the identity of the DMV.
 
 ### Context Ontology File
 
@@ -343,11 +343,11 @@ This section describes the local Mia dataset for a hypothetical user, Alice Walk
 
 All context files in this example are resident in Alice's Mia. Some are authored by Alice (self-asserted data she entered directly); others are data received from peers over PDN and stored locally. In either case, Alice is the Mia user, so her `persona:Person` individual uses the IRI `:Self` across all of her context files. Other people — Bob Johnson, Paula Walker — and groups such as BHS use locally-assigned named IRIs (e.g. `:Bob_Johnson`, `:Paula_Walker`, `:BHS`). When data arrives from a peer's Mia (where that peer was `:Self` in their own instance), Alice's Mia assigns them a locally-minted identifier; once a PDN connection is established, that identifier resolves to their PDN ID.
 
-Within Alice's self context is `:Self`, a `persona:Person` individual. The same IRI, `:Self`, is used in every context file that is about Alice — each file is a named-graph slice of her identity in a specific context. The self context (`example/alice(self)alice.ttl`) imports all of Alice's other context files.
+Within Alice's self context is `:Self`, a `persona:Person` individual. The same IRI, `:Self`, is used in every context file that is about Alice — each file is a named-graph slice of her identity in a specific context. The self context (`example/alice(self)alice.databook.md`) is loaded into the triplestore alongside all of Alice's other context files.
 
 <p align="center"><img src="example/images/alice(self)alice.png" alt="Alice's self"></p>
 
-Alice's `alice(self)alice.ttl` context also describes some of her physical characteristics shown below:
+Alice's `alice(self)alice.databook.md` context also describes some of her physical characteristics shown below:
 
 <p align="center"><img src="example/images/alice(self)+physical.png" alt="Alice's physical characteristics"></p>
 
@@ -361,42 +361,42 @@ Here is an overview of the contexts in Alice's Mia.
 
 Alice interacts with other people, organizations and groups in contexts of different types, with each context file holding a `persona:Person` slice of her identity.
 
-The contexts in the table below are *about* Alice and asserted *by* Alice. All `.ttl` files are in the `example/` folder.
+The contexts in the table below are *about* Alice and asserted *by* Alice. All `.databook.md` files are in the `example/` folder.
 
 | #  | Context file                                                                          | Context type | Key data                                                         | Diagram |
 |--- |:--------------------------------------------------------------------------------------|:-------------|:-----------------------------------------------------------------|:--------|
-| 7  | [07-alice(bhs)alice.ttl](example/07-alice(bhs)alice.ttl)                     | Group        | BHS profile: email, phone and current address                    | [view](example/images/07-alice(bhs)alice.png)|
-| 11 | [11-alice(google)alice.ttl](example/11-alice(google)alice.ttl)               | Company      | Gmail address                                                    | [view](example/images/11-alice(google)alice.png) |
-| 12 | [12-alice(att)alice.ttl](example/12-alice(att)alice.ttl)                     | Company      | Phone number                                                     | [view](example/images/12-alice(att)alice.png) |
-| 13 | [13-alice(tx-birth-cert)alice.ttl](example/13-alice(tx-birth-cert)alice.ttl) | State        | Legal names, maiden name                                         | [view](example/images/13-alice(tx-birth-cert)alice.png) |
-| 14 | [14-alice(paradise)alice.ttl](example/14-alice(paradise)alice.ttl)           | Municipality | Current address — Paradise, CA (2025–present)                    | [view](example/images/14-alice(paradise)alice.png) |
-| 15 | [15-alice(boston)alice.ttl](example/15-alice(boston)alice.ttl)               | Municipality | Previous address — Boston, MA (2020–2025) with temporal interval | [view](example/images/15-alice(boston)alice.png) |
-| 16 | [16-alice(ssa)alice.ttl](example/16-alice(ssa)alice.ttl)                     | Federal      | Social security number (SSN)                                     | [view](example/images/16-alice(ssa)alice.png) |
-| 17 | [17-alice(bob)alice.ttl](example/17-alice(bob)alice.ttl)                     | Person       | Alice's 1:1 context with Bob; social network with Bob as member  | [view](example/images/17-alice(bob)alice.png)|
+| 7  | [07-alice(bhs)alice.databook.md](example/07-alice(bhs)alice.databook.md)                     | Group        | BHS profile: email, phone and current address                    | [view](example/images/07-alice(bhs)alice.png)|
+| 11 | [11-alice(google)alice.databook.md](example/11-alice(google)alice.databook.md)               | Company      | Gmail address                                                    | [view](example/images/11-alice(google)alice.png) |
+| 12 | [12-alice(att)alice.databook.md](example/12-alice(att)alice.databook.md)                     | Company      | Phone number                                                     | [view](example/images/12-alice(att)alice.png) |
+| 13 | [13-alice(tx-birth-cert)alice.databook.md](example/13-alice(tx-birth-cert)alice.databook.md) | State        | Legal names, maiden name                                         | [view](example/images/13-alice(tx-birth-cert)alice.png) |
+| 14 | [14-alice(paradise)alice.databook.md](example/14-alice(paradise)alice.databook.md)           | Municipality | Current address — Paradise, CA (2025–present)                    | [view](example/images/14-alice(paradise)alice.png) |
+| 15 | [15-alice(boston)alice.databook.md](example/15-alice(boston)alice.databook.md)               | Municipality | Previous address — Boston, MA (2020–2025) with temporal interval | [view](example/images/15-alice(boston)alice.png) |
+| 16 | [16-alice(ssa)alice.databook.md](example/16-alice(ssa)alice.databook.md)                     | Federal      | Social security number (SSN)                                     | [view](example/images/16-alice(ssa)alice.png) |
+| 17 | [17-alice(bob)alice.databook.md](example/17-alice(bob)alice.databook.md)                     | Person       | Alice's 1:1 context with Bob; social network with Bob as member  | [view](example/images/17-alice(bob)alice.png)|
 | 18 | [18-alice(familymember)alice.databook.md](example/18-alice(familymember)alice.databook.md) | FamilyMember | Family social network with Paula as member | [view](example/images/18-alice(familymember)alice.png) |
-| 19 | [19-alice(possessions)alice.ttl](example/19-alice(possessions)alice.ttl)     | Possession   | Wallet (driver's license + payment card); health ins., SSN card  | [view](example/images/19-alice(possessions)alice.png) |
-| 20 | [20-alice(acme)alice.ttl](example/20-alice(acme)alice.ttl)                   | Employee     | Acme employee context; company email; works with Paula      | [view](example/images/20-alice(acme)alice.png)|
-| 21 | [21-alice(business-card)alice.ttl](example/21-alice(business-card)alice.ttl) | Employee     | Business card — given name, family name, email, phone, employer | [view](example/images/21-alice(business-card)alice.png) |
-| 22 | [22-alice(driverslicense)alice.ttl](example/22-alice(driverslicense)alice.ttl) | State       | California driver's license — legal name, DOB, DL#, expiry, photo | [view](example/images/22-alice(driverslicense)alice.png) |
+| 19 | [19-alice(possessions)alice.databook.md](example/19-alice(possessions)alice.databook.md)     | Possession   | Wallet (driver's license + payment card); health ins., SSN card  | [view](example/images/19-alice(possessions)alice.png) |
+| 20 | [20-alice(acme)alice.databook.md](example/20-alice(acme)alice.databook.md)                   | Employee     | Acme employee context; company email; works with Paula      | [view](example/images/20-alice(acme)alice.png)|
+| 21 | [21-alice(business-card)alice.databook.md](example/21-alice(business-card)alice.databook.md) | Employee     | Business card — given name, family name, email, phone, employer | [view](example/images/21-alice(business-card)alice.png) |
+| 22 | [22-alice(driverslicense)alice.databook.md](example/22-alice(driverslicense)alice.databook.md) | State       | California driver's license — legal name, DOB, DL#, expiry, photo | [view](example/images/22-alice(driverslicense)alice.png) |
 
 The following table lists contexts that are *about* Alice but asserted by others.
 
 | #  | Context file                                                                         | Context type | Key data                             | Diagram |
 |--- |:-------------------------------------------------------------------------------------|:-------------|:-------------------------------------|:--------|
-| 4  | [04-alice(bob)bob.ttl](example/04-alice(bob)bob.ttl)            | Person       | Alice as seen by Bob (dyad with #17) | [view](example/images/04-alice(bob)bob.png)|
-| 10 | [10-alice(citibank)citibank.ttl](example/10-alice(citibank)citibank.ttl)    | FinancialServices | Debit card                      | [view](example/images/10-alice(citibank)citibank.png) |
+| 4  | [04-alice(bob)bob.databook.md](example/04-alice(bob)bob.databook.md)            | Person       | Alice as seen by Bob (dyad with #17) | [view](example/images/04-alice(bob)bob.png)|
+| 10 | [10-alice(citibank)citibank.databook.md](example/10-alice(citibank)citibank.databook.md)    | FinancialServices | Debit card                      | [view](example/images/10-alice(citibank)citibank.png) |
 
 The following table lists contexts about other people (Paula and Bob) or groups (Boston Hub Society) in Alice's Mia. All files are in `example/`.
 
 | #  | Context file                                                                                     | Context type | Key data                                                         | Diagram |
 |--- |:-------------------------------------------------------------------------------------------------|:-------------|:-----------------------------------------------------------------|:--------|
-| 1  | [01-paula(acme)alice.ttl](example/01-paula(acme)alice.ttl)                              | Employee     | Paula as Alice's Acme colleague (Alice-asserted)                 | *(todo)*|
+| 1  | [01-paula(acme)alice.databook.md](example/01-paula(acme)alice.databook.md)                              | Employee     | Paula as Alice's Acme colleague (Alice-asserted)                 | *(todo)*|
 | 2  | [02-paula(familymember)alice.databook.md](example/02-paula(familymember)alice.databook.md) | FamilyMember | Paula as Alice's family member (Alice-asserted)                  | *(todo)*|
 | 3  | [03-paula(familymember)paula.databook.md](example/03-paula(familymember)paula.databook.md) | FamilyMember | Paula's own family persona; social network with Alice (dyad #2)  | *(todo)*|
-| 5  | [05-bob(bob)alice.ttl](example/05-bob(bob)alice.ttl)                          | Person       | Alice's notes about Bob; fav drink: oat milk cappuccino          | [view](example/images/05-bob(bob)alice.png) |
-| 6  | [06-bob(bob)bob.ttl](example/06-bob(bob)bob.ttl)                              | Person       | Bob's self-asserted Bob persona (dyad with #5)                   | *(todo)*|
-| 8  | [08-bhs(bhs)members.ttl](example/08-bhs(bhs)members.ttl)                                  | Group        | BHS group instance with Alice and Bob as members                 | [view](example/images/08-bhs(bhs)members.png) |
-| 9  | [09-bob(bhs)bob.ttl](example/09-bob(bhs)bob.ttl)                              | Group        | Bob's BHS member persona (name, email, phone, address)           | [view](example/images/09-bob(bhs)bob.png) |
+| 5  | [05-bob(bob)alice.databook.md](example/05-bob(bob)alice.databook.md)                          | Person       | Alice's notes about Bob; fav drink: oat milk cappuccino          | [view](example/images/05-bob(bob)alice.png) |
+| 6  | [06-bob(bob)bob.databook.md](example/06-bob(bob)bob.databook.md)                              | Person       | Bob's self-asserted Bob persona (dyad with #5)                   | *(todo)*|
+| 8  | [08-bhs(bhs)members.databook.md](example/08-bhs(bhs)members.databook.md)                                  | Group        | BHS group instance with Alice and Bob as members                 | [view](example/images/08-bhs(bhs)members.png) |
+| 9  | [09-bob(bhs)bob.databook.md](example/09-bob(bhs)bob.databook.md)                              | Group        | Bob's BHS member persona (name, email, phone, address)           | [view](example/images/09-bob(bhs)bob.png) |
 
 
 
