@@ -29,8 +29,6 @@ There are no build, compile, test, or lint commands. The files are Turtle (`.ttl
 | File | Purpose |
 |------|---------|
 | `example/alice(self)alice.databook.md` | Alice Walker's selfness — central Person instance; physical characteristics |
-| `example/paula(self)paula.databook.md` | Paula Walker's selfness — central Person instance for Paula |
-| `example/bob(self)bob.databook.md` | Bob Johnson's selfness — central Person instance for Bob |
 | `example/01-paula(acme)alice.databook.md` | Paula Walker as Alice's Acme colleague — asserted by Alice |
 | `example/02-paula(familymember)alice.databook.md` | Paula Walker as Alice's family member — name and relationship; asserted by Alice |
 | `example/03-paula(familymember)paula.databook.md` | Paula Walker in family context — self-asserted; dyad with 02 |
@@ -66,8 +64,6 @@ Triplestore (Fuseki) — loads all DataBook files directly:
   │   ├─ AddressOntology.ttl
   │   └─ StagingOntology.ttl → BFO terms
   ├─ example/alice(self)alice.databook.md
-  ├─ example/bob(self)bob.databook.md
-  ├─ example/paula(self)paula.databook.md
   ├─ example/01-paula(acme)alice.databook.md
   ├─ example/02-paula(familymember)alice.databook.md
   ├─ … (all numbered context DataBooks)
