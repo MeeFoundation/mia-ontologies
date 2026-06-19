@@ -32,9 +32,9 @@ This context captures Paula Walker's self-asserted family persona as transmitted
 
 ## Identity Data
 
+```turtle
 <!-- databook:id: paula-family-paula-identity -->
 <!-- databook:graph: http://www.example.org/mia/paula(family)paula#graph -->
-```turtle
 @prefix : <http://www.example.org/mia#> .
 @prefix persona: <http://mee.foundation/ontologies/persona#> .
 @prefix owl: <http://www.w3.org/2002/07/owl#> .

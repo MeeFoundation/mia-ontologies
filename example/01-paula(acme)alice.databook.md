@@ -31,9 +31,9 @@ This context captures Alice's record of her colleague Paula Walker in their shar
 
 ## Identity Data
 
+```turtle
 <!-- databook:id: paula-acme-identity -->
 <!-- databook:graph: http://www.example.org/mia/paula(acme)alice#graph -->
-```turtle
 @prefix : <http://www.example.org/mia#> .
 @prefix persona: <http://mee.foundation/ontologies/persona#> .
 @prefix owl: <http://www.w3.org/2002/07/owl#> .

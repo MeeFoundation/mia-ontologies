@@ -32,9 +32,9 @@ This context captures Alice's record of Bob Johnson in their 1:1 relationship co
 
 ## Identity Data
 
+```turtle
 <!-- databook:id: bob-bob-alice-identity -->
 <!-- databook:graph: http://www.example.org/mia/bob(bob)alice#graph -->
-```turtle
 @prefix : <http://www.example.org/mia#> .
 @prefix persona: <http://mee.foundation/ontologies/persona#> .
 @prefix cco: <https://purl.org/cco/> .

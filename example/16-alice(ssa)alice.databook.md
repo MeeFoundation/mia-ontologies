@@ -31,9 +31,9 @@ This context captures Alice Walker's Social Security Administration record. Alic
 
 ## Identity Data
 
+```turtle
 <!-- databook:id: alice-ssa-identity -->
 <!-- databook:graph: http://www.example.org/mia/alice(ssa)alice#graph -->
-```turtle
 @prefix : <http://www.example.org/mia#> .
 @prefix persona: <http://mee.foundation/ontologies/persona#> .
 @prefix cco: <https://purl.org/cco/> .

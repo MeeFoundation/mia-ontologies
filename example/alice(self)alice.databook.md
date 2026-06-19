@@ -31,9 +31,9 @@ This context captures Alice Walker's selfness — the central identity individua
 
 ## Identity Data
 
+```turtle
 <!-- databook:id: alice-self-identity -->
 <!-- databook:graph: http://www.example.org/mia#graph -->
-```turtle
 @prefix : <http://www.example.org/mia#> .
 @prefix persona: <http://mee.foundation/ontologies/persona#> .
 @prefix cco: <https://purl.org/cco/> .

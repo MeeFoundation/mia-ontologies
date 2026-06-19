@@ -33,9 +33,9 @@ This context captures Alice Walker's California driver's license identity data. 
 
 ## Identity Data
 
+```turtle
 <!-- databook:id: alice-driverslicense-identity -->
 <!-- databook:graph: http://www.example.org/mia/alice(driverslicense)alice#graph -->
-```turtle
 @prefix : <http://www.example.org/mia#> .
 @prefix persona: <http://mee.foundation/ontologies/persona#> .
 @prefix cco: <https://purl.org/cco/> .

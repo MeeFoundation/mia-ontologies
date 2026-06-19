@@ -33,9 +33,9 @@ This context captures Alice Walker's self-asserted persona in her 1:1 relationsh
 
 ## Identity Data
 
+```turtle
 <!-- databook:id: alice-bob-alice-identity -->
 <!-- databook:graph: http://www.example.org/mia/alice(bob)alice#graph -->
-```turtle
 @prefix : <http://www.example.org/mia#> .
 @prefix persona: <http://mee.foundation/ontologies/persona#> .
 @prefix cco: <https://purl.org/cco/> .

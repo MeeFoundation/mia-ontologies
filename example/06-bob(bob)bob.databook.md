@@ -33,9 +33,9 @@ This context captures Bob Johnson's self-asserted Bob-context persona, transmitt
 
 ## Identity Data
 
+```turtle
 <!-- databook:id: bob-bob-bob-identity -->
 <!-- databook:graph: http://www.example.org/mia/bob(bob)bob#graph -->
-```turtle
 @prefix : <http://www.example.org/mia#> .
 @prefix persona: <http://mee.foundation/ontologies/persona#> .
 @prefix cco: <https://purl.org/cco/> .

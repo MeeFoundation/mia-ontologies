@@ -31,9 +31,9 @@ This context captures Alice Walker's BHS profile — the identity data she share
 
 ## Identity Data
 
+```turtle
 <!-- databook:id: alice-bhs-identity -->
 <!-- databook:graph: http://www.example.org/mia/alice(bhs)alice#graph -->
-```turtle
 @prefix : <http://www.example.org/mia#> .
 @prefix persona: <http://mee.foundation/ontologies/persona#> .
 @prefix cco: <https://purl.org/cco/> .

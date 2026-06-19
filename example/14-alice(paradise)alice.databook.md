@@ -31,9 +31,9 @@ This context captures Alice Walker's current residential address: 123 Sleepy Hol
 
 ## Identity Data
 
+```turtle
 <!-- databook:id: alice-paradise-identity -->
 <!-- databook:graph: http://www.example.org/mia/alice(paradise)alice#graph -->
-```turtle
 @prefix : <http://www.example.org/mia#> .
 @prefix persona: <http://mee.foundation/ontologies/persona#> .
 @prefix cco: <https://purl.org/cco/> .

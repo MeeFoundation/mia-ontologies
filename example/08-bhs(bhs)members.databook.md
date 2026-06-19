@@ -31,9 +31,9 @@ This context captures the Boston Hub Society as a `g:Group` entity. It records t
 
 ## Identity Data
 
+```turtle
 <!-- databook:id: bhs-group-identity -->
 <!-- databook:graph: http://www.example.org/mia/bhs(bhs)members#graph -->
-```turtle
 @prefix : <http://www.example.org/mia#> .
 @prefix g: <http://mee.foundation/ontologies/group#> .
 @prefix owl: <http://www.w3.org/2002/07/owl#> .

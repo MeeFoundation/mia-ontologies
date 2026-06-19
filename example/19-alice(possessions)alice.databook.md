@@ -32,9 +32,9 @@ This context captures Alice Walker's day-to-day physical possessions. Her wallet
 
 ## Identity Data
 
+```turtle
 <!-- databook:id: alice-possessions-identity -->
 <!-- databook:graph: http://www.example.org/mia/posessions#graph -->
-```turtle
 @prefix : <http://www.example.org/mia#> .
 @prefix persona: <http://mee.foundation/ontologies/persona#> .
 @prefix owl: <http://www.w3.org/2002/07/owl#> .

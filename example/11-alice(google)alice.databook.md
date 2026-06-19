@@ -31,9 +31,9 @@ This context captures Alice Walker's Google account context. Alice self-enters h
 
 ## Identity Data
 
+```turtle
 <!-- databook:id: alice-google-identity -->
 <!-- databook:graph: http://www.example.org/mia/alice(google)alice#graph -->
-```turtle
 @prefix : <http://www.example.org/mia#> .
 @prefix persona: <http://mee.foundation/ontologies/persona#> .
 @prefix cco: <https://purl.org/cco/> .

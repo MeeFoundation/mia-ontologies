@@ -31,9 +31,9 @@ This context captures Alice Walker's family relationships. It records her family
 
 ## Identity Data
 
+```turtle
 <!-- databook:id: alice-family-identity -->
 <!-- databook:graph: http://www.example.org/mia/alice(family)alice#graph -->
-```turtle
 @prefix : <http://www.example.org/mia#> .
 @prefix persona: <http://mee.foundation/ontologies/persona#> .
 @prefix cco: <https://purl.org/cco/> .

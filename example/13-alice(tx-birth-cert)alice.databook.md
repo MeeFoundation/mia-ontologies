@@ -33,9 +33,9 @@ This context captures Alice Walker's Texas birth certificate identity data. Alic
 
 ## Identity Data
 
+```turtle
 <!-- databook:id: alice-tx-birth-cert-identity -->
 <!-- databook:graph: http://www.example.org/mia/alice(tx-birth-cert)alice#graph -->
-```turtle
 @prefix : <http://www.example.org/mia#> .
 @prefix persona: <http://mee.foundation/ontologies/persona#> .
 @prefix cco: <https://purl.org/cco/> .

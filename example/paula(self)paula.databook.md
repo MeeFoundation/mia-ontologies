@@ -30,9 +30,9 @@ This context captures Paula Walker's selfness as held in Alice's Mia, transmitte
 
 ## Identity Data
 
+```turtle
 <!-- databook:id: paula-self-identity -->
 <!-- databook:graph: http://www.example.org/mia/paula(self)paula#graph -->
-```turtle
 @prefix : <http://www.example.org/mia#> .
 @prefix persona: <http://mee.foundation/ontologies/persona#> .
 @prefix owl: <http://www.w3.org/2002/07/owl#> .

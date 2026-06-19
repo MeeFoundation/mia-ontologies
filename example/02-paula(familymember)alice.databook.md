@@ -32,9 +32,9 @@ This context captures Alice's record of her family member Paula Walker. Alice as
 
 ## Identity Data
 
+```turtle
 <!-- databook:id: paula-family-alice-identity -->
 <!-- databook:graph: http://www.example.org/mia/paula(family)alice#graph -->
-```turtle
 @prefix : <http://www.example.org/mia#> .
 @prefix persona: <http://mee.foundation/ontologies/persona#> .
 @prefix cco: <https://purl.org/cco/> .

@@ -31,9 +31,9 @@ This context captures Alice Walker's financial relationship with Citibank. Citib
 
 ## Identity Data
 
+```turtle
 <!-- databook:id: citibank-identity -->
 <!-- databook:graph: http://www.example.org/mia/alice(citibank)citibank#graph -->
-```turtle
 @prefix : <http://www.example.org/mia#> .
 @prefix persona: <http://mee.foundation/ontologies/persona#> .
 @prefix cco: <https://purl.org/cco/> .

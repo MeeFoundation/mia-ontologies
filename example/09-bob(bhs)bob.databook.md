@@ -31,9 +31,9 @@ This context captures Bob Johnson's BHS profile as transmitted from Bob's Mia to
 
 ## Identity Data
 
+```turtle
 <!-- databook:id: bob-bhs-identity -->
 <!-- databook:graph: http://www.example.org/mia/bob(bhs)bob#graph -->
-```turtle
 @prefix : <http://www.example.org/mia#> .
 @prefix persona: <http://mee.foundation/ontologies/persona#> .
 @prefix cco: <https://purl.org/cco/> .
