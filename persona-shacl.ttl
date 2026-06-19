@@ -29,7 +29,7 @@
 
 #################################################################
 #  Person
-#  Each context file contains exactly one persona:Person.
+#  Each SinglePerson context file contains exactly one persona:Person.
 #  All identity data — names, identifiers, addresses, cards — attach here.
 #################################################################
 
