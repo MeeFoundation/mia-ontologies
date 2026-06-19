@@ -9,7 +9,7 @@
 <http://mee.foundation/ontologies/identity> rdf:type owl:Ontology ;
     owl:versionIRI <http://mee.foundation/ontologies/identity/1.0.0> ;
     dc:date "2026-06-05"^^xsd:date ;
-    owl:versionInfo "Version 1.0.4 - remove incomplete domain from hasIdentity"@en ;
+    owl:versionInfo "Version 1.0.5 - change identity:Self from class to singleton individual of identity:Individual"@en ;
     rdfs:label "Identity Ontology"@en ;
     rdfs:comment """Identity Ontology for the Mee Identity Agent.
                     Describes the kinds of identities used in the Personal Data Network.
@@ -30,10 +30,10 @@ identity:Individual rdf:type owl:Class ;
     rdfs:label "Individual"@en ;
     rdfs:comment "An identifier of a human Mia user."@en .
 
-identity:Self rdf:type owl:Class ;
-    rdfs:subClassOf identity:Individual ;
+identity:Self rdf:type owl:NamedIndividual ,
+                       identity:Individual ;
     rdfs:label "Self"@en ;
-    rdfs:comment "An identifier of the current Mia user."@en .    
+    rdfs:comment "The well-known singleton individual representing the current Mia user's PDN identity. Used as the value of context:assertedBy and context:subject when the context concerns the local Mia user."@en .
 
 identity:Group rdf:type owl:Class ;
     rdfs:subClassOf identity:PDNidentity ;

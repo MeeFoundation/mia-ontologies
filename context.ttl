@@ -11,7 +11,7 @@
     owl:versionIRI <http://mee.foundation/ontologies/context/1.0.1> ;
     dc:date "2026-06-01"^^xsd:date ;
     owl:imports <http://mee.foundation/ontologies/identity> ;
-    owl:versionInfo "Version 1.0.35 - rename Finance→Finances, Health→Healthcare; add Health (SinglePerson) and FinancialServices (Company)"@en ;
+    owl:versionInfo "Version 1.0.36 - update assertedBy/subject comments: identity:Self is now an individual, not a subclass"@en ;
     rdfs:label "Context Ontology"@en ;
     rdfs:comment """Context Ontology for the Mee Identity Agent.
 
@@ -37,8 +37,8 @@ context:contextCategory rdf:type owl:AnnotationProperty ;
 
 context:assertedBy rdf:type owl:AnnotationProperty ;
     rdfs:label "asserted by"@en ;
-    rdfs:comment """Tags a context ontology (file) with the kind of identity making the assertion —
-                    a subclass of identity:PDNidentity (e.g. identity:Self, identity:Organization).
+    rdfs:comment """Tags a context ontology (file) with the individual identity making the assertion —
+                    an individual of identity:PDNidentity (e.g. identity:Self, identity:Organization).
                     Applied to the ontology IRI, not to the Persona individual."""@en ;
     rdfs:domain owl:Ontology ;
     rdfs:range identity:PDNidentity .
@@ -46,7 +46,7 @@ context:assertedBy rdf:type owl:AnnotationProperty ;
 context:subject rdf:type owl:AnnotationProperty ;
     rdfs:label "subject"@en ;
     rdfs:comment """Tags a context ontology (file) with whose identity it describes —
-                    a subclass of identity:PDNidentity (e.g. identity:Self, identity:Individual).
+                    an individual of identity:PDNidentity (e.g. identity:Self, or a named individual of identity:Individual).
                     Applied to the ontology IRI, not to the Persona individual."""@en ;
     rdfs:domain owl:Ontology ;
     rdfs:range identity:PDNidentity .

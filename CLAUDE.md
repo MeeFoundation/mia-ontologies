@@ -103,9 +103,9 @@ Context filenames follow a single flat pattern:
 
 **Exception — `c:Group` contexts**: A group context (`contextCategory context:Group`) has no single asserter — any permitted member can write to it and changes replicate to all members. The `<asserted-by>` segment is the literal `members` rather than an individual name. Example: `08-bhs(bhs)members.ttl` — about BHS, context "bhs", asserted by the group's members collectively.
 
-**`context:assertedBy` vocabulary**: The TTL annotation uses `identity:Self` for self-asserted contexts (the Mia user entered the data), a specific Person individual (e.g. `:Bob_Johnson-Self`) for peer-asserted contexts, and `identity:Organization` only when the asserting organization is itself a PDN node. In the example data **only Citibank is a PDN node**, so only `10-alice(citibank)citibank.ttl` uses `assertedBy identity:Organization`. All other organization-related contexts (Google, AT&T, SSA, etc.) use `assertedBy identity:Self` because Alice self-enters that data — those organizations are not PDN-interoperable.
+**`context:assertedBy` vocabulary**: The TTL annotation uses `identity:Self` (a singleton individual of `identity:Individual`) for self-asserted contexts (the Mia user entered the data), a named individual of `identity:Individual` (e.g. `:Bob_Johnson`) for peer-asserted contexts, and a named individual of `identity:Organization` only when the asserting organization is itself a PDN node. In the example data **only Citibank is a PDN node**, so only `10-alice(citibank)citibank.ttl` uses `assertedBy identity:Organization`. All other organization-related contexts (Google, AT&T, SSA, etc.) use `assertedBy identity:Self` because Alice self-enters that data — those organizations are not PDN-interoperable.
 
-**"Other" asserters**: When the asserter is someone other than the current Mia user (`identity:Self`), the asserter is one of:
+**"Other" asserters**: When the asserter is someone other than the current Mia user (`identity:Self`), the asserter is a named individual of one of:
 - `identity:Individual` — another Mia user (a different person, e.g. Bob asserting data about Alice)
 - `identity:Organization` — a company, nonprofit, or government agency that is a PDN node
 - `identity:Group` — a group of Mia users
@@ -127,6 +127,8 @@ The parent-context hierarchy (which context is a child of which) is expressed vi
 **Selfness and Personas**: A Person's selfness (`alice(self)alice.ttl`) is the central identity individual. It carries only properties intrinsic to the person (physical characteristics). All other data — names, identifiers, addresses, payment cards — belongs to context-specific Personas, each in its own file.
 
 **`:Self` IRI convention**: The Mia user's own `persona:Person` individual always uses the IRI `:Self` across all of their context files. All other people, groups, and organizations are assigned locally-minted named IRIs (e.g. `:Bob_Johnson`, `:Paula_Walker`, `:BHS`). `:Self` is a local IRI and is never exposed externally over the PDN, so there are no collisions between Mia instances. All context files in the example live in Alice's Mia — some authored by Alice, others received from peers over PDN. In either case, `:Self` refers to Alice. When data arrives from a peer's Mia (where that peer was `:Self` in their own instance), Alice's Mia assigns them a locally-minted identifier; once a PDN connection is established, that identifier resolves to or is replaced by their PDN ID.
+
+**DataBook IRI convention**: The document `id:` and `graph.named_graph:` always differ by the `#graph` fragment — `named_graph` is always `{id}#graph`. The `databook:id` on a block is a fragment identifier making that block independently addressable as `{id}#{block-id}`. Overview sections always begin with "This context captures...".
 
 **Peer name pattern** (not hierarchical): All name types (FullName, GivenName, FamilyName, AlternateName) connect directly to a Persona via `ont00001879` (designated by). They are siblings, not nested. Names belong to Personas not to Persons.
 

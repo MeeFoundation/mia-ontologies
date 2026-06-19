@@ -29,10 +29,9 @@ We first present an overview of the five ontologies and then illustrate them thr
 
 ## Persona Ontology
 
-The Persona ontology defines a formal, machine-readable model of a person. It is used by Mia to represent the user and to bi-directionally synchronize this information with other Mia users on a Personal Data Network that includes other Mia users as well as groups and organizations. 
+The Persona ontology defines a formal, machine-readable model of a person. It is used by Mia to represent the user as well as information about other people. Mia can bi-directionally synchronize information with other Mia users on a Personal Data Network (PDN).  
 
-
-We represent a person using the `persona:Person` class — a Mee-specific subclass of CCO `Person` (`cco:ont00001262`). Each context file contains exactly one `persona:Person` individual. The Mia user's own `persona:Person` individual always uses the IRI `:Self` across all of their context files; other people, groups, and organizations are assigned locally-minted named IRIs (e.g. `:Bob_Johnson`). These context files function as *named-graph slices* — each is an independent snapshot of an identity in a specific relationship or institutional context, carrying the claims relevant to that context: names, addresses, phone numbers, SSNs, physical characteristics, parent-child relationships, social connections, payment cards, and more. The Persona ontology reuses existing well-known ontologies wherever possible and defines new terms only where no suitable existing term exists.
+We represent a person with the `persona:Person` class — a Mee-specific subclass of CCO `Person` (`cco:ont00001262`). Each context file contains exactly one `persona:Person` individual. The Mia user's own `persona:Person` individual always uses the IRI `:Self` across all of their context files; other people, groups, and organizations are assigned locally-minted named IRIs (e.g. `:Bob_Johnson`). These context files function as *named-graph slices* — each is an independent snapshot of an identity in a specific relationship or institutional context, carrying the claims relevant to that context: names, addresses, phone numbers, SSNs, physical characteristics, parent-child relationships, social connections, payment cards, and more. The Persona ontology reuses existing well-known ontologies wherever possible and defines new terms only where no suitable existing term exists.
 
 <p align="center"><img src="images/persona-ontology/persona.png" alt="Persona model"></p>
 
@@ -286,17 +285,17 @@ A context is a container of information whose primary subject is one of the thre
 
 <p align="center"><img src="images/context-ontology/context-category.png" alt="contextType hierarchy"></p>
 
-**`c:assertedBy`** — Who is making the assertion. Values are subclasses of `i:PDNidentity` from the Identity ontology:
+**`c:assertedBy`** — Who is making the assertion. Values are individuals of `i:PDNidentity` from the Identity ontology:
 - `i:Self` — the Mia user is recording the data, even if the underlying information originates from some other party such as a company, government agency, or another person.
-- `i:Individual` — another Mia user is asserting the data directly.
-- `i:Group` — a group of Mia users is asserting the data.
-- `i:Organization` — an organization is asserting the data directly.
+- a named individual of `i:Individual` — another Mia user is asserting the data directly.
+- a named individual of `i:Group` — a group of Mia users is asserting the data.
+- a named individual of `i:Organization` — an organization is asserting the data directly.
 
-**`c:subject`** — Whose identity the context file describes. Values are subclasses of `i:PDNidentity` from the Identity ontology:
+**`c:subject`** — Whose identity the context file describes. Values are individuals of `i:PDNidentity` from the Identity ontology:
 - `i:Self` — the context is primarily about the Mia user.
-- `i:Individual` — the context is primarily about another human Mia user.
-- `i:Group` — the context is primarily about a group of Mia users.
-- `i:Organization` — the context is primarily about an organization (legal corporation or government agency).
+- a named individual of `i:Individual` — the context is primarily about another human Mia user.
+- a named individual of `i:Group` — the context is primarily about a group of Mia users.
+- a named individual of `i:Organization` — the context is primarily about an organization (legal corporation or government agency).
 
 The diagram below shows four kinds of contexts related to a hypothetical Mia user, Alice, and her interactions with a Department of Motor Vehicles (DMV) agency. Across the top are contexts where the DMV itself is the subject, and at the bottom where Alice is the subject. At the left are contexts where Alice has made the assertions (e.g. Alice's Mia has written the claims into the context) and at the right are contexts where the DMV as the "other" has written the claims. 
 
@@ -320,9 +319,13 @@ The Identity ontology is used to describe the kinds of identities that Mia can c
 
 **Classes**
 
-* `i:Individual` - an identifier of a Mia user. The identity of *this* Mia's user is an instance of the subclass, `i:Self`
+* `i:Individual` - an identifier of a human Mia user.
 * `i:Group` - an identifier of a `g:Group` of Mia users and/or `o:Organizations`.
 * `i:Organization` - an identifier of an `o:Organization`.
+
+**Well-known individual**
+
+* `i:Self` — a singleton individual of `i:Individual` representing the current Mia user's PDN identity. It is the value of `c:assertedBy` and `c:subject` whenever the context concerns the local user. Every other Mia user is represented by a locally-assigned named individual of `i:Individual`.
 
 ### Identity Ontology File
 
