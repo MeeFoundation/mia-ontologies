@@ -1,19 +1,25 @@
 #!/usr/bin/env python3
 """
-draw.py  —  Generate a Mermaid diagram from a Persona context DataBook or .ttl file.
+draw.py  —  Generate a Mermaid (.mmd) and PNG diagram from a Persona context DataBook or .ttl file.
 
 Usage:   python draw.py <context_file.databook.md>
          python draw.py <context_file.ttl>
-Output:  <stem>.mmd in the same images/ directory as the PNG diagrams.
+Output:  <stem>.mmd and <stem>.png in the same images/ directory as the PNG diagrams.
 
 Requires: pip install rdflib pyyaml
+          mmdc (Mermaid CLI) for PNG generation: npm install -g @mermaid-js/mermaid-cli
 
 Blank-node simplification: a blank node that has a type and a single text value
 is collapsed into a direct labeled edge (Subject --"TypeName"--> "value"),
 avoiding intermediate nodes for the common designator pattern.
 """
 
+import json
+import os
+import shutil
+import subprocess
 import sys
+import tempfile
 import yaml
 from hashlib import md5
 from pathlib import Path
@@ -383,6 +389,52 @@ def build_mermaid(g: Graph, frontmatter: dict | None = None, src_dir: Path | Non
     return "\n".join(parts)
 
 
+# ── PNG generation ─────────────────────────────────────────────────────────────
+
+_CHROME_CANDIDATES = [
+    "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome",
+    "/Applications/Chromium.app/Contents/MacOS/Chromium",
+    "/usr/bin/google-chrome",
+    "/usr/bin/chromium-browser",
+    "/usr/bin/chromium",
+]
+
+
+def _find_chrome() -> str | None:
+    for c in _CHROME_CANDIDATES:
+        if Path(c).exists():
+            return c
+    return shutil.which("google-chrome") or shutil.which("chromium")
+
+
+def generate_png(mmd_path: Path, png_path: Path) -> None:
+    mmdc = shutil.which("mmdc")
+    if not mmdc:
+        print("Warning: mmdc not found; skipping PNG generation")
+        return
+
+    cmd = [mmdc, "-i", str(mmd_path), "-o", str(png_path), "-b", "white", "-s", "2"]
+
+    chrome = _find_chrome()
+    cfg_path = None
+    try:
+        if chrome:
+            cfg = json.dumps({"executablePath": chrome})
+            with tempfile.NamedTemporaryFile(mode="w", suffix=".json", delete=False) as f:
+                f.write(cfg)
+                cfg_path = f.name
+            cmd += ["--puppeteerConfigFile", cfg_path]
+
+        result = subprocess.run(cmd, capture_output=True, text=True)
+        if result.returncode != 0:
+            print(f"Warning: mmdc failed: {result.stderr.strip()}")
+        else:
+            print(f"Written: {png_path}")
+    finally:
+        if cfg_path:
+            os.unlink(cfg_path)
+
+
 # ── Entry point ────────────────────────────────────────────────────────────────
 
 def main() -> None:
@@ -413,6 +465,7 @@ def main() -> None:
 
     out.write_text(build_mermaid(g, frontmatter, src.parent) + "\n")
     print(f"Written: {out}")
+    generate_png(out, out.with_suffix(".png"))
 
 
 if __name__ == "__main__":

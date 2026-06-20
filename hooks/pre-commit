@@ -1,0 +1,25 @@
+#!/usr/bin/env bash
+# Regenerate .mmd and .png for any staged .databook.md files.
+#
+# Install: cp hooks/pre-commit .git/hooks/pre-commit && chmod +x .git/hooks/pre-commit
+
+set -euo pipefail
+
+repo_root=$(git rev-parse --show-toplevel)
+
+staged=$(git diff --cached --name-only --diff-filter=ACM | grep '\.databook\.md$' || true)
+[ -z "$staged" ] && exit 0
+
+while IFS= read -r f; do
+    echo "[draw] $f"
+    python3 "$repo_root/draw.py" "$repo_root/$f"
+
+    stem=$(basename "${f%.databook.md}")
+    dir=$(dirname "$f")
+    images="$repo_root/$dir/images"
+
+    if [ -d "$images" ]; then
+        [ -f "$images/$stem.mmd" ] && git add "$images/$stem.mmd"
+        [ -f "$images/$stem.png" ] && git add "$images/$stem.png"
+    fi
+done <<< "$staged"
