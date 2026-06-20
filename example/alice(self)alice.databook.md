@@ -2,7 +2,7 @@
 id: http://www.example.org/mia
 title: "Alice Walker — Selfness"
 type: databook
-version: 4.0.3
+version: 4.0.4
 created: 2026-06-19
 description: >
   Alice Walker's selfness — the central identity individual. Records physical

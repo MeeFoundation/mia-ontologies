@@ -4,22 +4,28 @@ flowchart TD
     classDef grp    fill:#d4edda,stroke:#aaa,color:#333
     classDef org    fill:#cce5ff,stroke:#aaa,color:#333
     classDef lit    fill:none,stroke:none,font-style:italic,color:#2a7a2a
+    classDef meta   fill:#f5f5ff,stroke:#9999cc,color:#333
+
+    subgraph ctx["Context"]
+        direction LR
+        ctx_meta["name: Boston Hub Society\ncategory: Group\nassertedBy: :Self\nsubject: :Self"]:::meta
+    end
 
     nbb363374209c[":Address_BHS\n(PostalAddress)"]
-    nf1d742f069a6("123 Sleepy Hollow"):::lit
-    n7b4917dd18a0("Paradise"):::lit
-    nb4d90646dc47("CA"):::lit
-    n44655699a947("95969"):::lit
-    n1e88ebe9436d("USA"):::lit
+    na368927164bd("123 Sleepy Hollow"):::lit
+    n414e56abc62a("Paradise"):::lit
+    nfcbce4ab0eed("CA"):::lit
+    n1a880d36a4e3("95969"):::lit
+    nab5860248493("USA"):::lit
     ne0c3ba92f1db[":Self\n(Person)"]:::person
-    nb946460103c5("+15108149999"):::lit
-    ndc040ae651ee("awalker@gmail.com"):::lit
+    ne5eab0536bdf("+15108149999"):::lit
+    nbb93d43c749f("awalker@gmail.com"):::lit
 
-    nbb363374209c -->|"StreetAddress"| nf1d742f069a6
-    nbb363374209c -->|"CityName"| n7b4917dd18a0
-    nbb363374209c -->|"StateName"| nb4d90646dc47
-    nbb363374209c -->|"PostalCode"| n44655699a947
-    nbb363374209c -->|"CountryName"| n1e88ebe9436d
+    nbb363374209c -->|"StreetAddress"| na368927164bd
+    nbb363374209c -->|"CityName"| n414e56abc62a
+    nbb363374209c -->|"StateName"| nfcbce4ab0eed
+    nbb363374209c -->|"PostalCode"| n1a880d36a4e3
+    nbb363374209c -->|"CountryName"| nab5860248493
     ne0c3ba92f1db -->|"designated by"| nbb363374209c
-    ne0c3ba92f1db -->|"TelephoneNumber"| nb946460103c5
-    ne0c3ba92f1db -->|"EmailAddress"| ndc040ae651ee
+    ne0c3ba92f1db -->|"TelephoneNumber"| ne5eab0536bdf
+    ne0c3ba92f1db -->|"EmailAddress"| nbb93d43c749f

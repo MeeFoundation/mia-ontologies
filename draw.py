@@ -101,6 +101,9 @@ LABELS = {
     "https://purl.org/cco/ont00000058":         "ScalpHair",
     "https://purl.org/cco/ont00001022":         "RatioMeasurementICE",
     "https://purl.org/cco/ont00000967":         "Height",
+    "https://purl.org/cco/ont00000026":         "HairColor",
+    "https://purl.org/cco/ont00001677":         "Inch",
+    "https://purl.org/cco/ent00000040":         "BlueEyeColor",
     # cco: ont properties
     "https://purl.org/cco/ont00001780":         "hasMother",
     "https://purl.org/cco/ont00001786":         "isMotherOf",
@@ -190,8 +193,7 @@ def load_databook(path: Path):
     if turtle_lines:
         g.parse(data="\n".join(turtle_lines), format="turtle")
 
-    context_category = (frontmatter.get("mia") or {}).get("contextCategory")
-    return g, context_category
+    return g, frontmatter
 
 
 # ── Mermaid generation ─────────────────────────────────────────────────────────
@@ -225,7 +227,47 @@ def expand_bnode(g: Graph, bn: BNode):
     return (lbl(btype) if btype else ""), (str(tv) if tv is not None else None)
 
 
-def build_mermaid(g: Graph, context_category_label: str | None = None) -> str:
+def _dyad_label(dyad_iri: str, src_dir: Path | None) -> str:
+    """Return display label for a dyad IRI: stem, with context number appended if findable."""
+    stem = dyad_iri.rstrip("/").split("/")[-1]
+    if src_dir is not None:
+        matches = list(src_dir.glob(f"[0-9][0-9]-{stem}.databook.md"))
+        if matches:
+            prefix = matches[0].name.split("-")[0]
+            return f"{stem} ({int(prefix)})"
+    return stem
+
+
+def _meta_subgraph(mia: dict, src_dir: Path | None = None) -> list[str]:
+    """Build a Mermaid subgraph showing the mia: YAML properties as a metadata box."""
+    props = []
+    if name := mia.get("name"):
+        props.append(f"name: {name}")
+    if cat := mia.get("contextCategory"):
+        props.append(f"category: {cat.removeprefix('context:')}")
+    if asserted_by := mia.get("assertedBy"):
+        props.append(f"assertedBy: {asserted_by}")
+    if subject := mia.get("subject"):
+        props.append(f"subject: {subject}")
+    if template := mia.get("template"):
+        props.append(f"template: {template}")
+    if dyad := mia.get("dyad"):
+        props.append(f"dyad: {_dyad_label(str(dyad), src_dir)}")
+    if not props:
+        return []
+    label = "\\n".join(esc(p) for p in props)
+    return [
+        '    subgraph ctx["Context"]',
+        "        direction LR",
+        f'        ctx_meta["{label}"]:::meta',
+        "    end",
+    ]
+
+
+def build_mermaid(g: Graph, frontmatter: dict | None = None, src_dir: Path | None = None) -> str:
+    mia = (frontmatter or {}).get("mia") or {}
+    context_category_label = mia.get("contextCategory")
+
     header = []
     if context_category_label:
         header.append(f"%% ContextCategory: {context_category_label}")
@@ -234,6 +276,7 @@ def build_mermaid(g: Graph, context_category_label: str | None = None) -> str:
     header.append("    classDef grp    fill:#d4edda,stroke:#aaa,color:#333")
     header.append("    classDef org    fill:#cce5ff,stroke:#aaa,color:#333")
     header.append("    classDef lit    fill:none,stroke:none,font-style:italic,color:#2a7a2a")
+    header.append("    classDef meta   fill:#f5f5ff,stroke:#9999cc,color:#333")
 
     individuals = {
         s for s in g.subjects(RDF.type, OWL.NamedIndividual)
@@ -259,7 +302,7 @@ def build_mermaid(g: Graph, context_category_label: str | None = None) -> str:
         k = nid("ext:" + str(iri))
         if k not in declared:
             local = str(iri).split("#")[-1] if "#" in str(iri) else str(iri).split("/")[-1]
-            node_lines.append(f'    {k}["::{esc(local)}"]')
+            node_lines.append(f'    {k}[":{esc(local)}"]')
             declared.add(k)
         return k
 
@@ -302,6 +345,18 @@ def build_mermaid(g: Graph, context_category_label: str | None = None) -> str:
                             edge_lines.append(f'    {bk} -->|"{esc(bpl)}"| {tgt}')
                         elif isinstance(bo, URIRef) and bo in individuals:
                             edge_lines.append(f'    {bk} -->|"{esc(bpl)}"| {ensure_ind(bo)}')
+                        elif isinstance(bo, BNode):
+                            ntl, ntv = expand_bnode(g, bo)
+                            if ntv is not None:
+                                edge_label = ntl if ntl else bpl
+                                tgt = ensure_lit(ntv, str(obj) + str(bo))
+                                edge_lines.append(f'    {bk} -->|"{esc(edge_label)}"| {tgt}')
+                            else:
+                                nbk = nid("bn:" + str(bo))
+                                if nbk not in declared:
+                                    node_lines.append(f'    {nbk}{{"{esc(ntl or "_")}"}}')
+                                    declared.add(nbk)
+                                edge_lines.append(f'    {bk} -->|"{esc(bpl)}"| {nbk}')
 
             elif isinstance(obj, URIRef):
                 if obj in individuals:
@@ -317,7 +372,12 @@ def build_mermaid(g: Graph, context_category_label: str | None = None) -> str:
                 tgt = ensure_lit(str(obj), str(ind) + str(pred) + str(obj))
                 edge_lines.append(f'    {src} -->|"{esc(plabel)}"| {tgt}')
 
-    parts = header + [""] + node_lines
+    meta_lines = _meta_subgraph(mia, src_dir)
+
+    parts = header + [""]
+    if meta_lines:
+        parts += meta_lines + [""]
+    parts += node_lines
     if edge_lines:
         parts += [""] + edge_lines
     return "\n".join(parts)
@@ -332,20 +392,18 @@ def main() -> None:
     if not src.exists():
         sys.exit(f"File not found: {src}")
 
-    context_category_label = None
-
     if src.name.endswith(".databook.md"):
-        g, ctx_cat = load_databook(src)
-        context_category_label = ctx_cat or None
+        g, frontmatter = load_databook(src)
         stem = src.name[: -len(".databook.md")]
     else:
         g = Graph()
         g.parse(str(src), format="turtle")
+        frontmatter = {}
         ontology_iri = g.value(predicate=RDF.type, object=OWL.Ontology)
         if ontology_iri:
             ctype = g.value(ontology_iri, PERSONA.contextType)
             if ctype:
-                context_category_label = lbl(ctype)
+                frontmatter = {"mia": {"contextCategory": lbl(ctype)}}
         stem = src.stem
 
     # Write to images/ subdirectory if it exists, otherwise alongside the source
@@ -353,7 +411,7 @@ def main() -> None:
     out_dir = images_dir if images_dir.is_dir() else src.parent
     out = out_dir / f"{stem}.mmd"
 
-    out.write_text(build_mermaid(g, context_category_label) + "\n")
+    out.write_text(build_mermaid(g, frontmatter, src.parent) + "\n")
     print(f"Written: {out}")
 
 

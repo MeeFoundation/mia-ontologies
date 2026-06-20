@@ -4,8 +4,14 @@ flowchart TD
     classDef grp    fill:#d4edda,stroke:#aaa,color:#333
     classDef org    fill:#cce5ff,stroke:#aaa,color:#333
     classDef lit    fill:none,stroke:none,font-style:italic,color:#2a7a2a
+    classDef meta   fill:#f5f5ff,stroke:#9999cc,color:#333
+
+    subgraph ctx["Context"]
+        direction LR
+        ctx_meta["name: Bob\ncategory: Person\nassertedBy: :Bob_Johnson\nsubject: :Self\ndyad: alice(bob)alice (17)"]:::meta
+    end
 
     ne0c3ba92f1db[":Self\n(Person)"]:::person
-    nb3c9743173b3("Favorite drink: pepsi"):::lit
+    n1f74c377bd78("Favorite drink: pepsi"):::lit
 
-    ne0c3ba92f1db -->|"ent00000048"| nb3c9743173b3
+    ne0c3ba92f1db -->|"ent00000048"| n1f74c377bd78

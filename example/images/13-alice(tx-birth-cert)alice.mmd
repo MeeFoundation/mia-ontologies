@@ -4,14 +4,20 @@ flowchart TD
     classDef grp    fill:#d4edda,stroke:#aaa,color:#333
     classDef org    fill:#cce5ff,stroke:#aaa,color:#333
     classDef lit    fill:none,stroke:none,font-style:italic,color:#2a7a2a
+    classDef meta   fill:#f5f5ff,stroke:#9999cc,color:#333
+
+    subgraph ctx["Context"]
+        direction LR
+        ctx_meta["name: Texas Birth Certificate\ncategory: State\nassertedBy: :Self\nsubject: :Self\ntemplate: persona:BirthCertificate"]:::meta
+    end
 
     ne0c3ba92f1db[":Self\n(Person)"]:::person
-    n7419a1491b22("Margery"):::lit
-    nf1d9d8e9a16c("Alice"):::lit
-    n648d9e10ba15("Walker"):::lit
-    n8653c9ab156f("Margery Alice Arnold"):::lit
+    n006a63765724("Margery"):::lit
+    nc20765b45715("Alice"):::lit
+    ncc7b339345bd("Walker"):::lit
+    ndd51d576692a("Margery Alice Arnold"):::lit
 
-    ne0c3ba92f1db -->|"GivenName"| n7419a1491b22
-    ne0c3ba92f1db -->|"AdditionalName"| nf1d9d8e9a16c
-    ne0c3ba92f1db -->|"FamilyName"| n648d9e10ba15
-    ne0c3ba92f1db -->|"AlternateName"| n8653c9ab156f
+    ne0c3ba92f1db -->|"GivenName"| n006a63765724
+    ne0c3ba92f1db -->|"AdditionalName"| nc20765b45715
+    ne0c3ba92f1db -->|"FamilyName"| ncc7b339345bd
+    ne0c3ba92f1db -->|"AlternateName"| ndd51d576692a

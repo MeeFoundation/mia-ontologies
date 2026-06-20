@@ -4,12 +4,18 @@ flowchart TD
     classDef grp    fill:#d4edda,stroke:#aaa,color:#333
     classDef org    fill:#cce5ff,stroke:#aaa,color:#333
     classDef lit    fill:none,stroke:none,font-style:italic,color:#2a7a2a
+    classDef meta   fill:#f5f5ff,stroke:#9999cc,color:#333
+
+    subgraph ctx["Context"]
+        direction LR
+        ctx_meta["name: Acme\ncategory: Employee\nassertedBy: :Self\nsubject: :Self"]:::meta
+    end
 
     n2ed3865285b0[":Alice_Acme_Network\n(SocialNetwork)"]
-    nb654756d5ced["::Paula_Walker"]
+    nb654756d5ced[":Paula_Walker"]
     ne0c3ba92f1db[":Self\n(Person)"]:::person
-    n821740e5a6cc("alice@acme.com"):::lit
+    nb9a5a4a31698("alice@acme.com"):::lit
 
     n2ed3865285b0 -->|"hasMember"| nb654756d5ced
-    ne0c3ba92f1db -->|"EmailAddress"| n821740e5a6cc
+    ne0c3ba92f1db -->|"EmailAddress"| nb9a5a4a31698
     ne0c3ba92f1db -->|"hasSocialNetwork"| n2ed3865285b0

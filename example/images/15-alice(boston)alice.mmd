@@ -4,22 +4,28 @@ flowchart TD
     classDef grp    fill:#d4edda,stroke:#aaa,color:#333
     classDef org    fill:#cce5ff,stroke:#aaa,color:#333
     classDef lit    fill:none,stroke:none,font-style:italic,color:#2a7a2a
+    classDef meta   fill:#f5f5ff,stroke:#9999cc,color:#333
+
+    subgraph ctx["Context"]
+        direction LR
+        ctx_meta["name: Boston\ncategory: Municipality\nassertedBy: :Self\nsubject: :Self"]:::meta
+    end
 
     nc67f0317dd3d[":Address_Boston\n(PostalAddress)"]
-    n1add151124d0("456 Commonwealth Ave"):::lit
-    n30fda29c8f32("Boston"):::lit
-    nfc92e1161cd8("MA"):::lit
-    n9b7de9099933("02215"):::lit
+    n52a2ca6d50f2("456 Commonwealth Ave"):::lit
+    na52bf87a27a6("Boston"):::lit
+    n3676dff2ec53("MA"):::lit
+    nb171389ce3df("02215"):::lit
     n596b411b2d6f[":Boston_Residence\n(AddressDesignation)"]
     ne0c3ba92f1db[":Self\n(Person)"]:::person
     n712165170b98[":Interval_2020_2025\n(TemporalInterval)"]
     n9dc9a14921d5("2020-01-01"):::lit
     n6c16da9fd750("2025-08-31"):::lit
 
-    nc67f0317dd3d -->|"StreetAddress"| n1add151124d0
-    nc67f0317dd3d -->|"CityName"| n30fda29c8f32
-    nc67f0317dd3d -->|"StateName"| nfc92e1161cd8
-    nc67f0317dd3d -->|"PostalCode"| n9b7de9099933
+    nc67f0317dd3d -->|"StreetAddress"| n52a2ca6d50f2
+    nc67f0317dd3d -->|"CityName"| na52bf87a27a6
+    nc67f0317dd3d -->|"StateName"| n3676dff2ec53
+    nc67f0317dd3d -->|"PostalCode"| nb171389ce3df
     n596b411b2d6f -->|"hasParticipant"| ne0c3ba92f1db
     n596b411b2d6f -->|"designated by"| nc67f0317dd3d
     n596b411b2d6f -->|"occupiesTemporalRegion"| n712165170b98

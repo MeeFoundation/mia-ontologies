@@ -1,8 +1,8 @@
 ---
-id: http://www.example.org/mia/paula(family)alice
+id: http://www.example.org/mia/paula(familymember)alice
 title: "Paula Walker — Family (Alice's view)"
 type: databook
-version: 2.0.3
+version: 2.0.4
 created: 2026-06-14
 description: >
   Alice's record of her family member Paula Walker, including Paula's given and family name.
@@ -12,9 +12,9 @@ mia:
   contextCategory: "context:FamilyMember"
   assertedBy: ":Self"
   subject: ":Paula_Walker"
-  dyad: "http://www.example.org/mia/paula(family)paula"
+  dyad: "http://www.example.org/mia/paula(familymember)paula"
 graph:
-  named_graph: http://www.example.org/mia/paula(family)alice#graph
+  named_graph: http://www.example.org/mia/paula(familymember)alice#graph
   rdf_version: "1.1"
 shapes:
   - http://www.example.org/shapes
@@ -28,13 +28,13 @@ process:
 
 ## Overview
 
-This context captures Alice's record of her family member Paula Walker. Alice asserts Paula's name in the family context. It is paired (dyad) with `03-paula(family)paula`, which is Paula's self-asserted family persona received from Paula's Mia.
+This context captures Alice's record of her family member Paula Walker. Alice asserts Paula's name in the family context. It is paired (dyad) with `03-paula(familymember)paula`, which is Paula's self-asserted family persona received from Paula's Mia.
 
 ## Identity Data
 
 ```turtle
 <!-- databook:id: paula-family-alice-identity -->
-<!-- databook:graph: http://www.example.org/mia/paula(family)alice#graph -->
+<!-- databook:graph: http://www.example.org/mia/paula(familymember)alice#graph -->
 @prefix : <http://www.example.org/mia#> .
 @prefix persona: <http://mee.foundation/ontologies/persona#> .
 @prefix cco: <https://purl.org/cco/> .

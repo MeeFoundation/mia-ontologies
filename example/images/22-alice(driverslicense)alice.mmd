@@ -4,22 +4,28 @@ flowchart TD
     classDef grp    fill:#d4edda,stroke:#aaa,color:#333
     classDef org    fill:#cce5ff,stroke:#aaa,color:#333
     classDef lit    fill:none,stroke:none,font-style:italic,color:#2a7a2a
+    classDef meta   fill:#f5f5ff,stroke:#9999cc,color:#333
+
+    subgraph ctx["Context"]
+        direction LR
+        ctx_meta["name: Driver's License\ncategory: State\nassertedBy: :Self\nsubject: :Self\ntemplate: persona:DriversLicense"]:::meta
+    end
 
     ne0c3ba92f1db[":Self\n(Person)"]:::person
-    n9c3a11fe1da1("Margery"):::lit
-    ne8ab2a12efda("Alice"):::lit
-    nea84257dd7a2("Walker"):::lit
-    na6046fb582b8("1985-07-04"):::lit
-    n8442893e7c5e("2031-07-04"):::lit
-    nb0713da12a98("A1234567"):::lit
-    nfba64223fec2("CA"):::lit
+    nf7ac20c5c75b("Margery"):::lit
+    n6bb35af78887("Alice"):::lit
+    n9b7d9adf3871("Walker"):::lit
+    n4cfc3b382016("1985-07-04"):::lit
+    n35c1105500be("2031-07-04"):::lit
+    n07c01b700425("A1234567"):::lit
+    n50cda7fdf67a("CA"):::lit
     n776653056055("https://example.org/alice-dl-photo.jpg"):::lit
 
-    ne0c3ba92f1db -->|"GivenName"| n9c3a11fe1da1
-    ne0c3ba92f1db -->|"AdditionalName"| ne8ab2a12efda
-    ne0c3ba92f1db -->|"FamilyName"| nea84257dd7a2
-    ne0c3ba92f1db -->|"ent00000046"| na6046fb582b8
-    ne0c3ba92f1db -->|"ExpirationDate"| n8442893e7c5e
-    ne0c3ba92f1db -->|"DriversLicenseNumber"| nb0713da12a98
-    ne0c3ba92f1db -->|"IssuingJurisdiction"| nfba64223fec2
+    ne0c3ba92f1db -->|"GivenName"| nf7ac20c5c75b
+    ne0c3ba92f1db -->|"AdditionalName"| n6bb35af78887
+    ne0c3ba92f1db -->|"FamilyName"| n9b7d9adf3871
+    ne0c3ba92f1db -->|"ent00000046"| n4cfc3b382016
+    ne0c3ba92f1db -->|"ExpirationDate"| n35c1105500be
+    ne0c3ba92f1db -->|"DriversLicenseNumber"| n07c01b700425
+    ne0c3ba92f1db -->|"IssuingJurisdiction"| n50cda7fdf67a
     ne0c3ba92f1db -->|"hasPhoto"| n776653056055

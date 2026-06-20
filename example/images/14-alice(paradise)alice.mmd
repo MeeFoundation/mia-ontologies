@@ -4,23 +4,29 @@ flowchart TD
     classDef grp    fill:#d4edda,stroke:#aaa,color:#333
     classDef org    fill:#cce5ff,stroke:#aaa,color:#333
     classDef lit    fill:none,stroke:none,font-style:italic,color:#2a7a2a
+    classDef meta   fill:#f5f5ff,stroke:#9999cc,color:#333
+
+    subgraph ctx["Context"]
+        direction LR
+        ctx_meta["name: Paradise\ncategory: Municipality\nassertedBy: :Self\nsubject: :Self"]:::meta
+    end
 
     ndbcf44a48000[":Address_Paradise\n(PostalAddress)"]
-    n8f0b3d20833a("123 Sleepy Hollow"):::lit
-    n2ce066eb9345("Paradise"):::lit
-    n823f63f3f9bc("CA"):::lit
-    nebd3328be7ef("95969"):::lit
-    n414defe9fcfd("USA"):::lit
+    n5d8743ca393c("123 Sleepy Hollow"):::lit
+    n92653e86bb56("Paradise"):::lit
+    nfd94c82cb02b("CA"):::lit
+    n975bd59b0005("95969"):::lit
+    n42c481e51fb9("USA"):::lit
     naf26563dc3c8[":Interval_2025_Present\n(TemporalInterval)"]
     n8987ca649e35("2025-09-01"):::lit
     n0eecd6ebe039[":Paradise_Residence\n(AddressDesignation)"]
     ne0c3ba92f1db[":Self\n(Person)"]:::person
 
-    ndbcf44a48000 -->|"StreetAddress"| n8f0b3d20833a
-    ndbcf44a48000 -->|"CityName"| n2ce066eb9345
-    ndbcf44a48000 -->|"StateName"| n823f63f3f9bc
-    ndbcf44a48000 -->|"PostalCode"| nebd3328be7ef
-    ndbcf44a48000 -->|"CountryName"| n414defe9fcfd
+    ndbcf44a48000 -->|"StreetAddress"| n5d8743ca393c
+    ndbcf44a48000 -->|"CityName"| n92653e86bb56
+    ndbcf44a48000 -->|"StateName"| nfd94c82cb02b
+    ndbcf44a48000 -->|"PostalCode"| n975bd59b0005
+    ndbcf44a48000 -->|"CountryName"| n42c481e51fb9
     naf26563dc3c8 -->|"hasStartDate"| n8987ca649e35
     n0eecd6ebe039 -->|"hasParticipant"| ne0c3ba92f1db
     n0eecd6ebe039 -->|"designated by"| ndbcf44a48000

@@ -4,8 +4,14 @@ flowchart TD
     classDef grp    fill:#d4edda,stroke:#aaa,color:#333
     classDef org    fill:#cce5ff,stroke:#aaa,color:#333
     classDef lit    fill:none,stroke:none,font-style:italic,color:#2a7a2a
+    classDef meta   fill:#f5f5ff,stroke:#9999cc,color:#333
+
+    subgraph ctx["Context"]
+        direction LR
+        ctx_meta["name: AT&T\ncategory: Company\nassertedBy: :Self\nsubject: :Self"]:::meta
+    end
 
     ne0c3ba92f1db[":Self\n(Person)"]:::person
-    n43c20fb0b237("+15108149999"):::lit
+    n055b207fc7f7("+15108149999"):::lit
 
-    ne0c3ba92f1db -->|"TelephoneNumber"| n43c20fb0b237
+    ne0c3ba92f1db -->|"TelephoneNumber"| n055b207fc7f7

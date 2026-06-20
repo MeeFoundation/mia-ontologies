@@ -4,22 +4,28 @@ flowchart TD
     classDef grp    fill:#d4edda,stroke:#aaa,color:#333
     classDef org    fill:#cce5ff,stroke:#aaa,color:#333
     classDef lit    fill:none,stroke:none,font-style:italic,color:#2a7a2a
+    classDef meta   fill:#f5f5ff,stroke:#9999cc,color:#333
+
+    subgraph ctx["Context"]
+        direction LR
+        ctx_meta["name: Business Card\ncategory: Employee\nassertedBy: :Self\nsubject: :Self\ntemplate: persona:JSContactCard"]:::meta
+    end
 
     ne0c3ba92f1db[":Self\n(Person)"]:::person
-    n8150acac00c7("Alice"):::lit
-    n4731366ac2d0("Walker"):::lit
-    nbd92b607fe13("alice@acme.com"):::lit
-    n24de54924cad("+15108149999"):::lit
-    n6aef7db2f908("Acme"):::lit
-    nccb58b4917a2("Engineering"):::lit
-    ne41c1dfe1690("Software Engineer"):::lit
-    n5b25a4952292("https://www.linkedin.com/in/alicewalker"):::lit
+    n2214682cf3e3("Alice"):::lit
+    na7a749d21cbf("Walker"):::lit
+    nf695b354ffaa("alice@acme.com"):::lit
+    n4b675e30bba6("+15108149999"):::lit
+    n7310921d98ef("Acme"):::lit
+    na08d52ca0c7a("Engineering"):::lit
+    nc95d27b0cb87("Software Engineer"):::lit
+    n658c4989415a("https://www.linkedin.com/in/alicewalker"):::lit
 
-    ne0c3ba92f1db -->|"GivenName"| n8150acac00c7
-    ne0c3ba92f1db -->|"FamilyName"| n4731366ac2d0
-    ne0c3ba92f1db -->|"EmailAddress"| nbd92b607fe13
-    ne0c3ba92f1db -->|"TelephoneNumber"| n24de54924cad
-    ne0c3ba92f1db -->|"OrganizationName"| n6aef7db2f908
-    ne0c3ba92f1db -->|"OrganizationUnit"| nccb58b4917a2
-    ne0c3ba92f1db -->|"JobTitle"| ne41c1dfe1690
-    ne0c3ba92f1db -->|"WebURL"| n5b25a4952292
+    ne0c3ba92f1db -->|"GivenName"| n2214682cf3e3
+    ne0c3ba92f1db -->|"FamilyName"| na7a749d21cbf
+    ne0c3ba92f1db -->|"EmailAddress"| nf695b354ffaa
+    ne0c3ba92f1db -->|"TelephoneNumber"| n4b675e30bba6
+    ne0c3ba92f1db -->|"OrganizationName"| n7310921d98ef
+    ne0c3ba92f1db -->|"OrganizationUnit"| na08d52ca0c7a
+    ne0c3ba92f1db -->|"JobTitle"| nc95d27b0cb87
+    ne0c3ba92f1db -->|"WebURL"| n658c4989415a

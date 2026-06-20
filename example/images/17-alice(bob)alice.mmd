@@ -4,14 +4,20 @@ flowchart TD
     classDef grp    fill:#d4edda,stroke:#aaa,color:#333
     classDef org    fill:#cce5ff,stroke:#aaa,color:#333
     classDef lit    fill:none,stroke:none,font-style:italic,color:#2a7a2a
+    classDef meta   fill:#f5f5ff,stroke:#9999cc,color:#333
+
+    subgraph ctx["Context"]
+        direction LR
+        ctx_meta["name: Bob\ncategory: Person\nassertedBy: :Self\nsubject: :Self\ndyad: alice(bob)bob (4)"]:::meta
+    end
 
     ne62a8f0f56d6[":Alice_Bob_Network\n(SocialNetwork)"]
-    ncea94215aa38["::Bob_Johnson"]
+    ncea94215aa38[":Bob_Johnson"]
     ne0c3ba92f1db[":Self\n(Person)"]:::person
-    n0ee71f525ebd("Alice"):::lit
-    na93adb312c5d("Walker"):::lit
+    nd3395b2716fb("Alice"):::lit
+    n9336877dfe59("Walker"):::lit
 
     ne62a8f0f56d6 -->|"hasMember"| ncea94215aa38
-    ne0c3ba92f1db -->|"GivenName"| n0ee71f525ebd
-    ne0c3ba92f1db -->|"FamilyName"| na93adb312c5d
+    ne0c3ba92f1db -->|"GivenName"| nd3395b2716fb
+    ne0c3ba92f1db -->|"FamilyName"| n9336877dfe59
     ne0c3ba92f1db -->|"hasSocialNetwork"| ne62a8f0f56d6

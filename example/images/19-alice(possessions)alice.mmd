@@ -4,6 +4,12 @@ flowchart TD
     classDef grp    fill:#d4edda,stroke:#aaa,color:#333
     classDef org    fill:#cce5ff,stroke:#aaa,color:#333
     classDef lit    fill:none,stroke:none,font-style:italic,color:#2a7a2a
+    classDef meta   fill:#f5f5ff,stroke:#9999cc,color:#333
+
+    subgraph ctx["Context"]
+        direction LR
+        ctx_meta["name: Possessions\ncategory: Possession\nassertedBy: :Self\nsubject: :Self"]:::meta
+    end
 
     n8020f1e0dda3[":Alice_DriversLicense\n(PhysicalDriversLicense)"]
     ne031334f4c41[":Alice_Wallet\n(Wallet)"]

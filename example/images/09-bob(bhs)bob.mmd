@@ -4,10 +4,16 @@ flowchart TD
     classDef grp    fill:#d4edda,stroke:#aaa,color:#333
     classDef org    fill:#cce5ff,stroke:#aaa,color:#333
     classDef lit    fill:none,stroke:none,font-style:italic,color:#2a7a2a
+    classDef meta   fill:#f5f5ff,stroke:#9999cc,color:#333
+
+    subgraph ctx["Context"]
+        direction LR
+        ctx_meta["name: Boston Hub Society\ncategory: Group\nassertedBy: :Bob_Johnson\nsubject: :Bob_Johnson"]:::meta
+    end
 
     n166b15bd501b[":Bob_Johnson\n(Person)"]:::person
-    ne73b7dfbbe5b("Bob"):::lit
-    nd43037a5bf92("Johnson"):::lit
+    ndafd122ff712("Bob"):::lit
+    nef2e10b20581("Johnson"):::lit
 
-    n166b15bd501b -->|"GivenName"| ne73b7dfbbe5b
-    n166b15bd501b -->|"FamilyName"| nd43037a5bf92
+    n166b15bd501b -->|"GivenName"| ndafd122ff712
+    n166b15bd501b -->|"FamilyName"| nef2e10b20581

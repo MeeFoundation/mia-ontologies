@@ -3,23 +3,31 @@ flowchart TD
     classDef grp    fill:#d4edda,stroke:#aaa,color:#333
     classDef org    fill:#cce5ff,stroke:#aaa,color:#333
     classDef lit    fill:none,stroke:none,font-style:italic,color:#2a7a2a
+    classDef meta   fill:#f5f5ff,stroke:#9999cc,color:#333
+
+    subgraph ctx["Context"]
+        direction LR
+        ctx_meta["name: Alice Walker\nassertedBy: :Self\nsubject: :Self"]:::meta
+    end
 
     n5fecfaaf895f[":Alice_Height\n(Height)"]
     n89a1fac192dc[":Alice_Height_Measurement\n(RatioMeasurementICE)"]
-    n07bac97f4199("ont00001677"):::lit
+    n07bac97f4199("Inch"):::lit
     nb51e42161d31("68"):::lit
     ne0c3ba92f1db[":Self\n(Person)"]:::person
-    n29b659f79a4b("Alice Walker"):::lit
-    n4845ba0a3a24{"ent00000040"}
-    nae0d9e9de493{"ScalpHair"}
-    nb654756d5ced["::Paula_Walker"]
+    n7d2a015788e8("Alice Walker"):::lit
+    nd5e6d60621f9{"BlueEyeColor"}
+    nd4c4f318e2bc{"ScalpHair"}
+    n91d26a9ed5fd("Grey"):::lit
+    nb654756d5ced[":Paula_Walker"]
 
     n89a1fac192dc -->|"isRatioMeasurementOf"| n5fecfaaf895f
     n89a1fac192dc -->|"usesMeasurementUnit"| n07bac97f4199
     n89a1fac192dc -->|"hasDecimalValue"| nb51e42161d31
-    ne0c3ba92f1db -->|"AlternateName"| n29b659f79a4b
+    ne0c3ba92f1db -->|"AlternateName"| n7d2a015788e8
     ne0c3ba92f1db -->|"bearerOf"| n5fecfaaf895f
     ne0c3ba92f1db -->|"bearerOf"| n89a1fac192dc
-    ne0c3ba92f1db -->|"bearerOf"| n4845ba0a3a24
-    ne0c3ba92f1db -->|"hasContinuantPart"| nae0d9e9de493
+    ne0c3ba92f1db -->|"bearerOf"| nd5e6d60621f9
+    ne0c3ba92f1db -->|"hasContinuantPart"| nd4c4f318e2bc
+    nd4c4f318e2bc -->|"HairColor"| n91d26a9ed5fd
     ne0c3ba92f1db -->|"hasMother"| nb654756d5ced
