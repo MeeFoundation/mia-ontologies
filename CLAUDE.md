@@ -188,6 +188,16 @@ A Persona that is not reachable by either mechanism is an orphan. Note: `persona
 
 **Check 11 — PNG filename convention**: Every diagram PNG in `example/images/` must use the same base filename as the corresponding `.ttl` file in `example/`, with `.png` substituted for `.ttl` (including the `NN-` numeric prefix where present). For example, `07-alice(bhs)alice.ttl` → `07-alice(bhs)alice.png`; `alice(self)alice.ttl` → `alice(self)alice.png`. If the PNG does not yet exist, the README Diagram cell must be marked `*(todo)*` rather than left blank.
 
+**Check 12 — No broken image links in README**: Every PNG path referenced in `README.md` (both `<img src="...">` tags and `[view](...)` table links) must resolve to an actual file on disk. Run:
+
+```bash
+grep -oE '(src|]\()([^)"]+\.png)' README.md | grep -oE '[^("]+\.png' | sort -u | while read f; do
+  [ -f "$f" ] || echo "MISSING: $f"
+done
+```
+
+If any `MISSING:` lines appear, either add the file or update the link.
+
 ## Keeping Files in Sync
 
 Whenever changes are made to `alice(self)alice.ttl`, any context file, `persona.ttl`, or `context.ttl`, `persona-shacl.ttl` must be updated to match:
