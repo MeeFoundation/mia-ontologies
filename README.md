@@ -258,13 +258,13 @@ The Organization ontology models organizations — companies, government agencie
 
 ## Context Ontology
 
-A context is a container of information whose primary subject is one of the three kinds of PDN node: a `persona:Person` individual (a named-graph slice of a person's identity in a specific context), a `g:Group`, or an `o:Organization`. It holds the subject's claims and, in the case of a `persona:Person` subject, may also include `persona:Person` individuals for other people in that context.
+A *context* is a container of information about a person related to their interactions with, or relationship to another person, group or organization. This information is expressed as triples using the Persona ontology stored in a **[DataBook](https://github.com/w3c-cg/holon/tree/main/architectures/databook)** (`.databook.md`) file. 
 
-A context is implemented as a **[DataBook](https://github.com/w3c-cg/holon/tree/main/architectures/databook)** (`.databook.md`) file. File-level metadata — name, category, asserter, subject, template, and dyad — is carried in the YAML frontmatter under the `mia:` key rather than as RDF triples. The context ontology (`context.ttl`) defines the controlled vocabularies that those YAML fields reference:
+The description of the context container itself is carried in the DataBook's YAML frontmatter under the `mia:` key. The context ontology (`context.ttl`) defines the controlled vocabularies that those YAML fields reference:
 
-- `mia.name` — a human-readable name for the context, e.g. `"Citibank"`.
-- `mia.contextCategory` — the nature of the interaction/relationship context; its value is a prefixed name of a `c:ContextCategory` subclass, e.g. `"context:FamilyMember"`.
-- `mia.assertedBy` — who is making the assertions; its value is a prefixed name of a `i:PDNidentity` individual, e.g. `"identity:Self"`.
+- `mia.name` — a human-readable name for the context, e.g. `"Citibank"` to represent the user's interactions with Citibank.
+- `mia.contextCategory` — a classification of the context into one of a set of broad catagories; its value is a prefixed name of a `c:ContextCategory` subclass, e.g. `"context:FamilyMember"` to represent the user's interaction with a family member.
+- `mia.assertedBy` — who is making the assertions (claims) (e.g. a person, group or organization). The persons could be the user themselves for self-asserted claims.
 - `mia.subject` — whose identity the context file describes; its value is a prefixed name of a `i:PDNidentity` individual, e.g. `"identity:Self"`.
 - `mia.template` — present only on context files that conform to a specific template; its value is a `p:PersonaTemplate` subclass (e.g. `"persona:BirthCertificate"`, `"persona:JSContactCard"`, `"persona:DriversLicense"`).
 - `mia.dyad` — the IRI of the partner DataBook in a 1:1 relationship context. If context A carries `mia.dyad` pointing to context B, then B must carry `mia.dyad` pointing back to A.
