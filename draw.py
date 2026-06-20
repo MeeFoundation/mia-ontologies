@@ -1,12 +1,16 @@
 #!/usr/bin/env python3
 """
-draw.py  —  Generate a Graphviz diagram from a Persona context DataBook or .ttl file.
+draw.py  —  Generate a Mermaid diagram from a Persona context DataBook or .ttl file.
 
 Usage:   python draw.py <context_file.databook.md>
          python draw.py <context_file.ttl>
-Output:  <stem>.png next to the input file (e.g. example/images/22-alice(...).png).
+Output:  <stem>.mmd in the same images/ directory as the PNG diagrams.
 
-Requires: pip install rdflib graphviz pyyaml   +   brew install graphviz
+Requires: pip install rdflib pyyaml
+
+Blank-node simplification: a blank node that has a type and a single text value
+is collapsed into a direct labeled edge (Subject --"TypeName"--> "value"),
+avoiding intermediate nodes for the common designator pattern.
 """
 
 import sys
@@ -16,122 +20,120 @@ from pathlib import Path
 
 from rdflib import BNode, Graph, Literal, Namespace, URIRef
 from rdflib.namespace import OWL, RDF, RDFS
-from graphviz import Digraph
 
-# ── Namespaces ────────────────────────────────────────────────────────────────
+# ── Namespaces ─────────────────────────────────────────────────────────────────
 PERSONA = Namespace("http://mee.foundation/ontologies/persona#")
+GROUP   = Namespace("http://mee.foundation/ontologies/group#")
+ORG     = Namespace("http://mee.foundation/ontologies/organization#")
 
 DESIGNATED_BY  = URIRef("https://purl.org/cco/ont00001879")
 HAS_TEXT_VALUE = URIRef("https://purl.org/cco/ont00001765")
+PERSON_CLASS   = URIRef("https://purl.org/cco/ont00001262")
 
-# ── Human-readable labels for well-known IRIs ─────────────────────────────────
+# ── Human-readable labels for well-known IRIs ──────────────────────────────────
 LABELS = {
-    # persona: context classes
-    str(PERSONA.Persona):               "p:Persona",
-    str(PERSONA.Company):               "p:Company",
-    str(PERSONA.Career):                "p:Career",
-    str(PERSONA.Government):            "p:Government",
-    str(PERSONA.Federal):               "p:Federal",
-    str(PERSONA.State):                 "p:State",
-    str(PERSONA.BirthCertificate):      "p:BirthCertificate",
-    str(PERSONA.Municipality):          "p:Municipality",
-    str(PERSONA.People):                "p:People",
-    str(PERSONA.Family):                "p:Family",
-    str(PERSONA.Friends):               "p:Friends",
-    str(PERSONA.Professionals):         "p:Professionals",
-    str(PERSONA.Colleague):             "p:Colleague",
-    # persona: domain classes
-    str(PERSONA.CheckingAccount):       "CheckingAccount",
-    str(PERSONA.CheckingAccountNumber): "Account Number",
-    str(PERSONA.RoutingNumber):         "Routing Number",
-    str(PERSONA.PhysicalCard):          "PhysicalCard",
-    str(PERSONA.Wallet):                "Wallet",
+    # persona: classes
+    str(PERSONA.Person):                        "Person",
+    str(PERSONA.Wallet):                        "Wallet",
+    str(PERSONA.CheckingAccount):               "CheckingAccount",
+    str(PERSONA.CheckingAccountNumber):         "AccountNumber",
+    str(PERSONA.RoutingNumber):                 "RoutingNumber",
+    str(PERSONA.PhysicalCard):                  "PhysicalCard",
     str(PERSONA.PhysicalDriversLicense):        "PhysicalDriversLicense",
     str(PERSONA.PhysicalHealthInsuranceCard):   "PhysicalHealthInsuranceCard",
     str(PERSONA.PhysicalPaymentCard):           "PhysicalPaymentCard",
     str(PERSONA.PhysicalSocialSecurityCard):    "PhysicalSocialSecurityCard",
+    str(PERSONA.DriversLicenseNumber):          "DriversLicenseNumber",
+    str(PERSONA.IssuingJurisdiction):           "IssuingJurisdiction",
+    str(PERSONA.JobTitle):                      "JobTitle",
+    str(PERSONA.OrganizationUnit):              "OrganizationUnit",
+    str(PERSONA.WebURL):                        "WebURL",
+    str(PERSONA.Anniversary):                   "Anniversary",
+    str(PERSONA.PersonalInfo):                  "PersonalInfo",
     # persona: properties
-    str(PERSONA.hasPaymentCard):      "hasPaymentCard",
-    str(PERSONA.holdsBankAccount):      "holdsBankAccount",
-    str(PERSONA.accessesBankAccount):   "accessesBankAccount",
-    str(PERSONA.hasSocialNetwork):      "hasSocialNetwork",
-    str(PERSONA.hasPersona):             "hasPersona",
-    str(PERSONA.assertionType):          "assertionType",
-    str(PERSONA.SelfAsserted):           "SelfAsserted",
-    str(PERSONA.OtherAsserted):          "OtherAsserted",
-    str(PERSONA.subject):                "subject",
-    str(PERSONA.Self):                   "Self",
-    str(PERSONA.Other):                  "Other",
-    str(PERSONA.hasPassword):           "has password",
-    str(PERSONA.hasPhysicalCard):     "hasPhysicalCard",
-    str(PERSONA.hasWallet):           "hasWallet",
-    "http://purl.obolibrary.org/obo/BFO_0000101":  "is carrier of",
-    str(PERSONA.hasImageScan):          "hasImageScan",
+    str(DESIGNATED_BY):                         "designated by",
+    str(HAS_TEXT_VALUE):                        "has text value",
+    str(PERSONA.hasPaymentCard):                "hasPaymentCard",
+    str(PERSONA.hasBankAccount):                "hasBankAccount",
+    str(PERSONA.accessesBankAccount):           "accessesBankAccount",
+    str(PERSONA.hasSocialNetwork):              "hasSocialNetwork",
+    str(PERSONA.hasPassword):                   "hasPassword",
+    str(PERSONA.hasPhysicalCard):               "hasPhysicalCard",
+    str(PERSONA.hasWallet):                     "hasWallet",
+    str(PERSONA.hasAnniversary):                "hasAnniversary",
+    str(PERSONA.hasPhoto):                      "hasPhoto",
+    str(PERSONA.hasImageScan):                  "hasImageScan",
     # cco: entity classes (designators / identifiers)
-    "https://purl.org/cco/ent00000001": "FullName",
-    "https://purl.org/cco/ent00000002": "GivenName",
-    "https://purl.org/cco/ent00000003": "AdditionalName",
-    "https://purl.org/cco/ent00000004": "FamilyName",
-    "https://purl.org/cco/ent00000006": "AlternateName",
-    "https://purl.org/cco/ent00000008": "SSN",
-    "https://purl.org/cco/ent00000010": "USPostalAddress",
-    "https://purl.org/cco/ent00000011": "StreetAddress",
-    "https://purl.org/cco/ent00000012": "CityName",
-    "https://purl.org/cco/ent00000013": "StateName",
-    "https://purl.org/cco/ent00000014": "CountryName",
-    "https://purl.org/cco/ent00000015": "PostalCode",
-    "https://purl.org/cco/ent00000016": "AddressDesignation",
-    "https://purl.org/cco/ent00000023": "TelephoneNumber",
-    "https://purl.org/cco/ent00000024": "EmailAddress",
-    "https://purl.org/cco/ent00000033": "OnlineServiceAccount",
-    "https://purl.org/cco/ent00000049": "PaymentCard",
-    "https://purl.org/cco/ent00000051": "Debit Card",
-    "https://purl.org/cco/ent00000052": "Card Number",
-    "https://purl.org/cco/ent00000053": "CVV",
-    "https://purl.org/cco/ent00000054": "Expiration Date",
+    "https://purl.org/cco/ent00000001":         "FullName",
+    "https://purl.org/cco/ent00000002":         "GivenName",
+    "https://purl.org/cco/ent00000003":         "AdditionalName",
+    "https://purl.org/cco/ent00000004":         "FamilyName",
+    "https://purl.org/cco/ent00000006":         "AlternateName",
+    "https://purl.org/cco/ent00000008":         "SSN",
+    "https://purl.org/cco/ent00000010":         "PostalAddress",
+    "https://purl.org/cco/ent00000011":         "StreetAddress",
+    "https://purl.org/cco/ent00000012":         "CityName",
+    "https://purl.org/cco/ent00000013":         "StateName",
+    "https://purl.org/cco/ent00000014":         "CountryName",
+    "https://purl.org/cco/ent00000015":         "PostalCode",
+    "https://purl.org/cco/ent00000016":         "AddressDesignation",
+    "https://purl.org/cco/ent00000023":         "TelephoneNumber",
+    "https://purl.org/cco/ent00000024":         "EmailAddress",
+    "https://purl.org/cco/ent00000033":         "OnlineServiceAccount",
+    "https://purl.org/cco/ent00000047":         "OrganizationName",
+    "https://purl.org/cco/ent00000049":         "PaymentCard",
+    "https://purl.org/cco/ent00000051":         "DebitCard",
+    "https://purl.org/cco/ent00000052":         "CardNumber",
+    "https://purl.org/cco/ent00000053":         "CVV",
+    "https://purl.org/cco/ent00000054":         "ExpirationDate",
+    # cco: entity properties
+    "https://purl.org/cco/ent00000034":         "serviceName",
+    "https://purl.org/cco/ent00000035":         "userHandle",
+    "https://purl.org/cco/ent00000036":         "serviceURI",
+    "https://purl.org/cco/ent00000045":         "holdsUserAccount",
+    "https://purl.org/cco/ent00000017":         "hasStartDate",
+    "https://purl.org/cco/ent00000018":         "hasEndDate",
     # cco: ont classes
-    "https://purl.org/cco/ont00001262": "Person",
-    "https://purl.org/cco/ont00001183": "SocialNetwork",
-    "https://purl.org/cco/ont00000995": "MaterialArtifact",
-    "https://purl.org/cco/ont00000020": "Container",
-    "https://purl.org/cco/ont00000058": "ScalpHair",
-    "https://purl.org/cco/ont00001022": "RatioMeasurementICE",
-    "https://purl.org/cco/ont00000967": "Height",
-    # cco: properties
-    str(DESIGNATED_BY):                        "designated by",
-    str(HAS_TEXT_VALUE):                       "has text value",
-    "https://purl.org/cco/ent00000034":        "has service name",
-    "https://purl.org/cco/ent00000035":        "has user handle",
-    "https://purl.org/cco/ent00000036":        "has service URI",
-    "https://purl.org/cco/ent00000045":        "holds user account",
-    "https://purl.org/cco/ont00001780":        "has mother",
-    "https://purl.org/cco/ont00001786":        "is mother of",
-    "https://purl.org/cco/ont00001769":        "has decimal value",
-    "https://purl.org/cco/ont00001863":        "uses measurement unit",
-    "https://purl.org/cco/ont00001983":        "is ratio measurement of",
-    "https://purl.org/cco/ent00000017":        "has start date",
-    "https://purl.org/cco/ent00000018":        "has end date",
-    "http://purl.obolibrary.org/obo/BFO_0000051":  "has part",
-    "http://purl.obolibrary.org/obo/BFO_0000115":  "has member part",
-    "http://purl.obolibrary.org/obo/BFO_0000153":  "occupies temporal region",
-    "http://purl.obolibrary.org/obo/BFO_0000139":  "has participant",
-    "http://purl.obolibrary.org/obo/BFO_0000177":  "continuant part of",
-    "http://purl.obolibrary.org/obo/BFO_0000178":  "has continuant part",
-    "http://purl.obolibrary.org/obo/BFO_0000196":  "bearer of",
-    "http://purl.obolibrary.org/obo/BFO_0000038":  "TemporalInterval",
+    "https://purl.org/cco/ont00001262":         "Person",
+    "https://purl.org/cco/ont00001183":         "SocialNetwork",
+    "https://purl.org/cco/ont00000995":         "MaterialArtifact",
+    "https://purl.org/cco/ont00000020":         "Container",
+    "https://purl.org/cco/ont00000058":         "ScalpHair",
+    "https://purl.org/cco/ont00001022":         "RatioMeasurementICE",
+    "https://purl.org/cco/ont00000967":         "Height",
+    # cco: ont properties
+    "https://purl.org/cco/ont00001780":         "hasMother",
+    "https://purl.org/cco/ont00001786":         "isMotherOf",
+    "https://purl.org/cco/ont00001769":         "hasDecimalValue",
+    "https://purl.org/cco/ont00001863":         "usesMeasurementUnit",
+    "https://purl.org/cco/ont00001983":         "isRatioMeasurementOf",
+    # BFO
+    "http://purl.obolibrary.org/obo/BFO_0000038": "TemporalInterval",
+    "http://purl.obolibrary.org/obo/BFO_0000051": "hasPart",
+    "http://purl.obolibrary.org/obo/BFO_0000101": "isCarrierOf",
+    "http://purl.obolibrary.org/obo/BFO_0000115": "hasMember",
+    "http://purl.obolibrary.org/obo/BFO_0000139": "hasParticipant",
+    "http://purl.obolibrary.org/obo/BFO_0000153": "occupiesTemporalRegion",
+    "http://purl.obolibrary.org/obo/BFO_0000177": "continuantPartOf",
+    "http://purl.obolibrary.org/obo/BFO_0000178": "hasContinuantPart",
+    "http://purl.obolibrary.org/obo/BFO_0000196": "bearerOf",
+    # group / org
+    str(GROUP.Group):                           "Group",
+    str(ORG.Organization):                      "Organization",
 }
 
-# Triples to skip — annotation-only
+# Properties suppressed from edge rendering
 SKIP_PROPS = {
     str(RDF.type),
     str(RDFS.label),
     str(RDFS.comment),
     str(OWL.versionInfo),
     str(OWL.imports),
+    str(HAS_TEXT_VALUE),  # shown inline via blank-node collapse
 }
 
-# rdf:type values that are not worth showing as class boxes
 SKIP_TYPES = {OWL.NamedIndividual, OWL.Thing, OWL.Ontology}
+MIA_NS = "http://www.example.org/mia#"
 
 
 def lbl(iri: URIRef) -> str:
@@ -145,12 +147,17 @@ def nid(key: str) -> str:
     return "n" + md5(key.encode()).hexdigest()[:12]
 
 
-def load_databook(path: Path) -> tuple[Graph, str | None]:
-    """Parse a .databook.md file: extract YAML frontmatter and turtle block content."""
+def esc(s: str) -> str:
+    """Escape text for use inside a Mermaid quoted label."""
+    return s.replace('"', "#quot;").replace("<", "&lt;").replace(">", "&gt;")
+
+
+# ── DataBook loading ───────────────────────────────────────────────────────────
+
+def load_databook(path: Path):
     content = path.read_text()
     lines = content.split("\n")
 
-    # Extract YAML frontmatter between the first pair of --- delimiters
     fm_start = fm_end = -1
     for i, line in enumerate(lines):
         if line.strip() == "---":
@@ -167,7 +174,6 @@ def load_databook(path: Path) -> tuple[Graph, str | None]:
         except yaml.YAMLError:
             pass
 
-    # Extract turtle block content, skipping <!-- databook:* --> comment lines
     turtle_lines = []
     in_fence = False
     for line in lines[fm_end + 1:]:
@@ -188,6 +194,137 @@ def load_databook(path: Path) -> tuple[Graph, str | None]:
     return g, context_category
 
 
+# ── Mermaid generation ─────────────────────────────────────────────────────────
+
+def style_class(g: Graph, iri: URIRef) -> str:
+    types = set(g.objects(iri, RDF.type))
+    if PERSONA.Person in types or PERSON_CLASS in types:
+        return "person"
+    if GROUP.Group in types:
+        return "grp"
+    if ORG.Organization in types:
+        return "org"
+    return ""
+
+
+def type_label(g: Graph, iri: URIRef) -> str:
+    """Return the most informative non-generic type label for an individual."""
+    for t in g.objects(iri, RDF.type):
+        if t in SKIP_TYPES:
+            continue
+        tl = lbl(t)
+        if tl and "/" not in tl and "#" not in tl:
+            return tl
+    return ""
+
+
+def expand_bnode(g: Graph, bn: BNode):
+    """Return (type_label, text_value_or_None) for a blank node."""
+    btype = g.value(bn, RDF.type)
+    tv = g.value(bn, HAS_TEXT_VALUE)
+    return (lbl(btype) if btype else ""), (str(tv) if tv is not None else None)
+
+
+def build_mermaid(g: Graph, context_category_label: str | None = None) -> str:
+    header = []
+    if context_category_label:
+        header.append(f"%% ContextCategory: {context_category_label}")
+    header.append("flowchart TD")
+    header.append("    classDef person fill:#fffacd,stroke:#aaa,color:#333")
+    header.append("    classDef grp    fill:#d4edda,stroke:#aaa,color:#333")
+    header.append("    classDef org    fill:#cce5ff,stroke:#aaa,color:#333")
+    header.append("    classDef lit    fill:none,stroke:none,font-style:italic,color:#2a7a2a")
+
+    individuals = {
+        s for s in g.subjects(RDF.type, OWL.NamedIndividual)
+        if isinstance(s, URIRef)
+    }
+
+    declared: set[str] = set()
+    node_lines: list[str] = []
+    edge_lines: list[str] = []
+
+    def ensure_ind(iri: URIRef) -> str:
+        k = nid("ind:" + str(iri))
+        if k not in declared:
+            local = str(iri).split("#")[-1] if "#" in str(iri) else str(iri).split("/")[-1]
+            tl = type_label(g, iri)
+            label = esc(f":{local}") + (f"\\n({esc(tl)})" if tl else "")
+            cls = style_class(g, iri)
+            node_lines.append(f'    {k}["{label}"]' + (f':::{cls}' if cls else ""))
+            declared.add(k)
+        return k
+
+    def ensure_ext(iri: URIRef) -> str:
+        k = nid("ext:" + str(iri))
+        if k not in declared:
+            local = str(iri).split("#")[-1] if "#" in str(iri) else str(iri).split("/")[-1]
+            node_lines.append(f'    {k}["::{esc(local)}"]')
+            declared.add(k)
+        return k
+
+    def ensure_lit(val: str, key: str) -> str:
+        k = nid("lit:" + key)
+        if k not in declared:
+            node_lines.append(f'    {k}("{esc(val)}"):::lit')
+            declared.add(k)
+        return k
+
+    for ind in sorted(individuals, key=str):
+        src = ensure_ind(ind)
+
+        for pred, obj in g.predicate_objects(ind):
+            if str(pred) in SKIP_PROPS:
+                continue
+            plabel = lbl(pred)
+
+            if isinstance(obj, BNode):
+                tl, tv = expand_bnode(g, obj)
+                if tv is not None:
+                    # Collapse: Subject --"TypeName"--> "value"
+                    edge_label = tl if tl else plabel
+                    tgt = ensure_lit(tv, str(ind) + str(obj))
+                    edge_lines.append(f'    {src} -->|"{esc(edge_label)}"| {tgt}')
+                else:
+                    # Complex blank node: show as a diamond with its type
+                    bk = nid("bn:" + str(obj))
+                    if bk not in declared:
+                        blabel = tl if tl else "_"
+                        node_lines.append(f'    {bk}{{"{esc(blabel)}"}}')
+                        declared.add(bk)
+                    edge_lines.append(f'    {src} -->|"{esc(plabel)}"| {bk}')
+                    for bp, bo in g.predicate_objects(obj):
+                        if str(bp) in SKIP_PROPS or bp == RDF.type:
+                            continue
+                        bpl = lbl(bp)
+                        if isinstance(bo, Literal):
+                            tgt = ensure_lit(str(bo), str(obj) + str(bp) + str(bo))
+                            edge_lines.append(f'    {bk} -->|"{esc(bpl)}"| {tgt}')
+                        elif isinstance(bo, URIRef) and bo in individuals:
+                            edge_lines.append(f'    {bk} -->|"{esc(bpl)}"| {ensure_ind(bo)}')
+
+            elif isinstance(obj, URIRef):
+                if obj in individuals:
+                    edge_lines.append(f'    {src} -->|"{esc(plabel)}"| {ensure_ind(obj)}')
+                elif str(obj).startswith(MIA_NS):
+                    edge_lines.append(f'    {src} -->|"{esc(plabel)}"| {ensure_ext(obj)}')
+                else:
+                    val = lbl(obj)
+                    tgt = ensure_lit(val, str(ind) + str(pred) + str(obj))
+                    edge_lines.append(f'    {src} -->|"{esc(plabel)}"| {tgt}')
+
+            elif isinstance(obj, Literal):
+                tgt = ensure_lit(str(obj), str(ind) + str(pred) + str(obj))
+                edge_lines.append(f'    {src} -->|"{esc(plabel)}"| {tgt}')
+
+    parts = header + [""] + node_lines
+    if edge_lines:
+        parts += [""] + edge_lines
+    return "\n".join(parts)
+
+
+# ── Entry point ────────────────────────────────────────────────────────────────
+
 def main() -> None:
     if len(sys.argv) < 2:
         sys.exit("Usage: python draw.py <context_file.databook.md|.ttl>")
@@ -199,10 +336,8 @@ def main() -> None:
 
     if src.name.endswith(".databook.md"):
         g, ctx_cat = load_databook(src)
-        if ctx_cat:
-            context_category_label = ctx_cat
+        context_category_label = ctx_cat or None
         stem = src.name[: -len(".databook.md")]
-        out = str(src.parent / stem)
     else:
         g = Graph()
         g.parse(str(src), format="turtle")
@@ -211,113 +346,15 @@ def main() -> None:
             ctype = g.value(ontology_iri, PERSONA.contextType)
             if ctype:
                 context_category_label = lbl(ctype)
-        out = str(src.with_suffix(""))
+        stem = src.stem
 
-    individuals = {
-        s for s in g.subjects(RDF.type, OWL.NamedIndividual)
-        if isinstance(s, URIRef)
-    }
+    # Write to images/ subdirectory if it exists, otherwise alongside the source
+    images_dir = src.parent / "images"
+    out_dir = images_dir if images_dir.is_dir() else src.parent
+    out = out_dir / f"{stem}.mmd"
 
-    dot = Digraph(
-        name=src.stem,
-        graph_attr={
-            "rankdir": "TB",
-            "fontname": "Helvetica",
-            "fontsize": "11",
-        },
-        node_attr={"fontname": "Helvetica", "fontsize": "11"},
-        edge_attr={"fontname": "Helvetica", "fontsize": "9"},
-    )
-    added: set[str] = set()
-
-    def class_node(iri: URIRef) -> str:
-        i = nid("class:" + str(iri))
-        if i not in added:
-            dot.node(i, lbl(iri), shape="plaintext", fontsize="10")
-            added.add(i)
-        return i
-
-    def ind_node(iri: URIRef) -> str:
-        i = nid("ind:" + str(iri))
-        if i not in added:
-            local = str(iri).split("#")[-1] if "#" in str(iri) else str(iri).split("/")[-1]
-            types = set(g.objects(iri, RDF.type))
-            is_persona = PERSONA.Persona in types or URIRef("https://purl.org/cco/ont00001262") in types
-            fill = "yellow" if is_persona else "white"
-            dot.node(i, f":{local}", shape="box", style="filled", fillcolor=fill)
-            added.add(i)
-        return i
-
-    def lit_node(value: str, key: str) -> str:
-        i = nid("lit:" + key)
-        if i not in added:
-            dot.node(i, value, shape="none", fontcolor="darkgreen", fontsize="10")
-            added.add(i)
-        return i
-
-    MIA_NS = "http://www.example.org/mia#"
-
-    def ext_node(iri: URIRef) -> str:
-        """Node for an individual defined in another context file."""
-        i = nid("ext:" + str(iri))
-        if i not in added:
-            local = str(iri).split("#")[-1] if "#" in str(iri) else str(iri).split("/")[-1]
-            dot.node(i, f":{local}", shape="box", style="dashed")
-            added.add(i)
-        return i
-
-    for ind in individuals:
-        src_nid = ind_node(ind)
-
-        # rdf:type → class boxes; draw class→ind so class ranks above instance
-        for t in g.objects(ind, RDF.type):
-            if t in SKIP_TYPES or not isinstance(t, URIRef):
-                continue
-            cn = class_node(t)
-            dot.edge(cn, src_nid, label="isa", style="dashed", fontsize="9", dir="back")
-
-        # all properties
-        for pred, obj in g.predicate_objects(ind):
-            if str(pred) in SKIP_PROPS:
-                continue
-            if isinstance(obj, BNode):
-                bid = nid("bnode:" + str(obj))
-                if bid not in added:
-                    dot.node(bid, "_:blank", shape="plaintext", fontsize="9")
-                    added.add(bid)
-                dot.edge(src_nid, bid, label=lbl(pred), fontsize="9")
-                btype = g.value(obj, RDF.type)
-                if btype:
-                    cn = class_node(btype)
-                    dot.edge(cn, bid, label="isa", style="dashed", fontsize="9", dir="back")
-                tv = g.value(obj, HAS_TEXT_VALUE)
-                if tv:
-                    ln = lit_node(str(tv), str(ind) + str(obj))
-                    dot.edge(bid, ln, fontsize="9")
-            elif isinstance(obj, URIRef):
-                if obj in individuals:
-                    dot.edge(src_nid, ind_node(obj), label=lbl(pred))
-                elif str(obj).startswith(MIA_NS):
-                    dot.edge(src_nid, ext_node(obj), label=lbl(pred))
-            elif isinstance(obj, Literal):
-                ln = lit_node(str(obj), str(ind) + str(pred) + str(obj))
-                dot.edge(src_nid, ln, label=lbl(pred))
-
-    if context_category_label:
-        dot.attr(
-            label=(
-                f'<<TABLE BORDER="1" CELLBORDER="0" CELLPADDING="5" '
-                f'BGCOLOR="lightblue" COLOR="steelblue" STYLE="rounded">'
-                f'<TR><TD><FONT FACE="Helvetica" POINT-SIZE="10">'
-                f'ContextCategory: {context_category_label}'
-                f'</FONT></TD></TR></TABLE>>'
-            ),
-            labelloc="t",
-            labeljust="r",
-        )
-
-    dot.render(out, format="png", cleanup=True)
-    print(f"Written: {out}.png")
+    out.write_text(build_mermaid(g, context_category_label) + "\n")
+    print(f"Written: {out}")
 
 
 if __name__ == "__main__":

@@ -1,0 +1,17 @@
+%% ContextCategory: context:State
+flowchart TD
+    classDef person fill:#fffacd,stroke:#aaa,color:#333
+    classDef grp    fill:#d4edda,stroke:#aaa,color:#333
+    classDef org    fill:#cce5ff,stroke:#aaa,color:#333
+    classDef lit    fill:none,stroke:none,font-style:italic,color:#2a7a2a
+
+    ne0c3ba92f1db[":Self\n(Person)"]:::person
+    n7419a1491b22("Margery"):::lit
+    nf1d9d8e9a16c("Alice"):::lit
+    n648d9e10ba15("Walker"):::lit
+    n8653c9ab156f("Margery Alice Arnold"):::lit
+
+    ne0c3ba92f1db -->|"GivenName"| n7419a1491b22
+    ne0c3ba92f1db -->|"AdditionalName"| nf1d9d8e9a16c
+    ne0c3ba92f1db -->|"FamilyName"| n648d9e10ba15
+    ne0c3ba92f1db -->|"AlternateName"| n8653c9ab156f

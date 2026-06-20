@@ -1,0 +1,13 @@
+%% ContextCategory: context:FamilyMember
+flowchart TD
+    classDef person fill:#fffacd,stroke:#aaa,color:#333
+    classDef grp    fill:#d4edda,stroke:#aaa,color:#333
+    classDef org    fill:#cce5ff,stroke:#aaa,color:#333
+    classDef lit    fill:none,stroke:none,font-style:italic,color:#2a7a2a
+
+    n29ddd4160a4b[":Alice_Family_Network\n(SocialNetwork)"]
+    nb654756d5ced["::Paula_Walker"]
+    ne0c3ba92f1db[":Self\n(Person)"]:::person
+
+    n29ddd4160a4b -->|"hasMember"| nb654756d5ced
+    ne0c3ba92f1db -->|"hasSocialNetwork"| n29ddd4160a4b

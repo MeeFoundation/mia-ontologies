@@ -1,0 +1,23 @@
+%% ContextCategory: context:Possession
+flowchart TD
+    classDef person fill:#fffacd,stroke:#aaa,color:#333
+    classDef grp    fill:#d4edda,stroke:#aaa,color:#333
+    classDef org    fill:#cce5ff,stroke:#aaa,color:#333
+    classDef lit    fill:none,stroke:none,font-style:italic,color:#2a7a2a
+
+    n8020f1e0dda3[":Alice_DriversLicense\n(PhysicalDriversLicense)"]
+    ne031334f4c41[":Alice_Wallet\n(Wallet)"]
+    n16319a7d9aaf("file:///scans/alice-drivers-license.png"):::lit
+    n45648c6e1691[":Alice_HealthInsuranceCard\n(PhysicalHealthInsuranceCard)"]
+    n5aa16707069d("file:///scans/alice-health-insurance-card.png"):::lit
+    n424bc5303466[":Alice_PaymentCard\n(PhysicalPaymentCard)"]
+    nfb9947b1c0ef[":Alice_SSNCard\n(PhysicalSocialSecurityCard)"]
+    ne0c3ba92f1db[":Self\n(Person)"]:::person
+
+    n8020f1e0dda3 -->|"continuantPartOf"| ne031334f4c41
+    n8020f1e0dda3 -->|"hasImageScan"| n16319a7d9aaf
+    n45648c6e1691 -->|"hasImageScan"| n5aa16707069d
+    n424bc5303466 -->|"continuantPartOf"| ne031334f4c41
+    ne0c3ba92f1db -->|"hasWallet"| ne031334f4c41
+    ne0c3ba92f1db -->|"hasPhysicalCard"| n45648c6e1691
+    ne0c3ba92f1db -->|"hasPhysicalCard"| nfb9947b1c0ef

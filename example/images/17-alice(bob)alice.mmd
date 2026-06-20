@@ -1,0 +1,17 @@
+%% ContextCategory: context:Person
+flowchart TD
+    classDef person fill:#fffacd,stroke:#aaa,color:#333
+    classDef grp    fill:#d4edda,stroke:#aaa,color:#333
+    classDef org    fill:#cce5ff,stroke:#aaa,color:#333
+    classDef lit    fill:none,stroke:none,font-style:italic,color:#2a7a2a
+
+    ne62a8f0f56d6[":Alice_Bob_Network\n(SocialNetwork)"]
+    ncea94215aa38["::Bob_Johnson"]
+    ne0c3ba92f1db[":Self\n(Person)"]:::person
+    n0ee71f525ebd("Alice"):::lit
+    na93adb312c5d("Walker"):::lit
+
+    ne62a8f0f56d6 -->|"hasMember"| ncea94215aa38
+    ne0c3ba92f1db -->|"GivenName"| n0ee71f525ebd
+    ne0c3ba92f1db -->|"FamilyName"| na93adb312c5d
+    ne0c3ba92f1db -->|"hasSocialNetwork"| ne62a8f0f56d6

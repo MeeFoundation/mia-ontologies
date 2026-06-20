@@ -1,0 +1,25 @@
+%% ContextCategory: context:Employee
+flowchart TD
+    classDef person fill:#fffacd,stroke:#aaa,color:#333
+    classDef grp    fill:#d4edda,stroke:#aaa,color:#333
+    classDef org    fill:#cce5ff,stroke:#aaa,color:#333
+    classDef lit    fill:none,stroke:none,font-style:italic,color:#2a7a2a
+
+    ne0c3ba92f1db[":Self\n(Person)"]:::person
+    n8150acac00c7("Alice"):::lit
+    n4731366ac2d0("Walker"):::lit
+    nbd92b607fe13("alice@acme.com"):::lit
+    n24de54924cad("+15108149999"):::lit
+    n6aef7db2f908("Acme"):::lit
+    nccb58b4917a2("Engineering"):::lit
+    ne41c1dfe1690("Software Engineer"):::lit
+    n5b25a4952292("https://www.linkedin.com/in/alicewalker"):::lit
+
+    ne0c3ba92f1db -->|"GivenName"| n8150acac00c7
+    ne0c3ba92f1db -->|"FamilyName"| n4731366ac2d0
+    ne0c3ba92f1db -->|"EmailAddress"| nbd92b607fe13
+    ne0c3ba92f1db -->|"TelephoneNumber"| n24de54924cad
+    ne0c3ba92f1db -->|"OrganizationName"| n6aef7db2f908
+    ne0c3ba92f1db -->|"OrganizationUnit"| nccb58b4917a2
+    ne0c3ba92f1db -->|"JobTitle"| ne41c1dfe1690
+    ne0c3ba92f1db -->|"WebURL"| n5b25a4952292

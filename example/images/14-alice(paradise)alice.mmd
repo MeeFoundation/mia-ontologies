@@ -1,0 +1,28 @@
+%% ContextCategory: context:Municipality
+flowchart TD
+    classDef person fill:#fffacd,stroke:#aaa,color:#333
+    classDef grp    fill:#d4edda,stroke:#aaa,color:#333
+    classDef org    fill:#cce5ff,stroke:#aaa,color:#333
+    classDef lit    fill:none,stroke:none,font-style:italic,color:#2a7a2a
+
+    ndbcf44a48000[":Address_Paradise\n(PostalAddress)"]
+    n8f0b3d20833a("123 Sleepy Hollow"):::lit
+    n2ce066eb9345("Paradise"):::lit
+    n823f63f3f9bc("CA"):::lit
+    nebd3328be7ef("95969"):::lit
+    n414defe9fcfd("USA"):::lit
+    naf26563dc3c8[":Interval_2025_Present\n(TemporalInterval)"]
+    n8987ca649e35("2025-09-01"):::lit
+    n0eecd6ebe039[":Paradise_Residence\n(AddressDesignation)"]
+    ne0c3ba92f1db[":Self\n(Person)"]:::person
+
+    ndbcf44a48000 -->|"StreetAddress"| n8f0b3d20833a
+    ndbcf44a48000 -->|"CityName"| n2ce066eb9345
+    ndbcf44a48000 -->|"StateName"| n823f63f3f9bc
+    ndbcf44a48000 -->|"PostalCode"| nebd3328be7ef
+    ndbcf44a48000 -->|"CountryName"| n414defe9fcfd
+    naf26563dc3c8 -->|"hasStartDate"| n8987ca649e35
+    n0eecd6ebe039 -->|"hasParticipant"| ne0c3ba92f1db
+    n0eecd6ebe039 -->|"designated by"| ndbcf44a48000
+    n0eecd6ebe039 -->|"occupiesTemporalRegion"| naf26563dc3c8
+    ne0c3ba92f1db -->|"designated by"| ndbcf44a48000

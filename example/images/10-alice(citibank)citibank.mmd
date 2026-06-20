@@ -1,0 +1,35 @@
+%% ContextCategory: context:FinancialServices
+flowchart TD
+    classDef person fill:#fffacd,stroke:#aaa,color:#333
+    classDef grp    fill:#d4edda,stroke:#aaa,color:#333
+    classDef org    fill:#cce5ff,stroke:#aaa,color:#333
+    classDef lit    fill:none,stroke:none,font-style:italic,color:#2a7a2a
+
+    naadb4eb7dbfe[":Alice_Checking_Account\n(CheckingAccount)"]
+    n0278e3d92dee("9876543210"):::lit
+    n5136fd38508e("021000089"):::lit
+    nd168547b019a[":Alice_Citibank_Online\n(OnlineServiceAccount)"]
+    nb69c1e2996b7("Citibank"):::lit
+    n30fbde007d82("awalker@gmail.com"):::lit
+    n1bbd693303ed("https://online.citi.com"):::lit
+    n1db9350539ae("C1t1b@nk#2024!"):::lit
+    ne33644105d79[":Alice_Debit_Card\n(DebitCard)"]
+    n7d805205119d("4111-1111-1111-1111"):::lit
+    ncfc9c4744df1("123"):::lit
+    n6926eb720133("12/28"):::lit
+    n0415a88486d3[":Citibank\n(Organization)"]:::org
+    ne0c3ba92f1db[":Self\n(Person)"]:::person
+
+    naadb4eb7dbfe -->|"AccountNumber"| n0278e3d92dee
+    naadb4eb7dbfe -->|"RoutingNumber"| n5136fd38508e
+    nd168547b019a -->|"serviceName"| nb69c1e2996b7
+    nd168547b019a -->|"userHandle"| n30fbde007d82
+    nd168547b019a -->|"serviceURI"| n1bbd693303ed
+    nd168547b019a -->|"hasPassword"| n1db9350539ae
+    ne33644105d79 -->|"CardNumber"| n7d805205119d
+    ne33644105d79 -->|"CVV"| ncfc9c4744df1
+    ne33644105d79 -->|"ExpirationDate"| n6926eb720133
+    ne33644105d79 -->|"accessesBankAccount"| naadb4eb7dbfe
+    ne0c3ba92f1db -->|"hasPaymentCard"| ne33644105d79
+    ne0c3ba92f1db -->|"hasBankAccount"| naadb4eb7dbfe
+    ne0c3ba92f1db -->|"holdsUserAccount"| nd168547b019a

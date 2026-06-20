@@ -1,0 +1,13 @@
+%% ContextCategory: context:FamilyMember
+flowchart TD
+    classDef person fill:#fffacd,stroke:#aaa,color:#333
+    classDef grp    fill:#d4edda,stroke:#aaa,color:#333
+    classDef org    fill:#cce5ff,stroke:#aaa,color:#333
+    classDef lit    fill:none,stroke:none,font-style:italic,color:#2a7a2a
+
+    nf4296ab13de4[":Paula_Walker\n(Person)"]:::person
+    n936289c8ea46("Paula"):::lit
+    nb7521072f7df("Walker"):::lit
+
+    nf4296ab13de4 -->|"GivenName"| n936289c8ea46
+    nf4296ab13de4 -->|"FamilyName"| nb7521072f7df

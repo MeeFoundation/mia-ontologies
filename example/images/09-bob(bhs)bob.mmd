@@ -1,0 +1,13 @@
+%% ContextCategory: context:Group
+flowchart TD
+    classDef person fill:#fffacd,stroke:#aaa,color:#333
+    classDef grp    fill:#d4edda,stroke:#aaa,color:#333
+    classDef org    fill:#cce5ff,stroke:#aaa,color:#333
+    classDef lit    fill:none,stroke:none,font-style:italic,color:#2a7a2a
+
+    n166b15bd501b[":Bob_Johnson\n(Person)"]:::person
+    ne73b7dfbbe5b("Bob"):::lit
+    nd43037a5bf92("Johnson"):::lit
+
+    n166b15bd501b -->|"GivenName"| ne73b7dfbbe5b
+    n166b15bd501b -->|"FamilyName"| nd43037a5bf92
