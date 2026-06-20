@@ -351,6 +351,18 @@ Alice's `alice(self)alice.databook.md` context also describes some of her physic
 
 <p align="center"><img src="example/images/alice(self)+physical.png" alt="Alice's physical characteristics"></p>
 
+### Named graph scoping and context-specific membership
+
+A `BFO_0000115` (has member part) triple on a Social Network individual — for example, `:Alice_Family_Network BFO_0000115 :Paula_Walker` in context 18 — targets `:Paula_Walker` as a person entity, not as a context-specific slice of her data. The named graph architecture provides the isolation: that triple lives inside context 18's named graph, and when an application needs "Paula Walker's family context data" it queries context 18's graph together with context 02's graph, rather than the full merged dataset.
+
+This is the correct design for three reasons:
+
+- **BFO semantics**: changing the range of `BFO_0000115` to a DataBook document IRI (e.g. `<http://www.example.org/mia/paula(familymember)alice>`) would be a semantic error — the range of `has member part` must be a continuant (a person or group), not a document.
+- **Model simplicity**: introducing context-specific "view" individuals (e.g. `:Paula_Walker_Family`) would reintroduce the layered complexity that the removal of `p:Persona` was designed to eliminate.
+- **Tooling maturity**: annotating the triple with RDF-star (`<< :Alice_Family_Network BFO_0000115 :Paula_Walker >> mia:inContext <...>`) is a valid future option, but is not yet supported by Protégé and remains non-standard.
+
+The practical implication is that **Tier 1 validation** (which merges all graphs) correctly finds all reachability links across the full dataset, while **application queries** that display a social network's members should join against specific context named graphs rather than the full triplestore merge.
+
 ### Alice's Contexts
 
 Here is an overview of the contexts in Alice's Mia. 

@@ -129,6 +129,8 @@ The parent-context hierarchy (which context is a child of which) is expressed vi
 
 **Address history pattern**: `AddressDesignation` links Person → Address → `TemporalInterval`. Open-ended intervals (no `hasEndDate`) indicate current address.
 
+**Named graph scoping of `BFO_0000115`**: When a Social Network individual carries `BFO_0000115 :Paula_Walker`, the triple is intentionally scoped to the enclosing named graph — it refers to Paula Walker *as a person entity*, with context-specific isolation provided by the DataBook named graph architecture, not by the triple itself. Queries needing context-specific member data must target the relevant named graphs (e.g. context 18 + context 02) rather than querying the full merged dataset. Do NOT change the range of `BFO_0000115` to a document IRI (breaks BFO semantics — range must be a continuant, not a document), and do NOT introduce context-specific person individuals (reintroduces the complexity that removing `hasPersona` eliminated). RDF-star annotation is a valid future option if tooling matures.
+
 ### Key Identifiers
 
 Classes and properties use numeric IRIs. The most common:
