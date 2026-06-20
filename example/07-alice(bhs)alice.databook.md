@@ -10,8 +10,8 @@ description: >
 mia:
   name: "Boston Hub Society"
   contextCategory: "context:Group"
-  assertedBy: "identity:Self"
-  subject: "identity:Self"
+  assertedBy: ":Self"
+  subject: ":Self"
 graph:
   named_graph: http://www.example.org/mia/alice(bhs)alice#graph
   rdf_version: "1.1"

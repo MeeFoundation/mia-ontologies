@@ -10,8 +10,8 @@ description: >
   maternal relationship to Paula Walker.
 mia:
   name: "Alice Walker"
-  assertedBy: "identity:Self"
-  subject: "identity:Self"
+  assertedBy: ":Self"
+  subject: ":Self"
 graph:
   named_graph: http://www.example.org/mia#graph
   rdf_version: "1.1"

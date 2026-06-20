@@ -10,8 +10,8 @@ description: >
 mia:
   name: "Acme"
   contextCategory: "context:Employee"
-  assertedBy: "identity:Self"
-  subject: "identity:Individual"
+  assertedBy: ":Self"
+  subject: ":Paula_Walker"
 graph:
   named_graph: http://www.example.org/mia/paula(acme)alice#graph
   rdf_version: "1.1"

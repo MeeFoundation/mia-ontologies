@@ -10,8 +10,8 @@ description: >
 mia:
   name: "Citibank"
   contextCategory: "context:FinancialServices"
-  assertedBy: "identity:Organization"
-  subject: "identity:Self"
+  assertedBy: ":Citibank"
+  subject: ":Self"
 graph:
   named_graph: http://www.example.org/mia/alice(citibank)citibank#graph
   rdf_version: "1.1"
@@ -36,10 +36,15 @@ This context captures Alice Walker's financial relationship with Citibank. Citib
 <!-- databook:graph: http://www.example.org/mia/alice(citibank)citibank#graph -->
 @prefix : <http://www.example.org/mia#> .
 @prefix persona: <http://mee.foundation/ontologies/persona#> .
+@prefix o: <http://mee.foundation/ontologies/organization#> .
 @prefix cco: <https://purl.org/cco/> .
 @prefix owl: <http://www.w3.org/2002/07/owl#> .
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+
+:Citibank rdf:type owl:NamedIndividual ,
+                   o:Organization ;
+    rdfs:label "Citibank"@en .
 
 :Self rdf:type owl:NamedIndividual ,
                persona:Person ;

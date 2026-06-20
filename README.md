@@ -265,7 +265,7 @@ The description of the context container itself is carried in the DataBook's YAM
 - `mia.name` — a human-readable name for the context, e.g. `"Citibank"` to represent the user's interactions with Citibank.
 - `mia.contextCategory` — a classification of the context into one of a set of broad catagories; its value is a prefixed name of a `c:ContextCategory` subclass, e.g. `"context:FamilyMember"` to represent the user's interaction with a family member.
 - `mia.assertedBy` — who is making the assertions (claims) (e.g. a person, group or organization). The persons could be the user themselves for self-asserted claims.
-- `mia.subject` — whose identity the context file describes; its value is a prefixed name of a `i:PDNidentity` individual, e.g. `"identity:Self"`.
+- `mia.subject` — whose identity the context file describes; its value is a local IRI of a `p:Person`, `g:Group`, or `o:Organization` individual, e.g. `":Self"`.
 - `mia.template` — present only on context files that conform to a specific template; its value is a `p:PersonaTemplate` subclass (e.g. `"persona:BirthCertificate"`, `"persona:JSContactCard"`, `"persona:DriversLicense"`).
 - `mia.dyad` — the IRI of the partner DataBook in a 1:1 relationship context. If context A carries `mia.dyad` pointing to context B, then B must carry `mia.dyad` pointing back to A.
 
@@ -287,17 +287,17 @@ The description of the context container itself is carried in the DataBook's YAM
 
 <p align="center"><img src="images/context-ontology/context-category.png" alt="contextType hierarchy"></p>
 
-**`c:assertedBy`** — Who is making the assertion. Values are individuals of `i:PDNidentity` from the Identity ontology:
-- `i:Self` — the Mia user is recording the data, even if the underlying information originates from some other party such as a company, government agency, or another person.
-- a named individual of `i:Individual` — another Mia user is asserting the data directly.
-- a named individual of `i:Group` — a group of Mia users is asserting the data.
-- a named individual of `i:Organization` — an organization is asserting the data directly.
+**`c:assertedBy`** — Who is making the assertion. Values are local IRIs of `p:Person`, `g:Group`, or `o:Organization` individuals:
+- `:Self` — the Mia user is recording the data, even if the underlying information originates from some other party such as a company, government agency, or another person.
+- a named individual of `p:Person` — another Mia user is asserting the data directly.
+- a named individual of `g:Group` — a group of Mia users is asserting the data.
+- a named individual of `o:Organization` — an organization is asserting the data directly.
 
-**`c:subject`** — Whose identity the context file describes. Values are individuals of `i:PDNidentity` from the Identity ontology:
-- `i:Self` — the context is primarily about the Mia user.
-- a named individual of `i:Individual` — the context is primarily about another human Mia user.
-- a named individual of `i:Group` — the context is primarily about a group of Mia users.
-- a named individual of `i:Organization` — the context is primarily about an organization (legal corporation or government agency).
+**`c:subject`** — Whose identity the context file describes. Values are local IRIs of `p:Person`, `g:Group`, or `o:Organization` individuals:
+- `:Self` — the context is primarily about the Mia user.
+- a named individual of `p:Person` — the context is primarily about another human Mia user.
+- a named individual of `g:Group` — the context is primarily about a group of Mia users.
+- a named individual of `o:Organization` — the context is primarily about an organization (legal corporation or government agency).
 
 The diagram below shows four kinds of contexts related to a hypothetical Mia user, Alice, and her interactions with a Department of Motor Vehicles (DMV) agency. Across the top are contexts where the DMV itself is the subject, and at the bottom where Alice is the subject. At the left are contexts where Alice has made the assertions (e.g. Alice's Mia has written the claims into the context) and at the right are contexts where the DMV as the "other" has written the claims. 
 
@@ -327,7 +327,7 @@ The Identity ontology is used to describe the kinds of identities that Mia can c
 
 **Well-known individual**
 
-* `i:Self` — a singleton individual of `i:Individual` representing the current Mia user's PDN identity. It is the value of `c:assertedBy` and `c:subject` whenever the context concerns the local user. Every other Mia user is represented by a locally-assigned named individual of `i:Individual`.
+* `i:Self` — a singleton individual of `i:Individual` representing the current Mia user's PDN identity. The corresponding `p:Person` individual `:Self` is what appears in `mia.assertedBy` and `mia.subject` fields. Every other Mia user is represented by a locally-assigned named individual of `i:Individual`.
 
 ### Identity Ontology File
 

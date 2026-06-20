@@ -98,12 +98,12 @@ Context filenames follow a single flat pattern:
 
 **Exception — `c:Group` contexts**: A group context (`contextCategory context:Group`) has no single asserter — any permitted member can write to it and changes replicate to all members. The `<asserted-by>` segment is the literal `members` rather than an individual name. Example: `08-bhs(bhs)members.ttl` — about BHS, context "bhs", asserted by the group's members collectively.
 
-**`context:assertedBy` vocabulary**: The TTL annotation uses `identity:Self` (a singleton individual of `identity:Individual`) for self-asserted contexts (the Mia user entered the data), a named individual of `identity:Individual` (e.g. `:Bob_Johnson`) for peer-asserted contexts, and a named individual of `identity:Organization` only when the asserting organization is itself a PDN node. In the example data **only Citibank is a PDN node**, so only `10-alice(citibank)citibank.ttl` uses `assertedBy identity:Organization`. All other organization-related contexts (Google, AT&T, SSA, etc.) use `assertedBy identity:Self` because Alice self-enters that data — those organizations are not PDN-interoperable.
+**`mia.assertedBy` vocabulary**: The YAML field takes the local IRI of a `p:Person`, `g:Group`, or `o:Organization` individual — NOT an `i:PDNidentity`. Those individuals carry their own PDN identity via `identity:hasIdentity`. Specifically: `:Self` (the Mia user's `p:Person`) for self-asserted contexts; a named `p:Person` individual (e.g. `:Bob_Johnson`) when another Mia user asserts the data; a named `g:Group` individual (e.g. `:BHS_Group`) for group contexts; and a named `o:Organization` individual (e.g. `:Citibank`) only when the asserting organization is itself a PDN node. In the example data **only Citibank is a PDN node**, so only `10-alice(citibank)citibank.databook.md` uses `assertedBy: ":Citibank"`. All other organization-related contexts (Google, AT&T, SSA, etc.) use `assertedBy: ":Self"` because Alice self-enters that data — those organizations are not PDN-interoperable.
 
-**"Other" asserters**: When the asserter is someone other than the current Mia user (`identity:Self`), the asserter is a named individual of one of:
-- `identity:Individual` — another Mia user (a different person, e.g. Bob asserting data about Alice)
-- `identity:Organization` — a company, nonprofit, or government agency that is a PDN node
-- `identity:Group` — a group of Mia users
+**"Other" asserters**: When the asserter is someone other than the current Mia user (`:Self`), the asserter is a named individual of one of:
+- `p:Person` — another Mia user (a different person, e.g. `:Bob_Johnson` asserting data about Alice)
+- `o:Organization` — a company, nonprofit, or government agency that is a PDN node (e.g. `:Citibank`)
+- `g:Group` — a group of Mia users (e.g. `:BHS_Group`)
 
 The parent-context hierarchy (which context is a child of which) is expressed via `persona:hasPersona` and `BFO_0000115` links in the TTL files, not in the filename.
 

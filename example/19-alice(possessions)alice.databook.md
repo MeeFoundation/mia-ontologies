@@ -11,8 +11,8 @@ description: >
 mia:
   name: "Possessions"
   contextCategory: "context:Possession"
-  assertedBy: "identity:Self"
-  subject: "identity:Self"
+  assertedBy: ":Self"
+  subject: ":Self"
 graph:
   named_graph: http://www.example.org/mia/posessions#graph
   rdf_version: "1.1"

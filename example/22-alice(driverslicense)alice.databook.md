@@ -10,8 +10,8 @@ description: >
 mia:
   name: "Driver's License"
   contextCategory: "context:State"
-  assertedBy: "identity:Self"
-  subject: "identity:Self"
+  assertedBy: ":Self"
+  subject: ":Self"
   template: "persona:DriversLicense"
 graph:
   named_graph: http://www.example.org/mia/alice(driverslicense)alice#graph

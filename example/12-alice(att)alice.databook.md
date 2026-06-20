@@ -10,8 +10,8 @@ description: >
 mia:
   name: "AT&T"
   contextCategory: "context:Company"
-  assertedBy: "identity:Self"
-  subject: "identity:Self"
+  assertedBy: ":Self"
+  subject: ":Self"
 graph:
   named_graph: http://www.example.org/mia/alice(att)alice#graph
   rdf_version: "1.1"

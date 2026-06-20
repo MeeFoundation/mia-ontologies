@@ -10,8 +10,8 @@ description: >
 mia:
   name: "Family"
   contextCategory: "context:FamilyMember"
-  assertedBy: "identity:Self"
-  subject: "identity:Self"
+  assertedBy: ":Self"
+  subject: ":Self"
 graph:
   named_graph: http://www.example.org/mia/alice(family)alice#graph
   rdf_version: "1.1"

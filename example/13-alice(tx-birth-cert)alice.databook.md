@@ -10,8 +10,8 @@ description: >
 mia:
   name: "Texas Birth Certificate"
   contextCategory: "context:State"
-  assertedBy: "identity:Self"
-  subject: "identity:Self"
+  assertedBy: ":Self"
+  subject: ":Self"
   template: "persona:BirthCertificate"
 graph:
   named_graph: http://www.example.org/mia/alice(tx-birth-cert)alice#graph

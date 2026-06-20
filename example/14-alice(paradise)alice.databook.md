@@ -10,8 +10,8 @@ description: >
 mia:
   name: "Paradise"
   contextCategory: "context:Municipality"
-  assertedBy: "identity:Self"
-  subject: "identity:Self"
+  assertedBy: ":Self"
+  subject: ":Self"
 graph:
   named_graph: http://www.example.org/mia/alice(paradise)alice#graph
   rdf_version: "1.1"
