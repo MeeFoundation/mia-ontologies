@@ -345,11 +345,11 @@ All context files in this example are resident in Alice's Mia. Some are authored
 
 Within Alice's self context is `:Self`, a `persona:Person` individual. The same IRI, `:Self`, is used in every context file that is about Alice — each file is a named-graph slice of her identity in a specific context. The self context (`example/alice(self)alice.databook.md`) is loaded into the triplestore alongside all of Alice's other context files.
 
-<p align="center"><img src="example/images/alice(self)alice.png" alt="Alice's self"></p>
+<p align="center"><img src="example/images/alice-overview.png" alt="Alice's self"></p>
 
 Alice's `alice(self)alice.databook.md` context also describes some of her physical characteristics shown below:
 
-<p align="center"><img src="example/images/alice(self)+physical.png" alt="Alice's physical characteristics"></p>
+<p align="center"><img src="example/images/alice(self)alice.png" alt="Alice's physical characteristics"></p>
 
 ### Alice's Contexts
 
