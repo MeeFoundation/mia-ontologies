@@ -49,7 +49,7 @@ This context captures Alice Walker's financial relationship with Citibank. Citib
 :Self rdf:type owl:NamedIndividual ,
                persona:Person ;
     rdfs:label "Alice Walker (Citibank)"@en ;
-    rdfs:comment "Alice Walker's persona in the context of her Citibank relationship."@en ;
+    rdfs:comment "Alice Walker in the context of her Citibank relationship."@en ;
     persona:hasPaymentCard :Alice_Debit_Card ;
     persona:hasBankAccount :Alice_Checking_Account ;
     cco:ent00000045 :Alice_Citibank_Online .  # holds user account
