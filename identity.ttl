@@ -47,7 +47,7 @@ identity:Organization rdf:type owl:Class ;
 
 
 #################################################################
-#    hasIdentity property - links a Persona to a PDN identity
+#    hasIdentity property - links a Person to a PDN identity
 #################################################################
 identity:hasIdentity rdf:type owl:ObjectProperty ;
     rdfs:subPropertyOf <https://purl.org/cco/ont00001879> ;  # designated by
