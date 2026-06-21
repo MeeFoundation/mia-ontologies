@@ -18,11 +18,12 @@ The three **domain ontologies** model people, organizations and groups:
 - **Identity ontology** — types of PDN network identifiers used by people, organizations or groups. 
 
 Throughout, we use these shorthands:
-- `p:` is shorthand for the `persona:` namespace (`http://mee.foundation/ontologies/persona#`)
+
 - `c:` for the `context:` namespace (`http://mee.foundation/ontologies/context#`)
-- `i:` for the `identity:` namespace (`http://mee.foundation/ontologies/identity#`)
-- `g:` for the `group:` namespace (`http://mee.foundation/ontologies/group#`)
+- `p:` is shorthand for the `persona:` namespace (`http://mee.foundation/ontologies/persona#`)
 - `o:` for the `organization:` namespace (`http://mee.foundation/ontologies/organization#`).
+- `g:` for the `group:` namespace (`http://mee.foundation/ontologies/group#`)
+- `i:` for the `identity:` namespace (`http://mee.foundation/ontologies/identity#`)
 
 We first present an overview of the five ontologies and then illustrate them through a sample dataset for a hypothetical user, Alice Walker.
 
