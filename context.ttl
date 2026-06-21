@@ -11,7 +11,7 @@
     owl:versionIRI <http://mee.foundation/ontologies/context/1.0.1> ;
     dc:date "2026-06-01"^^xsd:date ;
     owl:imports <http://mee.foundation/ontologies/identity> ;
-    owl:versionInfo "Version 1.0.36 - update assertedBy/subject comments: identity:Self is now an individual, not a subclass"@en ;
+    owl:versionInfo "Version 1.0.37 - fix stale 'Persona' → 'Person' in property comments"@en ;
     rdfs:label "Context Ontology"@en ;
     rdfs:comment """Context Ontology for the Mee Identity Agent.
 
@@ -31,7 +31,7 @@ context:contextCategory rdf:type owl:AnnotationProperty ;
     rdfs:label "context type"@en ;
     rdfs:comment """Tags a context ontology (file) with the kind of relationship it represents —
                     e.g. context:Company, context:Federal, context:Municipality.
-                    Applied to the ontology IRI, not to the Persona individual."""@en ;
+                    Applied to the ontology IRI, not to the Person individual."""@en ;
     rdfs:domain owl:Ontology ;
     rdfs:range context:ContextCategory .
 
@@ -39,7 +39,7 @@ context:assertedBy rdf:type owl:AnnotationProperty ;
     rdfs:label "asserted by"@en ;
     rdfs:comment """Tags a context ontology (file) with the individual identity making the assertion —
                     an individual of identity:PDNidentity (e.g. identity:Self, identity:Organization).
-                    Applied to the ontology IRI, not to the Persona individual."""@en ;
+                    Applied to the ontology IRI, not to the Person individual."""@en ;
     rdfs:domain owl:Ontology ;
     rdfs:range identity:PDNidentity .
 
@@ -47,7 +47,7 @@ context:subject rdf:type owl:AnnotationProperty ;
     rdfs:label "subject"@en ;
     rdfs:comment """Tags a context ontology (file) with whose identity it describes —
                     an individual of identity:PDNidentity (e.g. identity:Self, or a named individual of identity:Individual).
-                    Applied to the ontology IRI, not to the Persona individual."""@en ;
+                    Applied to the ontology IRI, not to the Person individual."""@en ;
     rdfs:domain owl:Ontology ;
     rdfs:range identity:PDNidentity .
 

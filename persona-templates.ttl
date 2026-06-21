@@ -9,7 +9,7 @@
 
 <http://mee.foundation/ontologies/persona-templates> rdf:type owl:Ontology ;
     dc:date "2026-06-15"^^xsd:date ;
-    owl:versionInfo "Version 2.0.1 - add Passport template and related designator classes"@en ;
+    owl:versionInfo "Version 2.0.2 - fix stale 'Persona' → 'Person' in designator class comments"@en ;
     rdfs:label "Persona Templates Ontology"@en ;
     rdfs:comment """Template type classification used as values for the context:template annotation property.
                     Each concrete template type (BirthCertificate, JSContactCard, DriversLicense) identifies
@@ -54,7 +54,7 @@ persona:DriversLicenseNumber rdf:type owl:Class ;
     rdfs:label "Driver's License Number"@en ;
     rdfs:comment """A Designative Name identifying a person by their state-issued
                     driver's licence number (e.g. a US DMV licence number string).
-                    Used on a DriversLicense Persona via designated by (ont00001879).
+                    Used on a driver's license Person via designated by (ont00001879).
                     Distinct from p:PhysicalDriversLicense (in persona.ttl), which models
                     the physical plastic card carried in a wallet."""@en .
 
@@ -65,7 +65,7 @@ persona:IssuingJurisdiction rdf:type owl:Class ;
                     driver's licence. Subclasses cco:ent00000013 (StateName) so that the
                     existing USStateNameShape in persona-shacl.ttl automatically enforces
                     the USPS 2-letter abbreviation controlled vocabulary (e.g. 'CA', 'TX').
-                    Used on a DriversLicense Persona via designated by (ont00001879)."""@en .
+                    Used on a driver's license Person via designated by (ont00001879)."""@en .
 
 persona:DriversLicense rdf:type owl:Class ;
     rdfs:subClassOf persona:PersonaTemplate ;
@@ -88,14 +88,14 @@ persona:PassportNumber rdf:type owl:Class ;
     rdfs:subClassOf cco:ont00000003 ;  # Designative Name
     rdfs:label "Passport Number"@en ;
     rdfs:comment """A Designative Name identifying a person by their government-issued passport
-                    number. Used on a Passport Persona via designated by (ont00001879).
+                    number. Used on a passport Person via designated by (ont00001879).
                     US passport numbers are 9 alphanumeric characters."""@en .
 
 persona:IssuingCountry rdf:type owl:Class ;
     rdfs:subClassOf cco:ent00000014 ;  # CountryName
     rdfs:label "Issuing Country"@en ;
     rdfs:comment """The country that issued a government document such as a passport.
-                    Subclasses cco:ent00000014 (CountryName). Used on a Passport Persona
+                    Subclasses cco:ent00000014 (CountryName). Used on a passport Person
                     via designated by (ont00001879). Distinct from p:IssuingJurisdiction
                     which covers US state-issued documents (e.g. driver's licences)."""@en .
 
@@ -104,22 +104,22 @@ persona:PlaceOfBirth rdf:type owl:Class ;
     rdfs:label "Place of Birth"@en ;
     rdfs:comment """A Designative Name recording the place where a person was born, as it
                     appears on a government document. Typically a city, state, or country
-                    string (e.g. 'Austin, Texas, USA'). Used on a Passport or BirthCertificate
-                    Persona via designated by (ont00001879)."""@en .
+                    string (e.g. 'Austin, Texas, USA'). Used on a passport or birth certificate
+                    Person via designated by (ont00001879)."""@en .
 
 persona:GenderMarker rdf:type owl:Class ;
     rdfs:subClassOf cco:ont00000003 ;  # Designative Name
     rdfs:label "Gender Marker"@en ;
     rdfs:comment """A Designative Name recording the gender marker as it appears on a
                     government-issued identity document. Controlled vocabulary: 'M', 'F', 'X'.
-                    Used on a Passport Persona via designated by (ont00001879)."""@en .
+                    Used on a passport Person via designated by (ont00001879)."""@en .
 
 persona:IssueDate rdf:type owl:Class ;
     rdfs:subClassOf cco:ont00000003 ;  # Designative Name
     rdfs:label "Issue Date"@en ;
     rdfs:comment """A Designative Name recording the date a government document was issued.
                     Value is an ISO 8601 date string ('YYYY-MM-DD'). Used on a Passport or
-                    other government-document Persona via designated by (ont00001879).
+                    other government-document Person via designated by (ont00001879).
                     Distinct from cco:ent00000046 (Birthdate) and cco:ent00000054
                     (ExpirationDateIdentifier)."""@en .
 
@@ -208,7 +208,7 @@ persona:OrganizationUnit rdf:type owl:Class ;
     rdfs:label "Organization Unit"@en ;
     rdfs:comment """A Designative Name identifying a department, division, or other
                     sub-unit within an organization. Typically paired with an
-                    OrganizationName (cco:ent00000047) on the same Persona.
+                    OrganizationName (cco:ent00000047) on the same Person.
                     Examples: 'Engineering', 'Sales', 'R&D'.
                     JSContact: organizations[*].units array entry."""@en .
 
@@ -225,19 +225,19 @@ persona:JobTitle rdf:type owl:Class ;
 
 #  5. Anniversary Class and Properties
 #     A named individual of type p:Anniversary is attached to a
-#     Persona via persona:hasAnniversary.
+#     Person via persona:hasAnniversary.
 
 persona:Anniversary rdf:type owl:Class ;
     rdfs:label "Anniversary"@en ;
     rdfs:comment """A personally significant recurring date, such as a wedding anniversary
                     or other custom commemoration. Birthdays use cco:ent00000046 (Birthdate)
-                    directly on the Persona via designated-by; Anniversary covers all other
+                    directly on the Person via designated-by; Anniversary covers all other
                     recurring dates.
                     JSContact: anniversaries map (excluding 'birth' and 'death' kinds)."""@en .
 
 persona:hasAnniversary rdf:type owl:ObjectProperty ;
     rdfs:label "has anniversary"@en ;
-    rdfs:comment "Links a p:Persona to one of its Anniversary individuals."@en ;
+    rdfs:comment "Links a p:Person to one of its Anniversary individuals."@en ;
     rdfs:range persona:Anniversary .
 
 persona:anniversaryKind rdf:type owl:DatatypeProperty ;
@@ -264,7 +264,7 @@ persona:anniversaryLabel rdf:type owl:DatatypeProperty ;
 
 #  6. PersonalInfo Class and Properties
 #     A named individual of type p:PersonalInfo is attached to a
-#     Persona via persona:hasPersonalInfo.
+#     Person via persona:hasPersonalInfo.
 
 persona:PersonalInfo rdf:type owl:Class ;
     rdfs:label "Personal Info"@en ;
@@ -273,7 +273,7 @@ persona:PersonalInfo rdf:type owl:Class ;
 
 persona:hasPersonalInfo rdf:type owl:ObjectProperty ;
     rdfs:label "has personal info"@en ;
-    rdfs:comment "Links a p:Persona to one of its PersonalInfo individuals."@en ;
+    rdfs:comment "Links a p:Person to one of its PersonalInfo individuals."@en ;
     rdfs:range persona:PersonalInfo .
 
 persona:personalInfoKind rdf:type owl:DatatypeProperty ;
@@ -304,7 +304,7 @@ persona:personalInfoLevel rdf:type owl:DatatypeProperty ;
 
 persona:hasPhoto rdf:type owl:DatatypeProperty ;
     rdfs:label "has photo"@en ;
-    rdfs:comment """A URI pointing to a photo or avatar image for this Persona.
+    rdfs:comment """A URI pointing to a photo or avatar image for this Person.
                     Repeat the property for multiple photos (e.g. work headshot vs
                     informal photo). Use persona:contactContext as an annotation on
                     the reified statement if context labeling is needed.

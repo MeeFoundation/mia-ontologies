@@ -19,7 +19,7 @@
     owl:imports <http://mee.foundation/ontologies/identity> ;
     owl:imports <http://mee.foundation/ontologies/persona-templates> ;
     dc:date "2026-06-15"^^xsd:date ;
-    owl:versionInfo "Version 4.0.0 - replace Persona/hasPersona with unified persona:Person named-graph model"@en ;
+    owl:versionInfo "Version 4.0.1 - fix stale 'Persona' → 'Person' in property comments"@en ;
     rdfs:label "Persona Ontology"@en ;
     rdfs:comment """Persona Ontology for the Mee Identity Agent.
 
@@ -149,8 +149,8 @@ p:hasSocialNetwork rdf:type owl:ObjectProperty ;
     rdfs:domain p:Person ;
     rdfs:range cco:ont00001183 ;    # Social Network
     rdfs:label "has social network"@en ;
-    rdfs:comment """Links a Persona to a Social Network — the set of other people
-                    with whom the person has relationships in that context. The Persona is
+    rdfs:comment """Links a Person to a Social Network — the set of other people
+                    with whom the person has relationships in that context. The Person is
                     not a member of the network; the network contains only the people they
                     relate to."""@en .
 
@@ -163,7 +163,7 @@ p:hasPaymentCard rdf:type owl:ObjectProperty ;
     rdfs:domain p:Person ;
     rdfs:range cco:ent00000049 ;    # Payment Card
     rdfs:label "holds payment card"@en ;
-    rdfs:comment "Links a Persona to a Payment Card (credit, debit, or other) it records."@en .
+    rdfs:comment "Links a Person to a Payment Card (credit, debit, or other) it records."@en .
 
 p:CheckingAccount rdf:type owl:Class ;
     rdfs:label "Checking Account"@en ;
@@ -181,7 +181,7 @@ p:hasBankAccount rdf:type owl:ObjectProperty ;
     rdfs:domain p:Person ;
     rdfs:range p:CheckingAccount ;
     rdfs:label "holds bank account"@en ;
-    rdfs:comment "Links a Persona to a bank account it records."@en .
+    rdfs:comment "Links a Person to a bank account it records."@en .
 
 p:accessesBankAccount rdf:type owl:ObjectProperty ;
     rdfs:domain cco:ent00000051 ;  # Debit Card
@@ -234,13 +234,13 @@ p:hasPhysicalCard rdf:type owl:ObjectProperty ;
     rdfs:domain p:Person ;
     rdfs:range p:PhysicalCard ;
     rdfs:label "holds physical card"@en ;
-    rdfs:comment "Links a Persona to a PhysicalCard carried outside of a wallet (e.g. stored at home or kept separately)."@en .
+    rdfs:comment "Links a Person to a PhysicalCard carried outside of a wallet (e.g. stored at home or kept separately)."@en .
 
 p:hasWallet rdf:type owl:ObjectProperty ;
     rdfs:domain p:Person ;
     rdfs:range p:Wallet ;
     rdfs:label "holds wallet"@en ;
-    rdfs:comment "Links a Persona to the physical wallet they carry."@en .
+    rdfs:comment "Links a Person to the physical wallet they carry."@en .
 
 p:hasImageScan rdf:type owl:DatatypeProperty ;
     rdfs:domain p:PhysicalCard ;
@@ -254,7 +254,7 @@ p:hasImageScan rdf:type owl:DatatypeProperty ;
 #################################################################
 
 cco:ent00000001
-    p:usagePattern """Persona accepts FullName as complete string alternative
+    p:usagePattern """Person accepts FullName as complete string alternative
                             to structured components. SHACL validation: EITHER FullName OR
                             (GivenName + FamilyName) required."""@en .
 
