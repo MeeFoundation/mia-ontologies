@@ -1,25 +1,25 @@
 ---
-id: http://www.example.org/mia/alice(family)alice
+id: http://www.example.org/mia/alice(familymember)alice
 title: "Alice Walker — Family"
 type: databook
-version: 2.0.3
+version: 2.0.4
 created: 2026-06-01
 description: >
-  Alice Walker's family context. Records her family social network, with Paula Walker
-  as a member. Self-asserted by Alice.
+  Alice Walker's family context. Records her maternal relationship with Paula Walker
+  and her family social network. Self-asserted by Alice.
 mia:
   name: "Family"
   contextCategory: "context:FamilyMember"
   assertedBy: ":Self"
   subject: ":Self"
 graph:
-  named_graph: http://www.example.org/mia/alice(family)alice#graph
+  named_graph: http://www.example.org/mia/alice(familymember)alice#graph
   rdf_version: "1.1"
 shapes:
   - http://www.example.org/shapes
 process:
   transformer: human
-  timestamp: 2026-06-19T00:00:00Z
+  timestamp: 2026-06-20T00:00:00Z
   agent:
     name: Paul Trevithick
     role: author
@@ -27,13 +27,13 @@ process:
 
 ## Overview
 
-This context captures Alice Walker's family relationships. It records her family social network, which includes Paula Walker as a member. Paula's own family context (`02-paula(family)alice`) is the peer record in this relationship.
+This context captures Alice Walker's family relationships. It records her maternal relationship with Paula Walker and her family social network, which includes Paula Walker as a member. Paula's own family context (`02-paula(familymember)alice`) is the peer record in this relationship.
 
 ## Identity Data
 
 ```turtle
 <!-- databook:id: alice-family-identity -->
-<!-- databook:graph: http://www.example.org/mia/alice(family)alice#graph -->
+<!-- databook:graph: http://www.example.org/mia/alice(familymember)alice#graph -->
 @prefix : <http://www.example.org/mia#> .
 @prefix persona: <http://mee.foundation/ontologies/persona#> .
 @prefix cco: <https://purl.org/cco/> .
@@ -45,6 +45,8 @@ This context captures Alice Walker's family relationships. It records her family
                persona:Person ;
     rdfs:label "Alice Walker (Family)"@en ;
     rdfs:comment "Alice Walker's persona in the context of her family relationships."@en ;
+
+    cco:ont00001780 :Paula_Walker ;  # has mother
 
     persona:hasSocialNetwork :Alice_Family_Network .
 

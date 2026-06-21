@@ -2,12 +2,12 @@
 id: http://www.example.org/mia
 title: "Alice Walker — Selfness"
 type: databook
-version: 4.0.5
+version: 4.0.6
 created: 2026-06-19
 description: >
-  Alice Walker's selfness — the central identity individual. Records her preferred
-  name (Alice Walker) and her maternal relationship to Paula Walker. Physical body
-  characteristics have moved to 24-alice(health)alice.
+  Alice Walker's selfness — the central identity individual. Records only her preferred
+  name (Alice Walker). Maternal relationship moved to 18-alice(familymember)alice;
+  physical body characteristics moved to 24-alice(health)alice.
 mia:
   name: "Alice Walker"
   assertedBy: ":Self"
@@ -27,7 +27,7 @@ process:
 
 ## Overview
 
-This context captures Alice Walker's selfness — the central identity individual for Alice's Mia instance. It holds Alice's preferred name (the name she goes by across all contexts) and her maternal family relationship. Physical body characteristics (height, eye color, hair color) have moved to `24-alice(health)alice`. All other identity data (addresses, identifiers, payment cards, etc.) belongs to context-specific personas in the numbered context files. Alice's `persona:Person` individual always uses the IRI `:Self` across all of her context files.
+This context captures Alice Walker's selfness — the central identity individual for Alice's Mia instance. It holds only Alice's preferred name (the name she goes by across all contexts). The maternal relationship with Paula Walker has moved to `18-alice(familymember)alice`; physical body characteristics (height, eye color, hair color) have moved to `24-alice(health)alice`. All other identity data (addresses, identifiers, payment cards, etc.) belongs to context-specific personas in the numbered context files. Alice's `persona:Person` individual always uses the IRI `:Self` across all of her context files.
 
 ## Identity Data
 
@@ -52,9 +52,5 @@ This context captures Alice Walker's selfness — the central identity individua
         rdf:type cco:ent00000006 ;  # AlternateName
         <https://purl.org/cco/ont00001765> "Alice Walker" ;
         rdfs:comment "Name she goes by professionally and socially"@en
-    ] ;
-
-    # FAMILY RELATIONSHIPS
-
-    cco:ont00001780 :Paula_Walker .  # has mother
+    ] .
 ```
