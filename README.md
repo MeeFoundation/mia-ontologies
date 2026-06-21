@@ -9,13 +9,14 @@ Mia ontologies import and profile existing ontologies — documenting which of t
 - **StagingOntology** — staging area for terms pending promotion (phone numbers, email addresses, user accounts, etc.)
 - **AgentOntology** — agents and their properties (imported transitively via PersonOntology)
 
-The first two ontologies are **domain ontologies** that model a distinct kind of PDN node:
+The **Context ontology** is the organizing framework: it defines the controlled vocabularies that classify every context file — what kind of interaction it captures, who asserted the data, and whose identity it describes.
+
+The two **domain ontologies** each model a distinct kind of PDN node:
 - **Persona ontology** — models a real person's identity data: names, addresses, phone numbers, relationships, payment cards, and more, structured around context-specific *personas*.
 - **Organization ontology** — models organizations (companies, government agencies, non-profits, etc.) on the PDN.
 
-The last three are **supporting ontologies** that support all three domains:
+The remaining two are **supporting ontologies**:
 - **Group ontology** — a group made up of individuals and/or organizations.
-- **Context ontology** — a container for information about people, groups, and organizations. A context also holds metadata about the category of context, who asserted the data, and which entity is primarily being described.
 - **Identity ontology** — types of PDN network identifiers.
 
 Throughout, we use these shorthands:
@@ -26,6 +27,63 @@ Throughout, we use these shorthands:
 - `o:` for the `organization:` namespace (`http://mee.foundation/ontologies/organization#`).
 
 We first present an overview of the five ontologies and then illustrate them through a sample dataset for a hypothetical user, Alice Walker.
+
+## Context Ontology
+
+A *context* is a container of information about a person related to their interactions with, or relationship to another person, group or organization. This information is expressed as triples using the Persona ontology stored in a **[DataBook](https://github.com/w3c-cg/holon/tree/main/architectures/databook)** (`.databook.md`) file. 
+
+The description of the context container itself is carried in the DataBook's YAML frontmatter under the `mia:` key. The context ontology (`context.ttl`) defines the controlled vocabularies that those YAML fields reference:
+
+- `mia.name` — a human-readable name for the context, e.g. `"Citibank"` to represent the user's interactions with Citibank.
+- `mia.contextCategory` — a classification of the context into one of a set of broad catagories; its value is a prefixed name of a `c:ContextCategory` subclass, e.g. `"context:FamilyMember"` to represent the user's interaction with a family member.
+- `mia.assertedBy` — who is making the assertions (claims) (e.g. a person, group or organization). The persons could be the user themselves for self-asserted claims.
+- `mia.subject` — whose identity the context file describes; its value is a local IRI of a `p:Person`, `g:Group`, or `o:Organization` individual, e.g. `":Self"`.
+- `mia.template` — present only on context files that conform to a specific template; its value is a `p:PersonaTemplate` subclass (e.g. `"persona:BirthCertificate"`, `"persona:JSContactCard"`, `"persona:DriversLicense"`).
+- `mia.dyad` — the IRI of the partner DataBook in a 1:1 relationship context. If context A carries `mia.dyad` pointing to context B, then B must carry `mia.dyad` pointing back to A.
+
+**`c:contextCategory`** — The nature of the interaction/relationship context. Values form a subclass hierarchy under `c:ContextCategory`:
+
+- `c:MultiPerson` — a context that contains multiple `persona:Person` instances.
+  - `c:Group` — interactions with a formal or informal group of people.
+- `c:SinglePerson` — a context that contains exactly one `persona:Person` instance.
+  - `c:Person` and subtypes `c:FamilyMember`, `c:Friend`, `c:Consultant` — interactions with individual people in a person's life.
+  - `c:Work` and subtypes `c:Employee`, `c:Contributor`, `c:Creator` — professional roles.
+  - `c:Company` and subtypes `c:FinancialServices`, `c:Healthcare` — interactions and/or relationship with a company or other non-governmental organization.
+  - `c:Finances` — information about personal finances not related to any interactions with banks, financial institutions or government agencies.
+  - `c:Health` — personal health and wellness information not related to any specific healthcare provider.
+  - `c:Event` and subtypes `c:Meeting`, `c:Conference`, `c:Party` — participation in or relationship to a specific event, e.g. a face-to-face or online meeting.
+  - `c:Government` and subtypes `c:Federal`, `c:State`, `c:Municipality` — interactions with government agencies.
+  - `c:Note` — general knowledge selected by a person to be useful to them. It has a subtype `c:Learning` which is knowledge gained through personal experience.
+  - `c:Possession` and subtypes `c:Automobile`, `c:Pet`, `c:Dwelling` — a person's belongings or other things they possess, rent, or lease.
+  - `c:Project` — involvement in a specific project or initiative.
+
+<p align="center"><img src="images/context-ontology/context-category.png" alt="contextType hierarchy"></p>
+
+**`c:assertedBy`** — Who is making the assertion. Values are local IRIs of `p:Person`, `g:Group`, or `o:Organization` individuals:
+- `:Self` — the Mia user is recording the data, even if the underlying information originates from some other party such as a company, government agency, or another person.
+- a named individual of `p:Person` — another Mia user is asserting the data directly.
+- a named individual of `g:Group` — a group of Mia users is asserting the data.
+- a named individual of `o:Organization` — an organization is asserting the data directly.
+
+**`c:subject`** — Whose identity the context file describes. Values are local IRIs of `p:Person`, `g:Group`, or `o:Organization` individuals:
+- `:Self` — the context is primarily about the Mia user.
+- a named individual of `p:Person` — the context is primarily about another human Mia user.
+- a named individual of `g:Group` — the context is primarily about a group of Mia users.
+- a named individual of `o:Organization` — the context is primarily about an organization (legal corporation or government agency).
+
+The diagram below shows four kinds of contexts related to a hypothetical Mia user, Alice, and her interactions with a Department of Motor Vehicles (DMV) agency. Across the top are contexts where the DMV itself is the subject, and at the bottom where Alice is the subject. At the left are contexts where Alice has made the assertions (e.g. Alice's Mia has written the claims into the context) and at the right are contexts where the DMV as the "other" has written the claims. 
+
+<p align="center"><img src="images/context-ontology/quadrants.png" alt="a quadrant of context types"></p>
+
+The lower left shows a context that Alice might share with other people or companies. In it, she asserts that her driver's license number is S43228943, having almost certainly copied that number from her physical driver's license. The context in the lower right carries the same information as the lower left, but because it is being asserted by the DMV it is more likely to be trusted by a recipient, especially if this information is conveyed via secure channel and the claims are cryptographically bound to the identity of the DMV.
+
+### Context Ontology File
+
+- **`context.ttl`** — The Context ontology, defining `c:ContextCategory` and its subclass hierarchy, and the `c:contextCategory`, `c:assertedBy`, `c:subject`, `c:name`, `c:template`, and `c:dyad` properties. These terms are referenced by name in the YAML frontmatter of each DataBook context file.
+
+### Validation
+
+Context file metadata (name, category, asserter, subject) is declared in YAML frontmatter and validated at authoring time by convention. There is no SHACL validation for context file metadata.
 
 ## Persona Ontology
 
@@ -227,24 +285,6 @@ The table below maps every JSContact (RFC 9553) property to its representation i
 
 `persona-shacl.ttl` runs against merged data from all context files (Tier 1 validation). Per-template SHACL files in `shacl/` run against individual context files (Tier 2): birth certificate, JSContactCard, and driver's license each have their own shape file and are validated separately to avoid their `sh:targetClass persona:Person` constraints firing on every person slice in the merged dataset. See the [Validation](#validation) section for commands.
 
-## Group Ontology
-
-The Group ontology introduces the concept of a *shared* group (`g:Group`) whose members are individuals and/or organizations. The group entity *itself* as well as any attached properties are shared with all of its members. Like individuals and organizations, `g:Groups` also have their own PDN identifiers and can be communicated with as with any other node on the PDN network. 
-
-<p align="center"><img src="images/group-ontology/group.png" alt="Group model"></p>
-
-**Classes**
-
-* `g:Group` — a group of people and/or organizations on the Personal Data Network.
-
-### Group Ontology File
-
-- **`group.ttl`** — The Group ontology. Imports `identity.ttl`.
-
-### Validation
-
-`group-shacl.ttl` validates `g:Group` instances. Key constraint: each `g:Group` must have exactly one `i:hasIdentity` value of type `i:Group`.
-
 ## Organization Ontology
 
 The Organization ontology models organizations — companies, government agencies, nonprofits, and other institutions — that participate in the Personal Data Network. An organization has a PDN identity — an `i:Organization` identifier — that allows Mia to communicate with it as with any other node on the network.
@@ -263,62 +303,23 @@ The Organization ontology models organizations — companies, government agencie
 
 `organization-shacl.ttl` validates `o:Organization` instances. Key constraint: each `o:Organization` must have exactly one `i:hasIdentity` value of type `i:Organization`.
 
-## Context Ontology
+## Group Ontology
 
-A *context* is a container of information about a person related to their interactions with, or relationship to another person, group or organization. This information is expressed as triples using the Persona ontology stored in a **[DataBook](https://github.com/w3c-cg/holon/tree/main/architectures/databook)** (`.databook.md`) file. 
+The Group ontology introduces the concept of a *shared* group (`g:Group`) whose members are individuals and/or organizations. The group entity *itself* as well as any attached properties are shared with all of its members. Like individuals and organizations, `g:Groups` also have their own PDN identifiers and can be communicated with as with any other node on the PDN network. 
 
-The description of the context container itself is carried in the DataBook's YAML frontmatter under the `mia:` key. The context ontology (`context.ttl`) defines the controlled vocabularies that those YAML fields reference:
+<p align="center"><img src="images/group-ontology/group.png" alt="Group model"></p>
 
-- `mia.name` — a human-readable name for the context, e.g. `"Citibank"` to represent the user's interactions with Citibank.
-- `mia.contextCategory` — a classification of the context into one of a set of broad catagories; its value is a prefixed name of a `c:ContextCategory` subclass, e.g. `"context:FamilyMember"` to represent the user's interaction with a family member.
-- `mia.assertedBy` — who is making the assertions (claims) (e.g. a person, group or organization). The persons could be the user themselves for self-asserted claims.
-- `mia.subject` — whose identity the context file describes; its value is a local IRI of a `p:Person`, `g:Group`, or `o:Organization` individual, e.g. `":Self"`.
-- `mia.template` — present only on context files that conform to a specific template; its value is a `p:PersonaTemplate` subclass (e.g. `"persona:BirthCertificate"`, `"persona:JSContactCard"`, `"persona:DriversLicense"`).
-- `mia.dyad` — the IRI of the partner DataBook in a 1:1 relationship context. If context A carries `mia.dyad` pointing to context B, then B must carry `mia.dyad` pointing back to A.
+**Classes**
 
-**`c:contextCategory`** — The nature of the interaction/relationship context. Values form a subclass hierarchy under `c:ContextCategory`:
+* `g:Group` — a group of people and/or organizations on the Personal Data Network.
 
-- `c:MultiPerson` — a context that contains multiple `persona:Person` instances.
-  - `c:Group` — interactions with a formal or informal group of people.
-- `c:SinglePerson` — a context that contains exactly one `persona:Person` instance.
-  - `c:Person` and subtypes `c:FamilyMember`, `c:Friend`, `c:Consultant` — interactions with individual people in a person's life.
-  - `c:Work` and subtypes `c:Employee`, `c:Contributor`, `c:Creator` — professional roles.
-  - `c:Company` and subtypes `c:FinancialServices`, `c:Healthcare` — interactions and/or relationship with a company or other non-governmental organization.
-  - `c:Finances` — information about personal finances not related to any interactions with banks, financial institutions or government agencies.
-  - `c:Health` — personal health and wellness information not related to any specific healthcare provider.
-  - `c:Event` and subtypes `c:Meeting`, `c:Conference`, `c:Party` — participation in or relationship to a specific event, e.g. a face-to-face or online meeting.
-  - `c:Government` and subtypes `c:Federal`, `c:State`, `c:Municipality` — interactions with government agencies.
-  - `c:Note` — general knowledge selected by a person to be useful to them. It has a subtype `c:Learning` which is knowledge gained through personal experience.
-  - `c:Possession` and subtypes `c:Automobile`, `c:Pet`, `c:Dwelling` — a person's belongings or other things they possess, rent, or lease.
-  - `c:Project` — involvement in a specific project or initiative.
+### Group Ontology File
 
-<p align="center"><img src="images/context-ontology/context-category.png" alt="contextType hierarchy"></p>
-
-**`c:assertedBy`** — Who is making the assertion. Values are local IRIs of `p:Person`, `g:Group`, or `o:Organization` individuals:
-- `:Self` — the Mia user is recording the data, even if the underlying information originates from some other party such as a company, government agency, or another person.
-- a named individual of `p:Person` — another Mia user is asserting the data directly.
-- a named individual of `g:Group` — a group of Mia users is asserting the data.
-- a named individual of `o:Organization` — an organization is asserting the data directly.
-
-**`c:subject`** — Whose identity the context file describes. Values are local IRIs of `p:Person`, `g:Group`, or `o:Organization` individuals:
-- `:Self` — the context is primarily about the Mia user.
-- a named individual of `p:Person` — the context is primarily about another human Mia user.
-- a named individual of `g:Group` — the context is primarily about a group of Mia users.
-- a named individual of `o:Organization` — the context is primarily about an organization (legal corporation or government agency).
-
-The diagram below shows four kinds of contexts related to a hypothetical Mia user, Alice, and her interactions with a Department of Motor Vehicles (DMV) agency. Across the top are contexts where the DMV itself is the subject, and at the bottom where Alice is the subject. At the left are contexts where Alice has made the assertions (e.g. Alice's Mia has written the claims into the context) and at the right are contexts where the DMV as the "other" has written the claims. 
-
-<p align="center"><img src="images/context-ontology/quadrants.png" alt="a quadrant of context types"></p>
-
-The lower left shows a context that Alice might share with other people or companies. In it, she asserts that her driver's license number is S43228943, having almost certainly copied that number from her physical driver's license. The context in the lower right carries the same information as the lower left, but because it is being asserted by the DMV it is more likely to be trusted by a recipient, especially if this information is conveyed via secure channel and the claims are cryptographically bound to the identity of the DMV.
-
-### Context Ontology File
-
-- **`context.ttl`** — The Context ontology, defining `c:ContextCategory` and its subclass hierarchy, and the `c:contextCategory`, `c:assertedBy`, `c:subject`, `c:name`, `c:template`, and `c:dyad` properties. These terms are referenced by name in the YAML frontmatter of each DataBook context file.
+- **`group.ttl`** — The Group ontology. Imports `identity.ttl`.
 
 ### Validation
 
-Context file metadata (name, category, asserter, subject) is declared in YAML frontmatter and validated at authoring time by convention. There is no SHACL validation for context file metadata.
+`group-shacl.ttl` validates `g:Group` instances. Key constraint: each `g:Group` must have exactly one `i:hasIdentity` value of type `i:Group`.
 
 ## Identity Ontology
 
