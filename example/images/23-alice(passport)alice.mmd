@@ -1,0 +1,37 @@
+%% ContextCategory: context:Federal
+flowchart TD
+    classDef person fill:#fffacd,stroke:#aaa,color:#333
+    classDef grp    fill:#d4edda,stroke:#aaa,color:#333
+    classDef org    fill:#cce5ff,stroke:#aaa,color:#333
+    classDef lit    fill:none,stroke:none,font-style:italic,color:#2a7a2a
+    classDef meta   fill:#f5f5ff,stroke:#9999cc,color:#333
+
+    subgraph ctx["Context"]
+        direction LR
+        ctx_meta["name: Passport\ncategory: Federal\nassertedBy: :Self\nsubject: :Self\ntemplate: persona:Passport"]:::meta
+    end
+
+    ne0c3ba92f1db[":Self\n(Person)"]:::person
+    n5c61269a7f77("Margery"):::lit
+    ned2a6be507f7("Alice"):::lit
+    n8aa0b5e7cecd("Walker"):::lit
+    n179d282f75ac("1985-07-04"):::lit
+    n87702d5f5364("2021-07-04"):::lit
+    n4140f236b6dd("2031-07-04"):::lit
+    n242a17def159("123456789"):::lit
+    nf769346f6489("United States of America"):::lit
+    n0534dc0b9a41("Austin, Texas, USA"):::lit
+    n036e81c28098("F"):::lit
+    nd1310d4db60a("https://example.org/alice-passport-photo.jpg"):::lit
+
+    ne0c3ba92f1db -->|"GivenName"| n5c61269a7f77
+    ne0c3ba92f1db -->|"AdditionalName"| ned2a6be507f7
+    ne0c3ba92f1db -->|"FamilyName"| n8aa0b5e7cecd
+    ne0c3ba92f1db -->|"ent00000046"| n179d282f75ac
+    ne0c3ba92f1db -->|"IssueDate"| n87702d5f5364
+    ne0c3ba92f1db -->|"ExpirationDate"| n4140f236b6dd
+    ne0c3ba92f1db -->|"PassportNumber"| n242a17def159
+    ne0c3ba92f1db -->|"IssuingCountry"| nf769346f6489
+    ne0c3ba92f1db -->|"PlaceOfBirth"| n0534dc0b9a41
+    ne0c3ba92f1db -->|"GenderMarker"| n036e81c28098
+    ne0c3ba92f1db -->|"hasPhoto"| nd1310d4db60a

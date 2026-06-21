@@ -12,6 +12,8 @@
          uri="shacl/jscontactcard-shacl.ttl"/>
     <uri id="driverslicense-shacl"     name="http://www.example.org/shapes/driverslicense"
          uri="shacl/driverslicense-shacl.ttl"/>
+    <uri id="passport-shacl"           name="http://www.example.org/shapes/passport"
+         uri="shacl/passport-shacl.ttl"/>
     <uri id="context"                  name="http://mee.foundation/ontologies/context"
          uri="context.ttl"/>
     <uri id="identity"                 name="http://mee.foundation/ontologies/identity"

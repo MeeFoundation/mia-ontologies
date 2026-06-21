@@ -9,7 +9,7 @@
 
 <http://mee.foundation/ontologies/persona-templates> rdf:type owl:Ontology ;
     dc:date "2026-06-15"^^xsd:date ;
-    owl:versionInfo "Version 2.0.0 - PersonaTemplate no longer subclasses Persona; used as context:template annotation values"@en ;
+    owl:versionInfo "Version 2.0.1 - add Passport template and related designator classes"@en ;
     rdfs:label "Persona Templates Ontology"@en ;
     rdfs:comment """Template type classification used as values for the context:template annotation property.
                     Each concrete template type (BirthCertificate, JSContactCard, DriversLicense) identifies
@@ -78,6 +78,60 @@ persona:DriversLicense rdf:type owl:Class ;
                     Note: p:PhysicalDriversLicense (in persona.ttl) models the physical card
                     object carried in a wallet; this class models the identity data the
                     license asserts."""@en .
+
+
+#################################################################
+#    Passport Template and related designator classes
+#################################################################
+
+persona:PassportNumber rdf:type owl:Class ;
+    rdfs:subClassOf cco:ont00000003 ;  # Designative Name
+    rdfs:label "Passport Number"@en ;
+    rdfs:comment """A Designative Name identifying a person by their government-issued passport
+                    number. Used on a Passport Persona via designated by (ont00001879).
+                    US passport numbers are 9 alphanumeric characters."""@en .
+
+persona:IssuingCountry rdf:type owl:Class ;
+    rdfs:subClassOf cco:ent00000014 ;  # CountryName
+    rdfs:label "Issuing Country"@en ;
+    rdfs:comment """The country that issued a government document such as a passport.
+                    Subclasses cco:ent00000014 (CountryName). Used on a Passport Persona
+                    via designated by (ont00001879). Distinct from p:IssuingJurisdiction
+                    which covers US state-issued documents (e.g. driver's licences)."""@en .
+
+persona:PlaceOfBirth rdf:type owl:Class ;
+    rdfs:subClassOf cco:ont00000003 ;  # Designative Name
+    rdfs:label "Place of Birth"@en ;
+    rdfs:comment """A Designative Name recording the place where a person was born, as it
+                    appears on a government document. Typically a city, state, or country
+                    string (e.g. 'Austin, Texas, USA'). Used on a Passport or BirthCertificate
+                    Persona via designated by (ont00001879)."""@en .
+
+persona:GenderMarker rdf:type owl:Class ;
+    rdfs:subClassOf cco:ont00000003 ;  # Designative Name
+    rdfs:label "Gender Marker"@en ;
+    rdfs:comment """A Designative Name recording the gender marker as it appears on a
+                    government-issued identity document. Controlled vocabulary: 'M', 'F', 'X'.
+                    Used on a Passport Persona via designated by (ont00001879)."""@en .
+
+persona:IssueDate rdf:type owl:Class ;
+    rdfs:subClassOf cco:ont00000003 ;  # Designative Name
+    rdfs:label "Issue Date"@en ;
+    rdfs:comment """A Designative Name recording the date a government document was issued.
+                    Value is an ISO 8601 date string ('YYYY-MM-DD'). Used on a Passport or
+                    other government-document Persona via designated by (ont00001879).
+                    Distinct from cco:ent00000046 (Birthdate) and cco:ent00000054
+                    (ExpirationDateIdentifier)."""@en .
+
+persona:Passport rdf:type owl:Class ;
+    rdfs:subClassOf persona:PersonaTemplate ;
+    rdfs:label "Passport"@en ;
+    rdfs:comment """Template type label for a context whose purpose is to carry the identity
+                    claims on a government-issued passport: legal name, date of birth, passport
+                    number, issue date, expiration date, issuing country, place of birth, and
+                    gender marker. Photo is optional. Used as the value of context:template on
+                    the context file's ontology IRI. Selects shacl/passport-shacl.ttl for
+                    validation."""@en .
 
 
 #################################################################
