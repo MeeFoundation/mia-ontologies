@@ -1,19 +1,19 @@
-@prefix : <http://mee.foundation/ontologies/identity/shapes#> .
+@prefix : <http://mee.foundation/ontologies/pdn-identity/shapes#> .
 @prefix sh: <http://www.w3.org/ns/shacl#> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
 @prefix owl: <http://www.w3.org/2002/07/owl#> .
-@prefix identity: <http://mee.foundation/ontologies/identity#> .
+@prefix identity: <http://mee.foundation/ontologies/pdn-identity#> .
 @prefix persona: <http://mee.foundation/ontologies/persona#> .
 @prefix g: <http://mee.foundation/ontologies/group#> .
 @prefix o: <http://mee.foundation/ontologies/organization#> .
 
-<http://mee.foundation/ontologies/identity/shapes> rdf:type owl:Ontology ;
-    owl:imports <http://mee.foundation/ontologies/identity> ;
-    owl:versionInfo "Version 1.0.2 - add HasIdentityDomainShape; fix PDNidentityShape to use sh:class"@en ;
-    rdfs:label "Identity Ontology SHACL Validation Shapes"@en ;
-    rdfs:comment """SHACL validation shapes for the Identity Ontology.
+<http://mee.foundation/ontologies/pdn-identity/shapes> rdf:type owl:Ontology ;
+    owl:imports <http://mee.foundation/ontologies/pdn-identity> ;
+    owl:versionInfo "Version 1.1.0 - rename to PDN Identity; rename hasIdentity to hasPDNidentifier"@en ;
+    rdfs:label "PDN Identity Ontology SHACL Validation Shapes"@en ;
+    rdfs:comment """SHACL validation shapes for the PDN Identity Ontology.
                     Validates that identity:Individual, identity:Group, and identity:Organization
                     instances are well-formed PDN identity nodes."""@en .
 
@@ -22,15 +22,15 @@
 #  PDN Identity
 #################################################################
 
-:HasIdentityDomainShape
+:HasPDNidentifierDomainShape
     a sh:NodeShape ;
-    sh:targetSubjectsOf identity:hasIdentity ;
+    sh:targetSubjectsOf identity:hasPDNidentifier ;
     sh:or (
         [ sh:class persona:Person ]
         [ sh:class g:Group ]
         [ sh:class o:Organization ]
     ) ;
-    sh:message "identity:hasIdentity may only be used by persona:Person, g:Group, or o:Organization individuals."@en .
+    sh:message "identity:hasPDNidentifier may only be used by persona:Person, g:Group, or o:Organization individuals."@en .
 
 
 #################################################################

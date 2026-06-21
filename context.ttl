@@ -1,5 +1,5 @@
 @prefix context: <http://mee.foundation/ontologies/context#> .
-@prefix identity: <http://mee.foundation/ontologies/identity#> .
+@prefix identity: <http://mee.foundation/ontologies/pdn-identity#> .
 @prefix owl: <http://www.w3.org/2002/07/owl#> .
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
@@ -10,8 +10,8 @@
 <http://mee.foundation/ontologies/context> rdf:type owl:Ontology ;
     owl:versionIRI <http://mee.foundation/ontologies/context/1.0.1> ;
     dc:date "2026-06-01"^^xsd:date ;
-    owl:imports <http://mee.foundation/ontologies/identity> ;
-    owl:versionInfo "Version 1.0.37 - fix stale 'Persona' → 'Person' in property comments"@en ;
+    owl:imports <http://mee.foundation/ontologies/pdn-identity> ;
+    owl:versionInfo "Version 1.0.38 - update import IRI to pdn-identity"@en ;
     rdfs:label "Context Ontology"@en ;
     rdfs:comment """Context Ontology for the Mee Identity Agent.
 
@@ -20,7 +20,7 @@
                     - assertedBy: the identity asserting the data (an identity:PDNidentity subclass)
                     - subject: whose identity the file describes (an identity:PDNidentity subclass)
 
-                    Peer of persona.ttl and identity.ttl; imported directly by each context file."""@en .
+                    Peer of persona.ttl and pdn-identity.ttl; imported directly by each context file."""@en .
 
 
 #################################################################

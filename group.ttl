@@ -1,5 +1,5 @@
 @prefix g: <http://mee.foundation/ontologies/group#> .
-@prefix identity: <http://mee.foundation/ontologies/identity#> .
+@prefix identity: <http://mee.foundation/ontologies/pdn-identity#> .
 @prefix cco: <https://purl.org/cco/> .
 @prefix owl: <http://www.w3.org/2002/07/owl#> .
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
@@ -10,14 +10,14 @@
 
 <http://mee.foundation/ontologies/group> rdf:type owl:Ontology ;
     owl:versionIRI <http://mee.foundation/ontologies/group/1.0.0> ;
-    owl:imports <http://mee.foundation/ontologies/identity> ;
+    owl:imports <http://mee.foundation/ontologies/pdn-identity> ;
     owl:imports <https://purl.org/cco/agent> ;
     dc:date "2026-06-12"^^xsd:date ;
-    owl:versionInfo "Version 1.0.3 - remove g:hasSocialNetwork; members linked directly via BFO_0000115"@en ;
+    owl:versionInfo "Version 1.0.4 - update import IRI to pdn-identity; rename hasIdentity to hasPDNidentifier"@en ;
     rdfs:label "Group Ontology"@en ;
     rdfs:comment """Group Ontology for the Mee Identity Agent.
                     Describes groups or communities that participate in the Personal Data Network.
-                    Peer of persona.ttl, context.ttl, identity.ttl, and organization.ttl."""@en .
+                    Peer of persona.ttl, context.ttl, pdn-identity.ttl, and organization.ttl."""@en .
 
 
 #################################################################
@@ -28,10 +28,10 @@ g:Group rdf:type owl:Class ;
     rdfs:subClassOf cco:ont00000300 ;  # CCO Group of Agents
     rdfs:subClassOf [
         rdf:type owl:Restriction ;
-        owl:onProperty identity:hasIdentity ;
+        owl:onProperty identity:hasPDNidentifier ;
         owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
         owl:onClass identity:Group
     ] ;
     rdfs:label "Group"@en ;
     rdfs:comment """A group or community of people that participates in the Personal Data Network.
-                    Must have at least one identity:hasIdentity value of type identity:Group."""@en .
+                    Must have at least one identity:hasPDNidentifier value of type identity:Group."""@en .

@@ -16,8 +16,8 @@
          uri="shacl/passport-shacl.ttl"/>
     <uri id="context"                  name="http://mee.foundation/ontologies/context"
          uri="context.ttl"/>
-    <uri id="identity"                 name="http://mee.foundation/ontologies/identity"
-         uri="identity.ttl"/>
+    <uri id="pdn-identity"             name="http://mee.foundation/ontologies/pdn-identity"
+         uri="pdn-identity.ttl"/>
     <uri id="group"                    name="http://mee.foundation/ontologies/group"
          uri="group.ttl"/>
     <uri id="organization"             name="http://mee.foundation/ontologies/organization"

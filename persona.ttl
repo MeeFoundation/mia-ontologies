@@ -1,6 +1,6 @@
 @prefix : <http://mee.foundation/ontologies/persona#> .
 @prefix p: <http://mee.foundation/ontologies/persona#> .
-@prefix identity: <http://mee.foundation/ontologies/identity#> .
+@prefix identity: <http://mee.foundation/ontologies/pdn-identity#> .
 @prefix cco: <https://purl.org/cco/> .
 @prefix owl: <http://www.w3.org/2002/07/owl#> .
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
@@ -16,10 +16,10 @@
     owl:imports <https://purl.org/cco/person> ;
     owl:imports <https://purl.org/cco/address> ;
     owl:imports <https://purl.org/cco/staging> ;
-    owl:imports <http://mee.foundation/ontologies/identity> ;
+    owl:imports <http://mee.foundation/ontologies/pdn-identity> ;
     owl:imports <http://mee.foundation/ontologies/persona-templates> ;
     dc:date "2026-06-15"^^xsd:date ;
-    owl:versionInfo "Version 4.0.1 - fix stale 'Persona' → 'Person' in property comments"@en ;
+    owl:versionInfo "Version 4.0.2 - update import IRI to pdn-identity"@en ;
     rdfs:label "Persona Ontology"@en ;
     rdfs:comment """Persona Ontology for the Mee Identity Agent.
 

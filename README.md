@@ -23,13 +23,13 @@ Throughout, we use these shorthands:
 - `p:` is shorthand for the `persona:` namespace (`http://mee.foundation/ontologies/persona#`)
 - `o:` for the `organization:` namespace (`http://mee.foundation/ontologies/organization#`).
 - `g:` for the `group:` namespace (`http://mee.foundation/ontologies/group#`)
-- `i:` for the `identity:` namespace (`http://mee.foundation/ontologies/identity#`)
+- `i:` for the `identity:` namespace (`http://mee.foundation/ontologies/pdn-identity#`)
 
 We first present an overview of the five ontologies and then illustrate them through a sample dataset for a hypothetical user, Alice Walker.
 
 ## Context Ontology
 
-A *context* is a container of information about a person related to their interactions with, or relationship to, another person, group or organization. This information is expressed as triples using the Persona, Organization or Group ontologies and stored in a **[DataBook](https://github.com/w3c-cg/holon/tree/main/architectures/databook)** (`.databook.md`) file. 
+A *context* is a container of information about a person related to their interactions with, or relationship to, another person, group or organization. This information is expressed as triples using the Persona, Organization, Group and Indentity ontologies and stored in a **[DataBook](https://github.com/w3c-cg/holon/tree/main/architectures/databook)** (`.databook.md`) file. 
 
 The description of the context container itself is carried in the DataBook's YAML frontmatter under the `mia:` key. The context ontology (`context.ttl`) defines the controlled vocabularies that those YAML fields reference:
 
@@ -102,7 +102,7 @@ This section describes the most fundamental properties and classes in the Person
 
 **Properties**
 
-* `i:hasIdentity` — links a `persona:Person` to a `i:PDNidentity` — the identifier used to communicate with this Person over the Personal Data Network. Sub-property of CCO `designated by`.
+* `i:hasPDNidentifier` — links a `persona:Person` to a `i:PDNidentity` — the identifier used to communicate with this Person over the Personal Data Network. Sub-property of CCO `designated by`.
 
 
 ### Social classes and properties 
@@ -296,11 +296,11 @@ The Organization ontology models organizations — companies, government agencie
 
 ### Organization Ontology File
 
-- **`organization.ttl`** — The Organization ontology. Imports `identity.ttl`.
+- **`organization.ttl`** — The Organization ontology. Imports `pdn-identity.ttl`.
 
 ### Validation
 
-`organization-shacl.ttl` validates `o:Organization` instances. Key constraint: each `o:Organization` must have exactly one `i:hasIdentity` value of type `i:Organization`.
+`organization-shacl.ttl` validates `o:Organization` instances. Key constraint: each `o:Organization` must have exactly one `i:hasPDNidentifier` value of type `i:Organization`.
 
 ## Group Ontology
 
@@ -314,13 +314,13 @@ The Group ontology introduces the concept of a *shared* group (`g:Group`) whose 
 
 ### Group Ontology File
 
-- **`group.ttl`** — The Group ontology. Imports `identity.ttl`.
+- **`group.ttl`** — The Group ontology. Imports `pdn-identity.ttl`.
 
 ### Validation
 
-`group-shacl.ttl` validates `g:Group` instances. Key constraint: each `g:Group` must have exactly one `i:hasIdentity` value of type `i:Group`.
+`group-shacl.ttl` validates `g:Group` instances. Key constraint: each `g:Group` must have exactly one `i:hasPDNidentifier` value of type `i:Group`.
 
-## Identity Ontology
+## PDN Identity Ontology
 
 The Identity ontology is used to describe the kinds of identities that Mia can communicate with over the internet using Personal Data Network protocols. The root class, `i:PDNidentity`, has three subclasses:
 
@@ -336,13 +336,13 @@ The Identity ontology is used to describe the kinds of identities that Mia can c
 
 * `i:Self` — a singleton individual of `i:Individual` representing the current Mia user's PDN identity. The corresponding `p:Person` individual `:Self` is what appears in `mia.assertedBy` and `mia.subject` fields. Every other Mia user is represented by a locally-assigned named individual of `i:Individual`.
 
-### Identity Ontology File
+### PDN Identity Ontology File
 
-- **`identity.ttl`** — The Identity ontology. 
+- **`pdn-identity.ttl`** — The PDN Identity ontology. 
 
 ### Validation
 
-`identity-shacl.ttl` validates `i:PDNidentity` instances. Key constraint: each instance must be typed as exactly one of `i:Individual`, `i:Group`, or `i:Organization`.
+`pdn-identity-shacl.ttl` validates `i:PDNidentity` instances. Key constraint: each instance must be typed as exactly one of `i:Individual`, `i:Group`, or `i:Organization`.
 
 ## Illustrative Example: Alice 
 
@@ -467,7 +467,7 @@ riot --output=turtle \
   project_files/AddressOntology.ttl \
   project_files/StagingOntology.ttl \
   persona.ttl persona-templates.ttl context.ttl \
-  identity.ttl group.ttl organization.ttl \
+  pdn-identity.ttl group.ttl organization.ttl \
   /tmp/mia-data.ttl \
   2>/dev/null > /tmp/mia-merged.ttl
 
@@ -492,7 +492,7 @@ riot --output=turtle \
   project_files/AddressOntology.ttl \
   project_files/StagingOntology.ttl \
   persona.ttl persona-templates.ttl context.ttl \
-  identity.ttl group.ttl organization.ttl \
+  pdn-identity.ttl group.ttl organization.ttl \
   2>/dev/null > /tmp/mia-base.ttl
 
 # BirthCertificate — 13-alice(tx-birth-cert)alice.databook.md

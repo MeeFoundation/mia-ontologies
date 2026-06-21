@@ -16,8 +16,8 @@
          uri="file:/Users/paul/Documents/Work/GitHub/mia-ontologies/shacl/passport-shacl.ttl"/>
     <uri id="context"                  name="http://mee.foundation/ontologies/context"
          uri="file:/Users/paul/Documents/Work/GitHub/mia-ontologies/context.ttl"/>
-    <uri id="identity"                 name="http://mee.foundation/ontologies/identity"
-         uri="file:/Users/paul/Documents/Work/GitHub/mia-ontologies/identity.ttl"/>
+    <uri id="pdn-identity"             name="http://mee.foundation/ontologies/pdn-identity"
+         uri="file:/Users/paul/Documents/Work/GitHub/mia-ontologies/pdn-identity.ttl"/>
     <uri id="group"                    name="http://mee.foundation/ontologies/group"
          uri="file:/Users/paul/Documents/Work/GitHub/mia-ontologies/group.ttl"/>
     <uri id="organization"             name="http://mee.foundation/ontologies/organization"
