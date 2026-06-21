@@ -3,21 +3,19 @@
 This document describes the ontologies used by the Mee Identity Agent (Mia) software application. 
 Each Mia lives within the Personal Data Network (PDN), a data-sharing network with three kinds of participants: individual Mia users, groups of Mia users and/or organizations, and organizations (government agencies, companies, and nonprofits).
 
-Mia ontologies import and profile existing ontologies — documenting which of their classes and properties Mia requires or uses — and extending them with Mia-specific classes and properties. They are built on BFO (Basic Formal Ontology) and CCO (Common Core Ontologies) as the upper ontological foundation, and on domain ontologies that extend CCO:
-- **PersonOntology** — person, name types, parent-child relationships
-- **AddressOntology** — postal address structure
-- **StagingOntology** — staging area for terms pending promotion (phone numbers, email addresses, user accounts, etc.)
-- **AgentOntology** — agents and their properties (imported transitively via PersonOntology)
+Mia ontologies import and profile existing ontologies — documenting which of their classes and properties Mia requires or uses — and extending them with Mia-specific classes and properties. 
 
 The **Context ontology** is the organizing framework: it defines the controlled vocabularies that classify every context file — what kind of interaction it captures, who asserted the data, and whose identity it describes.
 
-The two **domain ontologies** each model a distinct kind of PDN node:
-- **Persona ontology** — models a real person's identity data: names, addresses, phone numbers, relationships, payment cards, and more, structured around context-specific *personas*.
-- **Organization ontology** — models organizations (companies, government agencies, non-profits, etc.) on the PDN.
-
-The remaining two are **supporting ontologies**:
+The three **domain ontologies** model people, organizations and groups:
+- **Persona ontology** — models a person: names, addresses, phone numbers, relationships, payment cards, and more. It is built on BFO (Basic Formal Ontology) and CCO (Common Core Ontologies) as the upper ontological foundation, and on domain ontologies that extend CCO:
+  - **PersonOntology** — person, name types, parent-child relationships
+  - **AddressOntology** — postal address structure
+  - **StagingOntology** — staging area for terms pending promotion (phone numbers, email addresses, user accounts, etc.)
+  - **AgentOntology** — agents and their properties (imported transitively via PersonOntology)
+- **Organization ontology** — models organizations (companies, government agencies, non-profits, etc.) 
 - **Group ontology** — a group made up of individuals and/or organizations.
-- **Identity ontology** — types of PDN network identifiers.
+- **Identity ontology** — types of PDN network identifiers used by people, organizations or groups. 
 
 Throughout, we use these shorthands:
 - `p:` is shorthand for the `persona:` namespace (`http://mee.foundation/ontologies/persona#`)
@@ -30,7 +28,7 @@ We first present an overview of the five ontologies and then illustrate them thr
 
 ## Context Ontology
 
-A *context* is a container of information about a person related to their interactions with, or relationship to another person, group or organization. This information is expressed as triples using the Persona ontology stored in a **[DataBook](https://github.com/w3c-cg/holon/tree/main/architectures/databook)** (`.databook.md`) file. 
+A *context* is a container of information about a person related to their interactions with, or relationship to another person, group or organization. This information is expressed as triples using the Persona, Organization or Group ontologies and stored in a **[DataBook](https://github.com/w3c-cg/holon/tree/main/architectures/databook)** (`.databook.md`) file. 
 
 The description of the context container itself is carried in the DataBook's YAML frontmatter under the `mia:` key. The context ontology (`context.ttl`) defines the controlled vocabularies that those YAML fields reference:
 
