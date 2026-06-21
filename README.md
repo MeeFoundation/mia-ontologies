@@ -102,7 +102,7 @@ This section describes the most fundamental properties and classes in the Person
 
 **Properties**
 
-* `i:hasPDNidentifier` — links a `persona:Person` to a `i:PDNidentity` — the identifier used to communicate with this Person over the Personal Data Network. Sub-property of CCO `designated by`.
+* `i:hasPDNidentifier` — links a `persona:Person` to a `i:PDNidentifier` — the identifier used to communicate with this Person over the Personal Data Network. Sub-property of CCO `designated by`.
 
 
 ### Social classes and properties 
@@ -322,7 +322,7 @@ The Group ontology introduces the concept of a *shared* group (`g:Group`) whose 
 
 ## PDN Identity Ontology
 
-The Identity ontology is used to describe the kinds of identities that Mia can communicate with over the internet using Personal Data Network protocols. The root class, `i:PDNidentity`, has three subclasses:
+The Identity ontology is used to describe the kinds of identities that Mia can communicate with over the internet using Personal Data Network protocols. The root class, `i:PDNidentifier`, has three subclasses:
 
 <p align="center"><img src="images/identity-ontology/identity.png" alt="types of MeeIdentities"></p>
 
@@ -342,7 +342,7 @@ The Identity ontology is used to describe the kinds of identities that Mia can c
 
 ### Validation
 
-`pdn-identity-shacl.ttl` validates `i:PDNidentity` instances. Key constraint: each instance must be typed as exactly one of `i:Individual`, `i:Group`, or `i:Organization`.
+`pdn-identity-shacl.ttl` validates `i:PDNidentifier` instances. Key constraint: each instance must be typed as exactly one of `i:Individual`, `i:Group`, or `i:Organization`.
 
 ## Illustrative Example: Alice 
 

@@ -11,7 +11,7 @@
 
 <http://mee.foundation/ontologies/pdn-identity/shapes> rdf:type owl:Ontology ;
     owl:imports <http://mee.foundation/ontologies/pdn-identity> ;
-    owl:versionInfo "Version 1.1.0 - rename to PDN Identity; rename hasIdentity to hasPDNidentifier"@en ;
+    owl:versionInfo "Version 1.1.1 - rename PDNidentity to PDNidentifier"@en ;
     rdfs:label "PDN Identity Ontology SHACL Validation Shapes"@en ;
     rdfs:comment """SHACL validation shapes for the PDN Identity Ontology.
                     Validates that identity:Individual, identity:Group, and identity:Organization
@@ -37,13 +37,13 @@
 #  PDN Identity
 #################################################################
 
-:PDNidentityShape
+:PDNidentifierShape
     a sh:NodeShape ;
-    sh:targetClass identity:PDNidentity ;
-    sh:message "PDNidentity validation: must be typed as one of the known identity subclasses."@en ;
+    sh:targetClass identity:PDNidentifier ;
+    sh:message "PDNidentifier validation: must be typed as one of the known identity subclasses."@en ;
     sh:or (
         [ sh:class identity:Individual ]
         [ sh:class identity:Group ]
         [ sh:class identity:Organization ]
     ) ;
-    sh:message "A PDNidentity must be typed as identity:Individual, identity:Group, or identity:Organization."@en .
+    sh:message "A PDNidentifier must be typed as identity:Individual, identity:Group, or identity:Organization."@en .

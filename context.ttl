@@ -11,14 +11,14 @@
     owl:versionIRI <http://mee.foundation/ontologies/context/1.0.1> ;
     dc:date "2026-06-01"^^xsd:date ;
     owl:imports <http://mee.foundation/ontologies/pdn-identity> ;
-    owl:versionInfo "Version 1.0.38 - update import IRI to pdn-identity"@en ;
+    owl:versionInfo "Version 1.0.39 - rename PDNidentity to PDNidentifier"@en ;
     rdfs:label "Context Ontology"@en ;
     rdfs:comment """Context Ontology for the Mee Identity Agent.
 
                     Defines controlled vocabularies for classifying context ontology files:
                     - contextCategory: the kind of relationship a context file represents
-                    - assertedBy: the identity asserting the data (an identity:PDNidentity subclass)
-                    - subject: whose identity the file describes (an identity:PDNidentity subclass)
+                    - assertedBy: the identity asserting the data (an identity:PDNidentifier subclass)
+                    - subject: whose identity the file describes (an identity:PDNidentifier subclass)
 
                     Peer of persona.ttl and pdn-identity.ttl; imported directly by each context file."""@en .
 
@@ -38,18 +38,18 @@ context:contextCategory rdf:type owl:AnnotationProperty ;
 context:assertedBy rdf:type owl:AnnotationProperty ;
     rdfs:label "asserted by"@en ;
     rdfs:comment """Tags a context ontology (file) with the individual identity making the assertion —
-                    an individual of identity:PDNidentity (e.g. identity:Self, identity:Organization).
+                    an individual of identity:PDNidentifier (e.g. identity:Self, identity:Organization).
                     Applied to the ontology IRI, not to the Person individual."""@en ;
     rdfs:domain owl:Ontology ;
-    rdfs:range identity:PDNidentity .
+    rdfs:range identity:PDNidentifier .
 
 context:subject rdf:type owl:AnnotationProperty ;
     rdfs:label "subject"@en ;
     rdfs:comment """Tags a context ontology (file) with whose identity it describes —
-                    an individual of identity:PDNidentity (e.g. identity:Self, or a named individual of identity:Individual).
+                    an individual of identity:PDNidentifier (e.g. identity:Self, or a named individual of identity:Individual).
                     Applied to the ontology IRI, not to the Person individual."""@en ;
     rdfs:domain owl:Ontology ;
-    rdfs:range identity:PDNidentity .
+    rdfs:range identity:PDNidentifier .
 
 context:name rdf:type owl:AnnotationProperty ;
     rdfs:label "name"@en ;
