@@ -28,7 +28,6 @@ There are no build, compile, test, or lint commands. The files are Turtle (`.ttl
 
 | File | Purpose |
 |------|---------|
-| `example/alice(self)alice.databook.md` | Alice Walker's selfness — central Person instance; physical characteristics |
 | `example/01-paula(acme)alice.databook.md` | Paula Walker as Alice's Acme colleague — asserted by Alice |
 | `example/02-paula(familymember)alice.databook.md` | Paula Walker as Alice's family member — name and relationship; asserted by Alice |
 | `example/03-paula(familymember)paula.databook.md` | Paula Walker in family context — self-asserted; dyad with 02 |
@@ -63,7 +62,6 @@ Triplestore (Fuseki) — loads all DataBook files directly:
   │   ├─ PersonOntology.ttl
   │   ├─ AddressOntology.ttl
   │   └─ StagingOntology.ttl → BFO terms
-  ├─ example/alice(self)alice.databook.md
   ├─ example/01-paula(acme)alice.databook.md
   ├─ example/02-paula(familymember)alice.databook.md
   ├─ … (all numbered context DataBooks)
@@ -91,7 +89,7 @@ Context filenames follow a single flat pattern:
 
 | Segment | Meaning |
 |---------|---------|
-| `NN-` | Zero-padded two-digit diagram label number; omitted for files that have no diagram circle. Selfness files (`<X>(self)<X>.ttl`) never carry a prefix. |
+| `NN-` | Zero-padded two-digit diagram label number; omitted for files that have no diagram circle. |
 | `<about>` | The entity the Persona is about (e.g. `alice`, `bob`, `paula`, `bhs`). |
 | `(<context-name>)` | Lowercase name identifying the context or relationship. For named-entity contexts (a specific company, person, place, or group), use the entity's own name (e.g. `(citibank)`, `(bhs)`, `(bob)`). For categorical contexts, use the lowercase local name of the `c:contextCategory` (e.g. `(familymember)` for `context:FamilyMember`, `(employee)` for `context:Employee`). |
 | `<asserted-by>` | Who asserted the data — a real entity identifier (e.g. `alice`, `bob`, `paula`) or the literal `members` for `c:Group` contexts where any permitted member may write. |
@@ -119,7 +117,7 @@ The parent-context hierarchy (which context is a child of which) is expressed vi
 
 ### Key Architectural Patterns
 
-**Selfness and Personas**: A Person's selfness (`alice(self)alice.ttl`) is the central identity individual. It carries only properties intrinsic to the person (physical characteristics). All other data — names, identifiers, addresses, payment cards — belongs to context-specific Personas, each in its own file.
+**All data belongs to contexts**: There is no separate selfness file. Every piece of identity data — names, identifiers, addresses, payment cards, physical characteristics — belongs to a context-specific Persona file. The Mia user's `persona:Person` individual (IRI `:Self`) is declared in each context file; there is no single root file that owns the declaration.
 
 **`:Self` IRI convention**: The Mia user's own `persona:Person` individual always uses the IRI `:Self` across all of their context files. All other people, groups, and organizations are assigned locally-minted named IRIs (e.g. `:Bob_Johnson`, `:Paula_Walker`, `:BHS`). `:Self` is a local IRI and is never exposed externally over the PDN, so there are no collisions between Mia instances. All context files in the example live in Alice's Mia — some authored by Alice, others received from peers over PDN. In either case, `:Self` refers to Alice. When data arrives from a peer's Mia (where that peer was `:Self` in their own instance), Alice's Mia assigns them a locally-minted identifier; once a PDN connection is established, that identifier resolves to or is replaced by their PDN ID.
 
@@ -145,7 +143,7 @@ Classes and properties use numeric IRIs. The most common:
 
 ## Versioning
 
-Before committing any change to `alice(self)alice.ttl`, any context file, `persona.ttl`, `context.ttl`, or `persona-shacl.ttl`, increment the **minor version number** in that file's `owl:versionInfo` annotation and update the description to summarise the change. For example:
+Before committing any change to any context file, `persona.ttl`, `context.ttl`, or `persona-shacl.ttl`, increment the **minor version number** in that file's `owl:versionInfo` annotation and update the description to summarise the change. For example:
 
 ```
 owl:versionInfo "Version 3.0.3 - added social network"@en
@@ -179,9 +177,9 @@ After any change to context files or the context map diagram, verify the followi
 
 **Check 8 — Validation command completeness**: The `## Validation` section of `README.md` must document two tiers. Tier 1 uses four steps: (1) a `find example -name "*.databook.md"` loop using `databook extract` to extract turtle content and produce a merged turtle file of all context data (excluding `under-development/`); (2) a `riot` merge of that data with all application ontology TTL files and the foundation ontologies listed explicitly from `project_files/`; (3) a `grep -v owl:imports` on `persona-shacl.ttl` to collect shapes (the `shacl/` per-template files are excluded here — they target `persona:Person` and would fire incorrectly on all individuals when applied to merged data); (4) a `shacl validate` call. Tier 2 lists explicit per-file `databook extract` + `riot` + `shacl validate` commands for each template context file paired with its `shacl/*-shacl.ttl` file. If the commands change, update the README to match.
 
-**Check 9 — PNG file location**: The diagram PNG for every context file and selfness file must be stored directly in `example/images/` (flat, no subfolders — not `images/example/`). Files in `under-development/` are excluded.
+**Check 9 — PNG file location**: The diagram PNG for every context file must be stored directly in `example/images/` (flat, no subfolders — not `images/example/`). Files in `under-development/` are excluded.
 
-**Check 10 — PNG filename convention**: Every diagram PNG in `example/images/` must use the same base filename as the corresponding `.ttl` file in `example/`, with `.png` substituted for `.ttl` (including the `NN-` numeric prefix where present). For example, `07-alice(bhs)alice.ttl` → `07-alice(bhs)alice.png`; `alice(self)alice.ttl` → `alice(self)alice.png`. If the PNG does not yet exist, the README Diagram cell must be marked `*(todo)*` rather than left blank.
+**Check 10 — PNG filename convention**: Every diagram PNG in `example/images/` must use the same base filename as the corresponding `.databook.md` file in `example/`, with `.png` substituted for `.databook.md` (including the `NN-` numeric prefix where present). For example, `07-alice(bhs)alice.databook.md` → `07-alice(bhs)alice.png`. If the PNG does not yet exist, the README Diagram cell must be marked `*(todo)*` rather than left blank.
 
 **Check 11 — No broken image links in README**: Every PNG path referenced in `README.md` (both `<img src="...">` tags and `[view](...)` table links) must resolve to an actual file on disk. Run:
 
@@ -195,9 +193,9 @@ If any `MISSING:` lines appear, either add the file or update the link.
 
 ## Keeping Files in Sync
 
-Whenever changes are made to `alice(self)alice.ttl`, any context file, `persona.ttl`, or `context.ttl`, `persona-shacl.ttl` must be updated to match:
+Whenever changes are made to any context file, `persona.ttl`, or `context.ttl`, `persona-shacl.ttl` must be updated to match:
 
-- **New property usage in a context file or `alice(self)alice.ttl`** (e.g., a new physical characteristic, relationship, or identifier added to a Person or Persona instance) → add or extend a SHACL shape to validate that property on the relevant target class.
+- **New property usage in a context file** (e.g., a new physical characteristic, relationship, or identifier added to a Person or Persona instance) → add or extend a SHACL shape to validate that property on the relevant target class.
 - **New class or property defined in `persona.ttl`** (e.g., `persona:hasSocialNetwork`) → add a SHACL shape that constrains how instances of the domain class may or must use it.
 
 Always update `persona-shacl.ttl` in the same edit session as the change that triggers it.
@@ -206,7 +204,7 @@ Always update `persona-shacl.ttl` in the same edit session as the change that tr
 
 **SHACL validation** (e.g., using Apache Jena's `shaclvalidate`):
 ```bash
-shaclvalidate -datafile example/alice/alice(self)alice.ttl -shapesfile persona-shacl.ttl
+shaclvalidate -datafile example/07-alice(bhs)alice.databook.md -shapesfile persona-shacl.ttl
 ```
 
 **Protégé**: Load `persona.ttl`; Protégé will import the domain ontologies via IRI resolution. Use the reasoner (HermiT/Pellet) to check consistency.

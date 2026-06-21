@@ -2,7 +2,7 @@
 id: http://www.example.org/mia/alice(acme)alice
 title: "Alice Walker — Acme"
 type: databook
-version: 2.0.2
+version: 2.0.3
 created: 2026-06-12
 description: >
   Alice Walker's Acme employment context. Records her work email address and her
@@ -45,6 +45,11 @@ This context captures Alice Walker's employee identity at Acme. It records her w
                persona:Person ;
     rdfs:label "Alice Walker (Acme)"@en ;
     rdfs:comment "Alice Walker's persona in the context of her employment at Acme."@en ;
+
+    <https://purl.org/cco/ont00001879> [  # designated by → AlternateName
+        rdf:type cco:ent00000006 ;  # AlternateName
+        <https://purl.org/cco/ont00001765> "Alice Walker"
+    ] ;
 
     <https://purl.org/cco/ont00001879> [  # designated by → Email
         rdf:type cco:ent00000024 ;  # Email

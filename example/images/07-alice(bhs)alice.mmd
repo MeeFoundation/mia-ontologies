@@ -12,20 +12,22 @@ flowchart TD
     end
 
     nbb363374209c[":Address_BHS\n(PostalAddress)"]
-    nbf736c769407("123 Sleepy Hollow"):::lit
-    n132d3da60468("Paradise"):::lit
-    n9def419512cd("CA"):::lit
-    n6bfe59c156bc("95969"):::lit
-    nf5717395a543("USA"):::lit
+    n9a8407384b38("123 Sleepy Hollow"):::lit
+    n8e9fb43a082a("Paradise"):::lit
+    n6ef2b8b91190("CA"):::lit
+    n7258f63daee7("95969"):::lit
+    n53b58b8eecd8("USA"):::lit
     ne0c3ba92f1db[":Self\n(Person)"]:::person
-    ne7aa6e4767cd("+15108149999"):::lit
-    nb7fc7c381aa6("awalker@gmail.com"):::lit
+    n8c37b8ddbd90("Alice Walker"):::lit
+    nd3465121de0d("+15108149999"):::lit
+    n9fa144afec06("awalker@gmail.com"):::lit
 
-    nbb363374209c -->|"StreetAddress"| nbf736c769407
-    nbb363374209c -->|"CityName"| n132d3da60468
-    nbb363374209c -->|"StateName"| n9def419512cd
-    nbb363374209c -->|"PostalCode"| n6bfe59c156bc
-    nbb363374209c -->|"CountryName"| nf5717395a543
+    nbb363374209c -->|"StreetAddress"| n9a8407384b38
+    nbb363374209c -->|"CityName"| n8e9fb43a082a
+    nbb363374209c -->|"StateName"| n6ef2b8b91190
+    nbb363374209c -->|"PostalCode"| n7258f63daee7
+    nbb363374209c -->|"CountryName"| n53b58b8eecd8
+    ne0c3ba92f1db -->|"AlternateName"| n8c37b8ddbd90
     ne0c3ba92f1db -->|"designated by"| nbb363374209c
-    ne0c3ba92f1db -->|"TelephoneNumber"| ne7aa6e4767cd
-    ne0c3ba92f1db -->|"EmailAddress"| nb7fc7c381aa6
+    ne0c3ba92f1db -->|"TelephoneNumber"| nd3465121de0d
+    ne0c3ba92f1db -->|"EmailAddress"| n9fa144afec06

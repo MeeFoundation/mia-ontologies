@@ -117,7 +117,7 @@ This section describes properties and classes related to a person's interactions
 
 This section describes a few details related to modeling names and addresses.
 
-**Peer name pattern**: All name types (FullName, GivenName, FamilyName, AlternateName) connect directly to a `persona:Person` via `designated by` (`ont00001879`). They are siblings, not nested under a PersonName parent. Legal names belong to the birth certificate context file (annotated `c:template persona:BirthCertificate`); a preferred/goes-by name lives in `alice(self)alice.databook.md` since it applies across all contexts.
+**Peer name pattern**: All name types (FullName, GivenName, FamilyName, AlternateName) connect directly to a `persona:Person` via `designated by` (`ont00001879`). They are siblings, not nested under a PersonName parent. Legal names belong to the birth certificate context file (annotated `c:template persona:BirthCertificate`); a preferred/goes-by name (AlternateName) belongs to each social or professional context where it applies.
 
 **Address history**: Each address context file carries a `persona:Person` with a USPostalAddress and an `AddressDesignation` with a `TemporalInterval` (start date required; no end date = current address).
 
@@ -346,15 +346,13 @@ The Identity ontology is used to describe the kinds of identities that Mia can c
 
 ## Illustrative Example: Alice 
 
-This section describes the local Mia dataset for a hypothetical user, Alice Walker. Within Alice's self context, `alice(self)alice.databook.md`, is `:Self`, a `persona:Person` individual carrying her preferred name and maternal relationship. Physical body characteristics (height, eye color, hair color) live in the separate `24-alice(health)alice` context.
-
-<p align="center"><img src="example/images/alice(self)alice.png" alt="Alice's selfness diagram"></p>
+This section describes the local Mia dataset for a hypothetical user, Alice Walker. All of Alice's identity data lives in context-specific files — there is no separate selfness file. The IRI `:Self` identifies her `persona:Person` individual across all of her context files.
 
 ### Alice's Contexts
 
 Alice interacts with other people, organizations and groups in contexts of different types, with each context file holding a named-graph slice of her identity.
 
-The same IRI, `:Self`, is used in all contexts about Alice — each file is a named-graph describing her in a specific context. The self context (`example/alice(self)alice.databook.md`) is loaded into the triplestore alongside all of Alice's other context files.
+The same IRI, `:Self`, is used in all contexts about Alice — each file is a named-graph describing her in a specific context. All context files are loaded into the triplestore together.
 
 
 All context files reside in Alice's Mia. Some are authored by Alice (self-asserted data she entered directly); others are data received from peers over PDN and stored locally. In either case, Alice is the Mia user, so her `persona:Person` individual uses the IRI `:Self` across all of her context files. Other people — Bob Johnson, Paula Walker — and groups such as BHS use locally-assigned named IRIs (e.g. `:Bob_Johnson`, `:Paula_Walker`, `:BHS`). When data arrives from a peer's Mia (where that peer was `:Self` in their own instance), Alice's Mia assigns them a locally-minted identifier; once a PDN connection is established, that identifier resolves to their PDN ID.

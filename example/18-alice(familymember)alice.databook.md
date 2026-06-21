@@ -2,7 +2,7 @@
 id: http://www.example.org/mia/alice(familymember)alice
 title: "Alice Walker — Family"
 type: databook
-version: 2.0.4
+version: 2.0.5
 created: 2026-06-01
 description: >
   Alice Walker's family context. Records her maternal relationship with Paula Walker
@@ -45,6 +45,11 @@ This context captures Alice Walker's family relationships. It records her matern
                persona:Person ;
     rdfs:label "Alice Walker (Family)"@en ;
     rdfs:comment "Alice Walker's persona in the context of her family relationships."@en ;
+
+    <https://purl.org/cco/ont00001879> [  # designated by → AlternateName
+        rdf:type cco:ent00000006 ;  # AlternateName
+        <https://purl.org/cco/ont00001765> "Alice Walker"
+    ] ;
 
     cco:ont00001780 :Paula_Walker ;  # has mother
 

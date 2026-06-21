@@ -2,7 +2,7 @@
 id: http://www.example.org/mia/alice(bob)alice
 title: "Alice Walker — Bob context (Alice's view)"
 type: databook
-version: 2.0.2
+version: 2.0.3
 created: 2026-06-12
 description: >
   Alice Walker's self-asserted persona in the context of her 1:1 relationship with Bob Johnson.
@@ -47,6 +47,11 @@ This context captures Alice Walker's self-asserted persona in her 1:1 relationsh
                persona:Person ;
     rdfs:label "Alice Walker (Bob)"@en ;
     rdfs:comment "Alice Walker's persona in the context of her 1:1 relationship with Bob."@en ;
+
+    <https://purl.org/cco/ont00001879> [  # designated by → AlternateName
+        rdf:type cco:ent00000006 ;  # AlternateName
+        <https://purl.org/cco/ont00001765> "Alice Walker"
+    ] ;
 
     <https://purl.org/cco/ont00001879> [  # designated by → GivenName
         rdf:type cco:ent00000002 ;  # GivenName

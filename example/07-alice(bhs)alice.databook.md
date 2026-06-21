@@ -2,7 +2,7 @@
 id: http://www.example.org/mia/alice(bhs)alice
 title: "Alice Walker — Boston Hub Society Profile"
 type: databook
-version: 2.0.2
+version: 2.0.3
 created: 2026-06-11
 description: >
   Alice Walker's self-asserted BHS profile, including her current address, phone number,
@@ -45,6 +45,11 @@ This context captures Alice Walker's BHS profile — the identity data she share
                persona:Person ;
     rdfs:label "Alice Walker (BHS)"@en ;
     rdfs:comment "Alice Walker's persona in the context of her BHS group (aka her BHS profile)."@en ;
+
+    <https://purl.org/cco/ont00001879> [  # designated by → AlternateName
+        rdf:type cco:ent00000006 ;  # AlternateName
+        <https://purl.org/cco/ont00001765> "Alice Walker"
+    ] ;
 
     <https://purl.org/cco/ont00001879> :Address_BHS ;  # designated by → current address
 
