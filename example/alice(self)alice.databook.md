@@ -2,12 +2,12 @@
 id: http://www.example.org/mia
 title: "Alice Walker — Selfness"
 type: databook
-version: 4.0.4
+version: 4.0.5
 created: 2026-06-19
 description: >
-  Alice Walker's selfness — the central identity individual. Records physical
-  characteristics intrinsic to Alice (height, eye color, hair color) and her
-  maternal relationship to Paula Walker.
+  Alice Walker's selfness — the central identity individual. Records her preferred
+  name (Alice Walker) and her maternal relationship to Paula Walker. Physical body
+  characteristics have moved to 24-alice(health)alice.
 mia:
   name: "Alice Walker"
   assertedBy: ":Self"
@@ -27,7 +27,7 @@ process:
 
 ## Overview
 
-This context captures Alice Walker's selfness — the central identity individual for Alice's Mia instance. It holds only properties intrinsic to Alice as a person: physical characteristics and family relationships. All other identity data (names, addresses, identifiers, payment cards, etc.) belongs to context-specific personas in the numbered context files. Alice's `persona:Person` individual always uses the IRI `:Self` across all of her context files.
+This context captures Alice Walker's selfness — the central identity individual for Alice's Mia instance. It holds Alice's preferred name (the name she goes by across all contexts) and her maternal family relationship. Physical body characteristics (height, eye color, hair color) have moved to `24-alice(health)alice`. All other identity data (addresses, identifiers, payment cards, etc.) belongs to context-specific personas in the numbered context files. Alice's `persona:Person` individual always uses the IRI `:Self` across all of her context files.
 
 ## Identity Data
 
@@ -54,37 +54,7 @@ This context captures Alice Walker's selfness — the central identity individua
         rdfs:comment "Name she goes by professionally and socially"@en
     ] ;
 
-    # PHYSICAL CHARACTERISTICS
-
-    <http://purl.obolibrary.org/obo/BFO_0000196> :Alice_Height ;
-    <http://purl.obolibrary.org/obo/BFO_0000196> :Alice_Height_Measurement ;
-
-    <http://purl.obolibrary.org/obo/BFO_0000196> [  # bearer of → Eye Color
-        rdf:type cco:ent00000040 ;  # Blue Eye Color
-        rdfs:comment "Eye color: Blue"@en
-    ] ;
-
-    <http://purl.obolibrary.org/obo/BFO_0000178> [  # has continuant part → Scalp Hair
-        rdf:type cco:ont00000058 ;  # Scalp Hair
-        <http://purl.obolibrary.org/obo/BFO_0000196> [  # bearer of → Hair Color
-            rdf:type cco:ont00000026 ;  # Hair Color
-            <https://purl.org/cco/ont00001765> "Grey" ;
-            rdfs:comment "Hair color: Grey"@en
-        ]
-    ] ;
-
     # FAMILY RELATIONSHIPS
 
     cco:ont00001780 :Paula_Walker .  # has mother
-
-
-:Alice_Height rdf:type owl:NamedIndividual ,
-                       <https://purl.org/cco/ont00000967> ;  # Height (CCO Quality)
-    rdfs:label "Alice Walker's height"@en .
-
-:Alice_Height_Measurement rdf:type owl:NamedIndividual ,
-                                   <https://purl.org/cco/ont00001022> ;  # Ratio Measurement ICE
-    <https://purl.org/cco/ont00001983> :Alice_Height ;
-    <https://purl.org/cco/ont00001863> <https://purl.org/cco/ont00001677> ;  # uses measurement unit: Inch
-    <https://purl.org/cco/ont00001769> "68"^^xsd:decimal .  # has decimal value
 ```

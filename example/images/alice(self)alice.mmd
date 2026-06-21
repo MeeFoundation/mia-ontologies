@@ -10,24 +10,9 @@ flowchart TD
         ctx_meta["name: Alice Walker\nassertedBy: :Self\nsubject: :Self"]:::meta
     end
 
-    n5fecfaaf895f[":Alice_Height\n(Height)"]
-    n89a1fac192dc[":Alice_Height_Measurement\n(RatioMeasurementICE)"]
-    n07bac97f4199("Inch"):::lit
-    nb51e42161d31("68"):::lit
     ne0c3ba92f1db[":Self\n(Person)"]:::person
-    nf1aea791f01e("Alice Walker"):::lit
-    n86e9a9485553{"BlueEyeColor"}
-    nfe100daaf785{"ScalpHair"}
-    nf5806dd62b8a("Grey"):::lit
+    nc52247c0339b("Alice Walker"):::lit
     nb654756d5ced[":Paula_Walker"]
 
-    n89a1fac192dc -->|"isRatioMeasurementOf"| n5fecfaaf895f
-    n89a1fac192dc -->|"usesMeasurementUnit"| n07bac97f4199
-    n89a1fac192dc -->|"hasDecimalValue"| nb51e42161d31
-    ne0c3ba92f1db -->|"AlternateName"| nf1aea791f01e
-    ne0c3ba92f1db -->|"bearerOf"| n5fecfaaf895f
-    ne0c3ba92f1db -->|"bearerOf"| n89a1fac192dc
-    ne0c3ba92f1db -->|"bearerOf"| n86e9a9485553
-    ne0c3ba92f1db -->|"hasContinuantPart"| nfe100daaf785
-    nfe100daaf785 -->|"HairColor"| nf5806dd62b8a
+    ne0c3ba92f1db -->|"AlternateName"| nc52247c0339b
     ne0c3ba92f1db -->|"hasMother"| nb654756d5ced

@@ -346,9 +346,9 @@ The Identity ontology is used to describe the kinds of identities that Mia can c
 
 ## Illustrative Example: Alice 
 
-This section describes the local Mia dataset for a hypothetical user, Alice Walker. Within Alice's self context, `alice(self)alice.databook.md`, is `:Self`, a `persona:Person` individual along with a description of some of her physical characteristics::
+This section describes the local Mia dataset for a hypothetical user, Alice Walker. Within Alice's self context, `alice(self)alice.databook.md`, is `:Self`, a `persona:Person` individual carrying her preferred name and maternal relationship. Physical body characteristics (height, eye color, hair color) live in the separate `24-alice(health)alice` context.
 
-<p align="center"><img src="example/images/alice(self)alice.png" alt="Alice's physical characteristics"></p>
+<p align="center"><img src="example/images/alice(self)alice.png" alt="Alice's selfness diagram"></p>
 
 ### Alice's Contexts
 
@@ -382,6 +382,7 @@ The contexts in the table below are *about* Alice and asserted *by* Alice. All `
 | 21 | [21-alice(business-card)alice](example/21-alice(business-card)alice.databook.md) | Employee     | Business card — given name, family name, email, phone, employer  | [view](example/images/21-alice(business-card)alice.png) |
 | 22 | [22-alice(driverslicense)alice](example/22-alice(driverslicense)alice.databook.md) | State      | California driver's license — legal name, DOB, DL#, expiry, photo | [view](example/images/22-alice(driverslicense)alice.png) |
 | 23 | [23-alice(passport)alice](example/23-alice(passport)alice.databook.md)             | Federal    | US passport — legal name, DOB, passport#, issue/expiry, place of birth, gender marker, photo | [view](example/images/23-alice(passport)alice.png) |
+| 24 | [24-alice(health)alice](example/24-alice(health)alice.databook.md)                 | Health     | Physical body — height (68 in.), blue eyes, grey hair            | [view](example/images/24-alice(health)alice.png) |
 
 The following table lists contexts that are *about* Alice but asserted by others.
 
