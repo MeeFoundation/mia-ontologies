@@ -29,7 +29,7 @@ We first present an overview of the five ontologies and then illustrate them thr
 
 ## Context Ontology
 
-A *context* is a container of information about a person related to their interactions with, or relationship to another person, group or organization. This information is expressed as triples using the Persona, Organization or Group ontologies and stored in a **[DataBook](https://github.com/w3c-cg/holon/tree/main/architectures/databook)** (`.databook.md`) file. 
+A *context* is a container of information about a person related to their interactions with, or relationship to, another person, group or organization. This information is expressed as triples using the Persona, Organization or Group ontologies and stored in a **[DataBook](https://github.com/w3c-cg/holon/tree/main/architectures/databook)** (`.databook.md`) file. 
 
 The description of the context container itself is carried in the DataBook's YAML frontmatter under the `mia:` key. The context ontology (`context.ttl`) defines the controlled vocabularies that those YAML fields reference:
 
