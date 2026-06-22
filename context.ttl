@@ -11,7 +11,7 @@
     owl:versionIRI <http://mee.foundation/ontologies/context/1.0.1> ;
     dc:date "2026-06-01"^^xsd:date ;
     owl:imports <http://mee.foundation/ontologies/pdn-identity> ;
-    owl:versionInfo "Version 1.0.47 - add c:UserDefined as sibling subclass of c:Category alongside c:Predefined"@en ;
+    owl:versionInfo "Version 1.0.48 - add context:cat-name data property for user-defined categories"@en ;
     rdfs:label "Context Ontology"@en ;
     rdfs:comment """Context and Category Ontology for the Mee Identity Agent"""@en .
 
@@ -65,8 +65,6 @@ context:dyad rdf:type owl:AnnotationProperty ;
 
 #################################################################
 #    Categories
-#    Subclasses are used as values for the context:category
-#    annotation property on DataBook named graph IRIs
 #################################################################
 
 context:Category rdf:type owl:Class ;
@@ -84,6 +82,12 @@ context:UserDefined rdf:type owl:Class ;
     rdfs:subClassOf context:Category ;
     rdfs:label "UserDefined"@en ;
     rdfs:comment "Superclass of context categories defined by the Mia user."@en .
+
+context:cat-name rdf:type owl:DatatypeProperty ;
+    rdfs:domain context:UserDefined ;
+    rdfs:range xsd:string ;
+    rdfs:label "category name"@en ;
+    rdfs:comment "The human-readable name of a user-defined context category."@en .
 
 #################################################################
 #    c:Group Contexts and subclasses
