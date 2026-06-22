@@ -44,16 +44,16 @@ The description of the context container itself is carried in the DataBook's YAM
 - `c:MultiPerson` — a context that contains multiple `persona:Person` instances.
   - `c:Group` — interactions with a formal or informal group of people.
 - `c:SinglePerson` — a context that contains exactly one `persona:Person` instance.
-  - `c:People` and subtypes `c:Family`, `c:Friends`, `c:Consultant` — interactions with individual people in a person's life.
+  - `c:People` and subtypes `c:Family`, `c:Friends`, `c:Consultants` — interactions with individual people in a person's life.
   - `c:Work` and subtypes `c:Employee`, `c:Contributor`, `c:Creator` — professional roles.
   - `c:Companies` and subtypes `c:FinancialServices`, `c:Healthcare` — interactions and/or relationship with a company or other non-governmental organization.
   - `c:Finances` — information about personal finances not related to any interactions with banks, financial institutions or government agencies.
   - `c:Health` — personal health and wellness information not related to any specific healthcare provider.
-  - `c:Event` and subtypes `c:Meeting`, `c:Conference`, `c:Party` — participation in or relationship to a specific event, e.g. a face-to-face or online meeting.
+  - `c:Events` and subtypes `c:Meetings`, `c:Conferences`, `c:Parties` — participation in or relationship to a specific event, e.g. a face-to-face or online meeting.
   - `c:Government` and subtypes `c:Federal`, `c:State`, `c:Municipality` — interactions with government agencies.
-  - `c:Note` — general knowledge selected by a person to be useful to them. It has a subtype `c:Learning` which is knowledge gained through personal experience.
-  - `c:Possessions` and subtypes `c:Automobile`, `c:Pet`, `c:Dwelling` — a person's belongings or other things they possess, rent, or lease.
-  - `c:Project` — involvement in a specific project or initiative.
+  - `c:Notes` — general knowledge selected by a person to be useful to them. It has a subtype `c:Learnings` which is knowledge gained through personal experience.
+  - `c:Possessions` and subtypes `c:Automobiles`, `c:Pets`, `c:Dwellings` — a person's belongings or other things they possess, rent, or lease.
+  - `c:Projects` — involvement in a specific project or initiative.
 
 <p align="center"><img src="images/context-ontology/context-category.png" alt="contextType hierarchy"></p>
 

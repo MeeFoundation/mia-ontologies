@@ -11,7 +11,7 @@
     owl:versionIRI <http://mee.foundation/ontologies/context/1.0.1> ;
     dc:date "2026-06-01"^^xsd:date ;
     owl:imports <http://mee.foundation/ontologies/pdn-identity> ;
-    owl:versionInfo "Version 1.0.40 - rename Person→People, Friend→Friends, FamilyMember→Family, Company→Companies, Possession→Possessions"@en ;
+    owl:versionInfo "Version 1.0.41 - rename 11 more context categories to plural form"@en ;
     rdfs:label "Context Ontology"@en ;
     rdfs:comment """Context Ontology for the Mee Identity Agent.
 
@@ -105,12 +105,12 @@ context:Group rdf:type owl:Class ;
 
 context:People rdf:type owl:Class ;
     rdfs:subClassOf context:ContextCategory ;
-    rdfs:label "Person"@en ;
+    rdfs:label "People"@en ;
     rdfs:comment "Interactions with all kinds of people."@en .
 
 context:Family rdf:type owl:Class ;
     rdfs:subClassOf context:People ;
-    rdfs:label "FamilyMember"@en ;
+    rdfs:label "Family"@en ;
     rdfs:comment "Interactions with a family member."@en .
 
 context:Friends rdf:type owl:Class ;
@@ -118,9 +118,9 @@ context:Friends rdf:type owl:Class ;
     rdfs:label "Friends"@en ;
     rdfs:comment "Interactions with friends."@en .
 
-context:Consultant rdf:type owl:Class ;
+context:Consultants rdf:type owl:Class ;
     rdfs:subClassOf context:People ;
-    rdfs:label "Consultant"@en ;
+    rdfs:label "Consultants"@en ;
     rdfs:comment "Interactions with consultants who provide services."@en .
 
 #################################################################
@@ -154,7 +154,7 @@ context:Creator rdf:type owl:Class ;
 
 context:Companies rdf:type owl:Class ;
     rdfs:subClassOf context:SinglePerson ;
-    rdfs:label "Company"@en ;
+    rdfs:label "Companies"@en ;
     rdfs:comment "Relationship with a specific company, bank, or other institution."@en .
 
 context:FinancialServices rdf:type owl:Class ;
@@ -189,24 +189,24 @@ context:Health rdf:type owl:Class ;
 #    c:Event Contexts and subclasses
 #################################################################    
 
-context:Event rdf:type owl:Class ;
+context:Events rdf:type owl:Class ;
     rdfs:subClassOf context:SinglePerson ;
-    rdfs:label "Event"@en ;
+    rdfs:label "Events"@en ;
     rdfs:comment "Participation in or relationship to a specific event."@en .
 
-context:Meeting rdf:type owl:Class ;
-    rdfs:subClassOf context:Event ;
-    rdfs:label "Meeting"@en ;
+context:Meetings rdf:type owl:Class ;
+    rdfs:subClassOf context:Events ;
+    rdfs:label "Meetings"@en ;
     rdfs:comment "A meeting or appointment."@en .
 
-context:Conference rdf:type owl:Class ;
-    rdfs:subClassOf context:Event ;
-    rdfs:label "Conference"@en ;
+context:Conferences rdf:type owl:Class ;
+    rdfs:subClassOf context:Events ;
+    rdfs:label "Conferences"@en ;
     rdfs:comment "A conference or professional gathering."@en .
 
-context:Party rdf:type owl:Class ;
-    rdfs:subClassOf context:Event ;
-    rdfs:label "Party"@en ;
+context:Parties rdf:type owl:Class ;
+    rdfs:subClassOf context:Events ;
+    rdfs:label "Parties"@en ;
     rdfs:comment "A party or social celebration."@en .
 
 #################################################################
@@ -237,14 +237,14 @@ context:Municipality rdf:type owl:Class ;
 #    c:Note Contexts and subclasses
 ################################################################# 
 
-context:Note rdf:type owl:Class ;
+context:Notes rdf:type owl:Class ;
     rdfs:subClassOf context:SinglePerson ;
-    rdfs:label "Note"@en ;
+    rdfs:label "Notes"@en ;
     rdfs:comment "Notes about topics not covered by any other context category."@en .
 
-context:Learning rdf:type owl:Class ;
-    rdfs:subClassOf context:Note ;
-    rdfs:label "Learning"@en ;
+context:Learnings rdf:type owl:Class ;
+    rdfs:subClassOf context:Notes ;
+    rdfs:label "Learnings"@en ;
     rdfs:comment "Knowledge gained from personal experience"@en .
 
 #################################################################
@@ -253,29 +253,29 @@ context:Learning rdf:type owl:Class ;
 
 context:Possessions rdf:type owl:Class ;
     rdfs:subClassOf context:SinglePerson ;
-    rdfs:label "Possession"@en ;
+    rdfs:label "Possessions"@en ;
     rdfs:comment "Owned assets, property, vehicles, and other possessions."@en .
 
-context:Automobile rdf:type owl:Class ;
+context:Automobiles rdf:type owl:Class ;
     rdfs:subClassOf context:Possessions ;
-    rdfs:label "Automobile"@en ;
+    rdfs:label "Automobiles"@en ;
     rdfs:comment "Owning and maintaining an automobile."@en .
 
-context:Pet rdf:type owl:Class ;
+context:Pets rdf:type owl:Class ;
     rdfs:subClassOf context:Possessions ;
-    rdfs:label "Pet"@en ;
+    rdfs:label "Pets"@en ;
     rdfs:comment "Taking care of pets."@en .
 
-context:Dwelling rdf:type owl:Class ;
+context:Dwellings rdf:type owl:Class ;
     rdfs:subClassOf context:Possessions ;
-    rdfs:label "Dwelling"@en ;
+    rdfs:label "Dwellings"@en ;
     rdfs:comment "Owning or renting a home or other dwelling."@en .
 
 #################################################################
 #    c:Project Contexts and subclasses
 ################################################################# 
 
-context:Project rdf:type owl:Class ;
+context:Projects rdf:type owl:Class ;
     rdfs:subClassOf context:SinglePerson ;
-    rdfs:label "Project"@en ;
+    rdfs:label "Projects"@en ;
     rdfs:comment "Involvement in a specific project or initiative."@en .
