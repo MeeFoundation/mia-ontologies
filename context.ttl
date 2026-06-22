@@ -11,7 +11,7 @@
     owl:versionIRI <http://mee.foundation/ontologies/context/1.0.1> ;
     dc:date "2026-06-01"^^xsd:date ;
     owl:imports <http://mee.foundation/ontologies/pdn-identity> ;
-    owl:versionInfo "Version 1.0.46 - introduce c:Predefined as intermediate superclass for all built-in categories"@en ;
+    owl:versionInfo "Version 1.0.47 - add c:UserDefined as sibling subclass of c:Category alongside c:Predefined"@en ;
     rdfs:label "Context Ontology"@en ;
     rdfs:comment """Context and Category Ontology for the Mee Identity Agent"""@en .
 
@@ -79,6 +79,11 @@ context:Predefined rdf:type owl:Class ;
     rdfs:subClassOf context:Category ;
     rdfs:label "Predefined"@en ;
     rdfs:comment "Superclass of all built-in context categories shipped with Mia."@en .
+
+context:UserDefined rdf:type owl:Class ;
+    rdfs:subClassOf context:Category ;
+    rdfs:label "UserDefined"@en ;
+    rdfs:comment "Superclass of context categories defined by the Mia user."@en .
 
 #################################################################
 #    c:Group Contexts and subclasses
