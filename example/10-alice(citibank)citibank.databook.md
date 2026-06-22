@@ -12,6 +12,7 @@ mia:
   category: "context:FinancialServices"
   assertedBy: ":Citibank"
   subject: ":Self"
+  about-by: "context:SBO-Context"
 graph:
   named_graph: http://www.example.org/mia/alice(citibank)citibank#graph
   rdf_version: "1.1"

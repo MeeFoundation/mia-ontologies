@@ -12,6 +12,7 @@ mia:
   category: "context:State"
   assertedBy: ":Self"
   subject: ":Self"
+  about-by: "context:SBS-Context"
   template: "persona:DriversLicense"
 graph:
   named_graph: http://www.example.org/mia/alice(driverslicense)alice#graph

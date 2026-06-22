@@ -13,6 +13,7 @@ mia:
   category: "context:Possessions"
   assertedBy: ":Self"
   subject: ":Self"
+  about-by: "context:SBS-Context"
 graph:
   named_graph: http://www.example.org/mia/posessions#graph
   rdf_version: "1.1"

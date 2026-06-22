@@ -12,6 +12,7 @@ mia:
   category: "context:Employee"
   assertedBy: ":Self"
   subject: ":Paula_Walker"
+  about-by: "context:OBS-Context"
 graph:
   named_graph: http://www.example.org/mia/paula(acme)alice#graph
   rdf_version: "1.1"

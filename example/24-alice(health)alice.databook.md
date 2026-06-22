@@ -12,6 +12,7 @@ mia:
   category: "context:Health"
   assertedBy: ":Self"
   subject: ":Self"
+  about-by: "context:SBS-Context"
 graph:
   named_graph: http://www.example.org/mia/alice(health)alice#graph
   rdf_version: "1.1"

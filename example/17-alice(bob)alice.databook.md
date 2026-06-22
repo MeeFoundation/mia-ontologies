@@ -13,6 +13,7 @@ mia:
   category: "context:People"
   assertedBy: ":Self"
   subject: ":Self"
+  about-by: "context:SBS-Context"
   dyad: "http://www.example.org/mia/alice(bob)bob"
 graph:
   named_graph: http://www.example.org/mia/alice(bob)alice#graph

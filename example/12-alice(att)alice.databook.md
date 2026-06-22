@@ -12,6 +12,7 @@ mia:
   category: "context:Companies"
   assertedBy: ":Self"
   subject: ":Self"
+  about-by: "context:SBS-Context"
 graph:
   named_graph: http://www.example.org/mia/alice(att)alice#graph
   rdf_version: "1.1"

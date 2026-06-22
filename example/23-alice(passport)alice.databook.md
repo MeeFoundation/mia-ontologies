@@ -13,6 +13,7 @@ mia:
   category: "context:Federal"
   assertedBy: ":Self"
   subject: ":Self"
+  about-by: "context:SBS-Context"
   template: "persona:Passport"
 graph:
   named_graph: http://www.example.org/mia/alice(passport)alice#graph

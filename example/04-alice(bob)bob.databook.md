@@ -12,6 +12,7 @@ mia:
   category: "context:People"
   assertedBy: ":Bob_Johnson"
   subject: ":Self"
+  about-by: "context:SBO-Context"
   dyad: "http://www.example.org/mia/alice(bob)alice"
 graph:
   named_graph: http://www.example.org/mia/alice(bob)bob#graph

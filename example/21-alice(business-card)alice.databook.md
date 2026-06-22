@@ -12,6 +12,7 @@ mia:
   category: "context:Employee"
   assertedBy: ":Self"
   subject: ":Self"
+  about-by: "context:SBS-Context"
   template: "persona:JSContactCard"
 graph:
   named_graph: http://www.example.org/mia/alice(business-card)alice#graph

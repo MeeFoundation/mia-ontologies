@@ -12,6 +12,7 @@ mia:
   category: "context:Group"
   assertedBy: ":Bob_Johnson"
   subject: ":Bob_Johnson"
+  about-by: "context:OBO-Context"
 graph:
   named_graph: http://www.example.org/mia/bob(bhs)bob#graph
   rdf_version: "1.1"

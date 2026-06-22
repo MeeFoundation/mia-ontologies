@@ -11,7 +11,7 @@
     owl:versionIRI <http://mee.foundation/ontologies/context/1.0.1> ;
     dc:date "2026-06-01"^^xsd:date ;
     owl:imports <http://mee.foundation/ontologies/pdn-identity> ;
-    owl:versionInfo "Version 1.0.49 - add c:Context class and c:sbs (self-by-self) object property"@en ;
+    owl:versionInfo "Version 1.0.50 - add SBS/OBS/OBO/SBO-Context subclasses and context:about-by annotation property"@en ;
     rdfs:label "Context Ontology"@en ;
     rdfs:comment """Context and Category Ontology for the Mee Identity Agent"""@en .
 
@@ -70,6 +70,30 @@ context:dyad rdf:type owl:AnnotationProperty ;
 context:Context rdf:type owl:Class ;
     rdfs:label "Context"@en ;
     rdfs:comment "A context DataBook — a named graph containing identity data about a person in a specific relationship or situation."@en .
+
+context:SBS-Context rdf:type owl:Class ;
+    rdfs:subClassOf context:Context ;
+    rdfs:label "SBS-Context"@en ;
+    rdfs:comment "Self-by-Self: a DataBook whose subject is :Self and whose assertedBy is :Self."@en .
+
+context:OBS-Context rdf:type owl:Class ;
+    rdfs:subClassOf context:Context ;
+    rdfs:label "OBS-Context"@en ;
+    rdfs:comment "Other-by-Self: a DataBook whose subject is another person/org/group and whose assertedBy is :Self."@en .
+
+context:OBO-Context rdf:type owl:Class ;
+    rdfs:subClassOf context:Context ;
+    rdfs:label "OBO-Context"@en ;
+    rdfs:comment "Other-by-Other: a DataBook whose subject is another person/org/group and whose assertedBy is also another person/org/group."@en .
+
+context:SBO-Context rdf:type owl:Class ;
+    rdfs:subClassOf context:Context ;
+    rdfs:label "SBO-Context"@en ;
+    rdfs:comment "Self-by-Other: a DataBook whose subject is :Self and whose assertedBy is another person/org/group."@en .
+
+context:about-by rdf:type owl:AnnotationProperty ;
+    rdfs:label "about-by"@en ;
+    rdfs:comment "Classifies a DataBook named graph by the combination of subject and assertedBy: one of context:SBS-Context, context:OBS-Context, context:OBO-Context, or context:SBO-Context."@en .
 
 
 #################################################################

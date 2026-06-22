@@ -12,6 +12,7 @@ mia:
   category: "context:Group"
   assertedBy: ":BHS_Group"
   subject: ":BHS_Group"
+  about-by: "context:OBO-Context"
 graph:
   named_graph: http://www.example.org/mia/bhs(bhs)members#graph
   rdf_version: "1.1"

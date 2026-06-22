@@ -12,6 +12,7 @@ mia:
   category: "context:Family"
   assertedBy: ":Paula_Walker"
   subject: ":Paula_Walker"
+  about-by: "context:OBO-Context"
   dyad: "http://www.example.org/mia/paula(familymember)alice"
 graph:
   named_graph: http://www.example.org/mia/paula(familymember)paula#graph

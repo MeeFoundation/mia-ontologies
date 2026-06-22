@@ -12,6 +12,7 @@ mia:
   category: "context:State"
   assertedBy: ":Self"
   subject: ":Self"
+  about-by: "context:SBS-Context"
   template: "persona:BirthCertificate"
 graph:
   named_graph: http://www.example.org/mia/alice(tx-birth-cert)alice#graph
