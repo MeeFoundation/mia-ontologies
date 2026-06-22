@@ -11,7 +11,7 @@
     owl:versionIRI <http://mee.foundation/ontologies/context/1.0.1> ;
     dc:date "2026-06-01"^^xsd:date ;
     owl:imports <http://mee.foundation/ontologies/pdn-identity> ;
-    owl:versionInfo "Version 1.0.53 - add context:obs object property (UserDefined → Category ∪ OBS-Context)"@en ;
+    owl:versionInfo "Version 1.0.54 - add context:child object property (Category → Category)"@en ;
     rdfs:label "Context Ontology"@en ;
     rdfs:comment """Context and Category Ontology for the Mee Identity Agent"""@en .
 
@@ -146,6 +146,12 @@ context:obs rdf:type owl:ObjectProperty ;
                  owl:unionOf ( context:Category context:OBS-Context ) ] ;
     rdfs:label "other-by-self"@en ;
     rdfs:comment "Links a user-defined category to either a c:Category or a c:OBS-Context DataBook (subject is another person/org/group, assertedBy is :Self)."@en .
+
+context:child rdf:type owl:ObjectProperty ;
+    rdfs:domain context:Category ;
+    rdfs:range context:Category ;
+    rdfs:label "child"@en ;
+    rdfs:comment "Links a category to a more specific child category."@en .
 
 #################################################################
 #    c:Group Contexts and subclasses
