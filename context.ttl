@@ -11,7 +11,7 @@
     owl:versionIRI <http://mee.foundation/ontologies/context/1.0.1> ;
     dc:date "2026-06-01"^^xsd:date ;
     owl:imports <http://mee.foundation/ontologies/pdn-identity> ;
-    owl:versionInfo "Version 1.0.42 - rename ContextCategory class to Category"@en ;
+    owl:versionInfo "Version 1.0.43 - remove SinglePerson intermediate class; all top-level categories subclass Category directly"@en ;
     rdfs:label "Context Ontology"@en ;
     rdfs:comment """Context Ontology for the Mee Identity Agent.
 
@@ -128,7 +128,7 @@ context:Consultants rdf:type owl:Class ;
 #################################################################
 
 context:Work rdf:type owl:Class ;
-    rdfs:subClassOf context:SinglePerson ;
+    rdfs:subClassOf context:Category ;
     rdfs:label "Work"@en ;
     rdfs:comment "Professional roles, employment history, and career relationships."@en .
 
@@ -153,7 +153,7 @@ context:Creator rdf:type owl:Class ;
 #################################################################
 
 context:Companies rdf:type owl:Class ;
-    rdfs:subClassOf context:SinglePerson ;
+    rdfs:subClassOf context:Category ;
     rdfs:label "Companies"@en ;
     rdfs:comment "Relationship with a specific company, bank, or other institution."@en .
 
@@ -172,7 +172,7 @@ context:Healthcare rdf:type owl:Class ;
 #################################################################
 
 context:Finances rdf:type owl:Class ;
-    rdfs:subClassOf context:SinglePerson ;
+    rdfs:subClassOf context:Category ;
     rdfs:label "Finances"@en ;
     rdfs:comment "Information about personal finances not related to any interactions with banks, financial institutions or government agencies."@en .
 
@@ -181,7 +181,7 @@ context:Finances rdf:type owl:Class ;
 #################################################################
 
 context:Health rdf:type owl:Class ;
-    rdfs:subClassOf context:SinglePerson ;
+    rdfs:subClassOf context:Category ;
     rdfs:label "Health"@en ;
     rdfs:comment "Personal health and wellness information not related to any specific healthcare provider."@en .
 
@@ -190,7 +190,7 @@ context:Health rdf:type owl:Class ;
 #################################################################    
 
 context:Events rdf:type owl:Class ;
-    rdfs:subClassOf context:SinglePerson ;
+    rdfs:subClassOf context:Category ;
     rdfs:label "Events"@en ;
     rdfs:comment "Participation in or relationship to a specific event."@en .
 
@@ -214,7 +214,7 @@ context:Parties rdf:type owl:Class ;
 ################################################################# 
 
 context:Government rdf:type owl:Class ;
-    rdfs:subClassOf context:SinglePerson ;
+    rdfs:subClassOf context:Category ;
     rdfs:label "Government"@en ;
     rdfs:comment "Government-issued credentials, tax records, and civic relationships."@en .
 
@@ -238,7 +238,7 @@ context:Municipality rdf:type owl:Class ;
 ################################################################# 
 
 context:Notes rdf:type owl:Class ;
-    rdfs:subClassOf context:SinglePerson ;
+    rdfs:subClassOf context:Category ;
     rdfs:label "Notes"@en ;
     rdfs:comment "Notes about topics not covered by any other context category."@en .
 
@@ -252,7 +252,7 @@ context:Learnings rdf:type owl:Class ;
 ################################################################# 
 
 context:Possessions rdf:type owl:Class ;
-    rdfs:subClassOf context:SinglePerson ;
+    rdfs:subClassOf context:Category ;
     rdfs:label "Possessions"@en ;
     rdfs:comment "Owned assets, property, vehicles, and other possessions."@en .
 
@@ -276,6 +276,6 @@ context:Dwellings rdf:type owl:Class ;
 ################################################################# 
 
 context:Projects rdf:type owl:Class ;
-    rdfs:subClassOf context:SinglePerson ;
+    rdfs:subClassOf context:Category ;
     rdfs:label "Projects"@en ;
     rdfs:comment "Involvement in a specific project or initiative."@en .

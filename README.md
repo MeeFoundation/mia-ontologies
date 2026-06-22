@@ -41,19 +41,35 @@ The description of the context container itself is carried in the DataBook's YAM
 
 **`c:contextCategory`** — The nature of the interaction/relationship context. Values form a subclass hierarchy under `c:Category`:
 
-- `c:MultiPerson` — a context that contains multiple `persona:Person` instances.
-  - `c:Group` — interactions with a formal or informal group of people.
-- `c:SinglePerson` — a context that contains exactly one `persona:Person` instance.
-  - `c:People` and subtypes `c:Family`, `c:Friends`, `c:Consultants` — interactions with individual people in a person's life.
-  - `c:Work` and subtypes `c:Employee`, `c:Contributor`, `c:Creator` — professional roles.
-  - `c:Companies` and subtypes `c:FinancialServices`, `c:Healthcare` — interactions and/or relationship with a company or other non-governmental organization.
-  - `c:Finances` — information about personal finances not related to any interactions with banks, financial institutions or government agencies.
-  - `c:Health` — personal health and wellness information not related to any specific healthcare provider.
-  - `c:Events` and subtypes `c:Meetings`, `c:Conferences`, `c:Parties` — participation in or relationship to a specific event, e.g. a face-to-face or online meeting.
-  - `c:Government` and subtypes `c:Federal`, `c:State`, `c:Municipality` — interactions with government agencies.
-  - `c:Notes` — general knowledge selected by a person to be useful to them. It has a subtype `c:Learnings` which is knowledge gained through personal experience.
-  - `c:Possessions` and subtypes `c:Automobiles`, `c:Pets`, `c:Dwellings` — a person's belongings or other things they possess, rent, or lease.
-  - `c:Projects` — involvement in a specific project or initiative.
+- `c:Group` — interactions with a formal or informal group of people.
+- `c:People` — interactions with individual people in a person's life.
+  - `c:Family` — interactions with a family member.
+  - `c:Friends` — interactions with friends.
+  - `c:Consultants` — interactions with consultants who provide services.
+- `c:Work` — professional roles, employment history, and career relationships.
+  - `c:Employee` — related to being an employee.
+  - `c:Contributor` — related to contributing to initiatives started or led by others.
+  - `c:Creator` — related to being a creator, inventor, founder, or author of something.
+- `c:Companies` — relationship with a specific company, bank, or other institution.
+  - `c:FinancialServices` — relationship with a bank or other financial services institution.
+  - `c:Healthcare` — relationship with a healthcare provider or health insurance company.
+- `c:Finances` — information about personal finances not related to any interactions with banks, financial institutions, or government agencies.
+- `c:Health` — personal health and wellness information not related to any specific healthcare provider.
+- `c:Events` — participation in or relationship to a specific event.
+  - `c:Meetings` — a meeting or appointment.
+  - `c:Conferences` — a conference or professional gathering.
+  - `c:Parties` — a party or social celebration.
+- `c:Government` — government-issued credentials, tax records, and civic relationships.
+  - `c:Federal` — federal government context (e.g. passport, federal tax records).
+  - `c:State` — state government context (e.g. driver's license, state tax records).
+  - `c:Municipality` — municipal government context (e.g. local permits, library card).
+- `c:Notes` — general knowledge selected by a person to be useful to them.
+  - `c:Learnings` — knowledge gained through personal experience.
+- `c:Possessions` — owned assets, property, vehicles, and other possessions.
+  - `c:Automobiles` — owning and maintaining an automobile.
+  - `c:Pets` — taking care of pets.
+  - `c:Dwellings` — owning or renting a home or other dwelling.
+- `c:Projects` — involvement in a specific project or initiative.
 
 <p align="center"><img src="images/context-ontology/context-category.png" alt="contextType hierarchy"></p>
 
