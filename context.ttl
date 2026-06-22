@@ -11,7 +11,7 @@
     owl:versionIRI <http://mee.foundation/ontologies/context/1.0.1> ;
     dc:date "2026-06-01"^^xsd:date ;
     owl:imports <http://mee.foundation/ontologies/pdn-identity> ;
-    owl:versionInfo "Version 1.0.45 - drop stale rdfs:domain owl:Ontology from all annotation properties; update comments to reflect DataBook named graph"@en ;
+    owl:versionInfo "Version 1.0.46 - introduce c:Predefined as intermediate superclass for all built-in categories"@en ;
     rdfs:label "Context Ontology"@en ;
     rdfs:comment """Context and Category Ontology for the Mee Identity Agent"""@en .
 
@@ -74,13 +74,19 @@ context:Category rdf:type owl:Class ;
     rdfs:comment """Controlled vocabulary for categories of contexts.
                     Used as the value of context:category on DataBook named graph IRIs."""@en .
 
+
+context:Predefined rdf:type owl:Class ;
+    rdfs:subClassOf context:Category ;
+    rdfs:label "Predefined"@en ;
+    rdfs:comment "Superclass of all built-in context categories shipped with Mia."@en .
+
 #################################################################
 #    c:Group Contexts and subclasses
 #################################################################
 
 
 context:Group rdf:type owl:Class ;
-    rdfs:subClassOf context:Category ;
+    rdfs:subClassOf context:Predefined ;
     rdfs:label "Group"@en ;
     rdfs:comment "Interactions with a formal or informal group of people."@en .
 
@@ -90,7 +96,7 @@ context:Group rdf:type owl:Class ;
 #################################################################
 
 context:People rdf:type owl:Class ;
-    rdfs:subClassOf context:Category ;
+    rdfs:subClassOf context:Predefined ;
     rdfs:label "People"@en ;
     rdfs:comment "Interactions with all kinds of people."@en .
 
@@ -114,7 +120,7 @@ context:Consultants rdf:type owl:Class ;
 #################################################################
 
 context:Work rdf:type owl:Class ;
-    rdfs:subClassOf context:Category ;
+    rdfs:subClassOf context:Predefined ;
     rdfs:label "Work"@en ;
     rdfs:comment "Professional roles, employment history, and career relationships."@en .
 
@@ -139,7 +145,7 @@ context:Creator rdf:type owl:Class ;
 #################################################################
 
 context:Companies rdf:type owl:Class ;
-    rdfs:subClassOf context:Category ;
+    rdfs:subClassOf context:Predefined ;
     rdfs:label "Companies"@en ;
     rdfs:comment "Relationship with a specific company, bank, or other institution."@en .
 
@@ -158,7 +164,7 @@ context:Healthcare rdf:type owl:Class ;
 #################################################################
 
 context:Finances rdf:type owl:Class ;
-    rdfs:subClassOf context:Category ;
+    rdfs:subClassOf context:Predefined ;
     rdfs:label "Finances"@en ;
     rdfs:comment "Information about personal finances not related to any interactions with banks, financial institutions or government agencies."@en .
 
@@ -167,7 +173,7 @@ context:Finances rdf:type owl:Class ;
 #################################################################
 
 context:Health rdf:type owl:Class ;
-    rdfs:subClassOf context:Category ;
+    rdfs:subClassOf context:Predefined ;
     rdfs:label "Health"@en ;
     rdfs:comment "Personal health and wellness information not related to any specific healthcare provider."@en .
 
@@ -176,7 +182,7 @@ context:Health rdf:type owl:Class ;
 #################################################################    
 
 context:Events rdf:type owl:Class ;
-    rdfs:subClassOf context:Category ;
+    rdfs:subClassOf context:Predefined ;
     rdfs:label "Events"@en ;
     rdfs:comment "Participation in or relationship to a specific event."@en .
 
@@ -200,7 +206,7 @@ context:Parties rdf:type owl:Class ;
 ################################################################# 
 
 context:Government rdf:type owl:Class ;
-    rdfs:subClassOf context:Category ;
+    rdfs:subClassOf context:Predefined ;
     rdfs:label "Government"@en ;
     rdfs:comment "Government-issued credentials, tax records, and civic relationships."@en .
 
@@ -224,7 +230,7 @@ context:Municipality rdf:type owl:Class ;
 ################################################################# 
 
 context:Notes rdf:type owl:Class ;
-    rdfs:subClassOf context:Category ;
+    rdfs:subClassOf context:Predefined ;
     rdfs:label "Notes"@en ;
     rdfs:comment "Notes about topics not covered by any other context category."@en .
 
@@ -238,7 +244,7 @@ context:Learnings rdf:type owl:Class ;
 ################################################################# 
 
 context:Possessions rdf:type owl:Class ;
-    rdfs:subClassOf context:Category ;
+    rdfs:subClassOf context:Predefined ;
     rdfs:label "Possessions"@en ;
     rdfs:comment "Owned assets, property, vehicles, and other possessions."@en .
 
@@ -262,6 +268,6 @@ context:Dwellings rdf:type owl:Class ;
 ################################################################# 
 
 context:Projects rdf:type owl:Class ;
-    rdfs:subClassOf context:Category ;
+    rdfs:subClassOf context:Predefined ;
     rdfs:label "Projects"@en ;
     rdfs:comment "Involvement in a specific project or initiative."@en .
