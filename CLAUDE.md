@@ -191,6 +191,17 @@ done
 
 If any `MISSING:` lines appear, either add the file or update the link.
 
+**Check 12 — `about-by` ↔ `subject`/`assertedBy` consistency**: Every DataBook's `mia.about-by` value must be consistent with its `mia.subject` and `mia.assertedBy` values according to these rules:
+
+| `about-by` | `subject` | `assertedBy` |
+|---|---|---|
+| `context:SBS-Context` | `:Self` | `:Self` |
+| `context:OBS-Context` | not `:Self` | `:Self` |
+| `context:OBO-Context` | not `:Self` | not `:Self` |
+| `context:SBO-Context` | `:Self` | not `:Self` |
+
+For each DataBook in `example/` (excluding `under-development/`), extract the three YAML values and verify they match the table. If they conflict, `about-by` is the authoritative value — update `subject` and/or `assertedBy` to match it.
+
 ## Keeping Files in Sync
 
 Whenever changes are made to any context file, `persona.ttl`, or `context.ttl`, `persona-shacl.ttl` must be updated to match:
