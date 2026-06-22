@@ -9,7 +9,7 @@ description: >
   and her family social network. Self-asserted by Alice.
 mia:
   name: "Family"
-  contextCategory: "context:Family"
+  category: "context:Family"
   assertedBy: ":Self"
   subject: ":Self"
 graph:

@@ -10,7 +10,7 @@ description: >
   Self-asserted by Alice.
 mia:
   name: "Passport"
-  contextCategory: "context:Federal"
+  category: "context:Federal"
   assertedBy: ":Self"
   subject: ":Self"
   template: "persona:Passport"

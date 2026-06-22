@@ -10,7 +10,7 @@ description: >
   and Social Security card held separately.
 mia:
   name: "Possessions"
-  contextCategory: "context:Possessions"
+  category: "context:Possessions"
   assertedBy: ":Self"
   subject: ":Self"
 graph:

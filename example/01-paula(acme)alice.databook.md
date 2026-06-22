@@ -9,7 +9,7 @@ description: >
   Self-asserted by Alice; describes Paula as an individual.
 mia:
   name: "Acme"
-  contextCategory: "context:Employee"
+  category: "context:Employee"
   assertedBy: ":Self"
   subject: ":Paula_Walker"
 graph:

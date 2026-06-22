@@ -11,12 +11,12 @@
     owl:versionIRI <http://mee.foundation/ontologies/context/1.0.1> ;
     dc:date "2026-06-01"^^xsd:date ;
     owl:imports <http://mee.foundation/ontologies/pdn-identity> ;
-    owl:versionInfo "Version 1.0.43 - remove SinglePerson intermediate class; all top-level categories subclass Category directly"@en ;
+    owl:versionInfo "Version 1.0.44 - rename contextCategory property to category"@en ;
     rdfs:label "Context Ontology"@en ;
     rdfs:comment """Context Ontology for the Mee Identity Agent.
 
                     Defines controlled vocabularies for classifying context ontology files:
-                    - contextCategory: the kind of relationship a context file represents
+                    - category: the kind of relationship a context file represents
                     - assertedBy: the identity asserting the data (an identity:PDNidentifier subclass)
                     - subject: whose identity the file describes (an identity:PDNidentifier subclass)
 
@@ -27,7 +27,7 @@
 #    Annotation Properties for Context File Classification
 #################################################################
 
-context:contextCategory rdf:type owl:AnnotationProperty ;
+context:category rdf:type owl:AnnotationProperty ;
     rdfs:label "context type"@en ;
     rdfs:comment """Tags a context ontology (file) with the kind of relationship it represents —
                     e.g. context:Companies, context:Federal, context:Municipality.
@@ -79,14 +79,14 @@ context:dyad rdf:type owl:AnnotationProperty ;
 
 #################################################################
 #    Context Categories
-#    Subclasses are used as values for the context:contextCategory
+#    Subclasses are used as values for the context:category
 #    annotation property on ontology IRIs (context files)
 #################################################################
 
 context:Category rdf:type owl:Class ;
     rdfs:label "Category"@en ;
     rdfs:comment """Controlled vocabulary for categories of contexts.
-                    Used as the value of context:contextCategory on ontology IRIs."""@en .
+                    Used as the value of context:category on ontology IRIs."""@en .
 
 #################################################################
 #    c:Group Contexts and subclasses

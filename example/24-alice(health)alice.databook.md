@@ -9,7 +9,7 @@ description: >
   Self-asserted by Alice.
 mia:
   name: "PhysicalBody"
-  contextCategory: "context:Health"
+  category: "context:Health"
   assertedBy: ":Self"
   subject: ":Self"
 graph:

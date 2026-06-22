@@ -9,7 +9,7 @@ description: >
   and maiden name (Margery Alice Arnold) as self-entered data.
 mia:
   name: "Texas Birth Certificate"
-  contextCategory: "context:State"
+  category: "context:State"
   assertedBy: ":Self"
   subject: ":Self"
   template: "persona:BirthCertificate"

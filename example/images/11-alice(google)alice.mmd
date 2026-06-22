@@ -1,4 +1,3 @@
-%% ContextCategory: context:Companies
 flowchart TD
     classDef person fill:#fffacd,stroke:#aaa,color:#333
     classDef grp    fill:#d4edda,stroke:#aaa,color:#333
@@ -8,10 +7,10 @@ flowchart TD
 
     subgraph ctx["Context"]
         direction LR
-        ctx_meta["name: Google\ncategory: Companies\nassertedBy: :Self\nsubject: :Self"]:::meta
+        ctx_meta["name: Google\nassertedBy: :Self\nsubject: :Self"]:::meta
     end
 
     ne0c3ba92f1db[":Self\n(Person)"]:::person
-    n58504edb3121("awalker@gmail.com"):::lit
+    n0869999efe83("awalker@gmail.com"):::lit
 
-    ne0c3ba92f1db -->|"EmailAddress"| n58504edb3121
+    ne0c3ba92f1db -->|"EmailAddress"| n0869999efe83

@@ -1,4 +1,3 @@
-%% ContextCategory: context:Federal
 flowchart TD
     classDef person fill:#fffacd,stroke:#aaa,color:#333
     classDef grp    fill:#d4edda,stroke:#aaa,color:#333
@@ -8,10 +7,10 @@ flowchart TD
 
     subgraph ctx["Context"]
         direction LR
-        ctx_meta["name: Social Security Administration\ncategory: Federal\nassertedBy: :Self\nsubject: :Self"]:::meta
+        ctx_meta["name: Social Security Administration\nassertedBy: :Self\nsubject: :Self"]:::meta
     end
 
     ne0c3ba92f1db[":Self\n(Person)"]:::person
-    ncc74df17ec52("123-45-6788"):::lit
+    nd34ecda4b92b("123-45-6788"):::lit
 
-    ne0c3ba92f1db -->|"SSN"| ncc74df17ec52
+    ne0c3ba92f1db -->|"SSN"| nd34ecda4b92b

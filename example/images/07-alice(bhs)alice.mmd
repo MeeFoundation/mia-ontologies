@@ -1,4 +1,3 @@
-%% ContextCategory: context:Group
 flowchart TD
     classDef person fill:#fffacd,stroke:#aaa,color:#333
     classDef grp    fill:#d4edda,stroke:#aaa,color:#333
@@ -8,26 +7,26 @@ flowchart TD
 
     subgraph ctx["Context"]
         direction LR
-        ctx_meta["name: Boston Hub Society\ncategory: Group\nassertedBy: :Self\nsubject: :Self"]:::meta
+        ctx_meta["name: Boston Hub Society\nassertedBy: :Self\nsubject: :Self"]:::meta
     end
 
     nbb363374209c[":Address_BHS\n(PostalAddress)"]
-    n9a8407384b38("123 Sleepy Hollow"):::lit
-    n8e9fb43a082a("Paradise"):::lit
-    n6ef2b8b91190("CA"):::lit
-    n7258f63daee7("95969"):::lit
-    n53b58b8eecd8("USA"):::lit
+    n8ba067e1a169("123 Sleepy Hollow"):::lit
+    nd2eb4a683a27("Paradise"):::lit
+    n2725d9441437("CA"):::lit
+    nab53a59358d0("95969"):::lit
+    n3539e259a96c("USA"):::lit
     ne0c3ba92f1db[":Self\n(Person)"]:::person
-    n8c37b8ddbd90("Alice Walker"):::lit
-    nd3465121de0d("+15108149999"):::lit
-    n9fa144afec06("awalker@gmail.com"):::lit
+    n9eba5c48de8c("Alice Walker"):::lit
+    n478fd6cb4124("+15108149999"):::lit
+    n3851db37ebc8("awalker@gmail.com"):::lit
 
-    nbb363374209c -->|"StreetAddress"| n9a8407384b38
-    nbb363374209c -->|"CityName"| n8e9fb43a082a
-    nbb363374209c -->|"StateName"| n6ef2b8b91190
-    nbb363374209c -->|"PostalCode"| n7258f63daee7
-    nbb363374209c -->|"CountryName"| n53b58b8eecd8
-    ne0c3ba92f1db -->|"AlternateName"| n8c37b8ddbd90
+    nbb363374209c -->|"StreetAddress"| n8ba067e1a169
+    nbb363374209c -->|"CityName"| nd2eb4a683a27
+    nbb363374209c -->|"StateName"| n2725d9441437
+    nbb363374209c -->|"PostalCode"| nab53a59358d0
+    nbb363374209c -->|"CountryName"| n3539e259a96c
+    ne0c3ba92f1db -->|"AlternateName"| n9eba5c48de8c
     ne0c3ba92f1db -->|"designated by"| nbb363374209c
-    ne0c3ba92f1db -->|"TelephoneNumber"| nd3465121de0d
-    ne0c3ba92f1db -->|"EmailAddress"| n9fa144afec06
+    ne0c3ba92f1db -->|"TelephoneNumber"| n478fd6cb4124
+    ne0c3ba92f1db -->|"EmailAddress"| n3851db37ebc8

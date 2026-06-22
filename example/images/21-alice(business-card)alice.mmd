@@ -1,4 +1,3 @@
-%% ContextCategory: context:Employee
 flowchart TD
     classDef person fill:#fffacd,stroke:#aaa,color:#333
     classDef grp    fill:#d4edda,stroke:#aaa,color:#333
@@ -8,24 +7,24 @@ flowchart TD
 
     subgraph ctx["Context"]
         direction LR
-        ctx_meta["name: Business Card\ncategory: Employee\nassertedBy: :Self\nsubject: :Self\ntemplate: persona:JSContactCard"]:::meta
+        ctx_meta["name: Business Card\nassertedBy: :Self\nsubject: :Self\ntemplate: persona:JSContactCard"]:::meta
     end
 
     ne0c3ba92f1db[":Self\n(Person)"]:::person
-    n26220f577770("Alice"):::lit
-    nfea7cd69a931("Walker"):::lit
-    n614d921c096d("alice@acme.com"):::lit
-    n40a08773457f("+15108149999"):::lit
-    nfb4fde0bcc0d("Acme"):::lit
-    nc83631d97658("Engineering"):::lit
-    n7babc2d66612("Software Engineer"):::lit
-    n39d6344e3113("https://www.linkedin.com/in/alicewalker"):::lit
+    n6d2e57ba5ed1("Alice"):::lit
+    nf046b0e52c21("Walker"):::lit
+    n4832d59f4147("alice@acme.com"):::lit
+    n19e54f4f963f("+15108149999"):::lit
+    n721b0fdd3359("Acme"):::lit
+    n7a9800d53ef3("Engineering"):::lit
+    nb9da280a9f51("Software Engineer"):::lit
+    na84637aa5f07("https://www.linkedin.com/in/alicewalker"):::lit
 
-    ne0c3ba92f1db -->|"GivenName"| n26220f577770
-    ne0c3ba92f1db -->|"FamilyName"| nfea7cd69a931
-    ne0c3ba92f1db -->|"EmailAddress"| n614d921c096d
-    ne0c3ba92f1db -->|"TelephoneNumber"| n40a08773457f
-    ne0c3ba92f1db -->|"OrganizationName"| nfb4fde0bcc0d
-    ne0c3ba92f1db -->|"OrganizationUnit"| nc83631d97658
-    ne0c3ba92f1db -->|"JobTitle"| n7babc2d66612
-    ne0c3ba92f1db -->|"WebURL"| n39d6344e3113
+    ne0c3ba92f1db -->|"GivenName"| n6d2e57ba5ed1
+    ne0c3ba92f1db -->|"FamilyName"| nf046b0e52c21
+    ne0c3ba92f1db -->|"EmailAddress"| n4832d59f4147
+    ne0c3ba92f1db -->|"TelephoneNumber"| n19e54f4f963f
+    ne0c3ba92f1db -->|"OrganizationName"| n721b0fdd3359
+    ne0c3ba92f1db -->|"OrganizationUnit"| n7a9800d53ef3
+    ne0c3ba92f1db -->|"JobTitle"| nb9da280a9f51
+    ne0c3ba92f1db -->|"WebURL"| na84637aa5f07

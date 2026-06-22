@@ -1,4 +1,3 @@
-%% ContextCategory: context:State
 flowchart TD
     classDef person fill:#fffacd,stroke:#aaa,color:#333
     classDef grp    fill:#d4edda,stroke:#aaa,color:#333
@@ -8,16 +7,16 @@ flowchart TD
 
     subgraph ctx["Context"]
         direction LR
-        ctx_meta["name: Texas Birth Certificate\ncategory: State\nassertedBy: :Self\nsubject: :Self\ntemplate: persona:BirthCertificate"]:::meta
+        ctx_meta["name: Texas Birth Certificate\nassertedBy: :Self\nsubject: :Self\ntemplate: persona:BirthCertificate"]:::meta
     end
 
     ne0c3ba92f1db[":Self\n(Person)"]:::person
-    ndbeb774ebfba("Margery"):::lit
-    n737470d60998("Alice"):::lit
-    nefbf54749444("Walker"):::lit
-    n332ee084e746("Margery Alice Arnold"):::lit
+    nc4e28cf307cb("Margery"):::lit
+    n0be6889a2464("Alice"):::lit
+    ne1ee40eadd6c("Walker"):::lit
+    n1638fba24591("Margery Alice Arnold"):::lit
 
-    ne0c3ba92f1db -->|"GivenName"| ndbeb774ebfba
-    ne0c3ba92f1db -->|"AdditionalName"| n737470d60998
-    ne0c3ba92f1db -->|"FamilyName"| nefbf54749444
-    ne0c3ba92f1db -->|"AlternateName"| n332ee084e746
+    ne0c3ba92f1db -->|"GivenName"| nc4e28cf307cb
+    ne0c3ba92f1db -->|"AdditionalName"| n0be6889a2464
+    ne0c3ba92f1db -->|"FamilyName"| ne1ee40eadd6c
+    ne0c3ba92f1db -->|"AlternateName"| n1638fba24591

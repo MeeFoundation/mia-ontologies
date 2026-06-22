@@ -9,7 +9,7 @@ description: >
   Asserted by Bob; dyad partner is Alice's own Bob-context persona.
 mia:
   name: "Bob"
-  contextCategory: "context:People"
+  category: "context:People"
   assertedBy: ":Bob_Johnson"
   subject: ":Self"
   dyad: "http://www.example.org/mia/alice(bob)alice"

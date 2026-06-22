@@ -9,7 +9,7 @@ description: >
   details: name, work email, work phone, employer, department, job title, and LinkedIn URL.
 mia:
   name: "Business Card"
-  contextCategory: "context:Employee"
+  category: "context:Employee"
   assertedBy: ":Self"
   subject: ":Self"
   template: "persona:JSContactCard"

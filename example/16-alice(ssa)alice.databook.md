@@ -9,7 +9,7 @@ description: >
   The SSA is not a PDN node, so Alice self-enters this from her physical SSA card.
 mia:
   name: "Social Security Administration"
-  contextCategory: "context:Federal"
+  category: "context:Federal"
   assertedBy: ":Self"
   subject: ":Self"
 graph:

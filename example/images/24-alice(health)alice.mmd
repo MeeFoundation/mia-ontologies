@@ -1,4 +1,3 @@
-%% ContextCategory: context:Health
 flowchart TD
     classDef person fill:#fffacd,stroke:#aaa,color:#333
     classDef grp    fill:#d4edda,stroke:#aaa,color:#333
@@ -8,7 +7,7 @@ flowchart TD
 
     subgraph ctx["Context"]
         direction LR
-        ctx_meta["name: PhysicalBody\ncategory: Health\nassertedBy: :Self\nsubject: :Self"]:::meta
+        ctx_meta["name: PhysicalBody\nassertedBy: :Self\nsubject: :Self"]:::meta
     end
 
     n5fecfaaf895f[":Alice_Height\n(Height)"]
@@ -16,15 +15,15 @@ flowchart TD
     n07bac97f4199("Inch"):::lit
     nb51e42161d31("68"):::lit
     ne0c3ba92f1db[":Self\n(Person)"]:::person
-    n58cbb5498c77{"BlueEyeColor"}
-    n1c4025426cfb{"ScalpHair"}
-    ne8dd21238787("Grey"):::lit
+    n79843619227e{"BlueEyeColor"}
+    n166494ac88b0{"ScalpHair"}
+    n9c13cc503d6d("Grey"):::lit
 
     n89a1fac192dc -->|"isRatioMeasurementOf"| n5fecfaaf895f
     n89a1fac192dc -->|"usesMeasurementUnit"| n07bac97f4199
     n89a1fac192dc -->|"hasDecimalValue"| nb51e42161d31
     ne0c3ba92f1db -->|"bearerOf"| n5fecfaaf895f
     ne0c3ba92f1db -->|"bearerOf"| n89a1fac192dc
-    ne0c3ba92f1db -->|"bearerOf"| n58cbb5498c77
-    ne0c3ba92f1db -->|"hasContinuantPart"| n1c4025426cfb
-    n1c4025426cfb -->|"HairColor"| ne8dd21238787
+    ne0c3ba92f1db -->|"bearerOf"| n79843619227e
+    ne0c3ba92f1db -->|"hasContinuantPart"| n166494ac88b0
+    n166494ac88b0 -->|"HairColor"| n9c13cc503d6d

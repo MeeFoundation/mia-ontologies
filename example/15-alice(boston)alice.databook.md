@@ -9,7 +9,7 @@ description: >
   Self-asserted by Alice; closed temporal interval indicates this is a past address.
 mia:
   name: "Boston"
-  contextCategory: "context:Municipality"
+  category: "context:Municipality"
   assertedBy: ":Self"
   subject: ":Self"
 graph:

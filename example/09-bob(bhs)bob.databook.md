@@ -9,7 +9,7 @@ description: >
   Records Bob's name as he presents himself to the Boston Hub Society.
 mia:
   name: "Boston Hub Society"
-  contextCategory: "context:Group"
+  category: "context:Group"
   assertedBy: ":Bob_Johnson"
   subject: ":Bob_Johnson"
 graph:

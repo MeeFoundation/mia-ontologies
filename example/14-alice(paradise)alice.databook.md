@@ -9,7 +9,7 @@ description: >
   Self-asserted by Alice; open-ended temporal interval indicates this is her current address.
 mia:
   name: "Paradise"
-  contextCategory: "context:Municipality"
+  category: "context:Municipality"
   assertedBy: ":Self"
   subject: ":Self"
 graph:

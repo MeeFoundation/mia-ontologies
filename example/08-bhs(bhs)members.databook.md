@@ -9,7 +9,7 @@ description: >
   A g:Group context assertable by any permitted member.
 mia:
   name: "Boston Hub Society"
-  contextCategory: "context:Group"
+  category: "context:Group"
   assertedBy: ":BHS_Group"
   subject: ":BHS_Group"
 graph:

@@ -1,4 +1,3 @@
-%% ContextCategory: context:FinancialServices
 flowchart TD
     classDef person fill:#fffacd,stroke:#aaa,color:#333
     classDef grp    fill:#d4edda,stroke:#aaa,color:#333
@@ -8,33 +7,33 @@ flowchart TD
 
     subgraph ctx["Context"]
         direction LR
-        ctx_meta["name: Citibank\ncategory: FinancialServices\nassertedBy: :Citibank\nsubject: :Self"]:::meta
+        ctx_meta["name: Citibank\nassertedBy: :Citibank\nsubject: :Self"]:::meta
     end
 
     naadb4eb7dbfe[":Alice_Checking_Account\n(CheckingAccount)"]
-    n438144610ae3("9876543210"):::lit
-    n428c3a96462b("021000089"):::lit
+    n192cc91bd305("9876543210"):::lit
+    n9a1e235d55ee("021000089"):::lit
     nd168547b019a[":Alice_Citibank_Online\n(OnlineServiceAccount)"]
     nb69c1e2996b7("Citibank"):::lit
     n30fbde007d82("awalker@gmail.com"):::lit
     n1bbd693303ed("https://online.citi.com"):::lit
     n1db9350539ae("C1t1b@nk#2024!"):::lit
     ne33644105d79[":Alice_Debit_Card\n(DebitCard)"]
-    n4c69e1c85e30("4111-1111-1111-1111"):::lit
-    nd4b8fbfd1b85("123"):::lit
-    nc3eb96202ac0("12/28"):::lit
+    n841bea5c3665("4111-1111-1111-1111"):::lit
+    nc61a0dfed611("123"):::lit
+    n45aab86793ce("12/28"):::lit
     n0415a88486d3[":Citibank\n(Organization)"]:::org
     ne0c3ba92f1db[":Self\n(Person)"]:::person
 
-    naadb4eb7dbfe -->|"AccountNumber"| n438144610ae3
-    naadb4eb7dbfe -->|"RoutingNumber"| n428c3a96462b
+    naadb4eb7dbfe -->|"AccountNumber"| n192cc91bd305
+    naadb4eb7dbfe -->|"RoutingNumber"| n9a1e235d55ee
     nd168547b019a -->|"serviceName"| nb69c1e2996b7
     nd168547b019a -->|"userHandle"| n30fbde007d82
     nd168547b019a -->|"serviceURI"| n1bbd693303ed
     nd168547b019a -->|"hasPassword"| n1db9350539ae
-    ne33644105d79 -->|"CardNumber"| n4c69e1c85e30
-    ne33644105d79 -->|"CVV"| nd4b8fbfd1b85
-    ne33644105d79 -->|"ExpirationDate"| nc3eb96202ac0
+    ne33644105d79 -->|"CardNumber"| n841bea5c3665
+    ne33644105d79 -->|"CVV"| nc61a0dfed611
+    ne33644105d79 -->|"ExpirationDate"| n45aab86793ce
     ne33644105d79 -->|"accessesBankAccount"| naadb4eb7dbfe
     ne0c3ba92f1db -->|"hasPaymentCard"| ne33644105d79
     ne0c3ba92f1db -->|"hasBankAccount"| naadb4eb7dbfe

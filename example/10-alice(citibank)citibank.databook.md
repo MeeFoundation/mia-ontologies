@@ -9,7 +9,7 @@ description: >
   and online banking credentials. Asserted by Citibank (a PDN Organization node).
 mia:
   name: "Citibank"
-  contextCategory: "context:FinancialServices"
+  category: "context:FinancialServices"
   assertedBy: ":Citibank"
   subject: ":Self"
 graph:

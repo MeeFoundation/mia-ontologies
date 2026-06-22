@@ -1,4 +1,3 @@
-%% ContextCategory: context:Group
 flowchart TD
     classDef person fill:#fffacd,stroke:#aaa,color:#333
     classDef grp    fill:#d4edda,stroke:#aaa,color:#333
@@ -8,12 +7,12 @@ flowchart TD
 
     subgraph ctx["Context"]
         direction LR
-        ctx_meta["name: Boston Hub Society\ncategory: Group\nassertedBy: :Bob_Johnson\nsubject: :Bob_Johnson"]:::meta
+        ctx_meta["name: Boston Hub Society\nassertedBy: :Bob_Johnson\nsubject: :Bob_Johnson"]:::meta
     end
 
     n166b15bd501b[":Bob_Johnson\n(Person)"]:::person
-    n3f3902bf8eaa("Bob"):::lit
-    nd0f7d62a07f6("Johnson"):::lit
+    n61aab92d9bb4("Bob"):::lit
+    n39fb0e3e2c47("Johnson"):::lit
 
-    n166b15bd501b -->|"GivenName"| n3f3902bf8eaa
-    n166b15bd501b -->|"FamilyName"| nd0f7d62a07f6
+    n166b15bd501b -->|"GivenName"| n61aab92d9bb4
+    n166b15bd501b -->|"FamilyName"| n39fb0e3e2c47

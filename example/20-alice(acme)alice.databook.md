@@ -9,7 +9,7 @@ description: >
   Acme social network connection to colleague Paula Walker. Self-asserted by Alice.
 mia:
   name: "Acme"
-  contextCategory: "context:Employee"
+  category: "context:Employee"
   assertedBy: ":Self"
   subject: ":Self"
 graph:

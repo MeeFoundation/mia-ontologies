@@ -9,7 +9,7 @@ description: >
   license number, expiration date, issuing jurisdiction, and photo. Self-asserted by Alice.
 mia:
   name: "Driver's License"
-  contextCategory: "context:State"
+  category: "context:State"
   assertedBy: ":Self"
   subject: ":Self"
   template: "persona:DriversLicense"

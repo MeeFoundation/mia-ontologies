@@ -1,4 +1,3 @@
-%% ContextCategory: context:People
 flowchart TD
     classDef person fill:#fffacd,stroke:#aaa,color:#333
     classDef grp    fill:#d4edda,stroke:#aaa,color:#333
@@ -8,10 +7,10 @@ flowchart TD
 
     subgraph ctx["Context"]
         direction LR
-        ctx_meta["name: Bob\ncategory: People\nassertedBy: :Self\nsubject: :Bob_Johnson\ndyad: bob(bob)bob (6)"]:::meta
+        ctx_meta["name: Bob\nassertedBy: :Self\nsubject: :Bob_Johnson\ndyad: bob(bob)bob (6)"]:::meta
     end
 
     n166b15bd501b[":Bob_Johnson\n(Person)"]:::person
-    n7ddaef4666ca("Fav drink: oat milk cappuccino"):::lit
+    n9ea8679ffad1("Fav drink: oat milk cappuccino"):::lit
 
-    n166b15bd501b -->|"ent00000048"| n7ddaef4666ca
+    n166b15bd501b -->|"ent00000048"| n9ea8679ffad1

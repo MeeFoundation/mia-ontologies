@@ -33,26 +33,26 @@ A *context* is a container of information about a person related to their intera
 The description of the context container itself is carried in the DataBook's YAML frontmatter under the `mia:` key. The context ontology (`context.ttl`) defines the controlled vocabularies that those YAML fields reference:
 
 - `mia.name` — a human-readable name for the context, e.g. `"Citibank"` to represent the user's interactions with Citibank.
-- `mia.contextCategory` — a classification of the context into one of a set of broad catagories; its value is a prefixed name of a `c:Category` subclass, e.g. `"context:Family"` to represent the user's interaction with a family member.
+- `mia.category` — a classification of the context into one of a set of broad catagories; its value is a prefixed name of a `c:Category` subclass, e.g. `"context:Family"` to represent the user's interaction with a family member.
 - `mia.assertedBy` — who is making the assertions (claims) (e.g. a person, group or organization). The persons could be the user themselves for self-asserted claims.
 - `mia.subject` — whose identity the context file describes; its value is a local IRI of a `p:Person`, `g:Group`, or `o:Organization` individual, e.g. `":Self"`.
 - `mia.template` — present only on context files that conform to a specific template; its value is a `p:PersonaTemplate` subclass (e.g. `"persona:BirthCertificate"`, `"persona:JSContactCard"`, `"persona:DriversLicense"`).
 - `mia.dyad` — the IRI of the partner DataBook in a 1:1 relationship context. If context A carries `mia.dyad` pointing to context B, then B must carry `mia.dyad` pointing back to A.
 
-**`c:contextCategory`** — The nature of the interaction/relationship context. Values form a subclass hierarchy under `c:Category`:
+**`c:category`** — The nature of the interaction/relationship context. Values form a subclass hierarchy under `c:Category`:
 
 - `c:Group` — interactions with a formal or informal group of people.
-- `c:People` — interactions with individual people in a person's life.
-  - `c:Family` — interactions with a family member.
+- `c:People` — interactions with people in a person's social or professional life.
+  - `c:Family` — interactions with family members.
   - `c:Friends` — interactions with friends.
   - `c:Consultants` — interactions with consultants who provide services.
 - `c:Work` — professional roles, employment history, and career relationships.
   - `c:Employee` — related to being an employee.
   - `c:Contributor` — related to contributing to initiatives started or led by others.
   - `c:Creator` — related to being a creator, inventor, founder, or author of something.
-- `c:Companies` — relationship with a specific company, bank, or other institution.
-  - `c:FinancialServices` — relationship with a bank or other financial services institution.
-  - `c:Healthcare` — relationship with a healthcare provider or health insurance company.
+- `c:Companies` — relationship with companies, banks, or other institutions.
+  - `c:FinancialServices` — relationship with banks or other financial services institution.
+  - `c:Healthcare` — relationship with healthcare providers or health insurance companies.
 - `c:Finances` — information about personal finances not related to any interactions with banks, financial institutions, or government agencies.
 - `c:Health` — personal health and wellness information not related to any specific healthcare provider.
 - `c:Events` — participation in or relationship to a specific event.
@@ -71,7 +71,6 @@ The description of the context container itself is carried in the DataBook's YAM
   - `c:Dwellings` — owning or renting a home or other dwelling.
 - `c:Projects` — involvement in a specific project or initiative.
 
-<p align="center"><img src="images/context-ontology/context-category.png" alt="contextType hierarchy"></p>
 
 **`c:assertedBy`** — Who is making the assertion. Values are local IRIs of `p:Person`, `g:Group`, or `o:Organization` individuals:
 - `:Self` — the Mia user is recording the data, even if the underlying information originates from some other party such as a company, government agency, or another person.
@@ -93,7 +92,7 @@ The lower left shows a context that Alice might share with other people or compa
 
 ### Context Ontology File
 
-- **`context.ttl`** — The Context ontology, defining `c:Category` and its subclass hierarchy, and the `c:contextCategory`, `c:assertedBy`, `c:subject`, `c:name`, `c:template`, and `c:dyad` properties. These terms are referenced by name in the YAML frontmatter of each DataBook context file.
+- **`context.ttl`** — The Context ontology, defining `c:Category` and its subclass hierarchy, and the `c:category`, `c:assertedBy`, `c:subject`, `c:name`, `c:template`, and `c:dyad` properties. These terms are referenced by name in the YAML frontmatter of each DataBook context file.
 
 ### Validation
 

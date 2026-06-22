@@ -9,7 +9,7 @@ description: >
   and email address as shared with the Boston Hub Society group.
 mia:
   name: "Boston Hub Society"
-  contextCategory: "context:Group"
+  category: "context:Group"
   assertedBy: ":Self"
   subject: ":Self"
 graph:

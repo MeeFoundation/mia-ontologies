@@ -1,4 +1,3 @@
-%% ContextCategory: context:Employee
 flowchart TD
     classDef person fill:#fffacd,stroke:#aaa,color:#333
     classDef grp    fill:#d4edda,stroke:#aaa,color:#333
@@ -8,16 +7,16 @@ flowchart TD
 
     subgraph ctx["Context"]
         direction LR
-        ctx_meta["name: Acme\ncategory: Employee\nassertedBy: :Self\nsubject: :Self"]:::meta
+        ctx_meta["name: Acme\nassertedBy: :Self\nsubject: :Self"]:::meta
     end
 
     n2ed3865285b0[":Alice_Acme_Network\n(SocialNetwork)"]
     nb654756d5ced[":Paula_Walker"]
     ne0c3ba92f1db[":Self\n(Person)"]:::person
-    n5ea91524f04b("Alice Walker"):::lit
-    na28da371b888("alice@acme.com"):::lit
+    naac4746ad287("Alice Walker"):::lit
+    n955f896816fb("alice@acme.com"):::lit
 
     n2ed3865285b0 -->|"hasMember"| nb654756d5ced
-    ne0c3ba92f1db -->|"AlternateName"| n5ea91524f04b
-    ne0c3ba92f1db -->|"EmailAddress"| na28da371b888
+    ne0c3ba92f1db -->|"AlternateName"| naac4746ad287
+    ne0c3ba92f1db -->|"EmailAddress"| n955f896816fb
     ne0c3ba92f1db -->|"hasSocialNetwork"| n2ed3865285b0

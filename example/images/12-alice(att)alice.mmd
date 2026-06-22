@@ -1,4 +1,3 @@
-%% ContextCategory: context:Companies
 flowchart TD
     classDef person fill:#fffacd,stroke:#aaa,color:#333
     classDef grp    fill:#d4edda,stroke:#aaa,color:#333
@@ -8,10 +7,10 @@ flowchart TD
 
     subgraph ctx["Context"]
         direction LR
-        ctx_meta["name: AT&T\ncategory: Companies\nassertedBy: :Self\nsubject: :Self"]:::meta
+        ctx_meta["name: AT&T\nassertedBy: :Self\nsubject: :Self"]:::meta
     end
 
     ne0c3ba92f1db[":Self\n(Person)"]:::person
-    na2a6c1da735c("+15108149999"):::lit
+    n93c748e144b3("+15108149999"):::lit
 
-    ne0c3ba92f1db -->|"TelephoneNumber"| na2a6c1da735c
+    ne0c3ba92f1db -->|"TelephoneNumber"| n93c748e144b3
