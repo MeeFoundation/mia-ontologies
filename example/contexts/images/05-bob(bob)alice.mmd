@@ -7,10 +7,10 @@ flowchart TD
 
     subgraph ctx["Context"]
         direction LR
-        ctx_meta["name: Bob\nassertedBy: :Self\nsubject: :Bob_Johnson\ndyad: bob(bob)bob (6)"]:::meta
+        ctx_meta["assertedBy: :Self\nsubject: :Bob_Johnson"]:::meta
     end
 
     n166b15bd501b[":Bob_Johnson\n(Person)"]:::person
-    n62ec39738227("Fav drink: oat milk cappuccino"):::lit
+    n926cfbf4832f("Fav drink: oat milk cappuccino"):::lit
 
-    n166b15bd501b -->|"ent00000048"| n62ec39738227
+    n166b15bd501b -->|"ent00000048"| n926cfbf4832f

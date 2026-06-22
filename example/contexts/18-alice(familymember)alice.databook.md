@@ -1,6 +1,6 @@
 ---
 id: http://www.example.org/mia/alice(familymember)alice
-title: "Alice Walker — Family"
+title: "About Alice Walker in the Family context as asserted by Alice Walker"
 type: context-databook
 version: 2.0.5
 created: 2026-06-01
@@ -8,8 +8,7 @@ description: >
   Alice Walker's family context. Records her maternal relationship with Paula Walker
   and her family social network. Self-asserted by Alice.
 mia:
-  name: "Family"
-  category: "context:Family"
+  category: "http://www.example.org/mia/categories/family"
   assertedBy: ":Self"
   subject: ":Self"
   about-by: "context:SBS-Context"

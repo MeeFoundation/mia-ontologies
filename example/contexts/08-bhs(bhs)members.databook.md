@@ -1,6 +1,6 @@
 ---
 id: http://www.example.org/mia/bhs(bhs)members
-title: "Boston Hub Society — Group"
+title: "About Boston Hub Society in the Groups context as asserted by Boston Hub Society"
 type: context-databook
 version: 2.0.2
 created: 2026-06-12
@@ -8,8 +8,7 @@ description: >
   The Boston Hub Society group instance, with Alice and Bob as members.
   A g:Group context assertable by any permitted member.
 mia:
-  name: "Boston Hub Society"
-  category: "context:Group"
+  category: "http://www.example.org/mia/categories/groups"
   assertedBy: ":BHS_Group"
   subject: ":BHS_Group"
   about-by: "context:OBO-Context"

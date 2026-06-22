@@ -1,6 +1,6 @@
 ---
 id: http://www.example.org/mia/alice(driverslicense)alice
-title: "Alice Walker — Driver's License"
+title: "About Alice Walker in the State context as asserted by Alice Walker"
 type: context-databook
 version: 2.0.2
 created: 2026-06-15
@@ -8,8 +8,7 @@ description: >
   Alice Walker's California driver's license context. Records her legal name, date of birth,
   license number, expiration date, issuing jurisdiction, and photo. Self-asserted by Alice.
 mia:
-  name: "Driver's License"
-  category: "context:State"
+  category: "http://www.example.org/mia/categories/state"
   assertedBy: ":Self"
   subject: ":Self"
   about-by: "context:SBS-Context"

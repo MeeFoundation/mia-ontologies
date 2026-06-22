@@ -1,6 +1,6 @@
 ---
 id: http://www.example.org/mia/alice(business-card)alice
-title: "Alice Walker — Business Card"
+title: "About Alice Walker in the Employee context as asserted by Alice Walker"
 type: context-databook
 version: 2.0.2
 created: 2026-06-14
@@ -8,8 +8,7 @@ description: >
   Alice Walker's JSContactCard business card persona. Records her professional contact
   details: name, work email, work phone, employer, department, job title, and LinkedIn URL.
 mia:
-  name: "Business Card"
-  category: "context:Employee"
+  category: "http://www.example.org/mia/categories/employee"
   assertedBy: ":Self"
   subject: ":Self"
   about-by: "context:SBS-Context"

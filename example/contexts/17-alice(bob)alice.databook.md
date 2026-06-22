@@ -1,20 +1,17 @@
 ---
 id: http://www.example.org/mia/alice(bob)alice
-title: "Alice Walker — Bob context (Alice's view)"
+title: "About Alice Walker in the People context as asserted by Alice Walker"
 type: context-databook
 version: 2.0.3
 created: 2026-06-12
 description: >
   Alice Walker's self-asserted persona in the context of her 1:1 relationship with Bob Johnson.
   Records the name and social network connection she shares with Bob.
-  Dyad partner is Bob's record of Alice in the same context.
 mia:
-  name: "Bob"
-  category: "context:People"
+  category: "http://www.example.org/mia/categories/people"
   assertedBy: ":Self"
   subject: ":Self"
   about-by: "context:SBS-Context"
-  dyad: "http://www.example.org/mia/alice(bob)bob"
 graph:
   named_graph: http://www.example.org/mia/alice(bob)alice#graph
   rdf_version: "1.1"
@@ -30,7 +27,7 @@ process:
 
 ## Overview
 
-This context captures Alice Walker's self-asserted persona in her 1:1 relationship with Bob Johnson. It records the name Alice presents to Bob and her social network link to him. It is paired (dyad) with `04-alice(bob)bob`, Bob's record of Alice in the same context.
+This context captures Alice Walker's self-asserted persona in her 1:1 relationship with Bob Johnson. It records the name Alice presents to Bob and her social network link to him.
 
 ## Identity Data
 

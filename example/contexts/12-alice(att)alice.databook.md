@@ -1,6 +1,6 @@
 ---
 id: http://www.example.org/mia/alice(att)alice
-title: "Alice Walker — AT&T"
+title: "About Alice Walker in the Companies context as asserted by Alice Walker"
 type: context-databook
 version: 2.0.2
 created: 2026-06-01
@@ -8,8 +8,7 @@ description: >
   Alice Walker's AT&T context. Records her mobile phone number as self-entered data
   about her AT&T account relationship.
 mia:
-  name: "AT&T"
-  category: "context:Companies"
+  category: "http://www.example.org/mia/categories/companies"
   assertedBy: ":Self"
   subject: ":Self"
   about-by: "context:SBS-Context"

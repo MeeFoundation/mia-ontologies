@@ -1,6 +1,6 @@
 ---
 id: http://www.example.org/mia/alice(citibank)citibank
-title: "Alice Walker — Citibank"
+title: "About Alice Walker in the FinancialServices context as asserted by Citibank"
 type: context-databook
 version: 2.0.3
 created: 2026-06-15
@@ -8,8 +8,7 @@ description: >
   Alice Walker's Citibank context. Records her VISA debit card, checking account,
   and online banking credentials. Asserted by Citibank (a PDN Organization node).
 mia:
-  name: "Citibank"
-  category: "context:FinancialServices"
+  category: "http://www.example.org/mia/categories/financial-services"
   assertedBy: ":Citibank"
   subject: ":Self"
   about-by: "context:SBO-Context"

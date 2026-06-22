@@ -7,16 +7,16 @@ flowchart TD
 
     subgraph ctx["Context"]
         direction LR
-        ctx_meta["name: Texas Birth Certificate\nassertedBy: :Self\nsubject: :Self\ntemplate: persona:BirthCertificate"]:::meta
+        ctx_meta["assertedBy: :Self\nsubject: :Self\ntemplate: persona:BirthCertificate"]:::meta
     end
 
     ne0c3ba92f1db[":Self\n(Person)"]:::person
-    n1554ecbbe33c("Margery"):::lit
-    n5d66d0a2f793("Alice"):::lit
-    n270493c1dbe4("Walker"):::lit
-    n59b1404d75e3("Margery Alice Arnold"):::lit
+    n531715e91915("Margery"):::lit
+    nc2700f8862bd("Alice"):::lit
+    n77f6e11fc428("Walker"):::lit
+    n236a2f2bb212("Margery Alice Arnold"):::lit
 
-    ne0c3ba92f1db -->|"GivenName"| n1554ecbbe33c
-    ne0c3ba92f1db -->|"AdditionalName"| n5d66d0a2f793
-    ne0c3ba92f1db -->|"FamilyName"| n270493c1dbe4
-    ne0c3ba92f1db -->|"AlternateName"| n59b1404d75e3
+    ne0c3ba92f1db -->|"GivenName"| n531715e91915
+    ne0c3ba92f1db -->|"AdditionalName"| nc2700f8862bd
+    ne0c3ba92f1db -->|"FamilyName"| n77f6e11fc428
+    ne0c3ba92f1db -->|"AlternateName"| n236a2f2bb212

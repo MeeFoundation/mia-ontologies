@@ -8,8 +8,6 @@ description: >
   UserDefined category DataBook for Alice's relationship with Bob Johnson.
   Child of the People category.
 mia:
-  cat-name: "Bob Johnson"
-  category-class: "context:UserDefined"
   predefined: false
   obs: "http://www.example.org/mia/bob(bob)alice"
   sbs: "http://www.example.org/mia/alice(bob)alice"

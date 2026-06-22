@@ -1,6 +1,6 @@
 ---
 id: http://www.example.org/mia/alice(health)alice
-title: "Alice Walker — Physical Body"
+title: "About Alice Walker in the Health context as asserted by Alice Walker"
 type: context-databook
 version: 1.0.0
 created: 2026-06-20
@@ -8,8 +8,7 @@ description: >
   Alice Walker's physical body characteristics: height, eye color, and hair color.
   Self-asserted by Alice.
 mia:
-  name: "PhysicalBody"
-  category: "context:Health"
+  category: "http://www.example.org/mia/categories/health"
   assertedBy: ":Self"
   subject: ":Self"
   about-by: "context:SBS-Context"

@@ -7,18 +7,18 @@ flowchart TD
 
     subgraph ctx["Context"]
         direction LR
-        ctx_meta["name: Bob\nassertedBy: :Self\nsubject: :Self\ndyad: alice(bob)bob (4)"]:::meta
+        ctx_meta["assertedBy: :Self\nsubject: :Self"]:::meta
     end
 
     ne62a8f0f56d6[":Alice_Bob_Network\n(SocialNetwork)"]
     ncea94215aa38[":Bob_Johnson"]
     ne0c3ba92f1db[":Self\n(Person)"]:::person
-    nb450e132f67e("Alice Walker"):::lit
-    n9fc62dfb691d("Alice"):::lit
-    n67725bf869cd("Walker"):::lit
+    ndf3896e78d83("Alice Walker"):::lit
+    n2db1cbd1ee45("Alice"):::lit
+    n85602ff51ff2("Walker"):::lit
 
     ne62a8f0f56d6 -->|"hasMember"| ncea94215aa38
-    ne0c3ba92f1db -->|"AlternateName"| nb450e132f67e
-    ne0c3ba92f1db -->|"GivenName"| n9fc62dfb691d
-    ne0c3ba92f1db -->|"FamilyName"| n67725bf869cd
+    ne0c3ba92f1db -->|"AlternateName"| ndf3896e78d83
+    ne0c3ba92f1db -->|"GivenName"| n2db1cbd1ee45
+    ne0c3ba92f1db -->|"FamilyName"| n85602ff51ff2
     ne0c3ba92f1db -->|"hasSocialNetwork"| ne62a8f0f56d6

@@ -1,6 +1,6 @@
 ---
 id: http://www.example.org/mia/alice(paradise)alice
-title: "Alice Walker — Paradise (Current Address)"
+title: "About Alice Walker in the Municipality context as asserted by Alice Walker"
 type: context-databook
 version: 2.0.2
 created: 2026-06-01
@@ -8,8 +8,7 @@ description: >
   Alice Walker's current residential address in Paradise, CA (September 2025 to present).
   Self-asserted by Alice; open-ended temporal interval indicates this is her current address.
 mia:
-  name: "Paradise"
-  category: "context:Municipality"
+  category: "http://www.example.org/mia/categories/municipality"
   assertedBy: ":Self"
   subject: ":Self"
   about-by: "context:SBS-Context"

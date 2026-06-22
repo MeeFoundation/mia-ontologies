@@ -1,20 +1,17 @@
 ---
 id: http://www.example.org/mia/bob(bob)bob
-title: "Bob Johnson — Bob context (Bob's view)"
+title: "About Bob Johnson in the People context as asserted by Bob Johnson"
 type: context-databook
 version: 2.0.2
 created: 2026-06-15
 description: >
   Bob Johnson's self-asserted Bob-context persona, received from Bob's Mia via PDN.
   Records Bob's name and his social network connection to Alice.
-  Dyad partner is Alice's record of Bob in the Bob context.
 mia:
-  name: "Bob"
-  category: "context:People"
+  category: "http://www.example.org/mia/categories/people"
   assertedBy: ":Bob_Johnson"
   subject: ":Bob_Johnson"
   about-by: "context:OBO-Context"
-  dyad: "http://www.example.org/mia/bob(bob)alice"
 graph:
   named_graph: http://www.example.org/mia/bob(bob)bob#graph
   rdf_version: "1.1"
@@ -30,7 +27,7 @@ process:
 
 ## Overview
 
-This context captures Bob Johnson's self-asserted Bob-context persona, transmitted from Bob's Mia to Alice's Mia over the PDN. It records Bob's name and his social network link to Alice. It is paired (dyad) with `05-bob(bob)alice`, Alice's record of Bob in the same context.
+This context captures Bob Johnson's self-asserted Bob-context persona, transmitted from Bob's Mia to Alice's Mia over the PDN. It records Bob's name and his social network link to Alice.
 
 ## Identity Data
 

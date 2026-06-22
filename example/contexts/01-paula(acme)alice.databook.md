@@ -1,6 +1,6 @@
 ---
 id: http://www.example.org/mia/paula(acme)alice
-title: "Paula Walker — Acme (Alice's view)"
+title: "About Paula Walker in the Employee context as asserted by Alice Walker"
 type: context-databook
 version: 2.0.1
 created: 2026-06-14
@@ -8,8 +8,7 @@ description: >
   Alice's record of her colleague Paula Walker in the Acme employment context.
   Self-asserted by Alice; describes Paula as an individual.
 mia:
-  name: "Acme"
-  category: "context:Employee"
+  category: "http://www.example.org/mia/categories/employee"
   assertedBy: ":Self"
   subject: ":Paula_Walker"
   about-by: "context:OBS-Context"

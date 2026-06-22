@@ -1,6 +1,6 @@
 ---
 id: http://www.example.org/mia/alice(passport)alice
-title: "Alice Walker — Passport"
+title: "About Alice Walker in the Federal context as asserted by Alice Walker"
 type: context-databook
 version: 1.0.0
 created: 2026-06-20
@@ -9,8 +9,7 @@ description: >
   issue and expiration dates, issuing country, place of birth, gender marker, and photo.
   Self-asserted by Alice.
 mia:
-  name: "Passport"
-  category: "context:Federal"
+  category: "http://www.example.org/mia/categories/federal"
   assertedBy: ":Self"
   subject: ":Self"
   about-by: "context:SBS-Context"

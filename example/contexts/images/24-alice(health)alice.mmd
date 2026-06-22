@@ -7,7 +7,7 @@ flowchart TD
 
     subgraph ctx["Context"]
         direction LR
-        ctx_meta["name: PhysicalBody\nassertedBy: :Self\nsubject: :Self"]:::meta
+        ctx_meta["assertedBy: :Self\nsubject: :Self"]:::meta
     end
 
     n5fecfaaf895f[":Alice_Height\n(Height)"]
@@ -15,15 +15,15 @@ flowchart TD
     n07bac97f4199("Inch"):::lit
     nb51e42161d31("68"):::lit
     ne0c3ba92f1db[":Self\n(Person)"]:::person
-    n9c533c2fa20c{"BlueEyeColor"}
-    n828d8b43c930{"ScalpHair"}
-    n5c0c5b6556a9("Grey"):::lit
+    nf83d1bf83fde{"BlueEyeColor"}
+    n9ebbe1a956a3{"ScalpHair"}
+    na9dcf12ece52("Grey"):::lit
 
     n89a1fac192dc -->|"isRatioMeasurementOf"| n5fecfaaf895f
     n89a1fac192dc -->|"usesMeasurementUnit"| n07bac97f4199
     n89a1fac192dc -->|"hasDecimalValue"| nb51e42161d31
     ne0c3ba92f1db -->|"bearerOf"| n5fecfaaf895f
     ne0c3ba92f1db -->|"bearerOf"| n89a1fac192dc
-    ne0c3ba92f1db -->|"bearerOf"| n9c533c2fa20c
-    ne0c3ba92f1db -->|"hasContinuantPart"| n828d8b43c930
-    n828d8b43c930 -->|"HairColor"| n5c0c5b6556a9
+    ne0c3ba92f1db -->|"bearerOf"| nf83d1bf83fde
+    ne0c3ba92f1db -->|"hasContinuantPart"| n9ebbe1a956a3
+    n9ebbe1a956a3 -->|"HairColor"| na9dcf12ece52

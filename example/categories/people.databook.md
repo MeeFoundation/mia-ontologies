@@ -8,8 +8,10 @@ description: >
   Category DataBook for the People context category. Groups context DataBooks
   about interactions with individual people in the user's life.
 mia:
-  cat-name: "People"
-  category-class: "context:People"
   predefined: true
-  child: "http://www.example.org/mia/categories/bob-johnson"
+  child:
+    - "http://www.example.org/mia/categories/bob-johnson"
+    - "http://www.example.org/mia/categories/friends"
+    - "http://www.example.org/mia/categories/family"
+    - "http://www.example.org/mia/categories/consultants"
 ---

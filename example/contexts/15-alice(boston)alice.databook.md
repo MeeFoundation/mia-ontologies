@@ -1,6 +1,6 @@
 ---
 id: http://www.example.org/mia/alice(boston)alice
-title: "Alice Walker — Boston (Previous Address)"
+title: "About Alice Walker in the Municipality context as asserted by Alice Walker"
 type: context-databook
 version: 2.0.2
 created: 2026-06-01
@@ -8,8 +8,7 @@ description: >
   Alice Walker's previous residential address in Boston, MA (January 2020 to August 2025).
   Self-asserted by Alice; closed temporal interval indicates this is a past address.
 mia:
-  name: "Boston"
-  category: "context:Municipality"
+  category: "http://www.example.org/mia/categories/municipality"
   assertedBy: ":Self"
   subject: ":Self"
   about-by: "context:SBS-Context"

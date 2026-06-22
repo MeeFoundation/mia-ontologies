@@ -7,30 +7,30 @@ flowchart TD
 
     subgraph ctx["Context"]
         direction LR
-        ctx_meta["name: Passport\nassertedBy: :Self\nsubject: :Self\ntemplate: persona:Passport"]:::meta
+        ctx_meta["assertedBy: :Self\nsubject: :Self\ntemplate: persona:Passport"]:::meta
     end
 
     ne0c3ba92f1db[":Self\n(Person)"]:::person
-    ne7438c02065f("Margery"):::lit
-    n36504027d8a2("Alice"):::lit
-    n2f8f1d4bb211("Walker"):::lit
-    nf5494a734c5a("1985-07-04"):::lit
-    n458b0f630489("2021-07-04"):::lit
-    n0047077b3f89("2031-07-04"):::lit
-    n39117b0e1e21("123456789"):::lit
-    naafe13bdd884("United States of America"):::lit
-    n4aabdfc3bf8a("Austin, Texas, USA"):::lit
-    n7901192ae866("F"):::lit
+    nb4a2268f4c8a("Margery"):::lit
+    n108ec41c7281("Alice"):::lit
+    n799ae6871319("Walker"):::lit
+    ne07a212ee350("1985-07-04"):::lit
+    n7d77d7ac0a9c("2021-07-04"):::lit
+    n374b51723d23("2031-07-04"):::lit
+    n564d4737c35b("123456789"):::lit
+    nfb52445e793c("United States of America"):::lit
+    n1ac602b09025("Austin, Texas, USA"):::lit
+    n532147cde0f7("F"):::lit
     nd1310d4db60a("https://example.org/alice-passport-photo.jpg"):::lit
 
-    ne0c3ba92f1db -->|"GivenName"| ne7438c02065f
-    ne0c3ba92f1db -->|"AdditionalName"| n36504027d8a2
-    ne0c3ba92f1db -->|"FamilyName"| n2f8f1d4bb211
-    ne0c3ba92f1db -->|"ent00000046"| nf5494a734c5a
-    ne0c3ba92f1db -->|"IssueDate"| n458b0f630489
-    ne0c3ba92f1db -->|"ExpirationDate"| n0047077b3f89
-    ne0c3ba92f1db -->|"PassportNumber"| n39117b0e1e21
-    ne0c3ba92f1db -->|"IssuingCountry"| naafe13bdd884
-    ne0c3ba92f1db -->|"PlaceOfBirth"| n4aabdfc3bf8a
-    ne0c3ba92f1db -->|"GenderMarker"| n7901192ae866
+    ne0c3ba92f1db -->|"GivenName"| nb4a2268f4c8a
+    ne0c3ba92f1db -->|"AdditionalName"| n108ec41c7281
+    ne0c3ba92f1db -->|"FamilyName"| n799ae6871319
+    ne0c3ba92f1db -->|"ent00000046"| ne07a212ee350
+    ne0c3ba92f1db -->|"IssueDate"| n7d77d7ac0a9c
+    ne0c3ba92f1db -->|"ExpirationDate"| n374b51723d23
+    ne0c3ba92f1db -->|"PassportNumber"| n564d4737c35b
+    ne0c3ba92f1db -->|"IssuingCountry"| nfb52445e793c
+    ne0c3ba92f1db -->|"PlaceOfBirth"| n1ac602b09025
+    ne0c3ba92f1db -->|"GenderMarker"| n532147cde0f7
     ne0c3ba92f1db -->|"hasPhoto"| nd1310d4db60a

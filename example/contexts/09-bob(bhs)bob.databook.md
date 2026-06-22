@@ -1,6 +1,6 @@
 ---
 id: http://www.example.org/mia/bob(bhs)bob
-title: "Bob Johnson — BHS Profile"
+title: "About Bob Johnson in the Groups context as asserted by Bob Johnson"
 type: context-databook
 version: 2.0.1
 created: 2026-06-15
@@ -8,8 +8,7 @@ description: >
   Bob Johnson's BHS profile, received from Bob's Mia via PDN.
   Records Bob's name as he presents himself to the Boston Hub Society.
 mia:
-  name: "Boston Hub Society"
-  category: "context:Group"
+  category: "http://www.example.org/mia/categories/groups"
   assertedBy: ":Bob_Johnson"
   subject: ":Bob_Johnson"
   about-by: "context:OBO-Context"

@@ -1,19 +1,16 @@
 ---
 id: http://www.example.org/mia/paula(familymember)alice
-title: "Paula Walker — Family (Alice's view)"
+title: "About Paula Walker in the Family context as asserted by Alice Walker"
 type: context-databook
 version: 2.0.4
 created: 2026-06-14
 description: >
   Alice's record of her family member Paula Walker, including Paula's given and family name.
-  Asserted by Alice; dyad partner is Paula's self-asserted family context.
 mia:
-  name: "Family"
-  category: "context:Family"
+  category: "http://www.example.org/mia/categories/family"
   assertedBy: ":Self"
   subject: ":Paula_Walker"
   about-by: "context:OBS-Context"
-  dyad: "http://www.example.org/mia/paula(familymember)paula"
 graph:
   named_graph: http://www.example.org/mia/paula(familymember)alice#graph
   rdf_version: "1.1"
@@ -29,7 +26,7 @@ process:
 
 ## Overview
 
-This context captures Alice's record of her family member Paula Walker. Alice asserts Paula's name in the family context. It is paired (dyad) with `03-paula(familymember)paula`, which is Paula's self-asserted family persona received from Paula's Mia.
+This context captures Alice's record of her family member Paula Walker. Alice asserts Paula's name in the family context.
 
 ## Identity Data
 

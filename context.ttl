@@ -11,7 +11,7 @@
     owl:versionIRI <http://mee.foundation/ontologies/context/1.0.1> ;
     dc:date "2026-06-01"^^xsd:date ;
     owl:imports <http://mee.foundation/ontologies/pdn-identity> ;
-    owl:versionInfo "Version 1.0.54 - add context:child object property (Category → Category)"@en ;
+    owl:versionInfo "Version 1.0.58 - remove context:dyad (no longer needed)"@en ;
     rdfs:label "Context Ontology"@en ;
     rdfs:comment """Context and Category Ontology for the Mee Identity Agent"""@en .
 
@@ -41,12 +41,6 @@ context:subject rdf:type owl:AnnotationProperty ;
                     Applied to the named graph IRI, not to the Person individual."""@en ;
     rdfs:range identity:PDNidentifier .
 
-context:name rdf:type owl:AnnotationProperty ;
-    rdfs:label "name"@en ;
-    rdfs:comment """A human-readable name for this DataBook named graph (context).
-                    Applied to the named graph IRI, not to the Person individual."""@en ;
-    rdfs:range xsd:string .
-
 context:template rdf:type owl:AnnotationProperty ;
     rdfs:label "template"@en ;
     rdfs:comment """Annotates a DataBook named graph with the persona template type that applies to it.
@@ -55,13 +49,6 @@ context:template rdf:type owl:AnnotationProperty ;
                     Used to select the appropriate per-template SHACL shapes file for validation.
                     Applied to the named graph IRI."""@en ;
     rdfs:range <http://mee.foundation/ontologies/persona#PersonaTemplate> .
-
-context:dyad rdf:type owl:AnnotationProperty ;
-    rdfs:label "dyad"@en ;
-    rdfs:comment """Annotates a DataBook named graph with the IRI of its dyad partner —
-                    the reciprocal DataBook about the same relationship asserted by the other party.
-                    Must be symmetric: if A dyad B then B dyad A."""@en .
-
 
 #################################################################
 #    Context (DataBook)
@@ -116,12 +103,6 @@ context:UserDefined rdf:type owl:Class ;
     rdfs:label "UserDefined"@en ;
     rdfs:comment "Superclass of context categories defined by the Mia user."@en .
 
-context:cat-name rdf:type owl:DatatypeProperty ;
-    rdfs:domain context:UserDefined ;
-    rdfs:range xsd:string ;
-    rdfs:label "category name"@en ;
-    rdfs:comment "The human-readable name of a user-defined context category."@en .
-
 context:sbs rdf:type owl:ObjectProperty ;
     rdfs:domain context:Category ;
     rdfs:range context:Context ;
@@ -154,13 +135,13 @@ context:child rdf:type owl:ObjectProperty ;
     rdfs:comment "Links a category to a more specific child category."@en .
 
 #################################################################
-#    c:Group Contexts and subclasses
+#    c:Groups Contexts and subclasses
 #################################################################
 
 
-context:Group rdf:type owl:Class ;
+context:Groups rdf:type owl:Class ;
     rdfs:subClassOf context:Predefined ;
-    rdfs:label "Group"@en ;
+    rdfs:label "Groups"@en ;
     rdfs:comment "Interactions with a formal or informal group of people."@en .
 
 

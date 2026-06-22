@@ -7,15 +7,15 @@ flowchart TD
 
     subgraph ctx["Context"]
         direction LR
-        ctx_meta["name: Family\nassertedBy: :Self\nsubject: :Self"]:::meta
+        ctx_meta["assertedBy: :Self\nsubject: :Self"]:::meta
     end
 
     n29ddd4160a4b[":Alice_Family_Network\n(SocialNetwork)"]
     nb654756d5ced[":Paula_Walker"]
     ne0c3ba92f1db[":Self\n(Person)"]:::person
-    nf700bb6055b1("Alice Walker"):::lit
+    nfd52d0600155("Alice Walker"):::lit
 
     n29ddd4160a4b -->|"hasMember"| nb654756d5ced
-    ne0c3ba92f1db -->|"AlternateName"| nf700bb6055b1
+    ne0c3ba92f1db -->|"AlternateName"| nfd52d0600155
     ne0c3ba92f1db -->|"hasMother"| nb654756d5ced
     ne0c3ba92f1db -->|"hasSocialNetwork"| n29ddd4160a4b

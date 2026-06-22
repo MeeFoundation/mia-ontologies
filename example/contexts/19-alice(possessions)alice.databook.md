@@ -1,6 +1,6 @@
 ---
-id: http://www.example.org/mia/posessions
-title: "Alice Walker — Possessions"
+id: http://www.example.org/mia/possessions
+title: "About Alice Walker in the Possessions context as asserted by Alice Walker"
 type: context-databook
 version: 2.0.2
 created: 2026-06-01
@@ -9,13 +9,12 @@ description: >
   a wallet containing her driver's license and payment card, plus a health insurance card
   and Social Security card held separately.
 mia:
-  name: "Possessions"
-  category: "context:Possessions"
+  category: "http://www.example.org/mia/categories/possessions"
   assertedBy: ":Self"
   subject: ":Self"
   about-by: "context:SBS-Context"
 graph:
-  named_graph: http://www.example.org/mia/posessions#graph
+  named_graph: http://www.example.org/mia/possessions#graph
   rdf_version: "1.1"
 shapes:
   - http://www.example.org/shapes
@@ -35,7 +34,7 @@ This context captures Alice Walker's day-to-day physical possessions. Her wallet
 
 ```turtle
 <!-- databook:id: alice-possessions-identity -->
-<!-- databook:graph: http://www.example.org/mia/posessions#graph -->
+<!-- databook:graph: http://www.example.org/mia/possessions#graph -->
 @prefix : <http://www.example.org/mia#> .
 @prefix persona: <http://mee.foundation/ontologies/persona#> .
 @prefix owl: <http://www.w3.org/2002/07/owl#> .

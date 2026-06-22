@@ -1,6 +1,6 @@
 ---
 id: http://www.example.org/mia/alice(acme)alice
-title: "Alice Walker — Acme"
+title: "About Alice Walker in the Employee context as asserted by Alice Walker"
 type: context-databook
 version: 2.0.3
 created: 2026-06-12
@@ -8,8 +8,7 @@ description: >
   Alice Walker's Acme employment context. Records her work email address and her
   Acme social network connection to colleague Paula Walker. Self-asserted by Alice.
 mia:
-  name: "Acme"
-  category: "context:Employee"
+  category: "http://www.example.org/mia/categories/employee"
   assertedBy: ":Self"
   subject: ":Self"
   about-by: "context:SBS-Context"

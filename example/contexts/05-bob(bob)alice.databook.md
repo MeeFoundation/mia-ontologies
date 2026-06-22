@@ -1,19 +1,16 @@
 ---
 id: http://www.example.org/mia/bob(bob)alice
-title: "Bob Johnson — Bob context (Alice's view)"
+title: "About Bob Johnson in the People context as asserted by Alice Walker"
 type: context-databook
 version: 2.0.2
 created: 2026-06-15
 description: >
   Alice's record of Bob Johnson in their 1:1 relationship context.
-  Self-asserted by Alice; dyad partner is Bob's self-asserted Bob-context persona.
 mia:
-  name: "Bob"
-  category: "context:People"
+  category: "http://www.example.org/mia/categories/people"
   assertedBy: ":Self"
   subject: ":Bob_Johnson"
   about-by: "context:OBS-Context"
-  dyad: "http://www.example.org/mia/bob(bob)bob"
 graph:
   named_graph: http://www.example.org/mia/bob(bob)alice#graph
   rdf_version: "1.1"
@@ -29,7 +26,7 @@ process:
 
 ## Overview
 
-This context captures Alice's record of Bob Johnson in their 1:1 relationship context. Alice notes Bob's favorite drink. It is paired (dyad) with `06-bob(bob)bob`, Bob's self-asserted Bob-context persona received from Bob's Mia.
+This context captures Alice's record of Bob Johnson in their 1:1 relationship context. Alice notes Bob's favorite drink.
 
 ## Identity Data
 

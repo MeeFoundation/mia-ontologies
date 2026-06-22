@@ -26,51 +26,21 @@ Throughout, we use these shorthands:
 
 We first present an overview of the five ontologies and then illustrate them through a sample dataset for a hypothetical user, Alice Walker.
 
-## Context Ontology
+## Context Ontology: Categories and Contexts
 
-A *context* is a container of information about a person related to their interactions with, or relationship to, another person, group or organization. This information is expressed as triples using the Persona, Organization, Group and Indentity ontologies and stored in a **[DataBook](https://github.com/w3c-cg/holon/tree/main/architectures/databook)** (`.databook.md`) file. 
+### Contexts
+
+A *context* is a container of information about a person related to their interactions with, or relationship to, another person, group or organization. This information is expressed as triples using the Persona, Organization, Group and Identity ontologies and stored in a **[DataBook](https://github.com/w3c-cg/holon/tree/main/architectures/databook)** (`.databook.md`) file. 
 
 The description of the context container itself is carried in the DataBook's YAML frontmatter under the `mia:` key. The context ontology (`context.ttl`) defines the controlled vocabularies that those YAML fields reference:
 
-- `mia.name` — a human-readable name for the context, e.g. `"Citibank"` to represent the user's interactions with Citibank.
-- `mia.category` — a classification of the context into one of a set of broad catagories; its value is a prefixed name of a `c:Category` subclass, e.g. `"context:Family"` to represent the user's interaction with a family member.
+- `mia.category` — a classification of the context into one of a set of broad categories; its value is the IRI of a category DataBook (e.g. `"http://www.example.org/mia/categories/family"`).
 - `mia.assertedBy` — who is making the assertions (claims) (e.g. a person, group or organization). The persons could be the user themselves for self-asserted claims.
 - `mia.subject` — whose identity the context file describes; its value is a local IRI of a `p:Person`, `g:Group`, or `o:Organization` individual, e.g. `":Self"`.
+- `mia.about-by` — classifies the DataBook by the combination of subject and assertedBy; one of `context:SBS-Context` (subject=Self, assertedBy=Self), `context:OBS-Context` (subject=Other, assertedBy=Self), `context:OBO-Context` (subject=Other, assertedBy=Other), or `context:SBO-Context` (subject=Self, assertedBy=Other).
 - `mia.template` — present only on context files that conform to a specific template; its value is a `p:PersonaTemplate` subclass (e.g. `"persona:BirthCertificate"`, `"persona:JSContactCard"`, `"persona:DriversLicense"`).
-- `mia.dyad` — the IRI of the partner DataBook in a 1:1 relationship context. If context A carries `mia.dyad` pointing to context B, then B must carry `mia.dyad` pointing back to A.
 
-**`c:category`** — The nature of the interaction/relationship context. Values form a subclass hierarchy under `c:Category`:
-
-- `c:Group` — interactions with a formal or informal group of people.
-- `c:People` — interactions with people in a person's social or professional life.
-  - `c:Family` — interactions with family members.
-  - `c:Friends` — interactions with friends.
-  - `c:Consultants` — interactions with consultants who provide services.
-- `c:Work` — professional roles, employment history, and career relationships.
-  - `c:Employee` — related to being an employee.
-  - `c:Contributor` — related to contributing to initiatives started or led by others.
-  - `c:Creator` — related to being a creator, inventor, founder, or author of something.
-- `c:Companies` — relationship with companies, banks, or other institutions.
-  - `c:FinancialServices` — relationship with banks or other financial services institution.
-  - `c:Healthcare` — relationship with healthcare providers or health insurance companies.
-- `c:Finances` — information about personal finances not related to any interactions with banks, financial institutions, or government agencies.
-- `c:Health` — personal health and wellness information not related to any specific healthcare provider.
-- `c:Events` — participation in or relationship to a specific event.
-  - `c:Meetings` — a meeting or appointment.
-  - `c:Conferences` — a conference or professional gathering.
-  - `c:Parties` — a party or social celebration.
-- `c:Government` — government-issued credentials, tax records, and civic relationships.
-  - `c:Federal` — federal government context (e.g. passport, federal tax records).
-  - `c:State` — state government context (e.g. driver's license, state tax records).
-  - `c:Municipality` — municipal government context (e.g. local permits, library card).
-- `c:Notes` — general knowledge selected by a person to be useful to them.
-  - `c:Learnings` — knowledge gained through personal experience.
-- `c:Possessions` — owned assets, property, vehicles, and other possessions.
-  - `c:Automobiles` — owning and maintaining an automobile.
-  - `c:Pets` — taking care of pets.
-  - `c:Dwellings` — owning or renting a home or other dwelling.
-- `c:Projects` — involvement in a specific project or initiative.
-
+**`c:category`** — The nature of the interaction/relationship context. Values form a subclass hierarchy under `c:Category`.
 
 **`c:assertedBy`** — Who is making the assertion. Values are local IRIs of `p:Person`, `g:Group`, or `o:Organization` individuals:
 - `:Self` — the Mia user is recording the data, even if the underlying information originates from some other party such as a company, government agency, or another person.
@@ -90,13 +60,85 @@ The diagram below shows four kinds of contexts related to a hypothetical Mia use
 
 The lower left shows a context that Alice might share with other people or companies. In it, she asserts that her driver's license number is S43228943, having almost certainly copied that number from her physical driver's license. The context in the lower right carries the same information as the lower left, but because it is being asserted by the DMV it is more likely to be trusted by a recipient, especially if this information is conveyed via secure channel and the claims are cryptographically bound to the identity of the DMV.
 
+## Categories
+
+A Category is high level concept used to organize multiple dimensions of a person's life. Mia includes a set of built-in categories, but the user is also free to add their own. 
+
+<p align="center"><img src="images/context-ontology/categories+contexts.png" alt="Categories and contexts"></p>
+
+Categories are organized into a tree structure of subcategories. They may contain one or more contexts and act as a "meta" context in more complex cases. These contexts are organized into the four quadrants mentioned above. A Context may have these four kinds of links:
+- **obs** - about the other party, as asserted by the self (user).
+- **sbs** - about the self as asserted by the Self.
+- **obo** - about the other party as asserted by the other party.
+- **sbo** - about the self as asserted by the other party.
+
+<p align="center"><img src="images/context-ontology/category.png" alt="Category hierarchy"></p>
+
+
+#### Categories and sub-categories
+
+- `c:Predefined` — built-in categories shipped with Mia:
+  - `c:People` — interactions with people in a person's social or professional life.
+    - `c:Family` — interactions with family members.
+    - `c:Friends` — interactions with friends.
+    - `c:Consultants` — interactions with consultants who provide services.
+  - `c:Work` — professional roles, employment history, and career relationships.
+    - `c:Employee` — related to being an employee.
+    - `c:Contributor` — related to contributing to initiatives started or led by others.
+    - `c:Creator` — related to being a creator, inventor, founder, or author of something.
+  - `c:Companies` — relationship with companies, banks, or other institutions.
+    - `c:FinancialServices` — relationship with banks or other financial services institution.
+    - `c:Healthcare` — relationship with healthcare providers or health insurance companies.
+  - `c:Finances` — information about personal finances not related to any interactions with banks, financial institutions, or government agencies.
+  - `c:Health` — personal health and wellness information not related to any specific healthcare provider.
+  - `c:Events` — participation in or relationship to a specific event.
+    - `c:Meetings` — a meeting or appointment.
+    - `c:Conferences` — a conference or professional gathering.
+    - `c:Parties` — a party or social celebration.
+  - `c:Government` — government-issued credentials, tax records, and civic relationships.
+    - `c:Federal` — federal government context (e.g. passport, federal tax records).
+    - `c:State` — state government context (e.g. driver's license, state tax records).
+    - `c:Municipality` — municipal government context (e.g. local permits, library card).
+  - `c:Notes` — general knowledge selected by a person to be useful to them.
+    - `c:Learnings` — knowledge gained through personal experience.
+  - `c:Possessions` — owned assets, property, vehicles, and other possessions.
+    - `c:Automobiles` — owning and maintaining an automobile.
+    - `c:Pets` — taking care of pets.
+    - `c:Dwellings` — owning or renting a home or other dwelling.
+  - `c:Projects` — involvement in a specific project or initiative.
+  - `c:Groups` — interactions with a formal or informal group of people.
+- `c:UserDefined` — categories created by the Mia user to organize their own contexts (e.g. a specific person, company, or place).
+
+### Category DataBooks
+
+Each node in the `c:Category` hierarchy is represented by a **category DataBook** (`.databook.md` file with `type: category-databook`) stored in `example/categories/`. The root is `categories.databook.md`; all other files represent individual category nodes. Category DataBooks form a tree linked by the `c:child` property, which points from a parent category to its child category IRIs.
+
+**Predefined vs. user-defined**: Categories with `mia.predefined: true` correspond to `c:Predefined` subclasses shipped with Mia. The class IRI is derived from the DataBook title by removing spaces (e.g. title `"FinancialServices"` → class `context:FinancialServices`). Categories with `mia.predefined: false` are `c:UserDefined` instances created by the Mia user to organize their own contexts (e.g. a specific person, company, or place).
+
+**Context links**: Each category DataBook may carry up to four optional links to context DataBook IRIs, corresponding to the four `c:Context` subtypes:
+
+| Property | `c:Context` subtype | Cardinality | Example |
+|----------|---------------------|-------------|---------|
+| `c:sbs` | `c:SBS-Context` | 0..1 | Alice's own BHS persona |
+| `c:obs` | `c:OBS-Context` | 0..1 | Alice's record of Paula as a family member |
+| `c:obo` | `c:OBO-Context` | 0..N | Bob's persona he presents to Alice |
+| `c:sbo` | `c:SBO-Context` | 0..1 | Bob's record of about Alice |
+
+
 ### Context Ontology File
 
-- **`context.ttl`** — The Context ontology, defining `c:Category` and its subclass hierarchy, and the `c:category`, `c:assertedBy`, `c:subject`, `c:name`, `c:template`, and `c:dyad` properties. These terms are referenced by name in the YAML frontmatter of each DataBook context file.
+- **`context.ttl`** — The Context ontology, defining:
+  - *Classes*: `c:Category`, `c:Predefined`, `c:UserDefined` and all leaf category subclasses; `c:Context`, `c:SBS-Context`, `c:OBS-Context`, `c:OBO-Context`, `c:SBO-Context`.
+  - *Annotation properties*: `c:category`, `c:assertedBy`, `c:subject`, `c:about-by`, `c:template`.
+  - *Object properties*: `c:sbs`, `c:obs`, `c:obo`, `c:sbo`, `c:child`.
+  These terms are referenced by name in the YAML frontmatter of each DataBook file.
+
+- **`context-shacl.ttl`** — SHACL shapes for category DataBook instances. Constrains `c:Category` instances to at most one `c:sbs` value, and `c:UserDefined` instances to at most one `c:obs` and at most one `c:sbo` value; `c:obo` is unconstrained (0..N).
 
 ### Validation
 
-Context file metadata (name, category, asserter, subject) is declared in YAML frontmatter and validated at authoring time by convention. There is no SHACL validation for context file metadata.
+Context file metadata (category, asserter, subject, about-by) is declared in YAML frontmatter and validated at authoring time by convention. Category DataBook instances are validated by `context-shacl.ttl`: `c:Category` instances may carry at most one `c:sbs` link; `c:UserDefined` instances may carry at most one `c:obs` and at most one `c:sbo` link; `c:obo` is unconstrained (0..N).
+
 
 ## Persona Ontology
 
@@ -261,7 +303,7 @@ The table below maps every JSContact (RFC 9553) property to its representation i
 | `legalName` | 0..1 | `cco:ont00001331` Legal Name | `designated by` | — |
 | `uid` | 1 | IRI of the `persona:Person` individual | — | — |
 | `notes` | 0..N | Person Note via `has text value` | `designated by` | — |
-| `relatedTo` | 0..N | `c:dyad` (graph-level peer); `BFO_0000115` (member) | annotation / object property | — |
+| `relatedTo` | 0..N | `BFO_0000115` (member) | object property | — |
 | `updated` | 0..1 | `version:` in the DataBook YAML frontmatter | YAML field | — |
 | `language` | 0..1 | *(not yet mapped)* | — | — |
 | `categories` | 0..N | *(not yet mapped)* | — | — |
@@ -373,23 +415,30 @@ All context files reside in Alice's Mia. Some are authored by Alice (self-assert
 
 Here's a map of all the contexts in our Alice example:
 
-<p align="center"><img src="example/contexts/images/context-map.png" alt="Alice's physical characteristics"></p>
+<p align="center"><img src="example/images/category-people.png" alt="People categories"></p>
+<p align="center"><img src="example/images/category-work.png" alt="Work categories"></p>
+<p align="center"><img src="example/images/category-companies.png" alt="Companies categories"></p>
+<p align="center"><img src="example/images/category-gov-state.png" alt="Government — State categories"></p>
+<p align="center"><img src="example/images/category-gov-federal.png" alt="Government — Federal categories"></p>
+<p align="center"><img src="example/images/category-gov-municipality.png" alt="Government — Municipality categories"></p>
+<p align="center"><img src="example/images/category-misc.png" alt="Miscellaneous categories"></p>
+<p align="center"><img src="example/images/category-groups.png" alt="Groups categories"></p>
 
 
-The contexts in the table below are *about* Alice and asserted *by* Alice. All `.databook.md` files are in the `example/` folder.
+The contexts in the table below are *about* Alice and asserted *by* Alice. All `.databook.md` files are in the `example/contexts/` folder.
 
 | #  | DataBook file                                                                          | Context type | Key data                                                         | Diagram |
 |--- |:--------------------------------------------------------------------------------------|:-------------|:-----------------------------------------------------------------|:--------|
-| 7  | [07-alice(bhs)alice](example/contexts/07-alice(bhs)alice.databook.md)                     | Group        | BHS profile: email, phone and current address                    | [view](example/contexts/images/07-alice(bhs)alice.png)|
-| 11 | [11-alice(google)alice](example/contexts/11-alice(google)alice.databook.md)               | Company      | Gmail address                                                    | [view](example/contexts/images/11-alice(google)alice.png) |
-| 12 | [12-alice(att)alice](example/contexts/12-alice(att)alice.databook.md)                     | Company      | Phone number                                                     | [view](example/contexts/images/12-alice(att)alice.png) |
+| 7  | [07-alice(bhs)alice](example/contexts/07-alice(bhs)alice.databook.md)                     | Groups       | BHS profile: email, phone and current address                    | [view](example/contexts/images/07-alice(bhs)alice.png)|
+| 11 | [11-alice(google)alice](example/contexts/11-alice(google)alice.databook.md)               | Companies    | Gmail address                                                    | [view](example/contexts/images/11-alice(google)alice.png) |
+| 12 | [12-alice(att)alice](example/contexts/12-alice(att)alice.databook.md)                     | Companies    | Phone number                                                     | [view](example/contexts/images/12-alice(att)alice.png) |
 | 13 | [13-alice(tx-birth-cert)alice](example/contexts/13-alice(tx-birth-cert)alice.databook.md) | State        | Legal names, maiden name                                         | [view](example/contexts/images/13-alice(tx-birth-cert)alice.png) |
 | 14 | [14-alice(paradise)alice](example/contexts/14-alice(paradise)alice.databook.md)           | Municipality | Current address — Paradise, CA (2025–present)                    | [view](example/contexts/images/14-alice(paradise)alice.png) |
 | 15 | [15-alice(boston)alice](example/contexts/15-alice(boston)alice.databook.md)               | Municipality | Previous address — Boston, MA (2020–2025) with temporal interval | [view](example/contexts/images/15-alice(boston)alice.png) |
 | 16 | [16-alice(ssa)alice](example/contexts/16-alice(ssa)alice.databook.md)                     | Federal      | Social security number (SSN)                                     | [view](example/contexts/images/16-alice(ssa)alice.png) |
-| 17 | [17-alice(bob)alice](example/contexts/17-alice(bob)alice.databook.md)                     | Person       | Alice's 1:1 context with Bob; social network with Bob as member  | [view](example/contexts/images/17-alice(bob)alice.png)|
-| 18 | [18-alice(familymember)alice](example/contexts/18-alice(familymember)alice.databook.md)   | FamilyMember | Alice as a family member                       | [view](example/contexts/images/18-alice(familymember)alice.png) |
-| 19 | [19-alice(possessions)alice](example/contexts/19-alice(possessions)alice.databook.md)     | Possession   | Wallet (driver's license + payment card); health ins., SSN card  | [view](example/contexts/images/19-alice(possessions)alice.png) |
+| 17 | [17-alice(bob)alice](example/contexts/17-alice(bob)alice.databook.md)                     | People       | Alice's 1:1 context with Bob; social network with Bob as member  | [view](example/contexts/images/17-alice(bob)alice.png)|
+| 18 | [18-alice(familymember)alice](example/contexts/18-alice(familymember)alice.databook.md)   | Family       | Alice as a family member                       | [view](example/contexts/images/18-alice(familymember)alice.png) |
+| 19 | [19-alice(possessions)alice](example/contexts/19-alice(possessions)alice.databook.md)     | Possessions  | Wallet (driver's license + payment card); health ins., SSN card  | [view](example/contexts/images/19-alice(possessions)alice.png) |
 | 20 | [20-alice(acme)alice](example/contexts/20-alice(acme)alice.databook.md)                   | Employee     | Acme employee context; company email; works with Paula           | [view](example/contexts/images/20-alice(acme)alice.png)|
 | 21 | [21-alice(business-card)alice](example/contexts/21-alice(business-card)alice.databook.md) | Employee     | Business card — given name, family name, email, phone, employer  | [view](example/contexts/images/21-alice(business-card)alice.png) |
 | 22 | [22-alice(driverslicense)alice](example/contexts/22-alice(driverslicense)alice.databook.md) | State      | California driver's license — legal name, DOB, DL#, expiry, photo | [view](example/contexts/images/22-alice(driverslicense)alice.png) |
@@ -400,20 +449,20 @@ The following table lists contexts that are *about* Alice but asserted by others
 
 | #  | DataBook file                                                                         | Context type | Key data                             | Diagram |
 |--- |:-------------------------------------------------------------------------------------|:-------------|:-------------------------------------|:--------|
-| 4  | [04-alice(bob)bob](example/contexts/04-alice(bob)bob.databook.md)                         | Person            | Alice as seen by Bob (dyad with #17) | [view](example/contexts/images/04-alice(bob)bob.png)|
+| 4  | [04-alice(bob)bob](example/contexts/04-alice(bob)bob.databook.md)                         | People            | Alice as seen by Bob                 | [view](example/contexts/images/04-alice(bob)bob.png)|
 | 10 | [10-alice(citibank)citibank](example/contexts/10-alice(citibank)citibank.databook.md)     | FinancialServices | Debit card                           | [view](example/contexts/images/10-alice(citibank)citibank.png) |
 
-The following table lists contexts about other people (Paula and Bob) or groups (Boston Hub Society) in Alice's Mia. All files are in `example/`.
+The following table lists contexts about other people (Paula and Bob) or groups (Boston Hub Society) in Alice's Mia. All files are in `example/contexts/`.
 
 | #  | DataBook file                                                                                     | Context type | Key data                                                         | Diagram |
 |--- |:-------------------------------------------------------------------------------------------------|:-------------|:-----------------------------------------------------------------|:--------|
 | 1  | [01-paula(acme)alice](example/contexts/01-paula(acme)alice.databook.md)           | Employee     | Paula as Alice's Acme colleague (Alice-asserted)                | *(todo)*|
-| 2  | [02-paula(familymember)alice](example/contexts/02-paula(familymember)alice.databook.md) | FamilyMember | Paula as Alice's family member (Alice-asserted)           | *(todo)*|
-| 3  | [03-paula(familymember)paula](example/contexts/03-paula(familymember)paula.databook.md) | FamilyMember | Paula's own family persona; social network with Alice (dyad #2) | *(todo)*|
-| 5  | [05-bob(bob)alice](example/contexts/05-bob(bob)alice.databook.md)                 | Person       | Alice's notes about Bob; fav drink: oat milk cappuccino         | [view](example/contexts/images/05-bob(bob)alice.png) |
-| 6  | [06-bob(bob)bob](example/contexts/06-bob(bob)bob.databook.md)                     | Person       | Bob's self-asserted Bob persona (dyad with #5)                  | *(todo)*|
-| 8  | [08-bhs(bhs)members](example/contexts/08-bhs(bhs)members.databook.md)             | Group        | BHS group instance with Alice and Bob as members                | [view](example/contexts/images/08-bhs(bhs)members.png) |
-| 9  | [09-bob(bhs)bob](example/contexts/09-bob(bhs)bob.databook.md)                     | Group        | Bob's BHS member persona (name, email, phone, address)          | [view](example/contexts/images/09-bob(bhs)bob.png) |
+| 2  | [02-paula(familymember)alice](example/contexts/02-paula(familymember)alice.databook.md) | Family       | Paula as Alice's family member (Alice-asserted)           | *(todo)*|
+| 3  | [03-paula(familymember)paula](example/contexts/03-paula(familymember)paula.databook.md) | Family       | Paula's own family persona; social network with Alice       | *(todo)*|
+| 5  | [05-bob(bob)alice](example/contexts/05-bob(bob)alice.databook.md)                 | People       | Alice's notes about Bob; fav drink: oat milk cappuccino         | [view](example/contexts/images/05-bob(bob)alice.png) |
+| 6  | [06-bob(bob)bob](example/contexts/06-bob(bob)bob.databook.md)                     | People       | Bob's self-asserted Bob persona                                 | *(todo)*|
+| 8  | [08-bhs(bhs)members](example/contexts/08-bhs(bhs)members.databook.md)             | Groups       | BHS group instance with Alice and Bob as members                | [view](example/contexts/images/08-bhs(bhs)members.png) |
+| 9  | [09-bob(bhs)bob](example/contexts/09-bob(bhs)bob.databook.md)                     | Groups       | Bob's BHS member persona (name, email, phone, address)          | [view](example/contexts/images/09-bob(bhs)bob.png) |
 
 
 

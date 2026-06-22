@@ -1,6 +1,6 @@
 ---
 id: http://www.example.org/mia/alice(google)alice
-title: "Alice Walker — Google"
+title: "About Alice Walker in the Companies context as asserted by Alice Walker"
 type: context-databook
 version: 2.0.2
 created: 2026-06-01
@@ -8,8 +8,7 @@ description: >
   Alice Walker's Google context. Records her Gmail address as self-entered data
   about her Google account relationship.
 mia:
-  name: "Google"
-  category: "context:Companies"
+  category: "http://www.example.org/mia/categories/companies"
   assertedBy: ":Self"
   subject: ":Self"
   about-by: "context:SBS-Context"

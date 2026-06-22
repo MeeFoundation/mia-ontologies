@@ -7,10 +7,10 @@ flowchart TD
 
     subgraph ctx["Context"]
         direction LR
-        ctx_meta["name: AT&T\nassertedBy: :Self\nsubject: :Self"]:::meta
+        ctx_meta["assertedBy: :Self\nsubject: :Self"]:::meta
     end
 
     ne0c3ba92f1db[":Self\n(Person)"]:::person
-    n629fe20a46bc("+15108149999"):::lit
+    nfa2ba0d60bd4("+15108149999"):::lit
 
-    ne0c3ba92f1db -->|"TelephoneNumber"| n629fe20a46bc
+    ne0c3ba92f1db -->|"TelephoneNumber"| nfa2ba0d60bd4

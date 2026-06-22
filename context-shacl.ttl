@@ -1,0 +1,57 @@
+@prefix : <http://www.example.org/context-shapes#> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix context: <http://mee.foundation/ontologies/context#> .
+
+<http://www.example.org/context-shapes> rdf:type owl:Ontology ;
+    owl:versionInfo "Version 1.0.1 - remove cat-name constraint (property deleted from ontology)"@en ;
+    rdfs:label "Context Ontology SHACL Validation Shapes"@en ;
+    rdfs:comment "SHACL validation shapes for category DataBook instances in the Context Ontology."@en .
+
+
+#################################################################
+#  Category
+#  All category instances (Predefined and UserDefined).
+#################################################################
+
+:CategoryShape
+    a sh:NodeShape ;
+    sh:targetClass context:Category ;
+    sh:message "Category validation."@en ;
+
+    # context:sbs — at most one SBS context link per category
+    sh:property [
+        sh:path context:sbs ;
+        sh:maxCount 1 ;
+        sh:message "A category may link to at most one SBS-Context via context:sbs."@en
+    ] .
+
+
+#################################################################
+#  UserDefined
+#  User-defined category instances only.
+#################################################################
+
+:UserDefinedShape
+    a sh:NodeShape ;
+    sh:targetClass context:UserDefined ;
+    sh:message "UserDefined category validation."@en ;
+
+    # context:obs — at most one OBS context link
+    sh:property [
+        sh:path context:obs ;
+        sh:maxCount 1 ;
+        sh:message "A UserDefined category may link to at most one OBS context via context:obs."@en
+    ] ;
+
+    # context:sbo — at most one SBO context link
+    sh:property [
+        sh:path context:sbo ;
+        sh:maxCount 1 ;
+        sh:message "A UserDefined category may link to at most one SBO-Context via context:sbo."@en
+    ] .
+
+    # context:obo — 0..N (no maxCount constraint)
