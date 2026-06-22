@@ -11,7 +11,7 @@
     owl:versionIRI <http://mee.foundation/ontologies/context/1.0.1> ;
     dc:date "2026-06-01"^^xsd:date ;
     owl:imports <http://mee.foundation/ontologies/pdn-identity> ;
-    owl:versionInfo "Version 1.0.51 - add context:sbo object property (UserDefined → SBO-Context)"@en ;
+    owl:versionInfo "Version 1.0.52 - add context:obo object property (UserDefined → OBO-Context)"@en ;
     rdfs:label "Context Ontology"@en ;
     rdfs:comment """Context and Category Ontology for the Mee Identity Agent"""@en .
 
@@ -133,6 +133,12 @@ context:sbo rdf:type owl:ObjectProperty ;
     rdfs:range context:SBO-Context ;
     rdfs:label "self-by-other"@en ;
     rdfs:comment "Links a user-defined category to a context DataBook where subject is :Self and assertedBy is another person, organization, or group."@en .
+
+context:obo rdf:type owl:ObjectProperty ;
+    rdfs:domain context:UserDefined ;
+    rdfs:range context:OBO-Context ;
+    rdfs:label "other-by-other"@en ;
+    rdfs:comment "Links a user-defined category to a context DataBook where both subject and assertedBy are another person, organization, or group."@en .
 
 #################################################################
 #    c:Group Contexts and subclasses
