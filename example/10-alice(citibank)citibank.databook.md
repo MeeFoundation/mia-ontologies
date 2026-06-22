@@ -1,7 +1,7 @@
 ---
 id: http://www.example.org/mia/alice(citibank)citibank
 title: "Alice Walker — Citibank"
-type: databook
+type: context-databook
 version: 2.0.3
 created: 2026-06-15
 description: >

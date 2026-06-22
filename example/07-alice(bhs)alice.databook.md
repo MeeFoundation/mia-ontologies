@@ -1,7 +1,7 @@
 ---
 id: http://www.example.org/mia/alice(bhs)alice
 title: "Alice Walker — Boston Hub Society Profile"
-type: databook
+type: context-databook
 version: 2.0.3
 created: 2026-06-11
 description: >

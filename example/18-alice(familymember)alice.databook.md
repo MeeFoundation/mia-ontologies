@@ -1,7 +1,7 @@
 ---
 id: http://www.example.org/mia/alice(familymember)alice
 title: "Alice Walker — Family"
-type: databook
+type: context-databook
 version: 2.0.5
 created: 2026-06-01
 description: >

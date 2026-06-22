@@ -1,7 +1,7 @@
 ---
 id: http://www.example.org/mia/bob(bhs)bob
 title: "Bob Johnson — BHS Profile"
-type: databook
+type: context-databook
 version: 2.0.1
 created: 2026-06-15
 description: >

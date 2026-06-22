@@ -1,7 +1,7 @@
 ---
 id: http://www.example.org/mia/bob(bob)bob
 title: "Bob Johnson — Bob context (Bob's view)"
-type: databook
+type: context-databook
 version: 2.0.2
 created: 2026-06-15
 description: >

@@ -1,7 +1,7 @@
 ---
 id: http://www.example.org/mia/alice(google)alice
 title: "Alice Walker — Google"
-type: databook
+type: context-databook
 version: 2.0.2
 created: 2026-06-01
 description: >

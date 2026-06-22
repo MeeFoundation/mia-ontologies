@@ -1,7 +1,7 @@
 ---
 id: http://www.example.org/mia/alice(bob)bob
 title: "Alice Walker — Bob context (Bob's view)"
-type: databook
+type: context-databook
 version: 2.0.2
 created: 2026-06-13
 description: >

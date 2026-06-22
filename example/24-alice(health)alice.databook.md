@@ -1,7 +1,7 @@
 ---
 id: http://www.example.org/mia/alice(health)alice
 title: "Alice Walker — Physical Body"
-type: databook
+type: context-databook
 version: 1.0.0
 created: 2026-06-20
 description: >

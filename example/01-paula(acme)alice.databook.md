@@ -1,7 +1,7 @@
 ---
 id: http://www.example.org/mia/paula(acme)alice
 title: "Paula Walker — Acme (Alice's view)"
-type: databook
+type: context-databook
 version: 2.0.1
 created: 2026-06-14
 description: >

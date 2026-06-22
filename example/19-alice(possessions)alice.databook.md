@@ -1,7 +1,7 @@
 ---
 id: http://www.example.org/mia/posessions
 title: "Alice Walker — Possessions"
-type: databook
+type: context-databook
 version: 2.0.2
 created: 2026-06-01
 description: >

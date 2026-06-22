@@ -1,7 +1,7 @@
 ---
 id: http://www.example.org/mia/paula(familymember)alice
 title: "Paula Walker — Family (Alice's view)"
-type: databook
+type: context-databook
 version: 2.0.4
 created: 2026-06-14
 description: >

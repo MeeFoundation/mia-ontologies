@@ -15,15 +15,15 @@ flowchart TD
     n07bac97f4199("Inch"):::lit
     nb51e42161d31("68"):::lit
     ne0c3ba92f1db[":Self\n(Person)"]:::person
-    n724d1dc7229e{"BlueEyeColor"}
-    nea40fd74e5e8{"ScalpHair"}
-    nbdc7e58a7d97("Grey"):::lit
+    n9c533c2fa20c{"BlueEyeColor"}
+    n828d8b43c930{"ScalpHair"}
+    n5c0c5b6556a9("Grey"):::lit
 
     n89a1fac192dc -->|"isRatioMeasurementOf"| n5fecfaaf895f
     n89a1fac192dc -->|"usesMeasurementUnit"| n07bac97f4199
     n89a1fac192dc -->|"hasDecimalValue"| nb51e42161d31
     ne0c3ba92f1db -->|"bearerOf"| n5fecfaaf895f
     ne0c3ba92f1db -->|"bearerOf"| n89a1fac192dc
-    ne0c3ba92f1db -->|"bearerOf"| n724d1dc7229e
-    ne0c3ba92f1db -->|"hasContinuantPart"| nea40fd74e5e8
-    nea40fd74e5e8 -->|"HairColor"| nbdc7e58a7d97
+    ne0c3ba92f1db -->|"bearerOf"| n9c533c2fa20c
+    ne0c3ba92f1db -->|"hasContinuantPart"| n828d8b43c930
+    n828d8b43c930 -->|"HairColor"| n5c0c5b6556a9

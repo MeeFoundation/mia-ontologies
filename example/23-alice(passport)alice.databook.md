@@ -1,7 +1,7 @@
 ---
 id: http://www.example.org/mia/alice(passport)alice
 title: "Alice Walker — Passport"
-type: databook
+type: context-databook
 version: 1.0.0
 created: 2026-06-20
 description: >

@@ -1,7 +1,7 @@
 ---
 id: http://www.example.org/mia/bhs(bhs)members
 title: "Boston Hub Society — Group"
-type: databook
+type: context-databook
 version: 2.0.2
 created: 2026-06-12
 description: >
