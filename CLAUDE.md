@@ -91,7 +91,7 @@ Context filenames follow a single flat pattern:
 |---------|---------|
 | `NN-` | Zero-padded two-digit diagram label number; omitted for files that have no diagram circle. |
 | `<about>` | The entity the Persona is about (e.g. `alice`, `bob`, `paula`, `bhs`). |
-| `(<context-name>)` | Lowercase name identifying the context or relationship. For named-entity contexts (a specific company, person, place, or group), use the entity's own name (e.g. `(citibank)`, `(bhs)`, `(bob)`). For categorical contexts, use the lowercase local name of the `c:contextCategory` (e.g. `(familymember)` for `context:FamilyMember`, `(employee)` for `context:Employee`). |
+| `(<context-name>)` | Lowercase name identifying the context or relationship. For named-entity contexts (a specific company, person, place, or group), use the entity's own name (e.g. `(citibank)`, `(bhs)`, `(bob)`). For categorical contexts, use the lowercase local name of the `c:contextCategory` (e.g. `(familymember)` for `context:Family`, `(employee)` for `context:Employee`). |
 | `<asserted-by>` | Who asserted the data — a real entity identifier (e.g. `alice`, `bob`, `paula`) or the literal `members` for `c:Group` contexts where any permitted member may write. |
 
 **Exception — `c:Group` contexts**: A group context (`contextCategory context:Group`) has no single asserter — any permitted member can write to it and changes replicate to all members. The `<asserted-by>` segment is the literal `members` rather than an individual name. Example: `08-bhs(bhs)members.ttl` — about BHS, context "bhs", asserted by the group's members collectively.

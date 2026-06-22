@@ -1,4 +1,4 @@
-%% ContextCategory: context:FamilyMember
+%% ContextCategory: context:Family
 flowchart TD
     classDef person fill:#fffacd,stroke:#aaa,color:#333
     classDef grp    fill:#d4edda,stroke:#aaa,color:#333
@@ -8,12 +8,12 @@ flowchart TD
 
     subgraph ctx["Context"]
         direction LR
-        ctx_meta["name: Family\ncategory: FamilyMember\nassertedBy: :Self\nsubject: :Paula_Walker\ndyad: paula(familymember)paula (3)"]:::meta
+        ctx_meta["name: Family\ncategory: Family\nassertedBy: :Self\nsubject: :Paula_Walker\ndyad: paula(familymember)paula (3)"]:::meta
     end
 
     nf4296ab13de4[":Paula_Walker\n(Person)"]:::person
-    n80cfbc8a171f("Paula"):::lit
-    nf805b31afe73("Walker"):::lit
+    n1f0144dcad59("Paula"):::lit
+    n8e001d696ab5("Walker"):::lit
 
-    nf4296ab13de4 -->|"GivenName"| n80cfbc8a171f
-    nf4296ab13de4 -->|"FamilyName"| nf805b31afe73
+    nf4296ab13de4 -->|"GivenName"| n1f0144dcad59
+    nf4296ab13de4 -->|"FamilyName"| n8e001d696ab5

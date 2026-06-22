@@ -10,7 +10,7 @@ description: >
   Dyad partner is Bob's record of Alice in the same context.
 mia:
   name: "Bob"
-  contextCategory: "context:Person"
+  contextCategory: "context:People"
   assertedBy: ":Self"
   subject: ":Self"
   dyad: "http://www.example.org/mia/alice(bob)bob"

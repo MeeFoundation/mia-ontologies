@@ -1,4 +1,4 @@
-%% ContextCategory: context:Person
+%% ContextCategory: context:People
 flowchart TD
     classDef person fill:#fffacd,stroke:#aaa,color:#333
     classDef grp    fill:#d4edda,stroke:#aaa,color:#333
@@ -8,18 +8,18 @@ flowchart TD
 
     subgraph ctx["Context"]
         direction LR
-        ctx_meta["name: Bob\ncategory: Person\nassertedBy: :Self\nsubject: :Self\ndyad: alice(bob)bob (4)"]:::meta
+        ctx_meta["name: Bob\ncategory: People\nassertedBy: :Self\nsubject: :Self\ndyad: alice(bob)bob (4)"]:::meta
     end
 
     ne62a8f0f56d6[":Alice_Bob_Network\n(SocialNetwork)"]
     ncea94215aa38[":Bob_Johnson"]
     ne0c3ba92f1db[":Self\n(Person)"]:::person
-    n7ab07168eaf3("Alice Walker"):::lit
-    n45a084642638("Alice"):::lit
-    n0e05bf4f3b70("Walker"):::lit
+    n65194481b728("Alice Walker"):::lit
+    n84de6c49c759("Alice"):::lit
+    n86d5c18cbefc("Walker"):::lit
 
     ne62a8f0f56d6 -->|"hasMember"| ncea94215aa38
-    ne0c3ba92f1db -->|"AlternateName"| n7ab07168eaf3
-    ne0c3ba92f1db -->|"GivenName"| n45a084642638
-    ne0c3ba92f1db -->|"FamilyName"| n0e05bf4f3b70
+    ne0c3ba92f1db -->|"AlternateName"| n65194481b728
+    ne0c3ba92f1db -->|"GivenName"| n84de6c49c759
+    ne0c3ba92f1db -->|"FamilyName"| n86d5c18cbefc
     ne0c3ba92f1db -->|"hasSocialNetwork"| ne62a8f0f56d6

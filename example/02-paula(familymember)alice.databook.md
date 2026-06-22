@@ -9,7 +9,7 @@ description: >
   Asserted by Alice; dyad partner is Paula's self-asserted family context.
 mia:
   name: "Family"
-  contextCategory: "context:FamilyMember"
+  contextCategory: "context:Family"
   assertedBy: ":Self"
   subject: ":Paula_Walker"
   dyad: "http://www.example.org/mia/paula(familymember)paula"

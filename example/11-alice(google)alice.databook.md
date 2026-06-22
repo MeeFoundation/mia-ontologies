@@ -9,7 +9,7 @@ description: >
   about her Google account relationship.
 mia:
   name: "Google"
-  contextCategory: "context:Company"
+  contextCategory: "context:Companies"
   assertedBy: ":Self"
   subject: ":Self"
 graph:

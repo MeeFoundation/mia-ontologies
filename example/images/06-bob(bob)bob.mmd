@@ -1,4 +1,4 @@
-%% ContextCategory: context:Person
+%% ContextCategory: context:People
 flowchart TD
     classDef person fill:#fffacd,stroke:#aaa,color:#333
     classDef grp    fill:#d4edda,stroke:#aaa,color:#333
@@ -8,16 +8,16 @@ flowchart TD
 
     subgraph ctx["Context"]
         direction LR
-        ctx_meta["name: Bob\ncategory: Person\nassertedBy: :Bob_Johnson\nsubject: :Bob_Johnson\ndyad: bob(bob)alice (5)"]:::meta
+        ctx_meta["name: Bob\ncategory: People\nassertedBy: :Bob_Johnson\nsubject: :Bob_Johnson\ndyad: bob(bob)alice (5)"]:::meta
     end
 
     n19c34148fc05[":Bob_Bob_Network\n(SocialNetwork)"]
     n89768dce3f8b[":Self"]
     n166b15bd501b[":Bob_Johnson\n(Person)"]:::person
-    nef769172a29b("Bob"):::lit
-    na91b78577f91("Johnson"):::lit
+    n1316d6afbb23("Bob"):::lit
+    ndcefe1308c06("Johnson"):::lit
 
     n19c34148fc05 -->|"hasMember"| n89768dce3f8b
-    n166b15bd501b -->|"GivenName"| nef769172a29b
-    n166b15bd501b -->|"FamilyName"| na91b78577f91
+    n166b15bd501b -->|"GivenName"| n1316d6afbb23
+    n166b15bd501b -->|"FamilyName"| ndcefe1308c06
     n166b15bd501b -->|"hasSocialNetwork"| n19c34148fc05

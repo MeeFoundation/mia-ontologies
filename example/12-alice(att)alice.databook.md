@@ -9,7 +9,7 @@ description: >
   about her AT&T account relationship.
 mia:
   name: "AT&T"
-  contextCategory: "context:Company"
+  contextCategory: "context:Companies"
   assertedBy: ":Self"
   subject: ":Self"
 graph:

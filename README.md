@@ -33,7 +33,7 @@ A *context* is a container of information about a person related to their intera
 The description of the context container itself is carried in the DataBook's YAML frontmatter under the `mia:` key. The context ontology (`context.ttl`) defines the controlled vocabularies that those YAML fields reference:
 
 - `mia.name` — a human-readable name for the context, e.g. `"Citibank"` to represent the user's interactions with Citibank.
-- `mia.contextCategory` — a classification of the context into one of a set of broad catagories; its value is a prefixed name of a `c:ContextCategory` subclass, e.g. `"context:FamilyMember"` to represent the user's interaction with a family member.
+- `mia.contextCategory` — a classification of the context into one of a set of broad catagories; its value is a prefixed name of a `c:ContextCategory` subclass, e.g. `"context:Family"` to represent the user's interaction with a family member.
 - `mia.assertedBy` — who is making the assertions (claims) (e.g. a person, group or organization). The persons could be the user themselves for self-asserted claims.
 - `mia.subject` — whose identity the context file describes; its value is a local IRI of a `p:Person`, `g:Group`, or `o:Organization` individual, e.g. `":Self"`.
 - `mia.template` — present only on context files that conform to a specific template; its value is a `p:PersonaTemplate` subclass (e.g. `"persona:BirthCertificate"`, `"persona:JSContactCard"`, `"persona:DriversLicense"`).
@@ -44,15 +44,15 @@ The description of the context container itself is carried in the DataBook's YAM
 - `c:MultiPerson` — a context that contains multiple `persona:Person` instances.
   - `c:Group` — interactions with a formal or informal group of people.
 - `c:SinglePerson` — a context that contains exactly one `persona:Person` instance.
-  - `c:Person` and subtypes `c:FamilyMember`, `c:Friend`, `c:Consultant` — interactions with individual people in a person's life.
+  - `c:People` and subtypes `c:Family`, `c:Friends`, `c:Consultant` — interactions with individual people in a person's life.
   - `c:Work` and subtypes `c:Employee`, `c:Contributor`, `c:Creator` — professional roles.
-  - `c:Company` and subtypes `c:FinancialServices`, `c:Healthcare` — interactions and/or relationship with a company or other non-governmental organization.
+  - `c:Companies` and subtypes `c:FinancialServices`, `c:Healthcare` — interactions and/or relationship with a company or other non-governmental organization.
   - `c:Finances` — information about personal finances not related to any interactions with banks, financial institutions or government agencies.
   - `c:Health` — personal health and wellness information not related to any specific healthcare provider.
   - `c:Event` and subtypes `c:Meeting`, `c:Conference`, `c:Party` — participation in or relationship to a specific event, e.g. a face-to-face or online meeting.
   - `c:Government` and subtypes `c:Federal`, `c:State`, `c:Municipality` — interactions with government agencies.
   - `c:Note` — general knowledge selected by a person to be useful to them. It has a subtype `c:Learning` which is knowledge gained through personal experience.
-  - `c:Possession` and subtypes `c:Automobile`, `c:Pet`, `c:Dwelling` — a person's belongings or other things they possess, rent, or lease.
+  - `c:Possessions` and subtypes `c:Automobile`, `c:Pet`, `c:Dwelling` — a person's belongings or other things they possess, rent, or lease.
   - `c:Project` — involvement in a specific project or initiative.
 
 <p align="center"><img src="images/context-ontology/context-category.png" alt="contextType hierarchy"></p>

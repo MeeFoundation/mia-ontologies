@@ -9,7 +9,7 @@ description: >
   Dyad partner is Alice's record of Paula in the family context.
 mia:
   name: "Family"
-  contextCategory: "context:FamilyMember"
+  contextCategory: "context:Family"
   assertedBy: ":Paula_Walker"
   subject: ":Paula_Walker"
   dyad: "http://www.example.org/mia/paula(familymember)alice"
