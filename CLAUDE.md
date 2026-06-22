@@ -50,7 +50,7 @@ There are no build, compile, test, or lint commands. The files are Turtle (`.ttl
 | `example/contexts/20-alice(acme)alice.databook.md` | Alice's Acme Persona — employee context; social network with Paula |
 | `example/contexts/21-alice(business-card)alice.databook.md` | Alice's Business Card Persona — employer, job title, email, phone |
 | `example/contexts/22-alice(driverslicense)alice.databook.md` | Alice's Driver's License Persona — legal name, DOB, license number, expiration date |
-| `example/under-development/paula(fl-birth-cert)alice.ttl` | Paula Walker's Florida Birth Certificate Persona — legal name record (under development) |
+| `example/contexts/under-development/paula(fl-birth-cert)alice.ttl` | Paula Walker's Florida Birth Certificate Persona — legal name record (under development) |
 
 ## Architecture
 
