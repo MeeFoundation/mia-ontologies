@@ -11,82 +11,68 @@
     owl:versionIRI <http://mee.foundation/ontologies/context/1.0.1> ;
     dc:date "2026-06-01"^^xsd:date ;
     owl:imports <http://mee.foundation/ontologies/pdn-identity> ;
-    owl:versionInfo "Version 1.0.44 - rename contextCategory property to category"@en ;
+    owl:versionInfo "Version 1.0.45 - drop stale rdfs:domain owl:Ontology from all annotation properties; update comments to reflect DataBook named graph"@en ;
     rdfs:label "Context Ontology"@en ;
-    rdfs:comment """Context Ontology for the Mee Identity Agent.
-
-                    Defines controlled vocabularies for classifying context ontology files:
-                    - category: the kind of relationship a context file represents
-                    - assertedBy: the identity asserting the data (an identity:PDNidentifier subclass)
-                    - subject: whose identity the file describes (an identity:PDNidentifier subclass)
-
-                    Peer of persona.ttl and pdn-identity.ttl; imported directly by each context file."""@en .
+    rdfs:comment """Context and Category Ontology for the Mee Identity Agent"""@en .
 
 
 #################################################################
-#    Annotation Properties for Context File Classification
+#    Annotation Properties for Context DataBook Classification
 #################################################################
 
 context:category rdf:type owl:AnnotationProperty ;
     rdfs:label "context type"@en ;
-    rdfs:comment """Tags a context ontology (file) with the kind of relationship it represents —
+    rdfs:comment """Annotates a DataBook named graph with the kind of relationship it represents —
                     e.g. context:Companies, context:Federal, context:Municipality.
-                    Applied to the ontology IRI, not to the Person individual."""@en ;
-    rdfs:domain owl:Ontology ;
+                    Applied to the named graph IRI, not to the Person individual."""@en ;
     rdfs:range context:Category .
 
 context:assertedBy rdf:type owl:AnnotationProperty ;
     rdfs:label "asserted by"@en ;
-    rdfs:comment """Tags a context ontology (file) with the individual identity making the assertion —
+    rdfs:comment """Annotates a DataBook named graph with the individual identity making the assertion —
                     an individual of identity:PDNidentifier (e.g. identity:Self, identity:Organization).
-                    Applied to the ontology IRI, not to the Person individual."""@en ;
-    rdfs:domain owl:Ontology ;
+                    Applied to the named graph IRI, not to the Person individual."""@en ;
     rdfs:range identity:PDNidentifier .
 
 context:subject rdf:type owl:AnnotationProperty ;
     rdfs:label "subject"@en ;
-    rdfs:comment """Tags a context ontology (file) with whose identity it describes —
+    rdfs:comment """Annotates a DataBook named graph with whose identity it describes —
                     an individual of identity:PDNidentifier (e.g. identity:Self, or a named individual of identity:Individual).
-                    Applied to the ontology IRI, not to the Person individual."""@en ;
-    rdfs:domain owl:Ontology ;
+                    Applied to the named graph IRI, not to the Person individual."""@en ;
     rdfs:range identity:PDNidentifier .
 
 context:name rdf:type owl:AnnotationProperty ;
     rdfs:label "name"@en ;
-    rdfs:comment """A human-readable name for this context ontology (file).
-                    Applied to the ontology IRI, not to the Person individual."""@en ;
-    rdfs:domain owl:Ontology ;
+    rdfs:comment """A human-readable name for this DataBook named graph (context).
+                    Applied to the named graph IRI, not to the Person individual."""@en ;
     rdfs:range xsd:string .
 
 context:template rdf:type owl:AnnotationProperty ;
     rdfs:label "template"@en ;
-    rdfs:comment """Tags a context ontology (file) with the persona template type that applies to it.
+    rdfs:comment """Annotates a DataBook named graph with the persona template type that applies to it.
                     Value is one of the persona:PersonaTemplate subclasses
                     (persona:BirthCertificate, persona:JSContactCard, persona:DriversLicense).
                     Used to select the appropriate per-template SHACL shapes file for validation.
-                    Applied to the ontology IRI."""@en ;
-    rdfs:domain owl:Ontology ;
+                    Applied to the named graph IRI."""@en ;
     rdfs:range <http://mee.foundation/ontologies/persona#PersonaTemplate> .
 
 context:dyad rdf:type owl:AnnotationProperty ;
     rdfs:label "dyad"@en ;
-    rdfs:comment """Tags a context ontology (file) with the IRI of its dyad partner context —
-                    the reciprocal context about the same relationship asserted by the other party.
-                    Applied to the ontology IRI. Must be symmetric: if A dyad B then B dyad A."""@en ;
-    rdfs:domain owl:Ontology ;
-    rdfs:range owl:Ontology .
+    rdfs:comment """Annotates a DataBook named graph with the IRI of its dyad partner —
+                    the reciprocal DataBook about the same relationship asserted by the other party.
+                    Must be symmetric: if A dyad B then B dyad A."""@en .
 
 
 #################################################################
-#    Context Categories
+#    Categories
 #    Subclasses are used as values for the context:category
-#    annotation property on ontology IRIs (context files)
+#    annotation property on DataBook named graph IRIs
 #################################################################
 
 context:Category rdf:type owl:Class ;
     rdfs:label "Category"@en ;
     rdfs:comment """Controlled vocabulary for categories of contexts.
-                    Used as the value of context:category on ontology IRIs."""@en .
+                    Used as the value of context:category on DataBook named graph IRIs."""@en .
 
 #################################################################
 #    c:Group Contexts and subclasses
