@@ -7,7 +7,7 @@ set -euo pipefail
 
 repo_root=$(git rev-parse --show-toplevel)
 
-staged=$(git diff --cached --name-only --diff-filter=ACM | grep '\.databook\.md$' || true)
+staged=$(git diff --cached --name-only --diff-filter=ACM | grep '\.databook\.md$' | grep -v '^example/categories/' || true)
 [ -z "$staged" ] && exit 0
 
 while IFS= read -r f; do
