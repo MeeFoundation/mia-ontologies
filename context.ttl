@@ -11,7 +11,7 @@
     owl:versionIRI <http://mee.foundation/ontologies/context/1.0.1> ;
     dc:date "2026-06-01"^^xsd:date ;
     owl:imports <http://mee.foundation/ontologies/pdn-identity> ;
-    owl:versionInfo "Version 1.0.41 - rename 11 more context categories to plural form"@en ;
+    owl:versionInfo "Version 1.0.42 - rename ContextCategory class to Category"@en ;
     rdfs:label "Context Ontology"@en ;
     rdfs:comment """Context Ontology for the Mee Identity Agent.
 
@@ -33,7 +33,7 @@ context:contextCategory rdf:type owl:AnnotationProperty ;
                     e.g. context:Companies, context:Federal, context:Municipality.
                     Applied to the ontology IRI, not to the Person individual."""@en ;
     rdfs:domain owl:Ontology ;
-    rdfs:range context:ContextCategory .
+    rdfs:range context:Category .
 
 context:assertedBy rdf:type owl:AnnotationProperty ;
     rdfs:label "asserted by"@en ;
@@ -83,8 +83,8 @@ context:dyad rdf:type owl:AnnotationProperty ;
 #    annotation property on ontology IRIs (context files)
 #################################################################
 
-context:ContextCategory rdf:type owl:Class ;
-    rdfs:label "ContextCategory"@en ;
+context:Category rdf:type owl:Class ;
+    rdfs:label "Category"@en ;
     rdfs:comment """Controlled vocabulary for categories of contexts.
                     Used as the value of context:contextCategory on ontology IRIs."""@en .
 
@@ -94,7 +94,7 @@ context:ContextCategory rdf:type owl:Class ;
 
 
 context:Group rdf:type owl:Class ;
-    rdfs:subClassOf context:ContextCategory ;
+    rdfs:subClassOf context:Category ;
     rdfs:label "Group"@en ;
     rdfs:comment "Interactions with a formal or informal group of people."@en .
 
@@ -104,7 +104,7 @@ context:Group rdf:type owl:Class ;
 #################################################################
 
 context:People rdf:type owl:Class ;
-    rdfs:subClassOf context:ContextCategory ;
+    rdfs:subClassOf context:Category ;
     rdfs:label "People"@en ;
     rdfs:comment "Interactions with all kinds of people."@en .
 
