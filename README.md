@@ -373,47 +373,47 @@ All context files reside in Alice's Mia. Some are authored by Alice (self-assert
 
 Here's a map of all the contexts in our Alice example:
 
-<p align="center"><img src="example/images/context-map.png" alt="Alice's physical characteristics"></p>
+<p align="center"><img src="example/contexts/images/context-map.png" alt="Alice's physical characteristics"></p>
 
 
 The contexts in the table below are *about* Alice and asserted *by* Alice. All `.databook.md` files are in the `example/` folder.
 
 | #  | DataBook file                                                                          | Context type | Key data                                                         | Diagram |
 |--- |:--------------------------------------------------------------------------------------|:-------------|:-----------------------------------------------------------------|:--------|
-| 7  | [07-alice(bhs)alice](example/07-alice(bhs)alice.databook.md)                     | Group        | BHS profile: email, phone and current address                    | [view](example/images/07-alice(bhs)alice.png)|
-| 11 | [11-alice(google)alice](example/11-alice(google)alice.databook.md)               | Company      | Gmail address                                                    | [view](example/images/11-alice(google)alice.png) |
-| 12 | [12-alice(att)alice](example/12-alice(att)alice.databook.md)                     | Company      | Phone number                                                     | [view](example/images/12-alice(att)alice.png) |
-| 13 | [13-alice(tx-birth-cert)alice](example/13-alice(tx-birth-cert)alice.databook.md) | State        | Legal names, maiden name                                         | [view](example/images/13-alice(tx-birth-cert)alice.png) |
-| 14 | [14-alice(paradise)alice](example/14-alice(paradise)alice.databook.md)           | Municipality | Current address — Paradise, CA (2025–present)                    | [view](example/images/14-alice(paradise)alice.png) |
-| 15 | [15-alice(boston)alice](example/15-alice(boston)alice.databook.md)               | Municipality | Previous address — Boston, MA (2020–2025) with temporal interval | [view](example/images/15-alice(boston)alice.png) |
-| 16 | [16-alice(ssa)alice](example/16-alice(ssa)alice.databook.md)                     | Federal      | Social security number (SSN)                                     | [view](example/images/16-alice(ssa)alice.png) |
-| 17 | [17-alice(bob)alice](example/17-alice(bob)alice.databook.md)                     | Person       | Alice's 1:1 context with Bob; social network with Bob as member  | [view](example/images/17-alice(bob)alice.png)|
-| 18 | [18-alice(familymember)alice](example/18-alice(familymember)alice.databook.md)   | FamilyMember | Alice as a family member                       | [view](example/images/18-alice(familymember)alice.png) |
-| 19 | [19-alice(possessions)alice](example/19-alice(possessions)alice.databook.md)     | Possession   | Wallet (driver's license + payment card); health ins., SSN card  | [view](example/images/19-alice(possessions)alice.png) |
-| 20 | [20-alice(acme)alice](example/20-alice(acme)alice.databook.md)                   | Employee     | Acme employee context; company email; works with Paula           | [view](example/images/20-alice(acme)alice.png)|
-| 21 | [21-alice(business-card)alice](example/21-alice(business-card)alice.databook.md) | Employee     | Business card — given name, family name, email, phone, employer  | [view](example/images/21-alice(business-card)alice.png) |
-| 22 | [22-alice(driverslicense)alice](example/22-alice(driverslicense)alice.databook.md) | State      | California driver's license — legal name, DOB, DL#, expiry, photo | [view](example/images/22-alice(driverslicense)alice.png) |
-| 23 | [23-alice(passport)alice](example/23-alice(passport)alice.databook.md)             | Federal    | US passport — legal name, DOB, passport#, issue/expiry, place of birth, gender marker, photo | [view](example/images/23-alice(passport)alice.png) |
-| 24 | [24-alice(health)alice](example/24-alice(health)alice.databook.md)                 | Health     | Physical body — height (68 in.), blue eyes, grey hair            | [view](example/images/24-alice(health)alice.png) |
+| 7  | [07-alice(bhs)alice](example/contexts/07-alice(bhs)alice.databook.md)                     | Group        | BHS profile: email, phone and current address                    | [view](example/contexts/images/07-alice(bhs)alice.png)|
+| 11 | [11-alice(google)alice](example/contexts/11-alice(google)alice.databook.md)               | Company      | Gmail address                                                    | [view](example/contexts/images/11-alice(google)alice.png) |
+| 12 | [12-alice(att)alice](example/contexts/12-alice(att)alice.databook.md)                     | Company      | Phone number                                                     | [view](example/contexts/images/12-alice(att)alice.png) |
+| 13 | [13-alice(tx-birth-cert)alice](example/contexts/13-alice(tx-birth-cert)alice.databook.md) | State        | Legal names, maiden name                                         | [view](example/contexts/images/13-alice(tx-birth-cert)alice.png) |
+| 14 | [14-alice(paradise)alice](example/contexts/14-alice(paradise)alice.databook.md)           | Municipality | Current address — Paradise, CA (2025–present)                    | [view](example/contexts/images/14-alice(paradise)alice.png) |
+| 15 | [15-alice(boston)alice](example/contexts/15-alice(boston)alice.databook.md)               | Municipality | Previous address — Boston, MA (2020–2025) with temporal interval | [view](example/contexts/images/15-alice(boston)alice.png) |
+| 16 | [16-alice(ssa)alice](example/contexts/16-alice(ssa)alice.databook.md)                     | Federal      | Social security number (SSN)                                     | [view](example/contexts/images/16-alice(ssa)alice.png) |
+| 17 | [17-alice(bob)alice](example/contexts/17-alice(bob)alice.databook.md)                     | Person       | Alice's 1:1 context with Bob; social network with Bob as member  | [view](example/contexts/images/17-alice(bob)alice.png)|
+| 18 | [18-alice(familymember)alice](example/contexts/18-alice(familymember)alice.databook.md)   | FamilyMember | Alice as a family member                       | [view](example/contexts/images/18-alice(familymember)alice.png) |
+| 19 | [19-alice(possessions)alice](example/contexts/19-alice(possessions)alice.databook.md)     | Possession   | Wallet (driver's license + payment card); health ins., SSN card  | [view](example/contexts/images/19-alice(possessions)alice.png) |
+| 20 | [20-alice(acme)alice](example/contexts/20-alice(acme)alice.databook.md)                   | Employee     | Acme employee context; company email; works with Paula           | [view](example/contexts/images/20-alice(acme)alice.png)|
+| 21 | [21-alice(business-card)alice](example/contexts/21-alice(business-card)alice.databook.md) | Employee     | Business card — given name, family name, email, phone, employer  | [view](example/contexts/images/21-alice(business-card)alice.png) |
+| 22 | [22-alice(driverslicense)alice](example/contexts/22-alice(driverslicense)alice.databook.md) | State      | California driver's license — legal name, DOB, DL#, expiry, photo | [view](example/contexts/images/22-alice(driverslicense)alice.png) |
+| 23 | [23-alice(passport)alice](example/contexts/23-alice(passport)alice.databook.md)             | Federal    | US passport — legal name, DOB, passport#, issue/expiry, place of birth, gender marker, photo | [view](example/contexts/images/23-alice(passport)alice.png) |
+| 24 | [24-alice(health)alice](example/contexts/24-alice(health)alice.databook.md)                 | Health     | Physical body — height (68 in.), blue eyes, grey hair            | [view](example/contexts/images/24-alice(health)alice.png) |
 
 The following table lists contexts that are *about* Alice but asserted by others.
 
 | #  | DataBook file                                                                         | Context type | Key data                             | Diagram |
 |--- |:-------------------------------------------------------------------------------------|:-------------|:-------------------------------------|:--------|
-| 4  | [04-alice(bob)bob](example/04-alice(bob)bob.databook.md)                         | Person            | Alice as seen by Bob (dyad with #17) | [view](example/images/04-alice(bob)bob.png)|
-| 10 | [10-alice(citibank)citibank](example/10-alice(citibank)citibank.databook.md)     | FinancialServices | Debit card                           | [view](example/images/10-alice(citibank)citibank.png) |
+| 4  | [04-alice(bob)bob](example/contexts/04-alice(bob)bob.databook.md)                         | Person            | Alice as seen by Bob (dyad with #17) | [view](example/contexts/images/04-alice(bob)bob.png)|
+| 10 | [10-alice(citibank)citibank](example/contexts/10-alice(citibank)citibank.databook.md)     | FinancialServices | Debit card                           | [view](example/contexts/images/10-alice(citibank)citibank.png) |
 
 The following table lists contexts about other people (Paula and Bob) or groups (Boston Hub Society) in Alice's Mia. All files are in `example/`.
 
 | #  | DataBook file                                                                                     | Context type | Key data                                                         | Diagram |
 |--- |:-------------------------------------------------------------------------------------------------|:-------------|:-----------------------------------------------------------------|:--------|
-| 1  | [01-paula(acme)alice](example/01-paula(acme)alice.databook.md)           | Employee     | Paula as Alice's Acme colleague (Alice-asserted)                | *(todo)*|
-| 2  | [02-paula(familymember)alice](example/02-paula(familymember)alice.databook.md) | FamilyMember | Paula as Alice's family member (Alice-asserted)           | *(todo)*|
-| 3  | [03-paula(familymember)paula](example/03-paula(familymember)paula.databook.md) | FamilyMember | Paula's own family persona; social network with Alice (dyad #2) | *(todo)*|
-| 5  | [05-bob(bob)alice](example/05-bob(bob)alice.databook.md)                 | Person       | Alice's notes about Bob; fav drink: oat milk cappuccino         | [view](example/images/05-bob(bob)alice.png) |
-| 6  | [06-bob(bob)bob](example/06-bob(bob)bob.databook.md)                     | Person       | Bob's self-asserted Bob persona (dyad with #5)                  | *(todo)*|
-| 8  | [08-bhs(bhs)members](example/08-bhs(bhs)members.databook.md)             | Group        | BHS group instance with Alice and Bob as members                | [view](example/images/08-bhs(bhs)members.png) |
-| 9  | [09-bob(bhs)bob](example/09-bob(bhs)bob.databook.md)                     | Group        | Bob's BHS member persona (name, email, phone, address)          | [view](example/images/09-bob(bhs)bob.png) |
+| 1  | [01-paula(acme)alice](example/contexts/01-paula(acme)alice.databook.md)           | Employee     | Paula as Alice's Acme colleague (Alice-asserted)                | *(todo)*|
+| 2  | [02-paula(familymember)alice](example/contexts/02-paula(familymember)alice.databook.md) | FamilyMember | Paula as Alice's family member (Alice-asserted)           | *(todo)*|
+| 3  | [03-paula(familymember)paula](example/contexts/03-paula(familymember)paula.databook.md) | FamilyMember | Paula's own family persona; social network with Alice (dyad #2) | *(todo)*|
+| 5  | [05-bob(bob)alice](example/contexts/05-bob(bob)alice.databook.md)                 | Person       | Alice's notes about Bob; fav drink: oat milk cappuccino         | [view](example/contexts/images/05-bob(bob)alice.png) |
+| 6  | [06-bob(bob)bob](example/contexts/06-bob(bob)bob.databook.md)                     | Person       | Bob's self-asserted Bob persona (dyad with #5)                  | *(todo)*|
+| 8  | [08-bhs(bhs)members](example/contexts/08-bhs(bhs)members.databook.md)             | Group        | BHS group instance with Alice and Bob as members                | [view](example/contexts/images/08-bhs(bhs)members.png) |
+| 9  | [09-bob(bhs)bob](example/contexts/09-bob(bhs)bob.databook.md)                     | Group        | Bob's BHS member persona (name, email, phone, address)          | [view](example/contexts/images/09-bob(bhs)bob.png) |
 
 
 
@@ -434,8 +434,8 @@ The practical implication is that **Tier 1 validation** (which merges all graphs
 `draw.py` generates a Graphviz diagram from any context DataBook file:
 
 ```bash
-python3 draw.py example/10-alice(citibank)citibank.databook.md
-python3 draw.py example/14-alice(paradise)alice.databook.md
+python3 draw.py example/contexts/10-alice(citibank)citibank.databook.md
+python3 draw.py example/contexts/14-alice(paradise)alice.databook.md
 ```
 
 **Dependencies** (one-time setup):
@@ -510,25 +510,25 @@ riot --output=turtle \
   2>/dev/null > /tmp/mia-base.ttl
 
 # BirthCertificate — 13-alice(tx-birth-cert)alice.databook.md
-databook extract "example/13-alice(tx-birth-cert)alice.databook.md" 2>/dev/null > /tmp/data-birth-cert-raw.ttl
+databook extract "example/contexts/13-alice(tx-birth-cert)alice.databook.md" 2>/dev/null > /tmp/data-birth-cert-raw.ttl
 riot --output=turtle /tmp/mia-base.ttl /tmp/data-birth-cert-raw.ttl 2>/dev/null > /tmp/data-birth-cert.ttl
 grep -v 'owl:imports' shacl/birthcertificate-shacl.ttl > /tmp/shapes-birth-cert.ttl
 shacl validate --shapes /tmp/shapes-birth-cert.ttl --data /tmp/data-birth-cert.ttl --text
 
 # JSContactCard — 21-alice(business-card)alice.databook.md
-databook extract "example/21-alice(business-card)alice.databook.md" 2>/dev/null > /tmp/data-jscontact-raw.ttl
+databook extract "example/contexts/21-alice(business-card)alice.databook.md" 2>/dev/null > /tmp/data-jscontact-raw.ttl
 riot --output=turtle /tmp/mia-base.ttl /tmp/data-jscontact-raw.ttl 2>/dev/null > /tmp/data-jscontact.ttl
 grep -v 'owl:imports' shacl/jscontactcard-shacl.ttl > /tmp/shapes-jscontact.ttl
 shacl validate --shapes /tmp/shapes-jscontact.ttl --data /tmp/data-jscontact.ttl --text
 
 # DriversLicense — 22-alice(driverslicense)alice.databook.md
-databook extract "example/22-alice(driverslicense)alice.databook.md" 2>/dev/null > /tmp/data-dl-raw.ttl
+databook extract "example/contexts/22-alice(driverslicense)alice.databook.md" 2>/dev/null > /tmp/data-dl-raw.ttl
 riot --output=turtle /tmp/mia-base.ttl /tmp/data-dl-raw.ttl 2>/dev/null > /tmp/data-dl.ttl
 grep -v 'owl:imports' shacl/driverslicense-shacl.ttl > /tmp/shapes-dl.ttl
 shacl validate --shapes /tmp/shapes-dl.ttl --data /tmp/data-dl.ttl --text
 
 # Passport — 23-alice(passport)alice.databook.md
-databook extract "example/23-alice(passport)alice.databook.md" 2>/dev/null > /tmp/data-passport-raw.ttl
+databook extract "example/contexts/23-alice(passport)alice.databook.md" 2>/dev/null > /tmp/data-passport-raw.ttl
 riot --output=turtle /tmp/mia-base.ttl /tmp/data-passport-raw.ttl 2>/dev/null > /tmp/data-passport.ttl
 grep -v 'owl:imports' shacl/passport-shacl.ttl > /tmp/shapes-passport.ttl
 shacl validate --shapes /tmp/shapes-passport.ttl --data /tmp/data-passport.ttl --text

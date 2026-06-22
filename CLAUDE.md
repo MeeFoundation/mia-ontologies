@@ -28,28 +28,28 @@ There are no build, compile, test, or lint commands. The files are Turtle (`.ttl
 
 | File | Purpose |
 |------|---------|
-| `example/01-paula(acme)alice.databook.md` | Paula Walker as Alice's Acme colleague — asserted by Alice |
-| `example/02-paula(familymember)alice.databook.md` | Paula Walker as Alice's family member — name and relationship; asserted by Alice |
-| `example/03-paula(familymember)paula.databook.md` | Paula Walker in family context — self-asserted; dyad with 02 |
-| `example/04-alice(bob)bob.databook.md` | Alice Walker in Bob context — Bob's view of Alice with personal notes |
-| `example/05-bob(bob)alice.databook.md` | Bob Johnson in Bob context — Alice's view of Bob with personal notes; dyad with 06 |
-| `example/06-bob(bob)bob.databook.md` | Bob Johnson in Bob context — self-asserted name; dyad with 05 |
-| `example/07-alice(bhs)alice.databook.md` | Alice Walker's Boston Hub Society profile — address and phone |
-| `example/08-bhs(bhs)members.databook.md` | Boston Hub Society — g:Group instance with Alice and Bob as members |
-| `example/09-bob(bhs)bob.databook.md` | Bob Johnson's Boston Hub Society profile — name; self-asserted |
-| `example/10-alice(citibank)citibank.databook.md` | Alice's Citibank Persona — payment card |
-| `example/11-alice(google)alice.databook.md` | Alice's Google Persona — email address |
-| `example/12-alice(att)alice.databook.md` | Alice's AT&T Persona — phone number |
-| `example/13-alice(tx-birth-cert)alice.databook.md` | Alice's Texas Birth Certificate Persona — legal name record |
-| `example/14-alice(paradise)alice.databook.md` | Alice's Paradise Persona — current residential address |
-| `example/15-alice(boston)alice.databook.md` | Alice's Boston Persona — residential address 2020–2025 |
-| `example/16-alice(ssa)alice.databook.md` | Alice's SSA Persona — Social Security Number |
-| `example/17-alice(bob)alice.databook.md` | Alice Walker in Bob context — Alice's self-asserted persona shown to Bob; dyad with 04 |
-| `example/18-alice(familymember)alice.databook.md` | Alice's Family Persona — family relationships and social network |
-| `example/19-alice(possessions)alice.databook.md` | Alice's Possessions Persona — wallet, health insurance card, SSN card |
-| `example/20-alice(acme)alice.databook.md` | Alice's Acme Persona — employee context; social network with Paula |
-| `example/21-alice(business-card)alice.databook.md` | Alice's Business Card Persona — employer, job title, email, phone |
-| `example/22-alice(driverslicense)alice.databook.md` | Alice's Driver's License Persona — legal name, DOB, license number, expiration date |
+| `example/contexts/01-paula(acme)alice.databook.md` | Paula Walker as Alice's Acme colleague — asserted by Alice |
+| `example/contexts/02-paula(familymember)alice.databook.md` | Paula Walker as Alice's family member — name and relationship; asserted by Alice |
+| `example/contexts/03-paula(familymember)paula.databook.md` | Paula Walker in family context — self-asserted; dyad with 02 |
+| `example/contexts/04-alice(bob)bob.databook.md` | Alice Walker in Bob context — Bob's view of Alice with personal notes |
+| `example/contexts/05-bob(bob)alice.databook.md` | Bob Johnson in Bob context — Alice's view of Bob with personal notes; dyad with 06 |
+| `example/contexts/06-bob(bob)bob.databook.md` | Bob Johnson in Bob context — self-asserted name; dyad with 05 |
+| `example/contexts/07-alice(bhs)alice.databook.md` | Alice Walker's Boston Hub Society profile — address and phone |
+| `example/contexts/08-bhs(bhs)members.databook.md` | Boston Hub Society — g:Group instance with Alice and Bob as members |
+| `example/contexts/09-bob(bhs)bob.databook.md` | Bob Johnson's Boston Hub Society profile — name; self-asserted |
+| `example/contexts/10-alice(citibank)citibank.databook.md` | Alice's Citibank Persona — payment card |
+| `example/contexts/11-alice(google)alice.databook.md` | Alice's Google Persona — email address |
+| `example/contexts/12-alice(att)alice.databook.md` | Alice's AT&T Persona — phone number |
+| `example/contexts/13-alice(tx-birth-cert)alice.databook.md` | Alice's Texas Birth Certificate Persona — legal name record |
+| `example/contexts/14-alice(paradise)alice.databook.md` | Alice's Paradise Persona — current residential address |
+| `example/contexts/15-alice(boston)alice.databook.md` | Alice's Boston Persona — residential address 2020–2025 |
+| `example/contexts/16-alice(ssa)alice.databook.md` | Alice's SSA Persona — Social Security Number |
+| `example/contexts/17-alice(bob)alice.databook.md` | Alice Walker in Bob context — Alice's self-asserted persona shown to Bob; dyad with 04 |
+| `example/contexts/18-alice(familymember)alice.databook.md` | Alice's Family Persona — family relationships and social network |
+| `example/contexts/19-alice(possessions)alice.databook.md` | Alice's Possessions Persona — wallet, health insurance card, SSN card |
+| `example/contexts/20-alice(acme)alice.databook.md` | Alice's Acme Persona — employee context; social network with Paula |
+| `example/contexts/21-alice(business-card)alice.databook.md` | Alice's Business Card Persona — employer, job title, email, phone |
+| `example/contexts/22-alice(driverslicense)alice.databook.md` | Alice's Driver's License Persona — legal name, DOB, license number, expiration date |
 | `example/under-development/paula(fl-birth-cert)alice.ttl` | Paula Walker's Florida Birth Certificate Persona — legal name record (under development) |
 
 ## Architecture
@@ -62,10 +62,10 @@ Triplestore (Fuseki) — loads all DataBook files directly:
   │   ├─ PersonOntology.ttl
   │   ├─ AddressOntology.ttl
   │   └─ StagingOntology.ttl → BFO terms
-  ├─ example/01-paula(acme)alice.databook.md
-  ├─ example/02-paula(familymember)alice.databook.md
+  ├─ example/contexts/01-paula(acme)alice.databook.md
+  ├─ example/contexts/02-paula(familymember)alice.databook.md
   ├─ … (all numbered context DataBooks)
-  └─ example/22-alice(driverslicense)alice.databook.md
+  └─ example/contexts/22-alice(driverslicense)alice.databook.md
 
 persona-shacl.ttl — no owl:imports of data; validated against the loaded dataset
 shacl/birthcertificate-shacl.ttl  — per-template shapes for birth certificate files
@@ -157,9 +157,9 @@ owl:versionInfo "Version 3.0.4 - added birth date"@en
 
 Files inside any directory named `under-development/` (at any depth) are works-in-progress and must be **excluded from all integrity checks** below.
 
-After any change to context files or the context map diagram, verify the following. **`example/images/context-map.png` is the authoritative source of truth.** When a discrepancy is found between the diagram and any `.ttl` file or `README.md` entry, the diagram wins — update the files to match the diagram, not the other way around.
+After any change to context files or the context map diagram, verify the following. **`example/contexts/images/context-map.png` is the authoritative source of truth.** When a discrepancy is found between the diagram and any `.ttl` file or `README.md` entry, the diagram wins — update the files to match the diagram, not the other way around.
 
-**Check 1 — Diagram ↔ files ↔ README coverage**: Every labeled circle in `example/images/context-map.png` must have (a) a corresponding `.ttl` file in the appropriate directory and (b) a row in one of the tables in the **Alice's Personas and Contexts** section of `README.md`. Conversely, every row in those tables must correspond to a circle in the diagram and a file that actually exists. If a circle exists in the diagram but has no `.ttl` file or README row, create them to match the diagram.
+**Check 1 — Diagram ↔ files ↔ README coverage**: Every labeled circle in `example/contexts/images/context-map.png` must have (a) a corresponding `.ttl` file in the appropriate directory and (b) a row in one of the tables in the **Alice's Personas and Contexts** section of `README.md`. Conversely, every row in those tables must correspond to a circle in the diagram and a file that actually exists. If a circle exists in the diagram but has no `.ttl` file or README row, create them to match the diagram.
 
 **Check 2 — Filename convention**: Every context filename must follow `[NN-]<about>(<context-name>)<asserted-by>.ttl`, where the optional `NN-` is the zero-padded two-digit diagram label number for files that appear as labeled circles in `context-map.png`. The `<asserted-by>` segment must be a real entity identifier (e.g. `alice`, `bob`, `paula`) — except for `c:Group` contexts, where it must be the literal string `members`. If a filename does not match this pattern, rename it to conform.
 
@@ -171,15 +171,15 @@ After any change to context files or the context map diagram, verify the followi
 
 **Check 5 — Dyad cardinality**: A `p:Persona` must have at most one `persona:dyad` property. A persona can be paired with only one other persona.
 
-\*\*Check 6 — category label ↔ TTL agreement**: For every labeled circle in `example/images/context-map.png`, the light-blue label attached to that circle shows a `category` value (e.g. "Finance", "Federal", "Group"). That value must exactly match the local name of the `c:category` object in the corresponding `.ttl` file (e.g. `context:category context:Finance`). Read the diagram label independently before consulting the TTL — do not let the TTL value anchor your reading of the diagram. If the label and the TTL value differ, the diagram is authoritative — update the TTL to match the diagram.
+\*\*Check 6 — category label ↔ TTL agreement**: For every labeled circle in `example/contexts/images/context-map.png`, the light-blue label attached to that circle shows a `category` value (e.g. "Finance", "Federal", "Group"). That value must exactly match the local name of the `c:category` object in the corresponding `.ttl` file (e.g. `context:category context:Finance`). Read the diagram label independently before consulting the TTL — do not let the TTL value anchor your reading of the diagram. If the label and the TTL value differ, the diagram is authoritative — update the TTL to match the diagram.
 
 **Check 7 — No orphan Persons**: Every `persona:Person` individual other than `:Self` must be reachable via `BFO_0000115` (has member part) from a `g:Group` or from a Social Network individual linked to another `persona:Person` via `persona:hasSocialNetwork`. `:Self` is always the root and needs no incoming link. `persona:dyad` does not satisfy this requirement — it is a lateral peer link, not a parent link.
 
 **Check 8 — Validation command completeness**: The `## Validation` section of `README.md` must document two tiers. Tier 1 uses four steps: (1) a `find example -name "*.databook.md"` loop using `databook extract` to extract turtle content and produce a merged turtle file of all context data (excluding `under-development/`); (2) a `riot` merge of that data with all application ontology TTL files and the foundation ontologies listed explicitly from `project_files/`; (3) a `grep -v owl:imports` on `persona-shacl.ttl` to collect shapes (the `shacl/` per-template files are excluded here — they target `persona:Person` and would fire incorrectly on all individuals when applied to merged data); (4) a `shacl validate` call. Tier 2 lists explicit per-file `databook extract` + `riot` + `shacl validate` commands for each template context file paired with its `shacl/*-shacl.ttl` file. If the commands change, update the README to match.
 
-**Check 9 — PNG file location**: The diagram PNG for every context file must be stored directly in `example/images/` (flat, no subfolders — not `images/example/`). Files in `under-development/` are excluded.
+**Check 9 — PNG file location**: The diagram PNG for every context file must be stored directly in `example/contexts/images/` (flat, no subfolders — not `images/example/`). Files in `under-development/` are excluded.
 
-**Check 10 — PNG filename convention**: Every diagram PNG in `example/images/` must use the same base filename as the corresponding `.databook.md` file in `example/`, with `.png` substituted for `.databook.md` (including the `NN-` numeric prefix where present). For example, `07-alice(bhs)alice.databook.md` → `07-alice(bhs)alice.png`. If the PNG does not yet exist, the README Diagram cell must be marked `*(todo)*` rather than left blank.
+**Check 10 — PNG filename convention**: Every diagram PNG in `example/contexts/images/` must use the same base filename as the corresponding `.databook.md` file in `example/`, with `.png` substituted for `.databook.md` (including the `NN-` numeric prefix where present). For example, `07-alice(bhs)alice.databook.md` → `07-alice(bhs)alice.png`. If the PNG does not yet exist, the README Diagram cell must be marked `*(todo)*` rather than left blank.
 
 **Check 11 — No broken image links in README**: Every PNG path referenced in `README.md` (both `<img src="...">` tags and `[view](...)` table links) must resolve to an actual file on disk. Run:
 
@@ -215,7 +215,7 @@ Always update `persona-shacl.ttl` in the same edit session as the change that tr
 
 **SHACL validation** (e.g., using Apache Jena's `shaclvalidate`):
 ```bash
-shaclvalidate -datafile example/07-alice(bhs)alice.databook.md -shapesfile persona-shacl.ttl
+shaclvalidate -datafile example/contexts/07-alice(bhs)alice.databook.md -shapesfile persona-shacl.ttl
 ```
 
 **Protégé**: Load `persona.ttl`; Protégé will import the domain ontologies via IRI resolution. Use the reasoner (HermiT/Pellet) to check consistency.
