@@ -11,8 +11,8 @@ mia:
   cat-name: "Bob Johnson"
   category-class: "context:UserDefined"
   predefined: false
-  sbs: "http://www.example.org/mia/alice(bob)alice"
   obs: "http://www.example.org/mia/bob(bob)alice"
+  sbs: "http://www.example.org/mia/alice(bob)alice"
   obo: "http://www.example.org/mia/bob(bob)bob"
   sbo: "http://www.example.org/mia/alice(bob)bob"
 ---
