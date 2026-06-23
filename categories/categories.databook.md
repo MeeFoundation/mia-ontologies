@@ -16,6 +16,8 @@ mia:
     - "http://www.example.org/mia/categories/government"
     - "http://www.example.org/mia/categories/possessions"
     - "http://www.example.org/mia/categories/home"
-    - "http://www.example.org/mia/categories/groups"
+    - "http://www.example.org/mia/categories/legal"
+    - "http://www.example.org/mia/categories/travel"
+    - "http://www.example.org/mia/categories/affiliations"
     - "http://www.example.org/mia/categories/health"
 ---

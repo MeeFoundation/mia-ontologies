@@ -11,7 +11,7 @@
     owl:versionIRI <http://mee.foundation/ontologies/context/1.0.1> ;
     dc:date "2026-06-01"^^xsd:date ;
     owl:imports <http://mee.foundation/ontologies/pdn-identity> ;
-    owl:versionInfo "Version 1.0.61 - add context:MarriagePartner as subclass of People"@en ;
+    owl:versionInfo "Version 1.0.62 - rename Groups to Affiliations; add Legal and Travel"@en ;
     rdfs:label "Context Ontology"@en ;
     rdfs:comment """Context and Category Ontology for the Mee Identity Agent"""@en .
 
@@ -135,13 +135,13 @@ context:child rdf:type owl:ObjectProperty ;
     rdfs:comment "Links a category to a more specific child category."@en .
 
 #################################################################
-#    c:Groups Contexts and subclasses
+#    c:Affiliations Contexts and subclasses
 #################################################################
 
 
-context:Groups rdf:type owl:Class ;
+context:Affiliations rdf:type owl:Class ;
     rdfs:subClassOf context:Predefined ;
-    rdfs:label "Groups"@en ;
+    rdfs:label "Affiliations"@en ;
     rdfs:comment "Interactions with a formal or informal group of people."@en .
 
 
@@ -333,3 +333,21 @@ context:Projects rdf:type owl:Class ;
     rdfs:subClassOf context:Predefined ;
     rdfs:label "Projects"@en ;
     rdfs:comment "Involvement in a specific project or initiative."@en .
+
+#################################################################
+#    c:Legal Context
+#################################################################
+
+context:Legal rdf:type owl:Class ;
+    rdfs:subClassOf context:Predefined ;
+    rdfs:label "Legal"@en ;
+    rdfs:comment "Legal matters, contracts, agreements, and professional legal relationships."@en .
+
+#################################################################
+#    c:Travel Context
+#################################################################
+
+context:Travel rdf:type owl:Class ;
+    rdfs:subClassOf context:Predefined ;
+    rdfs:label "Travel"@en ;
+    rdfs:comment "Travel plans, trips, and related information."@en .

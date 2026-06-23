@@ -89,13 +89,17 @@ All categories have a `c:obs` link to a context (or category) that is about the 
 Here are the predefined categories:
 1. **People** — relationships and interactions with people in your social or professional life.
     - **Family** — relationships and interactions with family members.
+    - **Marriage/Partner** - relationships with a spouse or life partner.
     - **Friends** — relationships and interactions with friends.
     - **Consultants** — interactions with individuals who are consultants and provide services to you. Health-related consultants (e.g. primary care physician, physical therapist) see are under the Health category. Accountants, bookkeepers and financial advisors are under the Finance category.
 2. **Work** — professional roles, employment history, and career relationships.
     - **Employee** — related to being an employee. Your business card. 
     - **Contributor** — related to contributing to initiatives started or led by others.
     - **Creator** — related to being a creator, inventor, founder, or author of something.
-3. **Companies** — relationship with companies and organizations that provide services or products to you. For healthare related firms see Health > Healthcare. For financial service providers see Finance > Financial Services.
+3. **Companies** — relationship with companies and organizations that provide services or products to you that are not in these other categories:
+    - For healthcare related firms see Health > Healthcare. 
+   - For financial service providers see Finance > Financial Services.
+   - For home utility providers see Home.
 4. **Finances** — information about personal finances, bookkeeping, budgets, trusts, financial agreements with other people, IOUs, accountants, bookkeepers, financial advisors. 
     - **FinancialServices** — relationship with banks or other financial services institution.
 5. **Health** — personal health and wellness information. Medical history, allergies, medications, blood type, primary care physician, health insurance policies and cards, vaccination records.
@@ -103,7 +107,7 @@ Here are the predefined categories:
 6. **Events** — participation in or relationship to a specific event.
     - **Meetings** — a meeting or appointment.
     - **Conferences** — a conference or professional gathering.
-    - **Parties** — a party or social celebration.
+    - **Parties** — parties and other kinds of social gatherings.
 7. **Government** — government-issued credentials, tax records, and civic relationships.
     - **Federal** — federal government context (e.g. passport, federal tax records).
     - **State** — state government context (e.g. driver's license, state tax records).
@@ -113,9 +117,11 @@ Here are the predefined categories:
 9. **Possessions** — owned assets, property, vehicles, and other possessions.
     - **Vehicles** — owning and maintaining a vehicle.
     - **Pets** — taking care of your pet(s).
-10. **Home** — owning or renting a home, apartment or other dwelling. 
+10. **Home** — owning or renting a home, apartment or other dwelling. Leases, deeds, utility accounts, home/renters insurance. 
 11. **Projects** — involvement in a specific project or initiative.
-12. **Groups** — interactions with a formal or informal group of people that exist as a `g:Group` on the PDN.
+12. **Legal** — legal matters, contracts, agreements, and professional legal relationships.
+13. **Travel** — travel plans, trips, and related information.
+14. **Affiliations** — interactions with a formal or informal group of people that exist as a `g:Group` on the PDN.
 
 ### Category DataBooks
 
@@ -454,7 +460,7 @@ The contexts in the table below are *about* Alice and asserted *by* Alice. All `
 
 | #  | DataBook file                                                                          | Context type | Key data                                                         | Diagram |
 |--- |:--------------------------------------------------------------------------------------|:-------------|:-----------------------------------------------------------------|:--------|
-| 7  | [07-alice(bhs)alice](example/contexts/07-alice(bhs)alice.databook.md)                     | Groups       | BHS profile: email, phone and current address                    | [view](example/contexts/images/07-alice(bhs)alice.png)|
+| 7  | [07-alice(bhs)alice](example/contexts/07-alice(bhs)alice.databook.md)                     | Affiliations | BHS profile: email, phone and current address                    | [view](example/contexts/images/07-alice(bhs)alice.png)|
 | 11 | [11-alice(google)alice](example/contexts/11-alice(google)alice.databook.md)               | Companies    | Gmail address                                                    | [view](example/contexts/images/11-alice(google)alice.png) |
 | 12 | [12-alice(att)alice](example/contexts/12-alice(att)alice.databook.md)                     | Companies    | Phone number                                                     | [view](example/contexts/images/12-alice(att)alice.png) |
 | 13 | [13-alice(tx-birth-cert)alice](example/contexts/13-alice(tx-birth-cert)alice.databook.md) | State        | Legal names, maiden name                                         | [view](example/contexts/images/13-alice(tx-birth-cert)alice.png) |
@@ -486,8 +492,8 @@ The following table lists contexts about other people (Paula and Bob) or groups 
 | 3  | [03-paula(familymember)paula](example/contexts/03-paula(familymember)paula.databook.md) | Family       | Paula's own family persona; social network with Alice       | [view](example/contexts/images/03-paula(familymember)paula.png)|
 | 5  | [05-bob(bob)alice](example/contexts/05-bob(bob)alice.databook.md)                 | People       | Alice's notes about Bob; fav drink: oat milk cappuccino         | [view](example/contexts/images/05-bob(bob)alice.png) |
 | 6  | [06-bob(bob)bob](example/contexts/06-bob(bob)bob.databook.md)                     | People       | Bob's self-asserted Bob persona                                 | [view](example/contexts/images/06-bob(bob)bob.png)|
-| 8  | [08-bhs(bhs)members](example/contexts/08-bhs(bhs)members.databook.md)             | Groups       | BHS group instance with Alice and Bob as members                | [view](example/contexts/images/08-bhs(bhs)members.png) |
-| 9  | [09-bob(bhs)bob](example/contexts/09-bob(bhs)bob.databook.md)                     | Groups       | Bob's BHS member persona (name, email, phone, address)          | [view](example/contexts/images/09-bob(bhs)bob.png) |
+| 8  | [08-bhs(bhs)members](example/contexts/08-bhs(bhs)members.databook.md)             | Affiliations | BHS group instance with Alice and Bob as members                | [view](example/contexts/images/08-bhs(bhs)members.png) |
+| 9  | [09-bob(bhs)bob](example/contexts/09-bob(bhs)bob.databook.md)                     | Affiliations | Bob's BHS member persona (name, email, phone, address)          | [view](example/contexts/images/09-bob(bhs)bob.png) |
 
 
 

@@ -8,7 +8,7 @@ description: >
   Alice Walker's self-asserted BHS profile, including her current address, phone number,
   and email address as shared with the Boston Hub Society group.
 mia:
-  category: "http://www.example.org/mia/categories/groups"
+  category: "http://www.example.org/mia/categories/affiliations"
   assertedBy: ":Self"
   subject: ":Self"
   about-by: "context:SBS-Context"

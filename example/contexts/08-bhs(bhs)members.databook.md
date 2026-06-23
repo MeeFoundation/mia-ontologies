@@ -8,7 +8,7 @@ description: >
   The Boston Hub Society group instance, with Alice and Bob as members.
   A g:Group context assertable by any permitted member.
 mia:
-  category: "http://www.example.org/mia/categories/groups"
+  category: "http://www.example.org/mia/categories/affiliations"
   assertedBy: ":BHS_Group"
   subject: ":BHS_Group"
   about-by: "context:OBO-Context"
