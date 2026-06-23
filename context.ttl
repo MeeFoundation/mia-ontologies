@@ -11,7 +11,7 @@
     owl:versionIRI <http://mee.foundation/ontologies/context/1.0.1> ;
     dc:date "2026-06-01"^^xsd:date ;
     owl:imports <http://mee.foundation/ontologies/pdn-identity> ;
-    owl:versionInfo "Version 1.0.60 - rename context:Automobiles to context:Vehicles"@en ;
+    owl:versionInfo "Version 1.0.61 - add context:MarriagePartner as subclass of People"@en ;
     rdfs:label "Context Ontology"@en ;
     rdfs:comment """Context and Category Ontology for the Mee Identity Agent"""@en .
 
@@ -158,6 +158,11 @@ context:Family rdf:type owl:Class ;
     rdfs:subClassOf context:People ;
     rdfs:label "Family"@en ;
     rdfs:comment "Interactions with a family member."@en .
+
+context:MarriagePartner rdf:type owl:Class ;
+    rdfs:subClassOf context:People ;
+    rdfs:label "Marriage/Partner"@en ;
+    rdfs:comment "Relationships with a spouse or life partner."@en .
 
 context:Friends rdf:type owl:Class ;
     rdfs:subClassOf context:People ;

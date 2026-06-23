@@ -11,7 +11,8 @@ mia:
   predefined: true
   child:
     - "http://www.example.org/mia/categories/bob-johnson"
-    - "http://www.example.org/mia/categories/friends"
     - "http://www.example.org/mia/categories/family"
+    - "http://www.example.org/mia/categories/marriage-partner"
+    - "http://www.example.org/mia/categories/friends"
     - "http://www.example.org/mia/categories/consultants"
 ---
