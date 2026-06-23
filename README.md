@@ -102,7 +102,7 @@ Here are the predefined categories:
    - For home utility providers see Home.
 4. **Finances** — information about personal finances, bookkeeping, budgets, trusts, financial agreements with other people, IOUs, accountants, bookkeepers, financial advisors. 
     - **FinancialServices** — relationship with banks or other financial services institution.
-5. **Health** — personal health and wellness information. Medical history, allergies, medications, blood type, primary care physician, health insurance policies and cards, vaccination records.
+5. **Health** — personal health and wellness information. Medical history, allergies, medications, blood type, primary care physician, nurses, physical therapists, health insurance policies and cards, vaccinations.
     - **Healthcare** — relationship with healthcare providers or health insurance companies.
 6. **Events** — participation in or relationship to a specific event.
     - **Meetings** — a meeting or appointment.
@@ -116,12 +116,12 @@ Here are the predefined categories:
     - **Learnings** — knowledge gained through personal experience.
 9. **Possessions** — owned assets, property, vehicles, and other possessions.
     - **Vehicles** — owning and maintaining a vehicle.
-    - **Pets** — taking care of your pet(s).
+    - **Pets** — taking care of your pet(s). Veterinarians, medicines, food providers.
 10. **Home** — owning or renting a home, apartment or other dwelling. Leases, deeds, utility accounts, home/renters insurance. 
 11. **Projects** — involvement in a specific project or initiative.
 12. **Legal** — legal matters, contracts, agreements, and professional legal relationships.
-13. **Travel** — travel plans, trips, and related information.
-14. **Affiliations** — interactions with a formal or informal group of people that exist as a `g:Group` on the PDN.
+13. **Travel** — travel plans, trips, and related information. Loyalty programs, airlines, bus lines, trains. 
+14. **Affiliations** — sports clubs, team, charities, faith groups, memberships. Some of these may exist as a `g:Group` on the PDN.
 
 ### Category DataBooks
 
@@ -453,7 +453,7 @@ Here are Alice's categories related to her personal health and her possessions:
 <p align="center"><img src="example/images/misc.png" alt="Miscellaneous categories"></p>
 
 The last diagram shows Alice's membership in the Boston Hub Society, an informal group that exists as a node on the PDN:
-<p align="center"><img src="example/images/groups.png" alt="Groups categories"></p>
+<p align="center"><img src="example/images/affiliations.png" alt="Groups categories"></p>
 
 
 The contexts in the table below are *about* Alice and asserted *by* Alice. All `.databook.md` files are in the `example/contexts/` folder.
