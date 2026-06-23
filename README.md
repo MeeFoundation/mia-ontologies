@@ -96,9 +96,9 @@ Here are the predefined categories:
     - **Contributor** — related to contributing to initiatives started or led by others.
     - **Creator** — related to being a creator, inventor, founder, or author of something.
 3. **Companies** — relationship with companies and organizations that provide services or products to you. For healthare related firms see Health > Healthcare. For financial service providers see Finance > Financial Services.
-4. **Finances** — information about personal finances, bookkeeping, budgets, trusts, financial agreements with other people, IOUs, accountants, boookkeepers, financial advisors. 
+4. **Finances** — information about personal finances, bookkeeping, budgets, trusts, financial agreements with other people, IOUs, accountants, bookkeepers, financial advisors. 
     - **FinancialServices** — relationship with banks or other financial services institution.
-5. **Health** — personal health and wellness information. Medical history, allergies, medications, blood type, primary care physician,
+5. **Health** — personal health and wellness information. Medical history, allergies, medications, blood type, primary care physician, health insurance policies and cards, vaccination records.
     - **Healthcare** — relationship with healthcare providers or health insurance companies.
 6. **Events** — participation in or relationship to a specific event.
     - **Meetings** — a meeting or appointment.
@@ -108,10 +108,10 @@ Here are the predefined categories:
     - **Federal** — federal government context (e.g. passport, federal tax records).
     - **State** — state government context (e.g. driver's license, state tax records).
     - **Municipality** — municipal government context (e.g. local permits, library card).
-8. **Notes** — general knowledge selected by a person to be useful to them.
+8. **Notes** — general knowledge selected by you, web links, documents, images
     - **Learnings** — knowledge gained through personal experience.
 9. **Possessions** — owned assets, property, vehicles, and other possessions.
-    - **Automobiles** — owning and maintaining an automobile.
+    - **Vehicles** — owning and maintaining a vehicle.
     - **Pets** — taking care of your pet(s).
 10. **Home** — owning or renting a home, apartment or other dwelling. 
 11. **Projects** — involvement in a specific project or initiative.
@@ -427,8 +427,13 @@ The following diagrams map out the categories and contexts used in our Alice exa
 Alice is an employee of Acme. She has added Business Card claims (attributes) to her Employee mid-level category. In her role as an employee of Acme she has a relationship with a colleague named Paula. 
 <p align="center"><img src="example/images/work.png" alt="Work categories"></p>
 
-Alice has relationships with three companies. In our hypothetical example, Citibank is on the PDN and can publish context #10 to Alice's Mia app.
+Alice has relationships with two companies, Google and AT&T:
 <p align="center"><img src="example/images/companies.png" alt="Companies categories"></p>
+
+Alice has a relationship with Citibank. In our example Citibank exists as a node on the PDN and directly asserts information about their customer, Alice in context #10.
+<p align="center"><img src="example/images/finances.png" alt="Financial categories"></p>
+
+
 Here are the categories related to Alice's interactions with various state governments:
 <p align="center"><img src="example/images/gov-state.png" alt="Government — State categories"></p>
 Here are the categories related to Alice's interactions with the federal government:
