@@ -6,7 +6,7 @@ Mia's ontologies import and profile existing ontologies — documenting which of
 
 The **Context ontology** is the organizing framework: it defines the controlled vocabularies that classify every context file — what kind of interaction it captures, who asserted the data, and whose identity it describes.
 
-The four **domain ontologies** model people, organizations and groups:
+The three **domain ontologies** model people, organizations and groups:
 - **Persona ontology** — models a person: names, addresses, phone numbers, relationships, payment cards, and more. It is built on BFO (Basic Formal Ontology) and CCO (Common Core Ontologies) as the upper ontological foundation, and on domain ontologies that extend CCO:
   - **PersonOntology** — person, name types, parent-child relationships
   - **AddressOntology** — postal address structure
@@ -14,6 +14,8 @@ The four **domain ontologies** model people, organizations and groups:
   - **AgentOntology** — agents and their properties (imported transitively via PersonOntology)
 - **Organization ontology** — models organizations (companies, government agencies, non-profits, etc.) 
 - **Group ontology** — a group made up of individuals and/or organizations.
+
+An additional ontology provides PDN ids for persons, organizations and groups:
 - **Identity ontology** — types of PDN network identifiers used by people, organizations or groups. 
 
 Throughout, we use these shorthands:
