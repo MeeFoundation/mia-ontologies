@@ -62,26 +62,24 @@ The lower left shows a context that Alice might share with other people or compa
 
 ## Categories
 
-We organize multiple dimensions of a person's life into a structure of nested *categories*. Some are built-in, and the user is also free to define their own. 
+We organize multiple dimensions of a person's life into a structure of nested *categories*. Categories in turn may contain one or more *contexts*. They can model more concepts like roles or personas. Or capture all the nuance of a direct 1:1 relationship with one person or company. 
+
+Categories range in scope. They vary from a few broad top level categories like "People" to narrower categories like "Family" and ultimately narrowing down to individual relationships with a single family member. The user can choose at what level in this broad to narrow tree structure to put what kind of information. For example if the user has a nickname used only by this one family members, they can add that "claim" (attribute) at the 1:1 relationship level. 
 
 <p align="center"><img src="images/context-ontology/categories+contexts.png" alt="Categories and contexts"></p>
 
-Categories may contain one or more *contexts*. These contained contexts are organized into the four quadrants mentioned above. A category may have these four kinds of links to hold these contexts:
+Categories may be predefined or user defined. Some of predefined sub-types are shown in the diagram below. The child property enables categories to be arranged into a tree structure.
+
+<p align="center"><img src="images/context-ontology/category.png" alt="Category hierarchy"></p>
+
+A category has four kinds of links to contexts all of which are optional. They correspond to the four quadrants mentioned in the previous section.
 - **obs** - a context or category about the other party, as asserted by the self (user).
 - **sbs** - a context about the self as asserted by the Self.
 - **obo** - a context about the other party as asserted by the other party.
 - **sbo** - a context about the self as asserted by the other party.
 
-<p align="center"><img src="images/context-ontology/category.png" alt="Category hierarchy"></p>
 
-
-#### Categories and sub-categories
-
-Categories are kinds of relationships and interactions the user has with other people and organizations. 
-
-They can model more abstract concepts like roles or personas. Or capture all the nuance of a direct 1:1 relationship with one person or company. The
-
-Categories range in scope. They vary from a few broad top level categories like "People" to narrower categories like "Family" and ultimately narrowing down to individual relationships with a single family member. The user can choose at what level in this broad to narrow tree structure to put what kind of information. For example if the user has a nickname used only by this one family members, they can add that "claim" (attribute) at the 1:1 relationship level. 
+#### Predefined Categories
 
 Here is a list of the predefined categories:
 1. **People** — relationships and interactions with people in one's social or professional life.
