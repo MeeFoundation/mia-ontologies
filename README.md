@@ -113,7 +113,7 @@ Here are the predefined categories:
 9. **Possessions** — owned assets, property, vehicles, and other possessions.
     - **Automobiles** — owning and maintaining an automobile.
     - **Pets** — taking care of your pet(s).
-10. **Home** — owning or renting a home or other dwelling.
+10. **Home** — owning or renting a home, apartment or other dwelling. 
 11. **Projects** — involvement in a specific project or initiative.
 12. **Groups** — interactions with a formal or informal group of people that exist as a `g:Group` on the PDN.
 
@@ -422,27 +422,27 @@ Alice's user-defined category DataBooks — one per specific person, company, go
 
 The following diagrams map out the categories and contexts used in our Alice example. We start with the People category--Alice's relationships with Bob and Paula. Note that Alice has put Bob in the general People category, rather than in Friends, Family or Consultants. We're not sure why she did this, but the example shows it's permissible. Note that the contexts with dotted outlines are context "slots" in the category — Alice could fill a context in any of these placeholder slots if she wishes to, and the claims in the context would flow downwards (although they can also be overridden) by lower-level categories and contexts:
 
-<p align="center"><img src="example/images/category-people.png" alt="People categories"></p>
+<p align="center"><img src="example/images/people.png" alt="People categories"></p>
 
 Alice is an employee of Acme. She has added Business Card claims (attributes) to her Employee mid-level category. In her role as an employee of Acme she has a relationship with a colleague named Paula. 
-<p align="center"><img src="example/images/category-work.png" alt="Work categories"></p>
+<p align="center"><img src="example/images/work.png" alt="Work categories"></p>
 
 Alice has relationships with three companies. In our hypothetical example, Citibank is on the PDN and can publish context #10 to Alice's Mia app.
-<p align="center"><img src="example/images/category-companies.png" alt="Companies categories"></p>
+<p align="center"><img src="example/images/companies.png" alt="Companies categories"></p>
 Here are the categories related to Alice's interactions with various state governments:
-<p align="center"><img src="example/images/category-gov-state.png" alt="Government — State categories"></p>
+<p align="center"><img src="example/images/gov-state.png" alt="Government — State categories"></p>
 Here are the categories related to Alice's interactions with the federal government:
-<p align="center"><img src="example/images/category-gov-federal.png" alt="Government — Federal categories"></p>
+<p align="center"><img src="example/images/gov-federal.png" alt="Government — Federal categories"></p>
 
 Here are the categories related to Alice's interactions with two municipal governments:
 
-<p align="center"><img src="example/images/category-gov-municipality.png" alt="Government — Municipality categories"></p>
+<p align="center"><img src="example/images/gov-municipality.png" alt="Government — Municipality categories"></p>
 
 Here are Alice's categories related to her personal health and her possessions:
-<p align="center"><img src="example/images/category-misc.png" alt="Miscellaneous categories"></p>
+<p align="center"><img src="example/images/misc.png" alt="Miscellaneous categories"></p>
 
 The last diagram shows Alice's membership in the Boston Hub Society, an informal group that exists as a node on the PDN:
-<p align="center"><img src="example/images/category-groups.png" alt="Groups categories"></p>
+<p align="center"><img src="example/images/groups.png" alt="Groups categories"></p>
 
 
 The contexts in the table below are *about* Alice and asserted *by* Alice. All `.databook.md` files are in the `example/contexts/` folder.
