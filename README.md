@@ -409,7 +409,7 @@ The Identity ontology is used to describe the kinds of identities that Mia can c
 
 This section describes the local Mia dataset for a hypothetical user, Alice Walker. All of Alice's identity data lives in context-specific files — there is no separate selfness file. The IRI `:Self` identifies her `persona:Person` individual across all of her context files.
 
-### Alice's Contexts
+### Alice's Categories and Contexts
 
 Alice interacts with other people, organizations and groups in contexts of different types, with each context file holding a named-graph slice of her identity.
 
@@ -474,11 +474,11 @@ The following table lists contexts about other people (Paula and Bob) or groups 
 
 | #  | DataBook file                                                                                     | Context type | Key data                                                         | Diagram |
 |--- |:-------------------------------------------------------------------------------------------------|:-------------|:-----------------------------------------------------------------|:--------|
-| 1  | [01-paula(acme)alice](example/contexts/01-paula(acme)alice.databook.md)           | Employee     | Paula as Alice's Acme colleague (Alice-asserted)                | [view](example/contexts/images/01-paula(acme)alice.png)|
-| 2  | [02-paula(familymember)alice](example/contexts/02-paula(familymember)alice.databook.md) | Family       | Paula as Alice's family member (Alice-asserted)           | [view](example/contexts/images/02-paula(familymember)alice.png)|
-| 3  | [03-paula(familymember)paula](example/contexts/03-paula(familymember)paula.databook.md) | Family       | Paula's own family persona; social network with Alice       | [view](example/contexts/images/03-paula(familymember)paula.png)|
+| 1  | [01-paula(acme)alice](example/contexts/01-paula(acme)alice.databook.md)           | Employee     | Paula as Alice's Acme colleague (Alice-asserted)                | *(todo)*|
+| 2  | [02-paula(familymember)alice](example/contexts/02-paula(familymember)alice.databook.md) | Family       | Paula as Alice's family member (Alice-asserted)           | *(todo)*|
+| 3  | [03-paula(familymember)paula](example/contexts/03-paula(familymember)paula.databook.md) | Family       | Paula's own family persona; social network with Alice       | *(todo)*|
 | 5  | [05-bob(bob)alice](example/contexts/05-bob(bob)alice.databook.md)                 | People       | Alice's notes about Bob; fav drink: oat milk cappuccino         | [view](example/contexts/images/05-bob(bob)alice.png) |
-| 6  | [06-bob(bob)bob](example/contexts/06-bob(bob)bob.databook.md)                     | People       | Bob's self-asserted Bob persona                                 | [view](example/contexts/images/06-bob(bob)bob.png)|
+| 6  | [06-bob(bob)bob](example/contexts/06-bob(bob)bob.databook.md)                     | People       | Bob's self-asserted Bob persona                                 | *(todo)*|
 | 8  | [08-bhs(bhs)members](example/contexts/08-bhs(bhs)members.databook.md)             | Groups       | BHS group instance with Alice and Bob as members                | [view](example/contexts/images/08-bhs(bhs)members.png) |
 | 9  | [09-bob(bhs)bob](example/contexts/09-bob(bhs)bob.databook.md)                     | Groups       | Bob's BHS member persona (name, email, phone, address)          | [view](example/contexts/images/09-bob(bhs)bob.png) |
 
