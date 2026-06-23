@@ -22,7 +22,7 @@
 
 context:category rdf:type owl:AnnotationProperty ;
     rdfs:label "context type"@en ;
-    rdfs:comment """Annotates a DataBook named graph with the kind of relationship it represents —
+    rdfs:comment """Annotates a DataBook named graph of its containing c:Category —
                     e.g. context:Companies, context:Federal, context:Municipality.
                     Applied to the named graph IRI, not to the Person individual."""@en ;
     rdfs:range context:Category .
