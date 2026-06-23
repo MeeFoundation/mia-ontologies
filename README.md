@@ -418,15 +418,28 @@ The same IRI, `:Self`, is used in all contexts about Alice — each file is a na
 
 All context files reside in Alice's Mia. Some are authored by Alice (self-asserted data she entered directly); others are data received from peers over PDN and stored locally. In either case, Alice is the Mia user, so her `persona:Person` individual uses the IRI `:Self` across all of her context files. Other people — Bob Johnson, Paula Walker — and groups such as BHS use locally-assigned named IRIs (e.g. `:Bob_Johnson`, `:Paula_Walker`, `:BHS`). When data arrives from a peer's Mia (where that peer was `:Self` in their own instance), Alice's Mia assigns them a locally-minted identifier; once a PDN connection is established, that identifier resolves to their PDN ID.
 
-Here's a map of all the contexts in our Alice example:
+The following diagrams map out the categories and contexts used in our Alice example. We start with the People category--Alice's relationships with Bob and Paula. Note that Alice has put Bob is in the general People category, rather than in Friends, Family or Consultants. We're not sure why she did this, but the example shows it's permissible. Note that the contexts with dotted outlines are context "slots" in the category--Alice could fill a context in any of these placeholder slots if she wishes to, and the claims in the context would flow downwards (although they can also be overriden) by lower level categories and contexts:
 
 <p align="center"><img src="example/images/category-people.png" alt="People categories"></p>
+
+Alice is an employee of Acme. She has added Business Card claims (attributes) to her Employee mid-level category. In her role as an employee of Acme she has a relationship with a colleague named Paula. 
 <p align="center"><img src="example/images/category-work.png" alt="Work categories"></p>
+
+Alice has relationships with three companies. In our hypothetical example, Citibank, is on the PDN and can publish context #10 to Alice's Mia app. 
 <p align="center"><img src="example/images/category-companies.png" alt="Companies categories"></p>
+Here are the categories relatted to Alice's interactions with various state governments:
 <p align="center"><img src="example/images/category-gov-state.png" alt="Government — State categories"></p>
+Here are the categories relatted to Alice's interactions with the federal government:
 <p align="center"><img src="example/images/category-gov-federal.png" alt="Government — Federal categories"></p>
+
+Here are the categories relatted to Alice's interactions with two municipal governments:
+
 <p align="center"><img src="example/images/category-gov-municipality.png" alt="Government — Municipality categories"></p>
+
+Here are Alice's categories related to her personal health and her possessions:
 <p align="center"><img src="example/images/category-misc.png" alt="Miscellaneous categories"></p>
+
+The last diagram shows Alice's membership in the Boston Hub Society, an informal group that exists as a node on the PDN:
 <p align="center"><img src="example/images/category-groups.png" alt="Groups categories"></p>
 
 
