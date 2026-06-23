@@ -6,7 +6,7 @@ Mia's ontologies import and profile existing ontologies — documenting which of
 
 The **Context ontology** is the organizing framework: it defines the controlled vocabularies that classify every context file — what kind of interaction it captures, who asserted the data, and whose identity it describes.
 
-The three **domain ontologies** model people, organizations and groups:
+The four **domain ontologies** model people, organizations and groups:
 - **Persona ontology** — models a person: names, addresses, phone numbers, relationships, payment cards, and more. It is built on BFO (Basic Formal Ontology) and CCO (Common Core Ontologies) as the upper ontological foundation, and on domain ontologies that extend CCO:
   - **PersonOntology** — person, name types, parent-child relationships
   - **AddressOntology** — postal address structure
@@ -19,7 +19,7 @@ The three **domain ontologies** model people, organizations and groups:
 Throughout, we use these shorthands:
 
 - `c:` for the `context:` namespace (`http://mee.foundation/ontologies/context#`)
-- `p:` is shorthand for the `persona:` namespace (`http://mee.foundation/ontologies/persona#`)
+- `p:` for the `persona:` namespace (`http://mee.foundation/ontologies/persona#`)
 - `o:` for the `organization:` namespace (`http://mee.foundation/ontologies/organization#`).
 - `g:` for the `group:` namespace (`http://mee.foundation/ontologies/group#`)
 - `i:` for the `identity:` namespace (`http://mee.foundation/ontologies/pdn-identity#`)
@@ -35,10 +35,10 @@ A *context* is a container of information about a person related to their intera
 The description of the context container itself is carried in the DataBook's YAML frontmatter under the `mia:` key. The context ontology (`context.ttl`) defines the controlled vocabularies that those YAML fields reference:
 
 - `mia.category` — a classification of the context into one of a set of broad categories; its value is the IRI of a category DataBook (e.g. `"http://www.example.org/mia/categories/family"`).
-- `mia.assertedBy` — who is making the assertions (claims) (e.g. a person, group or organization). The persons could be the user themselves for self-asserted claims.
+- `mia.assertedBy` — who is making the assertions (claims) (e.g. a person, group or organization). The asserter could be the user themselves, for self-asserted data.
 - `mia.subject` — whose identity the context file describes; its value is a local IRI of a `p:Person`, `g:Group`, or `o:Organization` individual, e.g. `":Self"`.
 - `mia.about-by` — classifies the DataBook by the combination of subject and assertedBy; one of `context:SBS-Context` (subject=Self, assertedBy=Self), `context:OBS-Context` (subject=Other, assertedBy=Self), `context:OBO-Context` (subject=Other, assertedBy=Other), or `context:SBO-Context` (subject=Self, assertedBy=Other).
-- `mia.template` — present only on context files that conform to a specific template; its value is a `p:PersonaTemplate` subclass (e.g. `"persona:BirthCertificate"`, `"persona:JSContactCard"`, `"persona:DriversLicense"`).
+- `mia.template` — present only on context files that conform to a specific template; its value is a `p:PersonaTemplate` subclass (e.g. `"persona:BirthCertificate"`, `"persona:JSContactCard"`, `"persona:DriversLicense"`, `"persona:Passport"`).
 
 **`c:category`** — The nature of the interaction/relationship context. Values form a subclass hierarchy under `c:Category`.
 
@@ -62,13 +62,13 @@ The lower left shows a context that Alice might share with other people or compa
 
 ## Categories
 
-We organize multiple dimensions of a person's life into a structure of nested *categories*. Categories in turn may contain one or more *contexts*. They can model more concepts like roles or personas. Or capture all the nuance of a direct 1:1 relationship with one person or company. 
+We organize multiple dimensions of a person's life into a structure of nested *categories*. Categories in turn may contain one or more *contexts*. Categories can model finer-grained concepts such as roles or personas, or capture the full nuance of a 1:1 relationship with a specific person or company.
 
-Categories range in scope. They vary from a few broad top level categories like "People" to narrower categories like "Family" and ultimately narrowing down to individual relationships with a single family member. The user can choose at what level in this broad to narrow tree structure to put what kind of information. For example if the user has a nickname used only by this one family members, they can add that "claim" (attribute) at the 1:1 relationship level. 
+Categories range in scope. They vary from a few broad top level categories like "People" to narrower categories like "Family" and ultimately narrowing down to individual relationships with a single family member. The user can choose at what level in this broad to narrow tree structure to put what kind of information. For example if the user has a nickname used only by this one family member, they can add that "claim" (attribute) at the 1:1 relationship level. 
 
 <p align="center"><img src="images/context-ontology/categories+contexts.png" alt="Categories and contexts"></p>
 
-Categories may be predefined or user defined. Some of predefined sub-types are shown in the diagram below. The child property enables categories to be arranged into a tree structure.
+Categories may be predefined or user defined. Some of the predefined sub-types are shown in the diagram below. The child property enables categories to be arranged into a tree structure.
 
 <p align="center"><img src="images/context-ontology/category.png" alt="Category hierarchy"></p>
 
@@ -125,7 +125,7 @@ Each node in the `c:Category` hierarchy is represented by a **category DataBook*
 | `c:sbs` | `c:SBS-Context` | 0..1 | Alice's own BHS persona |
 | `c:obs` | `c:OBS-Context` | 0..1 | Alice's record of Paula as a family member |
 | `c:obo` | `c:OBO-Context` | 0..N | Bob's persona he presents to Alice |
-| `c:sbo` | `c:SBO-Context` | 0..1 | Bob's record of about Alice |
+| `c:sbo` | `c:SBO-Context` | 0..1 | Bob's record about Alice |
 
 
 ### Context Ontology File
@@ -140,7 +140,7 @@ Each node in the `c:Category` hierarchy is represented by a **category DataBook*
 
 ### Validation
 
-Context file metadata (category, asserter, subject, about-by) is declared in YAML frontmatter and validated at authoring time by convention. Category DataBook instances are validated by `context-shacl.ttl`: `c:Category` instances may carry at most one `c:sbs` link; `c:UserDefined` instances may carry at most one `c:obs` and at most one `c:sbo` link; `c:obo` is unconstrained (0..N).
+Context file metadata (category, asserter, subject, about-by) is declared in YAML frontmatter and validated at authoring time by convention. Category DataBook instances are validated by `context-shacl.ttl`.
 
 
 ## Persona Ontology
@@ -157,7 +157,7 @@ This section describes the most fundamental properties and classes in the Person
 
 **Classes**
 
-* `persona:Person` — a M-specific subclass of CCO `Person` (`cco:ont00001262`). Each context file (named-graph slice) contains exactly one `persona:Person` individual. The Mia user's own `persona:Person` always uses the IRI `:Self`, shared across all of their context files. Other people, groups, and organizations are assigned locally-minted named IRIs (e.g. `:Bob_Johnson`, `:Paula_Walker`). `:Self` is a local IRI and is never exposed externally over the PDN, so there are no collisions between Mia instances. All identity data — names, identifiers, addresses, social networks, payment cards, and more — attaches to this individual.
+* `persona:Person` — a Mia-specific subclass of CCO `Person` (`cco:ont00001262`). Each context file (named-graph slice) contains exactly one `persona:Person` individual. The Mia user's own `persona:Person` always uses the IRI `:Self`, shared across all of their context files. Other people, groups, and organizations are assigned locally-minted named IRIs (e.g. `:Bob_Johnson`, `:Paula_Walker`). `:Self` is a local IRI and is never exposed externally over the PDN, so there are no collisions between Mia instances. All identity data — names, identifiers, addresses, social networks, payment cards, and more — attaches to this individual.
 
 **Properties**
 
@@ -188,7 +188,7 @@ This section describes properties and classes related to things a person has, ho
 
 **Classes**
 
-* `p:PhysicalCard` — a physical plastic or paper card held in a wallet.
+* `p:PhysicalCard` — a physical plastic or paper card (held in a wallet or carried directly).
 * `p:PhysicalHealthInsuranceCard` (subclass of `p:PhysicalCard`) — a physical health insurance membership card.
 * `p:PhysicalDriversLicense` (subclass of `p:PhysicalCard`) — a state-issued driver's license card.
 * `p:PhysicalPaymentCard` (subclass of `p:PhysicalCard`) — a physical credit or debit card.
@@ -198,9 +198,9 @@ This section describes properties and classes related to things a person has, ho
 **Properties**
 
 * `is carrier of` (from BFO) — used to link a physical card to its corresponding `persona:Person` in another context.
-* `p:hasWallet` — links a `persona:Person` to a physical wallet (see Belongings below).
+* `p:hasWallet` — links a `persona:Person` to a physical wallet (see Possessions below).
 * `p:hasImageScan` — a link to a scanned image of this card.
-* `p:hasPhysicalCard` — links a `persona:Person` to a `p:PhysicalCard` carried outside of a wallet (see Belongings below).
+* `p:hasPhysicalCard` — links a `persona:Person` to a `p:PhysicalCard` carried outside of a wallet (see Possessions below).
 
 ### Accounts
 
@@ -243,7 +243,7 @@ This section describes a few details related to modeling names and addresses.
 
 <p align="center"><img src="images/persona-ontology/persona-templates.png" alt="persona templates model"></p>
 
-The three currently defined subclasses of `p:PersonaTemplate` are:
+The four currently defined subclasses of `p:PersonaTemplate` are:
 
 * `p:BirthCertificate` — label for context files that carry a person's legal birth name record as issued by a state agency. Declared in the YAML frontmatter as `mia.template: "persona:BirthCertificate"`. SHACL shape `:BirthCertificatePersonShape` (in `shacl/birthcertificate-shacl.ttl`) enforces:
   - **Required**: either a `FullName` designator **or** both a `GivenName` and a `FamilyName` designator (via `designated by`, `ont00001879`) — expressed with `sh:or`.
@@ -341,7 +341,7 @@ The table below maps every JSContact (RFC 9553) property to its representation i
 
 ### Validation
 
-`persona-shacl.ttl` runs against merged data from all context files (Tier 1 validation). Per-template SHACL files in `shacl/` run against individual context files (Tier 2): birth certificate, JSContactCard, and driver's license each have their own shape file and are validated separately to avoid their `sh:targetClass persona:Person` constraints firing on every person slice in the merged dataset. See the [Validation](#validation) section for commands.
+`persona-shacl.ttl` runs against merged data from all context files (Tier 1 validation). Per-template SHACL files in `shacl/` run against individual context files (Tier 2): birth certificate, JSContactCard, driver's license, and passport each have their own shape file and are validated separately to avoid their `sh:targetClass persona:Person` constraints firing on every person slice in the merged dataset. See the [Validation](#validation) section for commands.
 
 ## Organization Ontology
 
@@ -363,7 +363,7 @@ The Organization ontology models organizations — companies, government agencie
 
 ## Group Ontology
 
-The Group ontology introduces the concept of a *shared* group (`g:Group`) whose members are individuals and/or organizations. The group entity *itself* as well as any attached properties are shared with all of its members. Like individuals and organizations, `g:Groups` also have their own PDN identifiers and can be communicated with as with any other node on the PDN network. 
+The Group ontology introduces the concept of a *shared* group (`g:Group`) whose members are individuals and/or organizations. The group entity *itself* as well as any attached properties are shared with all of its members. Like individuals and organizations, `g:Groups` also have their own PDN identifiers and can be communicated with as with any other node on the PDN.
 
 <p align="center"><img src="images/group-ontology/group.png" alt="Group model"></p>
 
@@ -409,28 +409,25 @@ This section describes the local Mia dataset for a hypothetical user, Alice Walk
 
 ### Alice's Categories and Contexts
 
-Alice interacts with other people, organizations and groups in contexts of different types, with each context file holding a named-graph slice of her identity.
-
-The same IRI, `:Self`, is used in all contexts about Alice — each file is a named-graph describing her in a specific context. All context files are loaded into the triplestore together.
-
+Alice interacts with other people, organizations and groups in contexts of different types, with each context file holding a named-graph slice of her identity. All context files are loaded into the triplestore together.
 
 All context files reside in Alice's Mia. Some are authored by Alice (self-asserted data she entered directly); others are data received from peers over PDN and stored locally. In either case, Alice is the Mia user, so her `persona:Person` individual uses the IRI `:Self` across all of her context files. Other people — Bob Johnson, Paula Walker — and groups such as BHS use locally-assigned named IRIs (e.g. `:Bob_Johnson`, `:Paula_Walker`, `:BHS`). When data arrives from a peer's Mia (where that peer was `:Self` in their own instance), Alice's Mia assigns them a locally-minted identifier; once a PDN connection is established, that identifier resolves to their PDN ID.
 
-The following diagrams map out the categories and contexts used in our Alice example. We start with the People category--Alice's relationships with Bob and Paula. Note that Alice has put Bob is in the general People category, rather than in Friends, Family or Consultants. We're not sure why she did this, but the example shows it's permissible. Note that the contexts with dotted outlines are context "slots" in the category--Alice could fill a context in any of these placeholder slots if she wishes to, and the claims in the context would flow downwards (although they can also be overriden) by lower level categories and contexts:
+The following diagrams map out the categories and contexts used in our Alice example. We start with the People category--Alice's relationships with Bob and Paula. Note that Alice has put Bob in the general People category, rather than in Friends, Family or Consultants. We're not sure why she did this, but the example shows it's permissible. Note that the contexts with dotted outlines are context "slots" in the category — Alice could fill a context in any of these placeholder slots if she wishes to, and the claims in the context would flow downwards (although they can also be overridden) by lower-level categories and contexts:
 
 <p align="center"><img src="example/images/category-people.png" alt="People categories"></p>
 
 Alice is an employee of Acme. She has added Business Card claims (attributes) to her Employee mid-level category. In her role as an employee of Acme she has a relationship with a colleague named Paula. 
 <p align="center"><img src="example/images/category-work.png" alt="Work categories"></p>
 
-Alice has relationships with three companies. In our hypothetical example, Citibank, is on the PDN and can publish context #10 to Alice's Mia app. 
+Alice has relationships with three companies. In our hypothetical example, Citibank is on the PDN and can publish context #10 to Alice's Mia app.
 <p align="center"><img src="example/images/category-companies.png" alt="Companies categories"></p>
-Here are the categories relatted to Alice's interactions with various state governments:
+Here are the categories related to Alice's interactions with various state governments:
 <p align="center"><img src="example/images/category-gov-state.png" alt="Government — State categories"></p>
-Here are the categories relatted to Alice's interactions with the federal government:
+Here are the categories related to Alice's interactions with the federal government:
 <p align="center"><img src="example/images/category-gov-federal.png" alt="Government — Federal categories"></p>
 
-Here are the categories relatted to Alice's interactions with two municipal governments:
+Here are the categories related to Alice's interactions with two municipal governments:
 
 <p align="center"><img src="example/images/category-gov-municipality.png" alt="Government — Municipality categories"></p>
 
