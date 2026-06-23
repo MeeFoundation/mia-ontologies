@@ -119,7 +119,7 @@ Here is a list of the predefined categories:
 
 ### Category DataBooks
 
-Each node in the `c:Category` hierarchy is represented by a **category DataBook** (`.databook.md` file with `type: category-databook`). The root is `categories/categories.databook.md`; all other files represent individual category nodes. Category DataBooks form a tree linked by the `c:child` property, which points from a parent category to its child category IRIs.
+Each node in the `c:Category` hierarchy is represented by a **category DataBook** (`.databook.md` file with `type: category-databook`). The root is `categories/categories.databook.md`; all other files represent individual category nodes. Category DataBooks form a tree linked by the `c:child` property, which points from a parent category to its child category IRIs. The predefined category DataBooks are in `./categories`.
 
 **Predefined vs. user-defined**: Categories with `mia.predefined: true` correspond to `c:Predefined` subclasses shipped with Mia — their DataBooks live in `categories/`. The class IRI is derived from the DataBook title by removing spaces (e.g. title `"FinancialServices"` → class `context:FinancialServices`). Categories with `mia.predefined: false` are `c:UserDefined` instances created by the Mia user to organize their own contexts (e.g. a specific person, company, or place) — their DataBooks live in `example/categories/`.
 
@@ -417,6 +417,8 @@ This section describes the local Mia dataset for a hypothetical user, Alice Walk
 Alice interacts with other people, organizations and groups in contexts of different types, with each context file holding a named-graph slice of her identity. All context files are loaded into the triplestore together.
 
 All context files reside in Alice's Mia. Some are authored by Alice (self-asserted data she entered directly); others are data received from peers over PDN and stored locally. In either case, Alice is the Mia user, so her `persona:Person` individual uses the IRI `:Self` across all of her context files. Other people — Bob Johnson, Paula Walker — and groups such as BHS use locally-assigned named IRIs (e.g. `:Bob_Johnson`, `:Paula_Walker`, `:BHS`). When data arrives from a peer's Mia (where that peer was `:Self` in their own instance), Alice's Mia assigns them a locally-minted identifier; once a PDN connection is established, that identifier resolves to their PDN ID.
+
+Alice's user-defined category DataBooks — one per specific person, company, government agency, or group she interacts with — are all in `example/categories/`. Each corresponds to a node in the category tree that Alice has created to organize her contexts.
 
 The following diagrams map out the categories and contexts used in our Alice example. We start with the People category--Alice's relationships with Bob and Paula. Note that Alice has put Bob in the general People category, rather than in Friends, Family or Consultants. We're not sure why she did this, but the example shows it's permissible. Note that the contexts with dotted outlines are context "slots" in the category — Alice could fill a context in any of these placeholder slots if she wishes to, and the claims in the context would flow downwards (although they can also be overridden) by lower-level categories and contexts:
 
