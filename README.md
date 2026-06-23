@@ -40,7 +40,7 @@ The description of the context container itself is carried in the DataBook's YAM
 - `mia.assertedBy` = `c:assertedBy`
 - `mia.subject` = `c:subject`
 - `mia:template` = `c:template`
-- `mia.about-by` — classifies the DataBook by the combination of subject and assertedBy; one of `context:SBS-Context` (subject=Self, assertedBy=Self), `context:OBS-Context` (subject=Other, assertedBy=Self), `context:OBO-Context` (subject=Other, assertedBy=Other), or `context:SBO-Context` (subject=Self, assertedBy=Other).
+- `mia.about-by` — classifies a context DataBook by the combination of subject and assertedBy; one of `context:SBS-Context` (subject=Self, assertedBy=Self), `context:OBS-Context` (subject=Other, assertedBy=Self), `context:OBO-Context` (subject=Other, assertedBy=Other), or `context:SBO-Context` (subject=Self, assertedBy=Other).
 
 
 **`c:category`** — containing category. Its value is the IRI of a category DataBook (e.g. `"http://www.example.org/mia/categories/family"`).
@@ -119,9 +119,9 @@ Here is a list of the predefined categories:
 
 ### Category DataBooks
 
-Each node in the `c:Category` hierarchy is represented by a **category DataBook** (`.databook.md` file with `type: category-databook`) stored in `example/categories/`. The root is `categories.databook.md`; all other files represent individual category nodes. Category DataBooks form a tree linked by the `c:child` property, which points from a parent category to its child category IRIs.
+Each node in the `c:Category` hierarchy is represented by a **category DataBook** (`.databook.md` file with `type: category-databook`). The root is `categories/categories.databook.md`; all other files represent individual category nodes. Category DataBooks form a tree linked by the `c:child` property, which points from a parent category to its child category IRIs.
 
-**Predefined vs. user-defined**: Categories with `mia.predefined: true` correspond to `c:Predefined` subclasses shipped with Mia. The class IRI is derived from the DataBook title by removing spaces (e.g. title `"FinancialServices"` → class `context:FinancialServices`). Categories with `mia.predefined: false` are `c:UserDefined` instances created by the Mia user to organize their own contexts (e.g. a specific person, company, or place).
+**Predefined vs. user-defined**: Categories with `mia.predefined: true` correspond to `c:Predefined` subclasses shipped with Mia — their DataBooks live in `categories/`. The class IRI is derived from the DataBook title by removing spaces (e.g. title `"FinancialServices"` → class `context:FinancialServices`). Categories with `mia.predefined: false` are `c:UserDefined` instances created by the Mia user to organize their own contexts (e.g. a specific person, company, or place) — their DataBooks live in `example/categories/`.
 
 **Context links**: Each category DataBook may carry up to four optional links to context DataBook IRIs, corresponding to the four `c:Context` subtypes:
 
