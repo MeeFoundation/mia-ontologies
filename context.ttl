@@ -11,7 +11,7 @@
     owl:versionIRI <http://mee.foundation/ontologies/context/1.0.1> ;
     dc:date "2026-06-01"^^xsd:date ;
     owl:imports <http://mee.foundation/ontologies/pdn-identity> ;
-    owl:versionInfo "Version 1.0.58 - remove context:dyad (no longer needed)"@en ;
+    owl:versionInfo "Version 1.0.59 - FinancialServices subclass of Finances; Healthcare subclass of Health; Dwellings renamed Home and promoted to top-level"@en ;
     rdfs:label "Context Ontology"@en ;
     rdfs:comment """Context and Category Ontology for the Mee Identity Agent"""@en .
 
@@ -84,7 +84,7 @@ context:about-by rdf:type owl:AnnotationProperty ;
 
 
 #################################################################
-#    Categories
+#    Category
 #################################################################
 
 context:Category rdf:type owl:Class ;
@@ -201,15 +201,15 @@ context:Creator rdf:type owl:Class ;
 context:Companies rdf:type owl:Class ;
     rdfs:subClassOf context:Predefined ;
     rdfs:label "Companies"@en ;
-    rdfs:comment "Relationship with a specific company, bank, or other institution."@en .
+    rdfs:comment "Relationship with a specific company or other institution."@en .
 
 context:FinancialServices rdf:type owl:Class ;
-    rdfs:subClassOf context:Companies ;
+    rdfs:subClassOf context:Finances ;
     rdfs:label "FinancialServices"@en ;
     rdfs:comment "Relationship with a bank or other financial services institution."@en .
 
 context:Healthcare rdf:type owl:Class ;
-    rdfs:subClassOf context:Companies ;
+    rdfs:subClassOf context:Health ;
     rdfs:label "Healthcare"@en ;
     rdfs:comment "Relationship with a healthcare provider or health insurance company."@en .
 
@@ -312,9 +312,9 @@ context:Pets rdf:type owl:Class ;
     rdfs:label "Pets"@en ;
     rdfs:comment "Taking care of pets."@en .
 
-context:Dwellings rdf:type owl:Class ;
-    rdfs:subClassOf context:Possessions ;
-    rdfs:label "Dwellings"@en ;
+context:Home rdf:type owl:Class ;
+    rdfs:subClassOf context:Predefined ;
+    rdfs:label "Home"@en ;
     rdfs:comment "Owning or renting a home or other dwelling."@en .
 
 #################################################################
