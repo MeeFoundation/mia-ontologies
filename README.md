@@ -62,15 +62,15 @@ The lower left shows a context that Alice might share with other people or compa
 
 ## Categories
 
-We organize multiple dimensions of a person's life into a structure of categories and sub-categories. A number of them built-in, and the user is also free to add their own. Categories are things like relationships with people
+We organize multiple dimensions of a person's life into a structure of nested *categories*. Some are built-in, and the user is also free to define their own. 
 
 <p align="center"><img src="images/context-ontology/categories+contexts.png" alt="Categories and contexts"></p>
 
-Categories are organized into a tree structure of subcategories. They may contain one or more contexts and act as a "meta" context in more complex cases. These contexts are organized into the four quadrants mentioned above. A Context may have these four kinds of links:
-- **obs** - about the other party, as asserted by the self (user).
-- **sbs** - about the self as asserted by the Self.
-- **obo** - about the other party as asserted by the other party.
-- **sbo** - about the self as asserted by the other party.
+Categories may contain one or more *contexts*. These contained contexts are organized into the four quadrants mentioned above. A category may have these four kinds of links to hold these contexts:
+- **obs** - a context or category about the other party, as asserted by the self (user).
+- **sbs** - a context about the self as asserted by the Self.
+- **obo** - a context about the other party as asserted by the other party.
+- **sbo** - a context about the self as asserted by the other party.
 
 <p align="center"><img src="images/context-ontology/category.png" alt="Category hierarchy"></p>
 
