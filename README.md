@@ -36,13 +36,14 @@ A *context* is a container of information about a person related to their intera
 
 The description of the context container itself is carried in the DataBook's YAML frontmatter under the `mia:` key. The context ontology (`context.ttl`) defines the controlled vocabularies that those YAML fields reference:
 
-- `mia.category` — containing category. Its value is the IRI of a category DataBook (e.g. `"http://www.example.org/mia/categories/family"`).
-- `mia.assertedBy` — who is making the assertions (claims) (e.g. a person, group or organization). The asserter could be the user themselves, for self-asserted data.
-- `mia.subject` — whose identity the context file describes; its value is a local IRI of a `p:Person`, `g:Group`, or `o:Organization` individual, e.g. `":Self"`.
+- `mia.category` = `c:category`
+- `mia.assertedBy` = `c:assertedBy`
+- `mia.subject` = `c:subject`
+- `mia:template` = `c:template`
 - `mia.about-by` — classifies the DataBook by the combination of subject and assertedBy; one of `context:SBS-Context` (subject=Self, assertedBy=Self), `context:OBS-Context` (subject=Other, assertedBy=Self), `context:OBO-Context` (subject=Other, assertedBy=Other), or `context:SBO-Context` (subject=Self, assertedBy=Other).
-- `mia.template` — present only on context files that conform to a specific template; its value is a `p:PersonaTemplate` subclass (e.g. `"persona:BirthCertificate"`, `"persona:JSContactCard"`, `"persona:DriversLicense"`, `"persona:Passport"`).
 
-**`c:category`** — The nature of the interaction/relationship context. Values form a subclass hierarchy under `c:Category`.
+
+**`c:category`** — containing category. Its value is the IRI of a category DataBook (e.g. `"http://www.example.org/mia/categories/family"`).
 
 **`c:assertedBy`** — Who is making the assertion. Values are local IRIs of `p:Person`, `g:Group`, or `o:Organization` individuals:
 - `:Self` — the Mia user is recording the data, even if the underlying information originates from some other party such as a company, government agency, or another person.
@@ -55,6 +56,8 @@ The description of the context container itself is carried in the DataBook's YAM
 - a named individual of `p:Person` — the context is primarily about another human Mia user.
 - a named individual of `g:Group` — the context is primarily about a group of Mia users.
 - a named individual of `o:Organization` — the context is primarily about an organization (legal corporation or government agency).
+
+**`c:template`** — present only on context files that conform to a specific template; its value is a `p:PersonaTemplate` subclass (e.g. `"persona:BirthCertificate"`, `"persona:JSContactCard"`, `"persona:DriversLicense"`, `"persona:Passport"`).
 
 The diagram below shows four kinds of contexts related to a hypothetical Mia user, Alice, and her interactions with a Department of Motor Vehicles (DMV) agency. Across the top are contexts where the DMV itself is the subject, and at the bottom where Alice is the subject. At the left are contexts where Alice has made the assertions (e.g. Alice's Mia has written the claims into the context) and at the right are contexts where the DMV as the "other" has written the claims. 
 
