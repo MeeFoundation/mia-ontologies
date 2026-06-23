@@ -100,7 +100,7 @@ Here are the predefined categories:
     - For healthcare related firms see Health > Healthcare. 
    - For financial service providers see Finance > Financial Services.
    - For home utility providers see Home.
-4. **Finances** — information about personal finances, bookkeeping, budgets, trusts, financial agreements with other people, IOUs, accountants, bookkeepers, financial advisors. 
+4. **Finances** — information about personal finances, bookkeeping, budgets,  financial agreements with other people, IOUs, accountants, bookkeepers, financial advisors. 
     - **FinancialServices** — relationship with banks or other financial services institution.
 5. **Health** — personal health and wellness information. Medical history, allergies, medications, blood type, primary care physician, nurses, physical therapists, health insurance policies and cards, vaccinations.
     - **Healthcare** — relationship with healthcare providers or health insurance companies.
@@ -115,11 +115,11 @@ Here are the predefined categories:
 8. **Notes** — general knowledge selected by you, web links, documents, images
     - **Learnings** — knowledge gained through personal experience.
 9. **Possessions** — owned assets, property, vehicles, and other possessions.
-    - **Vehicles** — owning and maintaining a vehicle.
+    - **Vehicles** — owning and maintaining a vehicle. Vehicle insurance, repairs, mechanics, garages.
     - **Pets** — taking care of your pet(s). Veterinarians, medicines, food providers.
 10. **Home** — owning or renting a home, apartment or other dwelling. Leases, deeds, utility accounts, home/renters insurance. 
 11. **Projects** — involvement in a specific project or initiative.
-12. **Legal** — legal matters, contracts, agreements, and professional legal relationships.
+12. **Legal** — legal matters, contracts, agreements, trusts, wills, and professional legal relationships.
 13. **Travel** — travel plans, trips, and related information. Loyalty programs, airlines, bus lines, trains. 
 14. **Affiliations** — sports clubs, team, charities, faith groups, memberships. Some of these may exist as a `g:Group` on the PDN.
 
