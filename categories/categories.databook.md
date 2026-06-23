@@ -12,6 +12,7 @@ mia:
     - "http://www.example.org/mia/categories/people"
     - "http://www.example.org/mia/categories/work"
     - "http://www.example.org/mia/categories/companies"
+    - "http://www.example.org/mia/categories/finances"
     - "http://www.example.org/mia/categories/government"
     - "http://www.example.org/mia/categories/possessions"
     - "http://www.example.org/mia/categories/groups"

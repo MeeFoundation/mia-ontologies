@@ -26,7 +26,7 @@ Throughout, we use these shorthands:
 - `g:` for the `group:` namespace (`http://mee.foundation/ontologies/group#`)
 - `i:` for the `identity:` namespace (`http://mee.foundation/ontologies/pdn-identity#`)
 
-We first present an overview of the five ontologies and then illustrate them through a sample dataset for a hypothetical user, Alice Walker.
+We first present an overview of the ontologies and then illustrate their use through a sample dataset for a hypothetical user, Alice Walker.
 
 ## Context Ontology: Categories and Contexts
 
@@ -73,20 +73,20 @@ Categories range in scope. They vary from a few broad top level categories like 
 
 <p align="center"><img src="images/context-ontology/categories+contexts.png" alt="Categories and contexts"></p>
 
-Categories may be predefined or user defined. Some of the predefined sub-types are shown in the diagram below. The child property enables categories to be arranged into a tree structure.
+As shown in the diagram below, categories may be `c:Predefined` or `c:UserDefined`. Some predefined subtypes are shown in the diagram below. The `c:child` property enables categories to be arranged into a tree structure.
 
 <p align="center"><img src="images/context-ontology/category.png" alt="Category hierarchy"></p>
 
-A category has four kinds of links to contexts all of which are optional. They correspond to the four quadrants mentioned in the previous section.
-- **obs** - a context or category about the other party, as asserted by the self (user).
-- **sbs** - a context about the self as asserted by the Self.
-- **obo** - a context about the other party as asserted by the other party.
-- **sbo** - a context about the self as asserted by the other party.
+All categories have a `c:obs` link to a context (or category) that is about the other party as asserted by the self (user). User-defined categories have three additional (optional) kinds of links to contexts: 
+
+- `c:sbs` - a context about the self as asserted by the self.
+- `c:obo` - a context about the other party as asserted by the other party.
+- `c:sbo` - a context about the self as asserted by the other party.
 
 
 #### Predefined Categories
 
-Here is a list of the predefined categories:
+Here are the predefined categories:
 1. **People** — relationships and interactions with people in one's social or professional life.
     - **Family** — relationships and interactions with family members.
     - **Friends** — relationships and interactions with friends.
@@ -95,11 +95,11 @@ Here is a list of the predefined categories:
     - **Employee** — related to being an employee.
     - **Contributor** — related to contributing to initiatives started or led by others.
     - **Creator** — related to being a creator, inventor, founder, or author of something.
-3. **Companies** — relationship with companies, banks, or other institutions.
-    - **FinancialServices** — relationship with banks or other financial services institution.
-    - **Healthcare** — relationship with healthcare providers or health insurance companies.
+3. **Companies** — relationship with companies and other institutions.
 4. **Finances** — information about personal finances not related to any interactions with banks, financial institutions, or government agencies.
+    - **FinancialServices** — relationship with banks or other financial services institution.
 5. **Health** — personal health and wellness information not related to any specific healthcare provider.
+    - **Healthcare** — relationship with healthcare providers or health insurance companies.
 6. **Events** — participation in or relationship to a specific event.
     - **Meetings** — a meeting or appointment.
     - **Conferences** — a conference or professional gathering.

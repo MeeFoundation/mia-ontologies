@@ -1,0 +1,14 @@
+---
+id: http://www.example.org/mia/categories/finances
+title: "Finances"
+type: category-databook
+version: 1.0.0
+created: 2026-06-23
+description: >
+  Category DataBook for the Finances context category. Groups context DataBooks
+  about personal finances and relationships with financial institutions. Child of Categories.
+mia:
+  predefined: true
+  child:
+    - "http://www.example.org/mia/categories/financial-services"
+---

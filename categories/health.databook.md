@@ -9,5 +9,7 @@ description: >
   about personal health and wellness. Child of Categories.
 mia:
   predefined: true
+  child:
+    - "http://www.example.org/mia/categories/healthcare"
   sbs: "http://www.example.org/mia/alice(health)alice"
 ---
