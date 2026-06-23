@@ -87,18 +87,18 @@ All categories have a `c:obs` link to a context (or category) that is about the 
 #### Predefined Categories
 
 Here are the predefined categories:
-1. **People** — relationships and interactions with people in one's social or professional life.
+1. **People** — relationships and interactions with people in your social or professional life.
     - **Family** — relationships and interactions with family members.
     - **Friends** — relationships and interactions with friends.
-    - **Consultants** — interactions with consultants who provide services.
+    - **Consultants** — interactions with individuals who are consultants and provide services to you. Health-related consultants (e.g. primary care physician, physical therapist) see are under the Health category. Accountants, bookkeepers and financial advisors are under the Finance category.
 2. **Work** — professional roles, employment history, and career relationships.
-    - **Employee** — related to being an employee.
+    - **Employee** — related to being an employee. Your business card. 
     - **Contributor** — related to contributing to initiatives started or led by others.
     - **Creator** — related to being a creator, inventor, founder, or author of something.
-3. **Companies** — relationship with companies and other institutions.
-4. **Finances** — information about personal finances not related to any interactions with banks, financial institutions, or government agencies.
+3. **Companies** — relationship with companies and organizations that provide services or products to you. For healthare related firms see Health > Healthcare. For financial service providers see Finance > Financial Services.
+4. **Finances** — information about personal finances, bookkeeping, budgets, trusts, financial agreements with other people, IOUs, accountants, boookkeepers, financial advisors. 
     - **FinancialServices** — relationship with banks or other financial services institution.
-5. **Health** — personal health and wellness information not related to any specific healthcare provider.
+5. **Health** — personal health and wellness information. Medical history, allergies, medications, blood type, primary care physician,
     - **Healthcare** — relationship with healthcare providers or health insurance companies.
 6. **Events** — participation in or relationship to a specific event.
     - **Meetings** — a meeting or appointment.
@@ -112,10 +112,10 @@ Here are the predefined categories:
     - **Learnings** — knowledge gained through personal experience.
 9. **Possessions** — owned assets, property, vehicles, and other possessions.
     - **Automobiles** — owning and maintaining an automobile.
-    - **Pets** — taking care of pets.
-    - **Dwellings** — owning or renting a home or other dwelling.
-10. **Projects** — involvement in a specific project or initiative.
-11. **Groups** — interactions with a formal or informal group of people that exist as a `g:Group` on the PDN.
+    - **Pets** — taking care of your pet(s).
+10. **Home** — owning or renting a home or other dwelling.
+11. **Projects** — involvement in a specific project or initiative.
+12. **Groups** — interactions with a formal or informal group of people that exist as a `g:Group` on the PDN.
 
 ### Category DataBooks
 
