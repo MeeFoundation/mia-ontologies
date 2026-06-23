@@ -62,7 +62,7 @@ The lower left shows a context that Alice might share with other people or compa
 
 ## Categories
 
-A Category is high level concept used to organize multiple dimensions of a person's life. Mia includes a set of built-in categories, but the user is also free to add their own. 
+We organize multiple dimensions of a person's life into a structure of categories and sub-categories. A number of them built-in, and the user is also free to add their own. Categories are things like relationships with people
 
 <p align="center"><img src="images/context-ontology/categories+contexts.png" alt="Categories and contexts"></p>
 
@@ -77,37 +77,42 @@ Categories are organized into a tree structure of subcategories. They may contai
 
 #### Categories and sub-categories
 
-- `c:Predefined` — built-in categories shipped with Mia:
-  - `c:People` — interactions with people in a person's social or professional life.
-    - `c:Family` — interactions with family members.
-    - `c:Friends` — interactions with friends.
-    - `c:Consultants` — interactions with consultants who provide services.
-  - `c:Work` — professional roles, employment history, and career relationships.
-    - `c:Employee` — related to being an employee.
-    - `c:Contributor` — related to contributing to initiatives started or led by others.
-    - `c:Creator` — related to being a creator, inventor, founder, or author of something.
-  - `c:Companies` — relationship with companies, banks, or other institutions.
-    - `c:FinancialServices` — relationship with banks or other financial services institution.
-    - `c:Healthcare` — relationship with healthcare providers or health insurance companies.
-  - `c:Finances` — information about personal finances not related to any interactions with banks, financial institutions, or government agencies.
-  - `c:Health` — personal health and wellness information not related to any specific healthcare provider.
-  - `c:Events` — participation in or relationship to a specific event.
-    - `c:Meetings` — a meeting or appointment.
-    - `c:Conferences` — a conference or professional gathering.
-    - `c:Parties` — a party or social celebration.
-  - `c:Government` — government-issued credentials, tax records, and civic relationships.
-    - `c:Federal` — federal government context (e.g. passport, federal tax records).
-    - `c:State` — state government context (e.g. driver's license, state tax records).
-    - `c:Municipality` — municipal government context (e.g. local permits, library card).
-  - `c:Notes` — general knowledge selected by a person to be useful to them.
-    - `c:Learnings` — knowledge gained through personal experience.
-  - `c:Possessions` — owned assets, property, vehicles, and other possessions.
-    - `c:Automobiles` — owning and maintaining an automobile.
-    - `c:Pets` — taking care of pets.
-    - `c:Dwellings` — owning or renting a home or other dwelling.
-  - `c:Projects` — involvement in a specific project or initiative.
-  - `c:Groups` — interactions with a formal or informal group of people.
-- `c:UserDefined` — categories created by the Mia user to organize their own contexts (e.g. a specific person, company, or place).
+Categories are kinds of relationships and interactions the user has with other people and organizations. 
+
+They can model more abstract concepts like roles or personas. Or capture all the nuance of a direct 1:1 relationship with one person or company. The
+
+Categories range in scope. They vary from a few broad top level categories like "People" to narrower categories like "Family" and ultimately narrowing down to individual relationships with a single family member. The user can choose at what level in this broad to narrow tree structure to put what kind of information. For example if the user has a nickname used only by this one family members, they can add that "claim" (attribute) at the 1:1 relationship level. 
+
+Here is a list of the predefined categories:
+1. **People** — relationships and interactions with people in one's social or professional life.
+    - **Family** — relationships and interactions with family members.
+    - **Friends** — relationships and interactions with friends.
+    - **Consultants** — interactions with consultants who provide services.
+2. **Work** — professional roles, employment history, and career relationships.
+    - **Employee** — related to being an employee.
+    - **Contributor** — related to contributing to initiatives started or led by others.
+    - **Creator** — related to being a creator, inventor, founder, or author of something.
+3. **Companies** — relationship with companies, banks, or other institutions.
+    - **FinancialServices** — relationship with banks or other financial services institution.
+    - **Healthcare** — relationship with healthcare providers or health insurance companies.
+4. **Finances** — information about personal finances not related to any interactions with banks, financial institutions, or government agencies.
+5. **Health** — personal health and wellness information not related to any specific healthcare provider.
+6. **Events** — participation in or relationship to a specific event.
+    - **Meetings** — a meeting or appointment.
+    - **Conferences** — a conference or professional gathering.
+    - **Parties** — a party or social celebration.
+7. **Government** — government-issued credentials, tax records, and civic relationships.
+    - **Federal** — federal government context (e.g. passport, federal tax records).
+    - **State** — state government context (e.g. driver's license, state tax records).
+    - **Municipality** — municipal government context (e.g. local permits, library card).
+8. **Notes** — general knowledge selected by a person to be useful to them.
+    - **Learnings** — knowledge gained through personal experience.
+9. **Possessions** — owned assets, property, vehicles, and other possessions.
+    - **Automobiles** — owning and maintaining an automobile.
+    - **Pets** — taking care of pets.
+    - **Dwellings** — owning or renting a home or other dwelling.
+10. **Projects** — involvement in a specific project or initiative.
+11. **Groups** — interactions with a formal or informal group of people that exist as a `g:Group` on the PDN.
 
 ### Category DataBooks
 
