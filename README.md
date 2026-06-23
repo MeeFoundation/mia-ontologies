@@ -36,7 +36,7 @@ A *context* is a container of information about a person related to their intera
 
 The description of the context container itself is carried in the DataBook's YAML frontmatter under the `mia:` key. The context ontology (`context.ttl`) defines the controlled vocabularies that those YAML fields reference:
 
-- `mia.category` — a classification of the context into one of a set of broad categories; its value is the IRI of a category DataBook (e.g. `"http://www.example.org/mia/categories/family"`).
+- `mia.category` — containing category. Its value is the IRI of a category DataBook (e.g. `"http://www.example.org/mia/categories/family"`).
 - `mia.assertedBy` — who is making the assertions (claims) (e.g. a person, group or organization). The asserter could be the user themselves, for self-asserted data.
 - `mia.subject` — whose identity the context file describes; its value is a local IRI of a `p:Person`, `g:Group`, or `o:Organization` individual, e.g. `":Self"`.
 - `mia.about-by` — classifies the DataBook by the combination of subject and assertedBy; one of `context:SBS-Context` (subject=Self, assertedBy=Self), `context:OBS-Context` (subject=Other, assertedBy=Self), `context:OBO-Context` (subject=Other, assertedBy=Other), or `context:SBO-Context` (subject=Self, assertedBy=Other).
