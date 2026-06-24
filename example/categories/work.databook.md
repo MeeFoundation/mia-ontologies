@@ -10,8 +10,5 @@ description: >
 mia:
   predefined: true
   copiedFrom: "http://mee.foundation/ontologies/categories/work"
-  child:
-    - "http://www.example.org/mia/categories/employee(work)"
-    - "http://www.example.org/mia/categories/contributor(work)"
-    - "http://www.example.org/mia/categories/creator(work)"
+  child: "http://www.example.org/mia/categories/employee(work)"
 ---

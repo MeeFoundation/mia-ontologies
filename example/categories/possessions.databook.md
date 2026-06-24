@@ -10,7 +10,4 @@ mia:
   predefined: true
   copiedFrom: "http://mee.foundation/ontologies/categories/possessions"
   sbs: "https://www.example.org/mia/contexts/self.self(possessions)(22)"
-  child:
-    - "http://www.example.org/mia/categories/vehicles(possessions)"
-    - "http://www.example.org/mia/categories/pets(possessions)"
 ---

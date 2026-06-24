@@ -12,7 +12,6 @@ mia:
   copiedFrom: "http://mee.foundation/ontologies/categories/people"
   child:
     - "http://www.example.org/mia/categories/family(people)"
-    - "http://www.example.org/mia/categories/marriage-partner(people)"
     - "http://www.example.org/mia/categories/friends(people)"
     - "http://www.example.org/mia/categories/consultants(people)"
     - "http://www.example.org/mia/categories/bob-johnson(people)"
