@@ -79,7 +79,7 @@ Categories range in scope. They vary from a few broad top level categories like 
 
 <p align="center"><img src="images/context-ontology/categories+contexts.png" alt="Categories and contexts"></p>
 
-As shown in the diagram below, categories may be `c:Predefined` or `c:UserDefined`. Some predefined subtypes are shown in the diagram below. The `c:child` property enables categories to be arranged into a tree structure.
+As shown in the diagram below, categories may be `c:Predefined` or `c:UserDefined`. Predefined categories are further divided into `c:PersonPredefined` (categories for interactions with people and person-centric topics) and `c:OrgPredefined` (categories for interactions with organizations). The `c:child` property enables categories to be arranged into a tree structure.
 
 <p align="center"><img src="images/context-ontology/category.png" alt="Category hierarchy"></p>
 
@@ -90,25 +90,23 @@ All categories have a `c:sbs` link to a context (or category) that is about the 
 - `c:obo` - a context about the other party as asserted by the other party.
 
 
-#### Predefined Categories
+#### PersonPredefined Categories
 
-Here are the predefined categories:
+`c:PersonPredefined` categories cover interactions with people and person-centric topics:
+
 1. **People** — relationships and interactions with people in your social or professional life.
     - **Family** — relationships and interactions with family members.
-    - **Marriage/Partner** - relationships with a spouse or life partner.
+    - **Marriage/Partner** — relationships with a spouse or life partner.
     - **Friends** — relationships and interactions with friends.
-    - **Consultants** — interactions with individuals who are consultants and provide services to you. Health-related consultants (e.g. primary care physician, physical therapist) see are under the Health category. Accountants, bookkeepers and financial advisors are under the Finance category.
+    - **Consultants** — interactions with individuals who are consultants and provide services to you.
 2. **Work** — professional roles, employment history, and career relationships.
-    - **Employee** — related to being an employee. Your business card. 
+    - **Employee** — related to being an employee. Your business card.
     - **Contributor** — related to contributing to initiatives started or led by others.
     - **Creator** — related to being a creator, inventor, founder, or author of something.
-3. **Companies** — relationship with companies and organizations that provide services or products to you that are not in these other categories:
-    - For healthcare related firms see Health > Healthcare. 
-   - For financial service providers see Finance > Financial Services.
-   - For home utility providers see Home.
-4. **Finances** — information about personal finances, bookkeeping, budgets, payment cards, bank accounts, IOUs, accountants, bookkeepers, financial advisors. 
-    - **Financial Services** — relationship with banks or other financial services institution.
-5. **Health** — personal health and wellness information. Medical history, allergies, medications, blood type, primary care physician, nurses, physical therapists, health insurance policies and cards, vaccinations.
+3. **Companies** — relationship with companies and organizations that provide services or products to you.
+4. **Finances** — information about personal finances, bookkeeping, budgets, payment cards, bank accounts.
+    - **Financial Services** — relationship with banks or other financial services institutions.
+5. **Health** — personal health and wellness information. Medical history, allergies, medications, vaccinations.
     - **Healthcare** — relationship with healthcare providers or health insurance companies.
 6. **Events** — participation in or relationship to a specific event.
     - **Meetings** — a meeting or appointment.
@@ -118,16 +116,32 @@ Here are the predefined categories:
     - **Federal** — federal government context (e.g. passport, federal tax records).
     - **State** — state government context (e.g. driver's license, state tax records).
     - **Municipality** — municipal government context (e.g. local permits, library card).
-8. **Information** — general knowledge selected by you, web links, documents, images
+8. **Information** — general knowledge selected by you, web links, documents, images.
     - **Learnings** — knowledge gained through personal experience.
 9. **Possessions** — owned assets, property, vehicles, and other possessions.
     - **Vehicles** — owning and maintaining a vehicle. Vehicle insurance, repairs, mechanics, garages.
     - **Pets** — taking care of your pet(s). Veterinarians, medicines, food providers.
-10. **Home** — owning or renting a home, apartment or other dwelling. Leases, deeds, utility accounts, home/renters insurance. 
+10. **Home** — owning or renting a home, apartment, or other dwelling. Leases, deeds, utility accounts.
 11. **Projects** — involvement in a specific project or initiative.
 12. **Legal** — legal matters, contracts, agreements, trusts, wills, and professional legal relationships.
-13. **Travel** — travel plans, trips, and related information. Loyalty programs, airlines, bus lines, trains. 
-14. **Affiliations** — sports clubs, team, charities, faith groups, memberships. Some of these may exist as a `g:Group` on the PDN.
+13. **Travel** — travel plans, trips, and related information. Loyalty programs, airlines, bus lines, trains.
+14. **Affiliations** — sports clubs, teams, charities, faith groups, memberships. Some may exist as a `g:Group` on the PDN.
+
+#### OrgPredefined Categories
+
+`c:OrgPredefined` categories used when working within an organization:
+
+1. **OrgSuppliers** — interactions with companies that supply goods or services to this organization.
+2. **OrgClients** — interactions with the clients (if they don't all them customers)
+3. **OrgCustomers** — interactions with the customers (if they don't call them clients)
+4. **OrgEmployees** — managing or interacting with employees.
+5. **OrgLegal** — legal matters, contracts, and agreements.
+6. **OrgInformation** — corporate knowledge-bases.
+7. **OrgConsultants** — interactions with consultants.
+8. **OrgProjects** — projects related to R&D, manufacturing, sales, marketing or operations.
+9. **OrgGovernment** — interactions with government organizations.
+10. **OrgEvents** — events, meetings, workshops, webinars and gatherings.
+11. **OrgFinances** — corporate finance-related matters.
 
 ### Category DataBooks
 
@@ -150,7 +164,7 @@ Each Mia user instance maintains its own parallel category tree in a separate di
 ### Context Ontology File
 
 - **`context.ttl`** — The Context ontology, defining:
-  - *Classes*: `c:Category`, `c:Predefined`, `c:UserDefined` and all leaf category subclasses; `c:Context`, `c:SBS-Context`, `c:OBS-Context`, `c:OBO-Context`, `c:SBO-Context`.
+  - *Classes*: `c:Category`, `c:Predefined`, `c:PersonPredefined`, `c:OrgPredefined`, `c:UserDefined` and all leaf category subclasses; `c:Context`, `c:SBS-Context`, `c:OBS-Context`, `c:OBO-Context`, `c:SBO-Context`.
   - *Annotation properties*: `c:category`, `c:assertedBy`, `c:subject`, `c:about-by`, `c:template`.
   - *Object properties*: `c:sbs`, `c:obs`, `c:obo`, `c:sbo`, `c:child`.
   These terms are referenced by name in the YAML frontmatter of each DataBook file.
