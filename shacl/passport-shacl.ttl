@@ -11,37 +11,18 @@
 <http://www.example.org/shapes/passport> rdf:type owl:Ontology ;
     owl:imports <http://mee.foundation/ontologies/persona> ;
     dc:date "2026-06-23"^^xsd:date ;
-    owl:versionInfo "Version 1.0.2 - retarget to persona:Passport; navigate to Person via inverse hasIdentityDocument"@en ;
+    owl:versionInfo "Version 1.0.3 - target persona:Passport directly; identity claims now on the document individual"@en ;
     rdfs:label "Passport Template SHACL Shapes"@en ;
     rdfs:comment """SHACL shapes for validating context files carrying context:template persona:Passport.
                     Apply in addition to persona-shacl.ttl when validating a passport context file.
-                    :PassportDocumentShape targets the persona:Passport document individual and
-                    validates the holding Person via inverse persona:hasIdentityDocument."""@en .
+                    Targets persona:Passport document individuals directly — identity claims
+                    (names, dates, passport number) are properties of the document, not the Person."""@en .
 
 
 #################################################################
 #  Passport Document Shape
-#  Targets persona:Passport individuals (the document artifact, not the person).
-#  Navigates to the holding Person via ^hasIdentityDocument and applies
-#  :PassportPersonConstraints.
-#################################################################
-
-:PassportDocumentShape
-    a sh:NodeShape ;
-    sh:targetClass persona:Passport ;
-    sh:message "Passport validation: the holding Person must satisfy all passport identity constraints."@en ;
-
-    sh:property [
-        sh:path [ sh:inversePath persona:hasIdentityDocument ] ;
-        sh:minCount 1 ;
-        sh:maxCount 1 ;
-        sh:node :PassportPersonConstraints ;
-        sh:message "A Passport must be linked from exactly one Person who satisfies all passport identity constraints."@en
-    ] .
-
-
-#################################################################
-#  Passport Person Constraints (no targetClass — used as a nested node shape)
+#  Targets persona:Passport individuals.
+#  All identity claims are properties of the document individual.
 #  Required: FullName (1..1) OR (GivenName (1..1) AND FamilyName (1..1))
 #            DateOfBirth (ent00000046, 1..1)
 #            PassportNumber (persona:PassportNumber, 1..1)
@@ -54,9 +35,10 @@
 #            Photo (persona:hasPhoto, 0..1)
 #################################################################
 
-:PassportPersonConstraints
+:PassportDocumentShape
     a sh:NodeShape ;
-    sh:message "Passport Person validation: name, date of birth, passport number, and expiration date are required."@en ;
+    sh:targetClass persona:Passport ;
+    sh:message "Passport document validation: name, date of birth, passport number, and expiration date are required."@en ;
 
     # ── Name: FullName OR (GivenName + FamilyName) ───────────────────────────
     sh:or (
@@ -65,7 +47,7 @@
                 sh:path <https://purl.org/cco/ont00001879> ;
                 sh:qualifiedValueShape [ sh:class cco:ent00000001 ] ;
                 sh:qualifiedMinCount 1 ;
-                sh:message "A Passport Person must be designated by a FullName, OR provide GivenName + FamilyName."@en
+                sh:message "A Passport must record a FullName, OR provide GivenName + FamilyName."@en
             ]
         ]
         [
@@ -75,7 +57,7 @@
                         sh:path <https://purl.org/cco/ont00001879> ;
                         sh:qualifiedValueShape [ sh:class cco:ent00000002 ] ;
                         sh:qualifiedMinCount 1 ;
-                        sh:message "If no FullName is provided, a Passport Person must have at least one GivenName."@en
+                        sh:message "If no FullName is recorded, a Passport must include at least one GivenName."@en
                     ]
                 ]
                 [
@@ -83,7 +65,7 @@
                         sh:path <https://purl.org/cco/ont00001879> ;
                         sh:qualifiedValueShape [ sh:class cco:ent00000004 ] ;
                         sh:qualifiedMinCount 1 ;
-                        sh:message "If no FullName is provided, a Passport Person must have at least one FamilyName."@en
+                        sh:message "If no FullName is recorded, a Passport must include at least one FamilyName."@en
                     ]
                 ]
             )
@@ -96,7 +78,7 @@
         sh:qualifiedValueShape [ sh:class cco:ent00000046 ] ;  # Birthdate
         sh:qualifiedMinCount 1 ;
         sh:qualifiedMaxCount 1 ;
-        sh:message "A Passport Person must have exactly one DateOfBirth."@en
+        sh:message "A Passport must record exactly one DateOfBirth."@en
     ] ;
 
     sh:property [
@@ -104,7 +86,7 @@
         sh:qualifiedValueShape [ sh:class persona:PassportNumber ] ;
         sh:qualifiedMinCount 1 ;
         sh:qualifiedMaxCount 1 ;
-        sh:message "A Passport Person must have exactly one PassportNumber."@en
+        sh:message "A Passport must record exactly one PassportNumber."@en
     ] ;
 
     sh:property [
@@ -112,7 +94,7 @@
         sh:qualifiedValueShape [ sh:class cco:ent00000054 ] ;  # ExpirationDateIdentifier
         sh:qualifiedMinCount 1 ;
         sh:qualifiedMaxCount 1 ;
-        sh:message "A Passport Person must have exactly one ExpirationDateIdentifier."@en
+        sh:message "A Passport must record exactly one ExpirationDateIdentifier."@en
     ] ;
 
     # ── Optional fields ──────────────────────────────────────────────────────
@@ -120,40 +102,40 @@
         sh:path <https://purl.org/cco/ont00001879> ;
         sh:qualifiedValueShape [ sh:class cco:ent00000003 ] ;  # AdditionalName
         sh:qualifiedMaxCount 1 ;
-        sh:message "A Passport Person may have at most one AdditionalName."@en
+        sh:message "A Passport may record at most one AdditionalName."@en
     ] ;
 
     sh:property [
         sh:path <https://purl.org/cco/ont00001879> ;
         sh:qualifiedValueShape [ sh:class persona:IssueDate ] ;
         sh:qualifiedMaxCount 1 ;
-        sh:message "A Passport Person may have at most one IssueDate."@en
+        sh:message "A Passport may record at most one IssueDate."@en
     ] ;
 
     sh:property [
         sh:path <https://purl.org/cco/ont00001879> ;
         sh:qualifiedValueShape [ sh:class persona:IssuingCountry ] ;
         sh:qualifiedMaxCount 1 ;
-        sh:message "A Passport Person may have at most one IssuingCountry."@en
+        sh:message "A Passport may record at most one IssuingCountry."@en
     ] ;
 
     sh:property [
         sh:path <https://purl.org/cco/ont00001879> ;
         sh:qualifiedValueShape [ sh:class persona:PlaceOfBirth ] ;
         sh:qualifiedMaxCount 1 ;
-        sh:message "A Passport Person may have at most one PlaceOfBirth."@en
+        sh:message "A Passport may record at most one PlaceOfBirth."@en
     ] ;
 
     sh:property [
         sh:path <https://purl.org/cco/ont00001879> ;
         sh:qualifiedValueShape [ sh:class persona:GenderMarker ] ;
         sh:qualifiedMaxCount 1 ;
-        sh:message "A Passport Person may have at most one GenderMarker."@en
+        sh:message "A Passport may record at most one GenderMarker."@en
     ] ;
 
     sh:property [
         sh:path persona:hasPhoto ;
         sh:maxCount 1 ;
         sh:datatype xsd:anyURI ;
-        sh:message "A Passport Person may have at most one photo."@en
+        sh:message "A Passport may record at most one photo."@en
     ] .

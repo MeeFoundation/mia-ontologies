@@ -11,28 +11,28 @@ flowchart TD
     end
 
     n1e9b86ff4c78[":Alice_US_Passport\n(Passport)"]
+    n917bfe1ce203("Margery"):::lit
+    na6d8ec642836("Alice"):::lit
+    nf444f017a7d6("Walker"):::lit
+    nefbd67954f96("1985-07-04"):::lit
+    n37d937576920("2021-07-04"):::lit
+    n9376a677dda1("2031-07-04"):::lit
+    n7858cc723ecb("123456789"):::lit
+    n187ac49d58bd("United States of America"):::lit
+    na9b977cfb917("Austin, Texas, USA"):::lit
+    nae5e60f58ea6("F"):::lit
+    n0b3af7b5a715("https://example.org/alice-passport-photo.jpg"):::lit
     ne0c3ba92f1db[":Self\n(Person)"]:::person
-    nc18b749b7e4d("Margery"):::lit
-    ndeb18f0b8625("Alice"):::lit
-    n5bce13d36c03("Walker"):::lit
-    n66f892725a19("1985-07-04"):::lit
-    naa7fe000aa2d("2021-07-04"):::lit
-    n480fa7e56c2b("2031-07-04"):::lit
-    n11334113898a("123456789"):::lit
-    n81927fe6d7a4("United States of America"):::lit
-    na34c246b24fa("Austin, Texas, USA"):::lit
-    nacde15ce702b("F"):::lit
-    nd1310d4db60a("https://example.org/alice-passport-photo.jpg"):::lit
 
-    ne0c3ba92f1db -->|"GivenName"| nc18b749b7e4d
-    ne0c3ba92f1db -->|"AdditionalName"| ndeb18f0b8625
-    ne0c3ba92f1db -->|"FamilyName"| n5bce13d36c03
-    ne0c3ba92f1db -->|"ent00000046"| n66f892725a19
-    ne0c3ba92f1db -->|"IssueDate"| naa7fe000aa2d
-    ne0c3ba92f1db -->|"ExpirationDate"| n480fa7e56c2b
-    ne0c3ba92f1db -->|"PassportNumber"| n11334113898a
-    ne0c3ba92f1db -->|"IssuingCountry"| n81927fe6d7a4
-    ne0c3ba92f1db -->|"PlaceOfBirth"| na34c246b24fa
-    ne0c3ba92f1db -->|"GenderMarker"| nacde15ce702b
-    ne0c3ba92f1db -->|"hasPhoto"| nd1310d4db60a
+    n1e9b86ff4c78 -->|"GivenName"| n917bfe1ce203
+    n1e9b86ff4c78 -->|"AdditionalName"| na6d8ec642836
+    n1e9b86ff4c78 -->|"FamilyName"| nf444f017a7d6
+    n1e9b86ff4c78 -->|"ent00000046"| nefbd67954f96
+    n1e9b86ff4c78 -->|"IssueDate"| n37d937576920
+    n1e9b86ff4c78 -->|"ExpirationDate"| n9376a677dda1
+    n1e9b86ff4c78 -->|"PassportNumber"| n7858cc723ecb
+    n1e9b86ff4c78 -->|"IssuingCountry"| n187ac49d58bd
+    n1e9b86ff4c78 -->|"PlaceOfBirth"| na9b977cfb917
+    n1e9b86ff4c78 -->|"GenderMarker"| nae5e60f58ea6
+    n1e9b86ff4c78 -->|"hasPhoto"| n0b3af7b5a715
     ne0c3ba92f1db -->|"hasIdentityDocument"| n1e9b86ff4c78

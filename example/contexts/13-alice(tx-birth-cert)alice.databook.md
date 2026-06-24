@@ -2,7 +2,7 @@
 id: http://www.example.org/mia/alice(tx-birth-cert)alice
 title: "About Alice Walker in the State context as asserted by Alice Walker"
 type: context-databook
-version: 2.0.3
+version: 2.0.4
 created: 2026-06-01
 description: >
   Alice Walker's Texas birth certificate context. Records her legal name (Margery Alice Walker)
@@ -46,6 +46,11 @@ This context captures Alice Walker's Texas birth certificate identity data. Alic
 :Self rdf:type owl:NamedIndividual ,
                persona:Person ;
     rdfs:label "Alice Walker (Texas Birth Certificate)"@en ;
+    persona:hasIdentityDocument :Alice_TX_Birth_Certificate .
+
+:Alice_TX_Birth_Certificate rdf:type owl:NamedIndividual ,
+                                      persona:BirthCertificate ;
+    rdfs:label "Alice Walker's Texas Birth Certificate"@en ;
 
     <https://purl.org/cco/ont00001879> [  # designated by → GivenName (legal first name)
         rdf:type cco:ent00000002 ;  # GivenName
@@ -66,11 +71,5 @@ This context captures Alice Walker's Texas birth certificate identity data. Alic
         rdf:type cco:ent00000006 ;  # AlternateName
         <https://purl.org/cco/ont00001765> "Margery Alice Arnold" ;  # has text value
         rdfs:comment "Maiden name (former legal name before marriage)"@en
-    ] ;
-
-    persona:hasIdentityDocument :Alice_TX_Birth_Certificate .
-
-:Alice_TX_Birth_Certificate rdf:type owl:NamedIndividual ,
-                                      persona:BirthCertificate ;
-    rdfs:label "Alice Walker's Texas Birth Certificate"@en .
+    ] .
 ```

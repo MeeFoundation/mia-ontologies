@@ -2,7 +2,7 @@
 id: http://www.example.org/mia/alice(passport)alice
 title: "About Alice Walker in the Federal context as asserted by Alice Walker"
 type: context-databook
-version: 1.0.1
+version: 1.0.2
 created: 2026-06-20
 description: >
   Alice Walker's US passport context. Records her legal name, date of birth, passport number,
@@ -48,6 +48,11 @@ This context captures Alice Walker's US passport identity data. Alice self-enter
 :Self rdf:type owl:NamedIndividual ,
                persona:Person ;
     rdfs:label "Alice Walker (Passport)"@en ;
+    persona:hasIdentityDocument :Alice_US_Passport .
+
+:Alice_US_Passport rdf:type owl:NamedIndividual ,
+                             persona:Passport ;
+    rdfs:label "Alice Walker's US Passport"@en ;
     rdfs:comment "Alice Walker's US passport identity data."@en ;
 
     # ── Legal name (matches Texas Birth Certificate and Driver's License) ────
@@ -114,11 +119,5 @@ This context captures Alice Walker's US passport identity data. Alice self-enter
 
     # ── Photo ────────────────────────────────────────────────────────────────
 
-    persona:hasPhoto "https://example.org/alice-passport-photo.jpg"^^xsd:anyURI ;
-
-    persona:hasIdentityDocument :Alice_US_Passport .
-
-:Alice_US_Passport rdf:type owl:NamedIndividual ,
-                             persona:Passport ;
-    rdfs:label "Alice Walker's US Passport"@en .
+    persona:hasPhoto "https://example.org/alice-passport-photo.jpg"^^xsd:anyURI .
 ```

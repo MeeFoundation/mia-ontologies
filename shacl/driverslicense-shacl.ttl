@@ -11,37 +11,18 @@
 <http://www.example.org/shapes/driverslicense> rdf:type owl:Ontology ;
     owl:imports <http://mee.foundation/ontologies/persona> ;
     dc:date "2026-06-23"^^xsd:date ;
-    owl:versionInfo "Version 1.0.2 - retarget to persona:DriversLicense; navigate to Person via inverse hasIdentityDocument"@en ;
+    owl:versionInfo "Version 1.0.3 - target persona:DriversLicense directly; identity claims now on the document individual"@en ;
     rdfs:label "Driver's License Template SHACL Shapes"@en ;
     rdfs:comment """SHACL shapes for validating context files carrying context:template persona:DriversLicense.
                     Apply in addition to persona-shacl.ttl when validating a driver's license context file.
-                    :DriversLicenseDocumentShape targets the persona:DriversLicense document individual
-                    and validates the holding Person via inverse persona:hasIdentityDocument."""@en .
+                    Targets persona:DriversLicense document individuals directly — identity claims
+                    (names, dates, license number) are properties of the document, not the Person."""@en .
 
 
 #################################################################
 #  DriversLicense Document Shape
-#  Targets persona:DriversLicense individuals (the document artifact, not the person).
-#  Navigates to the holding Person via ^hasIdentityDocument and applies
-#  :DriversLicensePersonConstraints.
-#################################################################
-
-:DriversLicenseDocumentShape
-    a sh:NodeShape ;
-    sh:targetClass persona:DriversLicense ;
-    sh:message "Driver's license validation: the holding Person must satisfy all driver's license identity constraints."@en ;
-
-    sh:property [
-        sh:path [ sh:inversePath persona:hasIdentityDocument ] ;
-        sh:minCount 1 ;
-        sh:maxCount 1 ;
-        sh:node :DriversLicensePersonConstraints ;
-        sh:message "A DriversLicense must be linked from exactly one Person who satisfies all driver's license identity constraints."@en
-    ] .
-
-
-#################################################################
-#  DriversLicense Person Constraints (no targetClass — used as a nested node shape)
+#  Targets persona:DriversLicense individuals.
+#  All identity claims are properties of the document individual.
 #  Required: FullName (1..1) OR (GivenName (1..1) AND FamilyName (1..1))
 #            DateOfBirth (ent00000046, 1..1)
 #            DriversLicenseNumber (persona:DriversLicenseNumber, 1..1)
@@ -51,9 +32,10 @@
 #            Photo (persona:hasPhoto, 0..1)
 #################################################################
 
-:DriversLicensePersonConstraints
+:DriversLicenseDocumentShape
     a sh:NodeShape ;
-    sh:message "DriversLicense Person validation: name, date of birth, license number, and expiration date are required."@en ;
+    sh:targetClass persona:DriversLicense ;
+    sh:message "Driver's license document validation: name, date of birth, license number, and expiration date are required."@en ;
 
     # ── Name: FullName OR (GivenName + FamilyName) ───────────────────────────
     sh:or (
@@ -62,7 +44,7 @@
                 sh:path <https://purl.org/cco/ont00001879> ;
                 sh:qualifiedValueShape [ sh:class cco:ent00000001 ] ;
                 sh:qualifiedMinCount 1 ;
-                sh:message "A DriversLicense Person must be designated by a FullName, OR provide GivenName + FamilyName."@en
+                sh:message "A DriversLicense must record a FullName, OR provide GivenName + FamilyName."@en
             ]
         ]
         [
@@ -72,7 +54,7 @@
                         sh:path <https://purl.org/cco/ont00001879> ;
                         sh:qualifiedValueShape [ sh:class cco:ent00000002 ] ;
                         sh:qualifiedMinCount 1 ;
-                        sh:message "If no FullName is provided, a DriversLicense Person must have at least one GivenName."@en
+                        sh:message "If no FullName is recorded, a DriversLicense must include at least one GivenName."@en
                     ]
                 ]
                 [
@@ -80,7 +62,7 @@
                         sh:path <https://purl.org/cco/ont00001879> ;
                         sh:qualifiedValueShape [ sh:class cco:ent00000004 ] ;
                         sh:qualifiedMinCount 1 ;
-                        sh:message "If no FullName is provided, a DriversLicense Person must have at least one FamilyName."@en
+                        sh:message "If no FullName is recorded, a DriversLicense must include at least one FamilyName."@en
                     ]
                 ]
             )
@@ -93,7 +75,7 @@
         sh:qualifiedValueShape [ sh:class cco:ent00000046 ] ;  # Birthdate
         sh:qualifiedMinCount 1 ;
         sh:qualifiedMaxCount 1 ;
-        sh:message "A DriversLicense Person must have exactly one DateOfBirth."@en
+        sh:message "A DriversLicense must record exactly one DateOfBirth."@en
     ] ;
 
     sh:property [
@@ -101,7 +83,7 @@
         sh:qualifiedValueShape [ sh:class persona:DriversLicenseNumber ] ;
         sh:qualifiedMinCount 1 ;
         sh:qualifiedMaxCount 1 ;
-        sh:message "A DriversLicense Person must have exactly one DriversLicenseNumber."@en
+        sh:message "A DriversLicense must record exactly one DriversLicenseNumber."@en
     ] ;
 
     sh:property [
@@ -109,7 +91,7 @@
         sh:qualifiedValueShape [ sh:class cco:ent00000054 ] ;  # ExpirationDateIdentifier
         sh:qualifiedMinCount 1 ;
         sh:qualifiedMaxCount 1 ;
-        sh:message "A DriversLicense Person must have exactly one ExpirationDateIdentifier."@en
+        sh:message "A DriversLicense must record exactly one ExpirationDateIdentifier."@en
     ] ;
 
     # ── Optional fields ──────────────────────────────────────────────────────
@@ -117,26 +99,26 @@
         sh:path <https://purl.org/cco/ont00001879> ;
         sh:qualifiedValueShape [ sh:class cco:ent00000003 ] ;  # AdditionalName
         sh:qualifiedMaxCount 1 ;
-        sh:message "A DriversLicense Person may have at most one AdditionalName."@en
+        sh:message "A DriversLicense may record at most one AdditionalName."@en
     ] ;
 
     sh:property [
         sh:path <https://purl.org/cco/ont00001879> ;
         sh:qualifiedValueShape [ sh:class cco:ent00000010 ] ;  # USPostalAddress
         sh:qualifiedMaxCount 1 ;
-        sh:message "A DriversLicense Person may have at most one residential address."@en
+        sh:message "A DriversLicense may record at most one residential address."@en
     ] ;
 
     sh:property [
         sh:path <https://purl.org/cco/ont00001879> ;
         sh:qualifiedValueShape [ sh:class persona:IssuingJurisdiction ] ;
         sh:qualifiedMaxCount 1 ;
-        sh:message "A DriversLicense Person may have at most one IssuingJurisdiction."@en
+        sh:message "A DriversLicense may record at most one IssuingJurisdiction."@en
     ] ;
 
     sh:property [
         sh:path persona:hasPhoto ;
         sh:maxCount 1 ;
         sh:datatype xsd:anyURI ;
-        sh:message "A DriversLicense Person may have at most one photo."@en
+        sh:message "A DriversLicense may record at most one photo."@en
     ] .

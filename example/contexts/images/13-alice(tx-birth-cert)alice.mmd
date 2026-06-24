@@ -11,14 +11,14 @@ flowchart TD
     end
 
     n0b5b9e968f7f[":Alice_TX_Birth_Certificate\n(BirthCertificate)"]
+    nd167d359b709("Margery"):::lit
+    n11161251d9ba("Alice"):::lit
+    nfb86f2382e90("Walker"):::lit
+    n53decd48dcd0("Margery Alice Arnold"):::lit
     ne0c3ba92f1db[":Self\n(Person)"]:::person
-    neb74c94c67ee("Margery"):::lit
-    n9a86596b202d("Alice"):::lit
-    ncb4117b7b672("Walker"):::lit
-    nfa9e4bd637c5("Margery Alice Arnold"):::lit
 
-    ne0c3ba92f1db -->|"GivenName"| neb74c94c67ee
-    ne0c3ba92f1db -->|"AdditionalName"| n9a86596b202d
-    ne0c3ba92f1db -->|"FamilyName"| ncb4117b7b672
-    ne0c3ba92f1db -->|"AlternateName"| nfa9e4bd637c5
+    n0b5b9e968f7f -->|"GivenName"| nd167d359b709
+    n0b5b9e968f7f -->|"AdditionalName"| n11161251d9ba
+    n0b5b9e968f7f -->|"FamilyName"| nfb86f2382e90
+    n0b5b9e968f7f -->|"AlternateName"| n53decd48dcd0
     ne0c3ba92f1db -->|"hasIdentityDocument"| n0b5b9e968f7f
