@@ -1,19 +1,19 @@
 ---
-id: https://www.example.org/mia/contexts/self.self(paula-walker)(employee)(20)
+id: https://www.example.org/mia/contexts/self.self(paula-walker)(acme)(20)
 title: "About Alice Walker in the Employee context as asserted by Alice Walker"
 type: context-databook
-version: 2.0.3
+version: 2.0.5
 created: 2026-06-12
 description: >
   Alice Walker's Acme employment context. Records her work email address and her
   Acme social network connection to colleague Paula Walker. Self-asserted by Alice.
 mia:
-  category: "http://www.example.org/mia/categories/employee"
+  category: "http://www.example.org/mia/categories/paula-walker(acme)"
   assertedBy: ":Self"
   subject: ":Self"
   about-by: "context:SBS-Context"
 graph:
-  named_graph: https://www.example.org/mia/contexts/self.self(paula-walker)(employee)(20)#graph
+  named_graph: https://www.example.org/mia/contexts/self.self(paula-walker)(acme)(20)#graph
   rdf_version: "1.1"
 shapes:
   - http://www.example.org/shapes
@@ -33,7 +33,7 @@ This context captures Alice Walker's employee identity at Acme. It records her w
 
 ```turtle
 <!-- databook:id: alice-acme-identity -->
-<!-- databook:graph: https://www.example.org/mia/contexts/self.self(paula-walker)(employee)(20)#graph -->
+<!-- databook:graph: https://www.example.org/mia/contexts/self.self(paula-walker)(acme)(20)#graph -->
 @prefix : <http://www.example.org/mia#> .
 @prefix persona: <http://mee.foundation/ontologies/persona#> .
 @prefix cco: <https://purl.org/cco/> .

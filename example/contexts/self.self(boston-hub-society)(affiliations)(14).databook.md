@@ -1,19 +1,19 @@
 ---
-id: https://www.example.org/mia/contexts/self.self(boston-hub-society)(14)
+id: https://www.example.org/mia/contexts/self.self(boston-hub-society)(affiliations)(14)
 title: "About Alice Walker in the Groups context as asserted by Alice Walker"
 type: context-databook
-version: 2.0.3
+version: 2.0.5
 created: 2026-06-11
 description: >
   Alice Walker's self-asserted BHS profile, including her current address, phone number,
   and email address as shared with the Boston Hub Society group.
 mia:
-  category: "http://www.example.org/mia/categories/affiliations"
+  category: "http://www.example.org/mia/categories/boston-hub-society(affiliations)"
   assertedBy: ":Self"
   subject: ":Self"
   about-by: "context:SBS-Context"
 graph:
-  named_graph: https://www.example.org/mia/contexts/self.self(boston-hub-society)(14)#graph
+  named_graph: https://www.example.org/mia/contexts/self.self(boston-hub-society)(affiliations)(14)#graph
   rdf_version: "1.1"
 shapes:
   - http://www.example.org/shapes
@@ -33,7 +33,7 @@ This context captures Alice Walker's BHS profile — the identity data she share
 
 ```turtle
 <!-- databook:id: alice-bhs-identity -->
-<!-- databook:graph: https://www.example.org/mia/contexts/self.self(boston-hub-society)(14)#graph -->
+<!-- databook:graph: https://www.example.org/mia/contexts/self.self(boston-hub-society)(affiliations)(14)#graph -->
 @prefix : <http://www.example.org/mia#> .
 @prefix persona: <http://mee.foundation/ontologies/persona#> .
 @prefix cco: <https://purl.org/cco/> .

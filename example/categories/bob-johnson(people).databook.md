@@ -9,8 +9,8 @@ description: >
   Child of the People category.
 mia:
   predefined: false
-  obs: "https://www.example.org/mia/contexts/bob-johnson.self(bob-johnson)(04)"
-  sbs: "https://www.example.org/mia/contexts/self.self(bob-johnson)(12)"
-  obo: "https://www.example.org/mia/contexts/bob-johnson.bob-johnson(bob-johnson)(02)"
-  sbo: "https://www.example.org/mia/contexts/self.bob-johnson(bob-johnson)(08)"
+  obs: "https://www.example.org/mia/contexts/bob-johnson.self(bob-johnson)(people)(04)"
+  sbs: "https://www.example.org/mia/contexts/self.self(bob-johnson)(people)(12)"
+  obo: "https://www.example.org/mia/contexts/bob-johnson.bob-johnson(bob-johnson)(people)(02)"
+  sbo: "https://www.example.org/mia/contexts/self.bob-johnson(bob-johnson)(people)(08)"
 ---

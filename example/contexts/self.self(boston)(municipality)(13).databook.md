@@ -1,19 +1,19 @@
 ---
-id: https://www.example.org/mia/contexts/self.self(boston)(13)
+id: https://www.example.org/mia/contexts/self.self(boston)(municipality)(13)
 title: "About Alice Walker in the Municipality context as asserted by Alice Walker"
 type: context-databook
-version: 2.0.2
+version: 2.0.4
 created: 2026-06-01
 description: >
   Alice Walker's previous residential address in Boston, MA (January 2020 to August 2025).
   Self-asserted by Alice; closed temporal interval indicates this is a past address.
 mia:
-  category: "http://www.example.org/mia/categories/municipality"
+  category: "http://www.example.org/mia/categories/boston(municipality)"
   assertedBy: ":Self"
   subject: ":Self"
   about-by: "context:SBS-Context"
 graph:
-  named_graph: https://www.example.org/mia/contexts/self.self(boston)(13)#graph
+  named_graph: https://www.example.org/mia/contexts/self.self(boston)(municipality)(13)#graph
   rdf_version: "1.1"
 shapes:
   - http://www.example.org/shapes
@@ -33,7 +33,7 @@ This context captures Alice Walker's previous residential address: 456 Commonwea
 
 ```turtle
 <!-- databook:id: alice-boston-identity -->
-<!-- databook:graph: https://www.example.org/mia/contexts/self.self(boston)(13)#graph -->
+<!-- databook:graph: https://www.example.org/mia/contexts/self.self(boston)(municipality)(13)#graph -->
 @prefix : <http://www.example.org/mia#> .
 @prefix persona: <http://mee.foundation/ontologies/persona#> .
 @prefix cco: <https://purl.org/cco/> .

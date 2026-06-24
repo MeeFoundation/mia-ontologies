@@ -1,19 +1,19 @@
 ---
-id: https://www.example.org/mia/contexts/self.self(att)(11)
+id: https://www.example.org/mia/contexts/self.self(att)(companies)(11)
 title: "About Alice Walker in the Companies context as asserted by Alice Walker"
 type: context-databook
-version: 2.0.2
+version: 2.0.4
 created: 2026-06-01
 description: >
   Alice Walker's AT&T context. Records her mobile phone number as self-entered data
   about her AT&T account relationship.
 mia:
-  category: "http://www.example.org/mia/categories/companies"
+  category: "http://www.example.org/mia/categories/att(companies)"
   assertedBy: ":Self"
   subject: ":Self"
   about-by: "context:SBS-Context"
 graph:
-  named_graph: https://www.example.org/mia/contexts/self.self(att)(11)#graph
+  named_graph: https://www.example.org/mia/contexts/self.self(att)(companies)(11)#graph
   rdf_version: "1.1"
 shapes:
   - http://www.example.org/shapes
@@ -33,7 +33,7 @@ This context captures Alice Walker's AT&T account context. Alice self-enters her
 
 ```turtle
 <!-- databook:id: alice-att-identity -->
-<!-- databook:graph: https://www.example.org/mia/contexts/self.self(att)(11)#graph -->
+<!-- databook:graph: https://www.example.org/mia/contexts/self.self(att)(companies)(11)#graph -->
 @prefix : <http://www.example.org/mia#> .
 @prefix persona: <http://mee.foundation/ontologies/persona#> .
 @prefix cco: <https://purl.org/cco/> .

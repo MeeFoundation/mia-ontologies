@@ -1,19 +1,19 @@
 ---
-id: https://www.example.org/mia/contexts/self.citibank(citibank)(09)
+id: https://www.example.org/mia/contexts/self.citibank(citibank)(financial-services)(09)
 title: "About Alice Walker in the FinancialServices context as asserted by Citibank"
 type: context-databook
-version: 2.0.3
+version: 2.0.5
 created: 2026-06-15
 description: >
   Alice Walker's Citibank context. Records her VISA debit card, checking account,
   and online banking credentials. Asserted by Citibank (a PDN Organization node).
 mia:
-  category: "http://www.example.org/mia/categories/financial-services"
+  category: "http://www.example.org/mia/categories/citibank(financial-services)"
   assertedBy: ":Citibank"
   subject: ":Self"
   about-by: "context:SBO-Context"
 graph:
-  named_graph: https://www.example.org/mia/contexts/self.citibank(citibank)(09)#graph
+  named_graph: https://www.example.org/mia/contexts/self.citibank(citibank)(financial-services)(09)#graph
   rdf_version: "1.1"
 shapes:
   - http://www.example.org/shapes
@@ -33,7 +33,7 @@ This context captures Alice Walker's financial relationship with Citibank. Citib
 
 ```turtle
 <!-- databook:id: citibank-identity -->
-<!-- databook:graph: https://www.example.org/mia/contexts/self.citibank(citibank)(09)#graph -->
+<!-- databook:graph: https://www.example.org/mia/contexts/self.citibank(citibank)(financial-services)(09)#graph -->
 @prefix : <http://www.example.org/mia#> .
 @prefix persona: <http://mee.foundation/ontologies/persona#> .
 @prefix o: <http://mee.foundation/ontologies/organization#> .

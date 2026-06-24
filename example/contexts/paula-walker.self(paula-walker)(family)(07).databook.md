@@ -2,12 +2,12 @@
 id: https://www.example.org/mia/contexts/paula-walker.self(paula-walker)(family)(07)
 title: "About Paula Walker in the Family context as asserted by Alice Walker"
 type: context-databook
-version: 2.0.4
+version: 2.0.5
 created: 2026-06-14
 description: >
   Alice's record of her family member Paula Walker, including Paula's given and family name.
 mia:
-  category: "http://www.example.org/mia/categories/family"
+  category: "http://www.example.org/mia/categories/paula-walker(family)"
   assertedBy: ":Self"
   subject: ":Paula_Walker"
   about-by: "context:OBS-Context"

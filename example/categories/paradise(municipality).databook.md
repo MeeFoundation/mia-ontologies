@@ -9,5 +9,5 @@ description: >
   Child of the Municipality category.
 mia:
   predefined: false
-  sbs: "https://www.example.org/mia/contexts/self.self(paradise)(18)"
+  sbs: "https://www.example.org/mia/contexts/self.self(paradise)(municipality)(18)"
 ---

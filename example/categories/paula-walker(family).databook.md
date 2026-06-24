@@ -11,5 +11,5 @@ mia:
   predefined: false
   obs: "https://www.example.org/mia/contexts/paula-walker.self(paula-walker)(family)(07)"
   sbs: "https://www.example.org/mia/contexts/self.self(paula-walker)(family)(21)"
-  obo: "https://www.example.org/mia/contexts/paula-walker.paula-walker(paula-walker)(05)"
+  obo: "https://www.example.org/mia/contexts/paula-walker.paula-walker(paula-walker)(family)(05)"
 ---

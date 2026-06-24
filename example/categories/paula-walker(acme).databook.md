@@ -9,6 +9,6 @@ description: >
   Child of the Acme category.
 mia:
   predefined: false
-  obs: "https://www.example.org/mia/contexts/paula-walker.self(paula-walker)(employee)(06)"
-  sbs: "https://www.example.org/mia/contexts/self.self(paula-walker)(employee)(20)"
+  obs: "https://www.example.org/mia/contexts/paula-walker.self(paula-walker)(acme)(06)"
+  sbs: "https://www.example.org/mia/contexts/self.self(paula-walker)(acme)(20)"
 ---

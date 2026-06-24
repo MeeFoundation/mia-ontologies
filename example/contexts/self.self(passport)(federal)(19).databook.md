@@ -1,21 +1,21 @@
 ---
-id: https://www.example.org/mia/contexts/self.self(passport)(19)
+id: https://www.example.org/mia/contexts/self.self(passport)(federal)(19)
 title: "About Alice Walker in the Federal context as asserted by Alice Walker"
 type: context-databook
-version: 1.0.2
+version: 1.0.4
 created: 2026-06-20
 description: >
   Alice Walker's US passport context. Records her legal name, date of birth, passport number,
   issue and expiration dates, issuing country, place of birth, gender marker, and photo.
   Self-asserted by Alice.
 mia:
-  category: "http://www.example.org/mia/categories/federal"
+  category: "http://www.example.org/mia/categories/passport(federal)"
   assertedBy: ":Self"
   subject: ":Self"
   about-by: "context:SBS-Context"
   template: "persona:Passport"
 graph:
-  named_graph: https://www.example.org/mia/contexts/self.self(passport)(19)#graph
+  named_graph: https://www.example.org/mia/contexts/self.self(passport)(federal)(19)#graph
   rdf_version: "1.1"
 shapes:
   - http://www.example.org/shapes
@@ -36,7 +36,7 @@ This context captures Alice Walker's US passport identity data. Alice self-enter
 
 ```turtle
 <!-- databook:id: alice-passport-identity -->
-<!-- databook:graph: https://www.example.org/mia/contexts/self.self(passport)(19)#graph -->
+<!-- databook:graph: https://www.example.org/mia/contexts/self.self(passport)(federal)(19)#graph -->
 @prefix : <http://www.example.org/mia#> .
 @prefix persona: <http://mee.foundation/ontologies/persona#> .
 @prefix cco: <https://purl.org/cco/> .

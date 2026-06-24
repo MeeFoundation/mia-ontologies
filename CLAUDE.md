@@ -29,29 +29,29 @@ There are no build, compile, test, or lint commands. The files are Turtle (`.ttl
 
 | File | Purpose |
 |------|---------|
-| `example/contexts/paula-walker.self(paula-walker)(employee)(06).databook.md` | Paula Walker as Alice's Acme colleague — asserted by Alice |
+| `example/contexts/paula-walker.self(paula-walker)(acme)(06).databook.md` | Paula Walker as Alice's Acme colleague — asserted by Alice |
 | `example/contexts/paula-walker.self(paula-walker)(family)(07).databook.md` | Paula Walker as Alice's family member — asserted by Alice |
-| `example/contexts/paula-walker.paula-walker(paula-walker)(05).databook.md` | Paula Walker's own family persona; social network with Alice |
-| `example/contexts/self.bob-johnson(bob-johnson)(08).databook.md` | Alice Walker as seen by Bob Johnson — asserted by Bob |
-| `example/contexts/bob-johnson.self(bob-johnson)(04).databook.md` | Alice's notes about Bob Johnson; favorite drink: oat milk cappuccino |
-| `example/contexts/bob-johnson.bob-johnson(bob-johnson)(02).databook.md` | Bob Johnson's self-asserted persona; social network with Alice |
-| `example/contexts/self.self(boston-hub-society)(14).databook.md` | Alice's Boston Hub Society profile — email, phone, and current address |
-| `example/contexts/bhs-group.members(boston-hub-society)(01).databook.md` | BHS Group — g:Group instance with Alice and Bob as members |
-| `example/contexts/bob-johnson.bob-johnson(boston-hub-society)(03).databook.md` | Bob Johnson's BHS member persona — name, email, phone, address |
-| `example/contexts/self.citibank(citibank)(09).databook.md` | Alice's Citibank context — debit card; asserted by Citibank |
-| `example/contexts/self.self(google)(16).databook.md` | Alice's Google context — Gmail address |
-| `example/contexts/self.self(att)(11).databook.md` | Alice's AT&T context — phone number |
-| `example/contexts/self.self(texas-vital-records)(24).databook.md` | Alice's Texas birth certificate — legal names, maiden name |
-| `example/contexts/self.self(paradise)(18).databook.md` | Alice's Paradise, CA address — current residence (2025–present) |
-| `example/contexts/self.self(boston)(13).databook.md` | Alice's Boston, MA address — previous residence (2020–2025) |
-| `example/contexts/self.self(social-security-administration)(23).databook.md` | Alice's Social Security Number |
-| `example/contexts/self.self(bob-johnson)(12).databook.md` | Alice's 1:1 context with Bob; social network with Bob as member |
+| `example/contexts/paula-walker.paula-walker(paula-walker)(family)(05).databook.md` | Paula Walker's own family persona; social network with Alice |
+| `example/contexts/self.bob-johnson(bob-johnson)(people)(08).databook.md` | Alice Walker as seen by Bob Johnson — asserted by Bob |
+| `example/contexts/bob-johnson.self(bob-johnson)(people)(04).databook.md` | Alice's notes about Bob Johnson; favorite drink: oat milk cappuccino |
+| `example/contexts/bob-johnson.bob-johnson(bob-johnson)(people)(02).databook.md` | Bob Johnson's self-asserted persona; social network with Alice |
+| `example/contexts/self.self(boston-hub-society)(affiliations)(14).databook.md` | Alice's Boston Hub Society profile — email, phone, and current address |
+| `example/contexts/bhs-group.members(boston-hub-society)(affiliations)(01).databook.md` | BHS Group — g:Group instance with Alice and Bob as members |
+| `example/contexts/bob-johnson.bob-johnson(boston-hub-society)(affiliations)(03).databook.md` | Bob Johnson's BHS member persona — name, email, phone, address |
+| `example/contexts/self.citibank(citibank)(financial-services)(09).databook.md` | Alice's Citibank context — debit card; asserted by Citibank |
+| `example/contexts/self.self(google)(companies)(16).databook.md` | Alice's Google context — Gmail address |
+| `example/contexts/self.self(att)(companies)(11).databook.md` | Alice's AT&T context — phone number |
+| `example/contexts/self.self(texas-vital-records)(state)(24).databook.md` | Alice's Texas birth certificate — legal names, maiden name |
+| `example/contexts/self.self(paradise)(municipality)(18).databook.md` | Alice's Paradise, CA address — current residence (2025–present) |
+| `example/contexts/self.self(boston)(municipality)(13).databook.md` | Alice's Boston, MA address — previous residence (2020–2025) |
+| `example/contexts/self.self(social-security-administration)(federal)(23).databook.md` | Alice's Social Security Number |
+| `example/contexts/self.self(bob-johnson)(people)(12).databook.md` | Alice's 1:1 context with Bob; social network with Bob as member |
 | `example/contexts/self.self(paula-walker)(family)(21).databook.md` | Alice's family context — social network with Paula Walker as member |
 | `example/contexts/self.self(possessions)(22).databook.md` | Alice's possessions — wallet, health insurance card, SSN card |
-| `example/contexts/self.self(paula-walker)(employee)(20).databook.md` | Alice's Acme employee context; social network with Paula Walker |
-| `example/contexts/self.self(acme)(10).databook.md` | Alice's business card (JSContactCard) — name, email, phone, employer, job title |
-| `example/contexts/self.self(california-dmv)(15).databook.md` | Alice's California driver's license — legal name, DOB, DL#, expiry, photo |
-| `example/contexts/self.self(passport)(19).databook.md` | Alice's US passport — legal name, DOB, passport#, issue/expiry, place of birth, gender marker, photo |
+| `example/contexts/self.self(paula-walker)(acme)(20).databook.md` | Alice's Acme employee context; social network with Paula Walker |
+| `example/contexts/self.self(acme)(employee)(10).databook.md` | Alice's business card (JSContactCard) — name, email, phone, employer, job title |
+| `example/contexts/self.self(california-dmv)(state)(15).databook.md` | Alice's California driver's license — legal name, DOB, DL#, expiry, photo |
+| `example/contexts/self.self(passport)(federal)(19).databook.md` | Alice's US passport — legal name, DOB, passport#, issue/expiry, place of birth, gender marker, photo |
 | `example/contexts/self.self(health)(17).databook.md` | Alice's physical characteristics — height, eye color, hair color |
 | `example/contexts/under-development/paula(fl-birth-cert)alice.ttl` | Paula Walker's Florida Birth Certificate Persona — legal name record (under development) |
 
@@ -65,7 +65,7 @@ Triplestore (Fuseki) — loads all DataBook files directly:
   │   ├─ PersonOntology.ttl
   │   ├─ AddressOntology.ttl
   │   └─ StagingOntology.ttl → BFO terms
-  ├─ example/contexts/paula-walker.self(paula-walker)(employee)(06).databook.md
+  ├─ example/contexts/paula-walker.self(paula-walker)(acme)(06).databook.md
   ├─ example/contexts/paula-walker.self(paula-walker)(family)(07).databook.md
   ├─ … (all numbered context DataBooks)
   └─ example/contexts/self.self(health)(17).databook.md
@@ -95,12 +95,12 @@ Context filenames follow a single flat pattern:
 |---------|---------|
 | `<subject>` | The entity the Persona is about. Use `self` when the subject is the Mia user's own `p:Person` (`:Self`); otherwise use the full hyphenated lowercase name (e.g. `paula-walker`, `bob-johnson`, `bhs-group`). |
 | `<asserted-by>` | Who asserted the data. Use `self` when the asserter is `:Self`; use the full hyphenated lowercase name for other asserters (e.g. `bob-johnson`, `citibank`); use the literal `members` for `c:Group` contexts where any permitted member may write. |
-| `(<containing-category>)` | The filename root of the category DataBook that directly holds the `obs`, `sbs`, `obo`, or `sbo` link pointing to this context (e.g. `(paula-walker)`, `(boston-hub-society)`, `(acme)`, `(citibank)`). This is often a user-defined category DataBook — it is NOT the `mia.category` IRI local name of the predefined category. |
+| `(<containing-category>)` | The local-name portion of this context's `mia.category` IRI — i.e., the IRI of the category DataBook that directly holds the `sbs`, `obs`, `sbo`, or `obo` link to this context. When the category DataBook local name includes a `(parent)` qualifier (e.g. `bob-johnson(people)`), the filename uses two separate parenthetical segments before the number: `(bob-johnson)(people)`. Examples: `(bob-johnson)(people)`, `(boston-hub-society)(affiliations)`, `(paula-walker)(family)`, `(citibank)(financial-services)`. For categories without a `(parent)` qualifier (e.g. `health`, `possessions`), a single segment suffices. |
 | `(<NN>)` | Zero-padded two-digit context number in parentheses, matching the diagram label. |
 
-**Exception — `c:Group` contexts**: A group context (`category context:Group`) has no single asserter — any permitted member can write to it and changes replicate to all members. The `<asserted-by>` segment is the literal `members` rather than an individual name. Example: `bhs-group.members(boston-hub-society)(01).databook.md` — about BHS Group, containing category "boston-hub-society", asserted by the group's members collectively.
+**Exception — `c:Group` contexts**: A group context (`category context:Group`) has no single asserter — any permitted member can write to it and changes replicate to all members. The `<asserted-by>` segment is the literal `members` rather than an individual name. Example: `bhs-group.members(boston-hub-society)(affiliations)(01).databook.md` — about BHS Group, containing category "boston-hub-society(affiliations)", asserted by the group's members collectively.
 
-**`mia.assertedBy` vocabulary**: The YAML field takes the local IRI of a `p:Person`, `g:Group`, or `o:Organization` individual — NOT an `i:PDNidentifier`. Those individuals carry their own PDN identity via `identity:hasPDNidentifier`. Specifically: `:Self` (the Mia user's `p:Person`) for self-asserted contexts; a named `p:Person` individual (e.g. `:Bob_Johnson`) when another Mia user asserts the data; a named `g:Group` individual (e.g. `:BHS_Group`) for group contexts; and a named `o:Organization` individual (e.g. `:Citibank`) only when the asserting organization is itself a PDN node. In the example data **only Citibank is a PDN node**, so only `self.citibank(citibank)(09).databook.md` uses `assertedBy: ":Citibank"`. All other organization-related contexts (Google, AT&T, SSA, etc.) use `assertedBy: ":Self"` because Alice self-enters that data — those organizations are not PDN-interoperable.
+**`mia.assertedBy` vocabulary**: The YAML field takes the local IRI of a `p:Person`, `g:Group`, or `o:Organization` individual — NOT an `i:PDNidentifier`. Those individuals carry their own PDN identity via `identity:hasPDNidentifier`. Specifically: `:Self` (the Mia user's `p:Person`) for self-asserted contexts; a named `p:Person` individual (e.g. `:Bob_Johnson`) when another Mia user asserts the data; a named `g:Group` individual (e.g. `:BHS_Group`) for group contexts; and a named `o:Organization` individual (e.g. `:Citibank`) only when the asserting organization is itself a PDN node. In the example data **only Citibank is a PDN node**, so only `self.citibank(citibank)(financial-services)(09).databook.md` uses `assertedBy: ":Citibank"`. All other organization-related contexts (Google, AT&T, SSA, etc.) use `assertedBy: ":Self"` because Alice self-enters that data — those organizations are not PDN-interoperable.
 
 **"Other" asserters**: When the asserter is someone other than the current Mia user (`:Self`), the asserter is a named individual of one of:
 - `p:Person` — another Mia user (a different person, e.g. `:Bob_Johnson` asserting data about Alice)
@@ -111,11 +111,11 @@ Context filenames follow a single flat pattern:
 
 | Filename | Subject | Asserted by | Containing category |
 |----------|---------|-------------|---------------------|
-| `self.citibank(citibank)(09).databook.md` | Self (Alice) | Citibank | citibank |
-| `paula-walker.self(paula-walker)(family)(07).databook.md` | Paula Walker | Self (Alice) | paula-walker |
-| `self.bob-johnson(bob-johnson)(08).databook.md` | Self (Alice) | Bob Johnson | bob-johnson |
-| `bob-johnson.bob-johnson(boston-hub-society)(03).databook.md` | Bob Johnson | Bob Johnson | boston-hub-society |
-| `bhs-group.members(boston-hub-society)(01).databook.md` | BHS Group | members (group) | boston-hub-society |
+| `self.citibank(citibank)(financial-services)(09).databook.md` | Self (Alice) | Citibank | citibank(financial-services) |
+| `paula-walker.self(paula-walker)(family)(07).databook.md` | Paula Walker | Self (Alice) | paula-walker(family) |
+| `self.bob-johnson(bob-johnson)(people)(08).databook.md` | Self (Alice) | Bob Johnson | bob-johnson(people) |
+| `bob-johnson.bob-johnson(boston-hub-society)(affiliations)(03).databook.md` | Bob Johnson | Bob Johnson | boston-hub-society(affiliations) |
+| `bhs-group.members(boston-hub-society)(affiliations)(01).databook.md` | BHS Group | members (group) | boston-hub-society(affiliations) |
 
 ### Key Architectural Patterns
 
@@ -159,17 +159,56 @@ owl:versionInfo "Version 3.0.4 - added birth date"@en
 
 Files inside any directory named `under-development/` (at any depth) are works-in-progress and must be **excluded from all integrity checks** below.
 
-After any change to context files or the context map diagram, verify the following. **`example/contexts/images/context-map.png` is the authoritative source of truth.** When a discrepancy is found between the diagram and any `.ttl` file or `README.md` entry, the diagram wins — update the files to match the diagram, not the other way around.
+After any change to context files or category DataBooks, verify the following.
 
-**Check 1 — Diagram ↔ files ↔ README coverage**: Every labeled circle in `example/contexts/images/context-map.png` must have (a) a corresponding `.ttl` file in the appropriate directory and (b) a row in one of the tables in the **Alice's Personas and Contexts** section of `README.md`. Conversely, every row in those tables must correspond to a circle in the diagram and a file that actually exists. If a circle exists in the diagram but has no `.ttl` file or README row, create them to match the diagram.
+**Check 1 — Diagram ↔ files ↔ README coverage**: Every numbered context circle in any of the 9 category diagrams (`example/images/`) must have (a) a corresponding `.databook.md` file in `example/contexts/` and (b) a row in one of the tables in the **Alice's Personas and Contexts** section of `README.md`. Conversely, every row in those tables must correspond to a numbered circle in a diagram and a file that actually exists. If a circle exists in a diagram but has no `.databook.md` file or README row, create them to match the diagram.
 
-**Check 2 — Filename convention**: Every context filename must follow `<subject>.<asserted-by>(<containing-category>)(<NN>).databook.md`. `<subject>` must be `self` when the subject is `:Self`, or the full hyphenated lowercase name otherwise. `<asserted-by>` must be `self` when the asserter is `:Self`, or the full hyphenated lowercase name otherwise — except for `c:Group` contexts, where it must be the literal string `members`. `(<containing-category>)` is the filename root of the category DataBook that directly holds the link to this context. `(<NN>)` is the zero-padded two-digit context number. If a filename does not match this pattern, rename it to conform.
+**Check 2 — Filename convention**: Every context filename must follow `<subject>.<asserted-by>(<containing-category>)(<NN>).databook.md`. `<subject>` must be `self` when the subject is `:Self`, or the full hyphenated lowercase name otherwise. `<asserted-by>` must be `self` when the asserter is `:Self`, or the full hyphenated lowercase name otherwise — except for `c:Group` contexts, where it must be the literal string `members`. `(<containing-category>)` encodes the local name of the `mia.category` IRI: when the category DataBook local name includes a `(parent)` qualifier (e.g. `bob-johnson(people)`), it appears as two separate segments `(bob-johnson)(people)`; when there is no qualifier (e.g. `health`), a single segment suffices. `(<NN>)` is the zero-padded two-digit context number. If a filename does not match this pattern, rename it to conform.
 
-**Check 3 — Orange arrows (hasMember)**: For every orange arrow from circle A to circle B in `context-map.png`, there must be a `BFO_0000115` (has member part) triple pointing to the `p:Persona` individual defined in the target context file (B), originating from one of two sources depending on context type:
+**Check 3 — Orange arrows (hasMember)**: For every orange arrow from circle A to circle B in any of the 9 category diagrams (`example/images/`), there must be a `BFO_0000115` (has member part) triple pointing to the `p:Persona` individual defined in the target context file (B), originating from one of two sources depending on context type:
 - **`c:Persona`-type source (Person, Family, Employee, etc.)**: the source file's `p:Persona` individual must carry a `persona:hasSocialNetwork` link to a `cco:ont00001183` (Social Network) individual, and that Social Network individual must have the `BFO_0000115` triple.
 - **`c:Group`-type source**: the source file's `g:Group` individual must have the `BFO_0000115` triple directly (no Social Network intermediate, since the group itself is the social entity).
 
-**Check 4 — category label ↔ TTL agreement**: For every labeled circle in `example/contexts/images/context-map.png`, the light-blue label attached to that circle shows a `category` value (e.g. "Finance", "Federal", "Group"). That value must exactly match the local name of the `c:category` object in the corresponding `.ttl` file (e.g. `context:category context:Finance`). Read the diagram label independently before consulting the TTL — do not let the TTL value anchor your reading of the diagram. If the label and the TTL value differ, the diagram is authoritative — update the TTL to match the diagram.
+**Check 4 — `mia.category` ↔ filename consistency**: For every context DataBook in `example/contexts/` (excluding `under-development/`), the local-name portion of its `mia.category` IRI must equal the `(<containing-category>)` segment extracted from the filename. When the filename uses two separate parenthetical segments before the number (e.g. `(bob-johnson)(people)`), concatenate them as `bob-johnson(people)` to form the expected local name. Run:
+
+```python
+import os, re
+
+cat_dir = 'example/categories'
+ctx_dir = 'example/contexts'
+base_cat = 'http://www.example.org/mia/categories/'
+
+def fn_cat_local(fname):
+    base = fname[:-len('.databook.md')]
+    m = re.match(r'^[^.]+\.[^(]+((?:\([^)]+\))+)\(\d{2}\)$', base)
+    if not m:
+        return None
+    segs = re.findall(r'\(([^)]+)\)', m.group(1))
+    return segs[0] if len(segs) == 1 else f'{segs[0]}({segs[1]})'
+
+errors = 0
+for fname in sorted(os.listdir(ctx_dir)):
+    if not fname.endswith('.databook.md'):
+        continue
+    path = f'{ctx_dir}/{fname}'
+    text = open(path).read()
+    cat_m = re.search(r'^\s+category:\s+"([^"]+)"', text, re.MULTILINE)
+    if not cat_m:
+        print(f'NO mia.category: {fname}'); errors += 1; continue
+    cat_local = cat_m.group(1)
+    if cat_local.startswith(base_cat):
+        cat_local = cat_local[len(base_cat):]
+    expected = fn_cat_local(fname)
+    if cat_local != expected:
+        print(f'MISMATCH {fname}:')
+        print(f'  filename implies: {expected!r}')
+        print(f'  mia.category has: {cat_local!r}')
+        errors += 1
+if not errors:
+    print('All mia.category values match filenames.')
+```
+
+If mismatches appear, the filename `(<containing-category>)` segments are authoritative — update the `mia.category` IRI in the DataBook to match (or vice versa if the filename was misnamed).
 
 **Check 5 — No orphan Persons**: Every `persona:Person` individual other than `:Self` must be reachable via `BFO_0000115` (has member part) from a `g:Group` or from a Social Network individual linked to another `persona:Person` via `persona:hasSocialNetwork`. `:Self` is always the root and needs no incoming link.
 
@@ -177,7 +216,7 @@ After any change to context files or the context map diagram, verify the followi
 
 **Check 7 — PNG file location**: The diagram PNG for every context file must be stored directly in `example/contexts/images/` (flat, no subfolders — not `images/example/`). Files in `under-development/` are excluded.
 
-**Check 8 — PNG filename convention**: Every diagram PNG in `example/contexts/images/` must use the same base filename as the corresponding `.databook.md` file in `example/contexts/`, with `.png` substituted for `.databook.md`. For example, `self.self(boston-hub-society)(14).databook.md` → `self.self(boston-hub-society)(14).png`. If the PNG does not yet exist, the README Diagram cell must be marked `*(todo)*` rather than left blank.
+**Check 8 — PNG filename convention**: Every diagram PNG in `example/contexts/images/` must use the same base filename as the corresponding `.databook.md` file in `example/contexts/`, with `.png` substituted for `.databook.md`. For example, `self.self(boston-hub-society)(affiliations)(14).databook.md` → `self.self(boston-hub-society)(affiliations)(14).png`. If the PNG does not yet exist, the README Diagram cell must be marked `*(todo)*` rather than left blank.
 
 **Check 9 — No broken image links in README**: Every PNG path referenced in `README.md` (both `<img src="...">` tags and `[view](...)` table links) must resolve to an actual file on disk. Run:
 
@@ -255,7 +294,7 @@ Always update `persona-shacl.ttl` in the same edit session as the change that tr
 
 **SHACL validation** (e.g., using Apache Jena's `shaclvalidate`):
 ```bash
-shaclvalidate -datafile example/contexts/self.self(boston-hub-society)(14).databook.md -shapesfile persona-shacl.ttl
+shaclvalidate -datafile example/contexts/self.self(boston-hub-society)(affiliations)(14).databook.md -shapesfile persona-shacl.ttl
 ```
 
 **Protégé**: Load `persona.ttl`; Protégé will import the domain ontologies via IRI resolution. Use the reasoner (HermiT/Pellet) to check consistency.

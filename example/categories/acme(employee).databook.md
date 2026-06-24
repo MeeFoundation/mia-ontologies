@@ -9,6 +9,6 @@ description: >
   Child of the Employee category.
 mia:
   predefined: false
-  sbs: "https://www.example.org/mia/contexts/self.self(acme)(10)"
+  sbs: "https://www.example.org/mia/contexts/self.self(acme)(employee)(10)"
   child: "http://www.example.org/mia/categories/people(acme)"
 ---

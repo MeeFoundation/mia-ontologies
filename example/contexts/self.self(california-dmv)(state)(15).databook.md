@@ -1,20 +1,20 @@
 ---
-id: https://www.example.org/mia/contexts/self.self(california-dmv)(15)
+id: https://www.example.org/mia/contexts/self.self(california-dmv)(state)(15)
 title: "About Alice Walker in the State context as asserted by Alice Walker"
 type: context-databook
-version: 2.0.4
+version: 2.0.6
 created: 2026-06-15
 description: >
   Alice Walker's California driver's license context. Records her legal name, date of birth,
   license number, expiration date, issuing jurisdiction, and photo. Self-asserted by Alice.
 mia:
-  category: "http://www.example.org/mia/categories/state"
+  category: "http://www.example.org/mia/categories/california-dmv(state)"
   assertedBy: ":Self"
   subject: ":Self"
   about-by: "context:SBS-Context"
   template: "persona:DriversLicense"
 graph:
-  named_graph: https://www.example.org/mia/contexts/self.self(california-dmv)(15)#graph
+  named_graph: https://www.example.org/mia/contexts/self.self(california-dmv)(state)(15)#graph
   rdf_version: "1.1"
 shapes:
   - http://www.example.org/shapes
@@ -35,7 +35,7 @@ This context captures Alice Walker's California driver's license identity data. 
 
 ```turtle
 <!-- databook:id: alice-driverslicense-identity -->
-<!-- databook:graph: https://www.example.org/mia/contexts/self.self(california-dmv)(15)#graph -->
+<!-- databook:graph: https://www.example.org/mia/contexts/self.self(california-dmv)(state)(15)#graph -->
 @prefix : <http://www.example.org/mia#> .
 @prefix persona: <http://mee.foundation/ontologies/persona#> .
 @prefix cco: <https://purl.org/cco/> .

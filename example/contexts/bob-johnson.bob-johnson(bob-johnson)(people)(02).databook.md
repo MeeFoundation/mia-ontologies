@@ -1,19 +1,19 @@
 ---
-id: https://www.example.org/mia/contexts/bob-johnson.bob-johnson(bob-johnson)(02)
+id: https://www.example.org/mia/contexts/bob-johnson.bob-johnson(bob-johnson)(people)(02)
 title: "About Bob Johnson in the People context as asserted by Bob Johnson"
 type: context-databook
-version: 2.0.2
+version: 2.0.4
 created: 2026-06-15
 description: >
   Bob Johnson's self-asserted Bob-context persona, received from Bob's Mia via PDN.
   Records Bob's name and his social network connection to Alice.
 mia:
-  category: "http://www.example.org/mia/categories/people"
+  category: "http://www.example.org/mia/categories/bob-johnson(people)"
   assertedBy: ":Bob_Johnson"
   subject: ":Bob_Johnson"
   about-by: "context:OBO-Context"
 graph:
-  named_graph: https://www.example.org/mia/contexts/bob-johnson.bob-johnson(bob-johnson)(02)#graph
+  named_graph: https://www.example.org/mia/contexts/bob-johnson.bob-johnson(bob-johnson)(people)(02)#graph
   rdf_version: "1.1"
 shapes:
   - http://www.example.org/shapes
@@ -33,7 +33,7 @@ This context captures Bob Johnson's self-asserted Bob-context persona, transmitt
 
 ```turtle
 <!-- databook:id: bob-bob-bob-identity -->
-<!-- databook:graph: https://www.example.org/mia/contexts/bob-johnson.bob-johnson(bob-johnson)(02)#graph -->
+<!-- databook:graph: https://www.example.org/mia/contexts/bob-johnson.bob-johnson(bob-johnson)(people)(02)#graph -->
 @prefix : <http://www.example.org/mia#> .
 @prefix persona: <http://mee.foundation/ontologies/persona#> .
 @prefix cco: <https://purl.org/cco/> .

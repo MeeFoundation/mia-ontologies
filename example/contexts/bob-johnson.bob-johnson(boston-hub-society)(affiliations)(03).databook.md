@@ -1,19 +1,19 @@
 ---
-id: https://www.example.org/mia/contexts/bob-johnson.bob-johnson(boston-hub-society)(03)
+id: https://www.example.org/mia/contexts/bob-johnson.bob-johnson(boston-hub-society)(affiliations)(03)
 title: "About Bob Johnson in the Groups context as asserted by Bob Johnson"
 type: context-databook
-version: 2.0.1
+version: 2.0.3
 created: 2026-06-15
 description: >
   Bob Johnson's BHS profile, received from Bob's Mia via PDN.
   Records Bob's name as he presents himself to the Boston Hub Society.
 mia:
-  category: "http://www.example.org/mia/categories/affiliations"
+  category: "http://www.example.org/mia/categories/boston-hub-society(affiliations)"
   assertedBy: ":Bob_Johnson"
   subject: ":Bob_Johnson"
   about-by: "context:OBO-Context"
 graph:
-  named_graph: https://www.example.org/mia/contexts/bob-johnson.bob-johnson(boston-hub-society)(03)#graph
+  named_graph: https://www.example.org/mia/contexts/bob-johnson.bob-johnson(boston-hub-society)(affiliations)(03)#graph
   rdf_version: "1.1"
 shapes:
   - http://www.example.org/shapes
@@ -33,7 +33,7 @@ This context captures Bob Johnson's BHS profile as transmitted from Bob's Mia to
 
 ```turtle
 <!-- databook:id: bob-bhs-identity -->
-<!-- databook:graph: https://www.example.org/mia/contexts/bob-johnson.bob-johnson(boston-hub-society)(03)#graph -->
+<!-- databook:graph: https://www.example.org/mia/contexts/bob-johnson.bob-johnson(boston-hub-society)(affiliations)(03)#graph -->
 @prefix : <http://www.example.org/mia#> .
 @prefix persona: <http://mee.foundation/ontologies/persona#> .
 @prefix cco: <https://purl.org/cco/> .

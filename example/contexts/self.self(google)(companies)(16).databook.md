@@ -1,19 +1,19 @@
 ---
-id: https://www.example.org/mia/contexts/self.self(google)(16)
+id: https://www.example.org/mia/contexts/self.self(google)(companies)(16)
 title: "About Alice Walker in the Companies context as asserted by Alice Walker"
 type: context-databook
-version: 2.0.2
+version: 2.0.4
 created: 2026-06-01
 description: >
   Alice Walker's Google context. Records her Gmail address as self-entered data
   about her Google account relationship.
 mia:
-  category: "http://www.example.org/mia/categories/companies"
+  category: "http://www.example.org/mia/categories/google(companies)"
   assertedBy: ":Self"
   subject: ":Self"
   about-by: "context:SBS-Context"
 graph:
-  named_graph: https://www.example.org/mia/contexts/self.self(google)(16)#graph
+  named_graph: https://www.example.org/mia/contexts/self.self(google)(companies)(16)#graph
   rdf_version: "1.1"
 shapes:
   - http://www.example.org/shapes
@@ -33,7 +33,7 @@ This context captures Alice Walker's Google account context. Alice self-enters h
 
 ```turtle
 <!-- databook:id: alice-google-identity -->
-<!-- databook:graph: https://www.example.org/mia/contexts/self.self(google)(16)#graph -->
+<!-- databook:graph: https://www.example.org/mia/contexts/self.self(google)(companies)(16)#graph -->
 @prefix : <http://www.example.org/mia#> .
 @prefix persona: <http://mee.foundation/ontologies/persona#> .
 @prefix cco: <https://purl.org/cco/> .

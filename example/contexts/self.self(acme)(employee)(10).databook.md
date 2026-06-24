@@ -1,20 +1,20 @@
 ---
-id: https://www.example.org/mia/contexts/self.self(acme)(10)
+id: https://www.example.org/mia/contexts/self.self(acme)(employee)(10)
 title: "About Alice Walker in the Employee context as asserted by Alice Walker"
 type: context-databook
-version: 2.0.2
+version: 2.0.4
 created: 2026-06-14
 description: >
   Alice Walker's JSContactCard business card persona. Records her professional contact
   details: name, work email, work phone, employer, department, job title, and LinkedIn URL.
 mia:
-  category: "http://www.example.org/mia/categories/employee"
+  category: "http://www.example.org/mia/categories/acme(employee)"
   assertedBy: ":Self"
   subject: ":Self"
   about-by: "context:SBS-Context"
   template: "persona:JSContactCard"
 graph:
-  named_graph: https://www.example.org/mia/contexts/self.self(acme)(10)#graph
+  named_graph: https://www.example.org/mia/contexts/self.self(acme)(employee)(10)#graph
   rdf_version: "1.1"
 shapes:
   - http://www.example.org/shapes
@@ -35,7 +35,7 @@ This context captures Alice Walker's professional business card in JSContactCard
 
 ```turtle
 <!-- databook:id: alice-business-card-identity -->
-<!-- databook:graph: https://www.example.org/mia/contexts/self.self(acme)(10)#graph -->
+<!-- databook:graph: https://www.example.org/mia/contexts/self.self(acme)(employee)(10)#graph -->
 @prefix : <http://www.example.org/mia#> .
 @prefix persona: <http://mee.foundation/ontologies/persona#> .
 @prefix cco: <https://purl.org/cco/> .

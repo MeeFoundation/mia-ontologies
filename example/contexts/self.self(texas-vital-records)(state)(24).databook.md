@@ -1,20 +1,20 @@
 ---
-id: https://www.example.org/mia/contexts/self.self(texas-vital-records)(24)
+id: https://www.example.org/mia/contexts/self.self(texas-vital-records)(state)(24)
 title: "About Alice Walker in the State context as asserted by Alice Walker"
 type: context-databook
-version: 2.0.4
+version: 2.0.6
 created: 2026-06-01
 description: >
   Alice Walker's Texas birth certificate context. Records her legal name (Margery Alice Walker)
   and maiden name (Margery Alice Arnold) as self-entered data.
 mia:
-  category: "http://www.example.org/mia/categories/state"
+  category: "http://www.example.org/mia/categories/texas-vital-records(state)"
   assertedBy: ":Self"
   subject: ":Self"
   about-by: "context:SBS-Context"
   template: "persona:BirthCertificate"
 graph:
-  named_graph: https://www.example.org/mia/contexts/self.self(texas-vital-records)(24)#graph
+  named_graph: https://www.example.org/mia/contexts/self.self(texas-vital-records)(state)(24)#graph
   rdf_version: "1.1"
 shapes:
   - http://www.example.org/shapes
@@ -35,7 +35,7 @@ This context captures Alice Walker's Texas birth certificate identity data. Alic
 
 ```turtle
 <!-- databook:id: alice-tx-birth-cert-identity -->
-<!-- databook:graph: https://www.example.org/mia/contexts/self.self(texas-vital-records)(24)#graph -->
+<!-- databook:graph: https://www.example.org/mia/contexts/self.self(texas-vital-records)(state)(24)#graph -->
 @prefix : <http://www.example.org/mia#> .
 @prefix persona: <http://mee.foundation/ontologies/persona#> .
 @prefix cco: <https://purl.org/cco/> .
