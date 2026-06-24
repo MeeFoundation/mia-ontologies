@@ -38,7 +38,9 @@ The Context ontology describes Contexts and Categories.
 
 A *context* is a container of information about a person related to their interactions with, or relationship to, another person, group or organization. This information is expressed as triples using the Persona, Organization, Group and Identity ontologies and stored in a **[DataBook](https://github.com/w3c-cg/holon/tree/main/architectures/databook)** (`.databook.md`) file. 
 
-The description of the context container itself is carried in the DataBook's YAML frontmatter under the `mia:` key. The context ontology (`context.ttl`) defines the controlled vocabularies that those YAML fields reference:
+Each context is a named graph of claims (properties) describing one facet of a person or organization (called the `subject` of the context). It is a self-contained set of claim data about that subject, although these claims may have originated from other contexts about the same subject. 
+
+The description of the context container itself is carried in the DataBook's YAML front matter under the `mia:` key. The context ontology (`context.ttl`) defines the controlled vocabularies that those YAML fields reference:
 
 - `mia.category` = `c:category`
 - `mia.assertedBy` = `c:assertedBy`
@@ -423,45 +425,23 @@ The Identity ontology is used to describe the kinds of identities that Mia can c
 
 This section describes the local Mia dataset for a hypothetical user, Alice Walker. All of Alice's identity data lives in context-specific files — there is no separate selfness file. The IRI `:Self` identifies her `persona:Person` individual across all of her context files.
 
-### Context File Naming Convention
-
-Context DataBook filenames follow the pattern:
-
-```
-<subject>.<asserted-by>(<containing-category>)(<NN>).databook.md
-```
-
-| Segment | Meaning |
-|---|---|
-| `<subject>` | Who the context is about. `self` when the subject is the Mia user (`:Self`); the full hyphenated lowercase name otherwise (e.g. `paula-walker`, `bob-johnson`, `bhs-group`). |
-| `<asserted-by>` | Who recorded the data. `self` when the asserter is `:Self`; the full hyphenated lowercase name otherwise (e.g. `bob-johnson`, `citibank`); the literal `members` for group contexts where any member may write. |
-| `(<containing-category>)` | The filename root of the category DataBook that directly holds the `obs`, `sbs`, `obo`, or `sbo` link pointing to this context (e.g. `(paula-walker)`, `(bob-johnson)`, `(boston-hub-society)`, `(acme)`, `(citibank)`). This is often a user-defined category DataBook — it is NOT the `mia.category` IRI local name of the predefined category. |
-| `(<NN>)` | Zero-padded two-digit context number in parentheses. |
-
-The document IRI uses the same local name under the `https://www.example.org/mia/contexts/` base. For example, `self.citibank(citibank)(09).databook.md` has `id: https://www.example.org/mia/contexts/self.citibank(citibank)(09)`.
-
-Examples:
-
-| File | Subject | Asserted by | Containing category DataBook |
-|---|---|---|---|
-| `self.self(paula-walker)(employee)(20).databook.md` | Self (Alice) | Self (Alice) | `paula-walker(acme).databook.md` |
-| `paula-walker.self(paula-walker)(family)(07).databook.md` | Paula Walker | Self (Alice) | `paula-walker(family).databook.md` |
-| `self.bob-johnson(bob-johnson)(08).databook.md` | Self (Alice) | Bob Johnson | `bob-johnson(people).databook.md` |
-| `bob-johnson.bob-johnson(boston-hub-society)(03).databook.md` | Bob Johnson | Bob Johnson | `boston-hub-society(affiliations).databook.md` |
-| `bhs-group.members(boston-hub-society)(01).databook.md` | BHS Group | members (group) | `boston-hub-society(affiliations).databook.md` |
-
 ### Alice's Categories and Contexts
 
-Alice interacts with other people, organizations and groups in contexts of different types, with each context file holding a named-graph slice of her identity. All context files are loaded into the triplestore together.
+Alice interacts with other people, organizations and groups in contexts of different types, with each context file holding a named-graph slice of her identity. Contexts are linked to by categories that are organized into a tree structure. All context files are loaded into the triplestore together.
 
-All context files reside in Alice's Mia. Some are authored by Alice (self-asserted data she entered directly); others are data received from peers over PDN and stored locally. In either case, Alice is the Mia user, so her `persona:Person` individual uses the IRI `:Self` across all of her context files. Other people — Bob Johnson, Paula Walker — and groups such as BHS use locally-assigned named IRIs (e.g. `:Bob_Johnson`, `:Paula_Walker`, `:BHS`). When data arrives from a peer's Mia (where that peer was `:Self` in their own instance), Alice's Mia assigns them a locally-minted identifier; once a PDN connection is established, that identifier resolves to their PDN ID.
+All of Alice's context DataBooks are in `example/contexts.` Some are authored by Alice (self-asserted data--data she entered herself into her Mia app); others are data received from peer Mia users or organizational peers over PDN and stored locally. In either case, Alice is the Mia user, so the `persona:Person` that represents her uses the IRI `:Self` across all of her context files. Other people — Bob Johnson, Paula Walker — and groups such as BHS use locally-assigned named IRIs (e.g. `:Bob_Johnson`, `:Paula_Walker`, `:BHS`). When data arrives from a peer's Mia (where that peer was `:Self` in their own instance), Alice's Mia assigns them a locally-minted identifier; once a PDN connection is established, that identifier resolves to their PDN ID.
 
 Alice's category DataBooks are all in `example/categories/`. The full tree can be walked starting from `example/categories/categories.databook.md`. It contains two kinds of entries:
 
 - **Copies of predefined canonical categories** (`mia.predefined: true`) — one for each of the 14 top-level categories and their subcategories. Each copy carries a `copiedFrom:` property pointing to the corresponding canonical IRI (e.g. `copiedFrom: "http://mee.foundation/ontologies/categories/people"`). Context links (`c:sbs`, `c:obs`, `c:obo`, `c:sbo`) to Alice's contexts are attached here, not in the canonical tree.
 - **User-defined categories** (`mia.predefined: false`) — one per specific person, company, government agency, or group Alice interacts with (e.g. `bob-johnson(people)`, `acme(employee)`, `citibank(financial-services)`).
 
-The following diagrams map out the categories and contexts used in our Alice example. We start with the People category--Alice's relationships with Bob and Paula. Note that Alice has put Bob in the general People category, rather than in Friends, Family or Consultants. We're not sure why she did this, but the example shows it's permissible. Note that the contexts with dotted outlines are context "slots" in the category — Alice could fill a context in any of these placeholder slots if she wishes to, and the claims in the context would flow downwards (although they can also be overridden) by lower-level categories and contexts:
+#### Category and Context Diagrams
+
+The following sequence of diagrams maps out the categories and contexts of our Alice example. We start with the People category--Alice's relationships with someone she knows named Bob Johnson and her mother Paula Walker. Alice has placed Bob in the general People category, rather than in Friends. We're not sure why she did this, but the example shows its permissible and up to Alice. 
+
+Contexts with dotted outlines are placeholders for contexts in category — Alice could fill a context in any of these placeholders if she wishes, and the claims in the context. 
+
 
 <p align="center"><img src="example/images/people.png" alt="People categories"></p>
 
