@@ -105,7 +105,7 @@ Here are the predefined categories:
    - For financial service providers see Finance > Financial Services.
    - For home utility providers see Home.
 4. **Finances** — information about personal finances, bookkeeping, budgets, payment cards, bank accounts, IOUs, accountants, bookkeepers, financial advisors. 
-    - **FinancialServices** — relationship with banks or other financial services institution.
+    - **Financial Services** — relationship with banks or other financial services institution.
 5. **Health** — personal health and wellness information. Medical history, allergies, medications, blood type, primary care physician, nurses, physical therapists, health insurance policies and cards, vaccinations.
     - **Healthcare** — relationship with healthcare providers or health insurance companies.
 6. **Events** — participation in or relationship to a specific event.
@@ -133,7 +133,7 @@ Each node in the `c:Category` hierarchy is represented by a **category DataBook*
 
 Each Mia user instance maintains its own parallel category tree in a separate directory. No links of any kind (`c:child`, `c:sbs`, `c:obs`, `c:obo`, `c:sbo`) cross from the canonical tree into a user's instance tree. A user's instance tree contains copies of the predefined canonical categories (each with a `copiedFrom:` property pointing to the canonical IRI) alongside any user-defined categories they have created. Context links (`c:sbs`, `c:obs`, `c:obo`, `c:sbo`) appear only in a user's instance tree, not in the canonical tree.
 
-**Predefined vs. user-defined**: Categories with `mia.predefined: true` correspond to `c:Predefined` subclasses shipped with Mia. The class IRI is derived from the DataBook title by removing spaces (e.g. title `"FinancialServices"` → class `context:FinancialServices`). Categories with `mia.predefined: false` are `c:UserDefined` instances created by the Mia user to organize their own contexts (e.g. a specific person, company, or place).
+**Predefined vs. user-defined**: Categories with `mia.predefined: true` correspond to `c:Predefined` subclasses shipped with Mia. The class IRI is derived from the DataBook title by removing spaces (e.g. title `"Financial Services"` → class `context:FinancialServices`). Categories with `mia.predefined: false` are `c:UserDefined` instances created by the Mia user to organize their own contexts (e.g. a specific person, company, or place).
 
 **Context links**: Each category DataBook in a user's instance tree may carry up to four optional links to context DataBook IRIs, corresponding to the four `c:Context` subtypes:
 
@@ -516,7 +516,7 @@ The following table lists contexts that are *about* Alice but asserted by others
 | #  | DataBook file                                                                         | Context type | Key data                             | Diagram |
 |--- |:-------------------------------------------------------------------------------------|:-------------|:-------------------------------------|:--------|
 | 8  | [self.bob-johnson(bob-johnson)(08)](example/contexts/self.bob-johnson(bob-johnson)(08).databook.md)                         | People            | Alice as seen by Bob                 | [view](example/contexts/images/self.bob-johnson(bob-johnson)(08).png)|
-| 9 | [self.citibank(citibank)(09)](example/contexts/self.citibank(citibank)(09).databook.md)     | FinancialServices | Debit card                           | [view](example/contexts/images/self.citibank(citibank)(09).png) |
+| 9 | [self.citibank(citibank)(09)](example/contexts/self.citibank(citibank)(09).databook.md)     | Financial Services | Debit card                           | [view](example/contexts/images/self.citibank(citibank)(09).png) |
 
 The following table lists contexts about other people (Paula and Bob) or groups (Boston Hub Society) in Alice's Mia. All files are in `example/contexts/`.
 

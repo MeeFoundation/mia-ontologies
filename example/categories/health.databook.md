@@ -9,5 +9,6 @@ description: >
 mia:
   predefined: true
   copiedFrom: "http://mee.foundation/ontologies/categories/health"
+  sbs: "https://www.example.org/mia/contexts/self.self(health)(17)"
   child: "http://www.example.org/mia/categories/healthcare(health)"
 ---

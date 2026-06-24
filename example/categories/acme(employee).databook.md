@@ -10,5 +10,5 @@ description: >
 mia:
   predefined: false
   sbs: "https://www.example.org/mia/contexts/self.self(acme)(10)"
-  child: "http://www.example.org/mia/categories/paula-walker(acme)"
+  child: "http://www.example.org/mia/categories/people(acme)"
 ---
