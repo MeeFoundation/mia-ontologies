@@ -28,7 +28,9 @@ Throughout, we use these shorthands:
 
 We first present an overview of the ontologies and then illustrate their use through a sample dataset for a hypothetical user, Alice Walker.
 
-## Context Ontology: Categories and Contexts
+## Context Ontology
+
+The Context ontology describes Contexts and Categories.
 
 ### Contexts
 
