@@ -100,7 +100,7 @@ This context captures Alice Walker's US passport identity data. Alice self-enter
 
     <https://purl.org/cco/ont00001879> [  # designated by → IssuingCountry
         rdf:type persona:IssuingCountry ;
-        <https://purl.org/cco/ont00001765> "United States of America"
+        <https://purl.org/cco/ont00001765> "USA"
     ] ;
 
     # ── Place of birth ───────────────────────────────────────────────────────

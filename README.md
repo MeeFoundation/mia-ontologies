@@ -577,7 +577,7 @@ Expected output: `Conforms`
 
 ### Tier 2 — per-template validation (individual context files)
 
-The `shacl/` shapes use `sh:targetClass persona:Person`, which would incorrectly fire on every person slice if applied to the full merged dataset. Each template SHACL file is run against only the relevant context file merged with the foundation ontologies.
+The `shacl/` shapes target document classes (`persona:BirthCertificate`, `persona:DriversLicense`, `persona:Passport`) or `persona:Person` (JSContactCard). Each template SHACL file is run against only the relevant context file merged with the foundation ontologies.
 
 ```bash
 # Shared base: foundation ontologies + application ontologies

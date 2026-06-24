@@ -11,28 +11,28 @@ flowchart TD
     end
 
     n1e9b86ff4c78[":Alice_US_Passport\n(Passport)"]
-    n917bfe1ce203("Margery"):::lit
-    na6d8ec642836("Alice"):::lit
-    nf444f017a7d6("Walker"):::lit
-    nefbd67954f96("1985-07-04"):::lit
-    n37d937576920("2021-07-04"):::lit
-    n9376a677dda1("2031-07-04"):::lit
-    n7858cc723ecb("123456789"):::lit
-    n187ac49d58bd("United States of America"):::lit
-    na9b977cfb917("Austin, Texas, USA"):::lit
-    nae5e60f58ea6("F"):::lit
+    nb4e2a54a5cbc("Margery"):::lit
+    n17f2e5e65c4d("Alice"):::lit
+    naa195de1fa6a("Walker"):::lit
+    n768accf4c818("1985-07-04"):::lit
+    n4fe1834871f3("2021-07-04"):::lit
+    nd5944e04d2b6("2031-07-04"):::lit
+    nc7454bc8af6d("123456789"):::lit
+    n337cbf9749ef("USA"):::lit
+    nd14946288f88("Austin, Texas, USA"):::lit
+    na9331a836a9f("F"):::lit
     n0b3af7b5a715("https://example.org/alice-passport-photo.jpg"):::lit
     ne0c3ba92f1db[":Self\n(Person)"]:::person
 
-    n1e9b86ff4c78 -->|"GivenName"| n917bfe1ce203
-    n1e9b86ff4c78 -->|"AdditionalName"| na6d8ec642836
-    n1e9b86ff4c78 -->|"FamilyName"| nf444f017a7d6
-    n1e9b86ff4c78 -->|"ent00000046"| nefbd67954f96
-    n1e9b86ff4c78 -->|"IssueDate"| n37d937576920
-    n1e9b86ff4c78 -->|"ExpirationDate"| n9376a677dda1
-    n1e9b86ff4c78 -->|"PassportNumber"| n7858cc723ecb
-    n1e9b86ff4c78 -->|"IssuingCountry"| n187ac49d58bd
-    n1e9b86ff4c78 -->|"PlaceOfBirth"| na9b977cfb917
-    n1e9b86ff4c78 -->|"GenderMarker"| nae5e60f58ea6
+    n1e9b86ff4c78 -->|"GivenName"| nb4e2a54a5cbc
+    n1e9b86ff4c78 -->|"AdditionalName"| n17f2e5e65c4d
+    n1e9b86ff4c78 -->|"FamilyName"| naa195de1fa6a
+    n1e9b86ff4c78 -->|"ent00000046"| n768accf4c818
+    n1e9b86ff4c78 -->|"IssueDate"| n4fe1834871f3
+    n1e9b86ff4c78 -->|"ExpirationDate"| nd5944e04d2b6
+    n1e9b86ff4c78 -->|"PassportNumber"| nc7454bc8af6d
+    n1e9b86ff4c78 -->|"IssuingCountry"| n337cbf9749ef
+    n1e9b86ff4c78 -->|"PlaceOfBirth"| nd14946288f88
+    n1e9b86ff4c78 -->|"GenderMarker"| na9331a836a9f
     n1e9b86ff4c78 -->|"hasPhoto"| n0b3af7b5a715
     ne0c3ba92f1db -->|"hasIdentityDocument"| n1e9b86ff4c78
