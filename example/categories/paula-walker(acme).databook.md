@@ -1,6 +1,6 @@
 ---
 id: http://www.example.org/mia/categories/paula
-title: "Paula"
+title: "Paula Walker"
 type: category-databook
 version: 1.0.0
 created: 2026-06-23
