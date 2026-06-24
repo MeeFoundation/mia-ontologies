@@ -25,6 +25,8 @@ Throughout, we use these shorthands:
 - `o:` for the `organization:` namespace (`http://mee.foundation/ontologies/organization#`).
 - `g:` for the `group:` namespace (`http://mee.foundation/ontologies/group#`)
 - `i:` for the `identity:` namespace (`http://mee.foundation/ontologies/pdn-identity#`)
+- `ako` for `rdfs:subClassOf` ("a kind of")
+- `isa` for 'rdf:type` ("is a")
 
 We first present an overview of the ontologies and then illustrate their use through a sample dataset for a hypothetical user, Alice Walker.
 
