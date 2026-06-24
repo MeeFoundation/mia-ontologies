@@ -419,6 +419,33 @@ The Identity ontology is used to describe the kinds of identities that Mia can c
 
 This section describes the local Mia dataset for a hypothetical user, Alice Walker. All of Alice's identity data lives in context-specific files — there is no separate selfness file. The IRI `:Self` identifies her `persona:Person` individual across all of her context files.
 
+### Context File Naming Convention
+
+Context DataBook filenames follow the pattern:
+
+```
+<subject>.<asserted-by>(<containing-category>)(<NN>).databook.md
+```
+
+| Segment | Meaning |
+|---|---|
+| `<subject>` | Who the context is about. `self` when the subject is the Mia user (`:Self`); a short lowercase identifier otherwise (e.g. `paula`, `bob`, `bhs`). |
+| `<asserted-by>` | Who recorded the data. `self` when the asserter is `:Self`; a short lowercase identifier otherwise (e.g. `bob`, `citibank`); the literal `members` for group contexts where any member may write. |
+| `(<containing-category>)` | The lowercase local name of the `mia.category` IRI (e.g. `(employee)`, `(family)`, `(affiliations)`). |
+| `(<NN>)` | Zero-padded two-digit context number in parentheses. |
+
+The document IRI uses the same local name under the `http://www.example.org/mia/` base. For example, `self.citibank(financial-services)(10).databook.md` has `id: http://www.example.org/mia/self.citibank(financial-services)(10)`.
+
+Examples:
+
+| File | Subject | Asserted by | Category |
+|---|---|---|---|
+| `self.self(employee)(20).databook.md` | Self (Alice) | Self (Alice) | employee |
+| `paula.self(family)(02).databook.md` | Paula Walker | Self (Alice) | family |
+| `self.bob(people)(04).databook.md` | Self (Alice) | Bob Johnson | people |
+| `bob.bob(affiliations)(09).databook.md` | Bob Johnson | Bob Johnson | affiliations |
+| `bhs.members(affiliations)(08).databook.md` | BHS Group | members (group) | affiliations |
+
 ### Alice's Categories and Contexts
 
 Alice interacts with other people, organizations and groups in contexts of different types, with each context file holding a named-graph slice of her identity. All context files are loaded into the triplestore together.
