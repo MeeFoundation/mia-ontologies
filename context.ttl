@@ -11,7 +11,7 @@
     owl:versionIRI <http://mee.foundation/ontologies/context/1.0.1> ;
     dc:date "2026-06-01"^^xsd:date ;
     owl:imports <http://mee.foundation/ontologies/pdn-identity> ;
-    owl:versionInfo "Version 1.0.62 - rename Groups to Affiliations; add Legal and Travel"@en ;
+    owl:versionInfo "Version 1.0.63 - rename context:Notes to context:Information"@en ;
     rdfs:label "Context Ontology"@en ;
     rdfs:comment """Context and Category Ontology for the Mee Identity Agent"""@en .
 
@@ -291,13 +291,13 @@ context:Municipality rdf:type owl:Class ;
 #    c:Note Contexts and subclasses
 ################################################################# 
 
-context:Notes rdf:type owl:Class ;
+context:Information rdf:type owl:Class ;
     rdfs:subClassOf context:Predefined ;
-    rdfs:label "Notes"@en ;
+    rdfs:label "Information"@en ;
     rdfs:comment "Notes about topics not covered by any other context category."@en .
 
 context:Learnings rdf:type owl:Class ;
-    rdfs:subClassOf context:Notes ;
+    rdfs:subClassOf context:Information ;
     rdfs:label "Learnings"@en ;
     rdfs:comment "Knowledge gained from personal experience"@en .
 

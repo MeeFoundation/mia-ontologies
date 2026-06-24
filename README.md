@@ -114,7 +114,7 @@ Here are the predefined categories:
     - **Federal** — federal government context (e.g. passport, federal tax records).
     - **State** — state government context (e.g. driver's license, state tax records).
     - **Municipality** — municipal government context (e.g. local permits, library card).
-8. **Notes** — general knowledge selected by you, web links, documents, images
+8. **Information** — general knowledge selected by you, web links, documents, images
     - **Learnings** — knowledge gained through personal experience.
 9. **Possessions** — owned assets, property, vehicles, and other possessions.
     - **Vehicles** — owning and maintaining a vehicle. Vehicle insurance, repairs, mechanics, garages.
