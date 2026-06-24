@@ -79,9 +79,9 @@ As shown in the diagram below, categories may be `c:Predefined` or `c:UserDefine
 
 <p align="center"><img src="images/context-ontology/category.png" alt="Category hierarchy"></p>
 
-All categories have a `c:sbs` link to a context (or category) that is about the other party as asserted by the self (user). User-defined categories have three additional (optional) kinds of links to contexts: 
+All categories have a `c:sbs` link to a context (or category) that is about the self as asserted by the self (user). User-defined categories have three additional (optional) kinds of links to contexts: 
 
-- `c:obs` - a context about the self as asserted by the self.
+- `c:obs` - a context about the other party as asserted by the self.
 - `c:sbo` - a context about the self as asserted by the other party.
 - `c:obo` - a context about the other party as asserted by the other party.
 
