@@ -10,4 +10,7 @@ description: >
 mia:
   predefined: false
   obs: "http://www.example.org/mia/paula(acme)alice"
+  sbs:
+    - "http://www.example.org/mia/alice(acme)alice"
+    - "http://www.example.org/mia/alice(business-card)alice"
 ---
