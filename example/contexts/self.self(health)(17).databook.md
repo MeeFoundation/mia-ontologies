@@ -1,5 +1,5 @@
 ---
-id: http://www.example.org/mia/self.self(health)(24)
+id: http://www.example.org/mia/self.self(health)(17)
 title: "About Alice Walker in the Health context as asserted by Alice Walker"
 type: context-databook
 version: 1.0.0
@@ -13,7 +13,7 @@ mia:
   subject: ":Self"
   about-by: "context:SBS-Context"
 graph:
-  named_graph: http://www.example.org/mia/self.self(health)(24)#graph
+  named_graph: http://www.example.org/mia/self.self(health)(17)#graph
   rdf_version: "1.1"
 shapes:
   - http://www.example.org/shapes
@@ -33,7 +33,7 @@ This context captures Alice Walker's physical body characteristics — propertie
 
 ```turtle
 <!-- databook:id: alice-health-identity -->
-<!-- databook:graph: http://www.example.org/mia/self.self(health)(24)#graph -->
+<!-- databook:graph: http://www.example.org/mia/self.self(health)(17)#graph -->
 @prefix : <http://www.example.org/mia#> .
 @prefix persona: <http://mee.foundation/ontologies/persona#> .
 @prefix cco: <https://purl.org/cco/> .

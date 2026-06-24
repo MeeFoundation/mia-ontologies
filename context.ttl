@@ -92,6 +92,22 @@ context:Category rdf:type owl:Class ;
     rdfs:comment """Controlled vocabulary for categories of contexts.
                     Used as the value of context:category on DataBook named graph IRIs."""@en .
 
+context:child rdf:type owl:ObjectProperty ;
+    rdfs:domain context:Category ;
+    rdfs:range context:Category ;
+    rdfs:label "child"@en ;
+    rdfs:comment "Links a category to a more specific child category."@en .
+
+context:sbs rdf:type owl:ObjectProperty ;
+    rdfs:domain context:Category ;
+    rdfs:range context:Context ;
+    rdfs:label "self-by-self"@en ;
+    rdfs:comment "Links a category to a context DataBook where both subject and assertedBy are :Self — the Mia user is both the subject of and the asserter of the data."@en .
+
+
+#################################################################
+#    Category subclasses: Predefined and UserDefined
+#################################################################
 
 context:Predefined rdf:type owl:Class ;
     rdfs:subClassOf context:Category ;
@@ -103,11 +119,9 @@ context:UserDefined rdf:type owl:Class ;
     rdfs:label "UserDefined"@en ;
     rdfs:comment "Superclass of context categories defined by the Mia user."@en .
 
-context:sbs rdf:type owl:ObjectProperty ;
-    rdfs:domain context:Category ;
-    rdfs:range context:Context ;
-    rdfs:label "self-by-self"@en ;
-    rdfs:comment "Links a category to a context DataBook where both subject and assertedBy are :Self — the Mia user is both the subject of and the asserter of the data."@en .
+#################################################################
+#    UserDefined properties
+#################################################################
 
 context:sbo rdf:type owl:ObjectProperty ;
     rdfs:domain context:UserDefined ;
@@ -128,14 +142,12 @@ context:obs rdf:type owl:ObjectProperty ;
     rdfs:label "other-by-self"@en ;
     rdfs:comment "Links a user-defined category to either a c:Category or a c:OBS-Context DataBook (subject is another person/org/group, assertedBy is :Self)."@en .
 
-context:child rdf:type owl:ObjectProperty ;
-    rdfs:domain context:Category ;
-    rdfs:range context:Category ;
-    rdfs:label "child"@en ;
-    rdfs:comment "Links a category to a more specific child category."@en .
+#################################################################
+#    Predefined subclasses
+#################################################################
 
 #################################################################
-#    c:Affiliations Contexts and subclasses
+#    c:Affiliations and subclasses
 #################################################################
 
 
@@ -146,7 +158,7 @@ context:Affiliations rdf:type owl:Class ;
 
 
 #################################################################
-#    c:People Contexts and subclasses
+#    c:People and subclasses
 #################################################################
 
 context:People rdf:type owl:Class ;
@@ -175,7 +187,7 @@ context:Consultants rdf:type owl:Class ;
     rdfs:comment "Interactions with consultants who provide services."@en .
 
 #################################################################
-#    c:Work Contexts and subclasses
+#    c:Work and subclasses
 #################################################################
 
 context:Work rdf:type owl:Class ;
@@ -200,7 +212,7 @@ context:Creator rdf:type owl:Class ;
 
 
 #################################################################
-#    c:Companies Contexts and subclasses
+#    c:Companies 
 #################################################################
 
 context:Companies rdf:type owl:Class ;
@@ -209,10 +221,8 @@ context:Companies rdf:type owl:Class ;
     rdfs:comment "Relationship with a specific company or other institution."@en .
 
 
-
-
 #################################################################
-#    c:Finances Context (personal finance, no institution)
+#    c:Finances
 #################################################################
 
 context:Finances rdf:type owl:Class ;
@@ -226,7 +236,7 @@ context:FinancialServices rdf:type owl:Class ;
     rdfs:comment "Relationship with a bank or other financial services institution."@en .
 
 #################################################################
-#    c:Health Context (personal wellness, no provider)
+#    c:Health 
 #################################################################
 
 context:Health rdf:type owl:Class ;
@@ -240,7 +250,7 @@ context:Healthcare rdf:type owl:Class ;
     rdfs:comment "Relationship with a healthcare provider or health insurance company."@en .
 
 #################################################################
-#    c:Event Contexts and subclasses
+#    c:Event and subclasses
 #################################################################    
 
 context:Events rdf:type owl:Class ;
@@ -288,7 +298,7 @@ context:Municipality rdf:type owl:Class ;
     rdfs:comment "Municipal government context (e.g. local permits, library card)."@en .
 
 #################################################################
-#    c:Note Contexts and subclasses
+#    c:Note and subclasses
 ################################################################# 
 
 context:Information rdf:type owl:Class ;
@@ -302,7 +312,7 @@ context:Learnings rdf:type owl:Class ;
     rdfs:comment "Knowledge gained from personal experience"@en .
 
 #################################################################
-#    c:Possessions Contexts and subclasses
+#    c:Possessions and subclasses
 ################################################################# 
 
 context:Possessions rdf:type owl:Class ;
@@ -326,7 +336,7 @@ context:Home rdf:type owl:Class ;
     rdfs:comment "Owning or renting a home or other dwelling."@en .
 
 #################################################################
-#    c:Project Contexts and subclasses
+#    c:Project and subclasses
 ################################################################# 
 
 context:Projects rdf:type owl:Class ;
@@ -335,7 +345,7 @@ context:Projects rdf:type owl:Class ;
     rdfs:comment "Involvement in a specific project or initiative."@en .
 
 #################################################################
-#    c:Legal Context
+#    c:Legal 
 #################################################################
 
 context:Legal rdf:type owl:Class ;
@@ -344,7 +354,7 @@ context:Legal rdf:type owl:Class ;
     rdfs:comment "Legal matters, contracts, agreements, and professional legal relationships."@en .
 
 #################################################################
-#    c:Travel Context
+#    c:Travel 
 #################################################################
 
 context:Travel rdf:type owl:Class ;

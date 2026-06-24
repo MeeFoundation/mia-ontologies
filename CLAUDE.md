@@ -6,8 +6,8 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 This is an **RDF/OWL ontology project** — a formal semantic knowledge model for representing natural people's identity data in the Mee Identity Agent (MIA). It comprises two peer application ontologies:
 
-- **Persona ontology** (`persona.ttl`): models identity data — names, addresses, identifiers, relationships, payment cards, and more — structured around context-specific `Persona` instances linked to a central `Person` entity. Imports and profiles existing domain ontologies, documenting which of their classes and properties Mee uses, and extends them with Mia-specific terms.
-- **Context ontology** (`context.ttl`): defines controlled vocabularies for classifying context files — what broad category of interaction is involved (`contextType`), who asserted the data (`assertionType`), and whose identity the file describes (`subject`).
+- **Persona ontology** (`persona.ttl`): models identity data — names, addresses, identifiers, relationships, payment cards, and more — structured around context-specific `Person` instances. Imports and profiles existing domain ontologies, documenting which of their classes and properties Mee uses, and extends them with Mia-specific terms.
+- **Context ontology** (`context.ttl`): defines controlled vocabularies for classifying context files — what broad category of interaction is involved (`category`), who asserted the data (`assertedBy`), and whose identity the file describes (`subject`).
 
 There are no build, compile, test, or lint commands. The files are Turtle (`.ttl`) loaded into semantic web tools (Protégé).
 
@@ -16,40 +16,43 @@ There are no build, compile, test, or lint commands. The files are Turtle (`.ttl
 | File | Purpose |
 |------|---------|
 | `persona.ttl` | Persona ontology — imports domain ontologies, annotates which classes/properties are required vs. optional for Mee, defines Mia-specific classes and properties |
-| `context.ttl` | Context ontology — controlled vocabularies for classifying context files (`contextType`, `assertionType`, `subject`) |
+| `context.ttl` | Context ontology — controlled vocabularies for classifying context files (`category`, `assertedBy`, `subject`, `about-by`) |
 | `persona-shacl.ttl` | SHACL validation shapes — constraint rules for all `persona:Person` instances (SSN format, address cardinality, payment cards, wallet, social network, etc.) |
-| `persona-templates.ttl` | Persona template labels — defines `p:PersonaTemplate` (abstract classification superclass) and concrete label subclasses `p:BirthCertificate`, `p:JSContactCard`, `p:DriversLicense`; also defines related designator classes (`persona:DriversLicenseNumber`, `persona:IssuingJurisdiction`, `persona:Credential`, `persona:WebURL`, `persona:OrganizationUnit`, `persona:JobTitle`), complex classes (`persona:Anniversary`, `persona:PersonalInfo`), and properties (`persona:hasAnniversary`, `persona:hasPhoto`, etc.) |
+| `persona-templates.ttl` | Persona template labels — defines `p:PersonaTemplate` (abstract classification superclass) and concrete label subclasses `p:BirthCertificate`, `p:JSContactCard`, `p:DriversLicense`, `p:Passport`; also defines related designator classes (`persona:DriversLicenseNumber`, `persona:IssuingJurisdiction`, `persona:PassportNumber`, `persona:IssuingCountry`, `persona:PlaceOfBirth`, `persona:GenderMarker`, `persona:IssueDate`, `persona:Credential`, `persona:WebURL`, `persona:OrganizationUnit`, `persona:JobTitle`), complex classes (`persona:Anniversary`, `persona:PersonalInfo`), and properties (`persona:hasAnniversary`, `persona:hasPhoto`, etc.) |
 | `shacl/birthcertificate-shacl.ttl` | Per-template SHACL shapes for birth certificate context files — run against the individual context file, not merged data |
 | `shacl/jscontactcard-shacl.ttl` | Per-template SHACL shapes for JSContactCard context files — run against the individual context file, not merged data |
 | `shacl/driverslicense-shacl.ttl` | Per-template SHACL shapes for driver's license context files — run against the individual context file, not merged data |
+| `shacl/passport-shacl.ttl` | Per-template SHACL shapes for passport context files — run against the individual context file, not merged data |
 | `project_files/` | Reference materials: imported domain ontologies (PersonOntology.ttl, AddressOntology.ttl, StagingOntology.ttl), BFO/CCO source files, PDFs, docs |
 
 ## Example Files
 
 | File | Purpose |
 |------|---------|
-| `example/contexts/01-paula(acme)alice.databook.md` | Paula Walker as Alice's Acme colleague — asserted by Alice |
-| `example/contexts/02-paula(familymember)alice.databook.md` | Paula Walker as Alice's family member — name and relationship; asserted by Alice |
-| `example/contexts/03-paula(familymember)paula.databook.md` | Paula Walker in family context — self-asserted; dyad with 02 |
-| `example/contexts/04-alice(bob)bob.databook.md` | Alice Walker in Bob context — Bob's view of Alice with personal notes |
-| `example/contexts/05-bob(bob)alice.databook.md` | Bob Johnson in Bob context — Alice's view of Bob with personal notes; dyad with 06 |
-| `example/contexts/06-bob(bob)bob.databook.md` | Bob Johnson in Bob context — self-asserted name; dyad with 05 |
-| `example/contexts/07-alice(bhs)alice.databook.md` | Alice Walker's Boston Hub Society profile — address and phone |
-| `example/contexts/08-bhs(bhs)members.databook.md` | Boston Hub Society — g:Group instance with Alice and Bob as members |
-| `example/contexts/09-bob(bhs)bob.databook.md` | Bob Johnson's Boston Hub Society profile — name; self-asserted |
-| `example/contexts/10-alice(citibank)citibank.databook.md` | Alice's Citibank Persona — payment card |
-| `example/contexts/11-alice(google)alice.databook.md` | Alice's Google Persona — email address |
-| `example/contexts/12-alice(att)alice.databook.md` | Alice's AT&T Persona — phone number |
-| `example/contexts/13-alice(tx-birth-cert)alice.databook.md` | Alice's Texas Birth Certificate Persona — legal name record |
-| `example/contexts/14-alice(paradise)alice.databook.md` | Alice's Paradise Persona — current residential address |
-| `example/contexts/15-alice(boston)alice.databook.md` | Alice's Boston Persona — residential address 2020–2025 |
-| `example/contexts/16-alice(ssa)alice.databook.md` | Alice's SSA Persona — Social Security Number |
-| `example/contexts/17-alice(bob)alice.databook.md` | Alice Walker in Bob context — Alice's self-asserted persona shown to Bob; dyad with 04 |
-| `example/contexts/18-alice(familymember)alice.databook.md` | Alice's Family Persona — family relationships and social network |
-| `example/contexts/19-alice(possessions)alice.databook.md` | Alice's Possessions Persona — wallet, health insurance card, SSN card |
-| `example/contexts/20-alice(acme)alice.databook.md` | Alice's Acme Persona — employee context; social network with Paula |
-| `example/contexts/21-alice(business-card)alice.databook.md` | Alice's Business Card Persona — employer, job title, email, phone |
-| `example/contexts/22-alice(driverslicense)alice.databook.md` | Alice's Driver's License Persona — legal name, DOB, license number, expiration date |
+| `example/contexts/paula-walker.self(paula-walker)(employee)(06).databook.md` | Paula Walker as Alice's Acme colleague — asserted by Alice |
+| `example/contexts/paula-walker.self(paula-walker)(family)(07).databook.md` | Paula Walker as Alice's family member — asserted by Alice |
+| `example/contexts/paula-walker.paula-walker(paula-walker)(05).databook.md` | Paula Walker's own family persona; social network with Alice |
+| `example/contexts/self.bob-johnson(bob-johnson)(08).databook.md` | Alice Walker as seen by Bob Johnson — asserted by Bob |
+| `example/contexts/bob-johnson.self(bob-johnson)(04).databook.md` | Alice's notes about Bob Johnson; favorite drink: oat milk cappuccino |
+| `example/contexts/bob-johnson.bob-johnson(bob-johnson)(02).databook.md` | Bob Johnson's self-asserted persona; social network with Alice |
+| `example/contexts/self.self(boston-hub-society)(14).databook.md` | Alice's Boston Hub Society profile — email, phone, and current address |
+| `example/contexts/bhs-group.members(boston-hub-society)(01).databook.md` | BHS Group — g:Group instance with Alice and Bob as members |
+| `example/contexts/bob-johnson.bob-johnson(boston-hub-society)(03).databook.md` | Bob Johnson's BHS member persona — name, email, phone, address |
+| `example/contexts/self.citibank(citibank)(09).databook.md` | Alice's Citibank context — debit card; asserted by Citibank |
+| `example/contexts/self.self(google)(16).databook.md` | Alice's Google context — Gmail address |
+| `example/contexts/self.self(att)(11).databook.md` | Alice's AT&T context — phone number |
+| `example/contexts/self.self(texas-vital-records)(24).databook.md` | Alice's Texas birth certificate — legal names, maiden name |
+| `example/contexts/self.self(paradise)(18).databook.md` | Alice's Paradise, CA address — current residence (2025–present) |
+| `example/contexts/self.self(boston)(13).databook.md` | Alice's Boston, MA address — previous residence (2020–2025) |
+| `example/contexts/self.self(social-security-administration)(23).databook.md` | Alice's Social Security Number |
+| `example/contexts/self.self(bob-johnson)(12).databook.md` | Alice's 1:1 context with Bob; social network with Bob as member |
+| `example/contexts/self.self(paula-walker)(family)(21).databook.md` | Alice's family context — social network with Paula Walker as member |
+| `example/contexts/self.self(possessions)(22).databook.md` | Alice's possessions — wallet, health insurance card, SSN card |
+| `example/contexts/self.self(paula-walker)(employee)(20).databook.md` | Alice's Acme employee context; social network with Paula Walker |
+| `example/contexts/self.self(acme)(10).databook.md` | Alice's business card (JSContactCard) — name, email, phone, employer, job title |
+| `example/contexts/self.self(california-dmv)(15).databook.md` | Alice's California driver's license — legal name, DOB, DL#, expiry, photo |
+| `example/contexts/self.self(passport)(19).databook.md` | Alice's US passport — legal name, DOB, passport#, issue/expiry, place of birth, gender marker, photo |
+| `example/contexts/self.self(health)(17).databook.md` | Alice's physical characteristics — height, eye color, hair color |
 | `example/contexts/under-development/paula(fl-birth-cert)alice.ttl` | Paula Walker's Florida Birth Certificate Persona — legal name record (under development) |
 
 ## Architecture
@@ -62,22 +65,23 @@ Triplestore (Fuseki) — loads all DataBook files directly:
   │   ├─ PersonOntology.ttl
   │   ├─ AddressOntology.ttl
   │   └─ StagingOntology.ttl → BFO terms
-  ├─ example/contexts/01-paula(acme)alice.databook.md
-  ├─ example/contexts/02-paula(familymember)alice.databook.md
+  ├─ example/contexts/paula-walker.self(paula-walker)(employee)(06).databook.md
+  ├─ example/contexts/paula-walker.self(paula-walker)(family)(07).databook.md
   ├─ … (all numbered context DataBooks)
-  └─ example/contexts/22-alice(driverslicense)alice.databook.md
+  └─ example/contexts/self.self(health)(17).databook.md
 
 persona-shacl.ttl — no owl:imports of data; validated against the loaded dataset
 shacl/birthcertificate-shacl.ttl  — per-template shapes for birth certificate files
 shacl/jscontactcard-shacl.ttl     — per-template shapes for JSContactCard files
 shacl/driverslicense-shacl.ttl    — per-template shapes for driver's license files
+shacl/passport-shacl.ttl          — per-template shapes for passport files
 ```
 
 1. **Foundation**: BFO (Basic Formal Ontology) — provides temporal modeling (`TemporalInterval`) and core relations
 2. **Domain Ontologies** (in `project_files/`): PersonOntology, AddressOntology, StagingOntology
 3. **Application Ontologies** (peer, not nested):
    - `persona.ttl`: aggregates domain ontologies; uses annotation properties (`usesRequiredClass`, `usesOptionalClass`, `usesCCOClass`, `usesCCOProperty`) to document Mee's usage
-   - `context.ttl`: defines `contextType`, `assertionType`, and `subject` vocabularies; imported directly by each context file
+   - `context.ttl`: defines `category`, `assertedBy`, `subject`, and `about-by` vocabularies; imported directly by each context file
 
 ### Context File Naming Convention
 
@@ -89,31 +93,29 @@ Context filenames follow a single flat pattern:
 
 | Segment | Meaning |
 |---------|---------|
-| `<subject>` | The entity the Persona is about. Use `self` when the subject is the Mia user's own `p:Person` (`:Self`); otherwise use a short lowercase identifier (e.g. `paula`, `bob`, `bhs`). |
-| `<asserted-by>` | Who asserted the data. Use `self` when the asserter is `:Self`; use a short lowercase identifier for other asserters (e.g. `bob`, `citibank`); use the literal `members` for `c:Group` contexts where any permitted member may write. |
-| `(<containing-category>)` | Lowercase local name of the `mia.category` IRI (e.g. `(employee)`, `(family)`, `(affiliations)`). |
+| `<subject>` | The entity the Persona is about. Use `self` when the subject is the Mia user's own `p:Person` (`:Self`); otherwise use the full hyphenated lowercase name (e.g. `paula-walker`, `bob-johnson`, `bhs-group`). |
+| `<asserted-by>` | Who asserted the data. Use `self` when the asserter is `:Self`; use the full hyphenated lowercase name for other asserters (e.g. `bob-johnson`, `citibank`); use the literal `members` for `c:Group` contexts where any permitted member may write. |
+| `(<containing-category>)` | The filename root of the category DataBook that directly holds the `obs`, `sbs`, `obo`, or `sbo` link pointing to this context (e.g. `(paula-walker)`, `(boston-hub-society)`, `(acme)`, `(citibank)`). This is often a user-defined category DataBook — it is NOT the `mia.category` IRI local name of the predefined category. |
 | `(<NN>)` | Zero-padded two-digit context number in parentheses, matching the diagram label. |
 
-**Exception — `c:Group` contexts**: A group context (`category context:Group`) has no single asserter — any permitted member can write to it and changes replicate to all members. The `<asserted-by>` segment is the literal `members` rather than an individual name. Example: `bhs.members(affiliations)(08).databook.md` — about BHS, category "affiliations", asserted by the group's members collectively.
+**Exception — `c:Group` contexts**: A group context (`category context:Group`) has no single asserter — any permitted member can write to it and changes replicate to all members. The `<asserted-by>` segment is the literal `members` rather than an individual name. Example: `bhs-group.members(boston-hub-society)(01).databook.md` — about BHS Group, containing category "boston-hub-society", asserted by the group's members collectively.
 
-**`mia.assertedBy` vocabulary**: The YAML field takes the local IRI of a `p:Person`, `g:Group`, or `o:Organization` individual — NOT an `i:PDNidentifier`. Those individuals carry their own PDN identity via `identity:hasPDNidentifier`. Specifically: `:Self` (the Mia user's `p:Person`) for self-asserted contexts; a named `p:Person` individual (e.g. `:Bob_Johnson`) when another Mia user asserts the data; a named `g:Group` individual (e.g. `:BHS_Group`) for group contexts; and a named `o:Organization` individual (e.g. `:Citibank`) only when the asserting organization is itself a PDN node. In the example data **only Citibank is a PDN node**, so only `self.citibank(financial-services)(10).databook.md` uses `assertedBy: ":Citibank"`. All other organization-related contexts (Google, AT&T, SSA, etc.) use `assertedBy: ":Self"` because Alice self-enters that data — those organizations are not PDN-interoperable.
+**`mia.assertedBy` vocabulary**: The YAML field takes the local IRI of a `p:Person`, `g:Group`, or `o:Organization` individual — NOT an `i:PDNidentifier`. Those individuals carry their own PDN identity via `identity:hasPDNidentifier`. Specifically: `:Self` (the Mia user's `p:Person`) for self-asserted contexts; a named `p:Person` individual (e.g. `:Bob_Johnson`) when another Mia user asserts the data; a named `g:Group` individual (e.g. `:BHS_Group`) for group contexts; and a named `o:Organization` individual (e.g. `:Citibank`) only when the asserting organization is itself a PDN node. In the example data **only Citibank is a PDN node**, so only `self.citibank(citibank)(09).databook.md` uses `assertedBy: ":Citibank"`. All other organization-related contexts (Google, AT&T, SSA, etc.) use `assertedBy: ":Self"` because Alice self-enters that data — those organizations are not PDN-interoperable.
 
 **"Other" asserters**: When the asserter is someone other than the current Mia user (`:Self`), the asserter is a named individual of one of:
 - `p:Person` — another Mia user (a different person, e.g. `:Bob_Johnson` asserting data about Alice)
 - `o:Organization` — a company, nonprofit, or government agency that is a PDN node (e.g. `:Citibank`)
 - `g:Group` — a group of Mia users (e.g. `:BHS_Group`)
 
-The parent-context hierarchy (which context is a child of which) is expressed via `persona:hasPersona` and `BFO_0000115` links in the TTL files, not in the filename.
-
 **Examples:**
 
-| Filename | Subject | Asserted by | Category |
-|----------|---------|-------------|----------|
-| `self.citibank(financial-services)(10).databook.md` | Self (Alice) | Citibank | financial-services |
-| `paula.self(family)(02).databook.md` | Paula | Self (Alice) | family |
-| `self.bob(people)(04).databook.md` | Self (Alice) | Bob | people |
-| `bob.bob(affiliations)(09).databook.md` | Bob | Bob | affiliations |
-| `bhs.members(affiliations)(08).databook.md` | BHS | members (group) | affiliations |
+| Filename | Subject | Asserted by | Containing category |
+|----------|---------|-------------|---------------------|
+| `self.citibank(citibank)(09).databook.md` | Self (Alice) | Citibank | citibank |
+| `paula-walker.self(paula-walker)(family)(07).databook.md` | Paula Walker | Self (Alice) | paula-walker |
+| `self.bob-johnson(bob-johnson)(08).databook.md` | Self (Alice) | Bob Johnson | bob-johnson |
+| `bob-johnson.bob-johnson(boston-hub-society)(03).databook.md` | Bob Johnson | Bob Johnson | boston-hub-society |
+| `bhs-group.members(boston-hub-society)(01).databook.md` | BHS Group | members (group) | boston-hub-society |
 
 ### Key Architectural Patterns
 
@@ -127,7 +129,7 @@ The parent-context hierarchy (which context is a child of which) is expressed vi
 
 **Address history pattern**: `AddressDesignation` links Person → Address → `TemporalInterval`. Open-ended intervals (no `hasEndDate`) indicate current address.
 
-**Named graph scoping of `BFO_0000115`**: When a Social Network individual carries `BFO_0000115 :Paula_Walker`, the triple is intentionally scoped to the enclosing named graph — it refers to Paula Walker *as a person entity*, with context-specific isolation provided by the DataBook named graph architecture, not by the triple itself. Queries needing context-specific member data must target the relevant named graphs (e.g. context 18 + context 02) rather than querying the full merged dataset. Do NOT change the range of `BFO_0000115` to a document IRI (breaks BFO semantics — range must be a continuant, not a document), and do NOT introduce context-specific person individuals (reintroduces the complexity that removing `hasPersona` eliminated). RDF-star annotation is a valid future option if tooling matures.
+**Named graph scoping of `BFO_0000115`**: When a Social Network individual carries `BFO_0000115 :Paula_Walker`, the triple is intentionally scoped to the enclosing named graph — it refers to Paula Walker *as a person entity*, with context-specific isolation provided by the DataBook named graph architecture, not by the triple itself. Queries needing context-specific member data must target the relevant named graphs (e.g. context 18 + context 02) rather than querying the full merged dataset. Do NOT change the range of `BFO_0000115` to a document IRI (breaks BFO semantics — range must be a continuant, not a document), and do NOT introduce context-specific person individuals (reintroduces the complexity that removing the layered Persona model eliminated). RDF-star annotation is a valid future option if tooling matures.
 
 ### Key Identifiers
 
@@ -161,37 +163,38 @@ After any change to context files or the context map diagram, verify the followi
 
 **Check 1 — Diagram ↔ files ↔ README coverage**: Every labeled circle in `example/contexts/images/context-map.png` must have (a) a corresponding `.ttl` file in the appropriate directory and (b) a row in one of the tables in the **Alice's Personas and Contexts** section of `README.md`. Conversely, every row in those tables must correspond to a circle in the diagram and a file that actually exists. If a circle exists in the diagram but has no `.ttl` file or README row, create them to match the diagram.
 
-**Check 2 — Filename convention**: Every context filename must follow `<subject>.<asserted-by>(<containing-category>)(<NN>).databook.md`. `<subject>` must be `self` when the subject is `:Self`, or a short lowercase identifier otherwise. `<asserted-by>` must be `self` when the asserter is `:Self`, or a short lowercase identifier otherwise — except for `c:Group` contexts, where it must be the literal string `members`. `(<containing-category>)` is the lowercase local name of the `mia.category` IRI. `(<NN>)` is the zero-padded two-digit context number. If a filename does not match this pattern, rename it to conform.
+**Check 2 — Filename convention**: Every context filename must follow `<subject>.<asserted-by>(<containing-category>)(<NN>).databook.md`. `<subject>` must be `self` when the subject is `:Self`, or the full hyphenated lowercase name otherwise. `<asserted-by>` must be `self` when the asserter is `:Self`, or the full hyphenated lowercase name otherwise — except for `c:Group` contexts, where it must be the literal string `members`. `(<containing-category>)` is the filename root of the category DataBook that directly holds the link to this context. `(<NN>)` is the zero-padded two-digit context number. If a filename does not match this pattern, rename it to conform.
 
 **Check 3 — Orange arrows (hasMember)**: For every orange arrow from circle A to circle B in `context-map.png`, there must be a `BFO_0000115` (has member part) triple pointing to the `p:Persona` individual defined in the target context file (B), originating from one of two sources depending on context type:
 - **`c:Persona`-type source (Person, Family, Employee, etc.)**: the source file's `p:Persona` individual must carry a `persona:hasSocialNetwork` link to a `cco:ont00001183` (Social Network) individual, and that Social Network individual must have the `BFO_0000115` triple.
 - **`c:Group`-type source**: the source file's `g:Group` individual must have the `BFO_0000115` triple directly (no Social Network intermediate, since the group itself is the social entity).
 
-**Check 4 — Dyad symmetry**: If context A contains a `p:Persona` with a `persona:dyad` link pointing to a `p:Persona` in context B, then context B must contain the reciprocal `persona:dyad` link pointing back to the persona in context A. Dyad links must always be bidirectional.
+**Check 4 — category label ↔ TTL agreement**: For every labeled circle in `example/contexts/images/context-map.png`, the light-blue label attached to that circle shows a `category` value (e.g. "Finance", "Federal", "Group"). That value must exactly match the local name of the `c:category` object in the corresponding `.ttl` file (e.g. `context:category context:Finance`). Read the diagram label independently before consulting the TTL — do not let the TTL value anchor your reading of the diagram. If the label and the TTL value differ, the diagram is authoritative — update the TTL to match the diagram.
 
-**Check 5 — Dyad cardinality**: A `p:Persona` must have at most one `persona:dyad` property. A persona can be paired with only one other persona.
+**Check 5 — No orphan Persons**: Every `persona:Person` individual other than `:Self` must be reachable via `BFO_0000115` (has member part) from a `g:Group` or from a Social Network individual linked to another `persona:Person` via `persona:hasSocialNetwork`. `:Self` is always the root and needs no incoming link.
 
-\*\*Check 6 — category label ↔ TTL agreement**: For every labeled circle in `example/contexts/images/context-map.png`, the light-blue label attached to that circle shows a `category` value (e.g. "Finance", "Federal", "Group"). That value must exactly match the local name of the `c:category` object in the corresponding `.ttl` file (e.g. `context:category context:Finance`). Read the diagram label independently before consulting the TTL — do not let the TTL value anchor your reading of the diagram. If the label and the TTL value differ, the diagram is authoritative — update the TTL to match the diagram.
+**Check 6 — Validation command completeness**: The `## Validation` section of `README.md` must document two tiers. Tier 1 uses four steps: (1) a `find example -name "*.databook.md"` loop using `databook extract` to extract turtle content and produce a merged turtle file of all context data (excluding `under-development/`); (2) a `riot` merge of that data with all application ontology TTL files and the foundation ontologies listed explicitly from `project_files/`; (3) a `grep -v owl:imports` on `persona-shacl.ttl` to collect shapes (the `shacl/` per-template files are excluded here — they target `persona:Person` and would fire incorrectly on all individuals when applied to merged data); (4) a `shacl validate` call. Tier 2 lists explicit per-file `databook extract` + `riot` + `shacl validate` commands for each template context file paired with its `shacl/*-shacl.ttl` file. If the commands change, update the README to match.
 
-**Check 7 — No orphan Persons**: Every `persona:Person` individual other than `:Self` must be reachable via `BFO_0000115` (has member part) from a `g:Group` or from a Social Network individual linked to another `persona:Person` via `persona:hasSocialNetwork`. `:Self` is always the root and needs no incoming link. `persona:dyad` does not satisfy this requirement — it is a lateral peer link, not a parent link.
+**Check 7 — PNG file location**: The diagram PNG for every context file must be stored directly in `example/contexts/images/` (flat, no subfolders — not `images/example/`). Files in `under-development/` are excluded.
 
-**Check 8 — Validation command completeness**: The `## Validation` section of `README.md` must document two tiers. Tier 1 uses four steps: (1) a `find example -name "*.databook.md"` loop using `databook extract` to extract turtle content and produce a merged turtle file of all context data (excluding `under-development/`); (2) a `riot` merge of that data with all application ontology TTL files and the foundation ontologies listed explicitly from `project_files/`; (3) a `grep -v owl:imports` on `persona-shacl.ttl` to collect shapes (the `shacl/` per-template files are excluded here — they target `persona:Person` and would fire incorrectly on all individuals when applied to merged data); (4) a `shacl validate` call. Tier 2 lists explicit per-file `databook extract` + `riot` + `shacl validate` commands for each template context file paired with its `shacl/*-shacl.ttl` file. If the commands change, update the README to match.
+**Check 8 — PNG filename convention**: Every diagram PNG in `example/contexts/images/` must use the same base filename as the corresponding `.databook.md` file in `example/contexts/`, with `.png` substituted for `.databook.md`. For example, `self.self(boston-hub-society)(14).databook.md` → `self.self(boston-hub-society)(14).png`. If the PNG does not yet exist, the README Diagram cell must be marked `*(todo)*` rather than left blank.
 
-**Check 9 — PNG file location**: The diagram PNG for every context file must be stored directly in `example/contexts/images/` (flat, no subfolders — not `images/example/`). Files in `under-development/` are excluded.
-
-**Check 10 — PNG filename convention**: Every diagram PNG in `example/contexts/images/` must use the same base filename as the corresponding `.databook.md` file in `example/contexts/`, with `.png` substituted for `.databook.md`. For example, `self.self(affiliations)(07).databook.md` → `self.self(affiliations)(07).png`. If the PNG does not yet exist, the README Diagram cell must be marked `*(todo)*` rather than left blank.
-
-**Check 11 — No broken image links in README**: Every PNG path referenced in `README.md` (both `<img src="...">` tags and `[view](...)` table links) must resolve to an actual file on disk. Run:
+**Check 9 — No broken image links in README**: Every PNG path referenced in `README.md` (both `<img src="...">` tags and `[view](...)` table links) must resolve to an actual file on disk. Run:
 
 ```bash
-grep -oE '(src|]\()([^)"]+\.png)' README.md | grep -oE '[^("]+\.png' | sort -u | while read f; do
-  [ -f "$f" ] || echo "MISSING: $f"
-done
+python3 -c "
+import re, os
+content = open('README.md').read()
+pngs = [m.group(1) for m in re.finditer(r'src=[\"\\'](.*?\.png)[\"\\']', content)]
+pngs += [m.group(1) for m in re.finditer(r'\]\((example/[^\s\"\']+\.png)\)', content)]
+missing = [p for p in sorted(set(pngs)) if not os.path.exists(p)]
+[print('MISSING:', p) for p in missing] or print('All PNG refs OK')
+"
 ```
 
 If any `MISSING:` lines appear, either add the file or update the link.
 
-**Check 12 — `about-by` ↔ `subject`/`assertedBy` consistency**: Every DataBook's `mia.about-by` value must be consistent with its `mia.subject` and `mia.assertedBy` values according to these rules:
+**Check 10 — `about-by` ↔ `subject`/`assertedBy` consistency**: Every DataBook's `mia.about-by` value must be consistent with its `mia.subject` and `mia.assertedBy` values according to these rules:
 
 | `about-by` | `subject` | `assertedBy` |
 |---|---|---|
@@ -215,7 +218,7 @@ Always update `persona-shacl.ttl` in the same edit session as the change that tr
 
 **SHACL validation** (e.g., using Apache Jena's `shaclvalidate`):
 ```bash
-shaclvalidate -datafile example/contexts/07-alice(bhs)alice.databook.md -shapesfile persona-shacl.ttl
+shaclvalidate -datafile example/contexts/self.self(boston-hub-society)(14).databook.md -shapesfile persona-shacl.ttl
 ```
 
 **Protégé**: Load `persona.ttl`; Protégé will import the domain ontologies via IRI resolution. Use the reasoner (HermiT/Pellet) to check consistency.

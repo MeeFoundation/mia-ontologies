@@ -9,5 +9,5 @@ description: >
   Child of the Federal category.
 mia:
   predefined: false
-  sbs: "http://www.example.org/mia/self.self(passport)(23)"
+  sbs: "http://www.example.org/mia/self.self(passport)(19)"
 ---

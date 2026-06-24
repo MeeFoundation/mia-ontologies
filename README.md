@@ -434,17 +434,17 @@ Context DataBook filenames follow the pattern:
 | `(<containing-category>)` | The filename root of the category DataBook that directly holds the `obs`, `sbs`, `obo`, or `sbo` link pointing to this context (e.g. `(paula-walker)`, `(bob-johnson)`, `(boston-hub-society)`, `(acme)`, `(citibank)`). This is often a user-defined category DataBook — it is NOT the `mia.category` IRI local name of the predefined category. |
 | `(<NN>)` | Zero-padded two-digit context number in parentheses. |
 
-The document IRI uses the same local name under the `http://www.example.org/mia/` base. For example, `self.citibank(citibank)(10).databook.md` has `id: http://www.example.org/mia/self.citibank(citibank)(10)`.
+The document IRI uses the same local name under the `http://www.example.org/mia/` base. For example, `self.citibank(citibank)(09).databook.md` has `id: http://www.example.org/mia/self.citibank(citibank)(09)`.
 
 Examples:
 
 | File | Subject | Asserted by | Containing category DataBook |
 |---|---|---|---|
-| `self.self(paula-walker)(20).databook.md` | Self (Alice) | Self (Alice) | `paula-walker(acme).databook.md` |
-| `paula-walker.self(paula-walker)(02).databook.md` | Paula Walker | Self (Alice) | `paula-walker(family).databook.md` |
-| `self.bob-johnson(bob-johnson)(04).databook.md` | Self (Alice) | Bob Johnson | `bob-johnson(people).databook.md` |
-| `bob-johnson.bob-johnson(boston-hub-society)(09).databook.md` | Bob Johnson | Bob Johnson | `boston-hub-society(affiliations).databook.md` |
-| `bhs-group.members(boston-hub-society)(08).databook.md` | BHS Group | members (group) | `boston-hub-society(affiliations).databook.md` |
+| `self.self(paula-walker)(employee)(20).databook.md` | Self (Alice) | Self (Alice) | `paula-walker(acme).databook.md` |
+| `paula-walker.self(paula-walker)(family)(07).databook.md` | Paula Walker | Self (Alice) | `paula-walker(family).databook.md` |
+| `self.bob-johnson(bob-johnson)(08).databook.md` | Self (Alice) | Bob Johnson | `bob-johnson(people).databook.md` |
+| `bob-johnson.bob-johnson(boston-hub-society)(03).databook.md` | Bob Johnson | Bob Johnson | `boston-hub-society(affiliations).databook.md` |
+| `bhs-group.members(boston-hub-society)(01).databook.md` | BHS Group | members (group) | `boston-hub-society(affiliations).databook.md` |
 
 ### Alice's Categories and Contexts
 
@@ -488,50 +488,50 @@ The contexts in the table below are *about* Alice and asserted *by* Alice. All `
 
 | #  | DataBook file                                                                          | Context type | Key data                                                         | Diagram |
 |--- |:--------------------------------------------------------------------------------------|:-------------|:-----------------------------------------------------------------|:--------|
-| 7  | [self.self(affiliations)(07)](example/contexts/self.self(affiliations)(07).databook.md)                     | Affiliations | BHS profile: email, phone and current address                    | [view](example/contexts/images/self.self(affiliations)(07).png)|
-| 11 | [self.self(companies)(11)](example/contexts/self.self(companies)(11).databook.md)               | Companies    | Gmail address                                                    | [view](example/contexts/images/self.self(companies)(11).png) |
-| 12 | [self.self(companies)(12)](example/contexts/self.self(companies)(12).databook.md)                     | Companies    | Phone number                                                     | [view](example/contexts/images/self.self(companies)(12).png) |
-| 13 | [self.self(state)(13)](example/contexts/self.self(state)(13).databook.md) | State        | Legal names, maiden name                                         | [view](example/contexts/images/self.self(state)(13).png) |
-| 14 | [self.self(municipality)(14)](example/contexts/self.self(municipality)(14).databook.md)           | Municipality | Current address — Paradise, CA (2025–present)                    | [view](example/contexts/images/self.self(municipality)(14).png) |
-| 15 | [self.self(municipality)(15)](example/contexts/self.self(municipality)(15).databook.md)               | Municipality | Previous address — Boston, MA (2020–2025) with temporal interval | [view](example/contexts/images/self.self(municipality)(15).png) |
-| 16 | [self.self(federal)(16)](example/contexts/self.self(federal)(16).databook.md)                     | Federal      | Social security number (SSN)                                     | [view](example/contexts/images/self.self(federal)(16).png) |
-| 17 | [self.self(people)(17)](example/contexts/self.self(people)(17).databook.md)                     | People       | Alice's 1:1 context with Bob; social network with Bob as member  | [view](example/contexts/images/self.self(people)(17).png)|
-| 18 | [self.self(family)(18)](example/contexts/self.self(family)(18).databook.md)   | Family       | Alice as a family member                       | [view](example/contexts/images/self.self(family)(18).png) |
-| 19 | [self.self(possessions)(19)](example/contexts/self.self(possessions)(19).databook.md)     | Possessions  | Wallet (driver's license + payment card); health ins., SSN card  | [view](example/contexts/images/self.self(possessions)(19).png) |
-| 20 | [self.self(employee)(20)](example/contexts/self.self(employee)(20).databook.md)                   | Employee     | Acme employee context; company email; works with Paula           | [view](example/contexts/images/self.self(employee)(20).png)|
-| 21 | [self.self(employee)(21)](example/contexts/self.self(employee)(21).databook.md) | Employee     | Business card — given name, family name, email, phone, employer  | [view](example/contexts/images/self.self(employee)(21).png) |
-| 22 | [self.self(state)(22)](example/contexts/self.self(state)(22).databook.md) | State      | California driver's license — legal name, DOB, DL#, expiry, photo | [view](example/contexts/images/self.self(state)(22).png) |
-| 23 | [self.self(federal)(23)](example/contexts/self.self(federal)(23).databook.md)             | Federal    | US passport — legal name, DOB, passport#, issue/expiry, place of birth, gender marker, photo | [view](example/contexts/images/self.self(federal)(23).png) |
-| 24 | [self.self(health)(24)](example/contexts/self.self(health)(24).databook.md)                 | Health     | Physical body — height (68 in.), blue eyes, grey hair            | [view](example/contexts/images/self.self(health)(24).png) |
+| 10 | [self.self(acme)(10)](example/contexts/self.self(acme)(10).databook.md) | Employee     | Business card — given name, family name, email, phone, employer  | [view](example/contexts/images/self.self(acme)(10).png) |
+| 11 | [self.self(att)(11)](example/contexts/self.self(att)(11).databook.md)                     | Companies    | Phone number                                                     | [view](example/contexts/images/self.self(att)(11).png) |
+| 12 | [self.self(bob-johnson)(12)](example/contexts/self.self(bob-johnson)(12).databook.md)                     | People       | Alice's 1:1 context with Bob; social network with Bob as member  | [view](example/contexts/images/self.self(bob-johnson)(12).png)|
+| 13 | [self.self(boston)(13)](example/contexts/self.self(boston)(13).databook.md)               | Municipality | Previous address — Boston, MA (2020–2025) with temporal interval | [view](example/contexts/images/self.self(boston)(13).png) |
+| 14  | [self.self(boston-hub-society)(14)](example/contexts/self.self(boston-hub-society)(14).databook.md)                     | Affiliations | BHS profile: email, phone and current address                    | [view](example/contexts/images/self.self(boston-hub-society)(14).png)|
+| 15 | [self.self(california-dmv)(15)](example/contexts/self.self(california-dmv)(15).databook.md) | State      | California driver's license — legal name, DOB, DL#, expiry, photo | [view](example/contexts/images/self.self(california-dmv)(15).png) |
+| 16 | [self.self(google)(16)](example/contexts/self.self(google)(16).databook.md)               | Companies    | Gmail address                                                    | [view](example/contexts/images/self.self(google)(16).png) |
+| 17 | [self.self(health)(17)](example/contexts/self.self(health)(17).databook.md)                 | Health     | Physical body — height (68 in.), blue eyes, grey hair            | [view](example/contexts/images/self.self(health)(17).png) |
+| 18 | [self.self(paradise)(18)](example/contexts/self.self(paradise)(18).databook.md)           | Municipality | Current address — Paradise, CA (2025–present)                    | [view](example/contexts/images/self.self(paradise)(18).png) |
+| 19 | [self.self(passport)(19)](example/contexts/self.self(passport)(19).databook.md)             | Federal    | US passport — legal name, DOB, passport#, issue/expiry, place of birth, gender marker, photo | [view](example/contexts/images/self.self(passport)(19).png) |
+| 20 | [self.self(paula-walker)(employee)(20)](example/contexts/self.self(paula-walker)(employee)(20).databook.md)                   | Employee     | Acme employee context; company email; works with Paula           | [view](example/contexts/images/self.self(paula-walker)(employee)(20).png)|
+| 21 | [self.self(paula-walker)(family)(21)](example/contexts/self.self(paula-walker)(family)(21).databook.md)   | Family       | Alice as a family member                       | [view](example/contexts/images/self.self(paula-walker)(family)(21).png) |
+| 22 | [self.self(possessions)(22)](example/contexts/self.self(possessions)(22).databook.md)     | Possessions  | Wallet (driver's license + payment card); health ins., SSN card  | [view](example/contexts/images/self.self(possessions)(22).png) |
+| 23 | [self.self(social-security-administration)(23)](example/contexts/self.self(social-security-administration)(23).databook.md)                     | Federal      | Social security number (SSN)                                     | [view](example/contexts/images/self.self(social-security-administration)(23).png) |
+| 24 | [self.self(texas-vital-records)(24)](example/contexts/self.self(texas-vital-records)(24).databook.md) | State        | Legal names, maiden name                                         | [view](example/contexts/images/self.self(texas-vital-records)(24).png) |
 
 The following table lists contexts that are *about* Alice but asserted by others.
 
 | #  | DataBook file                                                                         | Context type | Key data                             | Diagram |
 |--- |:-------------------------------------------------------------------------------------|:-------------|:-------------------------------------|:--------|
-| 4  | [self.bob(people)(04)](example/contexts/self.bob(people)(04).databook.md)                         | People            | Alice as seen by Bob                 | [view](example/contexts/images/self.bob(people)(04).png)|
-| 10 | [self.citibank(financial-services)(10)](example/contexts/self.citibank(financial-services)(10).databook.md)     | FinancialServices | Debit card                           | [view](example/contexts/images/self.citibank(financial-services)(10).png) |
+| 8  | [self.bob-johnson(bob-johnson)(08)](example/contexts/self.bob-johnson(bob-johnson)(08).databook.md)                         | People            | Alice as seen by Bob                 | [view](example/contexts/images/self.bob-johnson(bob-johnson)(08).png)|
+| 9 | [self.citibank(citibank)(09)](example/contexts/self.citibank(citibank)(09).databook.md)     | FinancialServices | Debit card                           | [view](example/contexts/images/self.citibank(citibank)(09).png) |
 
 The following table lists contexts about other people (Paula and Bob) or groups (Boston Hub Society) in Alice's Mia. All files are in `example/contexts/`.
 
 | #  | DataBook file                                                                                     | Context type | Key data                                                         | Diagram |
 |--- |:-------------------------------------------------------------------------------------------------|:-------------|:-----------------------------------------------------------------|:--------|
-| 1  | [paula.self(employee)(01)](example/contexts/paula.self(employee)(01).databook.md)           | Employee     | Paula as Alice's Acme colleague (Alice-asserted)                | [view](example/contexts/images/paula.self(employee)(01).png)|
-| 2  | [paula.self(family)(02)](example/contexts/paula.self(family)(02).databook.md) | Family       | Paula as Alice's family member (Alice-asserted)           | [view](example/contexts/images/paula.self(family)(02).png)|
-| 3  | [paula.paula(family)(03)](example/contexts/paula.paula(family)(03).databook.md) | Family       | Paula's own family persona; social network with Alice       | [view](example/contexts/images/paula.paula(family)(03).png)|
-| 5  | [bob.self(people)(05)](example/contexts/bob.self(people)(05).databook.md)                 | People       | Alice's notes about Bob; fav drink: oat milk cappuccino         | [view](example/contexts/images/bob.self(people)(05).png) |
-| 6  | [bob.bob(people)(06)](example/contexts/bob.bob(people)(06).databook.md)                     | People       | Bob's self-asserted Bob persona                                 | [view](example/contexts/images/bob.bob(people)(06).png)|
-| 8  | [bhs.members(affiliations)(08)](example/contexts/bhs.members(affiliations)(08).databook.md)             | Affiliations | BHS group instance with Alice and Bob as members                | [view](example/contexts/images/bhs.members(affiliations)(08).png) |
-| 9  | [bob.bob(affiliations)(09)](example/contexts/bob.bob(affiliations)(09).databook.md)                     | Affiliations | Bob's BHS member persona (name, email, phone, address)          | [view](example/contexts/images/bob.bob(affiliations)(09).png) |
+| 1  | [bhs-group.members(boston-hub-society)(01)](example/contexts/bhs-group.members(boston-hub-society)(01).databook.md)             | Affiliations | BHS group instance with Alice and Bob as members                | [view](example/contexts/images/bhs-group.members(boston-hub-society)(01).png) |
+| 2  | [bob-johnson.bob-johnson(bob-johnson)(02)](example/contexts/bob-johnson.bob-johnson(bob-johnson)(02).databook.md)                     | People       | Bob's self-asserted Bob persona                                 | [view](example/contexts/images/bob-johnson.bob-johnson(bob-johnson)(02).png)|
+| 3  | [bob-johnson.bob-johnson(boston-hub-society)(03)](example/contexts/bob-johnson.bob-johnson(boston-hub-society)(03).databook.md)                     | Affiliations | Bob's BHS member persona (name, email, phone, address)          | [view](example/contexts/images/bob-johnson.bob-johnson(boston-hub-society)(03).png) |
+| 4  | [bob-johnson.self(bob-johnson)(04)](example/contexts/bob-johnson.self(bob-johnson)(04).databook.md)                 | People       | Alice's notes about Bob; fav drink: oat milk cappuccino         | [view](example/contexts/images/bob-johnson.self(bob-johnson)(04).png) |
+| 5  | [paula-walker.paula-walker(paula-walker)(05)](example/contexts/paula-walker.paula-walker(paula-walker)(05).databook.md) | Family       | Paula's own family persona; social network with Alice       | [view](example/contexts/images/paula-walker.paula-walker(paula-walker)(05).png)|
+| 6  | [paula-walker.self(paula-walker)(employee)(06)](example/contexts/paula-walker.self(paula-walker)(employee)(06).databook.md)           | Employee     | Paula as Alice's Acme colleague (Alice-asserted)                | [view](example/contexts/images/paula-walker.self(paula-walker)(employee)(06).png)|
+| 7  | [paula-walker.self(paula-walker)(family)(07)](example/contexts/paula-walker.self(paula-walker)(family)(07).databook.md) | Family       | Paula as Alice's family member (Alice-asserted)           | [view](example/contexts/images/paula-walker.self(paula-walker)(family)(07).png)|
 
 
 
 ### Named graph scoping and context-specific membership
 
-A `BFO_0000115` (has member part) triple on a Social Network individual — for example, `:Alice_Family_Network BFO_0000115 :Paula_Walker` in context 18 — targets `:Paula_Walker` as a person entity, not as a context-specific slice of her data. The named graph architecture provides the isolation: that triple lives inside context 18's named graph, and when an application needs "Paula Walker's family context data" it queries context 18's graph together with context 02's graph, rather than the full merged dataset.
+A `BFO_0000115` (has member part) triple on a Social Network individual — for example, `:Alice_Family_Network BFO_0000115 :Paula_Walker` in context 21 — targets `:Paula_Walker` as a person entity, not as a context-specific slice of her data. The named graph architecture provides the isolation: that triple lives inside context 21's named graph, and when an application needs "Paula Walker's family context data" it queries context 21's graph together with context 02's graph, rather than the full merged dataset.
 
 This is the correct design for three reasons:
 
-- **BFO semantics**: changing the range of `BFO_0000115` to a DataBook document IRI (e.g. `<http://www.example.org/mia/paula.self(family)(02)>`) would be a semantic error — the range of `has member part` must be a continuant (a person or group), not a document.
+- **BFO semantics**: changing the range of `BFO_0000115` to a DataBook document IRI (e.g. `<http://www.example.org/mia/paula-walker.self(paula-walker)(family)(07)>`) would be a semantic error — the range of `has member part` must be a continuant (a person or group), not a document.
 - **Model simplicity**: introducing context-specific "view" individuals (e.g. `:Paula_Walker_Family`) would reintroduce the layered complexity that the removal of `p:Persona` was designed to eliminate.
 - **Tooling maturity**: annotating the triple with RDF-star (`<< :Alice_Family_Network BFO_0000115 :Paula_Walker >> mia:inContext <...>`) is a valid future option, but is not yet supported by Protégé and remains non-standard.
 
@@ -539,17 +539,19 @@ The practical implication is that **Tier 1 validation** (which merges all graphs
 
 ## Diagrams
 
-`draw.py` generates a Graphviz diagram from any context DataBook file:
+`draw.py` generates a Mermaid (`.mmd`) and PNG diagram from any context DataBook file:
 
 ```bash
-python3 draw.py example/contexts/self.citibank(financial-services)(10).databook.md
-python3 draw.py example/contexts/self.self(municipality)(14).databook.md
+python3 draw.py example/contexts/self.citibank(citibank)(09).databook.md
+python3 draw.py example/contexts/self.self(paradise)(18).databook.md
 ```
+
+Both output files are written to the same `images/` directory as the existing PNG diagrams.
 
 **Dependencies** (one-time setup):
 ```bash
-pip install rdflib graphviz pyyaml
-brew install graphviz
+pip install rdflib pyyaml
+npm install -g @mermaid-js/mermaid-cli
 ```
 
 Each diagram shows the `persona:Person` individual (yellow), supporting named individuals (white boxes), class labels (plain text), blank-node designator chains, and literal values (green).
@@ -617,26 +619,26 @@ riot --output=turtle \
   pdn-identity.ttl group.ttl organization.ttl \
   2>/dev/null > /tmp/mia-base.ttl
 
-# BirthCertificate — self.self(state)(13).databook.md
-databook extract "example/contexts/self.self(state)(13).databook.md" 2>/dev/null > /tmp/data-birth-cert-raw.ttl
+# BirthCertificate — self.self(texas-vital-records)(24).databook.md
+databook extract "example/contexts/self.self(texas-vital-records)(24).databook.md" 2>/dev/null > /tmp/data-birth-cert-raw.ttl
 riot --output=turtle /tmp/mia-base.ttl /tmp/data-birth-cert-raw.ttl 2>/dev/null > /tmp/data-birth-cert.ttl
 grep -v 'owl:imports' shacl/birthcertificate-shacl.ttl > /tmp/shapes-birth-cert.ttl
 shacl validate --shapes /tmp/shapes-birth-cert.ttl --data /tmp/data-birth-cert.ttl --text
 
-# JSContactCard — self.self(employee)(21).databook.md
-databook extract "example/contexts/self.self(employee)(21).databook.md" 2>/dev/null > /tmp/data-jscontact-raw.ttl
+# JSContactCard — self.self(acme)(10).databook.md
+databook extract "example/contexts/self.self(acme)(10).databook.md" 2>/dev/null > /tmp/data-jscontact-raw.ttl
 riot --output=turtle /tmp/mia-base.ttl /tmp/data-jscontact-raw.ttl 2>/dev/null > /tmp/data-jscontact.ttl
 grep -v 'owl:imports' shacl/jscontactcard-shacl.ttl > /tmp/shapes-jscontact.ttl
 shacl validate --shapes /tmp/shapes-jscontact.ttl --data /tmp/data-jscontact.ttl --text
 
-# DriversLicense — self.self(state)(22).databook.md
-databook extract "example/contexts/self.self(state)(22).databook.md" 2>/dev/null > /tmp/data-dl-raw.ttl
+# DriversLicense — self.self(california-dmv)(15).databook.md
+databook extract "example/contexts/self.self(california-dmv)(15).databook.md" 2>/dev/null > /tmp/data-dl-raw.ttl
 riot --output=turtle /tmp/mia-base.ttl /tmp/data-dl-raw.ttl 2>/dev/null > /tmp/data-dl.ttl
 grep -v 'owl:imports' shacl/driverslicense-shacl.ttl > /tmp/shapes-dl.ttl
 shacl validate --shapes /tmp/shapes-dl.ttl --data /tmp/data-dl.ttl --text
 
-# Passport — self.self(federal)(23).databook.md
-databook extract "example/contexts/self.self(federal)(23).databook.md" 2>/dev/null > /tmp/data-passport-raw.ttl
+# Passport — self.self(passport)(19).databook.md
+databook extract "example/contexts/self.self(passport)(19).databook.md" 2>/dev/null > /tmp/data-passport-raw.ttl
 riot --output=turtle /tmp/mia-base.ttl /tmp/data-passport-raw.ttl 2>/dev/null > /tmp/data-passport.ttl
 grep -v 'owl:imports' shacl/passport-shacl.ttl > /tmp/shapes-passport.ttl
 shacl validate --shapes /tmp/shapes-passport.ttl --data /tmp/data-passport.ttl --text

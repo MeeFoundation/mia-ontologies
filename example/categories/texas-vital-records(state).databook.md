@@ -9,5 +9,5 @@ description: >
   Child of the State category.
 mia:
   predefined: false
-  sbs: "http://www.example.org/mia/self.self(texas-vital-records)(13)"
+  sbs: "http://www.example.org/mia/self.self(texas-vital-records)(24)"
 ---

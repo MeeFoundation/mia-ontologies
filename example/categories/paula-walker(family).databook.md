@@ -9,7 +9,7 @@ description: >
   Child of the Family category.
 mia:
   predefined: false
-  obs: "http://www.example.org/mia/paula-walker.self(paula-walker)(02)"
-  sbs: "http://www.example.org/mia/self.self(paula-walker)(18)"
-  obo: "http://www.example.org/mia/paula-walker.paula-walker(paula-walker)(03)"
+  obs: "http://www.example.org/mia/paula-walker.self(paula-walker)(family)(07)"
+  sbs: "http://www.example.org/mia/self.self(paula-walker)(family)(21)"
+  obo: "http://www.example.org/mia/paula-walker.paula-walker(paula-walker)(05)"
 ---

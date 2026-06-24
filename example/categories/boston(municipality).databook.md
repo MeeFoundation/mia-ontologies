@@ -9,5 +9,5 @@ description: >
   Child of the Municipality category.
 mia:
   predefined: false
-  sbs: "http://www.example.org/mia/self.self(boston)(15)"
+  sbs: "http://www.example.org/mia/self.self(boston)(13)"
 ---
