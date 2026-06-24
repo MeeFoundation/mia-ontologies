@@ -11,21 +11,44 @@
 <http://www.example.org/shapes/birthcertificate> rdf:type owl:Ontology ;
     owl:imports <http://mee.foundation/ontologies/persona> ;
     dc:date "2026-06-23"^^xsd:date ;
-    owl:versionInfo "Version 1.0.1 - add hasIdentityDocument constraint"@en ;
+    owl:versionInfo "Version 1.0.2 - retarget to persona:BirthCertificate; navigate to Person via inverse hasIdentityDocument"@en ;
     rdfs:label "Birth Certificate Template SHACL Shapes"@en ;
     rdfs:comment """SHACL shapes for validating context files carrying context:template persona:BirthCertificate.
-                    Apply in addition to persona-shacl.ttl when validating a birth certificate context file."""@en .
+                    Apply in addition to persona-shacl.ttl when validating a birth certificate context file.
+                    :BirthCertificateDocumentShape targets the persona:BirthCertificate document individual
+                    and validates the holding Person via inverse persona:hasIdentityDocument."""@en .
 
 
 #################################################################
-#  Birth Certificate Person
-#  A birth certificate context file carries the person's legal name record.
-#  Requires: FullName (1..1) OR (GivenName (1..1) AND FamilyName (1..1))
+#  Birth Certificate Document Shape
+#  Targets persona:BirthCertificate individuals (the document artifact, not the person).
+#  Navigates to the holding Person via ^hasIdentityDocument and applies
+#  :BirthCertificatePersonConstraints.
 #################################################################
 
-:BirthCertificatePersonShape
+:BirthCertificateDocumentShape
     a sh:NodeShape ;
-    sh:targetClass persona:Person ;
+    sh:targetClass persona:BirthCertificate ;
+    sh:message "Birth certificate validation: the holding Person must satisfy all birth certificate identity constraints."@en ;
+
+    sh:property [
+        sh:path [ sh:inversePath persona:hasIdentityDocument ] ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:node :BirthCertificatePersonConstraints ;
+        sh:message "A BirthCertificate must be linked from exactly one Person who satisfies all birth certificate identity constraints."@en
+    ] .
+
+
+#################################################################
+#  Birth Certificate Person Constraints (no targetClass — used as a nested node shape)
+#  Required: FullName (1..1) OR (GivenName (1..1) AND FamilyName (1..1))
+#  Optional: AdditionalName (ent00000003), AlternateName (ent00000006),
+#            Nickname, Legal Name
+#################################################################
+
+:BirthCertificatePersonConstraints
+    a sh:NodeShape ;
     sh:message "Birth certificate Person must have either FullName OR (GivenName + FamilyName)."@en ;
 
     # Name requirement: EITHER FullName OR (GivenName AND FamilyName)
@@ -74,13 +97,4 @@
         ] ;
         sh:qualifiedMaxCount 50 ;
         sh:message "Optional name designators are allowed (up to 50 total across these types)."@en
-    ] ;
-
-    # ── Identity document link ───────────────────────────────────────────────
-    sh:property [
-        sh:path persona:hasIdentityDocument ;
-        sh:class persona:BirthCertificate ;
-        sh:minCount 1 ;
-        sh:maxCount 1 ;
-        sh:message "A birth certificate Person must have exactly one BirthCertificate identity document linked via persona:hasIdentityDocument."@en
     ] .
