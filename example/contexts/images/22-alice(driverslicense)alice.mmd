@@ -10,21 +10,23 @@ flowchart TD
         ctx_meta["assertedBy: :Self\nsubject: :Self\ntemplate: persona:DriversLicense"]:::meta
     end
 
+    naafab809f865[":Alice_CA_DriversLicense\n(DriversLicense)"]
     ne0c3ba92f1db[":Self\n(Person)"]:::person
-    nfb3a076e6791("Margery"):::lit
-    n1768212db302("Alice"):::lit
-    n81277d6cd90b("Walker"):::lit
-    nc5b01bf68387("1985-07-04"):::lit
-    n4ac593638b54("2031-07-04"):::lit
-    nf572edc4e708("A1234567"):::lit
-    nb560a7de1b0e("CA"):::lit
+    ne0514c31a5e9("Margery"):::lit
+    nbc16313b102a("Alice"):::lit
+    n3a7b6f722897("Walker"):::lit
+    nf287c2a89b6e("1985-07-04"):::lit
+    n7af4d5c79647("2031-07-04"):::lit
+    nc42a3393c08b("A1234567"):::lit
+    n57e1f4fe674c("CA"):::lit
     n776653056055("https://example.org/alice-dl-photo.jpg"):::lit
 
-    ne0c3ba92f1db -->|"GivenName"| nfb3a076e6791
-    ne0c3ba92f1db -->|"AdditionalName"| n1768212db302
-    ne0c3ba92f1db -->|"FamilyName"| n81277d6cd90b
-    ne0c3ba92f1db -->|"ent00000046"| nc5b01bf68387
-    ne0c3ba92f1db -->|"ExpirationDate"| n4ac593638b54
-    ne0c3ba92f1db -->|"DriversLicenseNumber"| nf572edc4e708
-    ne0c3ba92f1db -->|"IssuingJurisdiction"| nb560a7de1b0e
+    ne0c3ba92f1db -->|"GivenName"| ne0514c31a5e9
+    ne0c3ba92f1db -->|"AdditionalName"| nbc16313b102a
+    ne0c3ba92f1db -->|"FamilyName"| n3a7b6f722897
+    ne0c3ba92f1db -->|"ent00000046"| nf287c2a89b6e
+    ne0c3ba92f1db -->|"ExpirationDate"| n7af4d5c79647
+    ne0c3ba92f1db -->|"DriversLicenseNumber"| nc42a3393c08b
+    ne0c3ba92f1db -->|"IssuingJurisdiction"| n57e1f4fe674c
     ne0c3ba92f1db -->|"hasPhoto"| n776653056055
+    ne0c3ba92f1db -->|"hasIdentityDocument"| naafab809f865

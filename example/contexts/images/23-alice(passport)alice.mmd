@@ -10,27 +10,29 @@ flowchart TD
         ctx_meta["assertedBy: :Self\nsubject: :Self\ntemplate: persona:Passport"]:::meta
     end
 
+    n1e9b86ff4c78[":Alice_US_Passport\n(Passport)"]
     ne0c3ba92f1db[":Self\n(Person)"]:::person
-    nb4a2268f4c8a("Margery"):::lit
-    n108ec41c7281("Alice"):::lit
-    n799ae6871319("Walker"):::lit
-    ne07a212ee350("1985-07-04"):::lit
-    n7d77d7ac0a9c("2021-07-04"):::lit
-    n374b51723d23("2031-07-04"):::lit
-    n564d4737c35b("123456789"):::lit
-    nfb52445e793c("United States of America"):::lit
-    n1ac602b09025("Austin, Texas, USA"):::lit
-    n532147cde0f7("F"):::lit
+    nc18b749b7e4d("Margery"):::lit
+    ndeb18f0b8625("Alice"):::lit
+    n5bce13d36c03("Walker"):::lit
+    n66f892725a19("1985-07-04"):::lit
+    naa7fe000aa2d("2021-07-04"):::lit
+    n480fa7e56c2b("2031-07-04"):::lit
+    n11334113898a("123456789"):::lit
+    n81927fe6d7a4("United States of America"):::lit
+    na34c246b24fa("Austin, Texas, USA"):::lit
+    nacde15ce702b("F"):::lit
     nd1310d4db60a("https://example.org/alice-passport-photo.jpg"):::lit
 
-    ne0c3ba92f1db -->|"GivenName"| nb4a2268f4c8a
-    ne0c3ba92f1db -->|"AdditionalName"| n108ec41c7281
-    ne0c3ba92f1db -->|"FamilyName"| n799ae6871319
-    ne0c3ba92f1db -->|"ent00000046"| ne07a212ee350
-    ne0c3ba92f1db -->|"IssueDate"| n7d77d7ac0a9c
-    ne0c3ba92f1db -->|"ExpirationDate"| n374b51723d23
-    ne0c3ba92f1db -->|"PassportNumber"| n564d4737c35b
-    ne0c3ba92f1db -->|"IssuingCountry"| nfb52445e793c
-    ne0c3ba92f1db -->|"PlaceOfBirth"| n1ac602b09025
-    ne0c3ba92f1db -->|"GenderMarker"| n532147cde0f7
+    ne0c3ba92f1db -->|"GivenName"| nc18b749b7e4d
+    ne0c3ba92f1db -->|"AdditionalName"| ndeb18f0b8625
+    ne0c3ba92f1db -->|"FamilyName"| n5bce13d36c03
+    ne0c3ba92f1db -->|"ent00000046"| n66f892725a19
+    ne0c3ba92f1db -->|"IssueDate"| naa7fe000aa2d
+    ne0c3ba92f1db -->|"ExpirationDate"| n480fa7e56c2b
+    ne0c3ba92f1db -->|"PassportNumber"| n11334113898a
+    ne0c3ba92f1db -->|"IssuingCountry"| n81927fe6d7a4
+    ne0c3ba92f1db -->|"PlaceOfBirth"| na34c246b24fa
+    ne0c3ba92f1db -->|"GenderMarker"| nacde15ce702b
     ne0c3ba92f1db -->|"hasPhoto"| nd1310d4db60a
+    ne0c3ba92f1db -->|"hasIdentityDocument"| n1e9b86ff4c78

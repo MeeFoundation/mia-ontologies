@@ -10,13 +10,15 @@ flowchart TD
         ctx_meta["assertedBy: :Self\nsubject: :Self\ntemplate: persona:BirthCertificate"]:::meta
     end
 
+    n0b5b9e968f7f[":Alice_TX_Birth_Certificate\n(BirthCertificate)"]
     ne0c3ba92f1db[":Self\n(Person)"]:::person
-    n531715e91915("Margery"):::lit
-    nc2700f8862bd("Alice"):::lit
-    n77f6e11fc428("Walker"):::lit
-    n236a2f2bb212("Margery Alice Arnold"):::lit
+    neb74c94c67ee("Margery"):::lit
+    n9a86596b202d("Alice"):::lit
+    ncb4117b7b672("Walker"):::lit
+    nfa9e4bd637c5("Margery Alice Arnold"):::lit
 
-    ne0c3ba92f1db -->|"GivenName"| n531715e91915
-    ne0c3ba92f1db -->|"AdditionalName"| nc2700f8862bd
-    ne0c3ba92f1db -->|"FamilyName"| n77f6e11fc428
-    ne0c3ba92f1db -->|"AlternateName"| n236a2f2bb212
+    ne0c3ba92f1db -->|"GivenName"| neb74c94c67ee
+    ne0c3ba92f1db -->|"AdditionalName"| n9a86596b202d
+    ne0c3ba92f1db -->|"FamilyName"| ncb4117b7b672
+    ne0c3ba92f1db -->|"AlternateName"| nfa9e4bd637c5
+    ne0c3ba92f1db -->|"hasIdentityDocument"| n0b5b9e968f7f

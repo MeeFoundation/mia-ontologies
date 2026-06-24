@@ -10,8 +10,8 @@
 
 <http://www.example.org/shapes/passport> rdf:type owl:Ontology ;
     owl:imports <http://mee.foundation/ontologies/persona> ;
-    dc:date "2026-06-20"^^xsd:date ;
-    owl:versionInfo "Version 1.0.0 - initial"@en ;
+    dc:date "2026-06-23"^^xsd:date ;
+    owl:versionInfo "Version 1.0.1 - add hasIdentityDocument constraint"@en ;
     rdfs:label "Passport Template SHACL Shapes"@en ;
     rdfs:comment """SHACL shapes for validating context files carrying context:template persona:Passport.
                     Apply in addition to persona-shacl.ttl when validating a passport context file."""@en .
@@ -134,4 +134,13 @@
         sh:maxCount 1 ;
         sh:datatype xsd:anyURI ;
         sh:message "A Passport Person may have at most one photo."@en
+    ] ;
+
+    # ── Identity document link ───────────────────────────────────────────────
+    sh:property [
+        sh:path persona:hasIdentityDocument ;
+        sh:class persona:Passport ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:message "A Passport Person must have exactly one Passport identity document linked via persona:hasIdentityDocument."@en
     ] .

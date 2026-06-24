@@ -10,8 +10,8 @@
 
 <http://www.example.org/shapes/birthcertificate> rdf:type owl:Ontology ;
     owl:imports <http://mee.foundation/ontologies/persona> ;
-    dc:date "2026-06-18"^^xsd:date ;
-    owl:versionInfo "Version 1.0.0 - initial; moved from persona-shacl.ttl; target updated to persona:Person"@en ;
+    dc:date "2026-06-23"^^xsd:date ;
+    owl:versionInfo "Version 1.0.1 - add hasIdentityDocument constraint"@en ;
     rdfs:label "Birth Certificate Template SHACL Shapes"@en ;
     rdfs:comment """SHACL shapes for validating context files carrying context:template persona:BirthCertificate.
                     Apply in addition to persona-shacl.ttl when validating a birth certificate context file."""@en .
@@ -74,4 +74,13 @@
         ] ;
         sh:qualifiedMaxCount 50 ;
         sh:message "Optional name designators are allowed (up to 50 total across these types)."@en
+    ] ;
+
+    # ── Identity document link ───────────────────────────────────────────────
+    sh:property [
+        sh:path persona:hasIdentityDocument ;
+        sh:class persona:BirthCertificate ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:message "A birth certificate Person must have exactly one BirthCertificate identity document linked via persona:hasIdentityDocument."@en
     ] .

@@ -2,7 +2,7 @@
 id: http://www.example.org/mia/alice(driverslicense)alice
 title: "About Alice Walker in the State context as asserted by Alice Walker"
 type: context-databook
-version: 2.0.2
+version: 2.0.3
 created: 2026-06-15
 description: >
   Alice Walker's California driver's license context. Records her legal name, date of birth,
@@ -94,5 +94,11 @@ This context captures Alice Walker's California driver's license identity data. 
 
     # ── Photo ────────────────────────────────────────────────────────────────
 
-    persona:hasPhoto "https://example.org/alice-dl-photo.jpg"^^xsd:anyURI .
+    persona:hasPhoto "https://example.org/alice-dl-photo.jpg"^^xsd:anyURI ;
+
+    persona:hasIdentityDocument :Alice_CA_DriversLicense .
+
+:Alice_CA_DriversLicense rdf:type owl:NamedIndividual ,
+                                   persona:DriversLicense ;
+    rdfs:label "Alice Walker's California Driver's License"@en .
 ```

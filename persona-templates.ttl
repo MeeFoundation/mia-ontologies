@@ -8,17 +8,26 @@
 @base <http://mee.foundation/ontologies/persona-templates> .
 
 <http://mee.foundation/ontologies/persona-templates> rdf:type owl:Ontology ;
-    dc:date "2026-06-15"^^xsd:date ;
-    owl:versionInfo "Version 2.0.2 - fix stale 'Persona' → 'Person' in designator class comments"@en ;
+    dc:date "2026-06-23"^^xsd:date ;
+    owl:versionInfo "Version 2.0.3 - add IdentityDocument class and hasIdentityDocument property"@en ;
     rdfs:label "Persona Templates Ontology"@en ;
     rdfs:comment """Template type classification used as values for the context:template annotation property.
-                    Each concrete template type (BirthCertificate, JSContactCard, DriversLicense) identifies
-                    which per-template SHACL shapes file to apply when validating a context file.
+                    Each concrete template type (BirthCertificate, JSContactCard, DriversLicense, Passport)
+                    identifies which per-template SHACL shapes file to apply when validating a context file.
 
-                    Class hierarchy (classification only — not types on individuals):
-                    p:PersonaTemplate → p:BirthCertificate
+                    p:IdentityDocument models government-issued identity documents as artifact instances.
+                    p:BirthCertificate, p:DriversLicense, and p:Passport are subclasses of both
+                    p:PersonaTemplate (template label use) and p:IdentityDocument (artifact instance use).
+                    p:JSContactCard is a template label only — not a government-issued identity document.
+
+                    Class hierarchy:
+                    p:PersonaTemplate → p:BirthCertificate (also p:IdentityDocument)
+                                      → p:DriversLicense  (also p:IdentityDocument)
+                                      → p:Passport        (also p:IdentityDocument)
                                       → p:JSContactCard
-                                      → p:DriversLicense"""@en .
+                    p:IdentityDocument → p:BirthCertificate
+                                       → p:DriversLicense
+                                       → p:Passport"""@en .
 
 
 #################################################################
@@ -33,11 +42,32 @@ persona:PersonaTemplate rdf:type owl:Class ;
 
 
 #################################################################
+#    IdentityDocument — government-issued document artifact class
+#    and hasIdentityDocument property
+#################################################################
+
+persona:IdentityDocument rdf:type owl:Class ;
+    rdfs:label "Identity Document"@en ;
+    rdfs:comment """A government-issued document that formally identifies a person,
+                    such as a birth certificate, driver's license, or passport.
+                    Subclasses (p:BirthCertificate, p:DriversLicense, p:Passport) are also
+                    p:PersonaTemplate subclasses used as context:template annotation values.
+                    Instances are linked from persona:Person via persona:hasIdentityDocument."""@en .
+
+persona:hasIdentityDocument rdf:type owl:ObjectProperty ;
+    rdfs:domain persona:Person ;
+    rdfs:range persona:IdentityDocument ;
+    rdfs:label "has identity document"@en ;
+    rdfs:comment "Links a persona:Person to a government-issued identity document they hold."@en .
+
+
+#################################################################
 #    BirthCertificate Template and related properties
 #################################################################
 
 persona:BirthCertificate rdf:type owl:Class ;
     rdfs:subClassOf persona:PersonaTemplate ;
+    rdfs:subClassOf persona:IdentityDocument ;
     rdfs:label "Birth Certificate"@en ;
     rdfs:comment """Template type label for a context whose purpose is to carry a person's legal
                     birth certificate name record. Used as the value of context:template on the
@@ -69,6 +99,7 @@ persona:IssuingJurisdiction rdf:type owl:Class ;
 
 persona:DriversLicense rdf:type owl:Class ;
     rdfs:subClassOf persona:PersonaTemplate ;
+    rdfs:subClassOf persona:IdentityDocument ;
     rdfs:label "Driver's License"@en ;
     rdfs:comment """Template type label for a context whose purpose is to carry the identity
                     claims on a state-issued driver's license: legal name, date of birth,
@@ -125,6 +156,7 @@ persona:IssueDate rdf:type owl:Class ;
 
 persona:Passport rdf:type owl:Class ;
     rdfs:subClassOf persona:PersonaTemplate ;
+    rdfs:subClassOf persona:IdentityDocument ;
     rdfs:label "Passport"@en ;
     rdfs:comment """Template type label for a context whose purpose is to carry the identity
                     claims on a government-issued passport: legal name, date of birth, passport

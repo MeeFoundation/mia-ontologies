@@ -19,7 +19,7 @@
     owl:imports <http://mee.foundation/ontologies/pdn-identity> ;
     owl:imports <http://mee.foundation/ontologies/persona-templates> ;
     dc:date "2026-06-15"^^xsd:date ;
-    owl:versionInfo "Version 4.0.2 - update import IRI to pdn-identity"@en ;
+    owl:versionInfo "Version 4.0.3 - persona-templates adds IdentityDocument class and hasIdentityDocument property"@en ;
     rdfs:label "Persona Ontology"@en ;
     rdfs:comment """Persona Ontology for the Mee Identity Agent.
 

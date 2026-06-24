@@ -10,8 +10,8 @@
 
 <http://www.example.org/shapes/driverslicense> rdf:type owl:Ontology ;
     owl:imports <http://mee.foundation/ontologies/persona> ;
-    dc:date "2026-06-18"^^xsd:date ;
-    owl:versionInfo "Version 1.0.0 - initial; moved from persona-templates-shacl.ttl; target updated to persona:Person"@en ;
+    dc:date "2026-06-23"^^xsd:date ;
+    owl:versionInfo "Version 1.0.1 - add hasIdentityDocument constraint"@en ;
     rdfs:label "Driver's License Template SHACL Shapes"@en ;
     rdfs:comment """SHACL shapes for validating context files carrying context:template persona:DriversLicense.
                     Apply in addition to persona-shacl.ttl when validating a driver's license context file."""@en .
@@ -117,4 +117,13 @@
         sh:maxCount 1 ;
         sh:datatype xsd:anyURI ;
         sh:message "A DriversLicense Person may have at most one photo."@en
+    ] ;
+
+    # ── Identity document link ───────────────────────────────────────────────
+    sh:property [
+        sh:path persona:hasIdentityDocument ;
+        sh:class persona:DriversLicense ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:message "A DriversLicense Person must have exactly one DriversLicense identity document linked via persona:hasIdentityDocument."@en
     ] .
