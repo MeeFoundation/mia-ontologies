@@ -1,5 +1,5 @@
 ---
-id: http://www.example.org/mia/categories/municipality
+id: http://mee.foundation/ontologies/categories/municipality
 title: "Municipality"
 type: category-databook
 version: 1.0.0
@@ -9,7 +9,4 @@ description: >
   about municipal government credentials and records. Child of Government.
 mia:
   predefined: true
-  child:
-    - "http://www.example.org/mia/categories/boston"
-    - "http://www.example.org/mia/categories/paradise"
 ---

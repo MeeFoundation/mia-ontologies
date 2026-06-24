@@ -1,5 +1,5 @@
 ---
-id: http://www.example.org/mia/categories/categories
+id: http://mee.foundation/ontologies/categories/categories
 title: "Categories"
 type: category-databook
 version: 1.0.0
@@ -9,15 +9,18 @@ description: >
 mia:
   predefined: true
   child:
-    - "http://www.example.org/mia/categories/people"
-    - "http://www.example.org/mia/categories/work"
-    - "http://www.example.org/mia/categories/companies"
-    - "http://www.example.org/mia/categories/finances"
-    - "http://www.example.org/mia/categories/government"
-    - "http://www.example.org/mia/categories/possessions"
-    - "http://www.example.org/mia/categories/home"
-    - "http://www.example.org/mia/categories/legal"
-    - "http://www.example.org/mia/categories/travel"
-    - "http://www.example.org/mia/categories/affiliations"
-    - "http://www.example.org/mia/categories/health"
+    - "http://mee.foundation/ontologies/categories/people"
+    - "http://mee.foundation/ontologies/categories/work"
+    - "http://mee.foundation/ontologies/categories/companies"
+    - "http://mee.foundation/ontologies/categories/finances"
+    - "http://mee.foundation/ontologies/categories/health"
+    - "http://mee.foundation/ontologies/categories/events"
+    - "http://mee.foundation/ontologies/categories/government"
+    - "http://mee.foundation/ontologies/categories/information"
+    - "http://mee.foundation/ontologies/categories/possessions"
+    - "http://mee.foundation/ontologies/categories/home"
+    - "http://mee.foundation/ontologies/categories/projects"
+    - "http://mee.foundation/ontologies/categories/legal"
+    - "http://mee.foundation/ontologies/categories/travel"
+    - "http://mee.foundation/ontologies/categories/affiliations"
 ---

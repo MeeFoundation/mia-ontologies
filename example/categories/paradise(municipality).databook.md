@@ -1,5 +1,5 @@
 ---
-id: http://www.example.org/mia/categories/paradise
+id: http://www.example.org/mia/categories/paradise(municipality)
 title: "Paradise"
 type: category-databook
 version: 1.0.0
@@ -9,5 +9,5 @@ description: >
   Child of the Municipality category.
 mia:
   predefined: false
-  sbs: "http://www.example.org/mia/self.self(paradise)(18)"
+  sbs: "https://www.example.org/mia/contexts/self.self(paradise)(18)"
 ---

@@ -1,5 +1,5 @@
 ---
-id: http://www.example.org/mia/categories/employee
+id: http://mee.foundation/ontologies/categories/employee
 title: "Employee"
 type: category-databook
 version: 1.0.0
@@ -9,5 +9,4 @@ description: >
   related to employment. Child of the Work category.
 mia:
   predefined: true
-  child: "http://www.example.org/mia/categories/acme"
 ---

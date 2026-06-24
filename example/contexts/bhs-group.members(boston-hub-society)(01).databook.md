@@ -1,5 +1,5 @@
 ---
-id: http://www.example.org/mia/bhs-group.members(boston-hub-society)(01)
+id: https://www.example.org/mia/contexts/bhs-group.members(boston-hub-society)(01)
 title: "About Boston Hub Society in the Groups context as asserted by Boston Hub Society"
 type: context-databook
 version: 2.0.2
@@ -13,7 +13,7 @@ mia:
   subject: ":BHS_Group"
   about-by: "context:OBO-Context"
 graph:
-  named_graph: http://www.example.org/mia/bhs-group.members(boston-hub-society)(01)#graph
+  named_graph: https://www.example.org/mia/contexts/bhs-group.members(boston-hub-society)(01)#graph
   rdf_version: "1.1"
 shapes:
   - http://www.example.org/shapes
@@ -33,7 +33,7 @@ This context captures the Boston Hub Society as a `g:Group` entity. It records t
 
 ```turtle
 <!-- databook:id: bhs-group-identity -->
-<!-- databook:graph: http://www.example.org/mia/bhs-group.members(boston-hub-society)(01)#graph -->
+<!-- databook:graph: https://www.example.org/mia/contexts/bhs-group.members(boston-hub-society)(01)#graph -->
 @prefix : <http://www.example.org/mia#> .
 @prefix g: <http://mee.foundation/ontologies/group#> .
 @prefix owl: <http://www.w3.org/2002/07/owl#> .

@@ -1,5 +1,5 @@
 ---
-id: http://www.example.org/mia/categories/passport
+id: http://www.example.org/mia/categories/passport(federal)
 title: "Passport"
 type: category-databook
 version: 1.0.0
@@ -9,5 +9,5 @@ description: >
   Child of the Federal category.
 mia:
   predefined: false
-  sbs: "http://www.example.org/mia/self.self(passport)(19)"
+  sbs: "https://www.example.org/mia/contexts/self.self(passport)(19)"
 ---

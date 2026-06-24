@@ -1,5 +1,5 @@
 ---
-id: http://www.example.org/mia/categories/affiliations
+id: http://mee.foundation/ontologies/categories/affiliations
 title: "Affiliations"
 type: category-databook
 version: 1.0.1
@@ -9,5 +9,4 @@ description: >
   about interactions with formal or informal groups of people. Child of Categories.
 mia:
   predefined: true
-  child: "http://www.example.org/mia/categories/boston-hub-society"
 ---

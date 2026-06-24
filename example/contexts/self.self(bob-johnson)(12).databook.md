@@ -1,5 +1,5 @@
 ---
-id: http://www.example.org/mia/self.self(bob-johnson)(12)
+id: https://www.example.org/mia/contexts/self.self(bob-johnson)(12)
 title: "About Alice Walker in the People context as asserted by Alice Walker"
 type: context-databook
 version: 2.0.3
@@ -13,7 +13,7 @@ mia:
   subject: ":Self"
   about-by: "context:SBS-Context"
 graph:
-  named_graph: http://www.example.org/mia/self.self(bob-johnson)(12)#graph
+  named_graph: https://www.example.org/mia/contexts/self.self(bob-johnson)(12)#graph
   rdf_version: "1.1"
 shapes:
   - http://www.example.org/shapes
@@ -33,7 +33,7 @@ This context captures Alice Walker's self-asserted persona in her 1:1 relationsh
 
 ```turtle
 <!-- databook:id: alice-bob-alice-identity -->
-<!-- databook:graph: http://www.example.org/mia/self.self(bob-johnson)(12)#graph -->
+<!-- databook:graph: https://www.example.org/mia/contexts/self.self(bob-johnson)(12)#graph -->
 @prefix : <http://www.example.org/mia#> .
 @prefix persona: <http://mee.foundation/ontologies/persona#> .
 @prefix cco: <https://purl.org/cco/> .

@@ -1,5 +1,5 @@
 ---
-id: http://www.example.org/mia/categories/friends
+id: http://mee.foundation/ontologies/categories/friends
 title: "Friends"
 type: category-databook
 version: 1.0.0

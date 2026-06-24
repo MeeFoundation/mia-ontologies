@@ -1,5 +1,5 @@
 ---
-id: http://www.example.org/mia/categories/consultants
+id: http://mee.foundation/ontologies/categories/consultants
 title: "Consultants"
 type: category-databook
 version: 1.0.0

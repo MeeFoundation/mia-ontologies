@@ -1,5 +1,5 @@
 ---
-id: http://www.example.org/mia/self.self(possessions)(22)
+id: https://www.example.org/mia/contexts/self.self(possessions)(22)
 title: "About Alice Walker in the Possessions context as asserted by Alice Walker"
 type: context-databook
 version: 2.0.2
@@ -14,7 +14,7 @@ mia:
   subject: ":Self"
   about-by: "context:SBS-Context"
 graph:
-  named_graph: http://www.example.org/mia/self.self(possessions)(22)#graph
+  named_graph: https://www.example.org/mia/contexts/self.self(possessions)(22)#graph
   rdf_version: "1.1"
 shapes:
   - http://www.example.org/shapes
@@ -34,7 +34,7 @@ This context captures Alice Walker's day-to-day physical possessions. Her wallet
 
 ```turtle
 <!-- databook:id: alice-possessions-identity -->
-<!-- databook:graph: http://www.example.org/mia/self.self(possessions)(22)#graph -->
+<!-- databook:graph: https://www.example.org/mia/contexts/self.self(possessions)(22)#graph -->
 @prefix : <http://www.example.org/mia#> .
 @prefix persona: <http://mee.foundation/ontologies/persona#> .
 @prefix owl: <http://www.w3.org/2002/07/owl#> .

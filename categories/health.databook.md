@@ -1,5 +1,5 @@
 ---
-id: http://www.example.org/mia/categories/health
+id: http://mee.foundation/ontologies/categories/health
 title: "Health"
 type: category-databook
 version: 1.0.0
@@ -10,6 +10,5 @@ description: >
 mia:
   predefined: true
   child:
-    - "http://www.example.org/mia/categories/healthcare"
-  sbs: "http://www.example.org/mia/self.self(health)(24)"
+    - "http://mee.foundation/ontologies/categories/healthcare"
 ---

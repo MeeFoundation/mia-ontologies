@@ -1,5 +1,5 @@
 ---
-id: http://www.example.org/mia/categories/paula-walker
+id: http://www.example.org/mia/categories/paula-walker(family)
 title: "Paula Walker"
 type: category-databook
 version: 1.0.0
@@ -9,7 +9,7 @@ description: >
   Child of the Family category.
 mia:
   predefined: false
-  obs: "http://www.example.org/mia/paula-walker.self(paula-walker)(family)(07)"
-  sbs: "http://www.example.org/mia/self.self(paula-walker)(family)(21)"
-  obo: "http://www.example.org/mia/paula-walker.paula-walker(paula-walker)(05)"
+  obs: "https://www.example.org/mia/contexts/paula-walker.self(paula-walker)(family)(07)"
+  sbs: "https://www.example.org/mia/contexts/self.self(paula-walker)(family)(21)"
+  obo: "https://www.example.org/mia/contexts/paula-walker.paula-walker(paula-walker)(05)"
 ---

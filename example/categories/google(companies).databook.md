@@ -1,5 +1,5 @@
 ---
-id: http://www.example.org/mia/categories/google
+id: http://www.example.org/mia/categories/google(companies)
 title: "Google"
 type: category-databook
 version: 1.0.0
@@ -9,5 +9,5 @@ description: >
   Child of the Companies category.
 mia:
   predefined: false
-  sbs: "http://www.example.org/mia/self.self(google)(16)"
+  sbs: "https://www.example.org/mia/contexts/self.self(google)(16)"
 ---

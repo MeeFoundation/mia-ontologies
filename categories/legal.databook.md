@@ -1,5 +1,5 @@
 ---
-id: http://www.example.org/mia/categories/legal
+id: http://mee.foundation/ontologies/categories/legal
 title: "Legal"
 type: category-databook
 version: 1.0.0

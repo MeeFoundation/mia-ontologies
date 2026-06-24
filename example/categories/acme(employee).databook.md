@@ -1,5 +1,5 @@
 ---
-id: http://www.example.org/mia/categories/acme
+id: http://www.example.org/mia/categories/acme(employee)
 title: "Acme"
 type: category-databook
 version: 1.0.0
@@ -9,6 +9,6 @@ description: >
   Child of the Employee category.
 mia:
   predefined: false
-  sbs: "http://www.example.org/mia/self.self(acme)(10)"
-  child: "http://www.example.org/mia/categories/paula"
+  sbs: "https://www.example.org/mia/contexts/self.self(acme)(10)"
+  child: "http://www.example.org/mia/categories/paula-walker(acme)"
 ---

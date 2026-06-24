@@ -1,5 +1,5 @@
 ---
-id: http://www.example.org/mia/categories/finances
+id: http://mee.foundation/ontologies/categories/finances
 title: "Finances"
 type: category-databook
 version: 1.0.0
@@ -10,5 +10,5 @@ description: >
 mia:
   predefined: true
   child:
-    - "http://www.example.org/mia/categories/financial-services"
+    - "http://mee.foundation/ontologies/categories/financial-services"
 ---

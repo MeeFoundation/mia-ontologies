@@ -1,5 +1,5 @@
 ---
-id: http://www.example.org/mia/categories/bob-johnson
+id: http://www.example.org/mia/categories/bob-johnson(people)
 title: "Bob Johnson"
 type: category-databook
 version: 1.0.0
@@ -9,8 +9,8 @@ description: >
   Child of the People category.
 mia:
   predefined: false
-  obs: "http://www.example.org/mia/bob-johnson.self(bob-johnson)(04)"
-  sbs: "http://www.example.org/mia/self.self(bob-johnson)(12)"
-  obo: "http://www.example.org/mia/bob-johnson.bob-johnson(bob-johnson)(02)"
-  sbo: "http://www.example.org/mia/self.bob-johnson(bob-johnson)(08)"
+  obs: "https://www.example.org/mia/contexts/bob-johnson.self(bob-johnson)(04)"
+  sbs: "https://www.example.org/mia/contexts/self.self(bob-johnson)(12)"
+  obo: "https://www.example.org/mia/contexts/bob-johnson.bob-johnson(bob-johnson)(02)"
+  sbo: "https://www.example.org/mia/contexts/self.bob-johnson(bob-johnson)(08)"
 ---

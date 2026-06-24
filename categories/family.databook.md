@@ -1,5 +1,5 @@
 ---
-id: http://www.example.org/mia/categories/family
+id: http://mee.foundation/ontologies/categories/family
 title: "Family"
 type: category-databook
 version: 1.0.0
@@ -9,5 +9,4 @@ description: >
   about interactions with family members. Child of the People category.
 mia:
   predefined: true
-  child: "http://www.example.org/mia/categories/paula-walker"
 ---

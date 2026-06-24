@@ -1,5 +1,5 @@
 ---
-id: http://www.example.org/mia/categories/travel
+id: http://mee.foundation/ontologies/categories/travel
 title: "Travel"
 type: category-databook
 version: 1.0.0

@@ -1,5 +1,5 @@
 ---
-id: http://www.example.org/mia/categories/companies
+id: http://mee.foundation/ontologies/categories/companies
 title: "Companies"
 type: category-databook
 version: 1.0.0
@@ -9,7 +9,4 @@ description: >
   about relationships with specific companies and institutions. Child of Categories.
 mia:
   predefined: true
-  child:
-    - "http://www.example.org/mia/categories/google"
-    - "http://www.example.org/mia/categories/att"
 ---

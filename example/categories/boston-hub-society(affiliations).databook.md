@@ -1,5 +1,5 @@
 ---
-id: http://www.example.org/mia/categories/boston-hub-society
+id: http://www.example.org/mia/categories/boston-hub-society(affiliations)
 title: "Boston Hub Society"
 type: category-databook
 version: 1.0.0
@@ -9,8 +9,8 @@ description: >
   Child of the Groups category.
 mia:
   predefined: false
-  sbs: "http://www.example.org/mia/self.self(boston-hub-society)(14)"
+  sbs: "https://www.example.org/mia/contexts/self.self(boston-hub-society)(14)"
   obo:
-    - "http://www.example.org/mia/bhs-group.members(boston-hub-society)(01)"
-    - "http://www.example.org/mia/bob-johnson.bob-johnson(boston-hub-society)(03)"
+    - "https://www.example.org/mia/contexts/bhs-group.members(boston-hub-society)(01)"
+    - "https://www.example.org/mia/contexts/bob-johnson.bob-johnson(boston-hub-society)(03)"
 ---

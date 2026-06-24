@@ -1,5 +1,5 @@
 ---
-id: http://www.example.org/mia/categories/citibank
+id: http://www.example.org/mia/categories/citibank(financial-services)
 title: "Citibank"
 type: category-databook
 version: 1.0.0
@@ -9,5 +9,5 @@ description: >
   Child of the Financial Services category.
 mia:
   predefined: false
-  sbo: "http://www.example.org/mia/self.citibank(citibank)(09)"
+  sbo: "https://www.example.org/mia/contexts/self.citibank(citibank)(09)"
 ---

@@ -1,5 +1,5 @@
 ---
-id: http://www.example.org/mia/categories/marriage-partner
+id: http://mee.foundation/ontologies/categories/marriage-partner
 title: "Marriage/Partner"
 type: category-databook
 version: 1.0.0

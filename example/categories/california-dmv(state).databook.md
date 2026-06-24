@@ -1,5 +1,5 @@
 ---
-id: http://www.example.org/mia/categories/california-dmv
+id: http://www.example.org/mia/categories/california-dmv(state)
 title: "California DMV"
 type: category-databook
 version: 1.0.0
@@ -9,5 +9,5 @@ description: >
   Child of the State category.
 mia:
   predefined: false
-  sbs: "http://www.example.org/mia/self.self(california-dmv)(15)"
+  sbs: "https://www.example.org/mia/contexts/self.self(california-dmv)(15)"
 ---

@@ -1,5 +1,5 @@
 ---
-id: http://www.example.org/mia/categories/federal
+id: http://mee.foundation/ontologies/categories/federal
 title: "Federal"
 type: category-databook
 version: 1.0.0
@@ -9,7 +9,4 @@ description: >
   about federal government credentials and records. Child of Government.
 mia:
   predefined: true
-  child:
-    - "http://www.example.org/mia/categories/social-security-administration"
-    - "http://www.example.org/mia/categories/passport"
 ---

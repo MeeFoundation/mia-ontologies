@@ -1,5 +1,5 @@
 ---
-id: http://www.example.org/mia/categories/healthcare
+id: http://mee.foundation/ontologies/categories/healthcare
 title: "Healthcare"
 type: category-databook
 version: 1.0.0

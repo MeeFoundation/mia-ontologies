@@ -12,7 +12,7 @@
 Each Mia context file is currently a `.ttl` (Turtle RDF) file that acts as a "poor man's named graph." Because plain Turtle has no native support for named graphs or graph-level metadata, we work around this limitation by declaring an `owl:Ontology` and hanging annotation properties off its IRI:
 
 ```turtle
-<http://www.example.org/mia/alice(citibank)citibank> rdf:type owl:Ontology ;
+<https://www.example.org/mia/contexts/alice(citibank)citibank> rdf:type owl:Ontology ;
     owl:imports <http://mee.foundation/ontologies/persona> ;
     owl:imports <http://mee.foundation/ontologies/context> ;
     context:contextCategory context:FinancialServices ;
@@ -136,7 +136,7 @@ The `owl:Ontology` declaration exists in our current `.ttl` files solely as a ve
 **Current `.ttl` (abbreviated):**
 
 ```turtle
-<http://www.example.org/mia/alice(citibank)citibank> rdf:type owl:Ontology ;
+<https://www.example.org/mia/contexts/alice(citibank)citibank> rdf:type owl:Ontology ;
     owl:imports <http://mee.foundation/ontologies/persona> ;
     owl:imports <http://mee.foundation/ontologies/context> ;
     context:contextCategory context:FinancialServices ;
@@ -154,7 +154,7 @@ The `owl:Ontology` declaration exists in our current `.ttl` files solely as a ve
 
 ```markdown
 ---
-id: http://www.example.org/mia/alice(citibank)citibank
+id: https://www.example.org/mia/contexts/alice(citibank)citibank
 title: "Alice Walker — Citibank"
 type: databook
 version: 2.0.1
@@ -169,7 +169,7 @@ mia:
   subject: "identity:Self"
 graph:
   namespace: http://www.example.org/mia#
-  named_graph: http://www.example.org/mia/alice(citibank)citibank#graph
+  named_graph: https://www.example.org/mia/contexts/alice(citibank)citibank#graph
   rdf_version: "1.1"
 shapes:
   - http://www.example.org/shapes          # IRI of persona-shacl.ttl (Tier 1 — all contexts)
@@ -190,7 +190,7 @@ account, plus an online service account for `online.citi.com`.
 ## Identity Data
 
 <!-- databook:id: alice-citibank -->
-<!-- databook:graph: http://www.example.org/mia/alice(citibank)citibank#graph -->
+<!-- databook:graph: https://www.example.org/mia/contexts/alice(citibank)citibank#graph -->
 ```turtle
 @prefix : <http://www.example.org/mia#> .
 @prefix persona: <http://mee.foundation/ontologies/persona#> .

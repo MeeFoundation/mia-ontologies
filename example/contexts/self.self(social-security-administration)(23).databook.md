@@ -1,5 +1,5 @@
 ---
-id: http://www.example.org/mia/self.self(social-security-administration)(23)
+id: https://www.example.org/mia/contexts/self.self(social-security-administration)(23)
 title: "About Alice Walker in the Federal context as asserted by Alice Walker"
 type: context-databook
 version: 2.0.2
@@ -13,7 +13,7 @@ mia:
   subject: ":Self"
   about-by: "context:SBS-Context"
 graph:
-  named_graph: http://www.example.org/mia/self.self(social-security-administration)(23)#graph
+  named_graph: https://www.example.org/mia/contexts/self.self(social-security-administration)(23)#graph
   rdf_version: "1.1"
 shapes:
   - http://www.example.org/shapes
@@ -33,7 +33,7 @@ This context captures Alice Walker's Social Security Administration record. Alic
 
 ```turtle
 <!-- databook:id: alice-ssa-identity -->
-<!-- databook:graph: http://www.example.org/mia/self.self(social-security-administration)(23)#graph -->
+<!-- databook:graph: https://www.example.org/mia/contexts/self.self(social-security-administration)(23)#graph -->
 @prefix : <http://www.example.org/mia#> .
 @prefix persona: <http://mee.foundation/ontologies/persona#> .
 @prefix cco: <https://purl.org/cco/> .

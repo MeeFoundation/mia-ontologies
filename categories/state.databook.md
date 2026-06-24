@@ -1,5 +1,5 @@
 ---
-id: http://www.example.org/mia/categories/state
+id: http://mee.foundation/ontologies/categories/state
 title: "State"
 type: category-databook
 version: 1.0.0
@@ -9,7 +9,4 @@ description: >
   about state government credentials and records. Child of Government.
 mia:
   predefined: true
-  child:
-    - "http://www.example.org/mia/categories/texas-vital-records"
-    - "http://www.example.org/mia/categories/california-dmv"
 ---

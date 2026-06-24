@@ -1,5 +1,5 @@
 ---
-id: http://www.example.org/mia/categories/financial-services
+id: http://mee.foundation/ontologies/categories/financial-services
 title: "FinancialServices"
 type: category-databook
 version: 1.0.0
@@ -9,5 +9,4 @@ description: >
   about relationships with banks and financial institutions. Child of Finances.
 mia:
   predefined: true
-  child: "http://www.example.org/mia/categories/citibank"
 ---

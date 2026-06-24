@@ -205,6 +205,29 @@ If any `MISSING:` lines appear, either add the file or update the link.
 
 For each DataBook in `example/` (excluding `under-development/`), extract the three YAML values and verify they match the table. If they conflict, `about-by` is the authoritative value — update `subject` and/or `assertedBy` to match it.
 
+**Check 11 — Category filename ↔ id consistency**: For every category DataBook in `categories/` and `example/categories/`, the filename root (the filename with `.databook.md` stripped) must exactly match the local name portion of the file's `id:` IRI (the string after the IRI base). The IRI base for canonical files is `http://mee.foundation/ontologies/categories/`; for example files it is `http://www.example.org/mia/categories/`. Run:
+
+```python
+import os, re
+checks = [
+    ('categories',         'http://mee.foundation/ontologies/categories/'),
+    ('example/categories', 'http://www.example.org/mia/categories/'),
+]
+for directory, base in checks:
+    for fname in sorted(os.listdir(directory)):
+        if not fname.endswith('.databook.md'):
+            continue
+        root = fname[:-len('.databook.md')]
+        text = open(f'{directory}/{fname}').read()
+        m = re.search(r'^id:\s*(\S+)', text, re.MULTILINE)
+        fid = m.group(1).strip() if m else ''
+        local = fid[len(base):] if fid.startswith(base) else None
+        if local != root:
+            print(f'MISMATCH  {directory}/{fname}  root={root!r}  id={local!r}')
+```
+
+If a mismatch is found, rename the file so its root matches the id local name (preferred) or update the `id:` to match the filename — whichever is consistent with the broader naming conventions.
+
 ## Keeping Files in Sync
 
 Whenever changes are made to any context file, `persona.ttl`, or `context.ttl`, `persona-shacl.ttl` must be updated to match:

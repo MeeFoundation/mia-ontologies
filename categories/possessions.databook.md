@@ -1,5 +1,5 @@
 ---
-id: http://www.example.org/mia/categories/possessions
+id: http://mee.foundation/ontologies/categories/possessions
 title: "Possessions"
 type: category-databook
 version: 1.0.0
@@ -9,5 +9,7 @@ description: >
   about owned assets, property, and possessions. Child of Categories.
 mia:
   predefined: true
-  sbs: "http://www.example.org/mia/self.self(possessions)(19)"
+  child:
+    - "http://mee.foundation/ontologies/categories/vehicles"
+    - "http://mee.foundation/ontologies/categories/pets"
 ---

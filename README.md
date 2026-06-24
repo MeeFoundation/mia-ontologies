@@ -129,18 +129,20 @@ Here are the predefined categories:
 
 ### Category DataBooks
 
-Each node in the `c:Category` hierarchy is represented by a **category DataBook** (`.databook.md` file with `type: category-databook`). The root is `categories/categories.databook.md`; all other files represent individual category nodes. Category DataBooks form a tree linked by the `c:child` property, which points from a parent category to its child category IRIs. The predefined category DataBooks are in `./categories`.
+Each node in the `c:Category` hierarchy is represented by a **category DataBook** (`.databook.md` file with `type: category-databook`). Category DataBooks form a tree linked by the `c:child` property, which points from a parent category to its child category IRIs. The predefined canonical category DataBooks live in `categories/`, rooted at `categories/categories.databook.md`.
 
-**Predefined vs. user-defined**: Categories with `mia.predefined: true` correspond to `c:Predefined` subclasses shipped with Mia — their DataBooks live in `categories/`. The class IRI is derived from the DataBook title by removing spaces (e.g. title `"FinancialServices"` → class `context:FinancialServices`). Categories with `mia.predefined: false` are `c:UserDefined` instances created by the Mia user to organize their own contexts (e.g. a specific person, company, or place) — their DataBooks live in `example/categories/`.
+Each Mia user instance maintains its own parallel category tree in a separate directory. No links of any kind (`c:child`, `c:sbs`, `c:obs`, `c:obo`, `c:sbo`) cross from the canonical tree into a user's instance tree. A user's instance tree contains copies of the predefined canonical categories (each with a `copiedFrom:` property pointing to the canonical IRI) alongside any user-defined categories they have created. Context links (`c:sbs`, `c:obs`, `c:obo`, `c:sbo`) appear only in a user's instance tree, not in the canonical tree.
 
-**Context links**: Each category DataBook may carry up to four optional links to context DataBook IRIs, corresponding to the four `c:Context` subtypes:
+**Predefined vs. user-defined**: Categories with `mia.predefined: true` correspond to `c:Predefined` subclasses shipped with Mia. The class IRI is derived from the DataBook title by removing spaces (e.g. title `"FinancialServices"` → class `context:FinancialServices`). Categories with `mia.predefined: false` are `c:UserDefined` instances created by the Mia user to organize their own contexts (e.g. a specific person, company, or place).
 
-| Property | `c:Context` subtype | Cardinality | Example |
+**Context links**: Each category DataBook in a user's instance tree may carry up to four optional links to context DataBook IRIs, corresponding to the four `c:Context` subtypes:
+
+| Property | `c:Context` subtype | Cardinality | Meaning |
 |----------|---------------------|-------------|---------|
-| `c:sbs` | `c:SBS-Context` | 0..1 | Alice's own BHS persona |
-| `c:obs` | `c:OBS-Context` | 0..1 | Alice's record of Paula as a family member |
-| `c:obo` | `c:OBO-Context` | 0..N | Bob's persona he presents to Alice |
-| `c:sbo` | `c:SBO-Context` | 0..1 | Bob's record about Alice |
+| `c:sbs` | `c:SBS-Context` | 0..1 | The user's own context in this category |
+| `c:obs` | `c:OBS-Context` | 0..1 | The user's record of the other party |
+| `c:obo` | `c:OBO-Context` | 0..N | A context the other party presents |
+| `c:sbo` | `c:SBO-Context` | 0..1 | A context the other party holds about the user |
 
 
 ### Context Ontology File
@@ -436,7 +438,7 @@ Context DataBook filenames follow the pattern:
 | `(<containing-category>)` | The filename root of the category DataBook that directly holds the `obs`, `sbs`, `obo`, or `sbo` link pointing to this context (e.g. `(paula-walker)`, `(bob-johnson)`, `(boston-hub-society)`, `(acme)`, `(citibank)`). This is often a user-defined category DataBook — it is NOT the `mia.category` IRI local name of the predefined category. |
 | `(<NN>)` | Zero-padded two-digit context number in parentheses. |
 
-The document IRI uses the same local name under the `http://www.example.org/mia/` base. For example, `self.citibank(citibank)(09).databook.md` has `id: http://www.example.org/mia/self.citibank(citibank)(09)`.
+The document IRI uses the same local name under the `https://www.example.org/mia/contexts/` base. For example, `self.citibank(citibank)(09).databook.md` has `id: https://www.example.org/mia/contexts/self.citibank(citibank)(09)`.
 
 Examples:
 
@@ -454,7 +456,10 @@ Alice interacts with other people, organizations and groups in contexts of diffe
 
 All context files reside in Alice's Mia. Some are authored by Alice (self-asserted data she entered directly); others are data received from peers over PDN and stored locally. In either case, Alice is the Mia user, so her `persona:Person` individual uses the IRI `:Self` across all of her context files. Other people — Bob Johnson, Paula Walker — and groups such as BHS use locally-assigned named IRIs (e.g. `:Bob_Johnson`, `:Paula_Walker`, `:BHS`). When data arrives from a peer's Mia (where that peer was `:Self` in their own instance), Alice's Mia assigns them a locally-minted identifier; once a PDN connection is established, that identifier resolves to their PDN ID.
 
-Alice's user-defined category DataBooks — one per specific person, company, government agency, or group she interacts with — are all in `example/categories/`. Each corresponds to a node in the category tree that Alice has created to organize her contexts.
+Alice's category DataBooks are all in `example/categories/`. The full tree can be walked starting from `example/categories/categories.databook.md`. It contains two kinds of entries:
+
+- **Copies of predefined canonical categories** (`mia.predefined: true`) — one for each of the 14 top-level categories and their subcategories. Each copy carries a `copiedFrom:` property pointing to the corresponding canonical IRI (e.g. `copiedFrom: "http://mee.foundation/ontologies/categories/people"`). Context links (`c:sbs`, `c:obs`, `c:obo`, `c:sbo`) to Alice's contexts are attached here, not in the canonical tree.
+- **User-defined categories** (`mia.predefined: false`) — one per specific person, company, government agency, or group Alice interacts with (e.g. `bob-johnson(people)`, `acme(employee)`, `citibank(financial-services)`).
 
 The following diagrams map out the categories and contexts used in our Alice example. We start with the People category--Alice's relationships with Bob and Paula. Note that Alice has put Bob in the general People category, rather than in Friends, Family or Consultants. We're not sure why she did this, but the example shows it's permissible. Note that the contexts with dotted outlines are context "slots" in the category — Alice could fill a context in any of these placeholder slots if she wishes to, and the claims in the context would flow downwards (although they can also be overridden) by lower-level categories and contexts:
 
@@ -533,7 +538,7 @@ A `BFO_0000115` (has member part) triple on a Social Network individual — for 
 
 This is the correct design for three reasons:
 
-- **BFO semantics**: changing the range of `BFO_0000115` to a DataBook document IRI (e.g. `<http://www.example.org/mia/paula-walker.self(paula-walker)(family)(07)>`) would be a semantic error — the range of `has member part` must be a continuant (a person or group), not a document.
+- **BFO semantics**: changing the range of `BFO_0000115` to a DataBook document IRI (e.g. `<https://www.example.org/mia/contexts/paula-walker.self(paula-walker)(family)(07)>`) would be a semantic error — the range of `has member part` must be a continuant (a person or group), not a document.
 - **Model simplicity**: introducing context-specific "view" individuals (e.g. `:Paula_Walker_Family`) would reintroduce the layered complexity that the removal of `p:Persona` was designed to eliminate.
 - **Tooling maturity**: annotating the triple with RDF-star (`<< :Alice_Family_Network BFO_0000115 :Paula_Walker >> mia:inContext <...>`) is a valid future option, but is not yet supported by Protégé and remains non-standard.
 

@@ -1,5 +1,5 @@
 ---
-id: http://www.example.org/mia/categories/work
+id: http://mee.foundation/ontologies/categories/work
 title: "Work"
 type: category-databook
 version: 1.0.0
@@ -9,5 +9,8 @@ description: >
   about professional roles, employment, and career relationships. Child of Categories.
 mia:
   predefined: true
-  child: "http://www.example.org/mia/categories/employee"
+  child:
+    - "http://mee.foundation/ontologies/categories/employee"
+    - "http://mee.foundation/ontologies/categories/contributor"
+    - "http://mee.foundation/ontologies/categories/creator"
 ---

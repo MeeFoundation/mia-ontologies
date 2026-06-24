@@ -1,5 +1,5 @@
 ---
-id: http://www.example.org/mia/paula-walker.self(paula-walker)(family)(07)
+id: https://www.example.org/mia/contexts/paula-walker.self(paula-walker)(family)(07)
 title: "About Paula Walker in the Family context as asserted by Alice Walker"
 type: context-databook
 version: 2.0.4
@@ -12,7 +12,7 @@ mia:
   subject: ":Paula_Walker"
   about-by: "context:OBS-Context"
 graph:
-  named_graph: http://www.example.org/mia/paula-walker.self(paula-walker)(family)(07)#graph
+  named_graph: https://www.example.org/mia/contexts/paula-walker.self(paula-walker)(family)(07)#graph
   rdf_version: "1.1"
 shapes:
   - http://www.example.org/shapes
@@ -32,7 +32,7 @@ This context captures Alice's record of her family member Paula Walker. Alice as
 
 ```turtle
 <!-- databook:id: paula-family-alice-identity -->
-<!-- databook:graph: http://www.example.org/mia/paula-walker.self(paula-walker)(family)(07)#graph -->
+<!-- databook:graph: https://www.example.org/mia/contexts/paula-walker.self(paula-walker)(family)(07)#graph -->
 @prefix : <http://www.example.org/mia#> .
 @prefix persona: <http://mee.foundation/ontologies/persona#> .
 @prefix cco: <https://purl.org/cco/> .

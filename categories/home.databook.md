@@ -1,5 +1,5 @@
 ---
-id: http://www.example.org/mia/categories/home
+id: http://mee.foundation/ontologies/categories/home
 title: "Home"
 type: category-databook
 version: 1.0.0

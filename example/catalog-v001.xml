@@ -26,7 +26,7 @@
     <!-- ── Selfness files (now DataBook — loaded via triplestore, not owl:imports) ── -->
 
     <!-- ── Under-development ────────────────────────────────────────────── -->
-    <uri id="florida-birth-certificate" name="http://www.example.org/mia/florida-birth-certificate"
+    <uri id="florida-birth-certificate" name="https://www.example.org/mia/contexts/florida-birth-certificate"
          uri="file:/Users/paul/Documents/Work/GitHub/mia-ontologies/example/under-development/paula(fl-birth-cert)alice.ttl"/>
 
     <!-- ── Top-level domain ontologies ─────────────────────────────────── -->

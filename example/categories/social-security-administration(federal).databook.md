@@ -1,5 +1,5 @@
 ---
-id: http://www.example.org/mia/categories/social-security-administration
+id: http://www.example.org/mia/categories/social-security-administration(federal)
 title: "Social Security Administration"
 type: category-databook
 version: 1.0.0
@@ -9,5 +9,5 @@ description: >
   Child of the Federal category.
 mia:
   predefined: false
-  sbs: "http://www.example.org/mia/self.self(social-security-administration)(23)"
+  sbs: "https://www.example.org/mia/contexts/self.self(social-security-administration)(23)"
 ---

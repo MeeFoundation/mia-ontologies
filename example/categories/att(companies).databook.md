@@ -1,5 +1,5 @@
 ---
-id: http://www.example.org/mia/categories/att
+id: http://www.example.org/mia/categories/att(companies)
 title: "AT&T"
 type: category-databook
 version: 1.0.0
@@ -9,5 +9,5 @@ description: >
   Child of the Companies category.
 mia:
   predefined: false
-  sbs: "http://www.example.org/mia/self.self(att)(11)"
+  sbs: "https://www.example.org/mia/contexts/self.self(att)(11)"
 ---

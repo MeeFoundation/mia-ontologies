@@ -1,5 +1,5 @@
 ---
-id: http://www.example.org/mia/categories/texas-vital-records
+id: http://www.example.org/mia/categories/texas-vital-records(state)
 title: "Texas Vital Records"
 type: category-databook
 version: 1.0.0
@@ -9,5 +9,5 @@ description: >
   Child of the State category.
 mia:
   predefined: false
-  sbs: "http://www.example.org/mia/self.self(texas-vital-records)(24)"
+  sbs: "https://www.example.org/mia/contexts/self.self(texas-vital-records)(24)"
 ---
