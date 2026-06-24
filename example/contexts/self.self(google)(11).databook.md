@@ -1,19 +1,19 @@
 ---
-id: http://www.example.org/mia/self.self(companies)(12)
+id: http://www.example.org/mia/self.self(google)(11)
 title: "About Alice Walker in the Companies context as asserted by Alice Walker"
 type: context-databook
 version: 2.0.2
 created: 2026-06-01
 description: >
-  Alice Walker's AT&T context. Records her mobile phone number as self-entered data
-  about her AT&T account relationship.
+  Alice Walker's Google context. Records her Gmail address as self-entered data
+  about her Google account relationship.
 mia:
   category: "http://www.example.org/mia/categories/companies"
   assertedBy: ":Self"
   subject: ":Self"
   about-by: "context:SBS-Context"
 graph:
-  named_graph: http://www.example.org/mia/self.self(companies)(12)#graph
+  named_graph: http://www.example.org/mia/self.self(google)(11)#graph
   rdf_version: "1.1"
 shapes:
   - http://www.example.org/shapes
@@ -27,13 +27,13 @@ process:
 
 ## Overview
 
-This context captures Alice Walker's AT&T account context. Alice self-enters her mobile phone number (+15108149999, E.164 format). AT&T is not a PDN node, so Alice records this data herself rather than receiving it from AT&T.
+This context captures Alice Walker's Google account context. Alice self-enters her Gmail address (awalker@gmail.com). Google is not a PDN node, so Alice records this data herself rather than receiving it from Google.
 
 ## Identity Data
 
 ```turtle
-<!-- databook:id: alice-att-identity -->
-<!-- databook:graph: http://www.example.org/mia/self.self(companies)(12)#graph -->
+<!-- databook:id: alice-google-identity -->
+<!-- databook:graph: http://www.example.org/mia/self.self(google)(11)#graph -->
 @prefix : <http://www.example.org/mia#> .
 @prefix persona: <http://mee.foundation/ontologies/persona#> .
 @prefix cco: <https://purl.org/cco/> .
@@ -43,11 +43,10 @@ This context captures Alice Walker's AT&T account context. Alice self-enters her
 
 :Self rdf:type owl:NamedIndividual ,
                persona:Person ;
-    rdfs:label "Alice Walker (AT&T)"@en ;
+    rdfs:label "Alice Walker (Google)"@en ;
 
-    <https://purl.org/cco/ont00001879> [  # designated by → Phone
-        rdf:type cco:ent00000023 ;
-        <https://purl.org/cco/ont00001765> "+15108149999" ;
-        rdfs:comment "E.164 format (international standard)"@en
+    <https://purl.org/cco/ont00001879> [  # designated by → Email
+        rdf:type cco:ent00000024 ;
+        <https://purl.org/cco/ont00001765> "awalker@gmail.com"
     ] .
 ```

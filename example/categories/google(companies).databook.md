@@ -9,5 +9,5 @@ description: >
   Child of the Companies category.
 mia:
   predefined: false
-  sbs: "http://www.example.org/mia/self.self(companies)(11)"
+  sbs: "http://www.example.org/mia/self.self(google)(11)"
 ---

@@ -1,5 +1,5 @@
 ---
-id: http://www.example.org/mia/self.self(state)(13)
+id: http://www.example.org/mia/self.self(texas-vital-records)(13)
 title: "About Alice Walker in the State context as asserted by Alice Walker"
 type: context-databook
 version: 2.0.4
@@ -14,7 +14,7 @@ mia:
   about-by: "context:SBS-Context"
   template: "persona:BirthCertificate"
 graph:
-  named_graph: http://www.example.org/mia/self.self(state)(13)#graph
+  named_graph: http://www.example.org/mia/self.self(texas-vital-records)(13)#graph
   rdf_version: "1.1"
 shapes:
   - http://www.example.org/shapes
@@ -35,7 +35,7 @@ This context captures Alice Walker's Texas birth certificate identity data. Alic
 
 ```turtle
 <!-- databook:id: alice-tx-birth-cert-identity -->
-<!-- databook:graph: http://www.example.org/mia/self.self(state)(13)#graph -->
+<!-- databook:graph: http://www.example.org/mia/self.self(texas-vital-records)(13)#graph -->
 @prefix : <http://www.example.org/mia#> .
 @prefix persona: <http://mee.foundation/ontologies/persona#> .
 @prefix cco: <https://purl.org/cco/> .

@@ -1,5 +1,5 @@
 ---
-id: http://www.example.org/mia/self.citibank(financial-services)(10)
+id: http://www.example.org/mia/self.citibank(citibank)(10)
 title: "About Alice Walker in the FinancialServices context as asserted by Citibank"
 type: context-databook
 version: 2.0.3
@@ -13,7 +13,7 @@ mia:
   subject: ":Self"
   about-by: "context:SBO-Context"
 graph:
-  named_graph: http://www.example.org/mia/self.citibank(financial-services)(10)#graph
+  named_graph: http://www.example.org/mia/self.citibank(citibank)(10)#graph
   rdf_version: "1.1"
 shapes:
   - http://www.example.org/shapes
@@ -33,7 +33,7 @@ This context captures Alice Walker's financial relationship with Citibank. Citib
 
 ```turtle
 <!-- databook:id: citibank-identity -->
-<!-- databook:graph: http://www.example.org/mia/self.citibank(financial-services)(10)#graph -->
+<!-- databook:graph: http://www.example.org/mia/self.citibank(citibank)(10)#graph -->
 @prefix : <http://www.example.org/mia#> .
 @prefix persona: <http://mee.foundation/ontologies/persona#> .
 @prefix o: <http://mee.foundation/ontologies/organization#> .

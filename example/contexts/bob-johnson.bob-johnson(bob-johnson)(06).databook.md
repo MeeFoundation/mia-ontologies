@@ -1,5 +1,5 @@
 ---
-id: http://www.example.org/mia/bob.bob(people)(06)
+id: http://www.example.org/mia/bob-johnson.bob-johnson(bob-johnson)(06)
 title: "About Bob Johnson in the People context as asserted by Bob Johnson"
 type: context-databook
 version: 2.0.2
@@ -13,7 +13,7 @@ mia:
   subject: ":Bob_Johnson"
   about-by: "context:OBO-Context"
 graph:
-  named_graph: http://www.example.org/mia/bob.bob(people)(06)#graph
+  named_graph: http://www.example.org/mia/bob-johnson.bob-johnson(bob-johnson)(06)#graph
   rdf_version: "1.1"
 shapes:
   - http://www.example.org/shapes
@@ -33,7 +33,7 @@ This context captures Bob Johnson's self-asserted Bob-context persona, transmitt
 
 ```turtle
 <!-- databook:id: bob-bob-bob-identity -->
-<!-- databook:graph: http://www.example.org/mia/bob.bob(people)(06)#graph -->
+<!-- databook:graph: http://www.example.org/mia/bob-johnson.bob-johnson(bob-johnson)(06)#graph -->
 @prefix : <http://www.example.org/mia#> .
 @prefix persona: <http://mee.foundation/ontologies/persona#> .
 @prefix cco: <https://purl.org/cco/> .
