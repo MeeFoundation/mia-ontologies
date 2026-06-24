@@ -9,6 +9,5 @@ description: >
   related to employment. Child of the Work category.
 mia:
   predefined: true
-  sbs: "http://www.example.org/mia/alice(business-card)alice"
   child: "http://www.example.org/mia/categories/acme"
 ---

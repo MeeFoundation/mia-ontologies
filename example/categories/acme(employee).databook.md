@@ -9,5 +9,6 @@ description: >
   Child of the Employee category.
 mia:
   predefined: false
+  sbs: "http://www.example.org/mia/alice(business-card)alice"
   child: "http://www.example.org/mia/categories/paula"
 ---
