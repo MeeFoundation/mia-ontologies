@@ -84,19 +84,19 @@ shacl/driverslicense-shacl.ttl    — per-template shapes for driver's license f
 Context filenames follow a single flat pattern:
 
 ```
-[NN-]<about>(<context-name>)<asserted-by>.ttl
+<subject>.<asserted-by>(<containing-category>)(<NN>).databook.md
 ```
 
 | Segment | Meaning |
 |---------|---------|
-| `NN-` | Zero-padded two-digit diagram label number; omitted for files that have no diagram circle. |
-| `<about>` | The entity the Persona is about (e.g. `alice`, `bob`, `paula`, `bhs`). |
-| `(<context-name>)` | Lowercase name identifying the context or relationship. For named-entity contexts (a specific company, person, place, or group), use the entity's own name (e.g. `(citibank)`, `(bhs)`, `(bob)`). For categorical contexts, use the lowercase local name of the `c:category` (e.g. `(familymember)` for `context:Family`, `(employee)` for `context:Employee`). |
-| `<asserted-by>` | Who asserted the data — a real entity identifier (e.g. `alice`, `bob`, `paula`) or the literal `members` for `c:Group` contexts where any permitted member may write. |
+| `<subject>` | The entity the Persona is about. Use `self` when the subject is the Mia user's own `p:Person` (`:Self`); otherwise use a short lowercase identifier (e.g. `paula`, `bob`, `bhs`). |
+| `<asserted-by>` | Who asserted the data. Use `self` when the asserter is `:Self`; use a short lowercase identifier for other asserters (e.g. `bob`, `citibank`); use the literal `members` for `c:Group` contexts where any permitted member may write. |
+| `(<containing-category>)` | Lowercase local name of the `mia.category` IRI (e.g. `(employee)`, `(family)`, `(affiliations)`). |
+| `(<NN>)` | Zero-padded two-digit context number in parentheses, matching the diagram label. |
 
-**Exception — `c:Group` contexts**: A group context (`category context:Group`) has no single asserter — any permitted member can write to it and changes replicate to all members. The `<asserted-by>` segment is the literal `members` rather than an individual name. Example: `08-bhs(bhs)members.ttl` — about BHS, context "bhs", asserted by the group's members collectively.
+**Exception — `c:Group` contexts**: A group context (`category context:Group`) has no single asserter — any permitted member can write to it and changes replicate to all members. The `<asserted-by>` segment is the literal `members` rather than an individual name. Example: `bhs.members(affiliations)(08).databook.md` — about BHS, category "affiliations", asserted by the group's members collectively.
 
-**`mia.assertedBy` vocabulary**: The YAML field takes the local IRI of a `p:Person`, `g:Group`, or `o:Organization` individual — NOT an `i:PDNidentifier`. Those individuals carry their own PDN identity via `identity:hasPDNidentifier`. Specifically: `:Self` (the Mia user's `p:Person`) for self-asserted contexts; a named `p:Person` individual (e.g. `:Bob_Johnson`) when another Mia user asserts the data; a named `g:Group` individual (e.g. `:BHS_Group`) for group contexts; and a named `o:Organization` individual (e.g. `:Citibank`) only when the asserting organization is itself a PDN node. In the example data **only Citibank is a PDN node**, so only `10-alice(citibank)citibank.databook.md` uses `assertedBy: ":Citibank"`. All other organization-related contexts (Google, AT&T, SSA, etc.) use `assertedBy: ":Self"` because Alice self-enters that data — those organizations are not PDN-interoperable.
+**`mia.assertedBy` vocabulary**: The YAML field takes the local IRI of a `p:Person`, `g:Group`, or `o:Organization` individual — NOT an `i:PDNidentifier`. Those individuals carry their own PDN identity via `identity:hasPDNidentifier`. Specifically: `:Self` (the Mia user's `p:Person`) for self-asserted contexts; a named `p:Person` individual (e.g. `:Bob_Johnson`) when another Mia user asserts the data; a named `g:Group` individual (e.g. `:BHS_Group`) for group contexts; and a named `o:Organization` individual (e.g. `:Citibank`) only when the asserting organization is itself a PDN node. In the example data **only Citibank is a PDN node**, so only `self.citibank(financial-services)(10).databook.md` uses `assertedBy: ":Citibank"`. All other organization-related contexts (Google, AT&T, SSA, etc.) use `assertedBy: ":Self"` because Alice self-enters that data — those organizations are not PDN-interoperable.
 
 **"Other" asserters**: When the asserter is someone other than the current Mia user (`:Self`), the asserter is a named individual of one of:
 - `p:Person` — another Mia user (a different person, e.g. `:Bob_Johnson` asserting data about Alice)
@@ -107,13 +107,13 @@ The parent-context hierarchy (which context is a child of which) is expressed vi
 
 **Examples:**
 
-| Filename | About | Context | Asserted by |
-|----------|-------|---------|-------------|
-| `10-alice(citibank)citibank.ttl` | Alice | citibank | Citibank |
-| `02-paula(familymember)alice.databook.md` | Paula | familymember | Alice |
-| `04-alice(bob)bob.ttl` | Alice | bob | Bob |
-| `09-bob(bhs)bob.ttl` | Bob | bhs | Bob |
-| `08-bhs(bhs)members.ttl` | BHS | bhs | members (group) |
+| Filename | Subject | Asserted by | Category |
+|----------|---------|-------------|----------|
+| `self.citibank(financial-services)(10).databook.md` | Self (Alice) | Citibank | financial-services |
+| `paula.self(family)(02).databook.md` | Paula | Self (Alice) | family |
+| `self.bob(people)(04).databook.md` | Self (Alice) | Bob | people |
+| `bob.bob(affiliations)(09).databook.md` | Bob | Bob | affiliations |
+| `bhs.members(affiliations)(08).databook.md` | BHS | members (group) | affiliations |
 
 ### Key Architectural Patterns
 
@@ -161,7 +161,7 @@ After any change to context files or the context map diagram, verify the followi
 
 **Check 1 — Diagram ↔ files ↔ README coverage**: Every labeled circle in `example/contexts/images/context-map.png` must have (a) a corresponding `.ttl` file in the appropriate directory and (b) a row in one of the tables in the **Alice's Personas and Contexts** section of `README.md`. Conversely, every row in those tables must correspond to a circle in the diagram and a file that actually exists. If a circle exists in the diagram but has no `.ttl` file or README row, create them to match the diagram.
 
-**Check 2 — Filename convention**: Every context filename must follow `[NN-]<about>(<context-name>)<asserted-by>.ttl`, where the optional `NN-` is the zero-padded two-digit diagram label number for files that appear as labeled circles in `context-map.png`. The `<asserted-by>` segment must be a real entity identifier (e.g. `alice`, `bob`, `paula`) — except for `c:Group` contexts, where it must be the literal string `members`. If a filename does not match this pattern, rename it to conform.
+**Check 2 — Filename convention**: Every context filename must follow `<subject>.<asserted-by>(<containing-category>)(<NN>).databook.md`. `<subject>` must be `self` when the subject is `:Self`, or a short lowercase identifier otherwise. `<asserted-by>` must be `self` when the asserter is `:Self`, or a short lowercase identifier otherwise — except for `c:Group` contexts, where it must be the literal string `members`. `(<containing-category>)` is the lowercase local name of the `mia.category` IRI. `(<NN>)` is the zero-padded two-digit context number. If a filename does not match this pattern, rename it to conform.
 
 **Check 3 — Orange arrows (hasMember)**: For every orange arrow from circle A to circle B in `context-map.png`, there must be a `BFO_0000115` (has member part) triple pointing to the `p:Persona` individual defined in the target context file (B), originating from one of two sources depending on context type:
 - **`c:Persona`-type source (Person, Family, Employee, etc.)**: the source file's `p:Persona` individual must carry a `persona:hasSocialNetwork` link to a `cco:ont00001183` (Social Network) individual, and that Social Network individual must have the `BFO_0000115` triple.
@@ -179,7 +179,7 @@ After any change to context files or the context map diagram, verify the followi
 
 **Check 9 — PNG file location**: The diagram PNG for every context file must be stored directly in `example/contexts/images/` (flat, no subfolders — not `images/example/`). Files in `under-development/` are excluded.
 
-**Check 10 — PNG filename convention**: Every diagram PNG in `example/contexts/images/` must use the same base filename as the corresponding `.databook.md` file in `example/`, with `.png` substituted for `.databook.md` (including the `NN-` numeric prefix where present). For example, `07-alice(bhs)alice.databook.md` → `07-alice(bhs)alice.png`. If the PNG does not yet exist, the README Diagram cell must be marked `*(todo)*` rather than left blank.
+**Check 10 — PNG filename convention**: Every diagram PNG in `example/contexts/images/` must use the same base filename as the corresponding `.databook.md` file in `example/contexts/`, with `.png` substituted for `.databook.md`. For example, `self.self(affiliations)(07).databook.md` → `self.self(affiliations)(07).png`. If the PNG does not yet exist, the README Diagram cell must be marked `*(todo)*` rather than left blank.
 
 **Check 11 — No broken image links in README**: Every PNG path referenced in `README.md` (both `<img src="...">` tags and `[view](...)` table links) must resolve to an actual file on disk. Run:
 
