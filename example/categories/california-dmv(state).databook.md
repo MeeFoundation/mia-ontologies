@@ -9,5 +9,5 @@ description: >
   Child of the State category.
 mia:
   predefined: false
-  sbs: "http://www.example.org/mia/alice(driverslicense)alice"
+  sbs: "http://www.example.org/mia/self.self(state)(22)"
 ---

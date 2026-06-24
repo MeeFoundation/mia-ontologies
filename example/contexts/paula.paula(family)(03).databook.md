@@ -1,5 +1,5 @@
 ---
-id: http://www.example.org/mia/paula(familymember)paula
+id: http://www.example.org/mia/paula.paula(family)(03)
 title: "About Paula Walker in the Family context as asserted by Paula Walker"
 type: context-databook
 version: 2.0.3
@@ -12,7 +12,7 @@ mia:
   subject: ":Paula_Walker"
   about-by: "context:OBO-Context"
 graph:
-  named_graph: http://www.example.org/mia/paula(familymember)paula#graph
+  named_graph: http://www.example.org/mia/paula.paula(family)(03)#graph
   rdf_version: "1.1"
 shapes:
   - http://www.example.org/shapes
@@ -32,7 +32,7 @@ This context captures Paula Walker's self-asserted family persona as transmitted
 
 ```turtle
 <!-- databook:id: paula-family-paula-identity -->
-<!-- databook:graph: http://www.example.org/mia/paula(familymember)paula#graph -->
+<!-- databook:graph: http://www.example.org/mia/paula.paula(family)(03)#graph -->
 @prefix : <http://www.example.org/mia#> .
 @prefix persona: <http://mee.foundation/ontologies/persona#> .
 @prefix owl: <http://www.w3.org/2002/07/owl#> .

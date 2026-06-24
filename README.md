@@ -504,7 +504,7 @@ A `BFO_0000115` (has member part) triple on a Social Network individual — for 
 
 This is the correct design for three reasons:
 
-- **BFO semantics**: changing the range of `BFO_0000115` to a DataBook document IRI (e.g. `<http://www.example.org/mia/paula(familymember)alice>`) would be a semantic error — the range of `has member part` must be a continuant (a person or group), not a document.
+- **BFO semantics**: changing the range of `BFO_0000115` to a DataBook document IRI (e.g. `<http://www.example.org/mia/paula.self(family)(02)>`) would be a semantic error — the range of `has member part` must be a continuant (a person or group), not a document.
 - **Model simplicity**: introducing context-specific "view" individuals (e.g. `:Paula_Walker_Family`) would reintroduce the layered complexity that the removal of `p:Persona` was designed to eliminate.
 - **Tooling maturity**: annotating the triple with RDF-star (`<< :Alice_Family_Network BFO_0000115 :Paula_Walker >> mia:inContext <...>`) is a valid future option, but is not yet supported by Protégé and remains non-standard.
 

@@ -9,5 +9,5 @@ description: >
   Child of the Federal category.
 mia:
   predefined: false
-  sbs: "http://www.example.org/mia/alice(ssa)alice"
+  sbs: "http://www.example.org/mia/self.self(federal)(16)"
 ---

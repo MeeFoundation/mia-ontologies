@@ -9,5 +9,5 @@ description: >
   Child of the Financial Services category.
 mia:
   predefined: false
-  sbo: "http://www.example.org/mia/alice(citibank)citibank"
+  sbo: "http://www.example.org/mia/self.citibank(financial-services)(10)"
 ---

@@ -9,5 +9,5 @@ description: >
   about owned assets, property, and possessions. Child of Categories.
 mia:
   predefined: true
-  sbs: "http://www.example.org/mia/possessions"
+  sbs: "http://www.example.org/mia/self.self(possessions)(19)"
 ---

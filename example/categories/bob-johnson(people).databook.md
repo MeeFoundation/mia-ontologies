@@ -9,8 +9,8 @@ description: >
   Child of the People category.
 mia:
   predefined: false
-  obs: "http://www.example.org/mia/bob(bob)alice"
-  sbs: "http://www.example.org/mia/alice(bob)alice"
-  obo: "http://www.example.org/mia/bob(bob)bob"
-  sbo: "http://www.example.org/mia/alice(bob)bob"
+  obs: "http://www.example.org/mia/bob.self(people)(05)"
+  sbs: "http://www.example.org/mia/self.self(people)(17)"
+  obo: "http://www.example.org/mia/bob.bob(people)(06)"
+  sbo: "http://www.example.org/mia/self.bob(people)(04)"
 ---

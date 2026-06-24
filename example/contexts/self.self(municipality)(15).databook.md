@@ -1,5 +1,5 @@
 ---
-id: http://www.example.org/mia/alice(boston)alice
+id: http://www.example.org/mia/self.self(municipality)(15)
 title: "About Alice Walker in the Municipality context as asserted by Alice Walker"
 type: context-databook
 version: 2.0.2
@@ -13,7 +13,7 @@ mia:
   subject: ":Self"
   about-by: "context:SBS-Context"
 graph:
-  named_graph: http://www.example.org/mia/alice(boston)alice#graph
+  named_graph: http://www.example.org/mia/self.self(municipality)(15)#graph
   rdf_version: "1.1"
 shapes:
   - http://www.example.org/shapes
@@ -33,7 +33,7 @@ This context captures Alice Walker's previous residential address: 456 Commonwea
 
 ```turtle
 <!-- databook:id: alice-boston-identity -->
-<!-- databook:graph: http://www.example.org/mia/alice(boston)alice#graph -->
+<!-- databook:graph: http://www.example.org/mia/self.self(municipality)(15)#graph -->
 @prefix : <http://www.example.org/mia#> .
 @prefix persona: <http://mee.foundation/ontologies/persona#> .
 @prefix cco: <https://purl.org/cco/> .

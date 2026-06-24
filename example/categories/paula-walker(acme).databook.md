@@ -9,6 +9,6 @@ description: >
   Child of the Acme category.
 mia:
   predefined: false
-  obs: "http://www.example.org/mia/paula(acme)alice"
-  sbs: "http://www.example.org/mia/alice(acme)alice"
+  obs: "http://www.example.org/mia/paula.self(employee)(01)"
+  sbs: "http://www.example.org/mia/self.self(employee)(20)"
 ---

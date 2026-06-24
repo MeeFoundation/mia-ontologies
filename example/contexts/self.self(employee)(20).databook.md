@@ -1,5 +1,5 @@
 ---
-id: http://www.example.org/mia/alice(acme)alice
+id: http://www.example.org/mia/self.self(employee)(20)
 title: "About Alice Walker in the Employee context as asserted by Alice Walker"
 type: context-databook
 version: 2.0.3
@@ -13,7 +13,7 @@ mia:
   subject: ":Self"
   about-by: "context:SBS-Context"
 graph:
-  named_graph: http://www.example.org/mia/alice(acme)alice#graph
+  named_graph: http://www.example.org/mia/self.self(employee)(20)#graph
   rdf_version: "1.1"
 shapes:
   - http://www.example.org/shapes
@@ -33,7 +33,7 @@ This context captures Alice Walker's employee identity at Acme. It records her w
 
 ```turtle
 <!-- databook:id: alice-acme-identity -->
-<!-- databook:graph: http://www.example.org/mia/alice(acme)alice#graph -->
+<!-- databook:graph: http://www.example.org/mia/self.self(employee)(20)#graph -->
 @prefix : <http://www.example.org/mia#> .
 @prefix persona: <http://mee.foundation/ontologies/persona#> .
 @prefix cco: <https://purl.org/cco/> .

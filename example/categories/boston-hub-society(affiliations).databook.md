@@ -9,8 +9,8 @@ description: >
   Child of the Groups category.
 mia:
   predefined: false
-  sbs: "http://www.example.org/mia/alice(bhs)alice"
+  sbs: "http://www.example.org/mia/self.self(affiliations)(07)"
   obo:
-    - "http://www.example.org/mia/bhs(bhs)members"
-    - "http://www.example.org/mia/bob(bhs)bob"
+    - "http://www.example.org/mia/bhs.members(affiliations)(08)"
+    - "http://www.example.org/mia/bob.bob(affiliations)(09)"
 ---

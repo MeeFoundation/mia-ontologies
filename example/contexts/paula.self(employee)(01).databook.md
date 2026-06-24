@@ -1,5 +1,5 @@
 ---
-id: http://www.example.org/mia/paula(acme)alice
+id: http://www.example.org/mia/paula.self(employee)(01)
 title: "About Paula Walker in the Employee context as asserted by Alice Walker"
 type: context-databook
 version: 2.0.1
@@ -13,7 +13,7 @@ mia:
   subject: ":Paula_Walker"
   about-by: "context:OBS-Context"
 graph:
-  named_graph: http://www.example.org/mia/paula(acme)alice#graph
+  named_graph: http://www.example.org/mia/paula.self(employee)(01)#graph
   rdf_version: "1.1"
 shapes:
   - http://www.example.org/shapes
@@ -33,7 +33,7 @@ This context captures Alice's record of her colleague Paula Walker in their shar
 
 ```turtle
 <!-- databook:id: paula-acme-identity -->
-<!-- databook:graph: http://www.example.org/mia/paula(acme)alice#graph -->
+<!-- databook:graph: http://www.example.org/mia/paula.self(employee)(01)#graph -->
 @prefix : <http://www.example.org/mia#> .
 @prefix persona: <http://mee.foundation/ontologies/persona#> .
 @prefix owl: <http://www.w3.org/2002/07/owl#> .

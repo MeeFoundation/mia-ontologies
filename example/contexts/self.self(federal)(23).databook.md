@@ -1,5 +1,5 @@
 ---
-id: http://www.example.org/mia/alice(passport)alice
+id: http://www.example.org/mia/self.self(federal)(23)
 title: "About Alice Walker in the Federal context as asserted by Alice Walker"
 type: context-databook
 version: 1.0.2
@@ -15,7 +15,7 @@ mia:
   about-by: "context:SBS-Context"
   template: "persona:Passport"
 graph:
-  named_graph: http://www.example.org/mia/alice(passport)alice#graph
+  named_graph: http://www.example.org/mia/self.self(federal)(23)#graph
   rdf_version: "1.1"
 shapes:
   - http://www.example.org/shapes
@@ -36,7 +36,7 @@ This context captures Alice Walker's US passport identity data. Alice self-enter
 
 ```turtle
 <!-- databook:id: alice-passport-identity -->
-<!-- databook:graph: http://www.example.org/mia/alice(passport)alice#graph -->
+<!-- databook:graph: http://www.example.org/mia/self.self(federal)(23)#graph -->
 @prefix : <http://www.example.org/mia#> .
 @prefix persona: <http://mee.foundation/ontologies/persona#> .
 @prefix cco: <https://purl.org/cco/> .

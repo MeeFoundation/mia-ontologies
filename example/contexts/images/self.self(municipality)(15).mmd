@@ -11,20 +11,20 @@ flowchart TD
     end
 
     nc67f0317dd3d[":Address_Boston\n(PostalAddress)"]
-    n8ccfd5f40463("456 Commonwealth Ave"):::lit
-    nedbc73264ed8("Boston"):::lit
-    n8c6d3f499cb4("MA"):::lit
-    n1efaf781a8bc("02215"):::lit
+    nad22529e371d("456 Commonwealth Ave"):::lit
+    n7706c49c7c1f("Boston"):::lit
+    ncbaa946395ca("MA"):::lit
+    n76b50551a6a7("02215"):::lit
     n596b411b2d6f[":Boston_Residence\n(AddressDesignation)"]
     ne0c3ba92f1db[":Self\n(Person)"]:::person
     n712165170b98[":Interval_2020_2025\n(TemporalInterval)"]
     n9dc9a14921d5("2020-01-01"):::lit
     n6c16da9fd750("2025-08-31"):::lit
 
-    nc67f0317dd3d -->|"StreetAddress"| n8ccfd5f40463
-    nc67f0317dd3d -->|"CityName"| nedbc73264ed8
-    nc67f0317dd3d -->|"StateName"| n8c6d3f499cb4
-    nc67f0317dd3d -->|"PostalCode"| n1efaf781a8bc
+    nc67f0317dd3d -->|"StreetAddress"| nad22529e371d
+    nc67f0317dd3d -->|"CityName"| n7706c49c7c1f
+    nc67f0317dd3d -->|"StateName"| ncbaa946395ca
+    nc67f0317dd3d -->|"PostalCode"| n76b50551a6a7
     n596b411b2d6f -->|"hasParticipant"| ne0c3ba92f1db
     n596b411b2d6f -->|"designated by"| nc67f0317dd3d
     n596b411b2d6f -->|"occupiesTemporalRegion"| n712165170b98
