@@ -11,7 +11,7 @@
     owl:versionIRI <http://mee.foundation/ontologies/context/1.0.1> ;
     dc:date "2026-06-01"^^xsd:date ;
     owl:imports <http://mee.foundation/ontologies/pdn-identity> ;
-    owl:versionInfo "Version 1.0.64 - add c:PersonPredefined and c:OrgPredefined under c:Predefined; re-parent existing predefined subclasses under c:PersonPredefined; add 11 Org-prefixed c:OrgPredefined subclasses"@en ;
+    owl:versionInfo "Version 1.0.66 - simplify c:note and c:folder to xsd:anyURI annotation properties; drop c:Note and c:Folder classes"@en ;
     rdfs:label "Context Ontology"@en ;
     rdfs:comment """Context and Category Ontology for the Mee Identity Agent"""@en .
 
@@ -151,6 +151,28 @@ context:obs rdf:type owl:ObjectProperty ;
                  owl:unionOf ( context:Category context:OBS-Context ) ] ;
     rdfs:label "other-by-self"@en ;
     rdfs:comment "Links a user-defined category to either a c:Category or a c:OBS-Context DataBook (subject is another person/org/group, assertedBy is :Self)."@en .
+
+#################################################################
+#    Category Notes, Folders, and Names
+#################################################################
+
+context:note rdf:type owl:AnnotationProperty ;
+    rdfs:domain context:Category ;
+    rdfs:range xsd:anyURI ;
+    rdfs:label "note"@en ;
+    rdfs:comment "Relative path to a markdown file where the user can add notes about the category (e.g. notes/people/paula-walker). Notes live in a folder hierarchy whose names match the category hierarchy."@en .
+
+context:folder rdf:type owl:AnnotationProperty ;
+    rdfs:domain context:Category ;
+    rdfs:range xsd:anyURI ;
+    rdfs:label "folder"@en ;
+    rdfs:comment "Relative path to a folder containing an arbitrary set of files for this category (e.g. people/paula-walker). Folders live in a parallel hierarchy whose names match the category names."@en .
+
+context:cat-name rdf:type owl:AnnotationProperty ;
+    rdfs:domain context:Category ;
+    rdfs:range xsd:string ;
+    rdfs:label "cat-name"@en ;
+    rdfs:comment "The human-readable name of the category — the value of the title field in the category's DataBook."@en .
 
 #################################################################
 #    PersonPredefined subclasses
@@ -308,13 +330,13 @@ context:Municipality rdf:type owl:Class ;
     rdfs:comment "Municipal government context (e.g. local permits, library card)."@en .
 
 #################################################################
-#    c:Note and subclasses
+#    c:Information and subclasses
 ################################################################# 
 
 context:Information rdf:type owl:Class ;
     rdfs:subClassOf context:PersonPredefined ;
     rdfs:label "Information"@en ;
-    rdfs:comment "Notes about topics not covered by any other context category."@en .
+    rdfs:comment "Misc information not covered by any other context category."@en .
 
 context:Learnings rdf:type owl:Class ;
     rdfs:subClassOf context:Information ;
