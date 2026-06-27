@@ -450,9 +450,11 @@ This section describes the local Mia dataset for a hypothetical user, Alice Walk
 
 ### Alice's Categories and Contexts
 
-Alice interacts with other people, organizations and groups in contexts of different types, with each context file holding a named-graph slice of her identity. Contexts are linked to by categories that are organized into a tree structure. All context files are loaded into the triplestore together.
+Alice interacts with other people, organizations and groups in contexts of different types, with each context file holding a named-graph slice of her identity. 
 
-All of Alice's context DataBooks are in `example/contexts.` Some are authored by Alice (self-asserted data--data she entered herself into her Mia app); others are data received from peer Mia users or organizational peers over PDN and stored locally. In either case, Alice is the Mia user, so the `persona:Person` that represents her uses the IRI `:Self` across all of her context files. Other people — Bob Johnson, Paula Walker — and groups such as BHS use locally-assigned named IRIs (e.g. `:Bob_Johnson`, `:Paula_Walker`, `:BHS`). When data arrives from a peer's Mia (where that peer was `:Self` in their own instance), Alice's Mia assigns them a locally-minted identifier; once a PDN connection is established, that identifier resolves to their PDN ID.
+Alice's context DataBooks are in `example/contexts.` Some are authored by Alice (self-asserted data--data she entered herself into her Mia app); others are data received from peer Mia users or organizational peers over PDN and stored locally. In either case, Alice is the Mia user, so the `persona:Person` that represents her uses the IRI `:Self` across all of her context files. Other people — Bob Johnson, Paula Walker — and groups such as BHS use locally-assigned named IRIs (e.g. `:Bob_Johnson`, `:Paula_Walker`, `:BHS`). When data arrives from a peer's Mia (where that peer was `:Self` in their own instance), Alice's Mia assigns them a locally-minted identifier; once a PDN connection is established, that identifier resolves to their PDN ID.
+
+Contexts are incorporated into categories that in turn are organized into a tree structure.
 
 Alice's category DataBooks are all in `example/categories/`. The full tree can be walked starting from `example/categories/categories.databook.md`. It contains two kinds of entries:
 
