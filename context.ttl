@@ -11,7 +11,7 @@
     owl:versionIRI <http://mee.foundation/ontologies/context/1.0.1> ;
     dc:date "2026-06-01"^^xsd:date ;
     owl:imports <http://mee.foundation/ontologies/pdn-identity> ;
-    owl:versionInfo "Version 1.0.66 - simplify c:note and c:folder to xsd:anyURI annotation properties; drop c:Note and c:Folder classes"@en ;
+    owl:versionInfo "Version 1.0.67 - rename c:cat-name to c:display-name; clarify it is a user-editable display name that defaults to the DataBook title"@en ;
     rdfs:label "Context Ontology"@en ;
     rdfs:comment """Context and Category Ontology for the Mee Identity Agent"""@en .
 
@@ -168,11 +168,11 @@ context:folder rdf:type owl:AnnotationProperty ;
     rdfs:label "folder"@en ;
     rdfs:comment "Relative path to a folder containing an arbitrary set of files for this category (e.g. people/paula-walker). Folders live in a parallel hierarchy whose names match the category names."@en .
 
-context:cat-name rdf:type owl:AnnotationProperty ;
+context:display-name rdf:type owl:AnnotationProperty ;
     rdfs:domain context:Category ;
     rdfs:range xsd:string ;
-    rdfs:label "cat-name"@en ;
-    rdfs:comment "The human-readable name of the category — the value of the title field in the category's DataBook."@en .
+    rdfs:label "display-name"@en ;
+    rdfs:comment "User-editable display name for the category. Defaults to the DataBook title but may be changed independently, leaving the immutable title and id intact."@en .
 
 #################################################################
 #    PersonPredefined subclasses
