@@ -89,7 +89,6 @@ All categories have a `c:sbs` link to a context (or category) that is about the 
 - `c:sbo` - a context about the self as asserted by the other party.
 - `c:obo` - a context about the other party as asserted by the other party.
 
-
 #### PersonPredefined Categories
 
 `c:PersonPredefined` categories cover interactions with people and person-centric topics:
@@ -129,7 +128,7 @@ All categories have a `c:sbs` link to a context (or category) that is about the 
 
 #### OrgPredefined Categories
 
-`c:OrgPredefined` categories used when working within an organization:
+The following `c:OrgPredefined` categories can be added by the user "under" a category related to a company, (e.g. a company category (e.g. "Acme") of which the user is an employee). 
 
 1. **Suppliers** — interactions with companies that supply goods or services to this organization.
 2. **Clients** — interactions with client organizations (if they don't call them customers).
