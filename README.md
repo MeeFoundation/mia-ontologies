@@ -103,11 +103,11 @@ All categories have a `c:sbs` link to a context (or category) that is about the 
     - **Employee** — related to being an employee. Your business card.
     - **Contributor** — related to contributing to initiatives started or led by others.
     - **Creator** — related to being a creator, inventor, founder, or author of something.
-3. **Companies** — relationship with companies and organizations that provide services or products to you.
+3. **Companies** — miscellaneous companies and organizations that provide services or products to you. See also Finances, Health, Home for companies and organizations related to those areas.
 4. **Finances** — information about personal finances, bookkeeping, budgets, payment cards, bank accounts.
-    - **Financial Services** — relationship with banks or other financial services institutions.
+    - **Financial Services** — banks or other financial services institutions.
 5. **Health** — personal health and wellness information. Medical history, allergies, medications, vaccinations.
-    - **Healthcare** — relationship with healthcare providers or health insurance companies.
+    - **Healthcare** — healthcare providers or health insurance companies.
 6. **Events** — participation in or relationship to a specific event.
     - **Meetings** — a meeting or appointment.
     - **Conferences** — a conference or professional gathering.
@@ -119,9 +119,9 @@ All categories have a `c:sbs` link to a context (or category) that is about the 
 8. **Information** — general knowledge selected by you, web links, documents, images.
     - **Learnings** — knowledge gained through personal experience.
 9. **Possessions** — owned assets, property, vehicles, and other possessions.
-    - **Vehicles** — owning and maintaining a vehicle. Vehicle insurance, repairs, mechanics, garages.
+    - **Vehicles** — related to owning and maintaining a vehicle. Vehicle insurance, repairs, mechanics, garages.
     - **Pets** — taking care of your pet(s). Veterinarians, medicines, food providers.
-10. **Home** — owning or renting a home, apartment, or other dwelling. Leases, deeds, utility accounts.
+10. **Home** — owning or renting a home, apartment, or other dwelling. Leases, deeds, utility accounts, real estate brokers.
 11. **Projects** — involvement in a specific project or initiative.
 12. **Legal** — legal matters, contracts, agreements, trusts, wills, and professional legal relationships.
 13. **Travel** — travel plans, trips, and related information. Loyalty programs, airlines, bus lines, trains.
