@@ -100,9 +100,9 @@ All categories have a `c:sbs` link to a context (or category) that is about the 
     - **Friends** — relationships and interactions with friends.
     - **Consultants** — interactions with individuals who are consultants and provide services to you.
 2. **Work** — professional roles, employment history, and career relationships.
-    - **Employee** — related to being an employee. Your business card.
+    - **Employee** — related to being an employee of some company. Your business card.
     - **Contributor** — related to contributing to initiatives started or led by others.
-    - **Creator** — related to being a creator, inventor, founder, or author of something.
+    - **Creator** — related to being a creator, inventor, founder, or author.
 3. **Companies** — miscellaneous companies and organizations that provide services or products to you. See also Finances, Health, Home for companies and organizations related to those areas.
 4. **Finances** — information about personal finances, bookkeeping, budgets, payment cards, bank accounts.
     - **Financial Services** — banks or other financial services institutions.
