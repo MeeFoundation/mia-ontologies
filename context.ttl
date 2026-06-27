@@ -11,7 +11,7 @@
     owl:versionIRI <http://mee.foundation/ontologies/context/1.0.1> ;
     dc:date "2026-06-01"^^xsd:date ;
     owl:imports <http://mee.foundation/ontologies/pdn-identity> ;
-    owl:versionInfo "Version 1.0.67 - rename c:cat-name to c:display-name; clarify it is a user-editable display name that defaults to the DataBook title"@en ;
+    owl:versionInfo "Version 1.0.68 - rename OrgPredefined subclasses: drop Org prefix; use (org) qualifier where name conflicts with a PersonPredefined class; rename OrgInformation to KnowledgeBase"@en ;
     rdfs:label "Context Ontology"@en ;
     rdfs:comment """Context and Category Ontology for the Mee Identity Agent"""@en .
 
@@ -398,49 +398,49 @@ context:Travel rdf:type owl:Class ;
 #    OrgPredefined subclasses
 #################################################################
 
-context:OrgSuppliers rdf:type owl:Class ;
+context:Suppliers rdf:type owl:Class ;
     rdfs:subClassOf context:OrgPredefined ;
-    rdfs:label "OrgSuppliers"@en ;
+    rdfs:label "Suppliers"@en ;
     rdfs:comment "Interactions with organizations that supply goods or services."@en .
 
-context:OrgClients rdf:type owl:Class ;
+context:Clients rdf:type owl:Class ;
     rdfs:subClassOf context:OrgPredefined ;
-    rdfs:label "OrgClients"@en ;
+    rdfs:label "Clients"@en ;
     rdfs:comment "Interactions with client organizations."@en .
 
-context:OrgCustomers rdf:type owl:Class ;
+context:Customers rdf:type owl:Class ;
     rdfs:subClassOf context:OrgPredefined ;
-    rdfs:label "OrgCustomers"@en ;
+    rdfs:label "Customers"@en ;
     rdfs:comment "Interactions with customer organizations."@en .
 
-context:OrgEmployees rdf:type owl:Class ;
+context:Employees rdf:type owl:Class ;
     rdfs:subClassOf context:OrgPredefined ;
-    rdfs:label "OrgEmployees"@en ;
+    rdfs:label "Employees"@en ;
     rdfs:comment "Managing or interacting with employees of an organization."@en .
 
-context:OrgLegal rdf:type owl:Class ;
+context:Legal\(org\) rdf:type owl:Class ;
     rdfs:subClassOf context:OrgPredefined ;
-    rdfs:label "OrgLegal"@en ;
+    rdfs:label "Legal (org)"@en ;
     rdfs:comment "Legal matters, contracts, and agreements involving organizations."@en .
 
-context:OrgInformation rdf:type owl:Class ;
+context:KnowledgeBase rdf:type owl:Class ;
     rdfs:subClassOf context:OrgPredefined ;
-    rdfs:label "OrgInformation"@en ;
-    rdfs:comment "Notes and information about organizations not covered by other org categories."@en .
+    rdfs:label "KnowledgeBase"@en ;
+    rdfs:comment "Corporate knowledge bases and organizational information not covered by other org categories."@en .
 
-context:OrgConsultants rdf:type owl:Class ;
+context:Consultants\(org\) rdf:type owl:Class ;
     rdfs:subClassOf context:OrgPredefined ;
-    rdfs:label "OrgConsultants"@en ;
+    rdfs:label "Consultants (org)"@en ;
     rdfs:comment "Interactions with consultant organizations."@en .
 
-context:OrgProjects rdf:type owl:Class ;
+context:Projects\(org\) rdf:type owl:Class ;
     rdfs:subClassOf context:OrgPredefined ;
-    rdfs:label "OrgProjects"@en ;
+    rdfs:label "Projects (org)"@en ;
     rdfs:comment "Projects undertaken with or managed by organizations."@en .
 
-context:OrgGovernment rdf:type owl:Class ;
+context:Government\(org\) rdf:type owl:Class ;
     rdfs:subClassOf context:OrgPredefined ;
-    rdfs:label "OrgGovernment"@en ;
+    rdfs:label "Government (org)"@en ;
     rdfs:comment "Interactions with government organizations."@en .
 
 context:OrgEvents rdf:type owl:Class ;
@@ -448,7 +448,7 @@ context:OrgEvents rdf:type owl:Class ;
     rdfs:label "OrgEvents"@en ;
     rdfs:comment "Events and gatherings organized by or associated with organizations."@en .
 
-context:OrgFinances rdf:type owl:Class ;
+context:Finances\(org\) rdf:type owl:Class ;
     rdfs:subClassOf context:OrgPredefined ;
-    rdfs:label "OrgFinances"@en ;
+    rdfs:label "Finances (org)"@en ;
     rdfs:comment "Financial interactions and transactions with organizations."@en .

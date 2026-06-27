@@ -131,17 +131,17 @@ All categories have a `c:sbs` link to a context (or category) that is about the 
 
 `c:OrgPredefined` categories used when working within an organization:
 
-1. **OrgSuppliers** — interactions with companies that supply goods or services to this organization.
-2. **OrgClients** — interactions with the clients (if they don't all them customers)
-3. **OrgCustomers** — interactions with the customers (if they don't call them clients)
-4. **OrgEmployees** — managing or interacting with employees.
-5. **OrgLegal** — legal matters, contracts, and agreements.
-6. **OrgInformation** — corporate knowledge-bases.
-7. **OrgConsultants** — interactions with consultants.
-8. **OrgProjects** — projects related to R&D, manufacturing, sales, marketing or operations.
-9. **OrgGovernment** — interactions with government organizations.
-10. **OrgEvents** — events, meetings, workshops, webinars and gatherings.
-11. **OrgFinances** — corporate finance-related matters.
+1. **Suppliers** — interactions with companies that supply goods or services to this organization.
+2. **Clients** — interactions with client organizations (if they don't call them customers).
+3. **Customers** — interactions with customer organizations (if they don't call them clients).
+4. **Employees** — managing or interacting with employees.
+5. **Legal (org)** — legal matters, contracts, and agreements.
+6. **KnowledgeBase** — corporate knowledge bases and organizational information.
+7. **Consultants (org)** — interactions with consultant organizations.
+8. **Projects (org)** — projects related to R&D, manufacturing, sales, marketing, or operations.
+9. **Government (org)** — interactions with government organizations.
+10. **OrgEvents** — events, meetings, workshops, webinars, and gatherings.
+11. **Finances (org)** — corporate finance-related matters.
 
 ### Category DataBooks
 
