@@ -128,7 +128,7 @@ All categories have a `c:sbs` link to a context (or category) that is about the 
 
 #### OrgPredefined Categories
 
-The following `c:OrgPredefined` categories can be added by the user "under" a category related to a company, (e.g. a company category (e.g. "Acme") of which the user is an employee). 
+The following `c:OrgPredefined` categories can be used by the user "under" a category personal category (e.g. a company category like "Acme" under the "Employee" category):
 
 1. **Suppliers** — interactions with companies that supply goods or services to this organization.
 2. **Clients** — interactions with client organizations (if they don't call them customers).
