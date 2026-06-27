@@ -160,6 +160,12 @@ Each Mia user instance maintains its own parallel category tree in a separate di
 | `c:obo` | `c:OBO-Context` | 0..N | A context the other party presents |
 | `c:sbo` | `c:SBO-Context` | 0..1 | A context the other party holds about the user |
 
+**Additional category properties**:
+
+- `c:cat-name` — the human-readable name of the category. Its value is always the DataBook `title` field (e.g. `"Paula Walker"`).
+- `c:note` *(optional)* — a relative path to a markdown file where the user can add freeform notes about the category (e.g. `notes/people/paula-walker`). Notes are organized in a folder hierarchy whose structure mirrors the category hierarchy.
+- `c:folder` *(optional)* — a relative path to a folder containing an arbitrary set of files associated with the category (e.g. `people/paula-walker`). Folders are organized in a parallel hierarchy whose names match the category names.
+
 
 ### Context Ontology File
 
