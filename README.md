@@ -468,7 +468,7 @@ Contexts with dotted outlines are placeholders for contexts in category — Alic
 
 <p align="center"><img src="example/images/people.png" alt="People categories"></p>
 
-Alice is an employee of Acme. She has added Business Card claims (attributes) to her Employee mid-level category. In her role as an employee of Acme she has a relationship with a colleague named Paula. 
+Alice is an employee of Acme. She has added Business Card claims (attributes) to her Employee mid-level category. Since Acme is an organization, Alice has under her Acme category switched from adding PersonPredefined categories (yellow colored) to OrgPredefined categories (light blue color) and added an Employees category. One of the employees she works with is Paula Walker, so she adds a Paula Walker category.
 <p align="center"><img src="example/images/work.png" alt="Work categories"></p>
 
 Alice has relationships with two companies, Google and AT&T:
