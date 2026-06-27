@@ -91,7 +91,7 @@ All categories have a `c:sbs` link to a context (or category) that is about the 
 
 #### PersonPredefined Categories
 
-`c:PersonPredefined` categories cover interactions with people and person-centric topics:
+`c:PersonPredefined` categories of information related to a person's personal and work life:
 
 1. **People** — relationships and interactions with people in your social or professional life.
     - **Family** — relationships and interactions with family members.
