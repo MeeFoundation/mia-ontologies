@@ -139,7 +139,7 @@ The following `c:OrgPredefined` categories can be used by the user "under" a cat
 7. **Consultants (org)** — interactions with consultant organizations.
 8. **Projects (org)** — projects related to R&D, manufacturing, sales, marketing, or operations.
 9. **Government (org)** — interactions with government organizations.
-10. **OrgEvents** — events, meetings, workshops, webinars, and gatherings.
+10. **Events (org)** — events, meetings, workshops, webinars, and gatherings.
 11. **Finances (org)** — corporate finance-related matters.
 
 ### Category DataBooks

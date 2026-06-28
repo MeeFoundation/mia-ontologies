@@ -11,7 +11,7 @@
     owl:versionIRI <http://mee.foundation/ontologies/context/1.0.1> ;
     dc:date "2026-06-01"^^xsd:date ;
     owl:imports <http://mee.foundation/ontologies/pdn-identity> ;
-    owl:versionInfo "Version 1.0.68 - rename OrgPredefined subclasses: drop Org prefix; use (org) qualifier where name conflicts with a PersonPredefined class; rename OrgInformation to KnowledgeBase"@en ;
+    owl:versionInfo "Version 1.0.69 - rename OrgEvents to Events(org)"@en ;
     rdfs:label "Context Ontology"@en ;
     rdfs:comment """Context and Category Ontology for the Mee Identity Agent"""@en .
 
@@ -443,9 +443,9 @@ context:Government\(org\) rdf:type owl:Class ;
     rdfs:label "Government (org)"@en ;
     rdfs:comment "Interactions with government organizations."@en .
 
-context:OrgEvents rdf:type owl:Class ;
+context:Events\(org\) rdf:type owl:Class ;
     rdfs:subClassOf context:OrgPredefined ;
-    rdfs:label "OrgEvents"@en ;
+    rdfs:label "Events (org)"@en ;
     rdfs:comment "Events and gatherings organized by or associated with organizations."@en .
 
 context:Finances\(org\) rdf:type owl:Class ;
