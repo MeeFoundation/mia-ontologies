@@ -117,14 +117,14 @@ All categories have a `c:sbs` link to a context (or category) that is about the 
     - **Municipality** — municipal government context (e.g. local permits, library card).
 8. **Information** — general knowledge selected by you, web links, documents, images.
     - **Learnings** — knowledge gained through personal experience.
-9. **Possessions** — owned assets, property, vehicles, and other possessions.
+9. **Ownership** — owned assets, property, vehicles, and other possessions.
     - **Vehicles** — related to owning and maintaining a vehicle. Vehicle insurance, repairs, mechanics, garages.
-    - **Pets** — taking care of your pet(s). Veterinarians, medicines, food providers.
-10. **Home** — owning or renting a home, apartment, or other dwelling. Leases, deeds, utility accounts, real estate brokers.
-11. **Projects** — involvement in a specific project or initiative.
-12. **Legal** — legal matters, contracts, agreements, trusts, wills, and professional legal relationships.
-13. **Travel** — travel plans, trips, and related information. Loyalty programs, airlines, bus lines, trains.
-14. **Affiliations** — sports clubs, teams, charities, faith groups, memberships. Some may exist as a `g:Group` on the PDN.
+10. **Pets** — taking care of your pet(s). Veterinarians, medicines, food providers.
+11. **Home** — owning or renting a home, apartment, or other dwelling. Leases, deeds, utility accounts, real estate brokers.
+12. **Projects** — involvement in a specific project or initiative.
+13. **Legal** — legal matters, contracts, agreements, trusts, wills, and professional legal relationships.
+14. **Travel** — travel plans, trips, and related information. Loyalty programs, airlines, bus lines, trains.
+15. **Affiliations** — sports clubs, teams, charities, faith groups, memberships. Some may exist as a `g:Group` on the PDN.
 
 #### OrgPredefined Categories
 

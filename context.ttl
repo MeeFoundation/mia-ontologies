@@ -11,7 +11,7 @@
     owl:versionIRI <http://mee.foundation/ontologies/context/1.0.1> ;
     dc:date "2026-06-01"^^xsd:date ;
     owl:imports <http://mee.foundation/ontologies/pdn-identity> ;
-    owl:versionInfo "Version 1.0.69 - rename OrgEvents to Events(org)"@en ;
+    owl:versionInfo "Version 1.0.70 - rename Possessions to Ownership; promote Pets to top-level PersonPredefined"@en ;
     rdfs:label "Context Ontology"@en ;
     rdfs:comment """Context and Category Ontology for the Mee Identity Agent"""@en .
 
@@ -344,21 +344,21 @@ context:Learnings rdf:type owl:Class ;
     rdfs:comment "Knowledge gained from personal experience"@en .
 
 #################################################################
-#    c:Possessions and subclasses
-################################################################# 
+#    c:Ownership and subclasses
+#################################################################
 
-context:Possessions rdf:type owl:Class ;
+context:Ownership rdf:type owl:Class ;
     rdfs:subClassOf context:PersonPredefined ;
-    rdfs:label "Possessions"@en ;
+    rdfs:label "Ownership"@en ;
     rdfs:comment "Owned assets, property, vehicles, and other possessions."@en .
 
 context:Vehicles rdf:type owl:Class ;
-    rdfs:subClassOf context:Possessions ;
+    rdfs:subClassOf context:Ownership ;
     rdfs:label "Vehicles"@en ;
     rdfs:comment "Owning and maintaining a vehicle."@en .
 
 context:Pets rdf:type owl:Class ;
-    rdfs:subClassOf context:Possessions ;
+    rdfs:subClassOf context:PersonPredefined ;
     rdfs:label "Pets"@en ;
     rdfs:comment "Taking care of pets."@en .
 
