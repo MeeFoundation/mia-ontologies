@@ -73,30 +73,40 @@ The lower left shows a context that Alice might share with other people or compa
 
 ## Categories
 
-We organize multiple dimensions of a person's life into a structure of nested *categories*. Categories in turn may contain one or more *contexts*. 
+We organize multiple dimensions of a person's life into a structure of nested *categories*. Categories in turn are containers of one or more *contexts* as described in the previous section.
 
 Categories range in scope. They vary from a few broad top level categories like "People" to narrower categories like "Family" and ultimately narrowing down to individual relationships with a single family member. The user can choose at what level in this broader to narrower structure to put what kind of information. For example if the user has a nickname used only by this one family member, they can add that "claim" (attribute) at the individual relationship level. 
 
-<p align="center"><img src="images/context-ontology/categories+contexts.png" alt="Categories and contexts"></p>
+#### Subclasses
+Categories may be `c:Predefined` or `c:UserDefined`. Predefined categories are further divided into `c:PersonPredefined`and `c:OrgPredefined`. The former provides a set of generally useful categories to organize a person's personal (non-working) life. The latter provides a set of categories tuned to a person's working life. 
 
-As shown in the diagram below, categories may be `c:Predefined` or `c:UserDefined`. Predefined categories are further divided into `c:PersonPredefined`and `c:OrgPredefined`. The former provides a set of generally useful categories to organize a person's personal (non-working) life. The latter provides a set of categories tuned to a person's working life. 
-
-The `c:child` property is used to arrange categories into a tree structure. 
 
 <p align="center"><img src="images/context-ontology/category.png" alt="Category hierarchy"></p>
 
-All categories have a `c:sbs` link to a context (or category) that is about the self as asserted by the self (user). User-defined categories have three additional (optional) kinds of links to contexts: 
+#### Properties
 
-- `c:obs` - a context about the other party as asserted by the self.
-- `c:sbo` - a context about the self as asserted by the other party.
-- `c:obo` - a context about the other party as asserted by the other party.
+- **`c:display-name`** - user-editable display name of the category.
+- **`c:note`** - link to a markdown note the user can edit about this category.
+- **`c:foder`** - link to a folder of files related to this category.
+- **`c:child`** - used to arrange categories into a tree structure. 
+- **`c:sbs`** - link to a context (or category) that is about the self as asserted by the self (user). User-defined categories have three additional (optional) kinds of links to contexts: 
+- **`c:obs`** - a context about the other party as asserted by the self.
+- **`c:sbo`** - a context about the self as asserted by the other party.
+- **`c:obo`** - a context about the other party as asserted by the other party.
+
+The diagram below shows a simple example of structure of categories and contexts. At the top is Person-type predefined category. Its child link points to an Org-type predefined category which in turn points to a user-defined category. The top-to-bottom ordering of predefined categories is preserved in the user's copies of these category trees, but the user is free to insert any number of user-defined categories at any level in the resulting tree. 
+
+In each of these three categories, the contained contexts are shown in circles. White circles are contexts whose triples are asserted by the Self (aka the user). Green circles are contexts whose triples are asserted by a person other than the self, and organization or a group and synchronized with the user's Mia instance over the PDN.
 
 
+<p align="center"><img src="images/context-ontology/categories+contexts.png" alt="Categories and contexts"></p>
 
 
 #### PersonPredefined Categories
 
-`c:PersonPredefined` categories of information related to a person's personal and work life:
+`c:PersonPredefined` categories are generally useful categories to organize a person's personal (non-working) life. 
+
+categories of information related to a person's personal and work life:
 
 1. **People** — relationships and interactions with people in your social or professional life.
     - **Family** — relationships and interactions with family members.
@@ -133,15 +143,15 @@ All categories have a `c:sbs` link to a context (or category) that is about the 
 
 #### OrgPredefined Categories
 
-The following `c:OrgPredefined` categories can be used by the user "under" a category personal category (e.g. a company category like "Acme" under the "Employee" category):
+`c:OrgPredefined` categories are tuned to a person's working life. 
 
-1. **Suppliers** — interactions with companies that supply goods or services to this organization.
-2. **Clients** — interactions with client organizations (if they don't call them customers).
-3. **Customers** — interactions with customer organizations (if they don't call them clients).
-4. **Employees** — managing or interacting with employees.
-5. **Legal (org)** — legal matters, contracts, and agreements.
-6. **KnowledgeBase** — corporate knowledge bases and organizational information.
-7. **Consultants (org)** — interactions with consultant organizations.
+1. **Suppliers** — companies that supply goods or services to this organization.
+2. **Clients** — client organizations (if they don't call them customers).
+3. **Customers** — customer organizations (if they don't call them clients).
+4. **Employees** — related to employees.
+5. **Consultants (org)** — engaged consultants.
+6. **Legal (org)** — legal matters, contracts, and agreements.
+7. **KnowledgeBase** — corporate knowledge bases.
 8. **Projects (org)** — projects related to R&D, manufacturing, sales, marketing, or operations.
 9. **Government (org)** — interactions with government organizations.
 10. **Events (org)** — events, meetings, workshops, webinars, and gatherings.
@@ -188,7 +198,6 @@ Note files live in a folder hierarchy whose structure mirrors the category hiera
 ### Validation
 
 Context file metadata (category, asserter, subject, about-by) is declared in YAML frontmatter and validated at authoring time by convention. Category DataBook instances are validated by `context-shacl.ttl`.
-
 
 ## Persona Ontology
 
