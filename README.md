@@ -143,7 +143,7 @@ categories of information related to a person's personal and work life:
 
 #### OrgPredefined Categories
 
-`c:OrgPredefined` categories are tuned to a person's working life. 
+`c:OrgPredefined` categories are tuned to a person's life working within a corporation or government agency:
 
 1. **Suppliers** — companies that supply goods or services to this organization.
 2. **Clients** — client organizations (if they don't call them customers).
