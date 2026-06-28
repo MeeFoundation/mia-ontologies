@@ -73,13 +73,15 @@ The lower left shows a context that Alice might share with other people or compa
 
 ## Categories
 
-We organize multiple dimensions of a person's life into a structure of nested *categories*. Categories in turn may contain one or more *contexts*. Categories can model finer-grained concepts such as roles or personas, or capture the full nuance of a 1:1 relationship with a specific person or company.
+We organize multiple dimensions of a person's life into a structure of nested *categories*. Categories in turn may contain one or more *contexts*. 
 
-Categories range in scope. They vary from a few broad top level categories like "People" to narrower categories like "Family" and ultimately narrowing down to individual relationships with a single family member. The user can choose at what level in this broad to narrow tree structure to put what kind of information. For example if the user has a nickname used only by this one family member, they can add that "claim" (attribute) at the 1:1 relationship level. 
+Categories range in scope. They vary from a few broad top level categories like "People" to narrower categories like "Family" and ultimately narrowing down to individual relationships with a single family member. The user can choose at what level in this broader to narrower structure to put what kind of information. For example if the user has a nickname used only by this one family member, they can add that "claim" (attribute) at the individual relationship level. 
 
 <p align="center"><img src="images/context-ontology/categories+contexts.png" alt="Categories and contexts"></p>
 
-As shown in the diagram below, categories may be `c:Predefined` or `c:UserDefined`. Predefined categories are further divided into `c:PersonPredefined` (categories for interactions with people and person-centric topics) and `c:OrgPredefined` (categories for interactions with organizations). The `c:child` property enables categories to be arranged into a tree structure.
+As shown in the diagram below, categories may be `c:Predefined` or `c:UserDefined`. Predefined categories are further divided into `c:PersonPredefined`and `c:OrgPredefined`. The former provides a set of generally useful categories to organize a person's personal (non-working) life. The latter provides a set of categories tuned to a person's working life. 
+
+The `c:child` property is used to arrange categories into a tree structure. 
 
 <p align="center"><img src="images/context-ontology/category.png" alt="Category hierarchy"></p>
 
@@ -88,6 +90,9 @@ All categories have a `c:sbs` link to a context (or category) that is about the 
 - `c:obs` - a context about the other party as asserted by the self.
 - `c:sbo` - a context about the self as asserted by the other party.
 - `c:obo` - a context about the other party as asserted by the other party.
+
+
+
 
 #### PersonPredefined Categories
 
@@ -146,7 +151,7 @@ The following `c:OrgPredefined` categories can be used by the user "under" a cat
 
 Each node in the `c:Category` hierarchy is represented by a **category DataBook** (`.databook.md` file with `type: category-databook`). Category DataBooks form a tree linked by the `c:child` property, which points from a parent category to its child category IRIs. The predefined canonical category DataBooks live in `categories/`, rooted at `categories/categories.databook.md`.
 
-Each Mia user instance maintains its own parallel category tree in a separate directory. No links of any kind (`c:child`, `c:sbs`, `c:obs`, `c:obo`, `c:sbo`) cross from the canonical tree into a user's instance tree. A user's instance tree contains copies of the predefined canonical categories (each with a `copiedFrom:` property pointing to the canonical IRI) alongside any user-defined categories they have created. Context links (`c:sbs`, `c:obs`, `c:obo`, `c:sbo`) appear only in a user's instance tree, not in the canonical tree.
+Each Mia user instance maintains its own parallel category structure in a separate directory. No links of any kind (`c:child`, `c:sbs`, `c:obs`, `c:obo`, `c:sbo`) cross from the canonical structure into a user's instance structure. A user's instance structure contains copies of the predefined canonical categories (each with a `copiedFrom:` property pointing to the canonical IRI) alongside any user-defined categories they have created. Context links (`c:sbs`, `c:obs`, `c:obo`, `c:sbo`) appear only in a user's instance structure, not in the canonical structure.
 
 **Predefined vs. user-defined**: Categories with `mia.predefined: true` correspond to `c:Predefined` subclasses shipped with Mia. The class IRI is derived from the DataBook title by removing spaces (e.g. title `"Financial Services"` → class `context:FinancialServices`). Categories with `mia.predefined: false` are `c:UserDefined` instances created by the Mia user to organize their own contexts (e.g. a specific person, company, or place).
 
@@ -446,17 +451,15 @@ The Identity ontology is used to describe the kinds of identities that Mia can c
 
 ## Illustrative Example: Alice 
 
-This section describes the local Mia dataset for a hypothetical user, Alice Walker. All of Alice's identity data lives in context-specific files — there is no separate selfness file. The IRI `:Self` identifies her `persona:Person` individual across all of her context files.
+This section describes the local Mia dataset for a hypothetical user, Alice Walker. Alice's data lives in multiple context DataBooks linked to by a tree structure of category DataBooks. 
 
 ### Alice's Categories and Contexts
 
-Alice interacts with other people, organizations and groups in contexts of different types, with each context file holding a named-graph slice of her identity. 
+Alice interacts with other people, organizations and groups in contexts of different types, with each context file holding a named-graph. 
 
-Alice's context DataBooks are in `example/contexts.` Some are authored by Alice (self-asserted data--data she entered herself into her Mia app); others are data received from peer Mia users or organizational peers over PDN and stored locally. In either case, Alice is the Mia user, so the `persona:Person` that represents her uses the IRI `:Self` across all of her context files. Other people — Bob Johnson, Paula Walker — and groups such as BHS use locally-assigned named IRIs (e.g. `:Bob_Johnson`, `:Paula_Walker`, `:BHS`). When data arrives from a peer's Mia (where that peer was `:Self` in their own instance), Alice's Mia assigns them a locally-minted identifier; once a PDN connection is established, that identifier resolves to their PDN ID.
+Alice's context DataBooks are in `example/contexts.` Some are authored by Alice (self-asserted data--data she entered herself into her Mia app); others contain data received from peer Mia users or organizational peers over PDN and stored locally. In either case, Alice is the Mia user, so the `persona:Person` that represents her uses the IRI `:Self` across all of her context files. Other people — Bob Johnson, Paula Walker — and groups such as BHS use locally-assigned named IRIs (e.g. `:Bob_Johnson`, `:Paula_Walker`, `:BHS`). When data arrives from a peer's Mia (where that peer was `:Self` in their own instance), Alice's Mia assigns them a locally-minted identifier; once a PDN connection is established, that identifier resolves to their PDN id.
 
-Contexts are incorporated into categories that in turn are organized into a tree structure.
-
-Alice's category DataBooks are all in `example/categories/`. The full tree can be walked starting from `example/categories/categories.databook.md`. It contains two kinds of entries:
+Alice's category DataBooks are in `example/categories/`. The full tree can be walked starting from `example/categories/categories.databook.md`. It contains two kinds of entries:
 
 - **Copies of predefined canonical categories** (`mia.predefined: true`) — one for each of the 15 top-level categories and their subcategories. Each copy carries a `copiedFrom:` property pointing to the corresponding canonical IRI (e.g. `copiedFrom: "http://mee.foundation/ontologies/categories/people"`). Context links (`c:sbs`, `c:obs`, `c:obo`, `c:sbo`) to Alice's contexts are attached here, not in the canonical tree.
 - **User-defined categories** (`mia.predefined: false`) — one per specific person, company, government agency, or group Alice interacts with (e.g. `bob-johnson(people)`, `acme(employee)`, `citibank(financial-services)`).
