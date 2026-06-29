@@ -139,7 +139,8 @@ categories of information related to a person's personal and work life:
 12. **Projects** — involvement in a specific project or initiative.
 13. **Legal** — legal matters, contracts, agreements, trusts, wills, and professional legal relationships.
 14. **Travel** — travel plans, trips, and related information. Loyalty programs, airlines, bus lines, trains.
-15. **Affiliations** — sports clubs, teams, charities, faith groups, memberships. Some may exist as a `g:Group` on the PDN.
+15. **Food** — food preferences, dietary restrictions, favorite restaurants, recipes, and food-related interests.
+16. **Affiliations** — sports clubs, teams, charities, faith groups, memberships. Some may exist as a `g:Group` on the PDN.
 
 #### OrgPredefined Categories
 
@@ -471,7 +472,7 @@ Alice's context DataBooks are in `example/contexts.` Some are authored by Alice 
 
 Alice's category DataBooks are in `example/categories/`. The full tree can be walked starting from `example/categories/categories.databook.md`. It contains two kinds of entries:
 
-- **Copies of predefined canonical categories** (`mia.predefined: true`) — one for each of the 15 top-level categories and their subcategories. Each copy carries a `copiedFrom:` property pointing to the corresponding canonical IRI (e.g. `copiedFrom: "http://mee.foundation/ontologies/categories/people"`). Context links (`c:sbs`, `c:obs`, `c:obo`, `c:sbo`) to Alice's contexts are attached here, not in the canonical tree.
+- **Copies of predefined canonical categories** (`mia.predefined: true`) — one for each of the 16 top-level categories and their subcategories. Each copy carries a `copiedFrom:` property pointing to the corresponding canonical IRI (e.g. `copiedFrom: "http://mee.foundation/ontologies/categories/people"`). Context links (`c:sbs`, `c:obs`, `c:obo`, `c:sbo`) to Alice's contexts are attached here, not in the canonical tree.
 - **User-defined categories** (`mia.predefined: false`) — one per specific person, company, government agency, or group Alice interacts with (e.g. `bob-johnson(people)`, `acme(employee)`, `citibank(financial-services)`).
 
 #### Category and Context Diagrams

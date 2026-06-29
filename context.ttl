@@ -11,7 +11,7 @@
     owl:versionIRI <http://mee.foundation/ontologies/context/1.0.1> ;
     dc:date "2026-06-01"^^xsd:date ;
     owl:imports <http://mee.foundation/ontologies/pdn-identity> ;
-    owl:versionInfo "Version 1.0.75 - revert c:obs domain to c:UserDefined"@en ;
+    owl:versionInfo "Version 1.0.76 - add c:Food as top-level PersonPredefined category"@en ;
     rdfs:label "Context Ontology"@en ;
     rdfs:comment """Context and Category Ontology for the Mee Identity Agent"""@en .
 
@@ -413,13 +413,22 @@ context:Legal rdf:type owl:Class ;
     rdfs:comment "Legal matters, contracts, agreements, and professional legal relationships."@en .
 
 #################################################################
-#    c:Travel 
+#    c:Travel
 #################################################################
 
 context:Travel rdf:type owl:Class ;
     rdfs:subClassOf context:PersonPredefined ;
     rdfs:label "Travel"@en ;
     rdfs:comment "Travel plans, trips, and related information."@en .
+
+#################################################################
+#    c:Food
+#################################################################
+
+context:Food rdf:type owl:Class ;
+    rdfs:subClassOf context:PersonPredefined ;
+    rdfs:label "Food"@en ;
+    rdfs:comment "Food preferences, dietary restrictions, favorite restaurants, recipes, and food-related interests."@en .
 
 #################################################################
 #    OrgPredefined subclasses
