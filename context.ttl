@@ -11,7 +11,7 @@
     owl:versionIRI <http://mee.foundation/ontologies/context/1.0.1> ;
     dc:date "2026-06-01"^^xsd:date ;
     owl:imports <http://mee.foundation/ontologies/pdn-identity> ;
-    owl:versionInfo "Version 1.0.72 - rename SBS/OBS/SBO/OBO-Context to SBScontext/OBScontext/SBOcontext/OBOcontext"@en ;
+    owl:versionInfo "Version 1.0.73 - add c:Connection and c:Group as subclasses of c:UserDefined"@en ;
     rdfs:label "Context Ontology"@en ;
     rdfs:comment """Context and Category Ontology for the Mee Identity Agent"""@en .
 
@@ -125,6 +125,16 @@ context:UserDefined rdf:type owl:Class ;
     rdfs:subClassOf context:Category ;
     rdfs:label "UserDefined"@en ;
     rdfs:comment "Superclass of context categories defined by the Mia user."@en .
+
+context:Connection rdf:type owl:Class ;
+    rdfs:subClassOf context:UserDefined ;
+    rdfs:label "Connection"@en ;
+    rdfs:comment "A terminal user-defined category representing a 1:1 relationship with a specific person, organization, or other party."@en .
+
+context:Group rdf:type owl:Class ;
+    rdfs:subClassOf context:UserDefined ;
+    rdfs:label "Group"@en ;
+    rdfs:comment "A terminal user-defined category representing a shared multi-party relationship with a group of three or more people or organizations. Not to be confused with g:Group (a PDN group node)."@en .
 
 context:PersonPredefined rdf:type owl:Class ;
     rdfs:subClassOf context:Predefined ;

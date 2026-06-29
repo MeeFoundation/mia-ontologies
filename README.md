@@ -188,7 +188,7 @@ Note files live in a folder hierarchy whose structure mirrors the category hiera
 ### Context Ontology File
 
 - **`context.ttl`** — The Context ontology, defining:
-  - *Classes*: `c:Category`, `c:Predefined`, `c:PersonPredefined`, `c:OrgPredefined`, `c:UserDefined` and all leaf category subclasses; `c:Context`, `c:SBScontext`, `c:OBScontext`, `c:OBOcontext`, `c:SBOcontext`.
+  - *Classes*: `c:Category`, `c:Predefined`, `c:PersonPredefined`, `c:OrgPredefined`, `c:UserDefined`, `c:Connection`, `c:Group` and all leaf category subclasses; `c:Context`, `c:SBScontext`, `c:OBScontext`, `c:OBOcontext`, `c:SBOcontext`.
   - *Annotation properties*: `c:category`, `c:assertedBy`, `c:subject`, `c:about-by`, `c:template`; `c:note` (relative path to a markdown notes file for the category), `c:folder` (relative path to a folder of arbitrary files for the category), `c:display-name` (user-editable display name, defaults to the DataBook `title`).
   - *Object properties*: `c:sbs`, `c:obs`, `c:obo`, `c:sbo`, `c:child`.
   These terms are referenced by name in the YAML frontmatter of each DataBook file.
