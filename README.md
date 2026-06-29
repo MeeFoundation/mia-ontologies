@@ -78,7 +78,7 @@ We organize multiple dimensions of a person's life into a structure of nested *c
 Categories range in scope. They vary from a few broad top level categories like "People" to narrower categories like "Family" and ultimately narrowing down to individual relationships with a single family member. The user can choose at what level in this broader to narrower structure to put what kind of information. For example if the user has a nickname used only by this one family member, they can add that "claim" (attribute) at the individual relationship level. 
 
 #### Subclasses
-Categories may be `c:Predefined` or `c:UserDefined`. Predefined categories are further divided into `c:PersonPredefined`and `c:OrgPredefined`. The former provides a set of generally useful categories to organize a person's personal (non-working) life. The latter provides a set of categories tuned to a person's working life. 
+Categories may be `c:Predefined` or `c:UserDefined`. Predefined categories are further divided into `c:PersonPredefined` and `c:OrgPredefined`. The former provides a set of generally useful categories to organize a person's personal (non-working) life. The latter provides a set of categories tuned to a person's working life. User-defined categories are further divided into `c:Connection` (a 1:1 relationship with a specific person, organization, or other party) and `c:Group` (a shared multi-party relationship with a group of people or organizations). A plain `c:UserDefined` category acts as a navigational container without implying a specific relationship type.
 
 
 <p align="center"><img src="images/context-ontology/category.png" alt="Category hierarchy"></p>
@@ -163,7 +163,7 @@ Each node in the `c:Category` hierarchy is represented by a **category DataBook*
 
 Each Mia user instance maintains its own parallel category structure in a separate directory. No links of any kind (`c:child`, `c:sbs`, `c:obs`, `c:obo`, `c:sbo`) cross from the canonical structure into a user's instance structure. A user's instance structure contains copies of the predefined canonical categories (each with a `copiedFrom:` property pointing to the canonical IRI) alongside any user-defined categories they have created. Context links (`c:sbs`, `c:obs`, `c:obo`, `c:sbo`) appear only in a user's instance structure, not in the canonical structure.
 
-**Predefined vs. user-defined**: Categories with `mia.predefined: true` correspond to `c:Predefined` subclasses shipped with Mia. The class IRI is derived from the DataBook title by removing spaces (e.g. title `"Financial Services"` → class `context:FinancialServices`). Categories with `mia.predefined: false` are `c:UserDefined` instances created by the Mia user to organize their own contexts (e.g. a specific person, company, or place).
+**Category type**: Each category DataBook carries a `mia.category-type` field recording its concrete subclass. Predefined categories use `PersonPredefined` or `OrgPredefined`; the class IRI is derived from the DataBook title by removing spaces (e.g. title `"Financial Services"` → class `context:FinancialServices`). User-created categories use `Connection`, `Group`, or `UserDefined` depending on the relationship type they represent.
 
 **Context links**: Each category DataBook in a user's instance tree may carry up to four optional links to context DataBook IRIs, corresponding to the four `c:Context` subtypes:
 
