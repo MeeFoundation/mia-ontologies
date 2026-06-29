@@ -89,10 +89,10 @@ Categories may be `c:Predefined` or `c:UserDefined`. Predefined categories are f
 - **`c:note`** - link to a markdown note the user can edit about this category.
 - **`c:foder`** - link to a folder of files related to this category.
 - **`c:child`** - used to arrange categories into a tree structure. 
-- **`c:sbs`** - link to a context (or category) that is about the self as asserted by the self (user). User-defined categories have three additional (optional) kinds of links to contexts: 
-- **`c:obs`** - a context about the other party as asserted by the self.
-- **`c:sbo`** - a context about the self as asserted by the other party.
-- **`c:obo`** - a context about the other party as asserted by the other party.
+- **`c:sbs`** - link to a context (or category) that is about the self as asserted by the self (user).
+- **`c:obs`** - a context about the other party as asserted by the self. Available on all categories.
+- **`c:sbo`** - a context about the self as asserted by the other party. User-defined categories only.
+- **`c:obo`** - a context about the other party as asserted by the other party. User-defined categories only.
 
 The diagram below shows a simple example of structure of categories and contexts. At the top is Person-type predefined category. Its child link points to an Org-type predefined category which in turn points to a user-defined category. The top-to-bottom ordering of predefined categories is preserved in the user's copies of these category trees, but the user is free to insert any number of user-defined categories at any level in the resulting tree. 
 
@@ -167,12 +167,12 @@ Each Mia user instance maintains its own parallel category structure in a separa
 
 **Context links**: Each category DataBook in a user's instance tree may carry up to four optional links to context DataBook IRIs, corresponding to the four `c:Context` subtypes:
 
-| Property | `c:Context` subtype | Cardinality | Meaning |
-|----------|---------------------|-------------|---------|
-| `c:sbs` | `c:SBS-Context` | 0..1 | The user's own context in this category |
-| `c:obs` | `c:OBS-Context` | 0..1 | The user's record of the other party |
-| `c:obo` | `c:OBO-Context` | 0..N | A context the other party presents |
-| `c:sbo` | `c:SBO-Context` | 0..1 | A context the other party holds about the user |
+| Property | `c:Context` subtype | Cardinality | Applies to | Meaning |
+|----------|---------------------|-------------|------------|---------|
+| `c:sbs` | `c:SBS-Context` | 0..1 | All categories | The user's own context in this category |
+| `c:obs` | `c:OBS-Context` | 0..1 | All categories | The user's record of the other party |
+| `c:obo` | `c:OBO-Context` | 0..N | `c:UserDefined` only | A context the other party presents |
+| `c:sbo` | `c:SBO-Context` | 0..1 | `c:UserDefined` only | A context the other party holds about the user |
 
 **Additional category properties**: Three further properties are defined in `context.ttl` and represented as `mia.` YAML fields in category DataBooks, following the same pattern as `mia.category` → `context:category`:
 
