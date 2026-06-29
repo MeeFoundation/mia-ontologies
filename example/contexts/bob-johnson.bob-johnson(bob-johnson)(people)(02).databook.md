@@ -11,7 +11,7 @@ mia:
   category: "http://www.example.org/mia/categories/bob-johnson(people)"
   assertedBy: ":Bob_Johnson"
   subject: ":Bob_Johnson"
-  about-by: "context:OBO-Context"
+  about-by: "context:OBOcontext"
 graph:
   named_graph: https://www.example.org/mia/contexts/bob-johnson.bob-johnson(bob-johnson)(people)(02)#graph
   rdf_version: "1.1"

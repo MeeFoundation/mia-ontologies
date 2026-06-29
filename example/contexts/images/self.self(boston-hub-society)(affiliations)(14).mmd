@@ -1,0 +1,32 @@
+flowchart TD
+    classDef person fill:#fffacd,stroke:#aaa,color:#333
+    classDef grp    fill:#d4edda,stroke:#aaa,color:#333
+    classDef org    fill:#cce5ff,stroke:#aaa,color:#333
+    classDef lit    fill:none,stroke:none,font-style:italic,color:#2a7a2a
+    classDef meta   fill:#f5f5ff,stroke:#9999cc,color:#333
+
+    subgraph ctx["Context"]
+        direction LR
+        ctx_meta["assertedBy: :Self\nsubject: :Self"]:::meta
+    end
+
+    nbb363374209c[":Address_BHS\n(PostalAddress)"]
+    nbe1a3743edf8("123 Sleepy Hollow"):::lit
+    n6dbf334bb213("Paradise"):::lit
+    n3415b650c27d("CA"):::lit
+    n70b45801fb58("95969"):::lit
+    nb987d9107090("USA"):::lit
+    ne0c3ba92f1db[":Self\n(Person)"]:::person
+    n5d9de6eb7bfa("Alice Walker"):::lit
+    na01c60a91f70("+15108149999"):::lit
+    nab7c80c191a7("awalker@gmail.com"):::lit
+
+    nbb363374209c -->|"StreetAddress"| nbe1a3743edf8
+    nbb363374209c -->|"CityName"| n6dbf334bb213
+    nbb363374209c -->|"StateName"| n3415b650c27d
+    nbb363374209c -->|"PostalCode"| n70b45801fb58
+    nbb363374209c -->|"CountryName"| nb987d9107090
+    ne0c3ba92f1db -->|"AlternateName"| n5d9de6eb7bfa
+    ne0c3ba92f1db -->|"designated by"| nbb363374209c
+    ne0c3ba92f1db -->|"TelephoneNumber"| na01c60a91f70
+    ne0c3ba92f1db -->|"EmailAddress"| nab7c80c191a7

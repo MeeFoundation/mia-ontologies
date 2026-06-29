@@ -26,7 +26,7 @@
     sh:property [
         sh:path context:sbs ;
         sh:maxCount 1 ;
-        sh:message "A category may link to at most one SBS-Context via context:sbs."@en
+        sh:message "A category may link to at most one SBScontext via context:sbs."@en
     ] .
 
 
@@ -51,7 +51,7 @@
     sh:property [
         sh:path context:sbo ;
         sh:maxCount 1 ;
-        sh:message "A UserDefined category may link to at most one SBO-Context via context:sbo."@en
+        sh:message "A UserDefined category may link to at most one SBOcontext via context:sbo."@en
     ] .
 
     # context:obo — 0..N (no maxCount constraint)

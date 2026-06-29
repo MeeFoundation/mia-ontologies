@@ -1,0 +1,33 @@
+flowchart TD
+    classDef person fill:#fffacd,stroke:#aaa,color:#333
+    classDef grp    fill:#d4edda,stroke:#aaa,color:#333
+    classDef org    fill:#cce5ff,stroke:#aaa,color:#333
+    classDef lit    fill:none,stroke:none,font-style:italic,color:#2a7a2a
+    classDef meta   fill:#f5f5ff,stroke:#9999cc,color:#333
+
+    subgraph ctx["Context"]
+        direction LR
+        ctx_meta["assertedBy: :Self\nsubject: :Self"]:::meta
+    end
+
+    nc67f0317dd3d[":Address_Boston\n(PostalAddress)"]
+    n67e6b782c00c("456 Commonwealth Ave"):::lit
+    n90bf17a4a4f0("Boston"):::lit
+    n7ed15719b186("MA"):::lit
+    n691a3dbcbbd5("02215"):::lit
+    n596b411b2d6f[":Boston_Residence\n(AddressDesignation)"]
+    ne0c3ba92f1db[":Self\n(Person)"]:::person
+    n712165170b98[":Interval_2020_2025\n(TemporalInterval)"]
+    n9dc9a14921d5("2020-01-01"):::lit
+    n6c16da9fd750("2025-08-31"):::lit
+
+    nc67f0317dd3d -->|"StreetAddress"| n67e6b782c00c
+    nc67f0317dd3d -->|"CityName"| n90bf17a4a4f0
+    nc67f0317dd3d -->|"StateName"| n7ed15719b186
+    nc67f0317dd3d -->|"PostalCode"| n691a3dbcbbd5
+    n596b411b2d6f -->|"hasParticipant"| ne0c3ba92f1db
+    n596b411b2d6f -->|"designated by"| nc67f0317dd3d
+    n596b411b2d6f -->|"occupiesTemporalRegion"| n712165170b98
+    n712165170b98 -->|"hasStartDate"| n9dc9a14921d5
+    n712165170b98 -->|"hasEndDate"| n6c16da9fd750
+    ne0c3ba92f1db -->|"designated by"| nc67f0317dd3d

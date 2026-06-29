@@ -11,7 +11,7 @@ mia:
   category: "http://www.example.org/mia/categories/boston-hub-society(affiliations)"
   assertedBy: ":Bob_Johnson"
   subject: ":Bob_Johnson"
-  about-by: "context:OBO-Context"
+  about-by: "context:OBOcontext"
 graph:
   named_graph: https://www.example.org/mia/contexts/bob-johnson.bob-johnson(boston-hub-society)(affiliations)(03)#graph
   rdf_version: "1.1"

@@ -7,12 +7,12 @@ flowchart TD
 
     subgraph ctx["Context"]
         direction LR
-        ctx_meta["assertedBy: :Self\nsubject: :Paula_Walker"]:::meta
+        ctx_meta["assertedBy: :BHS_Group\nsubject: :BHS_Group"]:::meta
     end
 
-    nf4296ab13de4[":Paula_Walker\n(Person)"]:::person
-    n6d335ff3ce2d("Paula"):::lit
-    n2aabecee7e93("Walker"):::lit
+    n1f280731bedf[":BHS_Group\n(Group)"]:::grp
+    n89768dce3f8b[":Self"]
+    ncea94215aa38[":Bob_Johnson"]
 
-    nf4296ab13de4 -->|"GivenName"| n6d335ff3ce2d
-    nf4296ab13de4 -->|"FamilyName"| n2aabecee7e93
+    n1f280731bedf -->|"hasMember"| n89768dce3f8b
+    n1f280731bedf -->|"hasMember"| ncea94215aa38

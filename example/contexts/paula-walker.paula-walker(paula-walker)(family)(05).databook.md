@@ -10,7 +10,7 @@ mia:
   category: "http://www.example.org/mia/categories/paula-walker(family)"
   assertedBy: ":Paula_Walker"
   subject: ":Paula_Walker"
-  about-by: "context:OBO-Context"
+  about-by: "context:OBOcontext"
 graph:
   named_graph: https://www.example.org/mia/contexts/paula-walker.paula-walker(paula-walker)(family)(05)#graph
   rdf_version: "1.1"

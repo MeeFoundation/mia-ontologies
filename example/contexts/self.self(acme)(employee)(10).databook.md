@@ -11,7 +11,7 @@ mia:
   category: "http://www.example.org/mia/categories/acme(employee)"
   assertedBy: ":Self"
   subject: ":Self"
-  about-by: "context:SBS-Context"
+  about-by: "context:SBScontext"
   template: "persona:JSContactCard"
 graph:
   named_graph: https://www.example.org/mia/contexts/self.self(acme)(employee)(10)#graph

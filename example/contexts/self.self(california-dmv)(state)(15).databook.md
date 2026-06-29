@@ -11,7 +11,7 @@ mia:
   category: "http://www.example.org/mia/categories/california-dmv(state)"
   assertedBy: ":Self"
   subject: ":Self"
-  about-by: "context:SBS-Context"
+  about-by: "context:SBScontext"
   template: "persona:DriversLicense"
 graph:
   named_graph: https://www.example.org/mia/contexts/self.self(california-dmv)(state)(15)#graph

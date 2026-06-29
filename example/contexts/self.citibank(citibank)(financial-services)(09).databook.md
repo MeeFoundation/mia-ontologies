@@ -11,7 +11,7 @@ mia:
   category: "http://www.example.org/mia/categories/citibank(financial-services)"
   assertedBy: ":Citibank"
   subject: ":Self"
-  about-by: "context:SBO-Context"
+  about-by: "context:SBOcontext"
 graph:
   named_graph: https://www.example.org/mia/contexts/self.citibank(citibank)(financial-services)(09)#graph
   rdf_version: "1.1"

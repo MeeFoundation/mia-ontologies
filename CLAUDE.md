@@ -237,10 +237,10 @@ If any `MISSING:` lines appear, either add the file or update the link.
 
 | `about-by` | `subject` | `assertedBy` |
 |---|---|---|
-| `context:SBS-Context` | `:Self` | `:Self` |
-| `context:OBS-Context` | not `:Self` | `:Self` |
-| `context:OBO-Context` | not `:Self` | not `:Self` |
-| `context:SBO-Context` | `:Self` | not `:Self` |
+| `context:SBScontext` | `:Self` | `:Self` |
+| `context:OBScontext` | not `:Self` | `:Self` |
+| `context:OBOcontext` | not `:Self` | not `:Self` |
+| `context:SBOcontext` | `:Self` | not `:Self` |
 
 For each DataBook in `example/` (excluding `under-development/`), extract the three YAML values and verify they match the table. If they conflict, `about-by` is the authoritative value — update `subject` and/or `assertedBy` to match it.
 

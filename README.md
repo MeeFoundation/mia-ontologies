@@ -46,7 +46,7 @@ The description of the context container itself is carried in the DataBook's YAM
 - `mia.assertedBy` = `c:assertedBy`
 - `mia.subject` = `c:subject`
 - `mia:template` = `c:template`
-- `mia.about-by` — classifies a context DataBook by the combination of subject and assertedBy; one of `context:SBS-Context` (subject=Self, assertedBy=Self), `context:OBS-Context` (subject=Other, assertedBy=Self), `context:OBO-Context` (subject=Other, assertedBy=Other), or `context:SBO-Context` (subject=Self, assertedBy=Other).
+- `mia.about-by` — classifies a context DataBook by the combination of subject and assertedBy; one of `context:SBScontext` (subject=Self, assertedBy=Self), `context:OBScontext` (subject=Other, assertedBy=Self), `context:OBOcontext` (subject=Other, assertedBy=Other), or `context:SBOcontext` (subject=Self, assertedBy=Other).
 
 
 **`c:category`** — containing category. Its value is the IRI of a the category DataBook (e.g. `"http://www.example.org/mia/categories/bob-johnson(people)"`) that links to it via sbs, obs, sbo, or obo.
@@ -169,10 +169,10 @@ Each Mia user instance maintains its own parallel category structure in a separa
 
 | Property | `c:Context` subtype | Cardinality | Applies to | Meaning |
 |----------|---------------------|-------------|------------|---------|
-| `c:sbs` | `c:SBS-Context` | 0..1 | All categories | The user's own context in this category |
-| `c:obs` | `c:OBS-Context` | 0..1 | All categories | The user's record of the other party |
-| `c:obo` | `c:OBO-Context` | 0..N | `c:UserDefined` only | A context the other party presents |
-| `c:sbo` | `c:SBO-Context` | 0..1 | `c:UserDefined` only | A context the other party holds about the user |
+| `c:sbs` | `c:SBScontext` | 0..1 | All categories | The user's own context in this category |
+| `c:obs` | `c:OBScontext` | 0..1 | All categories | The user's record of the other party |
+| `c:obo` | `c:OBOcontext` | 0..N | `c:UserDefined` only | A context the other party presents |
+| `c:sbo` | `c:SBOcontext` | 0..1 | `c:UserDefined` only | A context the other party holds about the user |
 
 **Additional category properties**: Three further properties are defined in `context.ttl` and represented as `mia.` YAML fields in category DataBooks, following the same pattern as `mia.category` → `context:category`:
 
@@ -188,7 +188,7 @@ Note files live in a folder hierarchy whose structure mirrors the category hiera
 ### Context Ontology File
 
 - **`context.ttl`** — The Context ontology, defining:
-  - *Classes*: `c:Category`, `c:Predefined`, `c:PersonPredefined`, `c:OrgPredefined`, `c:UserDefined` and all leaf category subclasses; `c:Context`, `c:SBS-Context`, `c:OBS-Context`, `c:OBO-Context`, `c:SBO-Context`.
+  - *Classes*: `c:Category`, `c:Predefined`, `c:PersonPredefined`, `c:OrgPredefined`, `c:UserDefined` and all leaf category subclasses; `c:Context`, `c:SBScontext`, `c:OBScontext`, `c:OBOcontext`, `c:SBOcontext`.
   - *Annotation properties*: `c:category`, `c:assertedBy`, `c:subject`, `c:about-by`, `c:template`; `c:note` (relative path to a markdown notes file for the category), `c:folder` (relative path to a folder of arbitrary files for the category), `c:display-name` (user-editable display name, defaults to the DataBook `title`).
   - *Object properties*: `c:sbs`, `c:obs`, `c:obo`, `c:sbo`, `c:child`.
   These terms are referenced by name in the YAML frontmatter of each DataBook file.

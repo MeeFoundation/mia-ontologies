@@ -11,7 +11,7 @@ mia:
   category: "http://www.example.org/mia/categories/paula-walker(acme)"
   assertedBy: ":Self"
   subject: ":Paula_Walker"
-  about-by: "context:OBS-Context"
+  about-by: "context:OBScontext"
 graph:
   named_graph: https://www.example.org/mia/contexts/paula-walker.self(paula-walker)(acme)(06)#graph
   rdf_version: "1.1"

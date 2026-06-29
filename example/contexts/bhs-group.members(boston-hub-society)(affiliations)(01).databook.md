@@ -11,7 +11,7 @@ mia:
   category: "http://www.example.org/mia/categories/boston-hub-society(affiliations)"
   assertedBy: ":BHS_Group"
   subject: ":BHS_Group"
-  about-by: "context:OBO-Context"
+  about-by: "context:OBOcontext"
 graph:
   named_graph: https://www.example.org/mia/contexts/bhs-group.members(boston-hub-society)(affiliations)(01)#graph
   rdf_version: "1.1"

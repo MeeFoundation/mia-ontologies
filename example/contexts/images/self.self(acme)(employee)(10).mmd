@@ -1,0 +1,30 @@
+flowchart TD
+    classDef person fill:#fffacd,stroke:#aaa,color:#333
+    classDef grp    fill:#d4edda,stroke:#aaa,color:#333
+    classDef org    fill:#cce5ff,stroke:#aaa,color:#333
+    classDef lit    fill:none,stroke:none,font-style:italic,color:#2a7a2a
+    classDef meta   fill:#f5f5ff,stroke:#9999cc,color:#333
+
+    subgraph ctx["Context"]
+        direction LR
+        ctx_meta["assertedBy: :Self\nsubject: :Self\ntemplate: persona:JSContactCard"]:::meta
+    end
+
+    ne0c3ba92f1db[":Self\n(Person)"]:::person
+    n37709a931b79("Alice"):::lit
+    n2eef8f734749("Walker"):::lit
+    n32bd5c8a8b66("alice@acme.com"):::lit
+    neffcc2e0ddb9("+15108149999"):::lit
+    n6adfe9a3e1a7("Acme"):::lit
+    n92d8ed6ca7da("Engineering"):::lit
+    nca0190c9c2e9("Software Engineer"):::lit
+    n2de11e0d4d79("https://www.linkedin.com/in/alicewalker"):::lit
+
+    ne0c3ba92f1db -->|"GivenName"| n37709a931b79
+    ne0c3ba92f1db -->|"FamilyName"| n2eef8f734749
+    ne0c3ba92f1db -->|"EmailAddress"| n32bd5c8a8b66
+    ne0c3ba92f1db -->|"TelephoneNumber"| neffcc2e0ddb9
+    ne0c3ba92f1db -->|"OrganizationName"| n6adfe9a3e1a7
+    ne0c3ba92f1db -->|"OrganizationUnit"| n92d8ed6ca7da
+    ne0c3ba92f1db -->|"JobTitle"| nca0190c9c2e9
+    ne0c3ba92f1db -->|"WebURL"| n2de11e0d4d79

@@ -11,7 +11,7 @@
     owl:versionIRI <http://mee.foundation/ontologies/context/1.0.1> ;
     dc:date "2026-06-01"^^xsd:date ;
     owl:imports <http://mee.foundation/ontologies/pdn-identity> ;
-    owl:versionInfo "Version 1.0.71 - change c:obs domain from c:UserDefined to c:Category; move it alongside c:sbs"@en ;
+    owl:versionInfo "Version 1.0.72 - rename SBS/OBS/SBO/OBO-Context to SBScontext/OBScontext/SBOcontext/OBOcontext"@en ;
     rdfs:label "Context Ontology"@en ;
     rdfs:comment """Context and Category Ontology for the Mee Identity Agent"""@en .
 
@@ -58,29 +58,29 @@ context:Context rdf:type owl:Class ;
     rdfs:label "Context"@en ;
     rdfs:comment "A context DataBook — a named graph containing identity data about a person in a specific relationship or situation."@en .
 
-context:SBS-Context rdf:type owl:Class ;
+context:SBScontext rdf:type owl:Class ;
     rdfs:subClassOf context:Context ;
-    rdfs:label "SBS-Context"@en ;
+    rdfs:label "SBScontext"@en ;
     rdfs:comment "Self-by-Self: a DataBook whose subject is :Self and whose assertedBy is :Self."@en .
 
-context:OBS-Context rdf:type owl:Class ;
+context:OBScontext rdf:type owl:Class ;
     rdfs:subClassOf context:Context ;
-    rdfs:label "OBS-Context"@en ;
+    rdfs:label "OBScontext"@en ;
     rdfs:comment "Other-by-Self: a DataBook whose subject is another person/org/group and whose assertedBy is :Self."@en .
 
-context:OBO-Context rdf:type owl:Class ;
+context:OBOcontext rdf:type owl:Class ;
     rdfs:subClassOf context:Context ;
-    rdfs:label "OBO-Context"@en ;
+    rdfs:label "OBOcontext"@en ;
     rdfs:comment "Other-by-Other: a DataBook whose subject is another person/org/group and whose assertedBy is also another person/org/group."@en .
 
-context:SBO-Context rdf:type owl:Class ;
+context:SBOcontext rdf:type owl:Class ;
     rdfs:subClassOf context:Context ;
-    rdfs:label "SBO-Context"@en ;
+    rdfs:label "SBOcontext"@en ;
     rdfs:comment "Self-by-Other: a DataBook whose subject is :Self and whose assertedBy is another person/org/group."@en .
 
 context:about-by rdf:type owl:AnnotationProperty ;
     rdfs:label "about-by"@en ;
-    rdfs:comment "Classifies a DataBook named graph by the combination of subject and assertedBy: one of context:SBS-Context, context:OBS-Context, context:OBO-Context, or context:SBO-Context."@en .
+    rdfs:comment "Classifies a DataBook named graph by the combination of subject and assertedBy: one of context:SBScontext, context:OBScontext, context:OBOcontext, or context:SBOcontext."@en .
 
 
 #################################################################
@@ -107,9 +107,9 @@ context:sbs rdf:type owl:ObjectProperty ;
 context:obs rdf:type owl:ObjectProperty ;
     rdfs:domain context:Category ;
     rdfs:range [ rdf:type owl:Class ;
-                 owl:unionOf ( context:Category context:OBS-Context ) ] ;
+                 owl:unionOf ( context:Category context:OBScontext ) ] ;
     rdfs:label "other-by-self"@en ;
-    rdfs:comment "Links a category to either a c:Category or a c:OBS-Context DataBook (subject is another person/org/group, assertedBy is :Self)."@en .
+    rdfs:comment "Links a category to either a c:Category or a c:OBScontext DataBook (subject is another person/org/group, assertedBy is :Self)."@en .
 
 
 #################################################################
@@ -142,13 +142,13 @@ context:OrgPredefined rdf:type owl:Class ;
 
 context:sbo rdf:type owl:ObjectProperty ;
     rdfs:domain context:UserDefined ;
-    rdfs:range context:SBO-Context ;
+    rdfs:range context:SBOcontext ;
     rdfs:label "self-by-other"@en ;
     rdfs:comment "Links a user-defined category to a context DataBook where subject is :Self and assertedBy is another person, organization, or group."@en .
 
 context:obo rdf:type owl:ObjectProperty ;
     rdfs:domain context:UserDefined ;
-    rdfs:range context:OBO-Context ;
+    rdfs:range context:OBOcontext ;
     rdfs:label "other-by-other"@en ;
     rdfs:comment "Links a user-defined category to a context DataBook where both subject and assertedBy are another person, organization, or group."@en .
 

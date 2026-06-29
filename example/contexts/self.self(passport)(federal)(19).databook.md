@@ -12,7 +12,7 @@ mia:
   category: "http://www.example.org/mia/categories/passport(federal)"
   assertedBy: ":Self"
   subject: ":Self"
-  about-by: "context:SBS-Context"
+  about-by: "context:SBScontext"
   template: "persona:Passport"
 graph:
   named_graph: https://www.example.org/mia/contexts/self.self(passport)(federal)(19)#graph

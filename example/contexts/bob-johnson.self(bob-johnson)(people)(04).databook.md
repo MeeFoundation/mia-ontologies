@@ -10,7 +10,7 @@ mia:
   category: "http://www.example.org/mia/categories/bob-johnson(people)"
   assertedBy: ":Self"
   subject: ":Bob_Johnson"
-  about-by: "context:OBS-Context"
+  about-by: "context:OBScontext"
 graph:
   named_graph: https://www.example.org/mia/contexts/bob-johnson.self(bob-johnson)(people)(04)#graph
   rdf_version: "1.1"

@@ -11,7 +11,7 @@ mia:
   category: "http://www.example.org/mia/categories/social-security-administration(federal)"
   assertedBy: ":Self"
   subject: ":Self"
-  about-by: "context:SBS-Context"
+  about-by: "context:SBScontext"
 graph:
   named_graph: https://www.example.org/mia/contexts/self.self(social-security-administration)(federal)(23)#graph
   rdf_version: "1.1"
