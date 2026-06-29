@@ -11,7 +11,7 @@
     owl:versionIRI <http://mee.foundation/ontologies/context/1.0.1> ;
     dc:date "2026-06-01"^^xsd:date ;
     owl:imports <http://mee.foundation/ontologies/pdn-identity> ;
-    owl:versionInfo "Version 1.0.73 - add c:Connection and c:Group as subclasses of c:UserDefined"@en ;
+    owl:versionInfo "Version 1.0.74 - add context:abstract annotation; add c:category-type / mia.category-type; fix Connection and Group comments"@en ;
     rdfs:label "Context Ontology"@en ;
     rdfs:comment """Context and Category Ontology for the Mee Identity Agent"""@en .
 
@@ -55,6 +55,7 @@ context:template rdf:type owl:AnnotationProperty ;
 #################################################################
 
 context:Context rdf:type owl:Class ;
+    context:abstract true ;
     rdfs:label "Context"@en ;
     rdfs:comment "A context DataBook — a named graph containing identity data about a person in a specific relationship or situation."@en .
 
@@ -82,12 +83,25 @@ context:about-by rdf:type owl:AnnotationProperty ;
     rdfs:label "about-by"@en ;
     rdfs:comment "Classifies a DataBook named graph by the combination of subject and assertedBy: one of context:SBScontext, context:OBScontext, context:OBOcontext, or context:SBOcontext."@en .
 
+context:abstract rdf:type owl:AnnotationProperty ;
+    rdfs:domain owl:Class ;
+    rdfs:range xsd:boolean ;
+    rdfs:label "abstract"@en ;
+    rdfs:comment "True if this class is not directly instantiated in DataBooks — it exists only to organize the class hierarchy."@en .
+
+context:category-type rdf:type owl:AnnotationProperty ;
+    rdfs:domain context:Category ;
+    rdfs:range xsd:string ;
+    rdfs:label "category-type"@en ;
+    rdfs:comment "The concrete category subclass this DataBook instantiates. One of: PersonPredefined, OrgPredefined, Connection, Group, UserDefined."@en .
+
 
 #################################################################
 #    Category
 #################################################################
 
 context:Category rdf:type owl:Class ;
+    context:abstract true ;
     rdfs:label "Category"@en ;
     rdfs:comment """Controlled vocabulary for categories of contexts.
                     Used as the value of context:category on DataBook named graph IRIs."""@en .
@@ -117,6 +131,7 @@ context:obs rdf:type owl:ObjectProperty ;
 #################################################################
 
 context:Predefined rdf:type owl:Class ;
+    context:abstract true ;
     rdfs:subClassOf context:Category ;
     rdfs:label "Predefined"@en ;
     rdfs:comment "Superclass of all built-in context categories shipped with Mia."@en .
@@ -129,19 +144,21 @@ context:UserDefined rdf:type owl:Class ;
 context:Connection rdf:type owl:Class ;
     rdfs:subClassOf context:UserDefined ;
     rdfs:label "Connection"@en ;
-    rdfs:comment "A terminal user-defined category representing a 1:1 relationship with a specific person, organization, or other party."@en .
+    rdfs:comment "A user-defined category representing a 1:1 relationship with a specific person, organization, or other party."@en .
 
 context:Group rdf:type owl:Class ;
     rdfs:subClassOf context:UserDefined ;
     rdfs:label "Group"@en ;
-    rdfs:comment "A terminal user-defined category representing a shared multi-party relationship with a group of three or more people or organizations. Not to be confused with g:Group (a PDN group node)."@en .
+    rdfs:comment "A user-defined category representing a shared multi-party relationship with a group of people or organizations. Not to be confused with g:Group (a PDN group node)."@en .
 
 context:PersonPredefined rdf:type owl:Class ;
+    context:abstract true ;
     rdfs:subClassOf context:Predefined ;
     rdfs:label "PersonPredefined"@en ;
     rdfs:comment "Superclass of all built-in context categories that involve interactions with people or person-centric topics (e.g. People, Work, Government)."@en .
 
 context:OrgPredefined rdf:type owl:Class ;
+    context:abstract true ;
     rdfs:subClassOf context:Predefined ;
     rdfs:label "OrgPredefined"@en ;
     rdfs:comment "Superclass of all built-in context categories that involve interactions with organizations (e.g. Companies, FinancialServices)."@en .

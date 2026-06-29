@@ -174,10 +174,11 @@ Each Mia user instance maintains its own parallel category structure in a separa
 | `c:obo` | `c:OBOcontext` | 0..N | `c:UserDefined` only | A context the other party presents |
 | `c:sbo` | `c:SBOcontext` | 0..1 | `c:UserDefined` only | A context the other party holds about the user |
 
-**Additional category properties**: Three further properties are defined in `context.ttl` and represented as `mia.` YAML fields in category DataBooks, following the same pattern as `mia.category` → `context:category`:
+**Additional category properties**: The following properties are defined in `context.ttl` and represented as `mia.` YAML fields in category DataBooks, following the same pattern as `mia.category` → `context:category`:
 
 | YAML field | Ontology property | Cardinality | Meaning |
 |------------|-------------------|-------------|---------|
+| `mia.category-type` | `c:category-type` | 1 | The concrete category subclass this DataBook instantiates: one of `PersonPredefined`, `OrgPredefined`, `Connection`, `Group`, `UserDefined` |
 | `mia.display-name` | `c:display-name` | 1 | User-editable display name — defaults to the DataBook `title` but can be changed independently, leaving `title` and `id` immutable |
 | `mia.note` | `c:note` | 0..1 | Relative path to a markdown notes file for this category (e.g. `notes/people/paula-walker`) |
 | `mia.folder` | `c:folder` | 0..1 | Relative path to a folder of arbitrary files for this category (e.g. `people/paula-walker`) |
@@ -189,7 +190,7 @@ Note files live in a folder hierarchy whose structure mirrors the category hiera
 
 - **`context.ttl`** — The Context ontology, defining:
   - *Classes*: `c:Category`, `c:Predefined`, `c:PersonPredefined`, `c:OrgPredefined`, `c:UserDefined`, `c:Connection`, `c:Group` and all leaf category subclasses; `c:Context`, `c:SBScontext`, `c:OBScontext`, `c:OBOcontext`, `c:SBOcontext`.
-  - *Annotation properties*: `c:category`, `c:assertedBy`, `c:subject`, `c:about-by`, `c:template`; `c:note` (relative path to a markdown notes file for the category), `c:folder` (relative path to a folder of arbitrary files for the category), `c:display-name` (user-editable display name, defaults to the DataBook `title`).
+  - *Annotation properties*: `c:category`, `c:assertedBy`, `c:subject`, `c:about-by`, `c:template`; `c:category-type` (concrete category subclass), `c:display-name` (user-editable display name), `c:note` (path to markdown notes file), `c:folder` (path to associated file folder); `c:abstract` (marks a class as not directly instantiated in DataBooks).
   - *Object properties*: `c:sbs`, `c:obs`, `c:obo`, `c:sbo`, `c:child`.
   These terms are referenced by name in the YAML frontmatter of each DataBook file.
 
