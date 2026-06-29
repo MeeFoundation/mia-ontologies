@@ -8,5 +8,5 @@ description: >
   Category DataBook for the Companies context category. Groups context DataBooks
   about relationships with specific companies and institutions. Child of Categories.
 mia:
-  predefined: true
+  category-type: PersonPredefined
 ---

@@ -8,5 +8,5 @@ description: >
   Category DataBook for the Contributor context category. Groups context DataBooks
   related to contributing to initiatives started or led by others. Child of Work.
 mia:
-  predefined: true
+  category-type: PersonPredefined
 ---

@@ -8,5 +8,5 @@ description: >
   Category DataBook for the Learnings context category. Groups context DataBooks
   about knowledge gained through personal experience. Child of Information.
 mia:
-  predefined: true
+  category-type: PersonPredefined
 ---

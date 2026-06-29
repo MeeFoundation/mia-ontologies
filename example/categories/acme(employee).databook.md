@@ -8,7 +8,7 @@ description: >
   UserDefined category DataBook for Alice's employment at Acme.
   Child of the Employee category.
 mia:
-  predefined: false
+  category-type: Connection
   sbs: "https://www.example.org/mia/contexts/self.self(acme)(employee)(10)"
   child: "http://www.example.org/mia/categories/people(acme)"
 ---

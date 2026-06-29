@@ -8,7 +8,7 @@ description: >
   Category DataBook for the Events context category. Groups context DataBooks
   about participation in or relationship to a specific event. Child of Categories.
 mia:
-  predefined: true
+  category-type: PersonPredefined
   child:
     - "http://mee.foundation/ontologies/categories/meetings"
     - "http://mee.foundation/ontologies/categories/conferences"

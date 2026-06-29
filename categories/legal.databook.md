@@ -8,5 +8,5 @@ description: >
   Category DataBook for the Legal context category. Groups context DataBooks
   about legal matters, contracts, agreements, and professional legal relationships. Child of Categories.
 mia:
-  predefined: true
+  category-type: PersonPredefined
 ---

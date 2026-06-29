@@ -8,5 +8,5 @@ description: >
   Category DataBook for the Creator context category. Groups context DataBooks
   related to being a creator, inventor, founder, or author of something. Child of Work.
 mia:
-  predefined: true
+  category-type: PersonPredefined
 ---

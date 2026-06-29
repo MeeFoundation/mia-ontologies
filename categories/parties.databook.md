@@ -8,5 +8,5 @@ description: >
   Category DataBook for the Parties context category. Groups context DataBooks
   about parties and other kinds of social gatherings. Child of Events.
 mia:
-  predefined: true
+  category-type: PersonPredefined
 ---

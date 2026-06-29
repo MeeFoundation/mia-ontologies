@@ -8,5 +8,5 @@ description: >
   Category DataBook for the Employee context category. Groups context DataBooks
   related to employment. Child of the Work category.
 mia:
-  predefined: true
+  category-type: PersonPredefined
 ---

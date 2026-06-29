@@ -8,5 +8,5 @@ description: >
   Category DataBook for the Municipality context category. Groups context DataBooks
   about municipal government credentials and records. Child of Government.
 mia:
-  predefined: true
+  category-type: PersonPredefined
 ---

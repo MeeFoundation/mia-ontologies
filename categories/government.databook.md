@@ -8,7 +8,7 @@ description: >
   Category DataBook for the Government context category. Groups context DataBooks
   about government-issued credentials, tax records, and civic relationships. Child of Categories.
 mia:
-  predefined: true
+  category-type: PersonPredefined
   child:
     - "http://mee.foundation/ontologies/categories/state"
     - "http://mee.foundation/ontologies/categories/federal"

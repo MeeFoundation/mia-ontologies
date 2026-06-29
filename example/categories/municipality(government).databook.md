@@ -8,7 +8,7 @@ description: >
   Example copy of the Municipality category DataBook, extended with Alice's
   user-defined municipal categories.
 mia:
-  predefined: true
+  category-type: PersonPredefined
   copiedFrom: "http://mee.foundation/ontologies/categories/municipality"
   child:
     - "http://www.example.org/mia/categories/boston(municipality)"

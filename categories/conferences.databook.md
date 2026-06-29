@@ -8,5 +8,5 @@ description: >
   Category DataBook for the Conferences context category. Groups context DataBooks
   about a conference or professional gathering. Child of Events.
 mia:
-  predefined: true
+  category-type: PersonPredefined
 ---

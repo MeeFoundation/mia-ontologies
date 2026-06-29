@@ -8,5 +8,5 @@ description: >
   Category DataBook for the Federal context category. Groups context DataBooks
   about federal government credentials and records. Child of Government.
 mia:
-  predefined: true
+  category-type: PersonPredefined
 ---

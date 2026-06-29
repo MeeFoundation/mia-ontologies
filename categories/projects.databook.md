@@ -8,5 +8,5 @@ description: >
   Category DataBook for the Projects context category. Groups context DataBooks
   about involvement in a specific project or initiative. Child of Categories.
 mia:
-  predefined: true
+  category-type: PersonPredefined
 ---

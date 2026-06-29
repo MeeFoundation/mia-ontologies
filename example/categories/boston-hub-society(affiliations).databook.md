@@ -8,7 +8,7 @@ description: >
   UserDefined category DataBook for Alice's relationship with the Boston Hub Society.
   Child of the Affiliations category.
 mia:
-  predefined: false
+  category-type: Group
   sbs: "https://www.example.org/mia/contexts/self.self(boston-hub-society)(affiliations)(14)"
   obo:
     - "https://www.example.org/mia/contexts/bhs-group.members(boston-hub-society)(affiliations)(01)"

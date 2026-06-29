@@ -8,7 +8,7 @@ description: >
   UserDefined category DataBook for Alice's Acme colleague Paula Walker.
   Child of the Acme category.
 mia:
-  predefined: false
+  category-type: Connection
   obs: "https://www.example.org/mia/contexts/paula-walker.self(paula-walker)(acme)(06)"
   sbs: "https://www.example.org/mia/contexts/self.self(paula-walker)(acme)(20)"
 ---

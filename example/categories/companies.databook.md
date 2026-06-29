@@ -8,7 +8,7 @@ description: >
   Example copy of the Companies category DataBook, extended with Alice's user-defined
   company categories.
 mia:
-  predefined: true
+  category-type: PersonPredefined
   copiedFrom: "http://mee.foundation/ontologies/categories/companies"
   child:
     - "http://www.example.org/mia/categories/google(companies)"

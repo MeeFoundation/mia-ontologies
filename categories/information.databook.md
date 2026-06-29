@@ -9,7 +9,7 @@ description: >
   about general knowledge selected by the user, web links, documents, and images.
   Child of Categories.
 mia:
-  predefined: true
+  category-type: PersonPredefined
   child:
     - "http://mee.foundation/ontologies/categories/learnings"
 ---

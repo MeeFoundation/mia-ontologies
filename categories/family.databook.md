@@ -8,5 +8,5 @@ description: >
   Category DataBook for the Family context category. Groups context DataBooks
   about interactions with family members. Child of the People category.
 mia:
-  predefined: true
+  category-type: PersonPredefined
 ---

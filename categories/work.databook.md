@@ -8,7 +8,7 @@ description: >
   Category DataBook for the Work context category. Groups context DataBooks
   about professional roles, employment, and career relationships. Child of Categories.
 mia:
-  predefined: true
+  category-type: PersonPredefined
   child:
     - "http://mee.foundation/ontologies/categories/employee"
     - "http://mee.foundation/ontologies/categories/contributor"

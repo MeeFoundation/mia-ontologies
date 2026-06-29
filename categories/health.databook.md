@@ -8,7 +8,7 @@ description: >
   Category DataBook for the Health context category. Groups context DataBooks
   about personal health and wellness. Child of Categories.
 mia:
-  predefined: true
+  category-type: PersonPredefined
   child:
     - "http://mee.foundation/ontologies/categories/healthcare"
 ---

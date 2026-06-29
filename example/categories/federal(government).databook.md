@@ -8,7 +8,7 @@ description: >
   Example copy of the Federal category DataBook, extended with Alice's user-defined
   federal agency categories.
 mia:
-  predefined: true
+  category-type: PersonPredefined
   copiedFrom: "http://mee.foundation/ontologies/categories/federal"
   child:
     - "http://www.example.org/mia/categories/social-security-administration(federal)"

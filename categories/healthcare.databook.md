@@ -8,5 +8,5 @@ description: >
   Category DataBook for the Healthcare context category. Groups context DataBooks
   about relationships with healthcare providers and health insurance companies. Child of Health.
 mia:
-  predefined: true
+  category-type: PersonPredefined
 ---

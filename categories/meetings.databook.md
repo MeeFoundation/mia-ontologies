@@ -8,5 +8,5 @@ description: >
   Category DataBook for the Meetings context category. Groups context DataBooks
   about a meeting or appointment. Child of Events.
 mia:
-  predefined: true
+  category-type: PersonPredefined
 ---

@@ -8,5 +8,5 @@ description: >
   Category DataBook for the Affiliations context category. Groups context DataBooks
   about interactions with formal or informal groups of people. Child of Categories.
 mia:
-  predefined: true
+  category-type: PersonPredefined
 ---

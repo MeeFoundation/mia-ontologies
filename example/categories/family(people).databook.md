@@ -8,7 +8,7 @@ description: >
   Example copy of the Family category DataBook, extended with Alice's user-defined
   family member categories.
 mia:
-  predefined: true
+  category-type: PersonPredefined
   copiedFrom: "http://mee.foundation/ontologies/categories/family"
   child: "http://www.example.org/mia/categories/paula-walker(family)"
 ---

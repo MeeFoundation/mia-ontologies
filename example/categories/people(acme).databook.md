@@ -8,7 +8,7 @@ description: >
   Predefined People category scoped to Alice's Acme work context.
   Groups the Acme colleagues Alice tracks.
 mia:
-  predefined: true
+  category-type: PersonPredefined
   copiedFrom: "http://mee.foundation/ontologies/categories/people"
   child: "http://www.example.org/mia/categories/paula-walker(acme)"
 ---

@@ -8,5 +8,5 @@ description: >
   Category DataBook for the Consultants context category. Groups context DataBooks
   about interactions with consultants. Child of the People category.
 mia:
-  predefined: true
+  category-type: PersonPredefined
 ---

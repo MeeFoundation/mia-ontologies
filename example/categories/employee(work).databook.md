@@ -8,7 +8,7 @@ description: >
   Example copy of the Employee category DataBook, extended with Alice's user-defined
   employer categories.
 mia:
-  predefined: true
+  category-type: PersonPredefined
   copiedFrom: "http://mee.foundation/ontologies/categories/employee"
   child: "http://www.example.org/mia/categories/acme(employee)"
 ---

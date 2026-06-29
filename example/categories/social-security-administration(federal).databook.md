@@ -8,6 +8,6 @@ description: >
   UserDefined category DataBook for Alice's relationship with the Social Security Administration.
   Child of the Federal category.
 mia:
-  predefined: false
+  category-type: Connection
   sbs: "https://www.example.org/mia/contexts/self.self(social-security-administration)(federal)(23)"
 ---

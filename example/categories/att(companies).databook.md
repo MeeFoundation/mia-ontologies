@@ -8,6 +8,6 @@ description: >
   UserDefined category DataBook for Alice's relationship with AT&T.
   Child of the Companies category.
 mia:
-  predefined: false
+  category-type: Connection
   sbs: "https://www.example.org/mia/contexts/self.self(att)(companies)(11)"
 ---

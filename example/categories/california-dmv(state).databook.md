@@ -8,6 +8,6 @@ description: >
   UserDefined category DataBook for Alice's relationship with the California DMV.
   Child of the State category.
 mia:
-  predefined: false
+  category-type: Connection
   sbs: "https://www.example.org/mia/contexts/self.self(california-dmv)(state)(15)"
 ---

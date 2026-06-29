@@ -7,6 +7,6 @@ created: 2026-06-24
 description: >
   Example copy of the Consultants category DataBook. Child of People.
 mia:
-  predefined: true
+  category-type: PersonPredefined
   copiedFrom: "http://mee.foundation/ontologies/categories/consultants"
 ---
