@@ -90,7 +90,7 @@ Categories may be `c:Predefined` or `c:UserDefined`. Predefined categories are f
 - **`c:foder`** - link to a folder of files related to this category.
 - **`c:child`** - used to arrange categories into a tree structure. 
 - **`c:sbs`** - link to a context (or category) that is about the self as asserted by the self (user).
-- **`c:obs`** - a context about the other party as asserted by the self. Available on all categories.
+- **`c:obs`** - a context about the other party as asserted by the self. User-defined categories only.
 - **`c:sbo`** - a context about the self as asserted by the other party. User-defined categories only.
 - **`c:obo`** - a context about the other party as asserted by the other party. User-defined categories only.
 
@@ -170,7 +170,7 @@ Each Mia user instance maintains its own parallel category structure in a separa
 | Property | `c:Context` subtype | Cardinality | Applies to | Meaning |
 |----------|---------------------|-------------|------------|---------|
 | `c:sbs` | `c:SBScontext` | 0..1 | All categories | The user's own context in this category |
-| `c:obs` | `c:OBScontext` | 0..1 | All categories | The user's record of the other party |
+| `c:obs` | `c:OBScontext` | 0..1 | `c:UserDefined` only | The user's record of the other party |
 | `c:obo` | `c:OBOcontext` | 0..N | `c:UserDefined` only | A context the other party presents |
 | `c:sbo` | `c:SBOcontext` | 0..1 | `c:UserDefined` only | A context the other party holds about the user |
 

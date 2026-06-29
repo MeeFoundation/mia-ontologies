@@ -11,7 +11,7 @@
     owl:versionIRI <http://mee.foundation/ontologies/context/1.0.1> ;
     dc:date "2026-06-01"^^xsd:date ;
     owl:imports <http://mee.foundation/ontologies/pdn-identity> ;
-    owl:versionInfo "Version 1.0.74 - add context:abstract annotation; add c:category-type / mia.category-type; fix Connection and Group comments"@en ;
+    owl:versionInfo "Version 1.0.75 - revert c:obs domain to c:UserDefined"@en ;
     rdfs:label "Context Ontology"@en ;
     rdfs:comment """Context and Category Ontology for the Mee Identity Agent"""@en .
 
@@ -119,11 +119,11 @@ context:sbs rdf:type owl:ObjectProperty ;
     rdfs:comment "Links a category to a context DataBook where both subject and assertedBy are :Self — the Mia user is both the subject of and the asserter of the data."@en .
 
 context:obs rdf:type owl:ObjectProperty ;
-    rdfs:domain context:Category ;
+    rdfs:domain context:UserDefined ;
     rdfs:range [ rdf:type owl:Class ;
                  owl:unionOf ( context:Category context:OBScontext ) ] ;
     rdfs:label "other-by-self"@en ;
-    rdfs:comment "Links a category to either a c:Category or a c:OBScontext DataBook (subject is another person/org/group, assertedBy is :Self)."@en .
+    rdfs:comment "Links a user-defined category to either a c:Category or a c:OBScontext DataBook (subject is another person/org/group, assertedBy is :Self)."@en .
 
 
 #################################################################
