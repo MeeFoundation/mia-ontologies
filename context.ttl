@@ -11,7 +11,7 @@
     owl:versionIRI <http://mee.foundation/ontologies/context/1.0.1> ;
     dc:date "2026-06-01"^^xsd:date ;
     owl:imports <http://mee.foundation/ontologies/pdn-identity> ;
-    owl:versionInfo "Version 1.0.77 - rename c:display-name to c:label"@en ;
+    owl:versionInfo "Version 1.0.78 - document dual parallel folder hierarchy for c:note and c:folder"@en ;
     rdfs:label "Context Ontology"@en ;
     rdfs:comment """Context and Category Ontology for the Mee Identity Agent"""@en .
 
@@ -180,20 +180,41 @@ context:obo rdf:type owl:ObjectProperty ;
     rdfs:comment "Links a user-defined category to a context DataBook where both subject and assertedBy are another person, organization, or group."@en .
 
 #################################################################
-#    Category Notes, Folders, and Names
+#    Category Notes, Folders, and Labels
+#
+#    Every category is associated with two separate but perfectly
+#    parallel folder hierarchies that mirror the category tree and
+#    are kept in sync by the Mia application:
+#
+#    Notes hierarchy — one .md file per category, rooted at a
+#    configurable notes root (e.g. ~/MiaNotes/). Folder names and
+#    nesting match the category tree exactly. The hierarchy contains
+#    no arbitrary files, making it directly usable as a PKM vault
+#    with tools such as Obsidian, Logseq, or Foam.
+#
+#    Files hierarchy — one folder per category, rooted at a
+#    configurable files root (e.g. ~/MiaFiles/). Folder names and
+#    nesting match the category tree exactly. Each folder may
+#    contain arbitrary files and additional subfolders that are not
+#    part of the category tree itself.
+#
+#    When a category is created, renamed, or deleted, Mia updates
+#    both hierarchies automatically. The two roots are stored
+#    separately so the notes hierarchy can be opened as a
+#    standalone PKM vault without exposing the files hierarchy.
 #################################################################
 
 context:note rdf:type owl:AnnotationProperty ;
     rdfs:domain context:Category ;
     rdfs:range xsd:anyURI ;
     rdfs:label "note"@en ;
-    rdfs:comment "Relative path to a markdown file where the user can add notes about the category (e.g. notes/people/paula-walker). Notes live in a folder hierarchy whose names match the category hierarchy."@en .
+    rdfs:comment "Relative path within the notes hierarchy root to the .md file for this category. The notes hierarchy mirrors the category tree exactly and is compatible with PKM tools such as Obsidian, Logseq, and Foam."@en .
 
 context:folder rdf:type owl:AnnotationProperty ;
     rdfs:domain context:Category ;
     rdfs:range xsd:anyURI ;
     rdfs:label "folder"@en ;
-    rdfs:comment "Relative path to a folder containing an arbitrary set of files for this category (e.g. people/paula-walker). Folders live in a parallel hierarchy whose names match the category names."@en .
+    rdfs:comment "Relative path within the files hierarchy root to the folder for this category. The files hierarchy mirrors the category tree exactly; each folder may contain arbitrary files and subfolders beyond those in the category tree."@en .
 
 context:label rdf:type owl:AnnotationProperty ;
     rdfs:domain context:Category ;
