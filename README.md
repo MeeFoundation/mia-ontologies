@@ -90,7 +90,7 @@ Categories may be `c:Predefined` or `c:UserDefined`. Predefined categories are f
 - **`c:folder`** — path to a folder in the *files hierarchy* for this category.
 - **`c:child`** — used to arrange categories into a tree structure.
 
-`c:note` and `c:folder` point into two separate but perfectly parallel folder structures that mirror the category tree. If the category tree is `(People, (Family, Friends), Work)` then both hierarchies contain exactly the same folder names and nesting. Mia keeps both permanently in sync with the category tree — when a category is created, renamed, or deleted, Mia updates both hierarchies automatically.
+`c:note` and `c:folder` point into two separate but parallel folder structures that mirror the category tree. If the category tree is `(People, (Family, Friends), Work)` then both hierarchies contain exactly the same folder names and nesting. Mia keeps both permanently in sync with the category tree — when a category is created, renamed, or deleted, Mia updates both hierarchies automatically.
 
 - The **notes hierarchy** contains one `.md` file per category and nothing else. This makes it directly usable as a PKM vault with tools such as Obsidian, Logseq, or Foam.
 - The **files hierarchy** contains one folder per category. Each folder may hold arbitrary files and additional subfolders that are not part of the category tree.

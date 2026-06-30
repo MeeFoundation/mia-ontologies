@@ -182,8 +182,8 @@ context:obo rdf:type owl:ObjectProperty ;
 #################################################################
 #    Category Notes, Folders, and Labels
 #
-#    Every category is associated with two separate but perfectly
-#    parallel folder hierarchies that mirror the category tree and
+#    Every category is associated with two separate but parallel
+#    folder hierarchies that mirror the category tree and
 #    are kept in sync by the Mia application:
 #
 #    Notes hierarchy — one .md file per category, rooted at a
