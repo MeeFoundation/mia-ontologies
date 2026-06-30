@@ -87,7 +87,7 @@ Categories may be `c:Predefined` or `c:UserDefined`. Predefined categories are f
 
 - **`c:display-name`** - user-editable display name of the category.
 - **`c:note`** - link to a markdown note the user can edit about this category.
-- **`c:foder`** - link to a folder of files related to this category.
+- **`c:folder`** - link to a folder of files related to this category.
 - **`c:child`** - used to arrange categories into a tree structure. 
 - **`c:sbs`** - link to a context (or category) that is about the self as asserted by the self (user).
 - **`c:obs`** - a context about the other party as asserted by the self. User-defined categories only.
