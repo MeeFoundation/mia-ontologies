@@ -92,8 +92,8 @@ Categories may be `c:Predefined` or `c:UserDefined`. Predefined categories are f
 
 `c:note` and `c:folder` point into two separate but parallel folder structures that mirror the category tree. If the category tree is `(People, (Family, Friends), Work)` then both hierarchies contain exactly the same folder names and nesting. Mia keeps both permanently in sync with the category tree — when a category is created, renamed, or deleted, Mia updates both hierarchies automatically.
 
-- The **notes hierarchy** contains one `.md` file per category and nothing else. This makes it directly usable as a PKM vault with tools such as Obsidian, Logseq, or Foam.
-- The **files hierarchy** contains one folder per category. Each folder may hold arbitrary files and additional subfolders that are not part of the category tree.
+- The **notes hierarchy** mirrors the category tree as a folder structure. The note for category X is stored as `_X.md` inside the X folder — for example, `Family/_Family.md`. The leading underscore marks it as the *folder note*, distinguishing it from any other notes the user places inside the folder. Traditional PKM tools have no built-in way to associate a note with a folder itself; Mia's `_CategoryName.md` convention solves this and is compatible with PKM folder-note tools such as Obsidian (Folder Notes plugin), Logseq, and Foam.
+- The **files hierarchy** mirrors the category tree as a folder structure. Each folder may hold arbitrary files and additional subfolders that are not part of the category tree.
 
 The two roots are stored separately so the notes hierarchy can be opened as a standalone PKM vault without exposing the files hierarchy.
 - **`c:sbs`** - link to a context (or category) that is about the self as asserted by the self (user).
