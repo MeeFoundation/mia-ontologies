@@ -11,7 +11,7 @@
     owl:versionIRI <http://mee.foundation/ontologies/context/1.0.1> ;
     dc:date "2026-06-01"^^xsd:date ;
     owl:imports <http://mee.foundation/ontologies/pdn-identity> ;
-    owl:versionInfo "Version 1.0.80 - document redundancy and robustness role of c:note and c:folder"@en ;
+    owl:versionInfo "Version 1.0.81 - correct folder-note filename convention to match Obsidian (CategoryName.md not _CategoryName.md)"@en ;
     rdfs:label "Context Ontology"@en ;
     rdfs:comment """Context and Category Ontology for the Mee Identity Agent"""@en .
 
@@ -186,19 +186,20 @@ context:obo rdf:type owl:ObjectProperty ;
 #    folder hierarchies that mirror the category tree and
 #    are kept in sync by the Mia application:
 #
-#    Notes hierarchy — one folder per category plus one specially
-#    named .md file per category, rooted at a configurable notes
-#    root (e.g. ~/MiaNotes/). Folder names and nesting match the
-#    category tree exactly. The note for category X is stored as
-#    _X.md inside the X folder (e.g. Family/_Family.md). The
-#    leading underscore distinguishes the category note from any
-#    other notes the user may place inside the folder.
+#    Notes hierarchy — one folder per category plus one .md file
+#    per category, rooted at a configurable notes root (e.g.
+#    ~/MiaNotes/). Folder names and nesting match the category tree
+#    exactly. The note for category X is stored as X.md inside the
+#    X folder (e.g. Family/Family.md) — the same name as the folder
+#    itself. This matches the Obsidian Folder Notes plugin
+#    convention, which treats a file named exactly after its
+#    containing folder as the note for that folder.
 #
 #    Traditional PKM tools have no built-in way to associate a note
-#    with a folder itself. Mia's _CategoryName.md convention solves
-#    this: the category note is co-located with its folder, making
-#    the hierarchy directly compatible with PKM folder-note tools
-#    such as Obsidian (Folder Notes plugin), Logseq, or Foam.
+#    with a folder itself. Mia's same-name convention solves this:
+#    the category note is co-located with its folder and directly
+#    compatible with PKM folder-note tools such as Obsidian (Folder
+#    Notes plugin), Logseq, or Foam.
 #
 #    Files hierarchy — one folder per category, rooted at a
 #    configurable files root (e.g. ~/MiaFiles/). Folder names and
@@ -237,7 +238,7 @@ context:note rdf:type owl:AnnotationProperty ;
     rdfs:domain context:Category ;
     rdfs:range xsd:anyURI ;
     rdfs:label "note"@en ;
-    rdfs:comment "Relative path within the notes hierarchy root to the category note file, stored as _CategoryName.md inside the category folder (e.g. family/_Family.md). Normally derived automatically by Mia; retained explicitly for divergence detection, graceful degradation, and intentional overrides."@en .
+    rdfs:comment "Relative path within the notes hierarchy root to the category note file, stored as CategoryName.md inside the category folder (e.g. family/Family.md) — matching the Obsidian Folder Notes plugin convention. Normally derived automatically by Mia; retained explicitly for divergence detection, graceful degradation, and intentional overrides."@en .
 
 context:folder rdf:type owl:AnnotationProperty ;
     rdfs:domain context:Category ;
