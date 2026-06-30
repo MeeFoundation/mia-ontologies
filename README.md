@@ -77,13 +77,13 @@ We organize multiple dimensions of a person's life into a structure of nested *c
 
 Categories range in scope. They vary from a few broad top level categories like "People" to narrower categories like "Family" and ultimately narrowing down to individual relationships with a single family member. The user can choose at what level in this broader to narrower structure to put what kind of information. For example if the user has a nickname used only by this one family member, they can add that "claim" (attribute) at the individual relationship level. 
 
-#### Subclasses
-Categories may be `c:Predefined` or `c:UserDefined`. Predefined categories are further divided into `c:PersonPredefined` and `c:OrgPredefined`. The former provides a set of generally useful categories to organize a person's personal (non-working) life. The latter provides a set of categories tuned to a person's working life. User-defined categories are further divided into `c:ConnectionCategory` (abstract superclass for categories that represent a relationship with a specific party), `c:TwoParty` (a 1:1 relationship with a specific person, organization, or other party — display label "Connection"; subclass of `c:ConnectionCategory`), and `c:MultiParty` (a shared multi-party relationship with a group of people or organizations — display label "Group"). A plain `c:UserDefined` category acts as a navigational container without implying a specific relationship type.
+### Subclasses
+Categories may be `c:Predefined` or `c:UserDefined`. Predefined categories are further divided into `c:PersonPredefined` and `c:OrgPredefined`. The former provides a set of generally useful categories to organize a person's personal (non-working) life. The latter provides a set of categories tuned to a person's working life. User-defined categories are further divided into `c:ConnectionCategory` (abstract superclass for categories that represent a relationship with a specific party), `c:TwoParty` (a 1:1 relationship with a specific person, organization, or other party — display label "Connection"; subclass of `c:ConnectionCategory`), and `c:MultiParty` (a shared multi-party relationship with a group of people or organizations — display label "Group"). A plain `c:UserDefined` category (display label "Category") acts as a navigational container.
 
 
 <p align="center"><img src="images/context-ontology/category.png" alt="Category hierarchy"></p>
 
-#### Properties
+### Properties
 
 - **`c:label`** — user-editable display name of the category. Defaults to category's class name.
 - **`c:note`** — path to a `.md` file in the *notes* folder/file hierarchy for this category.
@@ -109,15 +109,19 @@ In the normal case `c:note` and `c:folder` are technically redundant — both pa
 2. **Graceful degradation** — Mia can continue to locate a category's folder or note via the stored path even when the folder hierarchy has drifted out of sync with the category tree.
 3. **Intentional overrides** — a user may deliberately want a category's folder to live somewhere other than the derived location (e.g. `~/Photos/Family/` rather than the default `~/MiaFiles/People/Family/`). The explicit link records that intentional deviation without disrupting the category tree.
 
-The diagram below shows a simple example of structure of categories and contexts. At the top is Person-type predefined category. Its child link points to an Org-type predefined category which in turn points to a user-defined category. The top-to-bottom ordering of predefined categories is preserved in the user's copies of these category trees, but the user is free to insert any number of user-defined categories at any level in the resulting tree. 
+### Minimal tree illustrating category types
 
-In each of these three categories, the contained contexts are shown in circles. White circles are contexts whose triples are asserted by the Self (aka the user). Green circles are contexts whose triples are asserted by a person other than the self, and organization or a group and synchronized with the user's Mia instance over the PDN.
+The diagram below shows a minimal example of structure of categories and contexts. Each of the five user-visible category types are shown. At the top is `c:PersonPredefined` predefined category. Its child link points to a `c:OrgPredefined` category. Its first child is a Connection between the user and another Mia user, Bob. Its second child is a Group that the user is a member of along with two other members, Mary and Bob.
+
+The top-to-bottom ordering of the two predefined category trees is preserved in the user's copies of these category trees, but the user is free to insert any number of user-defined categories at any level in the resulting tree. 
+
+In each of these five categories contain contexts shown as circles. White circles are contexts whose triples are asserted by the Self (aka the user). Green circles are contexts whose triples are asserted by a person other than the self, and organization or a group and synchronized with the user's Mia instance over the PDN.
 
 
 <p align="center"><img src="images/context-ontology/categories+contexts.png" alt="Categories and contexts"></p>
 
 
-#### PersonPredefined Categories
+### PersonPredefined Categories
 
 `c:PersonPredefined` categories are generally useful categories to organize a person's personal (non-working) life. 
 
@@ -157,7 +161,7 @@ categories of information related to a person's personal and work life:
 15. **Food** — food preferences, dietary restrictions, favorite restaurants, recipes, shopping lists, and other food-related interests
 16. **Affiliations** — sports clubs, teams, charities, faith groups, memberships. Some may exist as a `g:Group` on the PDN.
 
-#### OrgPredefined Categories
+### OrgPredefined Categories
 
 `c:OrgPredefined` categories are tuned to a person's life working within a corporation or government agency:
 
