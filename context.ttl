@@ -11,7 +11,7 @@
     owl:versionIRI <http://mee.foundation/ontologies/context/1.0.1> ;
     dc:date "2026-06-01"^^xsd:date ;
     owl:imports <http://mee.foundation/ontologies/pdn-identity> ;
-    owl:versionInfo "Version 1.0.83 - rename c:Connection to c:TwoParty and c:Group to c:MultiParty; add c:label to both"@en ;
+    owl:versionInfo "Version 1.0.84 - change c:sbo domain to c:ConnectionCategory"@en ;
     rdfs:label "Context Ontology"@en ;
     rdfs:comment """Context and Category Ontology for the Mee Identity Agent"""@en .
 
@@ -176,10 +176,10 @@ context:OrgPredefined rdf:type owl:Class ;
 #################################################################
 
 context:sbo rdf:type owl:ObjectProperty ;
-    rdfs:domain context:UserDefined ;
+    rdfs:domain context:ConnectionCategory ;
     rdfs:range context:SBOcontext ;
     rdfs:label "self-by-other"@en ;
-    rdfs:comment "Links a user-defined category to a context DataBook where subject is :Self and assertedBy is another person, organization, or group."@en .
+    rdfs:comment "Links a connection category to a context DataBook where subject is :Self and assertedBy is another person, organization, or group."@en .
 
 context:obo rdf:type owl:ObjectProperty ;
     rdfs:domain context:UserDefined ;
