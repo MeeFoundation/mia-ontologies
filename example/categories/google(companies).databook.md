@@ -8,6 +8,6 @@ description: >
   UserDefined category DataBook for Alice's relationship with Google.
   Child of the Companies category.
 mia:
-  category-type: Connection
+  category-type: TwoParty
   sbs: "https://www.example.org/mia/contexts/self.self(google)(companies)(16)"
 ---

@@ -11,7 +11,7 @@
     owl:versionIRI <http://mee.foundation/ontologies/context/1.0.1> ;
     dc:date "2026-06-01"^^xsd:date ;
     owl:imports <http://mee.foundation/ontologies/pdn-identity> ;
-    owl:versionInfo "Version 1.0.82 - add abstract c:ConnectionCategory between c:UserDefined and c:Connection"@en ;
+    owl:versionInfo "Version 1.0.83 - rename c:Connection to c:TwoParty and c:Group to c:MultiParty; add c:label to both"@en ;
     rdfs:label "Context Ontology"@en ;
     rdfs:comment """Context and Category Ontology for the Mee Identity Agent"""@en .
 
@@ -147,14 +147,16 @@ context:ConnectionCategory rdf:type owl:Class ;
     rdfs:label "ConnectionCategory"@en ;
     rdfs:comment "Abstract superclass of all user-defined categories that represent a relationship with a specific party (as opposed to a navigational container or group)."@en .
 
-context:Connection rdf:type owl:Class ;
+context:TwoParty rdf:type owl:Class ;
     rdfs:subClassOf context:ConnectionCategory ;
-    rdfs:label "Connection"@en ;
+    rdfs:label "TwoParty"@en ;
+    context:label "Connection" ;
     rdfs:comment "A user-defined category representing a 1:1 relationship with a specific person, organization, or other party."@en .
 
-context:Group rdf:type owl:Class ;
+context:MultiParty rdf:type owl:Class ;
     rdfs:subClassOf context:UserDefined ;
-    rdfs:label "Group"@en ;
+    rdfs:label "MultiParty"@en ;
+    context:label "Group" ;
     rdfs:comment "A user-defined category representing a shared multi-party relationship with a group of people or organizations. Not to be confused with g:Group (a PDN group node)."@en .
 
 context:PersonPredefined rdf:type owl:Class ;

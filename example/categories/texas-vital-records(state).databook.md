@@ -8,6 +8,6 @@ description: >
   UserDefined category DataBook for Alice's relationship with Texas Vital Records.
   Child of the State category.
 mia:
-  category-type: Connection
+  category-type: TwoParty
   sbs: "https://www.example.org/mia/contexts/self.self(texas-vital-records)(state)(24)"
 ---

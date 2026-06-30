@@ -78,7 +78,7 @@ We organize multiple dimensions of a person's life into a structure of nested *c
 Categories range in scope. They vary from a few broad top level categories like "People" to narrower categories like "Family" and ultimately narrowing down to individual relationships with a single family member. The user can choose at what level in this broader to narrower structure to put what kind of information. For example if the user has a nickname used only by this one family member, they can add that "claim" (attribute) at the individual relationship level. 
 
 #### Subclasses
-Categories may be `c:Predefined` or `c:UserDefined`. Predefined categories are further divided into `c:PersonPredefined` and `c:OrgPredefined`. The former provides a set of generally useful categories to organize a person's personal (non-working) life. The latter provides a set of categories tuned to a person's working life. User-defined categories are further divided into `c:ConnectionCategory` (abstract superclass for categories that represent a relationship with a specific party), `c:Connection` (a 1:1 relationship with a specific person, organization, or other party — subclass of `c:ConnectionCategory`), and `c:Group` (a shared multi-party relationship with a group of people or organizations). A plain `c:UserDefined` category acts as a navigational container without implying a specific relationship type.
+Categories may be `c:Predefined` or `c:UserDefined`. Predefined categories are further divided into `c:PersonPredefined` and `c:OrgPredefined`. The former provides a set of generally useful categories to organize a person's personal (non-working) life. The latter provides a set of categories tuned to a person's working life. User-defined categories are further divided into `c:ConnectionCategory` (abstract superclass for categories that represent a relationship with a specific party), `c:TwoParty` (a 1:1 relationship with a specific person, organization, or other party — display label "Connection"; subclass of `c:ConnectionCategory`), and `c:MultiParty` (a shared multi-party relationship with a group of people or organizations — display label "Group"). A plain `c:UserDefined` category acts as a navigational container without implying a specific relationship type.
 
 
 <p align="center"><img src="images/context-ontology/category.png" alt="Category hierarchy"></p>
@@ -179,7 +179,7 @@ Each node in the `c:Category` hierarchy is represented by a **category DataBook*
 
 Each Mia user instance maintains its own parallel category structure in a separate directory. No links of any kind (`c:child`, `c:sbs`, `c:obs`, `c:obo`, `c:sbo`) cross from the canonical structure into a user's instance structure. A user's instance structure contains copies of the predefined canonical categories (each with a `copiedFrom:` property pointing to the canonical IRI) alongside any user-defined categories they have created. Context links (`c:sbs`, `c:obs`, `c:obo`, `c:sbo`) appear only in a user's instance structure, not in the canonical structure.
 
-**Category type**: Each category DataBook carries a `mia.category-type` field recording its concrete subclass. Predefined categories use `PersonPredefined` or `OrgPredefined`; the class IRI is derived from the DataBook title by removing spaces (e.g. title `"Financial Services"` → class `context:FinancialServices`). User-created categories use `Connection`, `Group`, or `UserDefined` depending on the relationship type they represent.
+**Category type**: Each category DataBook carries a `mia.category-type` field recording its concrete subclass. Predefined categories use `PersonPredefined` or `OrgPredefined`; the class IRI is derived from the DataBook title by removing spaces (e.g. title `"Financial Services"` → class `context:FinancialServices`). User-created categories use `TwoParty`, `MultiParty`, or `UserDefined` depending on the relationship type they represent.
 
 **Context links**: Each category DataBook in a user's instance tree may carry up to four optional links to context DataBook IRIs, corresponding to the four `c:Context` subtypes:
 
@@ -194,7 +194,7 @@ Each Mia user instance maintains its own parallel category structure in a separa
 
 | YAML field | Ontology property | Cardinality | Meaning |
 |------------|-------------------|-------------|---------|
-| `mia.category-type` | `c:category-type` | 1 | The concrete category subclass this DataBook instantiates: one of `PersonPredefined`, `OrgPredefined`, `Connection`, `Group`, `UserDefined` |
+| `mia.category-type` | `c:category-type` | 1 | The concrete category subclass this DataBook instantiates: one of `PersonPredefined`, `OrgPredefined`, `TwoParty`, `MultiParty`, `UserDefined` |
 | `mia.label` | `c:label` | 1 | User-editable display name — defaults to the DataBook `title` but can be changed independently, leaving `title` and `id` immutable |
 | `mia.note` | `c:note` | 0..1 | Relative path to a markdown notes file for this category (e.g. `notes/people/paula-walker`) |
 | `mia.folder` | `c:folder` | 0..1 | Relative path to a folder of arbitrary files for this category (e.g. `people/paula-walker`) |
@@ -205,7 +205,7 @@ Note files live in a folder hierarchy whose structure mirrors the category hiera
 ### Context Ontology File
 
 - **`context.ttl`** — The Context ontology, defining:
-  - *Classes*: `c:Category`, `c:Predefined`, `c:PersonPredefined`, `c:OrgPredefined`, `c:UserDefined`, `c:Connection`, `c:Group` and all leaf category subclasses; `c:Context`, `c:SBScontext`, `c:OBScontext`, `c:OBOcontext`, `c:SBOcontext`.
+  - *Classes*: `c:Category`, `c:Predefined`, `c:PersonPredefined`, `c:OrgPredefined`, `c:UserDefined`, `c:ConnectionCategory`, `c:TwoParty`, `c:MultiParty` and all leaf category subclasses; `c:Context`, `c:SBScontext`, `c:OBScontext`, `c:OBOcontext`, `c:SBOcontext`.
   - *Annotation properties*: `c:category`, `c:assertedBy`, `c:subject`, `c:about-by`, `c:template`; `c:category-type` (concrete category subclass), `c:label` (user-editable display name), `c:note` (path to markdown notes file), `c:folder` (path to associated file folder); `c:abstract` (marks a class as not directly instantiated in DataBooks).
   - *Object properties*: `c:sbs`, `c:obs`, `c:obo`, `c:sbo`, `c:child`.
   These terms are referenced by name in the YAML frontmatter of each DataBook file.
