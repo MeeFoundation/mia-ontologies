@@ -78,22 +78,28 @@ We organize multiple dimensions of a person's life into a structure of nested *c
 Categories range in scope. They vary from a few broad top level categories like "People" to narrower categories like "Family" and ultimately narrowing down to individual relationships with a single family member. The user can choose at what level in this broader to narrower structure to put what kind of information. For example if the user has a nickname used only by this one family member, they can add that "claim" (attribute) at the individual relationship level. 
 
 #### Subclasses
-Categories may be `c:Predefined` or `c:UserDefined`. Predefined categories are further divided into `c:PersonPredefined` and `c:OrgPredefined`. The former provides a set of generally useful categories to organize a person's personal (non-working) life. The latter provides a set of categories tuned to a person's working life. User-defined categories are further divided into `c:Connection` (a 1:1 relationship with a specific person, organization, or other party) and `c:Group` (a shared multi-party relationship with a group of people or organizations). A plain `c:UserDefined` category acts as a navigational container without implying a specific relationship type.
+Categories may be `c:Predefined` or `c:UserDefined`. Predefined categories are further divided into `c:PersonPredefined` and `c:OrgPredefined`. The former provides a set of generally useful categories to organize a person's personal (non-working) life. The latter provides a set of categories tuned to a person's working life. User-defined categories are further divided into `c:ConnectionCategory` (abstract superclass for categories that represent a relationship with a specific party), `c:Connection` (a 1:1 relationship with a specific person, organization, or other party — subclass of `c:ConnectionCategory`), and `c:Group` (a shared multi-party relationship with a group of people or organizations). A plain `c:UserDefined` category acts as a navigational container without implying a specific relationship type.
 
 
 <p align="center"><img src="images/context-ontology/category.png" alt="Category hierarchy"></p>
 
 #### Properties
 
-- **`c:label`** — user-editable display name of the category.
-- **`c:note`** — path to a `.md` file in the *notes hierarchy* for this category.
-- **`c:folder`** — path to a folder in the *files hierarchy* for this category.
-- **`c:child`** — used to arrange categories into a tree structure.
+- **`c:label`** — user-editable display name of the category. Defaults to category's class name.
+- **`c:note`** — path to a `.md` file in the *notes* folder/file hierarchy for this category.
+- **`c:folder`** — path to a folder in the *files* folder/file hierarchy for this category.
+- **`c:child`** — organizes categories into a tree structure.
 
-`c:note` and `c:folder` point into two separate but parallel folder structures that mirror the category tree. If the category tree is `(People, (Family, Friends), Work)` then both hierarchies contain exactly the same folder names and nesting. Mia keeps both permanently in sync with the category tree — when a category is created, renamed, or deleted, Mia updates both hierarchies automatically.
+- **`c:sbs`** - link to a context that is about the self as asserted by the self (user).
+- **`c:obs`** - a context about the other party as asserted by the self. User-defined categories only.
+- **`c:sbo`** - a context about the self as asserted by the other party. User-defined categories only.
+- **`c:obo`** - a context about the other party as asserted by the other party. User-defined categories only.
 
-- The **notes hierarchy** mirrors the category tree as a folder structure. The note for category X is stored as `X.md` inside the X folder — for example, `Family/Family.md`. Using the same name as the folder matches the Obsidian Folder Notes plugin convention, which treats a file named exactly after its containing folder as the note for that folder. Traditional PKM tools have no built-in way to associate a note with a folder itself; Mia's same-name convention solves this and is compatible with PKM folder-note tools such as Obsidian (Folder Notes plugin), Logseq, and Foam.
-- The **files hierarchy** mirrors the category tree as a folder structure. Each folder may hold arbitrary files and additional subfolders that are not part of the category tree.
+#### More about c:note and c:folder
+`c:note` and `c:folder` point into two separate but parallel folder structures that mirror the structure of the category tree. If the category tree is `(People, (Family, Friends), Work)` then both hierarchies contain exactly the same folder names and nesting. Mia keeps both permanently in sync with the category tree — when a category is created, renamed, or deleted, Mia updates both hierarchies automatically.
+
+- The **notes hierarchy** mirrors the category tree as a folder structure. The note for category X is stored as `X.md` inside the X folder — for example, `Family/Family.md`. Using the same name as the folder matches the convention used by PKM (Personal Knowledge Management) tools such as Obsidian (using the Folder Notes plugin), Logseq, Foam and others. 
+- The **files hierarchy** mirrors the category tree as a folder structure. Each folder may hold arbitrary files. It may also contain additional subfolders (to any depth) that are not part of the category tree.
 
 The two roots are stored separately so the notes hierarchy can be opened as a standalone PKM vault without exposing the files hierarchy.
 
@@ -102,10 +108,6 @@ In the normal case `c:note` and `c:folder` are technically redundant — both pa
 1. **Divergence detection** — if a stored path no longer matches the derived path, Mia knows the user has manually renamed or rearranged folders outside of Mia and can alert them or attempt reconciliation rather than failing silently.
 2. **Graceful degradation** — Mia can continue to locate a category's folder or note via the stored path even when the folder hierarchy has drifted out of sync with the category tree.
 3. **Intentional overrides** — a user may deliberately want a category's folder to live somewhere other than the derived location (e.g. `~/Photos/Family/` rather than the default `~/MiaFiles/People/Family/`). The explicit link records that intentional deviation without disrupting the category tree.
-- **`c:sbs`** - link to a context (or category) that is about the self as asserted by the self (user).
-- **`c:obs`** - a context about the other party as asserted by the self. User-defined categories only.
-- **`c:sbo`** - a context about the self as asserted by the other party. User-defined categories only.
-- **`c:obo`** - a context about the other party as asserted by the other party. User-defined categories only.
 
 The diagram below shows a simple example of structure of categories and contexts. At the top is Person-type predefined category. Its child link points to an Org-type predefined category which in turn points to a user-defined category. The top-to-bottom ordering of predefined categories is preserved in the user's copies of these category trees, but the user is free to insert any number of user-defined categories at any level in the resulting tree. 
 

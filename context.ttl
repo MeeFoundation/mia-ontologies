@@ -11,7 +11,7 @@
     owl:versionIRI <http://mee.foundation/ontologies/context/1.0.1> ;
     dc:date "2026-06-01"^^xsd:date ;
     owl:imports <http://mee.foundation/ontologies/pdn-identity> ;
-    owl:versionInfo "Version 1.0.81 - correct folder-note filename convention to match Obsidian (CategoryName.md not _CategoryName.md)"@en ;
+    owl:versionInfo "Version 1.0.82 - add abstract c:ConnectionCategory between c:UserDefined and c:Connection"@en ;
     rdfs:label "Context Ontology"@en ;
     rdfs:comment """Context and Category Ontology for the Mee Identity Agent"""@en .
 
@@ -141,8 +141,14 @@ context:UserDefined rdf:type owl:Class ;
     rdfs:label "UserDefined"@en ;
     rdfs:comment "Superclass of context categories defined by the Mia user."@en .
 
-context:Connection rdf:type owl:Class ;
+context:ConnectionCategory rdf:type owl:Class ;
+    context:abstract true ;
     rdfs:subClassOf context:UserDefined ;
+    rdfs:label "ConnectionCategory"@en ;
+    rdfs:comment "Abstract superclass of all user-defined categories that represent a relationship with a specific party (as opposed to a navigational container or group)."@en .
+
+context:Connection rdf:type owl:Class ;
+    rdfs:subClassOf context:ConnectionCategory ;
     rdfs:label "Connection"@en ;
     rdfs:comment "A user-defined category representing a 1:1 relationship with a specific person, organization, or other party."@en .
 
