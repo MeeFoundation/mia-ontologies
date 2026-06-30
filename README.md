@@ -96,6 +96,12 @@ Categories may be `c:Predefined` or `c:UserDefined`. Predefined categories are f
 - The **files hierarchy** mirrors the category tree as a folder structure. Each folder may hold arbitrary files and additional subfolders that are not part of the category tree.
 
 The two roots are stored separately so the notes hierarchy can be opened as a standalone PKM vault without exposing the files hierarchy.
+
+In the normal case `c:note` and `c:folder` are technically redundant — both paths can be derived from the category tree plus the two configured roots. They are retained for three reasons:
+
+1. **Divergence detection** — if a stored path no longer matches the derived path, Mia knows the user has manually renamed or rearranged folders outside of Mia and can alert them or attempt reconciliation rather than failing silently.
+2. **Graceful degradation** — Mia can continue to locate a category's folder or note via the stored path even when the folder hierarchy has drifted out of sync with the category tree.
+3. **Intentional overrides** — a user may deliberately want a category's folder to live somewhere other than the derived location (e.g. `~/Photos/Family/` rather than the default `~/MiaFiles/People/Family/`). The explicit link records that intentional deviation without disrupting the category tree.
 - **`c:sbs`** - link to a context (or category) that is about the self as asserted by the self (user).
 - **`c:obs`** - a context about the other party as asserted by the self. User-defined categories only.
 - **`c:sbo`** - a context about the self as asserted by the other party. User-defined categories only.

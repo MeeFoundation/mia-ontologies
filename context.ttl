@@ -11,7 +11,7 @@
     owl:versionIRI <http://mee.foundation/ontologies/context/1.0.1> ;
     dc:date "2026-06-01"^^xsd:date ;
     owl:imports <http://mee.foundation/ontologies/pdn-identity> ;
-    owl:versionInfo "Version 1.0.79 - document _CategoryName.md folder-note convention in notes hierarchy"@en ;
+    owl:versionInfo "Version 1.0.80 - document redundancy and robustness role of c:note and c:folder"@en ;
     rdfs:label "Context Ontology"@en ;
     rdfs:comment """Context and Category Ontology for the Mee Identity Agent"""@en .
 
@@ -210,19 +210,40 @@ context:obo rdf:type owl:ObjectProperty ;
 #    both hierarchies automatically. The two roots are stored
 #    separately so the notes hierarchy can be opened as a
 #    standalone PKM vault without exposing the files hierarchy.
+#
+#    Redundancy and robustness: in the normal case c:note and
+#    c:folder are technically redundant — both paths can be derived
+#    from the category tree plus the two configured roots. They are
+#    retained for three reasons:
+#
+#    1. Divergence detection: if a stored path no longer matches
+#       the derived path, Mia knows the user has manually renamed
+#       or rearranged folders outside of Mia and can alert them or
+#       attempt reconciliation rather than failing silently.
+#
+#    2. Graceful degradation: Mia can continue to locate a
+#       category's folder or note via the stored path even when
+#       the folder hierarchy has drifted out of sync with the
+#       category tree.
+#
+#    3. Intentional overrides: a user may deliberately want a
+#       category's folder to live somewhere other than the derived
+#       location (e.g. ~/Photos/Family/ rather than the default
+#       ~/MiaFiles/People/Family/). The explicit link records that
+#       intentional deviation without disrupting the category tree.
 #################################################################
 
 context:note rdf:type owl:AnnotationProperty ;
     rdfs:domain context:Category ;
     rdfs:range xsd:anyURI ;
     rdfs:label "note"@en ;
-    rdfs:comment "Relative path within the notes hierarchy root to the category note file, which is stored as _CategoryName.md inside the category folder (e.g. family/_Family.md). The leading underscore marks it as the folder note, distinguishing it from other notes inside the folder."@en .
+    rdfs:comment "Relative path within the notes hierarchy root to the category note file, stored as _CategoryName.md inside the category folder (e.g. family/_Family.md). Normally derived automatically by Mia; retained explicitly for divergence detection, graceful degradation, and intentional overrides."@en .
 
 context:folder rdf:type owl:AnnotationProperty ;
     rdfs:domain context:Category ;
     rdfs:range xsd:anyURI ;
     rdfs:label "folder"@en ;
-    rdfs:comment "Relative path within the files hierarchy root to the folder for this category. The files hierarchy mirrors the category tree exactly; each folder may contain arbitrary files and subfolders beyond those in the category tree."@en .
+    rdfs:comment "Relative path within the files hierarchy root to the folder for this category. Normally derived automatically by Mia; retained explicitly for divergence detection, graceful degradation, and intentional overrides."@en .
 
 context:label rdf:type owl:AnnotationProperty ;
     rdfs:domain context:Category ;
