@@ -91,9 +91,9 @@ Categories may be `c:Predefined` or `c:UserDefined`. Predefined categories are f
 - **`c:child`** — organizes categories into a tree structure.
 
 - **`c:sbs`** - link to a context that is about the self as asserted by the self (user).
-- **`c:obs`** - a context about the other party as asserted by the self. User-defined categories only.
-- **`c:sbo`** - a context about the self as asserted by the other party. `c:ConnectionCategory` only.
-- **`c:obo`** - a context about the other party as asserted by the other party. User-defined categories only.
+- **`c:obs`** - a context about the other party as asserted by the self. `c:TwoParty` only.
+- **`c:sbo`** - a context about the self as asserted by the other party. `c:TwoParty` only.
+- **`c:obo`** - a context about the other party as asserted by the other party. `c:TwoParty` only.
 
 #### More about c:note and c:folder
 `c:note` and `c:folder` point into two separate but parallel folder structures that mirror the structure of the category tree. If the category tree is `(People, (Family, Friends), Work)` then both hierarchies contain exactly the same folder names and nesting. Mia keeps both permanently in sync with the category tree — when a category is created, renamed, or deleted, Mia updates both hierarchies automatically.
@@ -186,9 +186,9 @@ Each Mia user instance maintains its own parallel category structure in a separa
 | Property | `c:Context` subtype | Cardinality | Applies to | Meaning |
 |----------|---------------------|-------------|------------|---------|
 | `c:sbs` | `c:SBScontext` | 0..1 | All categories | The user's own context in this category |
-| `c:obs` | `c:OBScontext` | 0..1 | `c:UserDefined` only | The user's record of the other party |
-| `c:obo` | `c:OBOcontext` | 0..N | `c:UserDefined` only | A context the other party presents |
-| `c:sbo` | `c:SBOcontext` | 0..1 | `c:ConnectionCategory` only | A context the other party holds about the user |
+| `c:obs` | `c:OBScontext` | 0..1 | `c:TwoParty` only | The user's record of the other party |
+| `c:obo` | `c:OBOcontext` | 0..N | `c:TwoParty` only | A context the other party presents |
+| `c:sbo` | `c:SBOcontext` | 0..1 | `c:TwoParty` only | A context the other party holds about the user |
 
 **Additional category properties**: The following properties are defined in `context.ttl` and represented as `mia.` YAML fields in category DataBooks, following the same pattern as `mia.category` → `context:category`:
 
@@ -210,7 +210,7 @@ Note files live in a folder hierarchy whose structure mirrors the category hiera
   - *Object properties*: `c:sbs`, `c:obs`, `c:obo`, `c:sbo`, `c:child`.
   These terms are referenced by name in the YAML frontmatter of each DataBook file.
 
-- **`context-shacl.ttl`** — SHACL shapes for category DataBook instances. Constrains `c:Category` instances to at most one `c:sbs` value, `c:UserDefined` instances to at most one `c:obs` value, and `c:ConnectionCategory` instances to at most one `c:sbo` value; `c:obo` is unconstrained (0..N).
+- **`context-shacl.ttl`** — SHACL shapes for category DataBook instances. Constrains `c:Category` instances to at most one `c:sbs` value, and `c:TwoParty` instances to at most one `c:obs` and at most one `c:sbo` value; `c:obo` is unconstrained (0..N).
 
 ### Validation
 
