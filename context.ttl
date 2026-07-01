@@ -11,7 +11,7 @@
     owl:versionIRI <http://mee.foundation/ontologies/context/1.0.1> ;
     dc:date "2026-06-01"^^xsd:date ;
     owl:imports <http://mee.foundation/ontologies/pdn-identity> ;
-    owl:versionInfo "Version 1.0.86 - add c:copiedFrom annotation property"@en ;
+    owl:versionInfo "Version 1.0.87 - rename c:KnowledgeBase to c:KB"@en ;
     rdfs:label "Context Ontology"@en ;
     rdfs:comment """Context and Category Ontology for the Mee Identity Agent"""@en .
 
@@ -524,10 +524,10 @@ context:Legal\(org\) rdf:type owl:Class ;
     rdfs:label "Legal (org)"@en ;
     rdfs:comment "Legal matters, contracts, and agreements involving organizations."@en .
 
-context:KnowledgeBase rdf:type owl:Class ;
+context:KB rdf:type owl:Class ;
     rdfs:subClassOf context:OrgPredefined ;
-    rdfs:label "KnowledgeBase"@en ;
-    rdfs:comment "Corporate knowledge bases and organizational information not covered by other org categories."@en .
+    rdfs:label "KB"@en ;
+    rdfs:comment "Corporate knowledge bases."@en .
 
 context:Consultants\(org\) rdf:type owl:Class ;
     rdfs:subClassOf context:OrgPredefined ;
