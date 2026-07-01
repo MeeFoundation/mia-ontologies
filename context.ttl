@@ -11,7 +11,7 @@
     owl:versionIRI <http://mee.foundation/ontologies/context/1.0.1> ;
     dc:date "2026-06-01"^^xsd:date ;
     owl:imports <http://mee.foundation/ontologies/pdn-identity> ;
-    owl:versionInfo "Version 1.0.87 - rename c:KnowledgeBase to c:KB"@en ;
+    owl:versionInfo "Version 1.0.88 - update OrgPredefined subclasses: remove Clients, add Partners and Prospects, sync comments"@en ;
     rdfs:label "Context Ontology"@en ;
     rdfs:comment """Context and Category Ontology for the Mee Identity Agent"""@en .
 
@@ -499,57 +499,62 @@ context:Food rdf:type owl:Class ;
 #    OrgPredefined subclasses
 #################################################################
 
-context:Suppliers rdf:type owl:Class ;
-    rdfs:subClassOf context:OrgPredefined ;
-    rdfs:label "Suppliers"@en ;
-    rdfs:comment "Interactions with organizations that supply goods or services."@en .
-
-context:Clients rdf:type owl:Class ;
-    rdfs:subClassOf context:OrgPredefined ;
-    rdfs:label "Clients"@en ;
-    rdfs:comment "Interactions with client organizations."@en .
-
 context:Customers rdf:type owl:Class ;
     rdfs:subClassOf context:OrgPredefined ;
     rdfs:label "Customers"@en ;
-    rdfs:comment "Interactions with customer organizations."@en .
+    rdfs:comment "Customer organizations. Rename to 'Clients', etc."@en .
+
+context:Prospects rdf:type owl:Class ;
+    rdfs:subClassOf context:Customers ;
+    rdfs:label "Prospects"@en ;
+    rdfs:comment "Customer prospects. Rename to 'Client prospects', etc."@en .
+
+context:Partners rdf:type owl:Class ;
+    rdfs:subClassOf context:OrgPredefined ;
+    rdfs:label "Partners"@en ;
+    rdfs:comment "Firms that provide goods and services."@en .
 
 context:Employees rdf:type owl:Class ;
     rdfs:subClassOf context:OrgPredefined ;
     rdfs:label "Employees"@en ;
-    rdfs:comment "Managing or interacting with employees of an organization."@en .
+    rdfs:comment "Related to employees."@en .
 
-context:Legal\(org\) rdf:type owl:Class ;
+context:Consultants\(org\) rdf:type owl:Class ;
     rdfs:subClassOf context:OrgPredefined ;
-    rdfs:label "Legal (org)"@en ;
-    rdfs:comment "Legal matters, contracts, and agreements involving organizations."@en .
+    rdfs:label "Consultants (org)"@en ;
+    rdfs:comment "Engaged consultants."@en .
 
 context:KB rdf:type owl:Class ;
     rdfs:subClassOf context:OrgPredefined ;
     rdfs:label "KB"@en ;
     rdfs:comment "Corporate knowledge bases."@en .
 
-context:Consultants\(org\) rdf:type owl:Class ;
-    rdfs:subClassOf context:OrgPredefined ;
-    rdfs:label "Consultants (org)"@en ;
-    rdfs:comment "Interactions with consultant organizations."@en .
-
 context:Projects\(org\) rdf:type owl:Class ;
     rdfs:subClassOf context:OrgPredefined ;
     rdfs:label "Projects (org)"@en ;
-    rdfs:comment "Projects undertaken with or managed by organizations."@en .
+    rdfs:comment "Projects related to R&D, manufacturing, sales, marketing, operations, HR, etc."@en .
+
+context:Events\(org\) rdf:type owl:Class ;
+    rdfs:subClassOf context:OrgPredefined ;
+    rdfs:label "Events (org)"@en ;
+    rdfs:comment "Events, meetings, workshops, webinars, and gatherings."@en .
+
+context:Suppliers rdf:type owl:Class ;
+    rdfs:subClassOf context:OrgPredefined ;
+    rdfs:label "Suppliers"@en ;
+    rdfs:comment "Companies that supply goods or services to this organization."@en .
+
+context:Legal\(org\) rdf:type owl:Class ;
+    rdfs:subClassOf context:OrgPredefined ;
+    rdfs:label "Legal (org)"@en ;
+    rdfs:comment "Contracts and agreements."@en .
 
 context:Government\(org\) rdf:type owl:Class ;
     rdfs:subClassOf context:OrgPredefined ;
     rdfs:label "Government (org)"@en ;
     rdfs:comment "Interactions with government organizations."@en .
 
-context:Events\(org\) rdf:type owl:Class ;
-    rdfs:subClassOf context:OrgPredefined ;
-    rdfs:label "Events (org)"@en ;
-    rdfs:comment "Events and gatherings organized by or associated with organizations."@en .
-
 context:Finances\(org\) rdf:type owl:Class ;
     rdfs:subClassOf context:OrgPredefined ;
     rdfs:label "Finances (org)"@en ;
-    rdfs:comment "Financial interactions and transactions with organizations."@en .
+    rdfs:comment "Corporate finance-related matters."@en .

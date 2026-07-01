@@ -112,38 +112,36 @@ In the normal case `c:note` and `c:folder` are technically redundant — both pa
 2. **Graceful degradation** — Mia can continue to locate a category's folder or note via the stored path even when the folder hierarchy has drifted out of sync with the category tree.
 3. **Intentional overrides** — a user may deliberately want a category's folder to live somewhere other than the derived location (e.g. `~/Photos/Family/` rather than the default `~/MiaFiles/People/Family/`). The explicit link records that intentional deviation without disrupting the category tree.
 
-### An example category tree
+### Example category tree
 
-The diagram below shows a minimal example of a category tree and referenced contexts. Each of the five user-visible category types are shown. At the top is `c:PersonPredefined` predefined category. Its child link points to a `c:OrgPredefined` category. Its first child is a Connection between the user and another Mia user, Bob. Its second child is a Group that the user is a member of along with two other members, Mary and Bob.
+The diagram below shows a minimal example of a category tree with five kinds of nodes as well as referenced contexts (the white and green circles). At the top is a `c:PersonPredefined` predefined category and its child, a `c:OrgPredefined` category. At the third level is a `c:UserDefined` category which contains as its first child, a "Connection" (c:TwoParty category) between the user and another Mia user, Bob. Its second child is a "Circle" (`c:MultiParty`)--the Boston Hub Society (BHS) professional social network.
 
-The top-to-bottom ordering of the two predefined category trees is preserved in the user's copies of these category trees, but the user is free to insert any number of user-defined categories at any level in the resulting tree. 
+The top-to-bottom ordering of the two predefined category trees is preserved when copied to the user's tree, although the user is alwaysfree to insert any number of user-defined categories at any level in the resulting tree. 
 
-In each of these five categories contain contexts shown as circles. White circles are contexts whose triples are asserted by the Self (aka the user). Green circles are contexts whose triples are asserted by a person other than the self, and organization or a group and synchronized with the user's Mia instance over the PDN.
-
+In each of these five example categories contains contexts shown as circles. White circles are contexts whose triples are asserted by the self (the user). Green circles are contexts whose triples are asserted by a person other than the self (i:Individual), by an organization (i:Organization) or by a group (i:Group), and synchronized with the user's Mia instance over the PDN. For example the BHS category at the bottom has three contexts: Self (the user)'s BHS profile, Carol's BHS profile (asserted by Carol) and information about the BHS itself (as asserted by the BHS) in the last green circle.
 
 <p align="center"><img src="images/context-ontology/categories+contexts.png" alt="Categories and contexts"></p>
 
+### PersonPredefined Categories
 
-### c:PersonPredefined Categories
+`c:PersonPredefined` categories (and sub-categories) are used to organize a person's information:
 
-`c:PersonPredefined` categories are generally useful categories to organize a person's information:
-
-1. **People** — relationships and interactions with people in your social or professional life.
-    - **Family** — relationships and interactions with family members.
-    - **Marriage/Partner** — relationships with a spouse or life partner.
-    - **Friends** — relationships and interactions with friends.
-    - **Consultants** — interactions with individuals who are consultants and provide services to you.
-1. **Affiliations** — sports clubs, teams, charities, faith groups, memberships. Some may exist as a `g:Group` on the PDN.
+1. **People** — people in your social or professional life.
+    - **Family** — family members.
+    - **Marriage/Partner** — a spouse or life partner.
+    - **Friends** — interactions with friends.
+    - **Consultants** — individuals who are consultants and provide services to you.
+1. **Affiliations** — sports clubs, teams, charities, faith groups, and social networks. Some may be `c:MultiParty` "Circles" that exist as a `g:Group` on the PDN.
 1. **Health** — personal health and wellness information. Medical history, allergies, medications, vaccinations.
     - **Healthcare** — healthcare providers or health insurance companies.
 1. **Finances** — information about personal finances, bookkeeping, budgets, payment cards, bank accounts.
     - **Financial Services** — banks or other financial services institutions.
-1. **Pets** — taking care of your pet(s). Veterinarians, medicines, food providers.
+1. **Pets** — care instructions, veterinarians, medicines, food providers.
 1. **Home** — owning or renting a home, apartment, or other dwelling. Leases, deeds, utility accounts, real estate brokers.
-1. **Work** — professional roles, employment history, and career relationships.
-    - **Employee** — related to being an employee of some company. Your business card.
-    - **Contributor** — related to contributing to initiatives started or led by others.
-    - **Creator** — related to being a creator, inventor, founder, or author.
+1. **Work** — professional roles. Employment history, resume/CV.
+    - **Employee** — your role employee of some company. Your business card at this company. 
+    - **Contributor** — your role as a contributor to initiatives started or led by others.
+    - **Creator** — your role as a creator, inventor, founder, or author.
 1. **Ownership** — owned assets, property, vehicles, and other possessions.
     - **Vehicles** — related to owning and maintaining a vehicle. Vehicle insurance, repairs, mechanics, garages. 
 1. **Travel** — travel plans, trips, and related information. Loyalty programs, airlines, bus lines, trains.
@@ -166,17 +164,18 @@ In each of these five categories contain contexts shown as circles. White circle
 
 `c:OrgPredefined` categories for an organization's information:
 
+1. **Customers** — customer organizations. Rename to "Clients", etc.
+    - **Prospects** - customer prospects. Rename to "Client prospects", etc.
+1. **Partners** — firms that provide goods and services.
+1. **Employees** — related to employees.
+1. **Consultants (org)** — engaged consultants.
+1. **KB** — corporate knowledge bases.
+1. **Projects (org)** — projects related to R&D, manufacturing, sales, marketing, operations, HR, etc.
+1. **Events (org)** — events, meetings, workshops, webinars, and gatherings.
 1. **Suppliers** — companies that supply goods or services to this organization.
-2. **Clients** — client organizations (if they don't call them customers).
-3. **Customers** — customer organizations (if they don't call them clients).
-4. **Employees** — related to employees.
-5. **Consultants (org)** — engaged consultants.
-6. **Legal (org)** — legal matters, contracts, and agreements.
-7. **KnowledgeBase** — corporate knowledge bases.
-8. **Projects (org)** — projects related to R&D, manufacturing, sales, marketing, or operations.
-9. **Government (org)** — interactions with government organizations.
-10. **Events (org)** — events, meetings, workshops, webinars, and gatherings.
-11. **Finances (org)** — corporate finance-related matters.
+1. **Legal (org)** — contracts and agreements.
+1. **Government (org)** — interactions with government organizations.
+1. **Finances (org)** — corporate finance-related matters.
 
 ### Category DataBooks
 
@@ -446,7 +445,7 @@ The Organization ontology models organizations — companies, government agencie
 
 ## Group Ontology
 
-The Group ontology introduces the concept of a *shared* group (`g:Group`) whose members are individuals and/or organizations. The group entity *itself* as well as any attached properties are shared with all of its members. Like individuals and organizations, `g:Groups` also have their own PDN identifiers and can be communicated with as with any other node on the PDN.
+The Group ontology introduces the concept of a *shared* group (`g:Group`) whose members are individuals and/or organizations. The group entity *itself* as well as any attached properties are shared with all of its members. Like individuals and organizations, `g:Groups` have their own PDN identifiers and can be communicated with as with any other node on the PDN.
 
 <p align="center"><img src="images/group-ontology/group.png" alt="Group model"></p>
 
@@ -532,9 +531,8 @@ Here are the categories related to Alice's interactions with two municipal gover
 Here are Alice's categories related to her personal health and her possessions:
 <p align="center"><img src="example/images/misc.png" alt="Miscellaneous categories"></p>
 
-The last diagram shows Alice's membership in the Boston Hub Society, an informal group that exists as a node on the PDN:
-<p align="center"><img src="example/images/affiliations.png" alt="Groups categories"></p>
-
+The last diagram shows Alice's membership in the Boston Hub Society, an informal professional social network that exists as a `i:Group` node on the PDN:
+<p align="center"><img src="example/images/affiliations.png" alt="Affiliations categories"></p>
 
 The contexts in the table below are *about* Alice and asserted *by* Alice. All `.databook.md` files are in the `example/contexts/` folder.
 
