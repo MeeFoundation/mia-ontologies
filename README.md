@@ -53,50 +53,53 @@ The description of the context container itself is carried in the DataBook's YAM
 
 **`c:assertedBy`** — Who is making the assertion. Values are local IRIs of `p:Person`, `g:Group`, or `o:Organization` individuals:
 - `:Self` — the Mia user that is entering the data, even if the underlying information originates from some other party such as a company, government agency, or another person.
-- a named individual of `p:Person` — another Mia user is asserting the data directly.
-- a named individual of `g:Group` — a group of Mia users is asserting the data.
-- a named individual of `o:Organization` — an organization is asserting the data directly.
+- a named individual of class `p:Person` — another Mia user is asserting the data directly.
+- a named individual of class `g:Group` — a group of Mia users is asserting the data.
+- a named individual of class `o:Organization` — an organization is asserting the data.
 
-**`c:subject`** — Whose identity the context file describes. Values are local IRIs of `p:Person`, `g:Group`, or `o:Organization` individuals:
-- `:Self` — the context is primarily about the Mia user.
-- a named individual of `p:Person` — the context is primarily about another human Mia user.
-- a named individual of `g:Group` — the context is primarily about a group of Mia users.
-- a named individual of `o:Organization` — the context is primarily about an organization (legal corporation or government agency).
+**`c:subject`** — The identity the context file is about. Values are IRIs of `p:Person`, `g:Group`, or `o:Organization` individuals:
+- `:Self` — the context is about the Mia user.
+- a named individual of `p:Person` — the context is about another human Mia user.
+- a named individual of `g:Group` — the context is about a group of Mia users.
+- a named individual of `o:Organization` — the context is about an organization (legal corporation or government agency).
 
-**`c:template`** — present only on context files that conform to a specific template; its value is a `p:PersonaTemplate` subclass (e.g. `"persona:BirthCertificate"`, `"persona:JSContactCard"`, `"persona:DriversLicense"`, `"persona:Passport"`).
+**`c:template`** — present only on context files that contain instances of a template; its value is a the name of a `p:PersonaTemplate` subclass (e.g. `"persona:BirthCertificate"`, `"persona:JSContactCard"`, `"persona:DriversLicense"`, `"persona:Passport"`).
 
-The diagram below shows four kinds of contexts related to a hypothetical Mia user, Alice, and her interactions with a Department of Motor Vehicles (DMV) agency. Across the top are contexts where the DMV itself is the subject, and at the bottom where Alice is the subject. At the left are contexts where Alice has made the assertions (e.g. Alice's Mia has written the claims into the context) and at the right are contexts where the DMV as the "other" has written the claims. 
+The diagram below shows four kinds of contexts related to a hypothetical Mia user, Alice, and her interactions with a Department of Motor Vehicles (DMV) agency. Across the top are two contexts where the DMV itself is the subject, and at the bottom where Alice is the subject. At the left are contexts where Alice has made the assertions (e.g. Alice's Mia has written the claims into the context) and at the right are contexts where the DMV as the "other" has written the claims. 
 
 <p align="center"><img src="images/context-ontology/quadrants.png" alt="a quadrant of context types"></p>
 
-The lower left shows a context that Alice might share with other people or companies. In it, she asserts that her driver's license number is S43228943, having almost certainly copied that number from her physical driver's license. The context in the lower right carries the same information as the lower left, but because it is being asserted by the DMV it is more likely to be trusted by a recipient, especially if this information is conveyed via secure channel and the claims are cryptographically bound to the identity of the DMV.
+The lower left shows a context that Alice might share with other people or companies. In it, she asserts that her driver's license number is S43228943, having copied that number from her physical driver's license. The context in the lower right carries the same information as the lower left, but because it is being asserted by the DMV it is more likely to be trusted by a recipient (especially if this information is conveyed via secure channel and the claims are cryptographically bound to the identity of the DMV).
 
 ## Categories
 
-We organize multiple dimensions of a person's life into a structure of nested *categories*. Categories in turn are containers of one or more *contexts* as described in the previous section.
+We organize a person's life into a structure of nested *categories*. 
 
 Categories range in scope. They vary from a few broad top level categories like "People" to narrower categories like "Family" and ultimately narrowing down to individual relationships with a single family member. The user can choose at what level in this broader to narrower structure to put what kind of information. For example if the user has a nickname used only by this one family member, they can add that "claim" (attribute) at the individual relationship level. 
 
-### Subclasses
-Categories may be `c:Predefined` or `c:UserDefined`. Predefined categories are further divided into `c:PersonPredefined` and `c:OrgPredefined`. The former provides a set of generally useful categories to organize a person's personal (non-working) life. The latter provides a set of categories tuned to a person's working life. User-defined categories are further divided into `c:ConnectionCategory` (abstract superclass for categories that represent a relationship with a specific party), `c:TwoParty` (a 1:1 relationship with a specific person, organization, or other party — display label "Connection"; subclass of `c:ConnectionCategory`), and `c:MultiParty` (a shared multi-party relationship with a group of people or organizations — display label "Circle"). A plain `c:UserDefined` category (display label "Category") acts as a navigational container.
+Categories are containers of one or more *contexts* as described in the previous section.
 
+### Five kinds of categories
+
+Categories are of two broad types `c:Predefined` or `c:UserDefined`. Predefined categories are further divided into `c:PersonPredefined` and `c:OrgPredefined`. The former is a set of generally useful categories to organize a person's personal, non-work, life. The latter is a set of categories tuned to a person's working life. `c:UserDefined` categories (display label "Category") are used can be used internally to as a navigational container but have no external aspect. 
+
+A special subclass of `c:UserDefined` is `c:ConnectionCategory`. It's an abstract super class for categories that represent some kind of relationship with one or more external parties. There are two types, `c:TwoParty` (a 1:1 relationship with a specific person, organization, or other party — display label "Connection"), and `c:MultiParty` (a shared multi-party relationship with a group of people or organizations — display label "Circle"). 
 
 <p align="center"><img src="images/context-ontology/category.png" alt="Category hierarchy"></p>
 
 ### Properties
 
 - **`c:label`** — user-editable display name of the category. Defaults to category's class name.
-- **`c:note`** — path to a `.md` file in the *notes* folder/file hierarchy for this category.
+- **`c:note`** — path to a markdown note in the *notes* folder/file hierarchy for this category.
 - **`c:folder`** — path to a folder in the *files* folder/file hierarchy for this category.
 - **`c:child`** — organizes categories into a tree structure.
-
 - **`c:sbs`** - link to a context that is about the self as asserted by the self (user).
 - **`c:obs`** - a context about the other party as asserted by the self. `c:ConnectionCategory` only.
 - **`c:sbo`** - a context about the self as asserted by the other party. `c:ConnectionCategory` only.
 - **`c:obo`** - a context about the other party as asserted by the other party. `c:ConnectionCategory` only.
 
-#### More about c:note and c:folder
-`c:note` and `c:folder` point into two separate but parallel folder structures that mirror the structure of the category tree. If the category tree is `(People, (Family, Friends), Work)` then both hierarchies contain exactly the same folder names and nesting. Mia keeps both permanently in sync with the category tree — when a category is created, renamed, or deleted, Mia updates both hierarchies automatically.
+#### A few details about c:note and c:folder
+`c:note` and `c:folder` point into two separate but parallel folder structures that mirror the structure of the category tree. If the category tree is `(People, (Family, Friends), Work)` then both hierarchies contain exactly the same folder names and nesting. Mia keeps both in sync with the category tree — when a category is created, renamed, or deleted, Mia updates both hierarchies automatically.
 
 - The **notes hierarchy** mirrors the category tree as a folder structure. The note for category X is stored as `X.md` inside the X folder — for example, `Family/Family.md`. Using the same name as the folder matches the convention used by PKM (Personal Knowledge Management) tools such as Obsidian (using the Folder Notes plugin), Logseq, Foam and others. 
 - The **files hierarchy** mirrors the category tree as a folder structure. Each folder may hold arbitrary files. It may also contain additional subfolders (to any depth) that are not part of the category tree.
@@ -109,9 +112,9 @@ In the normal case `c:note` and `c:folder` are technically redundant — both pa
 2. **Graceful degradation** — Mia can continue to locate a category's folder or note via the stored path even when the folder hierarchy has drifted out of sync with the category tree.
 3. **Intentional overrides** — a user may deliberately want a category's folder to live somewhere other than the derived location (e.g. `~/Photos/Family/` rather than the default `~/MiaFiles/People/Family/`). The explicit link records that intentional deviation without disrupting the category tree.
 
-### Minimal tree illustrating category types
+### An example category tree
 
-The diagram below shows a minimal example of structure of categories and contexts. Each of the five user-visible category types are shown. At the top is `c:PersonPredefined` predefined category. Its child link points to a `c:OrgPredefined` category. Its first child is a Connection between the user and another Mia user, Bob. Its second child is a Group that the user is a member of along with two other members, Mary and Bob.
+The diagram below shows a minimal example of a category tree and referenced contexts. Each of the five user-visible category types are shown. At the top is `c:PersonPredefined` predefined category. Its child link points to a `c:OrgPredefined` category. Its first child is a Connection between the user and another Mia user, Bob. Its second child is a Group that the user is a member of along with two other members, Mary and Bob.
 
 The top-to-bottom ordering of the two predefined category trees is preserved in the user's copies of these category trees, but the user is free to insert any number of user-defined categories at any level in the resulting tree. 
 
@@ -121,49 +124,47 @@ In each of these five categories contain contexts shown as circles. White circle
 <p align="center"><img src="images/context-ontology/categories+contexts.png" alt="Categories and contexts"></p>
 
 
-### PersonPredefined Categories
+### c:PersonPredefined Categories
 
-`c:PersonPredefined` categories are generally useful categories to organize a person's personal (non-working) life. 
-
-categories of information related to a person's personal and work life:
+`c:PersonPredefined` categories are generally useful categories to organize a person's information:
 
 1. **People** — relationships and interactions with people in your social or professional life.
     - **Family** — relationships and interactions with family members.
     - **Marriage/Partner** — relationships with a spouse or life partner.
     - **Friends** — relationships and interactions with friends.
     - **Consultants** — interactions with individuals who are consultants and provide services to you.
-2. **Work** — professional roles, employment history, and career relationships.
+1. **Affiliations** — sports clubs, teams, charities, faith groups, memberships. Some may exist as a `g:Group` on the PDN.
+1. **Health** — personal health and wellness information. Medical history, allergies, medications, vaccinations.
+    - **Healthcare** — healthcare providers or health insurance companies.
+1. **Finances** — information about personal finances, bookkeeping, budgets, payment cards, bank accounts.
+    - **Financial Services** — banks or other financial services institutions.
+1. **Pets** — taking care of your pet(s). Veterinarians, medicines, food providers.
+1. **Home** — owning or renting a home, apartment, or other dwelling. Leases, deeds, utility accounts, real estate brokers.
+1. **Work** — professional roles, employment history, and career relationships.
     - **Employee** — related to being an employee of some company. Your business card.
     - **Contributor** — related to contributing to initiatives started or led by others.
     - **Creator** — related to being a creator, inventor, founder, or author.
-3. **Companies** — miscellaneous companies and organizations that provide services or products to you. See also Finances, Health, Home, Food for companies and organizations related to those areas.
-4. **Finances** — information about personal finances, bookkeeping, budgets, payment cards, bank accounts.
-    - **Financial Services** — banks or other financial services institutions.
-5. **Health** — personal health and wellness information. Medical history, allergies, medications, vaccinations.
-    - **Healthcare** — healthcare providers or health insurance companies.
-6. **Events** — participation in or relationship to a specific event.
+1. **Ownership** — owned assets, property, vehicles, and other possessions.
+    - **Vehicles** — related to owning and maintaining a vehicle. Vehicle insurance, repairs, mechanics, garages. 
+1. **Travel** — travel plans, trips, and related information. Loyalty programs, airlines, bus lines, trains.
+1. **Food** — food preferences, dietary restrictions, favorite restaurants, recipes, shopping lists, and other food-related interests
+1. **Legal** — legal matters, contracts, agreements, trusts, wills, and professional legal relationships.
+1. **Projects** — involvement in a specific project or initiative.
+1. **Events** — participation in or relationship to a specific event.
     - **Meetings** — a meeting or appointment.
     - **Conferences** — a conference or professional gathering.
     - **Parties** — parties and other kinds of social gatherings.
-7. **Government** — government-issued credentials, tax records, and civic relationships.
+1. **Information** — general knowledge selected by you, web links, documents, images.
+    - **Learnings** — knowledge gained through personal experience.
+1. **Government** — government-issued credentials, tax records, and civic relationships.
     - **Federal** — federal government context (e.g. passport, federal tax records).
     - **State** — state government context (e.g. driver's license, state tax records).
     - **Municipality** — municipal government context (e.g. local permits, library card).
-8. **Information** — general knowledge selected by you, web links, documents, images.
-    - **Learnings** — knowledge gained through personal experience.
-9. **Ownership** — owned assets, property, vehicles, and other possessions.
-    - **Vehicles** — related to owning and maintaining a vehicle. Vehicle insurance, repairs, mechanics, garages.
-10. **Pets** — taking care of your pet(s). Veterinarians, medicines, food providers.
-11. **Home** — owning or renting a home, apartment, or other dwelling. Leases, deeds, utility accounts, real estate brokers.
-12. **Projects** — involvement in a specific project or initiative.
-13. **Legal** — legal matters, contracts, agreements, trusts, wills, and professional legal relationships.
-14. **Travel** — travel plans, trips, and related information. Loyalty programs, airlines, bus lines, trains.
-15. **Food** — food preferences, dietary restrictions, favorite restaurants, recipes, shopping lists, and other food-related interests
-16. **Affiliations** — sports clubs, teams, charities, faith groups, memberships. Some may exist as a `g:Group` on the PDN.
+1. **Companies** — miscellaneous companies and organizations that provide services or products to you. See also Finances, Health, Home, Food for companies and organizations related to those areas.
 
-### OrgPredefined Categories
+### c:OrgPredefined Categories
 
-`c:OrgPredefined` categories are tuned to a person's life working within a corporation or government agency:
+`c:OrgPredefined` categories for an organization's information:
 
 1. **Suppliers** — companies that supply goods or services to this organization.
 2. **Clients** — client organizations (if they don't call them customers).
@@ -179,22 +180,15 @@ categories of information related to a person's personal and work life:
 
 ### Category DataBooks
 
-Each node in the `c:Category` hierarchy is represented by a **category DataBook** (`.databook.md` file with `type: category-databook`). Category DataBooks form a tree linked by the `c:child` property, which points from a parent category to its child category IRIs. The predefined canonical category DataBooks live in `categories/`, rooted at `categories/categories.databook.md`.
+Each node in the `c:Category` tree is represented by a **category DataBook** (`.databook.md` file with `type: category-databook`) linked to other nodes by the parent node's `c:child` property (IRI) to its child. This tree contains a mixture of user-minted user-defined categories and copies of pre-defined categories. These copies contain a `copiedFrom:` IRI property pointing back to corresponding predefined category.
 
-Each Mia user instance maintains its own parallel category structure in a separate directory. No links of any kind (`c:child`, `c:sbs`, `c:obs`, `c:obo`, `c:sbo`) cross from the canonical structure into a user's instance structure. A user's instance structure contains copies of the predefined canonical categories (each with a `copiedFrom:` property pointing to the canonical IRI) alongside any user-defined categories they have created. Context links (`c:sbs`, `c:obs`, `c:obo`, `c:sbo`) appear only in a user's instance structure, not in the canonical structure.
+#### Predefined Category DataBooks
 
-**Category type**: Each category DataBook carries a `mia.category-type` field recording its concrete subclass. Predefined categories use `PersonPredefined` or `OrgPredefined`; the class IRI is derived from the DataBook title by removing spaces (e.g. title `"Financial Services"` → class `context:FinancialServices`). User-created categories use `TwoParty`, `MultiParty`, or `UserDefined` depending on the relationship type they represent.
+`c:PersonPredefined` category DataBooks live in `categories/`, rooted at `categories/categories.databook.md`. `c:OrgPredefined` category DataBooks live in `categories-org/`, rooted at `categories/categories-org.databook.md`.
 
-**Context links**: Each category DataBook in a user's instance tree may carry up to four optional links to context DataBook IRIs, corresponding to the four `c:Context` subtypes:
+#### Properties
 
-| Property | `c:Context` subtype | Cardinality | Applies to | Meaning |
-|----------|---------------------|-------------|------------|---------|
-| `c:sbs` | `c:SBScontext` | 0..1 | All categories | The user's own context in this category |
-| `c:obs` | `c:OBScontext` | 0..1 | `c:ConnectionCategory` only | The user's record of the other party |
-| `c:obo` | `c:OBOcontext` | 0..N | `c:ConnectionCategory` only | A context the other party presents |
-| `c:sbo` | `c:SBOcontext` | 0..1 | `c:ConnectionCategory` only | A context the other party holds about the user |
-
-**Additional category properties**: The following properties are defined in `context.ttl` and represented as `mia.` YAML fields in category DataBooks, following the same pattern as `mia.category` → `context:category`:
+The following properties are defined in `context.ttl` and represented as `mia.` YAML fields in category DataBooks, following the same pattern as `mia.category` → `context:category`:
 
 | YAML field | Ontology property | Cardinality | Meaning |
 |------------|-------------------|-------------|---------|
@@ -202,9 +196,22 @@ Each Mia user instance maintains its own parallel category structure in a separa
 | `mia.label` | `c:label` | 1 | User-editable display name — defaults to the DataBook `title` but can be changed independently, leaving `title` and `id` immutable |
 | `mia.note` | `c:note` | 0..1 | Relative path to a markdown notes file for this category (e.g. `notes/people/paula-walker`) |
 | `mia.folder` | `c:folder` | 0..1 | Relative path to a folder of arbitrary files for this category (e.g. `people/paula-walker`) |
+| `mia.copiedFrom` | `c:copiedFrom` | 0..1 | IRI of the canonical predefined category this DataBook was copied from. Present only on user-instance copies of predefined categories |
 
 Note files live in a folder hierarchy whose structure mirrors the category hierarchy; associated file folders live in a parallel hierarchy whose names match the category names.
 
+#### Context link properties
+
+Each category DataBook in the user's tree may carry up to four optional links to context DataBook IRIs, corresponding to the four `c:Context` subtypes:
+
+| Property | Value (`c:Context` subtype) | Cardinality | Applies to | Meaning |
+|----------|---------------------|-------------|------------|---------|
+| `c:sbs` | `c:SBScontext` | 0..1 | All categories | The user's own context in this category |
+| `c:obs` | `c:OBScontext` | 0..1 | `c:ConnectionCategory` only | The user's record of the other party |
+| `c:obo` | `c:OBOcontext` | 0..N | `c:ConnectionCategory` only | A context the other party presents |
+| `c:sbo` | `c:SBOcontext` | 0..1 | `c:ConnectionCategory` only | A context the other party holds about the user |
+
+`c:sbs`, `c:obs`, `c:obo`, `c:sbo` links appear only in categories in the user's tree, not in predefined categories.
 
 ### Context Ontology File
 

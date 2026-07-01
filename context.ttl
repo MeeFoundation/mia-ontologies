@@ -11,7 +11,7 @@
     owl:versionIRI <http://mee.foundation/ontologies/context/1.0.1> ;
     dc:date "2026-06-01"^^xsd:date ;
     owl:imports <http://mee.foundation/ontologies/pdn-identity> ;
-    owl:versionInfo "Version 1.0.85 - change domain of c:obs/sbo/obo to c:ConnectionCategory; relabel c:MultiParty as Circle"@en ;
+    owl:versionInfo "Version 1.0.86 - add c:copiedFrom annotation property"@en ;
     rdfs:label "Context Ontology"@en ;
     rdfs:comment """Context and Category Ontology for the Mee Identity Agent"""@en .
 
@@ -186,6 +186,12 @@ context:obo rdf:type owl:ObjectProperty ;
     rdfs:range context:OBOcontext ;
     rdfs:label "other-by-other"@en ;
     rdfs:comment "Links a connection category to a context DataBook where both subject and assertedBy are another person, organization, or group."@en .
+
+context:copiedFrom rdf:type owl:AnnotationProperty ;
+    rdfs:domain context:Category ;
+    rdfs:range xsd:anyURI ;
+    rdfs:label "copiedFrom"@en ;
+    rdfs:comment "IRI of the canonical predefined category this DataBook was copied from. Present only on user-instance copies of predefined categories."@en .
 
 #################################################################
 #    Category Notes, Folders, and Labels
