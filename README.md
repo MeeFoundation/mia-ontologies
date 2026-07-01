@@ -49,10 +49,10 @@ The description of the context container itself is carried in the DataBook's YAM
 - `mia.about-by` — classifies a context DataBook by the combination of subject and assertedBy; one of `context:SBScontext` (subject=Self, assertedBy=Self), `context:OBScontext` (subject=Other, assertedBy=Self), `context:OBOcontext` (subject=Other, assertedBy=Other), or `context:SBOcontext` (subject=Self, assertedBy=Other).
 
 
-**`c:category`** — containing category. Its value is the IRI of a the category DataBook (e.g. `"http://www.example.org/mia/categories/bob-johnson(people)"`) that links to it via sbs, obs, sbo, or obo.
+**`c:category`** — containing category. Its value is the IRI of the category DataBook (e.g. `"http://www.example.org/mia/categories/bob-johnson(people)"`) that references it via `c:sbs`, `c:obs`, `c:sbo`, or `c:obo` links of the category.
 
 **`c:assertedBy`** — Who is making the assertion. Values are local IRIs of `p:Person`, `g:Group`, or `o:Organization` individuals:
-- `:Self` — the Mia user is recording the data, even if the underlying information originates from some other party such as a company, government agency, or another person.
+- `:Self` — the Mia user that is entering the data, even if the underlying information originates from some other party such as a company, government agency, or another person.
 - a named individual of `p:Person` — another Mia user is asserting the data directly.
 - a named individual of `g:Group` — a group of Mia users is asserting the data.
 - a named individual of `o:Organization` — an organization is asserting the data directly.
