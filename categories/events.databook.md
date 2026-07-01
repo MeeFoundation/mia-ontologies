@@ -10,6 +10,5 @@ description: >
 mia:
   category-type: PersonPredefined
   child:
-    - "http://mee.foundation/ontologies/categories/conferences"
     - "http://mee.foundation/ontologies/categories/parties"
 ---

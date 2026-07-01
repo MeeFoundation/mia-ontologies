@@ -11,7 +11,7 @@
     owl:versionIRI <http://mee.foundation/ontologies/context/1.0.1> ;
     dc:date "2026-06-01"^^xsd:date ;
     owl:imports <http://mee.foundation/ontologies/pdn-identity> ;
-    owl:versionInfo "Version 1.0.92 - rename c:Meetings back to c:Events (PersonPredefined)"@en ;
+    owl:versionInfo "Version 1.0.93 - move c:Conferences from c:Events to c:Meetings(org)"@en ;
     rdfs:label "Context Ontology"@en ;
     rdfs:comment """Context and Category Ontology for the Mee Identity Agent"""@en .
 
@@ -382,11 +382,6 @@ context:Events rdf:type owl:Class ;
     rdfs:label "Events"@en ;
     rdfs:comment "Participation in or relationship to a specific event or gathering."@en .
 
-context:Conferences rdf:type owl:Class ;
-    rdfs:subClassOf context:Events ;
-    rdfs:label "Conferences"@en ;
-    rdfs:comment "A conference or professional gathering."@en .
-
 context:Parties rdf:type owl:Class ;
     rdfs:subClassOf context:Events ;
     rdfs:label "Parties"@en ;
@@ -533,6 +528,11 @@ context:Meetings\(org\) rdf:type owl:Class ;
     rdfs:subClassOf context:OrgPredefined ;
     rdfs:label "Meetings (org)"@en ;
     rdfs:comment "Events, meetings, workshops, webinars, and gatherings."@en .
+
+context:Conferences rdf:type owl:Class ;
+    rdfs:subClassOf context:Meetings\(org\) ;
+    rdfs:label "Conferences"@en ;
+    rdfs:comment "A conference or professional gathering."@en .
 
 context:Suppliers rdf:type owl:Class ;
     rdfs:subClassOf context:OrgPredefined ;

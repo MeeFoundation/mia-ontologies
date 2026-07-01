@@ -149,7 +149,6 @@ In each of these five example categories contains contexts shown as circles. Whi
 1. **Legal** — legal matters, contracts, agreements, trusts, wills, and professional legal relationships.
 1. **Projects** — involvement in a specific project or initiative.
 1. **Events** — participation in or relationship to a specific event or gathering.
-    - **Conferences** — a conference or professional gathering.
     - **Parties** — parties and other kinds of social gatherings.
 1. **Information** — general knowledge selected by you, web links, documents, images.
     - **Learnings** — knowledge gained through personal experience.
@@ -171,6 +170,7 @@ In each of these five example categories contains contexts shown as circles. Whi
 1. **KB** — corporate knowledge bases.
 1. **Projects (org)** — projects related to R&D, manufacturing, sales, marketing, operations, HR, etc.
 1. **Meetings (org)** — events, meetings, workshops, webinars, and gatherings.
+    - **Conferences** — a conference or professional gathering.
 1. **Suppliers** — companies that supply goods or services to this organization.
 1. **Legal (org)** — contracts and agreements.
 1. **Government (org)** — interactions with government organizations.
