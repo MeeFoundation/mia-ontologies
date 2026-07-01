@@ -148,7 +148,7 @@ In each of these five example categories contains contexts shown as circles. Whi
 1. **Food** — food preferences, dietary restrictions, favorite restaurants, recipes, shopping lists, and other food-related interests
 1. **Legal** — legal matters, contracts, agreements, trusts, wills, and professional legal relationships.
 1. **Projects** — involvement in a specific project or initiative.
-1. **Meetings** — participation in or relationship to a specific event or gathering.
+1. **Events** — participation in or relationship to a specific event or gathering.
     - **Conferences** — a conference or professional gathering.
     - **Parties** — parties and other kinds of social gatherings.
 1. **Information** — general knowledge selected by you, web links, documents, images.

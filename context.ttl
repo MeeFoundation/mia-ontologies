@@ -11,7 +11,7 @@
     owl:versionIRI <http://mee.foundation/ontologies/context/1.0.1> ;
     dc:date "2026-06-01"^^xsd:date ;
     owl:imports <http://mee.foundation/ontologies/pdn-identity> ;
-    owl:versionInfo "Version 1.0.91 - rename c:Events(org) to c:Meetings(org)"@en ;
+    owl:versionInfo "Version 1.0.92 - rename c:Meetings back to c:Events (PersonPredefined)"@en ;
     rdfs:label "Context Ontology"@en ;
     rdfs:comment """Context and Category Ontology for the Mee Identity Agent"""@en .
 
@@ -374,21 +374,21 @@ context:Healthcare rdf:type owl:Class ;
     rdfs:comment "Healthcare providers or health insurance companies."@en .
 
 #################################################################
-#    c:Meetings and subclasses
+#    c:Events and subclasses
 #################################################################
 
-context:Meetings rdf:type owl:Class ;
+context:Events rdf:type owl:Class ;
     rdfs:subClassOf context:PersonPredefined ;
-    rdfs:label "Meetings"@en ;
+    rdfs:label "Events"@en ;
     rdfs:comment "Participation in or relationship to a specific event or gathering."@en .
 
 context:Conferences rdf:type owl:Class ;
-    rdfs:subClassOf context:Meetings ;
+    rdfs:subClassOf context:Events ;
     rdfs:label "Conferences"@en ;
     rdfs:comment "A conference or professional gathering."@en .
 
 context:Parties rdf:type owl:Class ;
-    rdfs:subClassOf context:Meetings ;
+    rdfs:subClassOf context:Events ;
     rdfs:label "Parties"@en ;
     rdfs:comment "Parties and other kinds of social gatherings."@en .
 
