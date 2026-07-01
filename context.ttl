@@ -11,7 +11,7 @@
     owl:versionIRI <http://mee.foundation/ontologies/context/1.0.1> ;
     dc:date "2026-06-01"^^xsd:date ;
     owl:imports <http://mee.foundation/ontologies/pdn-identity> ;
-    owl:versionInfo "Version 1.0.93 - move c:Conferences from c:Events to c:Meetings(org)"@en ;
+    owl:versionInfo "Version 1.0.94 - remove c:Parties subclass from c:Events"@en ;
     rdfs:label "Context Ontology"@en ;
     rdfs:comment """Context and Category Ontology for the Mee Identity Agent"""@en .
 
@@ -382,10 +382,6 @@ context:Events rdf:type owl:Class ;
     rdfs:label "Events"@en ;
     rdfs:comment "Participation in or relationship to a specific event or gathering."@en .
 
-context:Parties rdf:type owl:Class ;
-    rdfs:subClassOf context:Events ;
-    rdfs:label "Parties"@en ;
-    rdfs:comment "Parties and other kinds of social gatherings."@en .
 
 #################################################################
 #    c:Government Contexts and subclasses

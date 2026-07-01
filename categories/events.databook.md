@@ -9,6 +9,4 @@ description: >
   about participation in or relationship to a specific event or gathering. Child of Categories.
 mia:
   category-type: PersonPredefined
-  child:
-    - "http://mee.foundation/ontologies/categories/parties"
 ---

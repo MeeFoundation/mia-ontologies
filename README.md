@@ -149,7 +149,6 @@ In each of these five example categories contains contexts shown as circles. Whi
 1. **Legal** — legal matters, contracts, agreements, trusts, wills, and professional legal relationships.
 1. **Projects** — involvement in a specific project or initiative.
 1. **Events** — participation in or relationship to a specific event or gathering.
-    - **Parties** — parties and other kinds of social gatherings.
 1. **Information** — general knowledge selected by you, web links, documents, images.
     - **Learnings** — knowledge gained through personal experience.
 1. **Government** — government-issued credentials, tax records, and civic relationships.
