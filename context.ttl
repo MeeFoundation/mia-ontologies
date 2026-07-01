@@ -11,7 +11,7 @@
     owl:versionIRI <http://mee.foundation/ontologies/context/1.0.1> ;
     dc:date "2026-06-01"^^xsd:date ;
     owl:imports <http://mee.foundation/ontologies/pdn-identity> ;
-    owl:versionInfo "Version 1.0.84 - change domain of c:obs, c:sbo, c:obo to c:TwoParty"@en ;
+    owl:versionInfo "Version 1.0.85 - change domain of c:obs/sbo/obo to c:ConnectionCategory; relabel c:MultiParty as Circle"@en ;
     rdfs:label "Context Ontology"@en ;
     rdfs:comment """Context and Category Ontology for the Mee Identity Agent"""@en .
 
@@ -119,11 +119,11 @@ context:sbs rdf:type owl:ObjectProperty ;
     rdfs:comment "Links a category to a context DataBook where both subject and assertedBy are :Self — the Mia user is both the subject of and the asserter of the data."@en .
 
 context:obs rdf:type owl:ObjectProperty ;
-    rdfs:domain context:TwoParty ;
+    rdfs:domain context:ConnectionCategory ;
     rdfs:range [ rdf:type owl:Class ;
                  owl:unionOf ( context:Category context:OBScontext ) ] ;
     rdfs:label "other-by-self"@en ;
-    rdfs:comment "Links a two-party category to either a c:Category or a c:OBScontext DataBook (subject is another person/org/group, assertedBy is :Self)."@en .
+    rdfs:comment "Links a connection category to either a c:Category or a c:OBScontext DataBook (subject is another person/org/group, assertedBy is :Self)."@en .
 
 
 #################################################################
@@ -156,7 +156,7 @@ context:TwoParty rdf:type owl:Class ;
 context:MultiParty rdf:type owl:Class ;
     rdfs:subClassOf context:UserDefined ;
     rdfs:label "MultiParty"@en ;
-    context:label "Group" ;
+    context:label "Circle" ;
     rdfs:comment "A user-defined category representing a shared multi-party relationship with a group of people or organizations. Not to be confused with g:Group (a PDN group node)."@en .
 
 context:PersonPredefined rdf:type owl:Class ;
@@ -176,16 +176,16 @@ context:OrgPredefined rdf:type owl:Class ;
 #################################################################
 
 context:sbo rdf:type owl:ObjectProperty ;
-    rdfs:domain context:TwoParty ;
+    rdfs:domain context:ConnectionCategory ;
     rdfs:range context:SBOcontext ;
     rdfs:label "self-by-other"@en ;
-    rdfs:comment "Links a two-party category to a context DataBook where subject is :Self and assertedBy is another person, organization, or group."@en .
+    rdfs:comment "Links a connection category to a context DataBook where subject is :Self and assertedBy is another person, organization, or group."@en .
 
 context:obo rdf:type owl:ObjectProperty ;
-    rdfs:domain context:TwoParty ;
+    rdfs:domain context:ConnectionCategory ;
     rdfs:range context:OBOcontext ;
     rdfs:label "other-by-other"@en ;
-    rdfs:comment "Links a two-party category to a context DataBook where both subject and assertedBy are another person, organization, or group."@en .
+    rdfs:comment "Links a connection category to a context DataBook where both subject and assertedBy are another person, organization, or group."@en .
 
 #################################################################
 #    Category Notes, Folders, and Labels
