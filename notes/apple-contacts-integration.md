@@ -18,6 +18,14 @@ Mia follows the same design assumption. When exporting a person to Apple Contact
 
 **Export (Mia → Apple Contacts):** merge all contexts for the person into a single vCard. Map each field's Mia context (work, personal, family, etc.) to the corresponding vCard label. Multiple values under the same label are permitted and expected.
 
+### vCard label constraints
+
+**Number of values:** the vCard spec (RFC 6350) imposes no maximum on repeatable properties — `TEL`, `EMAIL`, `ADR` etc. can appear as many times as needed. Apple Contacts also imposes no hard cap in its data model. A person with phone numbers across many Mia contexts will export cleanly regardless of count.
+
+**Label string length:** vCard's `TYPE` parameter supports predefined types (`work`, `home`, `cell`, etc.) and custom types, stored with an `X-` prefix in vCard 3.0 (e.g. `TYPE=X-Acme-Corp`) or as free strings in vCard 4.0. The vCard spec sets no maximum length for `TYPE` values. However, Apple Contacts has an undocumented practical limit on how much of a custom label it displays in the UI — long labels (e.g. `"Boston Hub Society"`, `"California DMV"`) may be truncated visually even though the full string is preserved in the underlying vCard data. Round-trip fidelity of the data is unaffected; this is purely a display concern.
+
+This display truncation limit is not publicly documented by Apple and likely varies by OS version. It should be verified empirically once an early implementation exists.
+
 ---
 
 ## Level 2: Groups ↔ c:UserDefined Categories
