@@ -14,7 +14,7 @@ mia:
     - "http://mee.foundation/ontologies/categories/companies"
     - "http://mee.foundation/ontologies/categories/finances"
     - "http://mee.foundation/ontologies/categories/health"
-    - "http://mee.foundation/ontologies/categories/events"
+    - "http://mee.foundation/ontologies/categories/meetings"
     - "http://mee.foundation/ontologies/categories/government"
     - "http://mee.foundation/ontologies/categories/information"
     - "http://mee.foundation/ontologies/categories/possessions"

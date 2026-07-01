@@ -6,7 +6,7 @@ version: 1.0.0
 created: 2026-06-24
 description: >
   Category DataBook for the Parties context category. Groups context DataBooks
-  about parties and other kinds of social gatherings. Child of Events.
+  about parties and other kinds of social gatherings. Child of Meetings.
 mia:
   category-type: PersonPredefined
 ---

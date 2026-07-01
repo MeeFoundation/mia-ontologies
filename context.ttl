@@ -11,7 +11,7 @@
     owl:versionIRI <http://mee.foundation/ontologies/context/1.0.1> ;
     dc:date "2026-06-01"^^xsd:date ;
     owl:imports <http://mee.foundation/ontologies/pdn-identity> ;
-    owl:versionInfo "Version 1.0.88 - update OrgPredefined subclasses: remove Clients, add Partners and Prospects, sync comments"@en ;
+    owl:versionInfo "Version 1.0.90 - rename c:Events to c:Meetings; drop c:Meetings subclass"@en ;
     rdfs:label "Context Ontology"@en ;
     rdfs:comment """Context and Category Ontology for the Mee Identity Agent"""@en .
 
@@ -278,7 +278,7 @@ context:label rdf:type owl:AnnotationProperty ;
 context:Affiliations rdf:type owl:Class ;
     rdfs:subClassOf context:PersonPredefined ;
     rdfs:label "Affiliations"@en ;
-    rdfs:comment "Interactions with a formal or informal group of people."@en .
+    rdfs:comment "Sports clubs, teams, charities, faith groups, and social networks. Some may be c:MultiParty 'Circles' that exist as a g:Group on the PDN."@en .
 
 
 #################################################################
@@ -288,17 +288,17 @@ context:Affiliations rdf:type owl:Class ;
 context:People rdf:type owl:Class ;
     rdfs:subClassOf context:PersonPredefined ;
     rdfs:label "People"@en ;
-    rdfs:comment "Interactions with all kinds of people."@en .
+    rdfs:comment "People in your social or professional life."@en .
 
 context:Family rdf:type owl:Class ;
     rdfs:subClassOf context:People ;
     rdfs:label "Family"@en ;
-    rdfs:comment "Interactions with a family member."@en .
+    rdfs:comment "Family members."@en .
 
 context:MarriagePartner rdf:type owl:Class ;
     rdfs:subClassOf context:People ;
     rdfs:label "Marriage/Partner"@en ;
-    rdfs:comment "Relationships with a spouse or life partner."@en .
+    rdfs:comment "A spouse or life partner."@en .
 
 context:Friends rdf:type owl:Class ;
     rdfs:subClassOf context:People ;
@@ -308,7 +308,7 @@ context:Friends rdf:type owl:Class ;
 context:Consultants rdf:type owl:Class ;
     rdfs:subClassOf context:People ;
     rdfs:label "Consultants"@en ;
-    rdfs:comment "Interactions with consultants who provide services."@en .
+    rdfs:comment "Individuals who are consultants and provide services to you."@en .
 
 #################################################################
 #    c:Work and subclasses
@@ -317,22 +317,22 @@ context:Consultants rdf:type owl:Class ;
 context:Work rdf:type owl:Class ;
     rdfs:subClassOf context:PersonPredefined ;
     rdfs:label "Work"@en ;
-    rdfs:comment "Professional roles, employment history, and career relationships."@en .
+    rdfs:comment "Professional roles. Employment history, resume/CV."@en .
 
 context:Employee rdf:type owl:Class ;
     rdfs:subClassOf context:Work ;
     rdfs:label "Employee"@en ;
-    rdfs:comment "Related to being an employee."@en .
+    rdfs:comment "Your role as employee of some company. Your business card at this company."@en .
 
 context:Contributor rdf:type owl:Class ;
     rdfs:subClassOf context:Work ;
     rdfs:label "Contributor"@en ;
-    rdfs:comment "Related to contributing to initiatives started or led by others."@en .
+    rdfs:comment "Your role as a contributor to initiatives started or led by others."@en .
 
 context:Creator rdf:type owl:Class ;
     rdfs:subClassOf context:Work ;
     rdfs:label "Creator"@en ;
-    rdfs:comment "Related to being a creator, inventor, founder, author of something."@en .
+    rdfs:comment "Your role as a creator, inventor, founder, or author."@en .
 
 
 #################################################################
@@ -342,7 +342,7 @@ context:Creator rdf:type owl:Class ;
 context:Companies rdf:type owl:Class ;
     rdfs:subClassOf context:PersonPredefined ;
     rdfs:label "Companies"@en ;
-    rdfs:comment "Relationship with a specific company or other institution."@en .
+    rdfs:comment "Miscellaneous companies and organizations that provide services or products to you. See also Finances, Health, Home, Food for companies and organizations related to those areas."@en .
 
 
 #################################################################
@@ -352,12 +352,12 @@ context:Companies rdf:type owl:Class ;
 context:Finances rdf:type owl:Class ;
     rdfs:subClassOf context:PersonPredefined ;
     rdfs:label "Finances"@en ;
-    rdfs:comment "Information about personal finances not related to any interactions with banks, financial institutions or government agencies."@en .
+    rdfs:comment "Information about personal finances, bookkeeping, budgets, payment cards, bank accounts."@en .
 
 context:FinancialServices rdf:type owl:Class ;
     rdfs:subClassOf context:Finances ;
     rdfs:label "FinancialServices"@en ;
-    rdfs:comment "Relationship with a bank or other financial services institution."@en .
+    rdfs:comment "Banks or other financial services institutions."@en .
 
 #################################################################
 #    c:Health 
@@ -366,36 +366,31 @@ context:FinancialServices rdf:type owl:Class ;
 context:Health rdf:type owl:Class ;
     rdfs:subClassOf context:PersonPredefined ;
     rdfs:label "Health"@en ;
-    rdfs:comment "Personal health and wellness information not related to any specific healthcare provider."@en .
+    rdfs:comment "Personal health and wellness information. Medical history, allergies, medications, vaccinations."@en .
 
 context:Healthcare rdf:type owl:Class ;
     rdfs:subClassOf context:Health ;
     rdfs:label "Healthcare"@en ;
-    rdfs:comment "Relationship with a healthcare provider or health insurance company."@en .
+    rdfs:comment "Healthcare providers or health insurance companies."@en .
 
 #################################################################
-#    c:Event and subclasses
-#################################################################    
-
-context:Events rdf:type owl:Class ;
-    rdfs:subClassOf context:PersonPredefined ;
-    rdfs:label "Events"@en ;
-    rdfs:comment "Participation in or relationship to a specific event."@en .
+#    c:Meetings and subclasses
+#################################################################
 
 context:Meetings rdf:type owl:Class ;
-    rdfs:subClassOf context:Events ;
+    rdfs:subClassOf context:PersonPredefined ;
     rdfs:label "Meetings"@en ;
-    rdfs:comment "A meeting or appointment."@en .
+    rdfs:comment "Participation in or relationship to a specific event or gathering."@en .
 
 context:Conferences rdf:type owl:Class ;
-    rdfs:subClassOf context:Events ;
+    rdfs:subClassOf context:Meetings ;
     rdfs:label "Conferences"@en ;
     rdfs:comment "A conference or professional gathering."@en .
 
 context:Parties rdf:type owl:Class ;
-    rdfs:subClassOf context:Events ;
+    rdfs:subClassOf context:Meetings ;
     rdfs:label "Parties"@en ;
-    rdfs:comment "A party or social celebration."@en .
+    rdfs:comment "Parties and other kinds of social gatherings."@en .
 
 #################################################################
 #    c:Government Contexts and subclasses
@@ -428,12 +423,12 @@ context:Municipality rdf:type owl:Class ;
 context:Information rdf:type owl:Class ;
     rdfs:subClassOf context:PersonPredefined ;
     rdfs:label "Information"@en ;
-    rdfs:comment "Misc information not covered by any other context category."@en .
+    rdfs:comment "General knowledge selected by you, web links, documents, images."@en .
 
 context:Learnings rdf:type owl:Class ;
     rdfs:subClassOf context:Information ;
     rdfs:label "Learnings"@en ;
-    rdfs:comment "Knowledge gained from personal experience"@en .
+    rdfs:comment "Knowledge gained through personal experience."@en .
 
 #################################################################
 #    c:Ownership and subclasses
@@ -447,17 +442,17 @@ context:Ownership rdf:type owl:Class ;
 context:Vehicles rdf:type owl:Class ;
     rdfs:subClassOf context:Ownership ;
     rdfs:label "Vehicles"@en ;
-    rdfs:comment "Owning and maintaining a vehicle."@en .
+    rdfs:comment "Related to owning and maintaining a vehicle. Vehicle insurance, repairs, mechanics, garages."@en .
 
 context:Pets rdf:type owl:Class ;
     rdfs:subClassOf context:PersonPredefined ;
     rdfs:label "Pets"@en ;
-    rdfs:comment "Taking care of pets."@en .
+    rdfs:comment "Care instructions, veterinarians, medicines, food providers."@en .
 
 context:Home rdf:type owl:Class ;
     rdfs:subClassOf context:PersonPredefined ;
     rdfs:label "Home"@en ;
-    rdfs:comment "Owning or renting a home or other dwelling."@en .
+    rdfs:comment "Owning or renting a home, apartment, or other dwelling. Leases, deeds, utility accounts, real estate brokers."@en .
 
 #################################################################
 #    c:Project and subclasses
@@ -475,7 +470,7 @@ context:Projects rdf:type owl:Class ;
 context:Legal rdf:type owl:Class ;
     rdfs:subClassOf context:PersonPredefined ;
     rdfs:label "Legal"@en ;
-    rdfs:comment "Legal matters, contracts, agreements, and professional legal relationships."@en .
+    rdfs:comment "Legal matters, contracts, agreements, trusts, wills, and professional legal relationships."@en .
 
 #################################################################
 #    c:Travel
@@ -484,7 +479,7 @@ context:Legal rdf:type owl:Class ;
 context:Travel rdf:type owl:Class ;
     rdfs:subClassOf context:PersonPredefined ;
     rdfs:label "Travel"@en ;
-    rdfs:comment "Travel plans, trips, and related information."@en .
+    rdfs:comment "Travel plans, trips, and related information. Loyalty programs, airlines, bus lines, trains."@en .
 
 #################################################################
 #    c:Food
@@ -493,7 +488,7 @@ context:Travel rdf:type owl:Class ;
 context:Food rdf:type owl:Class ;
     rdfs:subClassOf context:PersonPredefined ;
     rdfs:label "Food"@en ;
-    rdfs:comment "Food preferences, dietary restrictions, favorite restaurants, recipes, and food-related interests."@en .
+    rdfs:comment "Food preferences, dietary restrictions, favorite restaurants, recipes, shopping lists, and other food-related interests."@en .
 
 #################################################################
 #    OrgPredefined subclasses

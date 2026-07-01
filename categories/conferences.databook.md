@@ -6,7 +6,7 @@ version: 1.0.0
 created: 2026-06-24
 description: >
   Category DataBook for the Conferences context category. Groups context DataBooks
-  about a conference or professional gathering. Child of Events.
+  about a conference or professional gathering. Child of Meetings.
 mia:
   category-type: PersonPredefined
 ---
