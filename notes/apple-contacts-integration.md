@@ -10,16 +10,13 @@ There are two levels to address:
 
 ## Level 1: Contacts ↔ Contexts
 
-A single Apple Contacts record (vCard / CNContact) maps cleanly to a single Mia context. All standard vCard fields have direct counterparts in the persona ontology: names, phone numbers, email addresses, postal addresses, organization, job title, birthday, anniversary, photo, notes, social profiles, URLs, related names.
+Apple Contacts' core design assumption is **one card per person**, with all contexts flattened into it. vCard accommodates multiple contexts by allowing optional labels on repeatable fields — a person can have two email addresses, one labeled `work` and one labeled `home`. This is vCard's mechanism for expressing context.
 
-**Import (Apple Contacts → Mia):** straightforward. Each contact record becomes a context DataBook. Field mapping is 1:1 for all standard vCard fields.
+Mia follows the same design assumption. When exporting a person to Apple Contacts, **all N Mia contexts for that person are merged into a single vCard**. Each field value carries the label from the context it came from (e.g. a phone number from a work context gets the `work` label). If two different work contexts both contribute a phone number, the vCard will have two `work` phone numbers — this is correct and consistent with how vCard works.
 
-**Export (Mia → Apple Contacts):** more complex. Mia may hold multiple contexts for the same person (work, personal, family, etc.). Two possible policies:
+**Import (Apple Contacts → Mia):** each contact record becomes a context DataBook. All standard vCard fields have direct counterparts in the persona ontology: names, phone numbers, email addresses, postal addresses, organization, job title, birthday, anniversary, photo, notes, social profiles, URLs, related names.
 
-1. **Primary context**: designate one context per person as the Apple Contacts source; export only that one. Simple and lossless in the other direction if the source context is tagged.
-2. **Merge**: combine fields from all contexts into a single vCard. Risk of collisions (e.g. two "work" phone numbers from different contexts).
-
-The primary-context policy is recommended for an initial integration.
+**Export (Mia → Apple Contacts):** merge all contexts for the person into a single vCard. Map each field's Mia context (work, personal, family, etc.) to the corresponding vCard label. Multiple values under the same label are permitted and expected.
 
 ---
 
@@ -31,7 +28,7 @@ Apple Contacts groups are **flat** (one level only) and untyped. Mia's category 
 
 **Export (Mia → Apple Contacts):** the hierarchy must be flattened. Two options:
 
-1. **Path encoding**: encode the hierarchy in the Apple group name using a separator, e.g. Mia category `People > Family` becomes Apple group `"People/Family"`. Ugly but survives the round-trip — on re-import, parse the separator to restore the tree.
+1. **Path encoding**: encode the hierarchy in the Apple group name using a separator, e.g. Mia category `People > Family` becomes Apple group `"People/Family"`. Survives the round-trip — on re-import, parse the separator to restore the tree.
 2. **Leaf-only sync**: export only leaf-level categories and discard the hierarchy. Simpler but lossy — the hierarchy cannot be restored on re-import.
 
 Path encoding is recommended if lossless round-tripping is required.
@@ -42,7 +39,7 @@ Path encoding is recommended if lossless round-tripping is required.
 
 vCard supports custom extension fields (`X-` prefix). Storing Mia IRIs in these fields lets Mia re-identify records on re-import without duplication or drift:
 
-- `X-MIA-CONTEXT-IRI` on a contact record — points to the Mia context DataBook IRI
+- `X-MIA-PERSON-IRI` on a contact record — points to the Mia `p:Person` individual IRI
 - `X-MIA-CATEGORY-IRI` on a group — points to the Mia category DataBook IRI
 
 These fields are ignored by Apple Contacts and other vCard consumers but survive export/import cycles, making true lossless round-tripping achievable.
@@ -53,7 +50,7 @@ These fields are ignored by Apple Contacts and other vCard consumers but survive
 
 | Dimension | Import | Export | Lossless? |
 |-----------|--------|--------|-----------|
-| Contact fields | Direct field mapping | Map back from primary context | Yes, with primary-context tag |
-| Multiple contexts per person | Each → separate DataBook | Requires primary-context policy | Yes, with policy |
+| Contact fields | Direct field mapping | Merge all contexts into one vCard | Yes, with `X-MIA-PERSON-IRI` anchor |
+| Multiple contexts per person | Each → separate DataBook | Flatten to single vCard; multiple values per label are correct | Yes |
 | Group hierarchy | Flat → leaf categories | Encode as path in group name | Yes, with path encoding |
 | Mia-specific metadata | Stored in context DataBook | Store IRI in `X-MIA-*` vCard field | Yes, with anchor fields |
