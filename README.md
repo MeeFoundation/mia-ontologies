@@ -170,7 +170,7 @@ In each of these five example categories contains contexts shown as circles. Whi
 1. **Consultants (org)** — engaged consultants.
 1. **KB** — corporate knowledge bases.
 1. **Projects (org)** — projects related to R&D, manufacturing, sales, marketing, operations, HR, etc.
-1. **Events (org)** — events, meetings, workshops, webinars, and gatherings.
+1. **Meetings (org)** — events, meetings, workshops, webinars, and gatherings.
 1. **Suppliers** — companies that supply goods or services to this organization.
 1. **Legal (org)** — contracts and agreements.
 1. **Government (org)** — interactions with government organizations.

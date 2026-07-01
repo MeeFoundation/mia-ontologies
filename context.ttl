@@ -11,7 +11,7 @@
     owl:versionIRI <http://mee.foundation/ontologies/context/1.0.1> ;
     dc:date "2026-06-01"^^xsd:date ;
     owl:imports <http://mee.foundation/ontologies/pdn-identity> ;
-    owl:versionInfo "Version 1.0.90 - rename c:Events to c:Meetings; drop c:Meetings subclass"@en ;
+    owl:versionInfo "Version 1.0.91 - rename c:Events(org) to c:Meetings(org)"@en ;
     rdfs:label "Context Ontology"@en ;
     rdfs:comment """Context and Category Ontology for the Mee Identity Agent"""@en .
 
@@ -529,9 +529,9 @@ context:Projects\(org\) rdf:type owl:Class ;
     rdfs:label "Projects (org)"@en ;
     rdfs:comment "Projects related to R&D, manufacturing, sales, marketing, operations, HR, etc."@en .
 
-context:Events\(org\) rdf:type owl:Class ;
+context:Meetings\(org\) rdf:type owl:Class ;
     rdfs:subClassOf context:OrgPredefined ;
-    rdfs:label "Events (org)"@en ;
+    rdfs:label "Meetings (org)"@en ;
     rdfs:comment "Events, meetings, workshops, webinars, and gatherings."@en .
 
 context:Suppliers rdf:type owl:Class ;
