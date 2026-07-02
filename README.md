@@ -504,10 +504,13 @@ The following sequence of diagrams maps out the categories and contexts of our A
 
 Contexts with dotted outlines are placeholders for contexts in category — Alice could fill a context in any of these placeholders if she wishes, and the claims in the context. 
 
-
 <p align="center"><img src="example/images/people.png" alt="People categories"></p>
 
-Alice is an employee of Acme. She has added Business Card claims (attributes) to her Employee mid-level category. Since Acme is an organization, Alice has under her Acme category switched from adding PersonPredefined categories (yellow colored) to OrgPredefined categories (light blue color) and added an Employees category. One of the employees she works with is Paula Walker, so she adds a Paula Walker category.
+Alice and her sister, Carol, are taking care of their mother Paula Walker and need to arrange medical appointments for her. To do so, they need to share and synchronize medical information about Paula including her list of medications, medical history, health insurance policy, contact information and so on. The diagram below shows Alice's connection with Carol that they use to share information about Paula.
+
+<p align="center"><img src="example/images/third-party.png" alt="Third party Connection category"></p>
+
+Alice is an employee of Acme, so under her employee category she has created a user-defined category call Acme to represent her Alice-as-employee-of-Acme persona and to this she has added a set of Business Card claims that include her job title at Acme, her work telephone number, her Acme email, etc. Since Acme is an organization, Alice has under her Acme category switched from adding `c:PersonPredefined` categories to `c:OrgPredefined` categories (light blue color) and added an Empployees category which acts as a parent holding categories for each of her colleagues at Acme. One of the employees she works with is Paula Walker, so she adds a Paula Walker category.
 <p align="center"><img src="example/images/work.png" alt="Work categories"></p>
 
 Alice has relationships with two companies, Google and AT&T:
