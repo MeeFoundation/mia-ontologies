@@ -9,6 +9,6 @@ description: >
   employer categories.
 mia:
   category-type: PersonPredefined
-  copiedFrom: "http://mee.foundation/ontologies/categories/employee"
+  copiedFrom: "http://mee.foundation/ontologies/categories-person/employee"
   child: "http://www.example.org/mia/categories/acme(employee)"
 ---

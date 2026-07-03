@@ -240,12 +240,13 @@ If any `MISSING:` lines appear, either add the file or update the link.
 
 For each DataBook in `example/` (excluding `under-development/`), extract the three YAML values and verify they match the table. If they conflict, `about-by` is the authoritative value — update `subject` and/or `assertedBy` to match it.
 
-**Check 10 — Category filename ↔ id consistency**: For every category DataBook in `categories/` and `example/categories/`, the filename root (the filename with `.databook.md` stripped) must exactly match the local name portion of the file's `id:` IRI (the string after the IRI base). The IRI base for canonical files is `http://mee.foundation/ontologies/categories/`; for example files it is `http://www.example.org/mia/categories/`. Run:
+**Check 10 — Category filename ↔ id consistency**: For every category DataBook in `categories-person/`, `categories-org/`, and `example/categories/`, the filename root (the filename with `.databook.md` stripped) must exactly match the local name portion of the file's `id:` IRI (the string after the IRI base). The IRI base for canonical PersonPredefined files is `http://mee.foundation/ontologies/categories-person/`; for canonical OrgPredefined files it is `http://mee.foundation/ontologies/categories-org/`; for example files it is `http://www.example.org/mia/categories/`. Run:
 
 ```python
 import os, re
 checks = [
-    ('categories',         'http://mee.foundation/ontologies/categories/'),
+    ('categories-person', 'http://mee.foundation/ontologies/categories-person/'),
+    ('categories-org',     'http://mee.foundation/ontologies/categories-org/'),
     ('example/categories', 'http://www.example.org/mia/categories/'),
 ]
 for directory, base in checks:

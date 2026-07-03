@@ -9,6 +9,6 @@ description: >
   family member categories.
 mia:
   category-type: PersonPredefined
-  copiedFrom: "http://mee.foundation/ontologies/categories/family"
+  copiedFrom: "http://mee.foundation/ontologies/categories-person/family"
   child: "http://www.example.org/mia/categories/paula-walker(family)"
 ---

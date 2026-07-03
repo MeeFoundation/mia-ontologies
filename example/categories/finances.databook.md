@@ -9,7 +9,7 @@ description: >
   financial institution categories.
 mia:
   category-type: PersonPredefined
-  copiedFrom: "http://mee.foundation/ontologies/categories/finances"
+  copiedFrom: "http://mee.foundation/ontologies/categories-person/finances"
   child:
     - "http://www.example.org/mia/categories/financial-services(finances)"
 ---

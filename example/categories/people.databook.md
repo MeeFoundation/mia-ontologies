@@ -9,7 +9,7 @@ description: >
   person categories.
 mia:
   category-type: PersonPredefined
-  copiedFrom: "http://mee.foundation/ontologies/categories/people"
+  copiedFrom: "http://mee.foundation/ontologies/categories-person/people"
   child:
     - "http://www.example.org/mia/categories/family(people)"
     - "http://www.example.org/mia/categories/friends(people)"

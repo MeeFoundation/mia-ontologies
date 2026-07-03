@@ -181,7 +181,7 @@ Each node in the `c:Category` tree is represented by a **category DataBook** (`.
 
 #### Predefined Category DataBooks
 
-`c:PersonPredefined` category DataBooks live in `categories/`, rooted at `categories/categories.databook.md`. `c:OrgPredefined` category DataBooks live in `categories-org/`, rooted at `categories/categories-org.databook.md`.
+`c:PersonPredefined` category DataBooks live in `categories-person/`, rooted at `categories-person/categories-person.databook.md`. `c:OrgPredefined` category DataBooks live in `categories-org/`, rooted at `categories-org/categories-org.databook.md`.
 
 #### Properties
 
@@ -193,7 +193,7 @@ The following properties are defined in `context.ttl` and represented as `mia.` 
 | `mia.label` | `c:label` | 1 | User-editable display name — defaults to the DataBook `title` but can be changed independently, leaving `title` and `id` immutable |
 | `mia.note` | `c:note` | 0..1 | Relative path to a markdown notes file for this category (e.g. `notes/people/paula-walker`) |
 | `mia.folder` | `c:folder` | 0..1 | Relative path to a folder of arbitrary files for this category (e.g. `people/paula-walker`) |
-| `mia.copiedFrom` | `c:copiedFrom` | 0..1 | IRI of the canonical predefined category this DataBook was copied from. Present only on user-instance copies of predefined categories |
+| `mia.copiedFrom` | `c:copiedFrom` | 0..1 | IRI of the canonical predefined category this DataBook was copied from. Present only on copies of predefined categories |
 
 Note files live in a folder hierarchy whose structure mirrors the category hierarchy; associated file folders live in a parallel hierarchy whose names match the category names.
 
@@ -495,7 +495,7 @@ Alice's context DataBooks are in `example/contexts.` Some are authored by Alice 
 
 Alice's category DataBooks are in `example/categories/`. The full tree can be walked starting from `example/categories/categories.databook.md`. It contains two kinds of entries:
 
-- **Copies of predefined canonical categories** (`mia.predefined: true`) — one for each of the 16 top-level categories and their subcategories. Each copy carries a `copiedFrom:` property pointing to the corresponding canonical IRI (e.g. `copiedFrom: "http://mee.foundation/ontologies/categories/people"`). Context links (`c:sbs`, `c:obs`, `c:obo`, `c:sbo`) to Alice's contexts are attached here, not in the canonical tree.
+- **Copies of predefined canonical categories** (`mia.predefined: true`) — one for each of the 16 top-level categories and their subcategories. Each copy carries a `copiedFrom:` property pointing to the corresponding canonical IRI (e.g. `copiedFrom: "http://mee.foundation/ontologies/categories-person/people"`). Context links (`c:sbs`, `c:obs`, `c:obo`, `c:sbo`) to Alice's contexts are attached here, not in the canonical tree.
 - **User-defined categories** (`mia.predefined: false`) — one per specific person, company, government agency, or group Alice interacts with (e.g. `bob-johnson(people)`, `acme(employee)`, `citibank(financial-services)`).
 
 #### Category and Context Diagrams

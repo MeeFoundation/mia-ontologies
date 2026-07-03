@@ -9,6 +9,6 @@ description: >
   user-defined financial institution categories.
 mia:
   category-type: PersonPredefined
-  copiedFrom: "http://mee.foundation/ontologies/categories/financial-services"
+  copiedFrom: "http://mee.foundation/ontologies/categories-person/financial-services"
   child: "http://www.example.org/mia/categories/citibank(financial-services)"
 ---

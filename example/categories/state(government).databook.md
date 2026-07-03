@@ -9,7 +9,7 @@ description: >
   state agency categories.
 mia:
   category-type: PersonPredefined
-  copiedFrom: "http://mee.foundation/ontologies/categories/state"
+  copiedFrom: "http://mee.foundation/ontologies/categories-person/state"
   child:
     - "http://www.example.org/mia/categories/texas-vital-records(state)"
     - "http://www.example.org/mia/categories/california-dmv(state)"

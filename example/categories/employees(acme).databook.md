@@ -9,6 +9,6 @@ description: >
   Groups the Acme colleagues Alice tracks.
 mia:
   category-type: OrgPredefined
-  copiedFrom: "http://mee.foundation/ontologies/categories/employees"
+  copiedFrom: "http://mee.foundation/ontologies/categories-org/employees"
   child: "http://www.example.org/mia/categories/paula-walker(acme)"
 ---

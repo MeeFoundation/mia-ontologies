@@ -9,7 +9,7 @@ description: >
   company categories.
 mia:
   category-type: PersonPredefined
-  copiedFrom: "http://mee.foundation/ontologies/categories/companies"
+  copiedFrom: "http://mee.foundation/ontologies/categories-person/companies"
   child:
     - "http://www.example.org/mia/categories/google(companies)"
     - "http://www.example.org/mia/categories/att(companies)"

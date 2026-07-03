@@ -8,5 +8,5 @@ description: >
   Example copy of the Friends category DataBook. Child of People.
 mia:
   category-type: PersonPredefined
-  copiedFrom: "http://mee.foundation/ontologies/categories/friends"
+  copiedFrom: "http://mee.foundation/ontologies/categories-person/friends"
 ---

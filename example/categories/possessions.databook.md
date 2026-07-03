@@ -8,6 +8,6 @@ description: >
   Example copy of the Possessions category DataBook. Child of Categories.
 mia:
   category-type: PersonPredefined
-  copiedFrom: "http://mee.foundation/ontologies/categories/possessions"
+  copiedFrom: "http://mee.foundation/ontologies/categories-person/possessions"
   sbs: "https://www.example.org/mia/contexts/self.self(possessions)(22)"
 ---

@@ -9,7 +9,7 @@ description: >
   user-defined municipal categories.
 mia:
   category-type: PersonPredefined
-  copiedFrom: "http://mee.foundation/ontologies/categories/municipality"
+  copiedFrom: "http://mee.foundation/ontologies/categories-person/municipality"
   child:
     - "http://www.example.org/mia/categories/boston(municipality)"
     - "http://www.example.org/mia/categories/paradise(municipality)"

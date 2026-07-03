@@ -9,7 +9,7 @@ description: >
   federal agency categories.
 mia:
   category-type: PersonPredefined
-  copiedFrom: "http://mee.foundation/ontologies/categories/federal"
+  copiedFrom: "http://mee.foundation/ontologies/categories-person/federal"
   child:
     - "http://www.example.org/mia/categories/social-security-administration(federal)"
     - "http://www.example.org/mia/categories/passport(federal)"
