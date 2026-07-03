@@ -10,5 +10,5 @@ description: >
 mia:
   category-type: UserDefined
   sbs: "https://www.example.org/mia/contexts/self.self(acme)(employee)(10)"
-  child: "http://www.example.org/mia/categories/people(acme)"
+  child: "http://www.example.org/mia/categories/employees(acme)"
 ---

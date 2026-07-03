@@ -165,11 +165,7 @@ After any change to context files or category DataBooks, verify the following.
 
 **Check 2 — Filename convention**: Every context filename must follow `<subject>.<asserted-by>(<containing-category>)(<NN>).databook.md`. `<subject>` must be `self` when the subject is `:Self`, or the full hyphenated lowercase name otherwise. `<asserted-by>` must be `self` when the asserter is `:Self`, or the full hyphenated lowercase name otherwise — except for `c:Group` contexts, where it must be the literal string `members`. `(<containing-category>)` encodes the local name of the `mia.category` IRI: when the category DataBook local name includes a `(parent)` qualifier (e.g. `bob-johnson(people)`), it appears as two separate segments `(bob-johnson)(people)`; when there is no qualifier (e.g. `health`), a single segment suffices. `(<NN>)` is the zero-padded two-digit context number. If a filename does not match this pattern, rename it to conform.
 
-**Check 3 — Orange arrows (hasMember)**: For every orange arrow from circle A to circle B in any of the 9 category diagrams (`example/images/`), there must be a `BFO_0000115` (has member part) triple pointing to the `p:Persona` individual defined in the target context file (B), originating from one of two sources depending on context type:
-- **`c:Persona`-type source (Person, Family, Employee, etc.)**: the source file's `p:Persona` individual must carry a `persona:hasSocialNetwork` link to a `cco:ont00001183` (Social Network) individual, and that Social Network individual must have the `BFO_0000115` triple.
-- **`c:MultiParty`-type source**: the source file's `g:Group` individual must have the `BFO_0000115` triple directly (no Social Network intermediate, since the group itself is the social entity).
-
-**Check 4 — `mia.category` ↔ filename consistency**: For every context DataBook in `example/contexts/` (excluding `under-development/`), the local-name portion of its `mia.category` IRI must equal the `(<containing-category>)` segment extracted from the filename. When the filename uses two separate parenthetical segments before the number (e.g. `(bob-johnson)(people)`), concatenate them as `bob-johnson(people)` to form the expected local name. Run:
+**Check 3 — `mia.category` ↔ filename consistency**: For every context DataBook in `example/contexts/` (excluding `under-development/`), the local-name portion of its `mia.category` IRI must equal the `(<containing-category>)` segment extracted from the filename. When the filename uses two separate parenthetical segments before the number (e.g. `(bob-johnson)(people)`), concatenate them as `bob-johnson(people)` to form the expected local name. Run:
 
 ```python
 import os, re
@@ -210,15 +206,15 @@ if not errors:
 
 If mismatches appear, the filename `(<containing-category>)` segments are authoritative — update the `mia.category` IRI in the DataBook to match (or vice versa if the filename was misnamed).
 
-**Check 5 — No orphan Persons**: Every `persona:Person` individual other than `:Self` must be reachable via `BFO_0000115` (has member part) from a `g:Group` or from a Social Network individual linked to another `persona:Person` via `persona:hasSocialNetwork`. `:Self` is always the root and needs no incoming link.
+**Check 4 — No orphan Persons**: Every `persona:Person` individual other than `:Self` must be reachable via `BFO_0000115` (has member part) from a `g:Group` or from a Social Network individual linked to another `persona:Person` via `persona:hasSocialNetwork`. `:Self` is always the root and needs no incoming link.
 
-**Check 6 — Validation command completeness**: The `## Validation` section of `README.md` must document two tiers. Tier 1 uses four steps: (1) a `find example -name "*.databook.md"` loop using `databook extract` to extract turtle content and produce a merged turtle file of all context data (excluding `under-development/`); (2) a `riot` merge of that data with all application ontology TTL files and the foundation ontologies listed explicitly from `project_files/`; (3) a `grep -v owl:imports` on `persona-shacl.ttl` to collect shapes (the `shacl/` per-template files are excluded here — they target `persona:Person` and would fire incorrectly on all individuals when applied to merged data); (4) a `shacl validate` call. Tier 2 lists explicit per-file `databook extract` + `riot` + `shacl validate` commands for each template context file paired with its `shacl/*-shacl.ttl` file. If the commands change, update the README to match.
+**Check 5 — Validation command completeness**: The `## Validation` section of `README.md` must document two tiers. Tier 1 uses four steps: (1) a `find example -name "*.databook.md"` loop using `databook extract` to extract turtle content and produce a merged turtle file of all context data (excluding `under-development/`); (2) a `riot` merge of that data with all application ontology TTL files and the foundation ontologies listed explicitly from `project_files/`; (3) a `grep -v owl:imports` on `persona-shacl.ttl` to collect shapes (the `shacl/` per-template files are excluded here — they target `persona:Person` and would fire incorrectly on all individuals when applied to merged data); (4) a `shacl validate` call. Tier 2 lists explicit per-file `databook extract` + `riot` + `shacl validate` commands for each template context file paired with its `shacl/*-shacl.ttl` file. If the commands change, update the README to match.
 
-**Check 7 — PNG file location**: The diagram PNG for every context file must be stored directly in `example/contexts/images/` (flat, no subfolders — not `images/example/`). Files in `under-development/` are excluded.
+**Check 6 — PNG file location**: The diagram PNG for every context file must be stored directly in `example/contexts/images/` (flat, no subfolders — not `images/example/`). Files in `under-development/` are excluded.
 
-**Check 8 — PNG filename convention**: Every diagram PNG in `example/contexts/images/` must use the same base filename as the corresponding `.databook.md` file in `example/contexts/`, with `.png` substituted for `.databook.md`. For example, `self.self(boston-hub-society)(affiliations)(14).databook.md` → `self.self(boston-hub-society)(affiliations)(14).png`. If the PNG does not yet exist, the README Diagram cell must be marked `*(todo)*` rather than left blank.
+**Check 7 — PNG filename convention**: Every diagram PNG in `example/contexts/images/` must use the same base filename as the corresponding `.databook.md` file in `example/contexts/`, with `.png` substituted for `.databook.md`. For example, `self.self(boston-hub-society)(affiliations)(14).databook.md` → `self.self(boston-hub-society)(affiliations)(14).png`. If the PNG does not yet exist, the README Diagram cell must be marked `*(todo)*` rather than left blank.
 
-**Check 9 — No broken image links in README**: Every PNG path referenced in `README.md` (both `<img src="...">` tags and `[view](...)` table links) must resolve to an actual file on disk. Run:
+**Check 8 — No broken image links in README**: Every PNG path referenced in `README.md` (both `<img src="...">` tags and `[view](...)` table links) must resolve to an actual file on disk. Run:
 
 ```bash
 python3 -c "
@@ -233,7 +229,7 @@ missing = [p for p in sorted(set(pngs)) if not os.path.exists(p)]
 
 If any `MISSING:` lines appear, either add the file or update the link.
 
-**Check 10 — `about-by` ↔ `subject`/`assertedBy` consistency**: Every DataBook's `mia.about-by` value must be consistent with its `mia.subject` and `mia.assertedBy` values according to these rules:
+**Check 9 — `about-by` ↔ `subject`/`assertedBy` consistency**: Every DataBook's `mia.about-by` value must be consistent with its `mia.subject` and `mia.assertedBy` values according to these rules:
 
 | `about-by` | `subject` | `assertedBy` |
 |---|---|---|
@@ -244,7 +240,7 @@ If any `MISSING:` lines appear, either add the file or update the link.
 
 For each DataBook in `example/` (excluding `under-development/`), extract the three YAML values and verify they match the table. If they conflict, `about-by` is the authoritative value — update `subject` and/or `assertedBy` to match it.
 
-**Check 11 — Category filename ↔ id consistency**: For every category DataBook in `categories/` and `example/categories/`, the filename root (the filename with `.databook.md` stripped) must exactly match the local name portion of the file's `id:` IRI (the string after the IRI base). The IRI base for canonical files is `http://mee.foundation/ontologies/categories/`; for example files it is `http://www.example.org/mia/categories/`. Run:
+**Check 10 — Category filename ↔ id consistency**: For every category DataBook in `categories/` and `example/categories/`, the filename root (the filename with `.databook.md` stripped) must exactly match the local name portion of the file's `id:` IRI (the string after the IRI base). The IRI base for canonical files is `http://mee.foundation/ontologies/categories/`; for example files it is `http://www.example.org/mia/categories/`. Run:
 
 ```python
 import os, re
@@ -267,17 +263,17 @@ for directory, base in checks:
 
 If a mismatch is found, rename the file so its root matches the id local name (preferred) or update the `id:` to match the filename — whichever is consistent with the broader naming conventions.
 
-**Check 12 — Example category diagrams are authoritative**: The 9 category diagrams in `example/images/` are the authoritative source of truth for the example category tree. When any discrepancy is found between a diagram and the DataBook files, the diagram wins — update the DataBooks to match, not the other way around. After any change to `example/categories/` DataBooks or to the 9 diagrams, verify all of the following:
+**Check 11 — Example category diagrams are authoritative**: The 9 category diagrams in `example/images/` are the authoritative source of truth for the example category tree. When any discrepancy is found between a diagram and the DataBook files, the diagram wins — update the DataBooks to match, not the other way around. After any change to `example/categories/` DataBooks or to the 9 diagrams, verify all of the following:
 
-- **12a — Every category box has a DataBook**: Every category box (blue predefined or white user-defined) shown in any of the 9 diagrams must have a corresponding `.databook.md` file in `example/categories/` whose `title:` matches the box label. If a box has no DataBook, create one.
+- **11a — Every category box has a DataBook**: Every category box (blue predefined or white user-defined) shown in any of the 9 diagrams must have a corresponding `.databook.md` file in `example/categories/` whose `title:` matches the box label. If a box has no DataBook, create one.
 
-- **12b — Every DataBook has a diagram box**: Every `.databook.md` file in `example/categories/` (except `categories.databook.md` itself, which is the invisible root) must appear as a visible box in at least one of the 9 diagrams. If a DataBook has no corresponding box, either add it to the appropriate diagram or delete the DataBook.
+- **11b — Every DataBook has a diagram box**: Every `.databook.md` file in `example/categories/` (except `categories.databook.md` itself, which is the invisible root) must appear as a visible box in at least one of the 9 diagrams. If a DataBook has no corresponding box, either add it to the appropriate diagram or delete the DataBook.
 
-- **12c — Solid context circles match DataBook links**: Every solid (filled) context circle attached to a category box indicates a real context link. The category DataBook for that box must carry the corresponding `sbs`, `obs`, `obo`, or `sbo` field pointing to the context DataBook IRI. A dashed (empty) circle indicates an unfilled slot — the DataBook must NOT have a link for that slot.
+- **11c — Solid context circles match DataBook links**: Every solid (filled) context circle attached to a category box indicates a real context link. The category DataBook for that box must carry the corresponding `sbs`, `obs`, `obo`, or `sbo` field pointing to the context DataBook IRI. A dashed (empty) circle indicates an unfilled slot — the DataBook must NOT have a link for that slot.
 
-- **12d — Numbered context circles have matching files**: Every numbered context circle (e.g. `[10]`, `[17]`) shown in a diagram must correspond to an actual `.databook.md` file in `example/contexts/` whose filename contains that number (e.g. `(10)`, `(17)`).
+- **11d — Numbered context circles have matching files**: Every numbered context circle (e.g. `[10]`, `[17]`) shown in a diagram must correspond to an actual `.databook.md` file in `example/contexts/` whose filename contains that number (e.g. `(10)`, `(17)`).
 
-- **12e — Child arrows match DataBook child links**: Every downward child arrow from category box A to category box B in a diagram must correspond to a `child:` entry in A's DataBook pointing to B's IRI. Conversely, every `child:` entry in a DataBook must be reflected by a visible child arrow in the diagram.
+- **11e — Child arrows match DataBook child links**: Every downward child arrow from category box A to category box B in a diagram must correspond to a `child:` entry in A's DataBook pointing to B's IRI. Conversely, every `child:` entry in a DataBook must be reflected by a visible child arrow in the diagram.
 
 The 9 diagrams are: `example/images/people.png`, `example/images/work.png`, `example/images/companies.png`, `example/images/finances.png`, `example/images/gov-state.png`, `example/images/gov-federal.png`, `example/images/gov-municipality.png`, `example/images/misc.png`, `example/images/affiliations.png`.
 

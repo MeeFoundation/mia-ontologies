@@ -11,7 +11,7 @@
     owl:versionIRI <http://mee.foundation/ontologies/context/1.0.1> ;
     dc:date "2026-06-01"^^xsd:date ;
     owl:imports <http://mee.foundation/ontologies/pdn-identity> ;
-    owl:versionInfo "Version 1.0.94 - remove c:Parties subclass from c:Events"@en ;
+    owl:versionInfo "Version 1.0.95 - add missing persona:Passport to context:template comment"@en ;
     rdfs:label "Context Ontology"@en ;
     rdfs:comment """Context and Category Ontology for the Mee Identity Agent"""@en .
 
@@ -45,7 +45,7 @@ context:template rdf:type owl:AnnotationProperty ;
     rdfs:label "template"@en ;
     rdfs:comment """Annotates a DataBook named graph with the persona template type that applies to it.
                     Value is one of the persona:PersonaTemplate subclasses
-                    (persona:BirthCertificate, persona:JSContactCard, persona:DriversLicense).
+                    (persona:BirthCertificate, persona:JSContactCard, persona:DriversLicense, persona:Passport).
                     Used to select the appropriate per-template SHACL shapes file for validation.
                     Applied to the named graph IRI."""@en ;
     rdfs:range <http://mee.foundation/ontologies/persona#PersonaTemplate> .

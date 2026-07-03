@@ -63,7 +63,7 @@ The description of the context container itself is carried in the DataBook's YAM
 - a named individual of `g:Group` — the context is about a group of Mia users.
 - a named individual of `o:Organization` — the context is about an organization (legal corporation or government agency).
 
-**`c:template`** — present only on context files that contain instances of a template; its value is a the name of a `p:PersonaTemplate` subclass (e.g. `"persona:BirthCertificate"`, `"persona:JSContactCard"`, `"persona:DriversLicense"`, `"persona:Passport"`).
+**`c:template`** — present only on context files that contain instances of a template; its value is the name of a `p:PersonaTemplate` subclass (e.g. `"persona:BirthCertificate"`, `"persona:JSContactCard"`, `"persona:DriversLicense"`, `"persona:Passport"`).
 
 The diagram below shows four kinds of contexts related to a hypothetical Mia user, Alice, and her interactions with a Department of Motor Vehicles (DMV) agency. Across the top are two contexts where the DMV itself is the subject, and at the bottom where Alice is the subject. At the left are contexts where Alice has made the assertions (e.g. Alice's Mia has written the claims into the context) and at the right are contexts where the DMV as the "other" has written the claims. 
 
@@ -81,7 +81,7 @@ Categories are containers of one or more *contexts* as described in the previous
 
 ### Five kinds of categories
 
-Categories are of two broad types `c:Predefined` or `c:UserDefined`. Predefined categories are further divided into `c:PersonPredefined` and `c:OrgPredefined`. The former is a set of generally useful categories to organize a person's personal, non-work, life. The latter is a set of categories tuned to a person's working life. `c:UserDefined` categories (display label "Category") are used can be used internally to as a navigational container but have no external aspect. 
+Categories are of two broad types `c:Predefined` or `c:UserDefined`. Predefined categories are further divided into `c:PersonPredefined` and `c:OrgPredefined`. The former is a set of generally useful categories to organize a person's personal, non-work, life. The latter is a set of categories tuned to a person's working life. `c:UserDefined` categories (display label "Category") can be used internally as a navigational container but have no external aspect. 
 
 A special subclass of `c:UserDefined` is `c:ConnectionCategory`. It's an abstract super class for categories that represent some kind of relationship with one or more external parties. There are two types, `c:TwoParty` (a 1:1 relationship with a specific person, organization, or other party — display label "Connection"), and `c:MultiParty` (a shared multi-party relationship with a group of people or organizations — display label "Circle"). 
 
@@ -116,9 +116,9 @@ In the normal case `c:note` and `c:folder` are technically redundant — both pa
 
 The diagram below shows a minimal example of a category tree with five kinds of nodes as well as referenced contexts (the white and green circles). At the top is a `c:PersonPredefined` predefined category and its child, a `c:OrgPredefined` category. At the third level is a `c:UserDefined` category which contains as its first child, a "Connection" (c:TwoParty category) between the user and another Mia user, Bob. Its second child is a "Circle" (`c:MultiParty`)--the Boston Hub Society (BHS) professional social network.
 
-The top-to-bottom ordering of the two predefined category trees is preserved when copied to the user's tree, although the user is alwaysfree to insert any number of user-defined categories at any level in the resulting tree. 
+The top-to-bottom ordering of the two predefined category trees is preserved when copied to the user's tree, although the user is always free to insert any number of user-defined categories at any level in the resulting tree. 
 
-In each of these five example categories contains contexts shown as circles. White circles are contexts whose triples are asserted by the self (the user). Green circles are contexts whose triples are asserted by a person other than the self (i:Individual), by an organization (i:Organization) or by a group (i:Group), and synchronized with the user's Mia instance over the PDN. For example the BHS category at the bottom has three contexts: Self (the user)'s BHS profile, Carol's BHS profile (asserted by Carol) and information about the BHS itself (as asserted by the BHS) in the last green circle.
+Each of these five example categories contains contexts shown as circles. White circles are contexts whose triples are asserted by the self (the user). Green circles are contexts whose triples are asserted by a person other than the self (i:Individual), by an organization (i:Organization) or by a group (i:Group), and synchronized with the user's Mia instance over the PDN. For example the BHS category at the bottom has three contexts: Self (the user)'s BHS profile, Carol's BHS profile (asserted by Carol) and information about the BHS itself (as asserted by the BHS) in the last green circle.
 
 <p align="center"><img src="images/context-ontology/categories+contexts.png" alt="Categories and contexts"></p>
 
@@ -126,54 +126,54 @@ In each of these five example categories contains contexts shown as circles. Whi
 
 `c:PersonPredefined` categories (and sub-categories) are used to organize a person's information:
 
-1. **People** — people in your social or professional life.
-    - **Family** — family members.
-    - **Marriage/Partner** — a spouse or life partner.
-    - **Friends** — interactions with friends.
-    - **Consultants** — individuals who are consultants and provide services to you.
-1. **Affiliations** — sports clubs, teams, charities, faith groups, and social networks. Some may be `c:MultiParty` "Circles" that exist as a `g:Group` on the PDN.
-1. **Health** — personal health and wellness information. Medical history, allergies, medications, vaccinations.
-    - **Healthcare** — healthcare providers or health insurance companies.
-1. **Finances** — information about personal finances, bookkeeping, budgets, payment cards, bank accounts.
-    - **Financial Services** — banks or other financial services institutions.
-1. **Pets** — care instructions, veterinarians, medicines, food providers.
-1. **Home** — owning or renting a home, apartment, or other dwelling. Leases, deeds, utility accounts, real estate brokers.
-1. **Work** — professional roles. Employment history, resume/CV.
-    - **Employee** — your role employee of some company. Your business card at this company. 
-    - **Contributor** — your role as a contributor to initiatives started or led by others.
-    - **Creator** — your role as a creator, inventor, founder, or author.
-1. **Ownership** — owned assets, property, vehicles, and other possessions.
-    - **Vehicles** — related to owning and maintaining a vehicle. Vehicle insurance, repairs, mechanics, garages. 
-1. **Travel** — travel plans, trips, and related information. Loyalty programs, airlines, bus lines, trains.
-1. **Food** — food preferences, dietary restrictions, favorite restaurants, recipes, shopping lists, and other food-related interests
-1. **Legal** — legal matters, contracts, agreements, trusts, wills, and professional legal relationships.
-1. **Projects** — involvement in a specific project or initiative.
-1. **Events** — participation in or relationship to a specific event or gathering.
-1. **Information** — general knowledge selected by you, web links, documents, images.
-    - **Learnings** — knowledge gained through personal experience.
-1. **Government** — government-issued credentials, tax records, and civic relationships.
-    - **Federal** — federal government context (e.g. passport, federal tax records).
-    - **State** — state government context (e.g. driver's license, state tax records).
-    - **Municipality** — municipal government context (e.g. local permits, library card).
-1. **Companies** — miscellaneous companies and organizations that provide services or products to you. See also Finances, Health, Home, Food for companies and organizations related to those areas.
+1. **People** (`c:People`) — people in your social or professional life.
+    - **Family** (`c:Family`) — family members.
+    - **Marriage/Partner** (`c:MarriagePartner`) — a spouse or life partner.
+    - **Friends** (`c:Friends`) — interactions with friends.
+    - **Consultants** (`c:Consultants`) — individuals who are consultants and provide services to you.
+1. **Affiliations** (`c:Affiliations`) — sports clubs, teams, charities, faith groups, and social networks. Some may be `c:MultiParty` "Circles" that exist as a `g:Group` on the PDN.
+1. **Health** (`c:Health`) — personal health and wellness information. Medical history, allergies, medications, vaccinations.
+    - **Healthcare** (`c:Healthcare`) — healthcare providers or health insurance companies.
+1. **Finances** (`c:Finances`) — information about personal finances, bookkeeping, budgets, payment cards, bank accounts.
+    - **Financial Services** (`c:FinancialServices`) — banks or other financial services institutions.
+1. **Pets** (`c:Pets`) — care instructions, veterinarians, medicines, food providers.
+1. **Home** (`c:Home`) — owning or renting a home, apartment, or other dwelling. Leases, deeds, utility accounts, real estate brokers.
+1. **Work** (`c:Work`) — professional roles. Employment history, resume/CV.
+    - **Employee** (`c:Employee`) — your role employee of some company. Your business card at this company. 
+    - **Contributor** (`c:Contributor`) — your role as a contributor to initiatives started or led by others.
+    - **Creator** (`c:Creator`) — your role as a creator, inventor, founder, or author.
+1. **Ownership** (`c:Ownership`) — owned assets, property, vehicles, and other possessions.
+    - **Vehicles** (`c:Vehicles`) — related to owning and maintaining a vehicle. Vehicle insurance, repairs, mechanics, garages. 
+1. **Travel** (`c:Travel`) — travel plans, trips, and related information. Loyalty programs, airlines, bus lines, trains.
+1. **Food** (`c:Food`) — food preferences, dietary restrictions, favorite restaurants, recipes, shopping lists, and other food-related interests
+1. **Legal** (`c:Legal`) — legal matters, contracts, agreements, trusts, wills, and professional legal relationships.
+1. **Projects** (`c:Projects`) — involvement in a specific project or initiative.
+1. **Events** (`c:Events`) — participation in or relationship to a specific event or gathering.
+1. **Information** (`c:Information`) — general knowledge selected by you, web links, documents, images.
+    - **Learnings** (`c:Learnings`) — knowledge gained through personal experience.
+1. **Government** (`c:Government`) — government-issued credentials, tax records, and civic relationships.
+    - **Federal** (`c:Federal`) — federal government context (e.g. passport, federal tax records).
+    - **State** (`c:State`) — state government context (e.g. driver's license, state tax records).
+    - **Municipality** (`c:Municipality`) — municipal government context (e.g. local permits, library card).
+1. **Companies** (`c:Companies`) — miscellaneous companies and organizations that provide services or products to you. See also Finances, Health, Home, Food for companies and organizations related to those areas.
 
 ### c:OrgPredefined Categories
 
 `c:OrgPredefined` categories for an organization's information:
 
-1. **Customers** — customer organizations. Rename to "Clients", etc.
-    - **Prospects** - customer prospects. Rename to "Client prospects", etc.
-1. **Partners** — firms that provide goods and services.
-1. **Employees** — related to employees.
-1. **Consultants (org)** — engaged consultants.
-1. **KB** — corporate knowledge bases.
-1. **Projects (org)** — projects related to R&D, manufacturing, sales, marketing, operations, HR, etc.
-1. **Meetings (org)** — events, meetings, workshops, webinars, and gatherings.
-    - **Conferences** — a conference or professional gathering.
-1. **Suppliers** — companies that supply goods or services to this organization.
-1. **Legal (org)** — contracts and agreements.
-1. **Government (org)** — interactions with government organizations.
-1. **Finances (org)** — corporate finance-related matters.
+1. **Customers** (`c:Customers`) — customer organizations. Rename to "Clients", etc.
+    - **Prospects** (`c:Prospects`) - customer prospects. Rename to "Client prospects", etc.
+1. **Partners** (`c:Partners`) — firms that provide goods and services.
+1. **Employees** (`c:Employees`) — related to employees.
+1. **Consultants (org)** (`c:Consultants(org)`) — engaged consultants.
+1. **KB** (`c:KB`) — corporate knowledge bases.
+1. **Projects (org)** (`c:Projects(org)`) — projects related to R&D, manufacturing, sales, marketing, operations, HR, etc.
+1. **Meetings (org)** (`c:Meetings(org)`) — events, meetings, workshops, webinars, and gatherings.
+    - **Conferences** (`c:Conferences`) — a conference or professional gathering.
+1. **Suppliers** (`c:Suppliers`) — companies that supply goods or services to this organization.
+1. **Legal (org)** (`c:Legal(org)`) — contracts and agreements.
+1. **Government (org)** (`c:Government(org)`) — interactions with government organizations.
+1. **Finances (org)** (`c:Finances(org)`) — corporate finance-related matters.
 
 ### Category DataBooks
 
@@ -220,7 +220,7 @@ Each category DataBook in the user's tree may carry up to four optional links to
 
 - **`context-shacl.ttl`** — SHACL shapes for category DataBook instances. Constrains `c:Category` instances to at most one `c:sbs` value, and `c:ConnectionCategory` instances to at most one `c:obs` and at most one `c:sbo` value; `c:obo` is unconstrained (0..N).
 
-### Validation
+### Context Ontology Validation
 
 Context file metadata (category, asserter, subject, about-by) is declared in YAML frontmatter and validated at authoring time by convention. Category DataBook instances are validated by `context-shacl.ttl`.
 
@@ -228,21 +228,21 @@ Context file metadata (category, asserter, subject, about-by) is declared in YAM
 
 The Persona ontology defines a formal, machine-readable model of a person. It is used by Mia to represent the user as well as information about other people. Mia can bi-directionally synchronize information with other Mia users on a Personal Data Network (PDN).  
 
-We represent a person with the `persona:Person` class — a Mia-specific subclass of CCO `Person` (`cco:ont00001262`). Each context file contains exactly one `persona:Person` individual. The Mia user's own `persona:Person` individual always uses the IRI `:Self` across all of their context files; other people, groups, and organizations are assigned locally-minted named IRIs (e.g. `:Bob_Johnson`). These context files function as *named-graph slices* — each is an independent snapshot of an identity in a specific relationship or institutional context, carrying the claims relevant to that context: names, addresses, phone numbers, SSNs, physical characteristics, parent-child relationships, social connections, payment cards, and more. The Persona ontology reuses existing well-known ontologies wherever possible and defines new terms only where no suitable existing term exists.
+We represent a person with the `p:Person` class — a Mia-specific subclass of CCO `Person` (`cco:ont00001262`). Each context file contains exactly one `p:Person` individual. The Mia user's own `p:Person` individual always uses the IRI `:Self` across all of their context files; other people, groups, and organizations are assigned locally-minted named IRIs (e.g. `:Bob_Johnson`). These context files function as *named-graph slices* — each is an independent snapshot of an identity in a specific relationship or institutional context, carrying the claims relevant to that context: names, addresses, phone numbers, SSNs, physical characteristics, parent-child relationships, social connections, payment cards, and more. The Persona ontology reuses existing well-known ontologies wherever possible and defines new terms only where no suitable existing term exists.
 
 <p align="center"><img src="images/persona-ontology/persona.png" alt="Persona model"></p>
 
 ### Key properties and classes
 
-This section describes the most fundamental properties and classes in the Persona ontology. A person's identity data is spread across multiple named-graph slice files, each containing one `persona:Person` individual. The Mia user's slices share the IRI `:Self`; each other person's slices share their locally-assigned named IRI.
+This section describes the most fundamental properties and classes in the Persona ontology. A person's identity data is spread across multiple named-graph slice files, each containing one `p:Person` individual. The Mia user's slices share the IRI `:Self`; each other person's slices share their locally-assigned named IRI.
 
 **Classes**
 
-* `persona:Person` — a Mia-specific subclass of CCO `Person` (`cco:ont00001262`). Each context file (named-graph slice) contains exactly one `persona:Person` individual. The Mia user's own `persona:Person` always uses the IRI `:Self`, shared across all of their context files. Other people, groups, and organizations are assigned locally-minted named IRIs (e.g. `:Bob_Johnson`, `:Paula_Walker`). `:Self` is a local IRI and is never exposed externally over the PDN, so there are no collisions between Mia instances. All identity data — names, identifiers, addresses, social networks, payment cards, and more — attaches to this individual.
+* `p:Person` — a Mia-specific subclass of CCO `Person` (`cco:ont00001262`). Each context file (named-graph slice) contains exactly one `p:Person` individual. The Mia user's own `p:Person` always uses the IRI `:Self`, shared across all of their context files. Other people, groups, and organizations are assigned locally-minted named IRIs (e.g. `:Bob_Johnson`, `:Paula_Walker`). `:Self` is a local IRI and is never exposed externally over the PDN, so there are no collisions between Mia instances. All identity data — names, identifiers, addresses, social networks, payment cards, and more — attaches to this individual.
 
 **Properties**
 
-* `i:hasPDNidentifier` — links a `persona:Person` to a `i:PDNidentifier` — the identifier used to communicate with this Person over the Personal Data Network. Sub-property of CCO `designated by`.
+* `i:hasPDNidentifier` — links a `p:Person` to a `i:PDNidentifier` — the identifier used to communicate with this `Person` over the Personal Data Network. Sub-property of CCO `designated by`.
 
 
 ### Social classes and properties 
@@ -255,15 +255,15 @@ This section describes classes and properties related to a person's social netwo
 
 **Properties**
 
-* `p:hasSocialNetwork` - a social network — other people known by the `persona:Person` carrying the social network. The holder is not included as a member part of the social network object, but *is* considered to be a part of it by virtue of holding the network entity.
-* `BFO_0000115` - has member part. Links to `persona:Person` members of this network.
+* `p:hasSocialNetwork` - a social network — other people known by the `p:Person` carrying the social network. The holder is not included as a member part of the social network object, but *is* considered to be a part of it by virtue of holding the network entity.
+* `BFO_0000115` - has member part. Links to `p:Person` members of this network.
 
 ### Possession-related classes and properties
 
 This section describes properties and classes related to things a person has, holds, possesses, purchased, or rents. 
 
  - Physical plastic/paper cards are `MaterialArtifact` subclasses that include driver's license, health insurance card, payment card, etc.
- - Physical wallets - Cards may be placed in a wallet (via BFO `continuant part of`) or held directly by the `persona:Person` (via `p:hasPhysicalCard`).
+ - Physical wallets - Cards may be placed in a wallet (via BFO `continuant part of`) or held directly by the `p:Person` (via `p:hasPhysicalCard`).
 
 <p align="center"><img src="images/persona-ontology/persona-card.png" alt="Card possessions model"></p>
 
@@ -278,10 +278,10 @@ This section describes properties and classes related to things a person has, ho
 
 **Properties**
 
-* `is carrier of` (from BFO) — used to link a physical card to its corresponding `persona:Person` in another context.
-* `p:hasWallet` — links a `persona:Person` to a physical wallet (see Possessions below).
+* `is carrier of` (from BFO) — used to link a physical card to its corresponding `p:Person` in another context.
+* `p:hasWallet` — links a `p:Person` to a physical wallet (see Possessions below).
 * `p:hasImageScan` — a link to a scanned image of this card.
-* `p:hasPhysicalCard` — links a `persona:Person` to a `p:PhysicalCard` carried outside of a wallet (see Possessions below).
+* `p:hasPhysicalCard` — links a `p:Person` to a `p:PhysicalCard` carried outside of a wallet (see Possessions below).
 
 ### Accounts
 
@@ -289,7 +289,7 @@ This section describes properties and classes related to a person's relationship
 
 **Properties**
 
-* `holds user account` (CCO) — links a `persona:Person` to an `OnlineServiceAccount`.
+* `holds user account` (CCO) — links a `p:Person` to an `OnlineServiceAccount`.
 * `has service name` (CCO) — the name of the online service (e.g. "Google").
 * `has service URI` (CCO) — the URI of the online service.
 * `has user handle` (CCO) — the user's handle or username on the service.
@@ -307,20 +307,20 @@ This section describes properties and classes related to a person's interactions
 
 **Properties**
 
-* `p:hasBankAccount` — links a `persona:Person` to a `p:CheckingAccount` it records.
+* `p:hasBankAccount` — links a `p:Person` to a `p:CheckingAccount` it records.
 * `p:accessesBankAccount` — links a DebitCard to the `p:CheckingAccount` it draws funds from.
 
 ### Modeling details
 
 This section describes a few details related to modeling names and addresses.
 
-**Peer name pattern**: All name types (FullName, GivenName, FamilyName, AlternateName) connect directly to a `persona:Person` via `designated by` (`ont00001879`). They are siblings, not nested under a PersonName parent. Legal names belong to the birth certificate context file (annotated `c:template persona:BirthCertificate`); a preferred/goes-by name (AlternateName) belongs to each social or professional context where it applies.
+**Peer name pattern**: All name types (FullName, GivenName, FamilyName, AlternateName) connect directly to a `p:Person` via `designated by` (`ont00001879`). They are siblings, not nested under a PersonName parent. Legal names belong to the birth certificate context file (annotated `c:template p:BirthCertificate`); a preferred/goes-by name (AlternateName) belongs to each social or professional context where it applies.
 
-**Address history**: Each address context file carries a `persona:Person` with a USPostalAddress and an `AddressDesignation` with a `TemporalInterval` (start date required; no end date = current address).
+**Address history**: Each address context file carries a `p:Person` with a USPostalAddress and an `AddressDesignation` with a `TemporalInterval` (start date required; no end date = current address).
 
 ### Persona Templates
 
-`p:PersonaTemplate` is an abstract classification class that serves as the common superclass for all reusable, context-type-specific template labels. These labels are defined in `persona-templates.ttl`. A context file declares its template in the YAML frontmatter as `mia.template` rather than by typing its `persona:Person` individual. Per-template SHACL files live in the `shacl/` subdirectory.
+`p:PersonaTemplate` is an abstract classification class that serves as the common superclass for all reusable, context-type-specific template labels. These labels are defined in `persona-templates.ttl`. A context file declares its template in the YAML frontmatter as `mia.template` rather than by typing its `p:Person` individual. Per-template SHACL files live in the `shacl/` subdirectory.
 
 <p align="center"><img src="images/persona-ontology/persona-templates.png" alt="persona templates model"></p>
 
@@ -387,8 +387,8 @@ The table below maps every JSContact (RFC 9553) property to its representation i
 | ↳ `level` | — | **JSC** `p:personalInfoLevel` | datatype property | — |
 | `photos[].uri` | 0..N | **JSC** `p:hasPhoto` (xsd:anyURI) | datatype property | — |
 | `legalName` | 0..1 | `cco:ont00001331` Legal Name | `designated by` | — |
-| `uid` | 1 | IRI of the `persona:Person` individual | — | — |
-| `notes` | 0..N | Person Note via `has text value` | `designated by` | — |
+| `uid` | 1 | IRI of the `p:Person` individual | — | — |
+| `notes` | 0..N | `Person` Note via `has text value` | `designated by` | — |
 | `relatedTo` | 0..N | `BFO_0000115` (member) | object property | — |
 | `updated` | 0..1 | `version:` in the DataBook YAML frontmatter | YAML field | — |
 | `language` | 0..1 | *(not yet mapped)* | — | — |
@@ -398,30 +398,30 @@ The table below maps every JSContact (RFC 9553) property to its representation i
 
 ### Persona Ontology Files
 
-- **`persona.ttl`** — The Persona ontology. Imports the domain ontologies above and documents which classes and properties Mia uses (required vs. optional). Defines `persona:Person` (Mee-specific subclass of CCO `Person`), Mia-specific extension properties (`p:hasSocialNetwork`, `p:hasPaymentCard`, `p:hasBankAccount`, etc.), and the core data model classes (physical card classes, banking classes, and others).
-- **`persona-templates.ttl`** — Defines `p:PersonaTemplate` (abstract classification superclass) and the four concrete subtypes `p:BirthCertificate`, `p:JSContactCard`, `p:DriversLicense`, and `p:Passport`. These are used as values of `mia.template` in the DataBook YAML frontmatter — they classify the context file, not the `persona:Person` individual inside it. Also defines `p:IdentityDocument` (superclass for government-issued identity document artifacts) and `p:hasIdentityDocument` (links a `p:Person` to a `p:IdentityDocument` individual they hold); `p:BirthCertificate`, `p:DriversLicense`, and `p:Passport` are subclasses of both `p:PersonaTemplate` and `p:IdentityDocument`. Also defines related designator classes (`p:DriversLicenseNumber`, `p:IssuingJurisdiction`, `p:PassportNumber`, `p:IssuingCountry`, `p:PlaceOfBirth`, `p:GenderMarker`, `p:IssueDate`, `p:Credential`, `p:WebURL`, `p:OrganizationUnit`, `p:JobTitle`), complex information classes (`p:Anniversary`, `p:PersonalInfo`), annotation properties for JSContact channel labels (`p:contactContext`, `p:phoneFeature`, `p:serviceLabel`), and `p:hasPhoto`. Imported by `persona.ttl` so all context files inherit these classes transitively.
+- **`persona.ttl`** — The Persona ontology. Imports the domain ontologies above and documents which classes and properties Mia uses (required vs. optional). Defines `p:Person` (Mee-specific subclass of CCO `Person`), Mia-specific extension properties (`p:hasSocialNetwork`, `p:hasPaymentCard`, `p:hasBankAccount`, etc.), and the core data model classes (physical card classes, banking classes, and others).
+- **`persona-templates.ttl`** — Defines `p:PersonaTemplate` (abstract classification superclass) and the four concrete subtypes `p:BirthCertificate`, `p:JSContactCard`, `p:DriversLicense`, and `p:Passport`. These are used as values of `mia.template` in the DataBook YAML frontmatter — they classify the context file, not the `p:Person` individual inside it. Also defines `p:IdentityDocument` (superclass for government-issued identity document artifacts) and `p:hasIdentityDocument` (links a `p:Person` to a `p:IdentityDocument` individual they hold); `p:BirthCertificate`, `p:DriversLicense`, and `p:Passport` are subclasses of both `p:PersonaTemplate` and `p:IdentityDocument`. Also defines related designator classes (`p:DriversLicenseNumber`, `p:IssuingJurisdiction`, `p:PassportNumber`, `p:IssuingCountry`, `p:PlaceOfBirth`, `p:GenderMarker`, `p:IssueDate`, `p:Credential`, `p:WebURL`, `p:OrganizationUnit`, `p:JobTitle`), complex information classes (`p:Anniversary`, `p:PersonalInfo`), annotation properties for JSContact channel labels (`p:contactContext`, `p:phoneFeature`, `p:serviceLabel`), and `p:hasPhoto`. Imported by `persona.ttl` so all context files inherit these classes transitively.
 
-- **`shacl/birthcertificate-shacl.ttl`** — SHACL shapes for birth certificate context files (`c:template persona:BirthCertificate`). `:BirthCertificateDocumentShape` targets `persona:BirthCertificate` document individuals directly — all identity claims (names) are properties of the document individual, not the `persona:Person`. Enforces: FullName OR (GivenName + FamilyName) required; optional AdditionalName, AlternateName, Nickname, Legal Name.
+- **`shacl/birthcertificate-shacl.ttl`** — SHACL shapes for birth certificate context files (`c:template p:BirthCertificate`). `:BirthCertificateDocumentShape` targets `p:BirthCertificate` document individuals directly — all identity claims (names) are properties of the document individual, not the `p:Person`. Enforces: FullName OR (GivenName + FamilyName) required; optional AdditionalName, AlternateName, Nickname, Legal Name.
 
-- **`shacl/jscontactcard-shacl.ttl`** — SHACL shapes for JSContactCard context files (`c:template persona:JSContactCard`). Validates `persona:Person` instances:
+- **`shacl/jscontactcard-shacl.ttl`** — SHACL shapes for JSContactCard context files (`c:template p:JSContactCard`). Validates `p:Person` instances:
   - OrganizationName required (1..1); at least one Email or TelephoneNumber required; all name components and OrganizationUnit/JobTitle optional (0..1 each).
 
-- **`shacl/driverslicense-shacl.ttl`** — SHACL shapes for driver's license context files (`c:template persona:DriversLicense`). `:DriversLicenseDocumentShape` targets `persona:DriversLicense` document individuals directly — all identity claims are properties of the document individual, not the `persona:Person`. Enforces: FullName OR (GivenName + FamilyName) required; Birthdate, DriversLicenseNumber, ExpirationDateIdentifier required (1..1 each); IssuingJurisdiction, PostalAddress, and hasPhoto optional.
+- **`shacl/driverslicense-shacl.ttl`** — SHACL shapes for driver's license context files (`c:template p:DriversLicense`). `:DriversLicenseDocumentShape` targets `p:DriversLicense` document individuals directly — all identity claims are properties of the document individual, not the `p:Person`. Enforces: FullName OR (GivenName + FamilyName) required; Birthdate, DriversLicenseNumber, ExpirationDateIdentifier required (1..1 each); IssuingJurisdiction, PostalAddress, and hasPhoto optional.
 
-- **`shacl/passport-shacl.ttl`** — SHACL shapes for passport context files (`c:template persona:Passport`). `:PassportDocumentShape` targets `persona:Passport` document individuals directly — all identity claims are properties of the document individual, not the `persona:Person`. Enforces: FullName OR (GivenName + FamilyName) required; Birthdate, PassportNumber, ExpirationDateIdentifier required (1..1 each); IssueDate, IssuingCountry, PlaceOfBirth, GenderMarker, and hasPhoto optional.
+- **`shacl/passport-shacl.ttl`** — SHACL shapes for passport context files (`c:template p:Passport`). `:PassportDocumentShape` targets `p:Passport` document individuals directly — all identity claims are properties of the document individual, not the `p:Person`. Enforces: FullName OR (GivenName + FamilyName) required; Birthdate, PassportNumber, ExpirationDateIdentifier required (1..1 each); IssueDate, IssuingCountry, PlaceOfBirth, GenderMarker, and hasPhoto optional.
 
-- **`persona-shacl.ttl`** — SHACL constraint rules for all `persona:Person` individuals across all context files. Validates properties including:
-  - *All `persona:Person` instances*: SSN format (`NNN-NN-NNNN`), email format, phone (E.164), address cardinality, payment cards, wallet, social network, bank account
+- **`persona-shacl.ttl`** — SHACL constraint rules for all `p:Person` individuals across all context files. Validates properties including:
+  - *All `p:Person` instances*: SSN format (`NNN-NN-NNNN`), email format, phone (E.164), address cardinality, payment cards, wallet, social network, bank account
   - *US Postal Address*: required street, city, state (USPS 2-letter), ZIP; optional country
-  - *`persona:Person`*: scalp hair (0..1); `has mother` / `is mother of` range must be a `persona:Person`
-  - *Social Network*: sub-groups (via `has part`) must be Social Networks; members (via `has member part`) must be `persona:Person` instances
+  - *`p:Person`*: scalp hair (0..1); `has mother` / `is mother of` range must be a `p:Person`
+  - *Social Network*: sub-groups (via `has part`) must be Social Networks; members (via `has member part`) must be `p:Person` instances
   - *Debit Card*: card number and expiration date required; CVV optional
   - *`p:Wallet`*: items declaring themselves `continuant part of` this wallet must be `p:PhysicalCard` instances
   - *`p:PhysicalCard`*: image scan, if present, must be `xsd:anyURI` (max 1); `continuant part of` target, if present, must be a `p:Wallet` (max 1)
 
-### Validation
+### Persona Ontology Validation
 
-`persona-shacl.ttl` runs against merged data from all context files (Tier 1 validation). Per-template SHACL files in `shacl/` run against individual context files (Tier 2): birth certificate, JSContactCard, driver's license, and passport each have their own shape file and are validated separately to avoid their `sh:targetClass persona:Person` constraints firing on every person slice in the merged dataset. See the [Validation](#validation) section for commands.
+`persona-shacl.ttl` runs against merged data from all context files (Tier 1 validation). Per-template SHACL files in `shacl/` run against individual context files (Tier 2): birth certificate, JSContactCard, driver's license, and passport each have their own shape file and are validated separately to avoid their `sh:targetClass p:Person` constraints firing on every person slice in the merged dataset. See the [Validation](#validation) section for commands.
 
 ## Organization Ontology
 
@@ -437,7 +437,7 @@ The Organization ontology models organizations — companies, government agencie
 
 - **`organization.ttl`** — The Organization ontology. Imports `pdn-identity.ttl`.
 
-### Validation
+### Organization Ontology Validation
 
 `organization-shacl.ttl` validates `o:Organization` instances. Key constraint: each `o:Organization` must have exactly one `i:hasPDNidentifier` value of type `i:Organization`.
 
@@ -455,7 +455,7 @@ The Group ontology introduces the concept of a *shared* group (`g:Group`) whose 
 
 - **`group.ttl`** — The Group ontology. Imports `pdn-identity.ttl`.
 
-### Validation
+### Group Ontology Validation
 
 `group-shacl.ttl` validates `g:Group` instances. Key constraint: each `g:Group` must have exactly one `i:hasPDNidentifier` value of type `i:Group`.
 
@@ -479,7 +479,7 @@ The Identity ontology is used to describe the kinds of identities that Mia can c
 
 - **`pdn-identity.ttl`** — The PDN Identity ontology. 
 
-### Validation
+### PDN Identity Ontology Validation
 
 `pdn-identity-shacl.ttl` validates `i:PDNidentifier` instances. Key constraint: each instance must be typed as exactly one of `i:Individual`, `i:Group`, or `i:Organization`.
 
@@ -491,7 +491,7 @@ This section describes the local Mia dataset for a hypothetical user, Alice Walk
 
 Alice interacts with other people, organizations and groups in contexts of different types, with each context file holding a named-graph. 
 
-Alice's context DataBooks are in `example/contexts.` Some are authored by Alice (self-asserted data--data she entered herself into her Mia app); others contain data received from peer Mia users or organizational peers over PDN and stored locally. In either case, Alice is the Mia user, so the `persona:Person` that represents her uses the IRI `:Self` across all of her context files. Other people — Bob Johnson, Paula Walker — and groups such as BHS use locally-assigned named IRIs (e.g. `:Bob_Johnson`, `:Paula_Walker`, `:BHS`). When data arrives from a peer's Mia (where that peer was `:Self` in their own instance), Alice's Mia assigns them a locally-minted identifier; once a PDN connection is established, that identifier resolves to their PDN id.
+Alice's context DataBooks are in `example/contexts.` Some are authored by Alice (self-asserted data--data she entered herself into her Mia app); others contain data received from peer Mia users or organizational peers over PDN and stored locally. In either case, Alice is the Mia user, so the `p:Person` that represents her uses the IRI `:Self` across all of her context files. Other people — Bob Johnson, Paula Walker — and groups such as BHS use locally-assigned named IRIs (e.g. `:Bob_Johnson`, `:Paula_Walker`, `:BHS`). When data arrives from a peer's Mia (where that peer was `:Self` in their own instance), Alice's Mia assigns them a locally-minted identifier; once a PDN connection is established, that identifier resolves to their PDN id.
 
 Alice's category DataBooks are in `example/categories/`. The full tree can be walked starting from `example/categories/categories.databook.md`. It contains two kinds of entries:
 
@@ -500,7 +500,7 @@ Alice's category DataBooks are in `example/categories/`. The full tree can be wa
 
 #### Category and Context Diagrams
 
-The following sequence of diagrams maps out the categories and contexts of our Alice example. We start with the People category--Alice's relationships with someone she knows named Bob Johnson and her mother Paula Walker. Alice has placed Bob in the general People category, rather than in Friends. We're not sure why she did this, but the example shows its permissible and up to Alice. 
+The following sequence of diagrams maps out the categories and contexts of our Alice example. We start with the People category--Alice's relationships with someone she knows named Bob Johnson and her mother Paula Walker. Alice has placed Bob in the general People category, rather than in Friends. We're not sure why she did this, but the example shows it's permissible and up to Alice. 
 
 Contexts with dotted outlines are placeholders for contexts in category — Alice could fill a context in any of these placeholders if she wishes, and the claims in the context. 
 
@@ -510,7 +510,7 @@ Alice and her sister, Carol, are taking care of their mother Paula Walker and ne
 
 <p align="center"><img src="example/images/third-party.png" alt="Third party Connection category"></p>
 
-Alice is an employee of Acme, so under her employee category she has created a user-defined category call Acme to represent her Alice-as-employee-of-Acme persona and to this she has added a set of Business Card claims that include her job title at Acme, her work telephone number, her Acme email, etc. Since Acme is an organization, Alice has under her Acme category switched from adding `c:PersonPredefined` categories to `c:OrgPredefined` categories (light blue color) and added an Empployees category which acts as a parent holding categories for each of her colleagues at Acme. One of the employees she works with is Paula Walker, so she adds a Paula Walker category.
+Alice is an employee of Acme, so under her employee category she has created a user-defined category call Acme to represent her Alice-as-employee-of-Acme persona and to this she has added a set of Business Card claims that include her job title at Acme, her work telephone number, her Acme email, etc. Since Acme is an organization, Alice has under her Acme category switched from adding `c:PersonPredefined` categories to `c:OrgPredefined` categories (light blue color) and added an Employees category which acts as a parent holding categories for each of her colleagues at Acme. One of the employees she works with is Paula Walker, so she adds a Paula Walker category.
 <p align="center"><img src="example/images/work.png" alt="Work categories"></p>
 
 Alice has relationships with two companies, Google and AT&T:
@@ -605,7 +605,7 @@ pip install rdflib pyyaml
 npm install -g @mermaid-js/mermaid-cli
 ```
 
-Each diagram shows the `persona:Person` individual (yellow), supporting named individuals (white boxes), class labels (plain text), blank-node designator chains, and literal values (green).
+Each diagram shows the `p:Person` individual (yellow), supporting named individuals (white boxes), class labels (plain text), blank-node designator chains, and literal values (green).
 
 ## Validation
 
@@ -626,7 +626,7 @@ A file that fails here will also fail silently in `databook extract`, producing 
 
 ### Tier 1 — general validation (all context files)
 
-`persona-shacl.ttl` applies to every `persona:Person` individual across all context files.
+`persona-shacl.ttl` applies to every `p:Person` individual across all context files.
 
 ```bash
 # Step 1 — extract turtle from every DataBook file (excluding under-development)
@@ -657,7 +657,7 @@ Expected output: `Conforms`
 
 ### Tier 2 — per-template validation (individual context files)
 
-The `shacl/` shapes target document classes (`persona:BirthCertificate`, `persona:DriversLicense`, `persona:Passport`) or `persona:Person` (JSContactCard). Each template SHACL file is run against only the relevant context file merged with the foundation ontologies.
+The `shacl/` shapes target document classes (`p:BirthCertificate`, `p:DriversLicense`, `p:Passport`) or `p:Person` (JSContactCard). Each template SHACL file is run against only the relevant context file merged with the foundation ontologies.
 
 ```bash
 # Shared base: foundation ontologies + application ontologies
