@@ -9,5 +9,6 @@ description: >
   DataBooks about companies that supply goods or services to this
   organization. Top-level OrgPredefined category.
 mia:
-  category-type: OrgPredefined
+  origin-type: OrgPredefined
+  category-type: OneParty
 ---

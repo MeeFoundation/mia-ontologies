@@ -8,7 +8,8 @@ description: >
   Example copy of the Companies category DataBook, extended with Alice's user-defined
   company categories.
 mia:
-  category-type: PersonPredefined
+  origin-type: PersonPredefined
+  category-type: OneParty
   copiedFrom: "http://mee.foundation/ontologies/categories-person/companies"
   child:
     - "http://www.example.org/mia/categories/google(companies)"

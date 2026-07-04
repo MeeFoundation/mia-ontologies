@@ -7,7 +7,7 @@ created: 2026-06-22
 description: >
   Root category DataBook. Parent of all top-level predefined categories.
 mia:
-  predefined: true
+  origin-type: PersonPredefined
   child:
     - "http://mee.foundation/ontologies/categories-person/people"
     - "http://mee.foundation/ontologies/categories-person/work"

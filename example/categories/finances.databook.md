@@ -8,7 +8,8 @@ description: >
   Example copy of the Finances category DataBook, extended with Alice's user-defined
   financial institution categories.
 mia:
-  category-type: PersonPredefined
+  origin-type: PersonPredefined
+  category-type: OneParty
   copiedFrom: "http://mee.foundation/ontologies/categories-person/finances"
   child:
     - "http://www.example.org/mia/categories/financial-services(finances)"

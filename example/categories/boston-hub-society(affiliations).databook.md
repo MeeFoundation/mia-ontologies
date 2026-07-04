@@ -8,6 +8,7 @@ description: >
   UserDefined category DataBook for Alice's relationship with the Boston Hub Society.
   Child of the Affiliations category.
 mia:
+  origin-type: UserDefined
   category-type: MultiParty
   sbs: "https://www.example.org/mia/contexts/self.self(boston-hub-society)(affiliations)(14)"
   obo:

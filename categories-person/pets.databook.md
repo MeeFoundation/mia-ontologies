@@ -9,5 +9,6 @@ description: >
   about taking care of pets, including veterinarians, medicines, and food providers.
   Child of Possessions.
 mia:
-  category-type: PersonPredefined
+  origin-type: PersonPredefined
+  category-type: OneParty
 ---

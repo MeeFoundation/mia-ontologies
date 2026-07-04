@@ -8,5 +8,6 @@ description: >
   Category DataBook for the Legal (org) category. Groups context
   DataBooks about contracts and agreements. Top-level OrgPredefined category.
 mia:
-  category-type: OrgPredefined
+  origin-type: OrgPredefined
+  category-type: OneParty
 ---

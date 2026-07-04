@@ -8,6 +8,7 @@ description: >
   UserDefined category DataBook for Alice's relationship with Citibank.
   Child of the Financial Services category.
 mia:
+  origin-type: UserDefined
   category-type: TwoParty
   sbo: "https://www.example.org/mia/contexts/self.citibank(citibank)(financial-services)(09)"
 ---

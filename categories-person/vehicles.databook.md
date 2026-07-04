@@ -9,5 +9,6 @@ description: >
   about owning and maintaining a vehicle, including vehicle insurance, repairs,
   mechanics, and garages. Child of Possessions.
 mia:
-  category-type: PersonPredefined
+  origin-type: PersonPredefined
+  category-type: OneParty
 ---

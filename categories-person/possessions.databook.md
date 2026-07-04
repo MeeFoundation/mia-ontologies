@@ -8,7 +8,8 @@ description: >
   Category DataBook for the Possessions category. Groups context DataBooks
   about owned assets, property, and possessions. Child of Categories.
 mia:
-  category-type: PersonPredefined
+  origin-type: PersonPredefined
+  category-type: OneParty
   child:
     - "http://mee.foundation/ontologies/categories-person/vehicles"
     - "http://mee.foundation/ontologies/categories-person/pets"

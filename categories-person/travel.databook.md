@@ -8,5 +8,6 @@ description: >
   Category DataBook for the Travel category. Groups context DataBooks
   about travel plans, trips, and related information. Child of Categories.
 mia:
-  category-type: PersonPredefined
+  origin-type: PersonPredefined
+  category-type: OneParty
 ---

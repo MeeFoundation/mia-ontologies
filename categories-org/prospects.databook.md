@@ -8,5 +8,6 @@ description: >
   Category DataBook for the Prospects category. Groups context
   DataBooks about customer prospects. Child of the Customers category.
 mia:
-  category-type: OrgPredefined
+  origin-type: OrgPredefined
+  category-type: OneParty
 ---

@@ -9,5 +9,6 @@ description: >
   DataBooks about corporate finance-related matters. Top-level OrgPredefined
   category.
 mia:
-  category-type: OrgPredefined
+  origin-type: OrgPredefined
+  category-type: OneParty
 ---

@@ -8,6 +8,7 @@ description: >
   UserDefined category DataBook for Alice's US Passport.
   Child of the Federal category.
 mia:
+  origin-type: UserDefined
   category-type: TwoParty
   sbs: "https://www.example.org/mia/contexts/self.self(passport)(federal)(19)"
 ---

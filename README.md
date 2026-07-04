@@ -79,11 +79,13 @@ Categories range in scope. They vary from a few broad top level categories like 
 
 Categories are containers of one or more *contexts* as described in the previous section.
 
-### Five kinds of categories
+### Origin and parties
 
-Categories are of two broad types `c:Predefined` or `c:UserDefined`. Predefined categories are further divided into `c:PersonPredefined` and `c:OrgPredefined`. The former is a set of generally useful categories to organize a person's personal, non-work, life. The latter is a set of categories tuned to a person's working life. `c:UserDefined` categories (display label "Category") can be used internally as a navigational container but have no external aspect. 
+Every category (other than the invisible root) is classified two ways: whether it's predefined, and how many parties it involves.
 
-A special subclass of `c:UserDefined` is `c:ConnectionCategory`. It's an abstract super class for categories that represent some kind of relationship with one or more external parties. There are two types, `c:TwoParty` (a 1:1 relationship with a specific person, organization, or other party — display label "Connection"), and `c:MultiParty` (a shared multi-party relationship with a group of people or organizations — display label "Circle"). 
+**Origin — `mia.origin-type`.** A category is either predefined (`c:Predefined`, shipped with Mia) or `c:UserDefined` (created by the user). Predefined categories are further divided into `c:PersonPredefined` (generally useful categories for organizing a person's personal, non-work, life) and `c:OrgPredefined` (categories tuned to a person's working life). `mia.origin-type` holds the concrete classname directly (`PersonPredefined`, `OrgPredefined`, `UserDefined`, or a future predefined subclass) rather than a boolean, so new kinds of predefined origin can be added without changing the property itself.
+
+**Parties — `mia.category-type`.** `c:Parties` is an abstract subclass of `c:Category` for categories classified by how many external parties are involved in the relationship they represent. There are three types: `c:OneParty` (no external party — display label "Category"), `c:TwoParty` (a 1:1 relationship with a specific person, organization, or other party — display label "Connection"), and `c:MultiParty` (a shared multi-party relationship with a group of people or organizations — display label "Circle"). 
 
 <p align="center"><img src="images/context-ontology/category.png" alt="Category hierarchy"></p>
 
@@ -94,9 +96,9 @@ A special subclass of `c:UserDefined` is `c:ConnectionCategory`. It's an abstrac
 - **`c:folder`** — path to a folder in the *files* folder/file hierarchy for this category.
 - **`c:child`** — organizes categories into a tree structure.
 - **`c:sbs`** - link to a context that is about the self as asserted by the self (user).
-- **`c:obs`** - a context about the other party as asserted by the self. `c:ConnectionCategory` only.
-- **`c:sbo`** - a context about the self as asserted by the other party. `c:ConnectionCategory` only.
-- **`c:obo`** - a context about the other party as asserted by the other party. `c:ConnectionCategory` only.
+- **`c:obs`** - a context about the other party as asserted by the self. `c:Parties` only.
+- **`c:sbo`** - a context about the self as asserted by the other party. `c:Parties` only.
+- **`c:obo`** - a context about the other party as asserted by the other party. `c:Parties` only.
 
 #### A few details about c:note and c:folder
 `c:note` and `c:folder` point into two separate but parallel folder structures that mirror the structure of the category tree. If the category tree is `(People, (Family, Friends), Work)` then both hierarchies contain exactly the same folder names and nesting. Mia keeps both in sync with the category tree — when a category is created, renamed, or deleted, Mia updates both hierarchies automatically.
@@ -189,7 +191,8 @@ The following properties are defined in `context.ttl` and represented as `mia.` 
 
 | YAML field | Ontology property | Cardinality | Meaning |
 |------------|-------------------|-------------|---------|
-| `mia.category-type` | `c:category-type` | 1 | The concrete category subclass this DataBook instantiates: one of `PersonPredefined`, `OrgPredefined`, `TwoParty`, `MultiParty`, `UserDefined` |
+| `mia.origin-type` | `c:origin-type` | 1 | The concrete origin subclass this DataBook instantiates: `PersonPredefined`, `OrgPredefined`, `UserDefined`, or a future predefined subclass |
+| `mia.category-type` | `c:category-type` | 1 | The concrete `c:Parties` subclass this DataBook instantiates: one of `OneParty`, `TwoParty`, `MultiParty` |
 | `mia.label` | `c:label` | 1 | User-editable display name — defaults to the DataBook `title` but can be changed independently, leaving `title` and `id` immutable |
 | `mia.note` | `c:note` | 0..1 | Relative path to a markdown notes file for this category (e.g. `notes/people/paula-walker`) |
 | `mia.folder` | `c:folder` | 0..1 | Relative path to a folder of arbitrary files for this category (e.g. `people/paula-walker`) |
@@ -204,21 +207,21 @@ Each category DataBook in the user's tree may carry up to four optional links to
 | Property | Value (`c:Context` subtype) | Cardinality | Applies to | Meaning |
 |----------|---------------------|-------------|------------|---------|
 | `c:sbs` | `c:SBScontext` | 0..1 | All categories | The user's own context in this category |
-| `c:obs` | `c:OBScontext` | 0..1 | `c:ConnectionCategory` only | The user's record of the other party |
-| `c:obo` | `c:OBOcontext` | 0..N | `c:ConnectionCategory` only | A context the other party presents |
-| `c:sbo` | `c:SBOcontext` | 0..1 | `c:ConnectionCategory` only | A context the other party holds about the user |
+| `c:obs` | `c:OBScontext` | 0..1 | `c:Parties` only | The user's record of the other party |
+| `c:obo` | `c:OBOcontext` | 0..N | `c:Parties` only | A context the other party presents |
+| `c:sbo` | `c:SBOcontext` | 0..1 | `c:Parties` only | A context the other party holds about the user |
 
 `c:sbs`, `c:obs`, `c:obo`, `c:sbo` links appear only in categories in the user's tree, not in predefined categories.
 
 ### Context Ontology File
 
 - **`context.ttl`** — The Context ontology, defining:
-  - *Classes*: `c:Category`, `c:Predefined`, `c:PersonPredefined`, `c:OrgPredefined`, `c:UserDefined`, `c:ConnectionCategory`, `c:TwoParty`, `c:MultiParty` and all leaf category subclasses; `c:Context`, `c:SBScontext`, `c:OBScontext`, `c:OBOcontext`, `c:SBOcontext`.
-  - *Annotation properties*: `c:category`, `c:assertedBy`, `c:subject`, `c:about-by`, `c:template`; `c:category-type` (concrete category subclass), `c:label` (user-editable display name), `c:note` (path to markdown notes file), `c:folder` (path to associated file folder); `c:abstract` (marks a class as not directly instantiated in DataBooks).
+  - *Classes*: `c:Category`, `c:Predefined`, `c:PersonPredefined`, `c:OrgPredefined`, `c:UserDefined`, `c:Parties`, `c:OneParty`, `c:TwoParty`, `c:MultiParty` and all leaf category subclasses; `c:Context`, `c:SBScontext`, `c:OBScontext`, `c:OBOcontext`, `c:SBOcontext`.
+  - *Annotation properties*: `c:category`, `c:assertedBy`, `c:subject`, `c:about-by`, `c:template`; `c:origin-type` (concrete origin subclass: PersonPredefined/OrgPredefined/UserDefined/future), `c:category-type` (concrete `c:Parties` subclass), `c:label` (user-editable display name), `c:note` (path to markdown notes file), `c:folder` (path to associated file folder); `c:abstract` (marks a class as not directly instantiated in DataBooks).
   - *Object properties*: `c:sbs`, `c:obs`, `c:obo`, `c:sbo`, `c:child`.
   These terms are referenced by name in the YAML frontmatter of each DataBook file.
 
-- **`context-shacl.ttl`** — SHACL shapes for category DataBook instances. Constrains `c:Category` instances to at most one `c:sbs` value, and `c:ConnectionCategory` instances to at most one `c:obs` and at most one `c:sbo` value; `c:obo` is unconstrained (0..N).
+- **`context-shacl.ttl`** — SHACL shapes for category DataBook instances. Constrains `c:Category` instances to: at most one `c:sbs`, `c:obs`, and `c:sbo` value each (`c:obo` is unconstrained, 0..N); exactly one `c:origin-type` value (open-ended — no enum, since new predefined kinds can be added freely); and at most one `c:category-type` value, which if present must be one of `OneParty`, `TwoParty`, `MultiParty`.
 
 ### Context Ontology Validation
 
@@ -495,8 +498,8 @@ Alice's context DataBooks are in `example/contexts.` Some are authored by Alice 
 
 Alice's category DataBooks are in `example/categories/`. The full tree can be walked starting from `example/categories/categories.databook.md`. It contains two kinds of entries:
 
-- **Copies of predefined canonical categories** (`mia.predefined: true`) — one for each of the 16 top-level categories and their subcategories. Each copy carries a `copiedFrom:` property pointing to the corresponding canonical IRI (e.g. `copiedFrom: "http://mee.foundation/ontologies/categories-person/people"`). Context links (`c:sbs`, `c:obs`, `c:obo`, `c:sbo`) to Alice's contexts are attached here, not in the canonical tree.
-- **User-defined categories** (`mia.predefined: false`) — one per specific person, company, government agency, or group Alice interacts with (e.g. `bob-johnson(people)`, `acme(employee)`, `citibank(financial-services)`).
+- **Copies of predefined canonical categories** (`mia.origin-type: PersonPredefined` or `OrgPredefined`) — one for each of the 16 top-level categories and their subcategories. Each copy carries a `copiedFrom:` property pointing to the corresponding canonical IRI (e.g. `copiedFrom: "http://mee.foundation/ontologies/categories-person/people"`). Context links (`c:sbs`, `c:obs`, `c:obo`, `c:sbo`) to Alice's contexts are attached here, not in the canonical tree.
+- **User-defined categories** (`mia.origin-type: UserDefined`) — one per specific person, company, government agency, or group Alice interacts with (e.g. `bob-johnson(people)`, `acme(employee)`, `citibank(financial-services)`).
 
 #### Category and Context Diagrams
 

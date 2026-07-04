@@ -8,6 +8,7 @@ description: >
   Category DataBook for the Customers category. Groups context
   DataBooks about customer organizations. Top-level OrgPredefined category.
 mia:
-  category-type: OrgPredefined
+  origin-type: OrgPredefined
+  category-type: OneParty
   child: "http://mee.foundation/ontologies/categories-org/prospects"
 ---

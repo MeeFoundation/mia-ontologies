@@ -8,5 +8,6 @@ description: >
   Category DataBook for the KB category. Groups context DataBooks
   about corporate knowledge bases. Top-level OrgPredefined category.
 mia:
-  category-type: OrgPredefined
+  origin-type: OrgPredefined
+  category-type: OneParty
 ---

@@ -8,5 +8,6 @@ description: >
   Category DataBook for the Employees category. Groups context
   DataBooks related to employees. Top-level OrgPredefined category.
 mia:
-  category-type: OrgPredefined
+  origin-type: OrgPredefined
+  category-type: OneParty
 ---

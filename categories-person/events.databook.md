@@ -8,5 +8,6 @@ description: >
   Category DataBook for the Events category. Groups context DataBooks
   about participation in or relationship to a specific event or gathering. Child of Categories.
 mia:
-  category-type: PersonPredefined
+  origin-type: PersonPredefined
+  category-type: OneParty
 ---

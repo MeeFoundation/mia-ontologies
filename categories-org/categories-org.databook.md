@@ -8,7 +8,7 @@ description: >
   Root category DataBook for OrgPredefined categories. Parent of all
   top-level predefined organization categories.
 mia:
-  predefined: true
+  origin-type: OrgPredefined
   child:
     - "http://mee.foundation/ontologies/categories-org/customers"
     - "http://mee.foundation/ontologies/categories-org/partners"

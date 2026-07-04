@@ -8,5 +8,6 @@ description: >
   Category DataBook for the Friends category. Groups context DataBooks
   about interactions with friends. Child of the People category.
 mia:
-  category-type: PersonPredefined
+  origin-type: PersonPredefined
+  category-type: OneParty
 ---

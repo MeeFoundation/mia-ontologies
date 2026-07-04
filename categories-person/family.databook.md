@@ -8,5 +8,6 @@ description: >
   Category DataBook for the Family category. Groups context DataBooks
   about interactions with family members. Child of the People category.
 mia:
-  category-type: PersonPredefined
+  origin-type: PersonPredefined
+  category-type: OneParty
 ---

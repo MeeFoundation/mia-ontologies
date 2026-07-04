@@ -8,7 +8,8 @@ description: >
   Example copy of the Government category DataBook, extended with Alice's user-defined
   government agency categories.
 mia:
-  category-type: PersonPredefined
+  origin-type: PersonPredefined
+  category-type: OneParty
   copiedFrom: "http://mee.foundation/ontologies/categories-person/government"
   child:
     - "http://www.example.org/mia/categories/state(government)"

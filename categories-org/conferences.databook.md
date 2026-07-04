@@ -8,5 +8,6 @@ description: >
   Category DataBook for the Conferences category. Groups context DataBooks
   about a conference or professional gathering. Child of Meetings (org).
 mia:
-  category-type: OrgPredefined
+  origin-type: OrgPredefined
+  category-type: OneParty
 ---

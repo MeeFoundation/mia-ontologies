@@ -8,5 +8,6 @@ description: >
   Category DataBook for the Marriage/Partner category. Groups context DataBooks
   about relationships with a spouse or life partner. Child of People.
 mia:
-  category-type: PersonPredefined
+  origin-type: PersonPredefined
+  category-type: OneParty
 ---

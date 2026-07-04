@@ -9,5 +9,6 @@ description: >
   DataBooks about projects related to R&D, manufacturing, sales, marketing,
   operations, HR, etc. Top-level OrgPredefined category.
 mia:
-  category-type: OrgPredefined
+  origin-type: OrgPredefined
+  category-type: OneParty
 ---

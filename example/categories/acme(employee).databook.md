@@ -8,7 +8,8 @@ description: >
   UserDefined category DataBook for Alice's employment at Acme.
   Child of the Employee category.
 mia:
-  category-type: UserDefined
+  origin-type: UserDefined
+  category-type: OneParty
   sbs: "https://www.example.org/mia/contexts/self.self(acme)(employee)(10)"
   child: "http://www.example.org/mia/categories/employees(acme)"
 ---

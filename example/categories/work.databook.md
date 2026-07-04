@@ -8,7 +8,8 @@ description: >
   Example copy of the Work category DataBook, extended with Alice's user-defined
   employer categories.
 mia:
-  category-type: PersonPredefined
+  origin-type: PersonPredefined
+  category-type: OneParty
   copiedFrom: "http://mee.foundation/ontologies/categories-person/work"
   child: "http://www.example.org/mia/categories/employee(work)"
 ---

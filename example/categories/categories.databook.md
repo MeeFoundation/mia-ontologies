@@ -7,7 +7,7 @@ created: 2026-06-24
 description: >
   Root category DataBook for Alice's example instance. Parent of all top-level categories.
 mia:
-  predefined: true
+  origin-type: PersonPredefined
   copiedFrom: "http://mee.foundation/ontologies/categories-person/categories-person"
   child:
     - "http://www.example.org/mia/categories/people"

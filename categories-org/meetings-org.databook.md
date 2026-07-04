@@ -9,6 +9,7 @@ description: >
   DataBooks about events, meetings, workshops, webinars, and gatherings.
   Top-level OrgPredefined category.
 mia:
-  category-type: OrgPredefined
+  origin-type: OrgPredefined
+  category-type: OneParty
   child: "http://mee.foundation/ontologies/categories-org/conferences"
 ---

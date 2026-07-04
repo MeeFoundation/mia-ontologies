@@ -11,7 +11,7 @@
     owl:versionIRI <http://mee.foundation/ontologies/context/1.0.1> ;
     dc:date "2026-06-01"^^xsd:date ;
     owl:imports <http://mee.foundation/ontologies/pdn-identity> ;
-    owl:versionInfo "Version 1.0.95 - add missing persona:Passport to context:template comment"@en ;
+    owl:versionInfo "Version 1.0.99 - replace boolean context:isPredefined with classname-valued context:origin-type, open-ended for future predefined kinds"@en ;
     rdfs:label "Context Ontology"@en ;
     rdfs:comment """Context and Category Ontology for the Mee Identity Agent"""@en .
 
@@ -93,7 +93,13 @@ context:category-type rdf:type owl:AnnotationProperty ;
     rdfs:domain context:Category ;
     rdfs:range xsd:string ;
     rdfs:label "category-type"@en ;
-    rdfs:comment "The concrete category subclass this DataBook instantiates. One of: PersonPredefined, OrgPredefined, Connection, Group, UserDefined."@en .
+    rdfs:comment "The concrete context:Parties subclass this DataBook instantiates. One of: OneParty, TwoParty, MultiParty."@en .
+
+context:origin-type rdf:type owl:AnnotationProperty ;
+    rdfs:domain context:Category ;
+    rdfs:range xsd:string ;
+    rdfs:label "origin-type"@en ;
+    rdfs:comment "The concrete origin subclass this DataBook instantiates: context:PersonPredefined, context:OrgPredefined, context:UserDefined, or a future predefined subclass. Open-ended by design, so new kinds of predefined origin can be added without changing this property's definition."@en .
 
 
 #################################################################
@@ -119,7 +125,7 @@ context:sbs rdf:type owl:ObjectProperty ;
     rdfs:comment "Links a category to a context DataBook where both subject and assertedBy are :Self — the Mia user is both the subject of and the asserter of the data."@en .
 
 context:obs rdf:type owl:ObjectProperty ;
-    rdfs:domain context:ConnectionCategory ;
+    rdfs:domain context:Category ;
     rdfs:range [ rdf:type owl:Class ;
                  owl:unionOf ( context:Category context:OBScontext ) ] ;
     rdfs:label "other-by-self"@en ;
@@ -141,23 +147,29 @@ context:UserDefined rdf:type owl:Class ;
     rdfs:label "UserDefined"@en ;
     rdfs:comment "Superclass of context categories defined by the Mia user."@en .
 
-context:ConnectionCategory rdf:type owl:Class ;
+context:Parties rdf:type owl:Class ;
     context:abstract true ;
-    rdfs:subClassOf context:UserDefined ;
-    rdfs:label "ConnectionCategory"@en ;
-    rdfs:comment "Abstract superclass of all user-defined categories that represent a relationship with a specific party (as opposed to a navigational container or group)."@en .
+    rdfs:subClassOf context:Category ;
+    rdfs:label "Parties"@en ;
+    rdfs:comment "Abstract superclass of categories classified by how many parties are involved in the relationship they represent: no external party (OneParty), a single external party (TwoParty), or a group of external parties (MultiParty)."@en .
 
 context:TwoParty rdf:type owl:Class ;
-    rdfs:subClassOf context:ConnectionCategory ;
+    rdfs:subClassOf context:Parties ;
     rdfs:label "TwoParty"@en ;
     context:label "Connection" ;
     rdfs:comment "A user-defined category representing a 1:1 relationship with a specific person, organization, or other party."@en .
 
 context:MultiParty rdf:type owl:Class ;
-    rdfs:subClassOf context:UserDefined ;
+    rdfs:subClassOf context:Parties ;
     rdfs:label "MultiParty"@en ;
     context:label "Circle" ;
     rdfs:comment "A user-defined category representing a shared multi-party relationship with a group of people or organizations. Not to be confused with g:Group (a PDN group node)."@en .
+
+context:OneParty rdf:type owl:Class ;
+    rdfs:subClassOf context:Parties ;
+    rdfs:label "OneParty"@en ;
+    context:label "Category" ;
+    rdfs:comment "A user-defined category with no external party — a plain navigational container with no connection or group semantics."@en .
 
 context:PersonPredefined rdf:type owl:Class ;
     context:abstract true ;
@@ -176,13 +188,13 @@ context:OrgPredefined rdf:type owl:Class ;
 #################################################################
 
 context:sbo rdf:type owl:ObjectProperty ;
-    rdfs:domain context:ConnectionCategory ;
+    rdfs:domain context:Category ;
     rdfs:range context:SBOcontext ;
     rdfs:label "self-by-other"@en ;
     rdfs:comment "Links a connection category to a context DataBook where subject is :Self and assertedBy is another person, organization, or group."@en .
 
 context:obo rdf:type owl:ObjectProperty ;
-    rdfs:domain context:ConnectionCategory ;
+    rdfs:domain context:Category ;
     rdfs:range context:OBOcontext ;
     rdfs:label "other-by-other"@en ;
     rdfs:comment "Links a connection category to a context DataBook where both subject and assertedBy are another person, organization, or group."@en .

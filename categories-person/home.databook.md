@@ -8,5 +8,6 @@ description: >
   Category DataBook for the Home category. Groups context DataBooks
   about owning or renting a home or other dwelling. Child of Categories.
 mia:
-  category-type: PersonPredefined
+  origin-type: PersonPredefined
+  category-type: OneParty
 ---

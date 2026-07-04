@@ -8,7 +8,8 @@ description: >
   Predefined Employees category scoped to Alice's Acme work context.
   Groups the Acme colleagues Alice tracks.
 mia:
-  category-type: OrgPredefined
+  origin-type: OrgPredefined
+  category-type: OneParty
   copiedFrom: "http://mee.foundation/ontologies/categories-org/employees"
   child: "http://www.example.org/mia/categories/paula-walker(acme)"
 ---

@@ -8,6 +8,7 @@ description: >
   UserDefined category DataBook for Alice's familial relationship with Paula Walker.
   Child of the Family category.
 mia:
+  origin-type: UserDefined
   category-type: TwoParty
   obs: "https://www.example.org/mia/contexts/paula-walker.self(paula-walker)(family)(07)"
   sbs: "https://www.example.org/mia/contexts/self.self(paula-walker)(family)(21)"

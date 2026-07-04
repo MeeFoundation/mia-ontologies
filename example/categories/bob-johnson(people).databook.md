@@ -8,6 +8,7 @@ description: >
   UserDefined category DataBook for Alice's relationship with Bob Johnson.
   Child of the People category.
 mia:
+  origin-type: UserDefined
   category-type: TwoParty
   obs: "https://www.example.org/mia/contexts/bob-johnson.self(bob-johnson)(people)(04)"
   sbs: "https://www.example.org/mia/contexts/self.self(bob-johnson)(people)(12)"

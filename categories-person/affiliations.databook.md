@@ -8,5 +8,6 @@ description: >
   Category DataBook for the Affiliations category. Groups context DataBooks
   about interactions with formal or informal groups of people. Child of Categories.
 mia:
-  category-type: PersonPredefined
+  origin-type: PersonPredefined
+  category-type: OneParty
 ---

@@ -8,5 +8,6 @@ description: >
   Category DataBook for the State category. Groups context DataBooks
   about state government credentials and records. Child of Government.
 mia:
-  category-type: PersonPredefined
+  origin-type: PersonPredefined
+  category-type: OneParty
 ---

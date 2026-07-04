@@ -8,7 +8,8 @@ description: >
   Category DataBook for the People category. Groups context DataBooks
   about interactions with individual people in the user's life.
 mia:
-  category-type: PersonPredefined
+  origin-type: PersonPredefined
+  category-type: OneParty
   child:
     - "http://mee.foundation/ontologies/categories-person/family"
     - "http://mee.foundation/ontologies/categories-person/marriage-partner"

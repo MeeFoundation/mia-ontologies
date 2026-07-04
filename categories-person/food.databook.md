@@ -9,5 +9,6 @@ description: >
   about food preferences, dietary restrictions, favorite restaurants, recipes,
   and food-related interests. Child of Categories.
 mia:
-  category-type: PersonPredefined
+  origin-type: PersonPredefined
+  category-type: OneParty
 ---

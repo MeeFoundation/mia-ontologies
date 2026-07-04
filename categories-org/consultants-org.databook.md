@@ -9,5 +9,6 @@ description: >
   context DataBooks about engaged consultants. Top-level OrgPredefined
   category.
 mia:
-  category-type: OrgPredefined
+  origin-type: OrgPredefined
+  category-type: OneParty
 ---

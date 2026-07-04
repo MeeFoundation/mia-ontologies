@@ -8,5 +8,6 @@ description: >
   Category DataBook for the Financial Services category. Groups context DataBooks
   about relationships with banks and financial institutions. Child of Finances.
 mia:
-  category-type: PersonPredefined
+  origin-type: PersonPredefined
+  category-type: OneParty
 ---
