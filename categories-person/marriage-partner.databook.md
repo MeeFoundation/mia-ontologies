@@ -9,5 +9,5 @@ description: >
   about relationships with a spouse or life partner. Child of People.
 mia:
   origin-type: PersonPredefined
-  category-type: OneParty
+  num-parties: OneParty
 ---

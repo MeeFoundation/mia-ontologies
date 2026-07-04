@@ -8,7 +8,7 @@ description: >
   Example copy of the Health category DataBook. Child of Categories.
 mia:
   origin-type: PersonPredefined
-  category-type: OneParty
+  num-parties: OneParty
   copiedFrom: "http://mee.foundation/ontologies/categories-person/health"
   sbs: "https://www.example.org/mia/contexts/self.self(health)(17)"
 ---

@@ -9,7 +9,7 @@ description: >
   Child of the People category.
 mia:
   origin-type: UserDefined
-  category-type: TwoParty
+  num-parties: TwoParty
   obs: "https://www.example.org/mia/contexts/bob-johnson.self(bob-johnson)(people)(04)"
   sbs: "https://www.example.org/mia/contexts/self.self(bob-johnson)(people)(12)"
   obo: "https://www.example.org/mia/contexts/bob-johnson.bob-johnson(bob-johnson)(people)(02)"

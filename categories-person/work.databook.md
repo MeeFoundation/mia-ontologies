@@ -9,7 +9,7 @@ description: >
   about professional roles, employment, and career relationships. Child of Categories.
 mia:
   origin-type: PersonPredefined
-  category-type: OneParty
+  num-parties: OneParty
   child:
     - "http://mee.foundation/ontologies/categories-person/employee"
     - "http://mee.foundation/ontologies/categories-person/contributor"

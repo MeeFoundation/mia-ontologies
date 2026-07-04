@@ -9,5 +9,5 @@ description: >
   about participation in or relationship to a specific event or gathering. Child of Categories.
 mia:
   origin-type: PersonPredefined
-  category-type: OneParty
+  num-parties: OneParty
 ---

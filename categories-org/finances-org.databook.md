@@ -10,5 +10,5 @@ description: >
   category.
 mia:
   origin-type: OrgPredefined
-  category-type: OneParty
+  num-parties: OneParty
 ---

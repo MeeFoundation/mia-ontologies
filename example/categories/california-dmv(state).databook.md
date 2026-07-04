@@ -9,6 +9,6 @@ description: >
   Child of the State category.
 mia:
   origin-type: UserDefined
-  category-type: TwoParty
+  num-parties: TwoParty
   sbs: "https://www.example.org/mia/contexts/self.self(california-dmv)(state)(15)"
 ---

@@ -9,5 +9,5 @@ description: >
   related to employment. Child of the Work category.
 mia:
   origin-type: PersonPredefined
-  category-type: OneParty
+  num-parties: OneParty
 ---

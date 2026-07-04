@@ -9,5 +9,5 @@ description: >
   about interactions with family members. Child of the People category.
 mia:
   origin-type: PersonPredefined
-  category-type: OneParty
+  num-parties: OneParty
 ---

@@ -9,5 +9,5 @@ description: >
   related to being a creator, inventor, founder, or author of something. Child of Work.
 mia:
   origin-type: PersonPredefined
-  category-type: OneParty
+  num-parties: OneParty
 ---

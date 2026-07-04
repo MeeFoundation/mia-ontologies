@@ -9,7 +9,7 @@ description: >
   Child of the Acme category.
 mia:
   origin-type: UserDefined
-  category-type: TwoParty
+  num-parties: TwoParty
   obs: "https://www.example.org/mia/contexts/paula-walker.self(paula-walker)(acme)(06)"
   sbs: "https://www.example.org/mia/contexts/self.self(paula-walker)(acme)(20)"
 ---

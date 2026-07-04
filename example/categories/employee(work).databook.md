@@ -9,7 +9,7 @@ description: >
   employer categories.
 mia:
   origin-type: PersonPredefined
-  category-type: OneParty
+  num-parties: OneParty
   copiedFrom: "http://mee.foundation/ontologies/categories-person/employee"
   child: "http://www.example.org/mia/categories/acme(employee)"
 ---

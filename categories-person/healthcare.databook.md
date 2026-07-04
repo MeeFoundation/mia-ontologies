@@ -9,5 +9,5 @@ description: >
   about relationships with healthcare providers and health insurance companies. Child of Health.
 mia:
   origin-type: PersonPredefined
-  category-type: OneParty
+  num-parties: OneParty
 ---

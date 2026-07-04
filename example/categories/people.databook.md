@@ -9,7 +9,7 @@ description: >
   person categories.
 mia:
   origin-type: PersonPredefined
-  category-type: OneParty
+  num-parties: OneParty
   copiedFrom: "http://mee.foundation/ontologies/categories-person/people"
   child:
     - "http://www.example.org/mia/categories/family(people)"

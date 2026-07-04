@@ -7,7 +7,7 @@
 @prefix context: <http://mee.foundation/ontologies/context#> .
 
 <http://www.example.org/context-shapes> rdf:type owl:Ontology ;
-    owl:versionInfo "Version 1.0.3 - add origin-type (required, open-ended) and category-type (optional, enum) constraints"@en ;
+    owl:versionInfo "Version 1.0.4 - rename category-type shape's property path to context:num-parties"@en ;
     rdfs:label "Context Ontology SHACL Validation Shapes"@en ;
     rdfs:comment "SHACL validation shapes for category DataBook instances in the Context Ontology."@en .
 
@@ -57,14 +57,14 @@
         sh:message "A category must have exactly one context:origin-type value: \"UserDefined\" or a context:Predefined subclass name (e.g. \"PersonPredefined\", \"OrgPredefined\")."@en
     ] ;
 
-    # context:category-type — at most one value, and if present must be
+    # context:num-parties — at most one value, and if present must be
     # a context:Parties subclass. Not required (sh:minCount omitted):
-    # the invisible tree roots have no category-type.
+    # the invisible tree roots have no num-parties.
     sh:property [
-        sh:path context:category-type ;
+        sh:path context:num-parties ;
         sh:maxCount 1 ;
         sh:in ( "OneParty" "TwoParty" "MultiParty" ) ;
-        sh:message "A category's context:category-type, if present, must be one of OneParty, TwoParty, MultiParty."@en
+        sh:message "A category's context:num-parties, if present, must be one of OneParty, TwoParty, MultiParty."@en
     ] .
 
     # context:obo — 0..N (no maxCount constraint)

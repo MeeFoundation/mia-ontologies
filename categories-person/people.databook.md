@@ -9,7 +9,7 @@ description: >
   about interactions with individual people in the user's life.
 mia:
   origin-type: PersonPredefined
-  category-type: OneParty
+  num-parties: OneParty
   child:
     - "http://mee.foundation/ontologies/categories-person/family"
     - "http://mee.foundation/ontologies/categories-person/marriage-partner"

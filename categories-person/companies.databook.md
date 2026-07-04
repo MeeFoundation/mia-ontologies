@@ -9,5 +9,5 @@ description: >
   about relationships with specific companies and institutions. Child of Categories.
 mia:
   origin-type: PersonPredefined
-  category-type: OneParty
+  num-parties: OneParty
 ---

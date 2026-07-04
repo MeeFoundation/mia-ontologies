@@ -8,7 +8,7 @@ description: >
   Example copy of the Possessions category DataBook. Child of Categories.
 mia:
   origin-type: PersonPredefined
-  category-type: OneParty
+  num-parties: OneParty
   copiedFrom: "http://mee.foundation/ontologies/categories-person/possessions"
   sbs: "https://www.example.org/mia/contexts/self.self(possessions)(22)"
 ---

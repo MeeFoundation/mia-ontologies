@@ -9,7 +9,7 @@ description: >
   Child of the Employee category.
 mia:
   origin-type: UserDefined
-  category-type: OneParty
+  num-parties: OneParty
   sbs: "https://www.example.org/mia/contexts/self.self(acme)(employee)(10)"
   child: "http://www.example.org/mia/categories/employees(acme)"
 ---

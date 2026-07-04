@@ -85,7 +85,7 @@ Every category (other than the invisible root) is classified two ways: whether i
 
 **Origin — `mia.origin-type`.** A category is either predefined (`c:Predefined`, shipped with Mia) or `c:UserDefined` (created by the user). Predefined categories are further divided into `c:PersonPredefined` (generally useful categories for organizing a person's personal, non-work, life) and `c:OrgPredefined` (categories tuned to a person's working life). `mia.origin-type` holds the concrete classname directly (`PersonPredefined`, `OrgPredefined`, `UserDefined`, or a future predefined subclass) rather than a boolean, so new kinds of predefined origin can be added without changing the property itself.
 
-**Parties — `mia.category-type`.** `c:Parties` is a standalone abstract class documenting how many external parties are involved in the relationship a category represents. It's not a subclass of `c:Category` — `mia.category-type` is a plain string-valued field, so no category instance is ever formally typed as a `c:Parties` subclass; the hierarchy exists purely to document the field's values and their display labels. There are three types: `c:OneParty` (no external party — display label "Category"), `c:TwoParty` (a 1:1 relationship with a specific person, organization, or other party — display label "Connection"), and `c:MultiParty` (a shared multi-party relationship with a group of people or organizations — display label "Circle"). 
+**Parties — `mia.num-parties`.** `c:Parties` is a standalone abstract class documenting how many external parties are involved in the relationship a category represents. The hierarchy exists purely to document the field's values and their display labels. There are three types: `c:OneParty` (no external party — display label "Category"), `c:TwoParty` (a 1:1 relationship with a specific person, organization, or other party — display label "Connection"), and `c:MultiParty` (a shared multi-party relationship with a group of people or organizations — display label "Circle"). 
 
 <p align="center"><img src="images/context-ontology/category.png" alt="Category hierarchy"></p>
 
@@ -192,7 +192,7 @@ The following properties are defined in `context.ttl` and represented as `mia.` 
 | YAML field | Ontology property | Cardinality | Meaning |
 |------------|-------------------|-------------|---------|
 | `mia.origin-type` | `c:origin-type` | 1 | The concrete origin subclass this DataBook instantiates: `PersonPredefined`, `OrgPredefined`, `UserDefined`, or a future predefined subclass |
-| `mia.category-type` | `c:category-type` | 1 | The concrete `c:Parties` subclass this DataBook instantiates: one of `OneParty`, `TwoParty`, `MultiParty` |
+| `mia.num-parties` | `c:num-parties` | 1 | The concrete `c:Parties` subclass this DataBook instantiates: one of `OneParty`, `TwoParty`, `MultiParty` |
 | `mia.label` | `c:label` | 1 | User-editable display name — defaults to the DataBook `title` but can be changed independently, leaving `title` and `id` immutable |
 | `mia.note` | `c:note` | 0..1 | Relative path to a markdown notes file for this category (e.g. `notes/people/paula-walker`) |
 | `mia.folder` | `c:folder` | 0..1 | Relative path to a folder of arbitrary files for this category (e.g. `people/paula-walker`) |
@@ -217,11 +217,11 @@ Each category DataBook in the user's tree may carry up to four optional links to
 
 - **`context.ttl`** — The Context ontology, defining:
   - *Classes*: `c:Category`, `c:Predefined`, `c:PersonPredefined`, `c:OrgPredefined`, `c:UserDefined`, `c:Parties`, `c:OneParty`, `c:TwoParty`, `c:MultiParty` and all leaf category subclasses; `c:Context`, `c:SBScontext`, `c:OBScontext`, `c:OBOcontext`, `c:SBOcontext`.
-  - *Annotation properties*: `c:category`, `c:assertedBy`, `c:subject`, `c:about-by`, `c:template`; `c:origin-type` (concrete origin subclass: PersonPredefined/OrgPredefined/UserDefined/future), `c:category-type` (concrete `c:Parties` subclass), `c:label` (user-editable display name), `c:note` (path to markdown notes file), `c:folder` (path to associated file folder); `c:abstract` (marks a class as not directly instantiated in DataBooks).
+  - *Annotation properties*: `c:category`, `c:assertedBy`, `c:subject`, `c:about-by`, `c:template`; `c:origin-type` (concrete origin subclass: PersonPredefined/OrgPredefined/UserDefined/future), `c:num-parties` (concrete `c:Parties` subclass), `c:label` (user-editable display name), `c:note` (path to markdown notes file), `c:folder` (path to associated file folder); `c:abstract` (marks a class as not directly instantiated in DataBooks).
   - *Object properties*: `c:sbs`, `c:obs`, `c:obo`, `c:sbo`, `c:child`.
   These terms are referenced by name in the YAML frontmatter of each DataBook file.
 
-- **`context-shacl.ttl`** — SHACL shapes for category DataBook instances. Constrains `c:Category` instances to: at most one `c:sbs`, `c:obs`, and `c:sbo` value each (`c:obo` is unconstrained, 0..N); exactly one `c:origin-type` value (open-ended — no enum, since new predefined kinds can be added freely); and at most one `c:category-type` value, which if present must be one of `OneParty`, `TwoParty`, `MultiParty`.
+- **`context-shacl.ttl`** — SHACL shapes for category DataBook instances. Constrains `c:Category` instances to: at most one `c:sbs`, `c:obs`, and `c:sbo` value each (`c:obo` is unconstrained, 0..N); exactly one `c:origin-type` value (open-ended — no enum, since new predefined kinds can be added freely); and at most one `c:num-parties` value, which if present must be one of `OneParty`, `TwoParty`, `MultiParty`.
 
 ### Context Ontology Validation
 

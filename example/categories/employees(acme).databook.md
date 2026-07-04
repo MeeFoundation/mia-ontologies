@@ -9,7 +9,7 @@ description: >
   Groups the Acme colleagues Alice tracks.
 mia:
   origin-type: OrgPredefined
-  category-type: OneParty
+  num-parties: OneParty
   copiedFrom: "http://mee.foundation/ontologies/categories-org/employees"
   child: "http://www.example.org/mia/categories/paula-walker(acme)"
 ---

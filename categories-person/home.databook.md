@@ -9,5 +9,5 @@ description: >
   about owning or renting a home or other dwelling. Child of Categories.
 mia:
   origin-type: PersonPredefined
-  category-type: OneParty
+  num-parties: OneParty
 ---

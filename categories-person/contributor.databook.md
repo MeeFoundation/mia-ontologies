@@ -9,5 +9,5 @@ description: >
   related to contributing to initiatives started or led by others. Child of Work.
 mia:
   origin-type: PersonPredefined
-  category-type: OneParty
+  num-parties: OneParty
 ---

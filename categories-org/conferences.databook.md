@@ -9,5 +9,5 @@ description: >
   about a conference or professional gathering. Child of Meetings (org).
 mia:
   origin-type: OrgPredefined
-  category-type: OneParty
+  num-parties: OneParty
 ---

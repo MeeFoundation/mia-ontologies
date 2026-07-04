@@ -10,5 +10,5 @@ description: >
   Child of Possessions.
 mia:
   origin-type: PersonPredefined
-  category-type: OneParty
+  num-parties: OneParty
 ---

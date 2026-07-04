@@ -9,7 +9,7 @@ description: >
   user-defined municipal categories.
 mia:
   origin-type: PersonPredefined
-  category-type: OneParty
+  num-parties: OneParty
   copiedFrom: "http://mee.foundation/ontologies/categories-person/municipality"
   child:
     - "http://www.example.org/mia/categories/boston(municipality)"

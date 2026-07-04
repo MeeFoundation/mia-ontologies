@@ -9,5 +9,5 @@ description: >
   about corporate knowledge bases. Top-level OrgPredefined category.
 mia:
   origin-type: OrgPredefined
-  category-type: OneParty
+  num-parties: OneParty
 ---

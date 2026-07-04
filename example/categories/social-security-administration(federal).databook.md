@@ -9,6 +9,6 @@ description: >
   Child of the Federal category.
 mia:
   origin-type: UserDefined
-  category-type: TwoParty
+  num-parties: TwoParty
   sbs: "https://www.example.org/mia/contexts/self.self(social-security-administration)(federal)(23)"
 ---

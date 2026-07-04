@@ -10,5 +10,5 @@ description: >
   and food-related interests. Child of Categories.
 mia:
   origin-type: PersonPredefined
-  category-type: OneParty
+  num-parties: OneParty
 ---

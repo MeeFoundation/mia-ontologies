@@ -9,5 +9,5 @@ description: >
   about interactions with formal or informal groups of people. Child of Categories.
 mia:
   origin-type: PersonPredefined
-  category-type: OneParty
+  num-parties: OneParty
 ---

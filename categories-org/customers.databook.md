@@ -9,6 +9,6 @@ description: >
   DataBooks about customer organizations. Top-level OrgPredefined category.
 mia:
   origin-type: OrgPredefined
-  category-type: OneParty
+  num-parties: OneParty
   child: "http://mee.foundation/ontologies/categories-org/prospects"
 ---

@@ -9,7 +9,7 @@ description: >
   government agency categories.
 mia:
   origin-type: PersonPredefined
-  category-type: OneParty
+  num-parties: OneParty
   copiedFrom: "http://mee.foundation/ontologies/categories-person/government"
   child:
     - "http://www.example.org/mia/categories/state(government)"

@@ -9,5 +9,5 @@ description: >
   about knowledge gained through personal experience. Child of Information.
 mia:
   origin-type: PersonPredefined
-  category-type: OneParty
+  num-parties: OneParty
 ---

@@ -9,5 +9,5 @@ description: >
   about municipal government credentials and records. Child of Government.
 mia:
   origin-type: PersonPredefined
-  category-type: OneParty
+  num-parties: OneParty
 ---

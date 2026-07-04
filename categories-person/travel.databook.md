@@ -9,5 +9,5 @@ description: >
   about travel plans, trips, and related information. Child of Categories.
 mia:
   origin-type: PersonPredefined
-  category-type: OneParty
+  num-parties: OneParty
 ---

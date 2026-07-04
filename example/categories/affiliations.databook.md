@@ -9,7 +9,7 @@ description: >
   user-defined affiliation categories.
 mia:
   origin-type: PersonPredefined
-  category-type: OneParty
+  num-parties: OneParty
   copiedFrom: "http://mee.foundation/ontologies/categories-person/affiliations"
   child: "http://www.example.org/mia/categories/boston-hub-society(affiliations)"
 ---

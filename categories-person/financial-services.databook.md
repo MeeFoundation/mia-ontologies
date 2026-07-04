@@ -9,5 +9,5 @@ description: >
   about relationships with banks and financial institutions. Child of Finances.
 mia:
   origin-type: PersonPredefined
-  category-type: OneParty
+  num-parties: OneParty
 ---

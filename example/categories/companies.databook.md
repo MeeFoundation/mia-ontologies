@@ -9,7 +9,7 @@ description: >
   company categories.
 mia:
   origin-type: PersonPredefined
-  category-type: OneParty
+  num-parties: OneParty
   copiedFrom: "http://mee.foundation/ontologies/categories-person/companies"
   child:
     - "http://www.example.org/mia/categories/google(companies)"

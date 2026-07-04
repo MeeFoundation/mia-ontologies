@@ -11,7 +11,7 @@
     owl:versionIRI <http://mee.foundation/ontologies/context/1.0.1> ;
     dc:date "2026-06-01"^^xsd:date ;
     owl:imports <http://mee.foundation/ontologies/pdn-identity> ;
-    owl:versionInfo "Version 1.1.1 - make context:Parties a standalone abstract class, no longer subClassOf context:Category"@en ;
+    owl:versionInfo "Version 1.1.2 - rename context:category-type to context:num-parties"@en ;
     rdfs:label "Context Ontology"@en ;
     rdfs:comment """Context and Category Ontology for the Mee Identity Agent"""@en .
 
@@ -89,10 +89,10 @@ context:abstract rdf:type owl:AnnotationProperty ;
     rdfs:label "abstract"@en ;
     rdfs:comment "True if this class is not directly instantiated in DataBooks — it exists only to organize the class hierarchy."@en .
 
-context:category-type rdf:type owl:AnnotationProperty ;
+context:num-parties rdf:type owl:AnnotationProperty ;
     rdfs:domain context:Category ;
     rdfs:range xsd:string ;
-    rdfs:label "category-type"@en ;
+    rdfs:label "num-parties"@en ;
     rdfs:comment "The concrete context:Parties subclass this DataBook instantiates. One of: OneParty, TwoParty, MultiParty."@en .
 
 context:origin-type rdf:type owl:AnnotationProperty ;
@@ -149,7 +149,7 @@ context:UserDefined rdf:type owl:Class ;
 context:Parties rdf:type owl:Class ;
     context:abstract true ;
     rdfs:label "Parties"@en ;
-    rdfs:comment "Standalone abstract superclass documenting the values of context:category-type: how many parties are involved in the relationship a category represents — no external party (OneParty), a single external party (TwoParty), or a group of external parties (MultiParty). Not a subclass of context:Category — category-type is a plain string-valued annotation, so no category instance is ever formally typed as a Parties subclass; this hierarchy exists purely to document category-type's values and their display labels."@en .
+    rdfs:comment "Standalone abstract superclass documenting the values of context:num-parties: how many parties are involved in the relationship a category represents — no external party (OneParty), a single external party (TwoParty), or a group of external parties (MultiParty). Not a subclass of context:Category — num-parties is a plain string-valued annotation, so no category instance is ever formally typed as a Parties subclass; this hierarchy exists purely to document num-parties's values and their display labels."@en .
 
 context:TwoParty rdf:type owl:Class ;
     rdfs:subClassOf context:Parties ;

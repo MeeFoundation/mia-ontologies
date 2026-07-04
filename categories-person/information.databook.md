@@ -10,7 +10,7 @@ description: >
   Child of Categories.
 mia:
   origin-type: PersonPredefined
-  category-type: OneParty
+  num-parties: OneParty
   child:
     - "http://mee.foundation/ontologies/categories-person/learnings"
 ---

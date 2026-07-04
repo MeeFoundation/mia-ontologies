@@ -9,7 +9,7 @@ description: >
   about government-issued credentials, tax records, and civic relationships. Child of Categories.
 mia:
   origin-type: PersonPredefined
-  category-type: OneParty
+  num-parties: OneParty
   child:
     - "http://mee.foundation/ontologies/categories-person/state"
     - "http://mee.foundation/ontologies/categories-person/federal"

@@ -9,5 +9,5 @@ description: >
   DataBooks about customer prospects. Child of the Customers category.
 mia:
   origin-type: OrgPredefined
-  category-type: OneParty
+  num-parties: OneParty
 ---

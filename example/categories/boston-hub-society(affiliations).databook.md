@@ -9,7 +9,7 @@ description: >
   Child of the Affiliations category.
 mia:
   origin-type: UserDefined
-  category-type: MultiParty
+  num-parties: MultiParty
   sbs: "https://www.example.org/mia/contexts/self.self(boston-hub-society)(affiliations)(14)"
   obo:
     - "https://www.example.org/mia/contexts/bhs-group.members(boston-hub-society)(affiliations)(01)"

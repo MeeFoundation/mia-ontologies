@@ -9,5 +9,5 @@ description: >
   about legal matters, contracts, agreements, and professional legal relationships. Child of Categories.
 mia:
   origin-type: PersonPredefined
-  category-type: OneParty
+  num-parties: OneParty
 ---

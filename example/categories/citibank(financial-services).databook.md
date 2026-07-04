@@ -9,6 +9,6 @@ description: >
   Child of the Financial Services category.
 mia:
   origin-type: UserDefined
-  category-type: TwoParty
+  num-parties: TwoParty
   sbo: "https://www.example.org/mia/contexts/self.citibank(citibank)(financial-services)(09)"
 ---

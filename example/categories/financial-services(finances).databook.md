@@ -9,7 +9,7 @@ description: >
   user-defined financial institution categories.
 mia:
   origin-type: PersonPredefined
-  category-type: OneParty
+  num-parties: OneParty
   copiedFrom: "http://mee.foundation/ontologies/categories-person/financial-services"
   child: "http://www.example.org/mia/categories/citibank(financial-services)"
 ---
