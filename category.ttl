@@ -11,7 +11,7 @@
     owl:versionIRI <http://mee.foundation/ontologies/category/1.0.0> ;
     dc:date "2026-07-04"^^xsd:date ;
     owl:imports <http://mee.foundation/ontologies/context> ;
-    owl:versionInfo "Version 1.0.1 - add cat:abstract (moved from context:abstract)"@en ;
+    owl:versionInfo "Version 1.0.11 - add cat:MedicalAppointmentForOther as a subclass of cat:Health"@en ;
     rdfs:label "Category Ontology"@en ;
     rdfs:comment """Category Ontology for the Mee Identity Agent"""@en .
 
@@ -26,11 +26,11 @@ cat:num-parties rdf:type owl:AnnotationProperty ;
     rdfs:label "num-parties"@en ;
     rdfs:comment "The concrete cat:Parties subclass this DataBook instantiates. One of: OneParty, TwoParty, MultiParty."@en .
 
-cat:origin-type rdf:type owl:AnnotationProperty ;
+cat:classname rdf:type owl:AnnotationProperty ;
     rdfs:domain cat:Category ;
     rdfs:range xsd:string ;
-    rdfs:label "origin-type"@en ;
-    rdfs:comment "The concrete origin subclass this DataBook instantiates: cat:PersonPredefined, cat:OrgPredefined, cat:UserDefined, or a future predefined subclass. Open-ended by design, so new kinds of predefined origin can be added without changing this property's definition."@en .
+    rdfs:label "classname"@en ;
+    rdfs:comment "The local name of the cat:Category subclass this DataBook canonically is (for a canonical predefined category, e.g. \"Family\") or was copied from (for a user-instance copy, e.g. \"Family\" again; for a purely user-defined category with no predefined counterpart, the root class itself, \"Category\"). Open-ended by design, so new predefined subclasses can be added without changing this property's definition."@en .
 
 cat:abstract rdf:type owl:AnnotationProperty ;
     rdfs:domain owl:Class ;
@@ -44,7 +44,6 @@ cat:abstract rdf:type owl:AnnotationProperty ;
 #################################################################
 
 cat:Category rdf:type owl:Class ;
-    cat:abstract true ;
     rdfs:label "Category"@en ;
     rdfs:comment """Controlled vocabulary for categories of contexts.
                     Used as the value of context:category on DataBook named graph IRIs."""@en .
@@ -69,16 +68,11 @@ cat:obs rdf:type owl:ObjectProperty ;
 
 
 #################################################################
-#    Category subclasses: Predefined and UserDefined
+#    Category subclasses: Person, Organization, and UserDefined
 #################################################################
 
-cat:Predefined rdf:type owl:Class ;
-    cat:abstract true ;
-    rdfs:subClassOf cat:Category ;
-    rdfs:label "Predefined"@en ;
-    rdfs:comment "Superclass of all built-in context categories shipped with Mia."@en .
-
 cat:UserDefined rdf:type owl:Class ;
+    cat:abstract true ;
     rdfs:subClassOf cat:Category ;
     rdfs:label "UserDefined"@en ;
     rdfs:comment "Superclass of context categories defined by the Mia user."@en .
@@ -106,16 +100,15 @@ cat:OneParty rdf:type owl:Class ;
     cat:label "Category" ;
     rdfs:comment "A user-defined category with no external party — a plain navigational container with no connection or group semantics."@en .
 
-cat:PersonPredefined rdf:type owl:Class ;
+cat:Person rdf:type owl:Class ;
     cat:abstract true ;
-    rdfs:subClassOf cat:Predefined ;
-    rdfs:label "PersonPredefined"@en ;
+    rdfs:subClassOf cat:Category ;
+    rdfs:label "Person"@en ;
     rdfs:comment "Superclass of all built-in context categories that involve interactions with people or person-centric topics (e.g. People, Work, Government)."@en .
 
-cat:OrgPredefined rdf:type owl:Class ;
-    cat:abstract true ;
-    rdfs:subClassOf cat:Predefined ;
-    rdfs:label "OrgPredefined"@en ;
+cat:Organization rdf:type owl:Class ;
+    rdfs:subClassOf cat:Category ;
+    rdfs:label "Organization"@en ;
     rdfs:comment "Superclass of all built-in context categories that involve interactions with organizations (e.g. Companies, FinancialServices)."@en .
 
 #################################################################
@@ -138,7 +131,7 @@ cat:copiedFrom rdf:type owl:AnnotationProperty ;
     rdfs:domain cat:Category ;
     rdfs:range xsd:anyURI ;
     rdfs:label "copiedFrom"@en ;
-    rdfs:comment "IRI of the canonical predefined category this DataBook was copied from. Present only on user-instance copies of predefined categories."@en .
+    rdfs:comment "IRI of the canonical category this category was copied from. Present only on user-instance copies of categories."@en .
 
 #################################################################
 #    Category Notes, Folders, and Labels
@@ -214,7 +207,7 @@ cat:label rdf:type owl:AnnotationProperty ;
     rdfs:comment "User-editable display name for the category. Defaults to the DataBook title but may be changed independently, leaving the immutable title and id intact."@en .
 
 #################################################################
-#    PersonPredefined subclasses
+#    Person subclasses
 #################################################################
 
 #################################################################
@@ -223,7 +216,7 @@ cat:label rdf:type owl:AnnotationProperty ;
 
 
 cat:Affiliations rdf:type owl:Class ;
-    rdfs:subClassOf cat:PersonPredefined ;
+    rdfs:subClassOf cat:Person ;
     rdfs:label "Affiliations"@en ;
     rdfs:comment "Sports clubs, teams, charities, faith groups, and social networks. Some may be cat:MultiParty 'Circles' that exist as a g:Group on the PDN."@en .
 
@@ -233,7 +226,7 @@ cat:Affiliations rdf:type owl:Class ;
 #################################################################
 
 cat:People rdf:type owl:Class ;
-    rdfs:subClassOf cat:PersonPredefined ;
+    rdfs:subClassOf cat:Person ;
     rdfs:label "People"@en ;
     rdfs:comment "People in your social or professional life."@en .
 
@@ -262,7 +255,7 @@ cat:Consultants rdf:type owl:Class ;
 #################################################################
 
 cat:Work rdf:type owl:Class ;
-    rdfs:subClassOf cat:PersonPredefined ;
+    rdfs:subClassOf cat:Person ;
     rdfs:label "Work"@en ;
     rdfs:comment "Professional roles. Employment history, resume/CV."@en .
 
@@ -287,7 +280,7 @@ cat:Creator rdf:type owl:Class ;
 #################################################################
 
 cat:Companies rdf:type owl:Class ;
-    rdfs:subClassOf cat:PersonPredefined ;
+    rdfs:subClassOf cat:Person ;
     rdfs:label "Companies"@en ;
     rdfs:comment "Miscellaneous companies and organizations that provide services or products to you. See also Finances, Health, Home, Food for companies and organizations related to those areas."@en .
 
@@ -297,7 +290,7 @@ cat:Companies rdf:type owl:Class ;
 #################################################################
 
 cat:Finances rdf:type owl:Class ;
-    rdfs:subClassOf cat:PersonPredefined ;
+    rdfs:subClassOf cat:Person ;
     rdfs:label "Finances"@en ;
     rdfs:comment "Information about personal finances, bookkeeping, budgets, payment cards, bank accounts."@en .
 
@@ -311,9 +304,14 @@ cat:FinancialServices rdf:type owl:Class ;
 #################################################################
 
 cat:Health rdf:type owl:Class ;
-    rdfs:subClassOf cat:PersonPredefined ;
+    rdfs:subClassOf cat:Person ;
     rdfs:label "Health"@en ;
     rdfs:comment "Personal health and wellness information. Medical history, allergies, medications, vaccinations."@en .
+
+cat:MedicalAppointmentForOther rdf:type owl:Class ;
+    rdfs:subClassOf cat:Health ;
+    rdfs:label "MedicalAppointmentForOther"@en ;
+    rdfs:comment "A medical appointment a person manages on behalf of someone else they care for, e.g. a family member."@en .
 
 cat:Healthcare rdf:type owl:Class ;
     rdfs:subClassOf cat:Health ;
@@ -325,7 +323,7 @@ cat:Healthcare rdf:type owl:Class ;
 #################################################################
 
 cat:Events rdf:type owl:Class ;
-    rdfs:subClassOf cat:PersonPredefined ;
+    rdfs:subClassOf cat:Person ;
     rdfs:label "Events"@en ;
     rdfs:comment "Participation in or relationship to a specific event or gathering."@en .
 
@@ -335,7 +333,7 @@ cat:Events rdf:type owl:Class ;
 #################################################################
 
 cat:Government rdf:type owl:Class ;
-    rdfs:subClassOf cat:PersonPredefined ;
+    rdfs:subClassOf cat:Person ;
     rdfs:label "Government"@en ;
     rdfs:comment "Government-issued credentials, tax records, and civic relationships."@en .
 
@@ -344,22 +342,47 @@ cat:Federal rdf:type owl:Class ;
     rdfs:label "Federal"@en ;
     rdfs:comment "Federal government context (e.g. passport, federal tax records)."@en .
 
+cat:SSA rdf:type owl:Class ;
+    rdfs:subClassOf cat:Federal ;
+    rdfs:label "SSA"@en ;
+    rdfs:comment "The Social Security Administration — issues and holds Social Security records."@en .
+
+cat:Passport rdf:type owl:Class ;
+    rdfs:subClassOf cat:Federal ;
+    rdfs:label "Passport"@en ;
+    rdfs:comment "A federal agency that issues and holds passport records."@en .
+
 cat:State rdf:type owl:Class ;
     rdfs:subClassOf cat:Government ;
     rdfs:label "State"@en ;
     rdfs:comment "State government context (e.g. driver's license, state tax records)."@en .
+
+cat:BirthCertificate rdf:type owl:Class ;
+    rdfs:subClassOf cat:State ;
+    rdfs:label "BirthCertificate"@en ;
+    rdfs:comment "A state agency that issues and holds birth certificate records."@en .
+
+cat:DriversLicense rdf:type owl:Class ;
+    rdfs:subClassOf cat:State ;
+    rdfs:label "DriversLicense"@en ;
+    rdfs:comment "A state agency that issues and holds driver's license records."@en .
 
 cat:Municipality rdf:type owl:Class ;
     rdfs:subClassOf cat:Government ;
     rdfs:label "Municipality"@en ;
     rdfs:comment "Municipal government context (e.g. local permits, library card)."@en .
 
+cat:Residence rdf:type owl:Class ;
+    rdfs:subClassOf cat:Municipality ;
+    rdfs:label "Residence"@en ;
+    rdfs:comment "A place a person has lived — current or past residential address."@en .
+
 #################################################################
 #    cat:Information and subclasses
 #################################################################
 
 cat:Information rdf:type owl:Class ;
-    rdfs:subClassOf cat:PersonPredefined ;
+    rdfs:subClassOf cat:Person ;
     rdfs:label "Information"@en ;
     rdfs:comment "General knowledge selected by you, web links, documents, images."@en .
 
@@ -373,7 +396,7 @@ cat:Learnings rdf:type owl:Class ;
 #################################################################
 
 cat:Ownership rdf:type owl:Class ;
-    rdfs:subClassOf cat:PersonPredefined ;
+    rdfs:subClassOf cat:Person ;
     rdfs:label "Ownership"@en ;
     rdfs:comment "Owned assets, property, vehicles, and other possessions."@en .
 
@@ -383,12 +406,12 @@ cat:Vehicles rdf:type owl:Class ;
     rdfs:comment "Related to owning and maintaining a vehicle. Vehicle insurance, repairs, mechanics, garages."@en .
 
 cat:Pets rdf:type owl:Class ;
-    rdfs:subClassOf cat:PersonPredefined ;
+    rdfs:subClassOf cat:Person ;
     rdfs:label "Pets"@en ;
     rdfs:comment "Care instructions, veterinarians, medicines, food providers."@en .
 
 cat:Home rdf:type owl:Class ;
-    rdfs:subClassOf cat:PersonPredefined ;
+    rdfs:subClassOf cat:Person ;
     rdfs:label "Home"@en ;
     rdfs:comment "Owning or renting a home, apartment, or other dwelling. Leases, deeds, utility accounts, real estate brokers."@en .
 
@@ -397,7 +420,7 @@ cat:Home rdf:type owl:Class ;
 #################################################################
 
 cat:Projects rdf:type owl:Class ;
-    rdfs:subClassOf cat:PersonPredefined ;
+    rdfs:subClassOf cat:Person ;
     rdfs:label "Projects"@en ;
     rdfs:comment "Involvement in a specific project or initiative."@en .
 
@@ -406,7 +429,7 @@ cat:Projects rdf:type owl:Class ;
 #################################################################
 
 cat:Legal rdf:type owl:Class ;
-    rdfs:subClassOf cat:PersonPredefined ;
+    rdfs:subClassOf cat:Person ;
     rdfs:label "Legal"@en ;
     rdfs:comment "Legal matters, contracts, agreements, trusts, wills, and professional legal relationships."@en .
 
@@ -415,7 +438,7 @@ cat:Legal rdf:type owl:Class ;
 #################################################################
 
 cat:Travel rdf:type owl:Class ;
-    rdfs:subClassOf cat:PersonPredefined ;
+    rdfs:subClassOf cat:Person ;
     rdfs:label "Travel"@en ;
     rdfs:comment "Travel plans, trips, and related information. Loyalty programs, airlines, bus lines, trains."@en .
 
@@ -424,16 +447,16 @@ cat:Travel rdf:type owl:Class ;
 #################################################################
 
 cat:Food rdf:type owl:Class ;
-    rdfs:subClassOf cat:PersonPredefined ;
+    rdfs:subClassOf cat:Person ;
     rdfs:label "Food"@en ;
     rdfs:comment "Food preferences, dietary restrictions, favorite restaurants, recipes, shopping lists, and other food-related interests."@en .
 
 #################################################################
-#    OrgPredefined subclasses
+#    Organization subclasses
 #################################################################
 
 cat:Customers rdf:type owl:Class ;
-    rdfs:subClassOf cat:OrgPredefined ;
+    rdfs:subClassOf cat:Organization ;
     rdfs:label "Customers"@en ;
     rdfs:comment "Customer organizations. Rename to 'Clients', etc."@en .
 
@@ -443,32 +466,37 @@ cat:Prospects rdf:type owl:Class ;
     rdfs:comment "Customer prospects. Rename to 'Client prospects', etc."@en .
 
 cat:Partners rdf:type owl:Class ;
-    rdfs:subClassOf cat:OrgPredefined ;
+    rdfs:subClassOf cat:Organization ;
     rdfs:label "Partners"@en ;
     rdfs:comment "Firms that provide goods and services."@en .
 
 cat:Employees rdf:type owl:Class ;
-    rdfs:subClassOf cat:OrgPredefined ;
+    rdfs:subClassOf cat:Organization ;
     rdfs:label "Employees"@en ;
     rdfs:comment "Related to employees."@en .
 
+cat:EmployeeInfo rdf:type owl:Class ;
+    rdfs:subClassOf cat:Employees ;
+    rdfs:label "EmployeeInfo"@en ;
+    rdfs:comment "Detailed information about a specific employee."@en .
+
 cat:Consultants\(org\) rdf:type owl:Class ;
-    rdfs:subClassOf cat:OrgPredefined ;
+    rdfs:subClassOf cat:Organization ;
     rdfs:label "Consultants (org)"@en ;
     rdfs:comment "Engaged consultants."@en .
 
 cat:KB rdf:type owl:Class ;
-    rdfs:subClassOf cat:OrgPredefined ;
+    rdfs:subClassOf cat:Organization ;
     rdfs:label "KB"@en ;
     rdfs:comment "Corporate knowledge bases."@en .
 
 cat:Projects\(org\) rdf:type owl:Class ;
-    rdfs:subClassOf cat:OrgPredefined ;
+    rdfs:subClassOf cat:Organization ;
     rdfs:label "Projects (org)"@en ;
     rdfs:comment "Projects related to R&D, manufacturing, sales, marketing, operations, HR, etc."@en .
 
 cat:Meetings\(org\) rdf:type owl:Class ;
-    rdfs:subClassOf cat:OrgPredefined ;
+    rdfs:subClassOf cat:Organization ;
     rdfs:label "Meetings (org)"@en ;
     rdfs:comment "Events, meetings, workshops, webinars, and gatherings."@en .
 
@@ -478,21 +506,21 @@ cat:Conferences rdf:type owl:Class ;
     rdfs:comment "A conference or professional gathering."@en .
 
 cat:Suppliers rdf:type owl:Class ;
-    rdfs:subClassOf cat:OrgPredefined ;
+    rdfs:subClassOf cat:Organization ;
     rdfs:label "Suppliers"@en ;
     rdfs:comment "Companies that supply goods or services to this organization."@en .
 
 cat:Legal\(org\) rdf:type owl:Class ;
-    rdfs:subClassOf cat:OrgPredefined ;
+    rdfs:subClassOf cat:Organization ;
     rdfs:label "Legal (org)"@en ;
     rdfs:comment "Contracts and agreements."@en .
 
 cat:Government\(org\) rdf:type owl:Class ;
-    rdfs:subClassOf cat:OrgPredefined ;
+    rdfs:subClassOf cat:Organization ;
     rdfs:label "Government (org)"@en ;
     rdfs:comment "Interactions with government organizations."@en .
 
 cat:Finances\(org\) rdf:type owl:Class ;
-    rdfs:subClassOf cat:OrgPredefined ;
+    rdfs:subClassOf cat:Organization ;
     rdfs:label "Finances (org)"@en ;
     rdfs:comment "Corporate finance-related matters."@en .

@@ -6,9 +6,9 @@ version: 1.0.0
 created: 2026-07-03
 description: >
   Category DataBook for the Customers category. Groups context
-  DataBooks about customer organizations. Top-level OrgPredefined category.
+  DataBooks about customer organizations. Top-level Organization category.
 mia:
-  origin-type: OrgPredefined
+  classname: Customers
   num-parties: OneParty
   child: "http://mee.foundation/ontologies/categories-org/prospects"
 ---

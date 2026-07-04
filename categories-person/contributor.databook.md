@@ -8,6 +8,6 @@ description: >
   Category DataBook for the Contributor category. Groups context DataBooks
   related to contributing to initiatives started or led by others. Child of Work.
 mia:
-  origin-type: PersonPredefined
+  classname: Contributor
   num-parties: OneParty
 ---

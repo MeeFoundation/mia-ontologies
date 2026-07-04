@@ -8,7 +8,7 @@ description: >
   Example copy of the Financial Services category DataBook, extended with Alice's
   user-defined financial institution categories.
 mia:
-  origin-type: PersonPredefined
+  classname: FinancialServices
   num-parties: OneParty
   copiedFrom: "http://mee.foundation/ontologies/categories-person/financial-services"
   child: "http://www.example.org/mia/categories/citibank(financial-services)"

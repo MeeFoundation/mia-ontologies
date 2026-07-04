@@ -7,7 +7,7 @@ created: 2026-06-24
 description: >
   Example copy of the Friends category DataBook. Child of People.
 mia:
-  origin-type: PersonPredefined
+  classname: Friends
   num-parties: OneParty
   copiedFrom: "http://mee.foundation/ontologies/categories-person/friends"
 ---

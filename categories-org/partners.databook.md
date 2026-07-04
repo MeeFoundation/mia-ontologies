@@ -7,8 +7,8 @@ created: 2026-07-03
 description: >
   Category DataBook for the Partners category. Groups context
   DataBooks about firms that provide goods and services. Top-level
-  OrgPredefined category.
+  Organization category.
 mia:
-  origin-type: OrgPredefined
+  classname: Partners
   num-parties: OneParty
 ---

@@ -8,7 +8,7 @@ This is an **RDF/OWL ontology project** — a formal semantic knowledge model fo
 
 - **Persona ontology** (`persona.ttl`): models identity data — names, addresses, identifiers, relationships, payment cards, and more — structured around context-specific `Person` instances. Imports and profiles existing domain ontologies, documenting which of their classes and properties Mee uses, and extends them with Mia-specific terms.
 - **Context ontology** (`context.ttl`): defines controlled vocabularies for classifying context files — what asserted the data (`assertedBy`), and whose identity the file describes (`subject`), plus the `Context` class hierarchy (`SBScontext`/`OBScontext`/`OBOcontext`/`SBOcontext`).
-- **Category ontology** (`category.ttl`): defines the category class hierarchy (`Predefined`/`UserDefined`, `PersonPredefined`/`OrgPredefined`, `Parties`/`OneParty`/`TwoParty`/`MultiParty`, and all leaf categories) and the properties that classify and link category DataBooks (`origin-type`, `num-parties`, `sbs`/`obs`/`sbo`/`obo`, `child`, `label`, `note`, `folder`, `copiedFrom`). Mutually imports `context.ttl`.
+- **Category ontology** (`category.ttl`): defines the category class hierarchy (`Person`/`Organization`/`UserDefined` as direct subclasses of `Category`, `Parties`/`OneParty`/`TwoParty`/`MultiParty`, and all leaf categories) and the properties that classify and link category DataBooks (`classname`, `num-parties`, `sbs`/`obs`/`sbo`/`obo`, `child`, `label`, `note`, `folder`, `copiedFrom`). Mutually imports `context.ttl`.
 
 There are no build, compile, test, or lint commands. The files are Turtle (`.ttl`) loaded into semantic web tools (Protégé).
 
@@ -18,8 +18,8 @@ There are no build, compile, test, or lint commands. The files are Turtle (`.ttl
 |------|---------|
 | `persona.ttl` | Persona ontology — imports domain ontologies, annotates which classes/properties are required vs. optional for Mee, defines Mia-specific classes and properties |
 | `context.ttl` | Context ontology — controlled vocabularies for classifying context files (`category`, `assertedBy`, `subject`, `about-by`) and the `Context` class hierarchy. Mutually imports `category.ttl` |
-| `category.ttl` | Category ontology — the category class hierarchy and its classification/link properties (`origin-type`, `num-parties`, `sbs`/`obs`/`sbo`/`obo`, `child`, `label`, `note`, `folder`, `copiedFrom`). Mutually imports `context.ttl` |
-| `category-shacl.ttl` | SHACL validation shapes for category DataBook instances — `origin-type`/`num-parties` cardinality and enum, `sbs`/`obs`/`sbo` cardinality |
+| `category.ttl` | Category ontology — the category class hierarchy and its classification/link properties (`classname`, `num-parties`, `sbs`/`obs`/`sbo`/`obo`, `child`, `label`, `note`, `folder`, `copiedFrom`). Mutually imports `context.ttl` |
+| `category-shacl.ttl` | SHACL validation shapes for category DataBook instances — `classname`/`num-parties` cardinality and enum, `sbs`/`obs`/`sbo` cardinality |
 | `persona-shacl.ttl` | SHACL validation shapes — constraint rules for all `persona:Person` instances (SSN format, address cardinality, payment cards, wallet, social network, etc.) |
 | `persona-templates.ttl` | Persona template labels — defines `p:PersonaTemplate` (abstract classification superclass) and concrete label subclasses `p:BirthCertificate`, `p:JSContactCard`, `p:DriversLicense`, `p:Passport`; also defines related designator classes (`persona:DriversLicenseNumber`, `persona:IssuingJurisdiction`, `persona:PassportNumber`, `persona:IssuingCountry`, `persona:PlaceOfBirth`, `persona:GenderMarker`, `persona:IssueDate`, `persona:Credential`, `persona:WebURL`, `persona:OrganizationUnit`, `persona:JobTitle`), complex classes (`persona:Anniversary`, `persona:PersonalInfo`), and properties (`persona:hasAnniversary`, `persona:hasPhoto`, etc.) |
 | `shacl/birthcertificate-shacl.ttl` | Per-template SHACL shapes for birth certificate context files — run against the individual context file, not merged data |
@@ -50,9 +50,9 @@ There are no build, compile, test, or lint commands. The files are Turtle (`.ttl
 | `example/contexts/self.self(social-security-administration)(federal)(23).databook.md` | Alice's Social Security Number |
 | `example/contexts/self.self(bob-johnson)(people)(12).databook.md` | Alice's 1:1 context with Bob; social network with Bob as member |
 | `example/contexts/self.self(paula-walker)(family)(21).databook.md` | Alice's family context — social network with Paula Walker as member |
-| `example/contexts/self.self(possessions)(22).databook.md` | Alice's possessions — wallet, health insurance card, SSN card |
+| `example/contexts/self.self(ownership)(22).databook.md` | Alice's possessions — wallet, health insurance card, SSN card |
 | `example/contexts/self.self(paula-walker)(acme)(20).databook.md` | Alice's Acme employee context; social network with Paula Walker |
-| `example/contexts/self.self(acme)(employee)(10).databook.md` | Alice's business card (JSContactCard) — name, email, phone, employer, job title |
+| `example/contexts/self.self(alice-walker)(acme)(10).databook.md` | Alice's business card (JSContactCard) — name, email, phone, employer, job title |
 | `example/contexts/self.self(california-dmv)(state)(15).databook.md` | Alice's California driver's license — legal name, DOB, DL#, expiry, photo |
 | `example/contexts/self.self(passport)(federal)(19).databook.md` | Alice's US passport — legal name, DOB, passport#, issue/expiry, place of birth, gender marker, photo |
 | `example/contexts/self.self(health)(17).databook.md` | Alice's physical characteristics — height, eye color, hair color |
@@ -99,7 +99,7 @@ Context filenames follow a single flat pattern:
 |---------|---------|
 | `<subject>` | The entity the Persona is about. Use `self` when the subject is the Mia user's own `p:Person` (`:Self`); otherwise use the full hyphenated lowercase name (e.g. `paula-walker`, `bob-johnson`, `bhs-group`). |
 | `<asserted-by>` | Who asserted the data. Use `self` when the asserter is `:Self`; use the full hyphenated lowercase name for other asserters (e.g. `bob-johnson`, `citibank`); use the literal `members` for `c:MultiParty` contexts where any permitted member may write. |
-| `(<containing-category>)` | The local-name portion of this context's `mia.category` IRI — i.e., the IRI of the category DataBook that directly holds the `sbs`, `obs`, `sbo`, or `obo` link to this context. When the category DataBook local name includes a `(parent)` qualifier (e.g. `bob-johnson(people)`), the filename uses two separate parenthetical segments before the number: `(bob-johnson)(people)`. Examples: `(bob-johnson)(people)`, `(boston-hub-society)(affiliations)`, `(paula-walker)(family)`, `(citibank)(financial-services)`. For categories without a `(parent)` qualifier (e.g. `health`, `possessions`), a single segment suffices. |
+| `(<containing-category>)` | The local-name portion of this context's `mia.category` IRI — i.e., the IRI of the category DataBook that directly holds the `sbs`, `obs`, `sbo`, or `obo` link to this context. When the category DataBook local name includes a `(parent)` qualifier (e.g. `bob-johnson(people)`), the filename uses two separate parenthetical segments before the number: `(bob-johnson)(people)`. Examples: `(bob-johnson)(people)`, `(boston-hub-society)(affiliations)`, `(paula-walker)(family)`, `(citibank)(financial-services)`. For categories without a `(parent)` qualifier (e.g. `health`, `ownership`), a single segment suffices. |
 | `(<NN>)` | Zero-padded two-digit context number in parentheses, matching the diagram label. |
 
 **Exception — `c:MultiParty` contexts**: A group context (`category context:MultiParty`) has no single asserter — any permitted member can write to it and changes replicate to all members. The `<asserted-by>` segment is the literal `members` rather than an individual name. Example: `bhs-group.members(boston-hub-society)(affiliations)(01).databook.md` — about BHS Group, containing category "boston-hub-society(affiliations)", asserted by the group's members collectively.
@@ -244,7 +244,7 @@ If any `MISSING:` lines appear, either add the file or update the link.
 
 For each DataBook in `example/` (excluding `under-development/`), extract the three YAML values and verify they match the table. If they conflict, `about-by` is the authoritative value — update `subject` and/or `assertedBy` to match it.
 
-**Check 10 — Category filename ↔ id consistency**: For every category DataBook in `categories-person/`, `categories-org/`, and `example/categories/`, the filename root (the filename with `.databook.md` stripped) must exactly match the local name portion of the file's `id:` IRI (the string after the IRI base). The IRI base for canonical PersonPredefined files is `http://mee.foundation/ontologies/categories-person/`; for canonical OrgPredefined files it is `http://mee.foundation/ontologies/categories-org/`; for example files it is `http://www.example.org/mia/categories/`. Run:
+**Check 10 — Category filename ↔ id consistency**: For every category DataBook in `categories-person/`, `categories-org/`, and `example/categories/`, the filename root (the filename with `.databook.md` stripped) must exactly match the local name portion of the file's `id:` IRI (the string after the IRI base). The IRI base for canonical Person files is `http://mee.foundation/ontologies/categories-person/`; for canonical Organization files it is `http://mee.foundation/ontologies/categories-org/`; for example files it is `http://www.example.org/mia/categories/`. Run:
 
 ```python
 import os, re
@@ -306,7 +306,7 @@ shaclvalidate -datafile example/contexts/self.self(boston-hub-society)(affiliati
 
 All classes and properties defined in `persona.ttl`, `context.ttl`, and `category.ttl` must be mentioned in `README.md` in the sections before the **Illustrative Example: Alice Walker** section. The only intentional exceptions are the internal ontology documentation annotation properties (`usesRequiredClass`, `usesOptionalClass`, `usesCCOClass`, `usesCCOProperty`, `usagePattern`), which are infrastructure for self-documenting the ontology, not user-facing terms.
 
-In `README.md`, every mention of a class defined in `persona.ttl` must appear in backticks with the `p:` prefix (e.g. `p:Persona`, `p:Wallet`), every mention of a class or property defined in `context.ttl` must appear in backticks with the `c:` prefix (e.g. `c:contextType`, `c:SelfAsserted`), and every mention of a class or property defined in `category.ttl` must appear in backticks with the `cat:` prefix (e.g. `cat:Category`, `cat:origin-type`). Every capitalized mention of `Person` (the CCO class) must also appear in backticks. These formatting rules do **not** apply inside headings or subheadings.
+In `README.md`, every mention of a class defined in `persona.ttl` must appear in backticks with the `p:` prefix (e.g. `p:Persona`, `p:Wallet`), every mention of a class or property defined in `context.ttl` must appear in backticks with the `c:` prefix (e.g. `c:contextType`, `c:SelfAsserted`), and every mention of a class or property defined in `category.ttl` must appear in backticks with the `cat:` prefix (e.g. `cat:Category`, `cat:classname`). Every capitalized mention of `Person` (the CCO class) must also appear in backticks. These formatting rules do **not** apply inside headings or subheadings.
 
 ## Catalog Files
 

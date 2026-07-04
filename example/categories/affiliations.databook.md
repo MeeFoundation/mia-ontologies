@@ -8,7 +8,7 @@ description: >
   Example copy of the Affiliations category DataBook, extended with Alice's
   user-defined affiliation categories.
 mia:
-  origin-type: PersonPredefined
+  classname: Affiliations
   num-parties: OneParty
   copiedFrom: "http://mee.foundation/ontologies/categories-person/affiliations"
   child: "http://www.example.org/mia/categories/boston-hub-society(affiliations)"

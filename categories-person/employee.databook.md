@@ -8,6 +8,6 @@ description: >
   Category DataBook for the Employee category. Groups context DataBooks
   related to employment. Child of the Work category.
 mia:
-  origin-type: PersonPredefined
+  classname: Employee
   num-parties: OneParty
 ---

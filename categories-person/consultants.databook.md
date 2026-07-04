@@ -8,6 +8,6 @@ description: >
   Category DataBook for the Consultants category. Groups context DataBooks
   about interactions with consultants. Child of the People category.
 mia:
-  origin-type: PersonPredefined
+  classname: Consultants
   num-parties: OneParty
 ---

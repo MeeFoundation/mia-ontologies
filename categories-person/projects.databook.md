@@ -8,6 +8,6 @@ description: >
   Category DataBook for the Projects category. Groups context DataBooks
   about involvement in a specific project or initiative. Child of Categories.
 mia:
-  origin-type: PersonPredefined
+  classname: Projects
   num-parties: OneParty
 ---

@@ -7,8 +7,8 @@ created: 2026-07-03
 description: >
   Category DataBook for the Projects (org) category. Groups context
   DataBooks about projects related to R&D, manufacturing, sales, marketing,
-  operations, HR, etc. Top-level OrgPredefined category.
+  operations, HR, etc. Top-level Organization category.
 mia:
-  origin-type: OrgPredefined
+  classname: Projects(org)
   num-parties: OneParty
 ---

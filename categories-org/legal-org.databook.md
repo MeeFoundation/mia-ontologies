@@ -6,8 +6,8 @@ version: 1.0.0
 created: 2026-07-03
 description: >
   Category DataBook for the Legal (org) category. Groups context
-  DataBooks about contracts and agreements. Top-level OrgPredefined category.
+  DataBooks about contracts and agreements. Top-level Organization category.
 mia:
-  origin-type: OrgPredefined
+  classname: Legal(org)
   num-parties: OneParty
 ---

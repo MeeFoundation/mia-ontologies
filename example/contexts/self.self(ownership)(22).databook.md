@@ -1,20 +1,20 @@
 ---
-id: https://www.example.org/mia/contexts/self.self(possessions)(22)
-title: "About Alice Walker in the Possessions category as asserted by Alice Walker"
+id: https://www.example.org/mia/contexts/self.self(ownership)(22)
+title: "About Alice Walker in the Ownership category as asserted by Alice Walker"
 type: context-databook
-version: 2.0.2
+version: 2.0.3
 created: 2026-06-01
 description: >
   Alice Walker's possessions context. Records the physical cards she carries day-to-day:
   a wallet containing her driver's license and payment card, plus a health insurance card
   and Social Security card held separately.
 mia:
-  category: "http://www.example.org/mia/categories/possessions"
+  category: "http://www.example.org/mia/categories/ownership"
   assertedBy: ":Self"
   subject: ":Self"
   about-by: "context:SBScontext"
 graph:
-  named_graph: https://www.example.org/mia/contexts/self.self(possessions)(22)#graph
+  named_graph: https://www.example.org/mia/contexts/self.self(ownership)(22)#graph
   rdf_version: "1.1"
 shapes:
   - http://www.example.org/shapes
@@ -34,7 +34,7 @@ This context captures Alice Walker's day-to-day physical possessions. Her wallet
 
 ```turtle
 <!-- databook:id: alice-possessions-identity -->
-<!-- databook:graph: https://www.example.org/mia/contexts/self.self(possessions)(22)#graph -->
+<!-- databook:graph: https://www.example.org/mia/contexts/self.self(ownership)(22)#graph -->
 @prefix : <http://www.example.org/mia#> .
 @prefix persona: <http://mee.foundation/ontologies/persona#> .
 @prefix owl: <http://www.w3.org/2002/07/owl#> .
@@ -44,7 +44,7 @@ This context captures Alice Walker's day-to-day physical possessions. Her wallet
 
 :Self rdf:type owl:NamedIndividual ,
                persona:Person ;
-    rdfs:label "Alice Walker (Possessions)"@en ;
+    rdfs:label "Alice Walker (Ownership)"@en ;
     persona:hasWallet :Alice_Wallet ;
     persona:hasPhysicalCard :Alice_HealthInsuranceCard ;   # not in wallet — carried separately
     persona:hasPhysicalCard :Alice_SSNCard .               # not in wallet — stored at home for safety

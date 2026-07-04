@@ -5,10 +5,10 @@ type: category-databook
 version: 1.0.0
 created: 2026-07-03
 description: >
-  Root category DataBook for OrgPredefined categories. Parent of all
+  Root category DataBook for Organization categories. Parent of all
   top-level predefined organization categories.
 mia:
-  origin-type: OrgPredefined
+  classname: Category
   child:
     - "http://mee.foundation/ontologies/categories-org/customers"
     - "http://mee.foundation/ontologies/categories-org/partners"

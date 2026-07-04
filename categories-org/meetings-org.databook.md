@@ -7,9 +7,9 @@ created: 2026-07-03
 description: >
   Category DataBook for the Meetings (org) category. Groups context
   DataBooks about events, meetings, workshops, webinars, and gatherings.
-  Top-level OrgPredefined category.
+  Top-level Organization category.
 mia:
-  origin-type: OrgPredefined
+  classname: Meetings(org)
   num-parties: OneParty
   child: "http://mee.foundation/ontologies/categories-org/conferences"
 ---

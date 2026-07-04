@@ -8,6 +8,6 @@ description: >
   Category DataBook for the Companies category. Groups context DataBooks
   about relationships with specific companies and institutions. Child of Categories.
 mia:
-  origin-type: PersonPredefined
+  classname: Companies
   num-parties: OneParty
 ---

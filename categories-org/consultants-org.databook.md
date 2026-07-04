@@ -6,9 +6,9 @@ version: 1.0.0
 created: 2026-07-03
 description: >
   Category DataBook for the Consultants (org) category. Groups
-  context DataBooks about engaged consultants. Top-level OrgPredefined
+  context DataBooks about engaged consultants. Top-level Organization
   category.
 mia:
-  origin-type: OrgPredefined
+  classname: Consultants(org)
   num-parties: OneParty
 ---

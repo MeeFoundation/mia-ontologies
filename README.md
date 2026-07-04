@@ -85,7 +85,7 @@ The description of the context container itself is carried in the DataBook's YAM
 
 ### Context Ontology Validation
 
-Context file metadata (category, asserter, subject, about-by) is declared in YAML frontmatter and validated at authoring time by convention. `context.ttl` has no SHACL shapes of its own — the classification fields that carry validation constraints (`origin-type`, `num-parties`, `sbs`/`obs`/`sbo`/`obo`) live on category DataBooks and are validated by `category-shacl.ttl` (see [Category Ontology Validation](#category-ontology-validation)).
+Context file metadata (category, asserter, subject, about-by) is declared in YAML frontmatter and validated at authoring time by convention. `context.ttl` has no SHACL shapes of its own — the classification fields that carry validation constraints (`classname`, `num-parties`, `sbs`/`obs`/`sbo`/`obo`) live on category DataBooks and are validated by `category-shacl.ttl` (see [Category Ontology Validation](#category-ontology-validation)).
 
 ## Category Ontology
 
@@ -97,11 +97,11 @@ Categories range in scope. They vary from a few broad top level categories like 
 
 Categories include references to zero, one or more *contexts* as described in the previous section.
 
-### Origin and parties
+### Classname and parties
 
-Every category (other than the invisible root) is classified two ways: whether it's predefined, and how many parties it involves.
+Every category (other than the invisible root) is classified two ways: which class it is (or was copied from), and how many parties it involves.
 
-**Origin — `mia.origin-type`.** A category is either predefined (`cat:Predefined`, shipped with Mia) or `cat:UserDefined` (created by the user). Predefined categories are further divided into `cat:PersonPredefined` (generally useful categories for organizing a person's personal, non-work, life) and `cat:OrgPredefined` (categories tuned to a person's working life). `mia.origin-type` holds the concrete classname directly (`PersonPredefined`, `OrgPredefined`, `UserDefined`, or a future predefined subclass) rather than a boolean, so new kinds of predefined origin can be added without changing the property itself.
+**Classname — `mia.classname`.** Its value is the local name of the `cat:Category` subclass this category canonically is — for a canonical predefined category, e.g. `Family` or `Employees(org)` — or, for a user's instance copy of a predefined category, the name of the class it was copied from (the same value as its canonical source). A category with no predefined counterpart at all (e.g. a specific person, company, or group Alice created herself) uses `Category` itself, the root class. Predefined categories are direct subclasses of `cat:Category`: either `cat:Person` (generally useful categories for organizing a person's personal, non-work, life) or `cat:Organization` (categories tuned to a person's working life) — `mia.classname` names the specific leaf subclass rather than this broader family, so new predefined subclasses can be added without changing the property itself.
 
 **Parties — `mia.num-parties`.** `cat:Parties` is a standalone abstract class documenting how many external parties are involved in the relationship a category represents. The hierarchy exists purely to document the field's values and their display labels. There are three types: `cat:OneParty` (no external party — display label "Category"), `cat:TwoParty` (a 1:1 relationship with a specific person, organization, or other party — display label "Connection"), and `cat:MultiParty` (a shared multi-party relationship with a group of people or organizations — display label "Circle"). 
 
@@ -134,7 +134,7 @@ In the normal case `cat:note` and `cat:folder` are technically redundant — bot
 
 ### Example category tree
 
-The diagram below shows a minimal example of a category tree with five kinds of nodes as well as referenced contexts (the white and green circles). At the top is a `cat:PersonPredefined` predefined category and its child, a `cat:OrgPredefined` category. At the third level is a `cat:UserDefined` category which contains as its first child, a "Connection" (cat:TwoParty category) between the user and another Mia user, Bob. Its second child is a "Circle" (`cat:MultiParty`)--the Boston Hub Society (BHS) professional social network.
+The diagram below shows a minimal example of a category tree with five kinds of nodes as well as referenced contexts (the white and green circles). At the top is a `cat:Person` predefined category and its child, a `cat:Organization` category. At the third level is a `cat:UserDefined` category which contains as its first child, a "Connection" (cat:TwoParty category) between the user and another Mia user, Bob. Its second child is a "Circle" (`cat:MultiParty`)--the Boston Hub Society (BHS) professional social network.
 
 The top-to-bottom ordering of the two predefined category trees is preserved when copied to the user's tree, although the user is always free to insert any number of user-defined categories at any level in the resulting tree. 
 
@@ -142,9 +142,9 @@ Each of these five example categories contains contexts shown as circles. White 
 
 <p align="center"><img src="images/category-ontology/categories+contexts.png" alt="Categories and contexts"></p>
 
-### PersonPredefined Categories
+### Person Categories
 
-`cat:PersonPredefined` categories (and sub-categories) are used to organize a person's information:
+`cat:Person` categories (and sub-categories) are used to organize a person's information:
 
 1. **People** (`cat:People`) — people in your social or professional life.
     - **Family** (`cat:Family`) — family members.
@@ -154,6 +154,7 @@ Each of these five example categories contains contexts shown as circles. White 
 1. **Affiliations** (`cat:Affiliations`) — sports clubs, teams, charities, faith groups, and social networks. Some may be `cat:MultiParty` "Circles" that exist as a `g:Group` on the PDN.
 1. **Health** (`cat:Health`) — personal health and wellness information. Medical history, allergies, medications, vaccinations.
     - **Healthcare** (`cat:Healthcare`) — healthcare providers or health insurance companies.
+    - **Medical Appointment For Other** (`cat:MedicalAppointmentForOther`) — a medical appointment a person manages on behalf of someone else they care for.
 1. **Finances** (`cat:Finances`) — information about personal finances, bookkeeping, budgets, payment cards, bank accounts.
     - **Financial Services** (`cat:FinancialServices`) — banks or other financial services institutions.
 1. **Pets** (`cat:Pets`) — care instructions, veterinarians, medicines, food providers.
@@ -173,18 +174,24 @@ Each of these five example categories contains contexts shown as circles. White 
     - **Learnings** (`cat:Learnings`) — knowledge gained through personal experience.
 1. **Government** (`cat:Government`) — government-issued credentials, tax records, and civic relationships.
     - **Federal** (`cat:Federal`) — federal government context (e.g. passport, federal tax records).
+        - **SSA** (`cat:SSA`) — the Social Security Administration.
+        - **Passport** (`cat:Passport`) — a federal agency that issues and holds passport records.
     - **State** (`cat:State`) — state government context (e.g. driver's license, state tax records).
+        - **Birth Certificate** (`cat:BirthCertificate`) — a state agency that issues and holds birth certificate records.
+        - **Drivers License** (`cat:DriversLicense`) — a state agency that issues and holds driver's license records.
     - **Municipality** (`cat:Municipality`) — municipal government context (e.g. local permits, library card).
+        - **Residence** (`cat:Residence`) — a place a person has lived, current or past.
 1. **Companies** (`cat:Companies`) — miscellaneous companies and organizations that provide services or products to you. See also Finances, Health, Home, Food for companies and organizations related to those areas.
 
-### cat:OrgPredefined Categories
+### cat:Organization Categories
 
-`cat:OrgPredefined` categories for an organization's information:
+`cat:Organization` categories for an organization's information:
 
 1. **Customers** (`cat:Customers`) — customer organizations. Rename to "Clients", etc.
     - **Prospects** (`cat:Prospects`) - customer prospects. Rename to "Client prospects", etc.
 1. **Partners** (`cat:Partners`) — firms that provide goods and services.
 1. **Employees** (`cat:Employees`) — related to employees.
+    - **Employee Info** (`cat:EmployeeInfo`) — detailed information about a specific employee.
 1. **Consultants (org)** (`cat:Consultants(org)`) — engaged consultants.
 1. **KB** (`cat:KB`) — corporate knowledge bases.
 1. **Projects (org)** (`cat:Projects(org)`) — projects related to R&D, manufacturing, sales, marketing, operations, HR, etc.
@@ -201,7 +208,7 @@ Each node in the `cat:Category` tree is represented by a **category DataBook** (
 
 #### Predefined Category DataBooks
 
-`cat:PersonPredefined` category DataBooks live in `categories-person/`, rooted at `categories-person/categories-person.databook.md`. `cat:OrgPredefined` category DataBooks live in `categories-org/`, rooted at `categories-org/categories-org.databook.md`.
+`cat:Person` category DataBooks live in `categories-person/`, rooted at `categories-person/categories-person.databook.md`. `cat:Organization` category DataBooks live in `categories-org/`, rooted at `categories-org/categories-org.databook.md`.
 
 #### Properties
 
@@ -209,7 +216,7 @@ The following properties are defined in `category.ttl` and represented as `mia.`
 
 | YAML field | Ontology property | Cardinality | Meaning |
 |------------|-------------------|-------------|---------|
-| `mia.origin-type` | `cat:origin-type` | 1 | The concrete origin subclass this DataBook instantiates: `PersonPredefined`, `OrgPredefined`, `UserDefined`, or a future predefined subclass |
+| `mia.classname` | `cat:classname` | 1 | The local name of the `cat:Category` subclass this DataBook is or was copied from (e.g. `Family`, `Employees(org)`), or `Category` itself if there is no predefined counterpart |
 | `mia.num-parties` | `cat:num-parties` | 1 | The concrete `cat:Parties` subclass this DataBook instantiates: one of `OneParty`, `TwoParty`, `MultiParty` |
 | `mia.label` | `cat:label` | 1 | User-editable display name — defaults to the DataBook `title` but can be changed independently, leaving `title` and `id` immutable |
 | `mia.note` | `cat:note` | 0..1 | Relative path to a markdown notes file for this category (e.g. `notes/people/paula-walker`) |
@@ -234,12 +241,12 @@ Each category DataBook in the user's tree may carry up to four optional links to
 ### Category Ontology File
 
 - **`category.ttl`** — The Category ontology, defining:
-  - *Classes*: `cat:Category`, `cat:Predefined`, `cat:PersonPredefined`, `cat:OrgPredefined`, `cat:UserDefined`, `cat:Parties`, `cat:OneParty`, `cat:TwoParty`, `cat:MultiParty` and all leaf category subclasses.
-  - *Annotation properties*: `cat:origin-type` (concrete origin subclass: PersonPredefined/OrgPredefined/UserDefined/future), `cat:num-parties` (concrete `cat:Parties` subclass), `cat:label` (user-editable display name), `cat:note` (path to markdown notes file), `cat:folder` (path to associated file folder), `cat:copiedFrom` (IRI of the canonical category this DataBook was copied from), `cat:abstract` (marks a class as not directly instantiated in DataBooks).
+  - *Classes*: `cat:Category`, `cat:Person`, `cat:Organization`, `cat:UserDefined`, `cat:Parties`, `cat:OneParty`, `cat:TwoParty`, `cat:MultiParty` and all leaf category subclasses.
+  - *Annotation properties*: `cat:classname` (the `cat:Category` subclass this DataBook is or was copied from, or `Category` itself), `cat:num-parties` (concrete `cat:Parties` subclass), `cat:label` (user-editable display name), `cat:note` (path to markdown notes file), `cat:folder` (path to associated file folder), `cat:copiedFrom` (IRI of the canonical category this DataBook was copied from), `cat:abstract` (marks a class as not directly instantiated in DataBooks).
   - *Object properties*: `cat:sbs`, `cat:obs`, `cat:obo`, `cat:sbo`, `cat:child`.
   These terms are referenced by name in the YAML frontmatter of each category DataBook file. `category.ttl` imports `context.ttl` (for the `c:SBScontext`/`c:OBScontext`/`c:OBOcontext`/`c:SBOcontext` ranges of `cat:sbs`/`cat:obs`/`cat:obo`/`cat:sbo`); `context.ttl` in turn imports `category.ttl` (for `c:category`'s range, `cat:Category`, and to reuse `cat:abstract` on `c:Context`).
 
-- **`category-shacl.ttl`** — SHACL shapes for category DataBook instances. Constrains `cat:Category` instances to: at most one `cat:sbs`, `cat:obs`, and `cat:sbo` value each (`cat:obo` is unconstrained, 0..N); exactly one `cat:origin-type` value (open-ended — no enum, since new predefined kinds can be added freely); and at most one `cat:num-parties` value, which if present must be one of `OneParty`, `TwoParty`, `MultiParty`.
+- **`category-shacl.ttl`** — SHACL shapes for category DataBook instances. Constrains `cat:Category` instances to: at most one `cat:sbs`, `cat:obs`, and `cat:sbo` value each (`cat:obo` is unconstrained, 0..N); exactly one `cat:classname` value (open-ended — no enum, since new predefined subclasses can be added freely); and at most one `cat:num-parties` value, which if present must be one of `OneParty`, `TwoParty`, `MultiParty`.
 
 ### Category Ontology Validation
 
@@ -516,8 +523,8 @@ Alice's context DataBooks are in `example/contexts.` Some are authored by Alice 
 
 Alice's category DataBooks are in `example/categories/`. The full tree can be walked starting from `example/categories/categories.databook.md`. It contains two kinds of entries:
 
-- **Copies of predefined canonical categories** (`mia.origin-type: PersonPredefined` or `OrgPredefined`) — one for each of the 16 top-level categories and their subcategories. Each copy carries a `copiedFrom:` property pointing to the corresponding canonical IRI (e.g. `copiedFrom: "http://mee.foundation/ontologies/categories-person/people"`). Context links (`c:sbs`, `c:obs`, `c:obo`, `c:sbo`) to Alice's contexts are attached here, not in the canonical tree.
-- **User-defined categories** (`mia.origin-type: UserDefined`) — one per specific person, company, government agency, or group Alice interacts with (e.g. `bob-johnson(people)`, `acme(employee)`, `citibank(financial-services)`).
+- **Copies of predefined canonical categories** (`mia.classname` set to the specific class it was copied from, e.g. `People`, `Employees`) — one for each of the 16 top-level categories and their subcategories. Each copy carries a `copiedFrom:` property pointing to the corresponding canonical IRI (e.g. `copiedFrom: "http://mee.foundation/ontologies/categories-person/people"`). Context links (`c:sbs`, `c:obs`, `c:obo`, `c:sbo`) to Alice's contexts are attached here, not in the canonical tree.
+- **User-defined categories** (`mia.classname: Category`) — one per specific person, company, government agency, or group Alice interacts with (e.g. `bob-johnson(people)`, `acme(employee)`, `citibank(financial-services)`).
 
 #### Category and Context Diagrams
 
@@ -527,11 +534,11 @@ Contexts with dotted outlines are placeholders for contexts in category — Alic
 
 <p align="center"><img src="example/images/people.png" alt="People categories"></p>
 
-Alice and her sister, Carol, are taking care of their mother Paula Walker and need to arrange medical appointments for her. To do so, they need to share and synchronize medical information about Paula including her list of medications, medical history, health insurance policy, contact information and so on. The diagram below shows Alice's connection with Carol that they use to share information about Paula.
+Alice and her sister, Carol, are taking care of their mother Paula Walker and need to arrange medical appointments for her. To do so, they need to share and synchronize medical information about Paula including her list of medications, medical history, health insurance policy, contact information and so on. Alice creates a two-party Medical Appointment for Other enclave with Carol that they use to share information about Paula. The medical information is captured in triples shown in the filled green circle. 
 
-<p align="center"><img src="example/images/third-party.png" alt="Third party Connection category"></p>
+<p align="center"><img src="example/images/health.png" alt="Health category"></p>
 
-Alice is an employee of Acme, so under her employee category she has created a user-defined category call Acme to represent her Alice-as-employee-of-Acme persona and to this she has added a set of Business Card claims that include her job title at Acme, her work telephone number, her Acme email, etc. Since Acme is an organization, Alice has under her Acme category switched from adding `c:PersonPredefined` categories to `c:OrgPredefined` categories (light blue color) and added an Employees category which acts as a parent holding categories for each of her colleagues at Acme. One of the employees she works with is Paula Walker, so she adds a Paula Walker category.
+Alice is an employee of Acme, so under her employee category she has created a user-defined category called Acme to represent her employer. Since Acme is an organization, Alice has under her Acme category switched from adding `cat:Person` categories to `cat:Organization` categories (light blue color) and added an Employees category which acts as a parent holding an EmployeeInfo category for each person there she tracks, including herself. Her own "Alice Walker" category holds her Business Card claims — job title at Acme, work telephone number, work email, etc. One of the employees she works with is Paula Walker, so she adds a Paula Walker category too.
 <p align="center"><img src="example/images/work.png" alt="Work categories"></p>
 
 Alice has relationships with two companies, Google and AT&T:
@@ -560,7 +567,7 @@ The contexts in the table below are *about* Alice and asserted *by* Alice. All `
 
 | #  | DataBook file                                                                          | Context type | Key data                                                         | Diagram |
 |--- |:--------------------------------------------------------------------------------------|:-------------|:-----------------------------------------------------------------|:--------|
-| 10 | [self.self(acme)(employee)(10)](example/contexts/self.self(acme)(employee)(10).databook.md) | Employee     | Business card — given name, family name, email, phone, employer  | [view](example/contexts/images/self.self(acme)(employee)(10).png) |
+| 10 | [self.self(alice-walker)(acme)(10)](example/contexts/self.self(alice-walker)(acme)(10).databook.md) | EmployeeInfo     | Business card — given name, family name, email, phone, employer  | [view](example/contexts/images/self.self(alice-walker)(acme)(10).png) |
 | 11 | [self.self(att)(companies)(11)](example/contexts/self.self(att)(companies)(11).databook.md)                     | Companies    | Phone number                                                     | [view](example/contexts/images/self.self(att)(companies)(11).png) |
 | 12 | [self.self(bob-johnson)(people)(12)](example/contexts/self.self(bob-johnson)(people)(12).databook.md)                     | People       | Alice's 1:1 context with Bob; social network with Bob as member  | [view](example/contexts/images/self.self(bob-johnson)(people)(12).png)|
 | 13 | [self.self(boston)(municipality)(13)](example/contexts/self.self(boston)(municipality)(13).databook.md)               | Municipality | Previous address — Boston, MA (2020–2025) with temporal interval | [view](example/contexts/images/self.self(boston)(municipality)(13).png) |
@@ -570,9 +577,9 @@ The contexts in the table below are *about* Alice and asserted *by* Alice. All `
 | 17 | [self.self(health)(17)](example/contexts/self.self(health)(17).databook.md)                 | Health     | Physical body — height (68 in.), blue eyes, grey hair            | [view](example/contexts/images/self.self(health)(17).png) |
 | 18 | [self.self(paradise)(municipality)(18)](example/contexts/self.self(paradise)(municipality)(18).databook.md)           | Municipality | Current address — Paradise, CA (2025–present)                    | [view](example/contexts/images/self.self(paradise)(municipality)(18).png) |
 | 19 | [self.self(passport)(federal)(19)](example/contexts/self.self(passport)(federal)(19).databook.md)             | Federal    | US passport — legal name, DOB, passport#, issue/expiry, place of birth, gender marker, photo | [view](example/contexts/images/self.self(passport)(federal)(19).png) |
-| 20 | [self.self(paula-walker)(acme)(20)](example/contexts/self.self(paula-walker)(acme)(20).databook.md)                   | Employee     | Acme employee context; company email; works with Paula           | [view](example/contexts/images/self.self(paula-walker)(acme)(20).png)|
+| 20 | [self.self(paula-walker)(acme)(20)](example/contexts/self.self(paula-walker)(acme)(20).databook.md)                   | EmployeeInfo     | Acme employee context; company email; works with Paula           | [view](example/contexts/images/self.self(paula-walker)(acme)(20).png)|
 | 21 | [self.self(paula-walker)(family)(21)](example/contexts/self.self(paula-walker)(family)(21).databook.md)   | Family       | Alice as a family member                       | [view](example/contexts/images/self.self(paula-walker)(family)(21).png) |
-| 22 | [self.self(possessions)(22)](example/contexts/self.self(possessions)(22).databook.md)     | Possessions  | Wallet (driver's license + payment card); health ins., SSN card  | [view](example/contexts/images/self.self(possessions)(22).png) |
+| 22 | [self.self(ownership)(22)](example/contexts/self.self(ownership)(22).databook.md)     | Ownership  | Wallet (driver's license + payment card); health ins., SSN card  | [view](example/contexts/images/self.self(ownership)(22).png) |
 | 23 | [self.self(social-security-administration)(federal)(23)](example/contexts/self.self(social-security-administration)(federal)(23).databook.md)                     | Federal      | Social security number (SSN)                                     | [view](example/contexts/images/self.self(social-security-administration)(federal)(23).png) |
 | 24 | [self.self(texas-vital-records)(state)(24)](example/contexts/self.self(texas-vital-records)(state)(24).databook.md) | State        | Legal names, maiden name                                         | [view](example/contexts/images/self.self(texas-vital-records)(state)(24).png) |
 
@@ -592,7 +599,7 @@ The following table lists contexts about other people (Paula and Bob) or groups 
 | 3  | [bob-johnson.bob-johnson(boston-hub-society)(affiliations)(03)](example/contexts/bob-johnson.bob-johnson(boston-hub-society)(affiliations)(03).databook.md)                     | Affiliations | Bob's BHS member persona (name, email, phone, address)          | [view](example/contexts/images/bob-johnson.bob-johnson(boston-hub-society)(affiliations)(03).png) |
 | 4  | [bob-johnson.self(bob-johnson)(people)(04)](example/contexts/bob-johnson.self(bob-johnson)(people)(04).databook.md)                 | People       | Alice's notes about Bob; fav drink: oat milk cappuccino         | [view](example/contexts/images/bob-johnson.self(bob-johnson)(people)(04).png) |
 | 5  | [paula-walker.paula-walker(paula-walker)(family)(05)](example/contexts/paula-walker.paula-walker(paula-walker)(family)(05).databook.md) | Family       | Paula's own family persona; social network with Alice       | [view](example/contexts/images/paula-walker.paula-walker(paula-walker)(family)(05).png)|
-| 6  | [paula-walker.self(paula-walker)(acme)(06)](example/contexts/paula-walker.self(paula-walker)(acme)(06).databook.md)           | Employee     | Paula as Alice's Acme colleague (Alice-asserted)                | [view](example/contexts/images/paula-walker.self(paula-walker)(acme)(06).png)|
+| 6  | [paula-walker.self(paula-walker)(acme)(06)](example/contexts/paula-walker.self(paula-walker)(acme)(06).databook.md)           | EmployeeInfo     | Paula as Alice's Acme colleague (Alice-asserted)                | [view](example/contexts/images/paula-walker.self(paula-walker)(acme)(06).png)|
 | 7  | [paula-walker.self(paula-walker)(family)(07)](example/contexts/paula-walker.self(paula-walker)(family)(07).databook.md) | Family       | Paula as Alice's family member (Alice-asserted)           | [view](example/contexts/images/paula-walker.self(paula-walker)(family)(07).png)|
 
 
@@ -697,8 +704,8 @@ riot --output=turtle /tmp/mia-base.ttl /tmp/data-birth-cert-raw.ttl 2>/dev/null 
 grep -v 'owl:imports' shacl/birthcertificate-shacl.ttl > /tmp/shapes-birth-cert.ttl
 shacl validate --shapes /tmp/shapes-birth-cert.ttl --data /tmp/data-birth-cert.ttl --text
 
-# JSContactCard — self.self(acme)(employee)(10).databook.md
-databook extract "example/contexts/self.self(acme)(employee)(10).databook.md" 2>/dev/null > /tmp/data-jscontact-raw.ttl
+# JSContactCard — self.self(alice-walker)(acme)(10).databook.md
+databook extract "example/contexts/self.self(alice-walker)(acme)(10).databook.md" 2>/dev/null > /tmp/data-jscontact-raw.ttl
 riot --output=turtle /tmp/mia-base.ttl /tmp/data-jscontact-raw.ttl 2>/dev/null > /tmp/data-jscontact.ttl
 grep -v 'owl:imports' shacl/jscontactcard-shacl.ttl > /tmp/shapes-jscontact.ttl
 shacl validate --shapes /tmp/shapes-jscontact.ttl --data /tmp/data-jscontact.ttl --text

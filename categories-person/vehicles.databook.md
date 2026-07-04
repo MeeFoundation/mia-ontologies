@@ -7,8 +7,8 @@ created: 2026-06-24
 description: >
   Category DataBook for the Vehicles category. Groups context DataBooks
   about owning and maintaining a vehicle, including vehicle insurance, repairs,
-  mechanics, and garages. Child of Possessions.
+  mechanics, and garages. Child of Ownership.
 mia:
-  origin-type: PersonPredefined
+  classname: Vehicles
   num-parties: OneParty
 ---

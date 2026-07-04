@@ -7,8 +7,8 @@ created: 2026-07-03
 description: >
   Category DataBook for the Government (org) category. Groups
   context DataBooks about interactions with government organizations.
-  Top-level OrgPredefined category.
+  Top-level Organization category.
 mia:
-  origin-type: OrgPredefined
+  classname: Government(org)
   num-parties: OneParty
 ---

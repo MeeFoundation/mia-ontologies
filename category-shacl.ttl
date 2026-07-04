@@ -7,7 +7,7 @@
 @prefix cat: <http://mee.foundation/ontologies/category#> .
 
 <http://www.example.org/category-shapes> rdf:type owl:Ontology ;
-    owl:versionInfo "Version 1.0.0 - split out of context-shacl.ttl into its own file, cat: prefix"@en ;
+    owl:versionInfo "Version 1.0.2 - update classname comment/message: fallback value is now \"Category\" itself, not \"UserDefined\""@en ;
     rdfs:label "Category Ontology SHACL Validation Shapes"@en ;
     rdfs:comment "SHACL validation shapes for category DataBook instances in the Category Ontology."@en .
 
@@ -45,16 +45,17 @@
         sh:message "A category may link to at most one SBOcontext via cat:sbo."@en
     ] ;
 
-    # cat:origin-type — required exactly once. No sh:in enum: the
-    # value should be "UserDefined" or a cat:Predefined subclass
-    # name (e.g. "PersonPredefined", "OrgPredefined"), but is
-    # intentionally open-ended so future predefined kinds don't
-    # require updating this shape.
+    # cat:classname — required exactly once. No sh:in enum: the value
+    # is the local name of the cat:Category subclass this DataBook is
+    # (canonical) or was copied from (instance copy) — e.g. "Family",
+    # "Consultants(org)" — or "Category" itself if there is no more
+    # specific predefined counterpart. Intentionally open-ended so new
+    # predefined subclasses don't require updating this shape.
     sh:property [
-        sh:path cat:origin-type ;
+        sh:path cat:classname ;
         sh:minCount 1 ;
         sh:maxCount 1 ;
-        sh:message "A category must have exactly one cat:origin-type value: \"UserDefined\" or a cat:Predefined subclass name (e.g. \"PersonPredefined\", \"OrgPredefined\")."@en
+        sh:message "A category must have exactly one cat:classname value: the cat:Category subclass local name it is or was copied from, or \"Category\" itself."@en
     ] ;
 
     # cat:num-parties — at most one value, and if present must be

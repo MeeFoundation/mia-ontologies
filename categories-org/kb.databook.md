@@ -6,8 +6,8 @@ version: 1.0.0
 created: 2026-07-03
 description: >
   Category DataBook for the KB category. Groups context DataBooks
-  about corporate knowledge bases. Top-level OrgPredefined category.
+  about corporate knowledge bases. Top-level Organization category.
 mia:
-  origin-type: OrgPredefined
+  classname: KB
   num-parties: OneParty
 ---

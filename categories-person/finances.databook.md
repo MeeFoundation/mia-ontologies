@@ -8,7 +8,7 @@ description: >
   Category DataBook for the Finances category. Groups context DataBooks
   about personal finances and relationships with financial institutions. Child of Categories.
 mia:
-  origin-type: PersonPredefined
+  classname: Finances
   num-parties: OneParty
   child:
     - "http://mee.foundation/ontologies/categories-person/financial-services"

@@ -9,7 +9,7 @@ description: >
   about general knowledge selected by the user, web links, documents, and images.
   Child of Categories.
 mia:
-  origin-type: PersonPredefined
+  classname: Information
   num-parties: OneParty
   child:
     - "http://mee.foundation/ontologies/categories-person/learnings"

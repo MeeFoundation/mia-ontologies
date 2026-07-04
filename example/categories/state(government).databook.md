@@ -8,7 +8,7 @@ description: >
   Example copy of the State category DataBook, extended with Alice's user-defined
   state agency categories.
 mia:
-  origin-type: PersonPredefined
+  classname: State
   num-parties: OneParty
   copiedFrom: "http://mee.foundation/ontologies/categories-person/state"
   child:
