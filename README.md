@@ -80,8 +80,8 @@ The description of the context container itself is carried in the DataBook's YAM
 
 - **`context.ttl`** — The Context ontology, defining:
   - *Classes*: `c:Context`, `c:SBScontext`, `c:OBScontext`, `c:OBOcontext`, `c:SBOcontext`.
-  - *Annotation properties*: `c:category` (containing category — range `cat:Category`), `c:assertedBy`, `c:subject`, `c:about-by`, `c:template`, `c:abstract` (marks a class as not directly instantiated in DataBooks).
-  These terms are referenced by name in the YAML frontmatter of each DataBook file. `context.ttl` imports `category.ttl` (for `c:category`'s range, `cat:Category`).
+  - *Annotation properties*: `c:category` (containing category — range `cat:Category`), `c:assertedBy`, `c:subject`, `c:about-by`, `c:template`.
+  These terms are referenced by name in the YAML frontmatter of each DataBook file. `context.ttl` imports `category.ttl` (for `c:category`'s range, `cat:Category`, and to reuse `cat:abstract` on `c:Context`).
 
 ### Context Ontology Validation
 
@@ -105,7 +105,7 @@ Every category (other than the invisible root) is classified two ways: whether i
 
 **Parties — `mia.num-parties`.** `cat:Parties` is a standalone abstract class documenting how many external parties are involved in the relationship a category represents. The hierarchy exists purely to document the field's values and their display labels. There are three types: `cat:OneParty` (no external party — display label "Category"), `cat:TwoParty` (a 1:1 relationship with a specific person, organization, or other party — display label "Connection"), and `cat:MultiParty` (a shared multi-party relationship with a group of people or organizations — display label "Circle"). 
 
-<p align="center"><img src="images/context-ontology/category.png" alt="Category hierarchy"></p>
+<p align="center"><img src="images/category-ontology/category.png" alt="Category hierarchy"></p>
 
 ### Properties
 
@@ -140,7 +140,7 @@ The top-to-bottom ordering of the two predefined category trees is preserved whe
 
 Each of these five example categories contains contexts shown as circles. White circles are contexts whose triples are asserted by the self (the user). Green circles are contexts whose triples are asserted by a person other than the self (i:Individual), by an organization (i:Organization) or by a group (i:Group), and synchronized with the user's Mia instance over the PDN. For example the BHS category at the bottom has three contexts: Self (the user)'s BHS profile, Carol's BHS profile (asserted by Carol) and information about the BHS itself (as asserted by the BHS) in the last green circle.
 
-<p align="center"><img src="images/context-ontology/categories+contexts.png" alt="Categories and contexts"></p>
+<p align="center"><img src="images/category-ontology/categories+contexts.png" alt="Categories and contexts"></p>
 
 ### PersonPredefined Categories
 
@@ -235,9 +235,9 @@ Each category DataBook in the user's tree may carry up to four optional links to
 
 - **`category.ttl`** — The Category ontology, defining:
   - *Classes*: `cat:Category`, `cat:Predefined`, `cat:PersonPredefined`, `cat:OrgPredefined`, `cat:UserDefined`, `cat:Parties`, `cat:OneParty`, `cat:TwoParty`, `cat:MultiParty` and all leaf category subclasses.
-  - *Annotation properties*: `cat:origin-type` (concrete origin subclass: PersonPredefined/OrgPredefined/UserDefined/future), `cat:num-parties` (concrete `cat:Parties` subclass), `cat:label` (user-editable display name), `cat:note` (path to markdown notes file), `cat:folder` (path to associated file folder), `cat:copiedFrom` (IRI of the canonical category this DataBook was copied from).
+  - *Annotation properties*: `cat:origin-type` (concrete origin subclass: PersonPredefined/OrgPredefined/UserDefined/future), `cat:num-parties` (concrete `cat:Parties` subclass), `cat:label` (user-editable display name), `cat:note` (path to markdown notes file), `cat:folder` (path to associated file folder), `cat:copiedFrom` (IRI of the canonical category this DataBook was copied from), `cat:abstract` (marks a class as not directly instantiated in DataBooks).
   - *Object properties*: `cat:sbs`, `cat:obs`, `cat:obo`, `cat:sbo`, `cat:child`.
-  These terms are referenced by name in the YAML frontmatter of each category DataBook file. `category.ttl` imports `context.ttl` (for the `c:SBScontext`/`c:OBScontext`/`c:OBOcontext`/`c:SBOcontext` ranges of `cat:sbs`/`cat:obs`/`cat:obo`/`cat:sbo`, and to reuse `c:abstract`); `context.ttl` in turn imports `category.ttl` (for `c:category`'s range, `cat:Category`).
+  These terms are referenced by name in the YAML frontmatter of each category DataBook file. `category.ttl` imports `context.ttl` (for the `c:SBScontext`/`c:OBScontext`/`c:OBOcontext`/`c:SBOcontext` ranges of `cat:sbs`/`cat:obs`/`cat:obo`/`cat:sbo`); `context.ttl` in turn imports `category.ttl` (for `c:category`'s range, `cat:Category`, and to reuse `cat:abstract` on `c:Context`).
 
 - **`category-shacl.ttl`** — SHACL shapes for category DataBook instances. Constrains `cat:Category` instances to: at most one `cat:sbs`, `cat:obs`, and `cat:sbo` value each (`cat:obo` is unconstrained, 0..N); exactly one `cat:origin-type` value (open-ended — no enum, since new predefined kinds can be added freely); and at most one `cat:num-parties` value, which if present must be one of `OneParty`, `TwoParty`, `MultiParty`.
 
