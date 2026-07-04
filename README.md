@@ -101,7 +101,7 @@ Every category (other than the invisible root) is classified two ways: whether i
 
 **Parties — `mia.num-parties`.** `cat:Parties` is a standalone abstract class documenting how many external parties are involved in the relationship a category represents. The hierarchy exists purely to document the field's values and their display labels. There are three types: `cat:OneParty` (no external party — display label "Category"), `cat:TwoParty` (a 1:1 relationship with a specific person, organization, or other party — display label "Connection"), and `cat:MultiParty` (a shared multi-party relationship with a group of people or organizations — display label "Circle"). 
 
-<p align="center"><img src="images/context-ontology/category.png" alt="Category hierarchy"></p>
+<p align="center"><img src="images/category-ontology/category.png" alt="Category hierarchy"></p>
 
 ### Properties
 
@@ -136,7 +136,7 @@ The top-to-bottom ordering of the two predefined category trees is preserved whe
 
 Each of these five example categories contains contexts shown as circles. White circles are contexts whose triples are asserted by the self (the user). Green circles are contexts whose triples are asserted by a person other than the self (i:Individual), by an organization (i:Organization) or by a group (i:Group), and synchronized with the user's Mia instance over the PDN. For example the BHS category at the bottom has three contexts: Self (the user)'s BHS profile, Carol's BHS profile (asserted by Carol) and information about the BHS itself (as asserted by the BHS) in the last green circle.
 
-<p align="center"><img src="images/context-ontology/categories+contexts.png" alt="Categories and contexts"></p>
+<p align="center"><img src="images/category-ontology/categories+contexts.png" alt="Categories and contexts"></p>
 
 ### PersonPredefined Categories
 
