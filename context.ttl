@@ -52,8 +52,13 @@ context:template rdf:type owl:AnnotationProperty ;
                     Applied to the named graph IRI."""@en ;
     rdfs:range <http://mee.foundation/ontologies/persona#PersonaTemplate> .
 
+context:about-by rdf:type owl:AnnotationProperty ;
+    rdfs:label "about-by"@en ;
+    rdfs:comment "Classifies a DataBook named graph by the combination of subject and assertedBy: one of context:SBScontext, context:OBScontext, context:OBOcontext, or context:SBOcontext."@en .
+
+
 #################################################################
-#    Context (DataBook)
+#    Context (DataBook) and subclasses
 #################################################################
 
 context:Context rdf:type owl:Class ;
@@ -81,6 +86,3 @@ context:SBOcontext rdf:type owl:Class ;
     rdfs:label "SBOcontext"@en ;
     rdfs:comment "Self-by-Other: a DataBook whose subject is :Self and whose assertedBy is another person/org/group."@en .
 
-context:about-by rdf:type owl:AnnotationProperty ;
-    rdfs:label "about-by"@en ;
-    rdfs:comment "Classifies a DataBook named graph by the combination of subject and assertedBy: one of context:SBScontext, context:OBScontext, context:OBOcontext, or context:SBOcontext."@en .
