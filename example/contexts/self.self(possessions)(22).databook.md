@@ -1,6 +1,6 @@
 ---
 id: https://www.example.org/mia/contexts/self.self(possessions)(22)
-title: "About Alice Walker in the Possessions context as asserted by Alice Walker"
+title: "About Alice Walker in the Possessions category as asserted by Alice Walker"
 type: context-databook
 version: 2.0.2
 created: 2026-06-01

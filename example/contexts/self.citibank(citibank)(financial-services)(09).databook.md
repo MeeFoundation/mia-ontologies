@@ -1,6 +1,6 @@
 ---
 id: https://www.example.org/mia/contexts/self.citibank(citibank)(financial-services)(09)
-title: "About Alice Walker in the FinancialServices context as asserted by Citibank"
+title: "About Alice Walker in the FinancialServices category as asserted by Citibank"
 type: context-databook
 version: 2.0.5
 created: 2026-06-15

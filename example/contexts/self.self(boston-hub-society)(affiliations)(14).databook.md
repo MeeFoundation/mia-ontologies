@@ -1,6 +1,6 @@
 ---
 id: https://www.example.org/mia/contexts/self.self(boston-hub-society)(affiliations)(14)
-title: "About Alice Walker in the Groups context as asserted by Alice Walker"
+title: "About Alice Walker in the Boston Hub Society category as asserted by Alice Walker"
 type: context-databook
 version: 2.0.5
 created: 2026-06-11

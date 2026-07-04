@@ -1,6 +1,6 @@
 ---
 id: https://www.example.org/mia/contexts/self.self(california-dmv)(state)(15)
-title: "About Alice Walker in the State context as asserted by Alice Walker"
+title: "About Alice Walker in the State category as asserted by Alice Walker"
 type: context-databook
 version: 2.0.6
 created: 2026-06-15

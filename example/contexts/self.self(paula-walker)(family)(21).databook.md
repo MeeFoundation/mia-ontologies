@@ -1,6 +1,6 @@
 ---
 id: https://www.example.org/mia/contexts/self.self(paula-walker)(family)(21)
-title: "About Alice Walker in the Family context as asserted by Alice Walker"
+title: "About Alice Walker in the Family category as asserted by Alice Walker"
 type: context-databook
 version: 2.0.6
 created: 2026-06-01

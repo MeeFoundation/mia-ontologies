@@ -1,6 +1,6 @@
 ---
 id: https://www.example.org/mia/contexts/bob-johnson.bob-johnson(boston-hub-society)(affiliations)(03)
-title: "About Bob Johnson in the Groups context as asserted by Bob Johnson"
+title: "About Bob Johnson in the Boston Hub Society category as asserted by Bob Johnson"
 type: context-databook
 version: 2.0.3
 created: 2026-06-15

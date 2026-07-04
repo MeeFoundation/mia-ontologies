@@ -1,6 +1,6 @@
 ---
 id: https://www.example.org/mia/contexts/self.self(acme)(employee)(10)
-title: "About Alice Walker in the Employee context as asserted by Alice Walker"
+title: "About Alice Walker in the Employee category as asserted by Alice Walker"
 type: context-databook
 version: 2.0.4
 created: 2026-06-14

@@ -1,6 +1,6 @@
 ---
 id: https://www.example.org/mia/contexts/self.self(att)(companies)(11)
-title: "About Alice Walker in the Companies context as asserted by Alice Walker"
+title: "About Alice Walker in the Companies category as asserted by Alice Walker"
 type: context-databook
 version: 2.0.4
 created: 2026-06-01

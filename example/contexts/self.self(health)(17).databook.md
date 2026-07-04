@@ -1,6 +1,6 @@
 ---
 id: https://www.example.org/mia/contexts/self.self(health)(17)
-title: "About Alice Walker in the Health context as asserted by Alice Walker"
+title: "About Alice Walker in the Health category as asserted by Alice Walker"
 type: context-databook
 version: 1.0.0
 created: 2026-06-20

@@ -1,6 +1,6 @@
 ---
 id: https://www.example.org/mia/contexts/paula-walker.self(paula-walker)(acme)(06)
-title: "About Paula Walker in the Employee context as asserted by Alice Walker"
+title: "About Paula Walker in the Employee category as asserted by Alice Walker"
 type: context-databook
 version: 2.0.3
 created: 2026-06-14

@@ -1,6 +1,6 @@
 ---
 id: https://www.example.org/mia/contexts/self.self(social-security-administration)(federal)(23)
-title: "About Alice Walker in the Federal context as asserted by Alice Walker"
+title: "About Alice Walker in the Federal category as asserted by Alice Walker"
 type: context-databook
 version: 2.0.4
 created: 2026-06-01

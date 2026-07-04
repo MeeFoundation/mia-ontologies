@@ -1,6 +1,6 @@
 ---
 id: https://www.example.org/mia/contexts/bob-johnson.self(bob-johnson)(people)(04)
-title: "About Bob Johnson in the People context as asserted by Alice Walker"
+title: "About Bob Johnson in the People category as asserted by Alice Walker"
 type: context-databook
 version: 2.0.4
 created: 2026-06-15

@@ -1,6 +1,6 @@
 ---
 id: https://www.example.org/mia/contexts/bhs-group.members(boston-hub-society)(affiliations)(01)
-title: "About Boston Hub Society in the Groups context as asserted by Boston Hub Society"
+title: "About Boston Hub Society in the Boston Hub Society category as asserted by Boston Hub Society"
 type: context-databook
 version: 2.0.4
 created: 2026-06-12

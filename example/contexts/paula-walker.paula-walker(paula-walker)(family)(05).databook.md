@@ -1,6 +1,6 @@
 ---
 id: https://www.example.org/mia/contexts/paula-walker.paula-walker(paula-walker)(family)(05)
-title: "About Paula Walker in the Family context as asserted by Paula Walker"
+title: "About Paula Walker in the Family category as asserted by Paula Walker"
 type: context-databook
 version: 2.0.5
 created: 2026-06-14
