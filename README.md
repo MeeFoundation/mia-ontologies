@@ -77,7 +77,7 @@ We organize a person's life into a structure of nested *categories*.
 
 Categories range in scope. They vary from a few broad top level categories like "People" to narrower categories like "Family" and ultimately narrowing down to individual relationships with a single family member. The user can choose at what level in this broader to narrower structure to put what kind of information. For example if the user has a nickname used only by this one family member, they can add that "claim" (attribute) at the individual relationship level. 
 
-Categories are containers of one or more *contexts* as described in the previous section.
+Categories include references to zero, one or more *contexts* as described in the previous section.
 
 ### Origin and parties
 
@@ -85,7 +85,7 @@ Every category (other than the invisible root) is classified two ways: whether i
 
 **Origin — `mia.origin-type`.** A category is either predefined (`c:Predefined`, shipped with Mia) or `c:UserDefined` (created by the user). Predefined categories are further divided into `c:PersonPredefined` (generally useful categories for organizing a person's personal, non-work, life) and `c:OrgPredefined` (categories tuned to a person's working life). `mia.origin-type` holds the concrete classname directly (`PersonPredefined`, `OrgPredefined`, `UserDefined`, or a future predefined subclass) rather than a boolean, so new kinds of predefined origin can be added without changing the property itself.
 
-**Parties — `mia.category-type`.** `c:Parties` is an abstract subclass of `c:Category` for categories classified by how many external parties are involved in the relationship they represent. There are three types: `c:OneParty` (no external party — display label "Category"), `c:TwoParty` (a 1:1 relationship with a specific person, organization, or other party — display label "Connection"), and `c:MultiParty` (a shared multi-party relationship with a group of people or organizations — display label "Circle"). 
+**Parties — `mia.category-type`.** `c:Parties` is a standalone abstract class documenting how many external parties are involved in the relationship a category represents. It's not a subclass of `c:Category` — `mia.category-type` is a plain string-valued field, so no category instance is ever formally typed as a `c:Parties` subclass; the hierarchy exists purely to document the field's values and their display labels. There are three types: `c:OneParty` (no external party — display label "Category"), `c:TwoParty` (a 1:1 relationship with a specific person, organization, or other party — display label "Connection"), and `c:MultiParty` (a shared multi-party relationship with a group of people or organizations — display label "Circle"). 
 
 <p align="center"><img src="images/context-ontology/category.png" alt="Category hierarchy"></p>
 
