@@ -13,7 +13,7 @@
     dc:date "2026-06-01"^^xsd:date ;
     owl:imports <http://mee.foundation/ontologies/pdn-identity> ;
     owl:imports <http://mee.foundation/ontologies/category> ;
-    owl:versionInfo "Version 1.2.0 - split category-related terms out into category.ttl"@en ;
+    owl:versionInfo "Version 1.2.1 - move c:abstract to category.ttl (as cat:abstract); c:Context now uses cat:abstract"@en ;
     rdfs:label "Context Ontology"@en ;
     rdfs:comment """Context Ontology for the Mee Identity Agent"""@en .
 
@@ -57,7 +57,7 @@ context:template rdf:type owl:AnnotationProperty ;
 #################################################################
 
 context:Context rdf:type owl:Class ;
-    context:abstract true ;
+    cat:abstract true ;
     rdfs:label "Context"@en ;
     rdfs:comment "A context DataBook — a named graph containing identity data about a person in a specific relationship or situation."@en .
 
@@ -84,9 +84,3 @@ context:SBOcontext rdf:type owl:Class ;
 context:about-by rdf:type owl:AnnotationProperty ;
     rdfs:label "about-by"@en ;
     rdfs:comment "Classifies a DataBook named graph by the combination of subject and assertedBy: one of context:SBScontext, context:OBScontext, context:OBOcontext, or context:SBOcontext."@en .
-
-context:abstract rdf:type owl:AnnotationProperty ;
-    rdfs:domain owl:Class ;
-    rdfs:range xsd:boolean ;
-    rdfs:label "abstract"@en ;
-    rdfs:comment "True if this class is not directly instantiated in DataBooks — it exists only to organize the class hierarchy."@en .

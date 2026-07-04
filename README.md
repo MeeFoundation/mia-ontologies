@@ -76,8 +76,8 @@ The lower left shows a context that Alice might share with other people or compa
 
 - **`context.ttl`** — The Context ontology, defining:
   - *Classes*: `c:Context`, `c:SBScontext`, `c:OBScontext`, `c:OBOcontext`, `c:SBOcontext`.
-  - *Annotation properties*: `c:category` (containing category — range `cat:Category`), `c:assertedBy`, `c:subject`, `c:about-by`, `c:template`, `c:abstract` (marks a class as not directly instantiated in DataBooks).
-  These terms are referenced by name in the YAML frontmatter of each DataBook file. `context.ttl` imports `category.ttl` (for `c:category`'s range, `cat:Category`).
+  - *Annotation properties*: `c:category` (containing category — range `cat:Category`), `c:assertedBy`, `c:subject`, `c:about-by`, `c:template`.
+  These terms are referenced by name in the YAML frontmatter of each DataBook file. `context.ttl` imports `category.ttl` (for `c:category`'s range, `cat:Category`, and to reuse `cat:abstract` on `c:Context`).
 
 ### Context Ontology Validation
 
@@ -231,9 +231,9 @@ Each category DataBook in the user's tree may carry up to four optional links to
 
 - **`category.ttl`** — The Category ontology, defining:
   - *Classes*: `cat:Category`, `cat:Predefined`, `cat:PersonPredefined`, `cat:OrgPredefined`, `cat:UserDefined`, `cat:Parties`, `cat:OneParty`, `cat:TwoParty`, `cat:MultiParty` and all leaf category subclasses.
-  - *Annotation properties*: `cat:origin-type` (concrete origin subclass: PersonPredefined/OrgPredefined/UserDefined/future), `cat:num-parties` (concrete `cat:Parties` subclass), `cat:label` (user-editable display name), `cat:note` (path to markdown notes file), `cat:folder` (path to associated file folder), `cat:copiedFrom` (IRI of the canonical category this DataBook was copied from).
+  - *Annotation properties*: `cat:origin-type` (concrete origin subclass: PersonPredefined/OrgPredefined/UserDefined/future), `cat:num-parties` (concrete `cat:Parties` subclass), `cat:label` (user-editable display name), `cat:note` (path to markdown notes file), `cat:folder` (path to associated file folder), `cat:copiedFrom` (IRI of the canonical category this DataBook was copied from), `cat:abstract` (marks a class as not directly instantiated in DataBooks).
   - *Object properties*: `cat:sbs`, `cat:obs`, `cat:obo`, `cat:sbo`, `cat:child`.
-  These terms are referenced by name in the YAML frontmatter of each category DataBook file. `category.ttl` imports `context.ttl` (for the `c:SBScontext`/`c:OBScontext`/`c:OBOcontext`/`c:SBOcontext` ranges of `cat:sbs`/`cat:obs`/`cat:obo`/`cat:sbo`, and to reuse `c:abstract`); `context.ttl` in turn imports `category.ttl` (for `c:category`'s range, `cat:Category`).
+  These terms are referenced by name in the YAML frontmatter of each category DataBook file. `category.ttl` imports `context.ttl` (for the `c:SBScontext`/`c:OBScontext`/`c:OBOcontext`/`c:SBOcontext` ranges of `cat:sbs`/`cat:obs`/`cat:obo`/`cat:sbo`); `context.ttl` in turn imports `category.ttl` (for `c:category`'s range, `cat:Category`, and to reuse `cat:abstract` on `c:Context`).
 
 - **`category-shacl.ttl`** — SHACL shapes for category DataBook instances. Constrains `cat:Category` instances to: at most one `cat:sbs`, `cat:obs`, and `cat:sbo` value each (`cat:obo` is unconstrained, 0..N); exactly one `cat:origin-type` value (open-ended — no enum, since new predefined kinds can be added freely); and at most one `cat:num-parties` value, which if present must be one of `OneParty`, `TwoParty`, `MultiParty`.
 

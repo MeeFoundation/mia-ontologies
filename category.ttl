@@ -11,7 +11,7 @@
     owl:versionIRI <http://mee.foundation/ontologies/category/1.0.0> ;
     dc:date "2026-07-04"^^xsd:date ;
     owl:imports <http://mee.foundation/ontologies/context> ;
-    owl:versionInfo "Version 1.0.0 - split out of context.ttl into its own ontology"@en ;
+    owl:versionInfo "Version 1.0.1 - add cat:abstract (moved from context:abstract)"@en ;
     rdfs:label "Category Ontology"@en ;
     rdfs:comment """Category Ontology for the Mee Identity Agent"""@en .
 
@@ -32,13 +32,19 @@ cat:origin-type rdf:type owl:AnnotationProperty ;
     rdfs:label "origin-type"@en ;
     rdfs:comment "The concrete origin subclass this DataBook instantiates: cat:PersonPredefined, cat:OrgPredefined, cat:UserDefined, or a future predefined subclass. Open-ended by design, so new kinds of predefined origin can be added without changing this property's definition."@en .
 
+cat:abstract rdf:type owl:AnnotationProperty ;
+    rdfs:domain owl:Class ;
+    rdfs:range xsd:boolean ;
+    rdfs:label "abstract"@en ;
+    rdfs:comment "True if this class is not directly instantiated in DataBooks — it exists only to organize the class hierarchy."@en .
+
 
 #################################################################
 #    Category
 #################################################################
 
 cat:Category rdf:type owl:Class ;
-    context:abstract true ;
+    cat:abstract true ;
     rdfs:label "Category"@en ;
     rdfs:comment """Controlled vocabulary for categories of contexts.
                     Used as the value of context:category on DataBook named graph IRIs."""@en .
@@ -67,7 +73,7 @@ cat:obs rdf:type owl:ObjectProperty ;
 #################################################################
 
 cat:Predefined rdf:type owl:Class ;
-    context:abstract true ;
+    cat:abstract true ;
     rdfs:subClassOf cat:Category ;
     rdfs:label "Predefined"@en ;
     rdfs:comment "Superclass of all built-in context categories shipped with Mia."@en .
@@ -78,7 +84,7 @@ cat:UserDefined rdf:type owl:Class ;
     rdfs:comment "Superclass of context categories defined by the Mia user."@en .
 
 cat:Parties rdf:type owl:Class ;
-    context:abstract true ;
+    cat:abstract true ;
     rdfs:label "Parties"@en ;
     rdfs:comment "Standalone abstract superclass documenting the values of cat:num-parties: how many parties are involved in the relationship a category represents — no external party (OneParty), a single external party (TwoParty), or a group of external parties (MultiParty). Not a subclass of cat:Category — num-parties is a plain string-valued annotation, so no category instance is ever formally typed as a Parties subclass; this hierarchy exists purely to document num-parties's values and their display labels."@en .
 
@@ -101,13 +107,13 @@ cat:OneParty rdf:type owl:Class ;
     rdfs:comment "A user-defined category with no external party — a plain navigational container with no connection or group semantics."@en .
 
 cat:PersonPredefined rdf:type owl:Class ;
-    context:abstract true ;
+    cat:abstract true ;
     rdfs:subClassOf cat:Predefined ;
     rdfs:label "PersonPredefined"@en ;
     rdfs:comment "Superclass of all built-in context categories that involve interactions with people or person-centric topics (e.g. People, Work, Government)."@en .
 
 cat:OrgPredefined rdf:type owl:Class ;
-    context:abstract true ;
+    cat:abstract true ;
     rdfs:subClassOf cat:Predefined ;
     rdfs:label "OrgPredefined"@en ;
     rdfs:comment "Superclass of all built-in context categories that involve interactions with organizations (e.g. Companies, FinancialServices)."@en .
