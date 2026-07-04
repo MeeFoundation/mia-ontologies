@@ -96,9 +96,9 @@ Every category (other than the invisible root) is classified two ways: whether i
 - **`c:folder`** — path to a folder in the *files* folder/file hierarchy for this category.
 - **`c:child`** — organizes categories into a tree structure.
 - **`c:sbs`** - link to a context that is about the self as asserted by the self (user).
-- **`c:obs`** - a context about the other party as asserted by the self. `c:Parties` only.
-- **`c:sbo`** - a context about the self as asserted by the other party. `c:Parties` only.
-- **`c:obo`** - a context about the other party as asserted by the other party. `c:Parties` only.
+- **`c:obs`** - a context about the other party as asserted by the self.
+- **`c:sbo`** - a context about the self as asserted by the other party.
+- **`c:obo`** - a context about the other party as asserted by the other party.
 
 #### A few details about c:note and c:folder
 `c:note` and `c:folder` point into two separate but parallel folder structures that mirror the structure of the category tree. If the category tree is `(People, (Family, Friends), Work)` then both hierarchies contain exactly the same folder names and nesting. Mia keeps both in sync with the category tree — when a category is created, renamed, or deleted, Mia updates both hierarchies automatically.
@@ -207,9 +207,9 @@ Each category DataBook in the user's tree may carry up to four optional links to
 | Property | Value (`c:Context` subtype) | Cardinality | Applies to | Meaning |
 |----------|---------------------|-------------|------------|---------|
 | `c:sbs` | `c:SBScontext` | 0..1 | All categories | The user's own context in this category |
-| `c:obs` | `c:OBScontext` | 0..1 | `c:Parties` only | The user's record of the other party |
-| `c:obo` | `c:OBOcontext` | 0..N | `c:Parties` only | A context the other party presents |
-| `c:sbo` | `c:SBOcontext` | 0..1 | `c:Parties` only | A context the other party holds about the user |
+| `c:obs` | `c:OBScontext` | 0..1 | All categories | The user's record of the other party |
+| `c:obo` | `c:OBOcontext` | 0..N | All categories | A context the other party presents |
+| `c:sbo` | `c:SBOcontext` | 0..1 | All categories | A context the other party holds about the user |
 
 `c:sbs`, `c:obs`, `c:obo`, `c:sbo` links appear only in categories in the user's tree, not in predefined categories.
 
