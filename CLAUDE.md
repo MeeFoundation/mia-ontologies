@@ -4,10 +4,11 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project Overview
 
-This is an **RDF/OWL ontology project** — a formal semantic knowledge model for representing natural people's identity data in the Mee Identity Agent (MIA). It comprises two peer application ontologies:
+This is an **RDF/OWL ontology project** — a formal semantic knowledge model for representing natural people's identity data in the Mee Identity Agent (MIA). It comprises three peer application ontologies:
 
 - **Persona ontology** (`persona.ttl`): models identity data — names, addresses, identifiers, relationships, payment cards, and more — structured around context-specific `Person` instances. Imports and profiles existing domain ontologies, documenting which of their classes and properties Mee uses, and extends them with Mia-specific terms.
-- **Context ontology** (`context.ttl`): defines controlled vocabularies for classifying context files — what broad category of interaction is involved (`category`), who asserted the data (`assertedBy`), and whose identity the file describes (`subject`).
+- **Context ontology** (`context.ttl`): defines controlled vocabularies for classifying context files — what asserted the data (`assertedBy`), and whose identity the file describes (`subject`), plus the `Context` class hierarchy (`SBScontext`/`OBScontext`/`OBOcontext`/`SBOcontext`).
+- **Category ontology** (`category.ttl`): defines the category class hierarchy (`Predefined`/`UserDefined`, `PersonPredefined`/`OrgPredefined`, `Parties`/`OneParty`/`TwoParty`/`MultiParty`, and all leaf categories) and the properties that classify and link category DataBooks (`origin-type`, `num-parties`, `sbs`/`obs`/`sbo`/`obo`, `child`, `label`, `note`, `folder`, `copiedFrom`). Mutually imports `context.ttl`.
 
 There are no build, compile, test, or lint commands. The files are Turtle (`.ttl`) loaded into semantic web tools (Protégé).
 
@@ -16,7 +17,9 @@ There are no build, compile, test, or lint commands. The files are Turtle (`.ttl
 | File | Purpose |
 |------|---------|
 | `persona.ttl` | Persona ontology — imports domain ontologies, annotates which classes/properties are required vs. optional for Mee, defines Mia-specific classes and properties |
-| `context.ttl` | Context ontology — controlled vocabularies for classifying context files (`category`, `assertedBy`, `subject`, `about-by`) |
+| `context.ttl` | Context ontology — controlled vocabularies for classifying context files (`category`, `assertedBy`, `subject`, `about-by`) and the `Context` class hierarchy. Mutually imports `category.ttl` |
+| `category.ttl` | Category ontology — the category class hierarchy and its classification/link properties (`origin-type`, `num-parties`, `sbs`/`obs`/`sbo`/`obo`, `child`, `label`, `note`, `folder`, `copiedFrom`). Mutually imports `context.ttl` |
+| `category-shacl.ttl` | SHACL validation shapes for category DataBook instances — `origin-type`/`num-parties` cardinality and enum, `sbs`/`obs`/`sbo` cardinality |
 | `persona-shacl.ttl` | SHACL validation shapes — constraint rules for all `persona:Person` instances (SSN format, address cardinality, payment cards, wallet, social network, etc.) |
 | `persona-templates.ttl` | Persona template labels — defines `p:PersonaTemplate` (abstract classification superclass) and concrete label subclasses `p:BirthCertificate`, `p:JSContactCard`, `p:DriversLicense`, `p:Passport`; also defines related designator classes (`persona:DriversLicenseNumber`, `persona:IssuingJurisdiction`, `persona:PassportNumber`, `persona:IssuingCountry`, `persona:PlaceOfBirth`, `persona:GenderMarker`, `persona:IssueDate`, `persona:Credential`, `persona:WebURL`, `persona:OrganizationUnit`, `persona:JobTitle`), complex classes (`persona:Anniversary`, `persona:PersonalInfo`), and properties (`persona:hasAnniversary`, `persona:hasPhoto`, etc.) |
 | `shacl/birthcertificate-shacl.ttl` | Per-template SHACL shapes for birth certificate context files — run against the individual context file, not merged data |
@@ -82,6 +85,7 @@ shacl/passport-shacl.ttl          — per-template shapes for passport files
 3. **Application Ontologies** (peer, not nested):
    - `persona.ttl`: aggregates domain ontologies; uses annotation properties (`usesRequiredClass`, `usesOptionalClass`, `usesCCOClass`, `usesCCOProperty`) to document Mee's usage
    - `context.ttl`: defines `category`, `assertedBy`, `subject`, and `about-by` vocabularies; imported directly by each context file
+   - `category.ttl`: defines the category class hierarchy and classification/link properties; mutually imports `context.ttl`
 
 ### Context File Naming Convention
 
@@ -145,7 +149,7 @@ Classes and properties use numeric IRIs. The most common:
 
 ## Versioning
 
-Before committing any change to any context file, `persona.ttl`, `context.ttl`, or `persona-shacl.ttl`, increment the **minor version number** in that file's `owl:versionInfo` annotation and update the description to summarise the change. For example:
+Before committing any change to any context file, `persona.ttl`, `context.ttl`, `category.ttl`, or `persona-shacl.ttl`, increment the **minor version number** in that file's `owl:versionInfo` annotation and update the description to summarise the change. For example:
 
 ```
 owl:versionInfo "Version 3.0.3 - added social network"@en
@@ -300,9 +304,9 @@ shaclvalidate -datafile example/contexts/self.self(boston-hub-society)(affiliati
 
 `README.md` must be written in US English. Use American spellings throughout — e.g. "organization" not "organisation", "color" not "colour".
 
-All classes and properties defined in `persona.ttl` and `context.ttl` must be mentioned in `README.md` in the sections before the **Illustrative Example: Alice Walker** section. The only intentional exceptions are the internal ontology documentation annotation properties (`usesRequiredClass`, `usesOptionalClass`, `usesCCOClass`, `usesCCOProperty`, `usagePattern`), which are infrastructure for self-documenting the ontology, not user-facing terms.
+All classes and properties defined in `persona.ttl`, `context.ttl`, and `category.ttl` must be mentioned in `README.md` in the sections before the **Illustrative Example: Alice Walker** section. The only intentional exceptions are the internal ontology documentation annotation properties (`usesRequiredClass`, `usesOptionalClass`, `usesCCOClass`, `usesCCOProperty`, `usagePattern`), which are infrastructure for self-documenting the ontology, not user-facing terms.
 
-In `README.md`, every mention of a class defined in `persona.ttl` must appear in backticks with the `p:` prefix (e.g. `p:Persona`, `p:Wallet`), and every mention of a class or property defined in `context.ttl` must appear in backticks with the `c:` prefix (e.g. `c:contextType`, `c:SelfAsserted`). Every capitalized mention of `Person` (the CCO class) must also appear in backticks. These formatting rules do **not** apply inside headings or subheadings.
+In `README.md`, every mention of a class defined in `persona.ttl` must appear in backticks with the `p:` prefix (e.g. `p:Persona`, `p:Wallet`), every mention of a class or property defined in `context.ttl` must appear in backticks with the `c:` prefix (e.g. `c:contextType`, `c:SelfAsserted`), and every mention of a class or property defined in `category.ttl` must appear in backticks with the `cat:` prefix (e.g. `cat:Category`, `cat:origin-type`). Every capitalized mention of `Person` (the CCO class) must also appear in backticks. These formatting rules do **not** apply inside headings or subheadings.
 
 ## Catalog Files
 
