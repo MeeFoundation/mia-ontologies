@@ -39,16 +39,9 @@ The context ontology defines *contexts* which are named graphs containing sets o
 
 A *context* is a container of information about a person related to their interactions with, or relationship to, another person, group or organization. This information is expressed as triples using the Persona, Organization, Group and Identity ontologies and stored in a **[DataBook](https://github.com/w3c-cg/holon/tree/main/architectures/databook)** (`.databook.md`) file. 
 
-Each context is a named graph of claims (properties) describing one facet of a person or organization (called the `subject` of the context). It is a self-contained set of claim data about that subject, although these claims may have originated from other contexts about the same subject. 
+Each context is a named graph of claims describing one facet of a person or organization (called the `subject` of the context). It is a self-contained set of claim data about that subject, although these claims may have originated from other contexts about the same subject. 
 
-The description of the context container itself is carried in the DataBook's YAML front matter under the `mia:` key. The context ontology (`context.ttl`) defines the controlled vocabularies that those YAML fields reference:
-
-- `mia.category` = `c:category`
-- `mia.assertedBy` = `c:assertedBy`
-- `mia.subject` = `c:subject`
-- `mia:template` = `c:template`
-- `mia.about-by` — classifies a context DataBook by the combination of subject and assertedBy; one of `context:SBScontext` (subject=Self, assertedBy=Self), `context:OBScontext` (subject=Other, assertedBy=Self), `context:OBOcontext` (subject=Other, assertedBy=Other), or `context:SBOcontext` (subject=Self, assertedBy=Other).
-
+<p align="center"><img src="images/context-ontology/context.png" alt="context ontology"></p>
 
 **`c:category`** — containing category. Its value is the IRI of the category DataBook (e.g. `"http://www.example.org/mia/categories/bob-johnson(people)"`) that references it via `cat:sbs`, `cat:obs`, `cat:sbo`, or `cat:obo` links of the category.
 
@@ -72,12 +65,23 @@ The diagram below shows four kinds of contexts related to a hypothetical Mia use
 
 The lower left shows a context that Alice might share with other people or companies. In it, she asserts that her driver's license number is S43228943, having copied that number from her physical driver's license. The context in the lower right carries the same information as the lower left, but because it is being asserted by the DMV it is more likely to be trusted by a recipient (especially if this information is conveyed via secure channel and the claims are cryptographically bound to the identity of the DMV).
 
+### Context DataBooks
+
+The description of the context container itself is carried in the DataBook's YAML front matter under the `mia:` key. The context ontology (`context.ttl`) defines the controlled vocabularies that those YAML fields reference:
+
+- `mia.category` = `c:category`
+- `mia.assertedBy` = `c:assertedBy`
+- `mia.subject` = `c:subject`
+- `mia:template` = `c:template`
+- `mia.about-by` — classifies a context DataBook by the combination of subject and assertedBy; one of `context:SBScontext` (subject=Self, assertedBy=Self), `context:OBScontext` (subject=Other, assertedBy=Self), `context:OBOcontext` (subject=Other, assertedBy=Other), or `context:SBOcontext` (subject=Self, assertedBy=Other).
+
+
 ### Context Ontology File
 
 - **`context.ttl`** — The Context ontology, defining:
   - *Classes*: `c:Context`, `c:SBScontext`, `c:OBScontext`, `c:OBOcontext`, `c:SBOcontext`.
-  - *Annotation properties*: `c:category` (containing category — range `cat:Category`), `c:assertedBy`, `c:subject`, `c:about-by`, `c:template`.
-  These terms are referenced by name in the YAML frontmatter of each DataBook file. `context.ttl` imports `category.ttl` (for `c:category`'s range, `cat:Category`, and to reuse `cat:abstract` on `c:Context`).
+  - *Annotation properties*: `c:category` (containing category — range `cat:Category`), `c:assertedBy`, `c:subject`, `c:about-by`, `c:template`, `c:abstract` (marks a class as not directly instantiated in DataBooks).
+  These terms are referenced by name in the YAML frontmatter of each DataBook file. `context.ttl` imports `category.ttl` (for `c:category`'s range, `cat:Category`).
 
 ### Context Ontology Validation
 
@@ -101,7 +105,7 @@ Every category (other than the invisible root) is classified two ways: whether i
 
 **Parties — `mia.num-parties`.** `cat:Parties` is a standalone abstract class documenting how many external parties are involved in the relationship a category represents. The hierarchy exists purely to document the field's values and their display labels. There are three types: `cat:OneParty` (no external party — display label "Category"), `cat:TwoParty` (a 1:1 relationship with a specific person, organization, or other party — display label "Connection"), and `cat:MultiParty` (a shared multi-party relationship with a group of people or organizations — display label "Circle"). 
 
-<p align="center"><img src="images/category-ontology/category.png" alt="Category hierarchy"></p>
+<p align="center"><img src="images/context-ontology/category.png" alt="Category hierarchy"></p>
 
 ### Properties
 
@@ -136,7 +140,7 @@ The top-to-bottom ordering of the two predefined category trees is preserved whe
 
 Each of these five example categories contains contexts shown as circles. White circles are contexts whose triples are asserted by the self (the user). Green circles are contexts whose triples are asserted by a person other than the self (i:Individual), by an organization (i:Organization) or by a group (i:Group), and synchronized with the user's Mia instance over the PDN. For example the BHS category at the bottom has three contexts: Self (the user)'s BHS profile, Carol's BHS profile (asserted by Carol) and information about the BHS itself (as asserted by the BHS) in the last green circle.
 
-<p align="center"><img src="images/category-ontology/categories+contexts.png" alt="Categories and contexts"></p>
+<p align="center"><img src="images/context-ontology/categories+contexts.png" alt="Categories and contexts"></p>
 
 ### PersonPredefined Categories
 
@@ -231,9 +235,9 @@ Each category DataBook in the user's tree may carry up to four optional links to
 
 - **`category.ttl`** — The Category ontology, defining:
   - *Classes*: `cat:Category`, `cat:Predefined`, `cat:PersonPredefined`, `cat:OrgPredefined`, `cat:UserDefined`, `cat:Parties`, `cat:OneParty`, `cat:TwoParty`, `cat:MultiParty` and all leaf category subclasses.
-  - *Annotation properties*: `cat:origin-type` (concrete origin subclass: PersonPredefined/OrgPredefined/UserDefined/future), `cat:num-parties` (concrete `cat:Parties` subclass), `cat:label` (user-editable display name), `cat:note` (path to markdown notes file), `cat:folder` (path to associated file folder), `cat:copiedFrom` (IRI of the canonical category this DataBook was copied from), `cat:abstract` (marks a class as not directly instantiated in DataBooks).
+  - *Annotation properties*: `cat:origin-type` (concrete origin subclass: PersonPredefined/OrgPredefined/UserDefined/future), `cat:num-parties` (concrete `cat:Parties` subclass), `cat:label` (user-editable display name), `cat:note` (path to markdown notes file), `cat:folder` (path to associated file folder), `cat:copiedFrom` (IRI of the canonical category this DataBook was copied from).
   - *Object properties*: `cat:sbs`, `cat:obs`, `cat:obo`, `cat:sbo`, `cat:child`.
-  These terms are referenced by name in the YAML frontmatter of each category DataBook file. `category.ttl` imports `context.ttl` (for the `c:SBScontext`/`c:OBScontext`/`c:OBOcontext`/`c:SBOcontext` ranges of `cat:sbs`/`cat:obs`/`cat:obo`/`cat:sbo`); `context.ttl` in turn imports `category.ttl` (for `c:category`'s range, `cat:Category`, and to reuse `cat:abstract` on `c:Context`).
+  These terms are referenced by name in the YAML frontmatter of each category DataBook file. `category.ttl` imports `context.ttl` (for the `c:SBScontext`/`c:OBScontext`/`c:OBOcontext`/`c:SBOcontext` ranges of `cat:sbs`/`cat:obs`/`cat:obo`/`cat:sbo`, and to reuse `c:abstract`); `context.ttl` in turn imports `category.ttl` (for `c:category`'s range, `cat:Category`).
 
 - **`category-shacl.ttl`** — SHACL shapes for category DataBook instances. Constrains `cat:Category` instances to: at most one `cat:sbs`, `cat:obs`, and `cat:sbo` value each (`cat:obo` is unconstrained, 0..N); exactly one `cat:origin-type` value (open-ended — no enum, since new predefined kinds can be added freely); and at most one `cat:num-parties` value, which if present must be one of `OneParty`, `TwoParty`, `MultiParty`.
 
