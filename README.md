@@ -124,13 +124,18 @@ Every category (other than the invisible root) is classified two ways: which cla
 - The **notes hierarchy** mirrors the category tree as a folder structure. The note for category X is stored as `X.md` inside the X folder — for example, `Family/Family.md`. Using the same name as the folder matches the convention used by PKM (Personal Knowledge Management) tools such as Obsidian (using the Folder Notes plugin), Logseq, Foam and others. 
 - The **files hierarchy** mirrors the category tree as a folder structure. Each folder may hold arbitrary files. It may also contain additional subfolders (to any depth) that are not part of the category tree.
 
-The two roots are stored separately so the notes hierarchy can be opened as a standalone PKM vault without exposing the files hierarchy.
+The two roots are stored separately so the notes hierarchy can be opened as a standalone PKM vault without exposing the files hierarchy. Two user-configurable settings define where each root lives on disk:
+
+- **Files root** — default on macOS: `~/Documents`
+- **Notes root** — default on macOS: `~/Documents/ObsidianVault`
+
+The notes root's default location happens to be nested inside the files root's default location on disk — that's a matter of default configuration convenience, not a statement that the notes hierarchy is part of the files hierarchy. When Mia walks the files hierarchy it excludes the notes-root subtree entirely, and vice versa. All `cat:note` values are relative paths from the notes root; all `cat:folder` values are relative paths from the files root.
 
 In the normal case `cat:note` and `cat:folder` are technically redundant — both paths can be derived from the category tree plus the two configured roots. They are retained for three reasons:
 
 1. **Divergence detection** — if a stored path no longer matches the derived path, Mia knows the user has manually renamed or rearranged folders outside of Mia and can alert them or attempt reconciliation rather than failing silently.
 2. **Graceful degradation** — Mia can continue to locate a category's folder or note via the stored path even when the folder hierarchy has drifted out of sync with the category tree.
-3. **Intentional overrides** — a user may deliberately want a category's folder to live somewhere other than the derived location (e.g. `~/Photos/Family/` rather than the default `~/MiaFiles/People/Family/`). The explicit link records that intentional deviation without disrupting the category tree.
+3. **Intentional overrides** — a user may deliberately want a category's folder to live somewhere other than the derived location (e.g. `~/Photos/Family/` rather than the default `~/Documents/People/Family/`). The explicit link records that intentional deviation without disrupting the category tree.
 
 ### Example category tree
 
@@ -183,7 +188,7 @@ Each of these five example categories contains contexts shown as circles. White 
         - **Residence** (`cat:Residence`) — a place a person has lived, current or past.
 1. **Companies** (`cat:Companies`) — miscellaneous companies and organizations that provide services or products to you. See also Finances, Health, Home, Food for companies and organizations related to those areas.
 
-### cat:Organization Categories
+### Organization Categories
 
 `cat:Organization` categories for an organization's information:
 
@@ -219,8 +224,8 @@ The following properties are defined in `category.ttl` and represented as `mia.`
 | `mia.classname` | `cat:classname` | 1 | The local name of the `cat:Category` subclass this DataBook is or was copied from (e.g. `Family`, `Employees(org)`), or `Category` itself if there is no predefined counterpart |
 | `mia.num-parties` | `cat:num-parties` | 1 | The concrete `cat:Parties` subclass this DataBook instantiates: one of `OneParty`, `TwoParty`, `MultiParty` |
 | `mia.label` | `cat:label` | 1 | User-editable display name — defaults to the DataBook `title` but can be changed independently, leaving `title` and `id` immutable |
-| `mia.note` | `cat:note` | 0..1 | Relative path to a markdown notes file for this category (e.g. `notes/people/paula-walker`) |
-| `mia.folder` | `cat:folder` | 0..1 | Relative path to a folder of arbitrary files for this category (e.g. `people/paula-walker`) |
+| `mia.note` | `cat:note` | 0..1 | Relative path to a markdown notes file for this category (e.g. `People/Paula Walker/Paula Walker.md`) |
+| `mia.folder` | `cat:folder` | 0..1 | Relative path to a folder of arbitrary files for this category (e.g. `People/Paula Walker`) |
 | `mia.copiedFrom` | `cat:copiedFrom` | 0..1 | IRI of the canonical predefined category this DataBook was copied from. Present only on copies of predefined categories |
 
 Note files live in a folder hierarchy whose structure mirrors the category hierarchy; associated file folders live in a parallel hierarchy whose names match the category names.
