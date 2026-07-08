@@ -11,7 +11,7 @@
     owl:versionIRI <http://mee.foundation/ontologies/category/1.0.0> ;
     dc:date "2026-07-04"^^xsd:date ;
     owl:imports <http://mee.foundation/ontologies/context> ;
-    owl:versionInfo "Version 1.0.20 - clarified cat:People scope with Finances/Health examples of out-of-scope roles"@en ;
+    owl:versionInfo "Version 1.0.23 - renamed cat:MultiParty display label from Circle to MultiParty Enclave"@en ;
     rdfs:label "Category Ontology"@en ;
     rdfs:comment """Category Ontology for the Mee Identity Agent"""@en .
 
@@ -91,7 +91,7 @@ cat:TwoParty rdf:type owl:Class ;
 cat:MultiParty rdf:type owl:Class ;
     rdfs:subClassOf cat:Parties ;
     rdfs:label "MultiParty"@en ;
-    cat:label "Circle" ;
+    cat:label "MultiParty Enclave" ;
     rdfs:comment "A user-defined category representing a shared multi-party relationship with a group of people or organizations. Not to be confused with g:Group (a PDN group node)."@en .
 
 cat:OneParty rdf:type owl:Class ;
@@ -218,7 +218,7 @@ cat:label rdf:type owl:AnnotationProperty ;
 cat:Affiliations rdf:type owl:Class ;
     rdfs:subClassOf cat:Person ;
     rdfs:label "Affiliations"@en ;
-    rdfs:comment "Sports clubs, teams, charities, faith groups, and social networks. Some may be cat:MultiParty 'Circles' that exist as a g:Group on the PDN."@en .
+    rdfs:comment "Clubs, charities, faith groups, and other group affiliations not covered by a more specific category — includes formal memberships and their social networks, some of which may be cat:MultiParty 'MultiParty Enclaves' that exist as a g:Group on the PDN. See also Sports & Entertainment for personal sports and entertainment interests, like following a favorite team, that aren't tied to a formal membership."@en .
 
 
 #################################################################
@@ -302,7 +302,7 @@ cat:Insurance rdf:type owl:Class ;
 cat:Advisory rdf:type owl:Class ;
     rdfs:subClassOf cat:Finances ;
     rdfs:label "Advisory"@en ;
-    rdfs:comment "Firms and individuals who do not just hold your money, but tell you the best ways to use it. These include Financial Planners (Wealth Advisors), human experts who help you build a custom roadmap for taxes, retirement, and budgeting, and Estate Planners, specialized professionals who help you write wills and plan how to pass your money to your children."@en .
+    rdfs:comment "Firms and individuals who do not just hold your money, but tell you the best ways to use it. These include Financial Planners (Wealth Advisors), human experts who help you build a custom roadmap for taxes, retirement, and budgeting, and Estate Planners, specialized professionals who help you write wills and plan how to pass your money to your children. Also includes Accountants and Bookkeepers, who track your income and expenses and prepare your taxes."@en .
 
 #################################################################
 #    cat:Health
