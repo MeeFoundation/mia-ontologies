@@ -11,7 +11,7 @@
     owl:versionIRI <http://mee.foundation/ontologies/category/1.0.0> ;
     dc:date "2026-07-04"^^xsd:date ;
     owl:imports <http://mee.foundation/ontologies/context> ;
-    owl:versionInfo "Version 1.0.19 - removed cat:Consultants (personal) subclass of cat:People"@en ;
+    owl:versionInfo "Version 1.0.20 - clarified cat:People scope with Finances/Health examples of out-of-scope roles"@en ;
     rdfs:label "Category Ontology"@en ;
     rdfs:comment """Category Ontology for the Mee Identity Agent"""@en .
 
@@ -228,7 +228,7 @@ cat:Affiliations rdf:type owl:Class ;
 cat:People rdf:type owl:Class ;
     rdfs:subClassOf cat:Person ;
     rdfs:label "People"@en ;
-    rdfs:comment "People in your social or professional life."@en .
+    rdfs:comment "People in your social or professional life. Use this category for people not otherwise tied to a specific domain — a bookkeeper you know belongs under Finances (Advisory), and your primary care physician belongs under Health (Healthcare), rather than here."@en .
 
 cat:ImmediateFamily rdf:type owl:Class ;
     rdfs:subClassOf cat:People ;
