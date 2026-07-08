@@ -11,7 +11,7 @@
     owl:versionIRI <http://mee.foundation/ontologies/category/1.0.0> ;
     dc:date "2026-07-04"^^xsd:date ;
     owl:imports <http://mee.foundation/ontologies/context> ;
-    owl:versionInfo "Version 1.0.11 - add cat:MedicalAppointmentForOther as a subclass of cat:Health"@en ;
+    owl:versionInfo "Version 1.0.12 - removed cat:Employee, cat:Contributor, cat:Creator subclasses of cat:Work"@en ;
     rdfs:label "Category Ontology"@en ;
     rdfs:comment """Category Ontology for the Mee Identity Agent"""@en .
 
@@ -258,21 +258,6 @@ cat:Work rdf:type owl:Class ;
     rdfs:subClassOf cat:Person ;
     rdfs:label "Work"@en ;
     rdfs:comment "Professional roles. Employment history, resume/CV."@en .
-
-cat:Employee rdf:type owl:Class ;
-    rdfs:subClassOf cat:Work ;
-    rdfs:label "Employee"@en ;
-    rdfs:comment "Your role as employee of some company. Your business card at this company."@en .
-
-cat:Contributor rdf:type owl:Class ;
-    rdfs:subClassOf cat:Work ;
-    rdfs:label "Contributor"@en ;
-    rdfs:comment "Your role as a contributor to initiatives started or led by others."@en .
-
-cat:Creator rdf:type owl:Class ;
-    rdfs:subClassOf cat:Work ;
-    rdfs:label "Creator"@en ;
-    rdfs:comment "Your role as a creator, inventor, founder, or author."@en .
 
 
 #################################################################

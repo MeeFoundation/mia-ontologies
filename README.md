@@ -167,9 +167,6 @@ Each of these five example categories contains contexts shown as circles. White 
 1. **Pets** (`cat:Pets`) — care instructions, veterinarians, medicines, food providers.
 1. **Home** (`cat:Home`) — owning or renting a home, apartment, or other dwelling. Leases, deeds, utility accounts, real estate brokers.
 1. **Work** (`cat:Work`) — professional roles. Employment history, resume/CV.
-    - **Employee** (`cat:Employee`) — your role employee of some company. Your business card at this company. 
-    - **Contributor** (`cat:Contributor`) — your role as a contributor to initiatives started or led by others.
-    - **Creator** (`cat:Creator`) — your role as a creator, inventor, founder, or author.
 1. **Ownership** (`cat:Ownership`) — owned assets, property, vehicles, and other possessions.
     - **Vehicles** (`cat:Vehicles`) — related to owning and maintaining a vehicle. Vehicle insurance, repairs, mechanics, garages. 
 1. **Travel** (`cat:Travel`) — travel plans, trips, and related information. Loyalty programs, airlines, bus lines, trains.
@@ -531,7 +528,7 @@ Alice's context DataBooks are in `example/contexts.` Some are authored by Alice 
 Alice's category DataBooks are in `example/categories/`. The full tree can be walked starting from `example/categories/categories.databook.md`. It contains two kinds of entries:
 
 - **Copies of predefined canonical categories** (`mia.classname` set to the specific class it was copied from, e.g. `People`, `Employees`) — one for each of the 16 top-level categories and their subcategories. Each copy carries a `copiedFrom:` property pointing to the corresponding canonical IRI (e.g. `copiedFrom: "http://mee.foundation/ontologies/categories-person/people"`). Context links (`c:sbs`, `c:obs`, `c:obo`, `c:sbo`) to Alice's contexts are attached here, not in the canonical tree.
-- **User-defined categories** (`mia.classname: Category`) — one per specific person, company, government agency, or group Alice interacts with (e.g. `bob-johnson(people)`, `acme(employee)`, `citibank(financial-services)`).
+- **User-defined categories** (`mia.classname: Category`) — one per specific person, company, government agency, or group Alice interacts with (e.g. `bob-johnson(people)`, `acme(work)`, `citibank(financial-services)`).
 
 #### Category and Context Diagrams
 
@@ -545,7 +542,7 @@ Alice and her sister, Carol, are taking care of their mother Paula Walker and ne
 
 <p align="center"><img src="example/images/health.png" alt="Health category"></p>
 
-Alice is an employee of Acme, so under her employee category she has created a user-defined category called Acme to represent her employer. Since Acme is an organization, Alice has under her Acme category switched from adding `cat:Person` categories to `cat:Organization` categories (light blue color) and added an Employees category which acts as a parent holding an EmployeeInfo category for each person there she tracks, including herself. Her own "Alice Walker" category holds her Business Card claims — job title at Acme, work telephone number, work email, etc. One of the employees she works with is Paula Walker, so she adds a Paula Walker category too.
+Alice is an employee of Acme, so under her Work category she has created a user-defined category called Acme to represent her employer. Since Acme is an organization, Alice has under her Acme category switched from adding `cat:Person` categories to `cat:Organization` categories (light blue color) and added an Employees category which acts as a parent holding an EmployeeInfo category for each person there she tracks, including herself. Her own "Alice Walker" category holds her Business Card claims — job title at Acme, work telephone number, work email, etc. One of the employees she works with is Paula Walker, so she adds a Paula Walker category too.
 <p align="center"><img src="example/images/work.png" alt="Work categories"></p>
 
 Alice has relationships with two companies, Google and AT&T:
