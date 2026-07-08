@@ -162,8 +162,12 @@ Each of these five example categories contains contexts shown as circles. White 
 1. **Health** (`cat:Health`) — personal health and wellness information. Medical history, allergies, medications, vaccinations, prescriptions, eyeglasses.
     - **Healthcare** (`cat:Healthcare`) — healthcare providers or health insurance companies.
     - **Medical Appointment For Other** (`cat:MedicalAppointmentForOther`) — a medical appointment you're helping arrange on behalf of someone else.
-1. **Finances** (`cat:Finances`) — information about personal finances, bookkeeping, budgets, payment cards, bank accounts.
-    - **Financial Services** (`cat:FinancialServices`) — banks, insurance firms, brokerages, etc.
+1. **Finances** (`cat:Finances`) — information about personal finances, bookkeeping, budgets, payment cards, bank accounts, brokerage accounts, insurance policies, financial advisors, etc.
+    - **Banking & Payments** (`cat:BankingPayments`) — firms that help you store, access, and move your cash for daily living. These include Retail Banks & Credit Unions, which provide checking accounts, savings accounts, and debit cards. These also include Payment Processors like Visa, Mastercard, or PayPal that let you buy things online and in stores, and Remittance Firms like Western Union or Wise used to send money to family or friends, especially overseas.
+    - **Investing** (`cat:Investing`) — firms that help you buy assets, so your money can grow over time for goals like buying a house or retiring. These include Brokerage Firms like Charles Schwab or Robinhood where you buy and sell stocks, bonds, and ETFs; Robo-Advisors, computer-run investing platforms like Betterment or Wealthfront that manage your portfolio for a low fee; and Mutual Fund companies like Vanguard or Fidelity that pool your money with other investors to buy a large bundle of stocks.
+    - **Lending & Credit** (`cat:LendingCredit`) — firms that lend you money when you need to buy something expensive that you cannot pay for all at once. These include Mortgage Lenders, banks or specialized companies that give you loans specifically to buy a home; Consumer Finance Companies, that give out personal loans, auto loans, or student loans; and Credit Card Issuers, banks that give you a plastic card to borrow money on the spot for daily purchases.
+    - **Insurance** (`cat:Insurance`) — firms that protect you and your family from financial ruin if something bad happens. These include Life & Health Insurance firms that cover medical bills or provide money to your family if you pass away, and Property & Casualty Insurance firms that insure your car, home, or apartment against accidents and theft.
+    - **Advisory** (`cat:Advisory`) — firms and individuals who do not just hold your money, but tell you the best ways to use it. These include Financial Planners (Wealth Advisors), human experts who help you build a custom roadmap for taxes, retirement, and budgeting, and Estate Planners, specialized professionals who help you write wills and plan how to pass your money to your children.
 1. **Pets** (`cat:Pets`) — care instructions, veterinarians, medicines, food providers.
 1. **Home** (`cat:Home`) — owning or renting a home, apartment, or other dwelling. Leases, deeds, utility accounts, real estate brokers.
 1. **Work** (`cat:Work`) — professional roles. Employment history, resume/CV.
@@ -531,7 +535,7 @@ Alice's context DataBooks are in `example/contexts.` Some are authored by Alice 
 Alice's category DataBooks are in `example/categories/`. The full tree can be walked starting from `example/categories/categories.databook.md`. It contains two kinds of entries:
 
 - **Copies of predefined canonical categories** (`mia.classname` set to the specific class it was copied from, e.g. `People`, `Employees`) — one for each of the 16 top-level categories and their subcategories. Each copy carries a `copiedFrom:` property pointing to the corresponding canonical IRI (e.g. `copiedFrom: "http://mee.foundation/ontologies/categories-person/people"`). Context links (`c:sbs`, `c:obs`, `c:obo`, `c:sbo`) to Alice's contexts are attached here, not in the canonical tree.
-- **User-defined categories** (`mia.classname: Category`) — one per specific person, company, government agency, or group Alice interacts with (e.g. `bob-johnson(people)`, `acme(work)`, `citibank(financial-services)`).
+- **User-defined categories** (`mia.classname: Category`) — one per specific person, company, government agency, or group Alice interacts with (e.g. `bob-johnson(people)`, `acme(work)`, `citibank(banking-payments)`).
 
 #### Category and Context Diagrams
 
@@ -551,7 +555,7 @@ Alice is an employee of Acme, so under her Work category she has created a user-
 Alice has relationships with two companies, Google and AT&T:
 <p align="center"><img src="example/images/companies.png" alt="Companies categories"></p>
 
-Alice has a relationship with Citibank. In our example Citibank exists as a node on the PDN and directly asserts information about their customer, Alice in context #10.
+Alice has a relationship with Citibank. In our example Citibank exists as a node on the PDN and directly asserts information about their customer, Alice in context #9.
 <p align="center"><img src="example/images/finances.png" alt="Financial categories"></p>
 
 
@@ -595,7 +599,7 @@ The following table lists contexts that are *about* Alice but asserted by others
 | #  | DataBook file                                                                         | Context type | Key data                             | Diagram |
 |--- |:-------------------------------------------------------------------------------------|:-------------|:-------------------------------------|:--------|
 | 8  | [self.bob-johnson(bob-johnson)(people)(08)](example/contexts/self.bob-johnson(bob-johnson)(people)(08).databook.md)                         | People            | Alice as seen by Bob                 | [view](example/contexts/images/self.bob-johnson(bob-johnson)(people)(08).png)|
-| 9 | [self.citibank(citibank)(financial-services)(09)](example/contexts/self.citibank(citibank)(financial-services)(09).databook.md)     | Financial Services | Debit card                           | [view](example/contexts/images/self.citibank(citibank)(financial-services)(09).png) |
+| 9 | [self.citibank(citibank)(banking-payments)(09)](example/contexts/self.citibank(citibank)(banking-payments)(09).databook.md)     | Banking & Payments | Debit card                           | [view](example/contexts/images/self.citibank(citibank)(banking-payments)(09).png) |
 
 The following table lists contexts about other people (Paula and Bob) or groups (Boston Hub Society) in Alice's Mia. All files are in `example/contexts/`.
 
@@ -628,7 +632,7 @@ The practical implication is that **Tier 1 validation** (which merges all graphs
 `draw.py` generates a Mermaid (`.mmd`) and PNG diagram from any context DataBook file:
 
 ```bash
-python3 draw.py example/contexts/self.citibank(citibank)(financial-services)(09).databook.md
+python3 draw.py example/contexts/self.citibank(citibank)(banking-payments)(09).databook.md
 python3 draw.py example/contexts/self.self(paradise)(municipality)(18).databook.md
 ```
 
