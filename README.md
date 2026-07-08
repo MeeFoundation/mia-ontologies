@@ -551,7 +551,7 @@ Alice's mother, Paula Walker, is filed under Immediate Family. Alice also keeps 
 
 <p align="center"><img src="example/images/people2.png" alt="People categories, continued — Immediate Family and Paula Walker's Health"></p>
 
-Alice and her sister, Carol, are taking care of their mother Paula Walker and need to arrange medical appointments for her. To do so, they need to share and synchronize medical information about Paula including her list of medications, medical history, health insurance policy, contact information and so on. Alice creates a two-party Medical Appointment for Other enclave with Carol that they use to share information about Paula. The medical information is captured in triples shown in the filled green circle. 
+Alice and her sister, Carol, are taking care of their mother Paula Walker and need to arrange medical appointments for her. To do so, they need to share and synchronize medical information about Paula including her list of medications, medical history, health insurance policy, contact information and so on. Alice creates a two-party Medical Appointment for Other enclave with Carol that they use to share information about Paula. The medical information claims are captured in triples shown in the filled green circle. Of the many claims, one of them will be the name of Paula's doctor (primary care physician). This information will be copied from the Dr. Jane Kopakolva category shown in the diagram above. The resulting populated Medical Appointment category shown in the diagram below:
 
 <p align="center"><img src="example/images/health.png" alt="Health category"></p>
 
