@@ -541,13 +541,15 @@ Alice's category DataBooks are in `example/categories/`. The full tree can be wa
 
 #### Category and Context Diagrams
 
-The following sequence of diagrams maps out the categories and contexts of our Alice example. We start with the People category--Alice's relationships with someone she knows named Bob Johnson and her mother Paula Walker. Bob is someone Alice knows but who isn't family or a close friend, so she has filed him under the Others category rather than Friends. 
+The following sequence of diagrams maps out the categories and contexts of our Alice example. We start with the People category--Alice's relationship with someone she knows named Bob Johnson. Bob is someone Alice knows but who isn't family or a close friend, so she has filed him under the Others category rather than Friends. 
 
 Contexts with dotted outlines are placeholders for contexts in category — Alice could fill a context in any of these placeholders if she wishes, and the claims in the context. 
 
 <p align="center"><img src="example/images/people.png" alt="People categories"></p>
 
-Alice keeps a record of her primary care physician, Dr. Jane Kopakolva, under the Primary Care Physician category — context #25.
+Alice's mother, Paula Walker, is filed under Immediate Family. Alice also keeps a record of Dr. Jane Kopakolva, Paula's primary care physician, under a Health category nested within Paula's own category — context #25.
+
+<p align="center"><img src="example/images/people2.png" alt="People categories, continued — Immediate Family and Paula Walker's Health"></p>
 
 Alice and her sister, Carol, are taking care of their mother Paula Walker and need to arrange medical appointments for her. To do so, they need to share and synchronize medical information about Paula including her list of medications, medical history, health insurance policy, contact information and so on. Alice creates a two-party Medical Appointment for Other enclave with Carol that they use to share information about Paula. The medical information is captured in triples shown in the filled green circle. 
 
@@ -616,7 +618,7 @@ The following table lists contexts about other people (Paula and Bob) or groups 
 | 5  | [paula-walker.paula-walker(paula-walker)(immediate-family)(05)](example/contexts/paula-walker.paula-walker(paula-walker)(immediate-family)(05).databook.md) | Immediate Family       | Paula's own family persona; social network with Alice       | [view](example/contexts/images/paula-walker.paula-walker(paula-walker)(immediate-family)(05).png)|
 | 6  | [paula-walker.self(paula-walker)(acme)(06)](example/contexts/paula-walker.self(paula-walker)(acme)(06).databook.md)           | Employee     | Paula as Alice's Acme colleague (Alice-asserted)                | [view](example/contexts/images/paula-walker.self(paula-walker)(acme)(06).png)|
 | 7  | [paula-walker.self(paula-walker)(immediate-family)(07)](example/contexts/paula-walker.self(paula-walker)(immediate-family)(07).databook.md) | Immediate Family       | Paula as Alice's family member (Alice-asserted)           | [view](example/contexts/images/paula-walker.self(paula-walker)(immediate-family)(07).png)|
-| 25 | [jane-kopakolva.self(jane-kopakolva)(health)(25)](example/contexts/jane-kopakolva.self(jane-kopakolva)(health)(25).databook.md) | Primary Care Physician       | Alice's record of her primary care physician, Dr. Jane Kopakolva           | [view](example/contexts/images/jane-kopakolva.self(jane-kopakolva)(health)(25).png)|
+| 25 | [jane-kopakolva.self(jane-kopakolva)(paula-walker)(25)](example/contexts/jane-kopakolva.self(jane-kopakolva)(paula-walker)(25).databook.md) | Primary Care Physician       | Alice's record of Dr. Jane Kopakolva, Paula Walker's primary care physician           | [view](example/contexts/images/jane-kopakolva.self(jane-kopakolva)(paula-walker)(25).png)|
 
 
 

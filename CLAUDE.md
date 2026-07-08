@@ -278,11 +278,11 @@ for directory, base, recursive in checks:
 
 If a mismatch is found, rename the file so its root matches the id local name (preferred) or update the `id:` to match the filename — whichever is consistent with the broader naming conventions.
 
-**Check 11 — Example category diagrams are authoritative**: The 9 category diagrams in `example/images/` are the authoritative source of truth for the example category tree. When any discrepancy is found between a diagram and the DataBook files, the diagram wins — update the DataBooks to match, not the other way around. After any change to `example/categories/` DataBooks or to the 9 diagrams, verify all of the following:
+**Check 11 — Example category diagrams are authoritative**: The 10 category diagrams in `example/images/` are the authoritative source of truth for the example category tree. When any discrepancy is found between a diagram and the DataBook files, the diagram wins — update the DataBooks to match, not the other way around. After any change to `example/categories/` DataBooks or to the 10 diagrams, verify all of the following:
 
-- **11a — Every category box has a DataBook**: Every category box (blue predefined or white user-defined) shown in any of the 9 diagrams must have a corresponding `.databook.md` file in `example/categories/` whose `title:` matches the box label. If a box has no DataBook, create one.
+- **11a — Every category box has a DataBook**: Every category box (blue predefined or white user-defined) shown in any of the 10 diagrams must have a corresponding `.databook.md` file in `example/categories/` whose `title:` matches the box label. If a box has no DataBook, create one.
 
-- **11b — Every DataBook has a diagram box**: Every `.databook.md` file in `example/categories/` (except `categories.databook.md` itself, which is the invisible root) must appear as a visible box in at least one of the 9 diagrams. If a DataBook has no corresponding box, either add it to the appropriate diagram or delete the DataBook.
+- **11b — Every DataBook has a diagram box**: Every `.databook.md` file in `example/categories/` (except `categories.databook.md` itself, which is the invisible root) must appear as a visible box in at least one of the 10 diagrams. If a DataBook has no corresponding box, either add it to the appropriate diagram or delete the DataBook.
 
 - **11c — Solid context circles match DataBook links**: Every solid (filled) context circle attached to a category box indicates a real context link. The category DataBook for that box must carry the corresponding `sbs`, `obs`, `obo`, or `sbo` field pointing to the context DataBook IRI. A dashed (empty) circle indicates an unfilled slot — the DataBook must NOT have a link for that slot.
 
@@ -290,7 +290,7 @@ If a mismatch is found, rename the file so its root matches the id local name (p
 
 - **11e — Child arrows match DataBook child links**: Every downward child arrow from category box A to category box B in a diagram must correspond to a `child:` entry in A's DataBook pointing to B's IRI. Conversely, every `child:` entry in a DataBook must be reflected by a visible child arrow in the diagram.
 
-The 9 diagrams are: `example/images/people.png`, `example/images/work.png`, `example/images/companies.png`, `example/images/finances.png`, `example/images/gov-state.png`, `example/images/gov-federal.png`, `example/images/gov-municipality.png`, `example/images/misc.png`, `example/images/affiliations.png`.
+The 10 diagrams are: `example/images/people.png`, `example/images/people2.png`, `example/images/work.png`, `example/images/companies.png`, `example/images/finances.png`, `example/images/gov-state.png`, `example/images/gov-federal.png`, `example/images/gov-municipality.png`, `example/images/misc.png`, `example/images/affiliations.png`.
 
 **Check 12 — Physical folder structure mirrors the `child:` tree in `example/categories/`**: `example/categories/` is organized as nested filesystem folders that mirror Alice's category hierarchy, rather than one flat directory. Each category's own `.databook.md` file lives in a folder (folder naming is not standardized — it may be the category's `title`, a `classname`-prefixed disambiguator, or a role-based label; this check does not validate folder names, only nesting). The rule: for every `mia.child` link from category A to category B, B's `.databook.md` file must live in a folder that is a **direct subfolder** of the folder containing A's `.databook.md` file — not deeper, not a sibling, not the same folder. `categories.databook.md` (the invisible root) sits directly in `example/categories/` itself. Run:
 

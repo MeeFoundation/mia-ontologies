@@ -1,18 +1,19 @@
 ---
-id: https://www.example.org/mia/contexts/jane-kopakolva.self(jane-kopakolva)(health)(25)
+id: https://www.example.org/mia/contexts/jane-kopakolva.self(jane-kopakolva)(paula-walker)(25)
 title: "About Jane Kopakolva in the PrimaryCarePhysician category as asserted by Alice Walker"
 type: context-databook
-version: 1.0.0
+version: 1.0.1
 created: 2026-07-08
 description: >
-  Alice's record of her primary care physician, Dr. Jane Kopakolva.
+  Alice's record of Dr. Jane Kopakolva, the primary care physician for
+  Alice's mother, Paula Walker.
 mia:
-  category: "http://www.example.org/mia/categories/jane-kopakolva(health)"
+  category: "http://www.example.org/mia/categories/jane-kopakolva(paula-walker)"
   assertedBy: ":Self"
   subject: ":Jane_Kopakolva"
   about-by: "context:OBScontext"
 graph:
-  named_graph: https://www.example.org/mia/contexts/jane-kopakolva.self(jane-kopakolva)(health)(25)#graph
+  named_graph: https://www.example.org/mia/contexts/jane-kopakolva.self(jane-kopakolva)(paula-walker)(25)#graph
   rdf_version: "1.1"
 shapes:
   - http://www.example.org/shapes
@@ -26,13 +27,13 @@ process:
 
 ## Overview
 
-This context captures Alice's record of her primary care physician, Dr. Jane Kopakolva, including her name and a note identifying her role.
+This context captures Alice's record of Dr. Jane Kopakolva, who is the primary care physician for Alice's mother, Paula Walker. Alice keeps this information so she and her sister Carol can coordinate Paula's medical appointments.
 
 ## Identity Data
 
 ```turtle
 <!-- databook:id: jane-kopakolva-alice-identity -->
-<!-- databook:graph: https://www.example.org/mia/contexts/jane-kopakolva.self(jane-kopakolva)(health)(25)#graph -->
+<!-- databook:graph: https://www.example.org/mia/contexts/jane-kopakolva.self(jane-kopakolva)(paula-walker)(25)#graph -->
 @prefix : <http://www.example.org/mia#> .
 @prefix persona: <http://mee.foundation/ontologies/persona#> .
 @prefix cco: <https://purl.org/cco/> .
@@ -56,6 +57,6 @@ This context captures Alice's record of her primary care physician, Dr. Jane Kop
 
     <https://purl.org/cco/ont00001917> [  # described by → Person Note
         rdf:type cco:ent00000048 ;
-        <https://purl.org/cco/ont00001765> "Alice's primary care physician"
+        <https://purl.org/cco/ont00001765> "Paula Walker's primary care physician"
     ] .
 ```
