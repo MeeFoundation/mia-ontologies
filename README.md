@@ -126,16 +126,16 @@ Every category (other than the invisible root) is classified two ways: which cla
 
 The two roots are stored separately so the notes hierarchy can be opened as a standalone PKM vault without exposing the files hierarchy. Two user-configurable settings define where each root lives on disk:
 
-- **Files root** — default on macOS: `~/Documents`
-- **Notes root** — default on macOS: `~/Documents/ObsidianVault`
+- **Files root** — default on macOS: `~/Enclave`
+- **Notes root** — default on macOS: `~/Enclave/ObsidianVault`
 
-The notes root's default location happens to be nested inside the files root's default location on disk — that's a matter of default configuration convenience, not a statement that the notes hierarchy is part of the files hierarchy. When Mia walks the files hierarchy it excludes the notes-root subtree entirely, and vice versa. All `cat:note` values are relative paths from the notes root; all `cat:folder` values are relative paths from the files root.
+The files root defaults to a dedicated top-level folder (sibling of the Mac's built-in `Desktop`/`Downloads`/`Pictures`/`Movies`/`Music`/`Public`/`Documents` folders) rather than living inside `Documents`, so the category tree doesn't mix with — or need to accommodate — those OS-managed conventions; native Mac folders are left alone entirely, outside the category tree. The notes root's default location is nested inside the files root's default location on disk — that's a matter of default configuration convenience, not a statement that the notes hierarchy is part of the files hierarchy. When Mia walks the files hierarchy it excludes the notes-root subtree entirely, and vice versa. All `cat:note` values are relative paths from the notes root; all `cat:folder` values are relative paths from the files root.
 
 In the normal case `cat:note` and `cat:folder` are technically redundant — both paths can be derived from the category tree plus the two configured roots. They are retained for three reasons:
 
 1. **Divergence detection** — if a stored path no longer matches the derived path, Mia knows the user has manually renamed or rearranged folders outside of Mia and can alert them or attempt reconciliation rather than failing silently.
 2. **Graceful degradation** — Mia can continue to locate a category's folder or note via the stored path even when the folder hierarchy has drifted out of sync with the category tree.
-3. **Intentional overrides** — a user may deliberately want a category's folder to live somewhere other than the derived location (e.g. `~/Photos/Family/` rather than the default `~/Documents/People/Family/`). The explicit link records that intentional deviation without disrupting the category tree.
+3. **Intentional overrides** — a user may deliberately want a category's folder to live somewhere other than the derived location (e.g. `~/Pictures/Family/` rather than the default `~/Enclave/People/Family/`). The explicit link records that intentional deviation without disrupting the category tree.
 
 ### Example category tree
 
