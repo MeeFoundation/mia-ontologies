@@ -2,7 +2,7 @@
 id: http://mee.foundation/ontologies/categories-org/finances-org
 title: "Finances (org)"
 type: category-databook
-version: 1.0.0
+version: 1.0.1
 created: 2026-07-03
 description: >
   Category DataBook for the Finances (org) category. Groups context
@@ -11,4 +11,5 @@ description: >
 mia:
   classname: Finances(org)
   num-parties: OneParty
+  child: "http://mee.foundation/ontologies/categories-org/financial-services-org"
 ---

@@ -2,7 +2,7 @@
 id: http://mee.foundation/ontologies/categories-org/categories-org
 title: "Categories (org)"
 type: category-databook
-version: 1.0.0
+version: 1.0.1
 created: 2026-07-03
 description: >
   Root category DataBook for Organization categories. Parent of all
@@ -11,6 +11,7 @@ mia:
   classname: Category
   child:
     - "http://mee.foundation/ontologies/categories-org/customers"
+    - "http://mee.foundation/ontologies/categories-org/marketing"
     - "http://mee.foundation/ontologies/categories-org/partners"
     - "http://mee.foundation/ontologies/categories-org/employees"
     - "http://mee.foundation/ontologies/categories-org/consultants-org"

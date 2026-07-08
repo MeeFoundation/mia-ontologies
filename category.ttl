@@ -11,7 +11,7 @@
     owl:versionIRI <http://mee.foundation/ontologies/category/1.0.0> ;
     dc:date "2026-07-04"^^xsd:date ;
     owl:imports <http://mee.foundation/ontologies/context> ;
-    owl:versionInfo "Version 1.0.12 - removed cat:Employee, cat:Contributor, cat:Creator subclasses of cat:Work"@en ;
+    owl:versionInfo "Version 1.0.15 - added cat:FinancialServices(org) subclass of cat:Finances(org)"@en ;
     rdfs:label "Category Ontology"@en ;
     rdfs:comment """Category Ontology for the Mee Identity Agent"""@en .
 
@@ -445,8 +445,13 @@ cat:Customers rdf:type owl:Class ;
     rdfs:label "Customers"@en ;
     rdfs:comment "Customer organizations. Rename to 'Clients', etc."@en .
 
+cat:Marketing rdf:type owl:Class ;
+    rdfs:subClassOf cat:Organization ;
+    rdfs:label "Marketing"@en ;
+    rdfs:comment "Marketing activities, campaigns, and related organizations."@en .
+
 cat:Prospects rdf:type owl:Class ;
-    rdfs:subClassOf cat:Customers ;
+    rdfs:subClassOf cat:Marketing ;
     rdfs:label "Prospects"@en ;
     rdfs:comment "Customer prospects. Rename to 'Client prospects', etc."@en .
 
@@ -460,9 +465,9 @@ cat:Employees rdf:type owl:Class ;
     rdfs:label "Employees"@en ;
     rdfs:comment "Related to employees."@en .
 
-cat:EmployeeInfo rdf:type owl:Class ;
+cat:Employee rdf:type owl:Class ;
     rdfs:subClassOf cat:Employees ;
-    rdfs:label "EmployeeInfo"@en ;
+    rdfs:label "Employee"@en ;
     rdfs:comment "Detailed information about a specific employee."@en .
 
 cat:Consultants\(org\) rdf:type owl:Class ;
@@ -509,3 +514,8 @@ cat:Finances\(org\) rdf:type owl:Class ;
     rdfs:subClassOf cat:Organization ;
     rdfs:label "Finances (org)"@en ;
     rdfs:comment "Corporate finance-related matters."@en .
+
+cat:FinancialServices\(org\) rdf:type owl:Class ;
+    rdfs:subClassOf cat:Finances\(org\) ;
+    rdfs:label "Financial Services (org)"@en ;
+    rdfs:comment "Banks or other financial services institutions."@en .

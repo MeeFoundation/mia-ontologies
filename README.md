@@ -163,7 +163,7 @@ Each of these five example categories contains contexts shown as circles. White 
     - **Healthcare** (`cat:Healthcare`) — healthcare providers or health insurance companies.
     - **Medical Appointment For Other** (`cat:MedicalAppointmentForOther`) — a medical appointment a person manages on behalf of someone else they care for.
 1. **Finances** (`cat:Finances`) — information about personal finances, bookkeeping, budgets, payment cards, bank accounts.
-    - **Financial Services** (`cat:FinancialServices`) — banks or other financial services institutions.
+    - **Financial Services** (`cat:FinancialServices`) — banks, insurance firms, brokerages, etc.
 1. **Pets** (`cat:Pets`) — care instructions, veterinarians, medicines, food providers.
 1. **Home** (`cat:Home`) — owning or renting a home, apartment, or other dwelling. Leases, deeds, utility accounts, real estate brokers.
 1. **Work** (`cat:Work`) — professional roles. Employment history, resume/CV.
@@ -192,10 +192,11 @@ Each of these five example categories contains contexts shown as circles. White 
 `cat:Organization` categories for an organization's information:
 
 1. **Customers** (`cat:Customers`) — customer organizations. Rename to "Clients", etc.
+1. **Marketing** (`cat:Marketing`) — marketing activities, campaigns, and related organizations.
     - **Prospects** (`cat:Prospects`) - customer prospects. Rename to "Client prospects", etc.
 1. **Partners** (`cat:Partners`) — firms that provide goods and services.
 1. **Employees** (`cat:Employees`) — related to employees.
-    - **Employee Info** (`cat:EmployeeInfo`) — detailed information about a specific employee.
+    - **Employee** (`cat:Employee`) — detailed information about a specific employee.
 1. **Consultants (org)** (`cat:Consultants(org)`) — engaged consultants.
 1. **KB** (`cat:KB`) — corporate knowledge bases.
 1. **Projects (org)** (`cat:Projects(org)`) — projects related to R&D, manufacturing, sales, marketing, operations, HR, etc.
@@ -205,6 +206,7 @@ Each of these five example categories contains contexts shown as circles. White 
 1. **Legal (org)** (`cat:Legal(org)`) — contracts and agreements.
 1. **Government (org)** (`cat:Government(org)`) — interactions with government organizations.
 1. **Finances (org)** (`cat:Finances(org)`) — corporate finance-related matters.
+    - **Financial Services (org)** (`cat:FinancialServices(org)`) — banks, insurance firms, brokerages, investors, etc.
 
 ### Category DataBooks
 
@@ -542,7 +544,7 @@ Alice and her sister, Carol, are taking care of their mother Paula Walker and ne
 
 <p align="center"><img src="example/images/health.png" alt="Health category"></p>
 
-Alice is an employee of Acme, so under her Work category she has created a user-defined category called Acme to represent her employer. Since Acme is an organization, Alice has under her Acme category switched from adding `cat:Person` categories to `cat:Organization` categories (light blue color) and added an Employees category which acts as a parent holding an EmployeeInfo category for each person there she tracks, including herself. Her own "Alice Walker" category holds her Business Card claims — job title at Acme, work telephone number, work email, etc. One of the employees she works with is Paula Walker, so she adds a Paula Walker category too.
+Alice is an employee of Acme, so under her Work category she has created a user-defined category called Acme to represent her employer. Since Acme is an organization, Alice has under her Acme category switched from adding `cat:Person` categories to `cat:Organization` categories (light blue color) and added an Employees category which acts as a parent holding an Employee category for each person there she tracks, including herself. Her own "Alice Walker" category holds her Business Card claims — job title at Acme, work telephone number, work email, etc. One of the employees she works with is Paula Walker, so she adds a Paula Walker category too.
 <p align="center"><img src="example/images/work.png" alt="Work categories"></p>
 
 Alice has relationships with two companies, Google and AT&T:
@@ -571,7 +573,7 @@ The contexts in the table below are *about* Alice and asserted *by* Alice. All `
 
 | #  | DataBook file                                                                          | Context type | Key data                                                         | Diagram |
 |--- |:--------------------------------------------------------------------------------------|:-------------|:-----------------------------------------------------------------|:--------|
-| 10 | [self.self(alice-walker)(acme)(10)](example/contexts/self.self(alice-walker)(acme)(10).databook.md) | EmployeeInfo     | Business card — given name, family name, email, phone, employer  | [view](example/contexts/images/self.self(alice-walker)(acme)(10).png) |
+| 10 | [self.self(alice-walker)(acme)(10)](example/contexts/self.self(alice-walker)(acme)(10).databook.md) | Employee     | Business card — given name, family name, email, phone, employer  | [view](example/contexts/images/self.self(alice-walker)(acme)(10).png) |
 | 11 | [self.self(att)(companies)(11)](example/contexts/self.self(att)(companies)(11).databook.md)                     | Companies    | Phone number                                                     | [view](example/contexts/images/self.self(att)(companies)(11).png) |
 | 12 | [self.self(bob-johnson)(people)(12)](example/contexts/self.self(bob-johnson)(people)(12).databook.md)                     | People       | Alice's 1:1 context with Bob; social network with Bob as member  | [view](example/contexts/images/self.self(bob-johnson)(people)(12).png)|
 | 13 | [self.self(boston)(municipality)(13)](example/contexts/self.self(boston)(municipality)(13).databook.md)               | Municipality | Previous address — Boston, MA (2020–2025) with temporal interval | [view](example/contexts/images/self.self(boston)(municipality)(13).png) |
@@ -581,7 +583,7 @@ The contexts in the table below are *about* Alice and asserted *by* Alice. All `
 | 17 | [self.self(health)(17)](example/contexts/self.self(health)(17).databook.md)                 | Health     | Physical body — height (68 in.), blue eyes, grey hair            | [view](example/contexts/images/self.self(health)(17).png) |
 | 18 | [self.self(paradise)(municipality)(18)](example/contexts/self.self(paradise)(municipality)(18).databook.md)           | Municipality | Current address — Paradise, CA (2025–present)                    | [view](example/contexts/images/self.self(paradise)(municipality)(18).png) |
 | 19 | [self.self(passport)(federal)(19)](example/contexts/self.self(passport)(federal)(19).databook.md)             | Federal    | US passport — legal name, DOB, passport#, issue/expiry, place of birth, gender marker, photo | [view](example/contexts/images/self.self(passport)(federal)(19).png) |
-| 20 | [self.self(paula-walker)(acme)(20)](example/contexts/self.self(paula-walker)(acme)(20).databook.md)                   | EmployeeInfo     | Acme employee context; company email; works with Paula           | [view](example/contexts/images/self.self(paula-walker)(acme)(20).png)|
+| 20 | [self.self(paula-walker)(acme)(20)](example/contexts/self.self(paula-walker)(acme)(20).databook.md)                   | Employee     | Acme employee context; company email; works with Paula           | [view](example/contexts/images/self.self(paula-walker)(acme)(20).png)|
 | 21 | [self.self(paula-walker)(family)(21)](example/contexts/self.self(paula-walker)(family)(21).databook.md)   | Family       | Alice as a family member                       | [view](example/contexts/images/self.self(paula-walker)(family)(21).png) |
 | 22 | [self.self(ownership)(22)](example/contexts/self.self(ownership)(22).databook.md)     | Ownership  | Wallet (driver's license + payment card); health ins., SSN card  | [view](example/contexts/images/self.self(ownership)(22).png) |
 | 23 | [self.self(social-security-administration)(federal)(23)](example/contexts/self.self(social-security-administration)(federal)(23).databook.md)                     | Federal      | Social security number (SSN)                                     | [view](example/contexts/images/self.self(social-security-administration)(federal)(23).png) |
@@ -603,7 +605,7 @@ The following table lists contexts about other people (Paula and Bob) or groups 
 | 3  | [bob-johnson.bob-johnson(boston-hub-society)(affiliations)(03)](example/contexts/bob-johnson.bob-johnson(boston-hub-society)(affiliations)(03).databook.md)                     | Affiliations | Bob's BHS member persona (name, email, phone, address)          | [view](example/contexts/images/bob-johnson.bob-johnson(boston-hub-society)(affiliations)(03).png) |
 | 4  | [bob-johnson.self(bob-johnson)(people)(04)](example/contexts/bob-johnson.self(bob-johnson)(people)(04).databook.md)                 | People       | Alice's notes about Bob; fav drink: oat milk cappuccino         | [view](example/contexts/images/bob-johnson.self(bob-johnson)(people)(04).png) |
 | 5  | [paula-walker.paula-walker(paula-walker)(family)(05)](example/contexts/paula-walker.paula-walker(paula-walker)(family)(05).databook.md) | Family       | Paula's own family persona; social network with Alice       | [view](example/contexts/images/paula-walker.paula-walker(paula-walker)(family)(05).png)|
-| 6  | [paula-walker.self(paula-walker)(acme)(06)](example/contexts/paula-walker.self(paula-walker)(acme)(06).databook.md)           | EmployeeInfo     | Paula as Alice's Acme colleague (Alice-asserted)                | [view](example/contexts/images/paula-walker.self(paula-walker)(acme)(06).png)|
+| 6  | [paula-walker.self(paula-walker)(acme)(06)](example/contexts/paula-walker.self(paula-walker)(acme)(06).databook.md)           | Employee     | Paula as Alice's Acme colleague (Alice-asserted)                | [view](example/contexts/images/paula-walker.self(paula-walker)(acme)(06).png)|
 | 7  | [paula-walker.self(paula-walker)(family)(07)](example/contexts/paula-walker.self(paula-walker)(family)(07).databook.md) | Family       | Paula as Alice's family member (Alice-asserted)           | [view](example/contexts/images/paula-walker.self(paula-walker)(family)(07).png)|
 
 

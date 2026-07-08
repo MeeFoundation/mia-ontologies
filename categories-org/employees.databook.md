@@ -2,7 +2,7 @@
 id: http://mee.foundation/ontologies/categories-org/employees
 title: "Employees"
 type: category-databook
-version: 1.0.1
+version: 1.0.2
 created: 2026-07-03
 description: >
   Category DataBook for the Employees category. Groups context
@@ -10,5 +10,5 @@ description: >
 mia:
   classname: Employees
   num-parties: OneParty
-  child: "http://mee.foundation/ontologies/categories-org/employee-info"
+  child: "http://mee.foundation/ontologies/categories-org/employee"
 ---
