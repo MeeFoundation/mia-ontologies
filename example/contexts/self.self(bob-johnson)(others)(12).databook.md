@@ -1,19 +1,19 @@
 ---
-id: https://www.example.org/mia/contexts/self.self(bob-johnson)(people)(12)
-title: "About Alice Walker in the People category as asserted by Alice Walker"
+id: https://www.example.org/mia/contexts/self.self(bob-johnson)(others)(12)
+title: "About Alice Walker in the Others category as asserted by Alice Walker"
 type: context-databook
-version: 2.0.5
+version: 2.0.6
 created: 2026-06-12
 description: >
   Alice Walker's self-asserted persona in the context of her 1:1 relationship with Bob Johnson.
   Records the name and social network connection she shares with Bob.
 mia:
-  category: "http://www.example.org/mia/categories/bob-johnson(people)"
+  category: "http://www.example.org/mia/categories/bob-johnson(others)"
   assertedBy: ":Self"
   subject: ":Self"
   about-by: "context:SBScontext"
 graph:
-  named_graph: https://www.example.org/mia/contexts/self.self(bob-johnson)(people)(12)#graph
+  named_graph: https://www.example.org/mia/contexts/self.self(bob-johnson)(others)(12)#graph
   rdf_version: "1.1"
 shapes:
   - http://www.example.org/shapes
@@ -33,7 +33,7 @@ This context captures Alice Walker's self-asserted persona in her 1:1 relationsh
 
 ```turtle
 <!-- databook:id: alice-bob-alice-identity -->
-<!-- databook:graph: https://www.example.org/mia/contexts/self.self(bob-johnson)(people)(12)#graph -->
+<!-- databook:graph: https://www.example.org/mia/contexts/self.self(bob-johnson)(others)(12)#graph -->
 @prefix : <http://www.example.org/mia#> .
 @prefix persona: <http://mee.foundation/ontologies/persona#> .
 @prefix cco: <https://purl.org/cco/> .

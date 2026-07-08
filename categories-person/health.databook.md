@@ -13,4 +13,5 @@ mia:
   child:
     - "http://mee.foundation/ontologies/categories-person/healthcare"
     - "http://mee.foundation/ontologies/categories-person/medical-appointment-for-other"
+    - "http://mee.foundation/ontologies/categories-person/primary-care-physician"
 ---

@@ -11,7 +11,7 @@
     owl:versionIRI <http://mee.foundation/ontologies/category/1.0.0> ;
     dc:date "2026-07-04"^^xsd:date ;
     owl:imports <http://mee.foundation/ontologies/context> ;
-    owl:versionInfo "Version 1.0.23 - renamed cat:MultiParty display label from Circle to MultiParty Enclave"@en ;
+    owl:versionInfo "Version 1.0.26 - added cat:PrimaryCarePhysician as direct subclass of cat:Health"@en ;
     rdfs:label "Category Ontology"@en ;
     rdfs:comment """Category Ontology for the Mee Identity Agent"""@en .
 
@@ -228,7 +228,7 @@ cat:Affiliations rdf:type owl:Class ;
 cat:People rdf:type owl:Class ;
     rdfs:subClassOf cat:Person ;
     rdfs:label "People"@en ;
-    rdfs:comment "People in your social or professional life. Use this category for people not otherwise tied to a specific domain — a bookkeeper you know belongs under Finances (Advisory), and your primary care physician belongs under Health (Healthcare), rather than here."@en .
+    rdfs:comment "People in your social or professional life. Use this category for people not otherwise tied to a specific domain — a bookkeeper you know belongs under Finances (Advisory), and your primary care physician belongs under Health (Primary Care Physician), rather than here."@en .
 
 cat:ImmediateFamily rdf:type owl:Class ;
     rdfs:subClassOf cat:People ;
@@ -249,6 +249,11 @@ cat:Friends rdf:type owl:Class ;
     rdfs:subClassOf cat:People ;
     rdfs:label "Friends"@en ;
     rdfs:comment "Interactions with friends."@en .
+
+cat:Others rdf:type owl:Class ;
+    rdfs:subClassOf cat:People ;
+    rdfs:label "Others"@en ;
+    rdfs:comment "People you know socially or professionally who are not family or friends — acquaintances, neighbors, or other connections not yet more specifically categorized."@en .
 
 #################################################################
 #    cat:Work and subclasses
@@ -322,6 +327,11 @@ cat:Healthcare rdf:type owl:Class ;
     rdfs:subClassOf cat:Health ;
     rdfs:label "Healthcare"@en ;
     rdfs:comment "Healthcare providers or health insurance companies."@en .
+
+cat:PrimaryCarePhysician rdf:type owl:Class ;
+    rdfs:subClassOf cat:Health ;
+    rdfs:label "Primary Care Physician"@en ;
+    rdfs:comment "Your primary care doctor, the physician you generally see first for checkups, referrals, and everyday health concerns."@en .
 
 #################################################################
 #    cat:Events and subclasses

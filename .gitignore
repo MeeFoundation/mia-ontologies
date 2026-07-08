@@ -1,3 +1,4 @@
 /project_files
 .claude
 .claude/settings.local.json
+.DS_Store

@@ -35,9 +35,9 @@ There are no build, compile, test, or lint commands. The files are Turtle (`.ttl
 | `example/contexts/paula-walker.self(paula-walker)(acme)(06).databook.md` | Paula Walker as Alice's Acme colleague — asserted by Alice |
 | `example/contexts/paula-walker.self(paula-walker)(immediate-family)(07).databook.md` | Paula Walker as Alice's family member — asserted by Alice |
 | `example/contexts/paula-walker.paula-walker(paula-walker)(immediate-family)(05).databook.md` | Paula Walker's own family persona; social network with Alice |
-| `example/contexts/self.bob-johnson(bob-johnson)(people)(08).databook.md` | Alice Walker as seen by Bob Johnson — asserted by Bob |
-| `example/contexts/bob-johnson.self(bob-johnson)(people)(04).databook.md` | Alice's notes about Bob Johnson; favorite drink: oat milk cappuccino |
-| `example/contexts/bob-johnson.bob-johnson(bob-johnson)(people)(02).databook.md` | Bob Johnson's self-asserted persona; social network with Alice |
+| `example/contexts/self.bob-johnson(bob-johnson)(others)(08).databook.md` | Alice Walker as seen by Bob Johnson — asserted by Bob |
+| `example/contexts/bob-johnson.self(bob-johnson)(others)(04).databook.md` | Alice's notes about Bob Johnson; favorite drink: oat milk cappuccino |
+| `example/contexts/bob-johnson.bob-johnson(bob-johnson)(others)(02).databook.md` | Bob Johnson's self-asserted persona; social network with Alice |
 | `example/contexts/self.self(boston-hub-society)(affiliations)(14).databook.md` | Alice's Boston Hub Society profile — email, phone, and current address |
 | `example/contexts/bhs-group.members(boston-hub-society)(affiliations)(01).databook.md` | BHS Group — g:Group instance with Alice and Bob as members |
 | `example/contexts/bob-johnson.bob-johnson(boston-hub-society)(affiliations)(03).databook.md` | Bob Johnson's BHS member persona — name, email, phone, address |
@@ -48,7 +48,7 @@ There are no build, compile, test, or lint commands. The files are Turtle (`.ttl
 | `example/contexts/self.self(paradise)(municipality)(18).databook.md` | Alice's Paradise, CA address — current residence (2025–present) |
 | `example/contexts/self.self(boston)(municipality)(13).databook.md` | Alice's Boston, MA address — previous residence (2020–2025) |
 | `example/contexts/self.self(social-security-administration)(federal)(23).databook.md` | Alice's Social Security Number |
-| `example/contexts/self.self(bob-johnson)(people)(12).databook.md` | Alice's 1:1 context with Bob; social network with Bob as member |
+| `example/contexts/self.self(bob-johnson)(others)(12).databook.md` | Alice's 1:1 context with Bob; social network with Bob as member |
 | `example/contexts/self.self(paula-walker)(immediate-family)(21).databook.md` | Alice's family context — social network with Paula Walker as member |
 | `example/contexts/self.self(ownership)(22).databook.md` | Alice's possessions — wallet, health insurance card, SSN card |
 | `example/contexts/self.self(paula-walker)(acme)(20).databook.md` | Alice's Acme employee context; social network with Paula Walker |
@@ -99,7 +99,7 @@ Context filenames follow a single flat pattern:
 |---------|---------|
 | `<subject>` | The entity the Persona is about. Use `self` when the subject is the Mia user's own `p:Person` (`:Self`); otherwise use the full hyphenated lowercase name (e.g. `paula-walker`, `bob-johnson`, `bhs-group`). |
 | `<asserted-by>` | Who asserted the data. Use `self` when the asserter is `:Self`; use the full hyphenated lowercase name for other asserters (e.g. `bob-johnson`, `citibank`); use the literal `members` for `c:MultiParty` contexts where any permitted member may write. |
-| `(<containing-category>)` | The local-name portion of this context's `mia.category` IRI — i.e., the IRI of the category DataBook that directly holds the `sbs`, `obs`, `sbo`, or `obo` link to this context. When the category DataBook local name includes a `(parent)` qualifier (e.g. `bob-johnson(people)`), the filename uses two separate parenthetical segments before the number: `(bob-johnson)(people)`. Examples: `(bob-johnson)(people)`, `(boston-hub-society)(affiliations)`, `(paula-walker)(immediate-family)`, `(citibank)(banking-payments)`. For categories without a `(parent)` qualifier (e.g. `health`, `ownership`), a single segment suffices. |
+| `(<containing-category>)` | The local-name portion of this context's `mia.category` IRI — i.e., the IRI of the category DataBook that directly holds the `sbs`, `obs`, `sbo`, or `obo` link to this context. When the category DataBook local name includes a `(parent)` qualifier (e.g. `bob-johnson(others)`), the filename uses two separate parenthetical segments before the number: `(bob-johnson)(others)`. Examples: `(bob-johnson)(others)`, `(boston-hub-society)(affiliations)`, `(paula-walker)(immediate-family)`, `(citibank)(banking-payments)`. For categories without a `(parent)` qualifier (e.g. `health`, `ownership`), a single segment suffices. |
 | `(<NN>)` | Zero-padded two-digit context number in parentheses, matching the diagram label. |
 
 **Exception — `c:MultiParty` contexts**: A group context (`category context:MultiParty`) has no single asserter — any permitted member can write to it and changes replicate to all members. The `<asserted-by>` segment is the literal `members` rather than an individual name. Example: `bhs-group.members(boston-hub-society)(affiliations)(01).databook.md` — about BHS Group, containing category "boston-hub-society(affiliations)", asserted by the group's members collectively.
@@ -117,7 +117,7 @@ Context filenames follow a single flat pattern:
 |----------|---------|-------------|---------------------|
 | `self.citibank(citibank)(banking-payments)(09).databook.md` | Self (Alice) | Citibank | citibank(banking-payments) |
 | `paula-walker.self(paula-walker)(immediate-family)(07).databook.md` | Paula Walker | Self (Alice) | paula-walker(immediate-family) |
-| `self.bob-johnson(bob-johnson)(people)(08).databook.md` | Self (Alice) | Bob Johnson | bob-johnson(people) |
+| `self.bob-johnson(bob-johnson)(others)(08).databook.md` | Self (Alice) | Bob Johnson | bob-johnson(others) |
 | `bob-johnson.bob-johnson(boston-hub-society)(affiliations)(03).databook.md` | Bob Johnson | Bob Johnson | boston-hub-society(affiliations) |
 | `bhs-group.members(boston-hub-society)(affiliations)(01).databook.md` | BHS Group | members (group) | boston-hub-society(affiliations) |
 
@@ -167,9 +167,9 @@ After any change to context files or category DataBooks, verify the following.
 
 **Check 1 — Diagram ↔ files ↔ README coverage**: Every numbered context circle in any of the 9 category diagrams (`example/images/`) must have (a) a corresponding `.databook.md` file in `example/contexts/` and (b) a row in one of the tables in the **Alice's Personas and Contexts** section of `README.md`. Conversely, every row in those tables must correspond to a numbered circle in a diagram and a file that actually exists. If a circle exists in a diagram but has no `.databook.md` file or README row, create them to match the diagram.
 
-**Check 2 — Filename convention**: Every context filename must follow `<subject>.<asserted-by>(<containing-category>)(<NN>).databook.md`. `<subject>` must be `self` when the subject is `:Self`, or the full hyphenated lowercase name otherwise. `<asserted-by>` must be `self` when the asserter is `:Self`, or the full hyphenated lowercase name otherwise — except for `c:Group` contexts, where it must be the literal string `members`. `(<containing-category>)` encodes the local name of the `mia.category` IRI: when the category DataBook local name includes a `(parent)` qualifier (e.g. `bob-johnson(people)`), it appears as two separate segments `(bob-johnson)(people)`; when there is no qualifier (e.g. `health`), a single segment suffices. `(<NN>)` is the zero-padded two-digit context number. If a filename does not match this pattern, rename it to conform.
+**Check 2 — Filename convention**: Every context filename must follow `<subject>.<asserted-by>(<containing-category>)(<NN>).databook.md`. `<subject>` must be `self` when the subject is `:Self`, or the full hyphenated lowercase name otherwise. `<asserted-by>` must be `self` when the asserter is `:Self`, or the full hyphenated lowercase name otherwise — except for `c:Group` contexts, where it must be the literal string `members`. `(<containing-category>)` encodes the local name of the `mia.category` IRI: when the category DataBook local name includes a `(parent)` qualifier (e.g. `bob-johnson(others)`), it appears as two separate segments `(bob-johnson)(others)`; when there is no qualifier (e.g. `health`), a single segment suffices. `(<NN>)` is the zero-padded two-digit context number. If a filename does not match this pattern, rename it to conform.
 
-**Check 3 — `mia.category` ↔ filename consistency**: For every context DataBook in `example/contexts/` (excluding `under-development/`), the local-name portion of its `mia.category` IRI must equal the `(<containing-category>)` segment extracted from the filename. When the filename uses two separate parenthetical segments before the number (e.g. `(bob-johnson)(people)`), concatenate them as `bob-johnson(people)` to form the expected local name. Run:
+**Check 3 — `mia.category` ↔ filename consistency**: For every context DataBook in `example/contexts/` (excluding `under-development/`), the local-name portion of its `mia.category` IRI must equal the `(<containing-category>)` segment extracted from the filename. When the filename uses two separate parenthetical segments before the number (e.g. `(bob-johnson)(others)`), concatenate them as `bob-johnson(others)` to form the expected local name. Run:
 
 ```python
 import os, re
@@ -244,26 +244,36 @@ If any `MISSING:` lines appear, either add the file or update the link.
 
 For each DataBook in `example/` (excluding `under-development/`), extract the three YAML values and verify they match the table. If they conflict, `about-by` is the authoritative value — update `subject` and/or `assertedBy` to match it.
 
-**Check 10 — Category filename ↔ id consistency**: For every category DataBook in `categories-person/`, `categories-org/`, and `example/categories/`, the filename root (the filename with `.databook.md` stripped) must exactly match the local name portion of the file's `id:` IRI (the string after the IRI base). The IRI base for canonical Person files is `http://mee.foundation/ontologies/categories-person/`; for canonical Organization files it is `http://mee.foundation/ontologies/categories-org/`; for example files it is `http://www.example.org/mia/categories/`. Run:
+**Check 10 — Category filename ↔ id consistency**: For every category DataBook in `categories-person/`, `categories-org/`, and `example/categories/`, the filename root (the filename with `.databook.md` stripped) must exactly match the local name portion of the file's `id:` IRI (the string after the IRI base). The IRI base for canonical Person files is `http://mee.foundation/ontologies/categories-person/`; for canonical Organization files it is `http://mee.foundation/ontologies/categories-org/`; for example files it is `http://www.example.org/mia/categories/`. `categories-person/` and `categories-org/` are flat directories; `example/categories/` is nested into folders mirroring the category tree (see Check 12), so it must be walked recursively. Run:
 
 ```python
 import os, re
+
+def iter_databooks(directory, recursive):
+    if recursive:
+        for dirpath, _, filenames in os.walk(directory):
+            for fname in sorted(filenames):
+                if fname.endswith('.databook.md'):
+                    yield os.path.join(dirpath, fname), fname
+    else:
+        for fname in sorted(os.listdir(directory)):
+            if fname.endswith('.databook.md'):
+                yield os.path.join(directory, fname), fname
+
 checks = [
-    ('categories-person', 'http://mee.foundation/ontologies/categories-person/'),
-    ('categories-org',     'http://mee.foundation/ontologies/categories-org/'),
-    ('example/categories', 'http://www.example.org/mia/categories/'),
+    ('categories-person', 'http://mee.foundation/ontologies/categories-person/', False),
+    ('categories-org',     'http://mee.foundation/ontologies/categories-org/', False),
+    ('example/categories', 'http://www.example.org/mia/categories/', True),
 ]
-for directory, base in checks:
-    for fname in sorted(os.listdir(directory)):
-        if not fname.endswith('.databook.md'):
-            continue
+for directory, base, recursive in checks:
+    for path, fname in iter_databooks(directory, recursive):
         root = fname[:-len('.databook.md')]
-        text = open(f'{directory}/{fname}').read()
+        text = open(path).read()
         m = re.search(r'^id:\s*(\S+)', text, re.MULTILINE)
         fid = m.group(1).strip() if m else ''
         local = fid[len(base):] if fid.startswith(base) else None
         if local != root:
-            print(f'MISMATCH  {directory}/{fname}  root={root!r}  id={local!r}')
+            print(f'MISMATCH  {path}  root={root!r}  id={local!r}')
 ```
 
 If a mismatch is found, rename the file so its root matches the id local name (preferred) or update the `id:` to match the filename — whichever is consistent with the broader naming conventions.
@@ -281,6 +291,70 @@ If a mismatch is found, rename the file so its root matches the id local name (p
 - **11e — Child arrows match DataBook child links**: Every downward child arrow from category box A to category box B in a diagram must correspond to a `child:` entry in A's DataBook pointing to B's IRI. Conversely, every `child:` entry in a DataBook must be reflected by a visible child arrow in the diagram.
 
 The 9 diagrams are: `example/images/people.png`, `example/images/work.png`, `example/images/companies.png`, `example/images/finances.png`, `example/images/gov-state.png`, `example/images/gov-federal.png`, `example/images/gov-municipality.png`, `example/images/misc.png`, `example/images/affiliations.png`.
+
+**Check 12 — Physical folder structure mirrors the `child:` tree in `example/categories/`**: `example/categories/` is organized as nested filesystem folders that mirror Alice's category hierarchy, rather than one flat directory. Each category's own `.databook.md` file lives in a folder (folder naming is not standardized — it may be the category's `title`, a `classname`-prefixed disambiguator, or a role-based label; this check does not validate folder names, only nesting). The rule: for every `mia.child` link from category A to category B, B's `.databook.md` file must live in a folder that is a **direct subfolder** of the folder containing A's `.databook.md` file — not deeper, not a sibling, not the same folder. `categories.databook.md` (the invisible root) sits directly in `example/categories/` itself. Run:
+
+```python
+import os, re, yaml
+
+root = 'example/categories'
+id_to_dir, id_to_children, dir_to_ids = {}, {}, {}
+
+for dirpath, _, filenames in os.walk(root):
+    for fname in filenames:
+        if not fname.endswith('.databook.md'):
+            continue
+        path = os.path.join(dirpath, fname)
+        fm = yaml.safe_load(re.match(r'^---\n(.*?)\n---', open(path).read(), re.DOTALL).group(1))
+        cid = fm['id']
+        rel_dir = os.path.relpath(dirpath, root)
+        id_to_dir[cid] = rel_dir
+        dir_to_ids.setdefault(rel_dir, []).append(cid)
+        child = fm.get('mia', {}).get('child')
+        if child:
+            id_to_children[cid] = child if isinstance(child, list) else [child]
+
+def parent_of(reldir):
+    if reldir == '.':
+        return None
+    p = os.path.dirname(reldir)
+    return p if p != '' else '.'
+
+errors = []
+for d, ids in dir_to_ids.items():
+    if len(ids) > 1:
+        errors.append(f'MULTIPLE DATABOOKS in same dir {d!r}: {ids}')
+
+for parent_id, children in id_to_children.items():
+    parent_dir = id_to_dir.get(parent_id)
+    for child_id in children:
+        child_dir = id_to_dir.get(child_id)
+        if child_dir is None:
+            errors.append(f'Child id {child_id!r} (child of {parent_id}) not found on disk')
+        elif parent_of(child_dir) != parent_dir:
+            errors.append(f'NESTING MISMATCH: child {child_id!r} dir={child_dir!r} is not a direct subfolder of parent {parent_id!r} dir={parent_dir!r}')
+
+id_by_dir = {d: ids[0] for d, ids in dir_to_ids.items() if len(ids) == 1}
+for this_dir, this_id in id_by_dir.items():
+    this_path = os.path.join(root, this_dir) if this_dir != '.' else root
+    declared = set(id_to_children.get(this_id, []))
+    for entry in sorted(os.listdir(this_path)):
+        full = os.path.join(this_path, entry)
+        if not os.path.isdir(full):
+            continue
+        sub_rel = os.path.join(this_dir, entry) if this_dir != '.' else entry
+        if sub_rel in id_by_dir:
+            if id_by_dir[sub_rel] not in declared:
+                errors.append(f'ORPHAN NESTING: {sub_rel!r} (id={id_by_dir[sub_rel]}) is nested under {this_dir!r} (id={this_id}) but not declared as its child')
+        elif not any(fn.endswith('.databook.md') for _, _, fns in os.walk(full) for fn in fns):
+            errors.append(f'EMPTY/PLACEHOLDER FOLDER (no databook.md anywhere under it): {sub_rel!r} under {this_dir!r}')
+
+print(f'{len(errors)} issue(s) found:' if errors else 'Folder structure matches the virtual child-link tree. No issues found.')
+for e in errors:
+    print(' -', e)
+```
+
+If a nesting mismatch or orphan is found, move the file to the correct folder (preferred) or fix the `mia.child` link — whichever reflects the intended tree. An empty/placeholder folder is not necessarily an error — flag it to the user rather than deleting it, since it may be a deliberate placeholder for content not yet added.
 
 ## Keeping Files in Sync
 

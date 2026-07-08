@@ -1,18 +1,18 @@
 ---
-id: https://www.example.org/mia/contexts/bob-johnson.self(bob-johnson)(people)(04)
-title: "About Bob Johnson in the People category as asserted by Alice Walker"
+id: https://www.example.org/mia/contexts/bob-johnson.self(bob-johnson)(others)(04)
+title: "About Bob Johnson in the Others category as asserted by Alice Walker"
 type: context-databook
-version: 2.0.4
+version: 2.0.5
 created: 2026-06-15
 description: >
   Alice's record of Bob Johnson in their 1:1 relationship context.
 mia:
-  category: "http://www.example.org/mia/categories/bob-johnson(people)"
+  category: "http://www.example.org/mia/categories/bob-johnson(others)"
   assertedBy: ":Self"
   subject: ":Bob_Johnson"
   about-by: "context:OBScontext"
 graph:
-  named_graph: https://www.example.org/mia/contexts/bob-johnson.self(bob-johnson)(people)(04)#graph
+  named_graph: https://www.example.org/mia/contexts/bob-johnson.self(bob-johnson)(others)(04)#graph
   rdf_version: "1.1"
 shapes:
   - http://www.example.org/shapes
@@ -32,7 +32,7 @@ This context captures Alice's record of Bob Johnson in their 1:1 relationship co
 
 ```turtle
 <!-- databook:id: bob-bob-alice-identity -->
-<!-- databook:graph: https://www.example.org/mia/contexts/bob-johnson.self(bob-johnson)(people)(04)#graph -->
+<!-- databook:graph: https://www.example.org/mia/contexts/bob-johnson.self(bob-johnson)(others)(04)#graph -->
 @prefix : <http://www.example.org/mia#> .
 @prefix persona: <http://mee.foundation/ontologies/persona#> .
 @prefix cco: <https://purl.org/cco/> .
