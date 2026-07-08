@@ -244,7 +244,7 @@ If any `MISSING:` lines appear, either add the file or update the link.
 
 For each DataBook in `example/` (excluding `under-development/`), extract the three YAML values and verify they match the table. If they conflict, `about-by` is the authoritative value — update `subject` and/or `assertedBy` to match it.
 
-**Check 10 — Category filename ↔ id consistency**: For every category DataBook in `categories-person/`, `categories-org/`, and `example/categories/`, the filename root (the filename with `.databook.md` stripped) must exactly match the local name portion of the file's `id:` IRI (the string after the IRI base). The IRI base for canonical Person files is `http://mee.foundation/ontologies/categories-person/`; for canonical Organization files it is `http://mee.foundation/ontologies/categories-org/`; for example files it is `http://www.example.org/mia/categories/`. `categories-person/` and `categories-org/` are flat directories; `example/categories/` is nested into folders mirroring the category tree (see Check 12), so it must be walked recursively. Run:
+**Check 10 — Category filename ↔ id consistency**: For every category DataBook in `categories-person/`, `categories-org/`, and `example/categories/`, the filename root (the filename with `.databook.md` stripped) must exactly match the local name portion of the file's `id:` IRI (the string after the IRI base). The IRI base for canonical Person files is `http://mee.foundation/ontologies/categories-person/`; for canonical Organization files it is `http://mee.foundation/ontologies/categories-org/`; for example files it is `http://www.example.org/mia/categories/`. `categories-person/`, `categories-org/`, and `example/categories/` are all nested into folders mirroring their category tree (see Check 12), so they must be walked recursively. Run:
 
 ```python
 import os, re
@@ -261,8 +261,8 @@ def iter_databooks(directory, recursive):
                 yield os.path.join(directory, fname), fname
 
 checks = [
-    ('categories-person', 'http://mee.foundation/ontologies/categories-person/', False),
-    ('categories-org',     'http://mee.foundation/ontologies/categories-org/', False),
+    ('categories-person', 'http://mee.foundation/ontologies/categories-person/', True),
+    ('categories-org',     'http://mee.foundation/ontologies/categories-org/', True),
     ('example/categories', 'http://www.example.org/mia/categories/', True),
 ]
 for directory, base, recursive in checks:
@@ -292,66 +292,70 @@ If a mismatch is found, rename the file so its root matches the id local name (p
 
 The 10 diagrams are: `example/images/people.png`, `example/images/people2.png`, `example/images/work.png`, `example/images/companies.png`, `example/images/finances.png`, `example/images/gov-state.png`, `example/images/gov-federal.png`, `example/images/gov-municipality.png`, `example/images/misc.png`, `example/images/affiliations.png`.
 
-**Check 12 — Physical folder structure mirrors the `child:` tree in `example/categories/`**: `example/categories/` is organized as nested filesystem folders that mirror Alice's category hierarchy, rather than one flat directory. Each category's own `.databook.md` file lives in a folder (folder naming is not standardized — it may be the category's `title`, a `classname`-prefixed disambiguator, or a role-based label; this check does not validate folder names, only nesting). The rule: for every `mia.child` link from category A to category B, B's `.databook.md` file must live in a folder that is a **direct subfolder** of the folder containing A's `.databook.md` file — not deeper, not a sibling, not the same folder. `categories.databook.md` (the invisible root) sits directly in `example/categories/` itself. Run:
+**Check 12 — Physical folder structure mirrors the `child:` tree in `categories-person/`, `categories-org/`, and `example/categories/`**: All three category trees are organized as nested filesystem folders that mirror their category hierarchy, rather than one flat directory. Each category's own `.databook.md` file lives in a folder (folder naming is not standardized — it may be the category's `title`, a `classname`-prefixed disambiguator, or a role-based label; this check does not validate folder names, only nesting). The rule: for every `mia.child` link from category A to category B, B's `.databook.md` file must live in a folder that is a **direct subfolder** of the folder containing A's `.databook.md` file — not deeper, not a sibling, not the same folder. Each tree's root DataBook (`categories-person.databook.md` / `categories-org.databook.md` / `categories.databook.md`) sits directly in the tree's top-level directory. Run:
 
 ```python
 import os, re, yaml
 
-root = 'example/categories'
-id_to_dir, id_to_children, dir_to_ids = {}, {}, {}
+def check_tree(root):
+    id_to_dir, id_to_children, dir_to_ids = {}, {}, {}
 
-for dirpath, _, filenames in os.walk(root):
-    for fname in filenames:
-        if not fname.endswith('.databook.md'):
-            continue
-        path = os.path.join(dirpath, fname)
-        fm = yaml.safe_load(re.match(r'^---\n(.*?)\n---', open(path).read(), re.DOTALL).group(1))
-        cid = fm['id']
-        rel_dir = os.path.relpath(dirpath, root)
-        id_to_dir[cid] = rel_dir
-        dir_to_ids.setdefault(rel_dir, []).append(cid)
-        child = fm.get('mia', {}).get('child')
-        if child:
-            id_to_children[cid] = child if isinstance(child, list) else [child]
+    for dirpath, _, filenames in os.walk(root):
+        for fname in filenames:
+            if not fname.endswith('.databook.md'):
+                continue
+            path = os.path.join(dirpath, fname)
+            fm = yaml.safe_load(re.match(r'^---\n(.*?)\n---', open(path).read(), re.DOTALL).group(1))
+            cid = fm['id']
+            rel_dir = os.path.relpath(dirpath, root)
+            id_to_dir[cid] = rel_dir
+            dir_to_ids.setdefault(rel_dir, []).append(cid)
+            child = fm.get('mia', {}).get('child')
+            if child:
+                id_to_children[cid] = child if isinstance(child, list) else [child]
 
-def parent_of(reldir):
-    if reldir == '.':
-        return None
-    p = os.path.dirname(reldir)
-    return p if p != '' else '.'
+    def parent_of(reldir):
+        if reldir == '.':
+            return None
+        p = os.path.dirname(reldir)
+        return p if p != '' else '.'
 
-errors = []
-for d, ids in dir_to_ids.items():
-    if len(ids) > 1:
-        errors.append(f'MULTIPLE DATABOOKS in same dir {d!r}: {ids}')
+    errors = []
+    for d, ids in dir_to_ids.items():
+        if len(ids) > 1:
+            errors.append(f'MULTIPLE DATABOOKS in same dir {d!r}: {ids}')
 
-for parent_id, children in id_to_children.items():
-    parent_dir = id_to_dir.get(parent_id)
-    for child_id in children:
-        child_dir = id_to_dir.get(child_id)
-        if child_dir is None:
-            errors.append(f'Child id {child_id!r} (child of {parent_id}) not found on disk')
-        elif parent_of(child_dir) != parent_dir:
-            errors.append(f'NESTING MISMATCH: child {child_id!r} dir={child_dir!r} is not a direct subfolder of parent {parent_id!r} dir={parent_dir!r}')
+    for parent_id, children in id_to_children.items():
+        parent_dir = id_to_dir.get(parent_id)
+        for child_id in children:
+            child_dir = id_to_dir.get(child_id)
+            if child_dir is None:
+                errors.append(f'Child id {child_id!r} (child of {parent_id}) not found on disk')
+            elif parent_of(child_dir) != parent_dir:
+                errors.append(f'NESTING MISMATCH: child {child_id!r} dir={child_dir!r} is not a direct subfolder of parent {parent_id!r} dir={parent_dir!r}')
 
-id_by_dir = {d: ids[0] for d, ids in dir_to_ids.items() if len(ids) == 1}
-for this_dir, this_id in id_by_dir.items():
-    this_path = os.path.join(root, this_dir) if this_dir != '.' else root
-    declared = set(id_to_children.get(this_id, []))
-    for entry in sorted(os.listdir(this_path)):
-        full = os.path.join(this_path, entry)
-        if not os.path.isdir(full):
-            continue
-        sub_rel = os.path.join(this_dir, entry) if this_dir != '.' else entry
-        if sub_rel in id_by_dir:
-            if id_by_dir[sub_rel] not in declared:
-                errors.append(f'ORPHAN NESTING: {sub_rel!r} (id={id_by_dir[sub_rel]}) is nested under {this_dir!r} (id={this_id}) but not declared as its child')
-        elif not any(fn.endswith('.databook.md') for _, _, fns in os.walk(full) for fn in fns):
-            errors.append(f'EMPTY/PLACEHOLDER FOLDER (no databook.md anywhere under it): {sub_rel!r} under {this_dir!r}')
+    id_by_dir = {d: ids[0] for d, ids in dir_to_ids.items() if len(ids) == 1}
+    for this_dir, this_id in id_by_dir.items():
+        this_path = os.path.join(root, this_dir) if this_dir != '.' else root
+        declared = set(id_to_children.get(this_id, []))
+        for entry in sorted(os.listdir(this_path)):
+            full = os.path.join(this_path, entry)
+            if not os.path.isdir(full):
+                continue
+            sub_rel = os.path.join(this_dir, entry) if this_dir != '.' else entry
+            if sub_rel in id_by_dir:
+                if id_by_dir[sub_rel] not in declared:
+                    errors.append(f'ORPHAN NESTING: {sub_rel!r} (id={id_by_dir[sub_rel]}) is nested under {this_dir!r} (id={this_id}) but not declared as its child')
+            elif not any(fn.endswith('.databook.md') for _, _, fns in os.walk(full) for fn in fns):
+                errors.append(f'EMPTY/PLACEHOLDER FOLDER (no databook.md anywhere under it): {sub_rel!r} under {this_dir!r}')
 
-print(f'{len(errors)} issue(s) found:' if errors else 'Folder structure matches the virtual child-link tree. No issues found.')
-for e in errors:
-    print(' -', e)
+    return errors
+
+for root in ['categories-person', 'categories-org', 'example/categories']:
+    errors = check_tree(root)
+    print(f'{root}: ' + (f'{len(errors)} issue(s) found:' if errors else 'OK — folder structure matches the child-link tree.'))
+    for e in errors:
+        print(' -', e)
 ```
 
 If a nesting mismatch or orphan is found, move the file to the correct folder (preferred) or fix the `mia.child` link — whichever reflects the intended tree. An empty/placeholder folder is not necessarily an error — flag it to the user rather than deleting it, since it may be a deliberate placeholder for content not yet added.
