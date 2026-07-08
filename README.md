@@ -159,9 +159,9 @@ Each of these five example categories contains contexts shown as circles. White 
     - **Friends** (`cat:Friends`) — interactions with friends.
     - **Consultants** (`cat:Consultants`) — individuals who are consultants and provide services to you.
 1. **Affiliations** (`cat:Affiliations`) — sports clubs, teams, charities, faith groups, and social networks. Some may be `cat:MultiParty` "Circles" that exist as a `g:Group` on the PDN.
-1. **Health** (`cat:Health`) — personal health and wellness information. Medical history, allergies, medications, vaccinations.
+1. **Health** (`cat:Health`) — personal health and wellness information. Medical history, allergies, medications, vaccinations, prescriptions, eyeglasses.
     - **Healthcare** (`cat:Healthcare`) — healthcare providers or health insurance companies.
-    - **Medical Appointment For Other** (`cat:MedicalAppointmentForOther`) — a medical appointment a person manages on behalf of someone else they care for.
+    - **Medical Appointment For Other** (`cat:MedicalAppointmentForOther`) — a medical appointment you're helping arrange on behalf of someone else.
 1. **Finances** (`cat:Finances`) — information about personal finances, bookkeeping, budgets, payment cards, bank accounts.
     - **Financial Services** (`cat:FinancialServices`) — banks, insurance firms, brokerages, etc.
 1. **Pets** (`cat:Pets`) — care instructions, veterinarians, medicines, food providers.
