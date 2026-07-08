@@ -11,7 +11,7 @@
     owl:versionIRI <http://mee.foundation/ontologies/category/1.0.0> ;
     dc:date "2026-07-04"^^xsd:date ;
     owl:imports <http://mee.foundation/ontologies/context> ;
-    owl:versionInfo "Version 1.0.15 - added cat:FinancialServices(org) subclass of cat:Finances(org)"@en ;
+    owl:versionInfo "Version 1.0.16 - added cat:SportsEntertainment top-level subclass of cat:Person"@en ;
     rdfs:label "Category Ontology"@en ;
     rdfs:comment """Category Ontology for the Mee Identity Agent"""@en .
 
@@ -435,6 +435,15 @@ cat:Food rdf:type owl:Class ;
     rdfs:subClassOf cat:Person ;
     rdfs:label "Food"@en ;
     rdfs:comment "Food preferences, dietary restrictions, favorite restaurants, recipes, shopping lists, and other food-related interests."@en .
+
+#################################################################
+#    cat:SportsEntertainment
+#################################################################
+
+cat:SportsEntertainment rdf:type owl:Class ;
+    rdfs:subClassOf cat:Person ;
+    rdfs:label "Sports & Entertainment"@en ;
+    rdfs:comment "Sports, hobbies, entertainment, and media interests. Favorite teams, venues, streaming services, ticketing. See also Affiliations for club or team memberships."@en .
 
 #################################################################
 #    Organization subclasses
