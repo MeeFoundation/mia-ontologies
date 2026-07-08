@@ -2,7 +2,7 @@
 id: http://www.example.org/mia/categories/people
 title: "People"
 type: category-databook
-version: 1.0.0
+version: 1.0.2
 created: 2026-06-24
 description: >
   Example copy of the People category DataBook, extended with Alice's user-defined
@@ -12,8 +12,7 @@ mia:
   num-parties: OneParty
   copiedFrom: "http://mee.foundation/ontologies/categories-person/people"
   child:
-    - "http://www.example.org/mia/categories/family(people)"
+    - "http://www.example.org/mia/categories/immediate-family(people)"
     - "http://www.example.org/mia/categories/friends(people)"
-    - "http://www.example.org/mia/categories/consultants(people)"
     - "http://www.example.org/mia/categories/bob-johnson(people)"
 ---

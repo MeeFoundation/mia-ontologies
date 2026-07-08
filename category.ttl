@@ -11,7 +11,7 @@
     owl:versionIRI <http://mee.foundation/ontologies/category/1.0.0> ;
     dc:date "2026-07-04"^^xsd:date ;
     owl:imports <http://mee.foundation/ontologies/context> ;
-    owl:versionInfo "Version 1.0.17 - replaced cat:FinancialServices with cat:BankingPayments, cat:Investing, cat:LendingCredit, cat:Insurance, cat:Advisory under cat:Finances"@en ;
+    owl:versionInfo "Version 1.0.19 - removed cat:Consultants (personal) subclass of cat:People"@en ;
     rdfs:label "Category Ontology"@en ;
     rdfs:comment """Category Ontology for the Mee Identity Agent"""@en .
 
@@ -230,25 +230,25 @@ cat:People rdf:type owl:Class ;
     rdfs:label "People"@en ;
     rdfs:comment "People in your social or professional life."@en .
 
-cat:Family rdf:type owl:Class ;
+cat:ImmediateFamily rdf:type owl:Class ;
     rdfs:subClassOf cat:People ;
-    rdfs:label "Family"@en ;
-    rdfs:comment "Family members."@en .
+    rdfs:label "Immediate Family"@en ;
+    rdfs:comment "Your closest living relatives, which generally include parents, siblings, spouses/partners, and children."@en .
 
-cat:MarriagePartner rdf:type owl:Class ;
+cat:ExtendedFamily rdf:type owl:Class ;
     rdfs:subClassOf cat:People ;
-    rdfs:label "Marriage/Partner"@en ;
-    rdfs:comment "A spouse or life partner."@en .
+    rdfs:label "Extended Family"@en ;
+    rdfs:comment "Relatives outside the immediate nuclear group, such as grandparents, aunts, uncles, cousins, nieces and nephews."@en .
+
+cat:InLawsStepFamily rdf:type owl:Class ;
+    rdfs:subClassOf cat:People ;
+    rdfs:label "In-Laws / Step-Family"@en ;
+    rdfs:comment "Relatives gained through marriage or legal guardianship, including a spouse's parents and siblings, or children from a previous relationship."@en .
 
 cat:Friends rdf:type owl:Class ;
     rdfs:subClassOf cat:People ;
     rdfs:label "Friends"@en ;
     rdfs:comment "Interactions with friends."@en .
-
-cat:Consultants rdf:type owl:Class ;
-    rdfs:subClassOf cat:People ;
-    rdfs:label "Consultants"@en ;
-    rdfs:comment "Individuals who are consultants and provide services to you."@en .
 
 #################################################################
 #    cat:Work and subclasses

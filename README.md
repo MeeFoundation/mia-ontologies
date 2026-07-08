@@ -93,7 +93,7 @@ The category ontology defines at tree structure of nested *categories* to organi
 
 ### Categories 
 
-Categories range in scope. They vary from a few broad top level categories like "People" to narrower categories like "Family" and ultimately narrowing down to individual relationships with a single family member. The user can choose at what level in this broader to narrower structure to put what kind of information. For example if the user has a nickname used only by this one family member, they can add that "claim" (attribute) at the individual relationship level. 
+Categories range in scope. They vary from a few broad top level categories like "People" to narrower categories like "Immediate Family" and ultimately narrowing down to individual relationships with a single family member. The user can choose at what level in this broader to narrower structure to put what kind of information. For example if the user has a nickname used only by this one family member, they can add that "claim" (attribute) at the individual relationship level. 
 
 Categories include references to zero, one or more *contexts* as described in the previous section.
 
@@ -101,7 +101,7 @@ Categories include references to zero, one or more *contexts* as described in th
 
 Every category (other than the invisible root) is classified two ways: which class it is (or was copied from), and how many parties it involves.
 
-**Classname — `mia.classname`.** Its value is the local name of the `cat:Category` subclass this category canonically is — for a canonical predefined category, e.g. `Family` or `Employees(org)` — or, for a user's instance copy of a predefined category, the name of the class it was copied from (the same value as its canonical source). A category with no predefined counterpart at all (e.g. a specific person, company, or group Alice created herself) uses `Category` itself, the root class. Predefined categories are direct subclasses of `cat:Category`: either `cat:Person` (generally useful categories for organizing a person's personal, non-work, life) or `cat:Organization` (categories tuned to a person's working life) — `mia.classname` names the specific leaf subclass rather than this broader family, so new predefined subclasses can be added without changing the property itself.
+**Classname — `mia.classname`.** Its value is the local name of the `cat:Category` subclass this category canonically is — for a canonical predefined category, e.g. `ImmediateFamily` or `Employees(org)` — or, for a user's instance copy of a predefined category, the name of the class it was copied from (the same value as its canonical source). A category with no predefined counterpart at all (e.g. a specific person, company, or group Alice created herself) uses `Category` itself, the root class. Predefined categories are direct subclasses of `cat:Category`: either `cat:Person` (generally useful categories for organizing a person's personal, non-work, life) or `cat:Organization` (categories tuned to a person's working life) — `mia.classname` names the specific leaf subclass rather than this broader family, so new predefined subclasses can be added without changing the property itself.
 
 **Parties — `mia.num-parties`.** `cat:Parties` is a standalone abstract class documenting how many external parties are involved in the relationship a category represents. The hierarchy exists purely to document the field's values and their display labels. There are three types: `cat:OneParty` (no external party — display label "Category"), `cat:TwoParty` (a 1:1 relationship with a specific person, organization, or other party — display label "Connection"), and `cat:MultiParty` (a shared multi-party relationship with a group of people or organizations — display label "Circle"). 
 
@@ -119,11 +119,11 @@ Every category (other than the invisible root) is classified two ways: which cla
 - **`cat:obo`** - a context about the other party as asserted by the other party.
 
 #### A few details about cat:note and cat:folder
-`cat:note` and `cat:folder` point into two separate but parallel folder structures that mirror the structure of the category tree. If the category tree is `(People, (Family, Friends), Work)` then both hierarchies contain exactly the same folder names and nesting. Mia keeps both in sync with the category tree — when a category is created, renamed, or deleted, Mia updates both hierarchies automatically.
+`cat:note` and `cat:folder` point into two separate but parallel folder structures that mirror the structure of the category tree. If the category tree is `(People, (Immediate Family, Friends), Work)` then both hierarchies contain exactly the same folder names and nesting. Mia keeps both in sync with the category tree — when a category is created, renamed, or deleted, Mia updates both hierarchies automatically.
 
 A predefined top-level or nested category is not required to be copied into a user's tree just because it exists in the canonical template — Mia (or the user) copies a predefined category into the tree, and creates its `cat:note`/`cat:folder` paths, only once the user actually has content for it. Empty categories are not pre-populated as placeholder folders.
 
-- The **notes hierarchy** mirrors the category tree as a folder structure, rooted at a top-level folder named **`Self`**. The invisible root category's note is `Self.md`, stored directly inside `Self/`; every other category's note is stored as `X.md` inside the X folder — for example, `Self/People/Family/Family.md`. Using the same name as the folder matches the convention used by PKM (Personal Knowledge Management) tools such as Obsidian (using the Folder Notes plugin), Logseq, Foam and others. Any file or folder in the notes root that is not `Self/` — app-managed folders (e.g. `Templates/`, `.obsidian/`), unrelated personal notes (e.g. a `Journal/`), or loose files — falls outside the category tree entirely and is ignored by Mia.
+- The **notes hierarchy** mirrors the category tree as a folder structure, rooted at a top-level folder named **`Self`**. The invisible root category's note is `Self.md`, stored directly inside `Self/`; every other category's note is stored as `X.md` inside the X folder — for example, `Self/People/Immediate Family/Immediate Family.md`. Using the same name as the folder matches the convention used by PKM (Personal Knowledge Management) tools such as Obsidian (using the Folder Notes plugin), Logseq, Foam and others. Any file or folder in the notes root that is not `Self/` — app-managed folders (e.g. `Templates/`, `.obsidian/`), unrelated personal notes (e.g. a `Journal/`), or loose files — falls outside the category tree entirely and is ignored by Mia.
 - The **files hierarchy** mirrors the category tree as a folder structure. It has no equivalent of a root note, so it has no `Self` wrapper folder — the files root itself plays that role, and each top-level category (e.g. `People`, `Work`) is a folder directly inside it. Each folder may hold arbitrary files, and may also contain additional subfolders (to any depth) that are not part of the category tree. Any file or folder directly inside the files root that is not a recognized top-level category folder likewise falls outside the category tree and is ignored by Mia.
 
 The two roots are stored separately so the notes hierarchy can be opened as a standalone PKM vault without exposing the files hierarchy. Two user-configurable settings define where each root lives on disk:
@@ -137,7 +137,7 @@ In the normal case `cat:note` and `cat:folder` are technically redundant — bot
 
 1. **Divergence detection** — if a stored path no longer matches the derived path, Mia knows the user has manually renamed or rearranged folders outside of Mia and can alert them or attempt reconciliation rather than failing silently.
 2. **Graceful degradation** — Mia can continue to locate a category's folder or note via the stored path even when the folder hierarchy has drifted out of sync with the category tree.
-3. **Intentional overrides** — a user may deliberately want a category's folder to live somewhere other than the derived location (e.g. `~/Pictures/Family/` rather than the default `~/Enclave/People/Family/`). The explicit link records that intentional deviation without disrupting the category tree.
+3. **Intentional overrides** — a user may deliberately want a category's folder to live somewhere other than the derived location (e.g. `~/Pictures/Immediate Family/` rather than the default `~/Enclave/People/Immediate Family/`). The explicit link records that intentional deviation without disrupting the category tree.
 
 ### Example category tree
 
@@ -154,10 +154,10 @@ Each of these five example categories contains contexts shown as circles. White 
 `cat:Person` categories (and sub-categories) are used to organize a person's information:
 
 1. **People** (`cat:People`) — people in your social or professional life.
-    - **Family** (`cat:Family`) — family members.
-    - **Marriage/Partner** (`cat:MarriagePartner`) — a spouse or life partner.
+    - **Immediate Family** (`cat:ImmediateFamily`) — your closest living relatives, which generally include parents, siblings, spouses/partners, and children.
+    - **Extended Family** (`cat:ExtendedFamily`) — relatives outside the immediate nuclear group, such as grandparents, aunts, uncles, cousins, nieces and nephews.
+    - **In-Laws / Step-Family** (`cat:InLawsStepFamily`) — relatives gained through marriage or legal guardianship, including a spouse's parents and siblings, or children from a previous relationship.
     - **Friends** (`cat:Friends`) — interactions with friends.
-    - **Consultants** (`cat:Consultants`) — individuals who are consultants and provide services to you.
 1. **Affiliations** (`cat:Affiliations`) — sports clubs, teams, charities, faith groups, and social networks. Some may be `cat:MultiParty` "Circles" that exist as a `g:Group` on the PDN.
 1. **Health** (`cat:Health`) — personal health and wellness information. Medical history, allergies, medications, vaccinations, prescriptions, eyeglasses.
     - **Healthcare** (`cat:Healthcare`) — healthcare providers or health insurance companies.
@@ -227,7 +227,7 @@ The following properties are defined in `category.ttl` and represented as `mia.`
 
 | YAML field | Ontology property | Cardinality | Meaning |
 |------------|-------------------|-------------|---------|
-| `mia.classname` | `cat:classname` | 1 | The local name of the `cat:Category` subclass this DataBook is or was copied from (e.g. `Family`, `Employees(org)`), or `Category` itself if there is no predefined counterpart |
+| `mia.classname` | `cat:classname` | 1 | The local name of the `cat:Category` subclass this DataBook is or was copied from (e.g. `ImmediateFamily`, `Employees(org)`), or `Category` itself if there is no predefined counterpart |
 | `mia.num-parties` | `cat:num-parties` | 1 | The concrete `cat:Parties` subclass this DataBook instantiates: one of `OneParty`, `TwoParty`, `MultiParty` |
 | `mia.label` | `cat:label` | 1 | User-editable display name — defaults to the DataBook `title` but can be changed independently, leaving `title` and `id` immutable |
 | `mia.note` | `cat:note` | 0..1 | Relative path to a markdown notes file for this category (e.g. `People/Paula Walker/Paula Walker.md`) |
@@ -589,7 +589,7 @@ The contexts in the table below are *about* Alice and asserted *by* Alice. All `
 | 18 | [self.self(paradise)(municipality)(18)](example/contexts/self.self(paradise)(municipality)(18).databook.md)           | Municipality | Current address — Paradise, CA (2025–present)                    | [view](example/contexts/images/self.self(paradise)(municipality)(18).png) |
 | 19 | [self.self(passport)(federal)(19)](example/contexts/self.self(passport)(federal)(19).databook.md)             | Federal    | US passport — legal name, DOB, passport#, issue/expiry, place of birth, gender marker, photo | [view](example/contexts/images/self.self(passport)(federal)(19).png) |
 | 20 | [self.self(paula-walker)(acme)(20)](example/contexts/self.self(paula-walker)(acme)(20).databook.md)                   | Employee     | Acme employee context; company email; works with Paula           | [view](example/contexts/images/self.self(paula-walker)(acme)(20).png)|
-| 21 | [self.self(paula-walker)(family)(21)](example/contexts/self.self(paula-walker)(family)(21).databook.md)   | Family       | Alice as a family member                       | [view](example/contexts/images/self.self(paula-walker)(family)(21).png) |
+| 21 | [self.self(paula-walker)(immediate-family)(21)](example/contexts/self.self(paula-walker)(immediate-family)(21).databook.md)   | Immediate Family       | Alice as a family member                       | [view](example/contexts/images/self.self(paula-walker)(immediate-family)(21).png) |
 | 22 | [self.self(ownership)(22)](example/contexts/self.self(ownership)(22).databook.md)     | Ownership  | Wallet (driver's license + payment card); health ins., SSN card  | [view](example/contexts/images/self.self(ownership)(22).png) |
 | 23 | [self.self(social-security-administration)(federal)(23)](example/contexts/self.self(social-security-administration)(federal)(23).databook.md)                     | Federal      | Social security number (SSN)                                     | [view](example/contexts/images/self.self(social-security-administration)(federal)(23).png) |
 | 24 | [self.self(texas-vital-records)(state)(24)](example/contexts/self.self(texas-vital-records)(state)(24).databook.md) | State        | Legal names, maiden name                                         | [view](example/contexts/images/self.self(texas-vital-records)(state)(24).png) |
@@ -609,19 +609,19 @@ The following table lists contexts about other people (Paula and Bob) or groups 
 | 2  | [bob-johnson.bob-johnson(bob-johnson)(people)(02)](example/contexts/bob-johnson.bob-johnson(bob-johnson)(people)(02).databook.md)                     | People       | Bob's self-asserted Bob persona                                 | [view](example/contexts/images/bob-johnson.bob-johnson(bob-johnson)(people)(02).png)|
 | 3  | [bob-johnson.bob-johnson(boston-hub-society)(affiliations)(03)](example/contexts/bob-johnson.bob-johnson(boston-hub-society)(affiliations)(03).databook.md)                     | Affiliations | Bob's BHS member persona (name, email, phone, address)          | [view](example/contexts/images/bob-johnson.bob-johnson(boston-hub-society)(affiliations)(03).png) |
 | 4  | [bob-johnson.self(bob-johnson)(people)(04)](example/contexts/bob-johnson.self(bob-johnson)(people)(04).databook.md)                 | People       | Alice's notes about Bob; fav drink: oat milk cappuccino         | [view](example/contexts/images/bob-johnson.self(bob-johnson)(people)(04).png) |
-| 5  | [paula-walker.paula-walker(paula-walker)(family)(05)](example/contexts/paula-walker.paula-walker(paula-walker)(family)(05).databook.md) | Family       | Paula's own family persona; social network with Alice       | [view](example/contexts/images/paula-walker.paula-walker(paula-walker)(family)(05).png)|
+| 5  | [paula-walker.paula-walker(paula-walker)(immediate-family)(05)](example/contexts/paula-walker.paula-walker(paula-walker)(immediate-family)(05).databook.md) | Immediate Family       | Paula's own family persona; social network with Alice       | [view](example/contexts/images/paula-walker.paula-walker(paula-walker)(immediate-family)(05).png)|
 | 6  | [paula-walker.self(paula-walker)(acme)(06)](example/contexts/paula-walker.self(paula-walker)(acme)(06).databook.md)           | Employee     | Paula as Alice's Acme colleague (Alice-asserted)                | [view](example/contexts/images/paula-walker.self(paula-walker)(acme)(06).png)|
-| 7  | [paula-walker.self(paula-walker)(family)(07)](example/contexts/paula-walker.self(paula-walker)(family)(07).databook.md) | Family       | Paula as Alice's family member (Alice-asserted)           | [view](example/contexts/images/paula-walker.self(paula-walker)(family)(07).png)|
+| 7  | [paula-walker.self(paula-walker)(immediate-family)(07)](example/contexts/paula-walker.self(paula-walker)(immediate-family)(07).databook.md) | Immediate Family       | Paula as Alice's family member (Alice-asserted)           | [view](example/contexts/images/paula-walker.self(paula-walker)(immediate-family)(07).png)|
 
 
 
 ### Named graph scoping and context-specific membership
 
-A `BFO_0000115` (has member part) triple on a Social Network individual — for example, `:Alice_Family_Network BFO_0000115 :Paula_Walker` in context 21 — targets `:Paula_Walker` as a person entity, not as a context-specific slice of her data. The named graph architecture provides the isolation: that triple lives inside context 21's named graph, and when an application needs "Paula Walker's family context data" it queries context 21's graph together with context 02's graph, rather than the full merged dataset.
+A `BFO_0000115` (has member part) triple on a Social Network individual — for example, `:Alice_Family_Network BFO_0000115 :Paula_Walker` in context 21 — targets `:Paula_Walker` as a person entity, not as a context-specific slice of her data. The named graph architecture provides the isolation: that triple lives inside context 21's named graph, and when an application needs "Paula Walker's family context data" it queries context 21's graph together with context 5's graph, rather than the full merged dataset.
 
 This is the correct design for three reasons:
 
-- **BFO semantics**: changing the range of `BFO_0000115` to a DataBook document IRI (e.g. `<https://www.example.org/mia/contexts/paula-walker.self(paula-walker)(family)(07)>`) would be a semantic error — the range of `has member part` must be a continuant (a person or group), not a document.
+- **BFO semantics**: changing the range of `BFO_0000115` to a DataBook document IRI (e.g. `<https://www.example.org/mia/contexts/paula-walker.self(paula-walker)(immediate-family)(07)>`) would be a semantic error — the range of `has member part` must be a continuant (a person or group), not a document.
 - **Model simplicity**: introducing context-specific "view" individuals (e.g. `:Paula_Walker_Family`) would reintroduce the layered complexity that the removal of `p:Persona` was designed to eliminate.
 - **Tooling maturity**: annotating the triple with RDF-star (`<< :Alice_Family_Network BFO_0000115 :Paula_Walker >> mia:inContext <...>`) is a valid future option, but is not yet supported by Protégé and remains non-standard.
 

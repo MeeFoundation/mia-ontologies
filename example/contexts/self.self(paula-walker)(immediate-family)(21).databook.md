@@ -1,19 +1,19 @@
 ---
-id: https://www.example.org/mia/contexts/self.self(paula-walker)(family)(21)
-title: "About Alice Walker in the Family category as asserted by Alice Walker"
+id: https://www.example.org/mia/contexts/self.self(paula-walker)(immediate-family)(21)
+title: "About Alice Walker in the ImmediateFamily category as asserted by Alice Walker"
 type: context-databook
-version: 2.0.6
+version: 2.0.7
 created: 2026-06-01
 description: >
   Alice Walker's family context. Records her maternal relationship with Paula Walker
   and her family social network. Self-asserted by Alice.
 mia:
-  category: "http://www.example.org/mia/categories/paula-walker(family)"
+  category: "http://www.example.org/mia/categories/paula-walker(immediate-family)"
   assertedBy: ":Self"
   subject: ":Self"
   about-by: "context:SBScontext"
 graph:
-  named_graph: https://www.example.org/mia/contexts/self.self(paula-walker)(family)(21)#graph
+  named_graph: https://www.example.org/mia/contexts/self.self(paula-walker)(immediate-family)(21)#graph
   rdf_version: "1.1"
 shapes:
   - http://www.example.org/shapes
@@ -27,13 +27,13 @@ process:
 
 ## Overview
 
-This context captures Alice Walker's family relationships. It records her maternal relationship with Paula Walker and her family social network, which includes Paula Walker as a member. Paula's own family context (`02-paula(familymember)alice`) is the peer record in this relationship.
+This context captures Alice Walker's family relationships. It records her maternal relationship with Paula Walker and her family social network, which includes Paula Walker as a member. Paula's own family context (`paula-walker.paula-walker(paula-walker)(immediate-family)(05)`) is the peer record in this relationship.
 
 ## Identity Data
 
 ```turtle
 <!-- databook:id: alice-family-identity -->
-<!-- databook:graph: https://www.example.org/mia/contexts/self.self(paula-walker)(family)(21)#graph -->
+<!-- databook:graph: https://www.example.org/mia/contexts/self.self(paula-walker)(immediate-family)(21)#graph -->
 @prefix : <http://www.example.org/mia#> .
 @prefix persona: <http://mee.foundation/ontologies/persona#> .
 @prefix cco: <https://purl.org/cco/> .

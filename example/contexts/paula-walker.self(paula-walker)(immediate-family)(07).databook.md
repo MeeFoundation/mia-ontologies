@@ -1,18 +1,18 @@
 ---
-id: https://www.example.org/mia/contexts/paula-walker.self(paula-walker)(family)(07)
-title: "About Paula Walker in the Family category as asserted by Alice Walker"
+id: https://www.example.org/mia/contexts/paula-walker.self(paula-walker)(immediate-family)(07)
+title: "About Paula Walker in the ImmediateFamily category as asserted by Alice Walker"
 type: context-databook
-version: 2.0.5
+version: 2.0.6
 created: 2026-06-14
 description: >
   Alice's record of her family member Paula Walker, including Paula's given and family name.
 mia:
-  category: "http://www.example.org/mia/categories/paula-walker(family)"
+  category: "http://www.example.org/mia/categories/paula-walker(immediate-family)"
   assertedBy: ":Self"
   subject: ":Paula_Walker"
   about-by: "context:OBScontext"
 graph:
-  named_graph: https://www.example.org/mia/contexts/paula-walker.self(paula-walker)(family)(07)#graph
+  named_graph: https://www.example.org/mia/contexts/paula-walker.self(paula-walker)(immediate-family)(07)#graph
   rdf_version: "1.1"
 shapes:
   - http://www.example.org/shapes
@@ -32,7 +32,7 @@ This context captures Alice's record of her family member Paula Walker. Alice as
 
 ```turtle
 <!-- databook:id: paula-family-alice-identity -->
-<!-- databook:graph: https://www.example.org/mia/contexts/paula-walker.self(paula-walker)(family)(07)#graph -->
+<!-- databook:graph: https://www.example.org/mia/contexts/paula-walker.self(paula-walker)(immediate-family)(07)#graph -->
 @prefix : <http://www.example.org/mia#> .
 @prefix persona: <http://mee.foundation/ontologies/persona#> .
 @prefix cco: <https://purl.org/cco/> .

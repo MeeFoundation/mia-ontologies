@@ -33,8 +33,8 @@ There are no build, compile, test, or lint commands. The files are Turtle (`.ttl
 | File | Purpose |
 |------|---------|
 | `example/contexts/paula-walker.self(paula-walker)(acme)(06).databook.md` | Paula Walker as Alice's Acme colleague — asserted by Alice |
-| `example/contexts/paula-walker.self(paula-walker)(family)(07).databook.md` | Paula Walker as Alice's family member — asserted by Alice |
-| `example/contexts/paula-walker.paula-walker(paula-walker)(family)(05).databook.md` | Paula Walker's own family persona; social network with Alice |
+| `example/contexts/paula-walker.self(paula-walker)(immediate-family)(07).databook.md` | Paula Walker as Alice's family member — asserted by Alice |
+| `example/contexts/paula-walker.paula-walker(paula-walker)(immediate-family)(05).databook.md` | Paula Walker's own family persona; social network with Alice |
 | `example/contexts/self.bob-johnson(bob-johnson)(people)(08).databook.md` | Alice Walker as seen by Bob Johnson — asserted by Bob |
 | `example/contexts/bob-johnson.self(bob-johnson)(people)(04).databook.md` | Alice's notes about Bob Johnson; favorite drink: oat milk cappuccino |
 | `example/contexts/bob-johnson.bob-johnson(bob-johnson)(people)(02).databook.md` | Bob Johnson's self-asserted persona; social network with Alice |
@@ -49,7 +49,7 @@ There are no build, compile, test, or lint commands. The files are Turtle (`.ttl
 | `example/contexts/self.self(boston)(municipality)(13).databook.md` | Alice's Boston, MA address — previous residence (2020–2025) |
 | `example/contexts/self.self(social-security-administration)(federal)(23).databook.md` | Alice's Social Security Number |
 | `example/contexts/self.self(bob-johnson)(people)(12).databook.md` | Alice's 1:1 context with Bob; social network with Bob as member |
-| `example/contexts/self.self(paula-walker)(family)(21).databook.md` | Alice's family context — social network with Paula Walker as member |
+| `example/contexts/self.self(paula-walker)(immediate-family)(21).databook.md` | Alice's family context — social network with Paula Walker as member |
 | `example/contexts/self.self(ownership)(22).databook.md` | Alice's possessions — wallet, health insurance card, SSN card |
 | `example/contexts/self.self(paula-walker)(acme)(20).databook.md` | Alice's Acme employee context; social network with Paula Walker |
 | `example/contexts/self.self(alice-walker)(acme)(10).databook.md` | Alice's business card (JSContactCard) — name, email, phone, employer, job title |
@@ -69,7 +69,7 @@ Triplestore (Fuseki) — loads all DataBook files directly:
   │   ├─ AddressOntology.ttl
   │   └─ StagingOntology.ttl → BFO terms
   ├─ example/contexts/paula-walker.self(paula-walker)(acme)(06).databook.md
-  ├─ example/contexts/paula-walker.self(paula-walker)(family)(07).databook.md
+  ├─ example/contexts/paula-walker.self(paula-walker)(immediate-family)(07).databook.md
   ├─ … (all numbered context DataBooks)
   └─ example/contexts/self.self(health)(17).databook.md
 
@@ -99,7 +99,7 @@ Context filenames follow a single flat pattern:
 |---------|---------|
 | `<subject>` | The entity the Persona is about. Use `self` when the subject is the Mia user's own `p:Person` (`:Self`); otherwise use the full hyphenated lowercase name (e.g. `paula-walker`, `bob-johnson`, `bhs-group`). |
 | `<asserted-by>` | Who asserted the data. Use `self` when the asserter is `:Self`; use the full hyphenated lowercase name for other asserters (e.g. `bob-johnson`, `citibank`); use the literal `members` for `c:MultiParty` contexts where any permitted member may write. |
-| `(<containing-category>)` | The local-name portion of this context's `mia.category` IRI — i.e., the IRI of the category DataBook that directly holds the `sbs`, `obs`, `sbo`, or `obo` link to this context. When the category DataBook local name includes a `(parent)` qualifier (e.g. `bob-johnson(people)`), the filename uses two separate parenthetical segments before the number: `(bob-johnson)(people)`. Examples: `(bob-johnson)(people)`, `(boston-hub-society)(affiliations)`, `(paula-walker)(family)`, `(citibank)(banking-payments)`. For categories without a `(parent)` qualifier (e.g. `health`, `ownership`), a single segment suffices. |
+| `(<containing-category>)` | The local-name portion of this context's `mia.category` IRI — i.e., the IRI of the category DataBook that directly holds the `sbs`, `obs`, `sbo`, or `obo` link to this context. When the category DataBook local name includes a `(parent)` qualifier (e.g. `bob-johnson(people)`), the filename uses two separate parenthetical segments before the number: `(bob-johnson)(people)`. Examples: `(bob-johnson)(people)`, `(boston-hub-society)(affiliations)`, `(paula-walker)(immediate-family)`, `(citibank)(banking-payments)`. For categories without a `(parent)` qualifier (e.g. `health`, `ownership`), a single segment suffices. |
 | `(<NN>)` | Zero-padded two-digit context number in parentheses, matching the diagram label. |
 
 **Exception — `c:MultiParty` contexts**: A group context (`category context:MultiParty`) has no single asserter — any permitted member can write to it and changes replicate to all members. The `<asserted-by>` segment is the literal `members` rather than an individual name. Example: `bhs-group.members(boston-hub-society)(affiliations)(01).databook.md` — about BHS Group, containing category "boston-hub-society(affiliations)", asserted by the group's members collectively.
@@ -116,7 +116,7 @@ Context filenames follow a single flat pattern:
 | Filename | Subject | Asserted by | Containing category |
 |----------|---------|-------------|---------------------|
 | `self.citibank(citibank)(banking-payments)(09).databook.md` | Self (Alice) | Citibank | citibank(banking-payments) |
-| `paula-walker.self(paula-walker)(family)(07).databook.md` | Paula Walker | Self (Alice) | paula-walker(family) |
+| `paula-walker.self(paula-walker)(immediate-family)(07).databook.md` | Paula Walker | Self (Alice) | paula-walker(immediate-family) |
 | `self.bob-johnson(bob-johnson)(people)(08).databook.md` | Self (Alice) | Bob Johnson | bob-johnson(people) |
 | `bob-johnson.bob-johnson(boston-hub-society)(affiliations)(03).databook.md` | Bob Johnson | Bob Johnson | boston-hub-society(affiliations) |
 | `bhs-group.members(boston-hub-society)(affiliations)(01).databook.md` | BHS Group | members (group) | boston-hub-society(affiliations) |
@@ -133,7 +133,7 @@ Context filenames follow a single flat pattern:
 
 **Address history pattern**: `AddressDesignation` links Person → Address → `TemporalInterval`. Open-ended intervals (no `hasEndDate`) indicate current address.
 
-**Named graph scoping of `BFO_0000115`**: When a Social Network individual carries `BFO_0000115 :Paula_Walker`, the triple is intentionally scoped to the enclosing named graph — it refers to Paula Walker *as a person entity*, with context-specific isolation provided by the DataBook named graph architecture, not by the triple itself. Queries needing context-specific member data must target the relevant named graphs (e.g. context 18 + context 02) rather than querying the full merged dataset. Do NOT change the range of `BFO_0000115` to a document IRI (breaks BFO semantics — range must be a continuant, not a document), and do NOT introduce context-specific person individuals (reintroduces the complexity that removing the layered Persona model eliminated). RDF-star annotation is a valid future option if tooling matures.
+**Named graph scoping of `BFO_0000115`**: When a Social Network individual carries `BFO_0000115 :Paula_Walker`, the triple is intentionally scoped to the enclosing named graph — it refers to Paula Walker *as a person entity*, with context-specific isolation provided by the DataBook named graph architecture, not by the triple itself. Queries needing context-specific member data must target the relevant named graphs (e.g. context 21 + context 5) rather than querying the full merged dataset. Do NOT change the range of `BFO_0000115` to a document IRI (breaks BFO semantics — range must be a continuant, not a document), and do NOT introduce context-specific person individuals (reintroduces the complexity that removing the layered Persona model eliminated). RDF-star annotation is a valid future option if tooling matures.
 
 ### Key Identifiers
 
