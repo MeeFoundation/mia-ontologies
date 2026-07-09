@@ -19,7 +19,7 @@
     owl:imports <http://mee.foundation/ontologies/pdn-identity> ;
     owl:imports <http://mee.foundation/ontologies/persona-templates> ;
     dc:date "2026-06-15"^^xsd:date ;
-    owl:versionInfo "Version 4.0.4 - added p:copiedFromContext for self-contained context copies"@en ;
+    owl:versionInfo "Version 4.0.5 - removed p:copiedFromContext"@en ;
     rdfs:label "Persona Ontology"@en ;
     rdfs:comment """Persona Ontology for the Mee Identity Agent.
 
@@ -153,19 +153,6 @@ p:hasSocialNetwork rdf:type owl:ObjectProperty ;
                     with whom the person has relationships in that context. The Person is
                     not a member of the network; the network contains only the people they
                     relate to."""@en .
-
-p:copiedFromContext rdf:type owl:DatatypeProperty ;
-    rdfs:label "copied from context"@en ;
-    rdfs:comment """The IRI of the context DataBook that an individual's copied claims were
-                    sourced from. Each context's named graph must be self-contained — data
-                    about a third party (e.g. a referenced physician) needed for p2p sync or
-                    sharing must be copied into the context, not merely linked to another
-                    context the recipient may not have access to. This property records
-                    where the copy came from so Mia can check that source context for updates
-                    and refresh the copy. Attach directly to the copied individual (not to the
-                    context or the source individual)."""@en ;
-    rdfs:range xsd:anyURI .
-
 
 #################################################################
 #    Banking-related

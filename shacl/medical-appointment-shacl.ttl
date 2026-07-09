@@ -11,7 +11,7 @@
 <http://www.example.org/shapes/medical-appointment> rdf:type owl:Ontology ;
     owl:imports <http://mee.foundation/ontologies/persona> ;
     dc:date "2026-07-08"^^xsd:date ;
-    owl:versionInfo "Version 1.0.0 - initial"@en ;
+    owl:versionInfo "Version 1.0.1 - removed CopiedIndividualShape (persona:copiedFromContext deleted)"@en ;
     rdfs:label "Medical Appointment Template SHACL Shapes"@en ;
     rdfs:comment """SHACL shapes for validating context files carrying context:template persona:MedicalAppointment.
                     Apply in addition to persona-shacl.ttl when validating a medical appointment context file.
@@ -93,15 +93,3 @@
     ] .
     # ── Multi-valued claims (no upper bound) ─────────────────────────────────
     # currentMedication, allergy — no sh:maxCount constraint; repeatable.
-
-# ── Self-containment: copied third-party individuals must record their source ──
-:CopiedIndividualShape
-    a sh:NodeShape ;
-    sh:targetObjectsOf persona:forPatient ;
-    sh:targetObjectsOf persona:hasPrimaryCarePhysician ;
-    sh:property [
-        sh:path persona:copiedFromContext ;
-        sh:minCount 1 ;
-        sh:datatype xsd:anyURI ;
-        sh:message "A Person referenced from a Medical Appointment record (patient or physician) must carry copiedFromContext, recording where its copied claims came from."@en
-    ] .

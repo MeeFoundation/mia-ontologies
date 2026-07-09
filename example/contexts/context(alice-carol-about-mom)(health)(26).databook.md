@@ -2,7 +2,7 @@
 id: https://www.example.org/mia/contexts/context(alice-carol-about-mom)(health)(26)
 title: "Medical appointment claims for Paula Walker, shared between Alice and Carol"
 type: context-databook
-version: 1.0.2
+version: 1.0.3
 created: 2026-07-08
 description: >
   Alice's shared record of the claims needed to arrange a medical appointment
@@ -29,7 +29,7 @@ process:
 
 ## Overview
 
-This context captures Alice's shared record of the claims needed to arrange a medical appointment on behalf of their mother, Paula Walker. Alice maintains this record on her own Mia and syncs it to Carol's Mia over the PDN so both sisters can coordinate Paula's care. It is linked from its category via `cat:graph` rather than `sbs`/`obs`/`sbo`/`obo`, since the data is jointly maintained by Alice and Carol about a third party (Paula) rather than assertable as simply self-vs-other. Because each context's named graph must be self-contained for p2p sync to work, the claims about Paula and about her primary care physician, Dr. Jane Kopakolva, are copied directly into this context rather than merely linked — Alice already holds Dr. Jane's information in her own Mia, so it is Alice's Mia that copies it over. Each copied individual carries a `persona:copiedFromContext` triple recording where the copy came from, so Mia can check for updates. Validated by the `MedicalAppointment` per-template SHACL shapes.
+This context captures Alice's shared record of the claims needed to arrange a medical appointment on behalf of their mother, Paula Walker. Alice maintains this record on her own Mia and syncs it to Carol's Mia over the PDN so both sisters can coordinate Paula's care. It is linked from its category via `cat:graph` rather than `sbs`/`obs`/`sbo`/`obo`, since the data is jointly maintained by Alice and Carol about a third party (Paula) rather than assertable as simply self-vs-other. Because each context's named graph must be self-contained for p2p sync to work, the claims about Paula and about her primary care physician, Dr. Jane Kopakolva, are copied directly into this context rather than merely linked — Alice already holds Dr. Jane's information in her own Mia, so it is Alice's Mia that copies it over. Validated by the `MedicalAppointment` per-template SHACL shapes.
 
 ## Identity Data
 
@@ -58,9 +58,7 @@ This context captures Alice's shared record of the claims needed to arrange a me
     <https://purl.org/cco/ont00001879> [  # designated by → FamilyName
         rdf:type cco:ent00000004 ;  # FamilyName
         <https://purl.org/cco/ont00001765> "Walker"
-    ] ;
-
-    persona:copiedFromContext "https://www.example.org/mia/contexts/paula-walker.self(paula-walker)(immediate-family)(07)"^^xsd:anyURI .
+    ] .
 
 :Jane_Kopakolva rdf:type owl:NamedIndividual ,
                persona:Person ;
@@ -79,9 +77,7 @@ This context captures Alice's shared record of the claims needed to arrange a me
     <https://purl.org/cco/ont00001917> [  # described by → Person Note
         rdf:type cco:ent00000048 ;
         <https://purl.org/cco/ont00001765> "Paula Walker's primary care physician"
-    ] ;
-
-    persona:copiedFromContext "https://www.example.org/mia/contexts/jane-kopakolva.self(jane-kopakolva)(25)"^^xsd:anyURI .
+    ] .
 
 # ── The shared Medical Appointment claims record ─────────────────────────────
 

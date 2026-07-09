@@ -9,7 +9,7 @@
 
 <http://mee.foundation/ontologies/persona-templates> rdf:type owl:Ontology ;
     dc:date "2026-06-23"^^xsd:date ;
-    owl:versionInfo "Version 2.1.0 - add MedicalAppointment template and its claim properties"@en ;
+    owl:versionInfo "Version 2.1.1 - removed p:copiedFromContext references following its removal from persona.ttl"@en ;
     rdfs:label "Persona Templates Ontology"@en ;
     rdfs:comment """Template type classification used as values for the context:template annotation property.
                     Each concrete template type (BirthCertificate, JSContactCard, DriversLicense, Passport,
@@ -364,9 +364,9 @@ persona:MedicalAppointment rdf:type owl:Class ;
                     properties of the MedicalAppointment record, not of the patient's Person
                     individual directly. Any referenced third party (e.g. the patient, their
                     primary care physician) must have their relevant claims copied into this
-                    context — see p:copiedFromContext — since each context's named graph must
-                    be self-contained for p2p sync between the coordinating parties' Mia
-                    instances. Used as the value of context:template on the context file's
+                    context, since each context's named graph must be self-contained for p2p
+                    sync between the coordinating parties' Mia instances. Used as the value
+                    of context:template on the context file's
                     ontology IRI. Selects shacl/medical-appointment-shacl.ttl for validation."""@en .
 
 persona:forPatient rdf:type owl:ObjectProperty ;
@@ -374,19 +374,16 @@ persona:forPatient rdf:type owl:ObjectProperty ;
     rdfs:range persona:Person ;
     rdfs:label "for patient"@en ;
     rdfs:comment """Links a MedicalAppointment record to the Person the appointment is for.
-                    The linked Person individual must carry copied identity claims (e.g. name)
-                    and a p:copiedFromContext annotation, not merely a bare reference — see
-                    persona:MedicalAppointment."""@en .
+                    The linked Person individual must carry copied identity claims (e.g. name),
+                    not merely a bare reference — see persona:MedicalAppointment."""@en .
 
 persona:hasPrimaryCarePhysician rdf:type owl:ObjectProperty ;
     rdfs:domain persona:MedicalAppointment ;
     rdfs:range persona:Person ;
     rdfs:label "has primary care physician"@en ;
     rdfs:comment """Links a MedicalAppointment record to the patient's primary care physician.
-                    The linked Person individual must carry copied identity claims and a
-                    p:copiedFromContext annotation pointing back to the source context (e.g.
-                    the patient's own Primary Care Physician category context) — see
-                    persona:MedicalAppointment."""@en .
+                    The linked Person individual must carry copied identity claims, not merely
+                    a bare reference — see persona:MedicalAppointment."""@en .
 
 persona:currentMedication rdf:type owl:DatatypeProperty ;
     rdfs:domain persona:MedicalAppointment ;

@@ -11,10 +11,9 @@ flowchart TD
     end
 
     naf30988316a0[":Jane_Kopakolva\n(Person)"]:::person
-    naaa9d4c22ddf("Jane"):::lit
-    nff001e4f88c6("Kopakolva"):::lit
-    nbb5efde7e84c("Paula Walker's primary care physician"):::lit
-    nee24b79cc0b6("https://www.example.org/mia/contexts/jane-kopakolva.self(jane-kopakolva)(25)"):::lit
+    n22f2ce0990d0("Jane"):::lit
+    n3707161d548d("Kopakolva"):::lit
+    nac21d6f4dea0("Paula Walker's primary care physician"):::lit
     n9c0041903ee1[":Paula_Medical_Appointment\n(MedicalAppointment)"]
     nf4296ab13de4[":Paula_Walker\n(Person)"]:::person
     nd3d68245abd1("Lisinopril 10mg daily"):::lit
@@ -24,14 +23,12 @@ flowchart TD
     nb048c127c644("Medicare"):::lit
     nd767c2e2c89d("1EG4-TE5-MK72"):::lit
     nfb1be0ec8e6d("CVS Pharmacy, 123 Main St, Paradise, CA"):::lit
-    n9225a2c49498("Paula"):::lit
-    n74ae70a7f31c("Walker"):::lit
-    n431bdc7d334e("https://www.example.org/mia/contexts/paula-walker.self(paula-walker)(immediate-family)(07)"):::lit
+    na4516adf7e4f("Paula"):::lit
+    nd622411f15b2("Walker"):::lit
 
-    naf30988316a0 -->|"GivenName"| naaa9d4c22ddf
-    naf30988316a0 -->|"FamilyName"| nff001e4f88c6
-    naf30988316a0 -->|"ent00000048"| nbb5efde7e84c
-    naf30988316a0 -->|"copiedFromContext"| nee24b79cc0b6
+    naf30988316a0 -->|"GivenName"| n22f2ce0990d0
+    naf30988316a0 -->|"FamilyName"| n3707161d548d
+    naf30988316a0 -->|"ent00000048"| nac21d6f4dea0
     n9c0041903ee1 -->|"forPatient"| nf4296ab13de4
     n9c0041903ee1 -->|"hasPrimaryCarePhysician"| naf30988316a0
     n9c0041903ee1 -->|"currentMedication"| nd3d68245abd1
@@ -41,6 +38,5 @@ flowchart TD
     n9c0041903ee1 -->|"insuranceProvider"| nb048c127c644
     n9c0041903ee1 -->|"insurancePolicyNumber"| nd767c2e2c89d
     n9c0041903ee1 -->|"preferredPharmacy"| nfb1be0ec8e6d
-    nf4296ab13de4 -->|"GivenName"| n9225a2c49498
-    nf4296ab13de4 -->|"FamilyName"| n74ae70a7f31c
-    nf4296ab13de4 -->|"copiedFromContext"| n431bdc7d334e
+    nf4296ab13de4 -->|"GivenName"| na4516adf7e4f
+    nf4296ab13de4 -->|"FamilyName"| nd622411f15b2
