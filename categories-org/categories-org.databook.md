@@ -2,11 +2,11 @@
 id: http://mee.foundation/ontologies/categories-org/categories-org
 title: "Categories (org)"
 type: category-databook
-version: 1.0.1
+version: 1.0.2
 created: 2026-07-03
 description: >
   Root category DataBook for Organization categories. Parent of all
-  top-level predefined organization categories.
+  top-level canonical organization categories.
 mia:
   classname: Category
   child:

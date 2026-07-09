@@ -14,6 +14,8 @@
          uri="file:/Users/paul/Documents/Work/GitHub/mia-ontologies/shacl/driverslicense-shacl.ttl"/>
     <uri id="passport-shacl"           name="http://www.example.org/shapes/passport"
          uri="file:/Users/paul/Documents/Work/GitHub/mia-ontologies/shacl/passport-shacl.ttl"/>
+    <uri id="medical-appointment-shacl" name="http://www.example.org/shapes/medical-appointment"
+         uri="file:/Users/paul/Documents/Work/GitHub/mia-ontologies/shacl/medical-appointment-shacl.ttl"/>
     <uri id="context"                  name="http://mee.foundation/ontologies/context"
          uri="file:/Users/paul/Documents/Work/GitHub/mia-ontologies/context.ttl"/>
     <uri id="category"                 name="http://mee.foundation/ontologies/category"

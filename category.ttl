@@ -11,7 +11,7 @@
     owl:versionIRI <http://mee.foundation/ontologies/category/1.0.0> ;
     dc:date "2026-07-04"^^xsd:date ;
     owl:imports <http://mee.foundation/ontologies/context> ;
-    owl:versionInfo "Version 1.0.26 - added cat:PrimaryCarePhysician as direct subclass of cat:Health"@en ;
+    owl:versionInfo "Version 1.0.30 - reworded classname comment to say canonical instead of predefined"@en ;
     rdfs:label "Category Ontology"@en ;
     rdfs:comment """Category Ontology for the Mee Identity Agent"""@en .
 
@@ -30,7 +30,7 @@ cat:classname rdf:type owl:AnnotationProperty ;
     rdfs:domain cat:Category ;
     rdfs:range xsd:string ;
     rdfs:label "classname"@en ;
-    rdfs:comment "The local name of the cat:Category subclass this DataBook canonically is (for a canonical predefined category, e.g. \"Family\") or was copied from (for a user-instance copy, e.g. \"Family\" again; for a purely user-defined category with no predefined counterpart, the root class itself, \"Category\"). Open-ended by design, so new predefined subclasses can be added without changing this property's definition."@en .
+    rdfs:comment "The local name of the cat:Category subclass this DataBook canonically is (for a canonical category, e.g. \"Family\") or was copied from (for a user-instance copy, e.g. \"Family\" again; for a purely user-defined category with no canonical counterpart, the root class itself, \"Category\"). Open-ended by design, so new canonical subclasses can be added without changing this property's definition."@en .
 
 cat:abstract rdf:type owl:AnnotationProperty ;
     rdfs:domain owl:Class ;
@@ -53,6 +53,12 @@ cat:child rdf:type owl:ObjectProperty ;
     rdfs:range cat:Category ;
     rdfs:label "child"@en ;
     rdfs:comment "Links a category to a more specific child category."@en .
+
+cat:graph rdf:type owl:ObjectProperty ;
+    rdfs:domain cat:Category ;
+    rdfs:range context:Context ;
+    rdfs:label "graph"@en ;
+    rdfs:comment "Links a category to a plain context DataBook that does not fit the sbs/obs/sbo/obo self-vs-other classification — e.g. claims jointly maintained by multiple parties about a third party, rather than data cleanly assertable as self-vs-other. Unlike sbs/obs/sbo/obo, no about-by subject/assertedBy classification is implied by this property; the target context is typed context:Context directly rather than one of its four subclasses."@en .
 
 cat:sbs rdf:type owl:ObjectProperty ;
     rdfs:domain cat:Category ;
@@ -85,13 +91,13 @@ cat:Parties rdf:type owl:Class ;
 cat:TwoParty rdf:type owl:Class ;
     rdfs:subClassOf cat:Parties ;
     rdfs:label "TwoParty"@en ;
-    cat:label "Connection" ;
+    cat:label "Two-Party" ;
     rdfs:comment "A user-defined category representing a 1:1 relationship with a specific person, organization, or other party."@en .
 
 cat:MultiParty rdf:type owl:Class ;
     rdfs:subClassOf cat:Parties ;
     rdfs:label "MultiParty"@en ;
-    cat:label "MultiParty Enclave" ;
+    cat:label "Multi-Party" ;
     rdfs:comment "A user-defined category representing a shared multi-party relationship with a group of people or organizations. Not to be confused with g:Group (a PDN group node)."@en .
 
 cat:OneParty rdf:type owl:Class ;
@@ -218,7 +224,7 @@ cat:label rdf:type owl:AnnotationProperty ;
 cat:Affiliations rdf:type owl:Class ;
     rdfs:subClassOf cat:Person ;
     rdfs:label "Affiliations"@en ;
-    rdfs:comment "Clubs, charities, faith groups, and other group affiliations not covered by a more specific category — includes formal memberships and their social networks, some of which may be cat:MultiParty 'MultiParty Enclaves' that exist as a g:Group on the PDN. See also Sports & Entertainment for personal sports and entertainment interests, like following a favorite team, that aren't tied to a formal membership."@en .
+    rdfs:comment "Clubs, charities, faith groups, and other group affiliations not covered by a more specific category — includes formal memberships and their social networks, some of which may be cat:MultiParty ('Multi-Party') categories that exist as a g:Group on the PDN. See also Sports & Entertainment for personal sports and entertainment interests, like following a favorite team, that aren't tied to a formal membership."@en .
 
 
 #################################################################
@@ -318,9 +324,9 @@ cat:Health rdf:type owl:Class ;
     rdfs:label "Health"@en ;
     rdfs:comment "Personal health and wellness information. Medical history, allergies, medications, vaccinations."@en .
 
-cat:MedicalAppointmentForOther rdf:type owl:Class ;
+cat:MedicalAppointment rdf:type owl:Class ;
     rdfs:subClassOf cat:Health ;
-    rdfs:label "MedicalAppointmentForOther"@en ;
+    rdfs:label "MedicalAppointment"@en ;
     rdfs:comment "A medical appointment a person manages on behalf of someone else they care for, e.g. a family member."@en .
 
 cat:Healthcare rdf:type owl:Class ;

@@ -1,0 +1,107 @@
+@prefix : <http://www.example.org/shapes#> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix cco: <https://purl.org/cco/> .
+@prefix persona: <http://mee.foundation/ontologies/persona#> .
+@prefix dc: <http://purl.org/dc/elements/1.1/> .
+
+<http://www.example.org/shapes/medical-appointment> rdf:type owl:Ontology ;
+    owl:imports <http://mee.foundation/ontologies/persona> ;
+    dc:date "2026-07-08"^^xsd:date ;
+    owl:versionInfo "Version 1.0.0 - initial"@en ;
+    rdfs:label "Medical Appointment Template SHACL Shapes"@en ;
+    rdfs:comment """SHACL shapes for validating context files carrying context:template persona:MedicalAppointment.
+                    Apply in addition to persona-shacl.ttl when validating a medical appointment context file.
+                    Targets persona:MedicalAppointment individuals directly — the claims needed to arrange
+                    the appointment are properties of the record, not of the patient's Person individual."""@en .
+
+
+#################################################################
+#  Medical Appointment Record Shape
+#  Targets persona:MedicalAppointment individuals.
+#  Required: forPatient (persona:forPatient, 1..1)
+#            InsuranceProvider (persona:insuranceProvider, 1..1)
+#            InsurancePolicyNumber (persona:insurancePolicyNumber, 1..1)
+#  Optional: PrimaryCarePhysician (persona:hasPrimaryCarePhysician, 0..1)
+#            CurrentMedication (persona:currentMedication, 0..n)
+#            Allergy (persona:allergy, 0..n)
+#            MedicalHistoryNote (persona:medicalHistoryNote, 0..1)
+#            InsuranceGroupNumber (persona:insuranceGroupNumber, 0..1)
+#            PreferredPharmacy (persona:preferredPharmacy, 0..1)
+#################################################################
+
+:MedicalAppointmentRecordShape
+    a sh:NodeShape ;
+    sh:targetClass persona:MedicalAppointment ;
+    sh:message "Medical Appointment record validation: patient, insurance provider, and policy number are required."@en ;
+
+    # ── Required: patient, insurance provider, insurance policy number ──────
+    sh:property [
+        sh:path persona:forPatient ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:class persona:Person ;
+        sh:message "A Medical Appointment record must link to exactly one patient via forPatient."@en
+    ] ;
+
+    sh:property [
+        sh:path persona:insuranceProvider ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:datatype xsd:string ;
+        sh:message "A Medical Appointment record must record exactly one insurance provider."@en
+    ] ;
+
+    sh:property [
+        sh:path persona:insurancePolicyNumber ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:datatype xsd:string ;
+        sh:message "A Medical Appointment record must record exactly one insurance policy number."@en
+    ] ;
+
+    # ── Optional fields ──────────────────────────────────────────────────────
+    sh:property [
+        sh:path persona:hasPrimaryCarePhysician ;
+        sh:maxCount 1 ;
+        sh:class persona:Person ;
+        sh:message "A Medical Appointment record may link to at most one primary care physician."@en
+    ] ;
+
+    sh:property [
+        sh:path persona:medicalHistoryNote ;
+        sh:maxCount 1 ;
+        sh:datatype xsd:string ;
+        sh:message "A Medical Appointment record may have at most one medical history note."@en
+    ] ;
+
+    sh:property [
+        sh:path persona:insuranceGroupNumber ;
+        sh:maxCount 1 ;
+        sh:datatype xsd:string ;
+        sh:message "A Medical Appointment record may have at most one insurance group number."@en
+    ] ;
+
+    sh:property [
+        sh:path persona:preferredPharmacy ;
+        sh:maxCount 1 ;
+        sh:datatype xsd:string ;
+        sh:message "A Medical Appointment record may have at most one preferred pharmacy."@en
+    ] .
+    # ── Multi-valued claims (no upper bound) ─────────────────────────────────
+    # currentMedication, allergy — no sh:maxCount constraint; repeatable.
+
+# ── Self-containment: copied third-party individuals must record their source ──
+:CopiedIndividualShape
+    a sh:NodeShape ;
+    sh:targetObjectsOf persona:forPatient ;
+    sh:targetObjectsOf persona:hasPrimaryCarePhysician ;
+    sh:property [
+        sh:path persona:copiedFromContext ;
+        sh:minCount 1 ;
+        sh:datatype xsd:anyURI ;
+        sh:message "A Person referenced from a Medical Appointment record (patient or physician) must carry copiedFromContext, recording where its copied claims came from."@en
+    ] .

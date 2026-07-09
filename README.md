@@ -43,13 +43,15 @@ Each context is a named graph of claims describing one facet of a person or orga
 
 <p align="center"><img src="images/context-ontology/context.png" alt="context ontology"></p>
 
+Two properties apply to every `c:Context`:
+
 **`c:category`** — containing category. Its value is the IRI of the category DataBook (e.g. `"http://www.example.org/mia/categories/bob-johnson(others)"`) that references it via `cat:sbs`, `cat:obs`, `cat:sbo`, or `cat:obo` links of the category.
 
-**`c:assertedBy`** — Who is making the assertion. Values are local IRIs of `p:Person`, `g:Group`, or `o:Organization` individuals:
-- `:Self` — the Mia user that is entering the data, even if the underlying information originates from some other party such as a company, government agency, or another person.
-- a named individual of class `p:Person` — another Mia user is asserting the data directly.
-- a named individual of class `g:Group` — a group of Mia users is asserting the data.
-- a named individual of class `o:Organization` — an organization is asserting the data.
+**`c:template`** — present only on context files that contain instances of a template; its value is the name of a `p:PersonaTemplate` subclass (e.g. `"persona:BirthCertificate"`, `"persona:JSContactCard"`, `"persona:DriversLicense"`, `"persona:Passport"`, `"persona:MedicalAppointment"`).
+
+Three more properties apply only to contexts classified into one of the four self-vs-other subtypes (`c:XBXcontext` and below) — a context linked via `cat:graph` rather than `sbs`/`obs`/`sbo`/`obo` is a plain `c:Context` and does not carry these:
+
+**`c:about-by`** — classifies a context DataBook by the combination of `subject` and `assertedBy`. One of `context:SBScontext` (subject=Self, assertedBy=Self), `context:OBScontext` (subject=Other, assertedBy=Self), `context:OBOcontext` (subject=Other, assertedBy=Other), or `context:SBOcontext` (subject=Self, assertedBy=Other).
 
 **`c:subject`** — The identity the context file is about. Values are IRIs of `p:Person`, `g:Group`, or `o:Organization` individuals:
 - `:Self` — the context is about the Mia user.
@@ -57,7 +59,11 @@ Each context is a named graph of claims describing one facet of a person or orga
 - a named individual of `g:Group` — the context is about a group of Mia users.
 - a named individual of `o:Organization` — the context is about an organization (legal corporation or government agency).
 
-**`c:template`** — present only on context files that contain instances of a template; its value is the name of a `p:PersonaTemplate` subclass (e.g. `"persona:BirthCertificate"`, `"persona:JSContactCard"`, `"persona:DriversLicense"`, `"persona:Passport"`).
+**`c:assertedBy`** — Who is making the assertion. Values are local IRIs of `p:Person`, `g:Group`, or `o:Organization` individuals:
+- `:Self` — the Mia user that is entering the data, even if the underlying information originates from some other party such as a company, government agency, or another person.
+- a named individual of class `p:Person` — another Mia user is asserting the data directly.
+- a named individual of class `g:Group` — a group of Mia users is asserting the data.
+- a named individual of class `o:Organization` — an organization is asserting the data.
 
 The diagram below shows four kinds of contexts related to a hypothetical Mia user, Alice, and her interactions with a Department of Motor Vehicles (DMV) agency. Across the top are two contexts where the DMV itself is the subject, and at the bottom where Alice is the subject. At the left are contexts where Alice has made the assertions (e.g. Alice's Mia has written the claims into the context) and at the right are contexts where the DMV as the "other" has written the claims. 
 
@@ -70,18 +76,18 @@ The lower left shows a context that Alice might share with other people or compa
 The description of the context container itself is carried in the DataBook's YAML front matter under the `mia:` key. The context ontology (`context.ttl`) defines the controlled vocabularies that those YAML fields reference:
 
 - `mia.category` = `c:category`
-- `mia.assertedBy` = `c:assertedBy`
-- `mia.subject` = `c:subject`
 - `mia:template` = `c:template`
-- `mia.about-by` — classifies a context DataBook by the combination of subject and assertedBy; one of `context:SBScontext` (subject=Self, assertedBy=Self), `context:OBScontext` (subject=Other, assertedBy=Self), `context:OBOcontext` (subject=Other, assertedBy=Other), or `context:SBOcontext` (subject=Self, assertedBy=Other).
+- `mia.about-by` = `c:about-by`
+- `mia.subject` = `c:subject`
+- `mia.assertedBy` = `c:assertedBy`
 
 
 ### Context Ontology File
 
 - **`context.ttl`** — The Context ontology, defining:
-  - *Classes*: `c:Context`, `c:SBScontext`, `c:OBScontext`, `c:OBOcontext`, `c:SBOcontext`.
-  - *Annotation properties*: `c:category` (containing category — range `cat:Category`), `c:assertedBy`, `c:subject`, `c:about-by`, `c:template`.
-  These terms are referenced by name in the YAML frontmatter of each DataBook file. `context.ttl` imports `category.ttl` (for `c:category`'s range, `cat:Category`, and to reuse `cat:abstract` on `c:Context`).
+  - *Classes*: `c:Context`, `c:XBXcontext` (abstract intermediate superclass of the four classified subtypes below — carries the `c:about-by`/`c:subject`/`c:assertedBy` annotations, since a `cat:graph`-linked plain `c:Context` doesn't carry them), `c:SBScontext`, `c:OBScontext`, `c:OBOcontext`, `c:SBOcontext` (each a subclass of `c:XBXcontext`).
+  - *Annotation properties*: `c:category` (containing category — range `cat:Category`; domain `c:Context`), `c:template` (domain `c:Context`), `c:assertedBy`, `c:subject`, `c:about-by` (domain `c:XBXcontext`).
+  These terms are referenced by name in the YAML frontmatter of each DataBook file. `context.ttl` imports `category.ttl` (for `c:category`'s range, `cat:Category`, and to reuse `cat:abstract` on `c:Context`/`c:XBXcontext`).
 
 ### Context Ontology Validation
 
@@ -101,9 +107,9 @@ Categories include references to zero, one or more *contexts* as described in th
 
 Every category (other than the invisible root) is classified two ways: which class it is (or was copied from), and how many parties it involves.
 
-**Classname — `mia.classname`.** Its value is the local name of the `cat:Category` subclass this category canonically is — for a canonical predefined category, e.g. `ImmediateFamily` or `Employees(org)` — or, for a user's instance copy of a predefined category, the name of the class it was copied from (the same value as its canonical source). A category with no predefined counterpart at all (e.g. a specific person, company, or group Alice created herself) uses `Category` itself, the root class. Predefined categories are direct subclasses of `cat:Category`: either `cat:Person` (generally useful categories for organizing a person's personal, non-work, life) or `cat:Organization` (categories tuned to a person's working life) — `mia.classname` names the specific leaf subclass rather than this broader family, so new predefined subclasses can be added without changing the property itself.
+**Classname — `mia.classname`.** Its value is the local name of the `cat:Category` subclass this category canonically is — for a canonical category, e.g. `ImmediateFamily` or `Employees(org)` — or, for a user's instance copy of a canonical category, the name of the class it was copied from (the same value as its canonical source). A category with no canonical counterpart at all (e.g. a specific person, company, or group Alice created herself) uses `Category` itself, the root class. Canonical categories are direct subclasses of `cat:Category`: either `cat:Person` (generally useful categories for organizing a person's personal, non-work, life) or `cat:Organization` (categories tuned to a person's working life) — `mia.classname` names the specific leaf subclass rather than this broader family, so new canonical subclasses can be added without changing the property itself.
 
-**Parties — `mia.num-parties`.** `cat:Parties` is a standalone abstract class documenting how many external parties are involved in the relationship a category represents. The hierarchy exists purely to document the field's values and their display labels. There are three types: `cat:OneParty` (no external party — display label "Category"), `cat:TwoParty` (a 1:1 relationship with a specific person, organization, or other party — display label "Connection"), and `cat:MultiParty` (a shared multi-party relationship with a group of people or organizations — display label "MultiParty Enclave"). 
+**Parties — `mia.num-parties`.** `cat:Parties` is a standalone abstract class documenting how many external parties are involved in the relationship a category represents. The hierarchy exists purely to document the field's values and their display labels. There are three types: `cat:OneParty` (no external party — display label "Category"), `cat:TwoParty` (a 1:1 relationship with a specific person, organization, or other party — display label "Two-Party"), and `cat:MultiParty` (a shared multi-party relationship with a group of people or organizations — display label "Multi-Party"). 
 
 <p align="center"><img src="images/category-ontology/category.png" alt="Category hierarchy"></p>
 
@@ -117,11 +123,12 @@ Every category (other than the invisible root) is classified two ways: which cla
 - **`cat:obs`** - a context about the other party as asserted by the self.
 - **`cat:sbo`** - a context about the self as asserted by the other party.
 - **`cat:obo`** - a context about the other party as asserted by the other party.
+- **`cat:graph`** - link to a plain `c:Context` that doesn't fit the self-vs-other classification `cat:sbs`/`cat:obs`/`cat:sbo`/`cat:obo` assume — e.g. claims jointly maintained by multiple parties about a third party.
 
 #### A few details about cat:note and cat:folder
 `cat:note` and `cat:folder` point into two separate but parallel folder structures that mirror the structure of the category tree. If the category tree is `(People, (Immediate Family, Friends), Work)` then both hierarchies contain exactly the same folder names and nesting. Mia keeps both in sync with the category tree — when a category is created, renamed, or deleted, Mia updates both hierarchies automatically.
 
-A predefined top-level or nested category is not required to be copied into a user's tree just because it exists in the canonical template — Mia (or the user) copies a predefined category into the tree, and creates its `cat:note`/`cat:folder` paths, only once the user actually has content for it. Empty categories are not pre-populated as placeholder folders.
+A canonical top-level or nested category is not required to be copied into a user's tree just because it exists in the canonical template — Mia (or the user) copies a canonical category into the tree, and creates its `cat:note`/`cat:folder` paths, only once the user actually has content for it. Empty categories are not pre-populated as placeholder folders.
 
 - The **notes hierarchy** mirrors the category tree as a folder structure, rooted at a top-level folder named **`Self`**. The invisible root category's note is `Self.md`, stored directly inside `Self/`; every other category's note is stored as `X.md` inside the X folder — for example, `Self/People/Immediate Family/Immediate Family.md`. Using the same name as the folder matches the convention used by PKM (Personal Knowledge Management) tools such as Obsidian (using the Folder Notes plugin), Logseq, Foam and others. Any file or folder in the notes root that is not `Self/` — app-managed folders (e.g. `Templates/`, `.obsidian/`), unrelated personal notes (e.g. a `Journal/`), or loose files — falls outside the category tree entirely and is ignored by Mia.
 - The **files hierarchy** mirrors the category tree as a folder structure. It has no equivalent of a root note, so it has no `Self` wrapper folder — the files root itself plays that role, and each top-level category (e.g. `People`, `Work`) is a folder directly inside it. Each folder may hold arbitrary files, and may also contain additional subfolders (to any depth) that are not part of the category tree. Any file or folder directly inside the files root that is not a recognized top-level category folder likewise falls outside the category tree and is ignored by Mia.
@@ -141,9 +148,9 @@ In the normal case `cat:note` and `cat:folder` are technically redundant — bot
 
 ### Example category tree
 
-The diagram below shows a minimal example of a category tree with five kinds of nodes as well as referenced contexts (the white and green circles). At the top is a `cat:Person` predefined category and its child, a `cat:Organization` category. At the third level is a `cat:UserDefined` category which contains as its first child, a "Connection" (cat:TwoParty category) between the user and another Mia user, Bob. Its second child is a "MultiParty Enclave" (`cat:MultiParty`)--the Boston Hub Society (BHS) professional social network.
+The diagram below shows a minimal example of a category tree with five kinds of nodes as well as referenced contexts (the white and green circles). At the top is a `cat:Person` canonical category and its child, a `cat:Organization` category. At the third level is a `cat:UserDefined` category which contains as its first child, a "Two-Party" (cat:TwoParty category) between the user and another Mia user, Bob. Its second child is a "Multi-Party" (`cat:MultiParty`)--the Boston Hub Society (BHS) professional social network.
 
-The top-to-bottom ordering of the two predefined category trees is preserved when copied to the user's tree, although the user is always free to insert any number of user-defined categories at any level in the resulting tree. 
+The top-to-bottom ordering of the two canonical category trees is preserved when copied to the user's tree, although the user is always free to insert any number of user-defined categories at any level in the resulting tree. 
 
 Each of these five example categories contains contexts shown as circles. White circles are contexts whose triples are asserted by the self (the user). Green circles are contexts whose triples are asserted by a person other than the self (i:Individual), by an organization (i:Organization) or by a group (i:Group), and synchronized with the user's Mia instance over the PDN. For example the BHS category at the bottom has three contexts: Self (the user)'s BHS profile, Carol's BHS profile (asserted by Carol) and information about the BHS itself (as asserted by the BHS) in the last green circle.
 
@@ -159,11 +166,11 @@ Each of these five example categories contains contexts shown as circles. White 
     - **In-Laws / Step-Family** (`cat:InLawsStepFamily`) — relatives gained through marriage or legal guardianship, including a spouse's parents and siblings, or children from a previous relationship.
     - **Friends** (`cat:Friends`) — interactions with friends.
     - **Others** (`cat:Others`) — people you know socially or professionally who are not family or friends — acquaintances, neighbors, or other connections not yet more specifically categorized.
-1. **Affiliations** (`cat:Affiliations`) — clubs, charities, faith groups, and other group affiliations not covered by a more specific category — includes formal memberships and their social networks, some of which may be MultiParty Enclaves that exist as a `g:Group` on the PDN. See also Sports & Entertainment for personal sports and entertainment interests, like following a favorite team, that aren't tied to a formal membership.
+1. **Affiliations** (`cat:Affiliations`) — clubs, charities, faith groups, and other group affiliations not covered by a more specific category — includes formal memberships and their social networks, some of which may be `cat:MultiParty` ("Multi-Party") categories that exist as a `g:Group` on the PDN. See also Sports & Entertainment for personal sports and entertainment interests, like following a favorite team, that aren't tied to a formal membership.
 1. **Health** (`cat:Health`) — personal health and wellness information. Medical history, allergies, medications, vaccinations, prescriptions, eyeglasses.
     - **Healthcare** (`cat:Healthcare`) — healthcare providers or health insurance companies.
     - **Primary Care Physician** (`cat:PrimaryCarePhysician`) — your primary care doctor, the physician you generally see first for checkups, referrals, and everyday health concerns.
-    - **Medical Appointment For Other** (`cat:MedicalAppointmentForOther`) — a medical appointment you're helping arrange on behalf of someone else.
+    - **Medical Appointment** (`cat:MedicalAppointment`) — a medical appointment you're helping arrange on behalf of someone else.
 1. **Finances** (`cat:Finances`) — information about personal finances, bookkeeping, budgets, payment cards, bank accounts, brokerage accounts, insurance policies, financial advisors, etc.
     - **Banking & Payments** (`cat:BankingPayments`) — firms that help you store, access, and move your cash for daily living. These include Retail Banks & Credit Unions, which provide checking accounts, savings accounts, and debit cards. These also include Payment Processors like Visa, Mastercard, or PayPal that let you buy things online and in stores, and Remittance Firms like Western Union or Wise used to send money to family or friends, especially overseas.
     - **Investing** (`cat:Investing`) — firms that help you buy assets, so your money can grow over time for goals like buying a house or retiring. These include Brokerage Firms like Charles Schwab or Robinhood where you buy and sell stocks, bonds, and ETFs; Robo-Advisors, computer-run investing platforms like Betterment or Wealthfront that manage your portfolio for a low fee; and Mutual Fund companies like Vanguard or Fidelity that pool your money with other investors to buy a large bundle of stocks.
@@ -217,9 +224,9 @@ Each of these five example categories contains contexts shown as circles. White 
 
 ### Category DataBooks
 
-Each node in the `cat:Category` tree is represented by a **category DataBook** (`.databook.md` file with `type: category-databook`) linked to other nodes by the parent node's `cat:child` property (IRI) to its child. This tree contains a mixture of user-minted user-defined categories and copies of pre-defined categories. These copies contain a `copiedFrom:` IRI property pointing back to corresponding predefined category.
+Each node in the `cat:Category` tree is represented by a **category DataBook** (`.databook.md` file with `type: category-databook`) linked to other nodes by the parent node's `cat:child` property (IRI) to its child. This tree contains a mixture of user-minted user-defined categories and copies of canonical categories. These copies contain a `copiedFrom:` IRI property pointing back to the corresponding canonical category.
 
-#### Predefined Category DataBooks
+#### Canonical Category DataBooks
 
 `cat:Person` category DataBooks live in `categories-person/`, rooted at `categories-person/categories-person.databook.md`. `cat:Organization` category DataBooks live in `categories-org/`, rooted at `categories-org/categories-org.databook.md`.
 
@@ -229,18 +236,18 @@ The following properties are defined in `category.ttl` and represented as `mia.`
 
 | YAML field | Ontology property | Cardinality | Meaning |
 |------------|-------------------|-------------|---------|
-| `mia.classname` | `cat:classname` | 1 | The local name of the `cat:Category` subclass this DataBook is or was copied from (e.g. `ImmediateFamily`, `Employees(org)`), or `Category` itself if there is no predefined counterpart |
+| `mia.classname` | `cat:classname` | 1 | The local name of the `cat:Category` subclass this DataBook is or was copied from (e.g. `ImmediateFamily`, `Employees(org)`), or `Category` itself if there is no canonical counterpart |
 | `mia.num-parties` | `cat:num-parties` | 1 | The concrete `cat:Parties` subclass this DataBook instantiates: one of `OneParty`, `TwoParty`, `MultiParty` |
 | `mia.label` | `cat:label` | 1 | User-editable display name — defaults to the DataBook `title` but can be changed independently, leaving `title` and `id` immutable |
 | `mia.note` | `cat:note` | 0..1 | Relative path to a markdown notes file for this category (e.g. `People/Paula Walker/Paula Walker.md`) |
 | `mia.folder` | `cat:folder` | 0..1 | Relative path to a folder of arbitrary files for this category (e.g. `People/Paula Walker`) |
-| `mia.copiedFrom` | `cat:copiedFrom` | 0..1 | IRI of the canonical predefined category this DataBook was copied from. Present only on copies of predefined categories |
+| `mia.copiedFrom` | `cat:copiedFrom` | 0..1 | IRI of the canonical category this DataBook was copied from. Present only on copies of canonical categories |
 
 Note files live in a folder hierarchy whose structure mirrors the category hierarchy; associated file folders live in a parallel hierarchy whose names match the category names.
 
 #### Context link properties
 
-Each category DataBook in the user's tree may carry up to four optional links to context DataBook IRIs, corresponding to the four `c:Context` subtypes:
+Each category DataBook in the user's tree may carry up to four optional links to context DataBook IRIs, corresponding to the four `c:XBXcontext` subtypes:
 
 | Property | Value (`c:Context` subtype) | Cardinality | Applies to | Meaning |
 |----------|---------------------|-------------|------------|---------|
@@ -248,18 +255,19 @@ Each category DataBook in the user's tree may carry up to four optional links to
 | `cat:obs` | `c:OBScontext` | 0..1 | All categories | The user's record of the other party |
 | `cat:obo` | `c:OBOcontext` | 0..N | All categories | A context the other party presents |
 | `cat:sbo` | `c:SBOcontext` | 0..1 | All categories | A context the other party holds about the user |
+| `cat:graph` | `c:Context` | 0..1 | All categories | A context that doesn't fit the self-vs-other classification — e.g. claims jointly maintained by multiple parties about a third party |
 
-`cat:sbs`, `cat:obs`, `cat:obo`, `cat:sbo` links appear only in categories in the user's tree, not in predefined categories.
+`cat:sbs`, `cat:obs`, `cat:obo`, `cat:sbo`, `cat:graph` links appear only in categories in the user's tree, not in canonical categories.
 
 ### Category Ontology File
 
 - **`category.ttl`** — The Category ontology, defining:
   - *Classes*: `cat:Category`, `cat:Person`, `cat:Organization`, `cat:UserDefined`, `cat:Parties`, `cat:OneParty`, `cat:TwoParty`, `cat:MultiParty` and all leaf category subclasses.
   - *Annotation properties*: `cat:classname` (the `cat:Category` subclass this DataBook is or was copied from, or `Category` itself), `cat:num-parties` (concrete `cat:Parties` subclass), `cat:label` (user-editable display name), `cat:note` (path to markdown notes file), `cat:folder` (path to associated file folder), `cat:copiedFrom` (IRI of the canonical category this DataBook was copied from), `cat:abstract` (marks a class as not directly instantiated in DataBooks).
-  - *Object properties*: `cat:sbs`, `cat:obs`, `cat:obo`, `cat:sbo`, `cat:child`.
-  These terms are referenced by name in the YAML frontmatter of each category DataBook file. `category.ttl` imports `context.ttl` (for the `c:SBScontext`/`c:OBScontext`/`c:OBOcontext`/`c:SBOcontext` ranges of `cat:sbs`/`cat:obs`/`cat:obo`/`cat:sbo`); `context.ttl` in turn imports `category.ttl` (for `c:category`'s range, `cat:Category`, and to reuse `cat:abstract` on `c:Context`).
+  - *Object properties*: `cat:sbs`, `cat:obs`, `cat:obo`, `cat:sbo`, `cat:graph`, `cat:child`.
+  These terms are referenced by name in the YAML frontmatter of each category DataBook file. `category.ttl` imports `context.ttl` (for the `c:SBScontext`/`c:OBScontext`/`c:OBOcontext`/`c:SBOcontext` ranges of `cat:sbs`/`cat:obs`/`cat:obo`/`cat:sbo`, and the plain `c:Context` range of `cat:graph`); `context.ttl` in turn imports `category.ttl` (for `c:category`'s range, `cat:Category`, and to reuse `cat:abstract` on `c:Context`).
 
-- **`category-shacl.ttl`** — SHACL shapes for category DataBook instances. Constrains `cat:Category` instances to: at most one `cat:sbs`, `cat:obs`, and `cat:sbo` value each (`cat:obo` is unconstrained, 0..N); exactly one `cat:classname` value (open-ended — no enum, since new predefined subclasses can be added freely); and at most one `cat:num-parties` value, which if present must be one of `OneParty`, `TwoParty`, `MultiParty`.
+- **`category-shacl.ttl`** — SHACL shapes for category DataBook instances. Constrains `cat:Category` instances to: at most one `cat:sbs`, `cat:obs`, `cat:sbo`, and `cat:graph` value each (`cat:obo` is unconstrained, 0..N); exactly one `cat:classname` value (open-ended — no enum, since new canonical subclasses can be added freely); and at most one `cat:num-parties` value, which if present must be one of `OneParty`, `TwoParty`, `MultiParty`.
 
 ### Category Ontology Validation
 
@@ -298,6 +306,7 @@ This section describes classes and properties related to a person's social netwo
 
 * `p:hasSocialNetwork` - a social network — other people known by the `p:Person` carrying the social network. The holder is not included as a member part of the social network object, but *is* considered to be a part of it by virtue of holding the network entity.
 * `BFO_0000115` - has member part. Links to `p:Person` members of this network.
+* `p:copiedFromContext` - the IRI of the context DataBook a copied individual's claims were sourced from. A context's named graph must be self-contained for p2p sync — data about a third party needed for sharing must be copied into the context, not merely linked to another context the recipient may not have access to. This property records where the copy came from so Mia can check the source for updates and refresh it. Attached directly to the copied individual.
 
 ### Possession-related classes and properties
 
@@ -439,8 +448,8 @@ The table below maps every JSContact (RFC 9553) property to its representation i
 
 ### Persona Ontology Files
 
-- **`persona.ttl`** — The Persona ontology. Imports the domain ontologies above and documents which classes and properties Mia uses (required vs. optional). Defines `p:Person` (Mee-specific subclass of CCO `Person`), Mia-specific extension properties (`p:hasSocialNetwork`, `p:hasPaymentCard`, `p:hasBankAccount`, etc.), and the core data model classes (physical card classes, banking classes, and others).
-- **`persona-templates.ttl`** — Defines `p:PersonaTemplate` (abstract classification superclass) and the four concrete subtypes `p:BirthCertificate`, `p:JSContactCard`, `p:DriversLicense`, and `p:Passport`. These are used as values of `mia.template` in the DataBook YAML frontmatter — they classify the context file, not the `p:Person` individual inside it. Also defines `p:IdentityDocument` (superclass for government-issued identity document artifacts) and `p:hasIdentityDocument` (links a `p:Person` to a `p:IdentityDocument` individual they hold); `p:BirthCertificate`, `p:DriversLicense`, and `p:Passport` are subclasses of both `p:PersonaTemplate` and `p:IdentityDocument`. Also defines related designator classes (`p:DriversLicenseNumber`, `p:IssuingJurisdiction`, `p:PassportNumber`, `p:IssuingCountry`, `p:PlaceOfBirth`, `p:GenderMarker`, `p:IssueDate`, `p:Credential`, `p:WebURL`, `p:OrganizationUnit`, `p:JobTitle`), complex information classes (`p:Anniversary`, `p:PersonalInfo`), annotation properties for JSContact channel labels (`p:contactContext`, `p:phoneFeature`, `p:serviceLabel`), and `p:hasPhoto`. Imported by `persona.ttl` so all context files inherit these classes transitively.
+- **`persona.ttl`** — The Persona ontology. Imports the domain ontologies above and documents which classes and properties Mia uses (required vs. optional). Defines `p:Person` (Mee-specific subclass of CCO `Person`), Mia-specific extension properties (`p:hasSocialNetwork`, `p:copiedFromContext`, `p:hasPaymentCard`, `p:hasBankAccount`, etc.), and the core data model classes (physical card classes, banking classes, and others).
+- **`persona-templates.ttl`** — Defines `p:PersonaTemplate` (abstract classification superclass) and the five concrete subtypes `p:BirthCertificate`, `p:JSContactCard`, `p:DriversLicense`, `p:Passport`, and `p:MedicalAppointment`. These are used as values of `mia.template` in the DataBook YAML frontmatter — they classify the context file, not the `p:Person` individual inside it. Also defines `p:IdentityDocument` (superclass for government-issued identity document artifacts) and `p:hasIdentityDocument` (links a `p:Person` to a `p:IdentityDocument` individual they hold); `p:BirthCertificate`, `p:DriversLicense`, and `p:Passport` are subclasses of both `p:PersonaTemplate` and `p:IdentityDocument`. Also defines related designator classes (`p:DriversLicenseNumber`, `p:IssuingJurisdiction`, `p:PassportNumber`, `p:IssuingCountry`, `p:PlaceOfBirth`, `p:GenderMarker`, `p:IssueDate`, `p:Credential`, `p:WebURL`, `p:OrganizationUnit`, `p:JobTitle`), complex information classes (`p:Anniversary`, `p:PersonalInfo`), annotation properties for JSContact channel labels (`p:contactContext`, `p:phoneFeature`, `p:serviceLabel`), `p:hasPhoto`, and the `p:MedicalAppointment` claim properties (`p:forPatient`, `p:hasPrimaryCarePhysician`, `p:currentMedication`, `p:allergy`, `p:medicalHistoryNote`, `p:insuranceProvider`, `p:insurancePolicyNumber`, `p:insuranceGroupNumber`, `p:preferredPharmacy`). Imported by `persona.ttl` so all context files inherit these classes transitively.
 
 - **`shacl/birthcertificate-shacl.ttl`** — SHACL shapes for birth certificate context files (`c:template p:BirthCertificate`). `:BirthCertificateDocumentShape` targets `p:BirthCertificate` document individuals directly — all identity claims (names) are properties of the document individual, not the `p:Person`. Enforces: FullName OR (GivenName + FamilyName) required; optional AdditionalName, AlternateName, Nickname, Legal Name.
 
@@ -462,7 +471,7 @@ The table below maps every JSContact (RFC 9553) property to its representation i
 
 ### Persona Ontology Validation
 
-`persona-shacl.ttl` runs against merged data from all context files (Tier 1 validation). Per-template SHACL files in `shacl/` run against individual context files (Tier 2): birth certificate, JSContactCard, driver's license, and passport each have their own shape file and are validated separately to avoid their `sh:targetClass p:Person` constraints firing on every person slice in the merged dataset. See the [Validation](#validation) section for commands.
+`persona-shacl.ttl` runs against merged data from all context files (Tier 1 validation). Per-template SHACL files in `shacl/` run against individual context files (Tier 2): birth certificate, JSContactCard, driver's license, passport, and medical appointment each have their own shape file and are validated separately to avoid their `sh:targetClass` constraints firing on every relevant slice in the merged dataset. See the [Validation](#validation) section for commands.
 
 ## Organization Ontology
 
@@ -536,7 +545,7 @@ Alice's context DataBooks are in `example/contexts.` Some are authored by Alice 
 
 Alice's category DataBooks are in `example/categories/`. The full tree can be walked starting from `example/categories/categories.databook.md`. It contains two kinds of entries:
 
-- **Copies of predefined canonical categories** (`mia.classname` set to the specific class it was copied from, e.g. `People`, `Employees`) — one for each of the 16 top-level categories and their subcategories. Each copy carries a `copiedFrom:` property pointing to the corresponding canonical IRI (e.g. `copiedFrom: "http://mee.foundation/ontologies/categories-person/people"`). Context links (`c:sbs`, `c:obs`, `c:obo`, `c:sbo`) to Alice's contexts are attached here, not in the canonical tree.
+- **Copies of canonical categories** (`mia.classname` set to the specific class it was copied from, e.g. `People`, `Employees`) — one for each of the 16 top-level categories and their subcategories. Each copy carries a `copiedFrom:` property pointing to the corresponding canonical IRI (e.g. `copiedFrom: "http://mee.foundation/ontologies/categories-person/people"`). Context links (`c:sbs`, `c:obs`, `c:obo`, `c:sbo`) to Alice's contexts are attached here, not in the canonical tree.
 - **User-defined categories** (`mia.classname: Category`) — one per specific person, company, government agency, or group Alice interacts with (e.g. `bob-johnson(others)`, `acme(work)`, `citibank(banking-payments)`).
 
 #### Category and Context Diagrams
@@ -551,7 +560,7 @@ Alice's mother, Paula Walker, is filed under Immediate Family. Alice also keeps 
 
 <p align="center"><img src="example/images/people2.png" alt="People categories, continued — Immediate Family and Paula Walker's Health"></p>
 
-Alice and her sister, Carol, are taking care of their mother Paula Walker and need to arrange medical appointments for her. To do so, they need to share and synchronize medical information about Paula including her list of medications, medical history, health insurance policy, contact information and so on. Alice creates a two-party Medical Appointment for Other enclave with Carol that they use to share information about Paula. The medical information claims are captured in triples shown in the filled green circle. Of the many claims, one of them will be the name of Paula's doctor (primary care physician). This information will be copied from the Dr. Jane Kopakolva category shown in the diagram above. The resulting populated Medical Appointment category shown in the diagram below:
+Alice and her sister, Carol, are taking care of their mother Paula Walker and need to arrange medical appointments for her. To do so, they need to share and synchronize medical information about Paula including her list of medications, medical history, health insurance policy, contact information and so on. Alice creates a two-party Medical Appointment enclave with Carol that they use to share information about Paula. The medical information claims are captured in triples shown in the filled green circle. Of the many claims, one of them will be the name of Paula's doctor (primary care physician). This information will be copied from the Dr. Jane Kopakolva category shown in the diagram above. The resulting populated Medical Appointment category shown in the diagram below:
 
 <p align="center"><img src="example/images/health.png" alt="Health category"></p>
 
@@ -619,6 +628,7 @@ The following table lists contexts about other people (Paula and Bob) or groups 
 | 6  | [paula-walker.self(paula-walker)(acme)(06)](example/contexts/paula-walker.self(paula-walker)(acme)(06).databook.md)           | Employee     | Paula as Alice's Acme colleague (Alice-asserted)                | [view](example/contexts/images/paula-walker.self(paula-walker)(acme)(06).png)|
 | 7  | [paula-walker.self(paula-walker)(immediate-family)(07)](example/contexts/paula-walker.self(paula-walker)(immediate-family)(07).databook.md) | Immediate Family       | Paula as Alice's family member (Alice-asserted)           | [view](example/contexts/images/paula-walker.self(paula-walker)(immediate-family)(07).png)|
 | 25 | [jane-kopakolva.self(jane-kopakolva)(paula-walker)(25)](example/contexts/jane-kopakolva.self(jane-kopakolva)(paula-walker)(25).databook.md) | Primary Care Physician       | Alice's record of Dr. Jane Kopakolva, Paula Walker's primary care physician           | [view](example/contexts/images/jane-kopakolva.self(jane-kopakolva)(paula-walker)(25).png)|
+| 26 | [context(alice-carol-about-mom)(health)(26)](example/contexts/context(alice-carol-about-mom)(health)(26).databook.md) | Medical Appointment       | Alice and Carol's shared claims for Paula's medical appointment — medications, allergies, insurance, PCP reference           | [view](example/contexts/images/context(alice-carol-about-mom)(health)(26).png)|
 
 
 
@@ -703,7 +713,7 @@ Expected output: `Conforms`
 
 ### Tier 2 — per-template validation (individual context files)
 
-The `shacl/` shapes target document classes (`p:BirthCertificate`, `p:DriversLicense`, `p:Passport`) or `p:Person` (JSContactCard). Each template SHACL file is run against only the relevant context file merged with the foundation ontologies.
+The `shacl/` shapes target document classes (`p:BirthCertificate`, `p:DriversLicense`, `p:Passport`, `p:MedicalAppointment`) or `p:Person` (JSContactCard). Each template SHACL file is run against only the relevant context file merged with the foundation ontologies.
 
 ```bash
 # Shared base: foundation ontologies + application ontologies
@@ -739,6 +749,12 @@ databook extract "example/contexts/self.self(passport)(federal)(19).databook.md"
 riot --output=turtle /tmp/mia-base.ttl /tmp/data-passport-raw.ttl 2>/dev/null > /tmp/data-passport.ttl
 grep -v 'owl:imports' shacl/passport-shacl.ttl > /tmp/shapes-passport.ttl
 shacl validate --shapes /tmp/shapes-passport.ttl --data /tmp/data-passport.ttl --text
+
+# MedicalAppointment — context(alice-carol-about-mom)(health)(26).databook.md
+databook extract "example/contexts/context(alice-carol-about-mom)(health)(26).databook.md" 2>/dev/null > /tmp/data-medical-appt-raw.ttl
+riot --output=turtle /tmp/mia-base.ttl /tmp/data-medical-appt-raw.ttl 2>/dev/null > /tmp/data-medical-appt.ttl
+grep -v 'owl:imports' shacl/medical-appointment-shacl.ttl > /tmp/shapes-medical-appt.ttl
+shacl validate --shapes /tmp/shapes-medical-appt.ttl --data /tmp/data-medical-appt.ttl --text
 ```
 
 Expected output for each: `Conforms`

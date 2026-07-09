@@ -7,7 +7,7 @@
 @prefix cat: <http://mee.foundation/ontologies/category#> .
 
 <http://www.example.org/category-shapes> rdf:type owl:Ontology ;
-    owl:versionInfo "Version 1.0.2 - update classname comment/message: fallback value is now \"Category\" itself, not \"UserDefined\""@en ;
+    owl:versionInfo "Version 1.0.5 - reworded comments to say canonical instead of predefined"@en ;
     rdfs:label "Category Ontology SHACL Validation Shapes"@en ;
     rdfs:comment "SHACL validation shapes for category DataBook instances in the Category Ontology."@en .
 
@@ -45,12 +45,19 @@
         sh:message "A category may link to at most one SBOcontext via cat:sbo."@en
     ] ;
 
+    # cat:graph — at most one plain Context link
+    sh:property [
+        sh:path cat:graph ;
+        sh:maxCount 1 ;
+        sh:message "A category may link to at most one plain Context via cat:graph."@en
+    ] ;
+
     # cat:classname — required exactly once. No sh:in enum: the value
     # is the local name of the cat:Category subclass this DataBook is
     # (canonical) or was copied from (instance copy) — e.g. "Family",
     # "Consultants(org)" — or "Category" itself if there is no more
-    # specific predefined counterpart. Intentionally open-ended so new
-    # predefined subclasses don't require updating this shape.
+    # specific canonical counterpart. Intentionally open-ended so new
+    # canonical subclasses don't require updating this shape.
     sh:property [
         sh:path cat:classname ;
         sh:minCount 1 ;

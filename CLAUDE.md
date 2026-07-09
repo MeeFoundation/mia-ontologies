@@ -21,11 +21,12 @@ There are no build, compile, test, or lint commands. The files are Turtle (`.ttl
 | `category.ttl` | Category ontology — the category class hierarchy and its classification/link properties (`classname`, `num-parties`, `sbs`/`obs`/`sbo`/`obo`, `child`, `label`, `note`, `folder`, `copiedFrom`). Mutually imports `context.ttl` |
 | `category-shacl.ttl` | SHACL validation shapes for category DataBook instances — `classname`/`num-parties` cardinality and enum, `sbs`/`obs`/`sbo` cardinality |
 | `persona-shacl.ttl` | SHACL validation shapes — constraint rules for all `persona:Person` instances (SSN format, address cardinality, payment cards, wallet, social network, etc.) |
-| `persona-templates.ttl` | Persona template labels — defines `p:PersonaTemplate` (abstract classification superclass) and concrete label subclasses `p:BirthCertificate`, `p:JSContactCard`, `p:DriversLicense`, `p:Passport`; also defines related designator classes (`persona:DriversLicenseNumber`, `persona:IssuingJurisdiction`, `persona:PassportNumber`, `persona:IssuingCountry`, `persona:PlaceOfBirth`, `persona:GenderMarker`, `persona:IssueDate`, `persona:Credential`, `persona:WebURL`, `persona:OrganizationUnit`, `persona:JobTitle`), complex classes (`persona:Anniversary`, `persona:PersonalInfo`), and properties (`persona:hasAnniversary`, `persona:hasPhoto`, etc.) |
+| `persona-templates.ttl` | Persona template labels — defines `p:PersonaTemplate` (abstract classification superclass) and concrete label subclasses `p:BirthCertificate`, `p:JSContactCard`, `p:DriversLicense`, `p:Passport`, `p:MedicalAppointment`; also defines related designator classes (`persona:DriversLicenseNumber`, `persona:IssuingJurisdiction`, `persona:PassportNumber`, `persona:IssuingCountry`, `persona:PlaceOfBirth`, `persona:GenderMarker`, `persona:IssueDate`, `persona:Credential`, `persona:WebURL`, `persona:OrganizationUnit`, `persona:JobTitle`), complex classes (`persona:Anniversary`, `persona:PersonalInfo`), the `p:MedicalAppointment` claim properties (`persona:forPatient`, `persona:hasPrimaryCarePhysician`, `persona:currentMedication`, `persona:allergy`, `persona:medicalHistoryNote`, `persona:insuranceProvider`, `persona:insurancePolicyNumber`, `persona:insuranceGroupNumber`, `persona:preferredPharmacy`), and other properties (`persona:hasAnniversary`, `persona:hasPhoto`, etc.) |
 | `shacl/birthcertificate-shacl.ttl` | Per-template SHACL shapes for birth certificate context files — run against the individual context file, not merged data |
 | `shacl/jscontactcard-shacl.ttl` | Per-template SHACL shapes for JSContactCard context files — run against the individual context file, not merged data |
 | `shacl/driverslicense-shacl.ttl` | Per-template SHACL shapes for driver's license context files — run against the individual context file, not merged data |
 | `shacl/passport-shacl.ttl` | Per-template SHACL shapes for passport context files — run against the individual context file, not merged data |
+| `shacl/medical-appointment-shacl.ttl` | Per-template SHACL shapes for medical appointment context files — run against the individual context file, not merged data |
 | `project_files/` | Reference materials: imported domain ontologies (PersonOntology.ttl, AddressOntology.ttl, StagingOntology.ttl), BFO/CCO source files, PDFs, docs |
 
 ## Example Files
@@ -78,6 +79,7 @@ shacl/birthcertificate-shacl.ttl  — per-template shapes for birth certificate 
 shacl/jscontactcard-shacl.ttl     — per-template shapes for JSContactCard files
 shacl/driverslicense-shacl.ttl    — per-template shapes for driver's license files
 shacl/passport-shacl.ttl          — per-template shapes for passport files
+shacl/medical-appointment-shacl.ttl — per-template shapes for medical appointment files
 ```
 
 1. **Foundation**: BFO (Basic Formal Ontology) — provides temporal modeling (`TemporalInterval`) and core relations
@@ -103,6 +105,8 @@ Context filenames follow a single flat pattern:
 | `(<NN>)` | Zero-padded two-digit context number in parentheses, matching the diagram label. |
 
 **Exception — `c:MultiParty` contexts**: A group context (`category context:MultiParty`) has no single asserter — any permitted member can write to it and changes replicate to all members. The `<asserted-by>` segment is the literal `members` rather than an individual name. Example: `bhs-group.members(boston-hub-society)(affiliations)(01).databook.md` — about BHS Group, containing category "boston-hub-society(affiliations)", asserted by the group's members collectively.
+
+**Exception — `cat:graph`-linked contexts**: A context linked from its category via `cat:graph` (rather than `sbs`/`obs`/`sbo`/`obo`) has no `about-by` classification and no single subject/asserter — it is data jointly maintained by multiple parties about a third party. Such contexts drop the `<subject>.<asserted-by>` prefix entirely and use the literal `context` in its place: `context(<containing-category>)(<NN>).databook.md`. These files also omit `mia.assertedBy` and `mia.subject` from the YAML frontmatter (those fields describe a single-asserter relationship that doesn't apply here). Example: `context(alice-carol-about-mom)(health)(26).databook.md` — jointly maintained by Alice and Carol about their mother Paula, containing category `alice-carol-about-mom(health)`.
 
 **`mia.assertedBy` vocabulary**: The YAML field takes the local IRI of a `p:Person`, `g:Group`, or `o:Organization` individual — NOT an `i:PDNidentifier`. Those individuals carry their own PDN identity via `identity:hasPDNidentifier`. Specifically: `:Self` (the Mia user's `p:Person`) for self-asserted contexts; a named `p:Person` individual (e.g. `:Bob_Johnson`) when another Mia user asserts the data; a named `g:Group` individual (e.g. `:BHS_Group`) for group contexts; and a named `o:Organization` individual (e.g. `:Citibank`) only when the asserting organization is itself a PDN node. In the example data **only Citibank is a PDN node**, so only `self.citibank(citibank)(banking-payments)(09).databook.md` uses `assertedBy: ":Citibank"`. All other organization-related contexts (Google, AT&T, SSA, etc.) use `assertedBy: ":Self"` because Alice self-enters that data — those organizations are not PDN-interoperable.
 
@@ -167,7 +171,7 @@ After any change to context files or category DataBooks, verify the following.
 
 **Check 1 — Diagram ↔ files ↔ README coverage**: Every numbered context circle in any of the 9 category diagrams (`example/images/`) must have (a) a corresponding `.databook.md` file in `example/contexts/` and (b) a row in one of the tables in the **Alice's Personas and Contexts** section of `README.md`. Conversely, every row in those tables must correspond to a numbered circle in a diagram and a file that actually exists. If a circle exists in a diagram but has no `.databook.md` file or README row, create them to match the diagram.
 
-**Check 2 — Filename convention**: Every context filename must follow `<subject>.<asserted-by>(<containing-category>)(<NN>).databook.md`. `<subject>` must be `self` when the subject is `:Self`, or the full hyphenated lowercase name otherwise. `<asserted-by>` must be `self` when the asserter is `:Self`, or the full hyphenated lowercase name otherwise — except for `c:Group` contexts, where it must be the literal string `members`. `(<containing-category>)` encodes the local name of the `mia.category` IRI: when the category DataBook local name includes a `(parent)` qualifier (e.g. `bob-johnson(others)`), it appears as two separate segments `(bob-johnson)(others)`; when there is no qualifier (e.g. `health`), a single segment suffices. `(<NN>)` is the zero-padded two-digit context number. If a filename does not match this pattern, rename it to conform.
+**Check 2 — Filename convention**: Every context filename must follow `<subject>.<asserted-by>(<containing-category>)(<NN>).databook.md`. `<subject>` must be `self` when the subject is `:Self`, or the full hyphenated lowercase name otherwise. `<asserted-by>` must be `self` when the asserter is `:Self`, or the full hyphenated lowercase name otherwise — except for `c:Group` contexts, where it must be the literal string `members`. `(<containing-category>)` encodes the local name of the `mia.category` IRI: when the category DataBook local name includes a `(parent)` qualifier (e.g. `bob-johnson(others)`), it appears as two separate segments `(bob-johnson)(others)`; when there is no qualifier (e.g. `health`), a single segment suffices. `(<NN>)` is the zero-padded two-digit context number. Exception: a context linked via `cat:graph` rather than `sbs`/`obs`/`sbo`/`obo` drops the `<subject>.<asserted-by>` prefix and uses the literal `context` instead — `context(<containing-category>)(<NN>).databook.md`. If a filename does not match one of these two patterns, rename it to conform.
 
 **Check 3 — `mia.category` ↔ filename consistency**: For every context DataBook in `example/contexts/` (excluding `under-development/`), the local-name portion of its `mia.category` IRI must equal the `(<containing-category>)` segment extracted from the filename. When the filename uses two separate parenthetical segments before the number (e.g. `(bob-johnson)(others)`), concatenate them as `bob-johnson(others)` to form the expected local name. Run:
 
@@ -180,7 +184,9 @@ base_cat = 'http://www.example.org/mia/categories/'
 
 def fn_cat_local(fname):
     base = fname[:-len('.databook.md')]
-    m = re.match(r'^[^.]+\.[^(]+((?:\([^)]+\))+)\(\d{2}\)$', base)
+    m = re.match(r'^context((?:\([^)]+\))+)\(\d{2}\)$', base)
+    if not m:
+        m = re.match(r'^[^.]+\.[^(]+((?:\([^)]+\))+)\(\d{2}\)$', base)
     if not m:
         return None
     segs = re.findall(r'\(([^)]+)\)', m.group(1))
@@ -242,7 +248,7 @@ If any `MISSING:` lines appear, either add the file or update the link.
 | `context:OBOcontext` | not `:Self` | not `:Self` |
 | `context:SBOcontext` | `:Self` | not `:Self` |
 
-For each DataBook in `example/` (excluding `under-development/`), extract the three YAML values and verify they match the table. If they conflict, `about-by` is the authoritative value — update `subject` and/or `assertedBy` to match it.
+For each DataBook in `example/` (excluding `under-development/`), extract the three YAML values and verify they match the table. If they conflict, `about-by` is the authoritative value — update `subject` and/or `assertedBy` to match it. Exception: a context linked from its category via `cat:graph` (rather than `sbs`/`obs`/`sbo`/`obo`) has no `about-by` value at all — it is not classified into one of the four subtypes, since its data is jointly maintained by multiple parties about a third party rather than assertable as self-vs-other. Such a context may still set `subject`/`assertedBy` as descriptive metadata; this check simply does not apply to it.
 
 **Check 10 — Category filename ↔ id consistency**: For every category DataBook in `categories-person/`, `categories-org/`, and `example/categories/`, the filename root (the filename with `.databook.md` stripped) must exactly match the local name portion of the file's `id:` IRI (the string after the IRI base). The IRI base for canonical Person files is `http://mee.foundation/ontologies/categories-person/`; for canonical Organization files it is `http://mee.foundation/ontologies/categories-org/`; for example files it is `http://www.example.org/mia/categories/`. `categories-person/`, `categories-org/`, and `example/categories/` are all nested into folders mirroring their category tree (see Check 12), so they must be walked recursively. Run:
 
@@ -280,11 +286,11 @@ If a mismatch is found, rename the file so its root matches the id local name (p
 
 **Check 11 — Example category diagrams are authoritative**: The 10 category diagrams in `example/images/` are the authoritative source of truth for the example category tree. When any discrepancy is found between a diagram and the DataBook files, the diagram wins — update the DataBooks to match, not the other way around. After any change to `example/categories/` DataBooks or to the 10 diagrams, verify all of the following:
 
-- **11a — Every category box has a DataBook**: Every category box (blue predefined or white user-defined) shown in any of the 10 diagrams must have a corresponding `.databook.md` file in `example/categories/` whose `title:` matches the box label. If a box has no DataBook, create one.
+- **11a — Every category box has a DataBook**: Every category box (blue/tan canonical or white user-defined) shown in any of the 10 diagrams must have a corresponding `.databook.md` file in `example/categories/` whose `title:` matches the box label. If a box has no DataBook, create one.
 
 - **11b — Every DataBook has a diagram box**: Every `.databook.md` file in `example/categories/` (except `categories.databook.md` itself, which is the invisible root) must appear as a visible box in at least one of the 10 diagrams. If a DataBook has no corresponding box, either add it to the appropriate diagram or delete the DataBook.
 
-- **11c — Solid context circles match DataBook links**: Every solid (filled) context circle attached to a category box indicates a real context link. The category DataBook for that box must carry the corresponding `sbs`, `obs`, `obo`, or `sbo` field pointing to the context DataBook IRI. A dashed (empty) circle indicates an unfilled slot — the DataBook must NOT have a link for that slot.
+- **11c — Solid context circles match DataBook links**: Every solid (filled) context circle attached to a category box indicates a real context link. The category DataBook for that box must carry the corresponding `sbs`, `obs`, `obo`, `sbo`, or `graph` field pointing to the context DataBook IRI. A dashed (empty) circle indicates an unfilled slot — the DataBook must NOT have a link for that slot.
 
 - **11d — Numbered context circles have matching files**: Every numbered context circle (e.g. `[10]`, `[17]`) shown in a diagram must correspond to an actual `.databook.md` file in `example/contexts/` whose filename contains that number (e.g. `(10)`, `(17)`).
 
@@ -359,6 +365,20 @@ for root in ['categories-person', 'categories-org', 'example/categories']:
 ```
 
 If a nesting mismatch or orphan is found, move the file to the correct folder (preferred) or fix the `mia.child` link — whichever reflects the intended tree. An empty/placeholder folder is not necessarily an error — flag it to the user rather than deleting it, since it may be a deliberate placeholder for content not yet added.
+
+**Check 13 — `category.ttl` matches `images/category-ontology/category.png`**: This diagram is the ontology-level (not example-tree) picture of `cat:Category`'s structure — its properties, the `child` self-relationship, the `Category` → `Person`/`Organization`/`UserDefined` class hierarchy, and the `Parties` → `OneParty`/`TwoParty`/`MultiParty` hierarchy with each subtype's `cat:label` display value. Unlike Check 11 (example diagrams, where the diagram always wins), this check does not presume which side is authoritative when the two disagree — surface the discrepancy and ask, since fixing it might mean updating `category.ttl` (e.g. adding a missing property, as `cat:graph` was) or might mean the diagram is simply stale and needs redrawing. After any change to `category.ttl`'s `cat:Category`/`cat:Parties` sections or to this diagram, verify:
+
+- **13a** — every property arrow shown off `Category` in the diagram (`label`, `note`, `folder`, `graph`, `sbs`, `obs`, `sbo`, `obo`, `classname`, `num-parties`, `copiedFrom`) has a corresponding `cat:` property in `category.ttl` with `rdfs:domain cat:Category`, and its target type in the diagram matches the property's `rdfs:range`.
+- **13b** — every `cat:` property with `rdfs:domain cat:Category` defined in `category.ttl` appears as an arrow in the diagram (catches new properties added to the ttl but never drawn).
+- **13c** — the class hierarchy under `Category` shown in the diagram matches `category.ttl`'s actual `rdfs:subClassOf cat:Category` relationships (by class local name, not just position).
+- **13d** — each `Parties` subtype's example `cat:label` value shown in the diagram (`"Category"`, `"Two-Party"`, `"Multi-Party"`) matches that subtype's actual `cat:label` value in `category.ttl`.
+
+**Check 14 — `context.ttl` matches `images/context-ontology/context.png`**: This diagram is the ontology-level picture of `context:Context`'s structure — its `category`/`template` properties, the intermediate `context:XBXcontext` class (carrying `about-by`/`subject`/`assertedBy`), and the four classified subtypes (`SBScontext`/`OBScontext`/`OBOcontext`/`SBOcontext`) below it. Like Check 13, this does not presume which side is authoritative when the two disagree — surface the discrepancy and ask. After any change to `context.ttl` or to this diagram, verify:
+
+- **14a** — every property arrow shown off `Context` in the diagram (`category`, `template`) has a corresponding `context:` property in `context.ttl` with `rdfs:domain context:Context`, and its target type matches the property's `rdfs:range`.
+- **14b** — every property arrow shown off `XBXcontext` in the diagram (`about-by`, `subject`, `assertedBy`) has a corresponding `context:` property with `rdfs:domain context:XBXcontext`.
+- **14c** — every `context:` property with domain `context:Context` or `context:XBXcontext` defined in `context.ttl` appears in the diagram under the correct box (catches new properties added to the ttl but never drawn, or drawn under the wrong box).
+- **14d** — the class hierarchy shown (`Context` → `XBXcontext` → `SBScontext`/`OBScontext`/`OBOcontext`/`SBOcontext`) matches `context.ttl`'s actual `rdfs:subClassOf` relationships.
 
 ## Keeping Files in Sync
 

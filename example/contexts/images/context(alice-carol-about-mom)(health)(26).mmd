@@ -1,0 +1,46 @@
+flowchart TD
+    classDef person fill:#fffacd,stroke:#aaa,color:#333
+    classDef grp    fill:#d4edda,stroke:#aaa,color:#333
+    classDef org    fill:#cce5ff,stroke:#aaa,color:#333
+    classDef lit    fill:none,stroke:none,font-style:italic,color:#2a7a2a
+    classDef meta   fill:#f5f5ff,stroke:#9999cc,color:#333
+
+    subgraph ctx["Context"]
+        direction LR
+        ctx_meta["template: persona:MedicalAppointment"]:::meta
+    end
+
+    naf30988316a0[":Jane_Kopakolva\n(Person)"]:::person
+    n9b6e4456f2f1("Jane"):::lit
+    n69561c289be9("Kopakolva"):::lit
+    n2dd5c594ed5b("Paula Walker's primary care physician"):::lit
+    n0f5c2d3385d8("https://www.example.org/mia/contexts/jane-kopakolva.self(jane-kopakolva)(paula-walker)(25)"):::lit
+    n9c0041903ee1[":Paula_Medical_Appointment\n(MedicalAppointment)"]
+    nf4296ab13de4[":Paula_Walker\n(Person)"]:::person
+    nd3d68245abd1("Lisinopril 10mg daily"):::lit
+    n75726e1c0322("Metformin 500mg twice daily"):::lit
+    n7461808b07a8("Penicillin"):::lit
+    n798c153b9d63("Type 2 diabetes; hypertension."):::lit
+    nb048c127c644("Medicare"):::lit
+    nd767c2e2c89d("1EG4-TE5-MK72"):::lit
+    nfb1be0ec8e6d("CVS Pharmacy, 123 Main St, Paradise, CA"):::lit
+    n6dc4a614f239("Paula"):::lit
+    nca87aa19db67("Walker"):::lit
+    n431bdc7d334e("https://www.example.org/mia/contexts/paula-walker.self(paula-walker)(immediate-family)(07)"):::lit
+
+    naf30988316a0 -->|"GivenName"| n9b6e4456f2f1
+    naf30988316a0 -->|"FamilyName"| n69561c289be9
+    naf30988316a0 -->|"ent00000048"| n2dd5c594ed5b
+    naf30988316a0 -->|"copiedFromContext"| n0f5c2d3385d8
+    n9c0041903ee1 -->|"forPatient"| nf4296ab13de4
+    n9c0041903ee1 -->|"hasPrimaryCarePhysician"| naf30988316a0
+    n9c0041903ee1 -->|"currentMedication"| nd3d68245abd1
+    n9c0041903ee1 -->|"currentMedication"| n75726e1c0322
+    n9c0041903ee1 -->|"allergy"| n7461808b07a8
+    n9c0041903ee1 -->|"medicalHistoryNote"| n798c153b9d63
+    n9c0041903ee1 -->|"insuranceProvider"| nb048c127c644
+    n9c0041903ee1 -->|"insurancePolicyNumber"| nd767c2e2c89d
+    n9c0041903ee1 -->|"preferredPharmacy"| nfb1be0ec8e6d
+    nf4296ab13de4 -->|"GivenName"| n6dc4a614f239
+    nf4296ab13de4 -->|"FamilyName"| nca87aa19db67
+    nf4296ab13de4 -->|"copiedFromContext"| n431bdc7d334e
