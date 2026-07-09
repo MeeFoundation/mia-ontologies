@@ -81,7 +81,7 @@ This context captures Alice's shared record of the claims needed to arrange a me
         <https://purl.org/cco/ont00001765> "Paula Walker's primary care physician"
     ] ;
 
-    persona:copiedFromContext "https://www.example.org/mia/contexts/jane-kopakolva.self(jane-kopakolva)(paula-walker)(25)"^^xsd:anyURI .
+    persona:copiedFromContext "https://www.example.org/mia/contexts/jane-kopakolva.self(jane-kopakolva)(25)"^^xsd:anyURI .
 
 # ── The shared Medical Appointment claims record ─────────────────────────────
 

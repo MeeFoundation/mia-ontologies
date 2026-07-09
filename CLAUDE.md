@@ -56,7 +56,7 @@ There are no build, compile, test, or lint commands. The files are Turtle (`.ttl
 | `example/contexts/self.self(alice-walker)(acme)(10).databook.md` | Alice's business card (JSContactCard) — name, email, phone, employer, job title |
 | `example/contexts/self.self(california-dmv)(state)(15).databook.md` | Alice's California driver's license — legal name, DOB, DL#, expiry, photo |
 | `example/contexts/self.self(passport)(federal)(19).databook.md` | Alice's US passport — legal name, DOB, passport#, issue/expiry, place of birth, gender marker, photo |
-| `example/contexts/self.self(health)(17).databook.md` | Alice's physical characteristics — height, eye color, hair color |
+| `example/contexts/self.self(health-wellness)(17).databook.md` | Alice's physical characteristics — height, eye color, hair color |
 | `example/contexts/under-development/paula(fl-birth-cert)alice.ttl` | Paula Walker's Florida Birth Certificate Persona — legal name record (under development) |
 
 ## Architecture
@@ -72,7 +72,7 @@ Triplestore (Fuseki) — loads all DataBook files directly:
   ├─ example/contexts/paula-walker.self(paula-walker)(acme)(06).databook.md
   ├─ example/contexts/paula-walker.self(paula-walker)(immediate-family)(07).databook.md
   ├─ … (all numbered context DataBooks)
-  └─ example/contexts/self.self(health)(17).databook.md
+  └─ example/contexts/self.self(health-wellness)(17).databook.md
 
 persona-shacl.ttl — no owl:imports of data; validated against the loaded dataset
 shacl/birthcertificate-shacl.ttl  — per-template shapes for birth certificate files
@@ -169,7 +169,7 @@ Files inside any directory named `under-development/` (at any depth) are works-i
 
 After any change to context files or category DataBooks, verify the following.
 
-**Check 1 — Diagram ↔ files ↔ README coverage**: Every numbered context circle in any of the 9 category diagrams (`example/images/`) must have (a) a corresponding `.databook.md` file in `example/contexts/` and (b) a row in one of the tables in the **Alice's Personas and Contexts** section of `README.md`. Conversely, every row in those tables must correspond to a numbered circle in a diagram and a file that actually exists. If a circle exists in a diagram but has no `.databook.md` file or README row, create them to match the diagram.
+**Check 1 — Diagram ↔ files ↔ README coverage**: Every numbered context circle in any of the 11 category diagrams (`example/images/`) must have (a) a corresponding `.databook.md` file in `example/contexts/` and (b) a row in one of the tables in the **Alice's Personas and Contexts** section of `README.md`. Conversely, every row in those tables must correspond to a numbered circle in a diagram and a file that actually exists. If a circle exists in a diagram but has no `.databook.md` file or README row, create them to match the diagram.
 
 **Check 2 — Filename convention**: Every context filename must follow `<subject>.<asserted-by>(<containing-category>)(<NN>).databook.md`. `<subject>` must be `self` when the subject is `:Self`, or the full hyphenated lowercase name otherwise. `<asserted-by>` must be `self` when the asserter is `:Self`, or the full hyphenated lowercase name otherwise — except for `c:Group` contexts, where it must be the literal string `members`. `(<containing-category>)` encodes the local name of the `mia.category` IRI: when the category DataBook local name includes a `(parent)` qualifier (e.g. `bob-johnson(others)`), it appears as two separate segments `(bob-johnson)(others)`; when there is no qualifier (e.g. `health`), a single segment suffices. `(<NN>)` is the zero-padded two-digit context number. Exception: a context linked via `cat:graph` rather than `sbs`/`obs`/`sbo`/`obo` drops the `<subject>.<asserted-by>` prefix and uses the literal `context` instead — `context(<containing-category>)(<NN>).databook.md`. If a filename does not match one of these two patterns, rename it to conform.
 
@@ -284,11 +284,11 @@ for directory, base, recursive in checks:
 
 If a mismatch is found, rename the file so its root matches the id local name (preferred) or update the `id:` to match the filename — whichever is consistent with the broader naming conventions.
 
-**Check 11 — Example category diagrams are authoritative**: The 10 category diagrams in `example/images/` are the authoritative source of truth for the example category tree. When any discrepancy is found between a diagram and the DataBook files, the diagram wins — update the DataBooks to match, not the other way around. After any change to `example/categories/` DataBooks or to the 10 diagrams, verify all of the following:
+**Check 11 — Example category diagrams are authoritative**: The 11 category diagrams in `example/images/` are the authoritative source of truth for the example category tree. When any discrepancy is found between a diagram and the DataBook files, the diagram wins — update the DataBooks to match, not the other way around. After any change to `example/categories/` DataBooks or to the 11 diagrams, verify all of the following:
 
-- **11a — Every category box has a DataBook**: Every category box (blue/tan canonical or white user-defined) shown in any of the 10 diagrams must have a corresponding `.databook.md` file in `example/categories/` whose `title:` matches the box label. If a box has no DataBook, create one.
+- **11a — Every category box has a DataBook**: Every category box (blue/tan canonical or white user-defined) shown in any of the 11 diagrams must have a corresponding `.databook.md` file in `example/categories/` whose `title:` matches the box label. If a box has no DataBook, create one.
 
-- **11b — Every DataBook has a diagram box**: Every `.databook.md` file in `example/categories/` (except `categories.databook.md` itself, which is the invisible root) must appear as a visible box in at least one of the 10 diagrams. If a DataBook has no corresponding box, either add it to the appropriate diagram or delete the DataBook.
+- **11b — Every DataBook has a diagram box**: Every `.databook.md` file in `example/categories/` (except `categories.databook.md` itself, which is the invisible root) must appear as a visible box in at least one of the 11 diagrams. If a DataBook has no corresponding box, either add it to the appropriate diagram or delete the DataBook.
 
 - **11c — Solid context circles match DataBook links**: Every solid (filled) context circle attached to a category box indicates a real context link. The category DataBook for that box must carry the corresponding `sbs`, `obs`, `obo`, `sbo`, or `graph` field pointing to the context DataBook IRI. A dashed (empty) circle indicates an unfilled slot — the DataBook must NOT have a link for that slot.
 
@@ -296,7 +296,7 @@ If a mismatch is found, rename the file so its root matches the id local name (p
 
 - **11e — Child arrows match DataBook child links**: Every downward child arrow from category box A to category box B in a diagram must correspond to a `child:` entry in A's DataBook pointing to B's IRI. Conversely, every `child:` entry in a DataBook must be reflected by a visible child arrow in the diagram.
 
-The 10 diagrams are: `example/images/people.png`, `example/images/people2.png`, `example/images/work.png`, `example/images/companies.png`, `example/images/finances.png`, `example/images/gov-state.png`, `example/images/gov-federal.png`, `example/images/gov-municipality.png`, `example/images/misc.png`, `example/images/affiliations.png`.
+The 11 diagrams are: `example/images/people.png`, `example/images/people2.png`, `example/images/health.png`, `example/images/work.png`, `example/images/companies.png`, `example/images/finances.png`, `example/images/gov-state.png`, `example/images/gov-federal.png`, `example/images/gov-municipality.png`, `example/images/misc.png`, `example/images/affiliations.png`.
 
 **Check 12 — Physical folder structure mirrors the `child:` tree in `categories-person/`, `categories-org/`, and `example/categories/`**: All three category trees are organized as nested filesystem folders that mirror their category hierarchy, rather than one flat directory. Each category's own `.databook.md` file lives in a folder (folder naming is not standardized — it may be the category's `title`, a `classname`-prefixed disambiguator, or a role-based label; this check does not validate folder names, only nesting). The rule: for every `mia.child` link from category A to category B, B's `.databook.md` file must live in a folder that is a **direct subfolder** of the folder containing A's `.databook.md` file — not deeper, not a sibling, not the same folder. Each tree's root DataBook (`categories-person.databook.md` / `categories-org.databook.md` / `categories.databook.md`) sits directly in the tree's top-level directory. Run:
 

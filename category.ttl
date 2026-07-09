@@ -11,7 +11,7 @@
     owl:versionIRI <http://mee.foundation/ontologies/category/1.0.0> ;
     dc:date "2026-07-04"^^xsd:date ;
     owl:imports <http://mee.foundation/ontologies/context> ;
-    owl:versionInfo "Version 1.0.30 - reworded classname comment to say canonical instead of predefined"@en ;
+    owl:versionInfo "Version 1.0.34 - renamed cat:Wellness to cat:Fitness; added Nutritionists, Mental Health, Physical Therapy under Health & Wellness, each with History/Providers (Mental Health also with Insurance)"@en ;
     rdfs:label "Category Ontology"@en ;
     rdfs:comment """Category Ontology for the Mee Identity Agent"""@en .
 
@@ -316,28 +316,138 @@ cat:Advisory rdf:type owl:Class ;
     rdfs:comment "Firms and individuals who do not just hold your money, but tell you the best ways to use it. These include Financial Planners (Wealth Advisors), human experts who help you build a custom roadmap for taxes, retirement, and budgeting, and Estate Planners, specialized professionals who help you write wills and plan how to pass your money to your children. Also includes Accountants and Bookkeepers, who track your income and expenses and prepare your taxes."@en .
 
 #################################################################
-#    cat:Health
+#    cat:HealthWellness
 #################################################################
 
-cat:Health rdf:type owl:Class ;
+cat:HealthWellness rdf:type owl:Class ;
     rdfs:subClassOf cat:Person ;
-    rdfs:label "Health"@en ;
+    rdfs:label "Health & Wellness"@en ;
     rdfs:comment "Personal health and wellness information. Medical history, allergies, medications, vaccinations."@en .
 
-cat:MedicalAppointment rdf:type owl:Class ;
-    rdfs:subClassOf cat:Health ;
-    rdfs:label "MedicalAppointment"@en ;
-    rdfs:comment "A medical appointment a person manages on behalf of someone else they care for, e.g. a family member."@en .
+cat:Medical rdf:type owl:Class ;
+    rdfs:subClassOf cat:HealthWellness ;
+    rdfs:label "Medical"@en ;
+    rdfs:comment "Medical (as opposed to dental or vision) care — diagnoses, treatments, providers, and insurance."@en .
 
-cat:Healthcare rdf:type owl:Class ;
-    rdfs:subClassOf cat:Health ;
-    rdfs:label "Healthcare"@en ;
-    rdfs:comment "Healthcare providers or health insurance companies."@en .
+cat:MedicalHistory rdf:type owl:Class ;
+    rdfs:subClassOf cat:Medical ;
+    rdfs:label "History"@en ;
+    rdfs:comment "Personal medical history: past diagnoses, conditions, surgeries, and treatments."@en .
+
+cat:MedicalInsurance rdf:type owl:Class ;
+    rdfs:subClassOf cat:Medical ;
+    rdfs:label "Insurance"@en ;
+    rdfs:comment "Medical health insurance policies, providers, and coverage."@en .
+
+cat:MedicalProviders rdf:type owl:Class ;
+    rdfs:subClassOf cat:Medical ;
+    rdfs:label "Providers"@en ;
+    rdfs:comment "Medical providers and practices you see for care, including your primary care physician and any medical appointments you help arrange."@en .
 
 cat:PrimaryCarePhysician rdf:type owl:Class ;
-    rdfs:subClassOf cat:Health ;
+    rdfs:subClassOf cat:MedicalProviders ;
     rdfs:label "Primary Care Physician"@en ;
     rdfs:comment "Your primary care doctor, the physician you generally see first for checkups, referrals, and everyday health concerns."@en .
+
+cat:MedicalAppointmentInfo rdf:type owl:Class ;
+    rdfs:subClassOf cat:MedicalProviders ;
+    rdfs:label "Medical Appointment Info"@en ;
+    rdfs:comment "A medical appointment a person manages on behalf of someone else they care for, e.g. a family member."@en .
+
+cat:Dental rdf:type owl:Class ;
+    rdfs:subClassOf cat:HealthWellness ;
+    rdfs:label "Dental"@en ;
+    rdfs:comment "Dental care — diagnoses, treatments, providers, and insurance."@en .
+
+cat:DentalHistory rdf:type owl:Class ;
+    rdfs:subClassOf cat:Dental ;
+    rdfs:label "History"@en ;
+    rdfs:comment "Personal dental history: past treatments, procedures, and conditions."@en .
+
+cat:DentalInsurance rdf:type owl:Class ;
+    rdfs:subClassOf cat:Dental ;
+    rdfs:label "Insurance"@en ;
+    rdfs:comment "Dental insurance policies, providers, and coverage."@en .
+
+cat:DentalProviders rdf:type owl:Class ;
+    rdfs:subClassOf cat:Dental ;
+    rdfs:label "Providers"@en ;
+    rdfs:comment "Dental providers and practices you see for care."@en .
+
+cat:Vision rdf:type owl:Class ;
+    rdfs:subClassOf cat:HealthWellness ;
+    rdfs:label "Vision"@en ;
+    rdfs:comment "Vision and eye care — diagnoses, treatments, providers, and insurance."@en .
+
+cat:VisionHistory rdf:type owl:Class ;
+    rdfs:subClassOf cat:Vision ;
+    rdfs:label "History"@en ;
+    rdfs:comment "Personal vision/eye care history: past prescriptions, treatments, and conditions."@en .
+
+cat:VisionInsurance rdf:type owl:Class ;
+    rdfs:subClassOf cat:Vision ;
+    rdfs:label "Insurance"@en ;
+    rdfs:comment "Vision insurance policies, providers, and coverage."@en .
+
+cat:VisionProviders rdf:type owl:Class ;
+    rdfs:subClassOf cat:Vision ;
+    rdfs:label "Providers"@en ;
+    rdfs:comment "Vision care providers and practices you see for care."@en .
+
+cat:Fitness rdf:type owl:Class ;
+    rdfs:subClassOf cat:HealthWellness ;
+    rdfs:label "Fitness"@en ;
+    rdfs:comment "General fitness and preventive physical health — exercise, gyms, trainers, and other non-clinical wellbeing information."@en .
+
+cat:Nutritionists rdf:type owl:Class ;
+    rdfs:subClassOf cat:HealthWellness ;
+    rdfs:label "Nutritionists"@en ;
+    rdfs:comment "Nutritionists and dietitians — dietary counseling and meal planning."@en .
+
+cat:NutritionistsHistory rdf:type owl:Class ;
+    rdfs:subClassOf cat:Nutritionists ;
+    rdfs:label "History"@en ;
+    rdfs:comment "Past nutritional consultations, diet plans, and dietary conditions."@en .
+
+cat:NutritionistsProviders rdf:type owl:Class ;
+    rdfs:subClassOf cat:Nutritionists ;
+    rdfs:label "Providers"@en ;
+    rdfs:comment "Nutritionists and dietitians you see for care."@en .
+
+cat:MentalHealth rdf:type owl:Class ;
+    rdfs:subClassOf cat:HealthWellness ;
+    rdfs:label "Mental Health"@en ;
+    rdfs:comment "Mental and behavioral health care — therapy, counseling, and psychiatric care."@en .
+
+cat:MentalHealthHistory rdf:type owl:Class ;
+    rdfs:subClassOf cat:MentalHealth ;
+    rdfs:label "History"@en ;
+    rdfs:comment "Past diagnoses, treatments, and mental health conditions."@en .
+
+cat:MentalHealthInsurance rdf:type owl:Class ;
+    rdfs:subClassOf cat:MentalHealth ;
+    rdfs:label "Insurance"@en ;
+    rdfs:comment "Mental health insurance policies, providers, and coverage."@en .
+
+cat:MentalHealthProviders rdf:type owl:Class ;
+    rdfs:subClassOf cat:MentalHealth ;
+    rdfs:label "Providers"@en ;
+    rdfs:comment "Mental health providers and practices you see for care, e.g. therapists, counselors, and psychiatrists."@en .
+
+cat:PhysicalTherapy rdf:type owl:Class ;
+    rdfs:subClassOf cat:HealthWellness ;
+    rdfs:label "Physical Therapy"@en ;
+    rdfs:comment "Physical therapy and rehabilitative care."@en .
+
+cat:PhysicalTherapyHistory rdf:type owl:Class ;
+    rdfs:subClassOf cat:PhysicalTherapy ;
+    rdfs:label "History"@en ;
+    rdfs:comment "Past physical therapy treatments, injuries, and rehabilitation plans."@en .
+
+cat:PhysicalTherapyProviders rdf:type owl:Class ;
+    rdfs:subClassOf cat:PhysicalTherapy ;
+    rdfs:label "Providers"@en ;
+    rdfs:comment "Physical therapy providers and practices you see for care."@en .
 
 #################################################################
 #    cat:Events and subclasses

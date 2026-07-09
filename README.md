@@ -160,17 +160,39 @@ Each of these five example categories contains contexts shown as circles. White 
 
 `cat:Person` categories (and sub-categories) are used to organize a person's information:
 
-1. **People** (`cat:People`) — people in your social or professional life. Use this category for people not otherwise tied to a specific domain — a bookkeeper you know belongs under Finances (Advisory), and your primary care physician belongs under Health (Primary Care Physician), rather than here.
+1. **People** (`cat:People`) — people in your social or professional life. Use this category for people not otherwise tied to a specific domain — a bookkeeper you know belongs under Finances (Advisory), and your primary care physician belongs under Health & Wellness (Medical > Providers > Primary Care Physician), rather than here.
     - **Immediate Family** (`cat:ImmediateFamily`) — your closest living relatives, which generally include parents, siblings, spouses/partners, and children.
     - **Extended Family** (`cat:ExtendedFamily`) — relatives outside the immediate nuclear group, such as grandparents, aunts, uncles, cousins, nieces and nephews.
     - **In-Laws / Step-Family** (`cat:InLawsStepFamily`) — relatives gained through marriage or legal guardianship, including a spouse's parents and siblings, or children from a previous relationship.
     - **Friends** (`cat:Friends`) — interactions with friends.
     - **Others** (`cat:Others`) — people you know socially or professionally who are not family or friends — acquaintances, neighbors, or other connections not yet more specifically categorized.
 1. **Affiliations** (`cat:Affiliations`) — clubs, charities, faith groups, and other group affiliations not covered by a more specific category — includes formal memberships and their social networks, some of which may be `cat:MultiParty` ("Multi-Party") categories that exist as a `g:Group` on the PDN. See also Sports & Entertainment for personal sports and entertainment interests, like following a favorite team, that aren't tied to a formal membership.
-1. **Health** (`cat:Health`) — personal health and wellness information. Medical history, allergies, medications, vaccinations, prescriptions, eyeglasses.
-    - **Healthcare** (`cat:Healthcare`) — healthcare providers or health insurance companies.
-    - **Primary Care Physician** (`cat:PrimaryCarePhysician`) — your primary care doctor, the physician you generally see first for checkups, referrals, and everyday health concerns.
-    - **Medical Appointment** (`cat:MedicalAppointment`) — a medical appointment you're helping arrange on behalf of someone else.
+1. **Health & Wellness** (`cat:HealthWellness`) — personal health and wellness information. Medical history, allergies, medications, vaccinations, prescriptions, eyeglasses.
+    - **Medical** (`cat:Medical`) — medical (as opposed to dental or vision) care — diagnoses, treatments, providers, and insurance.
+        - **History** (`cat:MedicalHistory`) — past diagnoses, conditions, surgeries, and treatments.
+        - **Insurance** (`cat:MedicalInsurance`) — medical health insurance policies, providers, and coverage.
+        - **Providers** (`cat:MedicalProviders`) — medical providers and practices you see for care.
+            - **Primary Care Physician** (`cat:PrimaryCarePhysician`) — your primary care doctor, the physician you generally see first for checkups, referrals, and everyday health concerns.
+            - **Medical Appointment Info** (`cat:MedicalAppointmentInfo`) — a medical appointment you're helping arrange on behalf of someone else.
+    - **Dental** (`cat:Dental`) — dental care — diagnoses, treatments, providers, and insurance.
+        - **History** (`cat:DentalHistory`) — past dental treatments, procedures, and conditions.
+        - **Insurance** (`cat:DentalInsurance`) — dental insurance policies, providers, and coverage.
+        - **Providers** (`cat:DentalProviders`) — dental providers and practices you see for care.
+    - **Vision** (`cat:Vision`) — vision and eye care — diagnoses, treatments, providers, and insurance.
+        - **History** (`cat:VisionHistory`) — past eye-care prescriptions, treatments, and conditions.
+        - **Insurance** (`cat:VisionInsurance`) — vision insurance policies, providers, and coverage.
+        - **Providers** (`cat:VisionProviders`) — vision care providers and practices you see for care.
+    - **Fitness** (`cat:Fitness`) — general fitness and preventive physical health — exercise, gyms, trainers, and other non-clinical wellbeing information.
+    - **Nutritionists** (`cat:Nutritionists`) — nutritionists and dietitians.
+        - **History** (`cat:NutritionistsHistory`) — past nutritional consultations, diet plans, and dietary conditions.
+        - **Providers** (`cat:NutritionistsProviders`) — nutritionists and dietitians you see for care.
+    - **Mental Health** (`cat:MentalHealth`) — mental and behavioral health care.
+        - **History** (`cat:MentalHealthHistory`) — past diagnoses, treatments, and mental health conditions.
+        - **Insurance** (`cat:MentalHealthInsurance`) — mental health insurance policies, providers, and coverage.
+        - **Providers** (`cat:MentalHealthProviders`) — mental health providers and practices you see for care, e.g. therapists, counselors, and psychiatrists.
+    - **Physical Therapy** (`cat:PhysicalTherapy`) — physical therapy and rehabilitative care.
+        - **History** (`cat:PhysicalTherapyHistory`) — past physical therapy treatments, injuries, and rehabilitation plans.
+        - **Providers** (`cat:PhysicalTherapyProviders`) — physical therapy providers and practices you see for care.
 1. **Finances** (`cat:Finances`) — information about personal finances, bookkeeping, budgets, payment cards, bank accounts, brokerage accounts, insurance policies, financial advisors, etc.
     - **Banking & Payments** (`cat:BankingPayments`) — firms that help you store, access, and move your cash for daily living. These include Retail Banks & Credit Unions, which provide checking accounts, savings accounts, and debit cards. These also include Payment Processors like Visa, Mastercard, or PayPal that let you buy things online and in stores, and Remittance Firms like Western Union or Wise used to send money to family or friends, especially overseas.
     - **Investing** (`cat:Investing`) — firms that help you buy assets, so your money can grow over time for goals like buying a house or retiring. These include Brokerage Firms like Charles Schwab or Robinhood where you buy and sell stocks, bonds, and ETFs; Robo-Advisors, computer-run investing platforms like Betterment or Wealthfront that manage your portfolio for a low fee; and Mutual Fund companies like Vanguard or Fidelity that pool your money with other investors to buy a large bundle of stocks.
@@ -556,13 +578,13 @@ Contexts with dotted outlines are placeholders for contexts in category — Alic
 
 <p align="center"><img src="example/images/people.png" alt="People categories"></p>
 
-Alice's mother, Paula Walker, is filed under Immediate Family. Alice also keeps a record of Dr. Jane Kopakolva, Paula's primary care physician, under a Health category nested within Paula's own category — context #25.
+Alice's mother, Paula Walker, is filed under Immediate Family. Alice's own Health & Wellness category — Medical, Dental, Vision, and Wellness — is nested within Paula's own category, since caring for Paula's health is central to why Alice tracks health information at all. Under Medical > Providers, Alice keeps a record of Dr. Jane Kopakolva, Paula's primary care physician (context #25). Alice and her sister, Carol, are also taking care of their mother Paula Walker and need to arrange medical appointments for her. To do so, they need to share and synchronize medical information about Paula including her list of medications, medical history, health insurance policy, contact information and so on. Alice creates a two-party Medical Appointment Info enclave with Carol, also filed under Medical > Providers, that they use to share information about Paula. The medical information claims are captured in triples shown in the filled grey circle. Of the many claims, one of them will be the name of Paula's doctor (primary care physician), copied from the Dr. Jane Kopakolva category shown in the same diagram. The resulting tree, from People down through both provider categories, is shown below:
 
-<p align="center"><img src="example/images/people2.png" alt="People categories, continued — Immediate Family and Paula Walker's Health"></p>
+<p align="center"><img src="example/images/people2.png" alt="People categories, continued — Immediate Family, Paula Walker, and her Health & Wellness, Medical, and Providers categories"></p>
 
-Alice and her sister, Carol, are taking care of their mother Paula Walker and need to arrange medical appointments for her. To do so, they need to share and synchronize medical information about Paula including her list of medications, medical history, health insurance policy, contact information and so on. Alice creates a two-party Medical Appointment enclave with Carol that they use to share information about Paula. The medical information claims are captured in triples shown in the filled grey circle. Of the many claims, one of them will be the name of Paula's doctor (primary care physician). This information will be copied from the Dr. Jane Kopakolva category shown in the diagram above. The resulting populated Medical Appointment category shown in the diagram below:
+*(This diagram is a work in progress and will be expanded to show the Health & Wellness category in more detail.)*
 
-<p align="center"><img src="example/images/health.png" alt="Health category"></p>
+<p align="center"><img src="example/images/health.png" alt="Health & Wellness category (work in progress)"></p>
 
 Alice is an employee of Acme, so under her Work category she has created a user-defined category called Acme to represent her employer. Since Acme is an organization, Alice has under her Acme category switched from adding `cat:Person` categories to `cat:Organization` categories (light blue color) and added an Employees category which acts as a parent holding an Employee category for each person there she tracks, including herself. Her own "Alice Walker" category holds her Business Card claims — job title at Acme, work telephone number, work email, etc. One of the employees she works with is Paula Walker, so she adds a Paula Walker category too.
 <p align="center"><img src="example/images/work.png" alt="Work categories"></p>
@@ -600,7 +622,7 @@ The contexts in the table below are *about* Alice and asserted *by* Alice. All `
 | 14  | [self.self(boston-hub-society)(affiliations)(14)](example/contexts/self.self(boston-hub-society)(affiliations)(14).databook.md)                     | Affiliations | BHS profile: email, phone and current address                    | [view](example/contexts/images/self.self(boston-hub-society)(affiliations)(14).png)|
 | 15 | [self.self(california-dmv)(state)(15)](example/contexts/self.self(california-dmv)(state)(15).databook.md) | State      | California driver's license — legal name, DOB, DL#, expiry, photo | [view](example/contexts/images/self.self(california-dmv)(state)(15).png) |
 | 16 | [self.self(google)(companies)(16)](example/contexts/self.self(google)(companies)(16).databook.md)               | Companies    | Gmail address                                                    | [view](example/contexts/images/self.self(google)(companies)(16).png) |
-| 17 | [self.self(health)(17)](example/contexts/self.self(health)(17).databook.md)                 | Health     | Physical body — height (68 in.), blue eyes, grey hair            | [view](example/contexts/images/self.self(health)(17).png) |
+| 17 | [self.self(health-wellness)(17)](example/contexts/self.self(health-wellness)(17).databook.md)                 | Health & Wellness     | Physical body — height (68 in.), blue eyes, grey hair            | [view](example/contexts/images/self.self(health-wellness)(17).png) |
 | 18 | [self.self(paradise)(municipality)(18)](example/contexts/self.self(paradise)(municipality)(18).databook.md)           | Municipality | Current address — Paradise, CA (2025–present)                    | [view](example/contexts/images/self.self(paradise)(municipality)(18).png) |
 | 19 | [self.self(passport)(federal)(19)](example/contexts/self.self(passport)(federal)(19).databook.md)             | Federal    | US passport — legal name, DOB, passport#, issue/expiry, place of birth, gender marker, photo | [view](example/contexts/images/self.self(passport)(federal)(19).png) |
 | 20 | [self.self(paula-walker)(acme)(20)](example/contexts/self.self(paula-walker)(acme)(20).databook.md)                   | Employee     | Acme employee context; company email; works with Paula           | [view](example/contexts/images/self.self(paula-walker)(acme)(20).png)|
@@ -627,7 +649,7 @@ The following table lists contexts about other people (Paula and Bob) or groups 
 | 5  | [paula-walker.paula-walker(paula-walker)(immediate-family)(05)](example/contexts/paula-walker.paula-walker(paula-walker)(immediate-family)(05).databook.md) | Immediate Family       | Paula's own family persona; social network with Alice       | [view](example/contexts/images/paula-walker.paula-walker(paula-walker)(immediate-family)(05).png)|
 | 6  | [paula-walker.self(paula-walker)(acme)(06)](example/contexts/paula-walker.self(paula-walker)(acme)(06).databook.md)           | Employee     | Paula as Alice's Acme colleague (Alice-asserted)                | [view](example/contexts/images/paula-walker.self(paula-walker)(acme)(06).png)|
 | 7  | [paula-walker.self(paula-walker)(immediate-family)(07)](example/contexts/paula-walker.self(paula-walker)(immediate-family)(07).databook.md) | Immediate Family       | Paula as Alice's family member (Alice-asserted)           | [view](example/contexts/images/paula-walker.self(paula-walker)(immediate-family)(07).png)|
-| 25 | [jane-kopakolva.self(jane-kopakolva)(paula-walker)(25)](example/contexts/jane-kopakolva.self(jane-kopakolva)(paula-walker)(25).databook.md) | Primary Care Physician       | Alice's record of Dr. Jane Kopakolva, Paula Walker's primary care physician           | [view](example/contexts/images/jane-kopakolva.self(jane-kopakolva)(paula-walker)(25).png)|
+| 25 | [jane-kopakolva.self(jane-kopakolva)(25)](example/contexts/jane-kopakolva.self(jane-kopakolva)(25).databook.md) | Primary Care Physician       | Alice's record of Dr. Jane Kopakolva, Paula Walker's primary care physician           | [view](example/contexts/images/jane-kopakolva.self(jane-kopakolva)(25).png)|
 | 26 | [context(alice-carol-about-mom)(health)(26)](example/contexts/context(alice-carol-about-mom)(health)(26).databook.md) | Medical Appointment       | Alice and Carol's shared claims for Paula's medical appointment — medications, allergies, insurance, PCP reference           | [view](example/contexts/images/context(alice-carol-about-mom)(health)(26).png)|
 
 

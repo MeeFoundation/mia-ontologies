@@ -2,7 +2,7 @@
 id: http://mee.foundation/ontologies/categories-person/categories-person
 title: "Categories (person)"
 type: category-databook
-version: 1.0.4
+version: 1.0.5
 created: 2026-06-22
 description: >
   Root category DataBook. Parent of all top-level canonical categories.
@@ -13,7 +13,7 @@ mia:
     - "http://mee.foundation/ontologies/categories-person/work"
     - "http://mee.foundation/ontologies/categories-person/companies"
     - "http://mee.foundation/ontologies/categories-person/finances"
-    - "http://mee.foundation/ontologies/categories-person/health"
+    - "http://mee.foundation/ontologies/categories-person/health-wellness"
     - "http://mee.foundation/ontologies/categories-person/events"
     - "http://mee.foundation/ontologies/categories-person/government"
     - "http://mee.foundation/ontologies/categories-person/information"
