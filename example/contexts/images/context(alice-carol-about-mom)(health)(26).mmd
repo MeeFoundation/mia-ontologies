@@ -11,9 +11,9 @@ flowchart TD
     end
 
     naf30988316a0[":Jane_Kopakolva\n(Person)"]:::person
-    n9b6e4456f2f1("Jane"):::lit
-    n69561c289be9("Kopakolva"):::lit
-    n2dd5c594ed5b("Paula Walker's primary care physician"):::lit
+    nb5a79386b637("Jane"):::lit
+    nf19915727fda("Kopakolva"):::lit
+    nfb9822d14067("Paula Walker's primary care physician"):::lit
     n0f5c2d3385d8("https://www.example.org/mia/contexts/jane-kopakolva.self(jane-kopakolva)(paula-walker)(25)"):::lit
     n9c0041903ee1[":Paula_Medical_Appointment\n(MedicalAppointment)"]
     nf4296ab13de4[":Paula_Walker\n(Person)"]:::person
@@ -24,13 +24,13 @@ flowchart TD
     nb048c127c644("Medicare"):::lit
     nd767c2e2c89d("1EG4-TE5-MK72"):::lit
     nfb1be0ec8e6d("CVS Pharmacy, 123 Main St, Paradise, CA"):::lit
-    n6dc4a614f239("Paula"):::lit
-    nca87aa19db67("Walker"):::lit
+    n0fbc1b1412b3("Paula"):::lit
+    n5a1a991cfc79("Walker"):::lit
     n431bdc7d334e("https://www.example.org/mia/contexts/paula-walker.self(paula-walker)(immediate-family)(07)"):::lit
 
-    naf30988316a0 -->|"GivenName"| n9b6e4456f2f1
-    naf30988316a0 -->|"FamilyName"| n69561c289be9
-    naf30988316a0 -->|"ent00000048"| n2dd5c594ed5b
+    naf30988316a0 -->|"GivenName"| nb5a79386b637
+    naf30988316a0 -->|"FamilyName"| nf19915727fda
+    naf30988316a0 -->|"ent00000048"| nfb9822d14067
     naf30988316a0 -->|"copiedFromContext"| n0f5c2d3385d8
     n9c0041903ee1 -->|"forPatient"| nf4296ab13de4
     n9c0041903ee1 -->|"hasPrimaryCarePhysician"| naf30988316a0
@@ -41,6 +41,6 @@ flowchart TD
     n9c0041903ee1 -->|"insuranceProvider"| nb048c127c644
     n9c0041903ee1 -->|"insurancePolicyNumber"| nd767c2e2c89d
     n9c0041903ee1 -->|"preferredPharmacy"| nfb1be0ec8e6d
-    nf4296ab13de4 -->|"GivenName"| n6dc4a614f239
-    nf4296ab13de4 -->|"FamilyName"| nca87aa19db67
+    nf4296ab13de4 -->|"GivenName"| n0fbc1b1412b3
+    nf4296ab13de4 -->|"FamilyName"| n5a1a991cfc79
     nf4296ab13de4 -->|"copiedFromContext"| n431bdc7d334e

@@ -418,7 +418,7 @@ def generate_png(mmd_path: Path, png_path: Path) -> None:
         print("Warning: mmdc not found; skipping PNG generation")
         return
 
-    cmd = [mmdc, "-i", str(mmd_path), "-o", str(png_path), "-b", "white", "-s", "2"]
+    cmd = [mmdc, "-i", str(mmd_path), "-o", str(png_path), "-b", "white", "-s", "4"]
 
     chrome = _find_chrome()
     cfg_path = None
