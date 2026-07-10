@@ -231,9 +231,12 @@ Each of these five example categories contains contexts shown as circles. White 
 1. **Marketing** (`cat:Marketing`) — marketing activities, campaigns, and related organizations.
     - **Prospects** (`cat:Prospects`) - customer prospects. Rename to "Client prospects", etc.
 1. **Partners** (`cat:Partners`) — firms that provide goods and services.
-1. **Employees** (`cat:Employees`) — related to employees.
-    - **Employee** (`cat:Employee`) — detailed information about a specific employee.
-1. **Consultants (org)** (`cat:Consultants(org)`) — engaged consultants.
+1. **People (org)** (`cat:People(org)`) — people the organization interacts with in a working capacity.
+    - **Employees** (`cat:Employees`) — related to employees.
+        - **Employee** (`cat:Employee`) — detailed information about a specific employee.
+    - **Consultants (org)** (`cat:Consultants(org)`) — engaged consultants.
+    - **Other (org)** (`cat:Other(org)`) — people associated with the organization who don't fit Employees, Consultants, or Colleagues.
+    - **Colleagues** (`cat:Colleagues`) — coworkers and peers within the organization not tracked as formal Employee records.
 1. **KB** (`cat:KB`) — corporate knowledge bases.
 1. **Projects (org)** (`cat:Projects(org)`) — projects related to R&D, manufacturing, sales, marketing, operations, HR, etc.
 1. **Meetings (org)** (`cat:Meetings(org)`) — events, meetings, workshops, webinars, and gatherings.

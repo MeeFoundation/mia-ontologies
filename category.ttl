@@ -11,7 +11,7 @@
     owl:versionIRI <http://mee.foundation/ontologies/category/1.0.0> ;
     dc:date "2026-07-04"^^xsd:date ;
     owl:imports <http://mee.foundation/ontologies/context> ;
-    owl:versionInfo "Version 1.0.36 - replaced cat:FinancialServices(org) with 5 (org) copies of cat:Finances's subcategories under cat:Finances(org)"@en ;
+    owl:versionInfo "Version 1.0.37 - added cat:People(org) top-level category; moved Employees and Consultants(org) under it; added Other(org) and Colleagues"@en ;
     rdfs:label "Category Ontology"@en ;
     rdfs:comment """Category Ontology for the Mee Identity Agent"""@en .
 
@@ -615,8 +615,13 @@ cat:Partners rdf:type owl:Class ;
     rdfs:label "Partners"@en ;
     rdfs:comment "Firms that provide goods and services."@en .
 
-cat:Employees rdf:type owl:Class ;
+cat:People\(org\) rdf:type owl:Class ;
     rdfs:subClassOf cat:Organization ;
+    rdfs:label "People (org)"@en ;
+    rdfs:comment "People the organization interacts with in a working capacity."@en .
+
+cat:Employees rdf:type owl:Class ;
+    rdfs:subClassOf cat:People\(org\) ;
     rdfs:label "Employees"@en ;
     rdfs:comment "Related to employees."@en .
 
@@ -626,9 +631,19 @@ cat:Employee rdf:type owl:Class ;
     rdfs:comment "Detailed information about a specific employee."@en .
 
 cat:Consultants\(org\) rdf:type owl:Class ;
-    rdfs:subClassOf cat:Organization ;
+    rdfs:subClassOf cat:People\(org\) ;
     rdfs:label "Consultants (org)"@en ;
     rdfs:comment "Engaged consultants."@en .
+
+cat:Other\(org\) rdf:type owl:Class ;
+    rdfs:subClassOf cat:People\(org\) ;
+    rdfs:label "Other (org)"@en ;
+    rdfs:comment "People associated with the organization who don't fit Employees, Consultants, or Colleagues."@en .
+
+cat:Colleagues rdf:type owl:Class ;
+    rdfs:subClassOf cat:People\(org\) ;
+    rdfs:label "Colleagues"@en ;
+    rdfs:comment "Coworkers and peers within the organization not tracked as formal Employee records."@en .
 
 cat:KB rdf:type owl:Class ;
     rdfs:subClassOf cat:Organization ;
