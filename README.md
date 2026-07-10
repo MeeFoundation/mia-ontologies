@@ -95,19 +95,22 @@ Context file metadata (cell, claimant, subject, about-by) is declared in YAML fr
 
 ## Cell Ontology
 
-The cell ontology defines at tree structure of nested *cells* to organize the information in a person's life. 
-
-A user's own instantiated tree — copies of canonical cells plus any user-defined cells, found in `example/cells/` — is what actually organizes a real user's information; the canonical tree in `cells-person/` is only the template it's copied from. Both personal life (family, health, finances) and work life (employment, colleagues) are organized within this same tree, since `Work` is itself a `cell:Personal` subclass alongside `People` and `Health & Wellness`, not a separate branch. The `cells-org/` tree, rooted in `cell:Organizational`, exists so a person can copy pieces of it into their own `Work` branch to model the organizations they work for or with — e.g. Alice's `Work > Organization-Acme > Employees` cell is a copy of `cell:Organizational`'s `Employees`, since Acme's own structure is what her employment relationship is actually about.
+The cell ontology defines *cells* as containers of information about some aspect of a person's personal or work life. 
 
 ### Cells 
 
+The cell itself may contain a file folder, may contain a markdown note, and may contain a graph structure. It may also contain a set of references *contexts* (also graphs) as described in the previous section.
+
+The number and type of contexts varies depending on if this cell is shared or not and with how many parties it is shared. 
+
 Cells range in scope. They vary from a few broad top level cells like "People" to narrower cells like "Immediate Family" and ultimately narrowing down to individual relationships with a single family member. The user can choose at what level in this broader to narrower structure to put what kind of information. For example if the user has a nickname used only by this one family member, they can add that "claim" (attribute) at the individual relationship level. 
 
-Cells include references to zero, one or more *contexts* as described in the previous section.
+
+
 
 ### CellType and parties
 
-Every cell (other than the invisible root) is classified two ways: which class it is (or was copied from), and how many parties it involves.
+Every cell (other than the invisible root) is classified two ways: which cell type it is (or was copied from), and how many parties it involves.
 
 **CellType — `mia.cellType`.** Its value is the local name of the `cell:Cell` subclass this cell canonically is — for a canonical cell, e.g. `ImmediateFamily` or `Employees(org)` — or, for a user's instance copy of a canonical cell, the name of the class it was copied from (the same value as its canonical source). A cell with no canonical counterpart at all (e.g. a specific person, company, or group Alice created herself) uses `Cell` itself, the root class. Canonical cells are direct subclasses of `cell:Cell`: either `cell:Personal` (generally useful cells for organizing a person's personal, non-work, life) or `cell:Organizational` (cells tuned to a person's working life) — `mia.cellType` names the specific leaf subclass rather than this broader family, so new canonical subclasses can be added without changing the property itself.
 
@@ -126,6 +129,20 @@ Every cell (other than the invisible root) is classified two ways: which class i
 - **`cell:sbo`** - a context about the self as claimed by the other party.
 - **`cell:obo`** - a context about the other party as claimed by the other party.
 - **`cell:graph`** - link to a plain `c:Context` that doesn't fit the self-vs-other classification `cell:sbs`/`cell:obs`/`cell:sbo`/`cell:obo` assume — e.g. claims jointly maintained by multiple parties about a third party.
+
+### Representative cell types
+
+The diagram below shows five kinds of cells along with referenced contexts (the white and green circles). The first is a `cell:Personal` canonical cell. Next is an`cell:Organizational` cell. The third is a `cell:UserDefined` cell. The fourth is a cell:TwoParty cell between the user and another Mia user, Bob. The last is a `cell:MultiParty`--the Boston Hub Society (BHS) professional social network.
+
+<p align="center"><img src="images/cell-ontology/cells+contexts.png" alt="Cells and contexts"></p>
+
+Each of these five example cells contains contexts shown as circles. White circles are contexts whose triples are claimed by the self (the user). Green circles are contexts whose triples are claimed by a person other than the self (i:Individual), by an organization (i:Organization) or by a group (i:Group), and synchronized with the user's Mia instance over the PDN. For example the BHS cell at the bottom has three contexts: Self (the user)'s BHS profile, Carol's BHS profile (claimed by Carol) and information about the BHS itself (as claimed by the BHS) in the last green circle.
+
+### Cells are organized into trees
+
+To organize the user's information, they instantiate (copy) canonical cells into the user's instantiated tree. Both personal life (family, health, finances cells) and work life (employment, colleagues cells) are organized within this same tree, since `Work` is itself a `cell:Personal` subclass alongside `People` and `Health & Wellness`, not a separate branch. The `cells-org/` tree, rooted in `cell:Organizational`, exists so a person can copy pieces of it into their own `Work` branch to model the organizations they work for or with — e.g. Alice's `Work > Organization-Acme > Employees` cell is a copy of `cell:Organizational`'s `Employees`, since Acme's own structure is what her employment relationship is actually about.
+
+The top-to-bottom ordering of the two canonical cell trees is preserved when copied to the user's tree, although the user is always free to insert any number of user-defined cells at any level in the resulting tree. 
 
 #### A few details about cell:note and cell:folder
 `cell:note` and `cell:folder` point into two separate but parallel folder structures that mirror the structure of the cell tree. If the cell tree is `(People, (Immediate Family, Friends), Work)` then both hierarchies contain exactly the same folder names and nesting. Mia keeps both in sync with the cell tree — when a cell is created, renamed, or deleted, Mia updates both hierarchies automatically.
@@ -148,17 +165,7 @@ In the normal case `cell:note` and `cell:folder` are technically redundant — b
 2. **Graceful degradation** — Mia can continue to locate a cell's folder or note via the stored path even when the folder hierarchy has drifted out of sync with the cell tree.
 3. **Intentional overrides** — a user may deliberately want a cell's folder to live somewhere other than the derived location (e.g. `~/Pictures/Immediate Family/` rather than the default `~/Enclave/People/Immediate Family/`). The explicit link records that intentional deviation without disrupting the cell tree.
 
-### Example cell tree
-
-The diagram below shows a minimal example of a cell tree with five kinds of nodes as well as referenced contexts (the white and green circles). At the top is a `cell:Personal` canonical cell and its child, a `cell:Organizational` cell. At the third level is a `cell:UserDefined` cell which contains as its first child, a "Two-Party" (cell:TwoParty cell) between the user and another Mia user, Bob. Its second child is a "Multi-Party" (`cell:MultiParty`)--the Boston Hub Society (BHS) professional social network.
-
-The top-to-bottom ordering of the two canonical cell trees is preserved when copied to the user's tree, although the user is always free to insert any number of user-defined cells at any level in the resulting tree. 
-
-Each of these five example cells contains contexts shown as circles. White circles are contexts whose triples are claimed by the self (the user). Green circles are contexts whose triples are claimed by a person other than the self (i:Individual), by an organization (i:Organization) or by a group (i:Group), and synchronized with the user's Mia instance over the PDN. For example the BHS cell at the bottom has three contexts: Self (the user)'s BHS profile, Carol's BHS profile (claimed by Carol) and information about the BHS itself (as claimed by the BHS) in the last green circle.
-
-<p align="center"><img src="images/cell-ontology/cells+contexts.png" alt="Cells and contexts"></p>
-
-### Person Cells
+### Personal Cells
 
 `cell:Personal` cells (and sub-cells) are used to organize a person's information:
 
@@ -226,9 +233,9 @@ Each of these five example cells contains contexts shown as circles. White circl
         - **Residence** (`cell:Residence`) — a place a person has lived, current or past.
 1. **Companies** (`cell:Companies`) — miscellaneous companies and organizations that provide services or products to you. See also Finances, Health, Home, Food for companies and organizations related to those areas.
 
-### Organization Cells
+### Organizational Cells
 
-`cell:Organizational` cells for an organization's information:
+`cell:Organizational` cells related to a person's role within organization:
 
 1. **Customers** (`cell:Customers`) — customer organizations. Rename to "Clients", etc.
 1. **Marketing** (`cell:Marketing`) — marketing activities, campaigns, and related organizations.
