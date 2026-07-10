@@ -8,7 +8,7 @@ description: >
   Alice Walker's physical body characteristics: height, eye color, and hair color.
   Self-claimed by Alice.
 mia:
-  cell: "http://www.example.org/mia/cells/health-wellness"
+  cell: "http://www.example.org/mia/categories/health-wellness-cell"
   claimant: ":Self"
   subject: ":Self"
   about-by: "context:SBScontext"

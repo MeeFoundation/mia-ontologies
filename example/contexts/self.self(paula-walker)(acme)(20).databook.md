@@ -8,7 +8,7 @@ description: >
   Alice Walker's Acme employment context. Records her work email address and her
   Acme social network connection to colleague Paula Walker. Self-claimed by Alice.
 mia:
-  cell: "http://www.example.org/mia/cells/paula-walker(acme)"
+  cell: "http://www.example.org/mia/categories/paula-walker(acme)-cell"
   claimant: ":Self"
   subject: ":Self"
   about-by: "context:SBScontext"

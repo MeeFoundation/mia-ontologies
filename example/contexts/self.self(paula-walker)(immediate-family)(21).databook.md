@@ -8,7 +8,7 @@ description: >
   Alice Walker's family context. Records her maternal relationship with Paula Walker
   and her family social network. Self-claimed by Alice.
 mia:
-  cell: "http://www.example.org/mia/cells/paula-walker(immediate-family)"
+  cell: "http://www.example.org/mia/categories/paula-walker(immediate-family)-cell"
   claimant: ":Self"
   subject: ":Self"
   about-by: "context:SBScontext"

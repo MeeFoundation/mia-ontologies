@@ -8,7 +8,7 @@ description: >
   Alice's record of her colleague Paula Walker in the Acme employment context.
   Self-claimed by Alice; describes Paula as an individual.
 mia:
-  cell: "http://www.example.org/mia/cells/paula-walker(acme)"
+  cell: "http://www.example.org/mia/categories/paula-walker(acme)-cell"
   claimant: ":Self"
   subject: ":Paula_Walker"
   about-by: "context:OBScontext"

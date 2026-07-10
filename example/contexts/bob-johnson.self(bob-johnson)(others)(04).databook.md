@@ -7,7 +7,7 @@ created: 2026-06-15
 description: >
   Alice's record of Bob Johnson in their 1:1 relationship context.
 mia:
-  cell: "http://www.example.org/mia/cells/bob-johnson(others)"
+  cell: "http://www.example.org/mia/categories/bob-johnson(others)-cell"
   claimant: ":Self"
   subject: ":Bob_Johnson"
   about-by: "context:OBScontext"

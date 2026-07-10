@@ -8,7 +8,7 @@ description: >
   Alice Walker's SSA context. Records her Social Security Number as self-entered data.
   The SSA is not a PDN node, so Alice self-enters this from her physical SSA card.
 mia:
-  cell: "http://www.example.org/mia/cells/social-security-administration(federal)"
+  cell: "http://www.example.org/mia/categories/social-security-administration(federal)-cell"
   claimant: ":Self"
   subject: ":Self"
   about-by: "context:SBScontext"

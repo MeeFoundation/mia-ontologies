@@ -8,7 +8,7 @@ description: >
   Alice Walker's AT&T context. Records her mobile phone number as self-entered data
   about her AT&T account relationship.
 mia:
-  cell: "http://www.example.org/mia/cells/att(companies)"
+  cell: "http://www.example.org/mia/categories/att(companies)-cell"
   claimant: ":Self"
   subject: ":Self"
   about-by: "context:SBScontext"

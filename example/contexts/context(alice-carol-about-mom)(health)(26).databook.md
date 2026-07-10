@@ -11,7 +11,7 @@ description: >
   jointly maintained by Alice and Carol about a third party (Paula) and does
   not fit the self-vs-other classification those properties assume.
 mia:
-  cell: "http://www.example.org/mia/cells/alice-carol-about-mom(health)"
+  cell: "http://www.example.org/mia/categories/alice-carol-about-mom(health)-cell"
   template: "persona:MedicalAppointment"
 graph:
   named_graph: https://www.example.org/mia/contexts/context(alice-carol-about-mom)(health)(26)#graph

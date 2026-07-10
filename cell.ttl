@@ -8,12 +8,12 @@
 @base <http://mee.foundation/ontologies/cell> .
 
 <http://mee.foundation/ontologies/cell> rdf:type owl:Ontology ;
-    owl:versionIRI <http://mee.foundation/ontologies/cell/2.1.0> ;
-    dc:date "2026-07-11"^^xsd:date ;
+    owl:versionIRI <http://mee.foundation/ontologies/cell/3.0.0> ;
+    dc:date "2026-07-10"^^xsd:date ;
     owl:imports <http://mee.foundation/ontologies/context> ;
-    owl:versionInfo "Version 2.1.0 - restructured cell:MultiParty into an abstract superclass of cell:TwoParty and new cell:ThreePlusParty (label \"Multi-Party Cell\"); cell:TwoParty relabeled \"Two-Party Cell\"; moved cell:sbs/cell:num-parties domain to cell:Parties and cell:obs/cell:sbo/cell:obo domain to cell:MultiParty"@en ;
+    owl:versionInfo "Version 3.0.0 - split the former cell:Cell (the tree-position/hierarchy class and its ~90 subclasses, plus cell:child/cell:cellType/cell:copiedFrom) out into a new peer ontology, category.ttl, as cat:Category. The former cell:Parties is renamed cell:Cell: it is now the self-contained content facet of a cell (party composition plus sbs/obs/sbo/obo/graph/note/folder), linked from a cat:Category via the new cat:forCell property. This lets the same cell:Cell content be referenced by more than one cat:Category tree position. cell:label is re-added here (distinct from category.ttl's cat:label) as the default display name of a concrete cell:Cell subtype (e.g. \"Two-Party Cell\"), independent of any paired category's own cat:label."@en ;
     rdfs:label "Cell Ontology"@en ;
-    rdfs:comment """Cell Ontology for the Mee Identity Agent"""@en .
+    rdfs:comment """Cell Ontology for the Mee Identity Agent. Defines cell:Cell — the self-contained content facet of a cell (its party composition and its links to context data) — independent of where any cat:Category (see category.ttl) chooses to place it in a navigational tree."""@en .
 
 
 #################################################################
@@ -21,16 +21,10 @@
 #################################################################
 
 cell:num-parties rdf:type owl:AnnotationProperty ;
-    rdfs:domain cell:Parties ;
-    rdfs:range xsd:string ;
-    rdfs:label "num-parties"@en ;
-    rdfs:comment "The concrete cell:Parties subclass this DataBook instantiates. One of: OneParty, TwoParty, ThreePlusParty."@en .
-
-cell:cellType rdf:type owl:AnnotationProperty ;
     rdfs:domain cell:Cell ;
     rdfs:range xsd:string ;
-    rdfs:label "classname"@en ;
-    rdfs:comment "The local name of the cell:Cell subclass this DataBook canonically is (for a canonical cell, e.g. \"Family\") or was copied from (for a user-instance copy, e.g. \"Family\" again; for a purely user-defined cell with no canonical counterpart, the root class itself, \"Cell\"). Open-ended by design, so new canonical subclasses can be added without changing this property's definition."@en .
+    rdfs:label "num-parties"@en ;
+    rdfs:comment "The concrete cell:Cell subclass this DataBook instantiates. One of: OneParty, TwoParty, ThreePlusParty."@en .
 
 cell:abstract rdf:type owl:AnnotationProperty ;
     rdfs:domain owl:Class ;
@@ -38,21 +32,58 @@ cell:abstract rdf:type owl:AnnotationProperty ;
     rdfs:label "abstract"@en ;
     rdfs:comment "True if this class is not directly instantiated in DataBooks — it exists only to organize the class hierarchy."@en .
 
+cell:label rdf:type owl:AnnotationProperty ;
+    rdfs:domain cell:Cell ;
+    rdfs:range xsd:string ;
+    rdfs:label "label"@en ;
+    rdfs:comment "Default display name for a concrete cell:Cell subtype (e.g. \"Two-Party Cell\"), asserted directly on the class rather than an instance. Distinct from category.ttl's cat:label, which is the user-editable per-instance display name of a paired cat:Category — cell.ttl cannot reference cat:label since category.ttl imports cell.ttl, not the reverse."@en .
+
 
 #################################################################
 #    Cell
+#
+#    cell:Cell (formerly cell:Parties) classifies every cell instance
+#    by how many total parties (the user plus zero or more others)
+#    are involved in the relationship it represents: cell:OneParty
+#    (the user alone), or cell:MultiParty (the user plus one or more
+#    others, further split into cell:TwoParty and cell:ThreePlusParty).
+#    A cell:Cell instance is a self-contained content record — its
+#    party composition, and any sbs/obs/sbo/obo/graph links to context
+#    DataBooks — independent of any tree position. One or more
+#    cat:Category individuals (see category.ttl) may point at the same
+#    cell:Cell via cat:forCell to place its content in a navigational
+#    tree; cell:Cell itself carries no child/label/cellType/copiedFrom
+#    of its own, since those describe tree position, not content.
 #################################################################
 
 cell:Cell rdf:type owl:Class ;
+    cell:abstract true ;
     rdfs:label "Cell"@en ;
-    rdfs:comment """Controlled vocabulary for cells of contexts.
-                    Used as the value of context:cell on DataBook named graph IRIs."""@en .
+    rdfs:comment "Superclass classifying every cell instance by total party count: cell:OneParty (the user alone) or cell:MultiParty (the user plus one or more others, further split into cell:TwoParty and cell:ThreePlusParty). cell:num-parties records the same classification as a plain string for convenience. Formerly named cell:Parties, before cell.ttl's 3.0.0 split from category.ttl absorbed the old cell:Cell name for the tree-position class (now cat:Category)."@en .
 
-cell:child rdf:type owl:ObjectProperty ;
-    rdfs:domain cell:Cell ;
-    rdfs:range cell:Cell ;
-    rdfs:label "child"@en ;
-    rdfs:comment "Links a cell to a more specific child cell."@en .
+cell:MultiParty rdf:type owl:Class ;
+    cell:abstract true ;
+    rdfs:subClassOf cell:Cell ;
+    rdfs:label "MultiParty"@en ;
+    rdfs:comment "Abstract superclass of the two cell types involving more than one total party: cell:TwoParty (exactly one other party) and cell:ThreePlusParty (two or more other parties, e.g. a group)."@en .
+
+cell:TwoParty rdf:type owl:Class ;
+    rdfs:subClassOf cell:MultiParty ;
+    rdfs:label "TwoParty"@en ;
+    cell:label "Two-Party Cell" ;
+    rdfs:comment "A cell representing a 1:1 relationship with a specific person, organization, or other party."@en .
+
+cell:ThreePlusParty rdf:type owl:Class ;
+    rdfs:subClassOf cell:MultiParty ;
+    rdfs:label "ThreePlusParty"@en ;
+    cell:label "Multi-Party Cell" ;
+    rdfs:comment "A cell representing a shared relationship with two or more other parties — e.g. a group of people or organizations. Not to be confused with g:Group (a PDN group node)."@en .
+
+cell:OneParty rdf:type owl:Class ;
+    rdfs:subClassOf cell:Cell ;
+    rdfs:label "OneParty"@en ;
+    cell:label "Cell" ;
+    rdfs:comment "A cell with no external party — plain content with no connection or group semantics."@en .
 
 cell:graph rdf:type owl:ObjectProperty ;
     rdfs:domain cell:Cell ;
@@ -61,7 +92,7 @@ cell:graph rdf:type owl:ObjectProperty ;
     rdfs:comment "Links a cell to a plain context DataBook that does not fit the sbs/obs/sbo/obo self-vs-other classification — e.g. claims jointly maintained by multiple parties about a third party, rather than data cleanly claimable as self-vs-other. Unlike sbs/obs/sbo/obo, no about-by subject/claimant classification is implied by this property; the target context is typed context:Context directly rather than one of its four subclasses."@en .
 
 cell:sbs rdf:type owl:ObjectProperty ;
-    rdfs:domain cell:Parties ;
+    rdfs:domain cell:Cell ;
     rdfs:range context:SBScontext ;
     rdfs:label "self-by-self"@en ;
     rdfs:comment "Links a cell to a context DataBook where both subject and claimant are :Self — the Mia user is both the subject of and the claimant of the data."@en .
@@ -71,61 +102,6 @@ cell:obs rdf:type owl:ObjectProperty ;
     rdfs:range context:OBScontext ;
     rdfs:label "other-by-self"@en ;
     rdfs:comment "Links a cell to a context DataBook where subject is another person/org/group and claimant is :Self."@en .
-
-
-#################################################################
-#    Cell subclasses: Personal, Organizational, and UserDefined
-#################################################################
-
-cell:UserDefined rdf:type owl:Class ;
-    cell:abstract true ;
-    rdfs:subClassOf cell:Cell ;
-    rdfs:label "UserDefined"@en ;
-    rdfs:comment "Superclass of context cells defined by the Mia user."@en .
-
-cell:Parties rdf:type owl:Class ;
-    cell:abstract true ;
-    rdfs:label "Parties"@en ;
-    rdfs:comment "Superclass classifying every cell:Cell instance by how many total parties (the user plus zero or more others) are involved in the relationship it represents: cell:OneParty (the user alone), or cell:MultiParty (the user plus one or more others, further split into cell:TwoParty and cell:ThreePlusParty). cell:Parties is not rdfs:subClassOf cell:Cell, and vice versa — a cell's position in the tree (Cell) and its party count (Parties) are orthogonal facets of the same instance, so every cell:Cell instance is also formally typed as one of Parties's concrete subclasses. cell:num-parties records the same classification as a plain string for convenience."@en .
-
-cell:MultiParty rdf:type owl:Class ;
-    cell:abstract true ;
-    rdfs:subClassOf cell:Parties ;
-    rdfs:label "MultiParty"@en ;
-    rdfs:comment "Abstract superclass of the two cell types involving more than one total party: cell:TwoParty (exactly one other party) and cell:ThreePlusParty (two or more other parties, e.g. a group)."@en .
-
-cell:TwoParty rdf:type owl:Class ;
-    rdfs:subClassOf cell:MultiParty ;
-    rdfs:label "TwoParty"@en ;
-    cell:label "Two-Party Cell" ;
-    rdfs:comment "A user-defined cell representing a 1:1 relationship with a specific person, organization, or other party."@en .
-
-cell:ThreePlusParty rdf:type owl:Class ;
-    rdfs:subClassOf cell:MultiParty ;
-    rdfs:label "ThreePlusParty"@en ;
-    cell:label "Multi-Party Cell" ;
-    rdfs:comment "A user-defined cell representing a shared relationship with two or more other parties — e.g. a group of people or organizations. Not to be confused with g:Group (a PDN group node)."@en .
-
-cell:OneParty rdf:type owl:Class ;
-    rdfs:subClassOf cell:Parties ;
-    rdfs:label "OneParty"@en ;
-    cell:label "Cell" ;
-    rdfs:comment "A user-defined cell with no external party — a plain navigational container with no connection or group semantics."@en .
-
-cell:Personal rdf:type owl:Class ;
-    cell:abstract true ;
-    rdfs:subClassOf cell:Cell ;
-    rdfs:label "Personal"@en ;
-    rdfs:comment "Superclass of all built-in context cells that involve interactions with people or person-centric topics (e.g. People, Work, Government)."@en .
-
-cell:Organizational rdf:type owl:Class ;
-    rdfs:subClassOf cell:Cell ;
-    rdfs:label "Organizational"@en ;
-    rdfs:comment "Superclass of all built-in context cells that involve interactions with organizations (e.g. Companies, BankingPayments(org))."@en .
-
-#################################################################
-#    UserDefined properties
-#################################################################
 
 cell:sbo rdf:type owl:ObjectProperty ;
     rdfs:domain cell:MultiParty ;
@@ -139,23 +115,17 @@ cell:obo rdf:type owl:ObjectProperty ;
     rdfs:label "other-by-other"@en ;
     rdfs:comment "Links a connection cell to a context DataBook where both subject and claimant are another person, organization, or group."@en .
 
-cell:copiedFrom rdf:type owl:AnnotationProperty ;
-    rdfs:domain cell:Cell ;
-    rdfs:range xsd:anyURI ;
-    rdfs:label "copiedFrom"@en ;
-    rdfs:comment "IRI of the canonical cell this cell was copied from. Present only on user-instance copies of cells."@en .
-
 #################################################################
-#    Cell Notes, Folders, and Labels
+#    Cell Notes and Folders
 #
 #    Every cell is associated with two separate but parallel
-#    folder hierarchies that mirror the cell tree and
-#    are kept in sync by the Mia application:
+#    folder hierarchies that mirror its cat:Category's position in
+#    the category tree and are kept in sync by the Mia application:
 #
 #    Notes hierarchy — one folder per cell plus one .md file
 #    per cell, rooted at a configurable notes root (e.g.
-#    ~/MiaNotes/). Folder names and nesting match the cell tree
-#    exactly. The note for cell X is stored as X.md inside the
+#    ~/MiaNotes/). Folder names and nesting match the category tree
+#    exactly. The note for a cell is stored as X.md inside the
 #    X folder (e.g. Family/Family.md) — the same name as the folder
 #    itself. This matches the Obsidian Folder Notes plugin
 #    convention, which treats a file named exactly after its
@@ -169,19 +139,20 @@ cell:copiedFrom rdf:type owl:AnnotationProperty ;
 #
 #    Files hierarchy — one folder per cell, rooted at a
 #    configurable files root (e.g. ~/MiaFiles/). Folder names and
-#    nesting match the cell tree exactly. Each folder may
+#    nesting match the category tree exactly. Each folder may
 #    contain arbitrary files and additional subfolders that are not
-#    part of the cell tree itself.
+#    part of the category tree itself.
 #
-#    When a cell is created, renamed, or deleted, Mia updates
-#    both hierarchies automatically. The two roots are stored
-#    separately so the notes hierarchy can be opened as a
-#    standalone PKM vault without exposing the files hierarchy.
+#    When a cat:Category is created, renamed, or deleted, Mia updates
+#    both hierarchies automatically for the cell(s) it points at via
+#    cat:forCell. The two roots are stored separately so the notes
+#    hierarchy can be opened as a standalone PKM vault without
+#    exposing the files hierarchy.
 #
 #    Redundancy and robustness: in the normal case cell:note and
-#    cell:folder are technically redundant — both paths can be derived
-#    from the cell tree plus the two configured roots. They are
-#    retained for three reasons:
+#    cell:folder are technically redundant — both paths can be
+#    derived from the paired cat:Category's tree position plus the
+#    two configured roots. They are retained for three reasons:
 #
 #    1. Divergence detection: if a stored path no longer matches
 #       the derived path, Mia knows the user has manually renamed
@@ -191,542 +162,23 @@ cell:copiedFrom rdf:type owl:AnnotationProperty ;
 #    2. Graceful degradation: Mia can continue to locate a
 #       cell's folder or note via the stored path even when
 #       the folder hierarchy has drifted out of sync with the
-#       cell tree.
+#       category tree.
 #
 #    3. Intentional overrides: a user may deliberately want a
 #       cell's folder to live somewhere other than the derived
 #       location (e.g. ~/Photos/Family/ rather than the default
 #       ~/MiaFiles/People/Family/). The explicit link records that
-#       intentional deviation without disrupting the cell tree.
+#       intentional deviation without disrupting the category tree.
 #################################################################
 
 cell:note rdf:type owl:AnnotationProperty ;
     rdfs:domain cell:Cell ;
     rdfs:range xsd:anyURI ;
     rdfs:label "note"@en ;
-    rdfs:comment "Relative path within the notes hierarchy root to the cell note file, stored as CellName.md inside the cell folder (e.g. family/Family.md) — matching the Obsidian Folder Notes plugin convention. Normally derived automatically by Mia; retained explicitly for divergence detection, graceful degradation, and intentional overrides."@en .
+    rdfs:comment "Relative path within the notes hierarchy root to the cell note file, stored as CellName.md inside the cell folder (e.g. family/Family.md) — matching the Obsidian Folder Notes plugin convention. Normally derived automatically by Mia from the paired cat:Category's tree position; retained explicitly for divergence detection, graceful degradation, and intentional overrides."@en .
 
 cell:folder rdf:type owl:AnnotationProperty ;
     rdfs:domain cell:Cell ;
     rdfs:range xsd:anyURI ;
     rdfs:label "folder"@en ;
-    rdfs:comment "Relative path within the files hierarchy root to the folder for this cell. Normally derived automatically by Mia; retained explicitly for divergence detection, graceful degradation, and intentional overrides."@en .
-
-cell:label rdf:type owl:AnnotationProperty ;
-    rdfs:domain cell:Cell ;
-    rdfs:range xsd:string ;
-    rdfs:label "label"@en ;
-    rdfs:comment "User-editable display name for the cell. Defaults to the DataBook title but may be changed independently, leaving the immutable title and id intact."@en .
-
-#################################################################
-#    Personal subclasses
-#################################################################
-
-#################################################################
-#    cell:Affiliations and subclasses
-#################################################################
-
-
-cell:Affiliations rdf:type owl:Class ;
-    rdfs:subClassOf cell:Personal ;
-    rdfs:label "Affiliations"@en ;
-    rdfs:comment "Clubs, charities, faith groups, and other group affiliations not covered by a more specific cell — includes formal memberships and their social networks, some of which may be cell:ThreePlusParty ('Multi-Party Cell') cells that exist as a g:Group on the PDN. See also Sports & Entertainment for personal sports and entertainment interests, like following a favorite team, that aren't tied to a formal membership."@en .
-
-
-#################################################################
-#    cell:People and subclasses
-#################################################################
-
-cell:People rdf:type owl:Class ;
-    rdfs:subClassOf cell:Personal ;
-    rdfs:label "People"@en ;
-    rdfs:comment "People in your social or professional life. Use this cell for people not otherwise tied to a specific domain — a bookkeeper you know belongs under Finances (Advisory), and your primary care physician belongs under Health (Primary Care Physician), rather than here."@en .
-
-cell:ImmediateFamily rdf:type owl:Class ;
-    rdfs:subClassOf cell:People ;
-    rdfs:label "Immediate Family"@en ;
-    rdfs:comment "Your closest living relatives, which generally include parents, siblings, spouses/partners, and children."@en .
-
-cell:ExtendedFamily rdf:type owl:Class ;
-    rdfs:subClassOf cell:People ;
-    rdfs:label "Extended Family"@en ;
-    rdfs:comment "Relatives outside the immediate nuclear group, such as grandparents, aunts, uncles, cousins, nieces and nephews."@en .
-
-cell:InLawsStepFamily rdf:type owl:Class ;
-    rdfs:subClassOf cell:People ;
-    rdfs:label "In-Laws / Step-Family"@en ;
-    rdfs:comment "Relatives gained through marriage or legal guardianship, including a spouse's parents and siblings, or children from a previous relationship."@en .
-
-cell:Friends rdf:type owl:Class ;
-    rdfs:subClassOf cell:People ;
-    rdfs:label "Friends"@en ;
-    rdfs:comment "Interactions with friends."@en .
-
-cell:Others rdf:type owl:Class ;
-    rdfs:subClassOf cell:People ;
-    rdfs:label "Others"@en ;
-    rdfs:comment "People you know socially or professionally who are not family or friends — acquaintances, neighbors, or other connections not yet more specifically categorized."@en .
-
-#################################################################
-#    cell:Work and subclasses
-#################################################################
-
-cell:Work rdf:type owl:Class ;
-    rdfs:subClassOf cell:Personal ;
-    rdfs:label "Work"@en ;
-    rdfs:comment "Professional roles. Employment history, resume/CV."@en .
-
-
-#################################################################
-#    cell:Companies
-#################################################################
-
-cell:Companies rdf:type owl:Class ;
-    rdfs:subClassOf cell:Personal ;
-    rdfs:label "Companies"@en ;
-    rdfs:comment "Miscellaneous companies and organizations that provide services or products to you. See also Finances, Health, Home, Food for companies and organizations related to those areas."@en .
-
-
-#################################################################
-#    cell:Finances
-#################################################################
-
-cell:Finances rdf:type owl:Class ;
-    rdfs:subClassOf cell:Personal ;
-    rdfs:label "Finances"@en ;
-    rdfs:comment "Information about personal finances, bookkeeping, budgets, payment cards, bank accounts."@en .
-
-cell:BankingPayments rdf:type owl:Class ;
-    rdfs:subClassOf cell:Finances ;
-    rdfs:label "Banking & Payments"@en ;
-    rdfs:comment "Firms that help you store, access, and move your cash for daily living. These include Retail Banks & Credit Unions, which provide checking accounts, savings accounts, and debit cards. These also include Payment Processors like Visa, Mastercard, or PayPal that let you buy things online and in stores, and Remittance Firms like Western Union or Wise used to send money to family or friends, especially overseas."@en .
-
-cell:Investing rdf:type owl:Class ;
-    rdfs:subClassOf cell:Finances ;
-    rdfs:label "Investing"@en ;
-    rdfs:comment "Firms that help you buy assets so your money can grow over time for goals like buying a house or retiring. These include Brokerage Firms like Charles Schwab or Robinhood where you buy and sell stocks, bonds, and ETFs; Robo-Advisors, computer-run investing platforms like Betterment or Wealthfront that manage your portfolio for a low fee; and Mutual Fund Companies like Vanguard or Fidelity that pool your money with other investors to buy a large bundle of stocks."@en .
-
-cell:LendingCredit rdf:type owl:Class ;
-    rdfs:subClassOf cell:Finances ;
-    rdfs:label "Lending & Credit"@en ;
-    rdfs:comment "Firms that lend you money when you need to buy something expensive that you cannot pay for all at once. These include Mortgage Lenders, banks or specialized companies that give you loans specifically to buy a home; Consumer Finance Companies, that give out personal loans, auto loans, or student loans; and Credit Card Issuers, banks that give you a plastic card to borrow money on the spot for daily purchases."@en .
-
-cell:Insurance rdf:type owl:Class ;
-    rdfs:subClassOf cell:Finances ;
-    rdfs:label "Insurance"@en ;
-    rdfs:comment "Firms that protect you and your family from financial ruin if something bad happens. These include Life & Health Insurance firms that cover medical bills or provide money to your family if you pass away, and Property & Casualty Insurance firms that insure your car, home, or apartment against accidents and theft."@en .
-
-cell:Advisory rdf:type owl:Class ;
-    rdfs:subClassOf cell:Finances ;
-    rdfs:label "Advisory"@en ;
-    rdfs:comment "Firms and individuals who do not just hold your money, but tell you the best ways to use it. These include Financial Planners (Wealth Advisors), human experts who help you build a custom roadmap for taxes, retirement, and budgeting, and Estate Planners, specialized professionals who help you write wills and plan how to pass your money to your children. Also includes Accountants and Bookkeepers, who track your income and expenses and prepare your taxes."@en .
-
-#################################################################
-#    cell:HealthWellness
-#################################################################
-
-cell:HealthWellness rdf:type owl:Class ;
-    rdfs:subClassOf cell:Personal ;
-    rdfs:label "Health & Wellness"@en ;
-    rdfs:comment "Personal health and wellness information. Medical history, allergies, medications, vaccinations."@en .
-
-cell:Medical rdf:type owl:Class ;
-    rdfs:subClassOf cell:HealthWellness ;
-    rdfs:label "Medical"@en ;
-    rdfs:comment "Medical (as opposed to dental or vision) care — diagnoses, treatments, providers, and insurance."@en .
-
-cell:MedicalHistory rdf:type owl:Class ;
-    rdfs:subClassOf cell:Medical ;
-    rdfs:label "History"@en ;
-    rdfs:comment "Personal medical history: past diagnoses, conditions, surgeries, and treatments."@en .
-
-cell:MedicalInsurance rdf:type owl:Class ;
-    rdfs:subClassOf cell:Medical ;
-    rdfs:label "Insurance"@en ;
-    rdfs:comment "Medical health insurance policies, providers, and coverage."@en .
-
-cell:MedicalProviders rdf:type owl:Class ;
-    rdfs:subClassOf cell:Medical ;
-    rdfs:label "Providers"@en ;
-    rdfs:comment "Medical providers and practices you see for care, including your primary care physician and any medical appointments you help arrange."@en .
-
-cell:PrimaryCarePhysician rdf:type owl:Class ;
-    rdfs:subClassOf cell:MedicalProviders ;
-    rdfs:label "Primary Care Physician"@en ;
-    rdfs:comment "Your primary care doctor, the physician you generally see first for checkups, referrals, and everyday health concerns."@en .
-
-cell:MedicalAppointmentInfo rdf:type owl:Class ;
-    rdfs:subClassOf cell:MedicalProviders ;
-    rdfs:label "Medical Appointment Info"@en ;
-    rdfs:comment "A medical appointment a person manages on behalf of someone else they care for, e.g. a family member."@en .
-
-cell:Dental rdf:type owl:Class ;
-    rdfs:subClassOf cell:HealthWellness ;
-    rdfs:label "Dental"@en ;
-    rdfs:comment "Dental care — diagnoses, treatments, providers, and insurance."@en .
-
-cell:DentalHistory rdf:type owl:Class ;
-    rdfs:subClassOf cell:Dental ;
-    rdfs:label "History"@en ;
-    rdfs:comment "Personal dental history: past treatments, procedures, and conditions."@en .
-
-cell:DentalInsurance rdf:type owl:Class ;
-    rdfs:subClassOf cell:Dental ;
-    rdfs:label "Insurance"@en ;
-    rdfs:comment "Dental insurance policies, providers, and coverage."@en .
-
-cell:DentalProviders rdf:type owl:Class ;
-    rdfs:subClassOf cell:Dental ;
-    rdfs:label "Providers"@en ;
-    rdfs:comment "Dental providers and practices you see for care."@en .
-
-cell:Vision rdf:type owl:Class ;
-    rdfs:subClassOf cell:HealthWellness ;
-    rdfs:label "Vision"@en ;
-    rdfs:comment "Vision and eye care — diagnoses, treatments, providers, and insurance."@en .
-
-cell:VisionHistory rdf:type owl:Class ;
-    rdfs:subClassOf cell:Vision ;
-    rdfs:label "History"@en ;
-    rdfs:comment "Personal vision/eye care history: past prescriptions, treatments, and conditions."@en .
-
-cell:VisionInsurance rdf:type owl:Class ;
-    rdfs:subClassOf cell:Vision ;
-    rdfs:label "Insurance"@en ;
-    rdfs:comment "Vision insurance policies, providers, and coverage."@en .
-
-cell:VisionProviders rdf:type owl:Class ;
-    rdfs:subClassOf cell:Vision ;
-    rdfs:label "Providers"@en ;
-    rdfs:comment "Vision care providers and practices you see for care."@en .
-
-cell:Fitness rdf:type owl:Class ;
-    rdfs:subClassOf cell:HealthWellness ;
-    rdfs:label "Fitness"@en ;
-    rdfs:comment "General fitness and preventive physical health — exercise, gyms, trainers, and other non-clinical wellbeing information."@en .
-
-cell:FitnessProviders rdf:type owl:Class ;
-    rdfs:subClassOf cell:Fitness ;
-    rdfs:label "Providers"@en ;
-    rdfs:comment "Fitness providers and practices you see for care, e.g. gyms, trainers, and coaches."@en .
-
-cell:Nutrition rdf:type owl:Class ;
-    rdfs:subClassOf cell:HealthWellness ;
-    rdfs:label "Nutrition"@en ;
-    rdfs:comment "Nutritionists and dietitians — dietary counseling and meal planning."@en .
-
-cell:NutritionHistory rdf:type owl:Class ;
-    rdfs:subClassOf cell:Nutrition ;
-    rdfs:label "History"@en ;
-    rdfs:comment "Past nutritional consultations, diet plans, and dietary conditions."@en .
-
-cell:NutritionProviders rdf:type owl:Class ;
-    rdfs:subClassOf cell:Nutrition ;
-    rdfs:label "Providers"@en ;
-    rdfs:comment "Nutritionists and dietitians you see for care."@en .
-
-cell:MentalHealth rdf:type owl:Class ;
-    rdfs:subClassOf cell:HealthWellness ;
-    rdfs:label "Mental Health"@en ;
-    rdfs:comment "Mental and behavioral health care — therapy, counseling, and psychiatric care."@en .
-
-cell:MentalHealthHistory rdf:type owl:Class ;
-    rdfs:subClassOf cell:MentalHealth ;
-    rdfs:label "History"@en ;
-    rdfs:comment "Past diagnoses, treatments, and mental health conditions."@en .
-
-cell:MentalHealthInsurance rdf:type owl:Class ;
-    rdfs:subClassOf cell:MentalHealth ;
-    rdfs:label "Insurance"@en ;
-    rdfs:comment "Mental health insurance policies, providers, and coverage."@en .
-
-cell:MentalHealthProviders rdf:type owl:Class ;
-    rdfs:subClassOf cell:MentalHealth ;
-    rdfs:label "Providers"@en ;
-    rdfs:comment "Mental health providers and practices you see for care, e.g. therapists, counselors, and psychiatrists."@en .
-
-cell:PhysicalTherapy rdf:type owl:Class ;
-    rdfs:subClassOf cell:HealthWellness ;
-    rdfs:label "Physical Therapy"@en ;
-    rdfs:comment "Physical therapy and rehabilitative care."@en .
-
-cell:PhysicalTherapyHistory rdf:type owl:Class ;
-    rdfs:subClassOf cell:PhysicalTherapy ;
-    rdfs:label "History"@en ;
-    rdfs:comment "Past physical therapy treatments, injuries, and rehabilitation plans."@en .
-
-cell:PhysicalTherapyProviders rdf:type owl:Class ;
-    rdfs:subClassOf cell:PhysicalTherapy ;
-    rdfs:label "Providers"@en ;
-    rdfs:comment "Physical therapy providers and practices you see for care."@en .
-
-#################################################################
-#    cell:Events and subclasses
-#################################################################
-
-cell:Events rdf:type owl:Class ;
-    rdfs:subClassOf cell:Personal ;
-    rdfs:label "Events"@en ;
-    rdfs:comment "Participation in or relationship to a specific event or gathering."@en .
-
-
-#################################################################
-#    cell:Government Contexts and subclasses
-#################################################################
-
-cell:Government rdf:type owl:Class ;
-    rdfs:subClassOf cell:Personal ;
-    rdfs:label "Government"@en ;
-    rdfs:comment "Government-issued credentials, tax records, and civic relationships."@en .
-
-cell:Federal rdf:type owl:Class ;
-    rdfs:subClassOf cell:Government ;
-    rdfs:label "Federal"@en ;
-    rdfs:comment "Federal government context (e.g. passport, federal tax records)."@en .
-
-cell:SSA rdf:type owl:Class ;
-    rdfs:subClassOf cell:Federal ;
-    rdfs:label "SSA"@en ;
-    rdfs:comment "The Social Security Administration — issues and holds Social Security records."@en .
-
-cell:Passport rdf:type owl:Class ;
-    rdfs:subClassOf cell:Federal ;
-    rdfs:label "Passport"@en ;
-    rdfs:comment "A federal agency that issues and holds passport records."@en .
-
-cell:State rdf:type owl:Class ;
-    rdfs:subClassOf cell:Government ;
-    rdfs:label "State"@en ;
-    rdfs:comment "State government context (e.g. driver's license, state tax records)."@en .
-
-cell:BirthCertificate rdf:type owl:Class ;
-    rdfs:subClassOf cell:State ;
-    rdfs:label "BirthCertificate"@en ;
-    rdfs:comment "A state agency that issues and holds birth certificate records."@en .
-
-cell:DriversLicense rdf:type owl:Class ;
-    rdfs:subClassOf cell:State ;
-    rdfs:label "DriversLicense"@en ;
-    rdfs:comment "A state agency that issues and holds driver's license records."@en .
-
-cell:Municipality rdf:type owl:Class ;
-    rdfs:subClassOf cell:Government ;
-    rdfs:label "Municipality"@en ;
-    rdfs:comment "Municipal government context (e.g. local permits, library card)."@en .
-
-cell:Residence rdf:type owl:Class ;
-    rdfs:subClassOf cell:Municipality ;
-    rdfs:label "Residence"@en ;
-    rdfs:comment "A place a person has lived — current or past residential address."@en .
-
-#################################################################
-#    cell:Information and subclasses
-#################################################################
-
-cell:Information rdf:type owl:Class ;
-    rdfs:subClassOf cell:Personal ;
-    rdfs:label "Information"@en ;
-    rdfs:comment "General knowledge selected by you, web links, documents, images."@en .
-
-cell:Learnings rdf:type owl:Class ;
-    rdfs:subClassOf cell:Information ;
-    rdfs:label "Learnings"@en ;
-    rdfs:comment "Knowledge gained through personal experience."@en .
-
-#################################################################
-#    cell:Ownership and subclasses
-#################################################################
-
-cell:Ownership rdf:type owl:Class ;
-    rdfs:subClassOf cell:Personal ;
-    rdfs:label "Ownership"@en ;
-    rdfs:comment "Owned assets, property, vehicles, and other possessions."@en .
-
-cell:Vehicles rdf:type owl:Class ;
-    rdfs:subClassOf cell:Ownership ;
-    rdfs:label "Vehicles"@en ;
-    rdfs:comment "Related to owning and maintaining a vehicle. Vehicle insurance, repairs, mechanics, garages."@en .
-
-cell:Pets rdf:type owl:Class ;
-    rdfs:subClassOf cell:Personal ;
-    rdfs:label "Pets"@en ;
-    rdfs:comment "Care instructions, veterinarians, medicines, food providers."@en .
-
-cell:Home rdf:type owl:Class ;
-    rdfs:subClassOf cell:Personal ;
-    rdfs:label "Home"@en ;
-    rdfs:comment "Owning or renting a home, apartment, or other dwelling. Leases, deeds, utility accounts, real estate brokers."@en .
-
-#################################################################
-#    cell:Project and subclasses
-#################################################################
-
-cell:Projects rdf:type owl:Class ;
-    rdfs:subClassOf cell:Personal ;
-    rdfs:label "Projects"@en ;
-    rdfs:comment "Involvement in a specific project or initiative."@en .
-
-#################################################################
-#    cell:Legal
-#################################################################
-
-cell:Legal rdf:type owl:Class ;
-    rdfs:subClassOf cell:Personal ;
-    rdfs:label "Legal"@en ;
-    rdfs:comment "Legal matters, contracts, agreements, trusts, wills, and professional legal relationships."@en .
-
-#################################################################
-#    cell:Travel
-#################################################################
-
-cell:Travel rdf:type owl:Class ;
-    rdfs:subClassOf cell:Personal ;
-    rdfs:label "Travel"@en ;
-    rdfs:comment "Travel plans, trips, and related information. Loyalty programs, airlines, bus lines, trains."@en .
-
-#################################################################
-#    cell:Food
-#################################################################
-
-cell:Food rdf:type owl:Class ;
-    rdfs:subClassOf cell:Personal ;
-    rdfs:label "Food"@en ;
-    rdfs:comment "Food preferences, dietary restrictions, favorite restaurants, recipes, shopping lists, and other food-related interests."@en .
-
-#################################################################
-#    cell:SportsEntertainment
-#################################################################
-
-cell:SportsEntertainment rdf:type owl:Class ;
-    rdfs:subClassOf cell:Personal ;
-    rdfs:label "Sports & Entertainment"@en ;
-    rdfs:comment "Sports, hobbies, entertainment, and media interests. Favorite teams, venues, streaming services, ticketing. See also Affiliations for club or team memberships."@en .
-
-#################################################################
-#    Organizational subclasses
-#################################################################
-
-cell:Customers rdf:type owl:Class ;
-    rdfs:subClassOf cell:Organizational ;
-    rdfs:label "Customers"@en ;
-    rdfs:comment "Customer organizations. Rename to 'Clients', etc."@en .
-
-cell:Marketing rdf:type owl:Class ;
-    rdfs:subClassOf cell:Organizational ;
-    rdfs:label "Marketing"@en ;
-    rdfs:comment "Marketing activities, campaigns, and related organizations."@en .
-
-cell:Prospects rdf:type owl:Class ;
-    rdfs:subClassOf cell:Marketing ;
-    rdfs:label "Prospects"@en ;
-    rdfs:comment "Customer prospects. Rename to 'Client prospects', etc."@en .
-
-cell:Partners rdf:type owl:Class ;
-    rdfs:subClassOf cell:Organizational ;
-    rdfs:label "Partners"@en ;
-    rdfs:comment "Firms that provide goods and services."@en .
-
-cell:People\(org\) rdf:type owl:Class ;
-    rdfs:subClassOf cell:Organizational ;
-    rdfs:label "People (org)"@en ;
-    rdfs:comment "People the organization interacts with in a working capacity."@en .
-
-cell:Employees rdf:type owl:Class ;
-    rdfs:subClassOf cell:People\(org\) ;
-    rdfs:label "Employees"@en ;
-    rdfs:comment "Related to employees."@en .
-
-cell:Employee rdf:type owl:Class ;
-    rdfs:subClassOf cell:Employees ;
-    rdfs:label "Employee"@en ;
-    rdfs:comment "Detailed information about a specific employee."@en .
-
-cell:Consultants\(org\) rdf:type owl:Class ;
-    rdfs:subClassOf cell:People\(org\) ;
-    rdfs:label "Consultants (org)"@en ;
-    rdfs:comment "Engaged consultants."@en .
-
-cell:Other\(org\) rdf:type owl:Class ;
-    rdfs:subClassOf cell:People\(org\) ;
-    rdfs:label "Other (org)"@en ;
-    rdfs:comment "People associated with the organization who don't fit Employees, Consultants, or Colleagues."@en .
-
-cell:Colleagues rdf:type owl:Class ;
-    rdfs:subClassOf cell:People\(org\) ;
-    rdfs:label "Colleagues"@en ;
-    rdfs:comment "Coworkers and peers within the organization not tracked as formal Employee records."@en .
-
-cell:Advisors\(org\) rdf:type owl:Class ;
-    rdfs:subClassOf cell:People\(org\) ;
-    rdfs:label "Advisors (org)"@en ;
-    rdfs:comment "Individuals who advise the organization in a non-employee capacity."@en .
-
-cell:BoardOfDirectors\(org\) rdf:type owl:Class ;
-    rdfs:subClassOf cell:People\(org\) ;
-    rdfs:label "Board of Directors (org)"@en ;
-    rdfs:comment "The organization's board members."@en .
-
-cell:KB rdf:type owl:Class ;
-    rdfs:subClassOf cell:Organizational ;
-    rdfs:label "KB"@en ;
-    rdfs:comment "Corporate knowledge bases."@en .
-
-cell:Projects\(org\) rdf:type owl:Class ;
-    rdfs:subClassOf cell:Organizational ;
-    rdfs:label "Projects (org)"@en ;
-    rdfs:comment "Projects related to R&D, manufacturing, sales, marketing, operations, HR, etc."@en .
-
-cell:Meetings\(org\) rdf:type owl:Class ;
-    rdfs:subClassOf cell:Organizational ;
-    rdfs:label "Meetings (org)"@en ;
-    rdfs:comment "Events, meetings, workshops, webinars, and gatherings."@en .
-
-cell:Conferences rdf:type owl:Class ;
-    rdfs:subClassOf cell:Meetings\(org\) ;
-    rdfs:label "Conferences"@en ;
-    rdfs:comment "A conference or professional gathering."@en .
-
-cell:Suppliers rdf:type owl:Class ;
-    rdfs:subClassOf cell:Organizational ;
-    rdfs:label "Suppliers"@en ;
-    rdfs:comment "Companies that supply goods or services to this organization."@en .
-
-cell:Legal\(org\) rdf:type owl:Class ;
-    rdfs:subClassOf cell:Organizational ;
-    rdfs:label "Legal (org)"@en ;
-    rdfs:comment "Contracts and agreements."@en .
-
-cell:Government\(org\) rdf:type owl:Class ;
-    rdfs:subClassOf cell:Organizational ;
-    rdfs:label "Government (org)"@en ;
-    rdfs:comment "Interactions with government organizations."@en .
-
-cell:Finances\(org\) rdf:type owl:Class ;
-    rdfs:subClassOf cell:Organizational ;
-    rdfs:label "Finances (org)"@en ;
-    rdfs:comment "Corporate finance-related matters."@en .
-
-cell:BankingPayments\(org\) rdf:type owl:Class ;
-    rdfs:subClassOf cell:Finances\(org\) ;
-    rdfs:label "Banking & Payments (org)"@en ;
-    rdfs:comment "Firms that help the organization store, access, and move its cash — retail banks, payment processors, and remittance firms."@en .
-
-cell:Investing\(org\) rdf:type owl:Class ;
-    rdfs:subClassOf cell:Finances\(org\) ;
-    rdfs:label "Investing (org)"@en ;
-    rdfs:comment "Firms that help the organization invest and grow its assets — brokerage firms, robo-advisors, and mutual fund companies."@en .
-
-cell:LendingCredit\(org\) rdf:type owl:Class ;
-    rdfs:subClassOf cell:Finances\(org\) ;
-    rdfs:label "Lending & Credit (org)"@en ;
-    rdfs:comment "Firms that lend the organization money — mortgage lenders, commercial finance companies, and credit card issuers."@en .
-
-cell:Insurance\(org\) rdf:type owl:Class ;
-    rdfs:subClassOf cell:Finances\(org\) ;
-    rdfs:label "Insurance (org)"@en ;
-    rdfs:comment "Firms that insure the organization against financial loss — property, casualty, and liability insurance."@en .
-
-cell:Advisory\(org\) rdf:type owl:Class ;
-    rdfs:subClassOf cell:Finances\(org\) ;
-    rdfs:label "Advisory (org)"@en ;
-    rdfs:comment "Firms and individuals who advise the organization on how to use its money — financial planners, estate planners, accountants, and bookkeepers."@en .
+    rdfs:comment "Relative path within the files hierarchy root to the folder for this cell. Normally derived automatically by Mia from the paired cat:Category's tree position; retained explicitly for divergence detection, graceful degradation, and intentional overrides."@en .

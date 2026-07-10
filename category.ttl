@@ -1,0 +1,606 @@
+@prefix cat: <http://mee.foundation/ontologies/category#> .
+@prefix cell: <http://mee.foundation/ontologies/cell#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix dc: <http://purl.org/dc/elements/1.1/> .
+@base <http://mee.foundation/ontologies/category> .
+
+<http://mee.foundation/ontologies/category> rdf:type owl:Ontology ;
+    owl:versionIRI <http://mee.foundation/ontologies/category/1.0.0> ;
+    dc:date "2026-07-10"^^xsd:date ;
+    owl:imports <http://mee.foundation/ontologies/cell> ;
+    owl:versionInfo "Version 1.0.0 - new ontology, split out of cell.ttl 3.0.0. Carries the tree-position class formerly named cell:Cell (renamed cat:Category, with its ~90 subclasses), plus cell:child/cell:label/cell:cellType/cell:copiedFrom (renamed cat:child/cat:label/cat:catType/cat:copiedFrom, domain changed to cat:Category), and a new cat:forCell property linking a Category to the cell:Cell instance holding its content. cat:Organizational marked cell:abstract, matching cat:Personal/cat:UserDefined. cat:cellType renamed cat:catType."@en ;
+    rdfs:label "Category Ontology"@en ;
+    rdfs:comment """Category Ontology for the Mee Identity Agent. Defines cat:Category — the tree-position facet of a cell: where it sits in a user's (or a canonical library's) navigational tree, its display label, and which cell:Cell (see cell.ttl) holds its content. Separating Category from Cell lets the same cell content be placed by more than one independently-organized tree — e.g. Alice and Bob each filing a cell they share wherever they individually want it."""@en .
+
+
+#################################################################
+#    Annotation Properties for Category DataBook Classification
+#################################################################
+
+cat:catType rdf:type owl:AnnotationProperty ;
+    rdfs:domain cat:Category ;
+    rdfs:range xsd:string ;
+    rdfs:label "classname"@en ;
+    rdfs:comment "The local name of the cat:Category subclass this DataBook canonically is (for a canonical category, e.g. \"Family\") or was copied from (for a user-instance copy, e.g. \"Family\" again; for a purely user-defined category with no canonical counterpart, the root class itself, \"Category\"). Open-ended by design, so new canonical subclasses can be added without changing this property's definition."@en .
+
+cat:label rdf:type owl:AnnotationProperty ;
+    rdfs:domain cat:Category ;
+    rdfs:range xsd:string ;
+    rdfs:label "label"@en ;
+    rdfs:comment "User-editable display name for the category. Defaults to the DataBook title but may be changed independently, leaving the immutable title and id intact."@en .
+
+cat:copiedFrom rdf:type owl:AnnotationProperty ;
+    rdfs:domain cat:Category ;
+    rdfs:range xsd:anyURI ;
+    rdfs:label "copiedFrom"@en ;
+    rdfs:comment "IRI of the canonical category this category was copied from. Present only on user-instance copies of categories."@en .
+
+
+#################################################################
+#    Category
+#################################################################
+
+cat:Category rdf:type owl:Class ;
+    rdfs:label "Category"@en ;
+    rdfs:comment """The tree-position facet of a cell: a node in a navigational tree of
+                    cat:Category instances (linked by cat:child), each pointing via
+                    cat:forCell to the cell:Cell instance (see cell.ttl) that holds its
+                    actual content — party composition and any sbs/obs/sbo/obo/graph
+                    links to context DataBooks. cat:Category carries no content of its
+                    own: cell:Cell is a self-contained record, and the same cell:Cell may
+                    in principle be the target of more than one cat:Category — e.g. two
+                    different positions in one user's own tree, or (architecturally,
+                    though every Mia instance in this example repo organizes only its
+                    own tree) positions in two different users' independently-held
+                    trees that both reference a cell they share."""@en .
+
+cat:child rdf:type owl:ObjectProperty ;
+    rdfs:domain cat:Category ;
+    rdfs:range cat:Category ;
+    rdfs:label "child"@en ;
+    rdfs:comment "Links a category to a more specific child category, forming the navigational tree."@en .
+
+cat:forCell rdf:type owl:ObjectProperty ;
+    rdfs:domain cat:Category ;
+    rdfs:range cell:Cell ;
+    rdfs:label "forCell"@en ;
+    rdfs:comment "Links a category (tree position) to the cell:Cell instance holding its content — party composition (cell:num-parties) and any sbs/obs/sbo/obo/graph/note/folder facts. Every cat:Category has exactly one cat:forCell. In the common case each category is minted alongside its own paired cell, with a matching '-cell'-suffixed IRI; the split exists so the same cell:Cell can, in principle, be referenced from more than one cat:Category."@en .
+
+
+#################################################################
+#    Category subclasses: Personal, Organizational, and UserDefined
+#################################################################
+
+cat:UserDefined rdf:type owl:Class ;
+    cell:abstract true ;
+    rdfs:subClassOf cat:Category ;
+    rdfs:label "UserDefined"@en ;
+    rdfs:comment "Superclass of context categories defined by the Mia user."@en .
+
+cat:Personal rdf:type owl:Class ;
+    cell:abstract true ;
+    rdfs:subClassOf cat:Category ;
+    rdfs:label "Personal"@en ;
+    rdfs:comment "Superclass of all built-in context categories that involve interactions with people or person-centric topics (e.g. People, Work, Government)."@en .
+
+cat:Organizational rdf:type owl:Class ;
+    cell:abstract true ;
+    rdfs:subClassOf cat:Category ;
+    rdfs:label "Organizational"@en ;
+    rdfs:comment "Superclass of all built-in context categories that involve interactions with organizations (e.g. Companies, BankingPayments(org))."@en .
+
+#################################################################
+#    Personal subclasses
+#################################################################
+
+#################################################################
+#    cat:Affiliations and subclasses
+#################################################################
+
+
+cat:Affiliations rdf:type owl:Class ;
+    rdfs:subClassOf cat:Personal ;
+    rdfs:label "Affiliations"@en ;
+    rdfs:comment "Clubs, charities, faith groups, and other group affiliations not covered by a more specific category — includes formal memberships and their social networks, some of which may be cell:ThreePlusParty ('Multi-Party Cell') cells that exist as a g:Group on the PDN. See also Sports & Entertainment for personal sports and entertainment interests, like following a favorite team, that aren't tied to a formal membership."@en .
+
+
+#################################################################
+#    cat:People and subclasses
+#################################################################
+
+cat:People rdf:type owl:Class ;
+    rdfs:subClassOf cat:Personal ;
+    rdfs:label "People"@en ;
+    rdfs:comment "People in your social or professional life. Use this category for people not otherwise tied to a specific domain — a bookkeeper you know belongs under Finances (Advisory), and your primary care physician belongs under Health (Primary Care Physician), rather than here."@en .
+
+cat:ImmediateFamily rdf:type owl:Class ;
+    rdfs:subClassOf cat:People ;
+    rdfs:label "Immediate Family"@en ;
+    rdfs:comment "Your closest living relatives, which generally include parents, siblings, spouses/partners, and children."@en .
+
+cat:ExtendedFamily rdf:type owl:Class ;
+    rdfs:subClassOf cat:People ;
+    rdfs:label "Extended Family"@en ;
+    rdfs:comment "Relatives outside the immediate nuclear group, such as grandparents, aunts, uncles, cousins, nieces and nephews."@en .
+
+cat:InLawsStepFamily rdf:type owl:Class ;
+    rdfs:subClassOf cat:People ;
+    rdfs:label "In-Laws / Step-Family"@en ;
+    rdfs:comment "Relatives gained through marriage or legal guardianship, including a spouse's parents and siblings, or children from a previous relationship."@en .
+
+cat:Friends rdf:type owl:Class ;
+    rdfs:subClassOf cat:People ;
+    rdfs:label "Friends"@en ;
+    rdfs:comment "Interactions with friends."@en .
+
+cat:Others rdf:type owl:Class ;
+    rdfs:subClassOf cat:People ;
+    rdfs:label "Others"@en ;
+    rdfs:comment "People you know socially or professionally who are not family or friends — acquaintances, neighbors, or other connections not yet more specifically categorized."@en .
+
+#################################################################
+#    cat:Work and subclasses
+#################################################################
+
+cat:Work rdf:type owl:Class ;
+    rdfs:subClassOf cat:Personal ;
+    rdfs:label "Work"@en ;
+    rdfs:comment "Professional roles. Employment history, resume/CV."@en .
+
+
+#################################################################
+#    cat:Companies
+#################################################################
+
+cat:Companies rdf:type owl:Class ;
+    rdfs:subClassOf cat:Personal ;
+    rdfs:label "Companies"@en ;
+    rdfs:comment "Miscellaneous companies and organizations that provide services or products to you. See also Finances, Health, Home, Food for companies and organizations related to those areas."@en .
+
+
+#################################################################
+#    cat:Finances
+#################################################################
+
+cat:Finances rdf:type owl:Class ;
+    rdfs:subClassOf cat:Personal ;
+    rdfs:label "Finances"@en ;
+    rdfs:comment "Information about personal finances, bookkeeping, budgets, payment cards, bank accounts."@en .
+
+cat:BankingPayments rdf:type owl:Class ;
+    rdfs:subClassOf cat:Finances ;
+    rdfs:label "Banking & Payments"@en ;
+    rdfs:comment "Firms that help you store, access, and move your cash for daily living. These include Retail Banks & Credit Unions, which provide checking accounts, savings accounts, and debit cards. These also include Payment Processors like Visa, Mastercard, or PayPal that let you buy things online and in stores, and Remittance Firms like Western Union or Wise used to send money to family or friends, especially overseas."@en .
+
+cat:Investing rdf:type owl:Class ;
+    rdfs:subClassOf cat:Finances ;
+    rdfs:label "Investing"@en ;
+    rdfs:comment "Firms that help you buy assets so your money can grow over time for goals like buying a house or retiring. These include Brokerage Firms like Charles Schwab or Robinhood where you buy and sell stocks, bonds, and ETFs; Robo-Advisors, computer-run investing platforms like Betterment or Wealthfront that manage your portfolio for a low fee; and Mutual Fund Companies like Vanguard or Fidelity that pool your money with other investors to buy a large bundle of stocks."@en .
+
+cat:LendingCredit rdf:type owl:Class ;
+    rdfs:subClassOf cat:Finances ;
+    rdfs:label "Lending & Credit"@en ;
+    rdfs:comment "Firms that lend you money when you need to buy something expensive that you cannot pay for all at once. These include Mortgage Lenders, banks or specialized companies that give you loans specifically to buy a home; Consumer Finance Companies, that give out personal loans, auto loans, or student loans; and Credit Card Issuers, banks that give you a plastic card to borrow money on the spot for daily purchases."@en .
+
+cat:Insurance rdf:type owl:Class ;
+    rdfs:subClassOf cat:Finances ;
+    rdfs:label "Insurance"@en ;
+    rdfs:comment "Firms that protect you and your family from financial ruin if something bad happens. These include Life & Health Insurance firms that cover medical bills or provide money to your family if you pass away, and Property & Casualty Insurance firms that insure your car, home, or apartment against accidents and theft."@en .
+
+cat:Advisory rdf:type owl:Class ;
+    rdfs:subClassOf cat:Finances ;
+    rdfs:label "Advisory"@en ;
+    rdfs:comment "Firms and individuals who do not just hold your money, but tell you the best ways to use it. These include Financial Planners (Wealth Advisors), human experts who help you build a custom roadmap for taxes, retirement, and budgeting, and Estate Planners, specialized professionals who help you write wills and plan how to pass your money to your children. Also includes Accountants and Bookkeepers, who track your income and expenses and prepare your taxes."@en .
+
+#################################################################
+#    cat:HealthWellness
+#################################################################
+
+cat:HealthWellness rdf:type owl:Class ;
+    rdfs:subClassOf cat:Personal ;
+    rdfs:label "Health & Wellness"@en ;
+    rdfs:comment "Personal health and wellness information. Medical history, allergies, medications, vaccinations."@en .
+
+cat:Medical rdf:type owl:Class ;
+    rdfs:subClassOf cat:HealthWellness ;
+    rdfs:label "Medical"@en ;
+    rdfs:comment "Medical (as opposed to dental or vision) care — diagnoses, treatments, providers, and insurance."@en .
+
+cat:MedicalHistory rdf:type owl:Class ;
+    rdfs:subClassOf cat:Medical ;
+    rdfs:label "History"@en ;
+    rdfs:comment "Personal medical history: past diagnoses, conditions, surgeries, and treatments."@en .
+
+cat:MedicalInsurance rdf:type owl:Class ;
+    rdfs:subClassOf cat:Medical ;
+    rdfs:label "Insurance"@en ;
+    rdfs:comment "Medical health insurance policies, providers, and coverage."@en .
+
+cat:MedicalProviders rdf:type owl:Class ;
+    rdfs:subClassOf cat:Medical ;
+    rdfs:label "Providers"@en ;
+    rdfs:comment "Medical providers and practices you see for care, including your primary care physician and any medical appointments you help arrange."@en .
+
+cat:PrimaryCarePhysician rdf:type owl:Class ;
+    rdfs:subClassOf cat:MedicalProviders ;
+    rdfs:label "Primary Care Physician"@en ;
+    rdfs:comment "Your primary care doctor, the physician you generally see first for checkups, referrals, and everyday health concerns."@en .
+
+cat:MedicalAppointmentInfo rdf:type owl:Class ;
+    rdfs:subClassOf cat:MedicalProviders ;
+    rdfs:label "Medical Appointment Info"@en ;
+    rdfs:comment "A medical appointment a person manages on behalf of someone else they care for, e.g. a family member."@en .
+
+cat:Dental rdf:type owl:Class ;
+    rdfs:subClassOf cat:HealthWellness ;
+    rdfs:label "Dental"@en ;
+    rdfs:comment "Dental care — diagnoses, treatments, providers, and insurance."@en .
+
+cat:DentalHistory rdf:type owl:Class ;
+    rdfs:subClassOf cat:Dental ;
+    rdfs:label "History"@en ;
+    rdfs:comment "Personal dental history: past treatments, procedures, and conditions."@en .
+
+cat:DentalInsurance rdf:type owl:Class ;
+    rdfs:subClassOf cat:Dental ;
+    rdfs:label "Insurance"@en ;
+    rdfs:comment "Dental insurance policies, providers, and coverage."@en .
+
+cat:DentalProviders rdf:type owl:Class ;
+    rdfs:subClassOf cat:Dental ;
+    rdfs:label "Providers"@en ;
+    rdfs:comment "Dental providers and practices you see for care."@en .
+
+cat:Vision rdf:type owl:Class ;
+    rdfs:subClassOf cat:HealthWellness ;
+    rdfs:label "Vision"@en ;
+    rdfs:comment "Vision and eye care — diagnoses, treatments, providers, and insurance."@en .
+
+cat:VisionHistory rdf:type owl:Class ;
+    rdfs:subClassOf cat:Vision ;
+    rdfs:label "History"@en ;
+    rdfs:comment "Personal vision/eye care history: past prescriptions, treatments, and conditions."@en .
+
+cat:VisionInsurance rdf:type owl:Class ;
+    rdfs:subClassOf cat:Vision ;
+    rdfs:label "Insurance"@en ;
+    rdfs:comment "Vision insurance policies, providers, and coverage."@en .
+
+cat:VisionProviders rdf:type owl:Class ;
+    rdfs:subClassOf cat:Vision ;
+    rdfs:label "Providers"@en ;
+    rdfs:comment "Vision care providers and practices you see for care."@en .
+
+cat:Fitness rdf:type owl:Class ;
+    rdfs:subClassOf cat:HealthWellness ;
+    rdfs:label "Fitness"@en ;
+    rdfs:comment "General fitness and preventive physical health — exercise, gyms, trainers, and other non-clinical wellbeing information."@en .
+
+cat:FitnessProviders rdf:type owl:Class ;
+    rdfs:subClassOf cat:Fitness ;
+    rdfs:label "Providers"@en ;
+    rdfs:comment "Fitness providers and practices you see for care, e.g. gyms, trainers, and coaches."@en .
+
+cat:Nutrition rdf:type owl:Class ;
+    rdfs:subClassOf cat:HealthWellness ;
+    rdfs:label "Nutrition"@en ;
+    rdfs:comment "Nutritionists and dietitians — dietary counseling and meal planning."@en .
+
+cat:NutritionHistory rdf:type owl:Class ;
+    rdfs:subClassOf cat:Nutrition ;
+    rdfs:label "History"@en ;
+    rdfs:comment "Past nutritional consultations, diet plans, and dietary conditions."@en .
+
+cat:NutritionProviders rdf:type owl:Class ;
+    rdfs:subClassOf cat:Nutrition ;
+    rdfs:label "Providers"@en ;
+    rdfs:comment "Nutritionists and dietitians you see for care."@en .
+
+cat:MentalHealth rdf:type owl:Class ;
+    rdfs:subClassOf cat:HealthWellness ;
+    rdfs:label "Mental Health"@en ;
+    rdfs:comment "Mental and behavioral health care — therapy, counseling, and psychiatric care."@en .
+
+cat:MentalHealthHistory rdf:type owl:Class ;
+    rdfs:subClassOf cat:MentalHealth ;
+    rdfs:label "History"@en ;
+    rdfs:comment "Past diagnoses, treatments, and mental health conditions."@en .
+
+cat:MentalHealthInsurance rdf:type owl:Class ;
+    rdfs:subClassOf cat:MentalHealth ;
+    rdfs:label "Insurance"@en ;
+    rdfs:comment "Mental health insurance policies, providers, and coverage."@en .
+
+cat:MentalHealthProviders rdf:type owl:Class ;
+    rdfs:subClassOf cat:MentalHealth ;
+    rdfs:label "Providers"@en ;
+    rdfs:comment "Mental health providers and practices you see for care, e.g. therapists, counselors, and psychiatrists."@en .
+
+cat:PhysicalTherapy rdf:type owl:Class ;
+    rdfs:subClassOf cat:HealthWellness ;
+    rdfs:label "Physical Therapy"@en ;
+    rdfs:comment "Physical therapy and rehabilitative care."@en .
+
+cat:PhysicalTherapyHistory rdf:type owl:Class ;
+    rdfs:subClassOf cat:PhysicalTherapy ;
+    rdfs:label "History"@en ;
+    rdfs:comment "Past physical therapy treatments, injuries, and rehabilitation plans."@en .
+
+cat:PhysicalTherapyProviders rdf:type owl:Class ;
+    rdfs:subClassOf cat:PhysicalTherapy ;
+    rdfs:label "Providers"@en ;
+    rdfs:comment "Physical therapy providers and practices you see for care."@en .
+
+#################################################################
+#    cat:Events and subclasses
+#################################################################
+
+cat:Events rdf:type owl:Class ;
+    rdfs:subClassOf cat:Personal ;
+    rdfs:label "Events"@en ;
+    rdfs:comment "Participation in or relationship to a specific event or gathering."@en .
+
+
+#################################################################
+#    cat:Government Contexts and subclasses
+#################################################################
+
+cat:Government rdf:type owl:Class ;
+    rdfs:subClassOf cat:Personal ;
+    rdfs:label "Government"@en ;
+    rdfs:comment "Government-issued credentials, tax records, and civic relationships."@en .
+
+cat:Federal rdf:type owl:Class ;
+    rdfs:subClassOf cat:Government ;
+    rdfs:label "Federal"@en ;
+    rdfs:comment "Federal government context (e.g. passport, federal tax records)."@en .
+
+cat:SSA rdf:type owl:Class ;
+    rdfs:subClassOf cat:Federal ;
+    rdfs:label "SSA"@en ;
+    rdfs:comment "The Social Security Administration — issues and holds Social Security records."@en .
+
+cat:Passport rdf:type owl:Class ;
+    rdfs:subClassOf cat:Federal ;
+    rdfs:label "Passport"@en ;
+    rdfs:comment "A federal agency that issues and holds passport records."@en .
+
+cat:State rdf:type owl:Class ;
+    rdfs:subClassOf cat:Government ;
+    rdfs:label "State"@en ;
+    rdfs:comment "State government context (e.g. driver's license, state tax records)."@en .
+
+cat:BirthCertificate rdf:type owl:Class ;
+    rdfs:subClassOf cat:State ;
+    rdfs:label "BirthCertificate"@en ;
+    rdfs:comment "A state agency that issues and holds birth certificate records."@en .
+
+cat:DriversLicense rdf:type owl:Class ;
+    rdfs:subClassOf cat:State ;
+    rdfs:label "DriversLicense"@en ;
+    rdfs:comment "A state agency that issues and holds driver's license records."@en .
+
+cat:Municipality rdf:type owl:Class ;
+    rdfs:subClassOf cat:Government ;
+    rdfs:label "Municipality"@en ;
+    rdfs:comment "Municipal government context (e.g. local permits, library card)."@en .
+
+cat:Residence rdf:type owl:Class ;
+    rdfs:subClassOf cat:Municipality ;
+    rdfs:label "Residence"@en ;
+    rdfs:comment "A place a person has lived — current or past residential address."@en .
+
+#################################################################
+#    cat:Information and subclasses
+#################################################################
+
+cat:Information rdf:type owl:Class ;
+    rdfs:subClassOf cat:Personal ;
+    rdfs:label "Information"@en ;
+    rdfs:comment "General knowledge selected by you, web links, documents, images."@en .
+
+cat:Learnings rdf:type owl:Class ;
+    rdfs:subClassOf cat:Information ;
+    rdfs:label "Learnings"@en ;
+    rdfs:comment "Knowledge gained through personal experience."@en .
+
+#################################################################
+#    cat:Ownership and subclasses
+#################################################################
+
+cat:Ownership rdf:type owl:Class ;
+    rdfs:subClassOf cat:Personal ;
+    rdfs:label "Ownership"@en ;
+    rdfs:comment "Owned assets, property, vehicles, and other possessions."@en .
+
+cat:Vehicles rdf:type owl:Class ;
+    rdfs:subClassOf cat:Ownership ;
+    rdfs:label "Vehicles"@en ;
+    rdfs:comment "Related to owning and maintaining a vehicle. Vehicle insurance, repairs, mechanics, garages."@en .
+
+cat:Pets rdf:type owl:Class ;
+    rdfs:subClassOf cat:Personal ;
+    rdfs:label "Pets"@en ;
+    rdfs:comment "Care instructions, veterinarians, medicines, food providers."@en .
+
+cat:Home rdf:type owl:Class ;
+    rdfs:subClassOf cat:Personal ;
+    rdfs:label "Home"@en ;
+    rdfs:comment "Owning or renting a home, apartment, or other dwelling. Leases, deeds, utility accounts, real estate brokers."@en .
+
+#################################################################
+#    cat:Project and subclasses
+#################################################################
+
+cat:Projects rdf:type owl:Class ;
+    rdfs:subClassOf cat:Personal ;
+    rdfs:label "Projects"@en ;
+    rdfs:comment "Involvement in a specific project or initiative."@en .
+
+#################################################################
+#    cat:Legal
+#################################################################
+
+cat:Legal rdf:type owl:Class ;
+    rdfs:subClassOf cat:Personal ;
+    rdfs:label "Legal"@en ;
+    rdfs:comment "Legal matters, contracts, agreements, trusts, wills, and professional legal relationships."@en .
+
+#################################################################
+#    cat:Travel
+#################################################################
+
+cat:Travel rdf:type owl:Class ;
+    rdfs:subClassOf cat:Personal ;
+    rdfs:label "Travel"@en ;
+    rdfs:comment "Travel plans, trips, and related information. Loyalty programs, airlines, bus lines, trains."@en .
+
+#################################################################
+#    cat:Food
+#################################################################
+
+cat:Food rdf:type owl:Class ;
+    rdfs:subClassOf cat:Personal ;
+    rdfs:label "Food"@en ;
+    rdfs:comment "Food preferences, dietary restrictions, favorite restaurants, recipes, shopping lists, and other food-related interests."@en .
+
+#################################################################
+#    cat:SportsEntertainment
+#################################################################
+
+cat:SportsEntertainment rdf:type owl:Class ;
+    rdfs:subClassOf cat:Personal ;
+    rdfs:label "Sports & Entertainment"@en ;
+    rdfs:comment "Sports, hobbies, entertainment, and media interests. Favorite teams, venues, streaming services, ticketing. See also Affiliations for club or team memberships."@en .
+
+#################################################################
+#    Organizational subclasses
+#################################################################
+
+cat:Customers rdf:type owl:Class ;
+    rdfs:subClassOf cat:Organizational ;
+    rdfs:label "Customers"@en ;
+    rdfs:comment "Customer organizations. Rename to 'Clients', etc."@en .
+
+cat:Marketing rdf:type owl:Class ;
+    rdfs:subClassOf cat:Organizational ;
+    rdfs:label "Marketing"@en ;
+    rdfs:comment "Marketing activities, campaigns, and related organizations."@en .
+
+cat:Prospects rdf:type owl:Class ;
+    rdfs:subClassOf cat:Marketing ;
+    rdfs:label "Prospects"@en ;
+    rdfs:comment "Customer prospects. Rename to 'Client prospects', etc."@en .
+
+cat:Partners rdf:type owl:Class ;
+    rdfs:subClassOf cat:Organizational ;
+    rdfs:label "Partners"@en ;
+    rdfs:comment "Firms that provide goods and services."@en .
+
+cat:People\(org\) rdf:type owl:Class ;
+    rdfs:subClassOf cat:Organizational ;
+    rdfs:label "People (org)"@en ;
+    rdfs:comment "People the organization interacts with in a working capacity."@en .
+
+cat:Employees rdf:type owl:Class ;
+    rdfs:subClassOf cat:People\(org\) ;
+    rdfs:label "Employees"@en ;
+    rdfs:comment "Related to employees."@en .
+
+cat:Employee rdf:type owl:Class ;
+    rdfs:subClassOf cat:Employees ;
+    rdfs:label "Employee"@en ;
+    rdfs:comment "Detailed information about a specific employee."@en .
+
+cat:Consultants\(org\) rdf:type owl:Class ;
+    rdfs:subClassOf cat:People\(org\) ;
+    rdfs:label "Consultants (org)"@en ;
+    rdfs:comment "Engaged consultants."@en .
+
+cat:Other\(org\) rdf:type owl:Class ;
+    rdfs:subClassOf cat:People\(org\) ;
+    rdfs:label "Other (org)"@en ;
+    rdfs:comment "People associated with the organization who don't fit Employees, Consultants, or Colleagues."@en .
+
+cat:Colleagues rdf:type owl:Class ;
+    rdfs:subClassOf cat:People\(org\) ;
+    rdfs:label "Colleagues"@en ;
+    rdfs:comment "Coworkers and peers within the organization not tracked as formal Employee records."@en .
+
+cat:Advisors\(org\) rdf:type owl:Class ;
+    rdfs:subClassOf cat:People\(org\) ;
+    rdfs:label "Advisors (org)"@en ;
+    rdfs:comment "Individuals who advise the organization in a non-employee capacity."@en .
+
+cat:BoardOfDirectors\(org\) rdf:type owl:Class ;
+    rdfs:subClassOf cat:People\(org\) ;
+    rdfs:label "Board of Directors (org)"@en ;
+    rdfs:comment "The organization's board members."@en .
+
+cat:KB rdf:type owl:Class ;
+    rdfs:subClassOf cat:Organizational ;
+    rdfs:label "KB"@en ;
+    rdfs:comment "Corporate knowledge bases."@en .
+
+cat:Projects\(org\) rdf:type owl:Class ;
+    rdfs:subClassOf cat:Organizational ;
+    rdfs:label "Projects (org)"@en ;
+    rdfs:comment "Projects related to R&D, manufacturing, sales, marketing, operations, HR, etc."@en .
+
+cat:Meetings\(org\) rdf:type owl:Class ;
+    rdfs:subClassOf cat:Organizational ;
+    rdfs:label "Meetings (org)"@en ;
+    rdfs:comment "Events, meetings, workshops, webinars, and gatherings."@en .
+
+cat:Conferences rdf:type owl:Class ;
+    rdfs:subClassOf cat:Meetings\(org\) ;
+    rdfs:label "Conferences"@en ;
+    rdfs:comment "A conference or professional gathering."@en .
+
+cat:Suppliers rdf:type owl:Class ;
+    rdfs:subClassOf cat:Organizational ;
+    rdfs:label "Suppliers"@en ;
+    rdfs:comment "Companies that supply goods or services to this organization."@en .
+
+cat:Legal\(org\) rdf:type owl:Class ;
+    rdfs:subClassOf cat:Organizational ;
+    rdfs:label "Legal (org)"@en ;
+    rdfs:comment "Contracts and agreements."@en .
+
+cat:Government\(org\) rdf:type owl:Class ;
+    rdfs:subClassOf cat:Organizational ;
+    rdfs:label "Government (org)"@en ;
+    rdfs:comment "Interactions with government organizations."@en .
+
+cat:Finances\(org\) rdf:type owl:Class ;
+    rdfs:subClassOf cat:Organizational ;
+    rdfs:label "Finances (org)"@en ;
+    rdfs:comment "Corporate finance-related matters."@en .
+
+cat:BankingPayments\(org\) rdf:type owl:Class ;
+    rdfs:subClassOf cat:Finances\(org\) ;
+    rdfs:label "Banking & Payments (org)"@en ;
+    rdfs:comment "Firms that help the organization store, access, and move its cash — retail banks, payment processors, and remittance firms."@en .
+
+cat:Investing\(org\) rdf:type owl:Class ;
+    rdfs:subClassOf cat:Finances\(org\) ;
+    rdfs:label "Investing (org)"@en ;
+    rdfs:comment "Firms that help the organization invest and grow its assets — brokerage firms, robo-advisors, and mutual fund companies."@en .
+
+cat:LendingCredit\(org\) rdf:type owl:Class ;
+    rdfs:subClassOf cat:Finances\(org\) ;
+    rdfs:label "Lending & Credit (org)"@en ;
+    rdfs:comment "Firms that lend the organization money — mortgage lenders, commercial finance companies, and credit card issuers."@en .
+
+cat:Insurance\(org\) rdf:type owl:Class ;
+    rdfs:subClassOf cat:Finances\(org\) ;
+    rdfs:label "Insurance (org)"@en ;
+    rdfs:comment "Firms that insure the organization against financial loss — property, casualty, and liability insurance."@en .
+
+cat:Advisory\(org\) rdf:type owl:Class ;
+    rdfs:subClassOf cat:Finances\(org\) ;
+    rdfs:label "Advisory (org)"@en ;
+    rdfs:comment "Firms and individuals who advise the organization on how to use its money — financial planners, estate planners, accountants, and bookkeepers."@en .

@@ -8,7 +8,7 @@ description: >
   Alice Walker's Google context. Records her Gmail address as self-entered data
   about her Google account relationship.
 mia:
-  cell: "http://www.example.org/mia/cells/google(companies)"
+  cell: "http://www.example.org/mia/categories/google(companies)-cell"
   claimant: ":Self"
   subject: ":Self"
   about-by: "context:SBScontext"

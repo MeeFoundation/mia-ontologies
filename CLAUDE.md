@@ -4,11 +4,12 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project Overview
 
-This is an **RDF/OWL ontology project** — a formal semantic knowledge model for representing natural people's identity data in the Mee Identity Agent (MIA). It comprises three peer application ontologies:
+This is an **RDF/OWL ontology project** — a formal semantic knowledge model for representing natural people's identity data in the Mee Identity Agent (MIA). It comprises four peer application ontologies:
 
 - **Persona ontology** (`persona.ttl`): models identity data — names, addresses, identifiers, relationships, payment cards, and more — structured around context-specific `Person` instances. Imports and profiles existing domain ontologies, documenting which of their classes and properties Mee uses, and extends them with Mia-specific terms.
 - **Context ontology** (`context.ttl`): defines controlled vocabularies for classifying context files — who claimed the data (`claimant`), and whose identity the file describes (`subject`), plus the `Context` class hierarchy (`SBScontext`/`OBScontext`/`OBOcontext`/`SBOcontext`).
-- **Cell ontology** (`cell.ttl`): defines the cell class hierarchy (`Personal`/`Organizational`/`UserDefined` as direct subclasses of `Cell`, and the orthogonal `Parties`/`OneParty`/`MultiParty`(abstract)/`TwoParty`/`ThreePlusParty` hierarchy every cell instance is also typed under, plus all leaf cells) and the properties that classify and link cell DataBooks (`cellType`, `num-parties`, `sbs`/`obs`/`sbo`/`obo`, `child`, `label`, `note`, `folder`, `copiedFrom`). Mutually imports `context.ttl`.
+- **Cell ontology** (`cell.ttl`): defines `cell:Cell` — the self-contained *content* facet of a cell: its party composition (the `Cell`/`MultiParty`(abstract)/`OneParty`/`TwoParty`/`ThreePlusParty` hierarchy every cell instance is typed under) and the properties that link a cell to its context data (`num-parties`, `sbs`/`obs`/`sbo`/`obo`, `graph`, `note`, `folder`). A `cell:Cell` carries no tree position of its own.
+- **Category ontology** (`category.ttl`): defines `cat:Category` — the *tree-position* facet of a cell: where it sits in a navigational tree (the `Personal`/`Organizational`/`UserDefined` hierarchy and all leaf categories, linked by `child`), its display `label`, its `catType`/`copiedFrom` classification, and `forCell`, the required link to the `cell:Cell` instance whose content it places. Splitting Category from Cell (done in the 3.0.0/1.0.0 rewrite of `cell.ttl`/`category.ttl`) lets the same cell content be referenced by more than one tree position — e.g. two users each filing a cell they share wherever they individually want it. Every existing cell DataBook is now a **pair** of files, a `category-databook` and a `cell-databook`, linked by `mia.forCell`. `category.ttl` imports `cell.ttl`, which mutually imports `context.ttl`.
 
 There are no build, compile, test, or lint commands. The files are Turtle (`.ttl`) loaded into semantic web tools (Protégé).
 
@@ -18,8 +19,10 @@ There are no build, compile, test, or lint commands. The files are Turtle (`.ttl
 |------|---------|
 | `persona.ttl` | Persona ontology — imports domain ontologies, annotates which classes/properties are required vs. optional for Mee, defines Mia-specific classes and properties |
 | `context.ttl` | Context ontology — controlled vocabularies for classifying context files (`cell`, `claimant`, `subject`, `about-by`) and the `Context` class hierarchy. Mutually imports `cell.ttl` |
-| `cell.ttl` | Cell ontology — the cell class hierarchy and its classification/link properties (`cellType`, `num-parties`, `sbs`/`obs`/`sbo`/`obo`, `child`, `label`, `note`, `folder`, `copiedFrom`). Mutually imports `context.ttl` |
-| `cell-shacl.ttl` | SHACL validation shapes for cell DataBook instances — `cellType`/`num-parties` cardinality and enum, `note`/`folder`/`sbs` cardinality, and `obs`/`sbo`/`obo` cardinality (forbidden on `OneParty` cells, capped at 1 on `TwoParty` cells, unconstrained on `ThreePlusParty` cells) |
+| `cell.ttl` | Cell ontology — `cell:Cell` (formerly `cell:Parties`), the content facet of a cell: the `Cell`/`MultiParty`(abstract)/`OneParty`/`TwoParty`/`ThreePlusParty` party-count hierarchy, and the properties that classify/link a cell's content (`num-parties`, `sbs`/`obs`/`sbo`/`obo`, `graph`, `note`, `folder`). Mutually imports `context.ttl` |
+| `category.ttl` | Category ontology — `cat:Category` (formerly `cell:Cell`), the tree-position facet of a cell: the `Category`/`Personal`/`Organizational`/`UserDefined` hierarchy and all leaf categories, plus `child`, `label`, `catType`, `copiedFrom`, and `forCell` (the required link to the `cell:Cell` a category places). Imports `cell.ttl` |
+| `cell-shacl.ttl` | SHACL validation shapes for `cell:Cell` DataBook instances — `num-parties`/`sbs`/`graph`/`note`/`folder` cardinality, and `obs`/`sbo`/`obo` cardinality (forbidden on `OneParty` cells, capped at 1 on `TwoParty` cells, unconstrained on `ThreePlusParty` cells) |
+| `category-shacl.ttl` | SHACL validation shapes for `cat:Category` DataBook instances — `catType`/`forCell` required exactly once, `child` values must be `cat:Category`, `label`/`copiedFrom` cardinality |
 | `persona-shacl.ttl` | SHACL validation shapes — constraint rules for all `persona:Person` instances (SSN format, address cardinality, payment cards, wallet, social network, etc.) |
 | `persona-templates.ttl` | Persona template labels — defines `p:PersonaTemplate` (abstract classification superclass) and concrete label subclasses `p:BirthCertificate`, `p:JSContactCard`, `p:DriversLicense`, `p:Passport`, `p:MedicalAppointment`; also defines related designator classes (`persona:DriversLicenseNumber`, `persona:IssuingJurisdiction`, `persona:PassportNumber`, `persona:IssuingCountry`, `persona:PlaceOfBirth`, `persona:GenderMarker`, `persona:IssueDate`, `persona:Credential`, `persona:WebURL`, `persona:OrganizationUnit`, `persona:JobTitle`), complex classes (`persona:Anniversary`, `persona:PersonalInfo`), the `p:MedicalAppointment` claim properties (`persona:forPatient`, `persona:hasPrimaryCarePhysician`, `persona:currentMedication`, `persona:allergy`, `persona:medicalHistoryNote`, `persona:insuranceProvider`, `persona:insurancePolicyNumber`, `persona:insuranceGroupNumber`, `persona:preferredPharmacy`), and other properties (`persona:hasAnniversary`, `persona:hasPhoto`, etc.) |
 | `shacl/birthcertificate-shacl.ttl` | Per-template SHACL shapes for birth certificate context files — run against the individual context file, not merged data |
@@ -87,7 +90,8 @@ shacl/medical-appointment-shacl.ttl — per-template shapes for medical appointm
 3. **Application Ontologies** (peer, not nested):
    - `persona.ttl`: aggregates domain ontologies; uses annotation properties (`usesRequiredClass`, `usesOptionalClass`, `usesCCOClass`, `usesCCOProperty`) to document Mee's usage
    - `context.ttl`: defines `cell`, `claimant`, `subject`, and `about-by` vocabularies; imported directly by each context file
-   - `cell.ttl`: defines the cell class hierarchy and classification/link properties; mutually imports `context.ttl`
+   - `cell.ttl`: defines `cell:Cell`, the content facet of a cell (party composition and context links); mutually imports `context.ttl`
+   - `category.ttl`: defines `cat:Category`, the tree-position facet of a cell (`child`/`label`/`catType`/`copiedFrom`, plus `forCell` linking to the `cell:Cell` it places); imports `cell.ttl`
 
 ### Context File Naming Convention
 
@@ -101,7 +105,7 @@ Context filenames follow a single flat pattern:
 |---------|---------|
 | `<subject>` | The entity the Persona is about. Use `self` when the subject is the Mia user's own `p:Person` (`:Self`); otherwise use the full hyphenated lowercase name (e.g. `paula-walker`, `bob-johnson`, `bhs-group`). |
 | `<claimant>` | Who claimed the data. Use `self` when the claimant is `:Self`; use the full hyphenated lowercase name for other claimants (e.g. `bob-johnson`, `citibank`); use the literal `members` for `cell:ThreePlusParty` contexts where any permitted member may write. |
-| `(<containing-cell>)` | The local-name portion of this context's `mia.cell` IRI — i.e., the IRI of the cell DataBook that directly holds the `sbs`, `obs`, `sbo`, or `obo` link to this context. When the cell DataBook local name includes a `(parent)` qualifier (e.g. `bob-johnson(others)`), the filename uses two separate parenthetical segments before the number: `(bob-johnson)(others)`. Examples: `(bob-johnson)(others)`, `(boston-hub-society)(affiliations)`, `(paula-walker)(immediate-family)`, `(citibank)(banking-payments)`. For cells without a `(parent)` qualifier (e.g. `health`, `ownership`), a single segment suffices. |
+| `(<containing-cell>)` | The local-name portion of this context's `mia.cell` IRI, **minus its trailing `-cell` suffix** — i.e., the readable name of the `cat:Category` paired (via `cat:forCell`) with the `cell:Cell` DataBook that directly holds the `sbs`, `obs`, `sbo`, or `obo` link to this context. (`mia.cell` itself points at the `cell:Cell`, not the `cat:Category`, since that is the instance that actually asserts the link — see Key Architectural Patterns.) When the category's local name includes a `(parent)` qualifier (e.g. `bob-johnson(others)`), the filename uses two separate parenthetical segments before the number: `(bob-johnson)(others)`. Examples: `(bob-johnson)(others)`, `(boston-hub-society)(affiliations)`, `(paula-walker)(immediate-family)`, `(citibank)(banking-payments)`. For categories without a `(parent)` qualifier (e.g. `health`, `ownership`), a single segment suffices. |
 | `(<NN>)` | Zero-padded two-digit context number in parentheses, matching the diagram label. |
 
 **Exception — `cell:ThreePlusParty` contexts**: A group context (`num-parties: ThreePlusParty`) has no single claimant — any permitted member can write to it and changes replicate to all members. The `<claimant>` segment is the literal `members` rather than an individual name. Example: `bhs-group.members(boston-hub-society)(affiliations)(01).databook.md` — about BHS Group, containing cell "boston-hub-society(affiliations)", claimed by the group's members collectively.
@@ -131,6 +135,8 @@ Context filenames follow a single flat pattern:
 
 **`:Self` IRI convention**: The Mia user's own `persona:Person` individual always uses the IRI `:Self` across all of their context files. All other people, groups, and organizations are assigned locally-minted named IRIs (e.g. `:Bob_Johnson`, `:Paula_Walker`, `:BHS`). `:Self` is a local IRI and is never exposed externally over the PDN, so there are no collisions between Mia instances. All context files in the example live in Alice's Mia — some authored by Alice, others received from peers over PDN. In either case, `:Self` refers to Alice. When data arrives from a peer's Mia (where that peer was `:Self` in their own instance), Alice's Mia assigns them a locally-minted identifier; once a PDN connection is established, that identifier resolves to or is replaced by their PDN ID.
 
+**Cell/Category split**: What was originally one `.databook.md` file per cell is now a pair — a `category-databook` (tree position: `child`/`label`/`catType`/`copiedFrom`, keeping the original `id`/filename) and a `cell-databook` (content: `num-parties`/`sbs`/`obs`/`sbo`/`obo`/`graph`/`note`/`folder`, minted alongside it with a matching `-cell`-suffixed `id`/filename in the same folder). The category's `mia.forCell` links to its paired cell. A context DataBook's `mia.cell` field points at the **cell** (the instance that actually asserts the `sbs`/`obs`/`sbo`/`obo`/`graph` link), not the category — but the context filename's `(<containing-cell>)` segment still names the **category** (the human-readable position), so it omits the `-cell` suffix present in `mia.cell`'s value. The split exists so the same `cell:Cell` content can, in principle, be referenced by more than one `cat:Category` tree position (e.g. two users each filing a shared cell wherever they individually want it); in this single-Mia-instance example repo, every cell still has exactly one category.
+
 **DataBook IRI convention**: The document `id:` and `graph.named_graph:` always differ by the `#graph` fragment — `named_graph` is always `{id}#graph`. The `databook:id` on a block is a fragment identifier making that block independently addressable as `{id}#{block-id}`. Overview sections always begin with "This context captures...".
 
 **Peer name pattern** (not hierarchical): All name types (FullName, GivenName, FamilyName, AlternateName) connect directly to a Persona via `ont00001879` (designated by). They are siblings, not nested. Names belong to Personas not to Persons.
@@ -153,7 +159,7 @@ Classes and properties use numeric IRIs. The most common:
 
 ## Versioning
 
-Before committing any change to any context file, `persona.ttl`, `context.ttl`, `cell.ttl`, or `persona-shacl.ttl`, increment the **minor version number** in that file's `owl:versionInfo` annotation and update the description to summarise the change. For example:
+Before committing any change to any context file, `persona.ttl`, `context.ttl`, `cell.ttl`, `category.ttl`, or `persona-shacl.ttl`, increment the **minor version number** in that file's `owl:versionInfo` annotation and update the description to summarise the change. For example:
 
 ```
 owl:versionInfo "Version 3.0.3 - added social network"@en
@@ -173,14 +179,13 @@ After any change to context files or cell DataBooks, verify the following.
 
 **Check 2 — Filename convention**: Every context filename must follow `<subject>.<claimant>(<containing-cell>)(<NN>).databook.md`. `<subject>` must be `self` when the subject is `:Self`, or the full hyphenated lowercase name otherwise. `<claimant>` must be `self` when the claimant is `:Self`, or the full hyphenated lowercase name otherwise — except for `c:Group` contexts, where it must be the literal string `members`. `(<containing-cell>)` encodes the local name of the `mia.cell` IRI: when the cell DataBook local name includes a `(parent)` qualifier (e.g. `bob-johnson(others)`), it appears as two separate segments `(bob-johnson)(others)`; when there is no qualifier (e.g. `health`), a single segment suffices. `(<NN>)` is the zero-padded two-digit context number. Exception: a context linked via `cell:graph` rather than `sbs`/`obs`/`sbo`/`obo` drops the `<subject>.<claimant>` prefix and uses the literal `context` instead — `context(<containing-cell>)(<NN>).databook.md`. If a filename does not match one of these two patterns, rename it to conform.
 
-**Check 3 — `mia.cell` ↔ filename consistency**: For every context DataBook in `example/contexts/` (excluding `under-development/`), the local-name portion of its `mia.cell` IRI must equal the `(<containing-cell>)` segment extracted from the filename. When the filename uses two separate parenthetical segments before the number (e.g. `(bob-johnson)(others)`), concatenate them as `bob-johnson(others)` to form the expected local name. Run:
+**Check 3 — `mia.cell` ↔ filename consistency**: For every context DataBook in `example/contexts/` (excluding `under-development/`), the local-name portion of its `mia.cell` IRI, **minus a trailing `-cell` suffix**, must equal the `(<containing-cell>)` segment extracted from the filename. When the filename uses two separate parenthetical segments before the number (e.g. `(bob-johnson)(others)`), concatenate them as `bob-johnson(others)` to form the expected local name. Run:
 
 ```python
 import os, re
 
-cell_dir = 'example/cells'
 ctx_dir = 'example/contexts'
-base_cell = 'http://www.example.org/mia/cells/'
+base_cell = 'http://www.example.org/mia/categories/'
 
 def fn_cell_local(fname):
     base = fname[:-len('.databook.md')]
@@ -204,11 +209,13 @@ for fname in sorted(os.listdir(ctx_dir)):
     cell_local = cell_m.group(1)
     if cell_local.startswith(base_cell):
         cell_local = cell_local[len(base_cell):]
+    if cell_local.endswith('-cell'):
+        cell_local = cell_local[:-len('-cell')]
     expected = fn_cell_local(fname)
     if cell_local != expected:
         print(f'MISMATCH {fname}:')
         print(f'  filename implies: {expected!r}')
-        print(f'  mia.cell has: {cell_local!r}')
+        print(f'  mia.cell (category, -cell stripped): {cell_local!r}')
         errors += 1
 if not errors:
     print('All mia.cell values match filenames.')
@@ -216,7 +223,7 @@ if not errors:
 
 If mismatches appear, the filename `(<containing-cell>)` segments are authoritative — update the `mia.cell` IRI in the DataBook to match (or vice versa if the filename was misnamed).
 
-**Check 4 — No orphan Persons**: Every `persona:Person` individual other than `:Self` must be reachable via `BFO_0000115` (has member part) from a `g:Group` or from a Social Network individual linked to another `persona:Person` via `persona:hasSocialNetwork`. `:Self` is always the root and needs no incoming link.
+**Check 4 — No orphan Persons**: Every `persona:Person` individual other than `:Self` must be reachable via `BFO_0000115` (has member part) from a `g:Group` or from a Social Network individual linked to another `persona:Person` via `persona:hasSocialNetwork`. `:Self` is always the root and needs no incoming link. **Exception**: a `persona:Person` referenced only via a professional/service-designation property (e.g. `persona:hasPrimaryCarePhysician`) rather than social-network membership is exempt — it represents a service relationship (e.g. a physician), not a social connection, so it has no social network to be reachable from. Example: `:Jane_Kopakolva` (context #25), Paula Walker's primary care physician.
 
 **Check 5 — Validation command completeness**: The `## Validation` section of `README.md` must document two tiers. Tier 1 uses four steps: (1) a `find example -name "*.databook.md"` loop using `databook extract` to extract turtle content and produce a merged turtle file of all context data (excluding `under-development/`); (2) a `riot` merge of that data with all application ontology TTL files and the foundation ontologies listed explicitly from `project_files/`; (3) a `grep -v owl:imports` on `persona-shacl.ttl` to collect shapes (the `shacl/` per-template files are excluded here — they target `persona:Person` and would fire incorrectly on all individuals when applied to merged data); (4) a `shacl validate` call. Tier 2 lists explicit per-file `databook extract` + `riot` + `shacl validate` commands for each template context file paired with its `shacl/*-shacl.ttl` file. If the commands change, update the README to match.
 
@@ -250,7 +257,7 @@ If any `MISSING:` lines appear, either add the file or update the link.
 
 For each DataBook in `example/` (excluding `under-development/`), extract the three YAML values and verify they match the table. If they conflict, `about-by` is the authoritative value — update `subject` and/or `claimant` to match it. Exception: a context linked from its cell via `cell:graph` (rather than `sbs`/`obs`/`sbo`/`obo`) has no `about-by` value at all — it is not classified into one of the four subtypes, since its data is jointly maintained by multiple parties about a third party rather than claimable as self-vs-other. Such a context may still set `subject`/`claimant` as descriptive metadata; this check simply does not apply to it.
 
-**Check 10 — Cell filename ↔ id consistency**: For every cell DataBook in `cells-person/`, `cells-org/`, and `example/cells/`, the filename root (the filename with `.databook.md` stripped) must exactly match the local name portion of the file's `id:` IRI (the string after the IRI base). The IRI base for canonical Person files is `http://mee.foundation/ontologies/cells-person/`; for canonical Organization files it is `http://mee.foundation/ontologies/cells-org/`; for example files it is `http://www.example.org/mia/cells/`. `cells-person/`, `cells-org/`, and `example/cells/` are all nested into folders mirroring their cell tree (see Check 12), so they must be walked recursively. Run:
+**Check 10 — Cell/Category filename ↔ id consistency**: Every cell is now a pair of DataBooks — a `category-databook` (original filename/id, unchanged) and a `cell-databook` (filename/id with a `-cell` suffix, minted alongside it). For every `.databook.md` in `categories-person/`, `categories-org/`, and `example/categories/` (both types), the filename root (the filename with `.databook.md` stripped) must exactly match the local name portion of the file's `id:` IRI (the string after the IRI base). The IRI base for canonical Person files is `http://mee.foundation/ontologies/categories-person/`; for canonical Organization files it is `http://mee.foundation/ontologies/categories-org/`; for example files it is `http://www.example.org/mia/categories/`. `categories-person/`, `categories-org/`, and `example/categories/` are all nested into folders mirroring their category tree (see Check 12), so they must be walked recursively. Run:
 
 ```python
 import os, re
@@ -267,9 +274,9 @@ def iter_databooks(directory, recursive):
                 yield os.path.join(directory, fname), fname
 
 checks = [
-    ('cells-person', 'http://mee.foundation/ontologies/cells-person/', True),
-    ('cells-org',     'http://mee.foundation/ontologies/cells-org/', True),
-    ('example/cells', 'http://www.example.org/mia/cells/', True),
+    ('categories-person', 'http://mee.foundation/ontologies/categories-person/', True),
+    ('categories-org',     'http://mee.foundation/ontologies/categories-org/', True),
+    ('example/categories', 'http://www.example.org/mia/categories/', True),
 ]
 for directory, base, recursive in checks:
     for path, fname in iter_databooks(directory, recursive):
@@ -282,29 +289,29 @@ for directory, base, recursive in checks:
             print(f'MISMATCH  {path}  root={root!r}  id={local!r}')
 ```
 
-If a mismatch is found, rename the file so its root matches the id local name (preferred) or update the `id:` to match the filename — whichever is consistent with the broader naming conventions.
+If a mismatch is found, rename the file so its root matches the id local name (preferred) or update the `id:` to match the filename — whichever is consistent with the broader naming conventions. Additionally, every `category-databook`'s `mia.forCell` value must resolve to a `cell-databook` file that exists in the **same directory** as the category (see Check 12).
 
-**Check 11 — Example cell diagrams are authoritative**: The 11 cell diagrams in `example/images/` are the authoritative source of truth for the example cell tree. When any discrepancy is found between a diagram and the DataBook files, the diagram wins — update the DataBooks to match, not the other way around. After any change to `example/cells/` DataBooks or to the 11 diagrams, verify all of the following:
+**Check 11 — Example cell diagrams are authoritative**: The 11 cell diagrams in `example/images/` are the authoritative source of truth for the example cell tree. When any discrepancy is found between a diagram and the DataBook files, the diagram wins — update the DataBooks to match, not the other way around. Each diagram box now corresponds to a **pair** of DataBooks in `example/categories/` — a `category-databook` (tree position, box label = its `title:`) and, via its `mia.forCell`, a `cell-databook` (content) in the same folder. After any change to `example/categories/` DataBooks or to the 11 diagrams, verify all of the following:
 
-- **11a — Every cell box has a DataBook**: Every cell box (blue/tan canonical or white user-defined) shown in any of the 11 diagrams must have a corresponding `.databook.md` file in `example/cells/` whose `title:` matches the box label. If a box has no DataBook, create one.
+- **11a — Every cell box has a category DataBook**: Every cell box (blue/tan canonical or white user-defined) shown in any of the 11 diagrams must have a corresponding `category-databook` `.databook.md` file in `example/categories/` whose `title:` matches the box label. If a box has no DataBook, create the category/cell pair.
 
-- **11b — Every DataBook has a diagram box**: Every `.databook.md` file in `example/cells/` (except `cells.databook.md` itself, which is the invisible root) must appear as a visible box in at least one of the 11 diagrams. If a DataBook has no corresponding box, either add it to the appropriate diagram or delete the DataBook.
+- **11b — Every category DataBook has a diagram box**: Every `category-databook` file in `example/categories/` (except `categories.databook.md` itself, which is the invisible root) must appear as a visible box in at least one of the 11 diagrams. If a DataBook has no corresponding box, either add it to the appropriate diagram or delete the category/cell pair.
 
-- **11c — Solid context circles match DataBook links**: Every solid (filled) context circle attached to a cell box indicates a real context link. The cell DataBook for that box must carry the corresponding `sbs`, `obs`, `obo`, `sbo`, or `graph` field pointing to the context DataBook IRI. A dashed (empty) circle indicates an unfilled slot — the DataBook must NOT have a link for that slot.
+- **11c — Solid context circles match DataBook links**: Every solid (filled) context circle attached to a cell box indicates a real context link. The **cell DataBook** paired (via `mia.forCell`) with that box's category must carry the corresponding `sbs`, `obs`, `obo`, `sbo`, or `graph` field pointing to the context DataBook IRI. A dashed (empty) circle indicates an unfilled slot — the cell DataBook must NOT have a link for that slot.
 
 - **11d — Numbered context circles have matching files**: Every numbered context circle (e.g. `[10]`, `[17]`) shown in a diagram must correspond to an actual `.databook.md` file in `example/contexts/` whose filename contains that number (e.g. `(10)`, `(17)`).
 
-- **11e — Child arrows match DataBook child links**: Every downward child arrow from cell box A to cell box B in a diagram must correspond to a `child:` entry in A's DataBook pointing to B's IRI. Conversely, every `child:` entry in a DataBook must be reflected by a visible child arrow in the diagram.
+- **11e — Child arrows match DataBook child links**: Every downward child arrow from cell box A to cell box B in a diagram must correspond to a `child:` entry in A's **category** DataBook pointing to B's category IRI. Conversely, every `child:` entry in a category DataBook must be reflected by a visible child arrow in the diagram.
 
 The 11 diagrams are: `example/images/people.png`, `example/images/people2.png`, `example/images/health.png`, `example/images/work.png`, `example/images/companies.png`, `example/images/finances.png`, `example/images/gov-state.png`, `example/images/gov-federal.png`, `example/images/gov-municipality.png`, `example/images/misc.png`, `example/images/affiliations.png`.
 
-**Check 12 — Physical folder structure mirrors the `child:` tree in `cells-person/`, `cells-org/`, and `example/cells/`**: All three cell trees are organized as nested filesystem folders that mirror their cell hierarchy, rather than one flat directory. Each cell's own `.databook.md` file lives in a folder (folder naming is not standardized — it may be the cell's `title`, a `cellType`-prefixed disambiguator, or a role-based label; this check does not validate folder names, only nesting). The rule: for every `mia.child` link from cell A to cell B, B's `.databook.md` file must live in a folder that is a **direct subfolder** of the folder containing A's `.databook.md` file — not deeper, not a sibling, not the same folder. Each tree's root DataBook (`cells-person.databook.md` / `cells-org.databook.md` / `cells.databook.md`) sits directly in the tree's top-level directory. Run:
+**Check 12 — Physical folder structure mirrors the `child:` tree in `categories-person/`, `categories-org/`, and `example/categories/`**: All three category trees are organized as nested filesystem folders that mirror their category hierarchy, rather than one flat directory. Each category's own `category-databook` `.databook.md` file lives in a folder together with its paired `cell-databook` (folder naming is not standardized — it may be the category's `title`, a `catType`-prefixed disambiguator, or a role-based label; this check does not validate folder names, only nesting). The rule: for every `mia.child` link from category A to category B, B's `.databook.md` file must live in a folder that is a **direct subfolder** of the folder containing A's `.databook.md` file — not deeper, not a sibling, not the same folder. Each tree's root DataBook (`categories-person.databook.md` / `categories-org.databook.md` / `categories.databook.md`) sits directly in the tree's top-level directory, alongside its paired `-cell` DataBook. Run:
 
 ```python
 import os, re, yaml
 
 def check_tree(root):
-    id_to_dir, id_to_children, dir_to_ids = {}, {}, {}
+    id_to_dir, id_to_children, dir_to_ids, id_to_type, id_to_forcell = {}, {}, {}, {}, {}
 
     for dirpath, _, filenames in os.walk(root):
         for fname in filenames:
@@ -315,10 +322,18 @@ def check_tree(root):
             cid = fm['id']
             rel_dir = os.path.relpath(dirpath, root)
             id_to_dir[cid] = rel_dir
+            id_to_type[cid] = fm.get('type')
             dir_to_ids.setdefault(rel_dir, []).append(cid)
-            child = fm.get('mia', {}).get('child')
+            mia = fm.get('mia', {}) or {}
+            child = mia.get('child')
             if child:
                 id_to_children[cid] = child if isinstance(child, list) else [child]
+            if mia.get('forCell'):
+                id_to_forcell[cid] = mia['forCell']
+
+    # Only category-databook files define the tree; each dir must have
+    # exactly one, plus exactly one paired cell-databook.
+    cat_ids_by_dir = {d: [i for i in ids if id_to_type.get(i) == 'category-databook'] for d, ids in dir_to_ids.items()}
 
     def parent_of(reldir):
         if reldir == '.':
@@ -328,19 +343,29 @@ def check_tree(root):
 
     errors = []
     for d, ids in dir_to_ids.items():
-        if len(ids) > 1:
-            errors.append(f'MULTIPLE DATABOOKS in same dir {d!r}: {ids}')
+        cats = cat_ids_by_dir[d]
+        if len(cats) != 1:
+            errors.append(f'Expected exactly one category-databook in {d!r}, found {len(cats)}: {cats}')
+            continue
+        cat_id = cats[0]
+        cell_id = id_to_forcell.get(cat_id)
+        if cell_id is None or id_to_dir.get(cell_id) != d:
+            errors.append(f'Category {cat_id!r} in {d!r} has no paired cell-databook (mia.forCell) in the same folder')
+
+    id_to_cat_dir = {i: d for d, ids in cat_ids_by_dir.items() for i in ids}
 
     for parent_id, children in id_to_children.items():
-        parent_dir = id_to_dir.get(parent_id)
+        if id_to_type.get(parent_id) != 'category-databook':
+            continue
+        parent_dir = id_to_cat_dir.get(parent_id)
         for child_id in children:
-            child_dir = id_to_dir.get(child_id)
+            child_dir = id_to_cat_dir.get(child_id)
             if child_dir is None:
                 errors.append(f'Child id {child_id!r} (child of {parent_id}) not found on disk')
             elif parent_of(child_dir) != parent_dir:
                 errors.append(f'NESTING MISMATCH: child {child_id!r} dir={child_dir!r} is not a direct subfolder of parent {parent_id!r} dir={parent_dir!r}')
 
-    id_by_dir = {d: ids[0] for d, ids in dir_to_ids.items() if len(ids) == 1}
+    id_by_dir = {d: ids[0] for d, ids in cat_ids_by_dir.items() if len(ids) == 1}
     for this_dir, this_id in id_by_dir.items():
         this_path = os.path.join(root, this_dir) if this_dir != '.' else root
         declared = set(id_to_children.get(this_id, []))
@@ -357,7 +382,7 @@ def check_tree(root):
 
     return errors
 
-for root in ['cells-person', 'cells-org', 'example/cells']:
+for root in ['categories-person', 'categories-org', 'example/categories']:
     errors = check_tree(root)
     print(f'{root}: ' + (f'{len(errors)} issue(s) found:' if errors else 'OK — folder structure matches the child-link tree.'))
     for e in errors:
@@ -366,12 +391,12 @@ for root in ['cells-person', 'cells-org', 'example/cells']:
 
 If a nesting mismatch or orphan is found, move the file to the correct folder (preferred) or fix the `mia.child` link — whichever reflects the intended tree. An empty/placeholder folder is not necessarily an error — flag it to the user rather than deleting it, since it may be a deliberate placeholder for content not yet added.
 
-**Check 13 — `cell.ttl` matches `images/cell-ontology/cell.png`**: This diagram is the ontology-level (not example-tree) picture of `cell:Cell`'s structure — its properties, the `child` self-relationship, the `Cell` → `Personal`/`Organizational`/`UserDefined` class hierarchy, and the `Parties` → `OneParty`/`MultiParty` (abstract) → `TwoParty`/`ThreePlusParty` hierarchy with each concrete subtype's `cell:label` display value. `cell:Parties` is not `rdfs:subClassOf cell:Cell` (and vice versa) — the diagram accordingly draws them as two separate trees, not one. Unlike Check 11 (example diagrams, where the diagram always wins), this check does not presume which side is authoritative when the two disagree — surface the discrepancy and ask, since fixing it might mean updating `cell.ttl` (e.g. adding a missing property, as `cell:graph` was) or might mean the diagram is simply stale and needs redrawing. After any change to `cell.ttl`'s `cell:Cell`/`cell:Parties` sections or to this diagram, verify:
+**Check 13 — `cell.ttl` matches `images/cell-ontology/cell.png`**: This diagram is the ontology-level (not example-tree) picture of `cell:Cell`'s structure (redrawn for the 3.0.0/1.0.0 Cell/Category split — it now shows only the content facet; the tree-hierarchy side it used to show moved to `category.ttl`'s diagram, Check 15) — the party-composition hierarchy and its content-linking properties. Unlike Check 11 (example diagrams, where the diagram always wins), this check does not presume which side is authoritative when the two disagree — surface the discrepancy and ask, since fixing it might mean updating `cell.ttl` (e.g. adding a missing property) or might mean the diagram is simply stale and needs redrawing. After any change to `cell.ttl`'s `cell:Cell` section or to this diagram, verify:
 
-- **13a** — every property arrow shown off `Cell` (`label`, `note`, `folder`, `graph`, `cellType`) has a corresponding `cell:` property in `cell.ttl` with `rdfs:domain cell:Cell`; every arrow shown off `Parties` (`num-parties`, `sbs`) has `rdfs:domain cell:Parties`; every arrow shown off `MultiParty` (`obs`, `sbo`, `obo`) has `rdfs:domain cell:MultiParty`. Each arrow's target type in the diagram must match the property's `rdfs:range`.
-- **13b** — every `cell:` property with `rdfs:domain cell:Cell`, `cell:Parties`, or `cell:MultiParty` defined in `cell.ttl` appears as an arrow in the diagram, under the box matching its domain (catches new properties added to the ttl but never drawn, or drawn under the wrong box).
-- **13c** — the class hierarchy under `Cell` (→ `Personal`/`Organizational`/`UserDefined`) and under `Parties` (→ `OneParty`/`MultiParty` → `TwoParty`/`ThreePlusParty`) shown in the diagram matches `cell.ttl`'s actual `rdfs:subClassOf` relationships (by class local name, not just position).
-- **13d** — each concrete `Parties` subtype's example `cell:label` value shown in the diagram (`"Cell"`, `"Two-Party Cell"`, `"Multi-Party Cell"`) matches that subtype's actual `cell:label` value in `cell.ttl`. `Parties` and `MultiParty` are abstract and carry no `cell:label` of their own.
+- **13a** — every property arrow shown off `Cell` (`num-parties`, `sbs`, `graph`, `note`, `folder`) has a corresponding `cell:` property in `cell.ttl` with `rdfs:domain cell:Cell`; every arrow shown off `MultiParty` (`obs`, `sbo`, `obo`) has `rdfs:domain cell:MultiParty`. Each arrow's target type in the diagram must match the property's `rdfs:range`.
+- **13b** — every `cell:` property with `rdfs:domain cell:Cell` or `cell:MultiParty` defined in `cell.ttl` appears as an arrow in the diagram, under the box matching its domain (catches new properties added to the ttl but never drawn, or drawn under the wrong box).
+- **13c** — the class hierarchy `Cell` → `MultiParty` (abstract) → `TwoParty`/`ThreePlusParty`, plus `Cell` → `OneParty`, shown in the diagram matches `cell.ttl`'s actual `rdfs:subClassOf` relationships (by class local name, not just position).
+- **13d** — each concrete `Cell` subtype's example `cell:label` value shown in the diagram (`"Cell"`, `"Two-Party Cell"`, `"Multi-Party Cell"`) matches that subtype's actual `cell:label` value in `cell.ttl`. `cell:label` here is a class-level default display name, distinct from `cat:label` (category.ttl's per-instance display name) — `Cell` and `MultiParty` are abstract and carry no `cell:label` of their own.
 
 **Check 14 — `context.ttl` matches `images/context-ontology/context.png`**: This diagram is the ontology-level picture of `context:Context`'s structure — its `cell`/`template` properties, the intermediate `context:XBXcontext` class (carrying `about-by`/`subject`/`claimant`), and the four classified subtypes (`SBScontext`/`OBScontext`/`OBOcontext`/`SBOcontext`) below it. Like Check 13, this does not presume which side is authoritative when the two disagree — surface the discrepancy and ask. After any change to `context.ttl` or to this diagram, verify:
 
@@ -379,6 +404,14 @@ If a nesting mismatch or orphan is found, move the file to the correct folder (p
 - **14b** — every property arrow shown off `XBXcontext` in the diagram (`about-by`, `subject`, `claimant`) has a corresponding `context:` property with `rdfs:domain context:XBXcontext`.
 - **14c** — every `context:` property with domain `context:Context` or `context:XBXcontext` defined in `context.ttl` appears in the diagram under the correct box (catches new properties added to the ttl but never drawn, or drawn under the wrong box).
 - **14d** — the class hierarchy shown (`Context` → `XBXcontext` → `SBScontext`/`OBScontext`/`OBOcontext`/`SBOcontext`) matches `context.ttl`'s actual `rdfs:subClassOf` relationships.
+
+**Check 15 — `category.ttl` matches `images/category-ontology/category.png`**: This diagram is the ontology-level picture of `cat:Category`'s structure — the `child`/`forCell`/`copiedFrom`/`label`/`catType` properties, and the `Category` → `Personal`/`Organizational`/`UserDefined` (all abstract) class hierarchy with representative leaf classes. Like Check 13, this does not presume which side is authoritative when the two disagree — surface the discrepancy and ask. After any change to `category.ttl` or to this diagram, verify:
+
+- **15a** — every property arrow shown off `Category` (`child`, `forCell`, `copiedFrom`, `label`, `catType`) has a corresponding `cat:` property in `category.ttl` with the right domain/range; `forCell`'s target type must be `cell:Cell` (imported from `cell.ttl`, not redefined here).
+- **15b** — every `cat:` property with `rdfs:domain cat:Category` defined in `category.ttl` appears as an arrow in the diagram.
+- **15c** — the class hierarchy `Category` → `Personal`/`Organizational`/`UserDefined` (all three abstract) and their leaf subclasses shown in the diagram matches `category.ttl`'s actual `rdfs:subClassOf` and `cell:abstract` values.
+
+**Check 16 — `images/category-ontology/cat-cell-context.png` matches example usage**: This diagram illustrates representative cell/category pairs (a `cat:Personal` category, a `cat:Organizational` category, a `cat:UserDefined` category, a `cell:TwoParty` cell, and a `cell:ThreePlusParty` cell) and their context link circles, generically rather than tied to a specific example instance — it replaces the earlier `images/cell-ontology/cells+contexts.png`. Verify each box's two-line header (`cat:catType` over `cat:label`) and its filled/dashed context circles remain a valid illustration of the properties and cardinalities described in the Cell and Category Ontology sections of `README.md` after any change to those properties.
 
 ## Keeping Files in Sync
 
@@ -402,9 +435,9 @@ shaclvalidate -datafile example/contexts/self.self(boston-hub-society)(affiliati
 
 `README.md` must be written in US English. Use American spellings throughout — e.g. "organization" not "organisation", "color" not "colour".
 
-All classes and properties defined in `persona.ttl`, `context.ttl`, and `cell.ttl` must be mentioned in `README.md` in the sections before the **Illustrative Example: Alice Walker** section. The only intentional exceptions are the internal ontology documentation annotation properties (`usesRequiredClass`, `usesOptionalClass`, `usesCCOClass`, `usesCCOProperty`, `usagePattern`), which are infrastructure for self-documenting the ontology, not user-facing terms.
+All classes and properties defined in `persona.ttl`, `context.ttl`, `cell.ttl`, and `category.ttl` must be mentioned in `README.md` in the sections before the **Illustrative Example: Alice Walker** section. The only intentional exceptions are the internal ontology documentation annotation properties (`usesRequiredClass`, `usesOptionalClass`, `usesCCOClass`, `usesCCOProperty`, `usagePattern`), which are infrastructure for self-documenting the ontology, not user-facing terms.
 
-In `README.md`, every mention of a class defined in `persona.ttl` must appear in backticks with the `p:` prefix (e.g. `p:Persona`, `p:Wallet`), every mention of a class or property defined in `context.ttl` must appear in backticks with the `c:` prefix (e.g. `c:contextType`, `c:SelfClaimed`), and every mention of a class or property defined in `cell.ttl` must appear in backticks with the `cell:` prefix (e.g. `cell:Cell`, `cell:cellType`). Every capitalized mention of `Person` (the CCO class) must also appear in backticks. These formatting rules do **not** apply inside headings or subheadings.
+In `README.md`, every mention of a class defined in `persona.ttl` must appear in backticks with the `p:` prefix (e.g. `p:Persona`, `p:Wallet`), every mention of a class or property defined in `context.ttl` must appear in backticks with the `c:` prefix (e.g. `c:contextType`, `c:SelfClaimed`), every mention of a class or property defined in `cell.ttl` must appear in backticks with the `cell:` prefix (e.g. `cell:Cell`, `cell:num-parties`), and every mention of a class or property defined in `category.ttl` must appear in backticks with the `cat:` prefix (e.g. `cat:Category`, `cat:catType`). Every capitalized mention of `Person` (the CCO class) must also appear in backticks. These formatting rules do **not** apply inside headings or subheadings.
 
 ## Catalog Files
 

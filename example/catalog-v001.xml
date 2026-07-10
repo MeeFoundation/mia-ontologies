@@ -20,6 +20,8 @@
          uri="file:/Users/paul/Documents/Work/GitHub/mia-ontologies/context.ttl"/>
     <uri id="cell"                 name="http://mee.foundation/ontologies/cell"
          uri="file:/Users/paul/Documents/Work/GitHub/mia-ontologies/cell.ttl"/>
+    <uri id="category"             name="http://mee.foundation/ontologies/category"
+         uri="file:/Users/paul/Documents/Work/GitHub/mia-ontologies/category.ttl"/>
     <uri id="pdn-identity"             name="http://mee.foundation/ontologies/pdn-identity"
          uri="file:/Users/paul/Documents/Work/GitHub/mia-ontologies/pdn-identity.ttl"/>
     <uri id="group"                    name="http://mee.foundation/ontologies/group"

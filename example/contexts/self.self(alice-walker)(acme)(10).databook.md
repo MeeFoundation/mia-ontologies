@@ -8,7 +8,7 @@ description: >
   Alice Walker's JSContactCard business card persona. Records her professional contact
   details: name, work email, work phone, employer, department, job title, and LinkedIn URL.
 mia:
-  cell: "http://www.example.org/mia/cells/alice-walker(acme)"
+  cell: "http://www.example.org/mia/categories/alice-walker(acme)-cell"
   claimant: ":Self"
   subject: ":Self"
   about-by: "context:SBScontext"

@@ -9,7 +9,7 @@ description: >
   issue and expiration dates, issuing country, place of birth, gender marker, and photo.
   Self-claimed by Alice.
 mia:
-  cell: "http://www.example.org/mia/cells/passport(federal)"
+  cell: "http://www.example.org/mia/categories/passport(federal)-cell"
   claimant: ":Self"
   subject: ":Self"
   about-by: "context:SBScontext"

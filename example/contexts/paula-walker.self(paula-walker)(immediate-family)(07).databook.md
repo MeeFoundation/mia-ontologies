@@ -7,7 +7,7 @@ created: 2026-06-14
 description: >
   Alice's record of her family member Paula Walker, including Paula's given and family name.
 mia:
-  cell: "http://www.example.org/mia/cells/paula-walker(immediate-family)"
+  cell: "http://www.example.org/mia/categories/paula-walker(immediate-family)-cell"
   claimant: ":Self"
   subject: ":Paula_Walker"
   about-by: "context:OBScontext"

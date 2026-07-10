@@ -8,7 +8,7 @@ description: >
   Alice Walker's current residential address in Paradise, CA (September 2025 to present).
   Self-claimed by Alice; open-ended temporal interval indicates this is her current address.
 mia:
-  cell: "http://www.example.org/mia/cells/paradise(municipality)"
+  cell: "http://www.example.org/mia/categories/paradise(municipality)-cell"
   claimant: ":Self"
   subject: ":Self"
   about-by: "context:SBScontext"

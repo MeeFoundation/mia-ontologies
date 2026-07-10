@@ -1,0 +1,73 @@
+@prefix : <http://www.example.org/category-shapes#> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix cat: <http://mee.foundation/ontologies/category#> .
+@prefix cell: <http://mee.foundation/ontologies/cell#> .
+
+<http://www.example.org/category-shapes> rdf:type owl:Ontology ;
+    owl:versionInfo "Version 1.0.1 - renamed cat:cellType to cat:catType, matching category.ttl 1.0.0"@en ;
+    rdfs:label "Category Ontology SHACL Validation Shapes"@en ;
+    rdfs:comment "SHACL validation shapes for cat:Category DataBook instances (the tree-position facet of a cell) in the Category Ontology."@en .
+
+
+#################################################################
+#  Category
+#  Every cat:Category instance is a tree-position node with exactly
+#  one cat:forCell link to the cell:Cell instance holding its
+#  content, zero or more cat:child links to more specific child
+#  categories, an exactly-one cat:catType classification, and at
+#  most one cat:label and one cat:copiedFrom.
+#################################################################
+
+:CategoryShape
+    a sh:NodeShape ;
+    sh:targetClass cat:Category ;
+    sh:message "Category validation."@en ;
+
+    # cat:catType — required exactly once. No sh:in enum: the value
+    # is the local name of the cat:Category subclass this DataBook
+    # canonically is (canonical) or was copied from (instance copy)
+    # — e.g. "Family", "Consultants(org)" — or "Category" itself if
+    # there is no more specific canonical counterpart. Intentionally
+    # open-ended so new canonical subclasses don't require updating
+    # this shape.
+    sh:property [
+        sh:path cat:catType ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:message "A category must have exactly one cat:catType value: the cat:Category subclass local name it is or was copied from, or \"Category\" itself."@en
+    ] ;
+
+    # cat:forCell — required exactly once: every Category places
+    # exactly one cell:Cell's content in the tree.
+    sh:property [
+        sh:path cat:forCell ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:class cell:Cell ;
+        sh:message "A category must have exactly one cat:forCell value, pointing at the cell:Cell it places in the tree."@en
+    ] ;
+
+    # cat:child — zero or more, each a cat:Category
+    sh:property [
+        sh:path cat:child ;
+        sh:class cat:Category ;
+        sh:message "A category's cat:child values, if any, must each be a cat:Category."@en
+    ] ;
+
+    # cat:label — at most one display-name override
+    sh:property [
+        sh:path cat:label ;
+        sh:maxCount 1 ;
+        sh:message "A category may have at most one cat:label value."@en
+    ] ;
+
+    # cat:copiedFrom — at most one canonical-template reference
+    sh:property [
+        sh:path cat:copiedFrom ;
+        sh:maxCount 1 ;
+        sh:message "A category may have at most one cat:copiedFrom value."@en
+    ] .

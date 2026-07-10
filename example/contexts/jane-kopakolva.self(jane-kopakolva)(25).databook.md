@@ -8,7 +8,7 @@ description: >
   Alice's record of Dr. Jane Kopakolva, the primary care physician for
   Alice's mother, Paula Walker.
 mia:
-  cell: "http://www.example.org/mia/cells/jane-kopakolva"
+  cell: "http://www.example.org/mia/categories/jane-kopakolva-cell"
   claimant: ":Self"
   subject: ":Jane_Kopakolva"
   about-by: "context:OBScontext"

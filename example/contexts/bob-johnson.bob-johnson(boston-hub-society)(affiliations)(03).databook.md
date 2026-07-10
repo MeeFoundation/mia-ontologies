@@ -8,7 +8,7 @@ description: >
   Bob Johnson's BHS profile, received from Bob's Mia via PDN.
   Records Bob's name as he presents himself to the Boston Hub Society.
 mia:
-  cell: "http://www.example.org/mia/cells/boston-hub-society(affiliations)"
+  cell: "http://www.example.org/mia/categories/boston-hub-society(affiliations)-cell"
   claimant: ":Bob_Johnson"
   subject: ":Bob_Johnson"
   about-by: "context:OBOcontext"

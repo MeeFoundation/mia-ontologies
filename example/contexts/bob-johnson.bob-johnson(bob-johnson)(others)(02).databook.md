@@ -8,7 +8,7 @@ description: >
   Bob Johnson's self-claimed Bob-context persona, received from Bob's Mia via PDN.
   Records Bob's name and his social network connection to Alice.
 mia:
-  cell: "http://www.example.org/mia/cells/bob-johnson(others)"
+  cell: "http://www.example.org/mia/categories/bob-johnson(others)-cell"
   claimant: ":Bob_Johnson"
   subject: ":Bob_Johnson"
   about-by: "context:OBOcontext"

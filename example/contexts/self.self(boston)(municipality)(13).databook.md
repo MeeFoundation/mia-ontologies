@@ -8,7 +8,7 @@ description: >
   Alice Walker's previous residential address in Boston, MA (January 2020 to August 2025).
   Self-claimed by Alice; closed temporal interval indicates this is a past address.
 mia:
-  cell: "http://www.example.org/mia/cells/boston(municipality)"
+  cell: "http://www.example.org/mia/categories/boston(municipality)-cell"
   claimant: ":Self"
   subject: ":Self"
   about-by: "context:SBScontext"

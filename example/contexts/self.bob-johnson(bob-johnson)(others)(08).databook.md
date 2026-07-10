@@ -7,7 +7,7 @@ created: 2026-06-13
 description: >
   Bob's record of Alice in their 1:1 relationship context, received from Bob's Mia via PDN.
 mia:
-  cell: "http://www.example.org/mia/cells/bob-johnson(others)"
+  cell: "http://www.example.org/mia/categories/bob-johnson(others)-cell"
   claimant: ":Bob_Johnson"
   subject: ":Self"
   about-by: "context:SBOcontext"

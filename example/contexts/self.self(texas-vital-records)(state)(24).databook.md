@@ -8,7 +8,7 @@ description: >
   Alice Walker's Texas birth certificate context. Records her legal name (Margery Alice Walker)
   and maiden name (Margery Alice Arnold) as self-entered data.
 mia:
-  cell: "http://www.example.org/mia/cells/texas-vital-records(state)"
+  cell: "http://www.example.org/mia/categories/texas-vital-records(state)-cell"
   claimant: ":Self"
   subject: ":Self"
   about-by: "context:SBScontext"

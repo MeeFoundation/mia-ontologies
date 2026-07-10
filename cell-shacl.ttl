@@ -7,26 +7,23 @@
 @prefix cell: <http://mee.foundation/ontologies/cell#> .
 
 <http://www.example.org/cell-shapes> rdf:type owl:Ontology ;
-    owl:versionInfo "Version 2.3.0 - added cell:note/cell:folder maxCount 1 to CellShape, and OnePartyShape forbidding cell:obs/cell:sbo/cell:obo"@en ;
+    owl:versionInfo "Version 3.0.0 - split alongside cell.ttl 3.0.0: :CellShape now targets the renamed cell:Cell (formerly cell:Parties) and absorbs the graph/note/folder constraints (domain moved here from the old cell:Cell, now cat:Category — see category-shacl.ttl); cellType/child/copiedFrom constraints moved out to category-shacl.ttl. cell:label re-added (distinct from cat:label) as a class-level default display name on concrete cell:Cell subtypes."@en ;
     rdfs:label "Cell Ontology SHACL Validation Shapes"@en ;
-    rdfs:comment "SHACL validation shapes for cell DataBook instances in the Cell Ontology."@en .
+    rdfs:comment "SHACL validation shapes for cell:Cell DataBook instances (the content facet of a cell) in the Cell Ontology."@en .
 
 
 #################################################################
 #  Cell
-#  Every cell:Cell instance is also formally typed as one of
-#  cell:Parties's concrete subclasses (cell:OneParty, cell:TwoParty,
-#  or cell:ThreePlusParty), since cell:Cell and cell:Parties are
-#  orthogonal facets of the same instance (see cell.ttl). graph,
-#  cellType, note, and folder have domain cell:Cell; num-parties and
-#  sbs have domain cell:Parties; obs/sbo/obo have domain
-#  cell:MultiParty (the abstract superclass of TwoParty and
-#  ThreePlusParty), but their cardinality differs by concrete
-#  subtype: a OneParty cell has no other party at all, so obs/sbo/obo
-#  are forbidden; a TwoParty cell has exactly one other party, so
-#  they're each capped at 1; a ThreePlusParty cell can have any
-#  number of other parties, so they're unconstrained (0..N) there.
-#  Five shapes target the five classes accordingly.
+#  cell:Cell (formerly cell:Parties) classifies every cell instance
+#  by total party count. num-parties/sbs/graph/note/folder all have
+#  domain cell:Cell; obs/sbo/obo have domain cell:MultiParty (the
+#  abstract superclass of TwoParty and ThreePlusParty), but their
+#  cardinality differs by concrete subtype: a OneParty cell has no
+#  other party at all, so obs/sbo/obo are forbidden; a TwoParty cell
+#  has exactly one other party, so they're each capped at 1; a
+#  ThreePlusParty cell can have any number of other parties, so
+#  they're unconstrained (0..N) there. Four shapes target the four
+#  classes accordingly.
 #################################################################
 
 :CellShape
@@ -41,17 +38,21 @@
         sh:message "A cell may link to at most one plain Context via cell:graph."@en
     ] ;
 
-    # cell:cellType — required exactly once. No sh:in enum: the value
-    # is the local name of the cell:Cell subclass this DataBook is
-    # (canonical) or was copied from (instance copy) — e.g. "Family",
-    # "Consultants(org)" — or "Cell" itself if there is no more
-    # specific canonical counterpart. Intentionally open-ended so new
-    # canonical subclasses don't require updating this shape.
+    # cell:sbs — at most one SBS context link per cell
     sh:property [
-        sh:path cell:cellType ;
-        sh:minCount 1 ;
+        sh:path cell:sbs ;
         sh:maxCount 1 ;
-        sh:message "A cell must have exactly one cell:cellType value: the cell:Cell subclass local name it is or was copied from, or \"Cell\" itself."@en
+        sh:message "A cell may link to at most one SBScontext via cell:sbs."@en
+    ] ;
+
+    # cell:num-parties — at most one value, and if present must be
+    # a concrete cell:Cell subclass. Not required (sh:minCount
+    # omitted): the invisible tree roots have no num-parties.
+    sh:property [
+        sh:path cell:num-parties ;
+        sh:maxCount 1 ;
+        sh:in ( "OneParty" "TwoParty" "ThreePlusParty" ) ;
+        sh:message "A cell's cell:num-parties, if present, must be one of OneParty, TwoParty, ThreePlusParty."@en
     ] ;
 
     # cell:note — at most one markdown notes file path
@@ -66,28 +67,6 @@
         sh:path cell:folder ;
         sh:maxCount 1 ;
         sh:message "A cell may have at most one cell:folder value."@en
-    ] .
-
-:PartiesShape
-    a sh:NodeShape ;
-    sh:targetClass cell:Parties ;
-    sh:message "Cell Parties validation."@en ;
-
-    # cell:sbs — at most one SBS context link per cell
-    sh:property [
-        sh:path cell:sbs ;
-        sh:maxCount 1 ;
-        sh:message "A cell may link to at most one SBScontext via cell:sbs."@en
-    ] ;
-
-    # cell:num-parties — at most one value, and if present must be
-    # a concrete cell:Parties subclass. Not required (sh:minCount
-    # omitted): the invisible tree roots have no num-parties.
-    sh:property [
-        sh:path cell:num-parties ;
-        sh:maxCount 1 ;
-        sh:in ( "OneParty" "TwoParty" "ThreePlusParty" ) ;
-        sh:message "A cell's cell:num-parties, if present, must be one of OneParty, TwoParty, ThreePlusParty."@en
     ] .
 
 :OnePartyShape

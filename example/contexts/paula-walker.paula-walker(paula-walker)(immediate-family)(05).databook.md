@@ -7,7 +7,7 @@ created: 2026-06-14
 description: >
   Paula Walker's self-claimed family persona, received from Paula's Mia via PDN.
 mia:
-  cell: "http://www.example.org/mia/cells/paula-walker(immediate-family)"
+  cell: "http://www.example.org/mia/categories/paula-walker(immediate-family)-cell"
   claimant: ":Paula_Walker"
   subject: ":Paula_Walker"
   about-by: "context:OBOcontext"

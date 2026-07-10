@@ -9,7 +9,7 @@ description: >
   a wallet containing her driver's license and payment card, plus a health insurance card
   and Social Security card held separately.
 mia:
-  cell: "http://www.example.org/mia/cells/ownership"
+  cell: "http://www.example.org/mia/categories/ownership-cell"
   claimant: ":Self"
   subject: ":Self"
   about-by: "context:SBScontext"

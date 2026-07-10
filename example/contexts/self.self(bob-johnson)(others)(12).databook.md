@@ -8,7 +8,7 @@ description: >
   Alice Walker's self-claimed persona in the context of her 1:1 relationship with Bob Johnson.
   Records the name and social network connection she shares with Bob.
 mia:
-  cell: "http://www.example.org/mia/cells/bob-johnson(others)"
+  cell: "http://www.example.org/mia/categories/bob-johnson(others)-cell"
   claimant: ":Self"
   subject: ":Self"
   about-by: "context:SBScontext"

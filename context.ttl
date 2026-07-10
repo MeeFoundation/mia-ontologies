@@ -13,7 +13,7 @@
     dc:date "2026-06-01"^^xsd:date ;
     owl:imports <http://mee.foundation/ontologies/pdn-identity> ;
     owl:imports <http://mee.foundation/ontologies/cell> ;
-    owl:versionInfo "Version 1.3.0 - renamed context:category to context:cell, ranging over the renamed cell:Cell (formerly cat:Category)"@en ;
+    owl:versionInfo "Version 1.4.0 - context:cell's range changed from cell:Cell (the tree-position class, now renamed cat:Category and split out into category.ttl) to the new cell:Cell (formerly cell:Parties) — the content-holding class that actually asserts sbs/obs/sbo/obo/graph"@en ;
     rdfs:label "Context Ontology"@en ;
     rdfs:comment """Context Ontology for the Mee Identity Agent"""@en .
 
@@ -24,8 +24,13 @@
 
 context:cell rdf:type owl:AnnotationProperty ;
     rdfs:label "cell"@en ;
-    rdfs:comment """Annotates a DataBook named graph of its containing cell:Cell —
-                    e.g. cell:Companies, cell:Federal, cell:Municipality.
+    rdfs:comment """Annotates a DataBook named graph with its containing cell:Cell —
+                    the content-holding instance (an instance of cell:OneParty,
+                    cell:TwoParty, or cell:ThreePlusParty) that actually asserts the
+                    sbs/obs/sbo/obo/graph link to this context. This is distinct from
+                    the cat:Category (see category.ttl) that places that cell:Cell in a
+                    navigational tree via cat:forCell — a Category's tree position is
+                    not itself relevant to a context DataBook's containment.
                     Applied to the named graph IRI, not to the Person individual."""@en ;
     rdfs:domain context:Context ;
     rdfs:range cell:Cell .
