@@ -11,7 +11,7 @@
     owl:versionIRI <http://mee.foundation/ontologies/category/1.0.0> ;
     dc:date "2026-07-04"^^xsd:date ;
     owl:imports <http://mee.foundation/ontologies/context> ;
-    owl:versionInfo "Version 1.0.35 - updated comments for context:assertedBy rename to context:claimant"@en ;
+    owl:versionInfo "Version 1.0.36 - replaced cat:FinancialServices(org) with 5 (org) copies of cat:Finances's subcategories under cat:Finances(org)"@en ;
     rdfs:label "Category Ontology"@en ;
     rdfs:comment """Category Ontology for the Mee Identity Agent"""@en .
 
@@ -115,7 +115,7 @@ cat:Person rdf:type owl:Class ;
 cat:Organization rdf:type owl:Class ;
     rdfs:subClassOf cat:Category ;
     rdfs:label "Organization"@en ;
-    rdfs:comment "Superclass of all built-in context categories that involve interactions with organizations (e.g. Companies, FinancialServices(org))."@en .
+    rdfs:comment "Superclass of all built-in context categories that involve interactions with organizations (e.g. Companies, BankingPayments(org))."@en .
 
 #################################################################
 #    UserDefined properties
@@ -670,7 +670,27 @@ cat:Finances\(org\) rdf:type owl:Class ;
     rdfs:label "Finances (org)"@en ;
     rdfs:comment "Corporate finance-related matters."@en .
 
-cat:FinancialServices\(org\) rdf:type owl:Class ;
+cat:BankingPayments\(org\) rdf:type owl:Class ;
     rdfs:subClassOf cat:Finances\(org\) ;
-    rdfs:label "Financial Services (org)"@en ;
-    rdfs:comment "Banks or other financial services institutions."@en .
+    rdfs:label "Banking & Payments (org)"@en ;
+    rdfs:comment "Firms that help the organization store, access, and move its cash — retail banks, payment processors, and remittance firms."@en .
+
+cat:Investing\(org\) rdf:type owl:Class ;
+    rdfs:subClassOf cat:Finances\(org\) ;
+    rdfs:label "Investing (org)"@en ;
+    rdfs:comment "Firms that help the organization invest and grow its assets — brokerage firms, robo-advisors, and mutual fund companies."@en .
+
+cat:LendingCredit\(org\) rdf:type owl:Class ;
+    rdfs:subClassOf cat:Finances\(org\) ;
+    rdfs:label "Lending & Credit (org)"@en ;
+    rdfs:comment "Firms that lend the organization money — mortgage lenders, commercial finance companies, and credit card issuers."@en .
+
+cat:Insurance\(org\) rdf:type owl:Class ;
+    rdfs:subClassOf cat:Finances\(org\) ;
+    rdfs:label "Insurance (org)"@en ;
+    rdfs:comment "Firms that insure the organization against financial loss — property, casualty, and liability insurance."@en .
+
+cat:Advisory\(org\) rdf:type owl:Class ;
+    rdfs:subClassOf cat:Finances\(org\) ;
+    rdfs:label "Advisory (org)"@en ;
+    rdfs:comment "Firms and individuals who advise the organization on how to use its money — financial planners, estate planners, accountants, and bookkeepers."@en .
