@@ -11,7 +11,7 @@
     owl:versionIRI <http://mee.foundation/ontologies/category/1.0.0> ;
     dc:date "2026-07-04"^^xsd:date ;
     owl:imports <http://mee.foundation/ontologies/context> ;
-    owl:versionInfo "Version 1.0.37 - added cat:People(org) top-level category; moved Employees and Consultants(org) under it; added Other(org) and Colleagues"@en ;
+    owl:versionInfo "Version 1.0.38 - added Advisors(org) and BoardOfDirectors(org) under People(org)"@en ;
     rdfs:label "Category Ontology"@en ;
     rdfs:comment """Category Ontology for the Mee Identity Agent"""@en .
 
@@ -644,6 +644,16 @@ cat:Colleagues rdf:type owl:Class ;
     rdfs:subClassOf cat:People\(org\) ;
     rdfs:label "Colleagues"@en ;
     rdfs:comment "Coworkers and peers within the organization not tracked as formal Employee records."@en .
+
+cat:Advisors\(org\) rdf:type owl:Class ;
+    rdfs:subClassOf cat:People\(org\) ;
+    rdfs:label "Advisors (org)"@en ;
+    rdfs:comment "Individuals who advise the organization in a non-employee capacity."@en .
+
+cat:BoardOfDirectors\(org\) rdf:type owl:Class ;
+    rdfs:subClassOf cat:People\(org\) ;
+    rdfs:label "Board of Directors (org)"@en ;
+    rdfs:comment "The organization's board members."@en .
 
 cat:KB rdf:type owl:Class ;
     rdfs:subClassOf cat:Organization ;
