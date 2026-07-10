@@ -114,9 +114,21 @@ Every cell (other than the invisible root) is classified two ways: which cell ty
 
 **CellType — `mia.cellType`.** Its value is the local name of the `cell:Cell` subclass this cell canonically is — for a canonical cell, e.g. `ImmediateFamily` or `Employees(org)` — or, for a user's instance copy of a canonical cell, the name of the class it was copied from (the same value as its canonical source). A cell with no canonical counterpart at all (e.g. a specific person, company, or group Alice created herself) uses `Cell` itself, the root class. Canonical cells are direct subclasses of `cell:Cell`: either `cell:Personal` (generally useful cells for organizing a person's personal, non-work, life) or `cell:Organizational` (cells tuned to a person's working life) — `mia.cellType` names the specific leaf subclass rather than this broader family, so new canonical subclasses can be added without changing the property itself.
 
-**Parties — `mia.num-parties`.** `cell:Parties` is a standalone abstract class documenting how many external parties are involved in the relationship a cell represents. The hierarchy exists purely to document the field's values and their display labels. There are three types: `cell:OneParty` (no external party — display label "Cell"), `cell:TwoParty` (a 1:1 relationship with a specific person, organization, or other party — display label "Two-Party"), and `cell:MultiParty` (a shared multi-party relationship with a group of people or organizations — display label "Multi-Party"). 
+**Parties — `mia.num-parties`.** `cell:Parties` is an abstract class classifying every cell by how many total parties (the user plus zero or more others) are involved in the relationship it represents. Unlike `cellType`, this isn't just a descriptive string: `cell:Parties` and `cell:Cell` are orthogonal facets of the same instance (`cell:Parties` is not `rdfs:subClassOf cell:Cell`, and vice versa), so every cell is formally typed as *both* a `cell:Cell` subclass and a concrete `cell:Parties` subclass. There are three concrete types: `cell:OneParty` (the user alone — display label "Cell"), `cell:TwoParty` (the user plus exactly one other party — display label "Two-Party Cell"), and `cell:ThreePlusParty` (the user plus two or more other parties, e.g. a group — display label "Multi-Party Cell"). `cell:TwoParty` and `cell:ThreePlusParty` are both subclasses of the abstract `cell:MultiParty`, which exists only to group "more than one total party" cells for the purpose of properties that need another party to make sense (see `obs`/`sbo`/`obo` below).
 
 <p align="center"><img src="images/cell-ontology/cell.png" alt="Cell hierarchy"></p>
+
+Cardinality of each property by concrete `cell:Parties` subtype:
+
+| Property | OneParty | TwoParty | ThreePlusParty |
+|----------|----------|----------|-----------------|
+| `cell:graph` | 0..1 | 0..1 | 0..1 |
+| `cell:folder` | 0..1 | 0..1 | 0..1 |
+| `cell:note` | 0..1 | 0..1 | 0..1 |
+| `cell:sbs` | 0..1 | 0..1 | 0..1 |
+| `cell:sbo` | 0 | 0..1 | 0..N |
+| `cell:obs` | 0 | 0..1 | 0..N |
+| `cell:obo` | 0 | 0..1 | 0..N |
 
 ### Properties
 
@@ -128,11 +140,11 @@ Every cell (other than the invisible root) is classified two ways: which cell ty
 - **`cell:obs`** - a context about the other party as claimed by the self.
 - **`cell:sbo`** - a context about the self as claimed by the other party.
 - **`cell:obo`** - a context about the other party as claimed by the other party.
-- **`cell:graph`** - link to a plain `c:Context` that doesn't fit the self-vs-other classification `cell:sbs`/`cell:obs`/`cell:sbo`/`cell:obo` assume — e.g. claims jointly maintained by multiple parties about a third party.
+- **`cell:graph`** - link to a plain `c:Context` that doesn't fit the self-vs-other classification `cell:sbs`/`cell:obs`/`cell:sbo`/`cell:obo` assume — e.g. claims jointly maintained by multiple parties about a third party, or, on a `OneParty` cell, simply a context that doesn't need self-vs-other framing at all.
 
 ### Representative cell types
 
-The diagram below shows five kinds of cells along with referenced contexts (the white and green circles). The first is a `cell:Personal` canonical cell. Next is an`cell:Organizational` cell. The third is a `cell:UserDefined` cell. The fourth is a cell:TwoParty cell between the user and another Mia user, Bob. The last is a `cell:MultiParty`--the Boston Hub Society (BHS) professional social network.
+The diagram below shows five kinds of cells along with referenced contexts (the white and green circles). The first is a `cell:Personal` canonical cell. Next is an`cell:Organizational` cell. The third is a `cell:UserDefined` cell. The fourth is a `cell:TwoParty` cell between the user and another Mia user, Bob. The last is a `cell:ThreePlusParty`--the Boston Hub Society (BHS) professional social network.
 
 <p align="center"><img src="images/cell-ontology/cells+contexts.png" alt="Cells and contexts"></p>
 
@@ -167,7 +179,7 @@ In the normal case `cell:note` and `cell:folder` are technically redundant — b
 
 ### Personal Cells
 
-`cell:Personal` cells (and sub-cells) are used to organize a person's information:
+`cell:Personal` cells (and sub-cells) organize a person's information:
 
 1. **People** (`cell:People`) — people in your social or professional life. Use this cell for people not otherwise tied to a specific domain — a bookkeeper you know belongs under Finances (Advisory), and your primary care physician belongs under Health & Wellness (Medical > Providers > Primary Care Physician), rather than here.
     - **Immediate Family** (`cell:ImmediateFamily`) — your closest living relatives, which generally include parents, siblings, spouses/partners, and children.
@@ -175,7 +187,7 @@ In the normal case `cell:note` and `cell:folder` are technically redundant — b
     - **In-Laws / Step-Family** (`cell:InLawsStepFamily`) — relatives gained through marriage or legal guardianship, including a spouse's parents and siblings, or children from a previous relationship.
     - **Friends** (`cell:Friends`) — interactions with friends.
     - **Others** (`cell:Others`) — people you know socially or professionally who are not family or friends — acquaintances, neighbors, or other connections not yet more specifically categorized.
-1. **Affiliations** (`cell:Affiliations`) — clubs, charities, faith groups, and other group affiliations not covered by a more specific cell — includes formal memberships and their social networks, some of which may be `cell:MultiParty` ("Multi-Party") cells that exist as a `g:Group` on the PDN. See also Sports & Entertainment for personal sports and entertainment interests, like following a favorite team, that aren't tied to a formal membership.
+1. **Affiliations** (`cell:Affiliations`) — clubs, charities, faith groups, and other group affiliations not covered by a more specific cell — includes formal memberships and their social networks, some of which may be `cell:ThreePlusParty` ("Multi-Party Cell") cells that exist as a `g:Group` on the PDN. See also Sports & Entertainment for personal sports and entertainment interests, like following a favorite team, that aren't tied to a formal membership.
 1. **Health & Wellness** (`cell:HealthWellness`) — personal health and wellness information. Medical history, allergies, medications, vaccinations, prescriptions, eyeglasses.
     - **Medical** (`cell:Medical`) — medical (as opposed to dental or vision) care — diagnoses, treatments, providers, and insurance.
         - **History** (`cell:MedicalHistory`) — past diagnoses, conditions, surgeries, and treatments.
@@ -235,7 +247,7 @@ In the normal case `cell:note` and `cell:folder` are technically redundant — b
 
 ### Organizational Cells
 
-`cell:Organizational` cells related to a person's role within organization:
+`cell:Organizational` cells relate to a person's role within organization:
 
 1. **Customers** (`cell:Customers`) — customer organizations. Rename to "Clients", etc.
 1. **Marketing** (`cell:Marketing`) — marketing activities, campaigns, and related organizations.
@@ -278,7 +290,7 @@ The following properties are defined in `cell.ttl` and represented as `mia.` YAM
 | YAML field | Ontology property | Cardinality | Meaning |
 |------------|-------------------|-------------|---------|
 | `mia.cellType` | `cell:cellType` | 1 | The local name of the `cell:Cell` subclass this DataBook is or was copied from (e.g. `ImmediateFamily`, `Employees(org)`), or `Cell` itself if there is no canonical counterpart |
-| `mia.num-parties` | `cell:num-parties` | 1 | The concrete `cell:Parties` subclass this DataBook instantiates: one of `OneParty`, `TwoParty`, `MultiParty` |
+| `mia.num-parties` | `cell:num-parties` | 1 | The concrete `cell:Parties` subclass this DataBook instantiates: one of `OneParty`, `TwoParty`, `ThreePlusParty` |
 | `mia.label` | `cell:label` | 1 | User-editable display name — defaults to the DataBook `title` but can be changed independently, leaving `title` and `id` immutable |
 | `mia.note` | `cell:note` | 0..1 | Relative path to a markdown notes file for this cell (e.g. `People/Paula Walker/Paula Walker.md`) |
 | `mia.folder` | `cell:folder` | 0..1 | Relative path to a folder of arbitrary files for this cell (e.g. `People/Paula Walker`) |
@@ -292,23 +304,23 @@ Each cell DataBook in the user's tree may carry up to four optional links to con
 
 | Property | Value (`c:Context` subtype) | Cardinality | Applies to | Meaning |
 |----------|---------------------|-------------|------------|---------|
-| `cell:sbs` | `c:SBScontext` | 0..1 | All cells | The user's own context in this cell |
-| `cell:obs` | `c:OBScontext` | 0..1 | All cells | The user's record of the other party |
-| `cell:obo` | `c:OBOcontext` | 0..N | All cells | A context the other party presents |
-| `cell:sbo` | `c:SBOcontext` | 0..1 | All cells | A context the other party holds about the user |
-| `cell:graph` | `c:Context` | 0..1 | All cells | A context that doesn't fit the self-vs-other classification — e.g. claims jointly maintained by multiple parties about a third party |
+| `cell:sbs` | `c:SBScontext` | 0..1 | `cell:Parties` cells (`OneParty` or `MultiParty`) | The user's own context in this cell |
+| `cell:obs` | `c:OBScontext` | 0..1 on `TwoParty`; 0..N on `ThreePlusParty` | `cell:MultiParty` cells (`TwoParty` or `ThreePlusParty`) | The user's record of the other party |
+| `cell:obo` | `c:OBOcontext` | 0..1 on `TwoParty`; 0..N on `ThreePlusParty` | `cell:MultiParty` cells (`TwoParty` or `ThreePlusParty`) | A context the other party presents |
+| `cell:sbo` | `c:SBOcontext` | 0..1 on `TwoParty`; 0..N on `ThreePlusParty` | `cell:MultiParty` cells (`TwoParty` or `ThreePlusParty`) | A context the other party holds about the user |
+| `cell:graph` | `c:Context` | 0..1 | All cells | A context that doesn't fit the self-vs-other classification — e.g. claims jointly maintained by multiple parties about a third party, or, on a `OneParty` cell, a context that simply doesn't need self-vs-other framing |
 
-`cell:sbs`, `cell:obs`, `cell:obo`, `cell:sbo`, `cell:graph` links appear only in cells in the user's tree, not in canonical cells.
+`cell:sbs`, `cell:obs`, `cell:obo`, `cell:sbo`, `cell:graph` links appear only in cells in the user's tree, not in canonical cells. `obs`/`obo`/`sbo` require another party to make sense, so their domain is `cell:MultiParty` rather than the broader `cell:Parties` or `cell:Cell` — a `OneParty` cell (just the user, no external party) can have `sbs` but not `obs`/`sbo`/`obo`. Their cardinality is capped at 1 for `TwoParty` cells (only one other party exists to have a record about) but unconstrained for `ThreePlusParty` cells (a group can have any number of other-party contexts). `cell:graph`'s domain deliberately stays the broader `cell:Cell` rather than `cell:MultiParty`, since it's also useful on a `OneParty` cell for a context that doesn't need self-vs-other classification at all — unlike `obs`/`sbo`/`obo`, it doesn't require another party to make sense.
 
 ### Cell Ontology File
 
 - **`cell.ttl`** — The Cell ontology, defining:
-  - *Classes*: `cell:Cell`, `cell:Personal`, `cell:Organizational`, `cell:UserDefined`, `cell:Parties`, `cell:OneParty`, `cell:TwoParty`, `cell:MultiParty` and all leaf cell subclasses.
-  - *Annotation properties*: `cell:cellType` (the `cell:Cell` subclass this DataBook is or was copied from, or `Cell` itself), `cell:num-parties` (concrete `cell:Parties` subclass), `cell:label` (user-editable display name), `cell:note` (path to markdown notes file), `cell:folder` (path to associated file folder), `cell:copiedFrom` (IRI of the canonical cell this DataBook was copied from), `cell:abstract` (marks a class as not directly instantiated in DataBooks).
-  - *Object properties*: `cell:sbs`, `cell:obs`, `cell:obo`, `cell:sbo`, `cell:graph`, `cell:child`.
+  - *Classes*: `cell:Cell`, `cell:Personal`, `cell:Organizational`, `cell:UserDefined`, `cell:Parties`, `cell:OneParty`, `cell:MultiParty` (abstract), `cell:TwoParty`, `cell:ThreePlusParty`, and all leaf cell subclasses. `cell:Parties` is not `rdfs:subClassOf cell:Cell` (and vice versa) — every cell instance is formally typed as both, since the two hierarchies classify orthogonal facets of the same instance.
+  - *Annotation properties*: `cell:cellType` (the `cell:Cell` subclass this DataBook is or was copied from, or `Cell` itself), `cell:num-parties` (concrete `cell:Parties` subclass — domain `cell:Parties`), `cell:label` (user-editable display name), `cell:note` (path to markdown notes file), `cell:folder` (path to associated file folder), `cell:copiedFrom` (IRI of the canonical cell this DataBook was copied from), `cell:abstract` (marks a class as not directly instantiated in DataBooks).
+  - *Object properties*: `cell:sbs` (domain `cell:Parties`), `cell:obs`/`cell:obo`/`cell:sbo` (domain `cell:MultiParty`), `cell:graph`/`cell:child` (domain `cell:Cell`).
   These terms are referenced by name in the YAML frontmatter of each cell DataBook file. `cell.ttl` imports `context.ttl` (for the `c:SBScontext`/`c:OBScontext`/`c:OBOcontext`/`c:SBOcontext` ranges of `cell:sbs`/`cell:obs`/`cell:obo`/`cell:sbo`, and the plain `c:Context` range of `cell:graph`); `context.ttl` in turn imports `cell.ttl` (for `c:cell`'s range, `cell:Cell`, and to reuse `cell:abstract` on `c:Context`).
 
-- **`cell-shacl.ttl`** — SHACL shapes for cell DataBook instances. Constrains `cell:Cell` instances to: at most one `cell:sbs`, `cell:obs`, `cell:sbo`, and `cell:graph` value each (`cell:obo` is unconstrained, 0..N); exactly one `cell:cellType` value (open-ended — no enum, since new canonical subclasses can be added freely); and at most one `cell:num-parties` value, which if present must be one of `OneParty`, `TwoParty`, `MultiParty`.
+- **`cell-shacl.ttl`** — SHACL shapes for cell DataBook instances, split across the five classes that carry cell properties: `:CellShape` (target `cell:Cell`) constrains `cell:graph`, `cell:note`, and `cell:folder` to at most one value each, and `cell:cellType` to exactly one (open-ended — no enum, since new canonical subclasses can be added freely); `:PartiesShape` (target `cell:Parties`) constrains `cell:sbs` to at most one value and `cell:num-parties` to at most one value which, if present, must be one of `OneParty`, `TwoParty`, `ThreePlusParty`; `:OnePartyShape` (target `cell:OneParty`) forbids `cell:obs`/`cell:sbo`/`cell:obo` entirely, since a `OneParty` cell has no other party; `:TwoPartyShape` (target `cell:TwoParty`) constrains `cell:obs`, `cell:sbo`, and `cell:obo` to at most one value each, since a 1:1 cell has only one other party; `:ThreePlusPartyShape` (target `cell:ThreePlusParty`) leaves `cell:obs`/`cell:sbo`/`cell:obo` unconstrained (0..N), since a group cell can have any number of other-party contexts.
 
 ### Cell Ontology Validation
 

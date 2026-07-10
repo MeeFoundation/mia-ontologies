@@ -7,43 +7,32 @@
 @prefix cell: <http://mee.foundation/ontologies/cell#> .
 
 <http://www.example.org/cell-shapes> rdf:type owl:Ontology ;
-    owl:versionInfo "Version 2.0.0 - renamed category-shacl.ttl/cat: to cell-shacl.ttl/cell:; CategoryShape to CellShape"@en ;
+    owl:versionInfo "Version 2.3.0 - added cell:note/cell:folder maxCount 1 to CellShape, and OnePartyShape forbidding cell:obs/cell:sbo/cell:obo"@en ;
     rdfs:label "Cell Ontology SHACL Validation Shapes"@en ;
     rdfs:comment "SHACL validation shapes for cell DataBook instances in the Cell Ontology."@en .
 
 
 #################################################################
 #  Cell
-#  All cell instances. sbs/obs/sbo/obo all have domain
-#  cell:Cell (not cell:UserDefined or cell:Parties),
-#  so all four constraints target cell:Cell.
+#  Every cell:Cell instance is also formally typed as one of
+#  cell:Parties's concrete subclasses (cell:OneParty, cell:TwoParty,
+#  or cell:ThreePlusParty), since cell:Cell and cell:Parties are
+#  orthogonal facets of the same instance (see cell.ttl). graph,
+#  cellType, note, and folder have domain cell:Cell; num-parties and
+#  sbs have domain cell:Parties; obs/sbo/obo have domain
+#  cell:MultiParty (the abstract superclass of TwoParty and
+#  ThreePlusParty), but their cardinality differs by concrete
+#  subtype: a OneParty cell has no other party at all, so obs/sbo/obo
+#  are forbidden; a TwoParty cell has exactly one other party, so
+#  they're each capped at 1; a ThreePlusParty cell can have any
+#  number of other parties, so they're unconstrained (0..N) there.
+#  Five shapes target the five classes accordingly.
 #################################################################
 
 :CellShape
     a sh:NodeShape ;
     sh:targetClass cell:Cell ;
     sh:message "Cell validation."@en ;
-
-    # cell:sbs — at most one SBS context link per cell
-    sh:property [
-        sh:path cell:sbs ;
-        sh:maxCount 1 ;
-        sh:message "A cell may link to at most one SBScontext via cell:sbs."@en
-    ] ;
-
-    # cell:obs — at most one OBS context link
-    sh:property [
-        sh:path cell:obs ;
-        sh:maxCount 1 ;
-        sh:message "A cell may link to at most one OBScontext via cell:obs."@en
-    ] ;
-
-    # cell:sbo — at most one SBO context link
-    sh:property [
-        sh:path cell:sbo ;
-        sh:maxCount 1 ;
-        sh:message "A cell may link to at most one SBOcontext via cell:sbo."@en
-    ] ;
 
     # cell:graph — at most one plain Context link
     sh:property [
@@ -65,14 +54,98 @@
         sh:message "A cell must have exactly one cell:cellType value: the cell:Cell subclass local name it is or was copied from, or \"Cell\" itself."@en
     ] ;
 
+    # cell:note — at most one markdown notes file path
+    sh:property [
+        sh:path cell:note ;
+        sh:maxCount 1 ;
+        sh:message "A cell may have at most one cell:note value."@en
+    ] ;
+
+    # cell:folder — at most one associated files folder path
+    sh:property [
+        sh:path cell:folder ;
+        sh:maxCount 1 ;
+        sh:message "A cell may have at most one cell:folder value."@en
+    ] .
+
+:PartiesShape
+    a sh:NodeShape ;
+    sh:targetClass cell:Parties ;
+    sh:message "Cell Parties validation."@en ;
+
+    # cell:sbs — at most one SBS context link per cell
+    sh:property [
+        sh:path cell:sbs ;
+        sh:maxCount 1 ;
+        sh:message "A cell may link to at most one SBScontext via cell:sbs."@en
+    ] ;
+
     # cell:num-parties — at most one value, and if present must be
-    # a cell:Parties subclass. Not required (sh:minCount omitted):
-    # the invisible tree roots have no num-parties.
+    # a concrete cell:Parties subclass. Not required (sh:minCount
+    # omitted): the invisible tree roots have no num-parties.
     sh:property [
         sh:path cell:num-parties ;
         sh:maxCount 1 ;
-        sh:in ( "OneParty" "TwoParty" "MultiParty" ) ;
-        sh:message "A cell's cell:num-parties, if present, must be one of OneParty, TwoParty, MultiParty."@en
+        sh:in ( "OneParty" "TwoParty" "ThreePlusParty" ) ;
+        sh:message "A cell's cell:num-parties, if present, must be one of OneParty, TwoParty, ThreePlusParty."@en
     ] .
 
-    # cell:obo — 0..N (no maxCount constraint)
+:OnePartyShape
+    a sh:NodeShape ;
+    sh:targetClass cell:OneParty ;
+    sh:message "Cell OneParty validation."@en ;
+
+    # cell:obs — forbidden: a OneParty cell has no other party to record
+    sh:property [
+        sh:path cell:obs ;
+        sh:maxCount 0 ;
+        sh:message "A OneParty cell must not have a cell:obs value — it has no other party."@en
+    ] ;
+
+    # cell:sbo — forbidden
+    sh:property [
+        sh:path cell:sbo ;
+        sh:maxCount 0 ;
+        sh:message "A OneParty cell must not have a cell:sbo value — it has no other party."@en
+    ] ;
+
+    # cell:obo — forbidden
+    sh:property [
+        sh:path cell:obo ;
+        sh:maxCount 0 ;
+        sh:message "A OneParty cell must not have a cell:obo value — it has no other party."@en
+    ] .
+
+:TwoPartyShape
+    a sh:NodeShape ;
+    sh:targetClass cell:TwoParty ;
+    sh:message "Cell TwoParty validation."@en ;
+
+    # cell:obs — at most one OBS context link (a 1:1 cell has only one other party)
+    sh:property [
+        sh:path cell:obs ;
+        sh:maxCount 1 ;
+        sh:message "A TwoParty cell may link to at most one OBScontext via cell:obs."@en
+    ] ;
+
+    # cell:sbo — at most one SBO context link
+    sh:property [
+        sh:path cell:sbo ;
+        sh:maxCount 1 ;
+        sh:message "A TwoParty cell may link to at most one SBOcontext via cell:sbo."@en
+    ] ;
+
+    # cell:obo — at most one OBO context link
+    sh:property [
+        sh:path cell:obo ;
+        sh:maxCount 1 ;
+        sh:message "A TwoParty cell may link to at most one OBOcontext via cell:obo."@en
+    ] .
+
+:ThreePlusPartyShape
+    a sh:NodeShape ;
+    sh:targetClass cell:ThreePlusParty ;
+    sh:message "Cell ThreePlusParty validation."@en .
+
+    # cell:obs, cell:sbo, cell:obo — 0..N (no maxCount constraint):
+    # a group cell may have any number of other-party contexts.

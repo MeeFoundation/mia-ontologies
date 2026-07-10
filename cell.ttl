@@ -8,10 +8,10 @@
 @base <http://mee.foundation/ontologies/cell> .
 
 <http://mee.foundation/ontologies/cell> rdf:type owl:Ontology ;
-    owl:versionIRI <http://mee.foundation/ontologies/cell/2.0.0> ;
-    dc:date "2026-07-10"^^xsd:date ;
+    owl:versionIRI <http://mee.foundation/ontologies/cell/2.1.0> ;
+    dc:date "2026-07-11"^^xsd:date ;
     owl:imports <http://mee.foundation/ontologies/context> ;
-    owl:versionInfo "Version 2.0.0 - renamed this ontology from category.ttl (cat: prefix) to cell.ttl (cell: prefix); the root class Category is now Cell, Person is now Personal, Organization is now Organizational, and classname is now cellType"@en ;
+    owl:versionInfo "Version 2.1.0 - restructured cell:MultiParty into an abstract superclass of cell:TwoParty and new cell:ThreePlusParty (label \"Multi-Party Cell\"); cell:TwoParty relabeled \"Two-Party Cell\"; moved cell:sbs/cell:num-parties domain to cell:Parties and cell:obs/cell:sbo/cell:obo domain to cell:MultiParty"@en ;
     rdfs:label "Cell Ontology"@en ;
     rdfs:comment """Cell Ontology for the Mee Identity Agent"""@en .
 
@@ -21,10 +21,10 @@
 #################################################################
 
 cell:num-parties rdf:type owl:AnnotationProperty ;
-    rdfs:domain cell:Cell ;
+    rdfs:domain cell:Parties ;
     rdfs:range xsd:string ;
     rdfs:label "num-parties"@en ;
-    rdfs:comment "The concrete cell:Parties subclass this DataBook instantiates. One of: OneParty, TwoParty, MultiParty."@en .
+    rdfs:comment "The concrete cell:Parties subclass this DataBook instantiates. One of: OneParty, TwoParty, ThreePlusParty."@en .
 
 cell:cellType rdf:type owl:AnnotationProperty ;
     rdfs:domain cell:Cell ;
@@ -61,13 +61,13 @@ cell:graph rdf:type owl:ObjectProperty ;
     rdfs:comment "Links a cell to a plain context DataBook that does not fit the sbs/obs/sbo/obo self-vs-other classification — e.g. claims jointly maintained by multiple parties about a third party, rather than data cleanly claimable as self-vs-other. Unlike sbs/obs/sbo/obo, no about-by subject/claimant classification is implied by this property; the target context is typed context:Context directly rather than one of its four subclasses."@en .
 
 cell:sbs rdf:type owl:ObjectProperty ;
-    rdfs:domain cell:Cell ;
+    rdfs:domain cell:Parties ;
     rdfs:range context:SBScontext ;
     rdfs:label "self-by-self"@en ;
     rdfs:comment "Links a cell to a context DataBook where both subject and claimant are :Self — the Mia user is both the subject of and the claimant of the data."@en .
 
 cell:obs rdf:type owl:ObjectProperty ;
-    rdfs:domain cell:Cell ;
+    rdfs:domain cell:MultiParty ;
     rdfs:range context:OBScontext ;
     rdfs:label "other-by-self"@en ;
     rdfs:comment "Links a cell to a context DataBook where subject is another person/org/group and claimant is :Self."@en .
@@ -86,19 +86,25 @@ cell:UserDefined rdf:type owl:Class ;
 cell:Parties rdf:type owl:Class ;
     cell:abstract true ;
     rdfs:label "Parties"@en ;
-    rdfs:comment "Standalone abstract superclass documenting the values of cell:num-parties: how many parties are involved in the relationship a cell represents — no external party (OneParty), a single external party (TwoParty), or a group of external parties (MultiParty). Not a subclass of cell:Cell — num-parties is a plain string-valued annotation, so no cell instance is ever formally typed as a Parties subclass; this hierarchy exists purely to document num-parties's values and their display labels."@en .
-
-cell:TwoParty rdf:type owl:Class ;
-    rdfs:subClassOf cell:Parties ;
-    rdfs:label "TwoParty"@en ;
-    cell:label "Two-Party" ;
-    rdfs:comment "A user-defined cell representing a 1:1 relationship with a specific person, organization, or other party."@en .
+    rdfs:comment "Superclass classifying every cell:Cell instance by how many total parties (the user plus zero or more others) are involved in the relationship it represents: cell:OneParty (the user alone), or cell:MultiParty (the user plus one or more others, further split into cell:TwoParty and cell:ThreePlusParty). cell:Parties is not rdfs:subClassOf cell:Cell, and vice versa — a cell's position in the tree (Cell) and its party count (Parties) are orthogonal facets of the same instance, so every cell:Cell instance is also formally typed as one of Parties's concrete subclasses. cell:num-parties records the same classification as a plain string for convenience."@en .
 
 cell:MultiParty rdf:type owl:Class ;
+    cell:abstract true ;
     rdfs:subClassOf cell:Parties ;
     rdfs:label "MultiParty"@en ;
-    cell:label "Multi-Party" ;
-    rdfs:comment "A user-defined cell representing a shared multi-party relationship with a group of people or organizations. Not to be confused with g:Group (a PDN group node)."@en .
+    rdfs:comment "Abstract superclass of the two cell types involving more than one total party: cell:TwoParty (exactly one other party) and cell:ThreePlusParty (two or more other parties, e.g. a group)."@en .
+
+cell:TwoParty rdf:type owl:Class ;
+    rdfs:subClassOf cell:MultiParty ;
+    rdfs:label "TwoParty"@en ;
+    cell:label "Two-Party Cell" ;
+    rdfs:comment "A user-defined cell representing a 1:1 relationship with a specific person, organization, or other party."@en .
+
+cell:ThreePlusParty rdf:type owl:Class ;
+    rdfs:subClassOf cell:MultiParty ;
+    rdfs:label "ThreePlusParty"@en ;
+    cell:label "Multi-Party Cell" ;
+    rdfs:comment "A user-defined cell representing a shared relationship with two or more other parties — e.g. a group of people or organizations. Not to be confused with g:Group (a PDN group node)."@en .
 
 cell:OneParty rdf:type owl:Class ;
     rdfs:subClassOf cell:Parties ;
@@ -122,13 +128,13 @@ cell:Organizational rdf:type owl:Class ;
 #################################################################
 
 cell:sbo rdf:type owl:ObjectProperty ;
-    rdfs:domain cell:Cell ;
+    rdfs:domain cell:MultiParty ;
     rdfs:range context:SBOcontext ;
     rdfs:label "self-by-other"@en ;
     rdfs:comment "Links a connection cell to a context DataBook where subject is :Self and claimant is another person, organization, or group."@en .
 
 cell:obo rdf:type owl:ObjectProperty ;
-    rdfs:domain cell:Cell ;
+    rdfs:domain cell:MultiParty ;
     rdfs:range context:OBOcontext ;
     rdfs:label "other-by-other"@en ;
     rdfs:comment "Links a connection cell to a context DataBook where both subject and claimant are another person, organization, or group."@en .
@@ -224,7 +230,7 @@ cell:label rdf:type owl:AnnotationProperty ;
 cell:Affiliations rdf:type owl:Class ;
     rdfs:subClassOf cell:Personal ;
     rdfs:label "Affiliations"@en ;
-    rdfs:comment "Clubs, charities, faith groups, and other group affiliations not covered by a more specific cell — includes formal memberships and their social networks, some of which may be cell:MultiParty ('Multi-Party') cells that exist as a g:Group on the PDN. See also Sports & Entertainment for personal sports and entertainment interests, like following a favorite team, that aren't tied to a formal membership."@en .
+    rdfs:comment "Clubs, charities, faith groups, and other group affiliations not covered by a more specific cell — includes formal memberships and their social networks, some of which may be cell:ThreePlusParty ('Multi-Party Cell') cells that exist as a g:Group on the PDN. See also Sports & Entertainment for personal sports and entertainment interests, like following a favorite team, that aren't tied to a formal membership."@en .
 
 
 #################################################################
