@@ -1,6 +1,6 @@
 ---
 id: https://www.example.org/mia/contexts/jane-kopakolva.self(jane-kopakolva)(25)
-title: "About Jane Kopakolva in the PrimaryCarePhysician category as claimed by Alice Walker"
+title: "About Jane Kopakolva in the PrimaryCarePhysician cell as claimed by Alice Walker"
 type: context-databook
 version: 1.0.3
 created: 2026-07-08
@@ -8,7 +8,7 @@ description: >
   Alice's record of Dr. Jane Kopakolva, the primary care physician for
   Alice's mother, Paula Walker.
 mia:
-  category: "http://www.example.org/mia/categories/jane-kopakolva"
+  cell: "http://www.example.org/mia/cells/jane-kopakolva"
   claimant: ":Self"
   subject: ":Jane_Kopakolva"
   about-by: "context:OBScontext"

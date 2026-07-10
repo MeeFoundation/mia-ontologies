@@ -1,6 +1,6 @@
 ---
 id: https://www.example.org/mia/contexts/paula-walker.self(paula-walker)(acme)(06)
-title: "About Paula Walker in the Employee category as claimed by Alice Walker"
+title: "About Paula Walker in the Employee cell as claimed by Alice Walker"
 type: context-databook
 version: 2.0.4
 created: 2026-06-14
@@ -8,7 +8,7 @@ description: >
   Alice's record of her colleague Paula Walker in the Acme employment context.
   Self-claimed by Alice; describes Paula as an individual.
 mia:
-  category: "http://www.example.org/mia/categories/paula-walker(acme)"
+  cell: "http://www.example.org/mia/cells/paula-walker(acme)"
   claimant: ":Self"
   subject: ":Paula_Walker"
   about-by: "context:OBScontext"

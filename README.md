@@ -4,7 +4,7 @@ This document describes the ontologies used by the Mee Identity Agent (Mia) soft
 
 Mia's ontologies import and profile existing ontologies — documenting which of their classes and properties Mia requires or uses — and extending them with Mia-specific classes and properties. 
 
-The **Context** and **Category** ontologies are the organizing framework. The context ontology defines *contexts* - containers of claims (attributes) about a given subject and claimed by some entity. The category ontology defines *categories* that may contain one or more contexts. Categories are arranged into a tree structure. 
+The **Context** and **Cell** ontologies are the organizing framework. The context ontology defines *contexts* - containers of claims (attributes) about a given subject and claimed by some entity. The cell ontology defines *cells* that may contain one or more contexts. Cells are arranged into a tree structure. 
 
 The three **domain ontologies** model claims about people, organizations and groups contained in contexts:
 - **Persona ontology** — models a person: names, addresses, phone numbers, relationships, payment cards, and more. It is built on BFO (Basic Formal Ontology) and CCO (Common Core Ontologies) as the upper ontological foundation, and on domain ontologies that extend CCO:
@@ -21,7 +21,7 @@ An additional ontology provides PDN ids for persons, organizations and groups:
 Throughout, we use these shorthands:
 
 - `c:` for the `context:` namespace (`http://mee.foundation/ontologies/context#`)
-- `cat:` for the `category:` namespace (`http://mee.foundation/ontologies/category#`)
+- `cell:` for the `cell:` namespace (`http://mee.foundation/ontologies/cell#`)
 - `p:` for the `persona:` namespace (`http://mee.foundation/ontologies/persona#`)
 - `o:` for the `organization:` namespace (`http://mee.foundation/ontologies/organization#`).
 - `g:` for the `group:` namespace (`http://mee.foundation/ontologies/group#`)
@@ -45,11 +45,11 @@ Each context is a named graph of claims describing one facet of a person or orga
 
 Two properties apply to every `c:Context`:
 
-**`c:category`** — containing category. Its value is the IRI of the category DataBook (e.g. `"http://www.example.org/mia/categories/bob-johnson(others)"`) that references it via `cat:sbs`, `cat:obs`, `cat:sbo`, or `cat:obo` links of the category.
+**`c:cell`** — containing cell. Its value is the IRI of the cell DataBook (e.g. `"http://www.example.org/mia/cells/bob-johnson(others)"`) that references it via `cell:sbs`, `cell:obs`, `cell:sbo`, or `cell:obo` links of the cell.
 
 **`c:template`** — present only on context files that contain instances of a template; its value is the name of a `p:PersonaTemplate` subclass (e.g. `"persona:BirthCertificate"`, `"persona:JSContactCard"`, `"persona:DriversLicense"`, `"persona:Passport"`, `"persona:MedicalAppointment"`).
 
-Three more properties apply only to contexts classified into one of the four self-vs-other subtypes (`c:XBXcontext` and below) — a context linked via `cat:graph` rather than `sbs`/`obs`/`sbo`/`obo` is a plain `c:Context` and does not carry these:
+Three more properties apply only to contexts classified into one of the four self-vs-other subtypes (`c:XBXcontext` and below) — a context linked via `cell:graph` rather than `sbs`/`obs`/`sbo`/`obo` is a plain `c:Context` and does not carry these:
 
 **`c:about-by`** — classifies a context DataBook by the combination of `subject` and `claimant`. One of `context:SBScontext` (subject=Self, claimant=Self), `context:OBScontext` (subject=Other, claimant=Self), `context:OBOcontext` (subject=Other, claimant=Other), or `context:SBOcontext` (subject=Self, claimant=Other).
 
@@ -75,7 +75,7 @@ The lower left shows a context that Alice might share with other people or compa
 
 The description of the context container itself is carried in the DataBook's YAML front matter under the `mia:` key. The context ontology (`context.ttl`) defines the controlled vocabularies that those YAML fields reference:
 
-- `mia.category` = `c:category`
+- `mia.cell` = `c:cell`
 - `mia:template` = `c:template`
 - `mia.about-by` = `c:about-by`
 - `mia.subject` = `c:subject`
@@ -85,224 +85,227 @@ The description of the context container itself is carried in the DataBook's YAM
 ### Context Ontology File
 
 - **`context.ttl`** — The Context ontology, defining:
-  - *Classes*: `c:Context`, `c:XBXcontext` (abstract intermediate superclass of the four classified subtypes below — carries the `c:about-by`/`c:subject`/`c:claimant` annotations, since a `cat:graph`-linked plain `c:Context` doesn't carry them), `c:SBScontext`, `c:OBScontext`, `c:OBOcontext`, `c:SBOcontext` (each a subclass of `c:XBXcontext`).
-  - *Annotation properties*: `c:category` (containing category — range `cat:Category`; domain `c:Context`), `c:template` (domain `c:Context`), `c:claimant`, `c:subject`, `c:about-by` (domain `c:XBXcontext`).
-  These terms are referenced by name in the YAML frontmatter of each DataBook file. `context.ttl` imports `category.ttl` (for `c:category`'s range, `cat:Category`, and to reuse `cat:abstract` on `c:Context`/`c:XBXcontext`).
+  - *Classes*: `c:Context`, `c:XBXcontext` (abstract intermediate superclass of the four classified subtypes below — carries the `c:about-by`/`c:subject`/`c:claimant` annotations, since a `cell:graph`-linked plain `c:Context` doesn't carry them), `c:SBScontext`, `c:OBScontext`, `c:OBOcontext`, `c:SBOcontext` (each a subclass of `c:XBXcontext`).
+  - *Annotation properties*: `c:cell` (containing cell — range `cell:Cell`; domain `c:Context`), `c:template` (domain `c:Context`), `c:claimant`, `c:subject`, `c:about-by` (domain `c:XBXcontext`).
+  These terms are referenced by name in the YAML frontmatter of each DataBook file. `context.ttl` imports `cell.ttl` (for `c:cell`'s range, `cell:Cell`, and to reuse `cell:abstract` on `c:Context`/`c:XBXcontext`).
 
 ### Context Ontology Validation
 
-Context file metadata (category, claimant, subject, about-by) is declared in YAML frontmatter and validated at authoring time by convention. `context.ttl` has no SHACL shapes of its own — the classification fields that carry validation constraints (`classname`, `num-parties`, `sbs`/`obs`/`sbo`/`obo`) live on category DataBooks and are validated by `category-shacl.ttl` (see [Category Ontology Validation](#category-ontology-validation)).
+Context file metadata (cell, claimant, subject, about-by) is declared in YAML frontmatter and validated at authoring time by convention. `context.ttl` has no SHACL shapes of its own — the classification fields that carry validation constraints (`cellType`, `num-parties`, `sbs`/`obs`/`sbo`/`obo`) live on cell DataBooks and are validated by `cell-shacl.ttl` (see [Cell Ontology Validation](#cell-ontology-validation)).
 
-## Category Ontology
+## Cell Ontology
 
-The category ontology defines at tree structure of nested *categories* to organize the information in a person's life. 
+The cell ontology defines at tree structure of nested *cells* to organize the information in a person's life. 
 
-### Categories 
+A user's own instantiated tree — copies of canonical cells plus any user-defined cells, found in `example/cells/` — is what actually organizes a real user's information; the canonical tree in `cells-person/` is only the template it's copied from. Both personal life (family, health, finances) and work life (employment, colleagues) are organized within this same tree, since `Work` is itself a `cell:Personal` subclass alongside `People` and `Health & Wellness`, not a separate branch. The `cells-org/` tree, rooted in `cell:Organizational`, exists so a person can copy pieces of it into their own `Work` branch to model the organizations they work for or with — e.g. Alice's `Work > Organization-Acme > Employees` cell is a copy of `cell:Organizational`'s `Employees`, since Acme's own structure is what her employment relationship is actually about.
 
-Categories range in scope. They vary from a few broad top level categories like "People" to narrower categories like "Immediate Family" and ultimately narrowing down to individual relationships with a single family member. The user can choose at what level in this broader to narrower structure to put what kind of information. For example if the user has a nickname used only by this one family member, they can add that "claim" (attribute) at the individual relationship level. 
+### Cells 
 
-Categories include references to zero, one or more *contexts* as described in the previous section.
+Cells range in scope. They vary from a few broad top level cells like "People" to narrower cells like "Immediate Family" and ultimately narrowing down to individual relationships with a single family member. The user can choose at what level in this broader to narrower structure to put what kind of information. For example if the user has a nickname used only by this one family member, they can add that "claim" (attribute) at the individual relationship level. 
 
-### Classname and parties
+Cells include references to zero, one or more *contexts* as described in the previous section.
 
-Every category (other than the invisible root) is classified two ways: which class it is (or was copied from), and how many parties it involves.
+### CellType and parties
 
-**Classname — `mia.classname`.** Its value is the local name of the `cat:Category` subclass this category canonically is — for a canonical category, e.g. `ImmediateFamily` or `Employees(org)` — or, for a user's instance copy of a canonical category, the name of the class it was copied from (the same value as its canonical source). A category with no canonical counterpart at all (e.g. a specific person, company, or group Alice created herself) uses `Category` itself, the root class. Canonical categories are direct subclasses of `cat:Category`: either `cat:Person` (generally useful categories for organizing a person's personal, non-work, life) or `cat:Organization` (categories tuned to a person's working life) — `mia.classname` names the specific leaf subclass rather than this broader family, so new canonical subclasses can be added without changing the property itself.
+Every cell (other than the invisible root) is classified two ways: which class it is (or was copied from), and how many parties it involves.
 
-**Parties — `mia.num-parties`.** `cat:Parties` is a standalone abstract class documenting how many external parties are involved in the relationship a category represents. The hierarchy exists purely to document the field's values and their display labels. There are three types: `cat:OneParty` (no external party — display label "Category"), `cat:TwoParty` (a 1:1 relationship with a specific person, organization, or other party — display label "Two-Party"), and `cat:MultiParty` (a shared multi-party relationship with a group of people or organizations — display label "Multi-Party"). 
+**CellType — `mia.cellType`.** Its value is the local name of the `cell:Cell` subclass this cell canonically is — for a canonical cell, e.g. `ImmediateFamily` or `Employees(org)` — or, for a user's instance copy of a canonical cell, the name of the class it was copied from (the same value as its canonical source). A cell with no canonical counterpart at all (e.g. a specific person, company, or group Alice created herself) uses `Cell` itself, the root class. Canonical cells are direct subclasses of `cell:Cell`: either `cell:Personal` (generally useful cells for organizing a person's personal, non-work, life) or `cell:Organizational` (cells tuned to a person's working life) — `mia.cellType` names the specific leaf subclass rather than this broader family, so new canonical subclasses can be added without changing the property itself.
 
-<p align="center"><img src="images/category-ontology/category.png" alt="Category hierarchy"></p>
+**Parties — `mia.num-parties`.** `cell:Parties` is a standalone abstract class documenting how many external parties are involved in the relationship a cell represents. The hierarchy exists purely to document the field's values and their display labels. There are three types: `cell:OneParty` (no external party — display label "Cell"), `cell:TwoParty` (a 1:1 relationship with a specific person, organization, or other party — display label "Two-Party"), and `cell:MultiParty` (a shared multi-party relationship with a group of people or organizations — display label "Multi-Party"). 
+
+<p align="center"><img src="images/cell-ontology/cell.png" alt="Cell hierarchy"></p>
 
 ### Properties
 
-- **`cat:label`** — user-editable display name of the category. Defaults to category's class name.
-- **`cat:note`** — path to a markdown note in the *notes* folder/file hierarchy for this category.
-- **`cat:folder`** — path to a folder in the *files* folder/file hierarchy for this category.
-- **`cat:child`** — organizes categories into a tree structure.
-- **`cat:sbs`** - link to a context that is about the self as claimed by the self (user).
-- **`cat:obs`** - a context about the other party as claimed by the self.
-- **`cat:sbo`** - a context about the self as claimed by the other party.
-- **`cat:obo`** - a context about the other party as claimed by the other party.
-- **`cat:graph`** - link to a plain `c:Context` that doesn't fit the self-vs-other classification `cat:sbs`/`cat:obs`/`cat:sbo`/`cat:obo` assume — e.g. claims jointly maintained by multiple parties about a third party.
+- **`cell:label`** — user-editable display name of the cell. Defaults to cell's class name.
+- **`cell:note`** — path to a markdown note in the *notes* folder/file hierarchy for this cell.
+- **`cell:folder`** — path to a folder in the *files* folder/file hierarchy for this cell.
+- **`cell:child`** — organizes cells into a tree structure.
+- **`cell:sbs`** - link to a context that is about the self as claimed by the self (user).
+- **`cell:obs`** - a context about the other party as claimed by the self.
+- **`cell:sbo`** - a context about the self as claimed by the other party.
+- **`cell:obo`** - a context about the other party as claimed by the other party.
+- **`cell:graph`** - link to a plain `c:Context` that doesn't fit the self-vs-other classification `cell:sbs`/`cell:obs`/`cell:sbo`/`cell:obo` assume — e.g. claims jointly maintained by multiple parties about a third party.
 
-#### A few details about cat:note and cat:folder
-`cat:note` and `cat:folder` point into two separate but parallel folder structures that mirror the structure of the category tree. If the category tree is `(People, (Immediate Family, Friends), Work)` then both hierarchies contain exactly the same folder names and nesting. Mia keeps both in sync with the category tree — when a category is created, renamed, or deleted, Mia updates both hierarchies automatically.
+#### A few details about cell:note and cell:folder
+`cell:note` and `cell:folder` point into two separate but parallel folder structures that mirror the structure of the cell tree. If the cell tree is `(People, (Immediate Family, Friends), Work)` then both hierarchies contain exactly the same folder names and nesting. Mia keeps both in sync with the cell tree — when a cell is created, renamed, or deleted, Mia updates both hierarchies automatically.
 
-A canonical top-level or nested category is not required to be copied into a user's tree just because it exists in the canonical template — Mia (or the user) copies a canonical category into the tree, and creates its `cat:note`/`cat:folder` paths, only once the user actually has content for it. Empty categories are not pre-populated as placeholder folders.
+A canonical top-level or nested cell is not required to be copied into a user's tree just because it exists in the canonical template — Mia (or the user) copies a canonical cell into the tree, and creates its `cell:note`/`cell:folder` paths, only once the user actually has content for it. Empty cells are not pre-populated as placeholder folders.
 
-- The **notes hierarchy** mirrors the category tree as a folder structure, rooted at a top-level folder named **`Self`**. The invisible root category's note is `Self.md`, stored directly inside `Self/`; every other category's note is stored as `X.md` inside the X folder — for example, `Self/People/Immediate Family/Immediate Family.md`. Using the same name as the folder matches the convention used by PKM (Personal Knowledge Management) tools such as Obsidian (using the Folder Notes plugin), Logseq, Foam and others. Any file or folder in the notes root that is not `Self/` — app-managed folders (e.g. `Templates/`, `.obsidian/`), unrelated personal notes (e.g. a `Journal/`), or loose files — falls outside the category tree entirely and is ignored by Mia.
-- The **files hierarchy** mirrors the category tree as a folder structure. It has no equivalent of a root note, so it has no `Self` wrapper folder — the files root itself plays that role, and each top-level category (e.g. `People`, `Work`) is a folder directly inside it. Each folder may hold arbitrary files, and may also contain additional subfolders (to any depth) that are not part of the category tree. Any file or folder directly inside the files root that is not a recognized top-level category folder likewise falls outside the category tree and is ignored by Mia.
+- The **notes hierarchy** mirrors the cell tree as a folder structure, rooted at a top-level folder named **`Self`**. The invisible root cell's note is `Self.md`, stored directly inside `Self/`; every other cell's note is stored as `X.md` inside the X folder — for example, `Self/People/Immediate Family/Immediate Family.md`. Using the same name as the folder matches the convention used by PKM (Personal Knowledge Management) tools such as Obsidian (using the Folder Notes plugin), Logseq, Foam and others. Any file or folder in the notes root that is not `Self/` — app-managed folders (e.g. `Templates/`, `.obsidian/`), unrelated personal notes (e.g. a `Journal/`), or loose files — falls outside the cell tree entirely and is ignored by Mia.
+- The **files hierarchy** mirrors the cell tree as a folder structure. It has no equivalent of a root note, so it has no `Self` wrapper folder — the files root itself plays that role, and each top-level cell (e.g. `People`, `Work`) is a folder directly inside it. Each folder may hold arbitrary files, and may also contain additional subfolders (to any depth) that are not part of the cell tree. Any file or folder directly inside the files root that is not a recognized top-level cell folder likewise falls outside the cell tree and is ignored by Mia.
 
 The two roots are stored separately so the notes hierarchy can be opened as a standalone PKM vault without exposing the files hierarchy. Two user-configurable settings define where each root lives on disk:
 
 - **Files root** — default on macOS: `~/Enclave`
 - **Notes root** — default on macOS: `~/Enclave/ObsidianVault`
 
-The files root defaults to a dedicated top-level folder (sibling of the Mac's built-in `Desktop`/`Downloads`/`Pictures`/`Movies`/`Music`/`Public`/`Documents` folders) so the category tree doesn't mix with — or need to accommodate — those OS-managed conventions; native Mac folders are left alone entirely, outside the Enclave tree. The notes root's default location is nested inside the files root's default location on disk — that's a matter of default configuration convenience, not a statement that the notes hierarchy is part of the files hierarchy. When Mia walks the files hierarchy it excludes the notes-root subtree entirely, and vice versa. All `cat:note` values are relative paths from the notes root; all `cat:folder` values are relative paths from the files root.
+The files root defaults to a dedicated top-level folder (sibling of the Mac's built-in `Desktop`/`Downloads`/`Pictures`/`Movies`/`Music`/`Public`/`Documents` folders) so the cell tree doesn't mix with — or need to accommodate — those OS-managed conventions; native Mac folders are left alone entirely, outside the Enclave tree. The notes root's default location is nested inside the files root's default location on disk — that's a matter of default configuration convenience, not a statement that the notes hierarchy is part of the files hierarchy. When Mia walks the files hierarchy it excludes the notes-root subtree entirely, and vice versa. All `cell:note` values are relative paths from the notes root; all `cell:folder` values are relative paths from the files root.
 
-In the normal case `cat:note` and `cat:folder` are technically redundant — both paths can be derived from the category tree plus the two configured roots. They are retained for three reasons:
+In the normal case `cell:note` and `cell:folder` are technically redundant — both paths can be derived from the cell tree plus the two configured roots. They are retained for three reasons:
 
 1. **Divergence detection** — if a stored path no longer matches the derived path, Mia knows the user has manually renamed or rearranged folders outside of Mia and can alert them or attempt reconciliation rather than failing silently.
-2. **Graceful degradation** — Mia can continue to locate a category's folder or note via the stored path even when the folder hierarchy has drifted out of sync with the category tree.
-3. **Intentional overrides** — a user may deliberately want a category's folder to live somewhere other than the derived location (e.g. `~/Pictures/Immediate Family/` rather than the default `~/Enclave/People/Immediate Family/`). The explicit link records that intentional deviation without disrupting the category tree.
+2. **Graceful degradation** — Mia can continue to locate a cell's folder or note via the stored path even when the folder hierarchy has drifted out of sync with the cell tree.
+3. **Intentional overrides** — a user may deliberately want a cell's folder to live somewhere other than the derived location (e.g. `~/Pictures/Immediate Family/` rather than the default `~/Enclave/People/Immediate Family/`). The explicit link records that intentional deviation without disrupting the cell tree.
 
-### Example category tree
+### Example cell tree
 
-The diagram below shows a minimal example of a category tree with five kinds of nodes as well as referenced contexts (the white and green circles). At the top is a `cat:Person` canonical category and its child, a `cat:Organization` category. At the third level is a `cat:UserDefined` category which contains as its first child, a "Two-Party" (cat:TwoParty category) between the user and another Mia user, Bob. Its second child is a "Multi-Party" (`cat:MultiParty`)--the Boston Hub Society (BHS) professional social network.
+The diagram below shows a minimal example of a cell tree with five kinds of nodes as well as referenced contexts (the white and green circles). At the top is a `cell:Personal` canonical cell and its child, a `cell:Organizational` cell. At the third level is a `cell:UserDefined` cell which contains as its first child, a "Two-Party" (cell:TwoParty cell) between the user and another Mia user, Bob. Its second child is a "Multi-Party" (`cell:MultiParty`)--the Boston Hub Society (BHS) professional social network.
 
-The top-to-bottom ordering of the two canonical category trees is preserved when copied to the user's tree, although the user is always free to insert any number of user-defined categories at any level in the resulting tree. 
+The top-to-bottom ordering of the two canonical cell trees is preserved when copied to the user's tree, although the user is always free to insert any number of user-defined cells at any level in the resulting tree. 
 
-Each of these five example categories contains contexts shown as circles. White circles are contexts whose triples are claimed by the self (the user). Green circles are contexts whose triples are claimed by a person other than the self (i:Individual), by an organization (i:Organization) or by a group (i:Group), and synchronized with the user's Mia instance over the PDN. For example the BHS category at the bottom has three contexts: Self (the user)'s BHS profile, Carol's BHS profile (claimed by Carol) and information about the BHS itself (as claimed by the BHS) in the last green circle.
+Each of these five example cells contains contexts shown as circles. White circles are contexts whose triples are claimed by the self (the user). Green circles are contexts whose triples are claimed by a person other than the self (i:Individual), by an organization (i:Organization) or by a group (i:Group), and synchronized with the user's Mia instance over the PDN. For example the BHS cell at the bottom has three contexts: Self (the user)'s BHS profile, Carol's BHS profile (claimed by Carol) and information about the BHS itself (as claimed by the BHS) in the last green circle.
 
-<p align="center"><img src="images/category-ontology/categories+contexts.png" alt="Categories and contexts"></p>
+<p align="center"><img src="images/cell-ontology/cells+contexts.png" alt="Cells and contexts"></p>
 
-### Person Categories
+### Person Cells
 
-`cat:Person` categories (and sub-categories) are used to organize a person's information:
+`cell:Personal` cells (and sub-cells) are used to organize a person's information:
 
-1. **People** (`cat:People`) — people in your social or professional life. Use this category for people not otherwise tied to a specific domain — a bookkeeper you know belongs under Finances (Advisory), and your primary care physician belongs under Health & Wellness (Medical > Providers > Primary Care Physician), rather than here.
-    - **Immediate Family** (`cat:ImmediateFamily`) — your closest living relatives, which generally include parents, siblings, spouses/partners, and children.
-    - **Extended Family** (`cat:ExtendedFamily`) — relatives outside the immediate nuclear group, such as grandparents, aunts, uncles, cousins, nieces and nephews.
-    - **In-Laws / Step-Family** (`cat:InLawsStepFamily`) — relatives gained through marriage or legal guardianship, including a spouse's parents and siblings, or children from a previous relationship.
-    - **Friends** (`cat:Friends`) — interactions with friends.
-    - **Others** (`cat:Others`) — people you know socially or professionally who are not family or friends — acquaintances, neighbors, or other connections not yet more specifically categorized.
-1. **Affiliations** (`cat:Affiliations`) — clubs, charities, faith groups, and other group affiliations not covered by a more specific category — includes formal memberships and their social networks, some of which may be `cat:MultiParty` ("Multi-Party") categories that exist as a `g:Group` on the PDN. See also Sports & Entertainment for personal sports and entertainment interests, like following a favorite team, that aren't tied to a formal membership.
-1. **Health & Wellness** (`cat:HealthWellness`) — personal health and wellness information. Medical history, allergies, medications, vaccinations, prescriptions, eyeglasses.
-    - **Medical** (`cat:Medical`) — medical (as opposed to dental or vision) care — diagnoses, treatments, providers, and insurance.
-        - **History** (`cat:MedicalHistory`) — past diagnoses, conditions, surgeries, and treatments.
-        - **Insurance** (`cat:MedicalInsurance`) — medical health insurance policies, providers, and coverage.
-        - **Providers** (`cat:MedicalProviders`) — medical providers and practices you see for care.
-            - **Primary Care Physician** (`cat:PrimaryCarePhysician`) — your primary care doctor, the physician you generally see first for checkups, referrals, and everyday health concerns.
-            - **Medical Appointment Info** (`cat:MedicalAppointmentInfo`) — a medical appointment you're helping arrange on behalf of someone else.
-    - **Dental** (`cat:Dental`) — dental care — diagnoses, treatments, providers, and insurance.
-        - **History** (`cat:DentalHistory`) — past dental treatments, procedures, and conditions.
-        - **Insurance** (`cat:DentalInsurance`) — dental insurance policies, providers, and coverage.
-        - **Providers** (`cat:DentalProviders`) — dental providers and practices you see for care.
-    - **Vision** (`cat:Vision`) — vision and eye care — diagnoses, treatments, providers, and insurance.
-        - **History** (`cat:VisionHistory`) — past eye-care prescriptions, treatments, and conditions.
-        - **Insurance** (`cat:VisionInsurance`) — vision insurance policies, providers, and coverage.
-        - **Providers** (`cat:VisionProviders`) — vision care providers and practices you see for care.
-    - **Fitness** (`cat:Fitness`) — general fitness and preventive physical health — exercise, gyms, trainers, and other non-clinical wellbeing information.
-    - **Nutritionists** (`cat:Nutritionists`) — nutritionists and dietitians.
-        - **History** (`cat:NutritionistsHistory`) — past nutritional consultations, diet plans, and dietary conditions.
-        - **Providers** (`cat:NutritionistsProviders`) — nutritionists and dietitians you see for care.
-    - **Mental Health** (`cat:MentalHealth`) — mental and behavioral health care.
-        - **History** (`cat:MentalHealthHistory`) — past diagnoses, treatments, and mental health conditions.
-        - **Insurance** (`cat:MentalHealthInsurance`) — mental health insurance policies, providers, and coverage.
-        - **Providers** (`cat:MentalHealthProviders`) — mental health providers and practices you see for care, e.g. therapists, counselors, and psychiatrists.
-    - **Physical Therapy** (`cat:PhysicalTherapy`) — physical therapy and rehabilitative care.
-        - **History** (`cat:PhysicalTherapyHistory`) — past physical therapy treatments, injuries, and rehabilitation plans.
-        - **Providers** (`cat:PhysicalTherapyProviders`) — physical therapy providers and practices you see for care.
-1. **Finances** (`cat:Finances`) — information about personal finances, bookkeeping, budgets, payment cards, bank accounts, brokerage accounts, insurance policies, financial advisors, etc.
-    - **Banking & Payments** (`cat:BankingPayments`) — firms that help you store, access, and move your cash for daily living. These include Retail Banks & Credit Unions, which provide checking accounts, savings accounts, and debit cards. These also include Payment Processors like Visa, Mastercard, or PayPal that let you buy things online and in stores, and Remittance Firms like Western Union or Wise used to send money to family or friends, especially overseas.
-    - **Investing** (`cat:Investing`) — firms that help you buy assets, so your money can grow over time for goals like buying a house or retiring. These include Brokerage Firms like Charles Schwab or Robinhood where you buy and sell stocks, bonds, and ETFs; Robo-Advisors, computer-run investing platforms like Betterment or Wealthfront that manage your portfolio for a low fee; and Mutual Fund companies like Vanguard or Fidelity that pool your money with other investors to buy a large bundle of stocks.
-    - **Lending & Credit** (`cat:LendingCredit`) — firms that lend you money when you need to buy something expensive that you cannot pay for all at once. These include Mortgage Lenders, banks or specialized companies that give you loans specifically to buy a home; Consumer Finance Companies, that give out personal loans, auto loans, or student loans; and Credit Card Issuers, banks that give you a plastic card to borrow money on the spot for daily purchases.
-    - **Insurance** (`cat:Insurance`) — firms that protect you and your family from financial ruin if something bad happens. These include Life & Health Insurance firms that cover medical bills or provide money to your family if you pass away, and Property & Casualty Insurance firms that insure your car, home, or apartment against accidents and theft.
-    - **Advisory** (`cat:Advisory`) — firms and individuals who do not just hold your money, but tell you the best ways to use it. These include Financial Planners (Wealth Advisors), human experts who help you build a custom roadmap for taxes, retirement, and budgeting, and Estate Planners, specialized professionals who help you write wills and plan how to pass your money to your children. Also includes Accountants and Bookkeepers, who track your income and expenses and prepare your taxes.
-1. **Pets** (`cat:Pets`) — care instructions, veterinarians, medicines, food providers.
-1. **Home** (`cat:Home`) — owning or renting a home, apartment, or other dwelling. Leases, deeds, utility accounts, real estate brokers.
-1. **Work** (`cat:Work`) — professional roles. Employment history, resume/CV.
-1. **Ownership** (`cat:Ownership`) — owned assets, property, vehicles, and other possessions.
-    - **Vehicles** (`cat:Vehicles`) — related to owning and maintaining a vehicle. Vehicle insurance, repairs, mechanics, garages. 
-1. **Travel** (`cat:Travel`) — travel plans, trips, and related information. Loyalty programs, airlines, bus lines, trains.
-1. **Food** (`cat:Food`) — food preferences, dietary restrictions, favorite restaurants, recipes, shopping lists, and other food-related interests
-1. **Sports & Entertainment** (`cat:SportsEntertainment`) — sports, hobbies, entertainment, and media interests. Favorite teams, venues, streaming services, ticketing. See also `cat:Affiliations` for club or team memberships.
-1. **Legal** (`cat:Legal`) — legal matters, contracts, agreements, trusts, wills, and professional legal relationships.
-1. **Projects** (`cat:Projects`) — involvement in a specific project or initiative.
-1. **Events** (`cat:Events`) — participation in or relationship to a specific event or gathering.
-1. **Information** (`cat:Information`) — general knowledge selected by you, web links, documents, images.
-    - **Learnings** (`cat:Learnings`) — knowledge gained through personal experience.
-1. **Government** (`cat:Government`) — government-issued credentials, tax records, and civic relationships.
-    - **Federal** (`cat:Federal`) — federal government context (e.g. passport, federal tax records).
-        - **SSA** (`cat:SSA`) — the Social Security Administration.
-        - **Passport** (`cat:Passport`) — a federal agency that issues and holds passport records.
-    - **State** (`cat:State`) — state government context (e.g. driver's license, state tax records).
-        - **Birth Certificate** (`cat:BirthCertificate`) — a state agency that issues and holds birth certificate records.
-        - **Drivers License** (`cat:DriversLicense`) — a state agency that issues and holds driver's license records.
-    - **Municipality** (`cat:Municipality`) — municipal government context (e.g. local permits, library card).
-        - **Residence** (`cat:Residence`) — a place a person has lived, current or past.
-1. **Companies** (`cat:Companies`) — miscellaneous companies and organizations that provide services or products to you. See also Finances, Health, Home, Food for companies and organizations related to those areas.
+1. **People** (`cell:People`) — people in your social or professional life. Use this cell for people not otherwise tied to a specific domain — a bookkeeper you know belongs under Finances (Advisory), and your primary care physician belongs under Health & Wellness (Medical > Providers > Primary Care Physician), rather than here.
+    - **Immediate Family** (`cell:ImmediateFamily`) — your closest living relatives, which generally include parents, siblings, spouses/partners, and children.
+    - **Extended Family** (`cell:ExtendedFamily`) — relatives outside the immediate nuclear group, such as grandparents, aunts, uncles, cousins, nieces and nephews.
+    - **In-Laws / Step-Family** (`cell:InLawsStepFamily`) — relatives gained through marriage or legal guardianship, including a spouse's parents and siblings, or children from a previous relationship.
+    - **Friends** (`cell:Friends`) — interactions with friends.
+    - **Others** (`cell:Others`) — people you know socially or professionally who are not family or friends — acquaintances, neighbors, or other connections not yet more specifically categorized.
+1. **Affiliations** (`cell:Affiliations`) — clubs, charities, faith groups, and other group affiliations not covered by a more specific cell — includes formal memberships and their social networks, some of which may be `cell:MultiParty` ("Multi-Party") cells that exist as a `g:Group` on the PDN. See also Sports & Entertainment for personal sports and entertainment interests, like following a favorite team, that aren't tied to a formal membership.
+1. **Health & Wellness** (`cell:HealthWellness`) — personal health and wellness information. Medical history, allergies, medications, vaccinations, prescriptions, eyeglasses.
+    - **Medical** (`cell:Medical`) — medical (as opposed to dental or vision) care — diagnoses, treatments, providers, and insurance.
+        - **History** (`cell:MedicalHistory`) — past diagnoses, conditions, surgeries, and treatments.
+        - **Insurance** (`cell:MedicalInsurance`) — medical health insurance policies, providers, and coverage.
+        - **Providers** (`cell:MedicalProviders`) — medical providers and practices you see for care.
+            - **Primary Care Physician** (`cell:PrimaryCarePhysician`) — your primary care doctor, the physician you generally see first for checkups, referrals, and everyday health concerns.
+            - **Medical Appointment Info** (`cell:MedicalAppointmentInfo`) — a medical appointment you're helping arrange on behalf of someone else.
+    - **Dental** (`cell:Dental`) — dental care — diagnoses, treatments, providers, and insurance.
+        - **History** (`cell:DentalHistory`) — past dental treatments, procedures, and conditions.
+        - **Insurance** (`cell:DentalInsurance`) — dental insurance policies, providers, and coverage.
+        - **Providers** (`cell:DentalProviders`) — dental providers and practices you see for care.
+    - **Vision** (`cell:Vision`) — vision and eye care — diagnoses, treatments, providers, and insurance.
+        - **History** (`cell:VisionHistory`) — past eye-care prescriptions, treatments, and conditions.
+        - **Insurance** (`cell:VisionInsurance`) — vision insurance policies, providers, and coverage.
+        - **Providers** (`cell:VisionProviders`) — vision care providers and practices you see for care.
+    - **Fitness** (`cell:Fitness`) — general fitness and preventive physical health — exercise, gyms, trainers, and other non-clinical wellbeing information.
+        - **Providers** (`cell:FitnessProviders`) — fitness providers and practices you see for care, e.g. gyms, trainers, and coaches.
+    - **Nutrition** (`cell:Nutrition`) — nutritionists and dietitians.
+        - **History** (`cell:NutritionHistory`) — past nutritional consultations, diet plans, and dietary conditions.
+        - **Providers** (`cell:NutritionProviders`) — nutritionists and dietitians you see for care.
+    - **Mental Health** (`cell:MentalHealth`) — mental and behavioral health care.
+        - **History** (`cell:MentalHealthHistory`) — past diagnoses, treatments, and mental health conditions.
+        - **Insurance** (`cell:MentalHealthInsurance`) — mental health insurance policies, providers, and coverage.
+        - **Providers** (`cell:MentalHealthProviders`) — mental health providers and practices you see for care, e.g. therapists, counselors, and psychiatrists.
+    - **Physical Therapy** (`cell:PhysicalTherapy`) — physical therapy and rehabilitative care.
+        - **History** (`cell:PhysicalTherapyHistory`) — past physical therapy treatments, injuries, and rehabilitation plans.
+        - **Providers** (`cell:PhysicalTherapyProviders`) — physical therapy providers and practices you see for care.
+1. **Finances** (`cell:Finances`) — information about personal finances, bookkeeping, budgets, payment cards, bank accounts, brokerage accounts, insurance policies, financial advisors, etc.
+    - **Banking & Payments** (`cell:BankingPayments`) — firms that help you store, access, and move your cash for daily living. These include Retail Banks & Credit Unions, which provide checking accounts, savings accounts, and debit cards. These also include Payment Processors like Visa, Mastercard, or PayPal that let you buy things online and in stores, and Remittance Firms like Western Union or Wise used to send money to family or friends, especially overseas.
+    - **Investing** (`cell:Investing`) — firms that help you buy assets, so your money can grow over time for goals like buying a house or retiring. These include Brokerage Firms like Charles Schwab or Robinhood where you buy and sell stocks, bonds, and ETFs; Robo-Advisors, computer-run investing platforms like Betterment or Wealthfront that manage your portfolio for a low fee; and Mutual Fund companies like Vanguard or Fidelity that pool your money with other investors to buy a large bundle of stocks.
+    - **Lending & Credit** (`cell:LendingCredit`) — firms that lend you money when you need to buy something expensive that you cannot pay for all at once. These include Mortgage Lenders, banks or specialized companies that give you loans specifically to buy a home; Consumer Finance Companies, that give out personal loans, auto loans, or student loans; and Credit Card Issuers, banks that give you a plastic card to borrow money on the spot for daily purchases.
+    - **Insurance** (`cell:Insurance`) — firms that protect you and your family from financial ruin if something bad happens. These include Life & Health Insurance firms that cover medical bills or provide money to your family if you pass away, and Property & Casualty Insurance firms that insure your car, home, or apartment against accidents and theft.
+    - **Advisory** (`cell:Advisory`) — firms and individuals who do not just hold your money, but tell you the best ways to use it. These include Financial Planners (Wealth Advisors), human experts who help you build a custom roadmap for taxes, retirement, and budgeting, and Estate Planners, specialized professionals who help you write wills and plan how to pass your money to your children. Also includes Accountants and Bookkeepers, who track your income and expenses and prepare your taxes.
+1. **Pets** (`cell:Pets`) — care instructions, veterinarians, medicines, food providers.
+1. **Home** (`cell:Home`) — owning or renting a home, apartment, or other dwelling. Leases, deeds, utility accounts, real estate brokers.
+1. **Work** (`cell:Work`) — professional roles. Employment history, resume/CV.
+1. **Ownership** (`cell:Ownership`) — owned assets, property, vehicles, and other possessions.
+    - **Vehicles** (`cell:Vehicles`) — related to owning and maintaining a vehicle. Vehicle insurance, repairs, mechanics, garages. 
+1. **Travel** (`cell:Travel`) — travel plans, trips, and related information. Loyalty programs, airlines, bus lines, trains.
+1. **Food** (`cell:Food`) — food preferences, dietary restrictions, favorite restaurants, recipes, shopping lists, and other food-related interests
+1. **Sports & Entertainment** (`cell:SportsEntertainment`) — sports, hobbies, entertainment, and media interests. Favorite teams, venues, streaming services, ticketing. See also `cell:Affiliations` for club or team memberships.
+1. **Legal** (`cell:Legal`) — legal matters, contracts, agreements, trusts, wills, and professional legal relationships.
+1. **Projects** (`cell:Projects`) — involvement in a specific project or initiative.
+1. **Events** (`cell:Events`) — participation in or relationship to a specific event or gathering.
+1. **Information** (`cell:Information`) — general knowledge selected by you, web links, documents, images.
+    - **Learnings** (`cell:Learnings`) — knowledge gained through personal experience.
+1. **Government** (`cell:Government`) — government-issued credentials, tax records, and civic relationships.
+    - **Federal** (`cell:Federal`) — federal government context (e.g. passport, federal tax records).
+        - **SSA** (`cell:SSA`) — the Social Security Administration.
+        - **Passport** (`cell:Passport`) — a federal agency that issues and holds passport records.
+    - **State** (`cell:State`) — state government context (e.g. driver's license, state tax records).
+        - **Birth Certificate** (`cell:BirthCertificate`) — a state agency that issues and holds birth certificate records.
+        - **Drivers License** (`cell:DriversLicense`) — a state agency that issues and holds driver's license records.
+    - **Municipality** (`cell:Municipality`) — municipal government context (e.g. local permits, library card).
+        - **Residence** (`cell:Residence`) — a place a person has lived, current or past.
+1. **Companies** (`cell:Companies`) — miscellaneous companies and organizations that provide services or products to you. See also Finances, Health, Home, Food for companies and organizations related to those areas.
 
-### Organization Categories
+### Organization Cells
 
-`cat:Organization` categories for an organization's information:
+`cell:Organizational` cells for an organization's information:
 
-1. **Customers** (`cat:Customers`) — customer organizations. Rename to "Clients", etc.
-1. **Marketing** (`cat:Marketing`) — marketing activities, campaigns, and related organizations.
-    - **Prospects** (`cat:Prospects`) - customer prospects. Rename to "Client prospects", etc.
-1. **Partners** (`cat:Partners`) — firms that provide goods and services.
-1. **People (org)** (`cat:People(org)`) — people the organization interacts with in a working capacity.
-    - **Employees** (`cat:Employees`) — related to employees.
-        - **Employee** (`cat:Employee`) — detailed information about a specific employee.
-    - **Consultants (org)** (`cat:Consultants(org)`) — engaged consultants.
-    - **Other (org)** (`cat:Other(org)`) — people associated with the organization who don't fit Employees, Consultants, or Colleagues.
-    - **Colleagues** (`cat:Colleagues`) — coworkers and peers within the organization not tracked as formal Employee records.
-    - **Advisors (org)** (`cat:Advisors(org)`) — individuals who advise the organization in a non-employee capacity.
-    - **Board of Directors (org)** (`cat:BoardOfDirectors(org)`) — the organization's board members.
-1. **KB** (`cat:KB`) — corporate knowledge bases.
-1. **Projects (org)** (`cat:Projects(org)`) — projects related to R&D, manufacturing, sales, marketing, operations, HR, etc.
-1. **Meetings (org)** (`cat:Meetings(org)`) — events, meetings, workshops, webinars, and gatherings.
-    - **Conferences** (`cat:Conferences`) — a conference or professional gathering.
-1. **Suppliers** (`cat:Suppliers`) — companies that supply goods or services to this organization.
-1. **Legal (org)** (`cat:Legal(org)`) — contracts and agreements.
-1. **Government (org)** (`cat:Government(org)`) — interactions with government organizations.
-1. **Finances (org)** (`cat:Finances(org)`) — corporate finance-related matters.
-    - **Banking & Payments (org)** (`cat:BankingPayments(org)`) — firms that help you store, access, and move your cash for daily living. These include Retail Banks & Credit Unions, which provide checking accounts, savings accounts, and debit cards. These also include Payment Processors like Visa, Mastercard, or PayPal that let you buy things online and in stores, and Remittance Firms like Western Union or Wise used to send money to family or friends, especially overseas.
-    - **Investing (org)** (`cat:Investing(org)`) — firms that help you buy assets, so your money can grow over time for goals like buying a house or retiring. These include Brokerage Firms like Charles Schwab or Robinhood where you buy and sell stocks, bonds, and ETFs; Robo-Advisors, computer-run investing platforms like Betterment or Wealthfront that manage your portfolio for a low fee; and Mutual Fund companies like Vanguard or Fidelity that pool your money with other investors to buy a large bundle of stocks.
-    - **Lending & Credit (org)** (`cat:LendingCredit(org)`) — firms that lend you money when you need to buy something expensive that you cannot pay for all at once. These include Mortgage Lenders, banks or specialized companies that give you loans specifically to buy a home; Consumer Finance Companies, that give out personal loans, auto loans, or student loans; and Credit Card Issuers, banks that give you a plastic card to borrow money on the spot for daily purchases.
-    - **Insurance (org)** (`cat:Insurance(org)`) — firms that protect you and your family from financial ruin if something bad happens. These include Life & Health Insurance firms that cover medical bills or provide money to your family if you pass away, and Property & Casualty Insurance firms that insure your car, home, or apartment against accidents and theft.
-    - **Advisory (org)** (`cat:Advisory(org)`) — firms and individuals who do not just hold your money, but tell you the best ways to use it. These include Financial Planners (Wealth Advisors), human experts who help you build a custom roadmap for taxes, retirement, and budgeting, and Estate Planners, specialized professionals who help you write wills and plan how to pass your money to your children. Also includes Accountants and Bookkeepers, who track your income and expenses and prepare your taxes.
+1. **Customers** (`cell:Customers`) — customer organizations. Rename to "Clients", etc.
+1. **Marketing** (`cell:Marketing`) — marketing activities, campaigns, and related organizations.
+    - **Prospects** (`cell:Prospects`) - customer prospects. Rename to "Client prospects", etc.
+1. **Partners** (`cell:Partners`) — firms that provide goods and services.
+1. **People (org)** (`cell:People(org)`) — people the organization interacts with in a working capacity.
+    - **Employees** (`cell:Employees`) — related to employees.
+        - **Employee** (`cell:Employee`) — detailed information about a specific employee.
+    - **Consultants (org)** (`cell:Consultants(org)`) — engaged consultants.
+    - **Other (org)** (`cell:Other(org)`) — people associated with the organization who don't fit Employees, Consultants, or Colleagues.
+    - **Colleagues** (`cell:Colleagues`) — coworkers and peers within the organization not tracked as formal Employee records.
+    - **Advisors (org)** (`cell:Advisors(org)`) — individuals who advise the organization in a non-employee capacity.
+    - **Board of Directors (org)** (`cell:BoardOfDirectors(org)`) — the organization's board members.
+1. **KB** (`cell:KB`) — corporate knowledge bases.
+1. **Projects (org)** (`cell:Projects(org)`) — projects related to R&D, manufacturing, sales, marketing, operations, HR, etc.
+1. **Meetings (org)** (`cell:Meetings(org)`) — events, meetings, workshops, webinars, and gatherings.
+    - **Conferences** (`cell:Conferences`) — a conference or professional gathering.
+1. **Suppliers** (`cell:Suppliers`) — companies that supply goods or services to this organization.
+1. **Legal (org)** (`cell:Legal(org)`) — contracts and agreements.
+1. **Government (org)** (`cell:Government(org)`) — interactions with government organizations.
+1. **Finances (org)** (`cell:Finances(org)`) — corporate finance-related matters.
+    - **Banking & Payments (org)** (`cell:BankingPayments(org)`) — firms that help you store, access, and move your cash for daily living. These include Retail Banks & Credit Unions, which provide checking accounts, savings accounts, and debit cards. These also include Payment Processors like Visa, Mastercard, or PayPal that let you buy things online and in stores, and Remittance Firms like Western Union or Wise used to send money to family or friends, especially overseas.
+    - **Investing (org)** (`cell:Investing(org)`) — firms that help you buy assets, so your money can grow over time for goals like buying a house or retiring. These include Brokerage Firms like Charles Schwab or Robinhood where you buy and sell stocks, bonds, and ETFs; Robo-Advisors, computer-run investing platforms like Betterment or Wealthfront that manage your portfolio for a low fee; and Mutual Fund companies like Vanguard or Fidelity that pool your money with other investors to buy a large bundle of stocks.
+    - **Lending & Credit (org)** (`cell:LendingCredit(org)`) — firms that lend you money when you need to buy something expensive that you cannot pay for all at once. These include Mortgage Lenders, banks or specialized companies that give you loans specifically to buy a home; Consumer Finance Companies, that give out personal loans, auto loans, or student loans; and Credit Card Issuers, banks that give you a plastic card to borrow money on the spot for daily purchases.
+    - **Insurance (org)** (`cell:Insurance(org)`) — firms that protect you and your family from financial ruin if something bad happens. These include Life & Health Insurance firms that cover medical bills or provide money to your family if you pass away, and Property & Casualty Insurance firms that insure your car, home, or apartment against accidents and theft.
+    - **Advisory (org)** (`cell:Advisory(org)`) — firms and individuals who do not just hold your money, but tell you the best ways to use it. These include Financial Planners (Wealth Advisors), human experts who help you build a custom roadmap for taxes, retirement, and budgeting, and Estate Planners, specialized professionals who help you write wills and plan how to pass your money to your children. Also includes Accountants and Bookkeepers, who track your income and expenses and prepare your taxes.
 
-### Category DataBooks
+### Cell DataBooks
 
-Each node in the `cat:Category` tree is represented by a **category DataBook** (`.databook.md` file with `type: category-databook`) linked to other nodes by the parent node's `cat:child` property (IRI) to its child. This tree contains a mixture of user-minted user-defined categories and copies of canonical categories. These copies contain a `copiedFrom:` IRI property pointing back to the corresponding canonical category.
+Each node in the `cell:Cell` tree is represented by a **cell DataBook** (`.databook.md` file with `type: cell-databook`) linked to other nodes by the parent node's `cell:child` property (IRI) to its child. This tree contains a mixture of user-minted user-defined cells and copies of canonical cells. These copies contain a `copiedFrom:` IRI property pointing back to the corresponding canonical cell.
 
-#### Canonical Category DataBooks
+#### Canonical Cell DataBooks
 
-`cat:Person` category DataBooks live in `categories-person/`, rooted at `categories-person/categories-person.databook.md`. `cat:Organization` category DataBooks live in `categories-org/`, rooted at `categories-org/categories-org.databook.md`.
+`cell:Personal` cell DataBooks live in `cells-person/`, rooted at `cells-person/cells-person.databook.md`. `cell:Organizational` cell DataBooks live in `cells-org/`, rooted at `cells-org/cells-org.databook.md`.
 
 #### Properties
 
-The following properties are defined in `category.ttl` and represented as `mia.` YAML fields in category DataBooks, following the same pattern as `mia.category` → `context:category`:
+The following properties are defined in `cell.ttl` and represented as `mia.` YAML fields in cell DataBooks, following the same pattern as `mia.cell` → `context:cell`:
 
 | YAML field | Ontology property | Cardinality | Meaning |
 |------------|-------------------|-------------|---------|
-| `mia.classname` | `cat:classname` | 1 | The local name of the `cat:Category` subclass this DataBook is or was copied from (e.g. `ImmediateFamily`, `Employees(org)`), or `Category` itself if there is no canonical counterpart |
-| `mia.num-parties` | `cat:num-parties` | 1 | The concrete `cat:Parties` subclass this DataBook instantiates: one of `OneParty`, `TwoParty`, `MultiParty` |
-| `mia.label` | `cat:label` | 1 | User-editable display name — defaults to the DataBook `title` but can be changed independently, leaving `title` and `id` immutable |
-| `mia.note` | `cat:note` | 0..1 | Relative path to a markdown notes file for this category (e.g. `People/Paula Walker/Paula Walker.md`) |
-| `mia.folder` | `cat:folder` | 0..1 | Relative path to a folder of arbitrary files for this category (e.g. `People/Paula Walker`) |
-| `mia.copiedFrom` | `cat:copiedFrom` | 0..1 | IRI of the canonical category this DataBook was copied from. Present only on copies of canonical categories |
+| `mia.cellType` | `cell:cellType` | 1 | The local name of the `cell:Cell` subclass this DataBook is or was copied from (e.g. `ImmediateFamily`, `Employees(org)`), or `Cell` itself if there is no canonical counterpart |
+| `mia.num-parties` | `cell:num-parties` | 1 | The concrete `cell:Parties` subclass this DataBook instantiates: one of `OneParty`, `TwoParty`, `MultiParty` |
+| `mia.label` | `cell:label` | 1 | User-editable display name — defaults to the DataBook `title` but can be changed independently, leaving `title` and `id` immutable |
+| `mia.note` | `cell:note` | 0..1 | Relative path to a markdown notes file for this cell (e.g. `People/Paula Walker/Paula Walker.md`) |
+| `mia.folder` | `cell:folder` | 0..1 | Relative path to a folder of arbitrary files for this cell (e.g. `People/Paula Walker`) |
+| `mia.copiedFrom` | `cell:copiedFrom` | 0..1 | IRI of the canonical cell this DataBook was copied from. Present only on copies of canonical cells |
 
-Note files live in a folder hierarchy whose structure mirrors the category hierarchy; associated file folders live in a parallel hierarchy whose names match the category names.
+Note files live in a folder hierarchy whose structure mirrors the cell hierarchy; associated file folders live in a parallel hierarchy whose names match the cell names.
 
 #### Context link properties
 
-Each category DataBook in the user's tree may carry up to four optional links to context DataBook IRIs, corresponding to the four `c:XBXcontext` subtypes:
+Each cell DataBook in the user's tree may carry up to four optional links to context DataBook IRIs, corresponding to the four `c:XBXcontext` subtypes:
 
 | Property | Value (`c:Context` subtype) | Cardinality | Applies to | Meaning |
 |----------|---------------------|-------------|------------|---------|
-| `cat:sbs` | `c:SBScontext` | 0..1 | All categories | The user's own context in this category |
-| `cat:obs` | `c:OBScontext` | 0..1 | All categories | The user's record of the other party |
-| `cat:obo` | `c:OBOcontext` | 0..N | All categories | A context the other party presents |
-| `cat:sbo` | `c:SBOcontext` | 0..1 | All categories | A context the other party holds about the user |
-| `cat:graph` | `c:Context` | 0..1 | All categories | A context that doesn't fit the self-vs-other classification — e.g. claims jointly maintained by multiple parties about a third party |
+| `cell:sbs` | `c:SBScontext` | 0..1 | All cells | The user's own context in this cell |
+| `cell:obs` | `c:OBScontext` | 0..1 | All cells | The user's record of the other party |
+| `cell:obo` | `c:OBOcontext` | 0..N | All cells | A context the other party presents |
+| `cell:sbo` | `c:SBOcontext` | 0..1 | All cells | A context the other party holds about the user |
+| `cell:graph` | `c:Context` | 0..1 | All cells | A context that doesn't fit the self-vs-other classification — e.g. claims jointly maintained by multiple parties about a third party |
 
-`cat:sbs`, `cat:obs`, `cat:obo`, `cat:sbo`, `cat:graph` links appear only in categories in the user's tree, not in canonical categories.
+`cell:sbs`, `cell:obs`, `cell:obo`, `cell:sbo`, `cell:graph` links appear only in cells in the user's tree, not in canonical cells.
 
-### Category Ontology File
+### Cell Ontology File
 
-- **`category.ttl`** — The Category ontology, defining:
-  - *Classes*: `cat:Category`, `cat:Person`, `cat:Organization`, `cat:UserDefined`, `cat:Parties`, `cat:OneParty`, `cat:TwoParty`, `cat:MultiParty` and all leaf category subclasses.
-  - *Annotation properties*: `cat:classname` (the `cat:Category` subclass this DataBook is or was copied from, or `Category` itself), `cat:num-parties` (concrete `cat:Parties` subclass), `cat:label` (user-editable display name), `cat:note` (path to markdown notes file), `cat:folder` (path to associated file folder), `cat:copiedFrom` (IRI of the canonical category this DataBook was copied from), `cat:abstract` (marks a class as not directly instantiated in DataBooks).
-  - *Object properties*: `cat:sbs`, `cat:obs`, `cat:obo`, `cat:sbo`, `cat:graph`, `cat:child`.
-  These terms are referenced by name in the YAML frontmatter of each category DataBook file. `category.ttl` imports `context.ttl` (for the `c:SBScontext`/`c:OBScontext`/`c:OBOcontext`/`c:SBOcontext` ranges of `cat:sbs`/`cat:obs`/`cat:obo`/`cat:sbo`, and the plain `c:Context` range of `cat:graph`); `context.ttl` in turn imports `category.ttl` (for `c:category`'s range, `cat:Category`, and to reuse `cat:abstract` on `c:Context`).
+- **`cell.ttl`** — The Cell ontology, defining:
+  - *Classes*: `cell:Cell`, `cell:Personal`, `cell:Organizational`, `cell:UserDefined`, `cell:Parties`, `cell:OneParty`, `cell:TwoParty`, `cell:MultiParty` and all leaf cell subclasses.
+  - *Annotation properties*: `cell:cellType` (the `cell:Cell` subclass this DataBook is or was copied from, or `Cell` itself), `cell:num-parties` (concrete `cell:Parties` subclass), `cell:label` (user-editable display name), `cell:note` (path to markdown notes file), `cell:folder` (path to associated file folder), `cell:copiedFrom` (IRI of the canonical cell this DataBook was copied from), `cell:abstract` (marks a class as not directly instantiated in DataBooks).
+  - *Object properties*: `cell:sbs`, `cell:obs`, `cell:obo`, `cell:sbo`, `cell:graph`, `cell:child`.
+  These terms are referenced by name in the YAML frontmatter of each cell DataBook file. `cell.ttl` imports `context.ttl` (for the `c:SBScontext`/`c:OBScontext`/`c:OBOcontext`/`c:SBOcontext` ranges of `cell:sbs`/`cell:obs`/`cell:obo`/`cell:sbo`, and the plain `c:Context` range of `cell:graph`); `context.ttl` in turn imports `cell.ttl` (for `c:cell`'s range, `cell:Cell`, and to reuse `cell:abstract` on `c:Context`).
 
-- **`category-shacl.ttl`** — SHACL shapes for category DataBook instances. Constrains `cat:Category` instances to: at most one `cat:sbs`, `cat:obs`, `cat:sbo`, and `cat:graph` value each (`cat:obo` is unconstrained, 0..N); exactly one `cat:classname` value (open-ended — no enum, since new canonical subclasses can be added freely); and at most one `cat:num-parties` value, which if present must be one of `OneParty`, `TwoParty`, `MultiParty`.
+- **`cell-shacl.ttl`** — SHACL shapes for cell DataBook instances. Constrains `cell:Cell` instances to: at most one `cell:sbs`, `cell:obs`, `cell:sbo`, and `cell:graph` value each (`cell:obo` is unconstrained, 0..N); exactly one `cell:cellType` value (open-ended — no enum, since new canonical subclasses can be added freely); and at most one `cell:num-parties` value, which if present must be one of `OneParty`, `TwoParty`, `MultiParty`.
 
-### Category Ontology Validation
+### Cell Ontology Validation
 
-Category DataBook instances are validated by `category-shacl.ttl`.
+Cell DataBook instances are validated by `cell-shacl.ttl`.
 
 ## Persona Ontology
 
@@ -472,7 +475,7 @@ The table below maps every JSContact (RFC 9553) property to its representation i
 | `relatedTo` | 0..N | `BFO_0000115` (member) | object property | — |
 | `updated` | 0..1 | `version:` in the DataBook YAML frontmatter | YAML field | — |
 | `language` | 0..1 | *(not yet mapped)* | — | — |
-| `categories` | 0..N | *(not yet mapped)* | — | — |
+| `cells` | 0..N | *(not yet mapped)* | — | — |
 | `preferredLanguages` | 0..N | *(not yet mapped)* | — | — |
 
 
@@ -565,59 +568,59 @@ The Identity ontology is used to describe the kinds of identities that Mia can c
 
 ## Illustrative Example: Alice 
 
-This section describes the local Mia dataset for a hypothetical user, Alice Walker. Alice's data lives in multiple context DataBooks linked to by a tree structure of category DataBooks. 
+This section describes the local Mia dataset for a hypothetical user, Alice Walker. Alice's data lives in multiple context DataBooks linked to by a tree structure of cell DataBooks. 
 
-### Alice's Categories and Contexts
+### Alice's Cells and Contexts
 
 Alice interacts with other people, organizations and groups in contexts of different types, with each context file holding a named-graph. 
 
 Alice's context DataBooks are in `example/contexts.` Some are authored by Alice (self-claimed data--data she entered herself into her Mia app); others contain data received from peer Mia users or organizational peers over PDN and stored locally. In either case, Alice is the Mia user, so the `p:Person` that represents her uses the IRI `:Self` across all of her context files. Other people — Bob Johnson, Paula Walker — and groups such as BHS use locally-assigned named IRIs (e.g. `:Bob_Johnson`, `:Paula_Walker`, `:BHS`). When data arrives from a peer's Mia (where that peer was `:Self` in their own instance), Alice's Mia assigns them a locally-minted identifier; once a PDN connection is established, that identifier resolves to their PDN id.
 
-Alice's category DataBooks are in `example/categories/`. The full tree can be walked starting from `example/categories/categories.databook.md`. It contains two kinds of entries:
+Alice's cell DataBooks are in `example/cells/`. The full tree can be walked starting from `example/cells/cells.databook.md`. It contains two kinds of entries:
 
-- **Copies of canonical categories** (`mia.classname` set to the specific class it was copied from, e.g. `People`, `Employees`) — one for each of the 16 top-level categories and their subcategories. Each copy carries a `copiedFrom:` property pointing to the corresponding canonical IRI (e.g. `copiedFrom: "http://mee.foundation/ontologies/categories-person/people"`). Context links (`c:sbs`, `c:obs`, `c:obo`, `c:sbo`) to Alice's contexts are attached here, not in the canonical tree.
-- **User-defined categories** (`mia.classname: Category`) — one per specific person, company, government agency, or group Alice interacts with (e.g. `bob-johnson(others)`, `acme(work)`, `citibank(banking-payments)`).
+- **Copies of canonical cells** (`mia.cellType` set to the specific class it was copied from, e.g. `People`, `Employees`) — one for each of the 16 top-level cells and their child cells. Each copy carries a `copiedFrom:` property pointing to the corresponding canonical IRI (e.g. `copiedFrom: "http://mee.foundation/ontologies/cells-person/people"`). Context links (`cell:sbs`, `cell:obs`, `cell:obo`, `cell:sbo`) to Alice's contexts are attached here, not in the canonical tree.
+- **User-defined cells** (`mia.cellType: Cell`) — one per specific person, company, government agency, or group Alice interacts with (e.g. `bob-johnson(others)`, `acme(work)`, `citibank(banking-payments)`).
 
-#### Category and Context Diagrams
+#### Cell and Context Diagrams
 
-The following sequence of diagrams maps out the categories and contexts of our Alice example. We start with the People category--Alice's relationship with someone she knows named Bob Johnson. Bob is someone Alice knows but who isn't family or a close friend, so she has filed him under the Others category rather than Friends. 
+The following sequence of diagrams maps out the cells and contexts of our Alice example. We start with the People cell--Alice's relationship with someone she knows named Bob Johnson. Bob is someone Alice knows but who isn't family or a close friend, so she has filed him under the Others cell rather than Friends. 
 
-Contexts with dotted outlines are placeholders for contexts in category — Alice could fill a context in any of these placeholders if she wishes, and the claims in the context. 
+Contexts with dotted outlines are placeholders for contexts in cell — Alice could fill a context in any of these placeholders if she wishes, and the claims in the context. 
 
-<p align="center"><img src="example/images/people.png" alt="People categories"></p>
+<p align="center"><img src="example/images/people.png" alt="People cells"></p>
 
-Alice's mother, Paula Walker, is filed under Immediate Family. Alice's own Health & Wellness category — Medical, Dental, Vision, and Wellness — is nested within Paula's own category, since caring for Paula's health is central to why Alice tracks health information at all. Under Medical > Providers, Alice keeps a record of Dr. Jane Kopakolva, Paula's primary care physician (context #25). Alice and her sister, Carol, are also taking care of their mother Paula Walker and need to arrange medical appointments for her. To do so, they need to share and synchronize medical information about Paula including her list of medications, medical history, health insurance policy, contact information and so on. Alice creates a two-party Medical Appointment Info enclave with Carol, also filed under Medical > Providers, that they use to share information about Paula. The medical information claims are captured in triples shown in the filled grey circle. Of the many claims, one of them will be the name of Paula's doctor (primary care physician), copied from the Dr. Jane Kopakolva category shown in the same diagram. The resulting tree, from People down through both provider categories, is shown below:
+Alice's mother, Paula Walker, is filed under Immediate Family. Alice's own Health & Wellness cell — Medical, Dental, Vision, and Wellness — is nested within Paula's own cell, since caring for Paula's health is central to why Alice tracks health information at all. Under Medical > Providers, Alice keeps a record of Dr. Jane Kopakolva, Paula's primary care physician (context #25). Alice and her sister, Carol, are also taking care of their mother Paula Walker and need to arrange medical appointments for her. To do so, they need to share and synchronize medical information about Paula including her list of medications, medical history, health insurance policy, contact information and so on. Alice creates a two-party Medical Appointment Info cell with Carol, also filed under Medical > Providers, that they use to share information about Paula. The medical information claims are captured in triples shown in the filled grey circle. Of the many claims, one of them will be the name of Paula's doctor (primary care physician), copied from the Dr. Jane Kopakolva cell shown in the same diagram. The resulting tree, from People down through both provider cells, is shown below:
 
-<p align="center"><img src="example/images/people2.png" alt="People categories, continued — Immediate Family, Paula Walker, and her Health & Wellness, Medical, and Providers categories"></p>
+<p align="center"><img src="example/images/people2.png" alt="People cells, continued — Immediate Family, Paula Walker, and her Health & Wellness, Medical, and Providers cells"></p>
 
-*(This diagram is a work in progress and will be expanded to show the Health & Wellness category in more detail.)*
+*(This diagram is a work in progress and will be expanded to show the Health & Wellness cell in more detail.)*
 
-<p align="center"><img src="example/images/health.png" alt="Health & Wellness category (work in progress)"></p>
+<p align="center"><img src="example/images/health.png" alt="Health & Wellness cell (work in progress)"></p>
 
-Alice is an employee of Acme, so under her Work category she has created a user-defined category called Acme to represent her employer. Since Acme is an organization, Alice has under her Acme category switched from adding `cat:Person` categories to `cat:Organization` categories (light blue color) and added an Employees category which acts as a parent holding an Employee category for each person there she tracks, including herself. Her own "Alice Walker" category holds her Business Card claims — job title at Acme, work telephone number, work email, etc. One of the employees she works with is Paula Walker, so she adds a Paula Walker category too.
-<p align="center"><img src="example/images/work.png" alt="Work categories"></p>
+Alice is an employee of Acme, so under her Work cell she has created a user-defined cell called Acme to represent her employer. Since Acme is an organization, Alice has under her Acme cell switched from adding `cell:Personal` cells to `cell:Organizational` cells (light blue color) and added an Employees cell which acts as a parent holding an Employee cell for each person there she tracks, including herself. Her own "Alice Walker" cell holds her Business Card claims — job title at Acme, work telephone number, work email, etc. One of the employees she works with is Paula Walker, so she adds a Paula Walker cell too.
+<p align="center"><img src="example/images/work.png" alt="Work cells"></p>
 
 Alice has relationships with two companies, Google and AT&T:
-<p align="center"><img src="example/images/companies.png" alt="Companies categories"></p>
+<p align="center"><img src="example/images/companies.png" alt="Companies cells"></p>
 
 Alice has a relationship with Citibank. In our example Citibank exists as a node on the PDN and directly claims information about their customer, Alice in context #9.
-<p align="center"><img src="example/images/finances.png" alt="Financial categories"></p>
+<p align="center"><img src="example/images/finances.png" alt="Financial cells"></p>
 
 
-Here are the categories related to Alice's interactions with various state governments:
-<p align="center"><img src="example/images/gov-state.png" alt="Government — State categories"></p>
-Here are the categories related to Alice's interactions with the federal government:
-<p align="center"><img src="example/images/gov-federal.png" alt="Government — Federal categories"></p>
+Here are the cells related to Alice's interactions with various state governments:
+<p align="center"><img src="example/images/gov-state.png" alt="Government — State cells"></p>
+Here are the cells related to Alice's interactions with the federal government:
+<p align="center"><img src="example/images/gov-federal.png" alt="Government — Federal cells"></p>
 
-Here are the categories related to Alice's interactions with two municipal governments:
+Here are the cells related to Alice's interactions with two municipal governments:
 
-<p align="center"><img src="example/images/gov-municipality.png" alt="Government — Municipality categories"></p>
+<p align="center"><img src="example/images/gov-municipality.png" alt="Government — Municipality cells"></p>
 
-Here are Alice's categories related to her personal health and her possessions:
-<p align="center"><img src="example/images/misc.png" alt="Miscellaneous categories"></p>
+Here are Alice's cells related to her personal health and her possessions:
+<p align="center"><img src="example/images/misc.png" alt="Miscellaneous cells"></p>
 
 The last diagram shows Alice's membership in the Boston Hub Society, an informal professional social network that exists as a `i:Group` node on the PDN:
-<p align="center"><img src="example/images/affiliations.png" alt="Affiliations categories"></p>
+<p align="center"><img src="example/images/affiliations.png" alt="Affiliations cells"></p>
 
 The contexts in the table below are *about* Alice and claimed *by* Alice. All `.databook.md` files are in the `example/contexts/` folder.
 
@@ -727,7 +730,7 @@ riot --output=turtle \
   project_files/PersonOntology.ttl \
   project_files/AddressOntology.ttl \
   project_files/StagingOntology.ttl \
-  persona.ttl persona-templates.ttl context.ttl category.ttl \
+  persona.ttl persona-templates.ttl context.ttl cell.ttl \
   pdn-identity.ttl group.ttl organization.ttl \
   /tmp/mia-data.ttl \
   2>/dev/null > /tmp/mia-merged.ttl
@@ -752,7 +755,7 @@ riot --output=turtle \
   project_files/PersonOntology.ttl \
   project_files/AddressOntology.ttl \
   project_files/StagingOntology.ttl \
-  persona.ttl persona-templates.ttl context.ttl category.ttl \
+  persona.ttl persona-templates.ttl context.ttl cell.ttl \
   pdn-identity.ttl group.ttl organization.ttl \
   2>/dev/null > /tmp/mia-base.ttl
 

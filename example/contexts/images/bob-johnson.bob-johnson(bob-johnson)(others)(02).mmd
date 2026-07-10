@@ -13,10 +13,10 @@ flowchart TD
     n19c34148fc05[":Bob_Bob_Network\n(SocialNetwork)"]
     n89768dce3f8b[":Self"]
     n166b15bd501b[":Bob_Johnson\n(Person)"]:::person
-    nc9247e6116a4("Bob"):::lit
-    na79b39517217("Johnson"):::lit
+    n0d125eb40cd9("Bob"):::lit
+    nc04667664420("Johnson"):::lit
 
-    n19c34148fc05 -->|"hasMember"| n89768dce3f8b
-    n166b15bd501b -->|"GivenName"| nc9247e6116a4
-    n166b15bd501b -->|"FamilyName"| na79b39517217
+    n19c34148fc05 -->|"hasMemberPart"| n89768dce3f8b
+    n166b15bd501b -->|"GivenName"| n0d125eb40cd9
+    n166b15bd501b -->|"FamilyName"| nc04667664420
     n166b15bd501b -->|"hasSocialNetwork"| n19c34148fc05

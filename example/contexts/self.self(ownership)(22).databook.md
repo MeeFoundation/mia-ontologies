@@ -1,6 +1,6 @@
 ---
 id: https://www.example.org/mia/contexts/self.self(ownership)(22)
-title: "About Alice Walker in the Ownership category as claimed by Alice Walker"
+title: "About Alice Walker in the Ownership cell as claimed by Alice Walker"
 type: context-databook
 version: 2.0.4
 created: 2026-06-01
@@ -9,7 +9,7 @@ description: >
   a wallet containing her driver's license and payment card, plus a health insurance card
   and Social Security card held separately.
 mia:
-  category: "http://www.example.org/mia/categories/ownership"
+  cell: "http://www.example.org/mia/cells/ownership"
   claimant: ":Self"
   subject: ":Self"
   about-by: "context:SBScontext"

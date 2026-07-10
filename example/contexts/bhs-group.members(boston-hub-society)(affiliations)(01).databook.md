@@ -1,6 +1,6 @@
 ---
 id: https://www.example.org/mia/contexts/bhs-group.members(boston-hub-society)(affiliations)(01)
-title: "About Boston Hub Society in the Boston Hub Society category as claimed by Boston Hub Society"
+title: "About Boston Hub Society in the Boston Hub Society cell as claimed by Boston Hub Society"
 type: context-databook
 version: 2.0.5
 created: 2026-06-12
@@ -8,7 +8,7 @@ description: >
   The Boston Hub Society group instance, with Alice and Bob as members.
   A g:Group context claimable by any permitted member.
 mia:
-  category: "http://www.example.org/mia/categories/boston-hub-society(affiliations)"
+  cell: "http://www.example.org/mia/cells/boston-hub-society(affiliations)"
   claimant: ":BHS_Group"
   subject: ":BHS_Group"
   about-by: "context:OBOcontext"

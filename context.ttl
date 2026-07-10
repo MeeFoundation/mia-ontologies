@@ -1,5 +1,5 @@
 @prefix context: <http://mee.foundation/ontologies/context#> .
-@prefix cat: <http://mee.foundation/ontologies/category#> .
+@prefix cell: <http://mee.foundation/ontologies/cell#> .
 @prefix identity: <http://mee.foundation/ontologies/pdn-identity#> .
 @prefix owl: <http://www.w3.org/2002/07/owl#> .
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
@@ -12,8 +12,8 @@
     owl:versionIRI <http://mee.foundation/ontologies/context/1.0.1> ;
     dc:date "2026-06-01"^^xsd:date ;
     owl:imports <http://mee.foundation/ontologies/pdn-identity> ;
-    owl:imports <http://mee.foundation/ontologies/category> ;
-    owl:versionInfo "Version 1.2.3 - renamed context:assertedBy to context:claimant"@en ;
+    owl:imports <http://mee.foundation/ontologies/cell> ;
+    owl:versionInfo "Version 1.3.0 - renamed context:category to context:cell, ranging over the renamed cell:Cell (formerly cat:Category)"@en ;
     rdfs:label "Context Ontology"@en ;
     rdfs:comment """Context Ontology for the Mee Identity Agent"""@en .
 
@@ -22,13 +22,13 @@
 #    Annotation Properties for Context DataBook Classification
 #################################################################
 
-context:category rdf:type owl:AnnotationProperty ;
-    rdfs:label "context type"@en ;
-    rdfs:comment """Annotates a DataBook named graph of its containing cat:Category —
-                    e.g. cat:Companies, cat:Federal, cat:Municipality.
+context:cell rdf:type owl:AnnotationProperty ;
+    rdfs:label "cell"@en ;
+    rdfs:comment """Annotates a DataBook named graph of its containing cell:Cell —
+                    e.g. cell:Companies, cell:Federal, cell:Municipality.
                     Applied to the named graph IRI, not to the Person individual."""@en ;
     rdfs:domain context:Context ;
-    rdfs:range cat:Category .
+    rdfs:range cell:Cell .
 
 context:claimant rdf:type owl:AnnotationProperty ;
     rdfs:label "claimed by"@en ;
@@ -67,15 +67,15 @@ context:about-by rdf:type owl:AnnotationProperty ;
 #################################################################
 
 context:Context rdf:type owl:Class ;
-    cat:abstract true ;
+    cell:abstract true ;
     rdfs:label "Context"@en ;
     rdfs:comment "A context DataBook — a named graph containing identity data about a person in a specific relationship or situation."@en .
 
 context:XBXcontext rdf:type owl:Class ;
-    cat:abstract true ;
+    cell:abstract true ;
     rdfs:subClassOf context:Context ;
     rdfs:label "XBXcontext"@en ;
-    rdfs:comment "Intermediate superclass of the four self-vs-other classified context subtypes (SBScontext, OBScontext, OBOcontext, SBOcontext). Carries the about-by, subject, and claimant annotations that only apply to contexts classified into one of those four subtypes — a context linked via cat:graph rather than sbs/obs/sbo/obo is a plain context:Context, not a context:XBXcontext, and so does not carry these annotations."@en .
+    rdfs:comment "Intermediate superclass of the four self-vs-other classified context subtypes (SBScontext, OBScontext, OBOcontext, SBOcontext). Carries the about-by, subject, and claimant annotations that only apply to contexts classified into one of those four subtypes — a context linked via cell:graph rather than sbs/obs/sbo/obo is a plain context:Context, not a context:XBXcontext, and so does not carry these annotations."@en .
 
 context:SBScontext rdf:type owl:Class ;
     rdfs:subClassOf context:XBXcontext ;

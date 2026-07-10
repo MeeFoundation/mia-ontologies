@@ -1,6 +1,6 @@
 ---
 id: https://www.example.org/mia/contexts/bob-johnson.bob-johnson(boston-hub-society)(affiliations)(03)
-title: "About Bob Johnson in the Boston Hub Society category as claimed by Bob Johnson"
+title: "About Bob Johnson in the Boston Hub Society cell as claimed by Bob Johnson"
 type: context-databook
 version: 2.0.4
 created: 2026-06-15
@@ -8,7 +8,7 @@ description: >
   Bob Johnson's BHS profile, received from Bob's Mia via PDN.
   Records Bob's name as he presents himself to the Boston Hub Society.
 mia:
-  category: "http://www.example.org/mia/categories/boston-hub-society(affiliations)"
+  cell: "http://www.example.org/mia/cells/boston-hub-society(affiliations)"
   claimant: ":Bob_Johnson"
   subject: ":Bob_Johnson"
   about-by: "context:OBOcontext"

@@ -1,6 +1,6 @@
 ---
 id: https://www.example.org/mia/contexts/self.self(google)(companies)(16)
-title: "About Alice Walker in the Companies category as claimed by Alice Walker"
+title: "About Alice Walker in the Companies cell as claimed by Alice Walker"
 type: context-databook
 version: 2.0.5
 created: 2026-06-01
@@ -8,7 +8,7 @@ description: >
   Alice Walker's Google context. Records her Gmail address as self-entered data
   about her Google account relationship.
 mia:
-  category: "http://www.example.org/mia/categories/google(companies)"
+  cell: "http://www.example.org/mia/cells/google(companies)"
   claimant: ":Self"
   subject: ":Self"
   about-by: "context:SBScontext"

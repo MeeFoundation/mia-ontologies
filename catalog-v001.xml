@@ -18,8 +18,8 @@
          uri="shacl/medical-appointment-shacl.ttl"/>
     <uri id="context"                  name="http://mee.foundation/ontologies/context"
          uri="context.ttl"/>
-    <uri id="category"                 name="http://mee.foundation/ontologies/category"
-         uri="category.ttl"/>
+    <uri id="cell"                 name="http://mee.foundation/ontologies/cell"
+         uri="cell.ttl"/>
     <uri id="pdn-identity"             name="http://mee.foundation/ontologies/pdn-identity"
          uri="pdn-identity.ttl"/>
     <uri id="group"                    name="http://mee.foundation/ontologies/group"

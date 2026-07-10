@@ -1,0 +1,78 @@
+@prefix : <http://www.example.org/cell-shapes#> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix cell: <http://mee.foundation/ontologies/cell#> .
+
+<http://www.example.org/cell-shapes> rdf:type owl:Ontology ;
+    owl:versionInfo "Version 2.0.0 - renamed category-shacl.ttl/cat: to cell-shacl.ttl/cell:; CategoryShape to CellShape"@en ;
+    rdfs:label "Cell Ontology SHACL Validation Shapes"@en ;
+    rdfs:comment "SHACL validation shapes for cell DataBook instances in the Cell Ontology."@en .
+
+
+#################################################################
+#  Cell
+#  All cell instances. sbs/obs/sbo/obo all have domain
+#  cell:Cell (not cell:UserDefined or cell:Parties),
+#  so all four constraints target cell:Cell.
+#################################################################
+
+:CellShape
+    a sh:NodeShape ;
+    sh:targetClass cell:Cell ;
+    sh:message "Cell validation."@en ;
+
+    # cell:sbs — at most one SBS context link per cell
+    sh:property [
+        sh:path cell:sbs ;
+        sh:maxCount 1 ;
+        sh:message "A cell may link to at most one SBScontext via cell:sbs."@en
+    ] ;
+
+    # cell:obs — at most one OBS context link
+    sh:property [
+        sh:path cell:obs ;
+        sh:maxCount 1 ;
+        sh:message "A cell may link to at most one OBScontext via cell:obs."@en
+    ] ;
+
+    # cell:sbo — at most one SBO context link
+    sh:property [
+        sh:path cell:sbo ;
+        sh:maxCount 1 ;
+        sh:message "A cell may link to at most one SBOcontext via cell:sbo."@en
+    ] ;
+
+    # cell:graph — at most one plain Context link
+    sh:property [
+        sh:path cell:graph ;
+        sh:maxCount 1 ;
+        sh:message "A cell may link to at most one plain Context via cell:graph."@en
+    ] ;
+
+    # cell:cellType — required exactly once. No sh:in enum: the value
+    # is the local name of the cell:Cell subclass this DataBook is
+    # (canonical) or was copied from (instance copy) — e.g. "Family",
+    # "Consultants(org)" — or "Cell" itself if there is no more
+    # specific canonical counterpart. Intentionally open-ended so new
+    # canonical subclasses don't require updating this shape.
+    sh:property [
+        sh:path cell:cellType ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:message "A cell must have exactly one cell:cellType value: the cell:Cell subclass local name it is or was copied from, or \"Cell\" itself."@en
+    ] ;
+
+    # cell:num-parties — at most one value, and if present must be
+    # a cell:Parties subclass. Not required (sh:minCount omitted):
+    # the invisible tree roots have no num-parties.
+    sh:property [
+        sh:path cell:num-parties ;
+        sh:maxCount 1 ;
+        sh:in ( "OneParty" "TwoParty" "MultiParty" ) ;
+        sh:message "A cell's cell:num-parties, if present, must be one of OneParty, TwoParty, MultiParty."@en
+    ] .
+
+    # cell:obo — 0..N (no maxCount constraint)
