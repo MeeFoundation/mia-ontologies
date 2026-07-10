@@ -256,8 +256,8 @@ def _meta_subgraph(mia: dict, src_dir: Path | None = None) -> list[str]:
         props.append(f"name: {name}")
     if cat := mia.get("contextCategory"):
         props.append(f"category: {cat.removeprefix('context:')}")
-    if asserted_by := mia.get("assertedBy"):
-        props.append(f"assertedBy: {asserted_by}")
+    if claimant := mia.get("claimant"):
+        props.append(f"claimant: {claimant}")
     if subject := mia.get("subject"):
         props.append(f"subject: {subject}")
     if template := mia.get("template"):

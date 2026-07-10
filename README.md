@@ -4,7 +4,7 @@ This document describes the ontologies used by the Mee Identity Agent (Mia) soft
 
 Mia's ontologies import and profile existing ontologies — documenting which of their classes and properties Mia requires or uses — and extending them with Mia-specific classes and properties. 
 
-The **Context** and **Category** ontologies are the organizing framework. The context ontology defines *contexts* - containers of claims (attributes) about a given subject and asserted by some entity. The category ontology defines *categories* that may contain one or more contexts. Categories are arranged into a tree structure. 
+The **Context** and **Category** ontologies are the organizing framework. The context ontology defines *contexts* - containers of claims (attributes) about a given subject and claimed by some entity. The category ontology defines *categories* that may contain one or more contexts. Categories are arranged into a tree structure. 
 
 The three **domain ontologies** model claims about people, organizations and groups contained in contexts:
 - **Persona ontology** — models a person: names, addresses, phone numbers, relationships, payment cards, and more. It is built on BFO (Basic Formal Ontology) and CCO (Common Core Ontologies) as the upper ontological foundation, and on domain ontologies that extend CCO:
@@ -51,7 +51,7 @@ Two properties apply to every `c:Context`:
 
 Three more properties apply only to contexts classified into one of the four self-vs-other subtypes (`c:XBXcontext` and below) — a context linked via `cat:graph` rather than `sbs`/`obs`/`sbo`/`obo` is a plain `c:Context` and does not carry these:
 
-**`c:about-by`** — classifies a context DataBook by the combination of `subject` and `assertedBy`. One of `context:SBScontext` (subject=Self, assertedBy=Self), `context:OBScontext` (subject=Other, assertedBy=Self), `context:OBOcontext` (subject=Other, assertedBy=Other), or `context:SBOcontext` (subject=Self, assertedBy=Other).
+**`c:about-by`** — classifies a context DataBook by the combination of `subject` and `claimant`. One of `context:SBScontext` (subject=Self, claimant=Self), `context:OBScontext` (subject=Other, claimant=Self), `context:OBOcontext` (subject=Other, claimant=Other), or `context:SBOcontext` (subject=Self, claimant=Other).
 
 **`c:subject`** — The identity the context file is about. Values are IRIs of `p:Person`, `g:Group`, or `o:Organization` individuals:
 - `:Self` — the context is about the Mia user.
@@ -59,17 +59,17 @@ Three more properties apply only to contexts classified into one of the four sel
 - a named individual of `g:Group` — the context is about a group of Mia users.
 - a named individual of `o:Organization` — the context is about an organization (legal corporation or government agency).
 
-**`c:assertedBy`** — Who is making the assertion. Values are local IRIs of `p:Person`, `g:Group`, or `o:Organization` individuals:
+**`c:claimant`** — Who is making the claim. Values are local IRIs of `p:Person`, `g:Group`, or `o:Organization` individuals:
 - `:Self` — the Mia user that is entering the data, even if the underlying information originates from some other party such as a company, government agency, or another person.
-- a named individual of class `p:Person` — another Mia user is asserting the data directly.
-- a named individual of class `g:Group` — a group of Mia users is asserting the data.
-- a named individual of class `o:Organization` — an organization is asserting the data.
+- a named individual of class `p:Person` — another Mia user is claiming the data directly.
+- a named individual of class `g:Group` — a group of Mia users is claiming the data.
+- a named individual of class `o:Organization` — an organization is claiming the data.
 
-The diagram below shows four kinds of contexts related to a hypothetical Mia user, Alice, and her interactions with a Department of Motor Vehicles (DMV) agency. Across the top are two contexts where the DMV itself is the subject, and at the bottom where Alice is the subject. At the left are contexts where Alice has made the assertions (e.g. Alice's Mia has written the claims into the context) and at the right are contexts where the DMV as the "other" has written the claims. 
+The diagram below shows four kinds of contexts related to a hypothetical Mia user, Alice, and her interactions with a Department of Motor Vehicles (DMV) agency. Across the top are two contexts where the DMV itself is the subject, and at the bottom where Alice is the subject. At the left are contexts where Alice has made the claims (e.g. Alice's Mia has written the claims into the context) and at the right are contexts where the DMV as the "other" has written the claims. 
 
 <p align="center"><img src="images/context-ontology/quadrants.png" alt="a quadrant of context types"></p>
 
-The lower left shows a context that Alice might share with other people or companies. In it, she asserts that her driver's license number is S43228943, having copied that number from her physical driver's license. The context in the lower right carries the same information as the lower left, but because it is being asserted by the DMV it is more likely to be trusted by a recipient (especially if this information is conveyed via secure channel and the claims are cryptographically bound to the identity of the DMV).
+The lower left shows a context that Alice might share with other people or companies. In it, she claims that her driver's license number is S43228943, having copied that number from her physical driver's license. The context in the lower right carries the same information as the lower left, but because it is being claimed by the DMV it is more likely to be trusted by a recipient (especially if this information is conveyed via secure channel and the claims are cryptographically bound to the identity of the DMV).
 
 ### Context DataBooks
 
@@ -79,19 +79,19 @@ The description of the context container itself is carried in the DataBook's YAM
 - `mia:template` = `c:template`
 - `mia.about-by` = `c:about-by`
 - `mia.subject` = `c:subject`
-- `mia.assertedBy` = `c:assertedBy`
+- `mia.claimant` = `c:claimant`
 
 
 ### Context Ontology File
 
 - **`context.ttl`** — The Context ontology, defining:
-  - *Classes*: `c:Context`, `c:XBXcontext` (abstract intermediate superclass of the four classified subtypes below — carries the `c:about-by`/`c:subject`/`c:assertedBy` annotations, since a `cat:graph`-linked plain `c:Context` doesn't carry them), `c:SBScontext`, `c:OBScontext`, `c:OBOcontext`, `c:SBOcontext` (each a subclass of `c:XBXcontext`).
-  - *Annotation properties*: `c:category` (containing category — range `cat:Category`; domain `c:Context`), `c:template` (domain `c:Context`), `c:assertedBy`, `c:subject`, `c:about-by` (domain `c:XBXcontext`).
+  - *Classes*: `c:Context`, `c:XBXcontext` (abstract intermediate superclass of the four classified subtypes below — carries the `c:about-by`/`c:subject`/`c:claimant` annotations, since a `cat:graph`-linked plain `c:Context` doesn't carry them), `c:SBScontext`, `c:OBScontext`, `c:OBOcontext`, `c:SBOcontext` (each a subclass of `c:XBXcontext`).
+  - *Annotation properties*: `c:category` (containing category — range `cat:Category`; domain `c:Context`), `c:template` (domain `c:Context`), `c:claimant`, `c:subject`, `c:about-by` (domain `c:XBXcontext`).
   These terms are referenced by name in the YAML frontmatter of each DataBook file. `context.ttl` imports `category.ttl` (for `c:category`'s range, `cat:Category`, and to reuse `cat:abstract` on `c:Context`/`c:XBXcontext`).
 
 ### Context Ontology Validation
 
-Context file metadata (category, asserter, subject, about-by) is declared in YAML frontmatter and validated at authoring time by convention. `context.ttl` has no SHACL shapes of its own — the classification fields that carry validation constraints (`classname`, `num-parties`, `sbs`/`obs`/`sbo`/`obo`) live on category DataBooks and are validated by `category-shacl.ttl` (see [Category Ontology Validation](#category-ontology-validation)).
+Context file metadata (category, claimant, subject, about-by) is declared in YAML frontmatter and validated at authoring time by convention. `context.ttl` has no SHACL shapes of its own — the classification fields that carry validation constraints (`classname`, `num-parties`, `sbs`/`obs`/`sbo`/`obo`) live on category DataBooks and are validated by `category-shacl.ttl` (see [Category Ontology Validation](#category-ontology-validation)).
 
 ## Category Ontology
 
@@ -119,10 +119,10 @@ Every category (other than the invisible root) is classified two ways: which cla
 - **`cat:note`** — path to a markdown note in the *notes* folder/file hierarchy for this category.
 - **`cat:folder`** — path to a folder in the *files* folder/file hierarchy for this category.
 - **`cat:child`** — organizes categories into a tree structure.
-- **`cat:sbs`** - link to a context that is about the self as asserted by the self (user).
-- **`cat:obs`** - a context about the other party as asserted by the self.
-- **`cat:sbo`** - a context about the self as asserted by the other party.
-- **`cat:obo`** - a context about the other party as asserted by the other party.
+- **`cat:sbs`** - link to a context that is about the self as claimed by the self (user).
+- **`cat:obs`** - a context about the other party as claimed by the self.
+- **`cat:sbo`** - a context about the self as claimed by the other party.
+- **`cat:obo`** - a context about the other party as claimed by the other party.
 - **`cat:graph`** - link to a plain `c:Context` that doesn't fit the self-vs-other classification `cat:sbs`/`cat:obs`/`cat:sbo`/`cat:obo` assume — e.g. claims jointly maintained by multiple parties about a third party.
 
 #### A few details about cat:note and cat:folder
@@ -152,7 +152,7 @@ The diagram below shows a minimal example of a category tree with five kinds of 
 
 The top-to-bottom ordering of the two canonical category trees is preserved when copied to the user's tree, although the user is always free to insert any number of user-defined categories at any level in the resulting tree. 
 
-Each of these five example categories contains contexts shown as circles. White circles are contexts whose triples are asserted by the self (the user). Green circles are contexts whose triples are asserted by a person other than the self (i:Individual), by an organization (i:Organization) or by a group (i:Group), and synchronized with the user's Mia instance over the PDN. For example the BHS category at the bottom has three contexts: Self (the user)'s BHS profile, Carol's BHS profile (asserted by Carol) and information about the BHS itself (as asserted by the BHS) in the last green circle.
+Each of these five example categories contains contexts shown as circles. White circles are contexts whose triples are claimed by the self (the user). Green circles are contexts whose triples are claimed by a person other than the self (i:Individual), by an organization (i:Organization) or by a group (i:Group), and synchronized with the user's Mia instance over the PDN. For example the BHS category at the bottom has three contexts: Self (the user)'s BHS profile, Carol's BHS profile (claimed by Carol) and information about the BHS itself (as claimed by the BHS) in the last green circle.
 
 <p align="center"><img src="images/category-ontology/categories+contexts.png" alt="Categories and contexts"></p>
 
@@ -544,7 +544,7 @@ The Identity ontology is used to describe the kinds of identities that Mia can c
 
 **Well-known individual**
 
-* `i:Self` — a singleton individual of `i:Individual` representing the current Mia user's PDN identity. The corresponding `p:Person` individual `:Self` is what appears in `mia.assertedBy` and `mia.subject` fields. Every other Mia user is represented by a locally-assigned named individual of `i:Individual`.
+* `i:Self` — a singleton individual of `i:Individual` representing the current Mia user's PDN identity. The corresponding `p:Person` individual `:Self` is what appears in `mia.claimant` and `mia.subject` fields. Every other Mia user is represented by a locally-assigned named individual of `i:Individual`.
 
 ### PDN Identity Ontology File
 
@@ -562,7 +562,7 @@ This section describes the local Mia dataset for a hypothetical user, Alice Walk
 
 Alice interacts with other people, organizations and groups in contexts of different types, with each context file holding a named-graph. 
 
-Alice's context DataBooks are in `example/contexts.` Some are authored by Alice (self-asserted data--data she entered herself into her Mia app); others contain data received from peer Mia users or organizational peers over PDN and stored locally. In either case, Alice is the Mia user, so the `p:Person` that represents her uses the IRI `:Self` across all of her context files. Other people — Bob Johnson, Paula Walker — and groups such as BHS use locally-assigned named IRIs (e.g. `:Bob_Johnson`, `:Paula_Walker`, `:BHS`). When data arrives from a peer's Mia (where that peer was `:Self` in their own instance), Alice's Mia assigns them a locally-minted identifier; once a PDN connection is established, that identifier resolves to their PDN id.
+Alice's context DataBooks are in `example/contexts.` Some are authored by Alice (self-claimed data--data she entered herself into her Mia app); others contain data received from peer Mia users or organizational peers over PDN and stored locally. In either case, Alice is the Mia user, so the `p:Person` that represents her uses the IRI `:Self` across all of her context files. Other people — Bob Johnson, Paula Walker — and groups such as BHS use locally-assigned named IRIs (e.g. `:Bob_Johnson`, `:Paula_Walker`, `:BHS`). When data arrives from a peer's Mia (where that peer was `:Self` in their own instance), Alice's Mia assigns them a locally-minted identifier; once a PDN connection is established, that identifier resolves to their PDN id.
 
 Alice's category DataBooks are in `example/categories/`. The full tree can be walked starting from `example/categories/categories.databook.md`. It contains two kinds of entries:
 
@@ -591,7 +591,7 @@ Alice is an employee of Acme, so under her Work category she has created a user-
 Alice has relationships with two companies, Google and AT&T:
 <p align="center"><img src="example/images/companies.png" alt="Companies categories"></p>
 
-Alice has a relationship with Citibank. In our example Citibank exists as a node on the PDN and directly asserts information about their customer, Alice in context #9.
+Alice has a relationship with Citibank. In our example Citibank exists as a node on the PDN and directly claims information about their customer, Alice in context #9.
 <p align="center"><img src="example/images/finances.png" alt="Financial categories"></p>
 
 
@@ -610,7 +610,7 @@ Here are Alice's categories related to her personal health and her possessions:
 The last diagram shows Alice's membership in the Boston Hub Society, an informal professional social network that exists as a `i:Group` node on the PDN:
 <p align="center"><img src="example/images/affiliations.png" alt="Affiliations categories"></p>
 
-The contexts in the table below are *about* Alice and asserted *by* Alice. All `.databook.md` files are in the `example/contexts/` folder.
+The contexts in the table below are *about* Alice and claimed *by* Alice. All `.databook.md` files are in the `example/contexts/` folder.
 
 | #  | DataBook file                                                                          | Context type | Key data                                                         | Diagram |
 |--- |:--------------------------------------------------------------------------------------|:-------------|:-----------------------------------------------------------------|:--------|
@@ -630,7 +630,7 @@ The contexts in the table below are *about* Alice and asserted *by* Alice. All `
 | 23 | [self.self(social-security-administration)(federal)(23)](example/contexts/self.self(social-security-administration)(federal)(23).databook.md)                     | Federal      | Social security number (SSN)                                     | [view](example/contexts/images/self.self(social-security-administration)(federal)(23).png) |
 | 24 | [self.self(texas-vital-records)(state)(24)](example/contexts/self.self(texas-vital-records)(state)(24).databook.md) | State        | Legal names, maiden name                                         | [view](example/contexts/images/self.self(texas-vital-records)(state)(24).png) |
 
-The following table lists contexts that are *about* Alice but asserted by others.
+The following table lists contexts that are *about* Alice but claimed by others.
 
 | #  | DataBook file                                                                         | Context type | Key data                             | Diagram |
 |--- |:-------------------------------------------------------------------------------------|:-------------|:-------------------------------------|:--------|
@@ -642,12 +642,12 @@ The following table lists contexts about other people (Paula and Bob) or groups 
 | #  | DataBook file                                                                                     | Context type | Key data                                                         | Diagram |
 |--- |:-------------------------------------------------------------------------------------------------|:-------------|:-----------------------------------------------------------------|:--------|
 | 1  | [bhs-group.members(boston-hub-society)(affiliations)(01)](example/contexts/bhs-group.members(boston-hub-society)(affiliations)(01).databook.md)             | Affiliations | BHS group instance with Alice and Bob as members                | [view](example/contexts/images/bhs-group.members(boston-hub-society)(affiliations)(01).png) |
-| 2  | [bob-johnson.bob-johnson(bob-johnson)(others)(02)](example/contexts/bob-johnson.bob-johnson(bob-johnson)(others)(02).databook.md)                     | Others       | Bob's self-asserted Bob persona                                 | [view](example/contexts/images/bob-johnson.bob-johnson(bob-johnson)(others)(02).png)|
+| 2  | [bob-johnson.bob-johnson(bob-johnson)(others)(02)](example/contexts/bob-johnson.bob-johnson(bob-johnson)(others)(02).databook.md)                     | Others       | Bob's self-claimed Bob persona                                 | [view](example/contexts/images/bob-johnson.bob-johnson(bob-johnson)(others)(02).png)|
 | 3  | [bob-johnson.bob-johnson(boston-hub-society)(affiliations)(03)](example/contexts/bob-johnson.bob-johnson(boston-hub-society)(affiliations)(03).databook.md)                     | Affiliations | Bob's BHS member persona (name, email, phone, address)          | [view](example/contexts/images/bob-johnson.bob-johnson(boston-hub-society)(affiliations)(03).png) |
 | 4  | [bob-johnson.self(bob-johnson)(others)(04)](example/contexts/bob-johnson.self(bob-johnson)(others)(04).databook.md)                 | Others       | Alice's notes about Bob; fav drink: oat milk cappuccino         | [view](example/contexts/images/bob-johnson.self(bob-johnson)(others)(04).png) |
 | 5  | [paula-walker.paula-walker(paula-walker)(immediate-family)(05)](example/contexts/paula-walker.paula-walker(paula-walker)(immediate-family)(05).databook.md) | Immediate Family       | Paula's own family persona; social network with Alice       | [view](example/contexts/images/paula-walker.paula-walker(paula-walker)(immediate-family)(05).png)|
-| 6  | [paula-walker.self(paula-walker)(acme)(06)](example/contexts/paula-walker.self(paula-walker)(acme)(06).databook.md)           | Employee     | Paula as Alice's Acme colleague (Alice-asserted)                | [view](example/contexts/images/paula-walker.self(paula-walker)(acme)(06).png)|
-| 7  | [paula-walker.self(paula-walker)(immediate-family)(07)](example/contexts/paula-walker.self(paula-walker)(immediate-family)(07).databook.md) | Immediate Family       | Paula as Alice's family member (Alice-asserted)           | [view](example/contexts/images/paula-walker.self(paula-walker)(immediate-family)(07).png)|
+| 6  | [paula-walker.self(paula-walker)(acme)(06)](example/contexts/paula-walker.self(paula-walker)(acme)(06).databook.md)           | Employee     | Paula as Alice's Acme colleague (Alice-claimed)                | [view](example/contexts/images/paula-walker.self(paula-walker)(acme)(06).png)|
+| 7  | [paula-walker.self(paula-walker)(immediate-family)(07)](example/contexts/paula-walker.self(paula-walker)(immediate-family)(07).databook.md) | Immediate Family       | Paula as Alice's family member (Alice-claimed)           | [view](example/contexts/images/paula-walker.self(paula-walker)(immediate-family)(07).png)|
 | 25 | [jane-kopakolva.self(jane-kopakolva)(25)](example/contexts/jane-kopakolva.self(jane-kopakolva)(25).databook.md) | Primary Care Physician       | Alice's record of Dr. Jane Kopakolva, Paula Walker's primary care physician           | [view](example/contexts/images/jane-kopakolva.self(jane-kopakolva)(25).png)|
 | 26 | [context(alice-carol-about-mom)(health)(26)](example/contexts/context(alice-carol-about-mom)(health)(26).databook.md) | Medical Appointment       | Alice and Carol's shared claims for Paula's medical appointment — medications, allergies, insurance, PCP reference           | [view](example/contexts/images/context(alice-carol-about-mom)(health)(26).png)|
 

@@ -7,14 +7,14 @@ flowchart TD
 
     subgraph ctx["Context"]
         direction LR
-        ctx_meta["assertedBy: :Self\nsubject: :Jane_Kopakolva"]:::meta
+        ctx_meta["claimant: :Self\nsubject: :Jane_Kopakolva"]:::meta
     end
 
     naf30988316a0[":Jane_Kopakolva\n(Person)"]:::person
-    n6870359e6b50("Jane"):::lit
-    n0c3a941e2cb3("Kopakolva"):::lit
-    n87f6163c0f5a("Paula Walker's primary care physician"):::lit
+    na703c31eaafe("Jane"):::lit
+    na917438ff66b("Kopakolva"):::lit
+    n94fc124b8999("Paula Walker's primary care physician"):::lit
 
-    naf30988316a0 -->|"GivenName"| n6870359e6b50
-    naf30988316a0 -->|"FamilyName"| n0c3a941e2cb3
-    naf30988316a0 -->|"ent00000048"| n87f6163c0f5a
+    naf30988316a0 -->|"GivenName"| na703c31eaafe
+    naf30988316a0 -->|"FamilyName"| na917438ff66b
+    naf30988316a0 -->|"ent00000048"| n94fc124b8999

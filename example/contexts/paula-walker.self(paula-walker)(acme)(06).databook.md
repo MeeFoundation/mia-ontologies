@@ -1,15 +1,15 @@
 ---
 id: https://www.example.org/mia/contexts/paula-walker.self(paula-walker)(acme)(06)
-title: "About Paula Walker in the Employee category as asserted by Alice Walker"
+title: "About Paula Walker in the Employee category as claimed by Alice Walker"
 type: context-databook
-version: 2.0.3
+version: 2.0.4
 created: 2026-06-14
 description: >
   Alice's record of her colleague Paula Walker in the Acme employment context.
-  Self-asserted by Alice; describes Paula as an individual.
+  Self-claimed by Alice; describes Paula as an individual.
 mia:
   category: "http://www.example.org/mia/categories/paula-walker(acme)"
-  assertedBy: ":Self"
+  claimant: ":Self"
   subject: ":Paula_Walker"
   about-by: "context:OBScontext"
 graph:
@@ -27,7 +27,7 @@ process:
 
 ## Overview
 
-This context captures Alice's record of her colleague Paula Walker in their shared Acme employment context. Alice self-asserts this context; it is paired with Paula's own Acme persona in `20-alice(acme)alice`.
+This context captures Alice's record of her colleague Paula Walker in their shared Acme employment context. Alice self-claims this context; it is paired with Paula's own Acme persona in `20-alice(acme)alice`.
 
 ## Identity Data
 

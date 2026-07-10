@@ -1,15 +1,15 @@
 ---
 id: https://www.example.org/mia/contexts/self.self(bob-johnson)(others)(12)
-title: "About Alice Walker in the Others category as asserted by Alice Walker"
+title: "About Alice Walker in the Others category as claimed by Alice Walker"
 type: context-databook
-version: 2.0.6
+version: 2.0.7
 created: 2026-06-12
 description: >
-  Alice Walker's self-asserted persona in the context of her 1:1 relationship with Bob Johnson.
+  Alice Walker's self-claimed persona in the context of her 1:1 relationship with Bob Johnson.
   Records the name and social network connection she shares with Bob.
 mia:
   category: "http://www.example.org/mia/categories/bob-johnson(others)"
-  assertedBy: ":Self"
+  claimant: ":Self"
   subject: ":Self"
   about-by: "context:SBScontext"
 graph:
@@ -27,7 +27,7 @@ process:
 
 ## Overview
 
-This context captures Alice Walker's self-asserted persona in her 1:1 relationship with Bob Johnson. It records the name Alice presents to Bob and her social network link to him.
+This context captures Alice Walker's self-claimed persona in her 1:1 relationship with Bob Johnson. It records the name Alice presents to Bob and her social network link to him.
 
 ## Identity Data
 

@@ -7,7 +7,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 This is an **RDF/OWL ontology project** — a formal semantic knowledge model for representing natural people's identity data in the Mee Identity Agent (MIA). It comprises three peer application ontologies:
 
 - **Persona ontology** (`persona.ttl`): models identity data — names, addresses, identifiers, relationships, payment cards, and more — structured around context-specific `Person` instances. Imports and profiles existing domain ontologies, documenting which of their classes and properties Mee uses, and extends them with Mia-specific terms.
-- **Context ontology** (`context.ttl`): defines controlled vocabularies for classifying context files — what asserted the data (`assertedBy`), and whose identity the file describes (`subject`), plus the `Context` class hierarchy (`SBScontext`/`OBScontext`/`OBOcontext`/`SBOcontext`).
+- **Context ontology** (`context.ttl`): defines controlled vocabularies for classifying context files — who claimed the data (`claimant`), and whose identity the file describes (`subject`), plus the `Context` class hierarchy (`SBScontext`/`OBScontext`/`OBOcontext`/`SBOcontext`).
 - **Category ontology** (`category.ttl`): defines the category class hierarchy (`Person`/`Organization`/`UserDefined` as direct subclasses of `Category`, `Parties`/`OneParty`/`TwoParty`/`MultiParty`, and all leaf categories) and the properties that classify and link category DataBooks (`classname`, `num-parties`, `sbs`/`obs`/`sbo`/`obo`, `child`, `label`, `note`, `folder`, `copiedFrom`). Mutually imports `context.ttl`.
 
 There are no build, compile, test, or lint commands. The files are Turtle (`.ttl`) loaded into semantic web tools (Protégé).
@@ -17,7 +17,7 @@ There are no build, compile, test, or lint commands. The files are Turtle (`.ttl
 | File | Purpose |
 |------|---------|
 | `persona.ttl` | Persona ontology — imports domain ontologies, annotates which classes/properties are required vs. optional for Mee, defines Mia-specific classes and properties |
-| `context.ttl` | Context ontology — controlled vocabularies for classifying context files (`category`, `assertedBy`, `subject`, `about-by`) and the `Context` class hierarchy. Mutually imports `category.ttl` |
+| `context.ttl` | Context ontology — controlled vocabularies for classifying context files (`category`, `claimant`, `subject`, `about-by`) and the `Context` class hierarchy. Mutually imports `category.ttl` |
 | `category.ttl` | Category ontology — the category class hierarchy and its classification/link properties (`classname`, `num-parties`, `sbs`/`obs`/`sbo`/`obo`, `child`, `label`, `note`, `folder`, `copiedFrom`). Mutually imports `context.ttl` |
 | `category-shacl.ttl` | SHACL validation shapes for category DataBook instances — `classname`/`num-parties` cardinality and enum, `sbs`/`obs`/`sbo` cardinality |
 | `persona-shacl.ttl` | SHACL validation shapes — constraint rules for all `persona:Person` instances (SSN format, address cardinality, payment cards, wallet, social network, etc.) |
@@ -33,16 +33,16 @@ There are no build, compile, test, or lint commands. The files are Turtle (`.ttl
 
 | File | Purpose |
 |------|---------|
-| `example/contexts/paula-walker.self(paula-walker)(acme)(06).databook.md` | Paula Walker as Alice's Acme colleague — asserted by Alice |
-| `example/contexts/paula-walker.self(paula-walker)(immediate-family)(07).databook.md` | Paula Walker as Alice's family member — asserted by Alice |
+| `example/contexts/paula-walker.self(paula-walker)(acme)(06).databook.md` | Paula Walker as Alice's Acme colleague — claimed by Alice |
+| `example/contexts/paula-walker.self(paula-walker)(immediate-family)(07).databook.md` | Paula Walker as Alice's family member — claimed by Alice |
 | `example/contexts/paula-walker.paula-walker(paula-walker)(immediate-family)(05).databook.md` | Paula Walker's own family persona; social network with Alice |
-| `example/contexts/self.bob-johnson(bob-johnson)(others)(08).databook.md` | Alice Walker as seen by Bob Johnson — asserted by Bob |
+| `example/contexts/self.bob-johnson(bob-johnson)(others)(08).databook.md` | Alice Walker as seen by Bob Johnson — claimed by Bob |
 | `example/contexts/bob-johnson.self(bob-johnson)(others)(04).databook.md` | Alice's notes about Bob Johnson; favorite drink: oat milk cappuccino |
-| `example/contexts/bob-johnson.bob-johnson(bob-johnson)(others)(02).databook.md` | Bob Johnson's self-asserted persona; social network with Alice |
+| `example/contexts/bob-johnson.bob-johnson(bob-johnson)(others)(02).databook.md` | Bob Johnson's self-claimed persona; social network with Alice |
 | `example/contexts/self.self(boston-hub-society)(affiliations)(14).databook.md` | Alice's Boston Hub Society profile — email, phone, and current address |
 | `example/contexts/bhs-group.members(boston-hub-society)(affiliations)(01).databook.md` | BHS Group — g:Group instance with Alice and Bob as members |
 | `example/contexts/bob-johnson.bob-johnson(boston-hub-society)(affiliations)(03).databook.md` | Bob Johnson's BHS member persona — name, email, phone, address |
-| `example/contexts/self.citibank(citibank)(banking-payments)(09).databook.md` | Alice's Citibank context — debit card; asserted by Citibank |
+| `example/contexts/self.citibank(citibank)(banking-payments)(09).databook.md` | Alice's Citibank context — debit card; claimed by Citibank |
 | `example/contexts/self.self(google)(companies)(16).databook.md` | Alice's Google context — Gmail address |
 | `example/contexts/self.self(att)(companies)(11).databook.md` | Alice's AT&T context — phone number |
 | `example/contexts/self.self(texas-vital-records)(state)(24).databook.md` | Alice's Texas birth certificate — legal names, maiden name |
@@ -86,7 +86,7 @@ shacl/medical-appointment-shacl.ttl — per-template shapes for medical appointm
 2. **Domain Ontologies** (in `project_files/`): PersonOntology, AddressOntology, StagingOntology
 3. **Application Ontologies** (peer, not nested):
    - `persona.ttl`: aggregates domain ontologies; uses annotation properties (`usesRequiredClass`, `usesOptionalClass`, `usesCCOClass`, `usesCCOProperty`) to document Mee's usage
-   - `context.ttl`: defines `category`, `assertedBy`, `subject`, and `about-by` vocabularies; imported directly by each context file
+   - `context.ttl`: defines `category`, `claimant`, `subject`, and `about-by` vocabularies; imported directly by each context file
    - `category.ttl`: defines the category class hierarchy and classification/link properties; mutually imports `context.ttl`
 
 ### Context File Naming Convention
@@ -94,30 +94,30 @@ shacl/medical-appointment-shacl.ttl — per-template shapes for medical appointm
 Context filenames follow a single flat pattern:
 
 ```
-<subject>.<asserted-by>(<containing-category>)(<NN>).databook.md
+<subject>.<claimant>(<containing-category>)(<NN>).databook.md
 ```
 
 | Segment | Meaning |
 |---------|---------|
 | `<subject>` | The entity the Persona is about. Use `self` when the subject is the Mia user's own `p:Person` (`:Self`); otherwise use the full hyphenated lowercase name (e.g. `paula-walker`, `bob-johnson`, `bhs-group`). |
-| `<asserted-by>` | Who asserted the data. Use `self` when the asserter is `:Self`; use the full hyphenated lowercase name for other asserters (e.g. `bob-johnson`, `citibank`); use the literal `members` for `c:MultiParty` contexts where any permitted member may write. |
+| `<claimant>` | Who claimed the data. Use `self` when the claimant is `:Self`; use the full hyphenated lowercase name for other claimants (e.g. `bob-johnson`, `citibank`); use the literal `members` for `c:MultiParty` contexts where any permitted member may write. |
 | `(<containing-category>)` | The local-name portion of this context's `mia.category` IRI — i.e., the IRI of the category DataBook that directly holds the `sbs`, `obs`, `sbo`, or `obo` link to this context. When the category DataBook local name includes a `(parent)` qualifier (e.g. `bob-johnson(others)`), the filename uses two separate parenthetical segments before the number: `(bob-johnson)(others)`. Examples: `(bob-johnson)(others)`, `(boston-hub-society)(affiliations)`, `(paula-walker)(immediate-family)`, `(citibank)(banking-payments)`. For categories without a `(parent)` qualifier (e.g. `health`, `ownership`), a single segment suffices. |
 | `(<NN>)` | Zero-padded two-digit context number in parentheses, matching the diagram label. |
 
-**Exception — `c:MultiParty` contexts**: A group context (`category context:MultiParty`) has no single asserter — any permitted member can write to it and changes replicate to all members. The `<asserted-by>` segment is the literal `members` rather than an individual name. Example: `bhs-group.members(boston-hub-society)(affiliations)(01).databook.md` — about BHS Group, containing category "boston-hub-society(affiliations)", asserted by the group's members collectively.
+**Exception — `c:MultiParty` contexts**: A group context (`category context:MultiParty`) has no single claimant — any permitted member can write to it and changes replicate to all members. The `<claimant>` segment is the literal `members` rather than an individual name. Example: `bhs-group.members(boston-hub-society)(affiliations)(01).databook.md` — about BHS Group, containing category "boston-hub-society(affiliations)", claimed by the group's members collectively.
 
-**Exception — `cat:graph`-linked contexts**: A context linked from its category via `cat:graph` (rather than `sbs`/`obs`/`sbo`/`obo`) has no `about-by` classification and no single subject/asserter — it is data jointly maintained by multiple parties about a third party. Such contexts drop the `<subject>.<asserted-by>` prefix entirely and use the literal `context` in its place: `context(<containing-category>)(<NN>).databook.md`. These files also omit `mia.assertedBy` and `mia.subject` from the YAML frontmatter (those fields describe a single-asserter relationship that doesn't apply here). Example: `context(alice-carol-about-mom)(health)(26).databook.md` — jointly maintained by Alice and Carol about their mother Paula, containing category `alice-carol-about-mom(health)`.
+**Exception — `cat:graph`-linked contexts**: A context linked from its category via `cat:graph` (rather than `sbs`/`obs`/`sbo`/`obo`) has no `about-by` classification and no single subject/claimant — it is data jointly maintained by multiple parties about a third party. Such contexts drop the `<subject>.<claimant>` prefix entirely and use the literal `context` in its place: `context(<containing-category>)(<NN>).databook.md`. These files also omit `mia.claimant` and `mia.subject` from the YAML frontmatter (those fields describe a single-claimant relationship that doesn't apply here). Example: `context(alice-carol-about-mom)(health)(26).databook.md` — jointly maintained by Alice and Carol about their mother Paula, containing category `alice-carol-about-mom(health)`.
 
-**`mia.assertedBy` vocabulary**: The YAML field takes the local IRI of a `p:Person`, `g:Group`, or `o:Organization` individual — NOT an `i:PDNidentifier`. Those individuals carry their own PDN identity via `identity:hasPDNidentifier`. Specifically: `:Self` (the Mia user's `p:Person`) for self-asserted contexts; a named `p:Person` individual (e.g. `:Bob_Johnson`) when another Mia user asserts the data; a named `g:Group` individual (e.g. `:BHS_Group`) for group contexts; and a named `o:Organization` individual (e.g. `:Citibank`) only when the asserting organization is itself a PDN node. In the example data **only Citibank is a PDN node**, so only `self.citibank(citibank)(banking-payments)(09).databook.md` uses `assertedBy: ":Citibank"`. All other organization-related contexts (Google, AT&T, SSA, etc.) use `assertedBy: ":Self"` because Alice self-enters that data — those organizations are not PDN-interoperable.
+**`mia.claimant` vocabulary**: The YAML field takes the local IRI of a `p:Person`, `g:Group`, or `o:Organization` individual — NOT an `i:PDNidentifier`. Those individuals carry their own PDN identity via `identity:hasPDNidentifier`. Specifically: `:Self` (the Mia user's `p:Person`) for self-claimed contexts; a named `p:Person` individual (e.g. `:Bob_Johnson`) when another Mia user claims the data; a named `g:Group` individual (e.g. `:BHS_Group`) for group contexts; and a named `o:Organization` individual (e.g. `:Citibank`) only when the claiming organization is itself a PDN node. In the example data **only Citibank is a PDN node**, so only `self.citibank(citibank)(banking-payments)(09).databook.md` uses `claimant: ":Citibank"`. All other organization-related contexts (Google, AT&T, SSA, etc.) use `claimant: ":Self"` because Alice self-enters that data — those organizations are not PDN-interoperable.
 
-**"Other" asserters**: When the asserter is someone other than the current Mia user (`:Self`), the asserter is a named individual of one of:
-- `p:Person` — another Mia user (a different person, e.g. `:Bob_Johnson` asserting data about Alice)
+**"Other" claimants**: When the claimant is someone other than the current Mia user (`:Self`), the claimant is a named individual of one of:
+- `p:Person` — another Mia user (a different person, e.g. `:Bob_Johnson` claiming data about Alice)
 - `o:Organization` — a company, nonprofit, or government agency that is a PDN node (e.g. `:Citibank`)
 - `g:Group` — a group of Mia users (e.g. `:BHS_Group`)
 
 **Examples:**
 
-| Filename | Subject | Asserted by | Containing category |
+| Filename | Subject | Claimed by | Containing category |
 |----------|---------|-------------|---------------------|
 | `self.citibank(citibank)(banking-payments)(09).databook.md` | Self (Alice) | Citibank | citibank(banking-payments) |
 | `paula-walker.self(paula-walker)(immediate-family)(07).databook.md` | Paula Walker | Self (Alice) | paula-walker(immediate-family) |
@@ -171,7 +171,7 @@ After any change to context files or category DataBooks, verify the following.
 
 **Check 1 — Diagram ↔ files ↔ README coverage**: Every numbered context circle in any of the 11 category diagrams (`example/images/`) must have (a) a corresponding `.databook.md` file in `example/contexts/` and (b) a row in one of the tables in the **Alice's Personas and Contexts** section of `README.md`. Conversely, every row in those tables must correspond to a numbered circle in a diagram and a file that actually exists. If a circle exists in a diagram but has no `.databook.md` file or README row, create them to match the diagram.
 
-**Check 2 — Filename convention**: Every context filename must follow `<subject>.<asserted-by>(<containing-category>)(<NN>).databook.md`. `<subject>` must be `self` when the subject is `:Self`, or the full hyphenated lowercase name otherwise. `<asserted-by>` must be `self` when the asserter is `:Self`, or the full hyphenated lowercase name otherwise — except for `c:Group` contexts, where it must be the literal string `members`. `(<containing-category>)` encodes the local name of the `mia.category` IRI: when the category DataBook local name includes a `(parent)` qualifier (e.g. `bob-johnson(others)`), it appears as two separate segments `(bob-johnson)(others)`; when there is no qualifier (e.g. `health`), a single segment suffices. `(<NN>)` is the zero-padded two-digit context number. Exception: a context linked via `cat:graph` rather than `sbs`/`obs`/`sbo`/`obo` drops the `<subject>.<asserted-by>` prefix and uses the literal `context` instead — `context(<containing-category>)(<NN>).databook.md`. If a filename does not match one of these two patterns, rename it to conform.
+**Check 2 — Filename convention**: Every context filename must follow `<subject>.<claimant>(<containing-category>)(<NN>).databook.md`. `<subject>` must be `self` when the subject is `:Self`, or the full hyphenated lowercase name otherwise. `<claimant>` must be `self` when the claimant is `:Self`, or the full hyphenated lowercase name otherwise — except for `c:Group` contexts, where it must be the literal string `members`. `(<containing-category>)` encodes the local name of the `mia.category` IRI: when the category DataBook local name includes a `(parent)` qualifier (e.g. `bob-johnson(others)`), it appears as two separate segments `(bob-johnson)(others)`; when there is no qualifier (e.g. `health`), a single segment suffices. `(<NN>)` is the zero-padded two-digit context number. Exception: a context linked via `cat:graph` rather than `sbs`/`obs`/`sbo`/`obo` drops the `<subject>.<claimant>` prefix and uses the literal `context` instead — `context(<containing-category>)(<NN>).databook.md`. If a filename does not match one of these two patterns, rename it to conform.
 
 **Check 3 — `mia.category` ↔ filename consistency**: For every context DataBook in `example/contexts/` (excluding `under-development/`), the local-name portion of its `mia.category` IRI must equal the `(<containing-category>)` segment extracted from the filename. When the filename uses two separate parenthetical segments before the number (e.g. `(bob-johnson)(others)`), concatenate them as `bob-johnson(others)` to form the expected local name. Run:
 
@@ -239,16 +239,16 @@ missing = [p for p in sorted(set(pngs)) if not os.path.exists(p)]
 
 If any `MISSING:` lines appear, either add the file or update the link.
 
-**Check 9 — `about-by` ↔ `subject`/`assertedBy` consistency**: Every DataBook's `mia.about-by` value must be consistent with its `mia.subject` and `mia.assertedBy` values according to these rules:
+**Check 9 — `about-by` ↔ `subject`/`claimant` consistency**: Every DataBook's `mia.about-by` value must be consistent with its `mia.subject` and `mia.claimant` values according to these rules:
 
-| `about-by` | `subject` | `assertedBy` |
+| `about-by` | `subject` | `claimant` |
 |---|---|---|
 | `context:SBScontext` | `:Self` | `:Self` |
 | `context:OBScontext` | not `:Self` | `:Self` |
 | `context:OBOcontext` | not `:Self` | not `:Self` |
 | `context:SBOcontext` | `:Self` | not `:Self` |
 
-For each DataBook in `example/` (excluding `under-development/`), extract the three YAML values and verify they match the table. If they conflict, `about-by` is the authoritative value — update `subject` and/or `assertedBy` to match it. Exception: a context linked from its category via `cat:graph` (rather than `sbs`/`obs`/`sbo`/`obo`) has no `about-by` value at all — it is not classified into one of the four subtypes, since its data is jointly maintained by multiple parties about a third party rather than assertable as self-vs-other. Such a context may still set `subject`/`assertedBy` as descriptive metadata; this check simply does not apply to it.
+For each DataBook in `example/` (excluding `under-development/`), extract the three YAML values and verify they match the table. If they conflict, `about-by` is the authoritative value — update `subject` and/or `claimant` to match it. Exception: a context linked from its category via `cat:graph` (rather than `sbs`/`obs`/`sbo`/`obo`) has no `about-by` value at all — it is not classified into one of the four subtypes, since its data is jointly maintained by multiple parties about a third party rather than claimable as self-vs-other. Such a context may still set `subject`/`claimant` as descriptive metadata; this check simply does not apply to it.
 
 **Check 10 — Category filename ↔ id consistency**: For every category DataBook in `categories-person/`, `categories-org/`, and `example/categories/`, the filename root (the filename with `.databook.md` stripped) must exactly match the local name portion of the file's `id:` IRI (the string after the IRI base). The IRI base for canonical Person files is `http://mee.foundation/ontologies/categories-person/`; for canonical Organization files it is `http://mee.foundation/ontologies/categories-org/`; for example files it is `http://www.example.org/mia/categories/`. `categories-person/`, `categories-org/`, and `example/categories/` are all nested into folders mirroring their category tree (see Check 12), so they must be walked recursively. Run:
 
@@ -373,10 +373,10 @@ If a nesting mismatch or orphan is found, move the file to the correct folder (p
 - **13c** — the class hierarchy under `Category` shown in the diagram matches `category.ttl`'s actual `rdfs:subClassOf cat:Category` relationships (by class local name, not just position).
 - **13d** — each `Parties` subtype's example `cat:label` value shown in the diagram (`"Category"`, `"Two-Party"`, `"Multi-Party"`) matches that subtype's actual `cat:label` value in `category.ttl`.
 
-**Check 14 — `context.ttl` matches `images/context-ontology/context.png`**: This diagram is the ontology-level picture of `context:Context`'s structure — its `category`/`template` properties, the intermediate `context:XBXcontext` class (carrying `about-by`/`subject`/`assertedBy`), and the four classified subtypes (`SBScontext`/`OBScontext`/`OBOcontext`/`SBOcontext`) below it. Like Check 13, this does not presume which side is authoritative when the two disagree — surface the discrepancy and ask. After any change to `context.ttl` or to this diagram, verify:
+**Check 14 — `context.ttl` matches `images/context-ontology/context.png`**: This diagram is the ontology-level picture of `context:Context`'s structure — its `category`/`template` properties, the intermediate `context:XBXcontext` class (carrying `about-by`/`subject`/`claimant`), and the four classified subtypes (`SBScontext`/`OBScontext`/`OBOcontext`/`SBOcontext`) below it. Like Check 13, this does not presume which side is authoritative when the two disagree — surface the discrepancy and ask. After any change to `context.ttl` or to this diagram, verify:
 
 - **14a** — every property arrow shown off `Context` in the diagram (`category`, `template`) has a corresponding `context:` property in `context.ttl` with `rdfs:domain context:Context`, and its target type matches the property's `rdfs:range`.
-- **14b** — every property arrow shown off `XBXcontext` in the diagram (`about-by`, `subject`, `assertedBy`) has a corresponding `context:` property with `rdfs:domain context:XBXcontext`.
+- **14b** — every property arrow shown off `XBXcontext` in the diagram (`about-by`, `subject`, `claimant`) has a corresponding `context:` property with `rdfs:domain context:XBXcontext`.
 - **14c** — every `context:` property with domain `context:Context` or `context:XBXcontext` defined in `context.ttl` appears in the diagram under the correct box (catches new properties added to the ttl but never drawn, or drawn under the wrong box).
 - **14d** — the class hierarchy shown (`Context` → `XBXcontext` → `SBScontext`/`OBScontext`/`OBOcontext`/`SBOcontext`) matches `context.ttl`'s actual `rdfs:subClassOf` relationships.
 
@@ -404,7 +404,7 @@ shaclvalidate -datafile example/contexts/self.self(boston-hub-society)(affiliati
 
 All classes and properties defined in `persona.ttl`, `context.ttl`, and `category.ttl` must be mentioned in `README.md` in the sections before the **Illustrative Example: Alice Walker** section. The only intentional exceptions are the internal ontology documentation annotation properties (`usesRequiredClass`, `usesOptionalClass`, `usesCCOClass`, `usesCCOProperty`, `usagePattern`), which are infrastructure for self-documenting the ontology, not user-facing terms.
 
-In `README.md`, every mention of a class defined in `persona.ttl` must appear in backticks with the `p:` prefix (e.g. `p:Persona`, `p:Wallet`), every mention of a class or property defined in `context.ttl` must appear in backticks with the `c:` prefix (e.g. `c:contextType`, `c:SelfAsserted`), and every mention of a class or property defined in `category.ttl` must appear in backticks with the `cat:` prefix (e.g. `cat:Category`, `cat:classname`). Every capitalized mention of `Person` (the CCO class) must also appear in backticks. These formatting rules do **not** apply inside headings or subheadings.
+In `README.md`, every mention of a class defined in `persona.ttl` must appear in backticks with the `p:` prefix (e.g. `p:Persona`, `p:Wallet`), every mention of a class or property defined in `context.ttl` must appear in backticks with the `c:` prefix (e.g. `c:contextType`, `c:SelfClaimed`), and every mention of a class or property defined in `category.ttl` must appear in backticks with the `cat:` prefix (e.g. `cat:Category`, `cat:classname`). Every capitalized mention of `Person` (the CCO class) must also appear in backticks. These formatting rules do **not** apply inside headings or subheadings.
 
 ## Catalog Files
 

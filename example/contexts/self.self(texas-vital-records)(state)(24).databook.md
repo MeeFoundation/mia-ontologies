@@ -1,15 +1,15 @@
 ---
 id: https://www.example.org/mia/contexts/self.self(texas-vital-records)(state)(24)
-title: "About Alice Walker in the State category as asserted by Alice Walker"
+title: "About Alice Walker in the State category as claimed by Alice Walker"
 type: context-databook
-version: 2.0.6
+version: 2.0.7
 created: 2026-06-01
 description: >
   Alice Walker's Texas birth certificate context. Records her legal name (Margery Alice Walker)
   and maiden name (Margery Alice Arnold) as self-entered data.
 mia:
   category: "http://www.example.org/mia/categories/texas-vital-records(state)"
-  assertedBy: ":Self"
+  claimant: ":Self"
   subject: ":Self"
   about-by: "context:SBScontext"
   template: "persona:BirthCertificate"

@@ -7,26 +7,26 @@ flowchart TD
 
     subgraph ctx["Context"]
         direction LR
-        ctx_meta["assertedBy: :Self\nsubject: :Self"]:::meta
+        ctx_meta["claimant: :Self\nsubject: :Self"]:::meta
     end
 
     nbb363374209c[":Address_BHS\n(PostalAddress)"]
-    ne9ad46b2c3d1("123 Sleepy Hollow"):::lit
-    n508945d5e509("Paradise"):::lit
-    na0ba3280331c("CA"):::lit
-    nbdf945f97edb("95969"):::lit
-    na6311f20c0d2("USA"):::lit
+    n65df1a75b7bb("123 Sleepy Hollow"):::lit
+    n59c2366af0c9("Paradise"):::lit
+    nb577e58674be("CA"):::lit
+    n319ee832076b("95969"):::lit
+    n46fb9b4d7fa9("USA"):::lit
     ne0c3ba92f1db[":Self\n(Person)"]:::person
-    n72842834d6ee("Alice Walker"):::lit
-    n66f0ba9d903d("+15108149999"):::lit
-    nf85c6bc03485("awalker@gmail.com"):::lit
+    n7dcd59449d14("Alice Walker"):::lit
+    n4b596c34238b("+15108149999"):::lit
+    nfee93f60ff27("awalker@gmail.com"):::lit
 
-    nbb363374209c -->|"StreetAddress"| ne9ad46b2c3d1
-    nbb363374209c -->|"CityName"| n508945d5e509
-    nbb363374209c -->|"StateName"| na0ba3280331c
-    nbb363374209c -->|"PostalCode"| nbdf945f97edb
-    nbb363374209c -->|"CountryName"| na6311f20c0d2
-    ne0c3ba92f1db -->|"AlternateName"| n72842834d6ee
+    nbb363374209c -->|"StreetAddress"| n65df1a75b7bb
+    nbb363374209c -->|"CityName"| n59c2366af0c9
+    nbb363374209c -->|"StateName"| nb577e58674be
+    nbb363374209c -->|"PostalCode"| n319ee832076b
+    nbb363374209c -->|"CountryName"| n46fb9b4d7fa9
+    ne0c3ba92f1db -->|"AlternateName"| n7dcd59449d14
     ne0c3ba92f1db -->|"designated by"| nbb363374209c
-    ne0c3ba92f1db -->|"TelephoneNumber"| n66f0ba9d903d
-    ne0c3ba92f1db -->|"EmailAddress"| nf85c6bc03485
+    ne0c3ba92f1db -->|"TelephoneNumber"| n4b596c34238b
+    ne0c3ba92f1db -->|"EmailAddress"| nfee93f60ff27

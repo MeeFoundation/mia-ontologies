@@ -7,26 +7,26 @@ flowchart TD
 
     subgraph ctx["Context"]
         direction LR
-        ctx_meta["assertedBy: :Self\nsubject: :Self\ntemplate: persona:DriversLicense"]:::meta
+        ctx_meta["claimant: :Self\nsubject: :Self\ntemplate: persona:DriversLicense"]:::meta
     end
 
     naafab809f865[":Alice_CA_DriversLicense\n(DriversLicense)"]
-    n4c6b892d7331("Margery"):::lit
-    n853e081650fb("Alice"):::lit
-    nbbbd5b7f7891("Walker"):::lit
-    n308789817a1c("1985-07-04"):::lit
-    n1c6a5f865758("2031-07-04"):::lit
-    n2e855cd6ec6b("A1234567"):::lit
-    ned83ab143913("CA"):::lit
+    n20bf998f3ae6("Margery"):::lit
+    n41ffbabcad7f("Alice"):::lit
+    nd15b273b9af9("Walker"):::lit
+    n38f02dc0eca2("1985-07-04"):::lit
+    n6314f77365a6("2031-07-04"):::lit
+    n9f23ff7c8391("A1234567"):::lit
+    n3fa28853438b("CA"):::lit
     n2d7288ec7ae7("https://example.org/alice-dl-photo.jpg"):::lit
     ne0c3ba92f1db[":Self\n(Person)"]:::person
 
-    naafab809f865 -->|"GivenName"| n4c6b892d7331
-    naafab809f865 -->|"AdditionalName"| n853e081650fb
-    naafab809f865 -->|"FamilyName"| nbbbd5b7f7891
-    naafab809f865 -->|"ent00000046"| n308789817a1c
-    naafab809f865 -->|"ExpirationDate"| n1c6a5f865758
-    naafab809f865 -->|"DriversLicenseNumber"| n2e855cd6ec6b
-    naafab809f865 -->|"IssuingJurisdiction"| ned83ab143913
+    naafab809f865 -->|"GivenName"| n20bf998f3ae6
+    naafab809f865 -->|"AdditionalName"| n41ffbabcad7f
+    naafab809f865 -->|"FamilyName"| nd15b273b9af9
+    naafab809f865 -->|"ent00000046"| n38f02dc0eca2
+    naafab809f865 -->|"ExpirationDate"| n6314f77365a6
+    naafab809f865 -->|"DriversLicenseNumber"| n9f23ff7c8391
+    naafab809f865 -->|"IssuingJurisdiction"| n3fa28853438b
     naafab809f865 -->|"hasPhoto"| n2d7288ec7ae7
     ne0c3ba92f1db -->|"hasIdentityDocument"| naafab809f865

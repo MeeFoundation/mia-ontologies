@@ -16,7 +16,7 @@ Each Mia context file is currently a `.ttl` (Turtle RDF) file that acts as a "po
     owl:imports <http://mee.foundation/ontologies/persona> ;
     owl:imports <http://mee.foundation/ontologies/context> ;
     context:contextCategory context:FinancialServices ;
-    context:assertedBy identity:Organization ;
+    context:claimant identity:Organization ;
     context:subject identity:Self ;
     context:name "Citibank" ;
     owl:versionInfo "Version 2.0.1"@en ;
@@ -112,7 +112,7 @@ Each fenced block is preceded by HTML comment directives:
 | `owl:versionInfo "Version X.Y.Z - ..."` | `version:` + intro prose | Number → `version:`, description → prose |
 | `context:name "Citibank"` | `mia.name:` in YAML | No standard equivalent |
 | `context:contextCategory` | `mia.contextCategory:` in YAML | Human-readable string |
-| `context:assertedBy` | `mia.assertedBy:` in YAML | Human-readable string |
+| `context:claimant` | `mia.claimant:` in YAML | Human-readable string |
 | `context:subject` | `mia.subject:` in YAML | Human-readable string |
 | `context:template` | `mia.template:` in YAML | Human-readable string |
 | `context:dyad` | `mia.dyad:` in YAML | Human-readable string |
@@ -123,7 +123,7 @@ Each fenced block is preceded by HTML comment directives:
 
 ### Note on `context:` annotation properties
 
-`context:contextCategory`, `context:assertedBy`, `context:subject`, `context:template`, and `context:dyad` are RDF annotation properties defined in `context.ttl`. Moving them to YAML frontmatter means they are stored as human-readable strings rather than RDF triples, so they are not directly SPARQL-queryable from the file. In a triplestore-centric workflow this is not a concern — the DataBook CLI loads the named graph into Fuseki where all metadata is queryable. For file-only workflows it is a trade-off worth noting.
+`context:contextCategory`, `context:claimant`, `context:subject`, `context:template`, and `context:dyad` are RDF annotation properties defined in `context.ttl`. Moving them to YAML frontmatter means they are stored as human-readable strings rather than RDF triples, so they are not directly SPARQL-queryable from the file. In a triplestore-centric workflow this is not a concern — the DataBook CLI loads the named graph into Fuseki where all metadata is queryable. For file-only workflows it is a trade-off worth noting.
 
 ### No `owl:Ontology` needed
 
@@ -140,7 +140,7 @@ The `owl:Ontology` declaration exists in our current `.ttl` files solely as a ve
     owl:imports <http://mee.foundation/ontologies/persona> ;
     owl:imports <http://mee.foundation/ontologies/context> ;
     context:contextCategory context:FinancialServices ;
-    context:assertedBy identity:Organization ;
+    context:claimant identity:Organization ;
     context:subject identity:Self ;
     context:name "Citibank" ;
     rdfs:label "Alice Walker - Citibank Persona"@en .
@@ -161,11 +161,11 @@ version: 2.0.1
 created: 2026-06-15
 description: >
   Alice Walker's Citibank context. Records her debit card, checking account,
-  and online banking credentials. Asserted by Citibank (a PDN Organization node).
+  and online banking credentials. Claimed by Citibank (a PDN Organization node).
 mia:
   name: "Citibank"
   contextCategory: "context:FinancialServices"
-  assertedBy: "identity:Organization"
+  claimant: "identity:Organization"
   subject: "identity:Self"
 graph:
   namespace: http://www.example.org/mia#
@@ -184,7 +184,7 @@ process:
 ## Overview
 
 Alice Walker's financial relationship with Citibank. Citibank is a PDN Organization
-node and directly asserts this context. It records a debit card linked to a checking
+node and directly claims this context. It records a debit card linked to a checking
 account, plus an online service account for `online.citi.com`.
 
 ## Identity Data
@@ -321,7 +321,7 @@ databook validate 13-alice\(tx-birth-cert\)alice.databook.md \
 | | |
 |---|---|
 | **Fuseki required** | The triplestore-centric composition model requires Apache Jena Fuseki to be running for full union queries. The current workflow is filesystem-only. |
-| **`context:` properties lose RDF semantics in YAML** | `contextCategory`, `assertedBy`, `subject`, `template`, `dyad` stored as YAML strings are not directly SPARQL-queryable from the file. Mitigated by the triplestore model. |
+| **`context:` properties lose RDF semantics in YAML** | `contextCategory`, `claimant`, `subject`, `template`, `dyad` stored as YAML strings are not directly SPARQL-queryable from the file. Mitigated by the triplestore model. |
 | **Protégé pre-processing** | Protégé sessions require a `databook extract` script to produce temp `.ttl` files. Minor friction since Protégé is used for inspection, not authoring. |
 | **Ecosystem immaturity** | DataBook is a W3C Community Group draft (spec v1.2, CLI v1.4.4). Smaller ecosystem than the Jena/Protégé/SHACL stack. |
 | **File-reference churn** | 22 context files plus all references in `README.md`, `CLAUDE.md`, `alice(self)alice.ttl` imports, and both catalog files would need updating. |

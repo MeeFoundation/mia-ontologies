@@ -7,16 +7,16 @@ flowchart TD
 
     subgraph ctx["Context"]
         direction LR
-        ctx_meta["assertedBy: :Bob_Johnson\nsubject: :Bob_Johnson"]:::meta
+        ctx_meta["claimant: :Bob_Johnson\nsubject: :Bob_Johnson"]:::meta
     end
 
     n19c34148fc05[":Bob_Bob_Network\n(SocialNetwork)"]
     n89768dce3f8b[":Self"]
     n166b15bd501b[":Bob_Johnson\n(Person)"]:::person
-    n337cbeb59a45("Bob"):::lit
-    na8d0e7bb17e6("Johnson"):::lit
+    nc9247e6116a4("Bob"):::lit
+    na79b39517217("Johnson"):::lit
 
     n19c34148fc05 -->|"hasMember"| n89768dce3f8b
-    n166b15bd501b -->|"GivenName"| n337cbeb59a45
-    n166b15bd501b -->|"FamilyName"| na8d0e7bb17e6
+    n166b15bd501b -->|"GivenName"| nc9247e6116a4
+    n166b15bd501b -->|"FamilyName"| na79b39517217
     n166b15bd501b -->|"hasSocialNetwork"| n19c34148fc05

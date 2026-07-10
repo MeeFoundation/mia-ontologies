@@ -9,7 +9,7 @@
 
 <http://mee.foundation/ontologies/persona-templates> rdf:type owl:Ontology ;
     dc:date "2026-06-23"^^xsd:date ;
-    owl:versionInfo "Version 2.1.1 - removed p:copiedFromContext references following its removal from persona.ttl"@en ;
+    owl:versionInfo "Version 2.1.2 - minor wording update following context:assertedBy rename to context:claimant"@en ;
     rdfs:label "Persona Templates Ontology"@en ;
     rdfs:comment """Template type classification used as values for the context:template annotation property.
                     Each concrete template type (BirthCertificate, JSContactCard, DriversLicense, Passport,
@@ -113,7 +113,7 @@ persona:DriversLicense rdf:type owl:Class ;
                     Selects shacl/driverslicense-shacl.ttl for validation.
                     Note: p:PhysicalDriversLicense (in persona.ttl) models the physical card
                     object carried in a wallet; this class models the identity data the
-                    license asserts."""@en .
+                    license claims."""@en .
 
 
 #################################################################

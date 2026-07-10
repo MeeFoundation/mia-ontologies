@@ -11,7 +11,7 @@
     owl:versionIRI <http://mee.foundation/ontologies/category/1.0.0> ;
     dc:date "2026-07-04"^^xsd:date ;
     owl:imports <http://mee.foundation/ontologies/context> ;
-    owl:versionInfo "Version 1.0.34 - renamed cat:Wellness to cat:Fitness; added Nutritionists, Mental Health, Physical Therapy under Health & Wellness, each with History/Providers (Mental Health also with Insurance)"@en ;
+    owl:versionInfo "Version 1.0.35 - updated comments for context:assertedBy rename to context:claimant"@en ;
     rdfs:label "Category Ontology"@en ;
     rdfs:comment """Category Ontology for the Mee Identity Agent"""@en .
 
@@ -58,19 +58,19 @@ cat:graph rdf:type owl:ObjectProperty ;
     rdfs:domain cat:Category ;
     rdfs:range context:Context ;
     rdfs:label "graph"@en ;
-    rdfs:comment "Links a category to a plain context DataBook that does not fit the sbs/obs/sbo/obo self-vs-other classification — e.g. claims jointly maintained by multiple parties about a third party, rather than data cleanly assertable as self-vs-other. Unlike sbs/obs/sbo/obo, no about-by subject/assertedBy classification is implied by this property; the target context is typed context:Context directly rather than one of its four subclasses."@en .
+    rdfs:comment "Links a category to a plain context DataBook that does not fit the sbs/obs/sbo/obo self-vs-other classification — e.g. claims jointly maintained by multiple parties about a third party, rather than data cleanly claimable as self-vs-other. Unlike sbs/obs/sbo/obo, no about-by subject/claimant classification is implied by this property; the target context is typed context:Context directly rather than one of its four subclasses."@en .
 
 cat:sbs rdf:type owl:ObjectProperty ;
     rdfs:domain cat:Category ;
     rdfs:range context:SBScontext ;
     rdfs:label "self-by-self"@en ;
-    rdfs:comment "Links a category to a context DataBook where both subject and assertedBy are :Self — the Mia user is both the subject of and the asserter of the data."@en .
+    rdfs:comment "Links a category to a context DataBook where both subject and claimant are :Self — the Mia user is both the subject of and the claimant of the data."@en .
 
 cat:obs rdf:type owl:ObjectProperty ;
     rdfs:domain cat:Category ;
     rdfs:range context:OBScontext ;
     rdfs:label "other-by-self"@en ;
-    rdfs:comment "Links a category to a context DataBook where subject is another person/org/group and assertedBy is :Self."@en .
+    rdfs:comment "Links a category to a context DataBook where subject is another person/org/group and claimant is :Self."@en .
 
 
 #################################################################
@@ -125,13 +125,13 @@ cat:sbo rdf:type owl:ObjectProperty ;
     rdfs:domain cat:Category ;
     rdfs:range context:SBOcontext ;
     rdfs:label "self-by-other"@en ;
-    rdfs:comment "Links a connection category to a context DataBook where subject is :Self and assertedBy is another person, organization, or group."@en .
+    rdfs:comment "Links a connection category to a context DataBook where subject is :Self and claimant is another person, organization, or group."@en .
 
 cat:obo rdf:type owl:ObjectProperty ;
     rdfs:domain cat:Category ;
     rdfs:range context:OBOcontext ;
     rdfs:label "other-by-other"@en ;
-    rdfs:comment "Links a connection category to a context DataBook where both subject and assertedBy are another person, organization, or group."@en .
+    rdfs:comment "Links a connection category to a context DataBook where both subject and claimant are another person, organization, or group."@en .
 
 cat:copiedFrom rdf:type owl:AnnotationProperty ;
     rdfs:domain cat:Category ;

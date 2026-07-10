@@ -1,15 +1,15 @@
 ---
 id: https://www.example.org/mia/contexts/bhs-group.members(boston-hub-society)(affiliations)(01)
-title: "About Boston Hub Society in the Boston Hub Society category as asserted by Boston Hub Society"
+title: "About Boston Hub Society in the Boston Hub Society category as claimed by Boston Hub Society"
 type: context-databook
-version: 2.0.4
+version: 2.0.5
 created: 2026-06-12
 description: >
   The Boston Hub Society group instance, with Alice and Bob as members.
-  A g:Group context assertable by any permitted member.
+  A g:Group context claimable by any permitted member.
 mia:
   category: "http://www.example.org/mia/categories/boston-hub-society(affiliations)"
-  assertedBy: ":BHS_Group"
+  claimant: ":BHS_Group"
   subject: ":BHS_Group"
   about-by: "context:OBOcontext"
 graph:
@@ -27,7 +27,7 @@ process:
 
 ## Overview
 
-This context captures the Boston Hub Society as a `g:Group` entity. It records the group's membership: Alice Walker (`:Self`) and Bob Johnson (`:Bob_Johnson`). Any permitted member may assert or update this context.
+This context captures the Boston Hub Society as a `g:Group` entity. It records the group's membership: Alice Walker (`:Self`) and Bob Johnson (`:Bob_Johnson`). Any permitted member may claim or update this context.
 
 ## Identity Data
 

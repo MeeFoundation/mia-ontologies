@@ -9,7 +9,7 @@
 <http://mee.foundation/ontologies/pdn-identity> rdf:type owl:Ontology ;
     owl:versionIRI <http://mee.foundation/ontologies/pdn-identity/1.0.0> ;
     dc:date "2026-06-05"^^xsd:date ;
-    owl:versionInfo "Version 1.1.1 - rename PDNidentity class to PDNidentifier"@en ;
+    owl:versionInfo "Version 1.1.2 - updated comment for context:assertedBy rename to context:claimant"@en ;
     rdfs:label "PDN Identity Ontology"@en ;
     rdfs:comment """PDN Identity Ontology for the Mee Identity Agent.
                     Defines the taxonomy of PDN node identifiers — the typed tokens that
@@ -34,7 +34,7 @@ identity:Individual rdf:type owl:Class ;
 identity:Self rdf:type owl:NamedIndividual ,
                        identity:Individual ;
     rdfs:label "Self"@en ;
-    rdfs:comment "The well-known singleton individual representing the current Mia user's PDN identity. Used as the value of context:assertedBy and context:subject when the context concerns the local Mia user."@en .
+    rdfs:comment "The well-known singleton individual representing the current Mia user's PDN identity. Used as the value of context:claimant and context:subject when the context concerns the local Mia user."@en .
 
 identity:Group rdf:type owl:Class ;
     rdfs:subClassOf identity:PDNidentifier ;

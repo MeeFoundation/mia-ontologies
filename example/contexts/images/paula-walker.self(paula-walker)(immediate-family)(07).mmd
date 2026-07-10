@@ -7,12 +7,12 @@ flowchart TD
 
     subgraph ctx["Context"]
         direction LR
-        ctx_meta["assertedBy: :Self\nsubject: :Paula_Walker"]:::meta
+        ctx_meta["claimant: :Self\nsubject: :Paula_Walker"]:::meta
     end
 
     nf4296ab13de4[":Paula_Walker\n(Person)"]:::person
-    n60a5c01931ae("Paula"):::lit
-    n76c5df753c7b("Walker"):::lit
+    n49f24dabdbab("Paula"):::lit
+    na5725eab564a("Walker"):::lit
 
-    nf4296ab13de4 -->|"GivenName"| n60a5c01931ae
-    nf4296ab13de4 -->|"FamilyName"| n76c5df753c7b
+    nf4296ab13de4 -->|"GivenName"| n49f24dabdbab
+    nf4296ab13de4 -->|"FamilyName"| na5725eab564a

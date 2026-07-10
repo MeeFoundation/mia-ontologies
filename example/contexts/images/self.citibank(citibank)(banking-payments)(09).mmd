@@ -7,33 +7,33 @@ flowchart TD
 
     subgraph ctx["Context"]
         direction LR
-        ctx_meta["assertedBy: :Citibank\nsubject: :Self"]:::meta
+        ctx_meta["claimant: :Citibank\nsubject: :Self"]:::meta
     end
 
     naadb4eb7dbfe[":Alice_Checking_Account\n(CheckingAccount)"]
-    n6af6509b62c9("9876543210"):::lit
-    n0d6bc2c5435f("021000089"):::lit
+    n8766fadc3760("9876543210"):::lit
+    n111079c34cc9("021000089"):::lit
     nd168547b019a[":Alice_Citibank_Online\n(OnlineServiceAccount)"]
     nb69c1e2996b7("Citibank"):::lit
     n30fbde007d82("awalker@gmail.com"):::lit
     n1bbd693303ed("https://online.citi.com"):::lit
     n1db9350539ae("C1t1b@nk#2024!"):::lit
     ne33644105d79[":Alice_Debit_Card\n(DebitCard)"]
-    nec7de12e80b6("4111-1111-1111-1111"):::lit
-    n30d1bc666b74("123"):::lit
-    n36d36d1369f5("12/28"):::lit
+    na2b45d165ea7("4111-1111-1111-1111"):::lit
+    na072add9ad76("123"):::lit
+    n32547cabc65b("12/28"):::lit
     n0415a88486d3[":Citibank\n(Organization)"]:::org
     ne0c3ba92f1db[":Self\n(Person)"]:::person
 
-    naadb4eb7dbfe -->|"AccountNumber"| n6af6509b62c9
-    naadb4eb7dbfe -->|"RoutingNumber"| n0d6bc2c5435f
+    naadb4eb7dbfe -->|"AccountNumber"| n8766fadc3760
+    naadb4eb7dbfe -->|"RoutingNumber"| n111079c34cc9
     nd168547b019a -->|"serviceName"| nb69c1e2996b7
     nd168547b019a -->|"userHandle"| n30fbde007d82
     nd168547b019a -->|"serviceURI"| n1bbd693303ed
     nd168547b019a -->|"hasPassword"| n1db9350539ae
-    ne33644105d79 -->|"CardNumber"| nec7de12e80b6
-    ne33644105d79 -->|"CVV"| n30d1bc666b74
-    ne33644105d79 -->|"ExpirationDate"| n36d36d1369f5
+    ne33644105d79 -->|"CardNumber"| na2b45d165ea7
+    ne33644105d79 -->|"CVV"| na072add9ad76
+    ne33644105d79 -->|"ExpirationDate"| n32547cabc65b
     ne33644105d79 -->|"accessesBankAccount"| naadb4eb7dbfe
     ne0c3ba92f1db -->|"hasPaymentCard"| ne33644105d79
     ne0c3ba92f1db -->|"hasBankAccount"| naadb4eb7dbfe

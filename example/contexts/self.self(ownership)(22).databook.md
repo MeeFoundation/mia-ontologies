@@ -1,8 +1,8 @@
 ---
 id: https://www.example.org/mia/contexts/self.self(ownership)(22)
-title: "About Alice Walker in the Ownership category as asserted by Alice Walker"
+title: "About Alice Walker in the Ownership category as claimed by Alice Walker"
 type: context-databook
-version: 2.0.3
+version: 2.0.4
 created: 2026-06-01
 description: >
   Alice Walker's possessions context. Records the physical cards she carries day-to-day:
@@ -10,7 +10,7 @@ description: >
   and Social Security card held separately.
 mia:
   category: "http://www.example.org/mia/categories/ownership"
-  assertedBy: ":Self"
+  claimant: ":Self"
   subject: ":Self"
   about-by: "context:SBScontext"
 graph:

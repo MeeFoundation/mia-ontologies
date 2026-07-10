@@ -3,13 +3,13 @@
 Context DataBook filenames used in the Alice Walker example follow the pattern:
 
 ```
-<subject>.<asserted-by>(<containing-category>)(<NN>).databook.md
+<subject>.<claimant>(<containing-category>)(<NN>).databook.md
 ```
 
 | Segment | Meaning |
 |---|---|
 | `<subject>` | Who the context is about. `self` when the subject is the Mia user (`:Self`); the full hyphenated lowercase name otherwise (e.g. `paula-walker`, `bob-johnson`, `bhs-group`). |
-| `<asserted-by>` | Who recorded the data. `self` when the asserter is `:Self`; the full hyphenated lowercase name otherwise (e.g. `bob-johnson`, `citibank`); the literal `members` for group contexts where any member may write. |
+| `<claimant>` | Who recorded the data. `self` when the claimant is `:Self`; the full hyphenated lowercase name otherwise (e.g. `bob-johnson`, `citibank`); the literal `members` for group contexts where any member may write. |
 | `(<containing-category>)` | The filename root of the category DataBook that directly holds the `obs`, `sbs`, `obo`, or `sbo` link pointing to this context (e.g. `(paula-walker)`, `(bob-johnson)`, `(boston-hub-society)`, `(acme)`, `(citibank)`). This is often a user-defined category DataBook — it is NOT the `mia.category` IRI local name of the canonical category. |
 | `(<NN>)` | Zero-padded two-digit context number in parentheses. |
 
@@ -17,7 +17,7 @@ The document IRI uses the same local name under the `https://www.example.org/mia
 
 Examples:
 
-| File | Subject | Asserted by | Containing category DataBook |
+| File | Subject | Claimed by | Containing category DataBook |
 |---|---|---|---|
 | `self.self(paula-walker)(employee)(20).databook.md` | Self (Alice) | Self (Alice) | `paula-walker(acme).databook.md` |
 | `paula-walker.self(paula-walker)(family)(07).databook.md` | Paula Walker | Self (Alice) | `paula-walker(family).databook.md` |

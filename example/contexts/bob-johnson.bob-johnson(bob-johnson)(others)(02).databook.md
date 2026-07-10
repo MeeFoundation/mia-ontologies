@@ -1,15 +1,15 @@
 ---
 id: https://www.example.org/mia/contexts/bob-johnson.bob-johnson(bob-johnson)(others)(02)
-title: "About Bob Johnson in the Others category as asserted by Bob Johnson"
+title: "About Bob Johnson in the Others category as claimed by Bob Johnson"
 type: context-databook
-version: 2.0.5
+version: 2.0.6
 created: 2026-06-15
 description: >
-  Bob Johnson's self-asserted Bob-context persona, received from Bob's Mia via PDN.
+  Bob Johnson's self-claimed Bob-context persona, received from Bob's Mia via PDN.
   Records Bob's name and his social network connection to Alice.
 mia:
   category: "http://www.example.org/mia/categories/bob-johnson(others)"
-  assertedBy: ":Bob_Johnson"
+  claimant: ":Bob_Johnson"
   subject: ":Bob_Johnson"
   about-by: "context:OBOcontext"
 graph:
@@ -27,7 +27,7 @@ process:
 
 ## Overview
 
-This context captures Bob Johnson's self-asserted Bob-context persona, transmitted from Bob's Mia to Alice's Mia over the PDN. It records Bob's name and his social network link to Alice.
+This context captures Bob Johnson's self-claimed Bob-context persona, transmitted from Bob's Mia to Alice's Mia over the PDN. It records Bob's name and his social network link to Alice.
 
 ## Identity Data
 
@@ -44,7 +44,7 @@ This context captures Bob Johnson's self-asserted Bob-context persona, transmitt
 :Bob_Johnson rdf:type owl:NamedIndividual ,
               persona:Person ;
     rdfs:label "Bob Johnson (Bob)"@en ;
-    rdfs:comment "Bob Johnson's self-asserted persona in the 1:1 Bob context."@en ;
+    rdfs:comment "Bob Johnson's self-claimed persona in the 1:1 Bob context."@en ;
 
     <https://purl.org/cco/ont00001879> [  # designated by → GivenName
         rdf:type cco:ent00000002 ;  # GivenName

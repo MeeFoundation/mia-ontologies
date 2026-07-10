@@ -1,14 +1,14 @@
 ---
 id: https://www.example.org/mia/contexts/paula-walker.paula-walker(paula-walker)(immediate-family)(05)
-title: "About Paula Walker in the ImmediateFamily category as asserted by Paula Walker"
+title: "About Paula Walker in the ImmediateFamily category as claimed by Paula Walker"
 type: context-databook
-version: 2.0.6
+version: 2.0.7
 created: 2026-06-14
 description: >
-  Paula Walker's self-asserted family persona, received from Paula's Mia via PDN.
+  Paula Walker's self-claimed family persona, received from Paula's Mia via PDN.
 mia:
   category: "http://www.example.org/mia/categories/paula-walker(immediate-family)"
-  assertedBy: ":Paula_Walker"
+  claimant: ":Paula_Walker"
   subject: ":Paula_Walker"
   about-by: "context:OBOcontext"
 graph:
@@ -26,7 +26,7 @@ process:
 
 ## Overview
 
-This context captures Paula Walker's self-asserted family persona as transmitted from Paula's Mia to Alice's Mia over the PDN.
+This context captures Paula Walker's self-claimed family persona as transmitted from Paula's Mia to Alice's Mia over the PDN.
 
 ## Identity Data
 
@@ -41,5 +41,5 @@ This context captures Paula Walker's self-asserted family persona as transmitted
 
 :Paula_Walker rdf:type owl:NamedIndividual ,
                persona:Person ;
-    rdfs:label "Paula Walker (Family) self-asserted"@en .
+    rdfs:label "Paula Walker (Family) self-claimed"@en .
 ```

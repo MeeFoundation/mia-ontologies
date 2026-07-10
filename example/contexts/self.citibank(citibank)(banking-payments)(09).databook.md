@@ -1,15 +1,15 @@
 ---
 id: https://www.example.org/mia/contexts/self.citibank(citibank)(banking-payments)(09)
-title: "About Alice Walker in the BankingPayments category as asserted by Citibank"
+title: "About Alice Walker in the BankingPayments category as claimed by Citibank"
 type: context-databook
-version: 2.0.6
+version: 2.0.7
 created: 2026-06-15
 description: >
   Alice Walker's Citibank context. Records her VISA debit card, checking account,
-  and online banking credentials. Asserted by Citibank (a PDN Organization node).
+  and online banking credentials. Claimed by Citibank (a PDN Organization node).
 mia:
   category: "http://www.example.org/mia/categories/citibank(banking-payments)"
-  assertedBy: ":Citibank"
+  claimant: ":Citibank"
   subject: ":Self"
   about-by: "context:SBOcontext"
 graph:
@@ -27,7 +27,7 @@ process:
 
 ## Overview
 
-This context captures Alice Walker's financial relationship with Citibank. Citibank is a PDN Organization node which directly asserts the information about Alice in this context. The information in this context has been transmitted from the Citibank PDN node to Alice's Mia. It includes a VISA debit card linked to a checking account, plus an online service account for online.citi.com.
+This context captures Alice Walker's financial relationship with Citibank. Citibank is a PDN Organization node which directly claims the information about Alice in this context. The information in this context has been transmitted from the Citibank PDN node to Alice's Mia. It includes a VISA debit card linked to a checking account, plus an online service account for online.citi.com.
 
 ## Identity Data
 

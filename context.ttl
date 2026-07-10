@@ -13,7 +13,7 @@
     dc:date "2026-06-01"^^xsd:date ;
     owl:imports <http://mee.foundation/ontologies/pdn-identity> ;
     owl:imports <http://mee.foundation/ontologies/category> ;
-    owl:versionInfo "Version 1.2.2 - added context:XBXcontext between Context and the four classified subtypes, matching context.png"@en ;
+    owl:versionInfo "Version 1.2.3 - renamed context:assertedBy to context:claimant"@en ;
     rdfs:label "Context Ontology"@en ;
     rdfs:comment """Context Ontology for the Mee Identity Agent"""@en .
 
@@ -30,9 +30,9 @@ context:category rdf:type owl:AnnotationProperty ;
     rdfs:domain context:Context ;
     rdfs:range cat:Category .
 
-context:assertedBy rdf:type owl:AnnotationProperty ;
-    rdfs:label "asserted by"@en ;
-    rdfs:comment """Annotates a DataBook named graph with the individual identity making the assertion —
+context:claimant rdf:type owl:AnnotationProperty ;
+    rdfs:label "claimed by"@en ;
+    rdfs:comment """Annotates a DataBook named graph with the individual identity making the claim —
                     an individual of identity:PDNidentifier (e.g. identity:Self, identity:Organization).
                     Applied to the named graph IRI, not to the Person individual."""@en ;
     rdfs:domain context:XBXcontext ;
@@ -58,7 +58,7 @@ context:template rdf:type owl:AnnotationProperty ;
 
 context:about-by rdf:type owl:AnnotationProperty ;
     rdfs:label "about-by"@en ;
-    rdfs:comment "Classifies a DataBook named graph by the combination of subject and assertedBy: one of context:SBScontext, context:OBScontext, context:OBOcontext, or context:SBOcontext."@en ;
+    rdfs:comment "Classifies a DataBook named graph by the combination of subject and claimant: one of context:SBScontext, context:OBScontext, context:OBOcontext, or context:SBOcontext."@en ;
     rdfs:domain context:XBXcontext .
 
 
@@ -75,25 +75,25 @@ context:XBXcontext rdf:type owl:Class ;
     cat:abstract true ;
     rdfs:subClassOf context:Context ;
     rdfs:label "XBXcontext"@en ;
-    rdfs:comment "Intermediate superclass of the four self-vs-other classified context subtypes (SBScontext, OBScontext, OBOcontext, SBOcontext). Carries the about-by, subject, and assertedBy annotations that only apply to contexts classified into one of those four subtypes — a context linked via cat:graph rather than sbs/obs/sbo/obo is a plain context:Context, not a context:XBXcontext, and so does not carry these annotations."@en .
+    rdfs:comment "Intermediate superclass of the four self-vs-other classified context subtypes (SBScontext, OBScontext, OBOcontext, SBOcontext). Carries the about-by, subject, and claimant annotations that only apply to contexts classified into one of those four subtypes — a context linked via cat:graph rather than sbs/obs/sbo/obo is a plain context:Context, not a context:XBXcontext, and so does not carry these annotations."@en .
 
 context:SBScontext rdf:type owl:Class ;
     rdfs:subClassOf context:XBXcontext ;
     rdfs:label "SBScontext"@en ;
-    rdfs:comment "Self-by-Self: a DataBook whose subject is :Self and whose assertedBy is :Self."@en .
+    rdfs:comment "Self-by-Self: a DataBook whose subject is :Self and whose claimant is :Self."@en .
 
 context:OBScontext rdf:type owl:Class ;
     rdfs:subClassOf context:XBXcontext ;
     rdfs:label "OBScontext"@en ;
-    rdfs:comment "Other-by-Self: a DataBook whose subject is another person/org/group and whose assertedBy is :Self."@en .
+    rdfs:comment "Other-by-Self: a DataBook whose subject is another person/org/group and whose claimant is :Self."@en .
 
 context:OBOcontext rdf:type owl:Class ;
     rdfs:subClassOf context:XBXcontext ;
     rdfs:label "OBOcontext"@en ;
-    rdfs:comment "Other-by-Other: a DataBook whose subject is another person/org/group and whose assertedBy is also another person/org/group."@en .
+    rdfs:comment "Other-by-Other: a DataBook whose subject is another person/org/group and whose claimant is also another person/org/group."@en .
 
 context:SBOcontext rdf:type owl:Class ;
     rdfs:subClassOf context:XBXcontext ;
     rdfs:label "SBOcontext"@en ;
-    rdfs:comment "Self-by-Other: a DataBook whose subject is :Self and whose assertedBy is another person/org/group."@en .
+    rdfs:comment "Self-by-Other: a DataBook whose subject is :Self and whose claimant is another person/org/group."@en .
 

@@ -1,15 +1,15 @@
 ---
 id: https://www.example.org/mia/contexts/self.self(health-wellness)(17)
-title: "About Alice Walker in the Health & Wellness category as asserted by Alice Walker"
+title: "About Alice Walker in the Health & Wellness category as claimed by Alice Walker"
 type: context-databook
-version: 1.0.1
+version: 1.0.2
 created: 2026-06-20
 description: >
   Alice Walker's physical body characteristics: height, eye color, and hair color.
-  Self-asserted by Alice.
+  Self-claimed by Alice.
 mia:
   category: "http://www.example.org/mia/categories/health-wellness"
-  assertedBy: ":Self"
+  claimant: ":Self"
   subject: ":Self"
   about-by: "context:SBScontext"
 graph:

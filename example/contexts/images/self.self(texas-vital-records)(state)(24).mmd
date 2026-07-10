@@ -7,18 +7,18 @@ flowchart TD
 
     subgraph ctx["Context"]
         direction LR
-        ctx_meta["assertedBy: :Self\nsubject: :Self\ntemplate: persona:BirthCertificate"]:::meta
+        ctx_meta["claimant: :Self\nsubject: :Self\ntemplate: persona:BirthCertificate"]:::meta
     end
 
     n0b5b9e968f7f[":Alice_TX_Birth_Certificate\n(BirthCertificate)"]
-    neb3e99a882d7("Margery"):::lit
-    n671b38b07327("Alice"):::lit
-    n7fd44628509e("Walker"):::lit
-    n82a89e189ce5("Margery Alice Arnold"):::lit
+    na1f270a598d2("Margery"):::lit
+    n8cca5f838be4("Alice"):::lit
+    n478712c1e7c7("Walker"):::lit
+    n194b229fb51b("Margery Alice Arnold"):::lit
     ne0c3ba92f1db[":Self\n(Person)"]:::person
 
-    n0b5b9e968f7f -->|"GivenName"| neb3e99a882d7
-    n0b5b9e968f7f -->|"AdditionalName"| n671b38b07327
-    n0b5b9e968f7f -->|"FamilyName"| n7fd44628509e
-    n0b5b9e968f7f -->|"AlternateName"| n82a89e189ce5
+    n0b5b9e968f7f -->|"GivenName"| na1f270a598d2
+    n0b5b9e968f7f -->|"AdditionalName"| n8cca5f838be4
+    n0b5b9e968f7f -->|"FamilyName"| n478712c1e7c7
+    n0b5b9e968f7f -->|"AlternateName"| n194b229fb51b
     ne0c3ba92f1db -->|"hasIdentityDocument"| n0b5b9e968f7f

@@ -1,15 +1,15 @@
 ---
 id: https://www.example.org/mia/contexts/self.self(boston-hub-society)(affiliations)(14)
-title: "About Alice Walker in the Boston Hub Society category as asserted by Alice Walker"
+title: "About Alice Walker in the Boston Hub Society category as claimed by Alice Walker"
 type: context-databook
-version: 2.0.5
+version: 2.0.6
 created: 2026-06-11
 description: >
-  Alice Walker's self-asserted BHS profile, including her current address, phone number,
+  Alice Walker's self-claimed BHS profile, including her current address, phone number,
   and email address as shared with the Boston Hub Society group.
 mia:
   category: "http://www.example.org/mia/categories/boston-hub-society(affiliations)"
-  assertedBy: ":Self"
+  claimant: ":Self"
   subject: ":Self"
   about-by: "context:SBScontext"
 graph:

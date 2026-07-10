@@ -1,15 +1,15 @@
 ---
 id: https://www.example.org/mia/contexts/self.self(california-dmv)(state)(15)
-title: "About Alice Walker in the State category as asserted by Alice Walker"
+title: "About Alice Walker in the State category as claimed by Alice Walker"
 type: context-databook
-version: 2.0.6
+version: 2.0.7
 created: 2026-06-15
 description: >
   Alice Walker's California driver's license context. Records her legal name, date of birth,
-  license number, expiration date, issuing jurisdiction, and photo. Self-asserted by Alice.
+  license number, expiration date, issuing jurisdiction, and photo. Self-claimed by Alice.
 mia:
   category: "http://www.example.org/mia/categories/california-dmv(state)"
-  assertedBy: ":Self"
+  claimant: ":Self"
   subject: ":Self"
   about-by: "context:SBScontext"
   template: "persona:DriversLicense"

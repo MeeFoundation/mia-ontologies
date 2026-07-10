@@ -1,15 +1,15 @@
 ---
 id: https://www.example.org/mia/contexts/self.self(social-security-administration)(federal)(23)
-title: "About Alice Walker in the Federal category as asserted by Alice Walker"
+title: "About Alice Walker in the Federal category as claimed by Alice Walker"
 type: context-databook
-version: 2.0.4
+version: 2.0.5
 created: 2026-06-01
 description: >
   Alice Walker's SSA context. Records her Social Security Number as self-entered data.
   The SSA is not a PDN node, so Alice self-enters this from her physical SSA card.
 mia:
   category: "http://www.example.org/mia/categories/social-security-administration(federal)"
-  assertedBy: ":Self"
+  claimant: ":Self"
   subject: ":Self"
   about-by: "context:SBScontext"
 graph:
@@ -27,7 +27,7 @@ process:
 
 ## Overview
 
-This context captures Alice Walker's Social Security Administration record. Alice self-enters her SSN (123-45-6788) from her physical Social Security card. The SSA is not a PDN node, so this data is self-asserted rather than received from the SSA directly.
+This context captures Alice Walker's Social Security Administration record. Alice self-enters her SSN (123-45-6788) from her physical Social Security card. The SSA is not a PDN node, so this data is self-claimed rather than received from the SSA directly.
 
 ## Identity Data
 

@@ -1,14 +1,14 @@
 ---
 id: https://www.example.org/mia/contexts/paula-walker.self(paula-walker)(immediate-family)(07)
-title: "About Paula Walker in the ImmediateFamily category as asserted by Alice Walker"
+title: "About Paula Walker in the ImmediateFamily category as claimed by Alice Walker"
 type: context-databook
-version: 2.0.6
+version: 2.0.7
 created: 2026-06-14
 description: >
   Alice's record of her family member Paula Walker, including Paula's given and family name.
 mia:
   category: "http://www.example.org/mia/categories/paula-walker(immediate-family)"
-  assertedBy: ":Self"
+  claimant: ":Self"
   subject: ":Paula_Walker"
   about-by: "context:OBScontext"
 graph:
@@ -26,7 +26,7 @@ process:
 
 ## Overview
 
-This context captures Alice's record of her family member Paula Walker. Alice asserts Paula's name in the family context.
+This context captures Alice's record of her family member Paula Walker. Alice claims Paula's name in the family context.
 
 ## Identity Data
 

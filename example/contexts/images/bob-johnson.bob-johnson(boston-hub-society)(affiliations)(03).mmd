@@ -7,12 +7,12 @@ flowchart TD
 
     subgraph ctx["Context"]
         direction LR
-        ctx_meta["assertedBy: :Bob_Johnson\nsubject: :Bob_Johnson"]:::meta
+        ctx_meta["claimant: :Bob_Johnson\nsubject: :Bob_Johnson"]:::meta
     end
 
     n166b15bd501b[":Bob_Johnson\n(Person)"]:::person
-    n19e8d8c9837a("Bob"):::lit
-    n8c124a2ee1d4("Johnson"):::lit
+    n2a3dbf8705c1("Bob"):::lit
+    n25b7e7f749ce("Johnson"):::lit
 
-    n166b15bd501b -->|"GivenName"| n19e8d8c9837a
-    n166b15bd501b -->|"FamilyName"| n8c124a2ee1d4
+    n166b15bd501b -->|"GivenName"| n2a3dbf8705c1
+    n166b15bd501b -->|"FamilyName"| n25b7e7f749ce
