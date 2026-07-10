@@ -71,18 +71,18 @@
     p:usesCCOClass <https://purl.org/cco/ont00001262> ,  # Person (superclass of persona:Person)
                          <https://purl.org/cco/ont00001331> ,  # Legal Name
                          <https://purl.org/cco/ont00000990> ,  # Nickname
-                         <https://purl.org/cco/ont00000033> ,  # Online Service Account (StagingOntology)
+                         <https://purl.org/cco/ent00000033> ,  # Online Service Account (StagingOntology)
                          <https://purl.org/cco/ont00000995> ,  # MaterialArtifact
                          <https://purl.org/cco/ont00000020> ;  # Container
 
     # Document which properties this application uses (note: use full IRIs)
     p:usesCCOProperty <https://purl.org/cco/ont00001879> ,            # designated by
-                            <http://purl.obolibrary.org/obo/BFO_0000177> ,  # continuant part of (PhysicalCard → Wallet)
+                            <http://purl.obolibrary.org/obo/BFO_0000176> ,  # continuant part of (PhysicalCard → Wallet)
                             <http://purl.obolibrary.org/obo/BFO_0000178> ,  # has continuant part (Address → parts; Person → ScalpHair)
                             <https://purl.org/cco/ont00001765> ,            # has text value
                             <http://purl.obolibrary.org/obo/BFO_0000196> ,  # bearer of
                             <http://purl.obolibrary.org/obo/BFO_0000153> ,  # occupies temporal region
-                            <http://purl.obolibrary.org/obo/BFO_0000139> ,  # has participant
+                            <http://purl.obolibrary.org/obo/BFO_0000057> ,  # has participant
                             <https://purl.org/cco/ent00000045> ,            # holds user account
                             <https://purl.org/cco/ent00000034> ,            # has service name
                             <https://purl.org/cco/ent00000035> ,            # has user handle

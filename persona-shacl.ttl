@@ -22,7 +22,7 @@
                     Key property IRIs:
                     - ont00001879  = designated by   (Person ← Name/Identifier)
                     - ont00001765  = has text value   (Identifier → literal string)
-                    - BFO_0000177  = continuant part of  (PhysicalCard → Wallet)
+                    - BFO_0000176  = continuant part of  (PhysicalCard → Wallet)
                     - BFO_0000178  = has continuant part (Address → components; Person → ScalpHair)
                     - BFO_0000196  = bearer of        (Person/Hair → quality/role)
 """@en .
@@ -346,7 +346,7 @@
 
     # Sub-groups: BFO has part → Social Network (e.g. Family, Colleague, Other)
     sh:property [
-        sh:path <http://purl.obolibrary.org/obo/BFO_0000051> ;  # has part
+        sh:path <http://purl.obolibrary.org/obo/BFO_0000115> ;  # has member part
         sh:class cco:ont00001183 ;  # Social Network
         sh:message "Social Network parts (sub-groups) must themselves be Social Networks."@en
     ] ;
@@ -458,7 +458,7 @@
     sh:targetClass persona:Wallet ;
     sh:message "Items stored in a Wallet (via inverse of continuant part of) must be PhysicalCards."@en ;
     sh:property [
-        sh:path [ sh:inversePath <http://purl.obolibrary.org/obo/BFO_0000177> ] ;  # inverse of continuant part of
+        sh:path [ sh:inversePath <http://purl.obolibrary.org/obo/BFO_0000176> ] ;  # inverse of continuant part of
         sh:class persona:PhysicalCard ;
         sh:message "Only PhysicalCards may declare this Wallet as their continuant whole."@en
     ] .
@@ -475,7 +475,7 @@
         sh:message "A PhysicalCard may have at most one image scan URI."@en
     ] ;
     sh:property [
-        sh:path <http://purl.obolibrary.org/obo/BFO_0000177> ;  # continuant part of
+        sh:path <http://purl.obolibrary.org/obo/BFO_0000176> ;  # continuant part of
         sh:class persona:Wallet ;
         sh:maxCount 1 ;
         sh:message "A PhysicalCard's continuant whole (via continuant part of) must be a Wallet."@en
