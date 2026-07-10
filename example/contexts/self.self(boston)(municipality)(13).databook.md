@@ -53,7 +53,7 @@ This context captures Alice Walker's previous residential address: 456 Commonwea
                            cco:ent00000016 ;  # AddressDesignation
     rdfs:label "Alice's Boston Residence (2020-2025)"@en ;
     rdfs:comment "Alice lived at this Boston address from 2020 to 2025."@en ;
-    <http://purl.obolibrary.org/obo/BFO_0000139> :Self ;  # has participant
+    <http://purl.obolibrary.org/obo/BFO_0000057> :Self ;  # has participant
     <https://purl.org/cco/ont00001879> :Address_Boston ;                  # designated by
     <http://purl.obolibrary.org/obo/BFO_0000153> :Interval_2020_2025 .   # occupies temporal region
 

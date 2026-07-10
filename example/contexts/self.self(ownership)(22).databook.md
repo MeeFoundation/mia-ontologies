@@ -59,7 +59,7 @@ This context captures Alice Walker's day-to-day physical possessions. Her wallet
                                persona:PhysicalDriversLicense ;
     rdfs:label "Alice Walker's Driver's License"@en ;
     rdfs:comment "Alice Walker's physical Texas driver's license card."@en ;
-    <http://purl.obolibrary.org/obo/BFO_0000177> :Alice_Wallet ;            # continuant part of → in wallet
+    <http://purl.obolibrary.org/obo/BFO_0000176> :Alice_Wallet ;            # continuant part of → in wallet
     persona:hasImageScan "file:///scans/alice-drivers-license.png"^^xsd:anyURI .
 
 
@@ -67,7 +67,7 @@ This context captures Alice Walker's day-to-day physical possessions. Her wallet
                             persona:PhysicalPaymentCard ;
     rdfs:label "Alice Walker's Payment Card"@en ;
     rdfs:comment "Alice Walker's physical debit card."@en ;
-    <http://purl.obolibrary.org/obo/BFO_0000177> :Alice_Wallet .            # continuant part of → in wallet
+    <http://purl.obolibrary.org/obo/BFO_0000176> :Alice_Wallet .            # continuant part of → in wallet
 
 
 :Alice_HealthInsuranceCard rdf:type owl:NamedIndividual ,

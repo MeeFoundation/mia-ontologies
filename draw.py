@@ -123,12 +123,11 @@ LABELS = {
     "https://purl.org/cco/ont00001983":         "isRatioMeasurementOf",
     # BFO
     "http://purl.obolibrary.org/obo/BFO_0000038": "TemporalInterval",
-    "http://purl.obolibrary.org/obo/BFO_0000051": "hasPart",
+    "http://purl.obolibrary.org/obo/BFO_0000115": "hasMemberPart",
     "http://purl.obolibrary.org/obo/BFO_0000101": "isCarrierOf",
-    "http://purl.obolibrary.org/obo/BFO_0000115": "hasMember",
-    "http://purl.obolibrary.org/obo/BFO_0000139": "hasParticipant",
+    "http://purl.obolibrary.org/obo/BFO_0000057": "hasParticipant",
     "http://purl.obolibrary.org/obo/BFO_0000153": "occupiesTemporalRegion",
-    "http://purl.obolibrary.org/obo/BFO_0000177": "continuantPartOf",
+    "http://purl.obolibrary.org/obo/BFO_0000176": "continuantPartOf",
     "http://purl.obolibrary.org/obo/BFO_0000178": "hasContinuantPart",
     "http://purl.obolibrary.org/obo/BFO_0000196": "bearerOf",
     # group / org

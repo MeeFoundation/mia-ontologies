@@ -1,0 +1,133 @@
+@prefix : <http://www.example.org/shapes#> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix cco: <https://purl.org/cco/> .
+@prefix persona: <http://mee.foundation/ontologies/persona#> .
+@prefix dc: <http://purl.org/dc/elements/1.1/> .
+
+<http://www.example.org/shapes/jscontactcard> rdf:type owl:Ontology ;
+    owl:imports <http://mee.foundation/ontologies/persona> ;
+    dc:date "2026-06-18"^^xsd:date ;
+    owl:versionInfo "Version 1.0.0 - initial; moved from persona-templates-shacl.ttl; target updated to persona:Person"@en ;
+    rdfs:label "JSContactCard Template SHACL Shapes"@en ;
+    rdfs:comment """SHACL shapes for validating context files carrying context:template persona:JSContactCard.
+                    Apply in addition to persona-shacl.ttl when validating a JSContact card context file."""@en .
+
+
+#################################################################
+#  JSContactCard Person
+#  Required: OrganizationName (1..1); at least one of Email or TelephoneNumber
+#  Optional: all name components, OrganizationUnit, JobTitle, addresses,
+#             online services, anniversaries, personalInfo, photo
+#################################################################
+
+:JSContactCardPersonShape
+    a sh:NodeShape ;
+    sh:targetClass persona:Person ;
+    sh:message "JSContactCard Person validation: OrganizationName required, at least one email or phone required, max 1 per name/org component."@en ;
+
+    # ── Name components (max 1 each) ────────────────────────────────────────
+    sh:property [
+        sh:path <https://purl.org/cco/ont00001879> ;
+        sh:qualifiedValueShape [ sh:class cco:ent00000001 ] ;
+        sh:qualifiedMaxCount 1 ;
+        sh:message "A JSContactCard Person may have at most one FullName."@en
+    ] ;
+    sh:property [
+        sh:path <https://purl.org/cco/ont00001879> ;
+        sh:qualifiedValueShape [ sh:class cco:ent00000002 ] ;
+        sh:qualifiedMaxCount 1 ;
+        sh:message "A JSContactCard Person may have at most one GivenName."@en
+    ] ;
+    sh:property [
+        sh:path <https://purl.org/cco/ont00001879> ;
+        sh:qualifiedValueShape [ sh:class cco:ent00000004 ] ;
+        sh:qualifiedMaxCount 1 ;
+        sh:message "A JSContactCard Person may have at most one FamilyName."@en
+    ] ;
+    sh:property [
+        sh:path <https://purl.org/cco/ont00001879> ;
+        sh:qualifiedValueShape [ sh:class cco:ent00000003 ] ;
+        sh:qualifiedMaxCount 1 ;
+        sh:message "A JSContactCard Person may have at most one AdditionalName (middle name)."@en
+    ] ;
+    sh:property [
+        sh:path <https://purl.org/cco/ont00001879> ;
+        sh:qualifiedValueShape [ sh:class cco:ent00000058 ] ;
+        sh:qualifiedMaxCount 1 ;
+        sh:message "A JSContactCard Person may have at most one Surname2 (maternal surname)."@en
+    ] ;
+    sh:property [
+        sh:path <https://purl.org/cco/ont00001879> ;
+        sh:qualifiedValueShape [ sh:class cco:ent00000057 ] ;
+        sh:qualifiedMaxCount 1 ;
+        sh:message "A JSContactCard Person may have at most one HonorificPrefix (Title)."@en
+    ] ;
+    sh:property [
+        sh:path <https://purl.org/cco/ont00001879> ;
+        sh:qualifiedValueShape [ sh:class cco:ent00000005 ] ;
+        sh:qualifiedMaxCount 1 ;
+        sh:message "A JSContactCard Person may have at most one generational Suffix."@en
+    ] ;
+    sh:property [
+        sh:path <https://purl.org/cco/ont00001879> ;
+        sh:qualifiedValueShape [ sh:class cco:ent00000006 ] ;
+        sh:qualifiedMaxCount 1 ;
+        sh:message "A JSContactCard Person may have at most one AlternateName."@en
+    ] ;
+    sh:property [
+        sh:path <https://purl.org/cco/ont00001879> ;
+        sh:qualifiedValueShape [ sh:class cco:ont00000990 ] ;
+        sh:qualifiedMaxCount 1 ;
+        sh:message "A JSContactCard Person may have at most one Nickname."@en
+    ] ;
+    sh:property [
+        sh:path <https://purl.org/cco/ont00001879> ;
+        sh:qualifiedValueShape [ sh:class persona:Credential ] ;
+        sh:qualifiedMaxCount 1 ;
+        sh:message "A JSContactCard Person may have at most one post-nominal Credential."@en
+    ] ;
+
+    # ── Birthdate (max 1) ───────────────────────────────────────────────────
+    sh:property [
+        sh:path <https://purl.org/cco/ont00001879> ;
+        sh:qualifiedValueShape [ sh:class cco:ent00000046 ] ;
+        sh:qualifiedMaxCount 1 ;
+        sh:message "A JSContactCard Person may have at most one Birthdate."@en
+    ] ;
+
+    # ── Organization fields (OrganizationName required; others max 1) ────────
+    sh:property [
+        sh:path <https://purl.org/cco/ont00001879> ;
+        sh:qualifiedValueShape [ sh:class cco:ent00000047 ] ;
+        sh:qualifiedMinCount 1 ;
+        sh:qualifiedMaxCount 1 ;
+        sh:message "A JSContactCard Person must have exactly one OrganizationName."@en
+    ] ;
+    sh:property [
+        sh:path <https://purl.org/cco/ont00001879> ;
+        sh:qualifiedValueShape [ sh:class persona:OrganizationUnit ] ;
+        sh:qualifiedMaxCount 1 ;
+        sh:message "A JSContactCard Person may have at most one OrganizationUnit."@en
+    ] ;
+    sh:property [
+        sh:path <https://purl.org/cco/ont00001879> ;
+        sh:qualifiedValueShape [ sh:class persona:JobTitle ] ;
+        sh:qualifiedMaxCount 1 ;
+        sh:message "A JSContactCard Person may have at most one JobTitle."@en
+    ] ;
+
+    # ── Contact channel (at least one required) ─────────────────────────────
+    sh:or (
+        [ sh:property [ sh:path <https://purl.org/cco/ont00001879> ; sh:qualifiedValueShape [ sh:class cco:ent00000024 ] ; sh:qualifiedMinCount 1 ] ]
+        [ sh:property [ sh:path <https://purl.org/cco/ont00001879> ; sh:qualifiedValueShape [ sh:class cco:ent00000023 ] ; sh:qualifiedMinCount 1 ] ]
+    ) .
+    # ── Multi-valued channels (no upper bound) ──────────────────────────────
+    # EmailAddress (ent00000024), TelephoneNumber (ent00000023),
+    # USPostalAddress (ent00000010), OnlineServiceAccount (ent00000033),
+    # WebURL (persona:WebURL), Anniversary (via persona:hasAnniversary),
+    # PersonalInfo (via persona:hasPersonalInfo), Photo (via persona:hasPhoto)
+    # — no sh:qualifiedMaxCount constraint; JSContact allows multiples.
