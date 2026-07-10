@@ -96,11 +96,11 @@ Context file metadata (cell, claimant, subject, about-by) is declared in YAML fr
 
 ## Cell Ontology
 
-The cell ontology defines `cell:Cell` — the self-contained *content* facet of a cell: its party composition and its links to context data. A `cell:Cell` carries no tree position of its own; where a cell sits in a navigational tree is a separate facet, `cat:Category` (see the [Category Ontology](#category-ontology) section below), which links to the `cell:Cell` holding its content via `cat:forCell`. Splitting content from tree position this way lets the same cell content, in principle, be referenced by more than one tree position — e.g. two users each filing a cell they share wherever they individually want it.
+The cell ontology defines `cell:Cell` — a self-contained unit of *content*. 
 
 ### Cells
 
-A cell may contain a reference to a folder on the local file system (`cell:folder`). It may contain a reference to a markdown note on the local file system (`cell:note`). It may contain within itself a graph structure (`cell:graph`). It may also contain a set of references to *contexts* (also graphs) as described in the previous section, via `cell:sbs`/`cell:obs`/`cell:sbo`/`cell:obo`; the number and kinds vary by the cell's party composition — how many parties it is shared with, if any.
+A cell may contain a reference to a folder on the local file system (`cell:folder`). It may contain a reference to a markdown note on the local file system (`cell:note`). It may also contain within itself a graph structure (`cell:graph`). Lastly, it may also contain a set of references to *contexts* (also graphs) as described in the previous section, via `cell:sbs`/`cell:obs`/`cell:sbo`/`cell:obo`; the number and kinds vary by the cell's party composition — how many parties it is shared with, if any.
 
 ### Cell party composition
 
@@ -208,19 +208,21 @@ Cell DataBook instances are validated by `cell-shacl.ttl`.
 
 ## Category Ontology
 
-The category ontology defines `cat:Category` — the *tree-position* facet of a cell: where it sits in a navigational tree, its display label, its classification, and (via `cat:forCell`) which `cell:Cell` holds its content. A `cat:Category` carries no content of its own.
+The category ontology defines `cat:Category`. Categories are arranged into tree structures moving from broader categories nearer the root towards narrower, more specific categories at the leaves. Besides its class (e.g. "Customer") it has an optional label that allows the user to override the class name (e.g. "Client"). 
+
+A `cat:Category` carries no content of its own, but each not in a category tree has a `cat:forCell` which points to a `cell:Cell` which does hold content. 
 
 <p align="center"><img src="images/category-ontology/category.png" alt="Category hierarchy"></p>
 
 Categories vary in scope from a few broad groupings of information to narrower ones. In the social domain, a category might be about "People", or more narrowly about "Immediate Family", or about a single family member. The user can choose at what level in this broader-to-narrower structure to put what kind of information. For example if the user has a nickname used only by this one family member, they can add that "claim" (attribute) at the individual relationship level.
 
-### Categories are organized into trees
+### Category tree
 
-To organize the user's information, canonical categories are copied into the user's category tree (minting a paired cell for each one, per the [Cell/Category split](#cellcategory-split) below).
+To organize the user's information, canonical category nodes are copied from one of the canonical category trees into the user's category tree. If they have an associated `cat:forCell` link to a cell, this cell is also copied. If the cell contains references to contexts, these contexts are also copied. 
 
 Both personal life (family, health, finances categories) and work life (employment, colleagues categories) are organized within this same tree, since `Work` is itself a `cat:Personal` subclass alongside `People` and `Health & Wellness`, not a separate branch. The `categories-org/` tree, rooted in `cat:Organizational`, exists so a person can copy pieces of it into their own `Work` branch to model the organizations they work for or with — e.g. Alice's `Work > Organization-Acme > Employees` category is a copy of `cat:Organizational`'s `Employees`, since Acme's own structure is what her employment relationship is actually about.
 
-The top-to-bottom ordering of the two canonical category trees is preserved when copied to the user's tree, although the user is always free to insert any number of user-defined categories at any level in the resulting tree.
+The user is free to rearrange their instance category tree as they wish adding new user-defined categories, and moving the around. This works because the tree is just a way to organize the cells that it points to but the cells are self-contained units of content (although it's true that any referenced context lie outside the cell boundary).
 
 ### CatType
 
@@ -342,7 +344,7 @@ Each node in the `cat:Category` tree is represented by a **category DataBook** (
 
 #### Cell/Category split
 
-Every category DataBook is paired, in the same folder, with a cell DataBook (see [Cell DataBooks](#cell-databooks) above) holding its content — party composition and any context links. The pairing is a single required link, `mia.forCell`, from the category to its cell; there is no link stored on the cell back to its category. In this single-Mia-instance example repo every cell has exactly one paired category, but the ontology permits more than one `cat:Category` to point at the same `cell:Cell` — e.g. two users each filing a cell they share wherever they individually want it in their own tree.
+Every category DataBook is paired, in the same folder, with a cell DataBook (see [Cell DataBooks](#cell-databooks) above) holding its content and any context links. The pairing is a single required link, `mia.forCell`, from the category to its cell; there is no link stored on the cell back to its category. 
 
 #### Properties
 
