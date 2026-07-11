@@ -2,12 +2,13 @@
 id: http://mee.foundation/ontologies/categories-org/people-org
 title: "People (org)"
 type: category-databook
-version: 1.0.3
+version: 1.0.4
 created: 2026-07-09
 description: >
   People the organization interacts with in a working capacity.
 mia:
   catType: "People(org)"
+  cell: "http://mee.foundation/ontologies/categories-org/people-org-cell"
   category: "cat:People(org)"
   child:
     - "http://mee.foundation/ontologies/categories-org/employees"

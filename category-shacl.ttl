@@ -8,7 +8,7 @@
 @prefix cell: <http://mee.foundation/ontologies/cell#> .
 
 <http://www.example.org/category-shapes> rdf:type owl:Ontology ;
-    owl:versionInfo "Version 1.3.0 - added cat:UserDefined (a third cat:Node subclass, alongside cat:Canonical and cat:Copy, for user-created nodes with no canonical counterpart), matching category.ttl 1.3.0. cat:label's constraint moved out of :CopyShape into a new shared :LabelShape (sh:targetClass cat:Copy, cat:UserDefined), matching cat:label's new union domain. (v1.2.0 - removed the cat:forCell constraint from :CanonicalShape, matching category.ttl 1.2.0 (cat:forCell removed entirely — every node reaches its cell via cell:catNode, asserted on the cell, not a forward link). v1.1.0 - split alongside category.ttl 1.1.0: :NodeShape (target cat:Node) now carries cat:child; new :CanonicalShape (target cat:Canonical) carries cat:forCell/cat:category; new :CopyShape (target cat:Copy) carries cat:copiedFrom/cat:label; :CategoryShape (target cat:Category) keeps only cat:catType)"@en ;
+    owl:versionInfo "Version 1.4.0 - added the cat:cell constraint to :NodeShape, matching category.ttl 1.6.0's reinstated cat:cell (domain cat:Node, range cell:Cell) — a node reaches its cell(s) directly now, reversing v1.2.0's removal of cat:forCell in favor of cell:catNode (which cell.ttl 3.3.0 has, in turn, removed). No minCount: a node may have zero, one, or many associated cells. (v1.3.0 - added cat:UserDefined (a third cat:Node subclass, alongside cat:Canonical and cat:Copy, for user-created nodes with no canonical counterpart), matching category.ttl 1.3.0. cat:label's constraint moved out of :CopyShape into a new shared :LabelShape (sh:targetClass cat:Copy, cat:UserDefined), matching cat:label's new union domain. (v1.2.0 - removed the cat:forCell constraint from :CanonicalShape, matching category.ttl 1.2.0 (cat:forCell removed entirely — every node reaches its cell via cell:catNode, asserted on the cell, not a forward link). v1.1.0 - split alongside category.ttl 1.1.0: :NodeShape (target cat:Node) now carries cat:child; new :CanonicalShape (target cat:Canonical) carries cat:forCell/cat:category; new :CopyShape (target cat:Copy) carries cat:copiedFrom/cat:label; :CategoryShape (target cat:Category) keeps only cat:catType))"@en ;
     rdfs:label "Category Ontology SHACL Validation Shapes"@en ;
     rdfs:comment "SHACL validation shapes for cat:Category/cat:Node DataBook instances (the classificatory and tree-position facets of a cell) in the Category Ontology."@en .
 
@@ -41,7 +41,8 @@
 #################################################################
 #  Node
 #  Every cat:Node instance (Canonical, Copy, or UserDefined) has
-#  zero or more cat:child links to more specific child nodes.
+#  zero or more cat:child links to more specific child nodes, and
+#  zero or more cat:cell links to the cell:Cell(s) it holds.
 #################################################################
 
 :NodeShape
@@ -54,6 +55,15 @@
         sh:path cat:child ;
         sh:class cat:Node ;
         sh:message "A node's cat:child values, if any, must each be a cat:Node."@en
+    ] ;
+
+    # cat:cell — zero or more, each a cell:Cell. No minCount: not
+    # every node necessarily has content yet, and no maxCount: the
+    # relationship is many-to-one (many cells may share one node).
+    sh:property [
+        sh:path cat:cell ;
+        sh:class cell:Cell ;
+        sh:message "A node's cat:cell values, if any, must each be a cell:Cell."@en
     ] .
 
 #################################################################
@@ -79,9 +89,9 @@
 #  Canonical
 #  A cat:Canonical has at most one cat:category (which cat:Category
 #  subclass it represents) — the invisible tree roots, whose catType
-#  falls back to the abstract root, carry none. Its cell:Cell, if
-#  any, is reached via cell:catNode asserted on the cell (see
-#  cell-shacl.ttl), not a forward link validated here.
+#  falls back to the abstract root, carry none. Its cell:Cell(s), if
+#  any, are validated by :NodeShape's cat:cell constraint above,
+#  inherited from cat:Node rather than re-declared here.
 #################################################################
 
 :CanonicalShape

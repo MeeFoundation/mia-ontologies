@@ -2,12 +2,13 @@
 id: http://mee.foundation/ontologies/categories-person/federal
 title: "Federal"
 type: category-databook
-version: 1.0.3
+version: 1.0.4
 created: 2026-06-22
 description: >
   Federal government context (e.g. passport, federal tax records).
 mia:
   catType: "Federal"
+  cell: "http://mee.foundation/ontologies/categories-person/federal-cell"
   category: "cat:Federal"
   child:
     - "http://mee.foundation/ontologies/categories-person/ssa"

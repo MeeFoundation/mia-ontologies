@@ -2,12 +2,13 @@
 id: http://mee.foundation/ontologies/categories-org/finances-org
 title: "Finances (org)"
 type: category-databook
-version: 1.0.4
+version: 1.0.5
 created: 2026-07-03
 description: >
   Corporate finance-related matters.
 mia:
   catType: "Finances(org)"
+  cell: "http://mee.foundation/ontologies/categories-org/finances-org-cell"
   category: "cat:Finances(org)"
   child:
     - "http://mee.foundation/ontologies/categories-org/banking-payments-org"

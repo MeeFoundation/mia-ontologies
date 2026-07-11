@@ -8,10 +8,10 @@
 @base <http://mee.foundation/ontologies/category> .
 
 <http://mee.foundation/ontologies/category> rdf:type owl:Ontology ;
-    owl:versionIRI <http://mee.foundation/ontologies/category/1.5.0> ;
+    owl:versionIRI <http://mee.foundation/ontologies/category/1.6.0> ;
     dc:date "2026-07-11"^^xsd:date ;
     owl:imports <http://mee.foundation/ontologies/cell> ;
-    owl:versionInfo "Version 1.5.0"@en ;
+    owl:versionInfo "Version 1.6.0 - reinstated a Node-to-Cell link, now named cat:cell (domain cat:Node — Canonical, Copy, or UserDefined alike; range cell:Cell), reversing the 1.2.0-era decision to make cell:catNode (cell.ttl) the sole direction of record. cell:catNode has been removed from cell.ttl; cat:cell is now the sole link between a node and its cell(s), with unconstrained cardinality (0..*) to preserve the many-to-one cell/node relationship established earlier — a node may have zero, one, or several associated cells. All 128 existing category DataBooks gained a mia.cell value pointing at their paired cell DataBook's own id; all 128 paired cell DataBooks lost their mia.catNode field. (Version 1.5.0)"@en ;
     rdfs:label "Category Ontology"@en ;
     rdfs:comment """Category Ontology for the Mee Identity Agent."""@en .
 
@@ -44,6 +44,12 @@ cat:category rdf:type owl:ObjectProperty ;
     rdfs:label "category"@en ;
     rdfs:comment "Links a cat:Canonical node to the cat:Category subclass it represents (e.g. cat:Work) — since cat:Canonical/cat:Copy/cat:UserDefined classify a category DataBook by its role in the tree (template, instance copy, or user-created), orthogonally to which cat:Category subclass it is. Value is the class itself (e.g. \"cat:Work\"), not an individual, and may be an abstract class when that's the most specific applicable one — e.g. the categories-org root's category is cat:Organization itself, since no more specific canonical subclass covers 'root of all organizational categories'. A tree root with no more specific classification at all, not even an abstract one, falls back to catType \"Category\" and carries no cat:category value."@en .
 
+cat:cell rdf:type owl:ObjectProperty ;
+    rdfs:domain cat:Node ;
+    rdfs:range cell:Cell ;
+    rdfs:label "cell"@en ;
+    rdfs:comment "Links a cat:Node — cat:Canonical, cat:Copy, or cat:UserDefined alike — to a cell:Cell holding its content. This is the sole link between a node and its cell(s): cell:Cell carries no forward-pointing equivalent (cell:catNode was removed). Formerly named cat:forCell (removed in category.ttl 1.2.0, when cell:catNode briefly took over as the sole direction of record); reinstated here as cat:cell, now spanning all three Node kinds rather than just cat:Canonical. The relationship is many-to-one, not 1:1: a node may have zero, one, or many cat:cell values, each an independent piece of content filed at that one tree position — use a list of values when more than one cell shares a node, exactly as cat:child does for multiple children. The example tree currently only shows one cell per node, but that's incidental, not a constraint."@en .
+
 
 #################################################################
 #    Category
@@ -57,12 +63,12 @@ cat:Category rdf:type owl:Class ;
 cat:Node rdf:type owl:Class ;
     cell:abstract true ;
     rdfs:label "Node"@en ;
-    rdfs:comment """A node in a tree structure. Each node has a child property which thereby defines the tree. These trees of nodes are used to construct two separate trees: a canonical tree and a copied tree. Each node is represented as a DataBook file."""@en .
+    rdfs:comment """A node in a tree structure. Each node has a child property which thereby defines the tree. These trees of nodes are used to construct two separate trees: a canonical tree and a copied tree. Each node is represented as a DataBook file. A node's associated cell:Cell(s), if any, are recorded directly via cat:cell — the sole link between a node and its cell(s), one-to-many since a node may have zero, one, or several associated cells."""@en .
 
 cat:Canonical rdf:type owl:Class ;
     rdfs:subClassOf cat:Node ;
     rdfs:label "Canonical"@en ;
-    rdfs:comment "A node in a canonical template tree (categories-person/ or categories-org/) — the source that cat:Copy instances are copied from. Carries cat:category (which cat:Category subclass it represents). Its cell:Cell, if any, is reached via cell:catNode asserted on the cell (see cell.ttl), not a forward link from this node."@en .
+    rdfs:comment "A node in a canonical template tree (categories-person/ or categories-org/) — the source that cat:Copy instances are copied from. Carries cat:category (which cat:Category subclass it represents)."@en .
 
 cat:Copy rdf:type owl:Class ;
     rdfs:subClassOf cat:Node ;

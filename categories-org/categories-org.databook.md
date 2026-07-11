@@ -2,12 +2,13 @@
 id: http://mee.foundation/ontologies/categories-org/categories-org
 title: "Cells (org)"
 type: category-databook
-version: 1.0.6
+version: 1.0.7
 created: 2026-07-03
 description: >
   Root cell DataBook for Organization cells. Parent of all top-level canonical organization cells.
 mia:
   catType: "Organization"
+  cell: "http://mee.foundation/ontologies/categories-org/categories-org-cell"
   category: "cat:Organization"
   child:
     - "http://mee.foundation/ontologies/categories-org/customers"

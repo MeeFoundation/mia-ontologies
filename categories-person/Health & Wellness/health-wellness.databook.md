@@ -2,12 +2,13 @@
 id: http://mee.foundation/ontologies/categories-person/health-wellness
 title: "Health & Wellness"
 type: category-databook
-version: 1.0.9
+version: 1.0.10
 created: 2026-06-22
 description: >
   Personal health and wellness information. Medical history, allergies, medications, vaccinations, prescriptions, eyeglasses.
 mia:
   catType: "HealthWellness"
+  cell: "http://mee.foundation/ontologies/categories-person/health-wellness-cell"
   category: "cat:HealthWellness"
   child:
     - "http://mee.foundation/ontologies/categories-person/medical"

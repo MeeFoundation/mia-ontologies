@@ -5,10 +5,9 @@
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
 @prefix owl: <http://www.w3.org/2002/07/owl#> .
 @prefix cell: <http://mee.foundation/ontologies/cell#> .
-@prefix cat: <http://mee.foundation/ontologies/category#> .
 
 <http://www.example.org/cell-shapes> rdf:type owl:Ontology ;
-    owl:versionInfo "Version 3.2.0 - cell:catNode is now required (exactly one value) on :CellShape, not just optional, since cat:forCell was removed from category.ttl 1.2.0 — every cell, canonical or copy, now depends on its own cell:catNode to be reachable from its tree position at all. (v3.1.0 - added cell:catNode (at most one value, must be a cat:Node) to :CellShape, matching cell.ttl 3.1.0. v3.0.0 - split alongside cell.ttl 3.0.0: :CellShape now targets the renamed cell:Cell (formerly cell:Parties) and absorbs the graph/note/folder constraints (domain moved here from the old cell:Cell, now cat:Category — see category-shacl.ttl); cellType/child/copiedFrom constraints moved out to category-shacl.ttl. cell:label re-added (distinct from cat:label) as a class-level default display name on concrete cell:Cell subtypes.)"@en ;
+    owl:versionInfo "Version 3.3.0 - removed the cell:catNode constraint from :CellShape: the property was removed from cell.ttl 3.3.0 in favor of cat:cell (category.ttl 1.6.0), asserted on the node instead. A cell is no longer required to carry any link to its tree position at all — see category-shacl.ttl's new :NodeShape constraint on cat:cell instead. (v3.2.0 - cell:catNode is now required (exactly one value) on :CellShape, not just optional, since cat:forCell was removed from category.ttl 1.2.0 — every cell, canonical or copy, now depends on its own cell:catNode to be reachable from its tree position at all. (v3.1.0 - added cell:catNode (at most one value, must be a cat:Node) to :CellShape, matching cell.ttl 3.1.0. v3.0.0 - split alongside cell.ttl 3.0.0: :CellShape now targets the renamed cell:Cell (formerly cell:Parties) and absorbs the graph/note/folder constraints (domain moved here from the old cell:Cell, now cat:Category — see category-shacl.ttl); cellType/child/copiedFrom constraints moved out to category-shacl.ttl. cell:label re-added (distinct from cat:label) as a class-level default display name on concrete cell:Cell subtypes.))"@en ;
     rdfs:label "Cell Ontology SHACL Validation Shapes"@en ;
     rdfs:comment "SHACL validation shapes for cell:Cell DataBook instances (the content facet of a cell) in the Cell Ontology."@en .
 
@@ -68,17 +67,6 @@
         sh:path cell:folder ;
         sh:maxCount 1 ;
         sh:message "A cell may have at most one cell:folder value."@en
-    ] ;
-
-    # cell:catNode — required exactly once: since cat:forCell was
-    # removed, this is the only way any cell (canonical or copy) is
-    # reachable from a tree position at all.
-    sh:property [
-        sh:path cell:catNode ;
-        sh:minCount 1 ;
-        sh:maxCount 1 ;
-        sh:class cat:Node ;
-        sh:message "A cell must have exactly one cell:catNode value, and it must be a cat:Node."@en
     ] .
 
 :OnePartyShape
