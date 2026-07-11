@@ -2,15 +2,11 @@
 id: http://mee.foundation/ontologies/categories-person/banking-payments
 title: "Banking & Payments"
 type: category-databook
-version: 1.0.1
+version: 1.0.2
 created: 2026-07-08
 description: >
-  Cell DataBook for the Banking & Payments cell. Groups context DataBooks about firms that help you store, access, and move your cash for daily living — retail banks and credit unions, payment processors, and remittance firms. Child of Finances.
-  
-  Split in this version into a paired -cell DataBook (mia.forCell) that holds
-  this cell's content facts (num-parties, sbs/obs/sbo/obo, graph, note, folder);
-  this file now holds only its cat:Category tree-position facts.
+  Firms that help you store, access, and move your cash for daily living. These include Retail Banks & Credit Unions, which provide checking accounts, savings accounts, and debit cards. These also include Payment Processors like Visa, Mastercard, or PayPal that let you buy things online and in stores, and Remittance Firms like Western Union or Wise used to send money to family or friends, especially overseas.
 mia:
   catType: "BankingPayments"
-  forCell: "http://mee.foundation/ontologies/categories-person/banking-payments-cell"
+  category: "cat:BankingPayments"
 ---

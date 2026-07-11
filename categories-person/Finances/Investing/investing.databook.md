@@ -2,15 +2,11 @@
 id: http://mee.foundation/ontologies/categories-person/investing
 title: "Investing"
 type: category-databook
-version: 1.0.1
+version: 1.0.2
 created: 2026-07-08
 description: >
-  Cell DataBook for the Investing cell. Groups context DataBooks about firms that help you buy assets so your money can grow over time — brokerage firms, robo-advisors, and mutual fund companies. Child of Finances.
-  
-  Split in this version into a paired -cell DataBook (mia.forCell) that holds
-  this cell's content facts (num-parties, sbs/obs/sbo/obo, graph, note, folder);
-  this file now holds only its cat:Category tree-position facts.
+  Firms that help you buy assets, so your money can grow over time for goals like buying a house or retiring. These include Brokerage Firms like Charles Schwab or Robinhood where you buy and sell stocks, bonds, and ETFs; Robo-Advisors, computer-run investing platforms like Betterment or Wealthfront that manage your portfolio for a low fee; and Mutual Fund companies like Vanguard or Fidelity that pool your money with other investors to buy a large bundle of stocks.
 mia:
   catType: "Investing"
-  forCell: "http://mee.foundation/ontologies/categories-person/investing-cell"
+  category: "cat:Investing"
 ---

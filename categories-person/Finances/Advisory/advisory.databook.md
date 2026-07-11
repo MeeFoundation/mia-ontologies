@@ -2,15 +2,11 @@
 id: http://mee.foundation/ontologies/categories-person/advisory
 title: "Advisory"
 type: category-databook
-version: 1.0.1
+version: 1.0.2
 created: 2026-07-08
 description: >
-  Cell DataBook for the Advisory cell. Groups context DataBooks about firms and individuals who advise you on the best ways to use your money — financial planners (wealth advisors) and estate planners. Child of Finances.
-  
-  Split in this version into a paired -cell DataBook (mia.forCell) that holds
-  this cell's content facts (num-parties, sbs/obs/sbo/obo, graph, note, folder);
-  this file now holds only its cat:Category tree-position facts.
+  Firms and individuals who do not just hold your money, but tell you the best ways to use it. These include Financial Planners (Wealth Advisors), human experts who help you build a custom roadmap for taxes, retirement, and budgeting, and Estate Planners, specialized professionals who help you write wills and plan how to pass your money to your children. Also includes Accountants and Bookkeepers, who track your income and expenses and prepare your taxes.
 mia:
   catType: "Advisory"
-  forCell: "http://mee.foundation/ontologies/categories-person/advisory-cell"
+  category: "cat:Advisory"
 ---

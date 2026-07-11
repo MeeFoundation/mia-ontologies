@@ -8,12 +8,12 @@
 @base <http://mee.foundation/ontologies/category> .
 
 <http://mee.foundation/ontologies/category> rdf:type owl:Ontology ;
-    owl:versionIRI <http://mee.foundation/ontologies/category/1.0.1> ;
-    dc:date "2026-07-10"^^xsd:date ;
+    owl:versionIRI <http://mee.foundation/ontologies/category/1.5.0> ;
+    dc:date "2026-07-11"^^xsd:date ;
     owl:imports <http://mee.foundation/ontologies/cell> ;
-    owl:versionInfo "Version 1.0.1 - clarified the rdfs:comment on cat:Category and cat:forCell: the split's purpose is to make cell:Cell content self-contained and independent of tree position, so a shared cell stays robust under PDN sync — each peer can reorganize their own category tree without ever touching the cell they share. (v1.0.0 - new ontology, split out of cell.ttl 3.0.0. Carries the tree-position class formerly named cell:Cell (renamed cat:Category, with its ~90 subclasses), plus cell:child/cell:label/cell:cellType/cell:copiedFrom (renamed cat:child/cat:label/cat:catType/cat:copiedFrom, domain changed to cat:Category), and a new cat:forCell property linking a Category to the cell:Cell instance holding its content. cat:Organizational marked cell:abstract, matching cat:Personal/cat:UserDefined. cat:cellType renamed cat:catType.)"@en ;
+    owl:versionInfo "Version 1.5.0"@en ;
     rdfs:label "Category Ontology"@en ;
-    rdfs:comment """Category Ontology for the Mee Identity Agent. Defines cat:Category — the tree-position facet of a cell: where it sits in a user's (or a canonical library's) navigational tree, its display label, and which cell:Cell (see cell.ttl) holds its content. Separating Category from Cell lets the same cell content be placed by more than one independently-organized tree — e.g. Alice and Bob each filing a cell they share wherever they individually want it."""@en .
+    rdfs:comment """Category Ontology for the Mee Identity Agent."""@en .
 
 
 #################################################################
@@ -27,16 +27,22 @@ cat:catType rdf:type owl:AnnotationProperty ;
     rdfs:comment "The local name of the cat:Category subclass this DataBook canonically is (for a canonical category, e.g. \"Family\") or was copied from (for a user-instance copy, e.g. \"Family\" again; for a purely user-defined category with no canonical counterpart, the root class itself, \"Category\"). Open-ended by design, so new canonical subclasses can be added without changing this property's definition."@en .
 
 cat:label rdf:type owl:AnnotationProperty ;
-    rdfs:domain cat:Category ;
+    rdfs:domain [ rdf:type owl:Class ; owl:unionOf ( cat:Copy cat:UserDefined ) ] ;
     rdfs:range xsd:string ;
     rdfs:label "label"@en ;
-    rdfs:comment "User-editable display name for the category. Defaults to the DataBook title but may be changed independently, leaving the immutable title and id intact."@en .
+    rdfs:comment "User-editable display name for the category. Defaults to the DataBook title but may be changed independently, leaving the immutable title and id intact. Domain is cat:Copy or cat:UserDefined: only a node in a user's own instance tree is ever renamed by the user, whether copied from a canonical template (cat:Copy) or created directly with no canonical counterpart (cat:UserDefined) — canonical templates themselves have no reason to carry a display-name override."@en .
 
-cat:copiedFrom rdf:type owl:AnnotationProperty ;
-    rdfs:domain cat:Category ;
-    rdfs:range xsd:anyURI ;
+cat:copiedFrom rdf:type owl:ObjectProperty ;
+    rdfs:domain cat:Copy ;
+    rdfs:range cat:Canonical ;
     rdfs:label "copiedFrom"@en ;
-    rdfs:comment "IRI of the canonical category this category was copied from. Present only on user-instance copies of categories."@en .
+    rdfs:comment "Links a cat:Copy to the cat:Canonical category it was copied from. Every cat:Copy has exactly one cat:copiedFrom."@en .
+
+cat:category rdf:type owl:ObjectProperty ;
+    rdfs:domain cat:Canonical ;
+    rdfs:range cat:Category ;
+    rdfs:label "category"@en ;
+    rdfs:comment "Links a cat:Canonical node to the cat:Category subclass it represents (e.g. cat:Work) — since cat:Canonical/cat:Copy/cat:UserDefined classify a category DataBook by its role in the tree (template, instance copy, or user-created), orthogonally to which cat:Category subclass it is. Value is the class itself (e.g. \"cat:Work\"), not an individual, and may be an abstract class when that's the most specific applicable one — e.g. the categories-org root's category is cat:Organization itself, since no more specific canonical subclass covers 'root of all organizational categories'. A tree root with no more specific classification at all, not even an abstract one, falls back to catType \"Category\" and carries no cat:category value."@en .
 
 
 #################################################################
@@ -44,58 +50,51 @@ cat:copiedFrom rdf:type owl:AnnotationProperty ;
 #################################################################
 
 cat:Category rdf:type owl:Class ;
+    cell:abstract true ;
     rdfs:label "Category"@en ;
-    rdfs:comment """The tree-position facet of a cell: a node in a navigational tree of
-                    cat:Category instances (linked by cat:child), each pointing via
-                    cat:forCell to the cell:Cell instance (see cell.ttl) that holds its
-                    actual content — party composition and any sbs/obs/sbo/obo/graph
-                    links to context DataBooks. cat:Category carries no content of its
-                    own, and cell:Cell carries no tree position of its own: this makes a
-                    cell's content self-contained and independent of where any given
-                    peer files it, so a shared cell stays robust under PDN sync — Alice
-                    and Bob can each freely reorganize their own category tree without
-                    ever touching the cell they share, since tree placement (cat:child,
-                    renaming, renesting) lives entirely on each peer's own cat:Category,
-                    never on the cell itself. A side effect is that the same cell:Cell
-                    may in principle be the target of more than one cat:Category — e.g.
-                    two different positions in one user's own tree, or (architecturally,
-                    though every Mia instance in this example repo organizes only its
-                    own tree) positions in two different users' independently-held
-                    trees that both reference a cell they share."""@en .
+    rdfs:comment """Cateogry of information about a person or organization"""@en .
 
-cat:child rdf:type owl:ObjectProperty ;
-    rdfs:domain cat:Category ;
-    rdfs:range cat:Category ;
-    rdfs:label "child"@en ;
-    rdfs:comment "Links a category to a more specific child category, forming the navigational tree."@en .
+cat:Node rdf:type owl:Class ;
+    cell:abstract true ;
+    rdfs:label "Node"@en ;
+    rdfs:comment """A node in a tree structure. Each node has a child property which thereby defines the tree. These trees of nodes are used to construct two separate trees: a canonical tree and a copied tree. Each node is represented as a DataBook file."""@en .
 
-cat:forCell rdf:type owl:ObjectProperty ;
-    rdfs:domain cat:Category ;
-    rdfs:range cell:Cell ;
-    rdfs:label "forCell"@en ;
-    rdfs:comment "Links a category (tree position) to the cell:Cell instance holding its content — party composition (cell:num-parties) and any sbs/obs/sbo/obo/graph/note/folder facts. Every cat:Category has exactly one cat:forCell. In the common case each category is minted alongside its own paired cell, with a matching '-cell'-suffixed IRI. Keeping this link on the category rather than folding tree position into the cell is what makes the cell self-contained and portable — a peer can attach it anywhere in their own tree, or move it later, by only ever touching their own cat:Category's cat:forCell, never the cell; a side effect is that the same cell:Cell can, in principle, be referenced from more than one cat:Category."@en .
+cat:Canonical rdf:type owl:Class ;
+    rdfs:subClassOf cat:Node ;
+    rdfs:label "Canonical"@en ;
+    rdfs:comment "A node in a canonical template tree (categories-person/ or categories-org/) — the source that cat:Copy instances are copied from. Carries cat:category (which cat:Category subclass it represents). Its cell:Cell, if any, is reached via cell:catNode asserted on the cell (see cell.ttl), not a forward link from this node."@en .
 
-
-#################################################################
-#    Category subclasses: Personal, Organizational, and UserDefined
-#################################################################
+cat:Copy rdf:type owl:Class ;
+    rdfs:subClassOf cat:Node ;
+    rdfs:label "Copy"@en ;
+    rdfs:comment "A node in a user's own instance tree, copied from a cat:Canonical template — always carries cat:copiedFrom back to it. Carries cat:label (user-editable display name) if renamed."@en .
 
 cat:UserDefined rdf:type owl:Class ;
-    cell:abstract true ;
-    rdfs:subClassOf cat:Category ;
+    rdfs:subClassOf cat:Node ;
     rdfs:label "UserDefined"@en ;
-    rdfs:comment "Superclass of context categories defined by the Mia user."@en .
+    rdfs:comment "A node in a user's own instance tree created directly by the user, with no canonical counterpart — unlike cat:Copy, it carries no cat:copiedFrom."@en .
 
-cat:Personal rdf:type owl:Class ;
+cat:child rdf:type owl:ObjectProperty ;
+    rdfs:domain cat:Node ;
+    rdfs:range cat:Node ;
+    rdfs:label "child"@en ;
+    rdfs:comment "Links a node to a more specific child node, forming the navigational tree. Used uniformly for both canonical template trees (linking cat:Canonical to cat:Canonical) and a user's own instance tree (linking cat:Copy to cat:Copy)."@en .
+
+
+#################################################################
+#    Category subclasses: Personal and Organizational
+#################################################################
+
+cat:Person rdf:type owl:Class ;
     cell:abstract true ;
     rdfs:subClassOf cat:Category ;
-    rdfs:label "Personal"@en ;
+    rdfs:label "Person"@en ;
     rdfs:comment "Superclass of all built-in context categories that involve interactions with people or person-centric topics (e.g. People, Work, Government)."@en .
 
-cat:Organizational rdf:type owl:Class ;
+cat:Organization rdf:type owl:Class ;
     cell:abstract true ;
     rdfs:subClassOf cat:Category ;
-    rdfs:label "Organizational"@en ;
+    rdfs:label "Organization"@en ;
     rdfs:comment "Superclass of all built-in context categories that involve interactions with organizations (e.g. Companies, BankingPayments(org))."@en .
 
 #################################################################
@@ -108,7 +107,7 @@ cat:Organizational rdf:type owl:Class ;
 
 
 cat:Affiliations rdf:type owl:Class ;
-    rdfs:subClassOf cat:Personal ;
+    rdfs:subClassOf cat:Person ;
     rdfs:label "Affiliations"@en ;
     rdfs:comment "Clubs, charities, faith groups, and other group affiliations not covered by a more specific category — includes formal memberships and their social networks, some of which may be cell:ThreePlusParty ('Multi-Party Cell') cells that exist as a g:Group on the PDN. See also Sports & Entertainment for personal sports and entertainment interests, like following a favorite team, that aren't tied to a formal membership."@en .
 
@@ -118,7 +117,7 @@ cat:Affiliations rdf:type owl:Class ;
 #################################################################
 
 cat:People rdf:type owl:Class ;
-    rdfs:subClassOf cat:Personal ;
+    rdfs:subClassOf cat:Person ;
     rdfs:label "People"@en ;
     rdfs:comment "People in your social or professional life. Use this category for people not otherwise tied to a specific domain — a bookkeeper you know belongs under Finances (Advisory), and your primary care physician belongs under Health (Primary Care Physician), rather than here."@en .
 
@@ -152,7 +151,7 @@ cat:Others rdf:type owl:Class ;
 #################################################################
 
 cat:Work rdf:type owl:Class ;
-    rdfs:subClassOf cat:Personal ;
+    rdfs:subClassOf cat:Person ;
     rdfs:label "Work"@en ;
     rdfs:comment "Professional roles. Employment history, resume/CV."@en .
 
@@ -162,7 +161,7 @@ cat:Work rdf:type owl:Class ;
 #################################################################
 
 cat:Companies rdf:type owl:Class ;
-    rdfs:subClassOf cat:Personal ;
+    rdfs:subClassOf cat:Person ;
     rdfs:label "Companies"@en ;
     rdfs:comment "Miscellaneous companies and organizations that provide services or products to you. See also Finances, Health, Home, Food for companies and organizations related to those areas."@en .
 
@@ -172,7 +171,7 @@ cat:Companies rdf:type owl:Class ;
 #################################################################
 
 cat:Finances rdf:type owl:Class ;
-    rdfs:subClassOf cat:Personal ;
+    rdfs:subClassOf cat:Person ;
     rdfs:label "Finances"@en ;
     rdfs:comment "Information about personal finances, bookkeeping, budgets, payment cards, bank accounts."@en .
 
@@ -206,7 +205,7 @@ cat:Advisory rdf:type owl:Class ;
 #################################################################
 
 cat:HealthWellness rdf:type owl:Class ;
-    rdfs:subClassOf cat:Personal ;
+    rdfs:subClassOf cat:Person ;
     rdfs:label "Health & Wellness"@en ;
     rdfs:comment "Personal health and wellness information. Medical history, allergies, medications, vaccinations."@en .
 
@@ -345,7 +344,7 @@ cat:PhysicalTherapyProviders rdf:type owl:Class ;
 #################################################################
 
 cat:Events rdf:type owl:Class ;
-    rdfs:subClassOf cat:Personal ;
+    rdfs:subClassOf cat:Person ;
     rdfs:label "Events"@en ;
     rdfs:comment "Participation in or relationship to a specific event or gathering."@en .
 
@@ -355,7 +354,7 @@ cat:Events rdf:type owl:Class ;
 #################################################################
 
 cat:Government rdf:type owl:Class ;
-    rdfs:subClassOf cat:Personal ;
+    rdfs:subClassOf cat:Person ;
     rdfs:label "Government"@en ;
     rdfs:comment "Government-issued credentials, tax records, and civic relationships."@en .
 
@@ -404,7 +403,7 @@ cat:Residence rdf:type owl:Class ;
 #################################################################
 
 cat:Information rdf:type owl:Class ;
-    rdfs:subClassOf cat:Personal ;
+    rdfs:subClassOf cat:Person ;
     rdfs:label "Information"@en ;
     rdfs:comment "General knowledge selected by you, web links, documents, images."@en .
 
@@ -418,7 +417,7 @@ cat:Learnings rdf:type owl:Class ;
 #################################################################
 
 cat:Ownership rdf:type owl:Class ;
-    rdfs:subClassOf cat:Personal ;
+    rdfs:subClassOf cat:Person ;
     rdfs:label "Ownership"@en ;
     rdfs:comment "Owned assets, property, vehicles, and other possessions."@en .
 
@@ -428,12 +427,12 @@ cat:Vehicles rdf:type owl:Class ;
     rdfs:comment "Related to owning and maintaining a vehicle. Vehicle insurance, repairs, mechanics, garages."@en .
 
 cat:Pets rdf:type owl:Class ;
-    rdfs:subClassOf cat:Personal ;
+    rdfs:subClassOf cat:Person ;
     rdfs:label "Pets"@en ;
     rdfs:comment "Care instructions, veterinarians, medicines, food providers."@en .
 
 cat:Home rdf:type owl:Class ;
-    rdfs:subClassOf cat:Personal ;
+    rdfs:subClassOf cat:Person ;
     rdfs:label "Home"@en ;
     rdfs:comment "Owning or renting a home, apartment, or other dwelling. Leases, deeds, utility accounts, real estate brokers."@en .
 
@@ -442,7 +441,7 @@ cat:Home rdf:type owl:Class ;
 #################################################################
 
 cat:Projects rdf:type owl:Class ;
-    rdfs:subClassOf cat:Personal ;
+    rdfs:subClassOf cat:Person ;
     rdfs:label "Projects"@en ;
     rdfs:comment "Involvement in a specific project or initiative."@en .
 
@@ -451,7 +450,7 @@ cat:Projects rdf:type owl:Class ;
 #################################################################
 
 cat:Legal rdf:type owl:Class ;
-    rdfs:subClassOf cat:Personal ;
+    rdfs:subClassOf cat:Person ;
     rdfs:label "Legal"@en ;
     rdfs:comment "Legal matters, contracts, agreements, trusts, wills, and professional legal relationships."@en .
 
@@ -460,7 +459,7 @@ cat:Legal rdf:type owl:Class ;
 #################################################################
 
 cat:Travel rdf:type owl:Class ;
-    rdfs:subClassOf cat:Personal ;
+    rdfs:subClassOf cat:Person ;
     rdfs:label "Travel"@en ;
     rdfs:comment "Travel plans, trips, and related information. Loyalty programs, airlines, bus lines, trains."@en .
 
@@ -469,16 +468,34 @@ cat:Travel rdf:type owl:Class ;
 #################################################################
 
 cat:Food rdf:type owl:Class ;
-    rdfs:subClassOf cat:Personal ;
+    rdfs:subClassOf cat:Person ;
     rdfs:label "Food"@en ;
     rdfs:comment "Food preferences, dietary restrictions, favorite restaurants, recipes, shopping lists, and other food-related interests."@en .
+
+#################################################################
+#    cat:Education
+#################################################################
+
+cat:Education rdf:type owl:Class ;
+    rdfs:subClassOf cat:Person ;
+    rdfs:label "Education"@en ;
+    rdfs:comment "Educational history and ongoing learning — schools, degrees, certifications, transcripts, and enrolled courses."@en .
+
+#################################################################
+#    cat:HobbiesInterests
+#################################################################
+
+cat:HobbiesInterests rdf:type owl:Class ;
+    rdfs:subClassOf cat:Person ;
+    rdfs:label "Hobbies & Interests"@en ;
+    rdfs:comment "Personal hobbies and creative or cultural interests — e.g. drawing, painting, dancing, religion, singing. See also Sports & Entertainment for sports/media interests, and Affiliations for formal memberships tied to a hobby or interest."@en .
 
 #################################################################
 #    cat:SportsEntertainment
 #################################################################
 
 cat:SportsEntertainment rdf:type owl:Class ;
-    rdfs:subClassOf cat:Personal ;
+    rdfs:subClassOf cat:Person ;
     rdfs:label "Sports & Entertainment"@en ;
     rdfs:comment "Sports, hobbies, entertainment, and media interests. Favorite teams, venues, streaming services, ticketing. See also Affiliations for club or team memberships."@en .
 
@@ -487,12 +504,12 @@ cat:SportsEntertainment rdf:type owl:Class ;
 #################################################################
 
 cat:Customers rdf:type owl:Class ;
-    rdfs:subClassOf cat:Organizational ;
+    rdfs:subClassOf cat:Organization ;
     rdfs:label "Customers"@en ;
     rdfs:comment "Customer organizations. Rename to 'Clients', etc."@en .
 
 cat:Marketing rdf:type owl:Class ;
-    rdfs:subClassOf cat:Organizational ;
+    rdfs:subClassOf cat:Organization ;
     rdfs:label "Marketing"@en ;
     rdfs:comment "Marketing activities, campaigns, and related organizations."@en .
 
@@ -502,12 +519,12 @@ cat:Prospects rdf:type owl:Class ;
     rdfs:comment "Customer prospects. Rename to 'Client prospects', etc."@en .
 
 cat:Partners rdf:type owl:Class ;
-    rdfs:subClassOf cat:Organizational ;
+    rdfs:subClassOf cat:Organization ;
     rdfs:label "Partners"@en ;
     rdfs:comment "Firms that provide goods and services."@en .
 
 cat:People\(org\) rdf:type owl:Class ;
-    rdfs:subClassOf cat:Organizational ;
+    rdfs:subClassOf cat:Organization ;
     rdfs:label "People (org)"@en ;
     rdfs:comment "People the organization interacts with in a working capacity."@en .
 
@@ -547,17 +564,17 @@ cat:BoardOfDirectors\(org\) rdf:type owl:Class ;
     rdfs:comment "The organization's board members."@en .
 
 cat:KB rdf:type owl:Class ;
-    rdfs:subClassOf cat:Organizational ;
+    rdfs:subClassOf cat:Organization ;
     rdfs:label "KB"@en ;
     rdfs:comment "Corporate knowledge bases."@en .
 
 cat:Projects\(org\) rdf:type owl:Class ;
-    rdfs:subClassOf cat:Organizational ;
+    rdfs:subClassOf cat:Organization ;
     rdfs:label "Projects (org)"@en ;
     rdfs:comment "Projects related to R&D, manufacturing, sales, marketing, operations, HR, etc."@en .
 
 cat:Meetings\(org\) rdf:type owl:Class ;
-    rdfs:subClassOf cat:Organizational ;
+    rdfs:subClassOf cat:Organization ;
     rdfs:label "Meetings (org)"@en ;
     rdfs:comment "Events, meetings, workshops, webinars, and gatherings."@en .
 
@@ -567,22 +584,22 @@ cat:Conferences rdf:type owl:Class ;
     rdfs:comment "A conference or professional gathering."@en .
 
 cat:Suppliers rdf:type owl:Class ;
-    rdfs:subClassOf cat:Organizational ;
+    rdfs:subClassOf cat:Organization ;
     rdfs:label "Suppliers"@en ;
     rdfs:comment "Companies that supply goods or services to this organization."@en .
 
 cat:Legal\(org\) rdf:type owl:Class ;
-    rdfs:subClassOf cat:Organizational ;
+    rdfs:subClassOf cat:Organization ;
     rdfs:label "Legal (org)"@en ;
     rdfs:comment "Contracts and agreements."@en .
 
 cat:Government\(org\) rdf:type owl:Class ;
-    rdfs:subClassOf cat:Organizational ;
+    rdfs:subClassOf cat:Organization ;
     rdfs:label "Government (org)"@en ;
     rdfs:comment "Interactions with government organizations."@en .
 
 cat:Finances\(org\) rdf:type owl:Class ;
-    rdfs:subClassOf cat:Organizational ;
+    rdfs:subClassOf cat:Organization ;
     rdfs:label "Finances (org)"@en ;
     rdfs:comment "Corporate finance-related matters."@en .
 

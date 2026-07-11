@@ -2,14 +2,10 @@
 id: http://www.example.org/mia/categories/categories
 title: "Cells"
 type: category-databook
-version: 1.0.2
+version: 1.0.3
 created: 2026-06-24
 description: >
-  Root cell DataBook for Alice's example instance. Parent of all top-level cells.
-  
-  Split in this version into a paired -cell DataBook (mia.forCell) that holds
-  this cell's content facts (num-parties, sbs/obs/sbo/obo, graph, note, folder);
-  this file now holds only its cat:Category tree-position facts.
+  Copy of a canonical category databook. See the canonical category databook for details.
 mia:
   catType: "Cell"
   copiedFrom: "http://mee.foundation/ontologies/categories-person/categories-person"
@@ -21,5 +17,4 @@ mia:
     - "http://www.example.org/mia/categories/government"
     - "http://www.example.org/mia/categories/ownership"
     - "http://www.example.org/mia/categories/affiliations"
-  forCell: "http://www.example.org/mia/categories/categories-cell"
 ---

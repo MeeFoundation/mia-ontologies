@@ -2,15 +2,11 @@
 id: http://mee.foundation/ontologies/categories-person/lending-credit
 title: "Lending & Credit"
 type: category-databook
-version: 1.0.1
+version: 1.0.2
 created: 2026-07-08
 description: >
-  Cell DataBook for the Lending & Credit cell. Groups context DataBooks about firms that lend you money for large purchases — mortgage lenders, consumer finance companies, and credit card issuers. Child of Finances.
-  
-  Split in this version into a paired -cell DataBook (mia.forCell) that holds
-  this cell's content facts (num-parties, sbs/obs/sbo/obo, graph, note, folder);
-  this file now holds only its cat:Category tree-position facts.
+  Firms that lend you money when you need to buy something expensive that you cannot pay for all at once. These include Mortgage Lenders, banks or specialized companies that give you loans specifically to buy a home; Consumer Finance Companies, that give out personal loans, auto loans, or student loans; and Credit Card Issuers, banks that give you a plastic card to borrow money on the spot for daily purchases.
 mia:
   catType: "LendingCredit"
-  forCell: "http://mee.foundation/ontologies/categories-person/lending-credit-cell"
+  category: "cat:LendingCredit"
 ---

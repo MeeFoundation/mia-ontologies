@@ -8,18 +8,15 @@
 @prefix cell: <http://mee.foundation/ontologies/cell#> .
 
 <http://www.example.org/category-shapes> rdf:type owl:Ontology ;
-    owl:versionInfo "Version 1.0.1 - renamed cat:cellType to cat:catType, matching category.ttl 1.0.0"@en ;
+    owl:versionInfo "Version 1.3.0 - added cat:UserDefined (a third cat:Node subclass, alongside cat:Canonical and cat:Copy, for user-created nodes with no canonical counterpart), matching category.ttl 1.3.0. cat:label's constraint moved out of :CopyShape into a new shared :LabelShape (sh:targetClass cat:Copy, cat:UserDefined), matching cat:label's new union domain. (v1.2.0 - removed the cat:forCell constraint from :CanonicalShape, matching category.ttl 1.2.0 (cat:forCell removed entirely — every node reaches its cell via cell:catNode, asserted on the cell, not a forward link). v1.1.0 - split alongside category.ttl 1.1.0: :NodeShape (target cat:Node) now carries cat:child; new :CanonicalShape (target cat:Canonical) carries cat:forCell/cat:category; new :CopyShape (target cat:Copy) carries cat:copiedFrom/cat:label; :CategoryShape (target cat:Category) keeps only cat:catType)"@en ;
     rdfs:label "Category Ontology SHACL Validation Shapes"@en ;
-    rdfs:comment "SHACL validation shapes for cat:Category DataBook instances (the tree-position facet of a cell) in the Category Ontology."@en .
+    rdfs:comment "SHACL validation shapes for cat:Category/cat:Node DataBook instances (the classificatory and tree-position facets of a cell) in the Category Ontology."@en .
 
 
 #################################################################
 #  Category
-#  Every cat:Category instance is a tree-position node with exactly
-#  one cat:forCell link to the cell:Cell instance holding its
-#  content, zero or more cat:child links to more specific child
-#  categories, an exactly-one cat:catType classification, and at
-#  most one cat:label and one cat:copiedFrom.
+#  cat:catType records a category's classification as a plain
+#  string, on any category DataBook (canonical or copy).
 #################################################################
 
 :CategoryShape
@@ -39,35 +36,85 @@
         sh:minCount 1 ;
         sh:maxCount 1 ;
         sh:message "A category must have exactly one cat:catType value: the cat:Category subclass local name it is or was copied from, or \"Category\" itself."@en
-    ] ;
+    ] .
 
-    # cat:forCell — required exactly once: every Category places
-    # exactly one cell:Cell's content in the tree.
-    sh:property [
-        sh:path cat:forCell ;
-        sh:minCount 1 ;
-        sh:maxCount 1 ;
-        sh:class cell:Cell ;
-        sh:message "A category must have exactly one cat:forCell value, pointing at the cell:Cell it places in the tree."@en
-    ] ;
+#################################################################
+#  Node
+#  Every cat:Node instance (Canonical, Copy, or UserDefined) has
+#  zero or more cat:child links to more specific child nodes.
+#################################################################
 
-    # cat:child — zero or more, each a cat:Category
+:NodeShape
+    a sh:NodeShape ;
+    sh:targetClass cat:Node ;
+    sh:message "Node validation."@en ;
+
+    # cat:child — zero or more, each a cat:Node
     sh:property [
         sh:path cat:child ;
-        sh:class cat:Category ;
-        sh:message "A category's cat:child values, if any, must each be a cat:Category."@en
-    ] ;
+        sh:class cat:Node ;
+        sh:message "A node's cat:child values, if any, must each be a cat:Node."@en
+    ] .
+
+#################################################################
+#  Label
+#  cat:label applies to both cat:Copy and cat:UserDefined — any
+#  node in a user's own instance tree, whether copied from a
+#  canonical template or created directly — but not cat:Canonical.
+#################################################################
+
+:LabelShape
+    a sh:NodeShape ;
+    sh:targetClass cat:Copy, cat:UserDefined ;
+    sh:message "Label validation."@en ;
 
     # cat:label — at most one display-name override
     sh:property [
         sh:path cat:label ;
         sh:maxCount 1 ;
-        sh:message "A category may have at most one cat:label value."@en
-    ] ;
+        sh:message "A node may have at most one cat:label value."@en
+    ] .
+
+#################################################################
+#  Canonical
+#  A cat:Canonical has at most one cat:category (which cat:Category
+#  subclass it represents) — the invisible tree roots, whose catType
+#  falls back to the abstract root, carry none. Its cell:Cell, if
+#  any, is reached via cell:catNode asserted on the cell (see
+#  cell-shacl.ttl), not a forward link validated here.
+#################################################################
+
+:CanonicalShape
+    a sh:NodeShape ;
+    sh:targetClass cat:Canonical ;
+    sh:message "Canonical node validation."@en ;
+
+    # cat:category — at most one, pointing at a cat:Category subclass
+    sh:property [
+        sh:path cat:category ;
+        sh:maxCount 1 ;
+        sh:class cat:Category ;
+        sh:message "A canonical node may have at most one cat:category value, and it must be a cat:Category."@en
+    ] .
+
+#################################################################
+#  Copy
+#  A cat:Copy has at most one cat:copiedFrom, pointing at the
+#  cat:Canonical it was copied from. (A user-created node with no
+#  canonical counterpart is a cat:UserDefined instead, which has no
+#  cat:copiedFrom constraint of its own — see :LabelShape above for
+#  the cat:label constraint shared by both.)
+#################################################################
+
+:CopyShape
+    a sh:NodeShape ;
+    sh:targetClass cat:Copy ;
+    sh:message "Copy node validation."@en ;
 
     # cat:copiedFrom — at most one canonical-template reference
     sh:property [
         sh:path cat:copiedFrom ;
         sh:maxCount 1 ;
-        sh:message "A category may have at most one cat:copiedFrom value."@en
+        sh:class cat:Canonical ;
+        sh:message "A copy node may have at most one cat:copiedFrom value, and it must be a cat:Canonical."@en
     ] .

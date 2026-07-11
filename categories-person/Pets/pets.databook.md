@@ -2,15 +2,11 @@
 id: http://mee.foundation/ontologies/categories-person/pets
 title: "Pets"
 type: category-databook
-version: 1.0.2
+version: 1.0.3
 created: 2026-06-24
 description: >
-  Cell DataBook for the Pets cell. Groups context DataBooks about taking care of pets, including veterinarians, medicines, and food providers. Child of Cells.
-  
-  Split in this version into a paired -cell DataBook (mia.forCell) that holds
-  this cell's content facts (num-parties, sbs/obs/sbo/obo, graph, note, folder);
-  this file now holds only its cat:Category tree-position facts.
+  Care instructions, veterinarians, medicines, food providers.
 mia:
   catType: "Pets"
-  forCell: "http://mee.foundation/ontologies/categories-person/pets-cell"
+  category: "cat:Pets"
 ---

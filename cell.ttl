@@ -1,4 +1,5 @@
 @prefix cell: <http://mee.foundation/ontologies/cell#> .
+@prefix cat: <http://mee.foundation/ontologies/category#> .
 @prefix context: <http://mee.foundation/ontologies/context#> .
 @prefix owl: <http://www.w3.org/2002/07/owl#> .
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
@@ -8,10 +9,11 @@
 @base <http://mee.foundation/ontologies/cell> .
 
 <http://mee.foundation/ontologies/cell> rdf:type owl:Ontology ;
-    owl:versionIRI <http://mee.foundation/ontologies/cell/3.0.1> ;
-    dc:date "2026-07-10"^^xsd:date ;
+    owl:versionIRI <http://mee.foundation/ontologies/cell/3.2.1> ;
+    dc:date "2026-07-11"^^xsd:date ;
     owl:imports <http://mee.foundation/ontologies/context> ;
-    owl:versionInfo "Version 3.0.1 - clarified the rdfs:comment on cell:Cell: the split's purpose is to make cell content self-contained and independent of tree position, for PDN sync robustness — a peer can reorganize their own category tree without ever touching a cell they share. (v3.0.0 - split the former cell:Cell (the tree-position/hierarchy class and its ~90 subclasses, plus cell:child/cell:cellType/cell:copiedFrom) out into a new peer ontology, category.ttl, as cat:Category. The former cell:Parties is renamed cell:Cell: it is now the self-contained content facet of a cell (party composition plus sbs/obs/sbo/obo/graph/note/folder), linked from a cat:Category via the new cat:forCell property. cell:label is re-added here (distinct from category.ttl's cat:label) as the default display name of a concrete cell:Cell subtype (e.g. \"Two-Party Cell\"), independent of any paired category's own cat:label.)"@en ;
+    owl:imports <http://mee.foundation/ontologies/category> ;
+    owl:versionInfo "Version 3.2.1 - clarified cell:catNode's rdfs:comment: the cell-to-node relationship is many-to-one, not 1:1 — more than one cell:Cell may share the same cat:Node, each an independent piece of content at that one tree position; the example tree just hasn't shown that case yet. (v3.2.0 - cat:forCell removed from category.ttl 1.2.0, so cell:catNode is now the sole link between a cell and its cat:Node (Canonical or Copy alike), not just the reverse of a Copy's missing forward link. All 90 canonical -cell DataBooks (categories-person/, categories-org/) gained mia.catNode pointing at their paired canonical category. (v3.1.0 - added cell:catNode (domain cell:Cell, range cat:Node — see category.ttl 1.1.0), the reverse link a cell asserts to the cat:Copy node it belongs to, used when that cell's own cat:Copy can't assert cat:forCell (now restricted to cat:Canonical). cell.ttl now also imports category.ttl, mirroring the existing mutual import with context.ttl. (v3.0.1 - clarified the rdfs:comment on cell:Cell: the split's purpose is to make cell content self-contained and independent of tree position, for PDN sync robustness — a peer can reorganize their own category tree without ever touching a cell they share. v3.0.0 - split the former cell:Cell (the tree-position/hierarchy class and its ~90 subclasses, plus cell:child/cell:cellType/cell:copiedFrom) out into a new peer ontology, category.ttl, as cat:Category. The former cell:Parties is renamed cell:Cell: it is now the self-contained content facet of a cell (party composition plus sbs/obs/sbo/obo/graph/note/folder), linked from a cat:Category via the new cat:forCell property. cell:label is re-added here (distinct from category.ttl's cat:label) as the default display name of a concrete cell:Cell subtype (e.g. \"Two-Party Cell\"), independent of any paired category's own cat:label.)))"@en ;
     rdfs:label "Cell Ontology"@en ;
     rdfs:comment """Cell Ontology for the Mee Identity Agent. Defines cell:Cell — the self-contained content facet of a cell (its party composition and its links to context data) — independent of where any cat:Category (see category.ttl) chooses to place it in a navigational tree."""@en .
 
@@ -36,7 +38,7 @@ cell:label rdf:type owl:AnnotationProperty ;
     rdfs:domain cell:Cell ;
     rdfs:range xsd:string ;
     rdfs:label "label"@en ;
-    rdfs:comment "Default display name for a concrete cell:Cell subtype (e.g. \"Two-Party Cell\"), asserted directly on the class rather than an instance. Distinct from category.ttl's cat:label, which is the user-editable per-instance display name of a paired cat:Category — cell.ttl cannot reference cat:label since category.ttl imports cell.ttl, not the reverse."@en .
+    rdfs:comment "Default display name for a concrete cell:Cell subtype (e.g. \"Two-Party Cell\"), asserted directly on the class rather than an instance. Distinct from category.ttl's cat:label, which is the user-editable per-instance display name of an associated cat:Category — cell.ttl cannot reference cat:label since category.ttl imports cell.ttl, not the reverse."@en .
 
 
 #################################################################
@@ -49,17 +51,20 @@ cell:label rdf:type owl:AnnotationProperty ;
 #    others, further split into cell:TwoParty and cell:ThreePlusParty).
 #    A cell:Cell instance is a self-contained content record — its
 #    party composition, and any sbs/obs/sbo/obo/graph links to context
-#    DataBooks — independent of any tree position. One or more
-#    cat:Category individuals (see category.ttl) may point at the same
-#    cell:Cell via cat:forCell to place its content in a navigational
-#    tree; cell:Cell itself carries no child/label/cellType/copiedFrom
-#    of its own, since those describe tree position, not content.
+#    DataBooks — independent of any tree position. A cell:Cell links
+#    to the cat:Node (see category.ttl) that places it in a
+#    navigational tree via cell:catNode; cell:Cell itself carries no
+#    child/label/catType/copiedFrom of its own, since those describe
+#    tree position, not content. The relationship is many-to-one, not
+#    1:1: one or more cell:Cell individuals may share the same
+#    cat:Node, each an independent piece of content at that one tree
+#    position — but a single cell:Cell has exactly one cell:catNode.
 #################################################################
 
 cell:Cell rdf:type owl:Class ;
     cell:abstract true ;
     rdfs:label "Cell"@en ;
-    rdfs:comment "Superclass classifying every cell instance by total party count: cell:OneParty (the user alone) or cell:MultiParty (the user plus one or more others, further split into cell:TwoParty and cell:ThreePlusParty). cell:num-parties records the same classification as a plain string for convenience. Formerly named cell:Parties, before cell.ttl's 3.0.0 split from category.ttl absorbed the old cell:Cell name for the tree-position class (now cat:Category). A cell:Cell carries no tree position of its own — it is a self-contained content record (party composition plus sbs/obs/sbo/obo/graph/note/folder), placed in a tree only via a separate cat:Category's cat:forCell link. This keeps a cell robust under PDN sync: a peer can move, rename, or renest the category pointing at a shared cell without ever touching the cell itself."@en .
+    rdfs:comment "Superclass classifying every cell instance by total party count: cell:OneParty (the user alone) or cell:MultiParty (the user plus one or more others, further split into cell:TwoParty and cell:ThreePlusParty). cell:num-parties records the same classification as a plain string for convenience. Formerly named cell:Parties, before cell.ttl's 3.0.0 split from category.ttl absorbed the old cell:Cell name for the tree-position class (now cat:Category). A cell:Cell carries no tree position of its own — it is a self-contained content record (party composition plus sbs/obs/sbo/obo/graph/note/folder), placed in a tree only via its own cell:catNode link to a cat:Node. This keeps a cell robust under PDN sync: a peer can move, rename, or renest the cat:Node pointing at a shared cell without ever touching the cell itself — indeed the cell is the only place that link is recorded at all."@en .
 
 cell:MultiParty rdf:type owl:Class ;
     cell:abstract true ;
@@ -84,6 +89,12 @@ cell:OneParty rdf:type owl:Class ;
     rdfs:label "OneParty"@en ;
     cell:label "Cell" ;
     rdfs:comment "A cell with no external party — plain content with no connection or group semantics."@en .
+
+cell:catNode rdf:type owl:ObjectProperty ;
+    rdfs:domain cell:Cell ;
+    rdfs:range cat:Node ;
+    rdfs:label "catNode"@en ;
+    rdfs:comment "Links a cell to the cat:Node — cat:Canonical or cat:Copy alike — it belongs to. This is the only link between a cell and its tree position: category.ttl has no forward-pointing equivalent (cat:forCell was removed), so every cell, canonical or instance, records this link itself rather than being pointed at. Every cell:Cell has exactly one cell:catNode, but the relationship is many-to-one, not 1:1: more than one cell:Cell instance may share the same cat:Node value, each recording its own independent content at that one tree position. This is what keeps a cell self-contained and portable — attaching or moving it in any tree only ever touches that cell's own cell:catNode, never anything on the node side, and never any other cell that happens to share the same node."@en .
 
 cell:graph rdf:type owl:ObjectProperty ;
     rdfs:domain cell:Cell ;
@@ -119,7 +130,7 @@ cell:obo rdf:type owl:ObjectProperty ;
 #    Cell Notes and Folders
 #
 #    Every cell is associated with two separate but parallel
-#    folder hierarchies that mirror its cat:Category's position in
+#    folder hierarchies that mirror its cat:Node's position in
 #    the category tree and are kept in sync by the Mia application:
 #
 #    Notes hierarchy — one folder per cell plus one .md file
@@ -143,15 +154,15 @@ cell:obo rdf:type owl:ObjectProperty ;
 #    contain arbitrary files and additional subfolders that are not
 #    part of the category tree itself.
 #
-#    When a cat:Category is created, renamed, or deleted, Mia updates
-#    both hierarchies automatically for the cell(s) it points at via
-#    cat:forCell. The two roots are stored separately so the notes
-#    hierarchy can be opened as a standalone PKM vault without
+#    When a cat:Node is created, renamed, or deleted, Mia updates
+#    both hierarchies automatically for the cell it links back to it
+#    via cell:catNode. The two roots are stored separately so the
+#    notes hierarchy can be opened as a standalone PKM vault without
 #    exposing the files hierarchy.
 #
 #    Redundancy and robustness: in the normal case cell:note and
 #    cell:folder are technically redundant — both paths can be
-#    derived from the paired cat:Category's tree position plus the
+#    derived from the associated cat:Node's tree position plus the
 #    two configured roots. They are retained for three reasons:
 #
 #    1. Divergence detection: if a stored path no longer matches
@@ -175,10 +186,10 @@ cell:note rdf:type owl:AnnotationProperty ;
     rdfs:domain cell:Cell ;
     rdfs:range xsd:anyURI ;
     rdfs:label "note"@en ;
-    rdfs:comment "Relative path within the notes hierarchy root to the cell note file, stored as CellName.md inside the cell folder (e.g. family/Family.md) — matching the Obsidian Folder Notes plugin convention. Normally derived automatically by Mia from the paired cat:Category's tree position; retained explicitly for divergence detection, graceful degradation, and intentional overrides."@en .
+    rdfs:comment "Relative path within the notes hierarchy root to the cell note file, stored as CellName.md inside the cell folder (e.g. family/Family.md) — matching the Obsidian Folder Notes plugin convention. Normally derived automatically by Mia from the associated cat:Category's tree position; retained explicitly for divergence detection, graceful degradation, and intentional overrides."@en .
 
 cell:folder rdf:type owl:AnnotationProperty ;
     rdfs:domain cell:Cell ;
     rdfs:range xsd:anyURI ;
     rdfs:label "folder"@en ;
-    rdfs:comment "Relative path within the files hierarchy root to the folder for this cell. Normally derived automatically by Mia from the paired cat:Category's tree position; retained explicitly for divergence detection, graceful degradation, and intentional overrides."@en .
+    rdfs:comment "Relative path within the files hierarchy root to the folder for this cell. Normally derived automatically by Mia from the associated cat:Category's tree position; retained explicitly for divergence detection, graceful degradation, and intentional overrides."@en .

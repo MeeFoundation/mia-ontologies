@@ -1,0 +1,12 @@
+---
+id: http://mee.foundation/ontologies/categories-person/education
+title: "Education"
+type: category-databook
+version: 1.0.0
+created: 2026-07-11
+description: >
+  Educational history and ongoing learning — schools, degrees, certifications, transcripts, and enrolled courses.
+mia:
+  catType: "Education"
+  category: "cat:Education"
+---

@@ -2,15 +2,11 @@
 id: http://mee.foundation/ontologies/categories-person/dental-insurance
 title: "Insurance"
 type: category-databook
-version: 1.0.1
+version: 1.0.2
 created: 2026-07-09
 description: >
-  Cell DataBook for the Dental Insurance cell. Groups context DataBooks about dental insurance policies, providers, and coverage. Child of Dental.
-  
-  Split in this version into a paired -cell DataBook (mia.forCell) that holds
-  this cell's content facts (num-parties, sbs/obs/sbo/obo, graph, note, folder);
-  this file now holds only its cat:Category tree-position facts.
+  Dental insurance policies, providers, and coverage.
 mia:
   catType: "DentalInsurance"
-  forCell: "http://mee.foundation/ontologies/categories-person/dental-insurance-cell"
+  category: "cat:DentalInsurance"
 ---

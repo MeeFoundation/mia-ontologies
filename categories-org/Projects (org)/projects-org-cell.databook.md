@@ -2,12 +2,11 @@
 id: http://mee.foundation/ontologies/categories-org/projects-org-cell
 title: "Projects (org) (Cell)"
 type: cell-databook
-version: 1.0.0
+version: 1.0.1
 created: 2026-07-10
 description: >
-  Cell content DataBook paired with the "Projects (org)" category (mia.catType:
-  Projects(org)) — holds this cell's content facts: party
-  composition and any sbs/obs/sbo/obo/graph/note/folder links.
+  Cell content DataBook of category "Projects (org)" (mia.catType: Projects(org)). Content may include sbs/obs/sbo/obo/folder/note links, and may contain a named graph.
 mia:
+  catNode: "http://mee.foundation/ontologies/categories-org/projects-org"
   num-parties: "OneParty"
 ---

@@ -2,14 +2,15 @@
 id: http://mee.foundation/ontologies/categories-person/categories-person
 title: "Cells (person)"
 type: category-databook
-version: 1.0.6
+version: 1.0.7
 created: 2026-06-22
 description: >
   Root cell DataBook. Parent of all top-level canonical cells.
   
-  Split in this version into a paired -cell DataBook (mia.forCell) that holds
-  this cell's content facts (num-parties, sbs/obs/sbo/obo, graph, note, folder);
-  this file now holds only its cat:Category tree-position facts.
+  Split in this version into a paired -cell DataBook that holds this cell's
+  content facts (num-parties, sbs/obs/sbo/obo, graph, note, folder); this file
+  now holds only its cat:Canonical tree-position facts. The pairing is recorded
+  on the cell side as mia.catNode, since cat:forCell no longer exists.
 mia:
   catType: "Cell"
   child:
@@ -30,5 +31,6 @@ mia:
     - "http://mee.foundation/ontologies/categories-person/affiliations"
     - "http://mee.foundation/ontologies/categories-person/sports-entertainment"
     - "http://mee.foundation/ontologies/categories-person/food"
-  forCell: "http://mee.foundation/ontologies/categories-person/categories-person-cell"
+    - "http://mee.foundation/ontologies/categories-person/education"
+    - "http://mee.foundation/ontologies/categories-person/hobbies-interests"
 ---

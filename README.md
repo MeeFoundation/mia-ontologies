@@ -4,7 +4,7 @@ This document describes the ontologies used by the Mee Identity Agent (Mia) soft
 
 Mia's ontologies import and profile existing ontologies — documenting which of their classes and properties Mia requires or uses — and extending them with Mia-specific classes and properties. 
 
-The **Context**, **Cell**, and **Category** ontologies are the organizing framework. The context ontology defines *contexts* - containers of claims (attributes) about a given subject and claimed by some entity. The cell ontology defines `cell:Cell` — a self-contained cell's content, which may reference one or more contexts. The category ontology defines `cat:Category` — where that content is placed in a user's navigational tree.
+The **Context**, **Cell**, and **Category** ontologies are the organizing framework. The context ontology defines `c:Context` - containers of claims (attributes) about a given subject as claimed by some entity. The cell ontology defines `cell:Cell` — a self-contained cell's content, which may reference one or more contexts. The category ontology defines `cat:Category` — a set of categories of information about a person or organization.
 
 The three **domain ontologies** model claims about people, organizations and groups contained in contexts:
 - **Persona ontology** — models a person: names, addresses, phone numbers, relationships, payment cards, and more. It is built on BFO (Basic Formal Ontology) and CCO (Common Core Ontologies) as the upper ontological foundation, and on domain ontologies that extend CCO:
@@ -46,7 +46,7 @@ Each context is a named graph of claims describing one facet of a person or orga
 
 Two properties apply to every `c:Context`:
 
-**`c:cell`** — containing cell. Its value is the IRI of the **cell** DataBook (e.g. `"http://www.example.org/mia/categories/bob-johnson(others)-cell"`) — not its paired category — that references it via `cell:sbs`, `cell:obs`, `cell:sbo`, or `cell:obo` links of the cell.
+**`c:cell`** — containing cell. Its value is the IRI of the **cell** DataBook (e.g. `"http://www.example.org/mia/categories/bob-johnson(others)-cell"`) — not its category — that references it via `cell:sbs`, `cell:obs`, `cell:sbo`, or `cell:obo` links of the cell.
 
 **`c:template`** — present only on context files that contain instances of a template; its value is the name of a `p:PersonaTemplate` subclass (e.g. `"persona:BirthCertificate"`, `"persona:JSContactCard"`, `"persona:DriversLicense"`, `"persona:Passport"`, `"persona:MedicalAppointment"`).
 
@@ -92,7 +92,7 @@ The description of the context container itself is carried in the DataBook's YAM
 
 ### Context Ontology Validation
 
-Context file metadata (cell, claimant, subject, about-by) is declared in YAML frontmatter and validated at authoring time by convention. `context.ttl` has no SHACL shapes of its own — the classification fields that carry validation constraints live on the paired category and cell DataBooks: `catType`/`child`/`label`/`copiedFrom`/`forCell` on category DataBooks, validated by `category-shacl.ttl` (see [Category Ontology Validation](#category-ontology-validation)); `num-parties`/`sbs`/`obs`/`sbo`/`obo`/`graph`/`note`/`folder` on cell DataBooks, validated by `cell-shacl.ttl` (see [Cell Ontology Validation](#cell-ontology-validation)).
+Context file metadata (cell, claimant, subject, about-by) is declared in YAML frontmatter and validated at authoring time by convention. `context.ttl` has no SHACL shapes of its own — the classification fields that carry validation constraints live on the associated category and cell DataBooks: `catType`/`child`/`label`/`copiedFrom`/`category` on category DataBooks, validated by `category-shacl.ttl` (see [Category Ontology Validation](#category-ontology-validation)); `num-parties`/`sbs`/`obs`/`sbo`/`obo`/`graph`/`note`/`folder`/`catNode` on cell DataBooks, validated by `cell-shacl.ttl` (see [Cell Ontology Validation](#cell-ontology-validation)).
 
 ## Cell Ontology
 
@@ -108,7 +108,7 @@ Every cell is a `cell:Cell` — either `cell:OneParty` (the user alone), or a `c
 
 <p align="center"><img src="images/cell-ontology/cell.png" alt="Cell hierarchy"></p>
 
-**Parties — `mia.num-parties`.** `cell:Cell` (formerly named `cell:Parties`, before the tree-position class of the same earlier name was renamed `cat:Category` and split into `category.ttl`) classifies every cell by how many total parties (the user plus zero or more others) are involved in the relationship it represents. There are three concrete types: `cell:OneParty` (the user alone — a paired `cat:Category` would typically show display label "Cell"), `cell:TwoParty` (the user plus exactly one other party — "Two-Party Cell"), and `cell:ThreePlusParty` (the user plus two or more other parties, e.g. a group — "Multi-Party Cell"). `cell:TwoParty` and `cell:ThreePlusParty` are both subclasses of the abstract `cell:MultiParty`, which exists only to group "more than one total party" cells for the purpose of properties that need another party to make sense (see `obs`/`sbo`/`obo` below).
+**Parties — `mia.num-parties`.** `cell:Cell` (formerly named `cell:Parties`, before the tree-position class of the same earlier name was renamed `cat:Category` and split into `category.ttl`) classifies every cell by how many total parties (the user plus zero or more others) are involved in the relationship it represents. There are three concrete types: `cell:OneParty` (the user alone — an associated `cat:Category` would typically show display label "Cell"), `cell:TwoParty` (the user plus exactly one other party — "Two-Party Cell"), and `cell:ThreePlusParty` (the user plus two or more other parties, e.g. a group — "Multi-Party Cell"). `cell:TwoParty` and `cell:ThreePlusParty` are both subclasses of the abstract `cell:MultiParty`, which exists only to group "more than one total party" cells for the purpose of properties that need another party to make sense (see `obs`/`sbo`/`obo` below).
 
 Cardinality of each property by concrete `cell:Cell` subtype:
 
@@ -124,7 +124,7 @@ Cardinality of each property by concrete `cell:Cell` subtype:
 
 ### Properties
 
-- **`cell:label`** — default display name for a concrete `cell:Cell` subtype (`OneParty`/`TwoParty`/`ThreePlusParty`), e.g. `"Two-Party Cell"`. Asserted directly on the class, not an instance — distinct from `cat:label` (category.ttl), which is the user-editable per-instance display name of a paired `cat:Category`.
+- **`cell:label`** — default display name for a concrete `cell:Cell` subtype (`OneParty`/`TwoParty`/`ThreePlusParty`), e.g. `"Two-Party Cell"`. Asserted directly on the class, not an instance — distinct from `cat:label` (category.ttl), which is the user-editable per-instance display name of an associated `cat:Category`.
 - **`cell:note`** — path to a markdown note in the *notes* folder/file hierarchy for this cell.
 - **`cell:folder`** — path to a folder in the *files* folder/file hierarchy for this cell.
 - **`cell:sbs`** - link to a context that is about the self as claimed by the self (user).
@@ -135,16 +135,16 @@ Cardinality of each property by concrete `cell:Cell` subtype:
 
 ### Representative cell types
 
-The diagram below shows five kinds of cell/category pairs, each labeled with its `cat:catType` (green) over its `cat:label` (bold), along with referenced contexts (the white and green circles) and the folder/note/graph icons every cell carries. The first, "Work", is a `cat:Personal` canonical category. The second, "Organization / Acme", is a `cat:Organizational` category. The third, "Category / My Favorites", is a `cat:UserDefined` category with no more specific canonical counterpart (`catType` falls back to the root class name, `"Category"`). The fourth, "People / Bob Johnson", is a `cell:TwoParty` cell between the user and another Mia user, Bob — shown with all four context link types filled (`sbs`, `obs`, `sbo`, `obo`). The last, "Category / XYZ Committee", is a `cell:ThreePlusParty` cell with two other-party members.
+The diagram below shows five kinds of cell/category pairs, each labeled with its `cat:catType` (green) over its `cat:label` (bold) — or just its `catType` alone, when there's no separate label to show — along with referenced contexts (the white and green circles) and the folder/note/graph icons every cell carries. The first, "Work", is a `cat:Person` canonical category with no override label. The second, "Organization / Acme", is a `cat:Organization` category, `cat:label`-renamed to "Acme". The third, "Favorites", is a hypothetical `cat:UserDefined` category with no more specific canonical counterpart, `cat:label`-renamed to "Favorites" (not tied to any real example data). The fourth, "Person / Bob Johnson", is a `cell:TwoParty` cell between the user and another Mia user, Bob — shown with all four context link types filled (`sbs`, `obs`, `sbo`, `obo`). The last, "Affiliations / Boston Hub Society", is a `cell:ThreePlusParty` cell with two other-party members, Carol and BHS.
 
 <p align="center"><img src="images/category-ontology/cat-cell-context.png" alt="Cells, categories, and contexts"></p>
 
 Each of these five example cells contains contexts shown as circles. White circles are contexts whose triples are claimed by the self (the user). Green circles are contexts whose triples are claimed by a person other than the self (i:Individual), by an organization (i:Organization) or by a group (i:Group), and synchronized with the user's Mia instance over the PDN. For example the BHS cell at the bottom has three contexts: Self (the user)'s BHS profile, the BHS group's own profile (`obo`, claimed by the group's members collectively) and Bob Johnson's BHS member profile (`obo`, claimed by Bob).
 
 #### A few details about cell:note and cell:folder
-`cell:note` and `cell:folder` point into two separate but parallel folder structures that mirror the structure of the *category* tree (see [Category Ontology](#category-ontology)) — even though the properties themselves live on `cell:Cell`, their paths are derived from where the paired `cat:Category` sits. If the category tree is `(People, (Immediate Family, Friends), Work)` then both hierarchies contain exactly the same folder names and nesting. Mia keeps both in sync with the category tree — when a category is created, renamed, or deleted, Mia updates both hierarchies automatically.
+`cell:note` and `cell:folder` point into two separate but parallel folder structures that mirror the structure of the *category* tree (see [Category Ontology](#category-ontology)) — even though the properties themselves live on `cell:Cell`, their paths are derived from where its associated `cat:Category` sits. If the category tree is `(People, (Immediate Family, Friends), Work)` then both hierarchies contain exactly the same folder names and nesting. Mia keeps both in sync with the category tree — when a category is created, renamed, or deleted, Mia updates both hierarchies automatically.
 
-A canonical top-level or nested category is not required to be copied into a user's tree just because it exists in the canonical template — Mia (or the user) copies a canonical category (and mints its paired cell) into the tree, and creates its `cell:note`/`cell:folder` paths, only once the user actually has content for it. Empty categories are not pre-populated as placeholder folders.
+A canonical top-level or nested category is not required to be copied into a user's tree just because it exists in the canonical template — Mia (or the user) copies a canonical category (and mints an associated cell) into the tree, and creates its `cell:note`/`cell:folder` paths, only once the user actually has content for it. Empty categories are not pre-populated as placeholder folders.
 
 - The **notes hierarchy** mirrors the category tree as a folder structure, rooted at a top-level folder named **`Self`**. The invisible root category's note is `Self.md`, stored directly inside `Self/`; every other category's note is stored as `X.md` inside the X folder — for example, `Self/People/Immediate Family/Immediate Family.md`. Using the same name as the folder matches the convention used by PKM (Personal Knowledge Management) tools such as Obsidian (using the Folder Notes plugin), Logseq, Foam and others. Any file or folder in the notes root that is not `Self/` — app-managed folders (e.g. `Templates/`, `.obsidian/`), unrelated personal notes (e.g. a `Journal/`), or loose files — falls outside the category tree entirely and is ignored by Mia.
 - The **files hierarchy** mirrors the category tree as a folder structure. It has no equivalent of a root note, so it has no `Self` wrapper folder — the files root itself plays that role, and each top-level category (e.g. `People`, `Work`) is a folder directly inside it. Each folder may hold arbitrary files, and may also contain additional subfolders (to any depth) that are not part of the category tree. Any file or folder directly inside the files root that is not a recognized top-level category folder likewise falls outside the category tree and is ignored by Mia.
@@ -164,7 +164,7 @@ In the normal case `cell:note` and `cell:folder` are technically redundant — b
 
 ### Cell DataBooks
 
-Every category node has a paired **cell DataBook** (`.databook.md` file with `type: cell-databook`), linked from its category via `cat:forCell`. A cell DataBook's `id`/filename is its paired category's `id`/filename with a `-cell` suffix, and it lives in the same folder as its category.
+Every category node has one or more associated **cell DataBooks** (`.databook.md` files with `type: cell-databook`) — the relationship is many-to-one, not 1:1: more than one cell may share the same category node, each an independent piece of content at that one tree position. (The example tree currently shows only one cell per category, but that's incidental to the data shown so far, not a constraint.) A cell DataBook's `id`/filename is its category's `id`/filename with a `-cell` suffix — with a further distinguishing suffix, e.g. `-cell-2`, if a second cell shares the same category — and it lives in the same folder as its category. This association is recorded on the cell, not the category (see [Category Ontology](#category-ontology)): `category.ttl` has no property linking a node forward to a cell at all, so every cell — whether associated with a `cat:Canonical`, a `cat:Copy`, or a `cat:UserDefined` — asserts `cell:catNode` back to its own node.
 
 #### Properties
 
@@ -175,6 +175,7 @@ The following properties are defined in `cell.ttl` and represented as `mia.` YAM
 | `mia.num-parties` | `cell:num-parties` | 1 | The concrete `cell:Cell` subclass this DataBook instantiates: one of `OneParty`, `TwoParty`, `ThreePlusParty` |
 | `mia.note` | `cell:note` | 0..1 | Relative path to a markdown notes file for this cell (e.g. `People/Paula Walker/Paula Walker.md`) |
 | `mia.folder` | `cell:folder` | 0..1 | Relative path to a folder of arbitrary files for this cell (e.g. `People/Paula Walker`) |
+| `mia.catNode` | `cell:catNode` | 1 | IRI of the `cat:Node` (`cat:Canonical`, `cat:Copy`, or `cat:UserDefined`) this cell belongs to. Required on every cell DataBook — the only place a category/cell association is recorded, in either direction |
 
 Note files live in a folder hierarchy whose structure mirrors the category hierarchy; associated file folders live in a parallel hierarchy whose names match the category names.
 
@@ -197,10 +198,10 @@ Each cell DataBook may carry up to four optional links to context DataBook IRIs,
 - **`cell.ttl`** — The Cell ontology, defining:
   - *Classes*: `cell:Cell` (formerly `cell:Parties`), `cell:OneParty`, `cell:MultiParty` (abstract), `cell:TwoParty`, `cell:ThreePlusParty`.
   - *Annotation properties*: `cell:num-parties` (concrete `cell:Cell` subclass), `cell:label` (default display name for a concrete `cell:Cell` subtype, asserted on the class), `cell:note` (path to markdown notes file), `cell:folder` (path to associated file folder), `cell:abstract` (marks a class as not directly instantiated in DataBooks).
-  - *Object properties*: `cell:sbs`/`cell:graph` (domain `cell:Cell`), `cell:obs`/`cell:obo`/`cell:sbo` (domain `cell:MultiParty`).
-  These terms are referenced by name in the YAML frontmatter of each cell DataBook file. `cell.ttl` imports `context.ttl` (for the `c:SBScontext`/`c:OBScontext`/`c:OBOcontext`/`c:SBOcontext` ranges of `cell:sbs`/`cell:obs`/`cell:obo`/`cell:sbo`, and the plain `c:Context` range of `cell:graph`); `context.ttl` in turn imports `cell.ttl` (for `c:cell`'s range, `cell:Cell`, and to reuse `cell:abstract` on `c:Context`). `category.ttl` also imports `cell.ttl`, for `cat:forCell`'s range.
+  - *Object properties*: `cell:sbs`/`cell:graph` (domain `cell:Cell`), `cell:obs`/`cell:obo`/`cell:sbo` (domain `cell:MultiParty`), `cell:catNode` (domain `cell:Cell`, range `cat:Node` — the sole link between a cell and its tree position, since `category.ttl` has no forward-pointing equivalent).
+  These terms are referenced by name in the YAML frontmatter of each cell DataBook file. `cell.ttl` imports `context.ttl` (for the `c:SBScontext`/`c:OBScontext`/`c:OBOcontext`/`c:SBOcontext` ranges of `cell:sbs`/`cell:obs`/`cell:obo`/`cell:sbo`, and the plain `c:Context` range of `cell:graph`) and `category.ttl` (for `cell:catNode`'s range, `cat:Node`); `context.ttl` and `category.ttl` in turn both import `cell.ttl` back (for `c:cell`'s range, `cell:Cell`, and to reuse `cell:abstract`) — mutual imports, mirroring the existing `cell.ttl`/`context.ttl` pattern.
 
-- **`cell-shacl.ttl`** — SHACL shapes for cell DataBook instances, split across the four classes that carry cell properties: `:CellShape` (target `cell:Cell`) constrains `cell:graph`, `cell:sbs`, `cell:note`, and `cell:folder` to at most one value each, and `cell:num-parties` to at most one value which, if present, must be one of `OneParty`, `TwoParty`, `ThreePlusParty`; `:OnePartyShape` (target `cell:OneParty`) forbids `cell:obs`/`cell:sbo`/`cell:obo` entirely, since a `OneParty` cell has no other party; `:TwoPartyShape` (target `cell:TwoParty`) constrains `cell:obs`, `cell:sbo`, and `cell:obo` to at most one value each, since a 1:1 cell has only one other party; `:ThreePlusPartyShape` (target `cell:ThreePlusParty`) leaves `cell:obs`/`cell:sbo`/`cell:obo` unconstrained (0..N), since a group cell can have any number of other-party contexts.
+- **`cell-shacl.ttl`** — SHACL shapes for cell DataBook instances, split across the four classes that carry cell properties: `:CellShape` (target `cell:Cell`) constrains `cell:graph`, `cell:sbs`, `cell:note`, `cell:folder`, and `cell:catNode` to at most one value each, and `cell:num-parties` to at most one value which, if present, must be one of `OneParty`, `TwoParty`, `ThreePlusParty`; `:OnePartyShape` (target `cell:OneParty`) forbids `cell:obs`/`cell:sbo`/`cell:obo` entirely, since a `OneParty` cell has no other party; `:TwoPartyShape` (target `cell:TwoParty`) constrains `cell:obs`, `cell:sbo`, and `cell:obo` to at most one value each, since a 1:1 cell has only one other party; `:ThreePlusPartyShape` (target `cell:ThreePlusParty`) leaves `cell:obs`/`cell:sbo`/`cell:obo` unconstrained (0..N), since a group cell can have any number of other-party contexts.
 
 ### Cell Ontology Validation
 
@@ -208,9 +209,9 @@ Cell DataBook instances are validated by `cell-shacl.ttl`.
 
 ## Category Ontology
 
-The category ontology defines `cat:Category`. Categories are arranged into tree structures moving from broader categories nearer the root towards narrower, more specific categories at the leaves. Besides its class (e.g. "Customer") it has an optional label that allows the user to override the class name (e.g. "Client"). 
+The category ontology defines two orthogonal facets of a category DataBook. `cat:Category` (abstract) is the *classificatory* facet — which kind of thing it is (e.g. "Customer"), recorded as a plain string in `cat:catType`. `cat:Node` (abstract) is the *tree-position* facet — where the category sits in a tree — split into three concrete kinds: `cat:Canonical` (a node in one of the canonical template trees), `cat:Copy` (a node in a user's own instance tree, copied from a `cat:Canonical`), and `cat:UserDefined` (a node in a user's own instance tree created directly, with no canonical counterpart). Categories are arranged into tree structures moving from broader categories nearer the root towards narrower, more specific categories at the leaves, via `cat:child` (domain and range `cat:Node`, so it links canonical-to-canonical, copy-to-copy, or user-defined-to-user-defined uniformly). A `cat:Copy` or `cat:UserDefined` node has an optional `cat:label` that lets the user override the display name (e.g. "Client") — canonical templates are never renamed by a user, so `cat:label` doesn't apply there.
 
-Although each node in a category tree has no content of its own, it has a `cat:forCell` link which points to a `cell:Cell` which does hold content. 
+Although each node in a category tree has no content of its own, every node — `cat:Canonical`, `cat:Copy`, and `cat:UserDefined` alike — is linked to a `cell:Cell` which does hold content. Neither kind of node carries a forward link to its cell, though: `category.ttl` has no such property at all. Instead, the cell itself links back via `cell:catNode` (see [Cell Ontology](#cell-ontology)); a `cat:Copy`'s canonical original, separately, is reachable via `cat:copiedFrom` (a `cat:UserDefined` node has no canonical original to reach).
 
 <p align="center"><img src="images/category-ontology/category.png" alt="Category hierarchy"></p>
 
@@ -218,27 +219,27 @@ Categories vary in scope from a few broad groupings of information to narrower o
 
 ### Category tree
 
-To organize the user's information, canonical category nodes are copied from one of the canonical category trees into the user's category tree. If they have an associated `cat:forCell` link to a cell, this cell is also copied. If the cell contains references to contexts, these contexts are also copied. 
+To organize the user's information, canonical category nodes are copied from one of the canonical category trees into the user's category tree — a `cat:Canonical` becomes a `cat:Copy`, recording the original via `cat:copiedFrom`. A user may also create a category with no canonical counterpart at all, directly as a `cat:UserDefined` node. If the canonical had a cell linked to it (via that cell's own `cell:catNode`), a new cell is copied too and linked back to the new `cat:Copy` the same way. If that cell contains references to contexts, these contexts are also copied.
 
-Both personal life (family, health, finances categories) and work life (employment, colleagues categories) are organized within this same tree, since `Work` is itself a `cat:Personal` subclass alongside `People` and `Health & Wellness`, not a separate branch. The `categories-org/` tree, rooted in `cat:Organizational`, exists so a person can copy pieces of it into their own `Work` branch to model the organizations they work for or with — e.g. Alice's `Work > Organization-Acme > Employees` category is a copy of `cat:Organizational`'s `Employees`, since Acme's own structure is what her employment relationship is actually about.
+Both personal life (family, health, finances categories) and work life (employment, colleagues categories) are organized within this same tree, since `Work` is itself a `cat:Person` subclass alongside `People` and `Health & Wellness`, not a separate branch. The `categories-org/` tree, rooted in `cat:Organization`, exists so a person can copy pieces of it into their own `Work` branch to model the organizations they work for or with — e.g. Alice's `Work > Organization-Acme > Employees` category is a copy of `cat:Organization`'s `Employees`, since Acme's own structure is what her employment relationship is actually about.
 
-The user is free to rearrange their instance category tree as they wish adding new user-defined categories, and moving the around. This works because the tree is just a way to organize the cells that it points to but the cells are self-contained units of content (although it's true that any referenced context lie outside the cell boundary).
+The user is free to rearrange their instance category tree as they wish, adding new user-defined categories and moving things around. This works because the tree is just a way to organize the cells that it points to, but the cells are self-contained units of content (although it's true that any referenced context lies outside the cell boundary) — and because a copy's link to its own cell (`cell:catNode`) lives on the cell, not the category, moving a category around in the tree never requires touching the cell(s) it's associated with.
 
 ### CatType
 
-**CatType — `mia.catType`.** Its value is the local name of the `cat:Category` subclass this category canonically is — for a canonical category, e.g. `ImmediateFamily` or `Employees(org)` — or, for a user's instance copy of a canonical category, the name of the class it was copied from (the same value as its canonical source). A category with no canonical counterpart at all (e.g. a specific person, company, or group Alice created herself) uses `Category` itself, the root class. Canonical categories are direct subclasses of `cat:Category`: either `cat:Personal` (generally useful categories for organizing a person's personal, non-work, life) or `cat:Organizational` (categories tuned to a person's working life) — both abstract, along with `cat:UserDefined`, so `mia.catType` always names a more specific leaf subclass rather than one of these three broad families, and new canonical subclasses can be added without changing the property itself.
+**CatType — `mia.catType`.** Its value is the local name of the `cat:Category` subclass this category canonically is — for a canonical category, e.g. `ImmediateFamily` or `Employees(org)` — or, for a user's instance copy of a canonical category, the name of the class it was copied from (the same value as its canonical source). A category with no canonical counterpart at all (e.g. a specific person, company, or group Alice created herself) uses `Category` itself, the root class. Canonical categories are direct subclasses of `cat:Category`: either `cat:Person` (generally useful categories for organizing a person's personal, non-work, life) or `cat:Organization` (categories tuned to a person's working life) — both abstract, so `mia.catType` always names a more specific leaf subclass rather than one of these two broad families, and new canonical subclasses can be added without changing the property itself. A category with no canonical counterpart at all is a `cat:UserDefined` node, still typed by the root class, `cat:Category`, in its `catType`. A `cat:Canonical` node additionally carries `cat:category`, an object-property version of the same classification whose value is the class itself (e.g. `cat:Work`) rather than a string; a `cat:Copy`'s classification is reachable the same way transitively, via `cat:copiedFrom` to the `cat:Canonical` it was copied from. A `cat:UserDefined` node has no canonical original to reach, so it relies on `catType` alone.
 
 ### Properties
 
-- **`cat:child`** — organizes categories into a tree structure.
-- **`cat:label`** — user-editable display name of the category. Defaults to the category's class name.
-- **`cat:catType`** — the `cat:Category` subclass this category is or was copied from, or `Category` itself.
-- **`cat:copiedFrom`** — IRI of the canonical category this category was copied from.
-- **`cat:forCell`** — required link to the `cell:Cell` DataBook holding this category's content.
+- **`cat:catType`** — the `cat:Category` subclass this category is or was copied from, or `Category` itself. Domain `cat:Category`.
+- **`cat:child`** — organizes nodes into a tree structure. Domain and range `cat:Node`.
+- **`cat:category`** — links a canonical node to the `cat:Category` subclass it represents (e.g. `cat:Work`). Domain `cat:Canonical`, range `cat:Category`.
+- **`cat:copiedFrom`** — IRI of the canonical node this copy was copied from. Domain `cat:Copy`, range `cat:Canonical`.
+- **`cat:label`** — user-editable display name of a copy or user-defined category. Defaults to the category's class name. Domain is the union of `cat:Copy` and `cat:UserDefined`.
 
 ### Personal Categories
 
-`cat:Personal` categories (and sub-categories) organize a person's information:
+`cat:Person` categories (and sub-categories) organize a person's information:
 
 1. **People** (`cat:People`) — people in your social or professional life. Use this category for people not otherwise tied to a specific domain — a bookkeeper you know belongs under Finances (Advisory), and your primary care physician belongs under Health & Wellness (Medical > Providers > Primary Care Physician), rather than here.
     - **Immediate Family** (`cat:ImmediateFamily`) — your closest living relatives, which generally include parents, siblings, spouses/partners, and children.
@@ -288,6 +289,8 @@ The user is free to rearrange their instance category tree as they wish adding n
 1. **Travel** (`cat:Travel`) — travel plans, trips, and related information. Loyalty programs, airlines, bus lines, trains.
 1. **Food** (`cat:Food`) — food preferences, dietary restrictions, favorite restaurants, recipes, shopping lists, and other food-related interests
 1. **Sports & Entertainment** (`cat:SportsEntertainment`) — sports, hobbies, entertainment, and media interests. Favorite teams, venues, streaming services, ticketing. See also `cat:Affiliations` for club or team memberships.
+1. **Education** (`cat:Education`) — educational history and ongoing learning — schools, degrees, certifications, transcripts, and enrolled courses.
+1. **Hobbies & Interests** (`cat:HobbiesInterests`) — personal hobbies and creative or cultural interests — e.g. drawing, painting, dancing, religion, singing. See also `cat:SportsEntertainment` for sports/media interests, and `cat:Affiliations` for formal memberships tied to a hobby or interest.
 1. **Legal** (`cat:Legal`) — legal matters, contracts, agreements, trusts, wills, and professional legal relationships.
 1. **Projects** (`cat:Projects`) — involvement in a specific project or initiative.
 1. **Events** (`cat:Events`) — participation in or relationship to a specific event or gathering.
@@ -306,7 +309,7 @@ The user is free to rearrange their instance category tree as they wish adding n
 
 ### Organizational Categories
 
-`cat:Organizational` categories relate to a person's role within an organization:
+`cat:Organization` categories relate to a person's role within an organization:
 
 1. **Customers** (`cat:Customers`) — customer organizations. Rename to "Clients", etc.
 1. **Marketing** (`cat:Marketing`) — marketing activities, campaigns, and related organizations.
@@ -336,37 +339,39 @@ The user is free to rearrange their instance category tree as they wish adding n
 
 ### Category DataBooks
 
-Each node in the `cat:Category` tree is represented by a **category DataBook** (`.databook.md` file with `type: category-databook`) linked to other nodes by the parent node's `cat:child` property (IRI) to its child. This tree contains a mixture of user-minted user-defined categories and copies of canonical categories. These copies contain a `copiedFrom:` IRI property pointing back to the corresponding canonical category.
+Each node in the tree is represented by a **category DataBook** (`.databook.md` file with `type: category-databook`) linked to other nodes by the parent node's `cat:child` property (IRI) to its child. This tree contains a mixture of user-minted user-defined categories and copies of canonical categories. These copies contain a `copiedFrom:` IRI property pointing back to the corresponding canonical category.
 
 #### Canonical Category DataBooks
 
-`cat:Personal` category DataBooks live in `categories-person/`, rooted at `categories-person/categories-person.databook.md`. `cat:Organizational` category DataBooks live in `categories-org/`, rooted at `categories-org/categories-org.databook.md`.
+`cat:Person` category DataBooks live in `categories-person/`, rooted at `categories-person/categories-person.databook.md`. `cat:Organization` category DataBooks live in `categories-org/`, rooted at `categories-org/categories-org.databook.md`. Every canonical category is a `cat:Canonical` node.
 
 #### Cell/Category split
 
-Every category DataBook is paired, in the same folder, with a cell DataBook (see [Cell DataBooks](#cell-databooks) above) holding its content and any context links. The pairing is a single required link, `mia.forCell`, from the category to its cell; there is no link stored on the cell back to its category. 
+Every category DataBook is associated, in the same folder, with one or more cell DataBooks (see [Cell DataBooks](#cell-databooks) above) holding its content and any context links — many-to-one, not 1:1. `category.ttl` has no property linking a node forward to a cell at all — the association is recorded only on the cell side, via `cell:catNode`, required on every cell DataBook regardless of whether it's associated with a `cat:Canonical` (`categories-person/`, `categories-org/`), a `cat:Copy`, or a `cat:UserDefined` (`example/categories/`).
+
+This — keeping any category→cell link off the category entirely, in both directions — is what makes a shared cell's content fully portable: moving or renaming any category anywhere in any tree never requires touching the cell(s) it's associated with, since nothing on the category ever points at a cell; only each cell's own `catNode` needs to exist, and it never changes. It's also what makes the many-to-one relationship straightforward: adding a second cell to an existing category is just adding another cell DataBook whose `catNode` points at that category — nothing about the category itself changes.
 
 #### Properties
 
 The following properties are defined in `category.ttl` and represented as `mia.` YAML fields in category DataBooks:
 
-| YAML field | Ontology property | Cardinality | Meaning |
-|------------|-------------------|-------------|---------|
-| `mia.catType` | `cat:catType` | 1 | The local name of the `cat:Category` subclass this DataBook is or was copied from (e.g. `ImmediateFamily`, `Employees(org)`), or `Category` itself if there is no canonical counterpart |
-| `mia.forCell` | `cat:forCell` | 1 | IRI of the `cell:Cell` DataBook holding this category's content |
-| `mia.label` | `cat:label` | 0..1 | User-editable display name — defaults to the DataBook `title` but can be changed independently, leaving `title` and `id` immutable |
-| `mia.copiedFrom` | `cat:copiedFrom` | 0..1 | IRI of the canonical category this DataBook was copied from. Present only on copies of canonical categories |
-| `mia.child` | `cat:child` | 0..N | IRIs of this category's child categories |
+| YAML field | Ontology property | Cardinality | Applies to | Meaning |
+|------------|-------------------|-------------|------------|---------|
+| `mia.catType` | `cat:catType` | 1 | Any category | The local name of the `cat:Category` subclass this DataBook is or was copied from (e.g. `ImmediateFamily`, `Employees(org)`), or `Category` itself if there is no canonical counterpart |
+| `mia.child` | `cat:child` | 0..N | Any category | IRIs of this node's child nodes |
+| `mia.category` | `cat:category` | 0..1 | `cat:Canonical` only | The `cat:Category` subclass this canonical node represents, as a class value rather than a string (e.g. `"cat:Work"`). Omitted on the invisible tree roots, whose `catType` falls back to the abstract root |
+| `mia.copiedFrom` | `cat:copiedFrom` | 0..1 | `cat:Copy` only | IRI of the canonical node this DataBook was copied from |
+| `mia.label` | `cat:label` | 0..1 | `cat:Copy` or `cat:UserDefined` | User-editable display name — defaults to the DataBook `title` but can be changed independently, leaving `title` and `id` immutable |
 
 ### Category Ontology File
 
 - **`category.ttl`** — The Category ontology, defining:
-  - *Classes*: `cat:Category` (formerly `cell:Cell`), `cat:Personal`, `cat:Organizational`, `cat:UserDefined`, and all leaf category subclasses.
-  - *Annotation properties*: `cat:catType` (the `cat:Category` subclass this DataBook is or was copied from, or `Category` itself), `cat:label` (user-editable display name), `cat:copiedFrom` (IRI of the canonical category this DataBook was copied from).
-  - *Object properties*: `cat:child` (domain and range `cat:Category`), `cat:forCell` (domain `cat:Category`, range `cell:Cell`).
-  These terms are referenced by name in the YAML frontmatter of each category DataBook file. `category.ttl` imports `cell.ttl` (for `cat:forCell`'s range) and reuses `cell:abstract` to mark non-instantiated classes.
+  - *Classes*: `cat:Category` (abstract; formerly `cell:Cell`), `cat:Person`, `cat:Organization`, and all leaf category subclasses (the classificatory hierarchy) — orthogonal to `cat:Node` (abstract), split into `cat:Canonical`, `cat:Copy`, and `cat:UserDefined` (the tree-position hierarchy). A user-defined category with no canonical counterpart is a `cat:UserDefined` node.
+  - *Annotation properties*: `cat:catType` (domain `cat:Category`), `cat:label` (domain the union of `cat:Copy` and `cat:UserDefined`).
+  - *Object properties*: `cat:child` (domain and range `cat:Node`), `cat:category` (domain `cat:Canonical`, range `cat:Category`), `cat:copiedFrom` (domain `cat:Copy`, range `cat:Canonical`). No `cat:` property links a node forward to a cell — that link exists only on the cell side, as `cell:catNode` (see [Cell Ontology File](#cell-ontology-file)).
+  These terms are referenced by name in the YAML frontmatter of each category DataBook file. `category.ttl` imports `cell.ttl` and reuses `cell:abstract` to mark non-instantiated classes; `cell.ttl` in turn imports `category.ttl` back (for `cell:catNode`'s range, `cat:Node`) — a mutual import, mirroring the existing `cell.ttl`/`context.ttl` pattern.
 
-- **`category-shacl.ttl`** — SHACL shapes for category DataBook instances: `:CategoryShape` (target `cat:Category`) constrains `cat:catType` to exactly one value (open-ended — no enum, since new canonical subclasses can be added freely), `cat:forCell` to exactly one value which must be a `cell:Cell`, `cat:child` values (if any) to each be a `cat:Category`, and `cat:label`/`cat:copiedFrom` to at most one value each.
+- **`category-shacl.ttl`** — SHACL shapes for category DataBook instances: `:CategoryShape` (target `cat:Category`) constrains `cat:catType` to exactly one value (open-ended — no enum, since new canonical subclasses can be added freely); `:NodeShape` (target `cat:Node`) constrains `cat:child` values, if any, to each be a `cat:Node`; `:CanonicalShape` (target `cat:Canonical`) constrains `cat:category` to at most one value (must be a `cat:Category`); `:CopyShape` (target `cat:Copy`) constrains `cat:copiedFrom` to at most one value (must be a `cat:Canonical`); `:LabelShape` (target `cat:Copy` and `cat:UserDefined`) constrains `cat:label` to at most one value.
 
 ### Category Ontology Validation
 
@@ -633,7 +638,7 @@ The Identity ontology is used to describe the kinds of identities that Mia can c
 
 ## Illustrative Example: Alice 
 
-This section describes the local Mia dataset for a hypothetical user, Alice Walker. Alice's data lives in multiple context DataBooks linked to by a tree structure of category DataBooks, each paired with a cell DataBook holding its content. 
+This section describes the local Mia dataset for a hypothetical user, Alice Walker. Alice's data lives in multiple context DataBooks linked to by a tree structure of category DataBooks, each associated with one or more cell DataBooks holding its content. 
 
 ### Alice's Cells and Contexts
 
@@ -643,10 +648,10 @@ Alice's context DataBooks are in `example/contexts.` Some are authored by Alice 
 
 Alice's category DataBooks are in `example/categories/`. The full tree can be walked starting from `example/categories/categories.databook.md`. It contains two kinds of entries:
 
-- **Copies of canonical categories** (`mia.catType` set to the specific class it was copied from, e.g. `People`, `Employees`) — one for each of the 16 top-level categories and their child categories. Each copy carries a `copiedFrom:` property pointing to the corresponding canonical IRI (e.g. `copiedFrom: "http://mee.foundation/ontologies/categories-person/people"`). Context links (`cell:sbs`, `cell:obs`, `cell:obo`, `cell:sbo`) to Alice's contexts are attached to each category's *paired cell DataBook* (`mia.forCell`), not the category itself, and not in the canonical tree.
-- **User-defined categories** (`mia.catType: Category`) — one per specific person, company, government agency, or group Alice interacts with (e.g. `bob-johnson(others)`, `acme(work)`, `citibank(banking-payments)`).
+- **`cat:Copy` categories** (`mia.catType` set to the specific class it was copied from, e.g. `People`, `Employees`, `Others`, `BankingPayments`) — this covers both the 19 top-level categories and their child categories, and most specific people/companies/agencies Alice interacts with (e.g. `bob-johnson(others)`, copied from `Others`; `citibank(banking-payments)`, copied from `BankingPayments`). Each carries a `copiedFrom:` property pointing to the corresponding canonical IRI (e.g. `copiedFrom: "http://mee.foundation/ontologies/categories-person/people"`). Context links (`cell:sbs`, `cell:obs`, `cell:obo`, `cell:sbo`) to Alice's contexts are attached to each category's *associated cell DataBook*, not the category itself, and not in the canonical tree.
+- **`cat:UserDefined` categories** (`mia.catType: Category`, no `copiedFrom`) — for an entity with no canonical counterpart at all. This example tree doesn't currently have one: even `acme(work)` (Alice's employer, which has no specific canonical class of its own) is a `cat:Copy` of the categories-org root, whose own `cat:category` is the abstract `cat:Organization` — the most specific applicable classification — with `cat:label` "Acme" recording the rename.
 
-Every category DataBook is paired, in the same folder, with a cell DataBook (filename/id with a `-cell` suffix) holding its content.
+Every category DataBook here is a `cat:Copy` (a `cat:UserDefined` node, for a category with no canonical counterpart at all, is also possible but not currently used in this example tree), associated, in the same folder, with a cell DataBook (filename/id with a `-cell` suffix) holding its content — the association is recorded as `mia.catNode` on the cell, the same way it is for every canonical category too.
 
 #### Cell and Context Diagrams
 
@@ -664,7 +669,7 @@ Alice's mother, Paula Walker, is filed under Immediate Family. Alice's own Healt
 
 <p align="center"><img src="example/images/health.png" alt="Health & Wellness cell (work in progress)"></p>
 
-Alice is an employee of Acme, so under her Work cell she has created a user-defined cell called Acme to represent her employer. Since Acme is an organization, Alice has under her Acme cell switched from adding `cat:Personal` categories to `cat:Organizational` categories (light blue color) and added an Employees cell which acts as a parent holding an Employee cell for each person there she tracks, including herself. Her own "Alice Walker" cell holds her Business Card claims — job title at Acme, work telephone number, work email, etc. One of the employees she works with is Paula Walker, so she adds a Paula Walker cell too.
+Alice is an employee of Acme, so under her Work cell she has created a user-defined cell called Acme to represent her employer. Since Acme is an organization, Alice has under her Acme cell switched from adding `cat:Person` categories to `cat:Organization` categories (light blue color) and added an Employees cell which acts as a parent holding an Employee cell for each person there she tracks, including herself. Her own "Alice Walker" cell holds her Business Card claims — job title at Acme, work telephone number, work email, etc. One of the employees she works with is Paula Walker, so she adds a Paula Walker cell too.
 <p align="center"><img src="example/images/work.png" alt="Work cells"></p>
 
 Alice has relationships with two companies, Google and AT&T:
