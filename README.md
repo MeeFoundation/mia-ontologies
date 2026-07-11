@@ -210,7 +210,7 @@ Cell DataBook instances are validated by `cell-shacl.ttl`.
 
 The category ontology defines `cat:Category`. Categories are arranged into tree structures moving from broader categories nearer the root towards narrower, more specific categories at the leaves. Besides its class (e.g. "Customer") it has an optional label that allows the user to override the class name (e.g. "Client"). 
 
-A `cat:Category` carries no content of its own, but each not in a category tree has a `cat:forCell` which points to a `cell:Cell` which does hold content. 
+A `cat:Category` carries no content of its own, but each node in a category tree has a `cat:forCell` which points to a `cell:Cell` which does hold content. 
 
 <p align="center"><img src="images/category-ontology/category.png" alt="Category hierarchy"></p>
 
