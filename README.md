@@ -34,19 +34,17 @@ We first present an overview of the ontologies and then illustrate their use thr
 
 ## Context Ontology
 
-The context ontology defines *contexts* which are named graphs containing sets of claims (attributes) about a person. 
+The context ontology defines *contexts* (`c:Context`) — named graphs containing sets of claims about a person. 
 
 ### Contexts
 
-A *context* is a container of information about a person related to their interactions with, or relationship to, another person, group or organization. This information is expressed as triples using the Persona, Organization, Group and Identity ontologies and stored in a **[DataBook](https://github.com/w3c-cg/holon/tree/main/architectures/databook)** (`.databook.md`) file. 
-
-Each context is a named graph of claims describing one facet of a person or organization (called the `subject` of the context). It is a self-contained set of claim data about that subject, although these claims may have originated from other contexts about the same subject. 
+A context is a container of information about a person related to their interactions with, or relationship to, another person, group or organization. This information is expressed as a named graph of triples using the Persona, Organization, Group and Identity ontologies and stored in a **[DataBook](https://github.com/w3c-cg/holon/tree/main/architectures/databook)** (`.databook.md`) file that describes one facet of a person or organization (called the `subject` of the context). These claims may have originated from other contexts about the same subject. Contexts are referenced by cells, described in the cell ontology.
 
 <p align="center"><img src="images/context-ontology/context.png" alt="context ontology"></p>
 
 Two properties apply to every `c:Context`:
 
-**`c:cell`** — containing cell. Its value is the IRI of the **cell** DataBook (e.g. `"http://www.example.org/mia/categories/bob-johnson(others)-cell"`) — not its category — that references it via `cell:sbs`, `cell:obs`, `cell:sbo`, or `cell:obo` links of the cell.
+**`c:cell`** — the cell that references it. Its value is the IRI of the **cell** DataBook (e.g. `"http://www.example.org/mia/categories/bob-johnson(others)-cell"`) that references it via `cell:sbs`, `cell:obs`, `cell:sbo`, or `cell:obo` links of the cell.
 
 **`c:template`** — present only on context files that contain instances of a template; its value is the name of a `p:PersonaTemplate` subclass (e.g. `"persona:BirthCertificate"`, `"persona:JSContactCard"`, `"persona:DriversLicense"`, `"persona:Passport"`, `"persona:MedicalAppointment"`).
 
