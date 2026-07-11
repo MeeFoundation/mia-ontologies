@@ -2,14 +2,14 @@
 id: https://www.example.org/mia/contexts/context(alice-carol-about-mom)(health)(26)
 title: "Medical appointment claims for Paula Walker, shared between Alice and Carol"
 type: context-databook
-version: 1.0.6
+version: 1.0.7
 created: 2026-07-08
 description: >
   Alice's shared record of the claims needed to arrange a medical appointment
   for their mother, Paula Walker, synced to Carol's Mia via PDN. Linked from
-  its cell via cell:graph rather than sbs/obs/sbo/obo, since this data is
+  its cell via cell:graph rather than cell:sc-context, since this data is
   jointly maintained by Alice and Carol about a third party (Paula) and does
-  not fit the self-vs-other classification those properties assume.
+  not fit the self-vs-other classification that property assumes.
 mia:
   template: "persona:MedicalAppointment"
 graph:
@@ -28,7 +28,7 @@ process:
 
 ## Overview
 
-This context captures Alice's shared record of the claims needed to arrange a medical appointment on behalf of their mother, Paula Walker. Alice maintains this record on her own Mia and syncs it to Carol's Mia over the PDN so both sisters can coordinate Paula's care. It is linked from its cell via `cell:graph` rather than `sbs`/`obs`/`sbo`/`obo`, since the data is jointly maintained by Alice and Carol about a third party (Paula) rather than claimable as simply self-vs-other. Because each context's named graph must be self-contained for p2p sync to work, the claims about Paula and about her primary care physician, Dr. Jane Kopakolva, are copied directly into this context rather than merely linked — Alice already holds Dr. Jane's information in her own Mia, so it is Alice's Mia that copies it over. Validated by the `MedicalAppointment` per-template SHACL shapes.
+This context captures Alice's shared record of the claims needed to arrange a medical appointment on behalf of their mother, Paula Walker. Alice maintains this record on her own Mia and syncs it to Carol's Mia over the PDN so both sisters can coordinate Paula's care. It is linked from its cell via `cell:graph` rather than `cell:sc-context`, since the data is jointly maintained by Alice and Carol about a third party (Paula) rather than claimable as simply self-vs-other. Because each context's named graph must be self-contained for p2p sync to work, the claims about Paula and about her primary care physician, Dr. Jane Kopakolva, are copied directly into this context rather than merely linked — Alice already holds Dr. Jane's information in her own Mia, so it is Alice's Mia that copies it over. Validated by the `MedicalAppointment` per-template SHACL shapes.
 
 ## Identity Data
 

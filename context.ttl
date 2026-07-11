@@ -11,10 +11,10 @@
 @base <http://mee.foundation/ontologies/context> .
 
 <http://mee.foundation/ontologies/context> rdf:type owl:Ontology ;
-    owl:versionIRI <http://mee.foundation/ontologies/context/1.6.0> ;
+    owl:versionIRI <http://mee.foundation/ontologies/context/1.7.0> ;
     dc:date "2026-07-11"^^xsd:date ;
     owl:imports <http://mee.foundation/ontologies/cell> ;
-    owl:versionInfo "Version 1.6.0 - relaxed context:subject and context:claimant's range from identity:PDNidentifier to a union of p:Person/g:Group/o:Organization, matching how these fields are actually populated in DataBooks (a subject/claimant is the identity itself, not a PDN identifier of it) — see persona-shacl.ttl's new :XBXcontextShape. context.ttl no longer imports pdn-identity, since nothing here references identity: terms anymore. (Version 1.5.0 - removed context:cell: it duplicated, in the reverse direction, the link already carried by cell:sbs/obs/sbo/obo/graph (Cell -> Context) — the same redundancy shape as the now-resolved cat:forCell/cell:catNode case, where the forward-pointing property was deleted in favor of a single direction of record. A context DataBook's containing cell is now found only by reverse lookup (which cell:Cell asserts sbs/obs/sbo/obo/graph to this context), never by a field on the context itself. context.ttl still imports cell.ttl, now solely to reuse cell:abstract on context:Context/context:XBXcontext. (Version 1.4.0 - context:cell's range changed from cell:Cell (the tree-position class, now renamed cat:Category and split out into category.ttl) to the new cell:Cell (formerly cell:Parties) — the content-holding class that actually asserts sbs/obs/sbo/obo/graph))"@en ;
+    owl:versionInfo "Version 1.7.0 - renamed context:XBXcontext to context:SCcontext (Subject-Claimant context), matching cell.ttl 3.4.0's new cell:sc-context property (which replaces cell:sbs/obs/sbo/obo with a single multi-valued link, range context:SCcontext) — the four leaf subtypes (SBScontext/OBScontext/OBOcontext/SBOcontext) are unchanged. (Version 1.6.0 - relaxed context:subject and context:claimant's range from identity:PDNidentifier to a union of p:Person/g:Group/o:Organization, matching how these fields are actually populated in DataBooks (a subject/claimant is the identity itself, not a PDN identifier of it) — see persona-shacl.ttl's new :XBXcontextShape. context.ttl no longer imports pdn-identity, since nothing here references identity: terms anymore. (Version 1.5.0 - removed context:cell: it duplicated, in the reverse direction, the link already carried by cell:sbs/obs/sbo/obo/graph (Cell -> Context) — the same redundancy shape as the now-resolved cat:forCell/cell:catNode case, where the forward-pointing property was deleted in favor of a single direction of record. A context DataBook's containing cell is now found only by reverse lookup (which cell:Cell asserts sbs/obs/sbo/obo/graph to this context), never by a field on the context itself. context.ttl still imports cell.ttl, now solely to reuse cell:abstract on context:Context/context:XBXcontext. (Version 1.4.0 - context:cell's range changed from cell:Cell (the tree-position class, now renamed cat:Category and split out into category.ttl) to the new cell:Cell (formerly cell:Parties) — the content-holding class that actually asserts sbs/obs/sbo/obo/graph)))"@en ;
     rdfs:label "Context Ontology"@en ;
     rdfs:comment """Context Ontology for the Mee Identity Agent"""@en .
 
@@ -29,7 +29,7 @@ context:claimant rdf:type owl:AnnotationProperty ;
                     a named individual of p:Person, g:Group, or o:Organization (e.g. :Self,
                     a p:Person, g:Group, or o:Organization instance). Applied to the named
                     graph IRI, not to the Person individual."""@en ;
-    rdfs:domain context:XBXcontext ;
+    rdfs:domain context:SCcontext ;
     rdfs:range [ rdf:type owl:Class ; owl:unionOf ( p:Person g:Group o:Organization ) ] .
 
 context:subject rdf:type owl:AnnotationProperty ;
@@ -38,7 +38,7 @@ context:subject rdf:type owl:AnnotationProperty ;
                     a named individual of p:Person, g:Group, or o:Organization (e.g. :Self,
                     a p:Person, g:Group, or o:Organization instance). Applied to the named
                     graph IRI, not to the Person individual."""@en ;
-    rdfs:domain context:XBXcontext ;
+    rdfs:domain context:SCcontext ;
     rdfs:range [ rdf:type owl:Class ; owl:unionOf ( p:Person g:Group o:Organization ) ] .
 
 context:template rdf:type owl:AnnotationProperty ;
@@ -54,7 +54,7 @@ context:template rdf:type owl:AnnotationProperty ;
 context:about-by rdf:type owl:AnnotationProperty ;
     rdfs:label "about-by"@en ;
     rdfs:comment "Classifies a DataBook named graph by the combination of subject and claimant: one of context:SBScontext, context:OBScontext, context:OBOcontext, or context:SBOcontext."@en ;
-    rdfs:domain context:XBXcontext .
+    rdfs:domain context:SCcontext .
 
 
 #################################################################
@@ -66,29 +66,29 @@ context:Context rdf:type owl:Class ;
     rdfs:label "Context"@en ;
     rdfs:comment "A context DataBook — a named graph containing identity data about a person in a specific relationship or situation."@en .
 
-context:XBXcontext rdf:type owl:Class ;
+context:SCcontext rdf:type owl:Class ;
     cell:abstract true ;
     rdfs:subClassOf context:Context ;
-    rdfs:label "XBXcontext"@en ;
-    rdfs:comment "Intermediate superclass of the four self-vs-other classified context subtypes (SBScontext, OBScontext, OBOcontext, SBOcontext). Carries the about-by, subject, and claimant annotations that only apply to contexts classified into one of those four subtypes — a context linked via cell:graph rather than sbs/obs/sbo/obo is a plain context:Context, not a context:XBXcontext, and so does not carry these annotations."@en .
+    rdfs:label "SCcontext"@en ;
+    rdfs:comment "Subject-Claimant context: intermediate superclass of the four self-vs-other classified context subtypes (SBScontext, OBScontext, OBOcontext, SBOcontext). Carries the about-by, subject, and claimant annotations that only apply to contexts classified into one of those four subtypes — a context linked via cell:graph rather than cell:sc-context is a plain context:Context, not a context:SCcontext, and so does not carry these annotations."@en .
 
 context:SBScontext rdf:type owl:Class ;
-    rdfs:subClassOf context:XBXcontext ;
+    rdfs:subClassOf context:SCcontext ;
     rdfs:label "SBScontext"@en ;
     rdfs:comment "Self-by-Self: a DataBook whose subject is :Self and whose claimant is :Self."@en .
 
 context:OBScontext rdf:type owl:Class ;
-    rdfs:subClassOf context:XBXcontext ;
+    rdfs:subClassOf context:SCcontext ;
     rdfs:label "OBScontext"@en ;
     rdfs:comment "Other-by-Self: a DataBook whose subject is another person/org/group and whose claimant is :Self."@en .
 
 context:OBOcontext rdf:type owl:Class ;
-    rdfs:subClassOf context:XBXcontext ;
+    rdfs:subClassOf context:SCcontext ;
     rdfs:label "OBOcontext"@en ;
     rdfs:comment "Other-by-Other: a DataBook whose subject is another person/org/group and whose claimant is also another person/org/group."@en .
 
 context:SBOcontext rdf:type owl:Class ;
-    rdfs:subClassOf context:XBXcontext ;
+    rdfs:subClassOf context:SCcontext ;
     rdfs:label "SBOcontext"@en ;
     rdfs:comment "Self-by-Other: a DataBook whose subject is :Self and whose claimant is another person/org/group."@en .
 

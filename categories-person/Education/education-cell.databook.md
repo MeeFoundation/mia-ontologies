@@ -5,7 +5,7 @@ type: cell-databook
 version: 1.0.1
 created: 2026-07-11
 description: >
-  Cell DataBook of category "Education" (mia.catType: Education). Content may include sbs/obs/sbo/obo/folder/note links, and may contain a named graph.
+  Cell DataBook of category "Education" (mia.catType: Education). Content may include sc-context/folder/note links, and may contain a named graph.
 mia:
   num-parties: "OneParty"
 ---

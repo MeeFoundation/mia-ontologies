@@ -5,9 +5,10 @@
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
 @prefix owl: <http://www.w3.org/2002/07/owl#> .
 @prefix cell: <http://mee.foundation/ontologies/cell#> .
+@prefix context: <http://mee.foundation/ontologies/context#> .
 
 <http://www.example.org/cell-shapes> rdf:type owl:Ontology ;
-    owl:versionInfo "Version 3.3.0 - removed the cell:catNode constraint from :CellShape: the property was removed from cell.ttl 3.3.0 in favor of cat:cell (category.ttl 1.6.0), asserted on the node instead. A cell is no longer required to carry any link to its tree position at all — see category-shacl.ttl's new :NodeShape constraint on cat:cell instead. (v3.2.0 - cell:catNode is now required (exactly one value) on :CellShape, not just optional, since cat:forCell was removed from category.ttl 1.2.0 — every cell, canonical or copy, now depends on its own cell:catNode to be reachable from its tree position at all. (v3.1.0 - added cell:catNode (at most one value, must be a cat:Node) to :CellShape, matching cell.ttl 3.1.0. v3.0.0 - split alongside cell.ttl 3.0.0: :CellShape now targets the renamed cell:Cell (formerly cell:Parties) and absorbs the graph/note/folder constraints (domain moved here from the old cell:Cell, now cat:Category — see category-shacl.ttl); cellType/child/copiedFrom constraints moved out to category-shacl.ttl. cell:label re-added (distinct from cat:label) as a class-level default display name on concrete cell:Cell subtypes.))"@en ;
+    owl:versionInfo "Version 3.4.0 - removed the cell:sbs constraint from :CellShape and added cell:sc-context (values must be a context:SCcontext), matching cell.ttl 3.4.0's replacement of cell:sbs/obs/sbo/obo with the single multi-valued cell:sc-context. Removed :OnePartyShape, :TwoPartyShape, and :ThreePlusPartyShape entirely: they existed solely to constrain obs/sbo/obo cardinality by party count, and cell:sc-context (domain the broader cell:Cell, unconstrained cardinality) carries no such per-party-count distinction. (Version 3.3.0 - removed the cell:catNode constraint from :CellShape: the property was removed from cell.ttl 3.3.0 in favor of cat:cell (category.ttl 1.6.0), asserted on the node instead. A cell is no longer required to carry any link to its tree position at all — see category-shacl.ttl's new :NodeShape constraint on cat:cell instead. (v3.2.0 - cell:catNode is now required (exactly one value) on :CellShape, not just optional, since cat:forCell was removed from category.ttl 1.2.0 — every cell, canonical or copy, now depends on its own cell:catNode to be reachable from its tree position at all. (v3.1.0 - added cell:catNode (at most one value, must be a cat:Node) to :CellShape, matching cell.ttl 3.1.0. v3.0.0 - split alongside cell.ttl 3.0.0: :CellShape now targets the renamed cell:Cell (formerly cell:Parties) and absorbs the graph/note/folder constraints (domain moved here from the old cell:Cell, now cat:Category — see category-shacl.ttl); cellType/child/copiedFrom constraints moved out to category-shacl.ttl. cell:label re-added (distinct from cat:label) as a class-level default display name on concrete cell:Cell subtypes.)))"@en ;
     rdfs:label "Cell Ontology SHACL Validation Shapes"@en ;
     rdfs:comment "SHACL validation shapes for cell:Cell DataBook instances (the content facet of a cell) in the Cell Ontology."@en .
 
@@ -15,15 +16,10 @@
 #################################################################
 #  Cell
 #  cell:Cell (formerly cell:Parties) classifies every cell instance
-#  by total party count. num-parties/sbs/graph/note/folder all have
-#  domain cell:Cell; obs/sbo/obo have domain cell:MultiParty (the
-#  abstract superclass of TwoParty and ThreePlusParty), but their
-#  cardinality differs by concrete subtype: a OneParty cell has no
-#  other party at all, so obs/sbo/obo are forbidden; a TwoParty cell
-#  has exactly one other party, so they're each capped at 1; a
-#  ThreePlusParty cell can have any number of other parties, so
-#  they're unconstrained (0..N) there. Four shapes target the four
-#  classes accordingly.
+#  by total party count. num-parties/sc-context/graph/note/folder
+#  all have domain cell:Cell — cell:sc-context carries no per-party-
+#  count cardinality distinction, unlike the sbs/obs/sbo/obo
+#  properties it replaced.
 #################################################################
 
 :CellShape
@@ -38,11 +34,11 @@
         sh:message "A cell may link to at most one plain Context via cell:graph."@en
     ] ;
 
-    # cell:sbs — at most one SBS context link per cell
+    # cell:sc-context — zero or more, each a context:SCcontext
     sh:property [
-        sh:path cell:sbs ;
-        sh:maxCount 1 ;
-        sh:message "A cell may link to at most one SBScontext via cell:sbs."@en
+        sh:path cell:sc-context ;
+        sh:class context:SCcontext ;
+        sh:message "A cell's cell:sc-context values, if any, must each be a context:SCcontext."@en
     ] ;
 
     # cell:num-parties — at most one value, and if present must be
@@ -68,63 +64,3 @@
         sh:maxCount 1 ;
         sh:message "A cell may have at most one cell:folder value."@en
     ] .
-
-:OnePartyShape
-    a sh:NodeShape ;
-    sh:targetClass cell:OneParty ;
-    sh:message "Cell OneParty validation."@en ;
-
-    # cell:obs — forbidden: a OneParty cell has no other party to record
-    sh:property [
-        sh:path cell:obs ;
-        sh:maxCount 0 ;
-        sh:message "A OneParty cell must not have a cell:obs value — it has no other party."@en
-    ] ;
-
-    # cell:sbo — forbidden
-    sh:property [
-        sh:path cell:sbo ;
-        sh:maxCount 0 ;
-        sh:message "A OneParty cell must not have a cell:sbo value — it has no other party."@en
-    ] ;
-
-    # cell:obo — forbidden
-    sh:property [
-        sh:path cell:obo ;
-        sh:maxCount 0 ;
-        sh:message "A OneParty cell must not have a cell:obo value — it has no other party."@en
-    ] .
-
-:TwoPartyShape
-    a sh:NodeShape ;
-    sh:targetClass cell:TwoParty ;
-    sh:message "Cell TwoParty validation."@en ;
-
-    # cell:obs — at most one OBS context link (a 1:1 cell has only one other party)
-    sh:property [
-        sh:path cell:obs ;
-        sh:maxCount 1 ;
-        sh:message "A TwoParty cell may link to at most one OBScontext via cell:obs."@en
-    ] ;
-
-    # cell:sbo — at most one SBO context link
-    sh:property [
-        sh:path cell:sbo ;
-        sh:maxCount 1 ;
-        sh:message "A TwoParty cell may link to at most one SBOcontext via cell:sbo."@en
-    ] ;
-
-    # cell:obo — at most one OBO context link
-    sh:property [
-        sh:path cell:obo ;
-        sh:maxCount 1 ;
-        sh:message "A TwoParty cell may link to at most one OBOcontext via cell:obo."@en
-    ] .
-
-:ThreePlusPartyShape
-    a sh:NodeShape ;
-    sh:targetClass cell:ThreePlusParty ;
-    sh:message "Cell ThreePlusParty validation."@en .
-
-    # cell:obs, cell:sbo, cell:obo — 0..N (no maxCount constraint):
-    # a group cell may have any number of other-party contexts.

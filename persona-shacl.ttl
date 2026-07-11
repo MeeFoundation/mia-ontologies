@@ -13,7 +13,7 @@
 @prefix o: <http://mee.foundation/ontologies/organization#> .
 
 <http://www.example.org/shapes> rdf:type owl:Ontology ;
-    owl:versionInfo "Version 4.0.5 - added :XBXcontextShape, validating that context:subject and context:claimant (domain context:XBXcontext, see context.ttl 1.6.0) each have exactly one value, and that value must be a persona:Person, g:Group, or o:Organization"@en ;
+    owl:versionInfo "Version 4.0.6 - renamed :XBXcontextShape to :SCcontextShape, retargeted at context:SCcontext, matching context.ttl 1.7.0's rename of context:XBXcontext. (Version 4.0.5 - added :XBXcontextShape, validating that context:subject and context:claimant (domain context:XBXcontext, see context.ttl 1.6.0) each have exactly one value, and that value must be a persona:Person, g:Group, or o:Organization)"@en ;
     rdfs:label "Mee Identity Agent (MIA)'s SHACL Validation Shapes"@en ;
     rdfs:comment """SHACL validation shapes for the Mee Identity Agent.
 
@@ -485,15 +485,15 @@
     ] .
 
 #################################################################
-#  Context DataBook (context:XBXcontext)
+#  Context DataBook (context:SCcontext)
 #  Validates the subject/claimant classification fields shared by
 #  context:SBScontext/OBScontext/OBOcontext/SBOcontext (see context.ttl).
 #################################################################
 
-:XBXcontextShape
+:SCcontextShape
     a sh:NodeShape ;
-    sh:targetClass context:XBXcontext ;
-    sh:message "XBXcontext validation: subject and claimant must each be exactly one Person, Group, or Organization."@en ;
+    sh:targetClass context:SCcontext ;
+    sh:message "SCcontext validation: subject and claimant must each be exactly one Person, Group, or Organization."@en ;
     sh:property [
         sh:path context:subject ;
         sh:minCount 1 ;
