@@ -20,16 +20,15 @@ An additional ontology provides PDN identifiers for persons, organizations and g
 
 Throughout, we use these shorthands:
 
-- `c:` for the `context:` namespace (`http://mee.foundation/ontologies/context#`)
-- `cell:` for the `cell:` namespace (`http://mee.foundation/ontologies/cell#`)
 - `cat:` for the `category:` namespace (`http://mee.foundation/ontologies/category#`)
+- `cell:` for the `cell:` namespace (`http://mee.foundation/ontologies/cell#`)
+- `c:` for the `context:` namespace (`http://mee.foundation/ontologies/context#`)
 - `p:` for the `persona:` namespace (`http://mee.foundation/ontologies/persona#`)
 - `o:` for the `organization:` namespace (`http://mee.foundation/ontologies/organization#`).
 - `g:` for the `group:` namespace (`http://mee.foundation/ontologies/group#`)
 - `i:` for the `identity:` namespace (`http://mee.foundation/ontologies/pdn-identity#`)
 - `ako` for `rdfs:subClassOf` ("a kind of")
 - `isa` for 'rdf:type` ("is a")
-
 
 We first present an overview of the ontologies and then illustrate their use through a sample dataset for a hypothetical user, Alice Walker.
 
