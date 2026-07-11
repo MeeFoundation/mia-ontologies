@@ -8,10 +8,10 @@
 @base <http://mee.foundation/ontologies/category> .
 
 <http://mee.foundation/ontologies/category> rdf:type owl:Ontology ;
-    owl:versionIRI <http://mee.foundation/ontologies/category/1.0.0> ;
+    owl:versionIRI <http://mee.foundation/ontologies/category/1.0.1> ;
     dc:date "2026-07-10"^^xsd:date ;
     owl:imports <http://mee.foundation/ontologies/cell> ;
-    owl:versionInfo "Version 1.0.0 - new ontology, split out of cell.ttl 3.0.0. Carries the tree-position class formerly named cell:Cell (renamed cat:Category, with its ~90 subclasses), plus cell:child/cell:label/cell:cellType/cell:copiedFrom (renamed cat:child/cat:label/cat:catType/cat:copiedFrom, domain changed to cat:Category), and a new cat:forCell property linking a Category to the cell:Cell instance holding its content. cat:Organizational marked cell:abstract, matching cat:Personal/cat:UserDefined. cat:cellType renamed cat:catType."@en ;
+    owl:versionInfo "Version 1.0.1 - clarified the rdfs:comment on cat:Category and cat:forCell: the split's purpose is to make cell:Cell content self-contained and independent of tree position, so a shared cell stays robust under PDN sync — each peer can reorganize their own category tree without ever touching the cell they share. (v1.0.0 - new ontology, split out of cell.ttl 3.0.0. Carries the tree-position class formerly named cell:Cell (renamed cat:Category, with its ~90 subclasses), plus cell:child/cell:label/cell:cellType/cell:copiedFrom (renamed cat:child/cat:label/cat:catType/cat:copiedFrom, domain changed to cat:Category), and a new cat:forCell property linking a Category to the cell:Cell instance holding its content. cat:Organizational marked cell:abstract, matching cat:Personal/cat:UserDefined. cat:cellType renamed cat:catType.)"@en ;
     rdfs:label "Category Ontology"@en ;
     rdfs:comment """Category Ontology for the Mee Identity Agent. Defines cat:Category — the tree-position facet of a cell: where it sits in a user's (or a canonical library's) navigational tree, its display label, and which cell:Cell (see cell.ttl) holds its content. Separating Category from Cell lets the same cell content be placed by more than one independently-organized tree — e.g. Alice and Bob each filing a cell they share wherever they individually want it."""@en .
 
@@ -50,9 +50,15 @@ cat:Category rdf:type owl:Class ;
                     cat:forCell to the cell:Cell instance (see cell.ttl) that holds its
                     actual content — party composition and any sbs/obs/sbo/obo/graph
                     links to context DataBooks. cat:Category carries no content of its
-                    own: cell:Cell is a self-contained record, and the same cell:Cell may
-                    in principle be the target of more than one cat:Category — e.g. two
-                    different positions in one user's own tree, or (architecturally,
+                    own, and cell:Cell carries no tree position of its own: this makes a
+                    cell's content self-contained and independent of where any given
+                    peer files it, so a shared cell stays robust under PDN sync — Alice
+                    and Bob can each freely reorganize their own category tree without
+                    ever touching the cell they share, since tree placement (cat:child,
+                    renaming, renesting) lives entirely on each peer's own cat:Category,
+                    never on the cell itself. A side effect is that the same cell:Cell
+                    may in principle be the target of more than one cat:Category — e.g.
+                    two different positions in one user's own tree, or (architecturally,
                     though every Mia instance in this example repo organizes only its
                     own tree) positions in two different users' independently-held
                     trees that both reference a cell they share."""@en .
@@ -67,7 +73,7 @@ cat:forCell rdf:type owl:ObjectProperty ;
     rdfs:domain cat:Category ;
     rdfs:range cell:Cell ;
     rdfs:label "forCell"@en ;
-    rdfs:comment "Links a category (tree position) to the cell:Cell instance holding its content — party composition (cell:num-parties) and any sbs/obs/sbo/obo/graph/note/folder facts. Every cat:Category has exactly one cat:forCell. In the common case each category is minted alongside its own paired cell, with a matching '-cell'-suffixed IRI; the split exists so the same cell:Cell can, in principle, be referenced from more than one cat:Category."@en .
+    rdfs:comment "Links a category (tree position) to the cell:Cell instance holding its content — party composition (cell:num-parties) and any sbs/obs/sbo/obo/graph/note/folder facts. Every cat:Category has exactly one cat:forCell. In the common case each category is minted alongside its own paired cell, with a matching '-cell'-suffixed IRI. Keeping this link on the category rather than folding tree position into the cell is what makes the cell self-contained and portable — a peer can attach it anywhere in their own tree, or move it later, by only ever touching their own cat:Category's cat:forCell, never the cell; a side effect is that the same cell:Cell can, in principle, be referenced from more than one cat:Category."@en .
 
 
 #################################################################

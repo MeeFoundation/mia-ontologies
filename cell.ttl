@@ -8,10 +8,10 @@
 @base <http://mee.foundation/ontologies/cell> .
 
 <http://mee.foundation/ontologies/cell> rdf:type owl:Ontology ;
-    owl:versionIRI <http://mee.foundation/ontologies/cell/3.0.0> ;
+    owl:versionIRI <http://mee.foundation/ontologies/cell/3.0.1> ;
     dc:date "2026-07-10"^^xsd:date ;
     owl:imports <http://mee.foundation/ontologies/context> ;
-    owl:versionInfo "Version 3.0.0 - split the former cell:Cell (the tree-position/hierarchy class and its ~90 subclasses, plus cell:child/cell:cellType/cell:copiedFrom) out into a new peer ontology, category.ttl, as cat:Category. The former cell:Parties is renamed cell:Cell: it is now the self-contained content facet of a cell (party composition plus sbs/obs/sbo/obo/graph/note/folder), linked from a cat:Category via the new cat:forCell property. This lets the same cell:Cell content be referenced by more than one cat:Category tree position. cell:label is re-added here (distinct from category.ttl's cat:label) as the default display name of a concrete cell:Cell subtype (e.g. \"Two-Party Cell\"), independent of any paired category's own cat:label."@en ;
+    owl:versionInfo "Version 3.0.1 - clarified the rdfs:comment on cell:Cell: the split's purpose is to make cell content self-contained and independent of tree position, for PDN sync robustness — a peer can reorganize their own category tree without ever touching a cell they share. (v3.0.0 - split the former cell:Cell (the tree-position/hierarchy class and its ~90 subclasses, plus cell:child/cell:cellType/cell:copiedFrom) out into a new peer ontology, category.ttl, as cat:Category. The former cell:Parties is renamed cell:Cell: it is now the self-contained content facet of a cell (party composition plus sbs/obs/sbo/obo/graph/note/folder), linked from a cat:Category via the new cat:forCell property. cell:label is re-added here (distinct from category.ttl's cat:label) as the default display name of a concrete cell:Cell subtype (e.g. \"Two-Party Cell\"), independent of any paired category's own cat:label.)"@en ;
     rdfs:label "Cell Ontology"@en ;
     rdfs:comment """Cell Ontology for the Mee Identity Agent. Defines cell:Cell — the self-contained content facet of a cell (its party composition and its links to context data) — independent of where any cat:Category (see category.ttl) chooses to place it in a navigational tree."""@en .
 
@@ -59,7 +59,7 @@ cell:label rdf:type owl:AnnotationProperty ;
 cell:Cell rdf:type owl:Class ;
     cell:abstract true ;
     rdfs:label "Cell"@en ;
-    rdfs:comment "Superclass classifying every cell instance by total party count: cell:OneParty (the user alone) or cell:MultiParty (the user plus one or more others, further split into cell:TwoParty and cell:ThreePlusParty). cell:num-parties records the same classification as a plain string for convenience. Formerly named cell:Parties, before cell.ttl's 3.0.0 split from category.ttl absorbed the old cell:Cell name for the tree-position class (now cat:Category)."@en .
+    rdfs:comment "Superclass classifying every cell instance by total party count: cell:OneParty (the user alone) or cell:MultiParty (the user plus one or more others, further split into cell:TwoParty and cell:ThreePlusParty). cell:num-parties records the same classification as a plain string for convenience. Formerly named cell:Parties, before cell.ttl's 3.0.0 split from category.ttl absorbed the old cell:Cell name for the tree-position class (now cat:Category). A cell:Cell carries no tree position of its own — it is a self-contained content record (party composition plus sbs/obs/sbo/obo/graph/note/folder), placed in a tree only via a separate cat:Category's cat:forCell link. This keeps a cell robust under PDN sync: a peer can move, rename, or renest the category pointing at a shared cell without ever touching the cell itself."@en .
 
 cell:MultiParty rdf:type owl:Class ;
     cell:abstract true ;
