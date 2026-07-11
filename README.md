@@ -48,9 +48,9 @@ One property applies to every `c:Context`:
 
 A context carries no field pointing back at the cell that references it — that link is asserted only on the cell side, via `cell:sc-context` or `cell:graph` (see the Cell Ontology section below).
 
-Three more properties apply only to contexts classified into one of the four self-vs-other subtypes (`c:SCcontext` and below) — a context linked via `cell:graph` rather than `cell:sc-context` is a plain `c:Context` and does not carry these:
+Three more properties apply only to contexts classified as `c:SCcontext` — a context linked via `cell:graph` rather than `cell:sc-context` is a plain `c:Context` and does not carry these:
 
-**`c:about-by`** — classifies a context DataBook by the combination of `subject` and `claimant`. One of `context:SBScontext` (subject=Self, claimant=Self), `context:OBScontext` (subject=Other, claimant=Self), `context:OBOcontext` (subject=Other, claimant=Other), or `context:SBOcontext` (subject=Self, claimant=Other).
+**`c:about-by`** — classifies a context DataBook by the combination of `subject` and `claimant`. Value is one of four conventional string labels, not a separate class (`c:SCcontext` has no subclasses): `"context:SBScontext"` (subject=Self, claimant=Self), `"context:OBScontext"` (subject=Other, claimant=Self), `"context:OBOcontext"` (subject=Other, claimant=Other), or `"context:SBOcontext"` (subject=Self, claimant=Other).
 
 **`c:subject`** — The identity the context file is about. Values are IRIs of `p:Person`, `g:Group`, or `o:Organization` individuals:
 - `:Self` — the context is about the Mia user.
@@ -83,7 +83,7 @@ The description of the context container itself is carried in the DataBook's YAM
 ### Context Ontology File
 
 **`context.ttl`** — the Context ontology, defines:
-  - *Classes*: `c:Context`, `c:SCcontext` (Subject-Claimant context; abstract intermediate superclass of the four classified subtypes below — carries the `c:about-by`/`c:subject`/`c:claimant` annotations, since a `cell:graph`-linked plain `c:Context` doesn't carry them), `c:SBScontext`, `c:OBScontext`, `c:OBOcontext`, `c:SBOcontext` (each a subclass of `c:SCcontext`).
+  - *Classes*: `c:Context`, `c:SCcontext` (Subject-Claimant context; the concrete class every self-vs-other classified context DataBook is typed as directly — it has no subclasses; carries the `c:about-by`/`c:subject`/`c:claimant` annotations, since a `cell:graph`-linked plain `c:Context` doesn't carry them).
   - *Annotation properties*: `c:template` (domain `c:Context`), `c:claimant`, `c:subject` (domain `c:SCcontext`; range a union of `p:Person`, `g:Group`, `o:Organization`), `c:about-by` (domain `c:SCcontext`).
   These terms are referenced by name in the YAML frontmatter of each DataBook file. `context.ttl` imports `cell.ttl` to reuse `cell:abstract` on `c:Context`/`c:SCcontext`.
 
@@ -175,7 +175,7 @@ Each cell DataBook may carry any number of links to context DataBook IRIs via `c
 
 | Property | Value | Cardinality | Applies to | Meaning |
 |----------|-------|-------------|------------|---------|
-| `cell:sc-context` | `c:SCcontext` (any of the four subtypes: `c:SBScontext`, `c:OBScontext`, `c:OBOcontext`, `c:SBOcontext`) | 0..N | Any `cell:Cell` | Any number of self-vs-other classified contexts — the user's own context in this cell, the user's record of the other party, a context the other party presents, or a context the other party holds about the user, distinguished by each linked context's own `about-by` classification rather than by separate properties |
+| `cell:sc-context` | `c:SCcontext` | 0..N | Any `cell:Cell` | Any number of self-vs-other classified contexts — the user's own context in this cell, the user's record of the other party, a context the other party presents, or a context the other party holds about the user, distinguished by each linked context's own `about-by` value rather than by separate properties or classes |
 | `cell:graph` | `c:Context` | 0..1 | Any `cell:Cell` | A context that doesn't fit the self-vs-other classification — e.g. claims jointly maintained by multiple parties about a third party, or, on a `OneParty` cell, a context that simply doesn't need self-vs-other framing |
 
 `cell:sc-context`'s domain is the broader `cell:Cell` rather than `cell:MultiParty`, unlike the four properties it replaced (`cell:sbs`/`cell:obs`/`cell:sbo`/`cell:obo`) — a `OneParty` cell can hold a self-by-self context the same way a `TwoParty` or `ThreePlusParty` cell can hold any of the four subtypes, all through this one property, with no cardinality distinction by party count. `cell:graph`'s domain has always been the broader `cell:Cell` for the same reason: it's also useful on a `OneParty` cell for a context that doesn't need self-vs-other classification at all.

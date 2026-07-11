@@ -13,7 +13,7 @@
 @prefix o: <http://mee.foundation/ontologies/organization#> .
 
 <http://www.example.org/shapes> rdf:type owl:Ontology ;
-    owl:versionInfo "Version 4.0.6 - renamed :XBXcontextShape to :SCcontextShape, retargeted at context:SCcontext, matching context.ttl 1.7.0's rename of context:XBXcontext. (Version 4.0.5 - added :XBXcontextShape, validating that context:subject and context:claimant (domain context:XBXcontext, see context.ttl 1.6.0) each have exactly one value, and that value must be a persona:Person, g:Group, or o:Organization)"@en ;
+    owl:versionInfo "Version 4.0.7 - updated :SCcontextShape's comment: context.ttl 1.8.0 deleted context:SBScontext/OBScontext/OBOcontext/SBOcontext, so sh:targetClass context:SCcontext now matches every self-vs-other classified context directly rather than via subclass entailment. No shape logic changed. (Version 4.0.6 - renamed :XBXcontextShape to :SCcontextShape, retargeted at context:SCcontext, matching context.ttl 1.7.0's rename of context:XBXcontext. (Version 4.0.5 - added :XBXcontextShape, validating that context:subject and context:claimant (domain context:XBXcontext, see context.ttl 1.6.0) each have exactly one value, and that value must be a persona:Person, g:Group, or o:Organization))"@en ;
     rdfs:label "Mee Identity Agent (MIA)'s SHACL Validation Shapes"@en ;
     rdfs:comment """SHACL validation shapes for the Mee Identity Agent.
 
@@ -486,8 +486,11 @@
 
 #################################################################
 #  Context DataBook (context:SCcontext)
-#  Validates the subject/claimant classification fields shared by
-#  context:SBScontext/OBScontext/OBOcontext/SBOcontext (see context.ttl).
+#  Validates the subject/claimant classification fields on every
+#  self-vs-other classified context DataBook — context:SCcontext has
+#  no subclasses (see context.ttl); the four self-by-self/other-by-
+#  self/other-by-other/self-by-other cases are distinguished by
+#  about-by's value, not by separate rdf:types.
 #################################################################
 
 :SCcontextShape
