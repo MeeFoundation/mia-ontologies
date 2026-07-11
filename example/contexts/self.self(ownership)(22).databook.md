@@ -2,14 +2,13 @@
 id: https://www.example.org/mia/contexts/self.self(ownership)(22)
 title: "About Alice Walker in the Ownership cell as claimed by Alice Walker"
 type: context-databook
-version: 2.0.4
+version: 2.0.5
 created: 2026-06-01
 description: >
   Alice Walker's possessions context. Records the physical cards she carries day-to-day:
   a wallet containing her driver's license and payment card, plus a health insurance card
   and Social Security card held separately.
 mia:
-  cell: "http://www.example.org/mia/categories/ownership-cell"
   claimant: ":Self"
   subject: ":Self"
   about-by: "context:SBScontext"

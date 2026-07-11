@@ -2,7 +2,7 @@
 id: https://www.example.org/mia/contexts/context(alice-carol-about-mom)(health)(26)
 title: "Medical appointment claims for Paula Walker, shared between Alice and Carol"
 type: context-databook
-version: 1.0.5
+version: 1.0.6
 created: 2026-07-08
 description: >
   Alice's shared record of the claims needed to arrange a medical appointment
@@ -11,7 +11,6 @@ description: >
   jointly maintained by Alice and Carol about a third party (Paula) and does
   not fit the self-vs-other classification those properties assume.
 mia:
-  cell: "http://www.example.org/mia/categories/alice-carol-about-mom(health)-cell"
   template: "persona:MedicalAppointment"
 graph:
   named_graph: https://www.example.org/mia/contexts/context(alice-carol-about-mom)(health)(26)#graph

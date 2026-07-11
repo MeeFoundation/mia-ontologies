@@ -2,13 +2,12 @@
 id: https://www.example.org/mia/contexts/self.self(social-security-administration)(federal)(23)
 title: "About Alice Walker in the Federal cell as claimed by Alice Walker"
 type: context-databook
-version: 2.0.5
+version: 2.0.6
 created: 2026-06-01
 description: >
   Alice Walker's SSA context. Records her Social Security Number as self-entered data.
   The SSA is not a PDN node, so Alice self-enters this from her physical SSA card.
 mia:
-  cell: "http://www.example.org/mia/categories/social-security-administration(federal)-cell"
   claimant: ":Self"
   subject: ":Self"
   about-by: "context:SBScontext"

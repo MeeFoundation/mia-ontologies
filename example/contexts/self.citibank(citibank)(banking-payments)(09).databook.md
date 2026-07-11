@@ -2,13 +2,12 @@
 id: https://www.example.org/mia/contexts/self.citibank(citibank)(banking-payments)(09)
 title: "About Alice Walker in the BankingPayments cell as claimed by Citibank"
 type: context-databook
-version: 2.0.7
+version: 2.0.8
 created: 2026-06-15
 description: >
   Alice Walker's Citibank context. Records her VISA debit card, checking account,
   and online banking credentials. Claimed by Citibank (a PDN Organization node).
 mia:
-  cell: "http://www.example.org/mia/categories/citibank(banking-payments)-cell"
   claimant: ":Citibank"
   subject: ":Self"
   about-by: "context:SBOcontext"

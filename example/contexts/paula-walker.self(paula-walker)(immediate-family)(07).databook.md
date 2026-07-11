@@ -2,12 +2,11 @@
 id: https://www.example.org/mia/contexts/paula-walker.self(paula-walker)(immediate-family)(07)
 title: "About Paula Walker in the ImmediateFamily cell as claimed by Alice Walker"
 type: context-databook
-version: 2.0.7
+version: 2.0.8
 created: 2026-06-14
 description: >
   Alice's record of her family member Paula Walker, including Paula's given and family name.
 mia:
-  cell: "http://www.example.org/mia/categories/paula-walker(immediate-family)-cell"
   claimant: ":Self"
   subject: ":Paula_Walker"
   about-by: "context:OBScontext"

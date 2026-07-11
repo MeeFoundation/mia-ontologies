@@ -9,11 +9,11 @@
 @base <http://mee.foundation/ontologies/context> .
 
 <http://mee.foundation/ontologies/context> rdf:type owl:Ontology ;
-    owl:versionIRI <http://mee.foundation/ontologies/context/1.0.1> ;
-    dc:date "2026-06-01"^^xsd:date ;
+    owl:versionIRI <http://mee.foundation/ontologies/context/1.5.0> ;
+    dc:date "2026-07-11"^^xsd:date ;
     owl:imports <http://mee.foundation/ontologies/pdn-identity> ;
     owl:imports <http://mee.foundation/ontologies/cell> ;
-    owl:versionInfo "Version 1.4.0 - context:cell's range changed from cell:Cell (the tree-position class, now renamed cat:Category and split out into category.ttl) to the new cell:Cell (formerly cell:Parties) — the content-holding class that actually asserts sbs/obs/sbo/obo/graph"@en ;
+    owl:versionInfo "Version 1.5.0 - removed context:cell: it duplicated, in the reverse direction, the link already carried by cell:sbs/obs/sbo/obo/graph (Cell -> Context) — the same redundancy shape as the now-resolved cat:forCell/cell:catNode case, where the forward-pointing property was deleted in favor of a single direction of record. A context DataBook's containing cell is now found only by reverse lookup (which cell:Cell asserts sbs/obs/sbo/obo/graph to this context), never by a field on the context itself. context.ttl still imports cell.ttl, now solely to reuse cell:abstract on context:Context/context:XBXcontext. (Version 1.4.0 - context:cell's range changed from cell:Cell (the tree-position class, now renamed cat:Category and split out into category.ttl) to the new cell:Cell (formerly cell:Parties) — the content-holding class that actually asserts sbs/obs/sbo/obo/graph)"@en ;
     rdfs:label "Context Ontology"@en ;
     rdfs:comment """Context Ontology for the Mee Identity Agent"""@en .
 
@@ -21,19 +21,6 @@
 #################################################################
 #    Annotation Properties for Context DataBook Classification
 #################################################################
-
-context:cell rdf:type owl:AnnotationProperty ;
-    rdfs:label "cell"@en ;
-    rdfs:comment """Annotates a DataBook named graph with its containing cell:Cell —
-                    the content-holding instance (an instance of cell:OneParty,
-                    cell:TwoParty, or cell:ThreePlusParty) that actually asserts the
-                    sbs/obs/sbo/obo/graph link to this context. This is distinct from
-                    the cat:Category (see category.ttl) that places that cell:Cell in a
-                    navigational tree via cat:forCell — a Category's tree position is
-                    not itself relevant to a context DataBook's containment.
-                    Applied to the named graph IRI, not to the Person individual."""@en ;
-    rdfs:domain context:Context ;
-    rdfs:range cell:Cell .
 
 context:claimant rdf:type owl:AnnotationProperty ;
     rdfs:label "claimed by"@en ;

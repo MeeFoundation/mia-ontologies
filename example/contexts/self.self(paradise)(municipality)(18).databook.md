@@ -2,13 +2,12 @@
 id: https://www.example.org/mia/contexts/self.self(paradise)(municipality)(18)
 title: "About Alice Walker in the Municipality cell as claimed by Alice Walker"
 type: context-databook
-version: 2.0.5
+version: 2.0.6
 created: 2026-06-01
 description: >
   Alice Walker's current residential address in Paradise, CA (September 2025 to present).
   Self-claimed by Alice; open-ended temporal interval indicates this is her current address.
 mia:
-  cell: "http://www.example.org/mia/categories/paradise(municipality)-cell"
   claimant: ":Self"
   subject: ":Self"
   about-by: "context:SBScontext"

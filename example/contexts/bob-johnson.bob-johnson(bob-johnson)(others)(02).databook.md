@@ -2,13 +2,12 @@
 id: https://www.example.org/mia/contexts/bob-johnson.bob-johnson(bob-johnson)(others)(02)
 title: "About Bob Johnson in the Others cell as claimed by Bob Johnson"
 type: context-databook
-version: 2.0.6
+version: 2.0.7
 created: 2026-06-15
 description: >
   Bob Johnson's self-claimed Bob-context persona, received from Bob's Mia via PDN.
   Records Bob's name and his social network connection to Alice.
 mia:
-  cell: "http://www.example.org/mia/categories/bob-johnson(others)-cell"
   claimant: ":Bob_Johnson"
   subject: ":Bob_Johnson"
   about-by: "context:OBOcontext"

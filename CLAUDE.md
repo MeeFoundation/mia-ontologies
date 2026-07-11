@@ -18,7 +18,7 @@ There are no build, compile, test, or lint commands. The files are Turtle (`.ttl
 | File | Purpose |
 |------|---------|
 | `persona.ttl` | Persona ontology — imports domain ontologies, annotates which classes/properties are required vs. optional for Mee, defines Mia-specific classes and properties |
-| `context.ttl` | Context ontology — controlled vocabularies for classifying context files (`cell`, `claimant`, `subject`, `about-by`) and the `Context` class hierarchy. Mutually imports `cell.ttl` |
+| `context.ttl` | Context ontology — controlled vocabularies for classifying context files (`claimant`, `subject`, `about-by`) and the `Context` class hierarchy. Mutually imports `cell.ttl` |
 | `cell.ttl` | Cell ontology — `cell:Cell` (formerly `cell:Parties`), the content facet of a cell: the `Cell`/`MultiParty`(abstract)/`OneParty`/`TwoParty`/`ThreePlusParty` party-count hierarchy, and the properties that classify/link a cell's content (`num-parties`, `sbs`/`obs`/`sbo`/`obo`, `graph`, `note`, `folder`, `catNode` — the sole link to a cell's `cat:Node`, whichever of the three kinds, since `category.ttl` has no forward-pointing equivalent). Mutually imports `context.ttl` and `category.ttl` |
 | `category.ttl` | Category ontology — `cat:Category` (abstract, classificatory facet: the `Personal`/`Organizational` hierarchy and all leaf categories, plus `catType`) and `cat:Node` (abstract, tree-position facet, split into `cat:Canonical` — `category` —, `cat:Copy` — `copiedFrom` —, and `cat:UserDefined`; `cat:label`'s domain is the union of `cat:Copy`/`cat:UserDefined`; none carries a link to a cell); `child` domain/range `cat:Node`. Imports `cell.ttl` |
 | `cell-shacl.ttl` | SHACL validation shapes for `cell:Cell` DataBook instances — `num-parties`/`sbs`/`graph`/`note`/`folder` cardinality, `catNode` required exactly once, and `obs`/`sbo`/`obo` cardinality (forbidden on `OneParty` cells, capped at 1 on `TwoParty` cells, unconstrained on `ThreePlusParty` cells) |
@@ -105,7 +105,7 @@ Context filenames follow a single flat pattern:
 |---------|---------|
 | `<subject>` | The entity the Persona is about. Use `self` when the subject is the Mia user's own `p:Person` (`:Self`); otherwise use the full hyphenated lowercase name (e.g. `paula-walker`, `bob-johnson`, `bhs-group`). |
 | `<claimant>` | Who claimed the data. Use `self` when the claimant is `:Self`; use the full hyphenated lowercase name for other claimants (e.g. `bob-johnson`, `citibank`); use the literal `members` for `cell:ThreePlusParty` contexts where any permitted member may write. |
-| `(<containing-cell>)` | The local-name portion of this context's `mia.cell` IRI, **minus its trailing `-cell` suffix** — i.e., the readable name of the `cat:Copy` category associated with the `cell:Cell` DataBook that directly holds the `sbs`, `obs`, `sbo`, or `obo` link to this context (the association is recorded as `mia.catNode` on the cell — the only place any category/cell association is recorded, for any `cat:Node` — `cat:Canonical`, `cat:Copy`, or `cat:UserDefined` alike). (`mia.cell` itself points at the `cell:Cell`, not the category, since that is the instance that actually asserts the link — see Key Architectural Patterns.) When the category's local name includes a `(parent)` qualifier (e.g. `bob-johnson(others)`), the filename uses two separate parenthetical segments before the number: `(bob-johnson)(others)`. Examples: `(bob-johnson)(others)`, `(boston-hub-society)(affiliations)`, `(paula-walker)(immediate-family)`, `(citibank)(banking-payments)`. For categories without a `(parent)` qualifier (e.g. `health`, `ownership`), a single segment suffices. |
+| `(<containing-cell>)` | A context DataBook carries no field pointing back at its cell — the containing cell is found by reverse lookup: the one `cell:Cell` DataBook whose `sbs`, `obs`, `sbo`, `obo`, or `graph` field references this context's `id`. This segment is that cell's filename, **minus its trailing `-cell` suffix** — i.e., the readable name of the `cat:Copy`/`cat:Canonical` category associated with that cell (the association is recorded as `mia.catNode` on the cell — the only place any category/cell association is recorded, for any `cat:Node` — `cat:Canonical`, `cat:Copy`, or `cat:UserDefined` alike). When the category's local name includes a `(parent)` qualifier (e.g. `bob-johnson(others)`), the filename uses two separate parenthetical segments before the number: `(bob-johnson)(others)`. Examples: `(bob-johnson)(others)`, `(boston-hub-society)(affiliations)`, `(paula-walker)(immediate-family)`, `(citibank)(banking-payments)`. For categories without a `(parent)` qualifier (e.g. `health`, `ownership`), a single segment suffices. |
 | `(<NN>)` | Zero-padded two-digit context number in parentheses, matching the diagram label. |
 
 **Exception — `cell:ThreePlusParty` contexts**: A group context (`num-parties: ThreePlusParty`) has no single claimant — any permitted member can write to it and changes replicate to all members. The `<claimant>` segment is the literal `members` rather than an individual name. Example: `bhs-group.members(boston-hub-society)(affiliations)(01).databook.md` — about BHS Group, containing cell "boston-hub-society(affiliations)", claimed by the group's members collectively.
@@ -135,7 +135,7 @@ Context filenames follow a single flat pattern:
 
 **`:Self` IRI convention**: The Mia user's own `persona:Person` individual always uses the IRI `:Self` across all of their context files. All other people, groups, and organizations are assigned locally-minted named IRIs (e.g. `:Bob_Johnson`, `:Paula_Walker`, `:BHS`). `:Self` is a local IRI and is never exposed externally over the PDN, so there are no collisions between Mia instances. All context files in the example live in Alice's Mia — some authored by Alice, others received from peers over PDN. In either case, `:Self` refers to Alice. When data arrives from a peer's Mia (where that peer was `:Self` in their own instance), Alice's Mia assigns them a locally-minted identifier; once a PDN connection is established, that identifier resolves to or is replaced by their PDN ID.
 
-**Cell/Category split**: What was originally one `.databook.md` file per cell is now a category-databook associated with one or more cell-databooks — a `category-databook` (tree position: `child`/`catType`, plus `category` if `cat:Canonical`, `copiedFrom` if `cat:Copy`, and `label` if `cat:Copy` or `cat:UserDefined`, keeping the original `id`/filename) and a `cell-databook` (content: `num-parties`/`sbs`/`obs`/`sbo`/`obo`/`graph`/`note`/`folder`/`catNode`, minted alongside it with a matching `-cell`-suffixed `id`/filename in the same folder). Neither kind of category node carries any link to a cell — `category.ttl` has no such property. Instead, every cell links to its own `cat:Node` (canonical, copy, or user-defined alike) via `mia.catNode`, required on every cell DataBook; this is the only place the association is recorded, in either direction. **The category/cell relationship is many-to-one, not 1:1** — more than one cell DataBook may share the same `catNode` value, each an independent piece of content filed at that one tree position; the example tree currently only shows one cell per category, but that's incidental, not a constraint (a second cell sharing a category would need its own distinguishing filename, e.g. `-cell-2`, alongside the conventional `-cell`). A context DataBook's `mia.cell` field points at the **cell** (the instance that actually asserts the `sbs`/`obs`/`sbo`/`obo`/`graph` link), not the category — but the context filename's `(<containing-cell>)` segment still names the **category** (the human-readable position), so it omits the `-cell` suffix present in `mia.cell`'s value. The split exists to make a cell's content self-contained (aside from the context files it references) and independent of tree position, for PDN sync robustness: when a cell is shared between peers (e.g. a `TwoParty` cell between Alice and Bob), each peer can independently rearrange their own category tree — moving, renaming, or renesting their category node however they like — without ever touching the shared cell's content or identity, since tree placement lives entirely on each peer's own category node and nothing on the category node ever points at the cell in the first place.
+**Cell/Category split**: What was originally one `.databook.md` file per cell is now a category-databook associated with one or more cell-databooks — a `category-databook` (tree position: `child`/`catType`, plus `category` if `cat:Canonical`, `copiedFrom` if `cat:Copy`, and `label` if `cat:Copy` or `cat:UserDefined`, keeping the original `id`/filename) and a `cell-databook` (content: `num-parties`/`sbs`/`obs`/`sbo`/`obo`/`graph`/`note`/`folder`/`catNode`, minted alongside it with a matching `-cell`-suffixed `id`/filename in the same folder). Neither kind of category node carries any link to a cell — `category.ttl` has no such property. Instead, every cell links to its own `cat:Node` (canonical, copy, or user-defined alike) via `mia.catNode`, required on every cell DataBook; this is the only place the association is recorded, in either direction. **The category/cell relationship is many-to-one, not 1:1** — more than one cell DataBook may share the same `catNode` value, each an independent piece of content filed at that one tree position; the example tree currently only shows one cell per category, but that's incidental, not a constraint (a second cell sharing a category would need its own distinguishing filename, e.g. `-cell-2`, alongside the conventional `-cell`). A context DataBook carries no field pointing back at its cell at all — the cell is the one that asserts the `sbs`/`obs`/`sbo`/`obo`/`graph` link, and the context filename's `(<containing-cell>)` segment names the **category** (the human-readable position) associated with that cell, found by reverse lookup rather than by any field on the context itself. The split exists to make a cell's content self-contained (aside from the context files it references) and independent of tree position, for PDN sync robustness: when a cell is shared between peers (e.g. a `TwoParty` cell between Alice and Bob), each peer can independently rearrange their own category tree — moving, renaming, or renesting their category node however they like — without ever touching the shared cell's content or identity, since tree placement lives entirely on each peer's own category node and nothing on the category node ever points at the cell in the first place.
 
 **DataBook IRI convention**: The document `id:` and `graph.named_graph:` always differ by the `#graph` fragment — `named_graph` is always `{id}#graph`. The `databook:id` on a block is a fragment identifier making that block independently addressable as `{id}#{block-id}`. Overview sections always begin with "This context captures...".
 
@@ -177,15 +177,16 @@ After any change to context files or cell DataBooks, verify the following.
 
 **Check 1 — Diagram ↔ files ↔ README coverage**: Every numbered context circle in any of the 11 cell diagrams (`example/images/`) must have (a) a corresponding `.databook.md` file in `example/contexts/` and (b) a row in one of the tables in the **Alice's Personas and Contexts** section of `README.md`. Conversely, every row in those tables must correspond to a numbered circle in a diagram and a file that actually exists. If a circle exists in a diagram but has no `.databook.md` file or README row, create them to match the diagram.
 
-**Check 2 — Filename convention**: Every context filename must follow `<subject>.<claimant>(<containing-cell>)(<NN>).databook.md`. `<subject>` must be `self` when the subject is `:Self`, or the full hyphenated lowercase name otherwise. `<claimant>` must be `self` when the claimant is `:Self`, or the full hyphenated lowercase name otherwise — except for `c:Group` contexts, where it must be the literal string `members`. `(<containing-cell>)` encodes the local name of the `mia.cell` IRI: when the cell DataBook local name includes a `(parent)` qualifier (e.g. `bob-johnson(others)`), it appears as two separate segments `(bob-johnson)(others)`; when there is no qualifier (e.g. `health`), a single segment suffices. `(<NN>)` is the zero-padded two-digit context number. Exception: a context linked via `cell:graph` rather than `sbs`/`obs`/`sbo`/`obo` drops the `<subject>.<claimant>` prefix and uses the literal `context` instead — `context(<containing-cell>)(<NN>).databook.md`. If a filename does not match one of these two patterns, rename it to conform.
+**Check 2 — Filename convention**: Every context filename must follow `<subject>.<claimant>(<containing-cell>)(<NN>).databook.md`. `<subject>` must be `self` when the subject is `:Self`, or the full hyphenated lowercase name otherwise. `<claimant>` must be `self` when the claimant is `:Self`, or the full hyphenated lowercase name otherwise — except for `c:Group` contexts, where it must be the literal string `members`. `(<containing-cell>)` encodes the local name of the one `cell:Cell` DataBook whose `sbs`/`obs`/`sbo`/`obo`/`graph` field references this context (found by reverse lookup — a context carries no field pointing back at its cell): when that cell's local name includes a `(parent)` qualifier (e.g. `bob-johnson(others)`), it appears as two separate segments `(bob-johnson)(others)`; when there is no qualifier (e.g. `health`), a single segment suffices. `(<NN>)` is the zero-padded two-digit context number. Exception: a context linked via `cell:graph` rather than `sbs`/`obs`/`sbo`/`obo` drops the `<subject>.<claimant>` prefix and uses the literal `context` instead — `context(<containing-cell>)(<NN>).databook.md`. If a filename does not match one of these two patterns, rename it to conform.
 
-**Check 3 — `mia.cell` ↔ filename consistency**: For every context DataBook in `example/contexts/` (excluding `under-development/`), the local-name portion of its `mia.cell` IRI, **minus a trailing `-cell` suffix**, must equal the `(<containing-cell>)` segment extracted from the filename. When the filename uses two separate parenthetical segments before the number (e.g. `(bob-johnson)(others)`), concatenate them as `bob-johnson(others)` to form the expected local name. Run:
+**Check 3 — containing-cell ↔ filename consistency**: For every context DataBook in `example/contexts/` (excluding `under-development/`), find the one cell DataBook (in `categories-person/`, `categories-org/`, or `example/categories/`) whose `sbs`/`obs`/`sbo`/`obo`/`graph` field references this context's `id` — a context carries no field pointing back at its cell, so this is always a reverse lookup, never a direct read. That cell's filename, **minus a trailing `-cell` suffix**, must equal the `(<containing-cell>)` segment extracted from the context's filename. When the filename uses two separate parenthetical segments before the number (e.g. `(bob-johnson)(others)`), concatenate them as `bob-johnson(others)` to form the expected local name. A context that resolves to zero or more than one referencing cell is also an error. Run:
 
 ```python
-import os, re
+import os, re, yaml
 
 ctx_dir = 'example/contexts'
-base_cell = 'http://www.example.org/mia/categories/'
+cell_dirs = ['categories-person', 'categories-org', 'example/categories']
+link_fields = ('sbs', 'obs', 'sbo', 'obo', 'graph')
 
 def fn_cell_local(fname):
     base = fname[:-len('.databook.md')]
@@ -197,31 +198,57 @@ def fn_cell_local(fname):
     segs = re.findall(r'\(([^)]+)\)', m.group(1))
     return segs[0] if len(segs) == 1 else f'{segs[0]}({segs[1]})'
 
+def frontmatter(path):
+    text = open(path).read()
+    m = re.match(r'^---\n(.*?)\n---', text, re.DOTALL)
+    return yaml.safe_load(m.group(1)) if m else None
+
+# context id -> list of cell filenames that reference it
+context_to_cells = {}
+for cell_dir in cell_dirs:
+    for dirpath, _, filenames in os.walk(cell_dir):
+        if 'under-development' in dirpath.split(os.sep):
+            continue
+        for fname in filenames:
+            if not fname.endswith('.databook.md'):
+                continue
+            fm = frontmatter(os.path.join(dirpath, fname))
+            if not fm or fm.get('type') != 'cell-databook':
+                continue
+            mia = fm.get('mia', {}) or {}
+            for field in link_fields:
+                val = mia.get(field)
+                if not val:
+                    continue
+                for ctx_id in (val if isinstance(val, list) else [val]):
+                    context_to_cells.setdefault(ctx_id, []).append(fname)
+
 errors = 0
 for fname in sorted(os.listdir(ctx_dir)):
     if not fname.endswith('.databook.md'):
         continue
     path = f'{ctx_dir}/{fname}'
-    text = open(path).read()
-    cell_m = re.search(r'^\s+cell:\s+"([^"]+)"', text, re.MULTILINE)
-    if not cell_m:
-        print(f'NO mia.cell: {fname}'); errors += 1; continue
-    cell_local = cell_m.group(1)
-    if cell_local.startswith(base_cell):
-        cell_local = cell_local[len(base_cell):]
+    fm = frontmatter(path)
+    ctx_id = fm.get('id')
+    cells = context_to_cells.get(ctx_id, [])
+    if len(cells) != 1:
+        print(f'{fname}: expected exactly 1 referencing cell, found {len(cells)}: {cells}')
+        errors += 1
+        continue
+    cell_local = cells[0][:-len('.databook.md')]
     if cell_local.endswith('-cell'):
         cell_local = cell_local[:-len('-cell')]
     expected = fn_cell_local(fname)
     if cell_local != expected:
         print(f'MISMATCH {fname}:')
         print(f'  filename implies: {expected!r}')
-        print(f'  mia.cell (category, -cell stripped): {cell_local!r}')
+        print(f'  referencing cell (–cell stripped): {cell_local!r}')
         errors += 1
 if not errors:
-    print('All mia.cell values match filenames.')
+    print('All contexts resolve to exactly one referencing cell, matching their filenames.')
 ```
 
-If mismatches appear, the filename `(<containing-cell>)` segments are authoritative — update the `mia.cell` IRI in the DataBook to match (or vice versa if the filename was misnamed).
+If mismatches appear, the filename `(<containing-cell>)` segments are authoritative — update the cell DataBook's `sbs`/`obs`/`sbo`/`obo`/`graph` value to reference the correct context (or rename the context file if it was misnamed).
 
 **Check 4 — No orphan Persons**: Every `persona:Person` individual other than `:Self` must be reachable via `BFO_0000115` (has member part) from a `g:Group` or from a Social Network individual linked to another `persona:Person` via `persona:hasSocialNetwork`. `:Self` is always the root and needs no incoming link. **Exception**: a `persona:Person` referenced only via a professional/service-designation property (e.g. `persona:hasPrimaryCarePhysician`) rather than social-network membership is exempt — it represents a service relationship (e.g. a physician), not a social connection, so it has no social network to be reachable from. Example: `:Jane_Kopakolva` (context #25), Paula Walker's primary care physician.
 
@@ -399,9 +426,9 @@ If a nesting mismatch or orphan is found, move the file to the correct folder (p
 - **13c** — the class hierarchy `Cell` → `MultiParty` (abstract) → `TwoParty`/`ThreePlusParty`, plus `Cell` → `OneParty`, shown in the diagram matches `cell.ttl`'s actual `rdfs:subClassOf` relationships (by class local name, not just position).
 - **13d** — each concrete `Cell` subtype's example `cell:label` value shown in the diagram (`"Cell"`, `"Two-Party Cell"`, `"Multi-Party Cell"`) matches that subtype's actual `cell:label` value in `cell.ttl`. `cell:label` here is a class-level default display name, distinct from `cat:label` (category.ttl's per-instance display name) — `Cell` and `MultiParty` are abstract and carry no `cell:label` of their own.
 
-**Check 14 — `context.ttl` matches `images/context-ontology/context.png`**: This diagram is the ontology-level picture of `context:Context`'s structure — its `cell`/`template` properties, the intermediate `context:XBXcontext` class (carrying `about-by`/`subject`/`claimant`), and the four classified subtypes (`SBScontext`/`OBScontext`/`OBOcontext`/`SBOcontext`) below it. Like Check 13, this does not presume which side is authoritative when the two disagree — surface the discrepancy and ask. After any change to `context.ttl` or to this diagram, verify:
+**Check 14 — `context.ttl` matches `images/context-ontology/context.png`**: ⚠️ **Known stale as of context.ttl 1.5.0** — the diagram still shows a `cell` property arrow off `Context`, but `context:cell` was removed (it duplicated, in the reverse direction, the link already carried by `cell:sbs`/`obs`/`sbo`/`obo`/`graph`; a context's containing cell is now found only by reverse lookup — see Check 3). This diagram is the ontology-level picture of `context:Context`'s structure — its (now sole) `template` property, the intermediate `context:XBXcontext` class (carrying `about-by`/`subject`/`claimant`), and the four classified subtypes (`SBScontext`/`OBScontext`/`OBOcontext`/`SBOcontext`) below it. Like Check 13, this does not presume which side is authoritative when the two disagree — surface the discrepancy and ask; here, though, the resolution is known (the diagram needs the `cell` arrow removed) and is simply waiting on a redraw. After any change to `context.ttl` or to this diagram, verify:
 
-- **14a** — every property arrow shown off `Context` in the diagram (`cell`, `template`) has a corresponding `context:` property in `context.ttl` with `rdfs:domain context:Context`, and its target type matches the property's `rdfs:range`.
+- **14a** — every property arrow shown off `Context` in the diagram (`template`, and no longer `cell`) has a corresponding `context:` property in `context.ttl` with `rdfs:domain context:Context`, and its target type matches the property's `rdfs:range`.
 - **14b** — every property arrow shown off `XBXcontext` in the diagram (`about-by`, `subject`, `claimant`) has a corresponding `context:` property with `rdfs:domain context:XBXcontext`.
 - **14c** — every `context:` property with domain `context:Context` or `context:XBXcontext` defined in `context.ttl` appears in the diagram under the correct box (catches new properties added to the ttl but never drawn, or drawn under the wrong box).
 - **14d** — the class hierarchy shown (`Context` → `XBXcontext` → `SBScontext`/`OBScontext`/`OBOcontext`/`SBOcontext`) matches `context.ttl`'s actual `rdfs:subClassOf` relationships.
@@ -410,7 +437,7 @@ If a nesting mismatch or orphan is found, move the file to the correct folder (p
 
 - **15a** — every property arrow shown off `Category` (`catType`) has a corresponding `cat:` property in `category.ttl` with `rdfs:domain cat:Category`; every arrow off `Node` (`child`) has `rdfs:domain cat:Node`; every arrow off `Canonical` (`category`) has `rdfs:domain cat:Canonical`; every arrow off `Copy` (`copiedFrom`) has `rdfs:domain cat:Copy`; every arrow off `UserDefined` has none unique to it (it only shares `label`, see below). Every arrow off `Copy` and `UserDefined` for `label` has `rdfs:domain` the union class `[ owl:unionOf ( cat:Copy cat:UserDefined ) ]` — shown as an arrow from both boxes to the same `label` target, not two separate properties. Each arrow's target type must match the property's `rdfs:range` — `category`'s is `cat:Category`, `copiedFrom`'s is `cat:Canonical`. No arrow should point from `Canonical`, `Copy`, or `UserDefined` to a `Cell` box.
 - **15b** — every `cat:` property defined in `category.ttl` appears as an arrow in the diagram, under the box matching its domain (catches new properties added to the ttl but never drawn, or drawn under the wrong box).
-- **15c** — the class hierarchy `Category` → `Personal`/`Organizational` (both abstract) and their leaf subclasses, and separately `Node` (abstract) → `Canonical`/`Copy`/`UserDefined`, shown in the diagram matches `category.ttl`'s actual `rdfs:subClassOf` and `cell:abstract` values. `Category` and `Node` are two separate trees, not one — like `cell:Cell`/`cat:Category` before it (Check 13), `cat:Category` is not `rdfs:subClassOf cat:Node` and vice versa.
+- **15c** — the class hierarchy `Category` → `Person`/`Organization` (both abstract) and their leaf subclasses, and separately `Node` (abstract) → `Canonical`/`Copy`/`UserDefined`, shown in the diagram matches `category.ttl`'s actual `rdfs:subClassOf` and `cell:abstract` values. `Category` and `Node` are two separate trees, not one — like `cell:Cell`/`cat:Category` before it (Check 13), `cat:Category` is not `rdfs:subClassOf cat:Node` and vice versa.
 
 **Check 16 — `images/category-ontology/cat-cell-context.png` matches example usage**: Current as of category.ttl 1.5.0 and cell.ttl 3.2.0 — verified aligned. This diagram illustrates representative cell/category associations, generically rather than tied to a specific example instance: "Work" (a `cat:Person` canonical category, no override label), "Organization / Acme" (a `cat:Organization` category renamed "Acme" — note the real `acme(work)` DataBook is a `cat:Copy`, not a `cat:UserDefined`, since it copies the categories-org root), "Favorites" (a hypothetical `cat:UserDefined` category with no canonical counterpart, not tied to any real example data — there is currently no real `cat:UserDefined` example in the tree), "Person / Bob Johnson" (a `cell:TwoParty` cell, all four context link types filled), and "Affiliations / Boston Hub Society" (a `cell:ThreePlusParty` cell with two other-party members, Carol and BHS) — it replaces the earlier `images/cell-ontology/cells+contexts.png`. Each box's header shows `cat:catType` (green) over `cat:label` (bold) when a label is set, or just `catType` alone otherwise (e.g. "Work", which has no override label). Re-verify each box's filled/dashed context circles remain a valid illustration of the properties and cardinalities described in the Cell and Category Ontology sections of `README.md` after any change to those properties.
 

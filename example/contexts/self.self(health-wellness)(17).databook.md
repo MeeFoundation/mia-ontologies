@@ -2,13 +2,12 @@
 id: https://www.example.org/mia/contexts/self.self(health-wellness)(17)
 title: "About Alice Walker in the Health & Wellness cell as claimed by Alice Walker"
 type: context-databook
-version: 1.0.2
+version: 1.0.3
 created: 2026-06-20
 description: >
   Alice Walker's physical body characteristics: height, eye color, and hair color.
   Self-claimed by Alice.
 mia:
-  cell: "http://www.example.org/mia/categories/health-wellness-cell"
   claimant: ":Self"
   subject: ":Self"
   about-by: "context:SBScontext"

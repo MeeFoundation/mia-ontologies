@@ -2,14 +2,13 @@
 id: https://www.example.org/mia/contexts/self.self(passport)(federal)(19)
 title: "About Alice Walker in the Federal cell as claimed by Alice Walker"
 type: context-databook
-version: 1.0.5
+version: 1.0.6
 created: 2026-06-20
 description: >
   Alice Walker's US passport context. Records her legal name, date of birth, passport number,
   issue and expiration dates, issuing country, place of birth, gender marker, and photo.
   Self-claimed by Alice.
 mia:
-  cell: "http://www.example.org/mia/categories/passport(federal)-cell"
   claimant: ":Self"
   subject: ":Self"
   about-by: "context:SBScontext"

@@ -42,11 +42,11 @@ A context is a container of information about a person related to their interact
 
 <p align="center"><img src="images/context-ontology/context.png" alt="context ontology"></p>
 
-Two properties apply to every `c:Context`:
-
-**`c:cell`** — the cell that references it. Its value is the IRI of the **cell** DataBook (e.g. `"http://www.example.org/mia/categories/bob-johnson(others)-cell"`) that references it via `cell:sbs`, `cell:obs`, `cell:sbo`, or `cell:obo` links of the cell.
+One property applies to every `c:Context`:
 
 **`c:template`** — present only on context files that contain instances of a template; its value is the name of a `p:PersonaTemplate` subclass (e.g. `"persona:BirthCertificate"`, `"persona:JSContactCard"`, `"persona:DriversLicense"`, `"persona:Passport"`, `"persona:MedicalAppointment"`).
+
+A context carries no field pointing back at the cell that references it — that link is asserted only on the cell side, via `cell:sbs`, `cell:obs`, `cell:sbo`, `cell:obo`, or `cell:graph` (see the Cell Ontology section below).
 
 Three more properties apply only to contexts classified into one of the four self-vs-other subtypes (`c:XBXcontext` and below) — a context linked via `cell:graph` rather than `sbs`/`obs`/`sbo`/`obo` is a plain `c:Context` and does not carry these:
 
@@ -74,7 +74,6 @@ The lower left shows a context that Alice might share with other people or compa
 
 The description of the context container itself is carried in the DataBook's YAML front matter under the `mia:` key. The context ontology (`context.ttl`) defines the controlled vocabularies that those YAML fields reference:
 
-- `mia.cell` = `c:cell`
 - `mia:template` = `c:template`
 - `mia.about-by` = `c:about-by`
 - `mia.subject` = `c:subject`
@@ -85,8 +84,8 @@ The description of the context container itself is carried in the DataBook's YAM
 
 **`context.ttl`** — the Context ontology, defines:
   - *Classes*: `c:Context`, `c:XBXcontext` (abstract intermediate superclass of the four classified subtypes below — carries the `c:about-by`/`c:subject`/`c:claimant` annotations, since a `cell:graph`-linked plain `c:Context` doesn't carry them), `c:SBScontext`, `c:OBScontext`, `c:OBOcontext`, `c:SBOcontext` (each a subclass of `c:XBXcontext`).
-  - *Annotation properties*: `c:cell` (containing cell — range `cell:Cell`; domain `c:Context`), `c:template` (domain `c:Context`), `c:claimant`, `c:subject`, `c:about-by` (domain `c:XBXcontext`).
-  These terms are referenced by name in the YAML frontmatter of each DataBook file. `context.ttl` imports `cell.ttl` (for `c:cell`'s range, `cell:Cell`, and to reuse `cell:abstract` on `c:Context`/`c:XBXcontext`).
+  - *Annotation properties*: `c:template` (domain `c:Context`), `c:claimant`, `c:subject`, `c:about-by` (domain `c:XBXcontext`).
+  These terms are referenced by name in the YAML frontmatter of each DataBook file. `context.ttl` imports `cell.ttl` to reuse `cell:abstract` on `c:Context`/`c:XBXcontext`.
 
 ### Context Ontology Validation
 
@@ -197,7 +196,7 @@ Each cell DataBook may carry up to four optional links to context DataBook IRIs,
   - *Classes*: `cell:Cell` (formerly `cell:Parties`), `cell:OneParty`, `cell:MultiParty` (abstract), `cell:TwoParty`, `cell:ThreePlusParty`.
   - *Annotation properties*: `cell:num-parties` (concrete `cell:Cell` subclass), `cell:label` (default display name for a concrete `cell:Cell` subtype, asserted on the class), `cell:note` (path to markdown notes file), `cell:folder` (path to associated file folder), `cell:abstract` (marks a class as not directly instantiated in DataBooks).
   - *Object properties*: `cell:sbs`/`cell:graph` (domain `cell:Cell`), `cell:obs`/`cell:obo`/`cell:sbo` (domain `cell:MultiParty`), `cell:catNode` (domain `cell:Cell`, range `cat:Node` — the sole link between a cell and its tree position, since `category.ttl` has no forward-pointing equivalent).
-  These terms are referenced by name in the YAML frontmatter of each cell DataBook file. `cell.ttl` imports `context.ttl` (for the `c:SBScontext`/`c:OBScontext`/`c:OBOcontext`/`c:SBOcontext` ranges of `cell:sbs`/`cell:obs`/`cell:obo`/`cell:sbo`, and the plain `c:Context` range of `cell:graph`) and `category.ttl` (for `cell:catNode`'s range, `cat:Node`); `context.ttl` and `category.ttl` in turn both import `cell.ttl` back (for `c:cell`'s range, `cell:Cell`, and to reuse `cell:abstract`) — mutual imports, mirroring the existing `cell.ttl`/`context.ttl` pattern.
+  These terms are referenced by name in the YAML frontmatter of each cell DataBook file. `cell.ttl` imports `context.ttl` (for the `c:SBScontext`/`c:OBScontext`/`c:OBOcontext`/`c:SBOcontext` ranges of `cell:sbs`/`cell:obs`/`cell:obo`/`cell:sbo`, and the plain `c:Context` range of `cell:graph`) and `category.ttl` (for `cell:catNode`'s range, `cat:Node`); `context.ttl` and `category.ttl` in turn both import `cell.ttl` back, in each case solely to reuse `cell:abstract` — mutual imports, mirroring the existing `cell.ttl`/`context.ttl` pattern.
 
 - **`cell-shacl.ttl`** — SHACL shapes for cell DataBook instances, split across the four classes that carry cell properties: `:CellShape` (target `cell:Cell`) constrains `cell:graph`, `cell:sbs`, `cell:note`, `cell:folder`, and `cell:catNode` to at most one value each, and `cell:num-parties` to at most one value which, if present, must be one of `OneParty`, `TwoParty`, `ThreePlusParty`; `:OnePartyShape` (target `cell:OneParty`) forbids `cell:obs`/`cell:sbo`/`cell:obo` entirely, since a `OneParty` cell has no other party; `:TwoPartyShape` (target `cell:TwoParty`) constrains `cell:obs`, `cell:sbo`, and `cell:obo` to at most one value each, since a 1:1 cell has only one other party; `:ThreePlusPartyShape` (target `cell:ThreePlusParty`) leaves `cell:obs`/`cell:sbo`/`cell:obo` unconstrained (0..N), since a group cell can have any number of other-party contexts.
 
