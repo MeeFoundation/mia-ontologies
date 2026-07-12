@@ -15,9 +15,6 @@ The three **domain ontologies** model claims about people, organizations and gro
 - **Organization ontology** — models organizations (companies, government agencies, non-profits, etc.) 
 - **Group ontology** — a group made up of individuals and/or organizations.
 
-An additional ontology provides PDN identifiers for persons, organizations and groups:
-- **Identity ontology** — types of PDN network identifiers used by people, organizations or groups. 
-
 Throughout, we use these shorthands:
 
 - `cat:` for the `category:` namespace (`http://mee.foundation/ontologies/category#`)
@@ -26,7 +23,6 @@ Throughout, we use these shorthands:
 - `p:` for the `persona:` namespace (`http://mee.foundation/ontologies/persona#`)
 - `o:` for the `organization:` namespace (`http://mee.foundation/ontologies/organization#`).
 - `g:` for the `group:` namespace (`http://mee.foundation/ontologies/group#`)
-- `i:` for the `identity:` namespace (`http://mee.foundation/ontologies/pdn-identity#`)
 - `ako` for `rdfs:subClassOf` ("a kind of")
 - `isa` for 'rdf:type` ("is a")
 
@@ -244,7 +240,7 @@ The first, "Work", is a `cat:Person` canonical category with no override label. 
 
 <p align="center"><img src="images/cat-cell-context.png" alt="Cells, categories, and contexts"></p>
 
-Each of these five example cells contains contexts shown as circles. White circles are contexts whose triples are claimed by the self (the user). Green circles are contexts whose triples are claimed by a person other than the self (`i:Individual`), by an organization (`i:Organization`) or by a group (`i:Group`), and synchronized with the user's Mia instance over the PDN. For example the BHS cell at the bottom has three contexts: Self (the user)'s BHS profile, the BHS group's own profile and Bob Johnson's BHS member profile as claimed by Bob.
+Each of these five example cells contains contexts shown as circles. White circles are contexts whose triples are claimed by the self (the user). Green circles are contexts whose triples are claimed by a person other than the self, by an organization (`o:Organization`), or by a group (`g:Group`), and synchronized with the user's Mia instance over the PDN. For example the BHS cell at the bottom has three contexts: Self (the user)'s BHS profile, the BHS group's own profile and Bob Johnson's BHS member profile as claimed by Bob.
 
 #### Lazy Copying
 
@@ -318,7 +314,7 @@ The context ontology defines *contexts* (`c:Context`) — named graphs containin
 
 ### Contexts
 
-A context is a container of information about a person related to their interactions with, or relationship to, another person, group or organization. This information is expressed as a named graph of triples using the Persona, Organization, Group and Identity ontologies and stored in a **[DataBook](https://github.com/w3c-cg/holon/tree/main/architectures/databook)** (`.databook.md`) file that describes one facet of a person or organization (called the `subject` of the context). These claims may have originated from other contexts about the same subject. 
+A context is a container of information about a person related to their interactions with, or relationship to, another person, group or organization. This information is expressed as a named graph of triples using the Persona, Organization, and Group ontologies and stored in a **[DataBook](https://github.com/w3c-cg/holon/tree/main/architectures/databook)** (`.databook.md`) file that describes one facet of a person or organization (called the `subject` of the context). These claims may have originated from other contexts about the same subject. 
 
 <p align="center"><img src="images/context-ontology/context.png" alt="context ontology"></p>
 
@@ -599,26 +595,6 @@ The Group ontology introduces the concept of a *shared* group (`g:Group`) whose 
 
 `group-shacl.ttl` validates `g:Group` instances. Key constraint: all members (via BFO `has member part`) must be `p:Person` or `o:Organization` instances.
 
-## PDN Identity Ontology
-
-The Identity ontology is used to describe the kinds of identities that Mia can communicate with over the internet using Personal Data Network protocols. The root class, `i:PDNidentifier`, has three subclasses:
-
-<p align="center"><img src="images/identity-ontology/identity.png" alt="types of MeeIdentities"></p>
-
-**Classes**
-
-* `i:Individual` - an identifier of a human Mia user.
-* `i:Group` - an identifier of a `g:Group` of Mia users and/or `o:Organizations`.
-* `i:Organization` - an identifier of an `o:Organization`.
-
-### PDN Identity Ontology File
-
-- **`pdn-identity.ttl`** — The PDN Identity ontology. 
-
-### PDN Identity Ontology Validation
-
-`pdn-identity-shacl.ttl` validates `i:PDNidentifier` instances. Key constraint: each instance must be typed as exactly one of `i:Individual`, `i:Group`, or `i:Organization`.
-
 ## Illustrative Example: Alice 
 
 This section describes the local Mia dataset for a hypothetical user, Alice Walker. Alice's data lives in multiple context DataBooks linked to by a tree structure of category DataBooks, each associated with one or more cell DataBooks holding its content. 
@@ -672,7 +648,7 @@ Here are the cells related to Alice's interactions with two municipal government
 Here are Alice's cells related to her personal health and her possessions:
 <p align="center"><img src="example/images/misc.png" alt="Miscellaneous cells"></p>
 
-The last diagram shows Alice's membership in the Boston Hub Society, an informal professional social network that exists as a `i:Group` node on the PDN:
+The last diagram shows Alice's membership in the Boston Hub Society, an informal professional social network that exists as a `g:Group` node on the PDN:
 <p align="center"><img src="example/images/affiliations.png" alt="Affiliations cells"></p>
 
 The contexts in the table below are *about* Alice and claimed *by* Alice. All `.databook.md` files are in the `example/contexts/` folder.
@@ -784,7 +760,7 @@ riot --output=turtle \
   project_files/AddressOntology.ttl \
   project_files/StagingOntology.ttl \
   persona.ttl persona-templates.ttl context.ttl cell.ttl category.ttl \
-  pdn-identity.ttl group.ttl organization.ttl \
+  group.ttl organization.ttl \
   example/contexts/self.ttl \
   /tmp/mia-data.ttl \
   2>/dev/null > /tmp/mia-merged.ttl
@@ -810,7 +786,7 @@ riot --output=turtle \
   project_files/AddressOntology.ttl \
   project_files/StagingOntology.ttl \
   persona.ttl persona-templates.ttl context.ttl cell.ttl category.ttl \
-  pdn-identity.ttl group.ttl organization.ttl \
+  group.ttl organization.ttl \
   example/contexts/self.ttl \
   2>/dev/null > /tmp/mia-base.ttl
 
