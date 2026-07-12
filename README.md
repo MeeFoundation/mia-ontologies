@@ -4,9 +4,9 @@ This document describes the ontologies used by the Mee Identity Agent (Mia) soft
 
 Mia's ontologies import and profile existing ontologies — documenting which of their classes and properties Mia requires or uses — and extending them with Mia-specific classes and properties. 
 
-The  **Category**, **Cell**, and **Context**, ontologies are the organizing framework. The category ontology defines `cat:Category` — a set of categories of information about a person or organization. Nodes in the tree of categories contain no content, but may have an associated cell.  The cell ontology defines a `cell:Cell` — a self-contained block of content. A cell may have references to contexts described by the context ontology. A `c:Context` - is a graph. An important subclass, `SCcontext`, holds claims (attributes) about a given subject as claimed by a person, group or organization. 
+The **Category**, **Cell**, and **Context** ontologies are the organizing framework. The category ontology defines `cat:Category` — a set of categories of information about a person or organization; nodes in the tree contain no content of their own but may have an associated cell. The cell ontology defines `cell:Cell` — a self-contained block of content that may reference one or more contexts described by the context ontology. A `c:Context` is a graph; its important subclass `c:SCcontext` holds claims (attributes) about a subject as claimed by a person, group, or organization.
 
-The three **domain ontologies** model claims about people, organizations and groups contained in `SCcontexts`:
+The three **domain ontologies** model claims about people, organizations and groups contained in `c:SCcontext` instances:
 - **Persona ontology** — models a person: names, addresses, phone numbers, relationships, payment cards, and more. It is built on BFO (Basic Formal Ontology) and CCO (Common Core Ontologies) as the upper ontological foundation, and on domain ontologies that extend CCO:
   - **PersonOntology** — person, name types, parent-child relationships
   - **AddressOntology** — postal address structure
@@ -38,9 +38,9 @@ The category ontology defines two orthogonal facets of a category DataBook. `cat
 
 <p align="center"><img src="images/category-ontology/category.png" alt="Category hierarchy"></p>
 
-The canonical category trees are preinstalled with Mia and are constructed using `cat:Canonical` nodes. The nodes in these canonical trees are copied into `cat:Copy` nodes that are building blocks the user chooses to build a tree that suits their needs to organize their information. They can select some building blocks and ignore tohers. 
+The canonical category trees are preinstalled with Mia and are constructed using `cat:Canonical` nodes. The nodes in these canonical trees are copied into `cat:Copy` nodes — building blocks the user chooses from to build a tree that suits their needs. They can select some building blocks and ignore others.
 
-The user's information content is held in `cell:Cell`s that are attached like ornaments on branch and leaf nodes of the users tree. An addition, the user may choose to insert `cat:UserDefined` nodes into their instance tree – these are not copied from a `cat:Canonical` node.
+The user's information content is held in `cell:Cell`s attached to branch and leaf nodes of the user's tree. In addition, the user may choose to insert `cat:UserDefined` nodes into their instance tree — these are not copied from a `cat:Canonical` node.
 
 A `cat:Copy` or `cat:UserDefined` node has an optional `cat:label` that lets the user override the display name (e.g. "Client") — canonical templates are never renamed by a user, so `cat:label` doesn't apply there.
 
@@ -52,7 +52,7 @@ Both personal life (family, health, finances categories) and work life (employme
 
 As we've mentioned, canonical category nodes are copied from one of the canonical trees into the user's category tree and in the process the class is switched from `cat:Canonical` to `cat:Copy`, while recording where the original came from using `cat:copiedFrom`. If the canonical had a cell linked to it (via that node's own `cat:cell`), a new cell is copied too and linked from the new `cat:Copy` the same way. If that cell contains references to contexts, these contexts are also copied.
 
-The user is free to rearrange their instance tree as they wish, adding new `cat:UserDefined`  categories and moving things around. This works because the tree is just a way to organize the cells that it points to, and the cells are self-contained units of content (although it's true that any referenced context lies outside the cell boundary).
+The user is free to rearrange their instance tree as they wish, adding new `cat:UserDefined` categories and moving things around. This works because the tree is just a way to organize the cells that it points to, and the cells are self-contained units of content (though any referenced context lies outside the cell boundary).
 
 ### Category Properties
 
@@ -66,9 +66,9 @@ The user is free to rearrange their instance tree as they wish, adding new `cat:
 - **`cat:copiedFrom`** — IRI of the canonical node this copy was copied from. Domain `cat:Copy`, range `cat:Canonical`.
 - **`cat:label`** — user-editable display name of a copy or user-defined category. Defaults to the category's class name. Domain is the union of `cat:Copy` and `cat:UserDefined`.
 
-### Personal categories
+### Personal Categories
 
-`cat:Person` categories organize a person's mostly non employement-related information:
+`cat:Person` categories organize a person's mostly non-employment-related information:
 
 1. **People** (`cat:People`) — people in your social or professional life. Use this category for people not otherwise tied to a specific domain — a bookkeeper you know belongs under Finances (Advisory), and your primary care physician belongs under Health & Wellness (Medical > Providers > Primary Care Physician), rather than here.
     - **Immediate Family** (`cat:ImmediateFamily`) — your closest living relatives, which generally include parents, siblings, spouses/partners, and children.
@@ -138,11 +138,11 @@ The user is free to rearrange their instance tree as they wish, adding new `cat:
 
 ### Organizational Categories
 
-`cat:Organization` categories relate to a person's role within an organization:
+`cat:Organization` categories organize a person's professional and organizational-role information:
 
 1. **Customers** (`cat:Customers`) — customer organizations. Rename to "Clients", etc.
 1. **Marketing** (`cat:Marketing`) — marketing activities, campaigns, and related organizations.
-    - **Prospects** (`cat:Prospects`) - customer prospects. Rename to "Client prospects", etc.
+    - **Prospects** (`cat:Prospects`) — customer prospects. Rename to "Client prospects", etc.
 1. **Partners** (`cat:Partners`) — firms that provide goods and services.
 1. **People (org)** (`cat:People(org)`) — people the organization interacts with in a working capacity.
     - **Employees** (`cat:Employees`) — related to employees.
@@ -168,13 +168,13 @@ The user is free to rearrange their instance tree as they wish, adding new `cat:
 
 ### Category DataBooks
 
-Each node in the tree is represented by a **category DataBook** (`.databook.md` file with `type: category-databook`) linked to other nodes by the parent node's `cat:child` property (IRI) to its child. This tree contains a mixture of user-minted user-defined categories and copies of canonical categories. These copies contain a `copiedFrom:` IRI property pointing back to the corresponding canonical category.
+Each node in the tree is represented by a **category DataBook** (`.databook.md` file with `type: category-databook`), linked to its child nodes via the parent's `cat:child` property, whose value is the child's IRI. This tree contains a mixture of user-defined categories and copies of canonical categories. These copies contain a `copiedFrom:` IRI property pointing back to the corresponding canonical category.
 
 #### Canonical Category DataBooks
 
 `cat:Person` category DataBooks live in `categories-person/`, rooted at `categories-person/categories-person.databook.md`. `cat:Organization` category DataBooks live in `categories-org/`, rooted at `categories-org/categories-org.databook.md`. Every canonical category is a `cat:Canonical` node.
 
-#### Cell/Category split
+#### Cell/Category Split
 
 Every category DataBook is associated, in the same folder, with one or more cell DataBooks (see [Cell DataBooks](#cell-databooks) below) holding its content and any context links — many-to-one, not 1:1. `cell:Cell` has no property linking back to a node at all — the association is recorded only on the category side, via `cat:cell`, asserted on every category DataBook that has content, regardless of whether it's a `cat:Canonical` (`categories-person/`, `categories-org/`), a `cat:Copy`, or a `cat:UserDefined` (`example/categories/`).
 
@@ -215,26 +215,30 @@ The cell ontology defines `cell:Cell` — a self-contained unit of *content*.
 
 A cell may contain a reference to a folder on the local file system (`cell:folder`). It may contain a reference to a markdown note on the local file system (`cell:note`). It may also contain within itself a graph structure (`cell:graph`). Lastly, it may also contain a set of references to *contexts* (also graphs) as described in the previous section, via `cell:sc-context` — how many depends on the cell's party composition (see below).
 
-
 <p align="center"><img src="images/cell-ontology/cell.png" alt="Cell hierarchy"></p>
+
+### Cell Party Composition
+
+Every cell is a `cell:Cell`, classified by `cell:num-parties` according to how many total parties (the user plus zero or more others) are involved in the relationship it represents. There are three concrete types: `cell:OneParty` (the user alone — an associated `cat:Category` would typically show display label "Cell"), `cell:TwoParty` (the user plus exactly one other party — "Two-Party Cell"), and `cell:ThreePlusParty` (the user plus two or more other parties, e.g. a group — "Multi-Party Cell"). `cell:TwoParty` and `cell:ThreePlusParty` are both subclasses of the abstract `cell:MultiParty`, which exists purely to classify cells by party count — it carries no property of its own, since `cell:sc-context` has domain the broader `cell:Cell` rather than `cell:MultiParty`.
+
+`cell:sc-context`'s expected cardinality varies by party count: up to 1 for `OneParty` (only a context with subject=self and claimant=self makes sense with no other party), up to four for `TwoParty` (one of each of the four self-vs-other combinations), and unconstrained for `ThreePlusParty` (any number of other-party contexts, one or more per other party).
+
+| Property | OneParty | TwoParty | ThreePlusParty |
+|----------|----------|----------|-----------------|
+| `cell:sc-context` | 0..1 | 0..4 | 0..N |
 
 ### Properties
 
 - **`cell:label`** — default display name for a concrete `cell:Cell` subtype (`OneParty`/`TwoParty`/`ThreePlusParty`), e.g. `"Two-Party Cell"`. Asserted directly on the class, not an instance — distinct from `cat:label` (category.ttl), which is the user-editable per-instance display name of an associated `cat:Category`.
 - **`cell:note`** — optional path to a markdown note in the *notes* folder/file hierarchy for this cell.
 - **`cell:folder`** — optional path to a folder in the *files* folder/file hierarchy for this cell.
-- **`cell:graph`** - link to a `c:Context` about any subject claimed/edited by any party to the cell.
-- **`cell:num-parties`.** —`cell:Cell` classifies every cell by how many total parties (the user plus zero or more others) are involved in the relationship it represents. There are three concrete types: `cell:OneParty` (the user alone — an associated `cat:Category` would typically show display label "Cell"), `cell:TwoParty` (the user plus exactly one other party — "Two-Party Cell"), and `cell:ThreePlusParty` (the user plus two or more other parties, e.g. a group — "Multi-Party Cell"). `cell:TwoParty` and `cell:ThreePlusParty` are both subclasses of the abstract `cell:MultiParty`, which exists purely to classify cells by party count — it carries no property of its own, since `cell:sc-context` (see below) has domain the broader `cell:Cell` rather than `cell:MultiParty`. 
-- **`cell:sc-context`** - reference to 0..N `c:SCcontext` contexts. Its expected cardinality varies by party count up to 1 for `OneParty` (only a context with subject=self and claimant=self makes sense with no other party), up to four for `TwoParty` (one of each of the four self-vs-other combinations), and unconstrained for `ThreePlusParty` (any number of other-party contexts, one or more per other party).
+- **`cell:num-parties`** — the concrete `cell:Cell` subtype this DataBook instantiates: one of `OneParty`, `TwoParty`, `ThreePlusParty`. See [Cell Party Composition](#cell-party-composition) above.
+- **`cell:sc-context`** — link to any number of Subject-Claimant classified contexts (`c:SCcontext`); cardinality varies by party count — see [Cell Party Composition](#cell-party-composition) above.
+- **`cell:graph`** — link to a plain `c:Context` that doesn't fit the self-vs-other classification `cell:sc-context` assumes — e.g. claims jointly maintained by multiple parties about a third party, or, on a `OneParty` cell, a context that simply doesn't need self-vs-other framing.
 
-| Property | OneParty | TwoParty | ThreePlusParty |
-|----------|----------|----------|-----------------|
-| `cell:sc-context` | 0..1 | 0..4 | 0..N |
+### Representative Cells and Categories
 
-
-### Representative category/cells
-
-The diagram below shows representative kinds of cell/category pairs, each labeled with its `cat:catType` (green text) over its `cat:label` (black text) if/when these exist. 
+The diagram below shows representative kinds of cell/category pairs, each labeled with its `cat:catType` (green text) over its `cat:label` (black text), when set.
 
 The first, "Work", is a `cat:Person` canonical category with no override label. The second, "Organization / Acme", is a `cat:Organization` category, `cat:label`-renamed to "Acme". The third, "Favorites", is a hypothetical `cat:UserDefined` category with no more specific canonical counterpart, `cat:label`-renamed to "Favorites" (not tied to any real example data). The fourth, "Person / Bob Johnson", is a `cell:TwoParty` cell between the user and another Mia user, Bob — shown with all four self-vs-other classified contexts filled (self-by-self, other-by-self, self-by-other, other-by-other, all linked via `cell:sc-context`). The last, "Affiliations / Boston Hub Society", is a `cell:ThreePlusParty` cell with two other-party members, Carol and BHS.
 
@@ -242,10 +246,13 @@ The first, "Work", is a `cat:Person` canonical category with no override label. 
 
 Each of these five example cells contains contexts shown as circles. White circles are contexts whose triples are claimed by the self (the user). Green circles are contexts whose triples are claimed by a person other than the self (`i:Individual`), by an organization (`i:Organization`) or by a group (`i:Group`), and synchronized with the user's Mia instance over the PDN. For example the BHS cell at the bottom has three contexts: Self (the user)'s BHS profile, the BHS group's own profile and Bob Johnson's BHS member profile as claimed by Bob.
 
-**Lazy Copying**. A canonical category node is not copied into a user's tree ahead of time. Mia copies a canonical category (and mints an associated cell if needed) into the tree, and creates its `cell:note`/`cell:folder` paths, only once the user actually has content for it. Empty categories are not pre-populated as placeholder folders.
+#### Lazy Copying
 
-#### About cell:note and cell:folder
-`cell:note` and `cell:folder` are file paths that point into two separate but parallel folder structures in local storage. The Mia app actively adjusts these two structures to stay isomorphic with the user's tree of`cat:Copy` nodes with its associated links to `cat:Category` entities — when a category is created, renamed, or deleted, Mia updates both hierarchies automatically.
+A canonical category node is not copied into a user's tree ahead of time. Mia copies a canonical category (and mints an associated cell if needed) into the tree, and creates its `cell:note`/`cell:folder` paths, only once the user actually has content for it. Empty categories are not pre-populated as placeholder folders.
+
+#### About Cell Notes and Folders
+
+`cell:note` and `cell:folder` are file paths that point into two separate but parallel folder structures in local storage. The Mia app actively adjusts these two structures to stay isomorphic with the user's tree of `cat:Copy` nodes with its associated links to `cat:Category` entities — when a category is created, renamed, or deleted, Mia updates both hierarchies automatically.
 
 The **notes hierarchy** mirrors the category tree as a folder structure, rooted at a top-level folder named **`Self`**. The invisible root category's note is `Self.md`, stored directly inside `Self/`; every other category's note is stored as `X.md` inside the X folder — for example, `Self/People/Immediate Family/Immediate Family.md`. Using the same name as the folder matches the convention used by PKM (Personal Knowledge Management) tools such as Obsidian (using the Folder Notes plugin), Logseq, Foam and others. Any file or folder in the notes root that is not `Self/` — app-managed folders (e.g. `Templates/`, `.obsidian/`), unrelated personal notes (e.g. a `Journal/`), or loose files — falls outside the category tree entirely and is ignored by Mia.
 
@@ -266,7 +273,7 @@ In the normal case `cell:note` and `cell:folder` are technically redundant — b
 
 ### Cell DataBooks
 
-Every category node has one or more associated **cell DataBooks** (`.databook.md` files with `type: cell-databook`) — the relationship is many-to-one, not 1:1: more than one cell may share the same category node, each an independent piece of content at that one tree position. (The example tree currently shows only one cell per category, but that's incidental to the data shown so far, not a constraint.) A cell DataBook's `id`/filename is its category's `id`/filename with a `-cell` suffix — with a further distinguishing suffix, e.g. `-cell-2`, if a second cell shares the same category — and it lives in the same folder as its category. This association is recorded on the category, not the cell (see [Category Ontology](#category-ontology)): `cell:Cell` has no property linking back to a node at all, so every node — whether `cat:Canonical`, `cat:Copy`, or `cat:UserDefined` — asserts `cat:cell` forward to its own cell(s).
+Every category node has one or more associated **cell DataBooks** (`.databook.md` files with `type: cell-databook`) — the relationship is many-to-one, not 1:1: more than one cell may share the same category node, each an independent piece of content at that one tree position. (The example tree currently shows only one cell per category, but that's incidental to the data shown so far, not a constraint.) A cell DataBook's `id`/filename is its category's `id`/filename with a `-cell` suffix — with a further distinguishing suffix, e.g. `-cell-2`, if a second cell shares the same category — and it lives in the same folder as its category. This association is recorded on the category, not the cell — see [Cell/Category Split](#cellcategory-split) for why.
 
 #### Properties
 
@@ -280,7 +287,7 @@ The following properties are defined in `cell.ttl` and represented as `mia.` YAM
 
 Note files live in a folder hierarchy whose structure mirrors the category hierarchy; associated file folders live in a parallel hierarchy whose names match the category names.
 
-#### Context link properties
+#### Context Link Properties
 
 Each cell DataBook may carry any number of links to context DataBook IRIs via `cell:sc-context`, plus `cell:graph`:
 
@@ -289,9 +296,9 @@ Each cell DataBook may carry any number of links to context DataBook IRIs via `c
 | `cell:sc-context` | `c:SCcontext` | 0..1 on `OneParty`; 0..4 on `TwoParty`; 0..N on `ThreePlusParty` | Any `cell:Cell` | Any number of self-vs-other classified contexts — the user's own context in this cell, the user's record of the other party, a context the other party presents, or a context the other party holds about the user, distinguished by each linked context's own `about-by` value rather than by separate properties or classes |
 | `cell:graph` | `c:Context` | 0..1 | Any `cell:Cell` | A context that doesn't fit the self-vs-other classification — e.g. claims jointly maintained by multiple parties about a third party, or, on a `OneParty` cell, a context that simply doesn't need self-vs-other framing |
 
-`cell:sc-context`'s domain is the broader `cell:Cell` rather than `cell:MultiParty`, unlike the four properties it replaced (`cell:sbs`/`cell:obs`/`cell:sbo`/`cell:obo`) — a `OneParty` cell can hold a self-by-self context through this same property, not just a `TwoParty`/`ThreePlusParty` cell. Its expected cardinality still varies by party count (see the table in [Cell party composition](#cell-party-composition)), but this isn't currently enforced by `cell-shacl.ttl` — `:CellShape` only constrains `cell:sc-context` values to each be a `c:SCcontext`, uniformly regardless of party count. `cell:graph`'s domain has always been the broader `cell:Cell` for the same reason: it's also useful on a `OneParty` cell for a context that doesn't need self-vs-other classification at all.
+`cell:sc-context`'s domain is the broader `cell:Cell` rather than `cell:MultiParty`, unlike the four properties it replaced (`cell:sbs`/`cell:obs`/`cell:sbo`/`cell:obo`) — a `OneParty` cell can hold a self-by-self context through this same property, not just a `TwoParty`/`ThreePlusParty` cell. Its expected cardinality still varies by party count (see the table in [Cell Party Composition](#cell-party-composition)), but this isn't currently enforced by `cell-shacl.ttl` — `:CellShape` only constrains `cell:sc-context` values to each be a `c:SCcontext`, uniformly regardless of party count. `cell:graph`'s domain has always been the broader `cell:Cell` for the same reason: it's also useful on a `OneParty` cell for a context that doesn't need self-vs-other classification at all.
 
-### Cell Ontology Files
+### Cell Ontology File
 
 **`cell.ttl`** — The Cell ontology, defining:
   - *Classes*: `cell:Cell` (formerly `cell:Parties`), `cell:OneParty`, `cell:MultiParty` (abstract), `cell:TwoParty`, `cell:ThreePlusParty`.
@@ -363,7 +370,6 @@ The description of the context container itself is carried in the DataBook's YAM
 
 Context file metadata (claimant, subject, about-by) is declared in YAML frontmatter and validated at authoring time by convention. `context.ttl` has no SHACL shapes of its own, but `persona-shacl.ttl`'s `:SCcontextShape` constrains `c:subject` and `c:claimant` on every `c:SCcontext` DataBook: each must have exactly one value, and that value must be a `p:Person`, `g:Group`, or `o:Organization` (see [Persona Ontology Validation](#persona-ontology-validation)). The remaining classification fields live on the associated category and cell DataBooks: `catType`/`child`/`label`/`copiedFrom`/`category`/`cell` on category DataBooks, validated by `category-shacl.ttl` (see [Category Ontology Validation](#category-ontology-validation)); `num-parties`/`sc-context`/`graph`/`note`/`folder` on cell DataBooks, validated by `cell-shacl.ttl` (see [Cell Ontology Validation](#cell-ontology-validation)).
 
-
 ## Persona Ontology
 
 The Persona ontology defines a formal, machine-readable model of a person. It is used by triples stored in `c:Context` graphs. 
@@ -372,85 +378,84 @@ We represent a person with the `p:Person` class — a Mia-specific subclass of C
 
 <p align="center"><img src="images/persona-ontology/persona.png" alt="Persona model"></p>
 
-### Key properties and classes
+### Key Properties and Classes
 
 This section describes the most fundamental properties and classes in the Persona ontology. A person's identity data is spread across multiple named-graph slice files, each containing one `p:Person` individual. The Mia user's slices share the IRI `:Self`; each other person's slices share their locally-assigned named IRI.
 
-**Classes**
+**Classes:**
 
-* `p:Person` — a Mia-specific subclass of CCO `Person` (`cco:ont00001262`). Each context file (named-graph slice) contains exactly one `p:Person` individual. The Mia user's own `p:Person` always uses the IRI `:Self`, shared across all of their context files. Other people, groups, and organizations are assigned locally-minted named IRIs (e.g. `:Bob_Johnson`, `:Paula_Walker`). `:Self` is a local IRI and is never exposed externally over the PDN, so there are no collisions between Mia instances. All identity data — names, identifiers, addresses, social networks, payment cards, and more — attaches to this individual.
+- `p:Person` — a Mia-specific subclass of CCO `Person` (`cco:ont00001262`). Each context file (named-graph slice) contains exactly one `p:Person` individual. The Mia user's own `p:Person` always uses the IRI `:Self`, shared across all of their context files. Other people, groups, and organizations are assigned locally-minted named IRIs (e.g. `:Bob_Johnson`, `:Paula_Walker`). `:Self` is a local IRI and is never exposed externally over the PDN, so there are no collisions between Mia instances. All identity data — names, identifiers, addresses, social networks, payment cards, and more — attaches to this individual.
 
-**Properties**
+**Properties:**
 
-* `i:hasPDNidentifier` — links a `p:Person` to a `i:PDNidentifier` — the identifier used to communicate with this `Person` over the Personal Data Network. Sub-property of CCO `designated by`.
+- `i:hasPDNidentifier` — links a `p:Person` to a `i:PDNidentifier` — the identifier used to communicate with this `Person` over the Personal Data Network. Sub-property of CCO `designated by`.
 
-
-### Social classes and properties 
+### Social Classes and Properties
 
 This section describes classes and properties related to a person's social network.
 
-**Classes**
+**Classes:**
 
-* `cco:ont00001183` - Social Network
+- `cco:ont00001183` — Social Network
 
-**Properties**
+**Properties:**
 
-* `p:hasSocialNetwork` - a social network — other people known by the `p:Person` carrying the social network. The holder is not included as a member part of the social network object, but *is* considered to be a part of it by virtue of holding the network entity.
-* `BFO_0000115` - has member part. Links to `p:Person` members of this network.
+- `p:hasSocialNetwork` — a social network — other people known by the `p:Person` carrying the social network. The holder is not included as a member part of the social network object, but *is* considered to be a part of it by virtue of holding the network entity.
+- `BFO_0000115` — has member part. Links to `p:Person` members of this network.
 
-### Possession-related classes and properties
+### Possession-Related Classes and Properties
 
-This section describes properties and classes related to things a person has, holds, possesses, purchased, or rents. 
+This section describes properties and classes related to things a person has, holds, possesses, purchased, or rents.
 
- - Physical plastic/paper cards are `MaterialArtifact` subclasses that include driver's license, health insurance card, payment card, etc.
- - Physical wallets - Cards may be placed in a wallet (via BFO `continuant part of`) or held directly by the `p:Person` (via `p:hasPhysicalCard`).
+- Physical plastic/paper cards are `MaterialArtifact` subclasses that include driver's license, health insurance card, payment card, etc.
+- Physical wallets — cards may be placed in a wallet (via BFO `continuant part of`) or held directly by the `p:Person` (via `p:hasPhysicalCard`).
 
 <p align="center"><img src="images/persona-ontology/persona-card.png" alt="Card possessions model"></p>
 
-**Classes**
+**Classes:**
 
-* `p:PhysicalCard` — a physical plastic or paper card (held in a wallet or carried directly).
-* `p:PhysicalHealthInsuranceCard` (subclass of `p:PhysicalCard`) — a physical health insurance membership card.
-* `p:PhysicalDriversLicense` (subclass of `p:PhysicalCard`) — a state-issued driver's license card.
-* `p:PhysicalPaymentCard` (subclass of `p:PhysicalCard`) — a physical credit or debit card.
-* `p:PhysicalSocialSecurityCard` (subclass of `p:PhysicalCard`) — a paper or plastic card issued by the Social Security Administration.
-* `p:Wallet` — a physical wallet that can hold cash as well as various kinds of paper or plastic identity or payment cards.
+- `p:PhysicalCard` — a physical plastic or paper card (held in a wallet or carried directly).
+- `p:PhysicalHealthInsuranceCard` (subclass of `p:PhysicalCard`) — a physical health insurance membership card.
+- `p:PhysicalDriversLicense` (subclass of `p:PhysicalCard`) — a state-issued driver's license card.
+- `p:PhysicalPaymentCard` (subclass of `p:PhysicalCard`) — a physical credit or debit card.
+- `p:PhysicalSocialSecurityCard` (subclass of `p:PhysicalCard`) — a paper or plastic card issued by the Social Security Administration.
+- `p:Wallet` — a physical wallet that can hold cash as well as various kinds of paper or plastic identity or payment cards.
 
-**Properties**
+**Properties:**
 
-* `is carrier of` (from BFO) — used to link a physical card to its corresponding `p:Person` in another context.
-* `p:hasWallet` — links a `p:Person` to a physical wallet (see Possessions below).
-* `p:hasImageScan` — a link to a scanned image of this card.
-* `p:hasPhysicalCard` — links a `p:Person` to a `p:PhysicalCard` carried outside of a wallet (see Possessions below).
+- `is carrier of` (from BFO) — used to link a physical card to its corresponding `p:Person` in another context.
+- `p:hasWallet` — links a `p:Person` to a physical wallet (see Possessions below).
+- `p:hasImageScan` — a link to a scanned image of this card.
+- `p:hasPhysicalCard` — links a `p:Person` to a `p:PhysicalCard` carried outside of a wallet (see Possessions below).
 
 ### Accounts
 
 This section describes properties and classes related to a person's relationship with an online service provider. An online service account (`OnlineServiceAccount`, CCO `ont00000033`) records a person's credentials and identity with an online service provider such as Google or AT&T.
 
-**Properties**
+**Properties:**
 
-* `holds user account` (CCO) — links a `p:Person` to an `OnlineServiceAccount`.
-* `has service name` (CCO) — the name of the online service (e.g. "Google").
-* `has service URI` (CCO) — the URI of the online service.
-* `has user handle` (CCO) — the user's handle or username on the service.
-* `p:hasPassword` — the password credential for an `OnlineServiceAccount` (Persona ontology extension).
+- `holds user account` (CCO) — links a `p:Person` to an `OnlineServiceAccount`.
+- `has service name` (CCO) — the name of the online service (e.g. "Google").
+- `has service URI` (CCO) — the URI of the online service.
+- `has user handle` (CCO) — the user's handle or username on the service.
+- `p:hasPassword` — the password credential for an `OnlineServiceAccount` (Persona ontology extension).
 
-### Finance-related classes and properties
+### Finance-Related Classes and Properties
 
 This section describes properties and classes related to a person's interactions with financial institutions.
 
-**Classes**
+**Classes:**
 
-* `p:CheckingAccount` — a bank checking account held by a person, linked to a debit card.
-* `p:CheckingAccountNumber` — an identifier designating a bank checking account, connected via `designated by` (`ont00001879`).
-* `p:RoutingNumber` — an ABA routing transit number identifying the financial institution, connected via `designated by`.
+- `p:CheckingAccount` — a bank checking account held by a person, linked to a debit card.
+- `p:CheckingAccountNumber` — an identifier designating a bank checking account, connected via `designated by` (`ont00001879`).
+- `p:RoutingNumber` — an ABA routing transit number identifying the financial institution, connected via `designated by`.
 
-**Properties**
+**Properties:**
 
-* `p:hasBankAccount` — links a `p:Person` to a `p:CheckingAccount` it records.
-* `p:accessesBankAccount` — links a DebitCard to the `p:CheckingAccount` it draws funds from.
+- `p:hasBankAccount` — links a `p:Person` to a `p:CheckingAccount` it records.
+- `p:accessesBankAccount` — links a DebitCard to the `p:CheckingAccount` it draws funds from.
 
-### Modeling details
+### Modeling Details
 
 This section describes a few details related to modeling names and addresses.
 
@@ -468,26 +473,26 @@ This section describes a few details related to modeling names and addresses.
 
 The four currently defined subclasses of `p:PersonaTemplate` are:
 
-* `p:BirthCertificate` — label for context files that carry a person's legal birth name record as issued by a state agency. Also a subclass of `p:IdentityDocument`. Declared in the YAML frontmatter as `mia.template: "persona:BirthCertificate"`. SHACL shape `:BirthCertificateDocumentShape` (in `shacl/birthcertificate-shacl.ttl`) targets the `p:BirthCertificate` document individual and validates the holding `p:Person` via `^persona:hasIdentityDocument`:
+- `p:BirthCertificate` — label for context files that carry a person's legal birth name record as issued by a state agency. Also a subclass of `p:IdentityDocument`. Declared in the YAML frontmatter as `mia.template: "persona:BirthCertificate"`. SHACL shape `:BirthCertificateDocumentShape` (in `shacl/birthcertificate-shacl.ttl`) targets the `p:BirthCertificate` document individual and validates the holding `p:Person` via `^persona:hasIdentityDocument`:
   - **Required**: either a `FullName` designator **or** both a `GivenName` and a `FamilyName` designator (via `designated by`, `ont00001879`) — expressed with `sh:or`.
   - **Optional**: `AdditionalName` (middle name), `AlternateName` (e.g. maiden name), `Nickname`, and `Legal Name` designators.
 
-* `p:JSContactCard` — label for context files that carry professional contact details in the JSContact (RFC 9553) format. A digital contact format (RFC 9553) — not a government-issued identity document, and therefore not a subclass of `p:IdentityDocument`. Declared in the YAML frontmatter as `mia.template: "persona:JSContactCard"`. SHACL shape `:JSContactCardPersonShape` (in `shacl/jscontactcard-shacl.ttl`) enforces:
+- `p:JSContactCard` — label for context files that carry professional contact details in the JSContact (RFC 9553) format. A digital contact format (RFC 9553) — not a government-issued identity document, and therefore not a subclass of `p:IdentityDocument`. Declared in the YAML frontmatter as `mia.template: "persona:JSContactCard"`. SHACL shape `:JSContactCardPersonShape` (in `shacl/jscontactcard-shacl.ttl`) enforces:
   - **Required**: exactly one `OrganizationName` designator; at least one `Email` or `TelephoneNumber` designator.
   - **Optional**: all name components, `OrganizationUnit`, `JobTitle`, addresses, online services, anniversaries, personal info, photo.
   - **Max 1** on all single-valued name and organization components.
   See the [JSContact field coverage table](#jscontact-field-coverage) below for the complete mapping.
 
-* `p:DriversLicense` — label for context files that carry the identity claims on a state-issued driver's license. Also a subclass of `p:IdentityDocument`. Declared in the YAML frontmatter as `mia.template: "persona:DriversLicense"`. SHACL shape `:DriversLicenseDocumentShape` (in `shacl/driverslicense-shacl.ttl`) targets the `p:DriversLicense` document individual and validates the holding `p:Person` via `^persona:hasIdentityDocument`:
+- `p:DriversLicense` — label for context files that carry the identity claims on a state-issued driver's license. Also a subclass of `p:IdentityDocument`. Declared in the YAML frontmatter as `mia.template: "persona:DriversLicense"`. SHACL shape `:DriversLicenseDocumentShape` (in `shacl/driverslicense-shacl.ttl`) targets the `p:DriversLicense` document individual and validates the holding `p:Person` via `^persona:hasIdentityDocument`:
   - **Required**: `FullName` **or** (`GivenName` + `FamilyName`); exactly one `Birthdate` (`cco:ent00000046`); exactly one `p:DriversLicenseNumber`; exactly one `ExpirationDateIdentifier` (`cco:ent00000054`).
   - **Optional**: `AdditionalName`; `p:IssuingJurisdiction` (USPS 2-letter state code, validated by `USStateNameShape`); `PostalAddress`; `p:hasPhoto`.
   Note: `p:PhysicalDriversLicense` (in `persona.ttl`) models the physical card object held in a wallet — `p:DriversLicense` is the template label that marks a context file as carrying driver's license identity data.
 
-* `p:Passport` — label for context files that carry the identity claims on a government-issued passport. Also a subclass of `p:IdentityDocument`. Declared in the YAML frontmatter as `mia.template: "persona:Passport"`. SHACL shape `:PassportDocumentShape` (in `shacl/passport-shacl.ttl`) targets the `p:Passport` document individual and validates the holding `p:Person` via `^persona:hasIdentityDocument`:
+- `p:Passport` — label for context files that carry the identity claims on a government-issued passport. Also a subclass of `p:IdentityDocument`. Declared in the YAML frontmatter as `mia.template: "persona:Passport"`. SHACL shape `:PassportDocumentShape` (in `shacl/passport-shacl.ttl`) targets the `p:Passport` document individual and validates the holding `p:Person` via `^persona:hasIdentityDocument`:
   - **Required**: `FullName` **or** (`GivenName` + `FamilyName`); exactly one `Birthdate` (`cco:ent00000046`); exactly one `p:PassportNumber`; exactly one `ExpirationDateIdentifier` (`cco:ent00000054`).
   - **Optional**: `AdditionalName`; `p:IssueDate`; `p:IssuingCountry`; `p:PlaceOfBirth`; `p:GenderMarker`; `p:hasPhoto`.
 
-#### JSContact field coverage
+#### JSContact Field Coverage
 
 The table below maps every JSContact (RFC 9553) property to its representation in the Persona ontology. Properties defined in `persona-templates.ttl` for JSContact alignment are marked **JSC**.
 
@@ -534,7 +539,6 @@ The table below maps every JSContact (RFC 9553) property to its representation i
 | `language` | 0..1 | *(not yet mapped)* | — | — |
 | `cells` | 0..N | *(not yet mapped)* | — | — |
 | `preferredLanguages` | 0..N | *(not yet mapped)* | — | — |
-
 
 ### Persona Ontology Files
 
@@ -629,9 +633,9 @@ This section describes the local Mia dataset for a hypothetical user, Alice Walk
 
 ### Alice's Cells and Contexts
 
-Alice interacts with other people, organizations and groups in contexts of different types, with each context file holding a named-graph. 
+Alice interacts with other people, organizations and groups in contexts of different types, with each context file holding a named graph.
 
-Alice's context DataBooks are in `example/contexts.` Some are authored by Alice (self-claimed data--data she entered herself into her Mia app); others contain data received from peer Mia users or organizational peers over PDN and stored locally. In either case, Alice is the Mia user, so the `p:Person` that represents her uses the IRI `:Self` across all of her context files. Other people — Bob Johnson, Paula Walker — and groups such as BHS use locally-assigned named IRIs (e.g. `:Bob_Johnson`, `:Paula_Walker`, `:BHS`). When data arrives from a peer's Mia (where that peer was `:Self` in their own instance), Alice's Mia assigns them a locally-minted identifier; once a PDN connection is established, that identifier resolves to their PDN id.
+Alice's context DataBooks are in `example/contexts/`. Some are authored by Alice (self-claimed data — data she entered herself into her Mia app); others contain data received from peer Mia users or organizational peers over PDN and stored locally. In either case, Alice is the Mia user, so the `p:Person` that represents her uses the IRI `:Self` across all of her context files. Other people — Bob Johnson, Paula Walker — and groups such as BHS use locally-assigned named IRIs (e.g. `:Bob_Johnson`, `:Paula_Walker`, `:BHS`). When data arrives from a peer's Mia (where that peer was `:Self` in their own instance), Alice's Mia assigns them a locally-minted identifier; once a PDN connection is established, that identifier resolves to their PDN id.
 
 Alice's category DataBooks are in `example/categories/`. The full tree can be walked starting from `example/categories/categories.databook.md`. It contains two kinds of entries:
 
@@ -642,7 +646,7 @@ Every category DataBook here is a `cat:Copy` (a `cat:UserDefined` node, for a ca
 
 #### Category, Cell and Context Diagrams
 
-The following sequence of diagrams maps out the categories, cells and contexts of our Alice example. We start with the People cell--Alice's relationship with someone she knows named Bob Johnson. Bob is someone Alice knows but who isn't family or a close friend, so she has filed him under the Others cell rather than Friends. 
+The following sequence of diagrams maps out the categories, cells and contexts of our Alice example. We start with the People cell — Alice's relationship with someone she knows named Bob Johnson. Bob is someone Alice knows but who isn't family or a close friend, so she has filed him under the Others cell rather than Friends.
 
 <p align="center"><img src="example/images/people.png" alt="People cells"></p>
 
@@ -722,7 +726,7 @@ The following table lists contexts about other people (Paula and Bob) or groups 
 
 
 
-### Named graph scoping and context-specific membership
+### Named Graph Scoping and Context-Specific Membership
 
 A `BFO_0000115` (has member part) triple on a Social Network individual — for example, `:Alice_Family_Network BFO_0000115 :Paula_Walker` in context 21 — targets `:Paula_Walker` as a person entity, not as a context-specific slice of her data. The named graph architecture provides the isolation: that triple lives inside context 21's named graph, and when an application needs "Paula Walker's family context data" it queries context 21's graph together with context 5's graph, rather than the full merged dataset.
 
