@@ -38,7 +38,9 @@ The category ontology defines two orthogonal facets of a category DataBook. `cat
 
 <p align="center"><img src="images/category-ontology/category.png" alt="Category hierarchy"></p>
 
-There are two concrete kinds of trees. The canonical category trees are constructed of `cat:Canonical` nodes. The Mia app is installed with two kinds of canonical category trees. The second is the user's own category instance tree constructed of `cat:Copy` nodes. The user may choose to insert `cat:UserDefined` nodes into their instance tree – these are created de novo and not copied from a `cat:Canonical` node.
+The canonical category trees are preinstalled with Mia and are constructed using `cat:Canonical` nodes. The nodes in these canonical trees are copied into `cat:Copy` nodes that are building blocks the user chooses to build a tree that suits their needs to organize their information. They can select some building blocks and ignore tohers. 
+
+The user's information content is held in `cell:Cell`s that are attached like ornaments on branch and leaf nodes of the users tree. An addition, the user may choose to insert `cat:UserDefined` nodes into their instance tree – these are not copied from a `cat:Canonical` node.
 
 A `cat:Copy` or `cat:UserDefined` node has an optional `cat:label` that lets the user override the display name (e.g. "Client") — canonical templates are never renamed by a user, so `cat:label` doesn't apply there.
 
