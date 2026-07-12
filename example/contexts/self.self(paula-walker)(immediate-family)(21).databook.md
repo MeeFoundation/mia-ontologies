@@ -2,7 +2,7 @@
 id: https://www.example.org/mia/contexts/self.self(paula-walker)(immediate-family)(21)
 title: "About Alice Walker in the ImmediateFamily cell as claimed by Alice Walker"
 type: context-databook
-version: 2.0.9
+version: 2.0.10
 created: 2026-06-01
 description: >
   Alice Walker's family context. Records her maternal relationship with Paula Walker
@@ -40,10 +40,7 @@ This context captures Alice Walker's family relationships. It records her matern
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
 
-:Self rdf:type owl:NamedIndividual ,
-               persona:Person ;
-    rdfs:label "Alice Walker (Family)"@en ;
-    rdfs:comment "Alice Walker's persona in the context of her family relationships."@en ;
+:Self rdfs:comment "Alice Walker's persona in the context of her family relationships."@en ;
 
     <https://purl.org/cco/ont00001879> [  # designated by → AlternateName
         rdf:type cco:ent00000006 ;  # AlternateName

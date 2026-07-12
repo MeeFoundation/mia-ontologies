@@ -11,28 +11,26 @@ flowchart TD
     end
 
     n1e9b86ff4c78[":Alice_US_Passport\n(Passport)"]
-    n46bf651821af("Margery"):::lit
-    nbb23e36787fd("Alice"):::lit
-    n8eca084172b8("Walker"):::lit
-    n96e957897fcb("1985-07-04"):::lit
-    ne071967b7724("2021-07-04"):::lit
-    n6397a4cf89e7("2031-07-04"):::lit
-    na9b31eaccc0a("123456789"):::lit
-    n13038338462e("USA"):::lit
-    ncb1653c4c50a("Austin, Texas, USA"):::lit
-    n572169d1ace4("F"):::lit
+    n7d9788a7133d("Margery"):::lit
+    nb67a693e0c58("Alice"):::lit
+    n08624a1b1341("Walker"):::lit
+    n0564e21d3558("1985-07-04"):::lit
+    nb5d2db8f7e8d("2021-07-04"):::lit
+    n200771d6805a("2031-07-04"):::lit
+    n33947373a4e6("123456789"):::lit
+    na8f4fc6577aa("USA"):::lit
+    n1a36dc9757b6("Austin, Texas, USA"):::lit
+    nda6fd683f249("F"):::lit
     n0b3af7b5a715("https://example.org/alice-passport-photo.jpg"):::lit
-    ne0c3ba92f1db[":Self\n(Person)"]:::person
 
-    n1e9b86ff4c78 -->|"GivenName"| n46bf651821af
-    n1e9b86ff4c78 -->|"AdditionalName"| nbb23e36787fd
-    n1e9b86ff4c78 -->|"FamilyName"| n8eca084172b8
-    n1e9b86ff4c78 -->|"ent00000046"| n96e957897fcb
-    n1e9b86ff4c78 -->|"IssueDate"| ne071967b7724
-    n1e9b86ff4c78 -->|"ExpirationDate"| n6397a4cf89e7
-    n1e9b86ff4c78 -->|"PassportNumber"| na9b31eaccc0a
-    n1e9b86ff4c78 -->|"IssuingCountry"| n13038338462e
-    n1e9b86ff4c78 -->|"PlaceOfBirth"| ncb1653c4c50a
-    n1e9b86ff4c78 -->|"GenderMarker"| n572169d1ace4
+    n1e9b86ff4c78 -->|"GivenName"| n7d9788a7133d
+    n1e9b86ff4c78 -->|"AdditionalName"| nb67a693e0c58
+    n1e9b86ff4c78 -->|"FamilyName"| n08624a1b1341
+    n1e9b86ff4c78 -->|"ent00000046"| n0564e21d3558
+    n1e9b86ff4c78 -->|"IssueDate"| nb5d2db8f7e8d
+    n1e9b86ff4c78 -->|"ExpirationDate"| n200771d6805a
+    n1e9b86ff4c78 -->|"PassportNumber"| n33947373a4e6
+    n1e9b86ff4c78 -->|"IssuingCountry"| na8f4fc6577aa
+    n1e9b86ff4c78 -->|"PlaceOfBirth"| n1a36dc9757b6
+    n1e9b86ff4c78 -->|"GenderMarker"| nda6fd683f249
     n1e9b86ff4c78 -->|"hasPhoto"| n0b3af7b5a715
-    ne0c3ba92f1db -->|"hasIdentityDocument"| n1e9b86ff4c78

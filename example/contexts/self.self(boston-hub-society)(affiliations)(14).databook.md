@@ -2,7 +2,7 @@
 id: https://www.example.org/mia/contexts/self.self(boston-hub-society)(affiliations)(14)
 title: "About Alice Walker in the Boston Hub Society cell as claimed by Alice Walker"
 type: context-databook
-version: 2.0.7
+version: 2.0.8
 created: 2026-06-11
 description: >
   Alice Walker's self-claimed BHS profile, including her current address, phone number,
@@ -40,10 +40,7 @@ This context captures Alice Walker's BHS profile — the identity data she share
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
 
-:Self rdf:type owl:NamedIndividual ,
-               persona:Person ;
-    rdfs:label "Alice Walker (BHS)"@en ;
-    rdfs:comment "Alice Walker's persona in the context of her BHS group (aka her BHS profile)."@en ;
+:Self rdfs:comment "Alice Walker's persona in the context of her BHS group (aka her BHS profile)."@en ;
 
     <https://purl.org/cco/ont00001879> [  # designated by → AlternateName
         rdf:type cco:ent00000006 ;  # AlternateName

@@ -14,16 +14,7 @@ flowchart TD
     n89a1fac192dc[":Alice_Height_Measurement\n(RatioMeasurementICE)"]
     n07bac97f4199("Inch"):::lit
     nb51e42161d31("68"):::lit
-    ne0c3ba92f1db[":Self\n(Person)"]:::person
-    n9c79cc78a06b{"BlueEyeColor"}
-    n6024160ed7ba{"ScalpHair"}
-    n8f1136ba854c("Grey"):::lit
 
     n89a1fac192dc -->|"isRatioMeasurementOf"| n5fecfaaf895f
     n89a1fac192dc -->|"usesMeasurementUnit"| n07bac97f4199
     n89a1fac192dc -->|"hasDecimalValue"| nb51e42161d31
-    ne0c3ba92f1db -->|"bearerOf"| n5fecfaaf895f
-    ne0c3ba92f1db -->|"bearerOf"| n89a1fac192dc
-    ne0c3ba92f1db -->|"bearerOf"| n9c79cc78a06b
-    ne0c3ba92f1db -->|"hasContinuantPart"| n6024160ed7ba
-    n6024160ed7ba -->|"HairColor"| n8f1136ba854c

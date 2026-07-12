@@ -2,7 +2,7 @@
 id: https://www.example.org/mia/contexts/self.citibank(citibank)(banking-payments)(09)
 title: "About Alice Walker in the BankingPayments cell as claimed by Citibank"
 type: context-databook
-version: 2.0.8
+version: 2.0.9
 created: 2026-06-15
 description: >
   Alice Walker's Citibank context. Records her VISA debit card, checking account,
@@ -45,10 +45,7 @@ This context captures Alice Walker's financial relationship with Citibank. Citib
                    o:Organization ;
     rdfs:label "Citibank"@en .
 
-:Self rdf:type owl:NamedIndividual ,
-               persona:Person ;
-    rdfs:label "Alice Walker (Citibank)"@en ;
-    rdfs:comment "Alice Walker in the context of her Citibank relationship."@en ;
+:Self rdfs:comment "Alice Walker in the context of her Citibank relationship."@en ;
     persona:hasPaymentCard :Alice_Debit_Card ;
     persona:hasBankAccount :Alice_Checking_Account ;
     cco:ent00000045 :Alice_Citibank_Online .  # holds user account

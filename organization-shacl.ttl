@@ -5,11 +5,10 @@
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
 @prefix owl: <http://www.w3.org/2002/07/owl#> .
 @prefix o: <http://mee.foundation/ontologies/organization#> .
-@prefix identity: <http://mee.foundation/ontologies/pdn-identity#> .
 
 <http://mee.foundation/ontologies/organization/shapes> rdf:type owl:Ontology ;
     owl:imports <http://mee.foundation/ontologies/organization> ;
-    owl:versionInfo "Version 1.0.0 - initial"@en ;
+    owl:versionInfo "Version 1.1.0 - removed the identity:hasPDNidentifier constraint from :OrganizationShape: that property was removed from pdn-identity.ttl 1.3.0 (never populated in the example data), and the owl:Restriction requiring it was removed from organization.ttl 1.1.0. :OrganizationShape currently has no property constraints of its own. (Version 1.0.0 - initial)"@en ;
     rdfs:label "Organization Ontology SHACL Validation Shapes"@en ;
     rdfs:comment "SHACL validation shapes for the Organization Ontology."@en .
 
@@ -21,12 +20,4 @@
 :OrganizationShape
     a sh:NodeShape ;
     sh:targetClass o:Organization ;
-    sh:message "Organization validation: must have exactly one identity:hasPDNidentifier of type identity:Organization."@en ;
-
-    sh:property [
-        sh:path identity:hasPDNidentifier ;
-        sh:qualifiedValueShape [ sh:class identity:Organization ] ;
-        sh:qualifiedMinCount 1 ;
-        sh:qualifiedMaxCount 1 ;
-        sh:message "An o:Organization must have exactly one identity:hasPDNidentifier value of type identity:Organization."@en
-    ] .
+    sh:message "Organization validation."@en .

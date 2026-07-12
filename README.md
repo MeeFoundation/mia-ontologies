@@ -374,7 +374,7 @@ Context file metadata (claimant, subject, about-by) is declared in YAML frontmat
 
 The Persona ontology defines a formal, machine-readable model of a person. It is used by triples stored in `c:Context` graphs. 
 
-We represent a person with the `p:Person` class — a Mia-specific subclass of CCO `Person` (`cco:ont00001262`). Each context file contains exactly one `p:Person` individual. The Mia user's own `p:Person` individual always uses the IRI `:Self` across all of their context files; other people, groups, and organizations are assigned locally-minted named IRIs (e.g. `:Bob_Johnson`). These context files function as *named-graph slices* — each is an independent snapshot of an identity in a specific relationship or institutional context, carrying the claims relevant to that context: names, addresses, phone numbers, SSNs, physical characteristics, parent-child relationships, social connections, payment cards, and more. The Persona ontology reuses existing well-known ontologies wherever possible and defines new terms only where no suitable existing term exists.
+We represent a person with the `p:Person` class — a Mia-specific subclass of CCO `Person` (`cco:ont00001262`). Each context file contains exactly one `p:Person` individual. The Mia user's own `p:Person` individual always uses the IRI `:Self` across all of their context files; other people, groups, and organizations are assigned locally-minted named IRIs (e.g. `:Bob_Johnson`). `:Self`'s type declaration (`rdf:type owl:NamedIndividual, persona:Person`) is asserted once, in `example/contexts/self.ttl`, rather than repeated in every context file; each context file still asserts its own context-specific claims directly on `:Self` (see the [Validation](#validation) section for how `self.ttl` is merged in alongside context data). These context files function as *named-graph slices* — each is an independent snapshot of an identity in a specific relationship or institutional context, carrying the claims relevant to that context: names, addresses, phone numbers, SSNs, physical characteristics, parent-child relationships, social connections, payment cards, and more. The Persona ontology reuses existing well-known ontologies wherever possible and defines new terms only where no suitable existing term exists.
 
 <p align="center"><img src="images/persona-ontology/persona.png" alt="Persona model"></p>
 
@@ -385,10 +385,6 @@ This section describes the most fundamental properties and classes in the Person
 **Classes:**
 
 - `p:Person` — a Mia-specific subclass of CCO `Person` (`cco:ont00001262`). Each context file (named-graph slice) contains exactly one `p:Person` individual. The Mia user's own `p:Person` always uses the IRI `:Self`, shared across all of their context files. Other people, groups, and organizations are assigned locally-minted named IRIs (e.g. `:Bob_Johnson`, `:Paula_Walker`). `:Self` is a local IRI and is never exposed externally over the PDN, so there are no collisions between Mia instances. All identity data — names, identifiers, addresses, social networks, payment cards, and more — attaches to this individual.
-
-**Properties:**
-
-- `i:hasPDNidentifier` — links a `p:Person` to a `i:PDNidentifier` — the identifier used to communicate with this `Person` over the Personal Data Network. Sub-property of CCO `designated by`.
 
 ### Social Classes and Properties
 
@@ -569,7 +565,7 @@ The table below maps every JSContact (RFC 9553) property to its representation i
 
 ## Organization Ontology
 
-The Organization ontology models organizations — companies, government agencies, nonprofits, and other institutions — that participate in the Personal Data Network. An organization has a PDN identity — an `i:Organization` identifier — that allows Mia to communicate with it as with any other node on the network.
+The Organization ontology models organizations — companies, government agencies, nonprofits, and other institutions — that participate in the Personal Data Network.
 
 <p align="center"><img src="images/organization-ontology/organization.png" alt="Organization model"></p>
 
@@ -579,15 +575,15 @@ The Organization ontology models organizations — companies, government agencie
 
 ### Organization Ontology File
 
-- **`organization.ttl`** — The Organization ontology. Imports `pdn-identity.ttl`.
+- **`organization.ttl`** — The Organization ontology.
 
 ### Organization Ontology Validation
 
-`organization-shacl.ttl` validates `o:Organization` instances. Key constraint: each `o:Organization` must have exactly one `i:hasPDNidentifier` value of type `i:Organization`.
+`organization-shacl.ttl` targets `o:Organization` instances but currently has no property constraints of its own.
 
 ## Group Ontology
 
-The Group ontology introduces the concept of a *shared* group (`g:Group`) whose members are individuals and/or organizations. The group entity *itself* as well as any attached properties are shared with all of its members. Like individuals and organizations, `g:Groups` have their own PDN identifiers and can be communicated with as with any other node on the PDN.
+The Group ontology introduces the concept of a *shared* group (`g:Group`) whose members are individuals and/or organizations. The group entity *itself* as well as any attached properties are shared with all of its members.
 
 <p align="center"><img src="images/group-ontology/group.png" alt="Group model"></p>
 
@@ -597,11 +593,11 @@ The Group ontology introduces the concept of a *shared* group (`g:Group`) whose 
 
 ### Group Ontology File
 
-- **`group.ttl`** — The Group ontology. Imports `pdn-identity.ttl`.
+- **`group.ttl`** — The Group ontology.
 
 ### Group Ontology Validation
 
-`group-shacl.ttl` validates `g:Group` instances. Key constraint: each `g:Group` must have exactly one `i:hasPDNidentifier` value of type `i:Group`.
+`group-shacl.ttl` validates `g:Group` instances. Key constraint: all members (via BFO `has member part`) must be `p:Person` or `o:Organization` instances.
 
 ## PDN Identity Ontology
 
@@ -614,10 +610,6 @@ The Identity ontology is used to describe the kinds of identities that Mia can c
 * `i:Individual` - an identifier of a human Mia user.
 * `i:Group` - an identifier of a `g:Group` of Mia users and/or `o:Organizations`.
 * `i:Organization` - an identifier of an `o:Organization`.
-
-**Well-known individual**
-
-* `i:Self` — a singleton individual of `i:Individual` representing the current Mia user's PDN identity. The corresponding `p:Person` individual `:Self` is what appears in `mia.claimant` and `mia.subject` fields. Every other Mia user is represented by a locally-assigned named individual of `i:Individual`.
 
 ### PDN Identity Ontology File
 
@@ -785,7 +777,7 @@ for f in $(find example -name "*.databook.md" \
   databook extract "$f" 2>/dev/null
 done > /tmp/mia-data.ttl
 
-# Step 2 — merge data with all ontology files and foundation ontologies
+# Step 2 — merge data with all ontology files, foundation ontologies, and self.ttl
 riot --output=turtle \
   project_files/bfo-core.ttl \
   project_files/PersonOntology.ttl \
@@ -793,6 +785,7 @@ riot --output=turtle \
   project_files/StagingOntology.ttl \
   persona.ttl persona-templates.ttl context.ttl cell.ttl category.ttl \
   pdn-identity.ttl group.ttl organization.ttl \
+  example/contexts/self.ttl \
   /tmp/mia-data.ttl \
   2>/dev/null > /tmp/mia-merged.ttl
 
@@ -810,7 +803,7 @@ Expected output: `Conforms`
 The `shacl/` shapes target document classes (`p:BirthCertificate`, `p:DriversLicense`, `p:Passport`, `p:MedicalAppointment`) or `p:Person` (JSContactCard). Each template SHACL file is run against only the relevant context file merged with the foundation ontologies.
 
 ```bash
-# Shared base: foundation ontologies + application ontologies
+# Shared base: foundation ontologies + application ontologies + self.ttl
 riot --output=turtle \
   project_files/bfo-core.ttl \
   project_files/PersonOntology.ttl \
@@ -818,6 +811,7 @@ riot --output=turtle \
   project_files/StagingOntology.ttl \
   persona.ttl persona-templates.ttl context.ttl cell.ttl category.ttl \
   pdn-identity.ttl group.ttl organization.ttl \
+  example/contexts/self.ttl \
   2>/dev/null > /tmp/mia-base.ttl
 
 # BirthCertificate — self.self(texas-vital-records)(state)(24).databook.md

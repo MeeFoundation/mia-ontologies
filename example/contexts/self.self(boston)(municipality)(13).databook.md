@@ -2,7 +2,7 @@
 id: https://www.example.org/mia/contexts/self.self(boston)(municipality)(13)
 title: "About Alice Walker in the Municipality cell as claimed by Alice Walker"
 type: context-databook
-version: 2.0.6
+version: 2.0.7
 created: 2026-06-01
 description: >
   Alice Walker's previous residential address in Boston, MA (January 2020 to August 2025).
@@ -41,11 +41,7 @@ This context captures Alice Walker's previous residential address: 456 Commonwea
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 
-:Self rdf:type owl:NamedIndividual ,
-               persona:Person ;
-    rdfs:label "Alice Walker (Boston)"@en ;
-
-    <https://purl.org/cco/ont00001879> :Address_Boston .  # designated by → Boston address
+:Self <https://purl.org/cco/ont00001879> :Address_Boston .  # designated by → Boston address
 
 
 :Boston_Residence rdf:type owl:NamedIndividual ,

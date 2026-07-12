@@ -2,7 +2,7 @@
 id: https://www.example.org/mia/contexts/self.self(texas-vital-records)(state)(24)
 title: "About Alice Walker in the State cell as claimed by Alice Walker"
 type: context-databook
-version: 2.0.8
+version: 2.0.9
 created: 2026-06-01
 description: >
   Alice Walker's Texas birth certificate context. Records her legal name (Margery Alice Walker)
@@ -42,10 +42,7 @@ This context captures Alice Walker's Texas birth certificate identity data. Alic
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
 
-:Self rdf:type owl:NamedIndividual ,
-               persona:Person ;
-    rdfs:label "Alice Walker (Texas Birth Certificate)"@en ;
-    persona:hasIdentityDocument :Alice_TX_Birth_Certificate .
+:Self persona:hasIdentityDocument :Alice_TX_Birth_Certificate .
 
 :Alice_TX_Birth_Certificate rdf:type owl:NamedIndividual ,
                                       persona:BirthCertificate ;

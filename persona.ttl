@@ -1,6 +1,5 @@
 @prefix : <http://mee.foundation/ontologies/persona#> .
 @prefix p: <http://mee.foundation/ontologies/persona#> .
-@prefix identity: <http://mee.foundation/ontologies/pdn-identity#> .
 @prefix cco: <https://purl.org/cco/> .
 @prefix owl: <http://www.w3.org/2002/07/owl#> .
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
@@ -12,14 +11,13 @@
 @base <http://mee.foundation/ontologies/persona> .
 
 <http://mee.foundation/ontologies/persona> rdf:type owl:Ontology ;
-    owl:versionIRI <http://mee.foundation/ontologies/persona/2.3.0> ;
+    owl:versionIRI <http://mee.foundation/ontologies/persona/4.0.6> ;
     owl:imports <https://purl.org/cco/person> ;
     owl:imports <https://purl.org/cco/address> ;
     owl:imports <https://purl.org/cco/staging> ;
-    owl:imports <http://mee.foundation/ontologies/pdn-identity> ;
     owl:imports <http://mee.foundation/ontologies/persona-templates> ;
-    dc:date "2026-06-15"^^xsd:date ;
-    owl:versionInfo "Version 4.0.5 - removed p:copiedFromContext"@en ;
+    dc:date "2026-07-12"^^xsd:date ;
+    owl:versionInfo "Version 4.0.6 - removed the owl:imports of pdn-identity.ttl: nothing here ever referenced an identity: term (no p:Person property or class in this file uses identity:PDNidentifier, identity:hasPDNidentifier, or any other pdn-identity.ttl term — see pdn-identity.ttl 1.3.0, which removed identity:hasPDNidentifier as unused). Also resyncs owl:versionIRI with owl:versionInfo's number, which had drifted apart (versionIRI was still 2.3.0 while versionInfo read \"Version 4.0.5\"). (Version 4.0.5 - removed p:copiedFromContext)"@en ;
     rdfs:label "Persona Ontology"@en ;
     rdfs:comment """Persona Ontology for the Mee Identity Agent.
 

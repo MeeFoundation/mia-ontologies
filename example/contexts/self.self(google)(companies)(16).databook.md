@@ -2,7 +2,7 @@
 id: https://www.example.org/mia/contexts/self.self(google)(companies)(16)
 title: "About Alice Walker in the Companies cell as claimed by Alice Walker"
 type: context-databook
-version: 2.0.6
+version: 2.0.7
 created: 2026-06-01
 description: >
   Alice Walker's Google context. Records her Gmail address as self-entered data
@@ -40,11 +40,7 @@ This context captures Alice Walker's Google account context. Alice self-enters h
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
 
-:Self rdf:type owl:NamedIndividual ,
-               persona:Person ;
-    rdfs:label "Alice Walker (Google)"@en ;
-
-    <https://purl.org/cco/ont00001879> [  # designated by → Email
+:Self <https://purl.org/cco/ont00001879> [  # designated by → Email
         rdf:type cco:ent00000024 ;
         <https://purl.org/cco/ont00001765> "awalker@gmail.com"
     ] .

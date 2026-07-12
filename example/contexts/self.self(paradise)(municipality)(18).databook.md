@@ -2,7 +2,7 @@
 id: https://www.example.org/mia/contexts/self.self(paradise)(municipality)(18)
 title: "About Alice Walker in the Municipality cell as claimed by Alice Walker"
 type: context-databook
-version: 2.0.6
+version: 2.0.7
 created: 2026-06-01
 description: >
   Alice Walker's current residential address in Paradise, CA (September 2025 to present).
@@ -41,11 +41,7 @@ This context captures Alice Walker's current residential address: 123 Sleepy Hol
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 
-:Self rdf:type owl:NamedIndividual ,
-               persona:Person ;
-    rdfs:label "Alice Walker (Paradise)"@en ;
-
-    <https://purl.org/cco/ont00001879> :Address_Paradise .  # designated by → Paradise address
+:Self <https://purl.org/cco/ont00001879> :Address_Paradise .  # designated by → Paradise address
 
 
 :Paradise_Residence rdf:type owl:NamedIndividual ,

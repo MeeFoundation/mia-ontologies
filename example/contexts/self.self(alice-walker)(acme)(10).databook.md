@@ -2,7 +2,7 @@
 id: https://www.example.org/mia/contexts/self.self(alice-walker)(acme)(10)
 title: "About Alice Walker in the Alice Walker cell as claimed by Alice Walker"
 type: context-databook
-version: 2.0.7
+version: 2.0.8
 created: 2026-06-14
 description: >
   Alice Walker's JSContactCard business card persona. Records her professional contact
@@ -42,10 +42,7 @@ This context captures Alice Walker's professional business card in JSContactCard
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
 
-:Self rdf:type owl:NamedIndividual ,
-               persona:Person ;
-    rdfs:label "Alice Walker (Business Card)"@en ;
-    rdfs:comment "Alice Walker's JSContact card persona — professional contact details taking details from her Acme context."@en ;
+:Self rdfs:comment "Alice Walker's JSContact card persona — professional contact details taking details from her Acme context."@en ;
 
     # ── Name components ──────────────────────────────────────────────────────
 

@@ -61,6 +61,7 @@ There are no build, compile, test, or lint commands. The files are Turtle (`.ttl
 | `example/contexts/self.self(passport)(federal)(19).databook.md` | Alice's US passport — legal name, DOB, passport#, issue/expiry, place of birth, gender marker, photo |
 | `example/contexts/self.self(health-wellness)(17).databook.md` | Alice's physical characteristics — height, eye color, hair color |
 | `example/contexts/under-development/paula(fl-birth-cert)alice.ttl` | Paula Walker's Florida Birth Certificate Persona — legal name record (under development) |
+| `example/contexts/self.ttl` | `:Self`'s sole type declaration (`rdf:type owl:NamedIndividual, persona:Person`); not `owl:imports`ed anywhere, merged in only for validation |
 
 ## Architecture
 
@@ -75,7 +76,8 @@ Triplestore (Fuseki) — loads all DataBook files directly:
   ├─ example/contexts/paula-walker.self(paula-walker)(acme)(06).databook.md
   ├─ example/contexts/paula-walker.self(paula-walker)(immediate-family)(07).databook.md
   ├─ … (all numbered context DataBooks)
-  └─ example/contexts/self.self(health-wellness)(17).databook.md
+  ├─ example/contexts/self.self(health-wellness)(17).databook.md
+  └─ example/contexts/self.ttl        (:Self's bare type declaration — merged in for validation, never owl:imports'd)
 
 persona-shacl.ttl — no owl:imports of data; validated against the loaded dataset
 shacl/birthcertificate-shacl.ttl  — per-template shapes for birth certificate files
@@ -112,7 +114,7 @@ Context filenames follow a single flat pattern:
 
 **Exception — `cell:graph`-linked contexts**: A context linked from its cell via `cell:graph` (rather than `cell:sc-context`) has no `about-by` classification and no single subject/claimant — it is data jointly maintained by multiple parties about a third party. Such contexts drop the `<subject>.<claimant>` prefix entirely and use the literal `context` in its place: `context(<containing-cell>)(<NN>).databook.md`. These files also omit `mia.claimant` and `mia.subject` from the YAML frontmatter (those fields describe a single-claimant relationship that doesn't apply here). Example: `context(alice-carol-about-mom)(health)(26).databook.md` — jointly maintained by Alice and Carol about their mother Paula, containing cell `alice-carol-about-mom(health)`.
 
-**`mia.claimant` vocabulary**: The YAML field takes the local IRI of a `p:Person`, `g:Group`, or `o:Organization` individual — NOT an `i:PDNidentifier`. Those individuals carry their own PDN identity via `identity:hasPDNidentifier`. Specifically: `:Self` (the Mia user's `p:Person`) for self-claimed contexts; a named `p:Person` individual (e.g. `:Bob_Johnson`) when another Mia user claims the data; a named `g:Group` individual (e.g. `:BHS_Group`) for group contexts; and a named `o:Organization` individual (e.g. `:Citibank`) only when the claiming organization is itself a PDN node. In the example data **only Citibank is a PDN node**, so only `self.citibank(citibank)(banking-payments)(09).databook.md` uses `claimant: ":Citibank"`. All other organization-related contexts (Google, AT&T, SSA, etc.) use `claimant: ":Self"` because Alice self-enters that data — those organizations are not PDN-interoperable.
+**`mia.claimant` vocabulary**: The YAML field takes the local IRI of a `p:Person`, `g:Group`, or `o:Organization` individual — NOT an `i:PDNidentifier`. Specifically: `:Self` (the Mia user's `p:Person`) for self-claimed contexts; a named `p:Person` individual (e.g. `:Bob_Johnson`) when another Mia user claims the data; a named `g:Group` individual (e.g. `:BHS_Group`) for group contexts; and a named `o:Organization` individual (e.g. `:Citibank`) only when the claiming organization is itself PDN-interoperable. In the example data **only Citibank is treated as PDN-interoperable**, so only `self.citibank(citibank)(banking-payments)(09).databook.md` uses `claimant: ":Citibank"`. All other organization-related contexts (Google, AT&T, SSA, etc.) use `claimant: ":Self"` because Alice self-enters that data — those organizations aren't PDN-interoperable. (This distinction is currently just a data-modeling convention in the example, not formally enforced by any property — `identity:hasPDNidentifier`, which would have modeled it, was removed as unused; see pdn-identity.ttl 1.3.0.)
 
 **"Other" claimants**: When the claimant is someone other than the current Mia user (`:Self`), the claimant is a named individual of one of:
 - `p:Person` — another Mia user (a different person, e.g. `:Bob_Johnson` claiming data about Alice)
@@ -131,7 +133,7 @@ Context filenames follow a single flat pattern:
 
 ### Key Architectural Patterns
 
-**All data belongs to contexts**: There is no separate selfness file. Every piece of identity data — names, identifiers, addresses, payment cards, physical characteristics — belongs to a context-specific Persona file. The Mia user's `persona:Person` individual (IRI `:Self`) is declared in each context file; there is no single root file that owns the declaration.
+**All data belongs to contexts**: There is no separate selfness file holding a Mia user's identity data. Every piece of identity data — names, identifiers, addresses, payment cards, physical characteristics — belongs to a context-specific Persona file, asserted directly on the shared `:Self` individual. The one exception is `:Self`'s bare type declaration (`:Self rdf:type owl:NamedIndividual, persona:Person`), which lives once in `example/contexts/self.ttl` instead of being repeated with an `rdfs:label` in every context file as it once was; `self.ttl` carries no other claims about `:Self` and is never `owl:imports`ed — it is merged in alongside the context files only when validating (see the Tier 1/Tier 2 commands in README.md's Validation section). Every substantive fact about a Mia user still lives exactly where it always has: in the context file(s) it belongs to.
 
 **`:Self` IRI convention**: The Mia user's own `persona:Person` individual always uses the IRI `:Self` across all of their context files. All other people, groups, and organizations are assigned locally-minted named IRIs (e.g. `:Bob_Johnson`, `:Paula_Walker`, `:BHS`). `:Self` is a local IRI and is never exposed externally over the PDN, so there are no collisions between Mia instances. All context files in the example live in Alice's Mia — some authored by Alice, others received from peers over PDN. In either case, `:Self` refers to Alice. When data arrives from a peer's Mia (where that peer was `:Self` in their own instance), Alice's Mia assigns them a locally-minted identifier; once a PDN connection is established, that identifier resolves to or is replaced by their PDN ID.
 

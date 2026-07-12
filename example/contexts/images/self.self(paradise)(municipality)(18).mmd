@@ -11,23 +11,22 @@ flowchart TD
     end
 
     ndbcf44a48000[":Address_Paradise\n(PostalAddress)"]
-    nf1567571f550("123 Sleepy Hollow"):::lit
-    n59d5d62258e9("Paradise"):::lit
-    n903ccb95f229("CA"):::lit
-    n17739023279d("95969"):::lit
-    n497635b0cf8e("USA"):::lit
+    n791bdbfca93d("123 Sleepy Hollow"):::lit
+    nc94d1218f27d("Paradise"):::lit
+    nf7a3f8b9e806("CA"):::lit
+    na39f8be5a824("95969"):::lit
+    nf504ba08fc4e("USA"):::lit
     naf26563dc3c8[":Interval_2025_Present\n(TemporalInterval)"]
     n8987ca649e35("2025-09-01"):::lit
     n0eecd6ebe039[":Paradise_Residence\n(AddressDesignation)"]
-    ne0c3ba92f1db[":Self\n(Person)"]:::person
+    n89768dce3f8b[":Self"]
 
-    ndbcf44a48000 -->|"StreetAddress"| nf1567571f550
-    ndbcf44a48000 -->|"CityName"| n59d5d62258e9
-    ndbcf44a48000 -->|"StateName"| n903ccb95f229
-    ndbcf44a48000 -->|"PostalCode"| n17739023279d
-    ndbcf44a48000 -->|"CountryName"| n497635b0cf8e
+    ndbcf44a48000 -->|"StreetAddress"| n791bdbfca93d
+    ndbcf44a48000 -->|"CityName"| nc94d1218f27d
+    ndbcf44a48000 -->|"StateName"| nf7a3f8b9e806
+    ndbcf44a48000 -->|"PostalCode"| na39f8be5a824
+    ndbcf44a48000 -->|"CountryName"| nf504ba08fc4e
     naf26563dc3c8 -->|"hasStartDate"| n8987ca649e35
-    n0eecd6ebe039 -->|"hasParticipant"| ne0c3ba92f1db
+    n0eecd6ebe039 -->|"hasParticipant"| n89768dce3f8b
     n0eecd6ebe039 -->|"designated by"| ndbcf44a48000
     n0eecd6ebe039 -->|"occupiesTemporalRegion"| naf26563dc3c8
-    ne0c3ba92f1db -->|"designated by"| ndbcf44a48000

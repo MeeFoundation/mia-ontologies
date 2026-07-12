@@ -17,12 +17,8 @@ flowchart TD
     n5aa16707069d("file:///scans/alice-health-insurance-card.png"):::lit
     n424bc5303466[":Alice_PaymentCard\n(PhysicalPaymentCard)"]
     nfb9947b1c0ef[":Alice_SSNCard\n(PhysicalSocialSecurityCard)"]
-    ne0c3ba92f1db[":Self\n(Person)"]:::person
 
     n8020f1e0dda3 -->|"continuantPartOf"| ne031334f4c41
     n8020f1e0dda3 -->|"hasImageScan"| n16319a7d9aaf
     n45648c6e1691 -->|"hasImageScan"| n5aa16707069d
     n424bc5303466 -->|"continuantPartOf"| ne031334f4c41
-    ne0c3ba92f1db -->|"hasWallet"| ne031334f4c41
-    ne0c3ba92f1db -->|"hasPhysicalCard"| n45648c6e1691
-    ne0c3ba92f1db -->|"hasPhysicalCard"| nfb9947b1c0ef

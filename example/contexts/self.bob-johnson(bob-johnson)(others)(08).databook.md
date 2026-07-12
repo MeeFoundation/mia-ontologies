@@ -2,7 +2,7 @@
 id: https://www.example.org/mia/contexts/self.bob-johnson(bob-johnson)(others)(08)
 title: "About Alice Walker in the Others cell as claimed by Bob Johnson"
 type: context-databook
-version: 2.0.7
+version: 2.0.8
 created: 2026-06-13
 description: >
   Bob's record of Alice in their 1:1 relationship context, received from Bob's Mia via PDN.
@@ -39,11 +39,7 @@ This context captures Bob's record of Alice in their 1:1 relationship context, t
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
 
-:Self rdf:type owl:NamedIndividual ,
-               persona:Person ;
-    rdfs:label "Alice Walker by Bob"@en ;
-
-    <https://purl.org/cco/ont00001917> [  # described by → Person Note
+:Self <https://purl.org/cco/ont00001917> [  # described by → Person Note
         rdf:type cco:ent00000048 ;
         <https://purl.org/cco/ont00001765> "Favorite drink: pepsi"
     ] .

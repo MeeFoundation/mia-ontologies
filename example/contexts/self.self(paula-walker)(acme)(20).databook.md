@@ -2,7 +2,7 @@
 id: https://www.example.org/mia/contexts/self.self(paula-walker)(acme)(20)
 title: "About Alice Walker in the Employee cell as claimed by Alice Walker"
 type: context-databook
-version: 2.0.7
+version: 2.0.8
 created: 2026-06-12
 description: >
   Alice Walker's Acme employment context. Records her work email address and her
@@ -40,10 +40,7 @@ This context captures Alice Walker's employee identity at Acme. It records her w
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
 
-:Self rdf:type owl:NamedIndividual ,
-               persona:Person ;
-    rdfs:label "Alice Walker (Acme)"@en ;
-    rdfs:comment "Alice Walker's persona in the context of her employment at Acme."@en ;
+:Self rdfs:comment "Alice Walker's persona in the context of her employment at Acme."@en ;
 
     <https://purl.org/cco/ont00001879> [  # designated by → AlternateName
         rdf:type cco:ent00000006 ;  # AlternateName

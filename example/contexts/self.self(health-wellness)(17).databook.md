@@ -2,7 +2,7 @@
 id: https://www.example.org/mia/contexts/self.self(health-wellness)(17)
 title: "About Alice Walker in the Health & Wellness cell as claimed by Alice Walker"
 type: context-databook
-version: 1.0.3
+version: 1.0.4
 created: 2026-06-20
 description: >
   Alice Walker's physical body characteristics: height, eye color, and hair color.
@@ -41,10 +41,7 @@ This context captures Alice Walker's physical body characteristics — propertie
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 
-:Self rdf:type owl:NamedIndividual ,
-               persona:Person ;
-    rdfs:label "Alice Walker (Physical Body)"@en ;
-    rdfs:comment "Alice Walker's physical body characteristics."@en ;
+:Self rdfs:comment "Alice Walker's physical body characteristics."@en ;
 
     # ── Height ───────────────────────────────────────────────────────────────
 

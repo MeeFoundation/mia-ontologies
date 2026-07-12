@@ -5,14 +5,13 @@
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
 @prefix owl: <http://www.w3.org/2002/07/owl#> .
 @prefix g: <http://mee.foundation/ontologies/group#> .
-@prefix identity: <http://mee.foundation/ontologies/pdn-identity#> .
 @prefix persona: <http://mee.foundation/ontologies/persona#> .
 @prefix o: <http://mee.foundation/ontologies/organization#> .
 @prefix obo: <http://purl.obolibrary.org/obo/> .
 
 <http://mee.foundation/ontologies/group/shapes> rdf:type owl:Ontology ;
     owl:imports <http://mee.foundation/ontologies/group> ;
-    owl:versionInfo "Version 1.0.2 - update member constraint: persona:Persona → persona:Person; drop hasIdentity minCount (PDN classification moved to graph headers)"@en ;
+    owl:versionInfo "Version 1.0.3 - fixed :GroupShape's sh:message, which stated a identity:hasPDNidentifier cardinality requirement no longer present in this shape (dropped in v1.0.2) and which pdn-identity.ttl 1.3.0 has now removed entirely. (Version 1.0.2 - update member constraint: persona:Persona → persona:Person; drop hasIdentity minCount (PDN classification moved to graph headers))"@en ;
     rdfs:label "Group Ontology SHACL Validation Shapes"@en ;
     rdfs:comment "SHACL validation shapes for the Group Ontology."@en .
 
@@ -24,7 +23,7 @@
 :GroupShape
     a sh:NodeShape ;
     sh:targetClass g:Group ;
-    sh:message "Group validation: must have exactly one identity:hasPDNidentifier of type identity:Group."@en ;
+    sh:message "Group validation."@en ;
 
     # Members: BFO has member part → persona:Person or o:Organization
     sh:property [

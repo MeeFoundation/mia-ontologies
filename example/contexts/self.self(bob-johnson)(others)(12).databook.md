@@ -2,7 +2,7 @@
 id: https://www.example.org/mia/contexts/self.self(bob-johnson)(others)(12)
 title: "About Alice Walker in the Others cell as claimed by Alice Walker"
 type: context-databook
-version: 2.0.8
+version: 2.0.9
 created: 2026-06-12
 description: >
   Alice Walker's self-claimed persona in the context of her 1:1 relationship with Bob Johnson.
@@ -40,10 +40,7 @@ This context captures Alice Walker's self-claimed persona in her 1:1 relationshi
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
 
-:Self rdf:type owl:NamedIndividual ,
-               persona:Person ;
-    rdfs:label "Alice Walker (Bob)"@en ;
-    rdfs:comment "Alice Walker's persona in the context of her 1:1 relationship with Bob."@en ;
+:Self rdfs:comment "Alice Walker's persona in the context of her 1:1 relationship with Bob."@en ;
 
     <https://purl.org/cco/ont00001879> [  # designated by → AlternateName
         rdf:type cco:ent00000006 ;  # AlternateName

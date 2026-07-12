@@ -2,7 +2,7 @@
 id: https://www.example.org/mia/contexts/self.self(ownership)(22)
 title: "About Alice Walker in the Ownership cell as claimed by Alice Walker"
 type: context-databook
-version: 2.0.5
+version: 2.0.6
 created: 2026-06-01
 description: >
   Alice Walker's possessions context. Records the physical cards she carries day-to-day:
@@ -41,10 +41,7 @@ This context captures Alice Walker's day-to-day physical possessions. Her wallet
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 
-:Self rdf:type owl:NamedIndividual ,
-               persona:Person ;
-    rdfs:label "Alice Walker (Ownership)"@en ;
-    persona:hasWallet :Alice_Wallet ;
+:Self persona:hasWallet :Alice_Wallet ;
     persona:hasPhysicalCard :Alice_HealthInsuranceCard ;   # not in wallet — carried separately
     persona:hasPhysicalCard :Alice_SSNCard .               # not in wallet — stored at home for safety
 

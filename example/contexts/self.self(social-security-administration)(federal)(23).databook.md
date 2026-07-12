@@ -2,7 +2,7 @@
 id: https://www.example.org/mia/contexts/self.self(social-security-administration)(federal)(23)
 title: "About Alice Walker in the Federal cell as claimed by Alice Walker"
 type: context-databook
-version: 2.0.6
+version: 2.0.7
 created: 2026-06-01
 description: >
   Alice Walker's SSA context. Records her Social Security Number as self-entered data.
@@ -40,10 +40,7 @@ This context captures Alice Walker's Social Security Administration record. Alic
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
 
-:Self rdf:type owl:NamedIndividual ,
-               persona:Person ;
-    rdfs:label "Alice Walker (SSA)"@en ;
-    rdfs:comment "Alice Walker's persona in the context of her Social Security Administration record."@en ;
+:Self rdfs:comment "Alice Walker's persona in the context of her Social Security Administration record."@en ;
 
     <https://purl.org/cco/ont00001879> [  # designated by → SSN
         rdf:type cco:ent00000008 ;
