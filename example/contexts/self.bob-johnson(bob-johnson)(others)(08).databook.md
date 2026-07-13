@@ -5,7 +5,7 @@ type: context-databook
 version: 2.0.12
 created: 2026-06-13
 description: >
-  Bob's record of Alice in their 1:1 relationship context, received from Bob's Mia via PDN.
+  Claims Bob makes about Alice.
 mia:
   claimant: ":Bob_Johnson"
   subject: ":Self"
