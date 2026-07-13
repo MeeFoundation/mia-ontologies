@@ -11,7 +11,7 @@
     owl:versionIRI <http://mee.foundation/ontologies/category/1.6.0> ;
     dc:date "2026-07-11"^^xsd:date ;
     owl:imports <http://mee.foundation/ontologies/cell> ;
-    owl:versionInfo "Version 1.6.0 - reinstated a Node-to-Cell link, now named cat:cell (domain cat:Node — Canonical, Copy, or UserDefined alike; range cell:Cell), reversing the 1.2.0-era decision to make cell:catNode (cell.ttl) the sole direction of record. cell:catNode has been removed from cell.ttl; cat:cell is now the sole link between a node and its cell(s), with unconstrained cardinality (0..*) to preserve the many-to-one cell/node relationship established earlier — a node may have zero, one, or several associated cells. All 128 existing category DataBooks gained a mia.cell value pointing at their paired cell DataBook's own id; all 128 paired cell DataBooks lost their mia.catNode field. (Version 1.5.0)"@en ;
+    owl:versionInfo "Version 1.6.0 - reinstated a Node-to-Cell link, now named cat:cell (domain cat:Node — Canonical, Copy, or UserDefined alike; range cell:Cell), reversing the 1.2.0-era decision to make cell:catNode (cell.ttl) the sole direction of record. cell:catNode has been removed from cell.ttl; cat:cell is now the sole link between a node and its cell(s), with unconstrained cardinality (0..*) to preserve the many-to-one cell/node relationship established earlier — a node may have zero, one, or several associated cells. All 128 existing category DataBooks gained a mia.cell value pointing at their paired cell DataBook's own id; all 128 paired cell DataBooks lost their mia.catNode field."@en ;
     rdfs:label "Category Ontology"@en ;
     rdfs:comment """Category Ontology for the Mee Identity Agent."""@en .
 

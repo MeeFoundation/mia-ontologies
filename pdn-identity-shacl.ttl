@@ -8,7 +8,7 @@
 
 <http://mee.foundation/ontologies/pdn-identity/shapes> rdf:type owl:Ontology ;
     owl:imports <http://mee.foundation/ontologies/pdn-identity> ;
-    owl:versionInfo "Version 1.2.0 - removed :HasPDNidentifierDomainShape: identity:hasPDNidentifier was removed from pdn-identity.ttl 1.3.0 (never populated in the example data). (Version 1.1.1 - rename PDNidentity to PDNidentifier)"@en ;
+    owl:versionInfo "Version 1.2.0 - removed :HasPDNidentifierDomainShape: identity:hasPDNidentifier was removed from pdn-identity.ttl 1.3.0 (never populated in the example data)."@en ;
     rdfs:label "PDN Identity Ontology SHACL Validation Shapes"@en ;
     rdfs:comment """SHACL validation shapes for the PDN Identity Ontology.
                     Validates that identity:Individual, identity:Group, and identity:Organization

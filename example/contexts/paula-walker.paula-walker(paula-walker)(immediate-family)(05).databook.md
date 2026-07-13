@@ -2,19 +2,19 @@
 id: https://www.example.org/mia/contexts/paula-walker.paula-walker(paula-walker)(immediate-family)(05)
 title: "About Paula Walker in the ImmediateFamily cell as claimed by Paula Walker"
 type: context-databook
-version: 2.0.8
+version: 2.0.12
 created: 2026-06-14
 description: >
   Paula Walker's self-claimed family persona, received from Paula's Mia via PDN.
 mia:
   claimant: ":Paula_Walker"
   subject: ":Paula_Walker"
-  about-by: "context:OBOcontext"
 graph:
   named_graph: https://www.example.org/mia/contexts/paula-walker.paula-walker(paula-walker)(immediate-family)(05)#graph
   rdf_version: "1.1"
 shapes:
-  - http://www.example.org/shapes
+  - http://mee.foundation/ontologies/persona/shapes
+  - http://mee.foundation/ontologies/context/shapes
 process:
   transformer: human
   timestamp: 2026-06-19T00:00:00Z

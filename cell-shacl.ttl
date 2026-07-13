@@ -1,4 +1,4 @@
-@prefix : <http://www.example.org/cell-shapes#> .
+@prefix : <http://mee.foundation/ontologies/cell/shapes#> .
 @prefix sh: <http://www.w3.org/ns/shacl#> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
@@ -6,9 +6,12 @@
 @prefix owl: <http://www.w3.org/2002/07/owl#> .
 @prefix cell: <http://mee.foundation/ontologies/cell#> .
 @prefix context: <http://mee.foundation/ontologies/context#> .
+@prefix p: <http://mee.foundation/ontologies/persona#> .
+@prefix g: <http://mee.foundation/ontologies/group#> .
+@prefix o: <http://mee.foundation/ontologies/organization#> .
 
-<http://www.example.org/cell-shapes> rdf:type owl:Ontology ;
-    owl:versionInfo "Version 3.4.0 - removed the cell:sbs constraint from :CellShape and added cell:sc-context (values must be a context:SCcontext), matching cell.ttl 3.4.0's replacement of cell:sbs/obs/sbo/obo with the single multi-valued cell:sc-context. Removed :OnePartyShape, :TwoPartyShape, and :ThreePlusPartyShape entirely: they existed solely to constrain obs/sbo/obo cardinality by party count, and cell:sc-context (domain the broader cell:Cell, unconstrained cardinality) carries no such per-party-count distinction. (Version 3.3.0 - removed the cell:catNode constraint from :CellShape: the property was removed from cell.ttl 3.3.0 in favor of cat:cell (category.ttl 1.6.0), asserted on the node instead. A cell is no longer required to carry any link to its tree position at all — see category-shacl.ttl's new :NodeShape constraint on cat:cell instead. (v3.2.0 - cell:catNode is now required (exactly one value) on :CellShape, not just optional, since cat:forCell was removed from category.ttl 1.2.0 — every cell, canonical or copy, now depends on its own cell:catNode to be reachable from its tree position at all. (v3.1.0 - added cell:catNode (at most one value, must be a cat:Node) to :CellShape, matching cell.ttl 3.1.0. v3.0.0 - split alongside cell.ttl 3.0.0: :CellShape now targets the renamed cell:Cell (formerly cell:Parties) and absorbs the graph/note/folder constraints (domain moved here from the old cell:Cell, now cat:Category — see category-shacl.ttl); cellType/child/copiedFrom constraints moved out to category-shacl.ttl. cell:label re-added (distinct from cat:label) as a class-level default display name on concrete cell:Cell subtypes.)))"@en ;
+<http://mee.foundation/ontologies/cell/shapes> rdf:type owl:Ontology ;
+    owl:versionInfo "Version 3.5.0 - renamed this ontology's IRI from http://www.example.org/cell-shapes to http://mee.foundation/ontologies/cell/shapes: only example data should be grounded under www.example.org — foundational ontologies and their SHACL companions belong under mee.foundation/ontologies (see CLAUDE.md's new IRI-root integrity check)."@en ;
     rdfs:label "Cell Ontology SHACL Validation Shapes"@en ;
     rdfs:comment "SHACL validation shapes for cell:Cell DataBook instances (the content facet of a cell) in the Cell Ontology."@en .
 
@@ -16,7 +19,7 @@
 #################################################################
 #  Cell
 #  cell:Cell (formerly cell:Parties) classifies every cell instance
-#  by total party count. num-parties/sc-context/graph/note/folder
+#  by total party count. parties/sc-context/graph/note/folder
 #  all have domain cell:Cell — cell:sc-context carries no per-party-
 #  count cardinality distinction, unlike the sbs/obs/sbo/obo
 #  properties it replaced.
@@ -41,14 +44,24 @@
         sh:message "A cell's cell:sc-context values, if any, must each be a context:SCcontext."@en
     ] ;
 
-    # cell:num-parties — at most one value, and if present must be
-    # a concrete cell:Cell subclass. Not required (sh:minCount
-    # omitted): the invisible tree roots have no num-parties.
+    # cell:creator — at most one value, must be a Person, Group, or Organization
     sh:property [
-        sh:path cell:num-parties ;
+        sh:path cell:creator ;
         sh:maxCount 1 ;
-        sh:in ( "OneParty" "TwoParty" "ThreePlusParty" ) ;
-        sh:message "A cell's cell:num-parties, if present, must be one of OneParty, TwoParty, ThreePlusParty."@en
+        sh:or ( [ sh:class p:Person ] [ sh:class g:Group ] [ sh:class o:Organization ] ) ;
+        sh:message "A cell's cell:creator, if present, must be a single p:Person, g:Group, or o:Organization."@en
+    ] ;
+
+    # cell:parties — exactly one value, must be the class
+    # cell:OneParty, cell:TwoParty, or cell:ThreePlusParty itself
+    # (class-value punning, not a string). Required: every cell:Cell
+    # instance is typed as one of these three by definition.
+    sh:property [
+        sh:path cell:parties ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:in ( cell:OneParty cell:TwoParty cell:ThreePlusParty ) ;
+        sh:message "A cell's cell:parties is required and must be the class cell:OneParty, cell:TwoParty, or cell:ThreePlusParty."@en
     ] ;
 
     # cell:note — at most one markdown notes file path

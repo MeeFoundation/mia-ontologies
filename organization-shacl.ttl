@@ -8,7 +8,7 @@
 
 <http://mee.foundation/ontologies/organization/shapes> rdf:type owl:Ontology ;
     owl:imports <http://mee.foundation/ontologies/organization> ;
-    owl:versionInfo "Version 1.1.0 - removed the identity:hasPDNidentifier constraint from :OrganizationShape: that property was removed from pdn-identity.ttl 1.3.0 (never populated in the example data), and the owl:Restriction requiring it was removed from organization.ttl 1.1.0. :OrganizationShape currently has no property constraints of its own. (Version 1.0.0 - initial)"@en ;
+    owl:versionInfo "Version 1.1.0 - removed the identity:hasPDNidentifier constraint from :OrganizationShape: that property was removed from pdn-identity.ttl 1.3.0 (never populated in the example data), and the owl:Restriction requiring it was removed from organization.ttl 1.1.0. :OrganizationShape currently has no property constraints of its own."@en ;
     rdfs:label "Organization Ontology SHACL Validation Shapes"@en ;
     rdfs:comment "SHACL validation shapes for the Organization Ontology."@en .
 

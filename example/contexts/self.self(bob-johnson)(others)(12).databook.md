@@ -2,7 +2,7 @@
 id: https://www.example.org/mia/contexts/self.self(bob-johnson)(others)(12)
 title: "About Alice Walker in the Others cell as claimed by Alice Walker"
 type: context-databook
-version: 2.0.9
+version: 2.0.13
 created: 2026-06-12
 description: >
   Alice Walker's self-claimed persona in the context of her 1:1 relationship with Bob Johnson.
@@ -10,12 +10,12 @@ description: >
 mia:
   claimant: ":Self"
   subject: ":Self"
-  about-by: "context:SBScontext"
 graph:
   named_graph: https://www.example.org/mia/contexts/self.self(bob-johnson)(others)(12)#graph
   rdf_version: "1.1"
 shapes:
-  - http://www.example.org/shapes
+  - http://mee.foundation/ontologies/persona/shapes
+  - http://mee.foundation/ontologies/context/shapes
 process:
   transformer: human
   timestamp: 2026-06-19T00:00:00Z

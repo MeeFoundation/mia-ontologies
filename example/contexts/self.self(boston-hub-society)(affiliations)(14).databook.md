@@ -2,7 +2,7 @@
 id: https://www.example.org/mia/contexts/self.self(boston-hub-society)(affiliations)(14)
 title: "About Alice Walker in the Boston Hub Society cell as claimed by Alice Walker"
 type: context-databook
-version: 2.0.8
+version: 2.0.12
 created: 2026-06-11
 description: >
   Alice Walker's self-claimed BHS profile, including her current address, phone number,
@@ -10,12 +10,12 @@ description: >
 mia:
   claimant: ":Self"
   subject: ":Self"
-  about-by: "context:SBScontext"
 graph:
   named_graph: https://www.example.org/mia/contexts/self.self(boston-hub-society)(affiliations)(14)#graph
   rdf_version: "1.1"
 shapes:
-  - http://www.example.org/shapes
+  - http://mee.foundation/ontologies/persona/shapes
+  - http://mee.foundation/ontologies/context/shapes
 process:
   transformer: human
   timestamp: 2026-06-19T00:00:00Z

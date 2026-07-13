@@ -2,7 +2,7 @@
 id: https://www.example.org/mia/contexts/self.self(paula-walker)(immediate-family)(21)
 title: "About Alice Walker in the ImmediateFamily cell as claimed by Alice Walker"
 type: context-databook
-version: 2.0.10
+version: 2.0.14
 created: 2026-06-01
 description: >
   Alice Walker's family context. Records her maternal relationship with Paula Walker
@@ -10,12 +10,12 @@ description: >
 mia:
   claimant: ":Self"
   subject: ":Self"
-  about-by: "context:SBScontext"
 graph:
   named_graph: https://www.example.org/mia/contexts/self.self(paula-walker)(immediate-family)(21)#graph
   rdf_version: "1.1"
 shapes:
-  - http://www.example.org/shapes
+  - http://mee.foundation/ontologies/persona/shapes
+  - http://mee.foundation/ontologies/context/shapes
 process:
   transformer: human
   timestamp: 2026-06-20T00:00:00Z

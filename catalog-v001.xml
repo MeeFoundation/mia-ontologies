@@ -6,15 +6,15 @@
          uri="persona.ttl"/>
     <uri id="persona-templates"        name="http://mee.foundation/ontologies/persona-templates"
          uri="persona-templates.ttl"/>
-    <uri id="birthcertificate-shacl"    name="http://www.example.org/shapes/birthcertificate"
+    <uri id="birthcertificate-shacl"    name="http://mee.foundation/ontologies/persona/shapes/birthcertificate"
          uri="shacl/birthcertificate-shacl.ttl"/>
-    <uri id="jscontactcard-shacl"      name="http://www.example.org/shapes/jscontactcard"
+    <uri id="jscontactcard-shacl"      name="http://mee.foundation/ontologies/persona/shapes/jscontactcard"
          uri="shacl/jscontactcard-shacl.ttl"/>
-    <uri id="driverslicense-shacl"     name="http://www.example.org/shapes/driverslicense"
+    <uri id="driverslicense-shacl"     name="http://mee.foundation/ontologies/persona/shapes/driverslicense"
          uri="shacl/driverslicense-shacl.ttl"/>
-    <uri id="passport-shacl"           name="http://www.example.org/shapes/passport"
+    <uri id="passport-shacl"           name="http://mee.foundation/ontologies/persona/shapes/passport"
          uri="shacl/passport-shacl.ttl"/>
-    <uri id="medical-appointment-shacl" name="http://www.example.org/shapes/medical-appointment"
+    <uri id="medical-appointment-shacl" name="http://mee.foundation/ontologies/persona/shapes/medical-appointment"
          uri="shacl/medical-appointment-shacl.ttl"/>
     <uri id="context"                  name="http://mee.foundation/ontologies/context"
          uri="context.ttl"/>

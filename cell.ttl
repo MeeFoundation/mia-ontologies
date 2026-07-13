@@ -1,5 +1,8 @@
 @prefix cell: <http://mee.foundation/ontologies/cell#> .
 @prefix context: <http://mee.foundation/ontologies/context#> .
+@prefix p: <http://mee.foundation/ontologies/persona#> .
+@prefix g: <http://mee.foundation/ontologies/group#> .
+@prefix o: <http://mee.foundation/ontologies/organization#> .
 @prefix owl: <http://www.w3.org/2002/07/owl#> .
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
@@ -8,10 +11,10 @@
 @base <http://mee.foundation/ontologies/cell> .
 
 <http://mee.foundation/ontologies/cell> rdf:type owl:Ontology ;
-    owl:versionIRI <http://mee.foundation/ontologies/cell/3.4.1> ;
-    dc:date "2026-07-11"^^xsd:date ;
+    owl:versionIRI <http://mee.foundation/ontologies/cell/3.5.1> ;
+    dc:date "2026-07-12"^^xsd:date ;
     owl:imports <http://mee.foundation/ontologies/context> ;
-    owl:versionInfo "Version 3.4.1 - updated cell:sc-context's and cell:graph's rdfs:comment to match context.ttl 1.8.0's deletion of context:SBScontext/OBScontext/OBOcontext/SBOcontext — a cell:sc-context value's self-by-self/other-by-self/other-by-other/self-by-other classification now comes from the target context's about-by value, not a distinct rdf:type. (Version 3.4.0 - removed cell:sbs/cell:obs/cell:sbo/cell:obo, replaced by a single new property, cell:sc-context (domain cell:Cell, range context:SCcontext — the renamed context:XBXcontext, see context.ttl 1.7.0). A cell now links to any number of self-vs-other classified contexts through this one multi-valued property; which of the four subtypes (SBScontext/OBScontext/OBOcontext/SBOcontext) applies to a given value is determined by that context's own rdf:type/about-by, not by which property linked it. cell:MultiParty is retained purely for party-count classification (num-parties, cell:label defaults) — it no longer has any property of its own, since cell:sc-context's domain is the broader cell:Cell. (v3.3.0 - removed cell:catNode: the Node-to-Cell link is reinstated on the category side instead, as cat:cell (domain cat:Node, range cell:Cell — see category.ttl 1.6.0), reversing the 3.1.0/3.2.0 decision below. A cell:Cell now carries no link to its node(s) at all; it is found only by reverse lookup (which cat:Node asserts cat:cell to this cell), never by a field on the cell itself — mirroring the pattern already used for a context DataBook's containing cell (see context.ttl 1.5.0). cell.ttl no longer imports category.ttl, since nothing here references cat: terms anymore. (v3.2.1 - clarified cell:catNode's rdfs:comment: the cell-to-node relationship is many-to-one, not 1:1 — more than one cell:Cell may share the same cat:Node, each an independent piece of content at that one tree position; the example tree just hasn't shown that case yet. (v3.2.0 - cat:forCell removed from category.ttl 1.2.0, so cell:catNode is now the sole link between a cell and its cat:Node (Canonical or Copy alike), not just the reverse of a Copy's missing forward link. All 90 canonical -cell DataBooks (categories-person/, categories-org/) gained mia.catNode pointing at their paired canonical category. (v3.1.0 - added cell:catNode (domain cell:Cell, range cat:Node — see category.ttl 1.1.0), the reverse link a cell asserts to the cat:Copy node it belongs to, used when that cell's own cat:Copy can't assert cat:forCell (now restricted to cat:Canonical). cell.ttl now also imports category.ttl, mirroring the existing mutual import with context.ttl. (v3.0.1 - clarified the rdfs:comment on cell:Cell: the split's purpose is to make cell content self-contained and independent of tree position, for PDN sync robustness — a peer can reorganize their own category tree without ever touching a cell they share. v3.0.0 - split the former cell:Cell (the tree-position/hierarchy class and its ~90 subclasses, plus cell:child/cell:cellType/cell:copiedFrom) out into a new peer ontology, category.ttl, as cat:Category. The former cell:Parties is renamed cell:Cell: it is now the self-contained content facet of a cell (party composition plus sbs/obs/sbo/obo/graph/note/folder), linked from a cat:Category via the new cat:forCell property. cell:label is re-added here (distinct from category.ttl's cat:label) as the default display name of a concrete cell:Cell subtype (e.g. \"Two-Party Cell\"), independent of any paired category's own cat:label.))))))"@en ;
+    owl:versionInfo "Version 3.5.1 - reverted cell:creator's rdfs:domain back to cell:Cell alone: a context DataBook should not carry a creator property at all, cell:creator least of all — that was a modeling mistake. mia.creator removed from all context DataBooks; kept on cell DataBooks, its original and only intended domain."@en ;
     rdfs:label "Cell Ontology"@en ;
     rdfs:comment """Cell Ontology for the Mee Identity Agent. Defines cell:Cell — the self-contained content facet of a cell (its party composition and its links to context data) — independent of where any cat:Category (see category.ttl) chooses to place it in a navigational tree."""@en .
 
@@ -19,12 +22,6 @@
 #################################################################
 #    Annotation Properties for Cell DataBook Classification
 #################################################################
-
-cell:num-parties rdf:type owl:AnnotationProperty ;
-    rdfs:domain cell:Cell ;
-    rdfs:range xsd:string ;
-    rdfs:label "num-parties"@en ;
-    rdfs:comment "The concrete cell:Cell subclass this DataBook instantiates. One of: OneParty, TwoParty, ThreePlusParty."@en .
 
 cell:abstract rdf:type owl:AnnotationProperty ;
     rdfs:domain owl:Class ;
@@ -49,11 +46,8 @@ cell:label rdf:type owl:AnnotationProperty ;
 #    others, further split into cell:TwoParty and cell:ThreePlusParty).
 #    A cell:Cell instance is a self-contained content record — its
 #    party composition, and any sc-context/graph links to context
-#    DataBooks — independent of any tree position. A cell:Cell carries
-#    no link of its own to the cat:Node (see category.ttl) that places
-#    it in a navigational tree, and no child/label/catType/copiedFrom
-#    either, since those describe tree position, not content. Instead
-#    it is pointed at by a cat:Node's cat:cell property; a cell has no
+#    DataBooks — independent of any tree position in a category tree. 
+#    A cell:Cell is pointed at by a cat:Node's cat:cell property; a cell has no
 #    way to discover its own node(s) other than by reverse lookup on
 #    the category side. The relationship is many-to-one, not 1:1: one
 #    or more cell:Cell individuals may share the same cat:Node, each
@@ -63,7 +57,7 @@ cell:label rdf:type owl:AnnotationProperty ;
 cell:Cell rdf:type owl:Class ;
     cell:abstract true ;
     rdfs:label "Cell"@en ;
-    rdfs:comment "Superclass classifying every cell instance by total party count: cell:OneParty (the user alone) or cell:MultiParty (the user plus one or more others, further split into cell:TwoParty and cell:ThreePlusParty). cell:num-parties records the same classification as a plain string for convenience. Formerly named cell:Parties, before cell.ttl's 3.0.0 split from category.ttl absorbed the old cell:Cell name for the tree-position class (now cat:Category). A cell:Cell carries no tree position of its own and no link to one — it is a self-contained content record (party composition plus sc-context/graph/note/folder). It is instead pointed at by a cat:Node's cat:cell property (see category.ttl); attaching or moving a cell in any tree only ever touches that node's own cat:cell, never anything on the cell itself, which is what keeps a cell robust under PDN sync."@en .
+    rdfs:comment "Superclass classifying every cell instance by total party count: cell:OneParty (the user alone) or cell:MultiParty (the user plus one or more others, further split into cell:TwoParty and cell:ThreePlusParty). cell:parties records the same classification via a class-valued object property (its value is the concrete subclass itself, not a string). Formerly named cell:Parties as a class (the tree-position class, before cell.ttl's 3.0.0 split moved that name to category.ttl's cat:Category); the unrelated cell:num-parties property was itself later renamed to cell:parties. A cell:Cell carries no tree position of its own and no link to one — it is a self-contained content record (party composition plus sc-context/graph/note/folder). It is instead pointed at by a cat:Node's cat:cell property (see category.ttl); attaching or moving a cell in any tree only ever touches that node's own cat:cell, never anything on the cell itself, which is what keeps a cell robust under PDN sync."@en .
 
 cell:MultiParty rdf:type owl:Class ;
     cell:abstract true ;
@@ -93,13 +87,25 @@ cell:graph rdf:type owl:ObjectProperty ;
     rdfs:domain cell:Cell ;
     rdfs:range context:Context ;
     rdfs:label "graph"@en ;
-    rdfs:comment "Links a cell to a plain context DataBook that does not fit the self-vs-other classification carried by cell:sc-context — e.g. claims jointly maintained by multiple parties about a third party, rather than data cleanly claimable as self-vs-other. Unlike cell:sc-context, no about-by subject/claimant classification is implied by this property; the target context is typed context:Context directly rather than context:SCcontext."@en .
+    rdfs:comment "Links a cell to a plain context DataBook that does not fit the self-vs-other classification carried by cell:sc-context — e.g. claims jointly maintained by multiple parties about a third party, rather than data cleanly claimable as self-vs-other. Unlike cell:sc-context, no subject/claimant classification is implied by this property; the target context is typed context:Context directly rather than context:SCcontext."@en .
 
 cell:sc-context rdf:type owl:ObjectProperty ;
     rdfs:domain cell:Cell ;
     rdfs:range context:SCcontext ;
     rdfs:label "sc-context"@en ;
-    rdfs:comment "Links a cell to any number of Subject-Claimant classified context DataBooks (context:SCcontext, which has no subclasses — see context.ttl 1.8.0). Replaces the former cell:sbs/cell:obs/cell:sbo/cell:obo (each restricted to one of the four self-vs-other cases and, for the other-party three, to cell:MultiParty): a single multi-valued property now covers every case uniformly, on any cell:Cell regardless of party count. Which of the four cases (self-by-self, other-by-self, other-by-other, self-by-other) a given value represents comes from that context's own about-by classification, not from which property linked it or from a distinct rdf:type. Cardinality is unconstrained — a cell may have zero, one, or many cell:sc-context values."@en .
+    rdfs:comment "Links a cell to any number of Subject-Claimant classified context DataBooks (context:SCcontext, which has no subclasses — see context.ttl 1.9.0). Replaces the former cell:sbs/cell:obs/cell:sbo/cell:obo (each restricted to one of the four self-vs-other cases and, for the other-party three, to cell:MultiParty): a single multi-valued property now covers every case uniformly, on any cell:Cell regardless of party count. Which of the four cases (self-by-self, other-by-self, other-by-other, self-by-other) a given value represents comes from that context's own subject/claimant combination, not from which property linked it or from a distinct rdf:type. Cardinality is unconstrained — a cell may have zero, one, or many cell:sc-context values."@en .
+
+cell:creator rdf:type owl:ObjectProperty ;
+    rdfs:domain cell:Cell ;
+    rdfs:range [ rdf:type owl:Class ; owl:unionOf ( p:Person g:Group o:Organization ) ] ;
+    rdfs:label "creator"@en ;
+    rdfs:comment "Identifies who created a cell's content — a named individual of p:Person, g:Group, or o:Organization. At most one value. Mirrors the union-range pattern used by context:subject and context:claimant (context.ttl), referencing those classes by name without owl:imports."@en .
+
+cell:parties rdf:type owl:ObjectProperty ;
+    rdfs:domain cell:Cell ;
+    rdfs:range cell:Cell ;
+    rdfs:label "parties"@en ;
+    rdfs:comment "Links a cell:Cell individual to the concrete cell:Cell subclass it instantiates: cell:OneParty, cell:TwoParty, or cell:ThreePlusParty. Value is the class itself (e.g. cell:OneParty), not a string — mirroring cat:category's (category.ttl) use of class-value punning as an object property's range. Exactly one value required, matching that individual's own rdf:type. Formerly named cell:num-parties."@en .
 
 #################################################################
 #    Cell Notes and Folders

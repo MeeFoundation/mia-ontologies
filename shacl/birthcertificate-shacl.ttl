@@ -1,4 +1,4 @@
-@prefix : <http://www.example.org/shapes#> .
+@prefix : <http://mee.foundation/ontologies/persona/shapes#> .
 @prefix sh: <http://www.w3.org/ns/shacl#> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
@@ -8,10 +8,10 @@
 @prefix persona: <http://mee.foundation/ontologies/persona#> .
 @prefix dc: <http://purl.org/dc/elements/1.1/> .
 
-<http://www.example.org/shapes/birthcertificate> rdf:type owl:Ontology ;
+<http://mee.foundation/ontologies/persona/shapes/birthcertificate> rdf:type owl:Ontology ;
     owl:imports <http://mee.foundation/ontologies/persona> ;
     dc:date "2026-06-23"^^xsd:date ;
-    owl:versionInfo "Version 1.0.3 - target persona:BirthCertificate directly; identity claims now on the document individual"@en ;
+    owl:versionInfo "Version 1.0.4 - renamed this ontology's IRI from http://www.example.org/shapes/birthcertificate to http://mee.foundation/ontologies/persona/shapes/birthcertificate, matching persona-shacl.ttl 4.1.0's move off www.example.org."@en ;
     rdfs:label "Birth Certificate Template SHACL Shapes"@en ;
     rdfs:comment """SHACL shapes for validating context files carrying context:template persona:BirthCertificate.
                     Apply in addition to persona-shacl.ttl when validating a birth certificate context file.

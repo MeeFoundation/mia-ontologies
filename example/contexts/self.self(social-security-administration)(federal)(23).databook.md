@@ -2,7 +2,7 @@
 id: https://www.example.org/mia/contexts/self.self(social-security-administration)(federal)(23)
 title: "About Alice Walker in the Federal cell as claimed by Alice Walker"
 type: context-databook
-version: 2.0.7
+version: 2.0.11
 created: 2026-06-01
 description: >
   Alice Walker's SSA context. Records her Social Security Number as self-entered data.
@@ -10,12 +10,12 @@ description: >
 mia:
   claimant: ":Self"
   subject: ":Self"
-  about-by: "context:SBScontext"
 graph:
   named_graph: https://www.example.org/mia/contexts/self.self(social-security-administration)(federal)(23)#graph
   rdf_version: "1.1"
 shapes:
-  - http://www.example.org/shapes
+  - http://mee.foundation/ontologies/persona/shapes
+  - http://mee.foundation/ontologies/context/shapes
 process:
   transformer: human
   timestamp: 2026-06-19T00:00:00Z

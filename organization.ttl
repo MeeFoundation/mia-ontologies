@@ -11,7 +11,7 @@
     owl:versionIRI <http://mee.foundation/ontologies/organization/1.1.0> ;
     owl:imports <https://purl.org/cco/agent> ;
     dc:date "2026-07-12"^^xsd:date ;
-    owl:versionInfo "Version 1.1.0 - removed the owl:Restriction requiring identity:hasPDNidentifier: that property was removed from pdn-identity.ttl 1.3.0 (never populated in the example data). organization.ttl no longer imports pdn-identity.ttl, since nothing here references identity: terms anymore. (Version 1.0.2 - update import IRI to pdn-identity; rename hasIdentity to hasPDNidentifier)"@en ;
+    owl:versionInfo "Version 1.1.0 - removed the owl:Restriction requiring identity:hasPDNidentifier: that property was removed from pdn-identity.ttl 1.3.0 (never populated in the example data). organization.ttl no longer imports pdn-identity.ttl, since nothing here references identity: terms anymore."@en ;
     rdfs:label "Organization Ontology"@en ;
     rdfs:comment """Organization Ontology for the Mee Identity Agent.
                     Describes organizations that participate in the Personal Data Network.

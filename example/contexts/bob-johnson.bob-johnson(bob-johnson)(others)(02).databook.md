@@ -2,7 +2,7 @@
 id: https://www.example.org/mia/contexts/bob-johnson.bob-johnson(bob-johnson)(others)(02)
 title: "About Bob Johnson in the Others cell as claimed by Bob Johnson"
 type: context-databook
-version: 2.0.7
+version: 2.0.11
 created: 2026-06-15
 description: >
   Bob Johnson's self-claimed Bob-context persona, received from Bob's Mia via PDN.
@@ -10,12 +10,12 @@ description: >
 mia:
   claimant: ":Bob_Johnson"
   subject: ":Bob_Johnson"
-  about-by: "context:OBOcontext"
 graph:
   named_graph: https://www.example.org/mia/contexts/bob-johnson.bob-johnson(bob-johnson)(others)(02)#graph
   rdf_version: "1.1"
 shapes:
-  - http://www.example.org/shapes
+  - http://mee.foundation/ontologies/persona/shapes
+  - http://mee.foundation/ontologies/context/shapes
 process:
   transformer: human
   timestamp: 2026-06-19T00:00:00Z

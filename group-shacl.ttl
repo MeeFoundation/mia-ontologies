@@ -11,7 +11,7 @@
 
 <http://mee.foundation/ontologies/group/shapes> rdf:type owl:Ontology ;
     owl:imports <http://mee.foundation/ontologies/group> ;
-    owl:versionInfo "Version 1.0.3 - fixed :GroupShape's sh:message, which stated a identity:hasPDNidentifier cardinality requirement no longer present in this shape (dropped in v1.0.2) and which pdn-identity.ttl 1.3.0 has now removed entirely. (Version 1.0.2 - update member constraint: persona:Persona → persona:Person; drop hasIdentity minCount (PDN classification moved to graph headers))"@en ;
+    owl:versionInfo "Version 1.0.3 - fixed :GroupShape's sh:message, which stated a identity:hasPDNidentifier cardinality requirement no longer present in this shape (dropped in v1.0.2) and which pdn-identity.ttl 1.3.0 has now removed entirely."@en ;
     rdfs:label "Group Ontology SHACL Validation Shapes"@en ;
     rdfs:comment "SHACL validation shapes for the Group Ontology."@en .
 

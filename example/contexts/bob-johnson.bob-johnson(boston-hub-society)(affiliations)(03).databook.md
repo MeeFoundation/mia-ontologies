@@ -2,7 +2,7 @@
 id: https://www.example.org/mia/contexts/bob-johnson.bob-johnson(boston-hub-society)(affiliations)(03)
 title: "About Bob Johnson in the Boston Hub Society cell as claimed by Bob Johnson"
 type: context-databook
-version: 2.0.5
+version: 2.0.9
 created: 2026-06-15
 description: >
   Bob Johnson's BHS profile, received from Bob's Mia via PDN.
@@ -10,12 +10,12 @@ description: >
 mia:
   claimant: ":Bob_Johnson"
   subject: ":Bob_Johnson"
-  about-by: "context:OBOcontext"
 graph:
   named_graph: https://www.example.org/mia/contexts/bob-johnson.bob-johnson(boston-hub-society)(affiliations)(03)#graph
   rdf_version: "1.1"
 shapes:
-  - http://www.example.org/shapes
+  - http://mee.foundation/ontologies/persona/shapes
+  - http://mee.foundation/ontologies/context/shapes
 process:
   transformer: human
   timestamp: 2026-06-19T00:00:00Z

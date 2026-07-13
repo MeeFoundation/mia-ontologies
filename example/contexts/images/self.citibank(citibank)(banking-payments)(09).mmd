@@ -11,26 +11,26 @@ flowchart TD
     end
 
     naadb4eb7dbfe[":Alice_Checking_Account\n(CheckingAccount)"]
-    n2cad2d187d0f("9876543210"):::lit
-    ne6371fa3dc37("021000089"):::lit
+    n0c6ea173b20d("9876543210"):::lit
+    n5a35e2e0e913("021000089"):::lit
     nd168547b019a[":Alice_Citibank_Online\n(OnlineServiceAccount)"]
     nb69c1e2996b7("Citibank"):::lit
     n30fbde007d82("awalker@gmail.com"):::lit
     n1bbd693303ed("https://online.citi.com"):::lit
     n1db9350539ae("C1t1b@nk#2024!"):::lit
     ne33644105d79[":Alice_Debit_Card\n(DebitCard)"]
-    n2fc960484dd7("4111-1111-1111-1111"):::lit
-    n62714957d09f("123"):::lit
-    n58376a826b4a("12/28"):::lit
+    n9b703a4fd7bc("4111-1111-1111-1111"):::lit
+    n80df020c8bc8("123"):::lit
+    ne3577d1d56f6("12/28"):::lit
     n0415a88486d3[":Citibank\n(Organization)"]:::org
 
-    naadb4eb7dbfe -->|"AccountNumber"| n2cad2d187d0f
-    naadb4eb7dbfe -->|"RoutingNumber"| ne6371fa3dc37
+    naadb4eb7dbfe -->|"AccountNumber"| n0c6ea173b20d
+    naadb4eb7dbfe -->|"RoutingNumber"| n5a35e2e0e913
     nd168547b019a -->|"serviceName"| nb69c1e2996b7
     nd168547b019a -->|"userHandle"| n30fbde007d82
     nd168547b019a -->|"serviceURI"| n1bbd693303ed
     nd168547b019a -->|"hasPassword"| n1db9350539ae
-    ne33644105d79 -->|"CardNumber"| n2fc960484dd7
-    ne33644105d79 -->|"CVV"| n62714957d09f
-    ne33644105d79 -->|"ExpirationDate"| n58376a826b4a
+    ne33644105d79 -->|"CardNumber"| n9b703a4fd7bc
+    ne33644105d79 -->|"CVV"| n80df020c8bc8
+    ne33644105d79 -->|"ExpirationDate"| ne3577d1d56f6
     ne33644105d79 -->|"accessesBankAccount"| naadb4eb7dbfe

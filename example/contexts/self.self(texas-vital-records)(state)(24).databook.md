@@ -2,7 +2,7 @@
 id: https://www.example.org/mia/contexts/self.self(texas-vital-records)(state)(24)
 title: "About Alice Walker in the State cell as claimed by Alice Walker"
 type: context-databook
-version: 2.0.9
+version: 2.0.13
 created: 2026-06-01
 description: >
   Alice Walker's Texas birth certificate context. Records her legal name (Margery Alice Walker)
@@ -10,14 +10,14 @@ description: >
 mia:
   claimant: ":Self"
   subject: ":Self"
-  about-by: "context:SBScontext"
   template: "persona:BirthCertificate"
 graph:
   named_graph: https://www.example.org/mia/contexts/self.self(texas-vital-records)(state)(24)#graph
   rdf_version: "1.1"
 shapes:
-  - http://www.example.org/shapes
-  - http://www.example.org/shapes/birthcertificate
+  - http://mee.foundation/ontologies/persona/shapes
+  - http://mee.foundation/ontologies/context/shapes
+  - http://mee.foundation/ontologies/persona/shapes/birthcertificate
 process:
   transformer: human
   timestamp: 2026-06-19T00:00:00Z

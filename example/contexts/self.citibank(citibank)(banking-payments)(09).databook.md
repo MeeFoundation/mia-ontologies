@@ -2,7 +2,7 @@
 id: https://www.example.org/mia/contexts/self.citibank(citibank)(banking-payments)(09)
 title: "About Alice Walker in the BankingPayments cell as claimed by Citibank"
 type: context-databook
-version: 2.0.9
+version: 2.0.13
 created: 2026-06-15
 description: >
   Alice Walker's Citibank context. Records her VISA debit card, checking account,
@@ -10,12 +10,12 @@ description: >
 mia:
   claimant: ":Citibank"
   subject: ":Self"
-  about-by: "context:SBOcontext"
 graph:
   named_graph: https://www.example.org/mia/contexts/self.citibank(citibank)(banking-payments)(09)#graph
   rdf_version: "1.1"
 shapes:
-  - http://www.example.org/shapes
+  - http://mee.foundation/ontologies/persona/shapes
+  - http://mee.foundation/ontologies/context/shapes
 process:
   transformer: human
   timestamp: 2026-06-19T00:00:00Z

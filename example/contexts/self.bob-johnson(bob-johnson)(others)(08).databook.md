@@ -2,19 +2,19 @@
 id: https://www.example.org/mia/contexts/self.bob-johnson(bob-johnson)(others)(08)
 title: "About Alice Walker in the Others cell as claimed by Bob Johnson"
 type: context-databook
-version: 2.0.8
+version: 2.0.12
 created: 2026-06-13
 description: >
   Bob's record of Alice in their 1:1 relationship context, received from Bob's Mia via PDN.
 mia:
   claimant: ":Bob_Johnson"
   subject: ":Self"
-  about-by: "context:SBOcontext"
 graph:
   named_graph: https://www.example.org/mia/contexts/self.bob-johnson(bob-johnson)(others)(08)#graph
   rdf_version: "1.1"
 shapes:
-  - http://www.example.org/shapes
+  - http://mee.foundation/ontologies/persona/shapes
+  - http://mee.foundation/ontologies/context/shapes
 process:
   transformer: human
   timestamp: 2026-06-19T00:00:00Z

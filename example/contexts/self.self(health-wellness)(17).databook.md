@@ -2,7 +2,7 @@
 id: https://www.example.org/mia/contexts/self.self(health-wellness)(17)
 title: "About Alice Walker in the Health & Wellness cell as claimed by Alice Walker"
 type: context-databook
-version: 1.0.4
+version: 1.0.8
 created: 2026-06-20
 description: >
   Alice Walker's physical body characteristics: height, eye color, and hair color.
@@ -10,12 +10,12 @@ description: >
 mia:
   claimant: ":Self"
   subject: ":Self"
-  about-by: "context:SBScontext"
 graph:
   named_graph: https://www.example.org/mia/contexts/self.self(health-wellness)(17)#graph
   rdf_version: "1.1"
 shapes:
-  - http://www.example.org/shapes
+  - http://mee.foundation/ontologies/persona/shapes
+  - http://mee.foundation/ontologies/context/shapes
 process:
   transformer: human
   timestamp: 2026-06-20T00:00:00Z

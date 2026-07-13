@@ -2,7 +2,7 @@
 id: https://www.example.org/mia/contexts/bhs-group.members(boston-hub-society)(affiliations)(01)
 title: "About Boston Hub Society in the Boston Hub Society cell as claimed by Boston Hub Society"
 type: context-databook
-version: 2.0.6
+version: 2.0.10
 created: 2026-06-12
 description: >
   The Boston Hub Society group instance, with Alice and Bob as members.
@@ -10,12 +10,12 @@ description: >
 mia:
   claimant: ":BHS_Group"
   subject: ":BHS_Group"
-  about-by: "context:OBOcontext"
 graph:
   named_graph: https://www.example.org/mia/contexts/bhs-group.members(boston-hub-society)(affiliations)(01)#graph
   rdf_version: "1.1"
 shapes:
-  - http://www.example.org/shapes
+  - http://mee.foundation/ontologies/persona/shapes
+  - http://mee.foundation/ontologies/context/shapes
 process:
   transformer: human
   timestamp: 2026-06-19T00:00:00Z

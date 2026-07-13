@@ -2,7 +2,7 @@
 id: https://www.example.org/mia/contexts/self.self(alice-walker)(acme)(10)
 title: "About Alice Walker in the Alice Walker cell as claimed by Alice Walker"
 type: context-databook
-version: 2.0.8
+version: 2.0.12
 created: 2026-06-14
 description: >
   Alice Walker's JSContactCard business card persona. Records her professional contact
@@ -10,14 +10,14 @@ description: >
 mia:
   claimant: ":Self"
   subject: ":Self"
-  about-by: "context:SBScontext"
   template: "persona:JSContactCard"
 graph:
   named_graph: https://www.example.org/mia/contexts/self.self(alice-walker)(acme)(10)#graph
   rdf_version: "1.1"
 shapes:
-  - http://www.example.org/shapes
-  - http://www.example.org/shapes/jscontactcard
+  - http://mee.foundation/ontologies/persona/shapes
+  - http://mee.foundation/ontologies/context/shapes
+  - http://mee.foundation/ontologies/persona/shapes/jscontactcard
 process:
   transformer: human
   timestamp: 2026-06-19T00:00:00Z

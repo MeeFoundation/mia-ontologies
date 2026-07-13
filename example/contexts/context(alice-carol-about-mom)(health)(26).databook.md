@@ -2,7 +2,7 @@
 id: https://www.example.org/mia/contexts/context(alice-carol-about-mom)(health)(26)
 title: "Medical appointment claims for Paula Walker, shared between Alice and Carol"
 type: context-databook
-version: 1.0.7
+version: 1.0.10
 created: 2026-07-08
 description: >
   Alice's shared record of the claims needed to arrange a medical appointment
@@ -16,8 +16,8 @@ graph:
   named_graph: https://www.example.org/mia/contexts/context(alice-carol-about-mom)(health)(26)#graph
   rdf_version: "1.1"
 shapes:
-  - http://www.example.org/shapes
-  - http://www.example.org/shapes/medical-appointment
+  - http://mee.foundation/ontologies/persona/shapes
+  - http://mee.foundation/ontologies/persona/shapes/medical-appointment
 process:
   transformer: human
   timestamp: 2026-07-08T00:00:00Z

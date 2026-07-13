@@ -2,7 +2,7 @@
 id: https://www.example.org/mia/contexts/self.self(passport)(federal)(19)
 title: "About Alice Walker in the Federal cell as claimed by Alice Walker"
 type: context-databook
-version: 1.0.7
+version: 1.0.11
 created: 2026-06-20
 description: >
   Alice Walker's US passport context. Records her legal name, date of birth, passport number,
@@ -11,14 +11,14 @@ description: >
 mia:
   claimant: ":Self"
   subject: ":Self"
-  about-by: "context:SBScontext"
   template: "persona:Passport"
 graph:
   named_graph: https://www.example.org/mia/contexts/self.self(passport)(federal)(19)#graph
   rdf_version: "1.1"
 shapes:
-  - http://www.example.org/shapes
-  - http://www.example.org/shapes/passport
+  - http://mee.foundation/ontologies/persona/shapes
+  - http://mee.foundation/ontologies/context/shapes
+  - http://mee.foundation/ontologies/persona/shapes/passport
 process:
   transformer: human
   timestamp: 2026-06-20T00:00:00Z
