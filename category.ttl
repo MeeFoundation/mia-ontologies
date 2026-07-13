@@ -1,5 +1,6 @@
 @prefix cat: <http://mee.foundation/ontologies/category#> .
 @prefix cell: <http://mee.foundation/ontologies/cell#> .
+@prefix ctpl: <http://mee.foundation/ontologies/cell-templates#> .
 @prefix owl: <http://www.w3.org/2002/07/owl#> .
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
@@ -8,10 +9,11 @@
 @base <http://mee.foundation/ontologies/category> .
 
 <http://mee.foundation/ontologies/category> rdf:type owl:Ontology ;
-    owl:versionIRI <http://mee.foundation/ontologies/category/1.6.0> ;
-    dc:date "2026-07-11"^^xsd:date ;
+    owl:versionIRI <http://mee.foundation/ontologies/category/1.13.0> ;
+    dc:date "2026-07-13"^^xsd:date ;
     owl:imports <http://mee.foundation/ontologies/cell> ;
-    owl:versionInfo "Version 1.6.0 - reinstated a Node-to-Cell link, now named cat:cell (domain cat:Node — Canonical, Copy, or UserDefined alike; range cell:Cell), reversing the 1.2.0-era decision to make cell:catNode (cell.ttl) the sole direction of record. cell:catNode has been removed from cell.ttl; cat:cell is now the sole link between a node and its cell(s), with unconstrained cardinality (0..*) to preserve the many-to-one cell/node relationship established earlier — a node may have zero, one, or several associated cells. All 128 existing category DataBooks gained a mia.cell value pointing at their paired cell DataBook's own id; all 128 paired cell DataBooks lost their mia.catNode field."@en ;
+    owl:imports <http://mee.foundation/ontologies/cell-templates> ;
+    owl:versionInfo "Version 1.13.0 - renamed cat:Copy to cat:CategoryDefined, and replaced 'copy'/'copied' terminology throughout with 'instantiate'/'instantiated' (a node is instantiated from a canonical class, not copied from one) — the verb better reflects that there is no longer a separate canonical individual being duplicated (cat:Canonical was removed in 1.8.0); a cat:CategoryDefined node's cat:category value IS the instantiation, not a copy of something else. category-shacl.ttl's :CopyShape renamed to :CategoryDefinedShape to match."@en ;
     rdfs:label "Category Ontology"@en ;
     rdfs:comment """Category Ontology for the Mee Identity Agent."""@en .
 
@@ -24,31 +26,31 @@ cat:catType rdf:type owl:AnnotationProperty ;
     rdfs:domain cat:Category ;
     rdfs:range xsd:string ;
     rdfs:label "classname"@en ;
-    rdfs:comment "The local name of the cat:Category subclass this DataBook canonically is (for a canonical category, e.g. \"Family\") or was copied from (for a user-instance copy, e.g. \"Family\" again; for a purely user-defined category with no canonical counterpart, the root class itself, \"Category\"). Open-ended by design, so new canonical subclasses can be added without changing this property's definition."@en .
+    rdfs:comment "The local name of the cat:Category subclass this DataBook canonically is (for a canonical category, e.g. \"Family\") or was instantiated from (for a user-instance node, e.g. \"Family\" again; for a purely user-defined category with no canonical counterpart, the root class itself, \"Category\"). Open-ended by design, so new canonical subclasses can be added without changing this property's definition."@en .
 
 cat:label rdf:type owl:AnnotationProperty ;
-    rdfs:domain [ rdf:type owl:Class ; owl:unionOf ( cat:Copy cat:UserDefined ) ] ;
+    rdfs:domain [ rdf:type owl:Class ; owl:unionOf ( cat:CategoryDefined cat:UserDefined ) ] ;
     rdfs:range xsd:string ;
     rdfs:label "label"@en ;
-    rdfs:comment "User-editable display name for the category. Defaults to the DataBook title but may be changed independently, leaving the immutable title and id intact. Domain is cat:Copy or cat:UserDefined: only a node in a user's own instance tree is ever renamed by the user, whether copied from a canonical template (cat:Copy) or created directly with no canonical counterpart (cat:UserDefined) — canonical templates themselves have no reason to carry a display-name override."@en .
-
-cat:copiedFrom rdf:type owl:ObjectProperty ;
-    rdfs:domain cat:Copy ;
-    rdfs:range cat:Canonical ;
-    rdfs:label "copiedFrom"@en ;
-    rdfs:comment "Links a cat:Copy to the cat:Canonical category it was copied from. Every cat:Copy has exactly one cat:copiedFrom."@en .
+    rdfs:comment "User-editable display name for the category. Defaults to the DataBook title but may be changed independently, leaving the immutable title and id intact. Domain is cat:CategoryDefined or cat:UserDefined: only a node in a user's own instance tree is ever renamed by the user, whether instantiated from a canonical template (cat:CategoryDefined) or created directly with no canonical counterpart (cat:UserDefined) — canonical templates themselves have no reason to carry a display-name override."@en .
 
 cat:category rdf:type owl:ObjectProperty ;
-    rdfs:domain cat:Canonical ;
+    rdfs:domain cat:CategoryDefined ;
     rdfs:range cat:Category ;
     rdfs:label "category"@en ;
-    rdfs:comment "Links a cat:Canonical node to the cat:Category subclass it represents (e.g. cat:Work) — since cat:Canonical/cat:Copy/cat:UserDefined classify a category DataBook by its role in the tree (template, instance copy, or user-created), orthogonally to which cat:Category subclass it is. Value is the class itself (e.g. \"cat:Work\"), not an individual, and may be an abstract class when that's the most specific applicable one — e.g. the categories-org root's category is cat:Organization itself, since no more specific canonical subclass covers 'root of all organizational categories'. A tree root with no more specific classification at all, not even an abstract one, falls back to catType \"Category\" and carries no cat:category value."@en .
+    rdfs:comment "Links a cat:CategoryDefined node directly to the cat:Category subclass it represents (e.g. cat:Work). Value is the class itself, not an individual. Formerly domain cat:Canonical (category.ttl 1.6.0 and earlier), asserted on a separate canonical-tree individual that a cat:CategoryDefined node referenced indirectly via cat:copiedFrom; category.ttl 1.8.0 deleted cat:Canonical entirely once the class hierarchy's own rdfs:subClassOf structure was confirmed to already fully mirror the canonical tree's parent/child structure (verified empirically — zero discrepancies across all 92 formerly-canonical nodes), making a separate canonical-instance layer pure redundancy. cat:category now serves the role cat:copiedFrom used to (also removed): a cat:CategoryDefined node's cat:category value IS its record of which class it was effectively instantiated from — there is no longer a separate canonical individual to distinguish that from. cat:UserDefined nodes carry no cat:category at all, since they have no class to represent."@en .
 
 cat:cell rdf:type owl:ObjectProperty ;
-    rdfs:domain cat:Node ;
+    rdfs:domain [ rdf:type owl:Class ; owl:unionOf ( cat:CategoryDefined cat:UserDefined ) ] ;
     rdfs:range cell:Cell ;
     rdfs:label "cell"@en ;
-    rdfs:comment "Links a cat:Node — cat:Canonical, cat:Copy, or cat:UserDefined alike — to a cell:Cell holding its content. This is the sole link between a node and its cell(s): cell:Cell carries no forward-pointing equivalent (cell:catNode was removed). Formerly named cat:forCell (removed in category.ttl 1.2.0, when cell:catNode briefly took over as the sole direction of record); reinstated here as cat:cell, now spanning all three Node kinds rather than just cat:Canonical. The relationship is many-to-one, not 1:1: a node may have zero, one, or many cat:cell values, each an independent piece of content filed at that one tree position — use a list of values when more than one cell shares a node, exactly as cat:child does for multiple children. The example tree currently only shows one cell per node, but that's incidental, not a constraint."@en .
+    rdfs:comment "Links a cat:Node — cat:CategoryDefined or cat:UserDefined — to a cell:Cell holding its own real content. This is the sole forward link between such a node and its cell(s): cell:Cell carries no forward-pointing equivalent (cell:catNode was removed). Formerly named cat:forCell (removed in category.ttl 1.2.0, when cell:catNode briefly took over as the sole direction of record); reinstated here as cat:cell. The relationship is many-to-one, not 1:1: a node may have zero, one, or many cat:cell values, each an independent piece of content filed at that one tree position — use a list of values when more than one cell shares a node, exactly as cat:child does for multiple children. Formerly domain cat:Node (spanning Canonical, Copy, and UserDefined alike, in the days before cat:Canonical was deleted in category.ttl 1.8.0); narrowed in category.ttl 1.7.0 to the union of cat:Copy (renamed cat:CategoryDefined in 1.13.0) and cat:UserDefined once template-cell content moved to the class level via cat:templateCell (reached through cat:category). cat:CategoryDefined/cat:UserDefined nodes in a user's own instance tree (example/categories/) are entirely unaffected by any of this: their cat:cell values are their own real content."@en .
+
+cat:templateCell rdf:type owl:AnnotationProperty ;
+    rdfs:domain owl:Class ;
+    rdfs:range cell:Cell ;
+    rdfs:label "templateCell"@en ;
+    rdfs:comment "Links a cat:Category subclass (e.g. cat:Passport) directly to the cell:Cell individual that serves as its canonical template content — the same cell:Cell a cat:CategoryDefined node representing that class reaches via its own cat:category value, and the one Mia clones into a new cell when a category with this value is first instantiated into a user's tree (see README's Lazy Instantiation). Declared as an owl:AnnotationProperty rather than an owl:ObjectProperty, mirroring cell:abstract's and cell:label's precedent (cell.ttl) for asserting metadata directly on a class IRI: an annotation assertion carries no OWL DL reasoning weight, so a reasoner (HermiT/Pellet) entails nothing extra from it either way, unlike an object property whose punned use here would be legal but far less precedented in this codebase. Most cat:Category subclasses have no cat:templateCell value at all — this is the expected default, not an omission: Lazy Instantiation simply creates an empty (or no) user cell when the instantiated class has no template. Individuals are declared in the companion file cell-templates.ttl (which category.ttl owl:imports), one per templated class, each also carrying cell:templateShapes (cell.ttl) to the SHACL shape(s) in cell-templates-shacl.ttl that describe its expected content."@en .
 
 
 #################################################################
@@ -63,28 +65,23 @@ cat:Category rdf:type owl:Class ;
 cat:Node rdf:type owl:Class ;
     cell:abstract true ;
     rdfs:label "Node"@en ;
-    rdfs:comment """A node in a tree structure. Each node has a child property which thereby defines the tree. These trees of nodes are used to construct two separate trees: a canonical tree and a copied tree. Each node is represented as a DataBook file. A node's associated cell:Cell(s), if any, are recorded directly via cat:cell — the sole link between a node and its cell(s), one-to-many since a node may have zero, one, or several associated cells."""@en .
+    rdfs:comment """A node in a user's own instance tree. Each node has a child property which thereby defines the tree. Each node is represented as a DataBook file. A node's associated cell:Cell(s), if any, are recorded directly via cat:cell — the sole link between a node and its cell(s), one-to-many since a node may have zero, one, or several associated cells. There is no separate canonical-tree node kind (cat:Canonical, removed in category.ttl 1.8.0): the canonical tree is the cat:Category class hierarchy itself (rdfs:subClassOf), plus cat:templateCell for the classes that have starter content — see cell-templates.ttl."""@en .
 
-cat:Canonical rdf:type owl:Class ;
+cat:CategoryDefined rdf:type owl:Class ;
     rdfs:subClassOf cat:Node ;
-    rdfs:label "Canonical"@en ;
-    rdfs:comment "A node in a canonical template tree (categories-person/ or categories-org/) — the source that cat:Copy instances are copied from. Carries cat:category (which cat:Category subclass it represents)."@en .
-
-cat:Copy rdf:type owl:Class ;
-    rdfs:subClassOf cat:Node ;
-    rdfs:label "Copy"@en ;
-    rdfs:comment "A node in a user's own instance tree, copied from a cat:Canonical template — always carries cat:copiedFrom back to it. Carries cat:label (user-editable display name) if renamed."@en .
+    rdfs:label "CategoryDefined"@en ;
+    rdfs:comment "A node in a user's own instance tree, instantiated from a cat:Category class template — carries cat:category identifying which class. Carries cat:label (user-editable display name) if renamed. Formerly also carried cat:copiedFrom back to a separate cat:Canonical individual (removed in category.ttl 1.8.0); cat:category alone now serves that role, since there is no longer a distinct canonical individual to point at. Formerly named cat:Copy (renamed in category.ttl 1.13.0, alongside a broader shift from describing this as a 'copy' to describing it as an 'instantiation' of its canonical class throughout the docs — see README's Lazy Instantiation)."@en .
 
 cat:UserDefined rdf:type owl:Class ;
     rdfs:subClassOf cat:Node ;
     rdfs:label "UserDefined"@en ;
-    rdfs:comment "A node in a user's own instance tree created directly by the user, with no canonical counterpart — unlike cat:Copy, it carries no cat:copiedFrom."@en .
+    rdfs:comment "A node in a user's own instance tree created directly by the user, with no canonical counterpart — unlike cat:CategoryDefined, it carries no cat:category (there is no class it represents) and never did carry cat:copiedFrom."@en .
 
 cat:child rdf:type owl:ObjectProperty ;
     rdfs:domain cat:Node ;
     rdfs:range cat:Node ;
     rdfs:label "child"@en ;
-    rdfs:comment "Links a node to a more specific child node, forming the navigational tree. Used uniformly for both canonical template trees (linking cat:Canonical to cat:Canonical) and a user's own instance tree (linking cat:Copy to cat:Copy)."@en .
+    rdfs:comment "Links a node to a more specific child node, forming the navigational tree of a user's own instance tree (linking cat:CategoryDefined to cat:CategoryDefined, or cat:UserDefined nodes among them). Formerly also used for the canonical template trees (linking cat:Canonical to cat:Canonical); those trees are now expressed purely via the cat:Category class hierarchy's rdfs:subClassOf structure (category.ttl 1.8.0), which was confirmed to already exactly mirror what cat:child had separately encoded — cat:child is asserted only in a user's own instance tree now."@en .
 
 
 #################################################################
@@ -243,7 +240,8 @@ cat:PrimaryCarePhysician rdf:type owl:Class ;
 cat:MedicalAppointmentInfo rdf:type owl:Class ;
     rdfs:subClassOf cat:MedicalProviders ;
     rdfs:label "Medical Appointment Info"@en ;
-    rdfs:comment "A medical appointment a person manages on behalf of someone else they care for, e.g. a family member."@en .
+    rdfs:comment "A medical appointment a person manages on behalf of someone else they care for, e.g. a family member."@en ;
+    cat:templateCell ctpl:MedicalAppointmentInfoTemplateCell .
 
 cat:Dental rdf:type owl:Class ;
     rdfs:subClassOf cat:HealthWellness ;
@@ -377,7 +375,8 @@ cat:SSA rdf:type owl:Class ;
 cat:Passport rdf:type owl:Class ;
     rdfs:subClassOf cat:Federal ;
     rdfs:label "Passport"@en ;
-    rdfs:comment "A federal agency that issues and holds passport records."@en .
+    rdfs:comment "A federal agency that issues and holds passport records."@en ;
+    cat:templateCell ctpl:PassportTemplateCell .
 
 cat:State rdf:type owl:Class ;
     rdfs:subClassOf cat:Government ;
@@ -387,12 +386,14 @@ cat:State rdf:type owl:Class ;
 cat:BirthCertificate rdf:type owl:Class ;
     rdfs:subClassOf cat:State ;
     rdfs:label "BirthCertificate"@en ;
-    rdfs:comment "A state agency that issues and holds birth certificate records."@en .
+    rdfs:comment "A state agency that issues and holds birth certificate records."@en ;
+    cat:templateCell ctpl:BirthCertificateTemplateCell .
 
 cat:DriversLicense rdf:type owl:Class ;
     rdfs:subClassOf cat:State ;
     rdfs:label "DriversLicense"@en ;
-    rdfs:comment "A state agency that issues and holds driver's license records."@en .
+    rdfs:comment "A state agency that issues and holds driver's license records."@en ;
+    cat:templateCell ctpl:DriversLicenseTemplateCell .
 
 cat:Municipality rdf:type owl:Class ;
     rdfs:subClassOf cat:Government ;

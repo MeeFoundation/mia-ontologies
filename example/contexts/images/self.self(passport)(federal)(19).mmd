@@ -7,30 +7,30 @@ flowchart TD
 
     subgraph ctx["Context"]
         direction LR
-        ctx_meta["claimant: :Self\nsubject: :Self\ntemplate: persona:Passport"]:::meta
+        ctx_meta["claimant: :Self\nsubject: :Self\ntemplate: persona:PassportDocument"]:::meta
     end
 
-    n1e9b86ff4c78[":Alice_US_Passport\n(Passport)"]
-    n6f099cb58ab3("Margery"):::lit
-    n93fb7242daf4("Alice"):::lit
-    nb07d555ea73c("Walker"):::lit
-    nd7a90cb1aae1("1985-07-04"):::lit
-    n0808f612c757("2021-07-04"):::lit
-    nc16b668f3e03("2031-07-04"):::lit
-    n97be55391296("123456789"):::lit
-    n8d2f127f8382("USA"):::lit
-    nedfe618d9808("Austin, Texas, USA"):::lit
-    n015160ed1088("F"):::lit
+    n1e9b86ff4c78[":Alice_US_Passport\n(PassportDocument)"]
+    n30aae823ef34("Margery"):::lit
+    nbf64eab3fd4b("Alice"):::lit
+    n36a85e284742("Walker"):::lit
+    n8fc62d2cdee7("1985-07-04"):::lit
+    n244d4481f973("2021-07-04"):::lit
+    na7702ce4d8fa("2031-07-04"):::lit
+    nb63042fe5205("123456789"):::lit
+    n452224b979b1("USA"):::lit
+    n93bda03f568a("Austin, Texas, USA"):::lit
+    n5118b3106f09("F"):::lit
     n0b3af7b5a715("https://example.org/alice-passport-photo.jpg"):::lit
 
-    n1e9b86ff4c78 -->|"GivenName"| n6f099cb58ab3
-    n1e9b86ff4c78 -->|"AdditionalName"| n93fb7242daf4
-    n1e9b86ff4c78 -->|"FamilyName"| nb07d555ea73c
-    n1e9b86ff4c78 -->|"ent00000046"| nd7a90cb1aae1
-    n1e9b86ff4c78 -->|"IssueDate"| n0808f612c757
-    n1e9b86ff4c78 -->|"ExpirationDate"| nc16b668f3e03
-    n1e9b86ff4c78 -->|"PassportNumber"| n97be55391296
-    n1e9b86ff4c78 -->|"IssuingCountry"| n8d2f127f8382
-    n1e9b86ff4c78 -->|"PlaceOfBirth"| nedfe618d9808
-    n1e9b86ff4c78 -->|"GenderMarker"| n015160ed1088
+    n1e9b86ff4c78 -->|"GivenName"| n30aae823ef34
+    n1e9b86ff4c78 -->|"AdditionalName"| nbf64eab3fd4b
+    n1e9b86ff4c78 -->|"FamilyName"| n36a85e284742
+    n1e9b86ff4c78 -->|"ent00000046"| n8fc62d2cdee7
+    n1e9b86ff4c78 -->|"IssueDate"| n244d4481f973
+    n1e9b86ff4c78 -->|"ExpirationDate"| na7702ce4d8fa
+    n1e9b86ff4c78 -->|"PassportNumber"| nb63042fe5205
+    n1e9b86ff4c78 -->|"IssuingCountry"| n452224b979b1
+    n1e9b86ff4c78 -->|"PlaceOfBirth"| n93bda03f568a
+    n1e9b86ff4c78 -->|"GenderMarker"| n5118b3106f09
     n1e9b86ff4c78 -->|"hasPhoto"| n0b3af7b5a715

@@ -14,6 +14,16 @@
          uri="file:/Users/paul/Documents/Work/GitHub/mia-ontologies/cell.ttl"/>
     <uri id="category"             name="http://mee.foundation/ontologies/category"
          uri="file:/Users/paul/Documents/Work/GitHub/mia-ontologies/category.ttl"/>
+    <uri id="cell-templates"        name="http://mee.foundation/ontologies/cell-templates"
+         uri="file:/Users/paul/Documents/Work/GitHub/mia-ontologies/cell-templates.ttl"/>
+    <uri id="cell-templates-shacl-passport" name="http://mee.foundation/ontologies/persona/shapes/passport"
+         uri="file:/Users/paul/Documents/Work/GitHub/mia-ontologies/cell-templates-shacl.ttl"/>
+    <uri id="cell-templates-shacl-birthcertificate" name="http://mee.foundation/ontologies/persona/shapes/birthcertificate"
+         uri="file:/Users/paul/Documents/Work/GitHub/mia-ontologies/cell-templates-shacl.ttl"/>
+    <uri id="cell-templates-shacl-driverslicense" name="http://mee.foundation/ontologies/persona/shapes/driverslicense"
+         uri="file:/Users/paul/Documents/Work/GitHub/mia-ontologies/cell-templates-shacl.ttl"/>
+    <uri id="cell-templates-shacl-medical-appointment" name="http://mee.foundation/ontologies/persona/shapes/medical-appointment"
+         uri="file:/Users/paul/Documents/Work/GitHub/mia-ontologies/cell-templates-shacl.ttl"/>
     <uri id="pdn-identity"             name="http://mee.foundation/ontologies/pdn-identity"
          uri="file:/Users/paul/Documents/Work/GitHub/mia-ontologies/pdn-identity.ttl"/>
     <uri id="group"                    name="http://mee.foundation/ontologies/group"

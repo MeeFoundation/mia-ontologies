@@ -14,6 +14,16 @@
          uri="cell.ttl"/>
     <uri id="category"             name="http://mee.foundation/ontologies/category"
          uri="category.ttl"/>
+    <uri id="cell-templates"        name="http://mee.foundation/ontologies/cell-templates"
+         uri="cell-templates.ttl"/>
+    <uri id="cell-templates-shacl-passport" name="http://mee.foundation/ontologies/persona/shapes/passport"
+         uri="cell-templates-shacl.ttl"/>
+    <uri id="cell-templates-shacl-birthcertificate" name="http://mee.foundation/ontologies/persona/shapes/birthcertificate"
+         uri="cell-templates-shacl.ttl"/>
+    <uri id="cell-templates-shacl-driverslicense" name="http://mee.foundation/ontologies/persona/shapes/driverslicense"
+         uri="cell-templates-shacl.ttl"/>
+    <uri id="cell-templates-shacl-medical-appointment" name="http://mee.foundation/ontologies/persona/shapes/medical-appointment"
+         uri="cell-templates-shacl.ttl"/>
     <uri id="pdn-identity"             name="http://mee.foundation/ontologies/pdn-identity"
          uri="pdn-identity.ttl"/>
     <uri id="group"                    name="http://mee.foundation/ontologies/group"

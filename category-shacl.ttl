@@ -8,7 +8,7 @@
 @prefix cell: <http://mee.foundation/ontologies/cell#> .
 
 <http://mee.foundation/ontologies/category/shapes> rdf:type owl:Ontology ;
-    owl:versionInfo "Version 1.5.0 - renamed this ontology's IRI from http://www.example.org/category-shapes to http://mee.foundation/ontologies/category/shapes: only example data should be grounded under www.example.org — foundational ontologies and their SHACL companions belong under mee.foundation/ontologies (see CLAUDE.md's new IRI-root integrity check)."@en ;
+    owl:versionInfo "Version 1.7.0 - renamed :CopyShape to :CategoryDefinedShape, targeting cat:CategoryDefined (renamed from cat:Copy in category.ttl 1.13.0)."@en ;
     rdfs:label "Category Ontology SHACL Validation Shapes"@en ;
     rdfs:comment "SHACL validation shapes for cat:Category/cat:Node DataBook instances (the classificatory and tree-position facets of a cell) in the Category Ontology."@en .
 
@@ -40,9 +40,9 @@
 
 #################################################################
 #  Node
-#  Every cat:Node instance (Canonical, Copy, or UserDefined) has
-#  zero or more cat:child links to more specific child nodes, and
-#  zero or more cat:cell links to the cell:Cell(s) it holds.
+#  Every cat:Node instance (Copy or UserDefined) has zero or more
+#  cat:child links to more specific child nodes, and zero or more
+#  cat:cell links to the cell:Cell(s) it holds.
 #################################################################
 
 :NodeShape
@@ -68,14 +68,14 @@
 
 #################################################################
 #  Label
-#  cat:label applies to both cat:Copy and cat:UserDefined — any
-#  node in a user's own instance tree, whether copied from a
-#  canonical template or created directly — but not cat:Canonical.
+#  cat:label applies to both cat:CategoryDefined and cat:UserDefined
+#  — any node in a user's own instance tree, whether instantiated
+#  from a canonical template or created directly.
 #################################################################
 
 :LabelShape
     a sh:NodeShape ;
-    sh:targetClass cat:Copy, cat:UserDefined ;
+    sh:targetClass cat:CategoryDefined, cat:UserDefined ;
     sh:message "Label validation."@en ;
 
     # cat:label — at most one display-name override
@@ -86,45 +86,26 @@
     ] .
 
 #################################################################
-#  Canonical
-#  A cat:Canonical has at most one cat:category (which cat:Category
-#  subclass it represents) — the invisible tree roots, whose catType
-#  falls back to the abstract root, carry none. Its cell:Cell(s), if
-#  any, are validated by :NodeShape's cat:cell constraint above,
-#  inherited from cat:Node rather than re-declared here.
+#  CategoryDefined
+#  A cat:CategoryDefined node has at most one cat:category, pointing
+#  at the cat:Category subclass it represents — this also records
+#  which class it was effectively instantiated from, since
+#  category.ttl 1.8.0 removed the separate
+#  cat:Canonical/cat:copiedFrom mechanism.
+#  (A user-created node with no canonical counterpart is a
+#  cat:UserDefined instead, which carries no cat:category at all —
+#  see :LabelShape above for the cat:label constraint shared by both.)
 #################################################################
 
-:CanonicalShape
+:CategoryDefinedShape
     a sh:NodeShape ;
-    sh:targetClass cat:Canonical ;
-    sh:message "Canonical node validation."@en ;
+    sh:targetClass cat:CategoryDefined ;
+    sh:message "CategoryDefined node validation."@en ;
 
     # cat:category — at most one, pointing at a cat:Category subclass
     sh:property [
         sh:path cat:category ;
         sh:maxCount 1 ;
         sh:class cat:Category ;
-        sh:message "A canonical node may have at most one cat:category value, and it must be a cat:Category."@en
-    ] .
-
-#################################################################
-#  Copy
-#  A cat:Copy has at most one cat:copiedFrom, pointing at the
-#  cat:Canonical it was copied from. (A user-created node with no
-#  canonical counterpart is a cat:UserDefined instead, which has no
-#  cat:copiedFrom constraint of its own — see :LabelShape above for
-#  the cat:label constraint shared by both.)
-#################################################################
-
-:CopyShape
-    a sh:NodeShape ;
-    sh:targetClass cat:Copy ;
-    sh:message "Copy node validation."@en ;
-
-    # cat:copiedFrom — at most one canonical-template reference
-    sh:property [
-        sh:path cat:copiedFrom ;
-        sh:maxCount 1 ;
-        sh:class cat:Canonical ;
-        sh:message "A copy node may have at most one cat:copiedFrom value, and it must be a cat:Canonical."@en
+        sh:message "A cat:CategoryDefined node may have at most one cat:category value, and it must be a cat:Category."@en
     ] .

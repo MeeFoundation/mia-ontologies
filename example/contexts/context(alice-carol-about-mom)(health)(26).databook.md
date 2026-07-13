@@ -2,7 +2,7 @@
 id: https://www.example.org/mia/contexts/context(alice-carol-about-mom)(health)(26)
 title: "Medical appointment claims for Paula Walker, shared between Alice and Carol"
 type: context-databook
-version: 1.0.10
+version: 1.0.11
 created: 2026-07-08
 description: >
   Alice's shared record of the claims needed to arrange a medical appointment
@@ -11,7 +11,7 @@ description: >
   jointly maintained by Alice and Carol about a third party (Paula) and does
   not fit the self-vs-other classification that property assumes.
 mia:
-  template: "persona:MedicalAppointment"
+  template: "persona:MedicalAppointmentRecord"
 graph:
   named_graph: https://www.example.org/mia/contexts/context(alice-carol-about-mom)(health)(26)#graph
   rdf_version: "1.1"
@@ -81,7 +81,7 @@ This context captures Alice's shared record of the claims needed to arrange a me
 # ── The shared Medical Appointment claims record ─────────────────────────────
 
 :Paula_Medical_Appointment rdf:type owl:NamedIndividual ,
-               persona:MedicalAppointment ;
+               persona:MedicalAppointmentRecord ;
     rdfs:label "Paula Walker's Medical Appointment Claims"@en ;
     rdfs:comment "Claims Alice and Carol share to arrange and manage medical appointments for Paula."@en ;
 

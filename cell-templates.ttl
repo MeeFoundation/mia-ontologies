@@ -1,0 +1,53 @@
+@prefix cell: <http://mee.foundation/ontologies/cell#> .
+@prefix ctpl: <http://mee.foundation/ontologies/cell-templates#> .
+@prefix pshapes: <http://mee.foundation/ontologies/persona/shapes#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix dc: <http://purl.org/dc/elements/1.1/> .
+@base <http://mee.foundation/ontologies/cell-templates> .
+
+<http://mee.foundation/ontologies/cell-templates> rdf:type owl:Ontology ;
+    owl:versionIRI <http://mee.foundation/ontologies/cell-templates/1.5.0> ;
+    dc:date "2026-07-13"^^xsd:date ;
+    owl:imports <http://mee.foundation/ontologies/cell> ;
+    owl:versionInfo "Version 1.5.0 - updated doc comment for category.ttl 1.13.0's cat:Copy -> cat:CategoryDefined rename and 'copy'/'instantiate' terminology shift."@en ;
+    rdfs:label "Cell Templates"@en ;
+    rdfs:comment """Class-level cell:Cell templates for cat:Category subclasses (category.ttl). Each individual here is what a cat:Category subclass's cat:templateCell value (asserted in category.ttl) points at, and what a cat:CategoryDefined node's cat:category value indirectly reaches — what Mia clones into a new cell when that category is first instantiated into a user's tree (Lazy Instantiation). Each also carries cell:templateShapes to the SHACL shape(s), in the paired cell-templates-shacl.ttl, describing the content expected of a context file filed under that category."""@en .
+
+#################################################################
+#  cat:Passport
+#################################################################
+
+ctpl:PassportTemplateCell rdf:type cell:Cell, cell:OneParty ;
+    rdfs:label "Passport Template Cell"@en ;
+    cell:parties cell:OneParty ;
+    cell:templateShapes pshapes:PassportDocumentShape .
+
+#################################################################
+#  cat:BirthCertificate
+#################################################################
+
+ctpl:BirthCertificateTemplateCell rdf:type cell:Cell, cell:OneParty ;
+    rdfs:label "Birth Certificate Template Cell"@en ;
+    cell:parties cell:OneParty ;
+    cell:templateShapes pshapes:BirthCertificateDocumentShape .
+
+#################################################################
+#  cat:DriversLicense
+#################################################################
+
+ctpl:DriversLicenseTemplateCell rdf:type cell:Cell, cell:OneParty ;
+    rdfs:label "Drivers License Template Cell"@en ;
+    cell:parties cell:OneParty ;
+    cell:templateShapes pshapes:DriversLicenseDocumentShape .
+
+#################################################################
+#  cat:MedicalAppointmentInfo
+#################################################################
+
+ctpl:MedicalAppointmentInfoTemplateCell rdf:type cell:Cell, cell:OneParty ;
+    rdfs:label "Medical Appointment Info Template Cell"@en ;
+    cell:parties cell:OneParty ;
+    cell:templateShapes pshapes:MedicalAppointmentRecordShape .

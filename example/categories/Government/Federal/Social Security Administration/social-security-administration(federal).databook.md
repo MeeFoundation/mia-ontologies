@@ -2,12 +2,12 @@
 id: http://www.example.org/mia/categories/social-security-administration(federal)
 title: "Social Security Administration"
 type: category-databook
-version: 1.0.5
+version: 1.0.6
 created: 2026-06-22
 description: >
-  Copy of a canonical category databook. See the canonical category databook for details.
+  Copy of a canonical category, per its cat:category value. See category.ttl and cell-templates.ttl for the class hierarchy and any template cell.
 mia:
   catType: "SSA"
   cell: "http://www.example.org/mia/categories/social-security-administration(federal)-cell"
-  copiedFrom: "http://mee.foundation/ontologies/categories-person/ssa"
+  category: "cat:SSA"
 ---

@@ -2,13 +2,13 @@
 id: http://www.example.org/mia/categories/health-wellness
 title: "Health & Wellness"
 type: category-databook
-version: 1.0.8
+version: 1.0.9
 created: 2026-06-24
 description: >
-  Copy of a canonical category databook. See the canonical category databook for details.
+  Copy of a canonical category, per its cat:category value. See category.ttl and cell-templates.ttl for the class hierarchy and any template cell.
 mia:
   catType: "HealthWellness"
   cell: "http://www.example.org/mia/categories/health-wellness-cell"
-  copiedFrom: "http://mee.foundation/ontologies/categories-person/health-wellness"
+  category: "cat:HealthWellness"
   child: "http://www.example.org/mia/categories/medical"
 ---

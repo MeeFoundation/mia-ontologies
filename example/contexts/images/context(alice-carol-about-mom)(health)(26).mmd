@@ -7,14 +7,14 @@ flowchart TD
 
     subgraph ctx["Context"]
         direction LR
-        ctx_meta["template: persona:MedicalAppointment"]:::meta
+        ctx_meta["template: persona:MedicalAppointmentRecord"]:::meta
     end
 
     naf30988316a0[":Jane_Kopakolva\n(Person)"]:::person
-    n2966cddd1acd("Jane"):::lit
-    nafcc62c7a56a("Kopakolva"):::lit
-    n592858d7151b("Paula Walker's primary care physician"):::lit
-    n9c0041903ee1[":Paula_Medical_Appointment\n(MedicalAppointment)"]
+    n17461c0dd83a("Jane"):::lit
+    n37ea616a6ad7("Kopakolva"):::lit
+    nfefeccf3a924("Paula Walker's primary care physician"):::lit
+    n9c0041903ee1[":Paula_Medical_Appointment\n(MedicalAppointmentRecord)"]
     nf4296ab13de4[":Paula_Walker\n(Person)"]:::person
     nd3d68245abd1("Lisinopril 10mg daily"):::lit
     n75726e1c0322("Metformin 500mg twice daily"):::lit
@@ -23,12 +23,12 @@ flowchart TD
     nb048c127c644("Medicare"):::lit
     nd767c2e2c89d("1EG4-TE5-MK72"):::lit
     nfb1be0ec8e6d("CVS Pharmacy, 123 Main St, Paradise, CA"):::lit
-    n143ee0ff687a("Paula"):::lit
-    n66e41a3bff66("Walker"):::lit
+    nb366be061f1b("Paula"):::lit
+    nfc8c7b2e89d1("Walker"):::lit
 
-    naf30988316a0 -->|"GivenName"| n2966cddd1acd
-    naf30988316a0 -->|"FamilyName"| nafcc62c7a56a
-    naf30988316a0 -->|"ent00000048"| n592858d7151b
+    naf30988316a0 -->|"GivenName"| n17461c0dd83a
+    naf30988316a0 -->|"FamilyName"| n37ea616a6ad7
+    naf30988316a0 -->|"ent00000048"| nfefeccf3a924
     n9c0041903ee1 -->|"forPatient"| nf4296ab13de4
     n9c0041903ee1 -->|"hasPrimaryCarePhysician"| naf30988316a0
     n9c0041903ee1 -->|"currentMedication"| nd3d68245abd1
@@ -38,5 +38,5 @@ flowchart TD
     n9c0041903ee1 -->|"insuranceProvider"| nb048c127c644
     n9c0041903ee1 -->|"insurancePolicyNumber"| nd767c2e2c89d
     n9c0041903ee1 -->|"preferredPharmacy"| nfb1be0ec8e6d
-    nf4296ab13de4 -->|"GivenName"| n143ee0ff687a
-    nf4296ab13de4 -->|"FamilyName"| n66e41a3bff66
+    nf4296ab13de4 -->|"GivenName"| nb366be061f1b
+    nf4296ab13de4 -->|"FamilyName"| nfc8c7b2e89d1

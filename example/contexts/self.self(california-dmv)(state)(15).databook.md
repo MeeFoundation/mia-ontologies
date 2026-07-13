@@ -2,7 +2,7 @@
 id: https://www.example.org/mia/contexts/self.self(california-dmv)(state)(15)
 title: "About Alice Walker in the State cell as claimed by Alice Walker"
 type: context-databook
-version: 2.0.13
+version: 2.0.14
 created: 2026-06-15
 description: >
   Alice Walker's California driver's license context. Records her legal name, date of birth,
@@ -10,7 +10,7 @@ description: >
 mia:
   claimant: ":Self"
   subject: ":Self"
-  template: "persona:DriversLicense"
+  template: "persona:DriversLicenseDocument"
 graph:
   named_graph: https://www.example.org/mia/contexts/self.self(california-dmv)(state)(15)#graph
   rdf_version: "1.1"
@@ -46,7 +46,7 @@ This context captures Alice Walker's California driver's license identity data. 
 :Self persona:hasIdentityDocument :Alice_CA_DriversLicense .
 
 :Alice_CA_DriversLicense rdf:type owl:NamedIndividual ,
-                                   persona:DriversLicense ;
+                                   persona:DriversLicenseDocument ;
     rdfs:label "Alice Walker's California Driver's License"@en ;
     rdfs:comment "Alice Walker's California state-issued driver's licence identity data."@en ;
 

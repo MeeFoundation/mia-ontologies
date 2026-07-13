@@ -2,13 +2,13 @@
 id: http://www.example.org/mia/categories/immediate-family(people)
 title: "Immediate Family"
 type: category-databook
-version: 1.0.3
+version: 1.0.4
 created: 2026-07-08
 description: >
-  Copy of a canonical category databook. See the canonical category databook for details.
+  Copy of a canonical category, per its cat:category value. See category.ttl and cell-templates.ttl for the class hierarchy and any template cell.
 mia:
   catType: "ImmediateFamily"
   cell: "http://www.example.org/mia/categories/immediate-family(people)-cell"
-  copiedFrom: "http://mee.foundation/ontologies/categories-person/immediate-family"
+  category: "cat:ImmediateFamily"
   child: "http://www.example.org/mia/categories/paula-walker(immediate-family)"
 ---

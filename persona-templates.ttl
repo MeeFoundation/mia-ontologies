@@ -9,31 +9,32 @@
 
 <http://mee.foundation/ontologies/persona-templates> rdf:type owl:Ontology ;
     dc:date "2026-07-13"^^xsd:date ;
-    owl:versionInfo "Version 2.1.3 - updated p:BirthCertificate/p:DriversLicense/p:Passport/p:MedicalAppointment comments to point at their SHACL shapes' new location, embedded in their canonical categories-person cell-databooks rather than standalone shacl/*.ttl files; p:JSContactCard unchanged (no canonical categories-person cell to embed into)."@en ;
+    owl:versionInfo "Version 2.2.0 - renamed the 4 document/record classes for clarity, adding a suffix matching their existing SHACL shape names and disambiguating from the unrelated cat:BirthCertificate/cat:DriversLicense/cat:Passport category-classification classes (category.ttl) and p:PhysicalDriversLicense (the physical card object, persona.ttl): p:BirthCertificate -> p:BirthCertificateDocument, p:DriversLicense -> p:DriversLicenseDocument, p:Passport -> p:PassportDocument (all matching their :*DocumentShape names), and p:MedicalAppointment -> p:MedicalAppointmentRecord (matching :MedicalAppointmentRecordShape — 'Record' rather than 'Document' since it is explicitly not a p:IdentityDocument). context:template values, SHACL sh:targetClass values, and the affected example context files' rdf:type assertions were all updated to match; the local name each class carries as its context:template YAML value is unchanged in spirit, only longer."@en ;
     rdfs:label "Persona Templates Ontology"@en ;
     rdfs:comment """Template type classification used as values for the context:template annotation property.
-                    Each concrete template type (BirthCertificate, JSContactCard, DriversLicense, Passport,
-                    MedicalAppointment) identifies which per-template SHACL shapes to apply when
-                    validating a context file. Four of the five (all but JSContactCard) have their shapes
-                    embedded (fragment #shapes) in their canonical categories-person cell-databook.
+                    Each concrete template type (BirthCertificateDocument, JSContactCard, DriversLicenseDocument,
+                    PassportDocument, MedicalAppointmentRecord) identifies which per-template SHACL shapes to
+                    apply when validating a context file. Four of the five (all but JSContactCard) have their
+                    shapes in cell-templates-shacl.ttl, linked from a class-level cell:Cell template
+                    (cell-templates.ttl) via cat:templateShapes (category.ttl).
 
                     p:IdentityDocument models government-issued identity documents as artifact instances.
-                    p:BirthCertificate, p:DriversLicense, and p:Passport are subclasses of both
-                    p:PersonaTemplate (template label use) and p:IdentityDocument (artifact instance use).
+                    p:BirthCertificateDocument, p:DriversLicenseDocument, and p:PassportDocument are subclasses
+                    of both p:PersonaTemplate (template label use) and p:IdentityDocument (artifact instance use).
                     p:JSContactCard is a template label only — not a government-issued identity document.
-                    p:MedicalAppointment is likewise a template label AND the class of the shareable
-                    claims record individual (following the same pattern as p:Passport), but is not an
-                    IdentityDocument.
+                    p:MedicalAppointmentRecord is likewise a template label AND the class of the shareable
+                    claims record individual (following the same pattern as p:PassportDocument), but is not an
+                    IdentityDocument — hence "Record" rather than "Document" in its name.
 
                     Class hierarchy:
-                    p:PersonaTemplate → p:BirthCertificate (also p:IdentityDocument)
-                                      → p:DriversLicense  (also p:IdentityDocument)
-                                      → p:Passport        (also p:IdentityDocument)
+                    p:PersonaTemplate → p:BirthCertificateDocument (also p:IdentityDocument)
+                                      → p:DriversLicenseDocument  (also p:IdentityDocument)
+                                      → p:PassportDocument        (also p:IdentityDocument)
                                       → p:JSContactCard
-                                      → p:MedicalAppointment
-                    p:IdentityDocument → p:BirthCertificate
-                                       → p:DriversLicense
-                                       → p:Passport"""@en .
+                                      → p:MedicalAppointmentRecord
+                    p:IdentityDocument → p:BirthCertificateDocument
+                                       → p:DriversLicenseDocument
+                                       → p:PassportDocument"""@en .
 
 
 #################################################################
@@ -43,8 +44,8 @@
 persona:PersonaTemplate rdf:type owl:Class ;
     rdfs:label "Persona Template"@en ;
     rdfs:comment """Abstract superclass for template type labels used as values for context:template.
-                    Concrete subtypes (BirthCertificate, JSContactCard, DriversLicense) identify
-                    which SHACL shapes file applies to a given context file."""@en .
+                    Concrete subtypes (BirthCertificateDocument, JSContactCard, DriversLicenseDocument)
+                    identify which SHACL shapes file applies to a given context file."""@en .
 
 
 #################################################################
@@ -56,8 +57,8 @@ persona:IdentityDocument rdf:type owl:Class ;
     rdfs:label "Identity Document"@en ;
     rdfs:comment """A government-issued document that formally identifies a person,
                     such as a birth certificate, driver's license, or passport.
-                    Subclasses (p:BirthCertificate, p:DriversLicense, p:Passport) are also
-                    p:PersonaTemplate subclasses used as context:template annotation values.
+                    Subclasses (p:BirthCertificateDocument, p:DriversLicenseDocument, p:PassportDocument)
+                    are also p:PersonaTemplate subclasses used as context:template annotation values.
                     Instances are linked from persona:Person via persona:hasIdentityDocument."""@en .
 
 persona:hasIdentityDocument rdf:type owl:ObjectProperty ;
@@ -68,20 +69,21 @@ persona:hasIdentityDocument rdf:type owl:ObjectProperty ;
 
 
 #################################################################
-#    BirthCertificate Template and related properties
+#    BirthCertificateDocument Template and related properties
 #################################################################
 
-persona:BirthCertificate rdf:type owl:Class ;
+persona:BirthCertificateDocument rdf:type owl:Class ;
     rdfs:subClassOf persona:PersonaTemplate ;
     rdfs:subClassOf persona:IdentityDocument ;
     rdfs:label "Birth Certificate"@en ;
     rdfs:comment """Template type label for a context whose purpose is to carry a person's legal
                     birth certificate name record. Used as the value of context:template on the
-                    context file's ontology IRI. Selects the SHACL shape embedded (fragment #shapes)
-                    in the canonical cell-databook categories-person/Government/State/Birth Certificate/
-                    birth-certificate-cell.databook.md — IRI
+                    context file's ontology IRI. Selects the SHACL shape :BirthCertificateDocumentShape
+                    in cell-templates-shacl.ttl, linked from cat:BirthCertificate's template cell
+                    (cell-templates.ttl) via cat:templateShapes — IRI
                     http://mee.foundation/ontologies/persona/shapes/birthcertificate — for
-                    validation."""@en .
+                    validation. Formerly named persona:BirthCertificate; renamed to disambiguate from
+                    the unrelated cat:BirthCertificate category-classification class (category.ttl)."""@en .
 
 
 #################################################################
@@ -106,7 +108,7 @@ persona:IssuingJurisdiction rdf:type owl:Class ;
                     the USPS 2-letter abbreviation controlled vocabulary (e.g. 'CA', 'TX').
                     Used on a driver's license Person via designated by (ont00001879)."""@en .
 
-persona:DriversLicense rdf:type owl:Class ;
+persona:DriversLicenseDocument rdf:type owl:Class ;
     rdfs:subClassOf persona:PersonaTemplate ;
     rdfs:subClassOf persona:IdentityDocument ;
     rdfs:label "Driver's License"@en ;
@@ -114,13 +116,15 @@ persona:DriversLicense rdf:type owl:Class ;
                     claims on a state-issued driver's license: legal name, date of birth,
                     driver's license number, and expiration date. Residential address is optional.
                     Used as the value of context:template on the context file's ontology IRI.
-                    Selects the SHACL shape embedded (fragment #shapes) in the canonical
-                    cell-databook categories-person/Government/State/Drivers License/
-                    drivers-license-cell.databook.md — IRI
+                    Selects the SHACL shape :DriversLicenseDocumentShape in cell-templates-shacl.ttl,
+                    linked from cat:DriversLicense's template cell (cell-templates.ttl) via
+                    cat:templateShapes — IRI
                     http://mee.foundation/ontologies/persona/shapes/driverslicense — for validation.
                     Note: p:PhysicalDriversLicense (in persona.ttl) models the physical card
                     object carried in a wallet; this class models the identity data the
-                    license claims."""@en .
+                    license claims. Formerly named persona:DriversLicense; renamed to disambiguate
+                    from the unrelated cat:DriversLicense category-classification class
+                    (category.ttl) and from p:PhysicalDriversLicense."""@en .
 
 
 #################################################################
@@ -166,7 +170,7 @@ persona:IssueDate rdf:type owl:Class ;
                     Distinct from cco:ent00000046 (Birthdate) and cco:ent00000054
                     (ExpirationDateIdentifier)."""@en .
 
-persona:Passport rdf:type owl:Class ;
+persona:PassportDocument rdf:type owl:Class ;
     rdfs:subClassOf persona:PersonaTemplate ;
     rdfs:subClassOf persona:IdentityDocument ;
     rdfs:label "Passport"@en ;
@@ -174,11 +178,12 @@ persona:Passport rdf:type owl:Class ;
                     claims on a government-issued passport: legal name, date of birth, passport
                     number, issue date, expiration date, issuing country, place of birth, and
                     gender marker. Photo is optional. Used as the value of context:template on
-                    the context file's ontology IRI. Selects the SHACL shape embedded (fragment
-                    #shapes) in the canonical cell-databook categories-person/Government/Federal/
-                    Passport/passport-cell.databook.md — IRI
+                    the context file's ontology IRI. Selects the SHACL shape :PassportDocumentShape
+                    in cell-templates-shacl.ttl, linked from cat:Passport's template cell
+                    (cell-templates.ttl) via cat:templateShapes — IRI
                     http://mee.foundation/ontologies/persona/shapes/passport — for
-                    validation."""@en .
+                    validation. Formerly named persona:Passport; renamed to disambiguate from
+                    the unrelated cat:Passport category-classification class (category.ttl)."""@en .
 
 
 #################################################################
@@ -360,47 +365,49 @@ persona:hasPhoto rdf:type owl:DatatypeProperty ;
 
 
 #################################################################
-#    MedicalAppointment Template and related properties
+#    MedicalAppointmentRecord Template and related properties
 #################################################################
 
-persona:MedicalAppointment rdf:type owl:Class ;
+persona:MedicalAppointmentRecord rdf:type owl:Class ;
     rdfs:subClassOf persona:PersonaTemplate ;
     rdfs:label "Medical Appointment"@en ;
     rdfs:comment """Template type label for a context whose purpose is to carry the claims
                     needed to arrange a medical appointment on behalf of someone else (e.g. a
                     family member), shared between the two parties coordinating that care.
                     Also the class of the shareable claims record individual itself, following
-                    the same document-individual pattern as p:Passport: the claims below are
-                    properties of the MedicalAppointment record, not of the patient's Person
+                    the same document-individual pattern as p:PassportDocument: the claims below
+                    are properties of the MedicalAppointmentRecord, not of the patient's Person
                     individual directly. Any referenced third party (e.g. the patient, their
                     primary care physician) must have their relevant claims copied into this
                     context, since each context's named graph must be self-contained for p2p
                     sync between the coordinating parties' Mia instances. Used as the value
                     of context:template on the context file's
-                    ontology IRI. Selects the SHACL shape embedded (fragment #shapes) in the
-                    canonical cell-databook categories-person/Health & Wellness/Medical/Providers/
-                    Medical Appointment Info/medical-appointment-info-cell.databook.md — IRI
+                    ontology IRI. Selects the SHACL shape :MedicalAppointmentRecordShape in
+                    cell-templates-shacl.ttl, linked from cat:MedicalAppointmentInfo's template
+                    cell (cell-templates.ttl) via cat:templateShapes — IRI
                     http://mee.foundation/ontologies/persona/shapes/medical-appointment — for
-                    validation."""@en .
+                    validation. Formerly named persona:MedicalAppointment; renamed "Record" rather
+                    than "Document" since this class is explicitly not a p:IdentityDocument,
+                    matching its :MedicalAppointmentRecordShape's existing name."""@en .
 
 persona:forPatient rdf:type owl:ObjectProperty ;
-    rdfs:domain persona:MedicalAppointment ;
+    rdfs:domain persona:MedicalAppointmentRecord ;
     rdfs:range persona:Person ;
     rdfs:label "for patient"@en ;
-    rdfs:comment """Links a MedicalAppointment record to the Person the appointment is for.
+    rdfs:comment """Links a MedicalAppointmentRecord to the Person the appointment is for.
                     The linked Person individual must carry copied identity claims (e.g. name),
-                    not merely a bare reference — see persona:MedicalAppointment."""@en .
+                    not merely a bare reference — see persona:MedicalAppointmentRecord."""@en .
 
 persona:hasPrimaryCarePhysician rdf:type owl:ObjectProperty ;
-    rdfs:domain persona:MedicalAppointment ;
+    rdfs:domain persona:MedicalAppointmentRecord ;
     rdfs:range persona:Person ;
     rdfs:label "has primary care physician"@en ;
-    rdfs:comment """Links a MedicalAppointment record to the patient's primary care physician.
+    rdfs:comment """Links a MedicalAppointmentRecord to the patient's primary care physician.
                     The linked Person individual must carry copied identity claims, not merely
-                    a bare reference — see persona:MedicalAppointment."""@en .
+                    a bare reference — see persona:MedicalAppointmentRecord."""@en .
 
 persona:currentMedication rdf:type owl:DatatypeProperty ;
-    rdfs:domain persona:MedicalAppointment ;
+    rdfs:domain persona:MedicalAppointmentRecord ;
     rdfs:label "current medication"@en ;
     rdfs:comment """A medication the patient is currently taking, as a single free-text string
                     (e.g. 'Lisinopril 10mg daily'). Repeat the property for multiple
@@ -410,38 +417,38 @@ persona:currentMedication rdf:type owl:DatatypeProperty ;
     rdfs:range xsd:string .
 
 persona:allergy rdf:type owl:DatatypeProperty ;
-    rdfs:domain persona:MedicalAppointment ;
+    rdfs:domain persona:MedicalAppointmentRecord ;
     rdfs:label "allergy"@en ;
     rdfs:comment """An allergy the patient has, as a single free-text string (e.g.
                     'Penicillin'). Repeat the property for multiple allergies."""@en ;
     rdfs:range xsd:string .
 
 persona:medicalHistoryNote rdf:type owl:DatatypeProperty ;
-    rdfs:domain persona:MedicalAppointment ;
+    rdfs:domain persona:MedicalAppointmentRecord ;
     rdfs:label "medical history note"@en ;
     rdfs:comment "A free-text summary of relevant medical history or ongoing conditions."@en ;
     rdfs:range xsd:string .
 
 persona:insuranceProvider rdf:type owl:DatatypeProperty ;
-    rdfs:domain persona:MedicalAppointment ;
+    rdfs:domain persona:MedicalAppointmentRecord ;
     rdfs:label "insurance provider"@en ;
     rdfs:comment "The name of the patient's health insurance provider (e.g. 'Medicare')."@en ;
     rdfs:range xsd:string .
 
 persona:insurancePolicyNumber rdf:type owl:DatatypeProperty ;
-    rdfs:domain persona:MedicalAppointment ;
+    rdfs:domain persona:MedicalAppointmentRecord ;
     rdfs:label "insurance policy number"@en ;
     rdfs:comment "The patient's health insurance policy number."@en ;
     rdfs:range xsd:string .
 
 persona:insuranceGroupNumber rdf:type owl:DatatypeProperty ;
-    rdfs:domain persona:MedicalAppointment ;
+    rdfs:domain persona:MedicalAppointmentRecord ;
     rdfs:label "insurance group number"@en ;
     rdfs:comment "The patient's health insurance group number, if applicable."@en ;
     rdfs:range xsd:string .
 
 persona:preferredPharmacy rdf:type owl:DatatypeProperty ;
-    rdfs:domain persona:MedicalAppointment ;
+    rdfs:domain persona:MedicalAppointmentRecord ;
     rdfs:label "preferred pharmacy"@en ;
     rdfs:comment "The patient's preferred pharmacy, as a free-text name and/or address."@en ;
     rdfs:range xsd:string .

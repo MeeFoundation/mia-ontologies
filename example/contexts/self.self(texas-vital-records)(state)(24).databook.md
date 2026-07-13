@@ -2,7 +2,7 @@
 id: https://www.example.org/mia/contexts/self.self(texas-vital-records)(state)(24)
 title: "About Alice Walker in the State cell as claimed by Alice Walker"
 type: context-databook
-version: 2.0.13
+version: 2.0.14
 created: 2026-06-01
 description: >
   Alice Walker's Texas birth certificate context. Records her legal name (Margery Alice Walker)
@@ -10,7 +10,7 @@ description: >
 mia:
   claimant: ":Self"
   subject: ":Self"
-  template: "persona:BirthCertificate"
+  template: "persona:BirthCertificateDocument"
 graph:
   named_graph: https://www.example.org/mia/contexts/self.self(texas-vital-records)(state)(24)#graph
   rdf_version: "1.1"
@@ -45,7 +45,7 @@ This context captures Alice Walker's Texas birth certificate identity data. Alic
 :Self persona:hasIdentityDocument :Alice_TX_Birth_Certificate .
 
 :Alice_TX_Birth_Certificate rdf:type owl:NamedIndividual ,
-                                      persona:BirthCertificate ;
+                                      persona:BirthCertificateDocument ;
     rdfs:label "Alice Walker's Texas Birth Certificate"@en ;
 
     <https://purl.org/cco/ont00001879> [  # designated by → GivenName (legal first name)

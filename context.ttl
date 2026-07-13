@@ -11,10 +11,10 @@
 @base <http://mee.foundation/ontologies/context> .
 
 <http://mee.foundation/ontologies/context> rdf:type owl:Ontology ;
-    owl:versionIRI <http://mee.foundation/ontologies/context/1.9.0> ;
-    dc:date "2026-07-12"^^xsd:date ;
+    owl:versionIRI <http://mee.foundation/ontologies/context/1.10.0> ;
+    dc:date "2026-07-13"^^xsd:date ;
     owl:imports <http://mee.foundation/ontologies/cell> ;
-    owl:versionInfo "Version 1.9.0 - deleted context:about-by entirely: its four conventional string values (SBScontext/OBScontext/OBOcontext/SBOcontext) were always fully derivable from the combination of context:subject and context:claimant, so the property was pure denormalized convenience data. All mia.about-by YAML values removed from context DataBooks; downstream comments in cell.ttl referencing about-by classification updated to reference subject/claimant directly."@en ;
+    owl:versionInfo "Version 1.10.0 - updated context:template's comment for persona-templates.ttl 2.2.0's renames (persona:BirthCertificate/DriversLicense/Passport -> ...Document, persona:MedicalAppointment -> MedicalAppointmentRecord), and added the previously-missing persona:MedicalAppointmentRecord to the example list."@en ;
     rdfs:label "Context Ontology"@en ;
     rdfs:comment """Context Ontology for the Mee Identity Agent"""@en .
 
@@ -44,8 +44,9 @@ context:subject rdf:type owl:AnnotationProperty ;
 context:template rdf:type owl:AnnotationProperty ;
     rdfs:label "template"@en ;
     rdfs:comment """Annotates a DataBook named graph with the persona template type that applies to it.
-                    Value is one of the persona:PersonaTemplate subclasses
-                    (persona:BirthCertificate, persona:JSContactCard, persona:DriversLicense, persona:Passport).
+                    Value is one of the persona:PersonaTemplate subclasses (persona:BirthCertificateDocument,
+                    persona:JSContactCard, persona:DriversLicenseDocument, persona:PassportDocument,
+                    persona:MedicalAppointmentRecord).
                     Used to select the appropriate per-template SHACL shapes file for validation.
                     Applied to the named graph IRI."""@en ;
     rdfs:domain context:Context ;
