@@ -36,18 +36,16 @@ The category ontology defines two orthogonal facets of a category DataBook. `cat
 
 ### Category
 
-`cat:Category` and is subclasses are shown at the left of the diagram above. They vary in scope from broad groupings of information to narrower ones. In the social domain, for example, a category might be about "People", or more narrowly about "Immediate Family", and ultimately about a single family member. 
+`cat:Category` and is subclasses vary in scope from broad groupings of information to narrower ones. In the social domain, for example, a category might be about "People", or more narrowly about "Immediate Family", and ultimately about just a single family member. 
 
 #### Canonical Classes vs. Instance Category Tree
-There is no separate canonical *instance* tree — Mia's "canonical tree" is simply the `cat:Category` class hierarchy itself (`category.ttl`'s `rdfs:subClassOf` structure), rooted at the abstract `cat:Person` and `cat:Organization` classes. A class that has reusable starter content carries a `cat:templateCell` value, asserted directly in `category.ttl` alongside the class's own declaration, pointing at a `cell:Cell` individual defined in the companion file `cell-templates.ttl` — the **cell template** for that class.
+Mia's canonical tree is simply the `cat:Category` class hierarchy itself (`category.ttl`'s `rdfs:subClassOf` structure), rooted at the abstract `cat:Person` and `cat:Organization` classes. A class that has reusable starter content carries a `cat:templateCell` value, asserted directly in `category.ttl` alongside the class's own declaration, pointing at a `cell:Cell` individual defined in the companion file `cell-templates.ttl` — the *cell template* for that class.
 
-The user's own *instance* category tree is built from `cat:CategoryDefined` and `cat:UserDefined` nodes (see [Category DataBooks](#category-databooks) below). A `cat:CategoryDefined` node carries `cat:category`, naming the `cat:Category` subclass it represents (e.g. `cat:Work`) — this single value both classifies the node and records which class it was instantiated from. A `cat:UserDefined` node has no canonical counterpart at all, so it carries no `cat:category`.
+The user's category tree is instantiated from `cat:CategoryDefined` and `cat:UserDefined` nodes (see [Category DataBooks](#category-databooks) below). A `cat:CategoryDefined` node carries `cat:category`, naming the `cat:Category` subclass it represents (e.g. `cat:Work`) — this single value both classifies the node and records which class it was instantiated from. A `cat:UserDefined` node has no canonical counterpart at all, so it carries no `cat:category`.
 
-Nodes in the instance tree have no content of their own. Every node points, via `cat:cell`, to a `cell:Cell` which holds content. When a category is first instantiated into the user's tree, Mia clones its class's `cat:templateCell` (if one exists) into a new cell for that node — this is how a **cell template** becomes the starting content for an instantiated cell (see [Lazy Instantiation](#lazy-instantiation)).
+Nodes in the user's tree have no content of their own. Instead, every node points, via `cat:cell`, to a `cell:Cell` which holds content. When a category is instantiated into the user's tree, Mia clones its class's `cat:templateCell` (if one exists) into a new cell for that node — this is how a **cell template** becomes the starting content for an instantiated cell (see [Lazy Instantiation](#lazy-instantiation)).
 
-Because cells are self-contained units of content (though any referenced context lies outside the cell boundary), the user is free to rearrange their instance tree as they wish, adding new `cat:UserDefined` nodes and moving other nodes around. The instance tree is really just a way to organize the cells that each node points to.
-
-A `cat:CategoryDefined` or `cat:UserDefined` node has an optional `cat:label` that lets the user override the display name (e.g. "Client").
+The user is free to rearrange their instance tree as they wish, adding new `cat:UserDefined` nodes and moving other nodes around. The instance tree is really just a way to organize the cells associated with each node. A `cat:CategoryDefined` or `cat:UserDefined` node has an optional `cat:label` that allows the user override the display name (e.g. "Client").
 
 ### Category Properties
 
@@ -56,8 +54,8 @@ A `cat:CategoryDefined` or `cat:UserDefined` node has an optional `cat:label` th
 
 ### Node Properties
 
-- **`cat:child`** — organizes nodes into a tree structure, within a user's own instance tree. Domain and range `cat:Node`.
-- **`cat:cell`** — IRI of a `cell:Cell` holding this node's own content. This is the sole link between a node and its cell(s); `cell:Cell` carries no equivalent pointing back. Domain is the union of `cat:CategoryDefined` and `cat:UserDefined`.
+- **`cat:child`** — organizes the user's nodes into a tree structure. Domain and range `cat:Node`.
+- **`cat:cell`** — IRI of a `cell:Cell` holding this node's content. This is the sole link between a node and its cell(s); `cell:Cell` carries no equivalent pointing back. Domain is the union of `cat:CategoryDefined` and `cat:UserDefined`.
 - **`cat:category`** — links a `cat:CategoryDefined` node directly to the `cat:Category` subclass it represents (e.g. `cat:Work`). Domain `cat:CategoryDefined`, range `cat:Category`.
 - **`cat:label`** — user-editable display name of a category-defined or user-defined category. Defaults to the category's class name. Domain is the union of `cat:CategoryDefined` and `cat:UserDefined`.
 
