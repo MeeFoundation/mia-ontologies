@@ -34,21 +34,20 @@ The category ontology defines two orthogonal facets of a category DataBook. `cat
 
 <p align="center"><img src="images/category-ontology/category.png" alt="Category hierarchy"></p>
 
-The canonical category trees are preinstalled with Mia and are constructed using `cat:Canonical` nodes. The nodes in these canonical trees are copied into `cat:Copy` nodes — building blocks the user chooses from to build a tree that suits their needs. They can select some building blocks and ignore others.
+### Category
 
-The user's information content is held in `cell:Cell`s attached to branch and leaf nodes of the user's tree. In addition, the user may choose to insert `cat:UserDefined` nodes into their instance tree — these are not copied from a `cat:Canonical` node.
+`cat:Category` and is subclasses are shown at the left o the diagram above. They vary in scope from broad groupings of information to narrower ones. In the social domain, for example, a category might be about "People", or more narrowly about "Immediate Family", and ultimately about a single family member. 
+
+#### Canonical vs. Instance Category Trees
+Mia comes with two pre-installed `cat:Person` *canonical* category trees constructed of `cat:Canonical` nodes. The first is constructed nodes of category`cat:Persona`. The second is constructed of nodes of category `cat:Organization`.
+
+These nodes from either of these canonical trees are building blocks used to assemble the user's *instance* category tree. Once copied, the class of each node is changed from `cat:Canonical` to `cat:Copy`. 
+
+Nodes in these category trees have no content of their own. Every node points, via `cat:cell`, to a `cell:Cell` which holds content. The cells pointed to by a canonical node are pointed to by its copied counterpart. In this way the cell of a canonical node act as a **cell template** for the copied cell. 
+
+Because cells are self-contained units of content (though any referenced context lies outside the cell boundary), the user is free to rearrange their instance tree as they wish, adding new `cat:UserDefined` nodes and moving other nodes around. The instance tree is really just a way to organize the cells that each node points to.
 
 A `cat:Copy` or `cat:UserDefined` node has an optional `cat:label` that lets the user override the display name (e.g. "Client") — canonical templates are never renamed by a user, so `cat:label` doesn't apply there.
-
-Although each node in a category tree has no content of its own, every node — `cat:Canonical`, `cat:Copy`, and `cat:UserDefined` alike — is linked to one or more `cell:Cell`s which do hold content, via `cat:cell`.
-
-Categories vary in scope from broad groupings of information to narrower ones. In the social domain, for example, a category might be about "People", or more narrowly about "Immediate Family", and ultimately about a single family member. The user can choose at what level in this broader-to-narrower structure to put what kind of information. For example if the user has a nickname used only by this one family member, they can add that "claim" (attribute) at the individual relationship level or at a higher level. 
-
-Both personal life (family, health, finances categories) and work life (employment, colleagues categories) are organized within this same tree, since `Work` is itself a `cat:Person` subclass alongside `People` and `Health & Wellness`, not a separate branch. The `categories-org/` tree, rooted in `cat:Organization`, exists, so a person can copy pieces of it into their own `Work` branch to model the organizations they work for or with — e.g. Alice's `Work > Organization-Acme > Employees` category is a copy of `cat:Organization`'s `Employees`, since Acme's own structure is what her employment relationship is actually about.
-
-As we've mentioned, canonical category nodes are copied from one of the canonical trees into the user's category tree and in the process the class is switched from `cat:Canonical` to `cat:Copy`, while recording where the original came from using `cat:copiedFrom`. If the canonical had a cell linked to it (via that node's own `cat:cell`), a new cell is copied too and linked from the new `cat:Copy` the same way — the canonical cell acts as a **cell template**: a reusable starting shape that gets cloned into the user's own cell. If that cell contains references to contexts, these contexts are also copied.
-
-The user is free to rearrange their instance tree as they wish, adding new `cat:UserDefined` categories and moving things around. This works because the tree is just a way to organize the cells that it points to, and the cells are self-contained units of content (though any referenced context lies outside the cell boundary).
 
 ### Category Properties
 
