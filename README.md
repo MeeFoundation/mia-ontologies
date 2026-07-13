@@ -1,10 +1,8 @@
 # Mia Ontologies
 
-This document describes the ontologies used by the Mee Identity Agent (Mia) software application. Each Mia interoperates with the Personal Data Network (PDN). The PDN is a data-sharing network with three kinds of participants: individual Mia users, groups of Mia users and/or organizations, and organizations (government agencies, companies, and nonprofits).
+This document describes the ontologies used by the Mee Identity Agent (Mia) software application. The application lets the user create *cells* – private, secure collaboration spaces which can be joined by other Mia users and other nodes on the Personal Data Network (PDN). 
 
 Mia's ontologies import and profile existing ontologies — documenting which of their classes and properties Mia requires or uses — and extending them with Mia-specific classes and properties. 
-
-The **Category**, **Cell**, and **Context** ontologies are the organizing framework. The category ontology defines `cat:Category` — a set of categories of information about a person or organization; nodes in the tree contain no content of their own but may have an associated cell. The cell ontology defines `cell:Cell` — a self-contained block of content that may reference one or more contexts described by the context ontology. A `c:Context` is a graph; its important subclass `c:SCcontext` holds claims (attributes) about a subject as claimed by a person, group, or organization.
 
 The three **domain ontologies** model claims about people, organizations and groups contained in `c:SCcontext` instances:
 - **Persona ontology** — models a person: names, addresses, phone numbers, relationships, payment cards, and more. It is built on BFO (Basic Formal Ontology) and CCO (Common Core Ontologies) as the upper ontological foundation, and on domain ontologies that extend CCO:
@@ -29,6 +27,8 @@ Throughout, we use these shorthands:
 We first present an overview of the ontologies and then illustrate their use through a sample dataset for a hypothetical user, Alice Walker.
 
 ## Category Ontology
+
+Categories are used to organize cells. 
 
 The category ontology defines two orthogonal facets of a category DataBook. `cat:Category` (abstract) is the *classificatory* facet — which kind of thing it is (e.g. "Customer"), recorded as a plain string in `cat:catType`. `cat:Node` (abstract) is the *tree-position* facet — where the category sits in a tree. 
 
