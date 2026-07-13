@@ -248,6 +248,8 @@ Each of these five example cells contains contexts shown as circles. White circl
 
 A canonical category node is not copied into a user's tree ahead of time. Mia copies a canonical category — cloning its **cell template** into a new cell if one exists — into the tree, and creates its `cell:note`/`cell:folder` paths, only once the user actually has content for it. Empty categories are not pre-populated as placeholder folders.
 
+A canonical cell may also embed non-instance validation metadata directly in its markdown body — for example, a per-template SHACL shapes block (see [Persona Templates](#persona-templates)) — as a fenced block outside any `mia:` YAML field. Lazy Copying clones only a canonical cell's `mia:`-declared instance-relevant properties (e.g. `parties`) into the new user cell; it never copies the canonical's markdown body or its fenced blocks. Such embedded shape blocks therefore never propagate into a user's copy — they remain validation metadata that lives solely on the canonical cell.
+
 #### About Cell Notes and Folders
 
 `cell:note` and `cell:folder` are file paths that point into two separate but parallel folder structures in local storage. The Mia app actively adjusts these two structures to stay isomorphic with the user's tree of `cat:Copy` nodes with its associated links to `cat:Category` entities — when a category is created, renamed, or deleted, Mia updates both hierarchies automatically.
@@ -459,15 +461,15 @@ This section describes a few details related to modeling names and addresses.
 
 ### Persona Templates
 
-`p:PersonaTemplate` is an abstract classification class that serves as the common superclass for all reusable, context-type-specific template labels. These labels are defined in `persona-templates.ttl`. A context file declares its template in the YAML frontmatter as `mia.template` rather than by typing its `p:Person` individual. Per-template SHACL files live in the `shacl/` subdirectory.
+`p:PersonaTemplate` is an abstract classification class that serves as the common superclass for all reusable, context-type-specific template labels. These labels are defined in `persona-templates.ttl`. A context file declares its template in the YAML frontmatter as `mia.template` rather than by typing its `p:Person` individual. Four of the five per-template SHACL shapes (`p:BirthCertificate`, `p:DriversLicense`, `p:Passport`, `p:MedicalAppointment`) are embedded (fragment `#shapes`) in their canonical cell-databook in `categories-person/` — the shape stays validation metadata on the canonical cell only and is never cloned when the category is copied into a user's tree (see [Lazy Copying](#lazy-copying)); `p:JSContactCard`'s shape remains a standalone file in `shacl/`, since it has no single canonical `categories-person` cell to embed into.
 
 <p align="center"><img src="images/persona-ontology/persona-templates.png" alt="persona templates model"></p>
 
 **Government-issued identity documents** — `p:BirthCertificate`, `p:DriversLicense`, and `p:Passport` are subclasses of both `p:PersonaTemplate` (template label use) and `p:IdentityDocument` (artifact instance use). `p:IdentityDocument` is the class for government-issued documents that formally identify a person. The property `p:hasIdentityDocument` (domain: `p:Person`, range: `p:IdentityDocument`) links a person to the government document they hold. Each government-ID context file declares one named individual of the document type and links it from `:Self`. `p:JSContactCard` is a format label only — not a government-issued document — and is a subclass of `p:PersonaTemplate` only.
 
-The four currently defined subclasses of `p:PersonaTemplate` are:
+The five currently defined subclasses of `p:PersonaTemplate` are:
 
-- `p:BirthCertificate` — label for context files that carry a person's legal birth name record as issued by a state agency. Also a subclass of `p:IdentityDocument`. Declared in the YAML frontmatter as `mia.template: "persona:BirthCertificate"`. SHACL shape `:BirthCertificateDocumentShape` (in `shacl/birthcertificate-shacl.ttl`) targets the `p:BirthCertificate` document individual and validates the holding `p:Person` via `^persona:hasIdentityDocument`:
+- `p:BirthCertificate` — label for context files that carry a person's legal birth name record as issued by a state agency. Also a subclass of `p:IdentityDocument`. Declared in the YAML frontmatter as `mia.template: "persona:BirthCertificate"`. SHACL shape `:BirthCertificateDocumentShape` (embedded, fragment `#shapes`, in `categories-person/Government/State/Birth Certificate/birth-certificate-cell.databook.md`) targets the `p:BirthCertificate` document individual and validates the holding `p:Person` via `^persona:hasIdentityDocument`:
   - **Required**: either a `FullName` designator **or** both a `GivenName` and a `FamilyName` designator (via `designated by`, `ont00001879`) — expressed with `sh:or`.
   - **Optional**: `AdditionalName` (middle name), `AlternateName` (e.g. maiden name), `Nickname`, and `Legal Name` designators.
 
@@ -477,14 +479,18 @@ The four currently defined subclasses of `p:PersonaTemplate` are:
   - **Max 1** on all single-valued name and organization components.
   See the [JSContact field coverage table](#jscontact-field-coverage) below for the complete mapping.
 
-- `p:DriversLicense` — label for context files that carry the identity claims on a state-issued driver's license. Also a subclass of `p:IdentityDocument`. Declared in the YAML frontmatter as `mia.template: "persona:DriversLicense"`. SHACL shape `:DriversLicenseDocumentShape` (in `shacl/driverslicense-shacl.ttl`) targets the `p:DriversLicense` document individual and validates the holding `p:Person` via `^persona:hasIdentityDocument`:
+- `p:DriversLicense` — label for context files that carry the identity claims on a state-issued driver's license. Also a subclass of `p:IdentityDocument`. Declared in the YAML frontmatter as `mia.template: "persona:DriversLicense"`. SHACL shape `:DriversLicenseDocumentShape` (embedded, fragment `#shapes`, in `categories-person/Government/State/Drivers License/drivers-license-cell.databook.md`) targets the `p:DriversLicense` document individual and validates the holding `p:Person` via `^persona:hasIdentityDocument`:
   - **Required**: `FullName` **or** (`GivenName` + `FamilyName`); exactly one `Birthdate` (`cco:ent00000046`); exactly one `p:DriversLicenseNumber`; exactly one `ExpirationDateIdentifier` (`cco:ent00000054`).
   - **Optional**: `AdditionalName`; `p:IssuingJurisdiction` (USPS 2-letter state code, validated by `USStateNameShape`); `PostalAddress`; `p:hasPhoto`.
   Note: `p:PhysicalDriversLicense` (in `persona.ttl`) models the physical card object held in a wallet — `p:DriversLicense` is the template label that marks a context file as carrying driver's license identity data.
 
-- `p:Passport` — label for context files that carry the identity claims on a government-issued passport. Also a subclass of `p:IdentityDocument`. Declared in the YAML frontmatter as `mia.template: "persona:Passport"`. SHACL shape `:PassportDocumentShape` (in `shacl/passport-shacl.ttl`) targets the `p:Passport` document individual and validates the holding `p:Person` via `^persona:hasIdentityDocument`:
+- `p:Passport` — label for context files that carry the identity claims on a government-issued passport. Also a subclass of `p:IdentityDocument`. Declared in the YAML frontmatter as `mia.template: "persona:Passport"`. SHACL shape `:PassportDocumentShape` (embedded, fragment `#shapes`, in `categories-person/Government/Federal/Passport/passport-cell.databook.md`) targets the `p:Passport` document individual and validates the holding `p:Person` via `^persona:hasIdentityDocument`:
   - **Required**: `FullName` **or** (`GivenName` + `FamilyName`); exactly one `Birthdate` (`cco:ent00000046`); exactly one `p:PassportNumber`; exactly one `ExpirationDateIdentifier` (`cco:ent00000054`).
   - **Optional**: `AdditionalName`; `p:IssueDate`; `p:IssuingCountry`; `p:PlaceOfBirth`; `p:GenderMarker`; `p:hasPhoto`.
+
+- `p:MedicalAppointment` — label for context files that carry the claims needed to arrange a medical appointment on behalf of someone else, shared between the parties coordinating that care. Not a subclass of `p:IdentityDocument`. Declared in the YAML frontmatter as `mia.template: "persona:MedicalAppointment"`. SHACL shape `:MedicalAppointmentRecordShape` (embedded, fragment `#shapes`, in `categories-person/Health & Wellness/Medical/Providers/Medical Appointment Info/medical-appointment-info-cell.databook.md`) targets the `p:MedicalAppointment` record individual directly — the claims below are properties of the record, not of the patient's `p:Person`:
+  - **Required**: exactly one `p:forPatient` link; exactly one `p:insuranceProvider`; exactly one `p:insurancePolicyNumber`.
+  - **Optional**: `p:hasPrimaryCarePhysician`; `p:medicalHistoryNote`; `p:insuranceGroupNumber`; `p:preferredPharmacy`; repeatable `p:currentMedication` and `p:allergy`.
 
 #### JSContact Field Coverage
 
@@ -539,14 +545,16 @@ The table below maps every JSContact (RFC 9553) property to its representation i
 - **`persona.ttl`** — The Persona ontology. Imports the domain ontologies above and documents which classes and properties Mia uses (required vs. optional). Defines `p:Person` (Mee-specific subclass of CCO `Person`), Mia-specific extension properties (`p:hasSocialNetwork`, `p:hasPaymentCard`, `p:hasBankAccount`, etc.), and the core data model classes (physical card classes, banking classes, and others).
 - **`persona-templates.ttl`** — Defines `p:PersonaTemplate` (abstract classification superclass) and the five concrete subtypes `p:BirthCertificate`, `p:JSContactCard`, `p:DriversLicense`, `p:Passport`, and `p:MedicalAppointment`. These are used as values of `mia.template` in the DataBook YAML frontmatter — they classify the context file, not the `p:Person` individual inside it. Also defines `p:IdentityDocument` (superclass for government-issued identity document artifacts) and `p:hasIdentityDocument` (links a `p:Person` to a `p:IdentityDocument` individual they hold); `p:BirthCertificate`, `p:DriversLicense`, and `p:Passport` are subclasses of both `p:PersonaTemplate` and `p:IdentityDocument`. Also defines related designator classes (`p:DriversLicenseNumber`, `p:IssuingJurisdiction`, `p:PassportNumber`, `p:IssuingCountry`, `p:PlaceOfBirth`, `p:GenderMarker`, `p:IssueDate`, `p:Credential`, `p:WebURL`, `p:OrganizationUnit`, `p:JobTitle`), complex information classes (`p:Anniversary`, `p:PersonalInfo`), annotation properties for JSContact channel labels (`p:contactContext`, `p:phoneFeature`, `p:serviceLabel`), `p:hasPhoto`, and the `p:MedicalAppointment` claim properties (`p:forPatient`, `p:hasPrimaryCarePhysician`, `p:currentMedication`, `p:allergy`, `p:medicalHistoryNote`, `p:insuranceProvider`, `p:insurancePolicyNumber`, `p:insuranceGroupNumber`, `p:preferredPharmacy`). Imported by `persona.ttl` so all context files inherit these classes transitively.
 
-- **`shacl/birthcertificate-shacl.ttl`** — SHACL shapes for birth certificate context files (`c:template p:BirthCertificate`). `:BirthCertificateDocumentShape` targets `p:BirthCertificate` document individuals directly — all identity claims (names) are properties of the document individual, not the `p:Person`. Enforces: FullName OR (GivenName + FamilyName) required; optional AdditionalName, AlternateName, Nickname, Legal Name.
+- **`categories-person/Government/State/Birth Certificate/birth-certificate-cell.databook.md#shapes`** — SHACL shapes for birth certificate context files (`c:template p:BirthCertificate`), embedded in the canonical cell-databook rather than a standalone file. `:BirthCertificateDocumentShape` targets `p:BirthCertificate` document individuals directly — all identity claims (names) are properties of the document individual, not the `p:Person`. Enforces: FullName OR (GivenName + FamilyName) required; optional AdditionalName, AlternateName, Nickname, Legal Name.
 
-- **`shacl/jscontactcard-shacl.ttl`** — SHACL shapes for JSContactCard context files (`c:template p:JSContactCard`). Validates `p:Person` instances:
+- **`shacl/jscontactcard-shacl.ttl`** — SHACL shapes for JSContactCard context files (`c:template p:JSContactCard`) — remains a standalone file, since JSContactCard has no single canonical `categories-person` cell to embed into. Validates `p:Person` instances:
   - OrganizationName required (1..1); at least one Email or TelephoneNumber required; all name components and OrganizationUnit/JobTitle optional (0..1 each).
 
-- **`shacl/driverslicense-shacl.ttl`** — SHACL shapes for driver's license context files (`c:template p:DriversLicense`). `:DriversLicenseDocumentShape` targets `p:DriversLicense` document individuals directly — all identity claims are properties of the document individual, not the `p:Person`. Enforces: FullName OR (GivenName + FamilyName) required; Birthdate, DriversLicenseNumber, ExpirationDateIdentifier required (1..1 each); IssuingJurisdiction, PostalAddress, and hasPhoto optional.
+- **`categories-person/Government/State/Drivers License/drivers-license-cell.databook.md#shapes`** — SHACL shapes for driver's license context files (`c:template p:DriversLicense`), embedded in the canonical cell-databook. `:DriversLicenseDocumentShape` targets `p:DriversLicense` document individuals directly — all identity claims are properties of the document individual, not the `p:Person`. Enforces: FullName OR (GivenName + FamilyName) required; Birthdate, DriversLicenseNumber, ExpirationDateIdentifier required (1..1 each); IssuingJurisdiction, PostalAddress, and hasPhoto optional.
 
-- **`shacl/passport-shacl.ttl`** — SHACL shapes for passport context files (`c:template p:Passport`). `:PassportDocumentShape` targets `p:Passport` document individuals directly — all identity claims are properties of the document individual, not the `p:Person`. Enforces: FullName OR (GivenName + FamilyName) required; Birthdate, PassportNumber, ExpirationDateIdentifier required (1..1 each); IssueDate, IssuingCountry, PlaceOfBirth, GenderMarker, and hasPhoto optional.
+- **`categories-person/Government/Federal/Passport/passport-cell.databook.md#shapes`** — SHACL shapes for passport context files (`c:template p:Passport`), embedded in the canonical cell-databook. `:PassportDocumentShape` targets `p:Passport` document individuals directly — all identity claims are properties of the document individual, not the `p:Person`. Enforces: FullName OR (GivenName + FamilyName) required; Birthdate, PassportNumber, ExpirationDateIdentifier required (1..1 each); IssueDate, IssuingCountry, PlaceOfBirth, GenderMarker, and hasPhoto optional.
+
+- **`categories-person/Health & Wellness/Medical/Providers/Medical Appointment Info/medical-appointment-info-cell.databook.md#shapes`** — SHACL shapes for medical appointment context files (`c:template p:MedicalAppointment`), embedded in the canonical cell-databook. `:MedicalAppointmentRecordShape` targets `p:MedicalAppointment` record individuals directly — the claims needed to arrange the appointment are properties of the record, not of the patient's `p:Person`. Enforces: exactly one `forPatient`, `insuranceProvider`, and `insurancePolicyNumber` required; `hasPrimaryCarePhysician`, `medicalHistoryNote`, `insuranceGroupNumber`, `preferredPharmacy` optional; `currentMedication` and `allergy` repeatable.
 
 - **`persona-shacl.ttl`** — SHACL constraint rules for all `p:Person` individuals across all context files. Validates properties including:
   - *All `p:Person` instances*: SSN format (`NNN-NN-NNNN`), email format, phone (E.164), address cardinality, payment cards, wallet, social network, bank account
@@ -779,7 +787,7 @@ Expected output: `Conforms`
 
 ### Tier 2 — per-template validation (individual context files)
 
-The `shacl/` shapes target document classes (`p:BirthCertificate`, `p:DriversLicense`, `p:Passport`, `p:MedicalAppointment`) or `p:Person` (JSContactCard). Each template SHACL file is run against only the relevant context file merged with the foundation ontologies.
+Four of the five per-template shapes (BirthCertificate, DriversLicense, Passport, MedicalAppointment) are embedded (fragment `#shapes`) in their canonical cell-databook in `categories-person/`; JSContactCard's shape remains a standalone file in `shacl/` (it has no canonical `categories-person` cell — see [Persona Templates](#persona-templates)). Each is run against only the relevant context file merged with the foundation ontologies.
 
 ```bash
 # Shared base: foundation ontologies + application ontologies + self.ttl
@@ -796,7 +804,8 @@ riot --output=turtle \
 # BirthCertificate — self.self(texas-vital-records)(state)(24).databook.md
 databook extract "example/contexts/self.self(texas-vital-records)(state)(24).databook.md" 2>/dev/null > /tmp/data-birth-cert-raw.ttl
 riot --output=turtle /tmp/mia-base.ttl /tmp/data-birth-cert-raw.ttl 2>/dev/null > /tmp/data-birth-cert.ttl
-grep -v 'owl:imports' shacl/birthcertificate-shacl.ttl > /tmp/shapes-birth-cert.ttl
+databook extract "categories-person/Government/State/Birth Certificate/birth-certificate-cell.databook.md" 2>/dev/null > /tmp/shapes-birth-cert-raw.ttl
+grep -v 'owl:imports' /tmp/shapes-birth-cert-raw.ttl > /tmp/shapes-birth-cert.ttl
 shacl validate --shapes /tmp/shapes-birth-cert.ttl --data /tmp/data-birth-cert.ttl --text
 
 # JSContactCard — self.self(alice-walker)(acme)(10).databook.md
@@ -808,19 +817,22 @@ shacl validate --shapes /tmp/shapes-jscontact.ttl --data /tmp/data-jscontact.ttl
 # DriversLicense — self.self(california-dmv)(state)(15).databook.md
 databook extract "example/contexts/self.self(california-dmv)(state)(15).databook.md" 2>/dev/null > /tmp/data-dl-raw.ttl
 riot --output=turtle /tmp/mia-base.ttl /tmp/data-dl-raw.ttl 2>/dev/null > /tmp/data-dl.ttl
-grep -v 'owl:imports' shacl/driverslicense-shacl.ttl > /tmp/shapes-dl.ttl
+databook extract "categories-person/Government/State/Drivers License/drivers-license-cell.databook.md" 2>/dev/null > /tmp/shapes-dl-raw.ttl
+grep -v 'owl:imports' /tmp/shapes-dl-raw.ttl > /tmp/shapes-dl.ttl
 shacl validate --shapes /tmp/shapes-dl.ttl --data /tmp/data-dl.ttl --text
 
 # Passport — self.self(passport)(federal)(19).databook.md
 databook extract "example/contexts/self.self(passport)(federal)(19).databook.md" 2>/dev/null > /tmp/data-passport-raw.ttl
 riot --output=turtle /tmp/mia-base.ttl /tmp/data-passport-raw.ttl 2>/dev/null > /tmp/data-passport.ttl
-grep -v 'owl:imports' shacl/passport-shacl.ttl > /tmp/shapes-passport.ttl
+databook extract "categories-person/Government/Federal/Passport/passport-cell.databook.md" 2>/dev/null > /tmp/shapes-passport-raw.ttl
+grep -v 'owl:imports' /tmp/shapes-passport-raw.ttl > /tmp/shapes-passport.ttl
 shacl validate --shapes /tmp/shapes-passport.ttl --data /tmp/data-passport.ttl --text
 
 # MedicalAppointment — context(alice-carol-about-mom)(health)(26).databook.md
 databook extract "example/contexts/context(alice-carol-about-mom)(health)(26).databook.md" 2>/dev/null > /tmp/data-medical-appt-raw.ttl
 riot --output=turtle /tmp/mia-base.ttl /tmp/data-medical-appt-raw.ttl 2>/dev/null > /tmp/data-medical-appt.ttl
-grep -v 'owl:imports' shacl/medical-appointment-shacl.ttl > /tmp/shapes-medical-appt.ttl
+databook extract "categories-person/Health & Wellness/Medical/Providers/Medical Appointment Info/medical-appointment-info-cell.databook.md" 2>/dev/null > /tmp/shapes-medical-appt-raw.ttl
+grep -v 'owl:imports' /tmp/shapes-medical-appt-raw.ttl > /tmp/shapes-medical-appt.ttl
 shacl validate --shapes /tmp/shapes-medical-appt.ttl --data /tmp/data-medical-appt.ttl --text
 ```
 

@@ -2,10 +2,159 @@
 id: http://mee.foundation/ontologies/categories-person/passport-cell
 title: "Passport (Cell)"
 type: cell-databook
-version: 1.0.4
+version: 1.0.5
 created: 2026-07-10
 description: >
-  Cell DataBook of category "Passport" (mia.catType: Passport). Content may include sc-context/folder/note links, and may contain a named graph.
+  Cell DataBook of category "Passport" (mia.catType: Passport). Content may include sc-context/folder/note links, and may contain a named graph. Also embeds this canonical cell's per-template SHACL shape (persona:Passport, fragment #shapes) as validation metadata — never cloned into user copies.
 mia:
   parties: "cell:OneParty"
 ---
+
+## SHACL Shapes
+
+This canonical cell embeds the per-template SHACL shape applied to context files carrying `mia.template: "persona:Passport"` (Tier 2 validation — see README `## Validation`). This block is validation metadata attached to the canonical cell only — it is never cloned when this category is copied into a user's tree (see [Lazy Copying](../../../../README.md#lazy-copying)).
+
+<!-- databook:id: shapes -->
+```turtle
+@prefix : <http://mee.foundation/ontologies/persona/shapes#> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix cco: <https://purl.org/cco/> .
+@prefix persona: <http://mee.foundation/ontologies/persona#> .
+@prefix dc: <http://purl.org/dc/elements/1.1/> .
+
+<http://mee.foundation/ontologies/persona/shapes/passport> rdf:type owl:Ontology ;
+    owl:imports <http://mee.foundation/ontologies/persona> ;
+    dc:date "2026-07-13"^^xsd:date ;
+    owl:versionInfo "Version 1.0.5 - moved out of standalone shacl/passport-shacl.ttl into an embedded turtle block (fragment #shapes) inside the canonical cell-databook categories-person/Government/Federal/Passport/passport-cell.databook.md; IRI unchanged."@en ;
+    rdfs:label "Passport Template SHACL Shapes"@en ;
+    rdfs:comment """SHACL shapes for validating context files carrying context:template persona:Passport.
+                    Apply in addition to persona-shacl.ttl when validating a passport context file.
+                    Targets persona:Passport document individuals directly — identity claims
+                    (names, dates, passport number) are properties of the document, not the Person."""@en .
+
+
+#################################################################
+#  Passport Document Shape
+#  Targets persona:Passport individuals.
+#  All identity claims are properties of the document individual.
+#  Required: FullName (1..1) OR (GivenName (1..1) AND FamilyName (1..1))
+#            DateOfBirth (ent00000046, 1..1)
+#            PassportNumber (persona:PassportNumber, 1..1)
+#            ExpirationDateIdentifier (ent00000054, 1..1)
+#  Optional: AdditionalName (ent00000003, 0..1)
+#            IssueDate (persona:IssueDate, 0..1)
+#            IssuingCountry (persona:IssuingCountry, 0..1)
+#            PlaceOfBirth (persona:PlaceOfBirth, 0..1)
+#            GenderMarker (persona:GenderMarker, 0..1)
+#            Photo (persona:hasPhoto, 0..1)
+#################################################################
+
+:PassportDocumentShape
+    a sh:NodeShape ;
+    sh:targetClass persona:Passport ;
+    sh:message "Passport document validation: name, date of birth, passport number, and expiration date are required."@en ;
+
+    # ── Name: FullName OR (GivenName + FamilyName) ───────────────────────────
+    sh:or (
+        [
+            sh:property [
+                sh:path <https://purl.org/cco/ont00001879> ;
+                sh:qualifiedValueShape [ sh:class cco:ent00000001 ] ;
+                sh:qualifiedMinCount 1 ;
+                sh:message "A Passport must record a FullName, OR provide GivenName + FamilyName."@en
+            ]
+        ]
+        [
+            sh:and (
+                [
+                    sh:property [
+                        sh:path <https://purl.org/cco/ont00001879> ;
+                        sh:qualifiedValueShape [ sh:class cco:ent00000002 ] ;
+                        sh:qualifiedMinCount 1 ;
+                        sh:message "If no FullName is recorded, a Passport must include at least one GivenName."@en
+                    ]
+                ]
+                [
+                    sh:property [
+                        sh:path <https://purl.org/cco/ont00001879> ;
+                        sh:qualifiedValueShape [ sh:class cco:ent00000004 ] ;
+                        sh:qualifiedMinCount 1 ;
+                        sh:message "If no FullName is recorded, a Passport must include at least one FamilyName."@en
+                    ]
+                ]
+            )
+        ]
+    ) ;
+
+    # ── Required: DateOfBirth, PassportNumber, ExpirationDate ────────────────
+    sh:property [
+        sh:path <https://purl.org/cco/ont00001879> ;
+        sh:qualifiedValueShape [ sh:class cco:ent00000046 ] ;  # Birthdate
+        sh:qualifiedMinCount 1 ;
+        sh:qualifiedMaxCount 1 ;
+        sh:message "A Passport must record exactly one DateOfBirth."@en
+    ] ;
+
+    sh:property [
+        sh:path <https://purl.org/cco/ont00001879> ;
+        sh:qualifiedValueShape [ sh:class persona:PassportNumber ] ;
+        sh:qualifiedMinCount 1 ;
+        sh:qualifiedMaxCount 1 ;
+        sh:message "A Passport must record exactly one PassportNumber."@en
+    ] ;
+
+    sh:property [
+        sh:path <https://purl.org/cco/ont00001879> ;
+        sh:qualifiedValueShape [ sh:class cco:ent00000054 ] ;  # ExpirationDateIdentifier
+        sh:qualifiedMinCount 1 ;
+        sh:qualifiedMaxCount 1 ;
+        sh:message "A Passport must record exactly one ExpirationDateIdentifier."@en
+    ] ;
+
+    # ── Optional fields ──────────────────────────────────────────────────────
+    sh:property [
+        sh:path <https://purl.org/cco/ont00001879> ;
+        sh:qualifiedValueShape [ sh:class cco:ent00000003 ] ;  # AdditionalName
+        sh:qualifiedMaxCount 1 ;
+        sh:message "A Passport may record at most one AdditionalName."@en
+    ] ;
+
+    sh:property [
+        sh:path <https://purl.org/cco/ont00001879> ;
+        sh:qualifiedValueShape [ sh:class persona:IssueDate ] ;
+        sh:qualifiedMaxCount 1 ;
+        sh:message "A Passport may record at most one IssueDate."@en
+    ] ;
+
+    sh:property [
+        sh:path <https://purl.org/cco/ont00001879> ;
+        sh:qualifiedValueShape [ sh:class persona:IssuingCountry ] ;
+        sh:qualifiedMaxCount 1 ;
+        sh:message "A Passport may record at most one IssuingCountry."@en
+    ] ;
+
+    sh:property [
+        sh:path <https://purl.org/cco/ont00001879> ;
+        sh:qualifiedValueShape [ sh:class persona:PlaceOfBirth ] ;
+        sh:qualifiedMaxCount 1 ;
+        sh:message "A Passport may record at most one PlaceOfBirth."@en
+    ] ;
+
+    sh:property [
+        sh:path <https://purl.org/cco/ont00001879> ;
+        sh:qualifiedValueShape [ sh:class persona:GenderMarker ] ;
+        sh:qualifiedMaxCount 1 ;
+        sh:message "A Passport may record at most one GenderMarker."@en
+    ] ;
+
+    sh:property [
+        sh:path persona:hasPhoto ;
+        sh:maxCount 1 ;
+        sh:datatype xsd:anyURI ;
+        sh:message "A Passport may record at most one photo."@en
+    ] .
+```

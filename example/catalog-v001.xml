@@ -6,16 +6,8 @@
          uri="file:/Users/paul/Documents/Work/GitHub/mia-ontologies/persona.ttl"/>
     <uri id="persona-templates"        name="http://mee.foundation/ontologies/persona-templates"
          uri="file:/Users/paul/Documents/Work/GitHub/mia-ontologies/persona-templates.ttl"/>
-    <uri id="birthcertificate-shacl"    name="http://mee.foundation/ontologies/persona/shapes/birthcertificate"
-         uri="file:/Users/paul/Documents/Work/GitHub/mia-ontologies/shacl/birthcertificate-shacl.ttl"/>
     <uri id="jscontactcard-shacl"      name="http://mee.foundation/ontologies/persona/shapes/jscontactcard"
          uri="file:/Users/paul/Documents/Work/GitHub/mia-ontologies/shacl/jscontactcard-shacl.ttl"/>
-    <uri id="driverslicense-shacl"     name="http://mee.foundation/ontologies/persona/shapes/driverslicense"
-         uri="file:/Users/paul/Documents/Work/GitHub/mia-ontologies/shacl/driverslicense-shacl.ttl"/>
-    <uri id="passport-shacl"           name="http://mee.foundation/ontologies/persona/shapes/passport"
-         uri="file:/Users/paul/Documents/Work/GitHub/mia-ontologies/shacl/passport-shacl.ttl"/>
-    <uri id="medical-appointment-shacl" name="http://mee.foundation/ontologies/persona/shapes/medical-appointment"
-         uri="file:/Users/paul/Documents/Work/GitHub/mia-ontologies/shacl/medical-appointment-shacl.ttl"/>
     <uri id="context"                  name="http://mee.foundation/ontologies/context"
          uri="file:/Users/paul/Documents/Work/GitHub/mia-ontologies/context.ttl"/>
     <uri id="cell"                 name="http://mee.foundation/ontologies/cell"
