@@ -46,7 +46,7 @@ Categories vary in scope from broad groupings of information to narrower ones. I
 
 Both personal life (family, health, finances categories) and work life (employment, colleagues categories) are organized within this same tree, since `Work` is itself a `cat:Person` subclass alongside `People` and `Health & Wellness`, not a separate branch. The `categories-org/` tree, rooted in `cat:Organization`, exists, so a person can copy pieces of it into their own `Work` branch to model the organizations they work for or with — e.g. Alice's `Work > Organization-Acme > Employees` category is a copy of `cat:Organization`'s `Employees`, since Acme's own structure is what her employment relationship is actually about.
 
-As we've mentioned, canonical category nodes are copied from one of the canonical trees into the user's category tree and in the process the class is switched from `cat:Canonical` to `cat:Copy`, while recording where the original came from using `cat:copiedFrom`. If the canonical had a cell linked to it (via that node's own `cat:cell`), a new cell is copied too and linked from the new `cat:Copy` the same way. If that cell contains references to contexts, these contexts are also copied.
+As we've mentioned, canonical category nodes are copied from one of the canonical trees into the user's category tree and in the process the class is switched from `cat:Canonical` to `cat:Copy`, while recording where the original came from using `cat:copiedFrom`. If the canonical had a cell linked to it (via that node's own `cat:cell`), a new cell is copied too and linked from the new `cat:Copy` the same way — the canonical cell acts as a **cell template**: a reusable starting shape that gets cloned into the user's own cell. If that cell contains references to contexts, these contexts are also copied.
 
 The user is free to rearrange their instance tree as they wish, adding new `cat:UserDefined` categories and moving things around. This works because the tree is just a way to organize the cells that it points to, and the cells are self-contained units of content (though any referenced context lies outside the cell boundary).
 
@@ -211,6 +211,8 @@ The cell ontology defines `cell:Cell` — a self-contained unit of *content*.
 
 A cell may contain a reference to a folder on the local file system (`cell:folder`). It may contain a reference to a markdown note on the local file system (`cell:note`). It may also contain within itself a graph structure (`cell:graph`). Lastly, it may also contain a set of references to *contexts* (also graphs) as described in the previous section, via `cell:sc-context` — how many depends on the cell's party composition (see below).
 
+A cell attached to a `cat:Canonical` node serves as a **cell template** — a reusable, typically empty shape that Mia clones into a new cell whenever the corresponding category is copied into a user's tree (see [Lazy Copying](#lazy-copying)).
+
 <p align="center"><img src="images/cell-ontology/cell.png" alt="Cell hierarchy"></p>
 
 ### Cell Party Composition
@@ -244,7 +246,7 @@ Each of these five example cells contains contexts shown as circles. White circl
 
 #### Lazy Copying
 
-A canonical category node is not copied into a user's tree ahead of time. Mia copies a canonical category (and mints an associated cell if needed) into the tree, and creates its `cell:note`/`cell:folder` paths, only once the user actually has content for it. Empty categories are not pre-populated as placeholder folders.
+A canonical category node is not copied into a user's tree ahead of time. Mia copies a canonical category — cloning its **cell template** into a new cell if one exists — into the tree, and creates its `cell:note`/`cell:folder` paths, only once the user actually has content for it. Empty categories are not pre-populated as placeholder folders.
 
 #### About Cell Notes and Folders
 
