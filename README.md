@@ -228,25 +228,23 @@ Every cell is a `cell:Cell`, classified by `cell:parties` according to how many 
 - **`cell:creator`** — identifies who created this cell's content: a single `p:Person`, `g:Group`, or `o:Organization`. Optional, at most one value.
 - **`cell:templateShapes`** — links a template cell (one reached via a `cat:Category` subclass's `cat:templateCell`) directly to the `sh:NodeShape`(s) describing the content expected of a context file filed under that category — e.g. `ctpl:PassportTemplateCell` carries `pshapes:PassportDocumentShape`. An `owl:ObjectProperty`, domain `cell:Cell`, range `sh:NodeShape`. Makes the shape reachable by pure RDF traversal (`cat:Category` → `cat:templateCell` → `cell:templateShapes` → `sh:NodeShape`), not just by file co-location or naming convention. Most template cells carry no `cell:templateShapes` value.
 
-### Representative Cells and Categories
+### Cells and Categories
 
-The diagram below shows representative kinds of cell/category pairs, each labeled with its `cat:catType` (green text) above its `cat:label` (black text), when set. In each cell are four grey icons representing four shared objects. The folder icon represents the folder associated with the cell. The grey circle in the upper right represents the cell's graph (structured attributes). In the lower right is the cell's chat window where parties in the cell can chat with one another.
-
-The first, "Work", is a `cat:CategoryDefined` representing `cat:Work` (a `cat:Person` subclass) with no override label. The second, "Organization / Acme", is a `cat:CategoryDefined` representing `cat:Organization`, `cat:label`-renamed to "Acme". The third, "Favorites", is a hypothetical `cat:UserDefined` category with no canonical counterpart at all, `cat:label`-renamed to "Favorites" (not tied to any real example data). The fourth, "Person / Bob Johnson", is a `cell:TwoParty` cell between the user and another Mia user, Bob — shown with all four self-vs-other classified contexts filled (self-by-self, other-by-self, self-by-other, other-by-other, all linked via `cell:sc-context`). The last, "Affiliations / Boston Hub Society", is a `cell:ThreePlusParty` cell with two other-party members, Carol and BHS. 
+The diagram below shows representative kinds of cell/category pairs, each labeled with its `cat:catType` (green text) above its `cat:label` (black text), when set. In each cell are four gray icons representing four shared objects. The folder icon represents the folder associated with the cell. The gray circle in the upper right represents the cell's graph (structured attributes). In the lower right is the cell's chat window where parties in the cell can chat with one another.
 
 <p align="center"><img src="images/cat-cell-context.png" alt="Cells, categories, and contexts"></p>
 
+The first, "Work", is a `cat:CategoryDefined` representing `cat:Work` (a `cat:Person` subclass) with no override label. The second, "Organization / Acme", is a `cat:CategoryDefined` representing `cat:Organization`, `cat:label`-renamed to "Acme". The third, "Favorites", is a hypothetical `cat:UserDefined` category with no canonical counterpart at all, `cat:label`-renamed to "Favorites" (not tied to any real example data). The fourth, "Person / Bob Johnson", is a `cell:TwoParty` cell between the user and another Mia user, Bob — shown with all four self-vs-other classified contexts filled (self-by-self, other-by-self, self-by-other, other-by-other, all linked via `cell:sc-context`). The last, "Affiliations / Boston Hub Society", is a `cell:ThreePlusParty` cell with two other-party members, Carol and BHS. 
+
 Each of these five example cells contains contexts shown as circles. White circles are contexts whose triples are claimed by the self (the user). Green circles are contexts whose triples are claimed by a person other than the self, by an organization (`o:Organization`), or by a group (`g:Group`), and synchronized with the user's Mia instance over the PDN. For example the BHS cell at the bottom has three contexts: Self (the user)'s BHS profile, the BHS group's own profile and Bob Johnson's BHS member profile as claimed by Bob.
 
-#### Lazy Instantiation
+A class's template cell (`cell-templates.ttl`) may also carry validation metadata declared in the paired `cell-templates-shacl.ttl`. This metadata lives on the class-level template only.
 
-A canonical category is not instantiated into a user's tree ahead of time. Mia instantiates a canonical category — cloning the `cell:Cell` its class carries via `cat:templateCell` into a new cell, if that class has one — into the tree, and creates its `cell:note`/`cell:folder` paths, only once the user actually has content for it. Empty categories are not pre-populated as placeholder folders.
-
-A class's template cell (`cell-templates.ttl`) may also carry non-instance validation metadata alongside its `cell:parties` value — for example, a per-template SHACL shape (see [Persona Templates](#persona-templates)), declared in the paired `cell-templates-shacl.ttl`. This metadata lives on the class-level template only; Lazy Instantiation clones just the template's real content-relevant properties (e.g. `cell:parties`) into the new user cell, never the shape triples, so they never propagate into a user's instantiated cell.
-
-#### About Cell Notes and Folders
+#### Cell Notes and Folders
 
 `cell:note` and `cell:folder` are file paths that point into two separate but parallel folder structures in local storage. The Mia app actively adjusts these two structures to stay isomorphic with the user's tree of `cat:CategoryDefined` nodes with its associated links to `cat:Category` entities — when a category is created, renamed, or deleted, Mia updates both hierarchies automatically.
+
+Canonical categories are not instantiated into a user's tree ahead of time. Mia instantiates a canonical category — cloning the `cell:Cell` its class carries via `cat:templateCell` into a new cell, if that class has one — into the tree, and creates its `cell:note`/`cell:folder` paths, only once the user actually has content for it. 
 
 The **notes hierarchy** mirrors the category tree as a folder structure, rooted at a top-level folder named **`Self`**. The invisible root category's note is `Self.md`, stored directly inside `Self/`; every other category's note is stored as `X.md` inside the X folder — for example, `Self/People/Immediate Family/Immediate Family.md`. Using the same name as the folder matches the convention used by PKM (Personal Knowledge Management) tools such as Obsidian (using the Folder Notes plugin), Logseq, Foam and others. Any file or folder in the notes root that is not `Self/` — app-managed folders (e.g. `Templates/`, `.obsidian/`), unrelated personal notes (e.g. a `Journal/`), or loose files — falls outside the category tree entirely and is ignored by Mia.
 
@@ -254,10 +252,10 @@ The **files hierarchy** mirrors the category tree as a folder structure. It has 
 
 The two roots are stored separately so the notes hierarchy can be opened as a standalone PKM vault without exposing the files hierarchy. Two user-configurable settings define where each root lives on disk:
 
-- **Files root** — default on macOS: `~/Enclave`
-- **Notes root** — default on macOS: `~/Enclave/ObsidianVault`
+- **Files root** — default on macOS: `~/Cells`
+- **Notes root** — default on macOS: `~/ObsidianVault/Cells`
 
-The files root defaults to a dedicated top-level folder (sibling of the Mac's built-in `Desktop`/`Downloads`/`Pictures`/`Movies`/`Music`/`Public`/`Documents` folders) so the category tree doesn't mix with — or need to accommodate — those OS-managed conventions; native Mac folders are left alone entirely, outside the Enclave tree. The notes root's default location is nested inside the files root's default location on disk — that's a matter of default configuration convenience, not a statement that the notes hierarchy is part of the files hierarchy. When Mia walks the files hierarchy it excludes the notes-root subtree entirely, and vice versa. All `cell:note` values are relative paths from the notes root; all `cell:folder` values are relative paths from the files root.
+All `cell:note` values are relative paths from the notes root; all `cell:folder` values are relative paths from the files root. 
 
 In the normal case `cell:note` and `cell:folder` are technically redundant — both paths can be derived from the category tree plus the two configured roots. They are retained for three reasons:
 
