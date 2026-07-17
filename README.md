@@ -208,7 +208,7 @@ A cell contains the following:
 * A note - a Markdown document
 * A file folder - containing an arbitrary number of files and sub-folders
 * A chat stream
-* A set of graphs called “subject-claim contexts” that adhere to the “Persona” ontology
+* A set of graphs called “subject-claim contexts” that follow the “Persona” ontology
   * one or more claims that the user makes about themself (e.g. given-name=”Alice”)
   * zero or more claims that the user makes about another party (e.g. Bob)
   * zero or more claims that another party makes about the user
