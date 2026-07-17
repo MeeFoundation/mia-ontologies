@@ -9,11 +9,11 @@
 @base <http://mee.foundation/ontologies/category> .
 
 <http://mee.foundation/ontologies/category> rdf:type owl:Ontology ;
-    owl:versionIRI <http://mee.foundation/ontologies/category/1.14.0> ;
-    dc:date "2026-07-13"^^xsd:date ;
+    owl:versionIRI <http://mee.foundation/ontologies/category/1.17.0> ;
+    dc:date "2026-07-16"^^xsd:date ;
     owl:imports <http://mee.foundation/ontologies/cell> ;
     owl:imports <http://mee.foundation/ontologies/cell-templates> ;
-    owl:versionInfo "Version 1.14.0 - simplified cat:cell's rdfs:domain from unionOf(cat:CategoryDefined, cat:UserDefined) to cat:Node, matching cat:child's domain; the union was only ever narrowed to exclude cat:Canonical, which was deleted in 1.8.0, leaving CategoryDefined/UserDefined as cat:Node's only subclasses."@en ;
+    owl:versionInfo "Version 1.17.0 - renamed cat:Investing's rdfs:label from 'Investing Firms' to 'Investment Firms'."@en ;
     rdfs:label "Category Ontology"@en ;
     rdfs:comment """Category Ontology for the Mee Identity Agent."""@en .
 
@@ -178,29 +178,34 @@ cat:Finances rdf:type owl:Class ;
     rdfs:label "Finances"@en ;
     rdfs:comment "Information about personal finances, bookkeeping, budgets, payment cards, bank accounts."@en .
 
+cat:PersonalFinance rdf:type owl:Class ;
+    rdfs:subClassOf cat:Finances ;
+    rdfs:label "Personal Finance"@en ;
+    rdfs:comment "Your own money management, as opposed to the firms you use to manage it: budgeting, expense tracking, income, debts, IOUs, and savings goals."@en .
+
 cat:BankingPayments rdf:type owl:Class ;
     rdfs:subClassOf cat:Finances ;
-    rdfs:label "Banking & Payments"@en ;
+    rdfs:label "Banking & Payments Firms"@en ;
     rdfs:comment "Firms that help you store, access, and move your cash for daily living. These include Retail Banks & Credit Unions, which provide checking accounts, savings accounts, and debit cards. These also include Payment Processors like Visa, Mastercard, or PayPal that let you buy things online and in stores, and Remittance Firms like Western Union or Wise used to send money to family or friends, especially overseas."@en .
 
 cat:Investing rdf:type owl:Class ;
     rdfs:subClassOf cat:Finances ;
-    rdfs:label "Investing"@en ;
+    rdfs:label "Investment Firms"@en ;
     rdfs:comment "Firms that help you buy assets so your money can grow over time for goals like buying a house or retiring. These include Brokerage Firms like Charles Schwab or Robinhood where you buy and sell stocks, bonds, and ETFs; Robo-Advisors, computer-run investing platforms like Betterment or Wealthfront that manage your portfolio for a low fee; and Mutual Fund Companies like Vanguard or Fidelity that pool your money with other investors to buy a large bundle of stocks."@en .
 
 cat:LendingCredit rdf:type owl:Class ;
     rdfs:subClassOf cat:Finances ;
-    rdfs:label "Lending & Credit"@en ;
+    rdfs:label "Lending & Credit Firms"@en ;
     rdfs:comment "Firms that lend you money when you need to buy something expensive that you cannot pay for all at once. These include Mortgage Lenders, banks or specialized companies that give you loans specifically to buy a home; Consumer Finance Companies, that give out personal loans, auto loans, or student loans; and Credit Card Issuers, banks that give you a plastic card to borrow money on the spot for daily purchases."@en .
 
 cat:Insurance rdf:type owl:Class ;
     rdfs:subClassOf cat:Finances ;
-    rdfs:label "Insurance"@en ;
+    rdfs:label "Insurance Firms"@en ;
     rdfs:comment "Firms that protect you and your family from financial ruin if something bad happens. These include Life & Health Insurance firms that cover medical bills or provide money to your family if you pass away, and Property & Casualty Insurance firms that insure your car, home, or apartment against accidents and theft."@en .
 
 cat:Advisory rdf:type owl:Class ;
     rdfs:subClassOf cat:Finances ;
-    rdfs:label "Advisory"@en ;
+    rdfs:label "Advisory Firms"@en ;
     rdfs:comment "Firms and individuals who do not just hold your money, but tell you the best ways to use it. These include Financial Planners (Wealth Advisors), human experts who help you build a custom roadmap for taxes, retirement, and budgeting, and Estate Planners, specialized professionals who help you write wills and plan how to pass your money to your children. Also includes Accountants and Bookkeepers, who track your income and expenses and prepare your taxes."@en .
 
 #################################################################
