@@ -267,14 +267,14 @@ In the center of the diagram below is a three level snippet of the user's catego
 
 Canonical categories are not instantiated into a user's tree ahead of time. Mia instantiates a canonical category — cloning the `cell:TCell` its class carries via `cat:templateCell` into a new cell, if that class has one — into the tree, and creates its `cell:note`/`cell:folder` paths, only once the user actually has content for it. 
 
-The **notes hierarchy** mirrors the category tree as a folder structure, rooted at a top-level folder named **`Self`**. The invisible root category's note is `Self.md`, stored directly inside `Self/`; every other category's note is stored as `X.md` inside the X folder — for example, `Self/People/Immediate Family/Immediate Family.md`. Using the same name as the folder matches the convention used by PKM (Personal Knowledge Management) tools such as Obsidian (using the Folder Notes plugin), Logseq, Foam and others. Any file or folder in the notes root that is not `Self/` — app-managed folders (e.g. `Templates/`, `.obsidian/`), unrelated personal notes (e.g. a `Journal/`), or loose files — falls outside the category tree entirely and is ignored by Mia.
+The **notes hierarchy** mirrors the category tree as a folder structure, rooted at a top-level folder named **`Cells`**. The invisible root category's note is `Cells.md`, stored directly inside `Cells/`; every other category's note is stored as `X.md` inside the X folder — for example, `Cells/People/Immediate Family/Immediate Family.md`. Using the same name as the folder matches the convention used by PKM (Personal Knowledge Management) tools such as Obsidian (using the Folder Notes plugin), Logseq, Foam and others. Any file or folder in the notes root that is not `Cells/` — app-managed folders (e.g. `Templates/`, `.obsidian/`), unrelated personal notes (e.g. a `Journal/`), or loose files — falls outside the category tree entirely and is ignored by Mia.
 
 The **files hierarchy** mirrors the category tree as a folder structure. It has no equivalent of a root note, so it has no `Self` wrapper folder — the files root itself plays that role, and each top-level category (e.g. `People`, `Work`) is a folder directly inside it. Each folder may hold arbitrary files, and may also contain additional subfolders (to any depth) that are not part of the category tree. Any file or folder directly inside the files root that is not a recognized top-level category folder likewise falls outside the category tree and is ignored by Mia.
 
 The two roots are stored separately so the notes hierarchy can be opened as a standalone PKM vault without exposing the files hierarchy. Two user-configurable settings define where each root lives on disk:
 
 - **Files root** — default on macOS: `~/Cells`
-- **Notes root** — default on macOS: `~/ObsidianVault/Cells`
+- **Notes root** — default on macOS: `~/NotesVault/Cells`
 
 All `cell:note` values are relative paths from the notes root; all `cell:folder` values are relative paths from the files root. 
 
