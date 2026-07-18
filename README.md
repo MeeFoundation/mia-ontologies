@@ -257,11 +257,11 @@ Each of these five example cells contains contexts shown as circles. White circl
 
 A class's template cell (`cell-templates.ttl`) may also carry validation metadata declared in the paired `cell-templates-shacl.ttl`. This metadata lives on the class-level template only.
 
-#### Cell Notes and Folders
+#### Cell Notes and Cell Folders
 
 `cell:note` and `cell:folder` are file paths that point into two separate but parallel folder structures in local storage. The Mia app actively adjusts these two structures to stay isomorphic with the user's tree of `cat:CategoryDefined` nodes with its associated links to `cat:Category` entities — when a category is created, renamed, or deleted, Mia updates both hierarchies automatically.
 
-In the center of the diagram below is a three level branch of the user's category tree and how that central hierarchy maps to (and controls) the file and notes hierarchies to the left and right.
+In the center of the diagram below is a three level snippet of the user's category tree. It shows how that snippet maps to (and controls) the file and notes hierarchies to its left and right. Essentially when the user looks in a cell, say the middle one above, they see only the files, folders, notes of the corresponding color not the surrounding files and folders associated with the category/cell above and the category/cell below. Logically these same-colored files and folders are considered to be a part of the cell even though physically are external to it.
 
 <p align="center"><img src="images/folder-mapping.png" alt="Cells, categories, and contexts"></p>
 
