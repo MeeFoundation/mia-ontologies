@@ -261,6 +261,10 @@ A class's template cell (`cell-templates.ttl`) may also carry validation metadat
 
 `cell:note` and `cell:folder` are file paths that point into two separate but parallel folder structures in local storage. The Mia app actively adjusts these two structures to stay isomorphic with the user's tree of `cat:CategoryDefined` nodes with its associated links to `cat:Category` entities — when a category is created, renamed, or deleted, Mia updates both hierarchies automatically.
 
+In the center of the diagram below is a three level branch of the user's category tree and how that central hierarchy maps to (and controls) the file and notes hierarchies to the left and right.
+
+<p align="center"><img src="images/folder-mapping.png" alt="Cells, categories, and contexts"></p>
+
 Canonical categories are not instantiated into a user's tree ahead of time. Mia instantiates a canonical category — cloning the `cell:TCell` its class carries via `cat:templateCell` into a new cell, if that class has one — into the tree, and creates its `cell:note`/`cell:folder` paths, only once the user actually has content for it. 
 
 The **notes hierarchy** mirrors the category tree as a folder structure, rooted at a top-level folder named **`Self`**. The invisible root category's note is `Self.md`, stored directly inside `Self/`; every other category's note is stored as `X.md` inside the X folder — for example, `Self/People/Immediate Family/Immediate Family.md`. Using the same name as the folder matches the convention used by PKM (Personal Knowledge Management) tools such as Obsidian (using the Folder Notes plugin), Logseq, Foam and others. Any file or folder in the notes root that is not `Self/` — app-managed folders (e.g. `Templates/`, `.obsidian/`), unrelated personal notes (e.g. a `Journal/`), or loose files — falls outside the category tree entirely and is ignored by Mia.
