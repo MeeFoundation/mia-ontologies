@@ -9,45 +9,45 @@
 @base <http://mee.foundation/ontologies/cell-templates> .
 
 <http://mee.foundation/ontologies/cell-templates> rdf:type owl:Ontology ;
-    owl:versionIRI <http://mee.foundation/ontologies/cell-templates/1.5.0> ;
-    dc:date "2026-07-13"^^xsd:date ;
+    owl:versionIRI <http://mee.foundation/ontologies/cell-templates/1.7.0> ;
+    dc:date "2026-07-18"^^xsd:date ;
     owl:imports <http://mee.foundation/ontologies/cell> ;
-    owl:versionInfo "Version 1.5.0 - updated doc comment for category.ttl 1.13.0's cat:Copy -> cat:CategoryDefined rename and 'copy'/'instantiate' terminology shift."@en ;
+    owl:versionInfo "Version 1.7.0 - updated for cell.ttl 3.9.0's rename of cell:templateShapes to cell:templateShape (singular): all four template individuals' cell:templateShape assertions updated to match."@en ;
     rdfs:label "Cell Templates"@en ;
-    rdfs:comment """Class-level cell:Cell templates for cat:Category subclasses (category.ttl). Each individual here is what a cat:Category subclass's cat:templateCell value (asserted in category.ttl) points at, and what a cat:CategoryDefined node's cat:category value indirectly reaches — what Mia clones into a new cell when that category is first instantiated into a user's tree (Lazy Instantiation). Each also carries cell:templateShapes to the SHACL shape(s), in the paired cell-templates-shacl.ttl, describing the content expected of a context file filed under that category."""@en .
+    rdfs:comment """Class-level cell:Cell templates for cat:Category subclasses (category.ttl). Each individual here is what a cat:Category subclass's cat:templateCell value (asserted in category.ttl) points at, and what a cat:CategoryDefined node's cat:category value indirectly reaches — what Mia clones into a new cell when that category is first instantiated into a user's tree (Lazy Instantiation). Each is multi-typed with both cell:TCell (the template facet) and cell:OneParty (a cell:ACell subclass, the actual/instantiated facet), since a template cell is simultaneously reusable template content and real party-classified content. Each also carries cell:templateShape to the SHACL shape(s), in the paired cell-templates-shacl.ttl, describing the content expected of a context file filed under that category."""@en .
 
 #################################################################
 #  cat:Passport
 #################################################################
 
-ctpl:PassportTemplateCell rdf:type cell:Cell, cell:OneParty ;
+ctpl:PassportTemplateCell rdf:type cell:Cell, cell:TCell, cell:ACell, cell:OneParty ;
     rdfs:label "Passport Template Cell"@en ;
     cell:parties cell:OneParty ;
-    cell:templateShapes pshapes:PassportDocumentShape .
+    cell:templateShape pshapes:PassportDocumentShape .
 
 #################################################################
 #  cat:BirthCertificate
 #################################################################
 
-ctpl:BirthCertificateTemplateCell rdf:type cell:Cell, cell:OneParty ;
+ctpl:BirthCertificateTemplateCell rdf:type cell:Cell, cell:TCell, cell:ACell, cell:OneParty ;
     rdfs:label "Birth Certificate Template Cell"@en ;
     cell:parties cell:OneParty ;
-    cell:templateShapes pshapes:BirthCertificateDocumentShape .
+    cell:templateShape pshapes:BirthCertificateDocumentShape .
 
 #################################################################
 #  cat:DriversLicense
 #################################################################
 
-ctpl:DriversLicenseTemplateCell rdf:type cell:Cell, cell:OneParty ;
+ctpl:DriversLicenseTemplateCell rdf:type cell:Cell, cell:TCell, cell:ACell, cell:OneParty ;
     rdfs:label "Drivers License Template Cell"@en ;
     cell:parties cell:OneParty ;
-    cell:templateShapes pshapes:DriversLicenseDocumentShape .
+    cell:templateShape pshapes:DriversLicenseDocumentShape .
 
 #################################################################
 #  cat:MedicalAppointmentInfo
 #################################################################
 
-ctpl:MedicalAppointmentInfoTemplateCell rdf:type cell:Cell, cell:OneParty ;
+ctpl:MedicalAppointmentInfoTemplateCell rdf:type cell:Cell, cell:TCell, cell:ACell, cell:OneParty ;
     rdfs:label "Medical Appointment Info Template Cell"@en ;
     cell:parties cell:OneParty ;
-    cell:templateShapes pshapes:MedicalAppointmentRecordShape .
+    cell:templateShape pshapes:MedicalAppointmentRecordShape .

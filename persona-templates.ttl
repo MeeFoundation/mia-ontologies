@@ -8,15 +8,15 @@
 @base <http://mee.foundation/ontologies/persona-templates> .
 
 <http://mee.foundation/ontologies/persona-templates> rdf:type owl:Ontology ;
-    dc:date "2026-07-13"^^xsd:date ;
-    owl:versionInfo "Version 2.2.0 - renamed the 4 document/record classes for clarity, adding a suffix matching their existing SHACL shape names and disambiguating from the unrelated cat:BirthCertificate/cat:DriversLicense/cat:Passport category-classification classes (category.ttl) and p:PhysicalDriversLicense (the physical card object, persona.ttl): p:BirthCertificate -> p:BirthCertificateDocument, p:DriversLicense -> p:DriversLicenseDocument, p:Passport -> p:PassportDocument (all matching their :*DocumentShape names), and p:MedicalAppointment -> p:MedicalAppointmentRecord (matching :MedicalAppointmentRecordShape — 'Record' rather than 'Document' since it is explicitly not a p:IdentityDocument). context:template values, SHACL sh:targetClass values, and the affected example context files' rdf:type assertions were all updated to match; the local name each class carries as its context:template YAML value is unchanged in spirit, only longer."@en ;
+    dc:date "2026-07-18"^^xsd:date ;
+    owl:versionInfo "Version 2.3.0 - fixed stale doc-comment references to cat:templateShapes (category.ttl): the property moved to cell.ttl as cell:templateShapes back in cell.ttl 3.6.0, and was renamed cell:templateShape (singular) in cell.ttl 3.9.0 — comments here still said cat:templateShapes and 'class-level cell:Cell template', neither ever updated. No change to any class or property defined in this file."@en ;
     rdfs:label "Persona Templates Ontology"@en ;
     rdfs:comment """Template type classification used as values for the context:template annotation property.
                     Each concrete template type (BirthCertificateDocument, JSContactCard, DriversLicenseDocument,
                     PassportDocument, MedicalAppointmentRecord) identifies which per-template SHACL shapes to
                     apply when validating a context file. Four of the five (all but JSContactCard) have their
-                    shapes in cell-templates-shacl.ttl, linked from a class-level cell:Cell template
-                    (cell-templates.ttl) via cat:templateShapes (category.ttl).
+                    shapes in cell-templates-shacl.ttl, linked from a class-level cell:TCell template
+                    (cell-templates.ttl) via cell:templateShape (cell.ttl).
 
                     p:IdentityDocument models government-issued identity documents as artifact instances.
                     p:BirthCertificateDocument, p:DriversLicenseDocument, and p:PassportDocument are subclasses
@@ -80,7 +80,7 @@ persona:BirthCertificateDocument rdf:type owl:Class ;
                     birth certificate name record. Used as the value of context:template on the
                     context file's ontology IRI. Selects the SHACL shape :BirthCertificateDocumentShape
                     in cell-templates-shacl.ttl, linked from cat:BirthCertificate's template cell
-                    (cell-templates.ttl) via cat:templateShapes — IRI
+                    (cell-templates.ttl) via cell:templateShape — IRI
                     http://mee.foundation/ontologies/persona/shapes/birthcertificate — for
                     validation. Formerly named persona:BirthCertificate; renamed to disambiguate from
                     the unrelated cat:BirthCertificate category-classification class (category.ttl)."""@en .
@@ -118,7 +118,7 @@ persona:DriversLicenseDocument rdf:type owl:Class ;
                     Used as the value of context:template on the context file's ontology IRI.
                     Selects the SHACL shape :DriversLicenseDocumentShape in cell-templates-shacl.ttl,
                     linked from cat:DriversLicense's template cell (cell-templates.ttl) via
-                    cat:templateShapes — IRI
+                    cell:templateShape — IRI
                     http://mee.foundation/ontologies/persona/shapes/driverslicense — for validation.
                     Note: p:PhysicalDriversLicense (in persona.ttl) models the physical card
                     object carried in a wallet; this class models the identity data the
@@ -180,7 +180,7 @@ persona:PassportDocument rdf:type owl:Class ;
                     gender marker. Photo is optional. Used as the value of context:template on
                     the context file's ontology IRI. Selects the SHACL shape :PassportDocumentShape
                     in cell-templates-shacl.ttl, linked from cat:Passport's template cell
-                    (cell-templates.ttl) via cat:templateShapes — IRI
+                    (cell-templates.ttl) via cell:templateShape — IRI
                     http://mee.foundation/ontologies/persona/shapes/passport — for
                     validation. Formerly named persona:Passport; renamed to disambiguate from
                     the unrelated cat:Passport category-classification class (category.ttl)."""@en .
@@ -384,7 +384,7 @@ persona:MedicalAppointmentRecord rdf:type owl:Class ;
                     of context:template on the context file's
                     ontology IRI. Selects the SHACL shape :MedicalAppointmentRecordShape in
                     cell-templates-shacl.ttl, linked from cat:MedicalAppointmentInfo's template
-                    cell (cell-templates.ttl) via cat:templateShapes — IRI
+                    cell (cell-templates.ttl) via cell:templateShape — IRI
                     http://mee.foundation/ontologies/persona/shapes/medical-appointment — for
                     validation. Formerly named persona:MedicalAppointment; renamed "Record" rather
                     than "Document" since this class is explicitly not a p:IdentityDocument,

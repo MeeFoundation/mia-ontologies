@@ -8,7 +8,7 @@
 @prefix cell: <http://mee.foundation/ontologies/cell#> .
 
 <http://mee.foundation/ontologies/category/shapes> rdf:type owl:Ontology ;
-    owl:versionInfo "Version 1.7.0 - renamed :CopyShape to :CategoryDefinedShape, targeting cat:CategoryDefined (renamed from cat:Copy in category.ttl 1.13.0)."@en ;
+    owl:versionInfo "Version 1.8.0 - removed :CategoryDefinedShape's sh:class cat:Category constraint on cat:category: a legal value is rdfs:subClassOf cat:Category, never rdf:type cat:Category, so the constraint could never be satisfied by any real data — first caught once category DataBook YAML frontmatter started being validated for real (see README's Validation section)."@en ;
     rdfs:label "Category Ontology SHACL Validation Shapes"@en ;
     rdfs:comment "SHACL validation shapes for cat:Category/cat:Node DataBook instances (the classificatory and tree-position facets of a cell) in the Category Ontology."@en .
 
@@ -102,10 +102,16 @@
     sh:targetClass cat:CategoryDefined ;
     sh:message "CategoryDefined node validation."@en ;
 
-    # cat:category — at most one, pointing at a cat:Category subclass
+    # cat:category — at most one, pointing at a cat:Category subclass.
+    # Not constrained to sh:class cat:Category: a legal value (e.g.
+    # cat:BankingPayments) is rdfs:subClassOf cat:Category, never
+    # rdf:type cat:Category — no leaf category class is ever asserted as
+    # an *instance* of cat:Category, so sh:class here could never be
+    # satisfied by any legitimate value. Checking "is a legal cat:Category
+    # subclass" properly would need a SPARQL-based constraint walking
+    # rdfs:subClassOf; cardinality alone is enforced here instead.
     sh:property [
         sh:path cat:category ;
         sh:maxCount 1 ;
-        sh:class cat:Category ;
-        sh:message "A cat:CategoryDefined node may have at most one cat:category value, and it must be a cat:Category."@en
+        sh:message "A cat:CategoryDefined node may have at most one cat:category value."@en
     ] .

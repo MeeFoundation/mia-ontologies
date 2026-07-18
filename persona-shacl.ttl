@@ -10,7 +10,7 @@
 @prefix persona: <http://mee.foundation/ontologies/persona#> .
 
 <http://mee.foundation/ontologies/persona/shapes> rdf:type owl:Ontology ;
-    owl:versionInfo "Version 4.1.0 - renamed this ontology's IRI from http://www.example.org/shapes to http://mee.foundation/ontologies/persona/shapes: only example data (categories/cells/contexts) should be grounded under www.example.org — foundational ontologies and their SHACL companions belong under mee.foundation/ontologies (see CLAUDE.md's new IRI-root integrity check). All context DataBook shapes: YAML values referencing the old IRI updated to match."@en ;
+    owl:versionInfo "Version 4.2.0 - fixed :SocialNetworkShape: its two separate mandatory sh:property shapes on BFO_0000115 (one requiring sh:class cco:ont00001183, the other sh:class persona:Person) required every member to satisfy both simultaneously, which no ordinary Person member ever could — merged into a single sh:property with sh:or, so each member may be either a sub-group Social Network or a Person. This was causing Tier 1 validation to fail on every Social Network individual in the example data."@en ;
     rdfs:label "Mee Identity Agent (MIA)'s SHACL Validation Shapes"@en ;
     rdfs:comment """SHACL validation shapes for the Mee Identity Agent.
 
@@ -342,20 +342,20 @@
 :SocialNetworkShape
     a sh:NodeShape ;
     sh:targetClass cco:ont00001183 ;  # Social Network
-    sh:message "Social Network validation: sub-groups must be Social Networks; members must be Persons."@en ;
+    sh:message "Social Network validation: each member part must be either a sub-group Social Network or a Person."@en ;
 
-    # Sub-groups: BFO has part → Social Network (e.g. Family, Colleague, Other)
+    # Each BFO has member part value must be EITHER a sub-group Social Network (e.g. Family,
+    # Colleague, Other) OR an ordinary Person member (unified IRI for same person across
+    # contexts) — not both at once. Was previously two separate mandatory sh:property shapes
+    # on the same path, which required every member to satisfy both sh:class constraints
+    # simultaneously (impossible for an ordinary Person member); merged into a single sh:or.
     sh:property [
         sh:path <http://purl.obolibrary.org/obo/BFO_0000115> ;  # has member part
-        sh:class cco:ont00001183 ;  # Social Network
-        sh:message "Social Network parts (sub-groups) must themselves be Social Networks."@en
-    ] ;
-
-    # Members: BFO has member part → Person (unified IRI for same person across contexts)
-    sh:property [
-        sh:path <http://purl.obolibrary.org/obo/BFO_0000115> ;  # has member part
-        sh:class persona:Person ;
-        sh:message "All Social Network member parts must be Persons."@en
+        sh:or (
+            [ sh:class cco:ont00001183 ]  # Social Network (sub-group)
+            [ sh:class persona:Person ]   # ordinary member
+        ) ;
+        sh:message "Every Social Network member part must be either a sub-group Social Network or a Person."@en
     ] .
 
 

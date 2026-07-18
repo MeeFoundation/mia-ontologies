@@ -11,18 +11,17 @@
 @prefix o: <http://mee.foundation/ontologies/organization#> .
 
 <http://mee.foundation/ontologies/cell/shapes> rdf:type owl:Ontology ;
-    owl:versionInfo "Version 3.5.0 - renamed this ontology's IRI from http://www.example.org/cell-shapes to http://mee.foundation/ontologies/cell/shapes: only example data should be grounded under www.example.org — foundational ontologies and their SHACL companions belong under mee.foundation/ontologies (see CLAUDE.md's new IRI-root integrity check)."@en ;
+    owl:versionInfo "Version 3.7.0 - updated for cell.ttl 3.9.0's rename of cell:templateShapes to cell:templateShape (singular): :TCellShape's sh:path and messages updated to match."@en ;
     rdfs:label "Cell Ontology SHACL Validation Shapes"@en ;
     rdfs:comment "SHACL validation shapes for cell:Cell DataBook instances (the content facet of a cell) in the Cell Ontology."@en .
 
 
 #################################################################
 #  Cell
-#  cell:Cell (formerly cell:Parties) classifies every cell instance
-#  by total party count. parties/sc-context/graph/note/folder
-#  all have domain cell:Cell — cell:sc-context carries no per-party-
-#  count cardinality distinction, unlike the sbs/obs/sbo/obo
-#  properties it replaced.
+#  cell:Cell (formerly cell:Parties) carries only what's common to
+#  every cell regardless of facet: graph/sc-context/note/folder.
+#  cell:sc-context carries no per-party-count cardinality
+#  distinction, unlike the sbs/obs/sbo/obo properties it replaced.
 #################################################################
 
 :CellShape
@@ -44,26 +43,6 @@
         sh:message "A cell's cell:sc-context values, if any, must each be a context:SCcontext."@en
     ] ;
 
-    # cell:creator — at most one value, must be a Person, Group, or Organization
-    sh:property [
-        sh:path cell:creator ;
-        sh:maxCount 1 ;
-        sh:or ( [ sh:class p:Person ] [ sh:class g:Group ] [ sh:class o:Organization ] ) ;
-        sh:message "A cell's cell:creator, if present, must be a single p:Person, g:Group, or o:Organization."@en
-    ] ;
-
-    # cell:parties — exactly one value, must be the class
-    # cell:OneParty, cell:TwoParty, or cell:ThreePlusParty itself
-    # (class-value punning, not a string). Required: every cell:Cell
-    # instance is typed as one of these three by definition.
-    sh:property [
-        sh:path cell:parties ;
-        sh:minCount 1 ;
-        sh:maxCount 1 ;
-        sh:in ( cell:OneParty cell:TwoParty cell:ThreePlusParty ) ;
-        sh:message "A cell's cell:parties is required and must be the class cell:OneParty, cell:TwoParty, or cell:ThreePlusParty."@en
-    ] ;
-
     # cell:note — at most one markdown notes file path
     sh:property [
         sh:path cell:note ;
@@ -76,4 +55,76 @@
         sh:path cell:folder ;
         sh:maxCount 1 ;
         sh:message "A cell may have at most one cell:folder value."@en
+    ] .
+
+
+#################################################################
+#  TCell
+#  cell:TCell is the template facet of a cell (cell.ttl 3.7.0) —
+#  reusable content reached via a cat:Category subclass's
+#  cat:templateCell (category.ttl).
+#################################################################
+
+:TCellShape
+    a sh:NodeShape ;
+    sh:targetClass cell:TCell ;
+    sh:message "Template Cell validation."@en ;
+
+    # cell:templateShape — at most one value. Not constrained to sh:class
+    # sh:NodeShape here: the individuals it points at (e.g.
+    # pshapes:PassportDocumentShape) are only typed sh:NodeShape in
+    # cell-templates-shacl.ttl, which is deliberately excluded from Tier 1's
+    # merged-data validation (see README.md's Validation section) — asserting
+    # sh:class here would spuriously fail against that merged graph. Most
+    # template cells carry no cell:templateShape value at all — that's the
+    # default.
+    sh:property [
+        sh:path cell:templateShape ;
+        sh:maxCount 1 ;
+        sh:message "A cell:TCell may have at most one cell:templateShape value."@en
+    ] .
+
+
+#################################################################
+#  ACell
+#  cell:ACell is the actual/instantiated facet of a cell (cell.ttl
+#  3.7.0) — real, party-classified content. creator and parties
+#  moved here from :CellShape when their domain narrowed from
+#  cell:Cell to cell:ACell.
+#################################################################
+
+:ACellShape
+    a sh:NodeShape ;
+    sh:targetClass cell:ACell ;
+    sh:message "Actual Cell validation."@en ;
+
+    # cell:creator — at most one value, must be a Person, Group, or Organization
+    sh:property [
+        sh:path cell:creator ;
+        sh:maxCount 1 ;
+        sh:or ( [ sh:class p:Person ] [ sh:class g:Group ] [ sh:class o:Organization ] ) ;
+        sh:message "A cell:ACell's cell:creator, if present, must be a single p:Person, g:Group, or o:Organization."@en
+    ] ;
+
+    # cell:parties — exactly one value, must be the class
+    # cell:OneParty, cell:TwoParty, or cell:ThreePlusParty itself
+    # (class-value punning, not a string). Required: every cell:ACell
+    # instance is typed as one of these three by definition.
+    sh:property [
+        sh:path cell:parties ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:in ( cell:OneParty cell:TwoParty cell:ThreePlusParty ) ;
+        sh:message "A cell:ACell's cell:parties is required and must be the class cell:OneParty, cell:TwoParty, or cell:ThreePlusParty."@en
+    ] ;
+
+    # cell:shape — at most one value. Not constrained to sh:class sh:NodeShape
+    # here, for the same reason as cell:templateShape above: whatever shape
+    # graph types the target as sh:NodeShape may not be part of the merged
+    # data a given validation run includes. Most actual cells carry no
+    # cell:shape value at all — that's the default.
+    sh:property [
+        sh:path cell:shape ;
+        sh:maxCount 1 ;
+        sh:message "A cell:ACell may have at most one cell:shape value."@en
     ] .
