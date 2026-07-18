@@ -284,7 +284,7 @@ In the normal case `cell:note` and `cell:folder` are technically redundant — b
 2. **Graceful degradation** — Mia can continue to locate a cell's folder or note via the stored path even when the folder hierarchy has drifted out of sync with the category tree.
 3. **Intentional overrides** — a user may deliberately want a cell's folder to live somewhere other than the derived location (e.g. `~/Pictures/Immediate Family/` rather than the default `~/Enclave/People/Immediate Family/`). The explicit link records that intentional deviation without disrupting the category tree.
 
-This third case above presents use cases and situations that have not fully been discussed and resolved. And our principles have not been clearly articulated. For example, must all files and folders live strictly within the two roots, or are overrides allowed?
+This third case above presents use cases and situations that have not fully been discussed and resolved nor have our principles have not been clearly articulated. For example, must all files and folders live strictly within the two roots, or are overrides allowed?
 
 ### Cell DataBooks
 
