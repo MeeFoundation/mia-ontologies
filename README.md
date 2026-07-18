@@ -276,7 +276,7 @@ The two roots are stored separately so the notes hierarchy can be opened as a st
 - **Files root** — default on macOS: `~/Cells`
 - **Notes root** — default on macOS: `~/NotesVault/Cells`
 
-All `cell:note` values are relative paths from the notes root; all `cell:folder` values are relative paths from the files root. 
+We have made a *provisional* decision that all `cell:note` values are relative paths from the notes root, and all `cell:folder` values are relative paths from the files root. 
 
 In the normal case `cell:note` and `cell:folder` are technically redundant — both paths can be derived from the category tree plus the two configured roots. They are retained for three reasons:
 
