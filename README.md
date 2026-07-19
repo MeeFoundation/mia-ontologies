@@ -1,10 +1,8 @@
 # Mia Ontologies
 
-This document describes the ontologies used by the Mee Identity Agent (Mia) software application. The application lets the user create *cells* – private, secure collaboration spaces which can be joined by other Mia users, nodes on the Personal Data Network (PDN) hosted by organizations or groups.
+This document describes the ontologies used by the Mee Identity Agent (Mia) software application. The application lets the user create *cells* – private, secure collaboration spaces which can be joined by other Mia users and/or nodes on the Personal Data Network (PDN) hosted by organizations or groups.
 
-Mia's ontologies import and profile existing ontologies — documenting which of their classes and properties Mia requires or uses — and extending them with Mia-specific classes and properties. 
-
-The three **domain ontologies** model claims about people, organizations and groups contained in `c:SCcontext` instances:
+Mia's ontologies import and profile existing ontologies — documenting which of their classes and properties Mia requires or uses — and extending them with Mia-specific classes and properties. They include the following **domain ontologies** model claims about people, organizations and groups contained in `c:SCcontext` instances:
 - **Persona ontology** — models a person: names, addresses, phone numbers, relationships, payment cards, and more. It is built on BFO (Basic Formal Ontology) and CCO (Common Core Ontologies) as the upper ontological foundation, and on domain ontologies that extend CCO:
   - **PersonOntology** — person, name types, parent-child relationships
   - **AddressOntology** — postal address structure
@@ -12,6 +10,8 @@ The three **domain ontologies** model claims about people, organizations and gro
   - **AgentOntology** — agents and their properties (imported transitively via PersonOntology)
 - **Organization ontology** — models organizations (companies, government agencies, non-profits, etc.) 
 - **Group ontology** — a group made up of individuals and/or organizations.
+
+Also included are the Category, Cell and Context metadata ontologies. Categories are used to organize information in cells. Cells define the boundaries and "outer" structure of data spaces that can be shared with other users and organizations. Contexts provide a lightweight container for personal information using the Persona ontology.
 
 Throughout, we use these short-hands:
 
@@ -24,26 +24,19 @@ Throughout, we use these short-hands:
 - `ako` for `rdfs:subClassOf` ("a kind of")
 - `isa` for 'rdf:type` ("is a")
 
-We first present an overview of the ontologies and then illustrate their use through a sample dataset for a hypothetical user, Alice Walker.
+After describing these ontologies in more detail, we will conclude with an illustration of their use by a hypothetical user, Alice Walker.
 
 ## Category Ontology
 
-Categories are used to organize cells. 
+Using the app the user creates category trees to organize their cells. The nodes of the tree are formed of `cat:Node` instances with child properties pointing to sub-nodes and thus forming the tree.
 
-The category ontology defines two orthogonal facets of a category DataBook. `cat:Category` (abstract) is the *classificatory* facet — which kind of thing it is (e.g. "Customer"), recorded as a plain string in `cat:catType`. `cat:Node` (abstract) is the *tree-position* facet — where the category sits in a tree. 
+These nodes may be a `cat:CategoryDefined` or `cat:UserDefined`. The former point (via `cat:catetory`) to a subclass in the predefined `cat:Category` class hierarchy which indicates the kind of information it is about. `cat:Category` and is subclasses vary in scope from broad groupings of information to narrower ones. In the social domain, for example, a category might be about "People", or more narrowly about "Immediate Family", and ultimately about just a single family member. The user is also free to also construct user-defined nodes which do not use any of the predefined categories. 
 
 <p align="center"><img src="images/category-ontology/category.png" alt="Category hierarchy"></p>
 
-### Category
+Mia's provides two predefined `cat:Category` class hierarchies (`category.ttl`'s `rdfs:subClassOf` structure), rooted at the abstract `cat:Person` and `cat:Organization` classes. Some classes in this hierarchy have starter content pointed to via `cat:templateCell` and asserted directly in `category.ttl` alongside the class's own declaration, pointing at a `cell:TCell` individual defined in the companion file `cell-templates.ttl` — the *cell template* for that class.
 
-`cat:Category` and is subclasses vary in scope from broad groupings of information to narrower ones. In the social domain, for example, a category might be about "People", or more narrowly about "Immediate Family", and ultimately about just a single family member. 
-
-#### Canonical Classes vs. Instance Category Tree
-Mia's canonical tree is simply the `cat:Category` class hierarchy itself (`category.ttl`'s `rdfs:subClassOf` structure), rooted at the abstract `cat:Person` and `cat:Organization` classes. A class that has reusable starter content carries a `cat:templateCell` value, asserted directly in `category.ttl` alongside the class's own declaration, pointing at a `cell:TCell` individual defined in the companion file `cell-templates.ttl` — the *cell template* for that class.
-
-The user's category tree is instantiated from `cat:CategoryDefined` and `cat:UserDefined` nodes (see [Category DataBooks](#category-databooks) below). A `cat:CategoryDefined` node carries `cat:category`, naming the `cat:Category` subclass it represents (e.g. `cat:Work`) — this single value both classifies the node and records which class it was instantiated from. A `cat:UserDefined` node has no canonical counterpart at all, so it carries no `cat:category`.
-
-Nodes in the user's tree have no content of their own. Instead, every node points, via `cat:cell`, to a `cell:ACell` which holds content. When a category is instantiated into the user's tree, Mia clones its class's `cat:templateCell` (if one exists) into a new cell for that node — this is how a **cell template** becomes the starting content for an instantiated cell (see [Lazy Instantiation](#lazy-instantiation)).
+The nodes in the user's tree have no content of their own. Instead, each points, via `cat:cell`, to a `cell:ACell` which holds content. When a category is instantiated into the user's tree, Mia clones its class's `cat:templateCell` (if one exists) into a new cell for that node — this is how a **cell template** becomes the starting content for an instantiated cell (see [Lazy Instantiation](#lazy-instantiation)).
 
 The user is free to rearrange their instance tree as they wish, adding new `cat:UserDefined` nodes and moving other nodes around. The instance tree is really just a way to organize the cells associated with each node. A `cat:CategoryDefined` or `cat:UserDefined` node has an optional `cat:label` that allows the user override the display name (e.g. "Client").
 
