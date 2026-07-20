@@ -141,7 +141,8 @@ The user is free to rearrange their instance tree as they wish, adding new `cat:
     - **Board of Directors (org)** (`cat:BoardOfDirectors(org)`) — the organization's board members.
 1. **KB** (`cat:KB`) — corporate knowledge bases.
 1. **Projects (org)** (`cat:Projects(org)`) — projects related to R&D, manufacturing, sales, marketing, operations, HR, etc.
-1. **Meetings (org)** (`cat:Meetings(org)`) — events, meetings, workshops, webinars, and gatherings.
+1. **Meetings (org)** (`cat:Meetings(org)`) — face-to-face or online meetings, whether internal or with clients/customers. See also Events (org) for external, travel-to or larger-scale gatherings.
+1. **Events (org)** (`cat:Events(org)`) — external events that people travel to, or larger-scale gatherings — conferences, webinars, town halls, and similar events. See also Meetings (org) for ordinary internal or client/customer meetings.
     - **Conferences** (`cat:Conferences`) — a conference or professional gathering.
 1. **Suppliers** (`cat:Suppliers`) — companies that supply goods or services to this organization.
 1. **Legal (org)** (`cat:Legal(org)`) — contracts and agreements.
