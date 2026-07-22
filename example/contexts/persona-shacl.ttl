@@ -1,0 +1,483 @@
+@prefix : <http://mee.foundation/ontologies/persona/shapes#> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix obo: <http://purl.obolibrary.org/obo/> .
+@prefix cco: <https://purl.org/cco/> .
+@prefix mia: <http://www.example.org/mia#> .
+@prefix persona: <http://mee.foundation/ontologies/persona#> .
+
+<http://mee.foundation/ontologies/persona/shapes> rdf:type owl:Ontology ;
+    owl:versionInfo "Version 4.3.0 - migrated card/account SHACL targets to committed cco: terms: has-payment-card path -> cco:ent00000073; CheckingAccountNumber -> cco:ent00000071; RoutingNumber -> cco:ent00000072; debit-card expiration reshaped to the has-expiration-date predicate (cco:ent00000070) with a Calendar Date Identifier (cco:ont00001340) value. (v4.2.0: fixed :SocialNetworkShape: its two separate mandatory sh:property shapes on BFO_0000115 (one requiring sh:class cco:ont00001183, the other sh:class persona:Person) required every member to satisfy both simultaneously, which no ordinary Person member ever could — merged into a single sh:property with sh:or, so each member may be either a sub-group Social Network or a Person. This was causing Tier 1 validation to fail on every Social Network individual in the example data."@en ;
+    rdfs:label "Mee Identity Agent (MIA)'s SHACL Validation Shapes"@en ;
+    rdfs:comment """SHACL validation shapes for the Mee Identity Agent.
+
+                    Architecture: named-graph contexts — each context file contains exactly one
+                    persona:Person individual. The Mia user's individual uses the IRI :Self across
+                    all of their context files; other people use locally-assigned named IRIs.
+                    PersonShape targets all persona:Person individuals across all context files.
+
+                    Key property IRIs:
+                    - ont00001879  = designated by   (Person ← Name/Identifier)
+                    - ont00001765  = has text value   (Identifier → literal string)
+                    - BFO_0000176  = continuant part of  (PhysicalCard → Wallet)
+                    - BFO_0000178  = has continuant part (Address → components; Person → ScalpHair)
+                    - BFO_0000196  = bearer of        (Person/Hair → quality/role)
+"""@en .
+
+#################################################################
+#  Person
+#  Each SinglePerson context file contains exactly one persona:Person.
+#  All identity data — names, identifiers, addresses, cards — attach here.
+#################################################################
+
+:PersonShape
+    a sh:NodeShape ;
+    sh:targetClass persona:Person ;
+    sh:message "Person validation: physical characteristics, identifiers, and relationship properties."@en ;
+
+    # Optional: scalp hair (0..1); hair color validated by :ScalpHairShape
+    sh:property [
+        sh:path <http://purl.obolibrary.org/obo/BFO_0000178> ;  # has continuant part
+        sh:qualifiedValueShape [ sh:class cco:ont00000058 ] ;  # Scalp Hair
+        sh:qualifiedMaxCount 1 ;
+        sh:message "At most one ScalpHair continuant part may be asserted on a Person."@en
+    ] ;
+
+    # Optional: mother relationship (0..many)
+    sh:property [
+        sh:path cco:ont00001786 ;  # is mother of
+        sh:class persona:Person ;
+        sh:message "The object of 'is mother of' must be a Person."@en
+    ] ;
+
+    # Optional: has mother (0..1)
+    sh:property [
+        sh:path cco:ont00001780 ;  # has mother
+        sh:class persona:Person ;
+        sh:maxCount 1 ;
+        sh:message "The object of 'has mother' must be a Person."@en
+    ] ;
+
+    # Optional: SSN (0..1); validity enforced by :SSNShape
+    sh:property [
+        sh:path <https://purl.org/cco/ont00001879> ;  # designated by
+        sh:qualifiedValueShape [ sh:class cco:ent00000008 ] ;
+        sh:qualifiedMaxCount 1 ;
+        sh:message "At most one SocialSecurityNumber may be attached to a Person."@en
+    ] ;
+
+    # Optional: email addresses (0..20); validity enforced by :EmailAddressShape
+    sh:property [
+        sh:path <https://purl.org/cco/ont00001879> ;  # designated by
+        sh:qualifiedValueShape [ sh:class cco:ent00000024 ] ;
+        sh:qualifiedMaxCount 20 ;
+        sh:message "EmailAddress values are optional; if present and typed, they must validate."@en
+    ] ;
+
+    # Optional: telephone numbers (0..20); validity enforced by :TelephoneNumberShape
+    sh:property [
+        sh:path <https://purl.org/cco/ont00001879> ;  # designated by
+        sh:qualifiedValueShape [ sh:class cco:ent00000023 ] ;
+        sh:qualifiedMaxCount 20 ;
+        sh:message "TelephoneNumber values are optional; if present and typed, they must validate."@en
+    ] ;
+
+    # Optional: organization names (0..many); each context may carry its own OrganizationName
+    sh:property [
+        sh:path <https://purl.org/cco/ont00001879> ;  # designated by
+        sh:qualifiedValueShape [ sh:class cco:ent00000047 ] ;  # OrganizationName
+        sh:qualifiedMinCount 0 ;
+        sh:message "OrganizationName values, if present, must be of class cco:ent00000047."@en
+    ] ;
+
+    # Optional: social networks (0..many); each context may carry its own social network
+    sh:property [
+        sh:path persona:hasSocialNetwork ;
+        sh:class cco:ont00001183 ;  # Social Network
+        sh:message "hasSocialNetwork values must be of type Social Network."@en
+    ] ;
+
+    # Optional: payment cards (0..many)
+    sh:property [
+        sh:path cco:ent00000073 ;  # has payment card
+        sh:class cco:ent00000049 ;  # Payment Card
+        sh:message "has payment card (cco:ent00000073) must point to a PaymentCard."@en
+    ] ;
+
+    # Optional: checking account (0..1)
+    sh:property [
+        sh:path persona:hasBankAccount ;
+        sh:class persona:CheckingAccount ;
+        sh:maxCount 1 ;
+        sh:message "A Person may hold at most one bank account."@en
+    ] ;
+
+    # Optional: online service account (0..1)
+    sh:property [
+        sh:path <https://purl.org/cco/ent00000045> ;  # holds user account
+        sh:class cco:ent00000033 ;  # Online Service Account
+        sh:maxCount 1 ;
+        sh:message "A Person may hold at most one OnlineServiceAccount."@en
+    ] ;
+
+    # Optional: physical cards held directly outside wallet (0..many)
+    sh:property [
+        sh:path persona:hasPhysicalCard ;
+        sh:class persona:PhysicalCard ;
+        sh:message "hasPhysicalCard must point to a PhysicalCard."@en
+    ] ;
+
+    # Optional: wallet (0..1)
+    sh:property [
+        sh:path persona:hasWallet ;
+        sh:class persona:Wallet ;
+        sh:maxCount 1 ;
+        sh:message "A Person may hold at most one wallet."@en
+    ] .
+
+#################################################################
+#  Name designators
+#################################################################
+
+:AlternateNameShape
+    a sh:NodeShape ;
+    sh:targetClass cco:ent00000006 ;  # AlternateName
+    sh:message "AlternateName must have exactly one text value (a non-empty string)."@en ;
+    sh:property [
+        sh:path <https://purl.org/cco/ont00001765> ;  # has text value
+        sh:nodeKind sh:Literal ;
+        sh:datatype xsd:string ;
+        sh:minLength 1 ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:message "AlternateName must have exactly one non-empty string text value."@en
+    ] .
+
+#################################################################
+#  Contact identifiers
+#################################################################
+
+:SSNShape
+    a sh:NodeShape ;
+    sh:targetClass cco:ent00000008 ;
+    sh:message "Social Security Number must follow NNN-NN-NNNN format."@en ;
+    sh:property [
+        sh:path <https://purl.org/cco/ont00001765> ;  # has text value
+        sh:nodeKind sh:Literal ;
+        sh:datatype xsd:string ;
+        sh:pattern "^\\d{3}-\\d{2}-\\d{4}$" ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:message "SSN must be exactly 9 digits in NNN-NN-NNNN format (e.g., 123-45-6789)."@en
+    ] .
+
+:EmailAddressShape
+    a sh:NodeShape ;
+    sh:targetClass cco:ent00000024 ;
+    sh:message "Email must be a single string like local-part@domain (basic validation)."@en ;
+    sh:property [
+        sh:path <https://purl.org/cco/ont00001765> ;  # has text value
+        sh:nodeKind sh:Literal ;
+        sh:datatype xsd:string ;
+        sh:pattern "^[^@\\s]+@[^@\\s]+\\.[^@\\s]+$" ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:message "Must be valid email format: local-part@domain"@en
+    ] .
+
+:TelephoneNumberShape
+    a sh:NodeShape ;
+    sh:targetClass cco:ent00000023 ;
+    sh:message "Telephone number should follow E.164 format (recommended)."@en ;
+    sh:property [
+        sh:path <https://purl.org/cco/ont00001765> ;  # has text value
+        sh:nodeKind sh:Literal ;
+        sh:datatype xsd:string ;
+        sh:pattern "^\\+?[1-9]\\d{1,14}$" ;  # E.164: +[country][number]
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:message "Recommended format: +15551234567 (E.164)."@en
+    ] .
+
+#################################################################
+#  US Postal Address
+#################################################################
+
+:USPostalAddressShape
+    a sh:NodeShape ;
+    sh:targetClass cco:ent00000010 ;
+    sh:message "US Postal Address must have required components (street, city, state, ZIP). Country is optional."@en ;
+
+    # Exactly one StreetAddress part
+    sh:property [
+        sh:path <http://purl.obolibrary.org/obo/BFO_0000178> ;  # has continuant part
+        sh:qualifiedValueShape [ sh:class cco:ent00000011 ] ;
+        sh:qualifiedMinCount 1 ;
+        sh:qualifiedMaxCount 1 ;
+        sh:message "Must have exactly one StreetAddress part."@en
+    ] ;
+
+    # Exactly one CityName part
+    sh:property [
+        sh:path <http://purl.obolibrary.org/obo/BFO_0000178> ;  # has continuant part
+        sh:qualifiedValueShape [ sh:class cco:ent00000012 ] ;
+        sh:qualifiedMinCount 1 ;
+        sh:qualifiedMaxCount 1 ;
+        sh:message "Must have exactly one CityName part."@en
+    ] ;
+
+    # Exactly one StateName part
+    sh:property [
+        sh:path <http://purl.obolibrary.org/obo/BFO_0000178> ;  # has continuant part
+        sh:qualifiedValueShape [ sh:class cco:ent00000013 ] ;
+        sh:qualifiedMinCount 1 ;
+        sh:qualifiedMaxCount 1 ;
+        sh:message "Must have exactly one StateName part."@en
+    ] ;
+
+    # Exactly one PostalCode part
+    sh:property [
+        sh:path <http://purl.obolibrary.org/obo/BFO_0000178> ;  # has continuant part
+        sh:qualifiedValueShape [ sh:class cco:ent00000015 ] ;
+        sh:qualifiedMinCount 1 ;
+        sh:qualifiedMaxCount 1 ;
+        sh:message "Must have exactly one PostalCode part."@en
+    ] ;
+
+    # Optional CountryName part (0..1)
+    sh:property [
+        sh:path <http://purl.obolibrary.org/obo/BFO_0000178> ;  # has continuant part
+        sh:qualifiedValueShape [ sh:class cco:ent00000014 ] ;
+        sh:qualifiedMaxCount 1 ;
+        sh:message "May have at most one CountryName part."@en
+    ] .
+
+:USStateNameShape
+    a sh:NodeShape ;
+    sh:targetClass cco:ent00000013 ;
+    sh:message "State must be a valid US/USPS 2-letter abbreviation."@en ;
+    sh:property [
+        sh:path <https://purl.org/cco/ont00001765> ;  # has text value
+        sh:nodeKind sh:Literal ;
+        sh:datatype xsd:string ;
+        sh:in ("AL" "AK" "AZ" "AR" "CA" "CO" "CT" "DE" "FL" "GA"
+               "HI" "ID" "IL" "IN" "IA" "KS" "KY" "LA" "ME" "MD"
+               "MA" "MI" "MN" "MS" "MO" "MT" "NE" "NV" "NH" "NJ"
+               "NM" "NY" "NC" "ND" "OH" "OK" "OR" "PA" "RI" "SC"
+               "SD" "TN" "TX" "UT" "VT" "VA" "WA" "WV" "WI" "WY"
+               "DC" "AS" "GU" "MP" "PR" "VI" "AA" "AE" "AP") ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:message "Must use a valid USPS 2-letter state/territory abbreviation."@en
+    ] .
+
+:ZIPCodeShape
+    a sh:NodeShape ;
+    sh:targetClass cco:ent00000015 ;
+    sh:message "ZIP Code must be 5-digit or ZIP+4 format."@en ;
+    sh:property [
+        sh:path <https://purl.org/cco/ont00001765> ;  # has text value
+        sh:nodeKind sh:Literal ;
+        sh:datatype xsd:string ;
+        sh:pattern "^\\d{5}(-\\d{4})?$" ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:message "Must be 5-digit ZIP (NNNNN) or ZIP+4 (NNNNN-NNNN) format."@en
+    ] .
+
+:USACountryNameShape
+    a sh:NodeShape ;
+    sh:targetClass cco:ent00000014 ;
+    sh:message "If country is present, it must indicate the United States (controlled list)."@en ;
+    sh:property [
+        sh:path <https://purl.org/cco/ont00001765> ;  # has text value
+        sh:nodeKind sh:Literal ;
+        sh:datatype xsd:string ;
+        sh:in ("USA" "US" "UNITED STATES" "UNITED STATES OF AMERICA") ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:message "If specified, must be USA/US/UNITED STATES (controlled list)."@en
+    ] .
+
+#################################################################
+#  Physical characteristics
+#  Hair Color inheres in a portion of Scalp Hair, not directly in the Person.
+#  Pattern: Person -[has continuant part]-> ScalpHair -[bearer of]-> HairColor
+#################################################################
+
+:ScalpHairShape
+    a sh:NodeShape ;
+    sh:targetClass cco:ont00000058 ;  # Scalp Hair
+    sh:message "ScalpHair must bear exactly one HairColor with a non-empty text value."@en ;
+    sh:property [
+        sh:path <http://purl.obolibrary.org/obo/BFO_0000196> ;  # bearer of
+        sh:qualifiedValueShape [ sh:class cco:ont00000026 ] ;  # Hair Color
+        sh:qualifiedMinCount 1 ;
+        sh:qualifiedMaxCount 1 ;
+        sh:message "ScalpHair must bear exactly one HairColor."@en
+    ] .
+
+:HairColorShape
+    a sh:NodeShape ;
+    sh:targetClass cco:ont00000026 ;  # Hair Color
+    sh:message "HairColor must have exactly one text value (a non-empty string)."@en ;
+    sh:property [
+        sh:path <https://purl.org/cco/ont00001765> ;  # has text value
+        sh:nodeKind sh:Literal ;
+        sh:datatype xsd:string ;
+        sh:minLength 1 ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:message "HairColor must have exactly one non-empty string text value."@en
+    ] .
+
+
+#################################################################
+#  Social Network
+#################################################################
+
+:SocialNetworkShape
+    a sh:NodeShape ;
+    sh:targetClass cco:ont00001183 ;  # Social Network
+    sh:message "Social Network validation: each member part must be either a sub-group Social Network or a Person."@en ;
+
+    # Each BFO has member part value must be EITHER a sub-group Social Network (e.g. Family,
+    # Colleague, Other) OR an ordinary Person member (unified IRI for same person across
+    # contexts) — not both at once. Was previously two separate mandatory sh:property shapes
+    # on the same path, which required every member to satisfy both sh:class constraints
+    # simultaneously (impossible for an ordinary Person member); merged into a single sh:or.
+    sh:property [
+        sh:path <http://purl.obolibrary.org/obo/BFO_0000115> ;  # has member part
+        sh:or (
+            [ sh:class cco:ont00001183 ]  # Social Network (sub-group)
+            [ sh:class persona:Person ]   # ordinary member
+        ) ;
+        sh:message "Every Social Network member part must be either a sub-group Social Network or a Person."@en
+    ] .
+
+
+#################################################################
+#  Payment cards
+#################################################################
+
+:DebitCardShape
+    a sh:NodeShape ;
+    sh:targetClass cco:ent00000051 ;  # Debit Card
+    sh:message "A DebitCard must have a card number and expiration date."@en ;
+
+    sh:property [
+        sh:path <https://purl.org/cco/ont00001879> ;  # designated by → Card Number (PAN)
+        sh:qualifiedValueShape [ sh:class cco:ent00000052 ] ;
+        sh:qualifiedMinCount 1 ;
+        sh:qualifiedMaxCount 1 ;
+        sh:message "A DebitCard must be designated by exactly one CardNumber (PAN)."@en
+    ] ;
+
+    sh:property [
+        sh:path cco:ent00000070 ;  # has expiration date → Calendar Date Identifier
+        sh:qualifiedValueShape [ sh:class cco:ont00001340 ] ;  # Calendar Date Identifier
+        sh:qualifiedMinCount 1 ;
+        sh:qualifiedMaxCount 1 ;
+        sh:message "A DebitCard must have exactly one expiration date (has expiration date → Calendar Date Identifier)."@en
+    ] ;
+
+    sh:property [
+        sh:path <https://purl.org/cco/ont00001879> ;  # designated by → CVV (optional)
+        sh:qualifiedValueShape [ sh:class cco:ent00000053 ] ;
+        sh:qualifiedMaxCount 1 ;
+        sh:message "A DebitCard may have at most one CVV."@en
+    ] ;
+
+    # Optional: linked checking account (0..1)
+    sh:property [
+        sh:path persona:accessesBankAccount ;
+        sh:class persona:CheckingAccount ;
+        sh:maxCount 1 ;
+        sh:message "A DebitCard may access at most one CheckingAccount."@en
+    ] .
+
+#################################################################
+#  Checking Account
+#################################################################
+
+:CheckingAccountShape
+    a sh:NodeShape ;
+    sh:targetClass persona:CheckingAccount ;
+    sh:message "A CheckingAccount must have exactly one account number and one routing number."@en ;
+
+    sh:property [
+        sh:path <https://purl.org/cco/ont00001879> ;  # designated by → Account Number
+        sh:qualifiedValueShape [ sh:class cco:ent00000071 ] ;  # Checking Account Number
+        sh:qualifiedMinCount 1 ;
+        sh:qualifiedMaxCount 1 ;
+        sh:message "A CheckingAccount must be designated by exactly one CheckingAccountNumber."@en
+    ] ;
+
+    sh:property [
+        sh:path <https://purl.org/cco/ont00001879> ;  # designated by → Routing Number
+        sh:qualifiedValueShape [ sh:class cco:ent00000072 ] ;  # Routing Number
+        sh:qualifiedMinCount 1 ;
+        sh:qualifiedMaxCount 1 ;
+        sh:message "A CheckingAccount must be designated by exactly one RoutingNumber."@en
+    ] .
+
+#################################################################
+#  Online Service Account
+#################################################################
+
+:OnlineServiceAccountShape
+    a sh:NodeShape ;
+    sh:targetClass cco:ent00000033 ;  # Online Service Account
+    sh:message "An OnlineServiceAccount must have a service name and a user handle."@en ;
+
+    sh:property [
+        sh:path <https://purl.org/cco/ent00000034> ;  # has service name
+        sh:nodeKind sh:Literal ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:message "An OnlineServiceAccount must have exactly one service name."@en
+    ] ;
+
+    sh:property [
+        sh:path <https://purl.org/cco/ent00000035> ;  # has user handle
+        sh:nodeKind sh:Literal ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:message "An OnlineServiceAccount must have exactly one user handle (username)."@en
+    ] .
+
+#################################################################
+#  Physical Belongings
+#################################################################
+
+:WalletShape
+    a sh:NodeShape ;
+    sh:targetClass persona:Wallet ;
+    sh:message "Items stored in a Wallet (via inverse of continuant part of) must be PhysicalCards."@en ;
+    sh:property [
+        sh:path [ sh:inversePath <http://purl.obolibrary.org/obo/BFO_0000176> ] ;  # inverse of continuant part of
+        sh:class persona:PhysicalCard ;
+        sh:message "Only PhysicalCards may declare this Wallet as their continuant whole."@en
+    ] .
+
+:PhysicalCardShape
+    a sh:NodeShape ;
+    sh:targetClass persona:PhysicalCard ;
+    sh:message "PhysicalCard validation: image scan must be a URI; wallet link must point to a Wallet."@en ;
+    sh:property [
+        sh:path persona:hasImageScan ;
+        sh:nodeKind sh:Literal ;
+        sh:datatype xsd:anyURI ;
+        sh:maxCount 1 ;
+        sh:message "A PhysicalCard may have at most one image scan URI."@en
+    ] ;
+    sh:property [
+        sh:path <http://purl.obolibrary.org/obo/BFO_0000176> ;  # continuant part of
+        sh:class persona:Wallet ;
+        sh:maxCount 1 ;
+        sh:message "A PhysicalCard's continuant whole (via continuant part of) must be a Wallet."@en
+    ] .
+
