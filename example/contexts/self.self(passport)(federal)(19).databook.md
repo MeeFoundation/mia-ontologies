@@ -75,34 +75,34 @@ This context captures Alice Walker's US passport identity data. Alice self-enter
         <https://purl.org/cco/ont00001765> "1985-07-04"
     ] ;
 
-    <https://purl.org/cco/ont00001879> [  # designated by → IssueDate
-        rdf:type persona:IssueDate ;
+    cco:ent00000069 [  # has issue date → Calendar Date Identifier
+        rdf:type cco:ont00001340 ;
         <https://purl.org/cco/ont00001765> "2021-07-04"
     ] ;
 
-    <https://purl.org/cco/ont00001879> [  # designated by → ExpirationDateIdentifier
-        rdf:type cco:ent00000054 ;  # ExpirationDateIdentifier
+    cco:ent00000070 [  # has expiration date → Calendar Date Identifier
+        rdf:type cco:ont00001340 ;
         <https://purl.org/cco/ont00001765> "2031-07-04"
     ] ;
 
     # ── Passport number ──────────────────────────────────────────────────────
 
-    <https://purl.org/cco/ont00001879> [  # designated by → PassportNumber
-        rdf:type persona:PassportNumber ;
+    <https://purl.org/cco/ont00001879> [  # designated by → Passport Number
+        rdf:type cco:ent00000066 ;
         <https://purl.org/cco/ont00001765> "123456789"  # placeholder US passport number
     ] ;
 
     # ── Issuing country ──────────────────────────────────────────────────────
 
-    <https://purl.org/cco/ont00001879> [  # designated by → IssuingCountry
-        rdf:type persona:IssuingCountry ;
+    <https://purl.org/cco/ont00001879> [  # designated by → Issuing Jurisdiction
+        rdf:type cco:ent00000068 ;
         <https://purl.org/cco/ont00001765> "USA"
     ] ;
 
     # ── Place of birth ───────────────────────────────────────────────────────
 
-    <https://purl.org/cco/ont00001879> [  # designated by → PlaceOfBirth
-        rdf:type persona:PlaceOfBirth ;
+    <https://purl.org/cco/ont00001879> [  # designated by → Place of Birth
+        rdf:type cco:ent00000067 ;
         <https://purl.org/cco/ont00001765> "Austin, Texas, USA"
     ] ;
 

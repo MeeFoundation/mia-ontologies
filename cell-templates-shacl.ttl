@@ -92,8 +92,8 @@
 
 <http://mee.foundation/ontologies/persona/shapes/driverslicense> rdf:type owl:Ontology ;
     owl:imports <http://mee.foundation/ontologies/persona> ;
-    dc:date "2026-07-13"^^xsd:date ;
-    owl:versionInfo "Version 1.0.7 - file renamed from category-templates-shacl.ttl to cell-templates-shacl.ttl (this shape now lives alongside cat:DriversLicense's cell:Cell template in cell-templates.ttl, formerly category-templates.ttl); IRI unchanged."@en ;
+    dc:date "2026-07-21"^^xsd:date ;
+    owl:versionInfo "Version 1.1.0 - migrated designator targets to committed cco: terms: DriversLicenseNumber -> cco:ent00000065; IssuingJurisdiction -> cco:ent00000068; expiration reshaped to has-expiration-date predicate (cco:ent00000070) with Calendar Date Identifier (cco:ont00001340) value. (1.0.7: file renamed from category-templates-shacl.ttl to cell-templates-shacl.ttl; IRI unchanged.)"@en ;
     rdfs:label "Driver's License Template SHACL Shapes"@en ;
     rdfs:comment """SHACL shapes for validating context files carrying context:template persona:DriversLicenseDocument.
                     Apply in addition to persona-shacl.ttl when validating a driver's license context file.
@@ -107,10 +107,10 @@
 #  All identity claims are properties of the document individual.
 #  Required: FullName (1..1) OR (GivenName (1..1) AND FamilyName (1..1))
 #            DateOfBirth (ent00000046, 1..1)
-#            DriversLicenseNumber (persona:DriversLicenseNumber, 1..1)
-#            ExpirationDateIdentifier (ent00000054, 1..1)
+#            DriversLicenseNumber (cco:ent00000065, 1..1)
+#            ExpirationDate (has expiration date cco:ent00000070 → Calendar Date Identifier, 1..1)
 #  Optional: AdditionalName (ent00000003, 0..1), PostalAddress (ent00000010, 0..1)
-#            IssuingJurisdiction (persona:IssuingJurisdiction, 0..1)
+#            IssuingJurisdiction (cco:ent00000068, 0..1)
 #            Photo (persona:hasPhoto, 0..1)
 #################################################################
 
@@ -162,18 +162,18 @@
 
     sh:property [
         sh:path <https://purl.org/cco/ont00001879> ;
-        sh:qualifiedValueShape [ sh:class persona:DriversLicenseNumber ] ;
+        sh:qualifiedValueShape [ sh:class cco:ent00000065 ] ;  # Drivers License Number
         sh:qualifiedMinCount 1 ;
         sh:qualifiedMaxCount 1 ;
         sh:message "A DriversLicense must record exactly one DriversLicenseNumber."@en
     ] ;
 
     sh:property [
-        sh:path <https://purl.org/cco/ont00001879> ;
-        sh:qualifiedValueShape [ sh:class cco:ent00000054 ] ;  # ExpirationDateIdentifier
+        sh:path cco:ent00000070 ;  # has expiration date → Calendar Date Identifier
+        sh:qualifiedValueShape [ sh:class cco:ont00001340 ] ;  # Calendar Date Identifier
         sh:qualifiedMinCount 1 ;
         sh:qualifiedMaxCount 1 ;
-        sh:message "A DriversLicense must record exactly one ExpirationDateIdentifier."@en
+        sh:message "A DriversLicense must record exactly one expiration date."@en
     ] ;
 
     # ── Optional fields ──────────────────────────────────────────────────────
@@ -193,7 +193,7 @@
 
     sh:property [
         sh:path <https://purl.org/cco/ont00001879> ;
-        sh:qualifiedValueShape [ sh:class persona:IssuingJurisdiction ] ;
+        sh:qualifiedValueShape [ sh:class cco:ent00000068 ] ;  # Issuing Jurisdiction
         sh:qualifiedMaxCount 1 ;
         sh:message "A DriversLicense may record at most one IssuingJurisdiction."@en
     ] ;
@@ -212,8 +212,8 @@
 
 <http://mee.foundation/ontologies/persona/shapes/passport> rdf:type owl:Ontology ;
     owl:imports <http://mee.foundation/ontologies/persona> ;
-    dc:date "2026-07-13"^^xsd:date ;
-    owl:versionInfo "Version 1.0.7 - file renamed from category-templates-shacl.ttl to cell-templates-shacl.ttl (this shape now lives alongside cat:Passport's cell:Cell template in cell-templates.ttl, formerly category-templates.ttl); IRI unchanged."@en ;
+    dc:date "2026-07-21"^^xsd:date ;
+    owl:versionInfo "Version 1.1.0 - migrated designator targets to committed cco: terms: PassportNumber -> cco:ent00000066; IssuingCountry -> cco:ent00000068 (collapsed into Issuing Jurisdiction); PlaceOfBirth -> cco:ent00000067; issue/expiration reshaped to has-issue-date (cco:ent00000069) and has-expiration-date (cco:ent00000070) predicates with Calendar Date Identifier (cco:ont00001340) values. (1.0.7: file renamed from category-templates-shacl.ttl to cell-templates-shacl.ttl; IRI unchanged.)"@en ;
     rdfs:label "Passport Template SHACL Shapes"@en ;
     rdfs:comment """SHACL shapes for validating context files carrying context:template persona:PassportDocument.
                     Apply in addition to persona-shacl.ttl when validating a passport context file.
@@ -227,12 +227,12 @@
 #  All identity claims are properties of the document individual.
 #  Required: FullName (1..1) OR (GivenName (1..1) AND FamilyName (1..1))
 #            DateOfBirth (ent00000046, 1..1)
-#            PassportNumber (persona:PassportNumber, 1..1)
-#            ExpirationDateIdentifier (ent00000054, 1..1)
+#            PassportNumber (cco:ent00000066, 1..1)
+#            ExpirationDate (has expiration date cco:ent00000070 → Calendar Date Identifier, 1..1)
 #  Optional: AdditionalName (ent00000003, 0..1)
-#            IssueDate (persona:IssueDate, 0..1)
-#            IssuingCountry (persona:IssuingCountry, 0..1)
-#            PlaceOfBirth (persona:PlaceOfBirth, 0..1)
+#            IssueDate (has issue date cco:ent00000069 → Calendar Date Identifier, 0..1)
+#            IssuingCountry (cco:ent00000068 Issuing Jurisdiction, 0..1)
+#            PlaceOfBirth (cco:ent00000067, 0..1)
 #            GenderMarker (persona:GenderMarker, 0..1)
 #            Photo (persona:hasPhoto, 0..1)
 #################################################################
@@ -285,18 +285,18 @@
 
     sh:property [
         sh:path <https://purl.org/cco/ont00001879> ;
-        sh:qualifiedValueShape [ sh:class persona:PassportNumber ] ;
+        sh:qualifiedValueShape [ sh:class cco:ent00000066 ] ;  # Passport Number
         sh:qualifiedMinCount 1 ;
         sh:qualifiedMaxCount 1 ;
         sh:message "A Passport must record exactly one PassportNumber."@en
     ] ;
 
     sh:property [
-        sh:path <https://purl.org/cco/ont00001879> ;
-        sh:qualifiedValueShape [ sh:class cco:ent00000054 ] ;  # ExpirationDateIdentifier
+        sh:path cco:ent00000070 ;  # has expiration date → Calendar Date Identifier
+        sh:qualifiedValueShape [ sh:class cco:ont00001340 ] ;  # Calendar Date Identifier
         sh:qualifiedMinCount 1 ;
         sh:qualifiedMaxCount 1 ;
-        sh:message "A Passport must record exactly one ExpirationDateIdentifier."@en
+        sh:message "A Passport must record exactly one expiration date."@en
     ] ;
 
     # ── Optional fields ──────────────────────────────────────────────────────
@@ -308,22 +308,22 @@
     ] ;
 
     sh:property [
-        sh:path <https://purl.org/cco/ont00001879> ;
-        sh:qualifiedValueShape [ sh:class persona:IssueDate ] ;
+        sh:path cco:ent00000069 ;  # has issue date → Calendar Date Identifier
+        sh:qualifiedValueShape [ sh:class cco:ont00001340 ] ;  # Calendar Date Identifier
         sh:qualifiedMaxCount 1 ;
-        sh:message "A Passport may record at most one IssueDate."@en
+        sh:message "A Passport may record at most one issue date."@en
     ] ;
 
     sh:property [
         sh:path <https://purl.org/cco/ont00001879> ;
-        sh:qualifiedValueShape [ sh:class persona:IssuingCountry ] ;
+        sh:qualifiedValueShape [ sh:class cco:ent00000068 ] ;  # Issuing Jurisdiction (collapsed from IssuingCountry)
         sh:qualifiedMaxCount 1 ;
         sh:message "A Passport may record at most one IssuingCountry."@en
     ] ;
 
     sh:property [
         sh:path <https://purl.org/cco/ont00001879> ;
-        sh:qualifiedValueShape [ sh:class persona:PlaceOfBirth ] ;
+        sh:qualifiedValueShape [ sh:class cco:ent00000067 ] ;  # Place of Birth
         sh:qualifiedMaxCount 1 ;
         sh:message "A Passport may record at most one PlaceOfBirth."@en
     ] ;

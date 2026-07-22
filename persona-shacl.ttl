@@ -10,7 +10,7 @@
 @prefix persona: <http://mee.foundation/ontologies/persona#> .
 
 <http://mee.foundation/ontologies/persona/shapes> rdf:type owl:Ontology ;
-    owl:versionInfo "Version 4.2.0 - fixed :SocialNetworkShape: its two separate mandatory sh:property shapes on BFO_0000115 (one requiring sh:class cco:ont00001183, the other sh:class persona:Person) required every member to satisfy both simultaneously, which no ordinary Person member ever could — merged into a single sh:property with sh:or, so each member may be either a sub-group Social Network or a Person. This was causing Tier 1 validation to fail on every Social Network individual in the example data."@en ;
+    owl:versionInfo "Version 4.3.0 - migrated card/account SHACL targets to committed cco: terms: has-payment-card path -> cco:ent00000073; CheckingAccountNumber -> cco:ent00000071; RoutingNumber -> cco:ent00000072; debit-card expiration reshaped to the has-expiration-date predicate (cco:ent00000070) with a Calendar Date Identifier (cco:ont00001340) value. (v4.2.0: fixed :SocialNetworkShape: its two separate mandatory sh:property shapes on BFO_0000115 (one requiring sh:class cco:ont00001183, the other sh:class persona:Person) required every member to satisfy both simultaneously, which no ordinary Person member ever could — merged into a single sh:property with sh:or, so each member may be either a sub-group Social Network or a Person. This was causing Tier 1 validation to fail on every Social Network individual in the example data."@en ;
     rdfs:label "Mee Identity Agent (MIA)'s SHACL Validation Shapes"@en ;
     rdfs:comment """SHACL validation shapes for the Mee Identity Agent.
 
@@ -102,9 +102,9 @@
 
     # Optional: payment cards (0..many)
     sh:property [
-        sh:path persona:hasPaymentCard ;
+        sh:path cco:ent00000073 ;  # has payment card
         sh:class cco:ent00000049 ;  # Payment Card
-        sh:message "hasPaymentCard must point to a PaymentCard."@en
+        sh:message "has payment card (cco:ent00000073) must point to a PaymentCard."@en
     ] ;
 
     # Optional: checking account (0..1)
@@ -377,11 +377,11 @@
     ] ;
 
     sh:property [
-        sh:path <https://purl.org/cco/ont00001879> ;  # designated by → Expiration Date
-        sh:qualifiedValueShape [ sh:class cco:ent00000054 ] ;
+        sh:path cco:ent00000070 ;  # has expiration date → Calendar Date Identifier
+        sh:qualifiedValueShape [ sh:class cco:ont00001340 ] ;  # Calendar Date Identifier
         sh:qualifiedMinCount 1 ;
         sh:qualifiedMaxCount 1 ;
-        sh:message "A DebitCard must be designated by exactly one ExpirationDateIdentifier."@en
+        sh:message "A DebitCard must have exactly one expiration date (has expiration date → Calendar Date Identifier)."@en
     ] ;
 
     sh:property [
@@ -410,7 +410,7 @@
 
     sh:property [
         sh:path <https://purl.org/cco/ont00001879> ;  # designated by → Account Number
-        sh:qualifiedValueShape [ sh:class persona:CheckingAccountNumber ] ;
+        sh:qualifiedValueShape [ sh:class cco:ent00000071 ] ;  # Checking Account Number
         sh:qualifiedMinCount 1 ;
         sh:qualifiedMaxCount 1 ;
         sh:message "A CheckingAccount must be designated by exactly one CheckingAccountNumber."@en
@@ -418,7 +418,7 @@
 
     sh:property [
         sh:path <https://purl.org/cco/ont00001879> ;  # designated by → Routing Number
-        sh:qualifiedValueShape [ sh:class persona:RoutingNumber ] ;
+        sh:qualifiedValueShape [ sh:class cco:ent00000072 ] ;  # Routing Number
         sh:qualifiedMinCount 1 ;
         sh:qualifiedMaxCount 1 ;
         sh:message "A CheckingAccount must be designated by exactly one RoutingNumber."@en

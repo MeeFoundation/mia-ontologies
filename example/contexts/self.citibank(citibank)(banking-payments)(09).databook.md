@@ -46,7 +46,7 @@ This context captures Alice Walker's financial relationship with Citibank. Citib
     rdfs:label "Citibank"@en .
 
 :Self rdfs:comment "Alice Walker in the context of her Citibank relationship."@en ;
-    persona:hasPaymentCard :Alice_Debit_Card ;
+    cco:ent00000073 :Alice_Debit_Card ;             # has payment card
     persona:hasBankAccount :Alice_Checking_Account ;
     cco:ent00000045 :Alice_Citibank_Online .  # holds user account
 
@@ -61,8 +61,8 @@ This context captures Alice Walker's financial relationship with Citibank. Citib
         rdf:type cco:ent00000053 ;
         <https://purl.org/cco/ont00001765> "123"
     ] ;
-    <https://purl.org/cco/ont00001879> [  # designated by → Expiration Date
-        rdf:type cco:ent00000054 ;
+    cco:ent00000070 [  # has expiration date → Calendar Date Identifier
+        rdf:type cco:ont00001340 ;
         <https://purl.org/cco/ont00001765> "12/28"
     ] ;
     persona:accessesBankAccount :Alice_Checking_Account .
@@ -70,12 +70,12 @@ This context captures Alice Walker's financial relationship with Citibank. Citib
 :Alice_Checking_Account rdf:type owl:NamedIndividual ,
                                  persona:CheckingAccount ;
     rdfs:label "Alice Walker's Citibank Checking Account"@en ;
-    <https://purl.org/cco/ont00001879> [  # designated by → Account Number
-        rdf:type persona:CheckingAccountNumber ;
+    <https://purl.org/cco/ont00001879> [  # designated by → Checking Account Number
+        rdf:type cco:ent00000071 ;
         <https://purl.org/cco/ont00001765> "9876543210"
     ] ;
     <https://purl.org/cco/ont00001879> [  # designated by → Routing Number
-        rdf:type persona:RoutingNumber ;
+        rdf:type cco:ent00000072 ;
         <https://purl.org/cco/ont00001765> "021000089"
     ] .
 

@@ -9,7 +9,7 @@
 
 <http://mee.foundation/ontologies/persona-templates> rdf:type owl:Ontology ;
     dc:date "2026-07-18"^^xsd:date ;
-    owl:versionInfo "Version 2.3.0 - fixed stale doc-comment references to cat:templateShapes (category.ttl): the property moved to cell.ttl as cell:templateShapes back in cell.ttl 3.6.0, and was renamed cell:templateShape (singular) in cell.ttl 3.9.0 — comments here still said cat:templateShapes and 'class-level cell:Cell template', neither ever updated. No change to any class or property defined in this file."@en ;
+    owl:versionInfo "Version 2.4.0 - deprecated the government-ID and date designator classes (DriversLicenseNumber, PassportNumber, PlaceOfBirth, IssuingJurisdiction, IssuingCountry, IssueDate) in favour of committed cco: ent IRIs; usages migrated, declarations retained with owl:deprecated + rdfs:seeAlso aliases (see block at end of file). (2.3.0: fixed stale doc-comment references to cat:templateShapes (category.ttl): the property moved to cell.ttl as cell:templateShapes back in cell.ttl 3.6.0, and was renamed cell:templateShape (singular) in cell.ttl 3.9.0 — comments here still said cat:templateShapes and 'class-level cell:Cell template', neither ever updated. No change to any class or property defined in this file."@en ;
     rdfs:label "Persona Templates Ontology"@en ;
     rdfs:comment """Template type classification used as values for the context:template annotation property.
                     Each concrete template type (BirthCertificateDocument, JSContactCard, DriversLicenseDocument,
@@ -452,3 +452,22 @@ persona:preferredPharmacy rdf:type owl:DatatypeProperty ;
     rdfs:label "preferred pharmacy"@en ;
     rdfs:comment "The patient's preferred pharmacy, as a free-text name and/or address."@en ;
     rdfs:range xsd:string .
+
+
+#################################################################
+#    Deprecated IRI Aliases  (persona: → cco: migration, 2026-07-21)
+#
+#    Government-ID and date designator classes below are superseded by
+#    committed cco: ent IRIs (PersonOntology / StagingOntology). Instance
+#    and shape usages have been migrated to the cco: terms; the persona:
+#    declarations above are retained for continuity and marked deprecated.
+#    Safe to remove once Paul confirms no downstream databooks reference them.
+#    (Same lifecycle previously applied to the EyeColor terms.)
+#################################################################
+
+persona:DriversLicenseNumber owl:deprecated true ; rdfs:seeAlso cco:ent00000065 .
+persona:PassportNumber       owl:deprecated true ; rdfs:seeAlso cco:ent00000066 .
+persona:PlaceOfBirth         owl:deprecated true ; rdfs:seeAlso cco:ent00000067 .
+persona:IssuingJurisdiction  owl:deprecated true ; rdfs:seeAlso cco:ent00000068 .
+persona:IssuingCountry       owl:deprecated true ; rdfs:seeAlso cco:ent00000068 .
+persona:IssueDate            owl:deprecated true ; rdfs:seeAlso cco:ent00000069 .
