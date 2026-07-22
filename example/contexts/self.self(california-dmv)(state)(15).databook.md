@@ -74,22 +74,22 @@ This context captures Alice Walker's California driver's license identity data. 
         <https://purl.org/cco/ont00001765> "1985-07-04"
     ] ;
 
-    <https://purl.org/cco/ont00001879> [  # designated by → ExpirationDateIdentifier
-        rdf:type cco:ent00000054 ;  # ExpirationDateIdentifier
+    cco:ent00000070 [  # has expiration date → Calendar Date Identifier
+        rdf:type cco:ont00001340 ;  # Calendar Date Identifier
         <https://purl.org/cco/ont00001765> "2031-07-04"
     ] ;
 
     # ── License number ───────────────────────────────────────────────────────
 
-    <https://purl.org/cco/ont00001879> [  # designated by → DriversLicenseNumber
-        rdf:type persona:DriversLicenseNumber ;
+    <https://purl.org/cco/ont00001879> [  # designated by → Drivers License Number
+        rdf:type cco:ent00000065 ;
         <https://purl.org/cco/ont00001765> "A1234567"  # placeholder California DL number
     ] ;
 
     # ── Issuing jurisdiction ─────────────────────────────────────────────────
 
-    <https://purl.org/cco/ont00001879> [  # designated by → IssuingJurisdiction
-        rdf:type persona:IssuingJurisdiction ;
+    <https://purl.org/cco/ont00001879> [  # designated by → Issuing Jurisdiction
+        rdf:type cco:ent00000068 ;
         <https://purl.org/cco/ont00001765> "CA"
     ] ;
 

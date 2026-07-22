@@ -97,6 +97,18 @@ LABELS = {
     "https://purl.org/cco/ent00000052":         "CardNumber",
     "https://purl.org/cco/ent00000053":         "CVV",
     "https://purl.org/cco/ent00000054":         "ExpirationDate",
+    # migrated government-ID + financial designator classes (persona: → cco:)
+    "https://purl.org/cco/ent00000065":         "DriversLicenseNumber",
+    "https://purl.org/cco/ent00000066":         "PassportNumber",
+    "https://purl.org/cco/ent00000067":         "PlaceOfBirth",
+    "https://purl.org/cco/ent00000068":         "IssuingJurisdiction",
+    "https://purl.org/cco/ent00000071":         "AccountNumber",
+    "https://purl.org/cco/ent00000072":         "RoutingNumber",
+    # reshaped date predicates + generic date-holder type
+    "https://purl.org/cco/ent00000069":         "IssueDate",
+    "https://purl.org/cco/ent00000070":         "ExpirationDate",
+    "https://purl.org/cco/ent00000073":         "hasPaymentCard",
+    "https://purl.org/cco/ont00001340":         "Date",
     # cco: entity properties
     "https://purl.org/cco/ent00000034":         "serviceName",
     "https://purl.org/cco/ent00000035":         "userHandle",
@@ -334,8 +346,15 @@ def build_mermaid(g: Graph, frontmatter: dict | None = None, src_dir: Path | Non
             if isinstance(obj, BNode):
                 tl, tv = expand_bnode(g, obj)
                 if tv is not None:
-                    # Collapse: Subject --"TypeName"--> "value"
-                    edge_label = tl if tl else plabel
+                    # Collapse: Subject --"label"--> "value".
+                    # designated-by (ont00001879): role is on the bnode TYPE (tl).
+                    # A specific designator predicate (e.g. the reshaped date
+                    # subproperties has-issue-date / has-expiration-date, whose bnode
+                    # is a generic Calendar Date Identifier): role is on the PREDICATE.
+                    if pred == DESIGNATED_BY:
+                        edge_label = tl if tl else plabel
+                    else:
+                        edge_label = plabel if plabel else tl
                     tgt = ensure_lit(tv, str(ind) + str(obj))
                     edge_lines.append(f'    {src} -->|"{esc(edge_label)}"| {tgt}')
                 else:
