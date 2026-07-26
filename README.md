@@ -148,11 +148,11 @@ The user is free to rearrange their instance tree as they wish, adding new `cat:
 1. **Legal (org)** (`cat:Legal(org)`) — contracts and agreements.
 1. **Government (org)** (`cat:Government(org)`) — interactions with government organizations.
 1. **Finances (org)** (`cat:Finances(org)`) — corporate finance-related matters.
-    - **Banking & Payments (org)** (`cat:BankingPayments(org)`) — firms that help organizations store, access, and move their cash. These include Retail Banks & Credit Unions, which provide checking accounts, savings accounts, and debit cards. These also include Payment Processors like Visa, Mastercard, or PayPal that let you buy things online and in stores, and Remittance Firms like Western Union or Wise used to send money to family or friends, especially overseas.
-    - **Investing (org)** (`cat:Investing(org)`) — These include Investment firms, Venture Capitalists, and Brokerage Firms like Charles Schwab; Mutual Fund companies like Vanguard or Fidelity.
-    - **Lending & Credit (org)** (`cat:LendingCredit(org)`) — firms that lend organizations money when they need to buy something expensive that they cannot pay for all at once. These include banks or specialized companies that give loans for specific purposes and Credit Card Issuers, banks that give employees a card for travel and client entertainment purposes.
+    - **Banking & Payments (org)** (`cat:BankingPayments(org)`) — firms that help organizations store, access, and move their cash. These include Retail Banks & Credit Unions, which provide checking accounts, savings accounts, and debit cards. These also include Payment Processors like Visa, Mastercard, or PayPal.
+    - **Investing (org)** (`cat:Investing(org)`) — These include Investment firms, Private Equity firms, Venture Capitalists, Brokerage Firms like Charles Schwab and Mutual Fund companies like Vanguard or Fidelity.
+    - **Lending & Credit (org)** (`cat:LendingCredit(org)`) — banks or specialized companies that give loans for specific purposes and Credit Card Issuers that give employees a card for travel and related expenses.
     - **Insurance (org)** (`cat:Insurance(org)`) — firms that protect organizations from risks. 
-    - **Advisory (org)** (`cat:Advisory(org)`) — These include Financial Planners (Wealth Advisors) and part-time CFO consultants. Also includes Accountants and Bookkeepers and Tax preparers.
+    - **Advisory (org)** (`cat:Advisory(org)`) — Financial Planners, outsourced CFO consultants, Accountants and Bookkeepers and Tax preparers.
 
 ### Category DataBooks
 
