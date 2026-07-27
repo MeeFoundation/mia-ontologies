@@ -43,7 +43,8 @@ This context captures Alice Walker's California driver's license identity data. 
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 
-:Self persona:hasIdentityDocument :Alice_CA_DriversLicense .
+:Self persona:hasIdentityDocument :Alice_CA_DriversLicense ;
+    <https://purl.org/cco/ont00001879> :Alice_DL_Number .  # Person designated by → Drivers License Number
 
 :Alice_CA_DriversLicense rdf:type owl:NamedIndividual ,
                                    persona:DriversLicenseDocument ;
@@ -79,12 +80,9 @@ This context captures Alice Walker's California driver's license identity data. 
         <https://purl.org/cco/ont00001765> "2031-07-04"
     ] ;
 
-    # ── License number ───────────────────────────────────────────────────────
+    # ── License number (two-relation form: Person designated-by, document is-carrier-of) ──
 
-    <https://purl.org/cco/ont00001879> [  # designated by → Drivers License Number
-        rdf:type cco:ent00000065 ;
-        <https://purl.org/cco/ont00001765> "A1234567"  # placeholder California DL number
-    ] ;
+    <http://purl.obolibrary.org/obo/BFO_0000101> :Alice_DL_Number ;  # document is carrier of → Drivers License Number
 
     # ── Issuing jurisdiction ─────────────────────────────────────────────────
 
@@ -96,4 +94,9 @@ This context captures Alice Walker's California driver's license identity data. 
     # ── Photo ────────────────────────────────────────────────────────────────
 
     persona:hasPhoto "https://example.org/alice-dl-photo.jpg"^^xsd:anyURI .
+
+:Alice_DL_Number rdf:type owl:NamedIndividual ,
+                          cco:ent00000065 ;  # Drivers License Number
+    rdfs:label "Alice Walker's California Driver's License Number"@en ;
+    <https://purl.org/cco/ont00001765> "A1234567" .  # placeholder California DL number
 ```

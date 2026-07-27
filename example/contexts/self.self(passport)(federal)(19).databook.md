@@ -44,7 +44,8 @@ This context captures Alice Walker's US passport identity data. Alice self-enter
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 
-:Self persona:hasIdentityDocument :Alice_US_Passport .
+:Self persona:hasIdentityDocument :Alice_US_Passport ;
+    <https://purl.org/cco/ont00001879> :Alice_Passport_Number .  # Person designated by → Passport Number
 
 :Alice_US_Passport rdf:type owl:NamedIndividual ,
                              persona:PassportDocument ;
@@ -85,12 +86,9 @@ This context captures Alice Walker's US passport identity data. Alice self-enter
         <https://purl.org/cco/ont00001765> "2031-07-04"
     ] ;
 
-    # ── Passport number ──────────────────────────────────────────────────────
+    # ── Passport number (two-relation form: Person designated-by, document is-carrier-of) ──
 
-    <https://purl.org/cco/ont00001879> [  # designated by → Passport Number
-        rdf:type cco:ent00000066 ;
-        <https://purl.org/cco/ont00001765> "123456789"  # placeholder US passport number
-    ] ;
+    <http://purl.obolibrary.org/obo/BFO_0000101> :Alice_Passport_Number ;  # document is carrier of → Passport Number
 
     # ── Issuing country ──────────────────────────────────────────────────────
 
@@ -116,4 +114,9 @@ This context captures Alice Walker's US passport identity data. Alice self-enter
     # ── Photo ────────────────────────────────────────────────────────────────
 
     persona:hasPhoto "https://example.org/alice-passport-photo.jpg"^^xsd:anyURI .
+
+:Alice_Passport_Number rdf:type owl:NamedIndividual ,
+                                cco:ent00000066 ;  # Passport Number
+    rdfs:label "Alice Walker's US Passport Number"@en ;
+    <https://purl.org/cco/ont00001765> "123456789" .  # placeholder US passport number
 ```

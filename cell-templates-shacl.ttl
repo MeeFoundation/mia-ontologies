@@ -161,11 +161,12 @@
     ] ;
 
     sh:property [
-        sh:path <https://purl.org/cco/ont00001879> ;
+        # Two-relation form: the document is-carrier-of the number node (Person is designated-by it).
+        sh:path <http://purl.obolibrary.org/obo/BFO_0000101> ;  # is carrier of
         sh:qualifiedValueShape [ sh:class cco:ent00000065 ] ;  # Drivers License Number
         sh:qualifiedMinCount 1 ;
         sh:qualifiedMaxCount 1 ;
-        sh:message "A DriversLicense must record exactly one DriversLicenseNumber."@en
+        sh:message "A DriversLicense must carry exactly one DriversLicenseNumber (via is-carrier-of)."@en
     ] ;
 
     sh:property [
@@ -284,11 +285,12 @@
     ] ;
 
     sh:property [
-        sh:path <https://purl.org/cco/ont00001879> ;
+        # Two-relation form: the document is-carrier-of the number node (Person is designated-by it).
+        sh:path <http://purl.obolibrary.org/obo/BFO_0000101> ;  # is carrier of
         sh:qualifiedValueShape [ sh:class cco:ent00000066 ] ;  # Passport Number
         sh:qualifiedMinCount 1 ;
         sh:qualifiedMaxCount 1 ;
-        sh:message "A Passport must record exactly one PassportNumber."@en
+        sh:message "A Passport must carry exactly one PassportNumber (via is-carrier-of)."@en
     ] ;
 
     sh:property [
