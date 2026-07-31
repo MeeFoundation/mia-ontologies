@@ -202,12 +202,14 @@ A cell contains the following:
 * A note - a Markdown document
 * A file folder - containing an arbitrary number of files and sub-folders
 * A chat stream
-* A required primary graph - the cell's single main "subject-claim context" following the "Persona" ontology
-* Zero or more secondary graphs - additional subject-claim contexts, e.g.:
+* A required primary context - the cell's single main `c:SCcontext` (see [Context Ontology](#context-ontology) below)
+* Zero or more secondary contexts - additional `c:SCcontext` instances, e.g.:
   * further claims the user makes about themself (e.g. given-name="Alice")
   * claims the user makes about another party (e.g. Bob)
   * claims another party makes about the user
   * claims the user makes about another party
+
+Both the primary and secondary contexts follow the "Persona" ontology. The subject of the primary context is what the cell is about — the user, another person, an organization, or a group. It could be about anything at all as claimed by its claimant, who may be the user, another Mia user, a group, or an organization.
 
 A cell pointed to by a `cat:Category` subclass (via `cat:templateCell`) serves as a **cell template** — a reusable, typically empty shape that the application clones into a new cell whenever a category of that class is first instantiated into a user's tree (see [Lazy Instantiation](#lazy-instantiation)). Such a cell is typed `cell:TCell`, the template facet. An ordinary, already-instantiated cell is typed `cell:ACell`, the actual facet, instead — carrying real party composition, creator, and content. A cell template is simultaneously both: it is reusable template content (`cell:TCell`) that also carries real party-classified content of its own (`cell:ACell`, via `cell:OneParty`/`cell:TwoParty`/`cell:ThreePlusParty`) — see [Cell Ontology File](#cell-ontology-file) below.
 
