@@ -1,17 +1,17 @@
 ---
-id: https://www.example.org/mia/contexts/jane-kopakolva.self(jane-kopakolva)(25)
-title: "About Jane Kopakolva in the PrimaryCarePhysician cell as claimed by Alice Walker"
+id: https://www.example.org/mia/contexts/jane-kolpakova.self(jane-kolpakova)(25)
+title: "About Jane Kolpakova in the PrimaryCarePhysician cell as claimed by Alice Walker"
 type: context-databook
-version: 1.0.8
+version: 1.0.9
 created: 2026-07-08
 description: >
-  Alice's record of Dr. Jane Kopakolva, the primary care physician for
+  Alice's record of Dr. Jane Kolpakova, the primary care physician for
   Alice's mother, Paula Walker.
 mia:
   claimant: ":Self"
-  subject: ":Jane_Kopakolva"
+  subject: ":Jane_Kolpakova"
 graph:
-  named_graph: https://www.example.org/mia/contexts/jane-kopakolva.self(jane-kopakolva)(25)#graph
+  named_graph: https://www.example.org/mia/contexts/jane-kolpakova.self(jane-kolpakova)(25)#graph
   rdf_version: "1.1"
 shapes:
   - http://mee.foundation/ontologies/persona/shapes
@@ -26,13 +26,13 @@ process:
 
 ## Overview
 
-This context captures Alice's record of Dr. Jane Kopakolva, who is the primary care physician for Alice's mother, Paula Walker. Alice keeps this information so she and her sister Carol can coordinate Paula's medical appointments.
+This context captures Alice's record of Dr. Jane Kolpakova, who is the primary care physician for Alice's mother, Paula Walker. Alice keeps this information so she and her sister Carol can coordinate Paula's medical appointments.
 
 ## Identity Data
 
 ```turtle
-<!-- databook:id: jane-kopakolva-alice-identity -->
-<!-- databook:graph: https://www.example.org/mia/contexts/jane-kopakolva.self(jane-kopakolva)(25)#graph -->
+<!-- databook:id: jane-kolpakova-alice-identity -->
+<!-- databook:graph: https://www.example.org/mia/contexts/jane-kolpakova.self(jane-kolpakova)(25)#graph -->
 @prefix : <http://www.example.org/mia#> .
 @prefix persona: <http://mee.foundation/ontologies/persona#> .
 @prefix cco: <https://purl.org/cco/> .
@@ -40,9 +40,9 @@ This context captures Alice's record of Dr. Jane Kopakolva, who is the primary c
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
 
-:Jane_Kopakolva rdf:type owl:NamedIndividual ,
+:Jane_Kolpakova rdf:type owl:NamedIndividual ,
                persona:Person ;
-    rdfs:label "Jane Kopakolva (Primary Care Physician)"@en ;
+    rdfs:label "Jane Kolpakova (Primary Care Physician)"@en ;
 
     <https://purl.org/cco/ont00001879> [  # designated by → GivenName
         rdf:type cco:ent00000002 ;  # GivenName
@@ -51,7 +51,7 @@ This context captures Alice's record of Dr. Jane Kopakolva, who is the primary c
 
     <https://purl.org/cco/ont00001879> [  # designated by → FamilyName
         rdf:type cco:ent00000004 ;  # FamilyName
-        <https://purl.org/cco/ont00001765> "Kopakolva"  # has text value
+        <https://purl.org/cco/ont00001765> "Kolpakova"  # has text value
     ] ;
 
     <https://purl.org/cco/ont00001917> [  # described by → Person Note

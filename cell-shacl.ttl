@@ -11,7 +11,7 @@
 @prefix o: <http://mee.foundation/ontologies/organization#> .
 
 <http://mee.foundation/ontologies/cell/shapes> rdf:type owl:Ontology ;
-    owl:versionInfo "Version 3.7.0 - updated for cell.ttl 3.9.0's rename of cell:templateShapes to cell:templateShape (singular): :TCellShape's sh:path and messages updated to match."@en ;
+    owl:versionInfo "Version 3.8.0 - updated for cell.ttl 3.10.0's rename of cell:graph to cell:primary and cell:sc-context to cell:secondary: moved both property shapes from :CellShape to :ACellShape (domain narrowed to cell:ACell), made cell:primary required (sh:minCount 1, sh:maxCount 1) and constrained to sh:class context:SCcontext, and constrained cell:secondary to sh:class context:SCcontext (cardinality still unconstrained)."@en ;
     rdfs:label "Cell Ontology SHACL Validation Shapes"@en ;
     rdfs:comment "SHACL validation shapes for cell:Cell DataBook instances (the content facet of a cell) in the Cell Ontology."@en .
 
@@ -19,29 +19,16 @@
 #################################################################
 #  Cell
 #  cell:Cell (formerly cell:Parties) carries only what's common to
-#  every cell regardless of facet: graph/sc-context/note/folder.
-#  cell:sc-context carries no per-party-count cardinality
-#  distinction, unlike the sbs/obs/sbo/obo properties it replaced.
+#  every cell regardless of facet: note/folder. Context links
+#  (cell:primary/cell:secondary) live on :ACellShape below, since
+#  their domain narrowed from cell:Cell to cell:ACell in cell.ttl
+#  3.10.0 — a cell not yet typed cell:ACell has neither.
 #################################################################
 
 :CellShape
     a sh:NodeShape ;
     sh:targetClass cell:Cell ;
     sh:message "Cell validation."@en ;
-
-    # cell:graph — at most one plain Context link
-    sh:property [
-        sh:path cell:graph ;
-        sh:maxCount 1 ;
-        sh:message "A cell may link to at most one plain Context via cell:graph."@en
-    ] ;
-
-    # cell:sc-context — zero or more, each a context:SCcontext
-    sh:property [
-        sh:path cell:sc-context ;
-        sh:class context:SCcontext ;
-        sh:message "A cell's cell:sc-context values, if any, must each be a context:SCcontext."@en
-    ] ;
 
     # cell:note — at most one markdown notes file path
     sh:property [
@@ -90,13 +77,34 @@
 #  cell:ACell is the actual/instantiated facet of a cell (cell.ttl
 #  3.7.0) — real, party-classified content. creator and parties
 #  moved here from :CellShape when their domain narrowed from
-#  cell:Cell to cell:ACell.
+#  cell:Cell to cell:ACell; primary and secondary (renamed from
+#  graph/sc-context) moved here the same way in cell.ttl 3.10.0.
 #################################################################
 
 :ACellShape
     a sh:NodeShape ;
     sh:targetClass cell:ACell ;
     sh:message "Actual Cell validation."@en ;
+
+    # cell:primary — exactly one value, must be a context:SCcontext.
+    # Renamed from cell:graph (cell.ttl 3.10.0); the old plain-Context,
+    # no-claimant use case is retired, so every primary is now an
+    # SCcontext like every secondary.
+    sh:property [
+        sh:path cell:primary ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:class context:SCcontext ;
+        sh:message "A cell:ACell's cell:primary is required, exactly one value, and must be a context:SCcontext."@en
+    ] ;
+
+    # cell:secondary — zero or more, each a context:SCcontext.
+    # Renamed from cell:sc-context (cell.ttl 3.10.0).
+    sh:property [
+        sh:path cell:secondary ;
+        sh:class context:SCcontext ;
+        sh:message "A cell:ACell's cell:secondary values, if any, must each be a context:SCcontext."@en
+    ] ;
 
     # cell:creator — at most one value, must be a Person, Group, or Organization
     sh:property [

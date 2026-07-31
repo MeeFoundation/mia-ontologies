@@ -15,8 +15,8 @@ in README.md's Category/Cell/Context Ontology sections.
 
 A context DataBook's `mia.claimant`/`mia.subject` are typed on its plain `id`,
 not `graph.named_graph` (id + "#graph") — matching context.ttl 1.11.0's
-context:subject/context:claimant doc comments, and the IRI cell:sc-context
-actually references in every cell DataBook's YAML.
+context:subject/context:claimant doc comments, and the IRI cell:primary/
+cell:secondary actually reference in every cell DataBook's YAML.
 
 Usage:   python3 yaml-to-rdf.py [repo-root] > yaml-data.ttl
 Output:  Turtle triples on stdout — merge with `riot` alongside data extracted
@@ -117,10 +117,15 @@ def process_cell_databook(fm, triples):
     mia = fm.get("mia", {}) or {}
 
     emit_type(triples, subj, CELL + "Cell")
-    emit_type(triples, subj, CELL + "ACell")
 
     parties = mia.get("parties")
     if parties:
+        # Only an actually-instantiated cell (real content, cell:parties set)
+        # is typed cell:ACell — a pure tree-position placeholder with nothing
+        # filed under it yet stays a bare cell:Cell (cell.ttl 3.10.0), and is
+        # therefore exempt from cell-shacl.ttl's :ACellShape, including its
+        # required cell:primary.
+        emit_type(triples, subj, CELL + "ACell")
         party_iri = resolve(parties)
         emit_type(triples, subj, party_iri)
         emit_obj(triples, subj, CELL + "parties", party_iri)
@@ -134,11 +139,11 @@ def process_cell_databook(fm, triples):
     if mia.get("folder"):
         emit_lit(triples, subj, CELL + "folder", mia["folder"], XSD + "anyURI")
 
-    for ctx_iri in as_list(mia.get("sc-context")):
-        emit_obj(triples, subj, CELL + "sc-context", resolve(ctx_iri))
+    for ctx_iri in as_list(mia.get("secondary")):
+        emit_obj(triples, subj, CELL + "secondary", resolve(ctx_iri))
 
-    if mia.get("graph"):
-        emit_obj(triples, subj, CELL + "graph", resolve(mia["graph"]))
+    if mia.get("primary"):
+        emit_obj(triples, subj, CELL + "primary", resolve(mia["primary"]))
 
     if mia.get("shape"):
         emit_obj(triples, subj, CELL + "shape", resolve(mia["shape"]))
@@ -149,7 +154,7 @@ def process_context_databook(fm, triples):
     claimant = mia.get("claimant")
     subject = mia.get("subject")
     if not (claimant and subject):
-        return  # graph-linked context (no subject/claimant) — not an SCcontext
+        return  # no subject/claimant — not an SCcontext, skip
     subj = fm["id"]
     emit_type(triples, subj, CONTEXT + "SCcontext")
     emit_obj(triples, subj, CONTEXT + "claimant", resolve(claimant))

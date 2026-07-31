@@ -11,10 +11,10 @@
 @base <http://mee.foundation/ontologies/context> .
 
 <http://mee.foundation/ontologies/context> rdf:type owl:Ontology ;
-    owl:versionIRI <http://mee.foundation/ontologies/context/1.11.0> ;
-    dc:date "2026-07-18"^^xsd:date ;
+    owl:versionIRI <http://mee.foundation/ontologies/context/1.12.0> ;
+    dc:date "2026-07-31"^^xsd:date ;
     owl:imports <http://mee.foundation/ontologies/cell> ;
-    owl:versionInfo "Version 1.11.0 - corrected context:subject/context:claimant/context:template's doc comments, which said they were 'applied to the named graph IRI' (i.e. the #graph-suffixed graph.named_graph IRI): in every real context DataBook, and per what cell:sc-context actually links to, they're applied to the DataBook's own plain id instead. Also clarified context:Context's class comment to the same effect. No change to any rdfs:domain/range or actual triples — documentation only, first noticed while building yaml-to-rdf.py's YAML-to-RDF synthesis."@en ;
+    owl:versionInfo "Version 1.12.0 - updated doc comments referencing cell.ttl 3.10.0's renamed cell:primary/cell:secondary (formerly cell:graph/cell:sc-context): context:subject/context:claimant's comments now point to cell:primary/cell:secondary as the properties linking to a context's plain id, and context:SCcontext's comment drops the retired cell:graph/plain-context:Context, no-claimant case — every context a cell links to, via cell:primary or cell:secondary, is now a context:SCcontext. No change to any rdfs:domain/range or actual triples — documentation only."@en ;
     rdfs:label "Context Ontology"@en ;
     rdfs:comment """Context Ontology for the Mee Identity Agent"""@en .
 
@@ -28,9 +28,9 @@ context:claimant rdf:type owl:AnnotationProperty ;
     rdfs:comment """Annotates a context DataBook with the identity making the claim —
                     a named individual of p:Person, g:Group, or o:Organization (e.g. :Self,
                     a p:Person, g:Group, or o:Organization instance). Applied to the context
-                    DataBook's own IRI (its plain `id`) — the same IRI cell:sc-context links
-                    to from the cell side — not to the `#graph`-suffixed `graph.named_graph`
-                    IRI, and not to the Person individual."""@en ;
+                    DataBook's own IRI (its plain `id`) — the same IRI cell:primary/
+                    cell:secondary link to from the cell side — not to the `#graph`-suffixed
+                    `graph.named_graph` IRI, and not to the Person individual."""@en ;
     rdfs:domain context:SCcontext ;
     rdfs:range [ rdf:type owl:Class ; owl:unionOf ( p:Person g:Group o:Organization ) ] .
 
@@ -39,9 +39,9 @@ context:subject rdf:type owl:AnnotationProperty ;
     rdfs:comment """Annotates a context DataBook with whose identity it describes —
                     a named individual of p:Person, g:Group, or o:Organization (e.g. :Self,
                     a p:Person, g:Group, or o:Organization instance). Applied to the context
-                    DataBook's own IRI (its plain `id`) — the same IRI cell:sc-context links
-                    to from the cell side — not to the `#graph`-suffixed `graph.named_graph`
-                    IRI, and not to the Person individual."""@en ;
+                    DataBook's own IRI (its plain `id`) — the same IRI cell:primary/
+                    cell:secondary link to from the cell side — not to the `#graph`-suffixed
+                    `graph.named_graph` IRI, and not to the Person individual."""@en ;
     rdfs:domain context:SCcontext ;
     rdfs:range [ rdf:type owl:Class ; owl:unionOf ( p:Person g:Group o:Organization ) ] .
 
@@ -71,5 +71,5 @@ context:Context rdf:type owl:Class ;
 context:SCcontext rdf:type owl:Class ;
     rdfs:subClassOf context:Context ;
     rdfs:label "SCcontext"@en ;
-    rdfs:comment "Subject-Claimant context: the concrete class every self-vs-other classified context DataBook is typed as directly — it has no subclasses (the former SBScontext/OBScontext/OBOcontext/SBOcontext were deleted; the four self-vs-other cases they distinguished are now determined directly from the combination of subject and claimant, rather than from a separate context:about-by value or distinct rdf:types). Carries the subject and claimant annotations — a context linked via cell:graph rather than cell:sc-context is a plain context:Context, not a context:SCcontext, and so does not carry these annotations."@en .
+    rdfs:comment "Subject-Claimant context: the concrete class every self-vs-other classified context DataBook is typed as directly — it has no subclasses (the former SBScontext/OBScontext/OBOcontext/SBOcontext were deleted; the four self-vs-other cases they distinguished are now determined directly from the combination of subject and claimant, rather than from a separate context:about-by value or distinct rdf:types). Carries the subject and claimant annotations — every context reachable from a cell, via cell:primary or cell:secondary (cell.ttl 3.10.0), is a context:SCcontext and so always carries them; the earlier plain context:Context, no-claimant use case (formerly reached via cell:graph) is retired."@en .
 
