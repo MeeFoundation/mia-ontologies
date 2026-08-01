@@ -202,14 +202,13 @@ A cell contains the following:
 * A note - a Markdown document
 * A file folder - containing an arbitrary number of files and sub-folders
 * A chat stream
-* A required primary topic - the cell's single main `t:SCtopic` (see [Topic Ontology](#topic-ontology) below)
-* Zero or more secondary topics - additional `t:SCtopic` instances, e.g.:
-  * further claims the user makes about themself (e.g. given-name="Alice")
-  * claims the user makes about another party (e.g. Bob)
-  * claims another party makes about the user
-  * claims the user makes about another party
+* Structured data (i.e. fields with literal and compound values) consisting of:
+  * One required *primary* topic (`t:SCtopic`) container
+    * claims (fields) about the cell's primary topic 
+  * Optional *secondary* topic containers
+    * claims about other topics
 
-The subject of the primary topic is what the cell is about — the user, another person, an organization, or a group. It could be about anything at all as claimed by its claimant, who may be the user, another Mia user, a group, or an organization. Both the primary and secondary topics follow the "Persona" ontology. 
+Each topic container has a *subject* and a *claimant*. The subject is typically a person, organization, or group, but it could be any other entity the Persona ontology can describe. The claimant is the person, group or organization that is asserting the values of the claims in the container.
 
 A cell pointed to by a `cat:Category` subclass (via `cat:templateCell`) serves as a **cell template** — a reusable, typically empty shape that the application clones into a new cell whenever a category of that class is first instantiated into a user's tree (see [Lazy Instantiation](#lazy-instantiation)). Such a cell is typed `c:TCell`, the template facet. An ordinary, already-instantiated cell is typed `c:ACell`, the actual facet, instead — carrying real party composition, creator, and content. A cell template is simultaneously both: it is reusable template content (`c:TCell`) that also carries real party-classified content of its own (`c:ACell`, via `c:OneParty`/`c:TwoParty`/`c:ThreePlusParty`) — see [Cell Ontology File](#cell-ontology-file) below.
 
