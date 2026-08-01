@@ -192,7 +192,7 @@ Category DataBook instances are validated by `category-shacl.ttl`. `catType`/`ch
 
 ## Cell Ontology
 
-The cell ontology defines `cell:Cell` — a self-contained unit of *content*. `cell:Cell` splits into two orthogonal facets: `cell:TCell`, the *template* facet, and `cell:ACell`, the *actual* (instantiated) facet. A cell may carry either facet alone, or both at once.
+The cell ontology defines `cell:Cell` — a self-contained unit of *content*. `cell:Cell` splits into two facets: `cell:TCell`, the *template* facet, and `cell:ACell`, the *actual* (instantiated) facet. A cell always carries the `cell:ACell` facet once it has real content; `cell:TCell` is added on top of that when the cell also serves as a reusable template — a bare `cell:TCell` with no `cell:ACell` doesn't occur in practice.
 
 ### Cells
 
@@ -215,11 +215,11 @@ A cell pointed to by a `cat:Category` subclass (via `cat:templateCell`) serves a
 
 <p align="center"><img src="images/cell-ontology/cell.png" alt="Cell hierarchy"></p>
 
-### Cell Party Composition
+### Cell Parties
 
-Every actual (already-instantiated) cell is a `cell:ACell`, classified by `cell:parties` according to how many total parties (the user plus zero or more others) are involved in the relationship it represents. There are three concrete types: `cell:OneParty` (the user alone — an associated `cat:Category` would typically show display label "Cell"), `cell:TwoParty` (the user plus exactly one other party — "Two-Party Cell"), and `cell:ThreePlusParty` (the user plus two or more other parties, e.g. a group — "Multi-Party Cell"). `cell:TwoParty` and `cell:ThreePlusParty` are both subclasses of the abstract `cell:MultiParty`, which exists purely to classify cells by party count — it carries no property of its own, since `cell:primary`/`cell:secondary` have domain the broader `cell:ACell` rather than `cell:MultiParty`. `cell:OneParty` and `cell:MultiParty` are both subclasses of `cell:ACell`, not `cell:Cell` directly — see [Cell Ontology File](#cell-ontology-file) below.
+Every actual (already-instantiated) cell is a `cell:ACell`, classified by `cell:parties` according to how many total parties (the user plus zero or more others) it has been shared with. There are three concrete types: `cell:OneParty` (a cell created by the user and not (yet) shared with any other party), `cell:TwoParty` (the user plus exactly one other party), and `cell:ThreePlusParty` (the user plus two or more other parties).
 
-Every `cell:ACell` carries exactly one `cell:primary`, regardless of party count. `cell:secondary`'s expected cardinality varies by the remaining party count: always 0 for `OneParty` (its one context is already the required `cell:primary`), up to three for `TwoParty` (the other three of the four self-vs-other combinations, one already being `primary`), and unconstrained for `ThreePlusParty` (any number of other-party contexts, one or more per other party).
+Every `cell:ACell` carries exactly one `cell:primary`, the primary subject of the cell, regardless of party count. `cell:secondary`'s expected cardinality varies by the remaining party count: always 0 for `OneParty` (its one context is already the required `cell:primary`), up to three for `TwoParty` (the other three of the four self-vs-other combinations, one already being `primary`), and unconstrained for `ThreePlusParty` (any number of other-party contexts, one or more per other party).
 
 | Property | OneParty | TwoParty | ThreePlusParty |
 |----------|----------|----------|-----------------|
@@ -264,9 +264,12 @@ In the center of the diagram below is a three level snippet of the user's catego
 
 Canonical categories are not instantiated into a user's tree ahead of time. Mia instantiates a canonical category — cloning the `cell:TCell` its class carries via `cat:templateCell` into a new cell, if that class has one — into the tree, and creates its `cell:note`/`cell:folder` paths, only once the user actually has content for it. 
 
-The **notes hierarchy** mirrors the category tree as a folder structure, rooted at a top-level folder named **`Cells`**. The invisible root category's note is `Cells.md`, stored directly inside `Cells/`; every other category's note is stored as `X.md` inside the X folder — for example, `Cells/People/Immediate Family/Immediate Family.md`. Using the same name as the folder matches the convention used by PKM (Personal Knowledge Management) tools such as Obsidian (using the Folder Notes plugin), Logseq, Foam and others. Any file or folder in the notes root that is not `Cells/` — app-managed folders (e.g. `Templates/`, `.obsidian/`), unrelated personal notes (e.g. a `Journal/`), or loose files — falls outside the category tree entirely and is ignored by Mia.
+The **notes hierarchy** mirrors the category tree structure. It exists as a folder structure, rooted at a folder named **`Cells`** underneath the *files root* (e.g. ~/Cells on a MacOS). A couple of details:
 
-The **files hierarchy** mirrors the category tree as a folder structure. It has no equivalent of a root note, so it has no `Cells` wrapper folder — the files root itself plays that role, and each top-level category (e.g. `People`, `Work`) is a folder directly inside it. Each folder may hold arbitrary files, and may also contain additional subfolders (to any depth) that are not part of the category tree. Any file or folder directly inside the files root that is not a recognized top-level category folder likewise falls outside the category tree and is ignored by Mia.
+- In addition to notes (.md files) within a folder, one special *folder note* acts as a note about the folder itself. These so-called 'folder notes' are stored as a file named `X.md` inside the `X` folder. Using the same name as the folder matches the convention used by PKM (Personal Knowledge Management) tools such as Obsidian (using the Folder Notes plugin), Logseq, Foam and others. 
+- Files that live outside the *notes root* folder are ignored by Mia.
+
+The **files hierarchy** is lives under the `Files root` folder (e.g. ~Cells on a Mac). These folders mirror the category tree's structure. Each folder may hold arbitrary files, and may also contain additional subfolders (to any depth) that are not part of the category tree. Any file or folder directly inside the files root that is not a recognized top-level category folder likewise falls outside the category tree and is ignored by Mia.
 
 The two roots are stored separately so the notes hierarchy can be opened as a standalone PKM vault without exposing the files hierarchy. Two user-configurable settings define where each root lives on disk:
 
