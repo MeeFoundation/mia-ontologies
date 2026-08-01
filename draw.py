@@ -1,9 +1,9 @@
 #!/usr/bin/env python3
 """
-draw.py  —  Generate a Mermaid (.mmd) and PNG diagram from a Persona context DataBook or .ttl file.
+draw.py  —  Generate a Mermaid (.mmd) and PNG diagram from a Persona topic DataBook or .ttl file.
 
-Usage:   python draw.py <context_file.databook.md>
-         python draw.py <context_file.ttl>
+Usage:   python draw.py <topic_file.databook.md>
+         python draw.py <topic_file.ttl>
 Output:  <stem>.mmd and <stem>.png in the same images/ directory as the PNG diagrams.
 
 Requires: pip install rdflib pyyaml
@@ -250,7 +250,7 @@ def expand_bnode(g: Graph, bn: BNode):
 
 
 def _dyad_label(dyad_iri: str, src_dir: Path | None) -> str:
-    """Return display label for a dyad IRI: stem, with context number appended if findable."""
+    """Return display label for a dyad IRI: stem, with topic number appended if findable."""
     stem = dyad_iri.rstrip("/").split("/")[-1]
     if src_dir is not None:
         matches = list(src_dir.glob(f"[0-9][0-9]-{stem}.databook.md"))
@@ -279,7 +279,7 @@ def _meta_subgraph(mia: dict, src_dir: Path | None = None) -> list[str]:
         return []
     label = "\\n".join(esc(p) for p in props)
     return [
-        '    subgraph ctx["Context"]',
+        '    subgraph ctx["Topic"]',
         "        direction LR",
         f'        ctx_meta["{label}"]:::meta',
         "    end",
@@ -462,7 +462,7 @@ def generate_png(mmd_path: Path, png_path: Path) -> None:
 
 def main() -> None:
     if len(sys.argv) < 2:
-        sys.exit("Usage: python draw.py <context_file.databook.md|.ttl>")
+        sys.exit("Usage: python draw.py <topic_file.databook.md|.ttl>")
     src = Path(sys.argv[1])
     if not src.exists():
         sys.exit(f"File not found: {src}")

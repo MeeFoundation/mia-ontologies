@@ -8,8 +8,8 @@
          uri="persona-templates.ttl"/>
     <uri id="jscontactcard-shacl"      name="http://mee.foundation/ontologies/persona/shapes/jscontactcard"
          uri="shacl/jscontactcard-shacl.ttl"/>
-    <uri id="context"                  name="http://mee.foundation/ontologies/context"
-         uri="context.ttl"/>
+    <uri id="topic"                    name="http://mee.foundation/ontologies/topic"
+         uri="topic.ttl"/>
     <uri id="cell"                 name="http://mee.foundation/ontologies/cell"
          uri="cell.ttl"/>
     <uri id="category"             name="http://mee.foundation/ontologies/category"

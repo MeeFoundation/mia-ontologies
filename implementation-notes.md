@@ -1,6 +1,6 @@
-### Context File Naming Convention
+### Topic File Naming Convention
 
-Context DataBook filenames used in the Alice Walker example follow the pattern:
+Topic DataBook filenames used in the Alice Walker example follow the pattern:
 
 ```
 <subject>.<claimant>(<containing-cell>)(<NN>).databook.md
@@ -8,12 +8,12 @@ Context DataBook filenames used in the Alice Walker example follow the pattern:
 
 | Segment | Meaning |
 |---|---|
-| `<subject>` | Who the context is about. `self` when the subject is the Mia user (`:Self`); the full hyphenated lowercase name otherwise (e.g. `paula-walker`, `bob-johnson`, `bhs-group`). |
-| `<claimant>` | Who recorded the data. `self` when the claimant is `:Self`; the full hyphenated lowercase name otherwise (e.g. `bob-johnson`, `citibank`); the literal `members` for group contexts where any member may write. |
-| `(<containing-cell>)` | The filename root of the cell DataBook that directly holds the `obs`, `sbs`, `obo`, or `sbo` link pointing to this context (e.g. `(paula-walker)`, `(bob-johnson)`, `(boston-hub-society)`, `(acme)`, `(citibank)`). This is often a user-defined cell DataBook — it is NOT the `mia.cell` IRI local name of the canonical cell. |
-| `(<NN>)` | Zero-padded two-digit context number in parentheses. |
+| `<subject>` | Who or what the topic is about. `self` when the subject is the Mia user (`:Self`); the full hyphenated lowercase name otherwise (e.g. `paula-walker`, `bob-johnson`, `bhs-group`). |
+| `<claimant>` | Who recorded the data. `self` when the claimant is `:Self`; the full hyphenated lowercase name otherwise (e.g. `bob-johnson`, `citibank`); the literal `members` for group topics where any member may write. |
+| `(<containing-cell>)` | The filename root of the cell DataBook that directly holds the `obs`, `sbs`, `obo`, or `sbo` link pointing to this topic (e.g. `(paula-walker)`, `(bob-johnson)`, `(boston-hub-society)`, `(acme)`, `(citibank)`). This is often a user-defined cell DataBook — it is NOT the `mia.cell` IRI local name of the canonical cell. |
+| `(<NN>)` | Zero-padded two-digit topic number in parentheses. |
 
-The document IRI uses the same local name under the `https://www.example.org/mia/contexts/` base. For example, `self.citibank(citibank)(09).databook.md` has `id: https://www.example.org/mia/contexts/self.citibank(citibank)(09)`.
+The document IRI uses the same local name under the `https://www.example.org/mia/topics/` base. For example, `self.citibank(citibank)(09).databook.md` has `id: https://www.example.org/mia/topics/self.citibank(citibank)(09)`.
 
 Examples:
 

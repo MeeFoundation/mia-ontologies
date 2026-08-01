@@ -10,14 +10,14 @@
 @prefix persona: <http://mee.foundation/ontologies/persona#> .
 
 <http://mee.foundation/ontologies/persona/shapes> rdf:type owl:Ontology ;
-    owl:versionInfo "Version 4.3.0 - migrated card/account SHACL targets to committed cco: terms: has-payment-card path -> cco:ent00000073; CheckingAccountNumber -> cco:ent00000071; RoutingNumber -> cco:ent00000072; debit-card expiration reshaped to the has-expiration-date predicate (cco:ent00000070) with a Calendar Date Identifier (cco:ont00001340) value. (v4.2.0: fixed :SocialNetworkShape: its two separate mandatory sh:property shapes on BFO_0000115 (one requiring sh:class cco:ont00001183, the other sh:class persona:Person) required every member to satisfy both simultaneously, which no ordinary Person member ever could — merged into a single sh:property with sh:or, so each member may be either a sub-group Social Network or a Person. This was causing Tier 1 validation to fail on every Social Network individual in the example data."@en ;
+    owl:versionInfo "Version 4.4.0 - updated doc comments referencing context files/context.ttl to topic files/topic.ttl following the ontology-wide context→topic rename. No change to any triples. (4.3.0: migrated card/account SHACL targets to committed cco: terms: has-payment-card path -> cco:ent00000073; CheckingAccountNumber -> cco:ent00000071; RoutingNumber -> cco:ent00000072; debit-card expiration reshaped to the has-expiration-date predicate (cco:ent00000070) with a Calendar Date Identifier (cco:ont00001340) value. 4.2.0: fixed :SocialNetworkShape: its two separate mandatory sh:property shapes on BFO_0000115 (one requiring sh:class cco:ont00001183, the other sh:class persona:Person) required every member to satisfy both simultaneously, which no ordinary Person member ever could — merged into a single sh:property with sh:or, so each member may be either a sub-group Social Network or a Person. This was causing Tier 1 validation to fail on every Social Network individual in the example data.)"@en ;
     rdfs:label "Mee Identity Agent (MIA)'s SHACL Validation Shapes"@en ;
     rdfs:comment """SHACL validation shapes for the Mee Identity Agent.
 
-                    Architecture: named-graph contexts — each context file contains exactly one
+                    Architecture: named-graph topics — each topic file contains exactly one
                     persona:Person individual. The Mia user's individual uses the IRI :Self across
-                    all of their context files; other people use locally-assigned named IRIs.
-                    PersonShape targets all persona:Person individuals across all context files.
+                    all of their topic files; other people use locally-assigned named IRIs.
+                    PersonShape targets all persona:Person individuals across all topic files.
 
                     Key property IRIs:
                     - ont00001879  = designated by   (Person ← Name/Identifier)
@@ -29,7 +29,7 @@
 
 #################################################################
 #  Person
-#  Each SinglePerson context file contains exactly one persona:Person.
+#  Each SinglePerson topic file contains exactly one persona:Person.
 #  All identity data — names, identifiers, addresses, cards — attach here.
 #################################################################
 
@@ -85,7 +85,7 @@
         sh:message "TelephoneNumber values are optional; if present and typed, they must validate."@en
     ] ;
 
-    # Optional: organization names (0..many); each context may carry its own OrganizationName
+    # Optional: organization names (0..many); each topic may carry its own OrganizationName
     sh:property [
         sh:path <https://purl.org/cco/ont00001879> ;  # designated by
         sh:qualifiedValueShape [ sh:class cco:ent00000047 ] ;  # OrganizationName
@@ -93,7 +93,7 @@
         sh:message "OrganizationName values, if present, must be of class cco:ent00000047."@en
     ] ;
 
-    # Optional: social networks (0..many); each context may carry its own social network
+    # Optional: social networks (0..many); each topic may carry its own social network
     sh:property [
         sh:path persona:hasSocialNetwork ;
         sh:class cco:ont00001183 ;  # Social Network
@@ -346,7 +346,7 @@
 
     # Each BFO has member part value must be EITHER a sub-group Social Network (e.g. Family,
     # Colleague, Other) OR an ordinary Person member (unified IRI for same person across
-    # contexts) — not both at once. Was previously two separate mandatory sh:property shapes
+    # topics) — not both at once. Was previously two separate mandatory sh:property shapes
     # on the same path, which required every member to satisfy both sh:class constraints
     # simultaneously (impossible for an ordinary Person member); merged into a single sh:or.
     sh:property [

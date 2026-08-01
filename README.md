@@ -2,7 +2,7 @@
 
 This document describes the ontologies used by the Mee Identity Agent (Mia) software application. The application lets the user create *cells* – private, secure collaboration spaces which can be joined by other Mia users and/or nodes on the Personal Data Network (PDN) hosted by organizations or groups.
 
-Mia's ontologies import and profile existing ontologies — documenting which of their classes and properties Mia requires or uses — and extending them with Mia-specific classes and properties. They include the following **domain ontologies** model claims about people, organizations and groups contained in `c:SCcontext` instances:
+Mia's ontologies import and profile existing ontologies — documenting which of their classes and properties Mia requires or uses — and extending them with Mia-specific classes and properties. They include the following **domain ontologies** model claims about people, organizations, groups and other topics contained in `t:SCtopic` instances:
 - **Persona ontology** — models a person: names, addresses, phone numbers, relationships, payment cards, and more. It is built on BFO (Basic Formal Ontology) and CCO (Common Core Ontologies) as the upper ontological foundation, and on domain ontologies that extend CCO:
   - **PersonOntology** — person, name types, parent-child relationships
   - **AddressOntology** — postal address structure
@@ -11,13 +11,13 @@ Mia's ontologies import and profile existing ontologies — documenting which of
 - **Organization ontology** — models organizations (companies, government agencies, non-profits, etc.) 
 - **Group ontology** — a group made up of individuals and/or organizations.
 
-Also included are the Category, Cell and Context metadata ontologies. Categories are used to organize information in cells. Cells define the boundaries and "outer" structure of data spaces that can be shared with other users and organizations. Contexts provide a lightweight container for personal information using the Persona ontology.
+Also included are the Category, Cell and Topic metadata ontologies. Categories are used to organize information in cells. Cells define the boundaries and "outer" structure of data spaces that can be shared with other users and organizations. Topics provide a lightweight container for information about people and other topics using the Persona ontology.
 
 Throughout, we use these short-hands:
 
 - `cat:` for the `category:` namespace (`http://mee.foundation/ontologies/category#`)
-- `cell:` for the `cell:` namespace (`http://mee.foundation/ontologies/cell#`)
-- `c:` for the `context:` namespace (`http://mee.foundation/ontologies/context#`)
+- `c:` for the `cell:` namespace (`http://mee.foundation/ontologies/cell#`)
+- `t:` for the `topic:` namespace (`http://mee.foundation/ontologies/topic#`)
 - `p:` for the `persona:` namespace (`http://mee.foundation/ontologies/persona#`)
 - `o:` for the `organization:` namespace (`http://mee.foundation/ontologies/organization#`).
 - `g:` for the `group:` namespace (`http://mee.foundation/ontologies/group#`)
@@ -34,21 +34,21 @@ These nodes may be a `cat:CategoryDefined` or `cat:UserDefined`. The former poin
 
 <p align="center"><img src="images/category-ontology/category.png" alt="Category hierarchy"></p>
 
-Mia's provides two predefined `cat:Category` class hierarchies (`category.ttl`'s `rdfs:subClassOf` structure), rooted at the abstract `cat:Person` and `cat:Organization` classes. Some classes in this hierarchy have starter content pointed to via `cat:templateCell` and asserted directly in `category.ttl` alongside the class's own declaration, pointing at a `cell:TCell` individual defined in the companion file `cell-templates.ttl` — the *cell template* for that class.
+Mia's provides two predefined `cat:Category` class hierarchies (`category.ttl`'s `rdfs:subClassOf` structure), rooted at the abstract `cat:Person` and `cat:Organization` classes. Some classes in this hierarchy have starter content pointed to via `cat:templateCell` and asserted directly in `category.ttl` alongside the class's own declaration, pointing at a `c:TCell` individual defined in the companion file `cell-templates.ttl` — the *cell template* for that class.
 
-The nodes in the user's tree have no content of their own. Instead, each points, via `cat:cell`, to a `cell:ACell` which holds content. When a category is instantiated into the user's tree, Mia clones its class's `cat:templateCell` (if one exists) into a new cell for that node — this is how a **cell template** becomes the starting content for an instantiated cell (see [Lazy Instantiation](#lazy-instantiation)).
+The nodes in the user's tree have no content of their own. Instead, each points, via `cat:cell`, to a `c:ACell` which holds content. When a category is instantiated into the user's tree, Mia clones its class's `cat:templateCell` (if one exists) into a new cell for that node — this is how a **cell template** becomes the starting content for an instantiated cell (see [Lazy Instantiation](#lazy-instantiation)).
 
 The user is free to rearrange their instance tree as they wish, adding new `cat:UserDefined` nodes and moving other nodes around. The instance tree is really just a way to organize the cells associated with each node. A `cat:CategoryDefined` or `cat:UserDefined` node has an optional `cat:label` that allows the user override the display name (e.g. "Client").
 
 ### Category Properties
 
 - **`cat:catType`** — the `cat:Category` subclass this category is or was instantiated from, or `Category` itself. Domain `cat:Category`.
-- **`cat:templateCell`** — links a `cat:Category` subclass directly to the `cell:TCell` individual serving as its reusable template content. An `owl:AnnotationProperty`, asserted directly on the class IRI (e.g. `cat:Passport`), not on any instance. Defined in `category.ttl`; the pointer triples for the 4 templated classes are asserted right alongside each class's own declaration, also in `category.ttl` — only the target `cell:TCell` individuals themselves live in the companion file `cell-templates.ttl`. Most classes have no `cat:templateCell` value — that's the default, not an omission. That target cell may itself carry `cell:templateShape` (`cell.ttl`), continuing the traversal to a SHACL shape — see [Cell Ontology](#cell-ontology) below.
+- **`cat:templateCell`** — links a `cat:Category` subclass directly to the `c:TCell` individual serving as its reusable template content. An `owl:AnnotationProperty`, asserted directly on the class IRI (e.g. `cat:Passport`), not on any instance. Defined in `category.ttl`; the pointer triples for the 4 templated classes are asserted right alongside each class's own declaration, also in `category.ttl` — only the target `c:TCell` individuals themselves live in the companion file `cell-templates.ttl`. Most classes have no `cat:templateCell` value — that's the default, not an omission. That target cell may itself carry `c:templateShape` (`cell.ttl`), continuing the traversal to a SHACL shape — see [Cell Ontology](#cell-ontology) below.
 
 ### Node Properties
 
 - **`cat:child`** — organizes the user's nodes into a tree structure. Domain and range `cat:Node`.
-- **`cat:cell`** — IRI of a `cell:ACell` holding this node's content. This is the sole link between a node and its cell(s); `cell:Cell` carries no equivalent pointing back. Domain is `cat:Node`.
+- **`cat:cell`** — IRI of a `c:ACell` holding this node's content. This is the sole link between a node and its cell(s); `c:Cell` carries no equivalent pointing back. Domain is `cat:Node`.
 - **`cat:category`** — links a `cat:CategoryDefined` node directly to the `cat:Category` subclass it represents (e.g. `cat:Work`). Domain `cat:CategoryDefined`, range `cat:Category`.
 - **`cat:label`** — user-editable display name of a category-defined or user-defined category. Defaults to the category's class name. Domain is the union of `cat:CategoryDefined` and `cat:UserDefined`.
 
@@ -62,7 +62,7 @@ The user is free to rearrange their instance tree as they wish, adding new `cat:
     - **In-Laws / Step-Family** (`cat:InLawsStepFamily`) — relatives gained through marriage or legal guardianship, including a spouse's parents and siblings, or children from a previous relationship.
     - **Friends** (`cat:Friends`) — interactions with friends.
     - **Others** (`cat:Others`) — people you know socially or professionally who are not family or friends — acquaintances, neighbors, or other connections not yet more specifically categorized.
-1. **Affiliations** (`cat:Affiliations`) — clubs, charities, faith groups, and other group affiliations not covered by a more specific category — includes formal memberships and their social networks, some of which may be `cell:ThreePlusParty` ("Multi-Party Cell") cells that exist as a `g:Group` on the PDN. See also Sports & Entertainment for personal sports and entertainment interests, like following a favorite team, that aren't tied to a formal membership.
+1. **Affiliations** (`cat:Affiliations`) — clubs, charities, faith groups, and other group affiliations not covered by a more specific category — includes formal memberships and their social networks, some of which may be `c:ThreePlusParty` ("Multi-Party Cell") cells that exist as a `g:Group` on the PDN. See also Sports & Entertainment for personal sports and entertainment interests, like following a favorite team, that aren't tied to a formal membership.
 1. **Health & Wellness** (`cat:HealthWellness`) — personal health and wellness information. Medical history, allergies, medications, vaccinations, prescriptions, eyeglasses.
     - **Medical** (`cat:Medical`) — medical (as opposed to dental or vision) care — diagnoses, treatments, providers, and insurance.
         - **History** (`cat:MedicalHistory`) — past diagnoses, conditions, surgeries, and treatments.
@@ -113,13 +113,13 @@ The user is free to rearrange their instance tree as they wish, adding new `cat:
 1. **Information** (`cat:Information`) — general knowledge selected by you, web links, documents, images.
     - **Learnings** (`cat:Learnings`) — knowledge gained through personal experience.
 1. **Government** (`cat:Government`) — government-issued credentials, tax records, and civic relationships.
-    - **Federal** (`cat:Federal`) — federal government context (e.g. passport, federal tax records).
+    - **Federal** (`cat:Federal`) — federal government topic (e.g. passport, federal tax records).
         - **SSA** (`cat:SSA`) — the Social Security Administration.
         - **Passport** (`cat:Passport`) — a federal agency that issues and holds passport records.
-    - **State** (`cat:State`) — state government context (e.g. driver's license, state tax records).
+    - **State** (`cat:State`) — state government topic (e.g. driver's license, state tax records).
         - **Birth Certificate** (`cat:BirthCertificate`) — a state agency that issues and holds birth certificate records.
         - **Drivers License** (`cat:DriversLicense`) — a state agency that issues and holds driver's license records.
-    - **Municipality** (`cat:Municipality`) — municipal government context (e.g. local permits, library card).
+    - **Municipality** (`cat:Municipality`) — municipal government topic (e.g. local permits, library card).
         - **Residence** (`cat:Residence`) — a place a person has lived, current or past.
 1. **Companies** (`cat:Companies`) — miscellaneous companies and organizations that provide services or products to you. See also Finances, Health, Home, Food for companies and organizations related to those areas.
 
@@ -160,7 +160,7 @@ Each node in a user's own instance tree is represented by a **category DataBook*
 
 #### Cell/Category Split
 
-Every category DataBook in a user's own instance tree is associated, in the same folder, with one or more cell DataBooks (see [Cell DataBooks](#cell-databooks) below) holding its content and any context links — many-to-one, not 1:1. `cell:Cell` has no property linking back to a node at all — the association is recorded only on the category side, via `cat:cell`, asserted on every category DataBook that has content, whether it's a `cat:CategoryDefined` or a `cat:UserDefined` (`example/categories/`).
+Every category DataBook in a user's own instance tree is associated, in the same folder, with one or more cell DataBooks (see [Cell DataBooks](#cell-databooks) below) holding its content and any topic links — many-to-one, not 1:1. `c:Cell` has no property linking back to a node at all — the association is recorded only on the category side, via `cat:cell`, asserted on every category DataBook that has content, whether it's a `cat:CategoryDefined` or a `cat:UserDefined` (`example/categories/`).
 
 This — keeping any category→cell link entirely on the category side — is what makes a shared cell's content fully portable: moving or renaming any category anywhere in any tree is done through its parent's `cat:child` list, never through the category's own properties, so a category's `cat:cell` value(s) never need to change when the category itself moves. It's also what makes the many-to-one relationship straightforward: adding a second cell to an existing category is just adding another `cat:cell` value pointing at that new cell DataBook — nothing about the cell(s) already there changes.
 
@@ -174,15 +174,15 @@ The following properties are defined in `category.ttl` and represented as `mia.`
 | `mia.child` | `cat:child` | 0..N | Any category | IRIs of this node's child nodes |
 | `mia.category` | `cat:category` | 0..1 | `cat:CategoryDefined` only | The `cat:Category` subclass this node represents, as a class value rather than a string (e.g. `"cat:Work"`) — also records which class it was instantiated from, since there's no separate canonical individual to point at |
 | `mia.label` | `cat:label` | 0..1 | `cat:CategoryDefined` or `cat:UserDefined` | User-editable display name — defaults to the DataBook `title` but can be changed independently, leaving `title` and `id` immutable |
-| `mia.cell` | `cat:cell` | 0..N | Any category (`cat:CategoryDefined` or `cat:UserDefined`) | IRI(s) of the `cell:ACell` DataBook(s) holding this node's content. Many-to-one, not 1:1 — the only place a category/cell association is recorded, in either direction |
+| `mia.cell` | `cat:cell` | 0..N | Any category (`cat:CategoryDefined` or `cat:UserDefined`) | IRI(s) of the `c:ACell` DataBook(s) holding this node's content. Many-to-one, not 1:1 — the only place a category/cell association is recorded, in either direction |
 
 ### Category Ontology File
 
 **`category.ttl`** — The Category ontology, defining:
-  - *Classes*: `cat:Category` (abstract; formerly `cell:Cell`), `cat:Person`, `cat:Organization`, and all leaf category subclasses (the classificatory hierarchy) — orthogonal to `cat:Node` (abstract), split into `cat:CategoryDefined` and `cat:UserDefined` (the tree-position hierarchy, both used only in a user's own instance tree). There is no separate canonical node class (`cat:Canonical`, removed in category.ttl 1.8.0) — the canonical tree is simply the `cat:Category` class hierarchy itself. A user-defined category with no canonical counterpart is a `cat:UserDefined` node.
-  - *Annotation properties*: `cat:catType` (domain `cat:Category`), `cat:label` (domain the union of `cat:CategoryDefined` and `cat:UserDefined`), `cat:templateCell` (domain `owl:Class`, range `cell:TCell` — links a `cat:Category` subclass directly to its reusable template cell; narrowed from `cell:Cell` in category.ttl 1.18.0, once cell.ttl 3.7.0 split `cell:Cell` into the `cell:TCell`/`cell:ACell` facets; see [cell-templates.ttl](#persona-templates)).
-  - *Object properties*: `cat:child` (domain and range `cat:Node`), `cat:category` (domain `cat:CategoryDefined`, range `cat:Category`), `cat:cell` (domain `cat:Node`, range `cell:ACell` — narrowed from `cell:Cell` in category.ttl 1.18.0 for the same reason — the sole link between a node and its cell(s), since `cell:Cell` has no forward-pointing equivalent; see [Cell Ontology File](#cell-ontology-file)).
-  These terms are referenced by name in the YAML frontmatter of each category DataBook file. `category.ttl` imports `cell.ttl` (for `cat:cell`'s range, `cell:ACell`, and to reuse `cell:abstract` to mark non-instantiated classes) and `cell-templates.ttl` (for the `ctpl:*TemplateCell` individuals its own `cat:templateCell` assertions point at). This import is one-directional only: `cell-templates.ttl` imports `cell.ttl` directly rather than importing `category.ttl` back, since the only `cat:` term it ever used, `cat:templateShape`, moved to `cell.ttl` as `cell:templateShape` (its domain/range — `cell:Cell`/`sh:NodeShape` at the time, narrowed to `cell:TCell`/`sh:NodeShape` in cell.ttl 3.7.0's facet split — never actually referenced a `cat:` term) — so there is no mutual import here, unlike `context.ttl`/`cell.ttl`.
+  - *Classes*: `cat:Category` (abstract; formerly `c:Cell`), `cat:Person`, `cat:Organization`, and all leaf category subclasses (the classificatory hierarchy) — orthogonal to `cat:Node` (abstract), split into `cat:CategoryDefined` and `cat:UserDefined` (the tree-position hierarchy, both used only in a user's own instance tree). There is no separate canonical node class (`cat:Canonical`, removed in category.ttl 1.8.0) — the canonical tree is simply the `cat:Category` class hierarchy itself. A user-defined category with no canonical counterpart is a `cat:UserDefined` node.
+  - *Annotation properties*: `cat:catType` (domain `cat:Category`), `cat:label` (domain the union of `cat:CategoryDefined` and `cat:UserDefined`), `cat:templateCell` (domain `owl:Class`, range `c:TCell` — links a `cat:Category` subclass directly to its reusable template cell; narrowed from `c:Cell` in category.ttl 1.18.0, once cell.ttl 3.7.0 split `c:Cell` into the `c:TCell`/`c:ACell` facets; see [cell-templates.ttl](#persona-templates)).
+  - *Object properties*: `cat:child` (domain and range `cat:Node`), `cat:category` (domain `cat:CategoryDefined`, range `cat:Category`), `cat:cell` (domain `cat:Node`, range `c:ACell` — narrowed from `c:Cell` in category.ttl 1.18.0 for the same reason — the sole link between a node and its cell(s), since `c:Cell` has no forward-pointing equivalent; see [Cell Ontology File](#cell-ontology-file)).
+  These terms are referenced by name in the YAML frontmatter of each category DataBook file. `category.ttl` imports `cell.ttl` (for `cat:cell`'s range, `c:ACell`, and to reuse `c:abstract` to mark non-instantiated classes) and `cell-templates.ttl` (for the `ctpl:*TemplateCell` individuals its own `cat:templateCell` assertions point at). This import is one-directional only: `cell-templates.ttl` imports `cell.ttl` directly rather than importing `category.ttl` back, since the only `cat:` term it ever used, `cat:templateShape`, moved to `cell.ttl` as `c:templateShape` (its domain/range — `c:Cell`/`sh:NodeShape` at the time, narrowed to `c:TCell`/`sh:NodeShape` in cell.ttl 3.7.0's facet split — never actually referenced a `cat:` term) — so there is no mutual import here, unlike `topic.ttl`/`cell.ttl`.
 
 **`category-shacl.ttl`** — SHACL shapes for category DataBook instances: `:CategoryShape` (target `cat:Category`) constrains `cat:catType` to exactly one value (open-ended — no enum, since new canonical subclasses can be added freely); `:NodeShape` (target `cat:Node`) constrains `cat:child` values, if any, to each be a `cat:Node`; `:CategoryDefinedShape` (target `cat:CategoryDefined`) constrains `cat:category` to at most one value (must be a `cat:Category`); `:LabelShape` (target `cat:CategoryDefined` and `cat:UserDefined`) constrains `cat:label` to at most one value.
 
@@ -192,7 +192,7 @@ Category DataBook instances are validated by `category-shacl.ttl`. `catType`/`ch
 
 ## Cell Ontology
 
-The cell ontology defines `cell:Cell` — a self-contained unit of *content*. `cell:Cell` splits into two facets: `cell:TCell`, the *template* facet, and `cell:ACell`, the *actual* (instantiated) facet. A cell always carries the `cell:ACell` facet once it has real content; `cell:TCell` is added on top of that when the cell also serves as a reusable template — a bare `cell:TCell` with no `cell:ACell` doesn't occur in practice.
+The cell ontology defines `c:Cell` — a self-contained unit of *content*. `c:Cell` splits into two facets: `c:TCell`, the *template* facet, and `c:ACell`, the *actual* (instantiated) facet. A cell always carries the `c:ACell` facet once it has real content; `c:TCell` is added on top of that when the cell also serves as a reusable template — a bare `c:TCell` with no `c:ACell` doesn't occur in practice.
 
 ### Cells
 
@@ -202,67 +202,67 @@ A cell contains the following:
 * A note - a Markdown document
 * A file folder - containing an arbitrary number of files and sub-folders
 * A chat stream
-* A required primary context - the cell's single main `c:SCcontext` (see [Context Ontology](#context-ontology) below)
-* Zero or more secondary contexts - additional `c:SCcontext` instances, e.g.:
+* A required primary topic - the cell's single main `t:SCtopic` (see [Topic Ontology](#topic-ontology) below)
+* Zero or more secondary topics - additional `t:SCtopic` instances, e.g.:
   * further claims the user makes about themself (e.g. given-name="Alice")
   * claims the user makes about another party (e.g. Bob)
   * claims another party makes about the user
   * claims the user makes about another party
 
-The subject of the primary context is what the cell is about — the user, another person, an organization, or a group. It could be about anything at all as claimed by its claimant, who may be the user, another Mia user, a group, or an organization. Both the primary and secondary contexts follow the "Persona" ontology. 
+The subject of the primary topic is what the cell is about — the user, another person, an organization, or a group. It could be about anything at all as claimed by its claimant, who may be the user, another Mia user, a group, or an organization. Both the primary and secondary topics follow the "Persona" ontology. 
 
-A cell pointed to by a `cat:Category` subclass (via `cat:templateCell`) serves as a **cell template** — a reusable, typically empty shape that the application clones into a new cell whenever a category of that class is first instantiated into a user's tree (see [Lazy Instantiation](#lazy-instantiation)). Such a cell is typed `cell:TCell`, the template facet. An ordinary, already-instantiated cell is typed `cell:ACell`, the actual facet, instead — carrying real party composition, creator, and content. A cell template is simultaneously both: it is reusable template content (`cell:TCell`) that also carries real party-classified content of its own (`cell:ACell`, via `cell:OneParty`/`cell:TwoParty`/`cell:ThreePlusParty`) — see [Cell Ontology File](#cell-ontology-file) below.
+A cell pointed to by a `cat:Category` subclass (via `cat:templateCell`) serves as a **cell template** — a reusable, typically empty shape that the application clones into a new cell whenever a category of that class is first instantiated into a user's tree (see [Lazy Instantiation](#lazy-instantiation)). Such a cell is typed `c:TCell`, the template facet. An ordinary, already-instantiated cell is typed `c:ACell`, the actual facet, instead — carrying real party composition, creator, and content. A cell template is simultaneously both: it is reusable template content (`c:TCell`) that also carries real party-classified content of its own (`c:ACell`, via `c:OneParty`/`c:TwoParty`/`c:ThreePlusParty`) — see [Cell Ontology File](#cell-ontology-file) below.
 
 <p align="center"><img src="images/cell-ontology/cell.png" alt="Cell hierarchy"></p>
 
 ### Cell Parties
 
-Every actual (already-instantiated) cell is a `cell:ACell`, classified by `cell:parties` according to how many total parties (the user plus zero or more others) it has been shared with. There are three concrete types: `cell:OneParty` (a cell created by the user and not (yet) shared with any other party), `cell:TwoParty` (the user plus exactly one other party), and `cell:ThreePlusParty` (the user plus two or more other parties).
+Every actual (already-instantiated) cell is a `c:ACell`, classified by `c:parties` according to how many total parties (the user plus zero or more others) it has been shared with. There are three concrete types: `c:OneParty` (a cell created by the user and not (yet) shared with any other party), `c:TwoParty` (the user plus exactly one other party), and `c:ThreePlusParty` (the user plus two or more other parties).
 
-Every `cell:ACell` carries exactly one `cell:primary`, the primary subject of the cell, regardless of party count. `cell:secondary`'s expected cardinality varies by the remaining party count: always 0 for `OneParty` (its one context is already the required `cell:primary`), up to three for `TwoParty` (the other three of the four self-vs-other combinations, one already being `primary`), and unconstrained for `ThreePlusParty` (any number of other-party contexts, one or more per other party).
+Every `c:ACell` carries exactly one `c:primary`, the primary subject of the cell, regardless of party count. `c:secondary`'s expected cardinality varies by the remaining party count: always 0 for `OneParty` (its one topic is already the required `c:primary`), up to three for `TwoParty` (the other three of the four self-vs-other combinations, one already being `primary`), and unconstrained for `ThreePlusParty` (any number of other-party topics, one or more per other party).
 
 | Property | OneParty | TwoParty | ThreePlusParty |
 |----------|----------|----------|-----------------|
-| `cell:primary` | 1 | 1 | 1 |
-| `cell:secondary` | 0 | 0..3 | 0..N |
+| `c:primary` | 1 | 1 | 1 |
+| `c:secondary` | 0 | 0..3 | 0..N |
 
 ### Properties
 
-- **`cell:label`** — default display name for a concrete `cell:Cell` subtype (`OneParty`/`TwoParty`/`ThreePlusParty`), e.g. `"Two-Party Cell"`. Asserted directly on the class, not an instance — distinct from `cat:label` (category.ttl), which is the user-editable per-instance display name of an associated `cat:Category`.
-- **`cell:note`** — optional path to a markdown note in the *notes* folder/file hierarchy for this cell.
-- **`cell:folder`** — optional path to a folder in the *files* folder/file hierarchy for this cell.
-- **`cell:primary`** — link to the cell's single required Subject-Claimant context (`c:SCcontext`) — the one main context the cell's content centers on. Exactly one value, required. Domain `cell:ACell` — see [Cell Party Composition](#cell-party-composition) above.
-- **`cell:secondary`** — link to any number of *additional* Subject-Claimant classified contexts (`c:SCcontext`) beyond the required `cell:primary`; cardinality varies by party count — see [Cell Party Composition](#cell-party-composition) above.
-- **`cell:TCell`** — the *template* facet of a `cell:Cell` (abstract). Carries `cell:templateShape`. A cell reached via a `cat:Category` subclass's `cat:templateCell` is typed `cell:TCell`.
-- **`cell:templateShape`** — links a `cell:TCell` individual directly to the `sh:NodeShape`(s) describing the content expected of a context file filed under its category — e.g. `ctpl:PassportTemplateCell` carries `pshapes:PassportDocumentShape`. An `owl:ObjectProperty`, domain `cell:TCell`, range `sh:NodeShape`. Makes the shape reachable by pure RDF traversal (`cat:Category` → `cat:templateCell` → `cell:templateShape` → `sh:NodeShape`), not just by file co-location or naming convention. Most template cells carry no `cell:templateShape` value. When a category is instantiated (see [Lazy Instantiation](#lazy-instantiation)), whatever value this property holds on the `cell:TCell` being cloned is copied into the new `cell:ACell`'s `cell:shape` — see below.
-- **`cell:ACell`** — the *actual* (instantiated) facet of a `cell:Cell` (abstract). Carries `cell:parties`, `cell:creator`, `cell:primary`/`cell:secondary`, and `cell:shape`. Every concrete party-count class (`cell:OneParty`/`cell:TwoParty`/`cell:ThreePlusParty`) is a subclass of `cell:ACell`, not `cell:Cell` directly. A cell isn't typed `cell:ACell` at all until it has real content (`cell:parties` set) — a pure tree-position placeholder with nothing filed under it yet stays a bare `cell:Cell`, exempt from requiring `cell:primary`.
-- **`cell:parties`** — the concrete `cell:ACell` subtype this DataBook instantiates: `cell:OneParty`, `cell:TwoParty`, or `cell:ThreePlusParty`. Value is the class itself (e.g. `mia.parties: "cell:OneParty"`), not a string, mirroring `cat:category`'s class-value pattern (category.ttl). See [Cell Party Composition](#cell-party-composition) above.
-- **`cell:creator`** — identifies who created this cell's content: a single `p:Person`, `g:Group`, or `o:Organization`. Optional, at most one value.
-- **`cell:shape`** — links a `cell:ACell` individual directly to the `sh:NodeShape`(s) validating that specific cell's own content, as opposed to `cell:templateShape`, which describes what a context filed under some other, template category should look like. An `owl:ObjectProperty`, domain `cell:ACell`, range `sh:NodeShape`. Optional; most actual cells carry no `cell:shape` value. Populated by copy-on-clone: when Lazy Instantiation clones a `cell:TCell` into a new `cell:ACell`, whatever `cell:templateShape` value the `TCell` carried is copied into the clone's `cell:shape` — the same validation expectation, now attached to the concrete instance rather than the abstract template.
+- **`c:label`** — default display name for a concrete `c:Cell` subtype (`OneParty`/`TwoParty`/`ThreePlusParty`), e.g. `"Two-Party Cell"`. Asserted directly on the class, not an instance — distinct from `cat:label` (category.ttl), which is the user-editable per-instance display name of an associated `cat:Category`.
+- **`c:note`** — optional path to a markdown note in the *notes* folder/file hierarchy for this cell.
+- **`c:folder`** — optional path to a folder in the *files* folder/file hierarchy for this cell.
+- **`c:primary`** — link to the cell's single required Subject-Claimant topic (`t:SCtopic`) — the one main topic the cell's content centers on. Exactly one value, required. Domain `c:ACell` — see [Cell Party Composition](#cell-party-composition) above.
+- **`c:secondary`** — link to any number of *additional* Subject-Claimant classified topics (`t:SCtopic`) beyond the required `c:primary`; cardinality varies by party count — see [Cell Party Composition](#cell-party-composition) above.
+- **`c:TCell`** — the *template* facet of a `c:Cell` (abstract). Carries `c:templateShape`. A cell reached via a `cat:Category` subclass's `cat:templateCell` is typed `c:TCell`.
+- **`c:templateShape`** — links a `c:TCell` individual directly to the `sh:NodeShape`(s) describing the content expected of a topic file filed under its category — e.g. `ctpl:PassportTemplateCell` carries `pshapes:PassportDocumentShape`. An `owl:ObjectProperty`, domain `c:TCell`, range `sh:NodeShape`. Makes the shape reachable by pure RDF traversal (`cat:Category` → `cat:templateCell` → `c:templateShape` → `sh:NodeShape`), not just by file co-location or naming convention. Most template cells carry no `c:templateShape` value. When a category is instantiated (see [Lazy Instantiation](#lazy-instantiation)), whatever value this property holds on the `c:TCell` being cloned is copied into the new `c:ACell`'s `c:shape` — see below.
+- **`c:ACell`** — the *actual* (instantiated) facet of a `c:Cell` (abstract). Carries `c:parties`, `c:creator`, `c:primary`/`c:secondary`, and `c:shape`. Every concrete party-count class (`c:OneParty`/`c:TwoParty`/`c:ThreePlusParty`) is a subclass of `c:ACell`, not `c:Cell` directly. A cell isn't typed `c:ACell` at all until it has real content (`c:parties` set) — a pure tree-position placeholder with nothing filed under it yet stays a bare `c:Cell`, exempt from requiring `c:primary`.
+- **`c:parties`** — the concrete `c:ACell` subtype this DataBook instantiates: `c:OneParty`, `c:TwoParty`, or `c:ThreePlusParty`. Value is the class itself (e.g. `mia.parties: "c:OneParty"`), not a string, mirroring `cat:category`'s class-value pattern (category.ttl). See [Cell Party Composition](#cell-party-composition) above.
+- **`c:creator`** — identifies who created this cell's content: a single `p:Person`, `g:Group`, or `o:Organization`. Optional, at most one value.
+- **`c:shape`** — links a `c:ACell` individual directly to the `sh:NodeShape`(s) validating that specific cell's own content, as opposed to `c:templateShape`, which describes what a topic filed under some other, template category should look like. An `owl:ObjectProperty`, domain `c:ACell`, range `sh:NodeShape`. Optional; most actual cells carry no `c:shape` value. Populated by copy-on-clone: when Lazy Instantiation clones a `c:TCell` into a new `c:ACell`, whatever `c:templateShape` value the `TCell` carried is copied into the clone's `c:shape` — the same validation expectation, now attached to the concrete instance rather than the abstract template.
 
-A cell needing both facets at once — e.g. every individual in `cell-templates.ttl`, which is both reusable template content and real party-classified content — is simply multi-typed with both `cell:TCell` and its `cell:ACell`-lineage class (e.g. `cell:OneParty`).
+A cell needing both facets at once — e.g. every individual in `cell-templates.ttl`, which is both reusable template content and real party-classified content — is simply multi-typed with both `c:TCell` and its `c:ACell`-lineage class (e.g. `c:OneParty`).
 
 ### Cells and Categories
 
-The diagram below shows representative kinds of cell/category pairs, each labeled with its `cat:catType` (green text) above its `cat:label` (black text), when set. In each cell are four gray icons representing four shared objects. The folder icon represents the folder associated with the cell. The gray circle in the upper right represents the cell's primary context (its single required subject-claim graph). In the lower right is the cell's chat window where parties in the cell can chat with one another.
+The diagram below shows representative kinds of cell/category pairs, each labeled with its `cat:catType` (green text) above its `cat:label` (black text), when set. In each cell are four gray icons representing four shared objects. The folder icon represents the folder associated with the cell. The gray circle in the upper right represents the cell's primary topic (its single required subject-claim graph). In the lower right is the cell's chat window where parties in the cell can chat with one another.
 
-<p align="center"><img src="images/cat-cell-context.png" alt="Cells, categories, and contexts"></p>
+<p align="center"><img src="images/cat-cell-topic.png" alt="Cells, categories, and topics"></p>
 
-The first, "Work", is a `cat:CategoryDefined` representing `cat:Work` (a `cat:Person` subclass) with no override label. The second, "Organization / Acme", is a `cat:CategoryDefined` representing `cat:Organization`, `cat:label`-renamed to "Acme". The third, "Favorites", is a hypothetical `cat:UserDefined` category with no canonical counterpart at all, `cat:label`-renamed to "Favorites" (not tied to any real example data). The fourth, "Person / Bob Johnson", is a `cell:TwoParty` cell between the user and another Mia user, Bob — shown with all four self-vs-other classified contexts filled (self-by-self, other-by-self, self-by-other, other-by-other; Bob's own self-claimed context is the cell's `cell:primary`, the other three are `cell:secondary`). The last, "Affiliations / Boston Hub Society", is a `cell:ThreePlusParty` cell with two other-party members, Carol and BHS. 
+The first, "Work", is a `cat:CategoryDefined` representing `cat:Work` (a `cat:Person` subclass) with no override label. The second, "Organization / Acme", is a `cat:CategoryDefined` representing `cat:Organization`, `cat:label`-renamed to "Acme". The third, "Favorites", is a hypothetical `cat:UserDefined` category with no canonical counterpart at all, `cat:label`-renamed to "Favorites" (not tied to any real example data). The fourth, "Person / Bob Johnson", is a `c:TwoParty` cell between the user and another Mia user, Bob — shown with all four self-vs-other classified topics filled (self-by-self, other-by-self, self-by-other, other-by-other; Bob's own self-claimed topic is the cell's `c:primary`, the other three are `c:secondary`). The last, "Affiliations / Boston Hub Society", is a `c:ThreePlusParty` cell with two other-party members, Carol and BHS. 
 
-Each of these five example cells contains contexts shown as circles. White circles are contexts whose triples are claimed by the self (the user). Green circles are contexts whose triples are claimed by a person other than the self, by an organization (`o:Organization`), or by a group (`g:Group`), and synchronized with the user's Mia instance over the PDN. For example the BHS cell at the bottom has three contexts: Self (the user)'s BHS profile, the BHS group's own profile and Bob Johnson's BHS member profile as claimed by Bob.
+Each of these five example cells contains topics shown as circles. White circles are topics whose triples are claimed by the self (the user). Green circles are topics whose triples are claimed by a person other than the self, by an organization (`o:Organization`), or by a group (`g:Group`), and synchronized with the user's Mia instance over the PDN. For example the BHS cell at the bottom has three topics: Self (the user)'s BHS profile, the BHS group's own profile and Bob Johnson's BHS member profile as claimed by Bob.
 
 A class's template cell (`cell-templates.ttl`) may also carry validation metadata declared in the paired `cell-templates-shacl.ttl`. This metadata lives on the class-level template only.
 
 #### Cell Notes and Cell Folders
 
-`cell:note` and `cell:folder` are file paths that point into two separate but parallel folder structures in local storage. The Mia app actively adjusts these two structures to stay isomorphic with the user's tree of `cat:CategoryDefined` nodes with its associated links to `cat:Category` entities — when a category is created, renamed, or deleted, Mia updates both hierarchies automatically.
+`c:note` and `c:folder` are file paths that point into two separate but parallel folder structures in local storage. The Mia app actively adjusts these two structures to stay isomorphic with the user's tree of `cat:CategoryDefined` nodes with its associated links to `cat:Category` entities — when a category is created, renamed, or deleted, Mia updates both hierarchies automatically.
 
 In the center of the diagram below is a three level snippet of the user's category tree. It shows how that snippet maps to (and controls) the file and notes hierarchies to its left and right. Essentially when the user looks in a cell, say the middle one above, they see only the files, folders, notes of the corresponding color not the surrounding files and folders associated with the category/cell above and the category/cell below. Logically these same-colored files and folders are considered to be a part of the cell even though physically are external to it.
 
-<p align="center"><img src="images/folder-mapping.png" alt="Cells, categories, and contexts"></p>
+<p align="center"><img src="images/folder-mapping.png" alt="Cells, categories, and topics"></p>
 
-Canonical categories are not instantiated into a user's tree ahead of time. Mia instantiates a canonical category — cloning the `cell:TCell` its class carries via `cat:templateCell` into a new cell, if that class has one — into the tree, and creates its `cell:note`/`cell:folder` paths, only once the user actually has content for it. 
+Canonical categories are not instantiated into a user's tree ahead of time. Mia instantiates a canonical category — cloning the `c:TCell` its class carries via `cat:templateCell` into a new cell, if that class has one — into the tree, and creates its `c:note`/`c:folder` paths, only once the user actually has content for it. 
 
 The **notes hierarchy** mirrors the category tree structure. It exists as a folder structure, rooted at a folder named **`Cells`** underneath the *files root* (e.g. ~/Cells on a MacOS). A couple of details:
 
@@ -276,9 +276,9 @@ The two roots are stored separately so the notes hierarchy can be opened as a st
 - **Files root** — default on macOS: `~/Cells`
 - **Notes root** — default on macOS: `~/NotesVault/Cells`
 
-We have made a *provisional* decision that all `cell:note` values are relative paths from the notes root, and all `cell:folder` values are relative paths from the files root. 
+We have made a *provisional* decision that all `c:note` values are relative paths from the notes root, and all `c:folder` values are relative paths from the files root. 
 
-In the normal case `cell:note` and `cell:folder` are technically redundant — both paths can be derived from the category tree plus the two configured roots. They are retained for three reasons:
+In the normal case `c:note` and `c:folder` are technically redundant — both paths can be derived from the category tree plus the two configured roots. They are retained for three reasons:
 
 1. **Divergence detection** — if a stored path no longer matches the derived path, Mia knows the user has manually renamed or rearranged folders outside of Mia and can alert them or attempt reconciliation rather than failing silently.
 2. **Graceful degradation** — Mia can continue to locate a cell's folder or note via the stored path even when the folder hierarchy has drifted out of sync with the category tree.
@@ -296,101 +296,101 @@ The following properties are defined in `cell.ttl` and represented as `mia.` YAM
 
 | YAML field | Ontology property | Cardinality | Meaning |
 |------------|-------------------|-------------|---------|
-| `mia.parties` | `cell:parties` | 1 | The concrete `cell:ACell` subclass this DataBook instantiates, as a class value (e.g. `"cell:OneParty"`) |
-| `mia.note` | `cell:note` | 0..1 | Relative path to a markdown notes file for this cell (e.g. `People/Paula Walker/Paula Walker.md`) |
-| `mia.folder` | `cell:folder` | 0..1 | Relative path to a folder of arbitrary files for this cell (e.g. `People/Paula Walker`) |
-| `mia.creator` | `cell:creator` | 0..1 | Who created this cell's content — a `p:Person`, `g:Group`, or `o:Organization` |
-| `mia.shape` | `cell:shape` | 0..1 | Optional `sh:NodeShape` validating this specific cell's own content directly |
+| `mia.parties` | `c:parties` | 1 | The concrete `c:ACell` subclass this DataBook instantiates, as a class value (e.g. `"c:OneParty"`) |
+| `mia.note` | `c:note` | 0..1 | Relative path to a markdown notes file for this cell (e.g. `People/Paula Walker/Paula Walker.md`) |
+| `mia.folder` | `c:folder` | 0..1 | Relative path to a folder of arbitrary files for this cell (e.g. `People/Paula Walker`) |
+| `mia.creator` | `c:creator` | 0..1 | Who created this cell's content — a `p:Person`, `g:Group`, or `o:Organization` |
+| `mia.shape` | `c:shape` | 0..1 | Optional `sh:NodeShape` validating this specific cell's own content directly |
 
 Note files live in a folder hierarchy whose structure mirrors the category hierarchy; associated file folders live in a parallel hierarchy whose names match the category names.
 
-#### Context Link Properties
+#### Topic Link Properties
 
-Each cell DataBook carries exactly one link to a context DataBook IRI via `cell:primary`, plus any number of additional links via `cell:secondary`:
+Each cell DataBook carries exactly one link to a topic DataBook IRI via `c:primary`, plus any number of additional links via `c:secondary`:
 
 | Property | Value | Cardinality | Applies to | Meaning |
 |----------|-------|-------------|------------|---------|
-| `cell:primary` | `c:SCcontext` | 1 (required) | Any `cell:ACell` | The cell's single main self-vs-other classified context |
-| `cell:secondary` | `c:SCcontext` | 0 on `OneParty`; 0..3 on `TwoParty`; 0..N on `ThreePlusParty` | Any `cell:ACell` | Any number of *additional* self-vs-other classified contexts — the user's own context in this cell, the user's record of the other party, a context the other party presents, or a context the other party holds about the user, distinguished by each linked context's own `subject`/`claimant` combination rather than by separate properties or classes |
+| `c:primary` | `t:SCtopic` | 1 (required) | Any `c:ACell` | The cell's single main self-vs-other classified topic |
+| `c:secondary` | `t:SCtopic` | 0 on `OneParty`; 0..3 on `TwoParty`; 0..N on `ThreePlusParty` | Any `c:ACell` | Any number of *additional* self-vs-other classified topics — the user's own topic in this cell, the user's record of the other party, a topic the other party presents, or a topic the other party holds about the user, distinguished by each linked topic's own `subject`/`claimant` combination rather than by separate properties or classes |
 
-`cell:primary` and `cell:secondary`'s domain is the broader `cell:ACell` rather than `cell:MultiParty`, unlike the four properties `cell:secondary` replaced (`cell:sbs`/`cell:obs`/`cell:sbo`/`cell:obo`) — a `OneParty` cell can hold a self-by-self context through these same properties, not just a `TwoParty`/`ThreePlusParty` cell. `cell:secondary`'s expected cardinality still varies by party count (see the table in [Cell Party Composition](#cell-party-composition)), but this isn't currently enforced by `cell-shacl.ttl` — `:ACellShape` only constrains `cell:secondary` values to each be a `c:SCcontext`, uniformly regardless of party count; `cell:primary`'s required-exactly-one cardinality *is* enforced, since every `cell:ACell` needs one regardless of party count.
+`c:primary` and `c:secondary`'s domain is the broader `c:ACell` rather than `c:MultiParty`, unlike the four properties `c:secondary` replaced (`c:sbs`/`c:obs`/`c:sbo`/`c:obo`) — a `OneParty` cell can hold a self-by-self topic through these same properties, not just a `TwoParty`/`ThreePlusParty` cell. `c:secondary`'s expected cardinality still varies by party count (see the table in [Cell Party Composition](#cell-party-composition)), but this isn't currently enforced by `cell-shacl.ttl` — `:ACellShape` only constrains `c:secondary` values to each be a `t:SCtopic`, uniformly regardless of party count; `c:primary`'s required-exactly-one cardinality *is* enforced, since every `c:ACell` needs one regardless of party count.
 
 ### Cell Ontology File
 
 **`cell.ttl`** — The Cell ontology, defining:
-  - *Classes*: `cell:Cell` (formerly `cell:Parties`), splitting into two orthogonal facets, `cell:TCell` (abstract, template facet) and `cell:ACell` (abstract, actual/instantiated facet); `cell:OneParty`, `cell:MultiParty` (abstract), `cell:TwoParty`, `cell:ThreePlusParty` — all now subclasses of `cell:ACell` rather than `cell:Cell` directly (cell.ttl 3.7.0).
-  - *Annotation properties*: `cell:label` (default display name for a concrete `cell:Cell` subtype, asserted on the class), `cell:note` (path to markdown notes file), `cell:folder` (path to associated file folder), `cell:abstract` (marks a class as not directly instantiated in DataBooks).
-  - *Object properties*: `cell:templateShape` (domain `cell:TCell`); `cell:parties`/`cell:creator`/`cell:primary`/`cell:secondary`/`cell:shape` (domain `cell:ACell` — a cell isn't typed `cell:ACell`, and so carries none of these, until it has real content). `cell:creator`'s range is a union of `p:Person`, `g:Group`, and `o:Organization` — the same union-range pattern used by `context:subject`/`context:claimant` (see [Context Ontology File](#context-ontology-file)). `cell:parties`'s range is `cell:ACell` itself: its value is the concrete subclass (`cell:OneParty`/`cell:TwoParty`/`cell:ThreePlusParty`), not a string — class-value punning, mirroring `cat:category`'s pattern (category.ttl). `cell:templateShape`'s and `cell:shape`'s ranges are both `sh:NodeShape` — see [Cell Ontology](#cell-ontology) above — but on different domains: `templateShape` describes what a context filed under a *template* category should look like, while `shape` validates an *actual* cell's own content directly. `cell:Cell` carries no property pointing back to a node at all — that link is asserted only on the category side, as `cat:cell` (see [Category Ontology File](#category-ontology-file)).
-  These terms are referenced by name in the YAML frontmatter of each cell DataBook file. `cell.ttl` imports `context.ttl` (for `cell:primary`/`cell:secondary`'s shared range, `c:SCcontext`); `context.ttl` in turn imports `cell.ttl` back, solely to reuse `cell:abstract` — a mutual import. `category.ttl` also imports `cell.ttl` (for `cat:cell`'s range, `cell:ACell`, and to reuse `cell:abstract`), but `cell.ttl` does not import `category.ttl` back — none of `cell.ttl`'s properties' domains/ranges ever reference a `cat:` term, even though some doc comments mention `cat:templateCell` descriptively. `cell.ttl` references `p:Person`, `g:Group`, and `o:Organization` by name in `cell:creator`'s range without importing `persona.ttl`, `group.ttl`, or `organization.ttl` — the same choice `context.ttl` makes for `context:subject`/`context:claimant`.
+  - *Classes*: `c:Cell` (formerly `c:Parties`), splitting into two orthogonal facets, `c:TCell` (abstract, template facet) and `c:ACell` (abstract, actual/instantiated facet); `c:OneParty`, `c:MultiParty` (abstract), `c:TwoParty`, `c:ThreePlusParty` — all now subclasses of `c:ACell` rather than `c:Cell` directly (cell.ttl 3.7.0).
+  - *Annotation properties*: `c:label` (default display name for a concrete `c:Cell` subtype, asserted on the class), `c:note` (path to markdown notes file), `c:folder` (path to associated file folder), `c:abstract` (marks a class as not directly instantiated in DataBooks).
+  - *Object properties*: `c:templateShape` (domain `c:TCell`); `c:parties`/`c:creator`/`c:primary`/`c:secondary`/`c:shape` (domain `c:ACell` — a cell isn't typed `c:ACell`, and so carries none of these, until it has real content). `c:creator`'s range is a union of `p:Person`, `g:Group`, and `o:Organization` — the same union-range pattern used by `topic:claimant` (see [Topic Ontology File](#topic-ontology-file)). `c:parties`'s range is `c:ACell` itself: its value is the concrete subclass (`c:OneParty`/`c:TwoParty`/`c:ThreePlusParty`), not a string — class-value punning, mirroring `cat:category`'s pattern (category.ttl). `c:templateShape`'s and `c:shape`'s ranges are both `sh:NodeShape` — see [Cell Ontology](#cell-ontology) above — but on different domains: `templateShape` describes what a topic filed under a *template* category should look like, while `shape` validates an *actual* cell's own content directly. `c:Cell` carries no property pointing back to a node at all — that link is asserted only on the category side, as `cat:cell` (see [Category Ontology File](#category-ontology-file)).
+  These terms are referenced by name in the YAML frontmatter of each cell DataBook file. `cell.ttl` imports `topic.ttl` (for `c:primary`/`c:secondary`'s shared range, `t:SCtopic`); `topic.ttl` in turn imports `cell.ttl` back, solely to reuse `c:abstract` — a mutual import. `category.ttl` also imports `cell.ttl` (for `cat:cell`'s range, `c:ACell`, and to reuse `c:abstract`), but `cell.ttl` does not import `category.ttl` back — none of `cell.ttl`'s properties' domains/ranges ever reference a `cat:` term, even though some doc comments mention `cat:templateCell` descriptively. `cell.ttl` references `p:Person`, `g:Group`, and `o:Organization` by name in `c:creator`'s range without importing `persona.ttl`, `group.ttl`, or `organization.ttl` — the same choice `topic.ttl` makes for `topic:claimant`.
 
-**`cell-shacl.ttl`** — SHACL shapes for cell DataBook instances, split across three shapes matching `cell.ttl`'s facet split: `:CellShape` (target `cell:Cell`) constrains `cell:note` and `cell:folder` to at most one value each; `:TCellShape` (target `cell:TCell`) constrains `cell:templateShape` to at most one value; `:ACellShape` (target `cell:ACell`) constrains `cell:creator` to at most one value which, if present, must be a `p:Person`, `g:Group`, or `o:Organization`, `cell:parties` to exactly one value which must be the class `cell:OneParty`, `cell:TwoParty`, or `cell:ThreePlusParty`, `cell:primary` to exactly one value which must be a `c:SCcontext`, `cell:secondary` values (if any) to each be a `c:SCcontext` — with no cardinality distinction by party count, unlike the `cell:sbs`/`obs`/`sbo`/`obo` properties `cell:secondary` replaced — and `cell:shape` to at most one value. `cell:templateShape`/`cell:shape` are deliberately not constrained to `sh:class sh:NodeShape`: the individuals they point at are only typed `sh:NodeShape` in `cell-templates-shacl.ttl`, which Tier 1 validation deliberately excludes from its merged-data run (see [Validation](#validation)), so that constraint would spuriously fail there.
+**`cell-shacl.ttl`** — SHACL shapes for cell DataBook instances, split across three shapes matching `cell.ttl`'s facet split: `:CellShape` (target `c:Cell`) constrains `c:note` and `c:folder` to at most one value each; `:TCellShape` (target `c:TCell`) constrains `c:templateShape` to at most one value; `:ACellShape` (target `c:ACell`) constrains `c:creator` to at most one value which, if present, must be a `p:Person`, `g:Group`, or `o:Organization`, `c:parties` to exactly one value which must be the class `c:OneParty`, `c:TwoParty`, or `c:ThreePlusParty`, `c:primary` to exactly one value which must be a `t:SCtopic`, `c:secondary` values (if any) to each be a `t:SCtopic` — with no cardinality distinction by party count, unlike the `c:sbs`/`obs`/`sbo`/`obo` properties `c:secondary` replaced — and `c:shape` to at most one value. `c:templateShape`/`c:shape` are deliberately not constrained to `sh:class sh:NodeShape`: the individuals they point at are only typed `sh:NodeShape` in `cell-templates-shacl.ttl`, which Tier 1 validation deliberately excludes from its merged-data run (see [Validation](#validation)), so that constraint would spuriously fail there.
 
 ### Cell Ontology Validation
 
-Cell DataBook instances are validated by `cell-shacl.ttl`, for the same reason and via the same mechanism as [Category Ontology Validation](#category-ontology-validation) above: `parties`/`primary`/`secondary`/`note`/`folder`/`creator`/`shape` exist solely as `mia.` YAML frontmatter fields on cell DataBooks, so `yaml-to-rdf.py` synthesizes the corresponding `cell:` triples (`rdf:type cell:Cell`, plus `rdf:type cell:ACell`/the concrete party class/`cell:parties`/`cell:creator`/`cell:primary`/`cell:secondary`/`cell:shape` once `parties` is set) directly from frontmatter, letting `:CellShape`/`:ACellShape` actually fire against real instance data — see [Tier 1](#validation). A cell-databook with no `mia.parties` value (a pure tree-position placeholder with nothing filed under it yet) is synthesized as a bare `cell:Cell` only, so it is not subject to `:ACellShape`'s required `cell:primary`. (`cell:TCell` individuals live only in `cell-templates.ttl`, a plain `.ttl` file rather than a DataBook excluded from Tier 1's merge entirely — see [Validation](#validation) — so they need no such synthesis either.)
+Cell DataBook instances are validated by `cell-shacl.ttl`, for the same reason and via the same mechanism as [Category Ontology Validation](#category-ontology-validation) above: `parties`/`primary`/`secondary`/`note`/`folder`/`creator`/`shape` exist solely as `mia.` YAML frontmatter fields on cell DataBooks, so `yaml-to-rdf.py` synthesizes the corresponding `c:` triples (`rdf:type c:Cell`, plus `rdf:type c:ACell`/the concrete party class/`c:parties`/`c:creator`/`c:primary`/`c:secondary`/`c:shape` once `parties` is set) directly from frontmatter, letting `:CellShape`/`:ACellShape` actually fire against real instance data — see [Tier 1](#validation). A cell-databook with no `mia.parties` value (a pure tree-position placeholder with nothing filed under it yet) is synthesized as a bare `c:Cell` only, so it is not subject to `:ACellShape`'s required `c:primary`. (`c:TCell` individuals live only in `cell-templates.ttl`, a plain `.ttl` file rather than a DataBook excluded from Tier 1's merge entirely — see [Validation](#validation) — so they need no such synthesis either.)
 
-## Context Ontology
+## Topic Ontology
 
-The context ontology defines *contexts* (`c:Context`) — named graphs containing sets of claims about a person. Contexts are referenced by cells described in the Cell Ontology.
+The topic ontology defines *topics* (`t:Topic`) — named graphs containing sets of claims about some resource; that resource need not be a person (see `t:subject` below). Topics are referenced by cells described in the Cell Ontology.
 
-### Contexts
+### Topics
 
-A context is a container of information about a person related to their interactions with, or relationship to, another person, group or organization. This information is expressed as a named graph of triples using the Persona, Organization, and Group ontologies and stored in a **[DataBook](https://github.com/w3c-cg/holon/tree/main/architectures/databook)** (`.databook.md`) file that describes one facet of a person or organization (called the `subject` of the context). These claims may have originated from other contexts about the same subject. 
+A topic is a container of information related to an interaction with, or relationship to, another person, group, or organization. This information is expressed as a named graph of triples — typically using the Persona, Organization, and Group ontologies when the topic is about a person, group, or organization, though the ontology does not require this — and stored in a **[DataBook](https://github.com/w3c-cg/holon/tree/main/architectures/databook)** (`.databook.md`) file that describes one facet of its subject (called the `subject` of the topic). These claims may have originated from other topics about the same subject. 
 
-<p align="center"><img src="images/context-ontology/context.png" alt="context ontology"></p>
+<p align="center"><img src="images/topic-ontology/topic.png" alt="topic ontology"></p>
 
-One property applies to every `c:Context`:
+One property applies to every `t:Topic`:
 
-**`c:template`** — present only on context files that contain instances of a template; its value is the name of a `p:PersonaTemplate` subclass (e.g. `"persona:BirthCertificateDocument"`, `"persona:JSContactCard"`, `"persona:DriversLicenseDocument"`, `"persona:PassportDocument"`, `"persona:MedicalAppointmentRecord"`).
+**`t:template`** — present only on topic files that contain instances of a template; its value is the name of a `p:PersonaTemplate` subclass (e.g. `"persona:BirthCertificateDocument"`, `"persona:JSContactCard"`, `"persona:DriversLicenseDocument"`, `"persona:PassportDocument"`, `"persona:MedicalAppointmentRecord"`).
 
-A context carries no field pointing back at the cell that references it — that link is asserted only on the cell side, via `cell:primary` or `cell:secondary` (see the Cell Ontology section below).
+A topic carries no field pointing back at the cell that references it — that link is asserted only on the cell side, via `c:primary` or `c:secondary` (see the Cell Ontology section below).
 
-Two more properties apply to every context linked from a cell, since every `cell:primary`/`cell:secondary` value is classified as `c:SCcontext`:
+Two more properties apply to every topic linked from a cell, since every `c:primary`/`c:secondary` value is classified as `t:SCtopic`:
 
-**`c:subject`** — The identity the context file is about. Values are IRIs of `p:Person`, `g:Group`, or `o:Organization` individuals:
-- `:Self` — the context is about the Mia user.
-- a named individual of `p:Person` — the context is about another human Mia user.
-- a named individual of `g:Group` — the context is about a group of Mia users.
-- a named individual of `o:Organization` — the context is about an organization (legal corporation or government agency).
+**`t:subject`** — The resource the topic file is about. Value is any resource IRI — the ontology does not require it to be a `p:Person`, `g:Group`, or `o:Organization`, though in this example every `subject` value happens to be one of those three:
+- `:Self` — the topic is about the Mia user.
+- a named individual of `p:Person` — the topic is about another human Mia user.
+- a named individual of `g:Group` — the topic is about a group of Mia users.
+- a named individual of `o:Organization` — the topic is about an organization (legal corporation or government agency).
 
-**`c:claimant`** — Who is making the claim. Values are local IRIs of `p:Person`, `g:Group`, or `o:Organization` individuals:
+**`t:claimant`** — Who is making the claim. Values are local IRIs of `p:Person`, `g:Group`, or `o:Organization` individuals:
 - `:Self` — the Mia user that is entering the data, even if the underlying information originates from some other party such as a company, government agency, or another person.
 - a named individual of class `p:Person` — another Mia user is claiming the data directly.
 - a named individual of class `g:Group` — a group of Mia users is claiming the data.
 - a named individual of class `o:Organization` — an organization is claiming the data.
 
-The diagram below shows four kinds of contexts related to a hypothetical Mia user, Alice, and her interactions with a Department of Motor Vehicles (DMV) agency. Across the top are two contexts where the DMV itself is the subject, and at the bottom where Alice is the subject. At the left are contexts where Alice has made the claims (e.g. Alice's Mia has written the claims into the context) and at the right are contexts where the DMV as the "other" has written the claims. 
+The diagram below shows four kinds of topics related to a hypothetical Mia user, Alice, and her interactions with a Department of Motor Vehicles (DMV) agency. Across the top are two topics where the DMV itself is the subject, and at the bottom where Alice is the subject. At the left are topics where Alice has made the claims (e.g. Alice's Mia has written the claims into the topic) and at the right are topics where the DMV as the "other" has written the claims. 
 
-<p align="center"><img src="images/context-ontology/quadrants.png" alt="a quadrant of context types"></p>
+<p align="center"><img src="images/topic-ontology/quadrants.png" alt="a quadrant of topic types"></p>
 
-The lower left shows a context that Alice might share with other people or companies. In it, she claims that her driver's license number is S43228943, having copied that number from her physical driver's license. The context in the lower right carries the same information as the lower left, but because it is being claimed by the DMV it is more likely to be trusted by a recipient (especially if this information is conveyed via secure channel and the claims are cryptographically bound to the identity of the DMV).
+The lower left shows a topic that Alice might share with other people or companies. In it, she claims that her driver's license number is S43228943, having copied that number from her physical driver's license. The topic in the lower right carries the same information as the lower left, but because it is being claimed by the DMV it is more likely to be trusted by a recipient (especially if this information is conveyed via secure channel and the claims are cryptographically bound to the identity of the DMV).
 
-### Context DataBooks
+### Topic DataBooks
 
-The description of the context container itself is carried in the DataBook's YAML front matter under the `mia:` key. The context ontology (`context.ttl`) defines the controlled vocabularies that those YAML fields reference:
+The description of the topic container itself is carried in the DataBook's YAML front matter under the `mia:` key. The topic ontology (`topic.ttl`) defines the controlled vocabularies that those YAML fields reference:
 
-- `mia:template` = `c:template`
-- `mia.subject` = `c:subject`
-- `mia.claimant` = `c:claimant`
+- `mia:template` = `t:template`
+- `mia.subject` = `t:subject`
+- `mia.claimant` = `t:claimant`
 
-### Context Ontology File
+### Topic Ontology File
 
-**`context.ttl`** — the Context ontology, defines:
-  - *Classes*: `c:Context`, `c:SCcontext` (Subject-Claimant context; the concrete class every self-vs-other classified context DataBook is typed as directly — it has no subclasses; carries the `c:subject`/`c:claimant` annotations — every context reachable from a cell, via `cell:primary` or `cell:secondary`, is a `c:SCcontext`).
-  - *Annotation properties*: `c:template` (domain `c:Context`), `c:claimant`, `c:subject` (domain `c:SCcontext`; range a union of `p:Person`, `g:Group`, `o:Organization`).
-  These terms are referenced by name in the YAML frontmatter of each DataBook file. `context.ttl` imports `cell.ttl` to reuse `cell:abstract` on `c:Context`/`c:SCcontext`.
+**`topic.ttl`** — the Topic ontology, defines:
+  - *Classes*: `t:Topic`, `t:SCtopic` (Subject-Claimant topic; the concrete class every self-vs-other classified topic DataBook is typed as directly — it has no subclasses; carries the `t:subject`/`t:claimant` annotations — every topic reachable from a cell, via `c:primary` or `c:secondary`, is a `t:SCtopic`).
+  - *Annotation properties*: `t:template` (domain `t:Topic`), `t:claimant` (range a union of `p:Person`, `g:Group`, `o:Organization`), `t:subject` (domain `t:SCtopic`; range `xsd:anyURI` — any resource IRI, not necessarily a `p:Person`/`g:Group`/`o:Organization`).
+  These terms are referenced by name in the YAML frontmatter of each DataBook file. `topic.ttl` imports `cell.ttl` to reuse `c:abstract` on `t:Topic`/`t:SCtopic`.
 
-**`context-shacl.ttl`** — SHACL shapes for context DataBook instances: `:SCcontextShape` (target `c:SCcontext`) constrains `c:subject` and `c:claimant` to exactly one value each, which must be a `p:Person`, `g:Group`, or `o:Organization`.
+**`topic-shacl.ttl`** — SHACL shapes for topic DataBook instances: `:SCtopicShape` (target `t:SCtopic`) constrains `t:claimant` to exactly one value, which must be a `p:Person`, `g:Group`, or `o:Organization`, and `t:subject` to exactly one value, which must be an IRI.
 
-### Context Ontology Validation
+### Topic Ontology Validation
 
-Context file metadata (claimant, subject) is declared in YAML frontmatter. `context-shacl.ttl`'s `:SCcontextShape` (see above) targets `context:SCcontext`, but that typing is itself only ever asserted via the `mia.claimant`/`mia.subject` YAML fields, never as a literal `rdf:type context:SCcontext` triple in a context file's extracted Turtle body. `yaml-to-rdf.py` synthesizes it directly from frontmatter — `rdf:type context:SCcontext` plus `context:claimant`/`context:subject`, asserted on the context DataBook's plain `id`, not the `#graph`-suffixed `graph.named_graph` IRI (see `context.ttl` 1.11.0) — so `:SCcontextShape` actually fires against real instance data; see [Tier 1](#validation). The remaining classification fields live on the associated category and cell DataBooks, synthesized the same way: `catType`/`child`/`label`/`category`/`cell` on category DataBooks (see [Category Ontology Validation](#category-ontology-validation)); `parties`/`primary`/`secondary`/`note`/`folder`/`creator`/`shape` on cell DataBooks (see [Cell Ontology Validation](#cell-ontology-validation)).
+Topic file metadata (claimant, subject) is declared in YAML frontmatter. `topic-shacl.ttl`'s `:SCtopicShape` (see above) targets `topic:SCtopic`, but that typing is itself only ever asserted via the `mia.claimant`/`mia.subject` YAML fields, never as a literal `rdf:type topic:SCtopic` triple in a topic file's extracted Turtle body. `yaml-to-rdf.py` synthesizes it directly from frontmatter — `rdf:type topic:SCtopic` plus `topic:claimant`/`topic:subject`, asserted on the topic DataBook's plain `id`, not the `#graph`-suffixed `graph.named_graph` IRI (see `topic.ttl` 1.11.0) — so `:SCtopicShape` actually fires against real instance data; see [Tier 1](#validation). The remaining classification fields live on the associated category and cell DataBooks, synthesized the same way: `catType`/`child`/`label`/`category`/`cell` on category DataBooks (see [Category Ontology Validation](#category-ontology-validation)); `parties`/`primary`/`secondary`/`note`/`folder`/`creator`/`shape` on cell DataBooks (see [Cell Ontology Validation](#cell-ontology-validation)).
 
 ## Persona Ontology
 
-The Persona ontology defines a formal, machine-readable model of a person. It is used by triples stored in `c:Context` graphs. 
+The Persona ontology defines a formal, machine-readable model of a person. It is used by triples stored in `t:Topic` graphs. 
 
-We represent a person with the `p:Person` class — a Mia-specific subclass of CCO `Person` (`cco:ont00001262`).  The Mia user's own `p:Person` individual always uses the IRI `:Self` across all of their cell's context files; other people, groups, and organizations are assigned locally-minted named IRIs (e.g. `:Bob_Johnson`). `:Self`'s type declaration (`rdf:type owl:NamedIndividual, persona:Person`) is asserted in `example/contexts/self.ttl` (see the [Validation](#validation) section for how `self.ttl` is merged in alongside context data). These context files, referenced by cells, function as *named-graph slices* — each is an independent facet of an identity in a specific relationship or institutional context, carrying the claims relevant to that context: names, addresses, phone numbers, SSNs, physical characteristics, parent-child relationships, social connections, payment cards, and more. The Persona ontology reuses existing well-known ontologies wherever possible and defines new terms only where no suitable existing term exists.
+We represent a person with the `p:Person` class — a Mia-specific subclass of CCO `Person` (`cco:ont00001262`).  The Mia user's own `p:Person` individual always uses the IRI `:Self` across all of their cell's topic files; other people, groups, and organizations are assigned locally-minted named IRIs (e.g. `:Bob_Johnson`). `:Self`'s type declaration (`rdf:type owl:NamedIndividual, persona:Person`) is asserted in `example/topics/self.ttl` (see the [Validation](#validation) section for how `self.ttl` is merged in alongside topic data). These topic files, referenced by cells, function as *named-graph slices* — each is an independent facet of an identity in a specific relationship or institutional topic, carrying the claims relevant to that topic: names, addresses, phone numbers, SSNs, physical characteristics, parent-child relationships, social connections, payment cards, and more. The Persona ontology reuses existing well-known ontologies wherever possible and defines new terms only where no suitable existing term exists.
 
 <p align="center"><img src="images/persona-ontology/persona.png" alt="Persona model"></p>
 
@@ -400,7 +400,7 @@ This section describes the most fundamental properties and classes in the Person
 
 **Classes:**
 
-- `p:Person` — a Mia-specific subclass of CCO `Person` (`cco:ont00001262`). Each context file (named-graph slice) contains exactly one `p:Person` individual. The Mia user's own `p:Person` always uses the IRI `:Self`, shared across all of their context files. Other people, groups, and organizations are assigned locally-minted named IRIs (e.g. `:Bob_Johnson`, `:Paula_Walker`). `:Self` is a local IRI and is never exposed externally over the PDN, so there are no collisions between Mia instances. All identity data — names, identifiers, addresses, social networks, payment cards, and more — attaches to this individual.
+- `p:Person` — a Mia-specific subclass of CCO `Person` (`cco:ont00001262`). Each topic file (named-graph slice) contains exactly one `p:Person` individual. The Mia user's own `p:Person` always uses the IRI `:Self`, shared across all of their topic files. Other people, groups, and organizations are assigned locally-minted named IRIs (e.g. `:Bob_Johnson`, `:Paula_Walker`). `:Self` is a local IRI and is never exposed externally over the PDN, so there are no collisions between Mia instances. All identity data — names, identifiers, addresses, social networks, payment cards, and more — attaches to this individual.
 
 ### Social Classes and Properties
 
@@ -435,7 +435,7 @@ This section describes properties and classes related to things a person has, ho
 
 **Properties:**
 
-- `is carrier of` (from BFO) — used to link a physical card to its corresponding `p:Person` in another context.
+- `is carrier of` (from BFO) — used to link a physical card to its corresponding `p:Person` in another topic.
 - `p:hasWallet` — links a `p:Person` to a physical wallet (see Possessions below).
 - `p:hasImageScan` — a link to a scanned image of this card.
 - `p:hasPhysicalCard` — links a `p:Person` to a `p:PhysicalCard` carried outside of a wallet (see Possessions below).
@@ -471,40 +471,40 @@ This section describes properties and classes related to a person's interactions
 
 This section describes a few details related to modeling names and addresses.
 
-**Peer name pattern**: All name types (FullName, GivenName, FamilyName, AlternateName) connect directly to a `p:Person` via `designated by` (`ont00001879`). They are siblings, not nested under a PersonName parent. Legal names belong to the birth certificate context file (annotated `c:template p:BirthCertificateDocument`); a preferred/goes-by name (AlternateName) belongs to each social or professional context where it applies.
+**Peer name pattern**: All name types (FullName, GivenName, FamilyName, AlternateName) connect directly to a `p:Person` via `designated by` (`ont00001879`). They are siblings, not nested under a PersonName parent. Legal names belong to the birth certificate topic file (annotated `t:template p:BirthCertificateDocument`); a preferred/goes-by name (AlternateName) belongs to each social or professional topic where it applies.
 
-**Address history**: Each address context file carries a `p:Person` with a USPostalAddress and an `AddressDesignation` with a `TemporalInterval` (start date required; no end date = current address).
+**Address history**: Each address topic file carries a `p:Person` with a USPostalAddress and an `AddressDesignation` with a `TemporalInterval` (start date required; no end date = current address).
 
 ### Persona Templates
 
-`p:PersonaTemplate` is an abstract classification class that serves as the common superclass for all reusable, context-type-specific template labels. These labels are defined in `persona-templates.ttl`. A context file declares its template in the YAML frontmatter as `mia.template` rather than by typing its `p:Person` individual. Four of the five per-template SHACL shapes (`p:BirthCertificateDocument`, `p:DriversLicenseDocument`, `p:PassportDocument`, `p:MedicalAppointmentRecord`) live in `cell-templates-shacl.ttl`, each directly linked from its class-level `cell:TCell` template (in `cell-templates.ttl`) via `cell:templateShape` (`cell.ttl`) — so the shape is reachable by RDF traversal from the corresponding `cat:Category` class (`cat:BirthCertificate`, `cat:DriversLicense`, `cat:Passport`, `cat:MedicalAppointmentInfo`) via `cat:templateCell` — see [Lazy Instantiation](#lazy-instantiation); `p:JSContactCard`'s shape remains a standalone file in `shacl/`, since it's reused across many unrelated tree positions with no single `cat:Category` class of its own to attach to.
+`p:PersonaTemplate` is an abstract classification class that serves as the common superclass for all reusable, topic-type-specific template labels. These labels are defined in `persona-templates.ttl`. A topic file declares its template in the YAML frontmatter as `mia.template` rather than by typing its `p:Person` individual. Four of the five per-template SHACL shapes (`p:BirthCertificateDocument`, `p:DriversLicenseDocument`, `p:PassportDocument`, `p:MedicalAppointmentRecord`) live in `cell-templates-shacl.ttl`, each directly linked from its class-level `c:TCell` template (in `cell-templates.ttl`) via `c:templateShape` (`cell.ttl`) — so the shape is reachable by RDF traversal from the corresponding `cat:Category` class (`cat:BirthCertificate`, `cat:DriversLicense`, `cat:Passport`, `cat:MedicalAppointmentInfo`) via `cat:templateCell` — see [Lazy Instantiation](#lazy-instantiation); `p:JSContactCard`'s shape remains a standalone file in `shacl/`, since it's reused across many unrelated tree positions with no single `cat:Category` class of its own to attach to.
 
 <p align="center"><img src="images/persona-ontology/persona-templates.png" alt="persona templates model"></p>
 
-**Government-issued identity documents** — `p:BirthCertificateDocument`, `p:DriversLicenseDocument`, and `p:PassportDocument` are subclasses of both `p:PersonaTemplate` (template label use) and `p:IdentityDocument` (artifact instance use). `p:IdentityDocument` is the class for government-issued documents that formally identify a person. The property `p:hasIdentityDocument` (domain: `p:Person`, range: `p:IdentityDocument`) links a person to the government document they hold. Each government-ID context file declares one named individual of the document type and links it from `:Self`. `p:JSContactCard` is a format label only — not a government-issued document — and is a subclass of `p:PersonaTemplate` only.
+**Government-issued identity documents** — `p:BirthCertificateDocument`, `p:DriversLicenseDocument`, and `p:PassportDocument` are subclasses of both `p:PersonaTemplate` (template label use) and `p:IdentityDocument` (artifact instance use). `p:IdentityDocument` is the class for government-issued documents that formally identify a person. The property `p:hasIdentityDocument` (domain: `p:Person`, range: `p:IdentityDocument`) links a person to the government document they hold. Each government-ID topic file declares one named individual of the document type and links it from `:Self`. `p:JSContactCard` is a format label only — not a government-issued document — and is a subclass of `p:PersonaTemplate` only.
 
 The five currently defined subclasses of `p:PersonaTemplate` are:
 
-- `p:BirthCertificateDocument` — label for context files that carry a person's legal birth name record as issued by a state agency. Also a subclass of `p:IdentityDocument`. Declared in the YAML frontmatter as `mia.template: "persona:BirthCertificateDocument"`. SHACL shape `:BirthCertificateDocumentShape` (in `cell-templates-shacl.ttl`, alongside `cat:BirthCertificate`'s template cell in `cell-templates.ttl`) targets the `p:BirthCertificateDocument` document individual and validates the holding `p:Person` via `^persona:hasIdentityDocument`:
+- `p:BirthCertificateDocument` — label for topic files that carry a person's legal birth name record as issued by a state agency. Also a subclass of `p:IdentityDocument`. Declared in the YAML frontmatter as `mia.template: "persona:BirthCertificateDocument"`. SHACL shape `:BirthCertificateDocumentShape` (in `cell-templates-shacl.ttl`, alongside `cat:BirthCertificate`'s template cell in `cell-templates.ttl`) targets the `p:BirthCertificateDocument` document individual and validates the holding `p:Person` via `^persona:hasIdentityDocument`:
   - **Required**: either a `FullName` designator **or** both a `GivenName` and a `FamilyName` designator (via `designated by`, `ont00001879`) — expressed with `sh:or`.
   - **Optional**: `AdditionalName` (middle name), `AlternateName` (e.g. maiden name), `Nickname`, and `Legal Name` designators.
 
-- `p:JSContactCard` — label for context files that carry professional contact details in the JSContact (RFC 9553) format. A digital contact format (RFC 9553) — not a government-issued identity document, and therefore not a subclass of `p:IdentityDocument`. Declared in the YAML frontmatter as `mia.template: "persona:JSContactCard"`. SHACL shape `:JSContactCardPersonShape` (in `shacl/jscontactcard-shacl.ttl`) enforces:
+- `p:JSContactCard` — label for topic files that carry professional contact details in the JSContact (RFC 9553) format. A digital contact format (RFC 9553) — not a government-issued identity document, and therefore not a subclass of `p:IdentityDocument`. Declared in the YAML frontmatter as `mia.template: "persona:JSContactCard"`. SHACL shape `:JSContactCardPersonShape` (in `shacl/jscontactcard-shacl.ttl`) enforces:
   - **Required**: exactly one `OrganizationName` designator; at least one `Email` or `TelephoneNumber` designator.
   - **Optional**: all name components, `OrganizationUnit`, `JobTitle`, addresses, online services, anniversaries, personal info, photo.
   - **Max 1** on all single-valued name and organization components.
   See the [JSContact field coverage table](#jscontact-field-coverage) below for the complete mapping.
 
-- `p:DriversLicenseDocument` — label for context files that carry the identity claims on a state-issued driver's license. Also a subclass of `p:IdentityDocument`. Declared in the YAML frontmatter as `mia.template: "persona:DriversLicenseDocument"`. SHACL shape `:DriversLicenseDocumentShape` (in `cell-templates-shacl.ttl`, alongside `cat:DriversLicense`'s template cell in `cell-templates.ttl`) targets the `p:DriversLicenseDocument` document individual and validates the holding `p:Person` via `^persona:hasIdentityDocument`:
+- `p:DriversLicenseDocument` — label for topic files that carry the identity claims on a state-issued driver's license. Also a subclass of `p:IdentityDocument`. Declared in the YAML frontmatter as `mia.template: "persona:DriversLicenseDocument"`. SHACL shape `:DriversLicenseDocumentShape` (in `cell-templates-shacl.ttl`, alongside `cat:DriversLicense`'s template cell in `cell-templates.ttl`) targets the `p:DriversLicenseDocument` document individual and validates the holding `p:Person` via `^persona:hasIdentityDocument`:
   - **Required**: `FullName` **or** (`GivenName` + `FamilyName`); exactly one `Birthdate` (`cco:ent00000046`); exactly one Drivers License Number (`cco:ent00000065`); exactly one expiration date (`cco:ent00000070` → Calendar Date Identifier `cco:ont00001340`).
   - **Optional**: `AdditionalName`; Issuing Jurisdiction (`cco:ent00000068`); `PostalAddress`; `p:hasPhoto`.
-  Note: `p:PhysicalDriversLicense` (in `persona.ttl`) models the physical card object held in a wallet — `p:DriversLicenseDocument` is the template label that marks a context file as carrying driver's license identity data.
+  Note: `p:PhysicalDriversLicense` (in `persona.ttl`) models the physical card object held in a wallet — `p:DriversLicenseDocument` is the template label that marks a topic file as carrying driver's license identity data.
 
-- `p:PassportDocument` — label for context files that carry the identity claims on a government-issued passport. Also a subclass of `p:IdentityDocument`. Declared in the YAML frontmatter as `mia.template: "persona:PassportDocument"`. SHACL shape `:PassportDocumentShape` (in `cell-templates-shacl.ttl`, alongside `cat:Passport`'s template cell in `cell-templates.ttl`) targets the `p:PassportDocument` document individual and validates the holding `p:Person` via `^persona:hasIdentityDocument`:
+- `p:PassportDocument` — label for topic files that carry the identity claims on a government-issued passport. Also a subclass of `p:IdentityDocument`. Declared in the YAML frontmatter as `mia.template: "persona:PassportDocument"`. SHACL shape `:PassportDocumentShape` (in `cell-templates-shacl.ttl`, alongside `cat:Passport`'s template cell in `cell-templates.ttl`) targets the `p:PassportDocument` document individual and validates the holding `p:Person` via `^persona:hasIdentityDocument`:
   - **Required**: `FullName` **or** (`GivenName` + `FamilyName`); exactly one `Birthdate` (`cco:ent00000046`); exactly one Passport Number (`cco:ent00000066`); exactly one expiration date (`cco:ent00000070` → Calendar Date Identifier `cco:ont00001340`).
   - **Optional**: `AdditionalName`; issue date (`cco:ent00000069`); Issuing Jurisdiction (`cco:ent00000068`, collapsed from the former IssuingCountry); Place of Birth (`cco:ent00000067`); `p:GenderMarker`; `p:hasPhoto`.
 
-- `p:MedicalAppointmentRecord` — label for context files that carry the claims needed to arrange a medical appointment on behalf of someone else, shared between the parties coordinating that care. Not a subclass of `p:IdentityDocument`. Declared in the YAML frontmatter as `mia.template: "persona:MedicalAppointmentRecord"`. SHACL shape `:MedicalAppointmentRecordShape` (in `cell-templates-shacl.ttl`, alongside `cat:MedicalAppointmentInfo`'s template cell in `cell-templates.ttl`) targets the `p:MedicalAppointmentRecord` record individual directly — the claims below are properties of the record, not of the patient's `p:Person`:
+- `p:MedicalAppointmentRecord` — label for topic files that carry the claims needed to arrange a medical appointment on behalf of someone else, shared between the parties coordinating that care. Not a subclass of `p:IdentityDocument`. Declared in the YAML frontmatter as `mia.template: "persona:MedicalAppointmentRecord"`. SHACL shape `:MedicalAppointmentRecordShape` (in `cell-templates-shacl.ttl`, alongside `cat:MedicalAppointmentInfo`'s template cell in `cell-templates.ttl`) targets the `p:MedicalAppointmentRecord` record individual directly — the claims below are properties of the record, not of the patient's `p:Person`:
   - **Required**: exactly one `p:forPatient` link; exactly one `p:insuranceProvider`; exactly one `p:insurancePolicyNumber`.
   - **Optional**: `p:hasPrimaryCarePhysician`; `p:medicalHistoryNote`; `p:insuranceGroupNumber`; `p:preferredPharmacy`; repeatable `p:currentMedication` and `p:allergy`.
 
@@ -559,20 +559,20 @@ The table below maps every JSContact (RFC 9553) property to its representation i
 ### Persona Ontology Files
 
 - **`persona.ttl`** — The Persona ontology. Imports the domain ontologies above and documents which classes and properties Mia uses (required vs. optional). Defines `p:Person` (Mee-specific subclass of CCO `Person`), Mia-specific extension properties (`p:hasSocialNetwork`, `p:hasPaymentCard`, `p:hasBankAccount`, etc.), and the core data model classes (physical card classes, banking classes, and others).
-- **`persona-templates.ttl`** — Defines `p:PersonaTemplate` (abstract classification superclass) and the five concrete subtypes `p:BirthCertificateDocument`, `p:JSContactCard`, `p:DriversLicenseDocument`, `p:PassportDocument`, and `p:MedicalAppointmentRecord`. These are used as values of `mia.template` in the DataBook YAML frontmatter — they classify the context file, not the `p:Person` individual inside it. Also defines `p:IdentityDocument` (superclass for government-issued identity document artifacts) and `p:hasIdentityDocument` (links a `p:Person` to a `p:IdentityDocument` individual they hold); `p:BirthCertificateDocument`, `p:DriversLicenseDocument`, and `p:PassportDocument` are subclasses of both `p:PersonaTemplate` and `p:IdentityDocument`. Also defines related designator classes (`p:DriversLicenseNumber`, `p:IssuingJurisdiction`, `p:PassportNumber`, `p:IssuingCountry`, `p:PlaceOfBirth`, `p:GenderMarker`, `p:IssueDate`, `p:Credential`, `p:WebURL`, `p:OrganizationUnit`, `p:JobTitle`), complex information classes (`p:Anniversary`, `p:PersonalInfo`), annotation properties for JSContact channel labels (`p:contactContext`, `p:phoneFeature`, `p:serviceLabel`), `p:hasPhoto`, and the `p:MedicalAppointmentRecord` claim properties (`p:forPatient`, `p:hasPrimaryCarePhysician`, `p:currentMedication`, `p:allergy`, `p:medicalHistoryNote`, `p:insuranceProvider`, `p:insurancePolicyNumber`, `p:insuranceGroupNumber`, `p:preferredPharmacy`). Imported by `persona.ttl` so all context files inherit these classes transitively.
+- **`persona-templates.ttl`** — Defines `p:PersonaTemplate` (abstract classification superclass) and the five concrete subtypes `p:BirthCertificateDocument`, `p:JSContactCard`, `p:DriversLicenseDocument`, `p:PassportDocument`, and `p:MedicalAppointmentRecord`. These are used as values of `mia.template` in the DataBook YAML frontmatter — they classify the topic file, not the `p:Person` individual inside it. Also defines `p:IdentityDocument` (superclass for government-issued identity document artifacts) and `p:hasIdentityDocument` (links a `p:Person` to a `p:IdentityDocument` individual they hold); `p:BirthCertificateDocument`, `p:DriversLicenseDocument`, and `p:PassportDocument` are subclasses of both `p:PersonaTemplate` and `p:IdentityDocument`. Also defines related designator classes (`p:DriversLicenseNumber`, `p:IssuingJurisdiction`, `p:PassportNumber`, `p:IssuingCountry`, `p:PlaceOfBirth`, `p:GenderMarker`, `p:IssueDate`, `p:Credential`, `p:WebURL`, `p:OrganizationUnit`, `p:JobTitle`), complex information classes (`p:Anniversary`, `p:PersonalInfo`), annotation properties for JSContact channel labels (`p:contactContext`, `p:phoneFeature`, `p:serviceLabel`), `p:hasPhoto`, and the `p:MedicalAppointmentRecord` claim properties (`p:forPatient`, `p:hasPrimaryCarePhysician`, `p:currentMedication`, `p:allergy`, `p:medicalHistoryNote`, `p:insuranceProvider`, `p:insurancePolicyNumber`, `p:insuranceGroupNumber`, `p:preferredPharmacy`). Imported by `persona.ttl` so all topic files inherit these classes transitively.
 
-- **`cell-templates.ttl`** — Class-level `cell:Cell` templates for `cat:Category` subclasses. Holds one template cell individual per templated class: `cat:Passport`, `cat:BirthCertificate`, `cat:DriversLicense`, `cat:MedicalAppointmentInfo`. Each is pointed at by its class's own `cat:templateCell` value, which is asserted in `category.ttl` itself, alongside the class's declaration (not here). Each individual is what a `cat:CategoryDefined` node's `cat:category` value indirectly points at, and what Mia clones into a new cell when that category is first instantiated into a user's tree (Lazy Instantiation). Each is multi-typed `cell:Cell, cell:TCell, cell:ACell, cell:OneParty` (cell.ttl 3.7.0's facet split) — simultaneously reusable template content (`cell:TCell`, carrying `cell:templateShape` to its SHACL shape in `cell-templates-shacl.ttl`) and real party-classified content (`cell:OneParty`, a `cell:ACell` subclass, carrying `cell:parties`). Imports `cell.ttl` directly (not `category.ttl` — no mutual import here).
+- **`cell-templates.ttl`** — Class-level `c:Cell` templates for `cat:Category` subclasses. Holds one template cell individual per templated class: `cat:Passport`, `cat:BirthCertificate`, `cat:DriversLicense`, `cat:MedicalAppointmentInfo`. Each is pointed at by its class's own `cat:templateCell` value, which is asserted in `category.ttl` itself, alongside the class's declaration (not here). Each individual is what a `cat:CategoryDefined` node's `cat:category` value indirectly points at, and what Mia clones into a new cell when that category is first instantiated into a user's tree (Lazy Instantiation). Each is multi-typed `c:Cell, c:TCell, c:ACell, c:OneParty` (cell.ttl 3.7.0's facet split) — simultaneously reusable template content (`c:TCell`, carrying `c:templateShape` to its SHACL shape in `cell-templates-shacl.ttl`) and real party-classified content (`c:OneParty`, a `c:ACell` subclass, carrying `c:parties`). Imports `cell.ttl` directly (not `category.ttl` — no mutual import here).
 
-- **`cell-templates-shacl.ttl`** — SHACL shapes for birth certificate, driver's license, passport, and medical appointment context files, each directly linked from its `cell-templates.ttl` template cell via `cell:templateShape` (not merely co-located by naming convention):
-  - `:BirthCertificateDocumentShape` (`c:template p:BirthCertificateDocument`) targets `p:BirthCertificateDocument` document individuals directly — all identity claims (names) are properties of the document individual, not the `p:Person`. Enforces: FullName OR (GivenName + FamilyName) required; optional AdditionalName, AlternateName, Nickname, Legal Name.
-  - `:DriversLicenseDocumentShape` (`c:template p:DriversLicenseDocument`) targets `p:DriversLicenseDocument` document individuals directly. Enforces: FullName OR (GivenName + FamilyName) required; Birthdate, DriversLicenseNumber, ExpirationDateIdentifier required (1..1 each); IssuingJurisdiction, PostalAddress, and hasPhoto optional.
-  - `:PassportDocumentShape` (`c:template p:PassportDocument`) targets `p:PassportDocument` document individuals directly. Enforces: FullName OR (GivenName + FamilyName) required; Birthdate, PassportNumber, ExpirationDateIdentifier required (1..1 each); IssueDate, IssuingCountry, PlaceOfBirth, GenderMarker, and hasPhoto optional.
-  - `:MedicalAppointmentRecordShape` (`c:template p:MedicalAppointmentRecord`) targets `p:MedicalAppointmentRecord` record individuals directly — the claims needed to arrange the appointment are properties of the record, not of the patient's `p:Person`. Enforces: exactly one `forPatient`, `insuranceProvider`, and `insurancePolicyNumber` required; `hasPrimaryCarePhysician`, `medicalHistoryNote`, `insuranceGroupNumber`, `preferredPharmacy` optional; `currentMedication` and `allergy` repeatable.
+- **`cell-templates-shacl.ttl`** — SHACL shapes for birth certificate, driver's license, passport, and medical appointment topic files, each directly linked from its `cell-templates.ttl` template cell via `c:templateShape` (not merely co-located by naming convention):
+  - `:BirthCertificateDocumentShape` (`t:template p:BirthCertificateDocument`) targets `p:BirthCertificateDocument` document individuals directly — all identity claims (names) are properties of the document individual, not the `p:Person`. Enforces: FullName OR (GivenName + FamilyName) required; optional AdditionalName, AlternateName, Nickname, Legal Name.
+  - `:DriversLicenseDocumentShape` (`t:template p:DriversLicenseDocument`) targets `p:DriversLicenseDocument` document individuals directly. Enforces: FullName OR (GivenName + FamilyName) required; Birthdate, DriversLicenseNumber, ExpirationDateIdentifier required (1..1 each); IssuingJurisdiction, PostalAddress, and hasPhoto optional.
+  - `:PassportDocumentShape` (`t:template p:PassportDocument`) targets `p:PassportDocument` document individuals directly. Enforces: FullName OR (GivenName + FamilyName) required; Birthdate, PassportNumber, ExpirationDateIdentifier required (1..1 each); IssueDate, IssuingCountry, PlaceOfBirth, GenderMarker, and hasPhoto optional.
+  - `:MedicalAppointmentRecordShape` (`t:template p:MedicalAppointmentRecord`) targets `p:MedicalAppointmentRecord` record individuals directly — the claims needed to arrange the appointment are properties of the record, not of the patient's `p:Person`. Enforces: exactly one `forPatient`, `insuranceProvider`, and `insurancePolicyNumber` required; `hasPrimaryCarePhysician`, `medicalHistoryNote`, `insuranceGroupNumber`, `preferredPharmacy` optional; `currentMedication` and `allergy` repeatable.
 
-- **`shacl/jscontactcard-shacl.ttl`** — SHACL shapes for JSContactCard context files (`c:template p:JSContactCard`) — remains a standalone file, since JSContactCard is reused across many unrelated tree positions with no single `cat:Category` class of its own to attach a template cell to. Validates `p:Person` instances:
+- **`shacl/jscontactcard-shacl.ttl`** — SHACL shapes for JSContactCard topic files (`t:template p:JSContactCard`) — remains a standalone file, since JSContactCard is reused across many unrelated tree positions with no single `cat:Category` class of its own to attach a template cell to. Validates `p:Person` instances:
   - OrganizationName required (1..1); at least one Email or TelephoneNumber required; all name components and OrganizationUnit/JobTitle optional (0..1 each).
 
-- **`persona-shacl.ttl`** — SHACL constraint rules for all `p:Person` individuals across all context files. Validates properties including:
+- **`persona-shacl.ttl`** — SHACL constraint rules for all `p:Person` individuals across all topic files. Validates properties including:
   - *All `p:Person` instances*: SSN format (`NNN-NN-NNNN`), email format, phone (E.164), address cardinality, payment cards, wallet, social network, bank account
   - *US Postal Address*: required street, city, state (USPS 2-letter), ZIP; optional country
   - *`p:Person`*: scalp hair (0..1); `has mother` / `is mother of` range must be a `p:Person`
@@ -583,7 +583,7 @@ The table below maps every JSContact (RFC 9553) property to its representation i
 
 ### Persona Ontology Validation
 
-`persona-shacl.ttl` runs against merged data from all context files (Tier 1 validation). Per-template SHACL files in `shacl/` run against individual context files (Tier 2): birth certificate, JSContactCard, driver's license, passport, and medical appointment each have their own shape file and are validated separately to avoid their `sh:targetClass` constraints firing on every relevant slice in the merged dataset. See the [Validation](#validation) section for commands.
+`persona-shacl.ttl` runs against merged data from all topic files (Tier 1 validation). Per-template SHACL files in `shacl/` run against individual topic files (Tier 2): birth certificate, JSContactCard, driver's license, passport, and medical appointment each have their own shape file and are validated separately to avoid their `sh:targetClass` constraints firing on every relevant slice in the merged dataset. See the [Validation](#validation) section for commands.
 
 ## Organization Ontology
 
@@ -623,28 +623,28 @@ The Group ontology introduces the concept of a *shared* group (`g:Group`) whose 
 
 ## Illustrative Example: Alice 
 
-This section describes the local Mia dataset for a hypothetical user, Alice Walker. Alice's data lives in multiple context DataBooks linked to by a tree structure of category DataBooks, each associated with one or more cell DataBooks holding its content. 
+This section describes the local Mia dataset for a hypothetical user, Alice Walker. Alice's data lives in multiple topic DataBooks linked to by a tree structure of category DataBooks, each associated with one or more cell DataBooks holding its content. 
 
-### Alice's Cells and Contexts
+### Alice's Cells and Topics
 
-Alice interacts with other people, organizations and groups in contexts of different types, with each context file holding a named graph.
+Alice interacts with other people, organizations and groups in topics of different types, with each topic file holding a named graph.
 
-Alice's context DataBooks are in `example/contexts/`. Some are authored by Alice (self-claimed data — data she entered herself into her Mia app); others contain data received from peer Mia users or organizational peers over PDN and stored locally. In either case, Alice is the Mia user, so the `p:Person` that represents her uses the IRI `:Self` across all of her context files. Other people — Bob Johnson, Paula Walker — and groups such as BHS use locally-assigned named IRIs (e.g. `:Bob_Johnson`, `:Paula_Walker`, `:BHS`). When data arrives from a peer's Mia (where that peer was `:Self` in their own instance), Alice's Mia assigns them a locally-minted identifier; once a PDN connection is established, that identifier resolves to their PDN id.
+Alice's topic DataBooks are in `example/topics/`. Some are authored by Alice (self-claimed data — data she entered herself into her Mia app); others contain data received from peer Mia users or organizational peers over PDN and stored locally. In either case, Alice is the Mia user, so the `p:Person` that represents her uses the IRI `:Self` across all of her topic files. Other people — Bob Johnson, Paula Walker — and groups such as BHS use locally-assigned named IRIs (e.g. `:Bob_Johnson`, `:Paula_Walker`, `:BHS`). When data arrives from a peer's Mia (where that peer was `:Self` in their own instance), Alice's Mia assigns them a locally-minted identifier; once a PDN connection is established, that identifier resolves to their PDN id.
 
 Alice's category DataBooks are in `example/categories/`. The full tree can be walked starting from `example/categories/categories.databook.md`. It contains two kinds of entries:
 
-- **`cat:CategoryDefined` categories** (`mia.catType` set to the specific class it was instantiated from, e.g. `People`, `Employees`, `Others`, `BankingPayments`) — this covers both the 19 top-level categories and their child categories, and most specific people/companies/agencies Alice interacts with (e.g. `bob-johnson(others)`, instantiated from `Others`; `citibank(banking-payments)`, instantiated from `BankingPayments`). Each carries a `category:` property naming the `cat:Category` class it represents (e.g. `category: "cat:People"`) — this single value both classifies the node and records which class it was instantiated from. Context links (`cell:primary`/`cell:secondary`) to Alice's contexts are attached to each category's *associated cell DataBook*, not the category itself.
+- **`cat:CategoryDefined` categories** (`mia.catType` set to the specific class it was instantiated from, e.g. `People`, `Employees`, `Others`, `BankingPayments`) — this covers both the 19 top-level categories and their child categories, and most specific people/companies/agencies Alice interacts with (e.g. `bob-johnson(others)`, instantiated from `Others`; `citibank(banking-payments)`, instantiated from `BankingPayments`). Each carries a `category:` property naming the `cat:Category` class it represents (e.g. `category: "cat:People"`) — this single value both classifies the node and records which class it was instantiated from. Topic links (`c:primary`/`c:secondary`) to Alice's topics are attached to each category's *associated cell DataBook*, not the category itself.
 - **`cat:UserDefined` categories** (`mia.catType: Category`, no `category:` value) — for an entity with no canonical counterpart at all. This example tree doesn't currently have one: even `acme(work)` (Alice's employer, which has no specific canonical class of its own) is a `cat:CategoryDefined` whose own `cat:category` is the abstract `cat:Organization` — the most specific applicable classification — with `cat:label` "Acme" recording the rename.
 
 Every category DataBook here is a `cat:CategoryDefined` (a `cat:UserDefined` node, for a category with no canonical counterpart at all, is also possible but not currently used in this example tree), associated, in the same folder, with a cell DataBook (filename/id with a `-cell` suffix) holding its content — the association is recorded as `mia.cell` on the category, the same way it is for every canonical category too.
 
-#### Category, Cell and Context Diagrams
+#### Category, Cell and Topic Diagrams
 
-The following sequence of diagrams maps out the categories, cells and contexts of our Alice example. We start with the People cell — Alice's relationship with someone she knows named Bob Johnson. Bob is someone Alice knows but who isn't family or a close friend, so she has filed him under the Others cell rather than Friends.
+The following sequence of diagrams maps out the categories, cells and topics of our Alice example. We start with the People cell — Alice's relationship with someone she knows named Bob Johnson. Bob is someone Alice knows but who isn't family or a close friend, so she has filed him under the Others cell rather than Friends.
 
 <p align="center"><img src="example/images/people.png" alt="People cells"></p>
 
-Alice's mother, Paula Walker, is filed under Immediate Family. Alice's own Health & Wellness cell — Medical, Dental, Vision, and Wellness — is nested within Paula's own cell, since caring for Paula's health is central to why Alice tracks health information at all. Under Medical > Providers, Alice keeps a record of Dr. Jane Kolpakova, Paula's primary care physician (context #25). Alice and her sister, Carol, are also taking care of their mother Paula Walker and need to arrange medical appointments for her. To do so, they need to share and synchronize medical information about Paula including her list of medications, medical history, health insurance policy, contact information and so on. Alice creates a two-party Medical Appointment Info cell with Carol, also filed under Medical > Providers, that they use to share information about Paula. The medical information claims are captured in triples shown in the filled grey circle. Of the many claims, one of them will be the name of Paula's doctor (primary care physician), copied from the Dr. Jane Kolpakova cell shown in the same diagram. The resulting tree, from People down through both provider cells, is shown below:
+Alice's mother, Paula Walker, is filed under Immediate Family. Alice's own Health & Wellness cell — Medical, Dental, Vision, and Wellness — is nested within Paula's own cell, since caring for Paula's health is central to why Alice tracks health information at all. Under Medical > Providers, Alice keeps a record of Dr. Jane Kolpakova, Paula's primary care physician (topic #25). Alice and her sister, Carol, are also taking care of their mother Paula Walker and need to arrange medical appointments for her. To do so, they need to share and synchronize medical information about Paula including her list of medications, medical history, health insurance policy, contact information and so on. Alice creates a two-party Medical Appointment Info cell with Carol, also filed under Medical > Providers, that they use to share information about Paula. The medical information claims are captured in triples shown in the filled grey circle. Of the many claims, one of them will be the name of Paula's doctor (primary care physician), copied from the Dr. Jane Kolpakova cell shown in the same diagram. The resulting tree, from People down through both provider cells, is shown below:
 
 <p align="center"><img src="example/images/people2.png" alt="People cells, continued — Immediate Family, Paula Walker, and her Health & Wellness, Medical, and Providers cells"></p>
 
@@ -658,7 +658,7 @@ Alice is an employee of Acme, so under her Work cell she has created a user-defi
 Alice has relationships with two companies, Google and AT&T:
 <p align="center"><img src="example/images/companies.png" alt="Companies cells"></p>
 
-Alice has a relationship with Citibank. In our example Citibank exists as a node on the PDN and directly claims information about their customer, Alice in context #9.
+Alice has a relationship with Citibank. In our example Citibank exists as a node on the PDN and directly claims information about their customer, Alice in topic #9.
 <p align="center"><img src="example/images/finances.png" alt="Financial cells"></p>
 
 
@@ -677,68 +677,68 @@ Here are Alice's cells related to her personal health and her possessions:
 The last diagram shows Alice's membership in the Boston Hub Society, an informal professional social network that exists as a `g:Group` node on the PDN:
 <p align="center"><img src="example/images/affiliations.png" alt="Affiliations cells"></p>
 
-The contexts in the table below are *about* Alice and claimed *by* Alice. All `.databook.md` files are in the `example/contexts/` folder.
+The topics in the table below are *about* Alice and claimed *by* Alice. All `.databook.md` files are in the `example/topics/` folder.
 
-| #  | DataBook file                                                                          | Context type | Key data                                                         | Diagram |
+| #  | DataBook file                                                                          | Topic type | Key data                                                         | Diagram |
 |--- |:--------------------------------------------------------------------------------------|:-------------|:-----------------------------------------------------------------|:--------|
-| 10 | [self.self(alice-walker)(acme)(10)](example/contexts/self.self(alice-walker)(acme)(10).databook.md) | Employee     | Business card — given name, family name, email, phone, employer  | [view](example/contexts/images/self.self(alice-walker)(acme)(10).png) |
-| 11 | [self.self(att)(companies)(11)](example/contexts/self.self(att)(companies)(11).databook.md)                     | Companies    | Phone number                                                     | [view](example/contexts/images/self.self(att)(companies)(11).png) |
-| 12 | [self.self(bob-johnson)(others)(12)](example/contexts/self.self(bob-johnson)(others)(12).databook.md)                     | Others       | Alice's 1:1 context with Bob; social network with Bob as member  | [view](example/contexts/images/self.self(bob-johnson)(others)(12).png)|
-| 13 | [self.self(boston)(municipality)(13)](example/contexts/self.self(boston)(municipality)(13).databook.md)               | Municipality | Previous address — Boston, MA (2020–2025) with temporal interval | [view](example/contexts/images/self.self(boston)(municipality)(13).png) |
-| 14  | [self.self(boston-hub-society)(affiliations)(14)](example/contexts/self.self(boston-hub-society)(affiliations)(14).databook.md)                     | Affiliations | BHS profile: email, phone and current address                    | [view](example/contexts/images/self.self(boston-hub-society)(affiliations)(14).png)|
-| 15 | [self.self(california-dmv)(state)(15)](example/contexts/self.self(california-dmv)(state)(15).databook.md) | State      | California driver's license — legal name, DOB, DL#, expiry, photo | [view](example/contexts/images/self.self(california-dmv)(state)(15).png) |
-| 16 | [self.self(google)(companies)(16)](example/contexts/self.self(google)(companies)(16).databook.md)               | Companies    | Gmail address                                                    | [view](example/contexts/images/self.self(google)(companies)(16).png) |
-| 17 | [self.self(health-wellness)(17)](example/contexts/self.self(health-wellness)(17).databook.md)                 | Health & Wellness     | Physical body — height (68 in.), blue eyes, grey hair            | [view](example/contexts/images/self.self(health-wellness)(17).png) |
-| 18 | [self.self(paradise)(municipality)(18)](example/contexts/self.self(paradise)(municipality)(18).databook.md)           | Municipality | Current address — Paradise, CA (2025–present)                    | [view](example/contexts/images/self.self(paradise)(municipality)(18).png) |
-| 19 | [self.self(passport)(federal)(19)](example/contexts/self.self(passport)(federal)(19).databook.md)             | Federal    | US passport — legal name, DOB, passport#, issue/expiry, place of birth, gender marker, photo | [view](example/contexts/images/self.self(passport)(federal)(19).png) |
-| 20 | [self.self(paula-walker)(acme)(20)](example/contexts/self.self(paula-walker)(acme)(20).databook.md)                   | Employee     | Acme employee context; company email; works with Paula           | [view](example/contexts/images/self.self(paula-walker)(acme)(20).png)|
-| 21 | [self.self(paula-walker)(immediate-family)(21)](example/contexts/self.self(paula-walker)(immediate-family)(21).databook.md)   | Immediate Family       | Alice as a family member                       | [view](example/contexts/images/self.self(paula-walker)(immediate-family)(21).png) |
-| 22 | [self.self(ownership)(22)](example/contexts/self.self(ownership)(22).databook.md)     | Ownership  | Wallet (driver's license + payment card); health ins., SSN card  | [view](example/contexts/images/self.self(ownership)(22).png) |
-| 23 | [self.self(social-security-administration)(federal)(23)](example/contexts/self.self(social-security-administration)(federal)(23).databook.md)                     | Federal      | Social security number (SSN)                                     | [view](example/contexts/images/self.self(social-security-administration)(federal)(23).png) |
-| 24 | [self.self(texas-vital-records)(state)(24)](example/contexts/self.self(texas-vital-records)(state)(24).databook.md) | State        | Legal names, maiden name                                         | [view](example/contexts/images/self.self(texas-vital-records)(state)(24).png) |
+| 10 | [self.self(alice-walker)(acme)(10)](example/topics/self.self(alice-walker)(acme)(10).databook.md) | Employee     | Business card — given name, family name, email, phone, employer  | [view](example/topics/images/self.self(alice-walker)(acme)(10).png) |
+| 11 | [self.self(att)(companies)(11)](example/topics/self.self(att)(companies)(11).databook.md)                     | Companies    | Phone number                                                     | [view](example/topics/images/self.self(att)(companies)(11).png) |
+| 12 | [self.self(bob-johnson)(others)(12)](example/topics/self.self(bob-johnson)(others)(12).databook.md)                     | Others       | Alice's 1:1 topic with Bob; social network with Bob as member  | [view](example/topics/images/self.self(bob-johnson)(others)(12).png)|
+| 13 | [self.self(boston)(municipality)(13)](example/topics/self.self(boston)(municipality)(13).databook.md)               | Municipality | Previous address — Boston, MA (2020–2025) with temporal interval | [view](example/topics/images/self.self(boston)(municipality)(13).png) |
+| 14  | [self.self(boston-hub-society)(affiliations)(14)](example/topics/self.self(boston-hub-society)(affiliations)(14).databook.md)                     | Affiliations | BHS profile: email, phone and current address                    | [view](example/topics/images/self.self(boston-hub-society)(affiliations)(14).png)|
+| 15 | [self.self(california-dmv)(state)(15)](example/topics/self.self(california-dmv)(state)(15).databook.md) | State      | California driver's license — legal name, DOB, DL#, expiry, photo | [view](example/topics/images/self.self(california-dmv)(state)(15).png) |
+| 16 | [self.self(google)(companies)(16)](example/topics/self.self(google)(companies)(16).databook.md)               | Companies    | Gmail address                                                    | [view](example/topics/images/self.self(google)(companies)(16).png) |
+| 17 | [self.self(health-wellness)(17)](example/topics/self.self(health-wellness)(17).databook.md)                 | Health & Wellness     | Physical body — height (68 in.), blue eyes, grey hair            | [view](example/topics/images/self.self(health-wellness)(17).png) |
+| 18 | [self.self(paradise)(municipality)(18)](example/topics/self.self(paradise)(municipality)(18).databook.md)           | Municipality | Current address — Paradise, CA (2025–present)                    | [view](example/topics/images/self.self(paradise)(municipality)(18).png) |
+| 19 | [self.self(passport)(federal)(19)](example/topics/self.self(passport)(federal)(19).databook.md)             | Federal    | US passport — legal name, DOB, passport#, issue/expiry, place of birth, gender marker, photo | [view](example/topics/images/self.self(passport)(federal)(19).png) |
+| 20 | [self.self(paula-walker)(acme)(20)](example/topics/self.self(paula-walker)(acme)(20).databook.md)                   | Employee     | Acme employee topic; company email; works with Paula           | [view](example/topics/images/self.self(paula-walker)(acme)(20).png)|
+| 21 | [self.self(paula-walker)(immediate-family)(21)](example/topics/self.self(paula-walker)(immediate-family)(21).databook.md)   | Immediate Family       | Alice as a family member                       | [view](example/topics/images/self.self(paula-walker)(immediate-family)(21).png) |
+| 22 | [self.self(ownership)(22)](example/topics/self.self(ownership)(22).databook.md)     | Ownership  | Wallet (driver's license + payment card); health ins., SSN card  | [view](example/topics/images/self.self(ownership)(22).png) |
+| 23 | [self.self(social-security-administration)(federal)(23)](example/topics/self.self(social-security-administration)(federal)(23).databook.md)                     | Federal      | Social security number (SSN)                                     | [view](example/topics/images/self.self(social-security-administration)(federal)(23).png) |
+| 24 | [self.self(texas-vital-records)(state)(24)](example/topics/self.self(texas-vital-records)(state)(24).databook.md) | State        | Legal names, maiden name                                         | [view](example/topics/images/self.self(texas-vital-records)(state)(24).png) |
 
-The following table lists contexts that are *about* Alice but claimed by others.
+The following table lists topics that are *about* Alice but claimed by others.
 
-| #  | DataBook file                                                                         | Context type | Key data                             | Diagram |
+| #  | DataBook file                                                                         | Topic type | Key data                             | Diagram |
 |--- |:-------------------------------------------------------------------------------------|:-------------|:-------------------------------------|:--------|
-| 8  | [self.bob-johnson(bob-johnson)(others)(08)](example/contexts/self.bob-johnson(bob-johnson)(others)(08).databook.md)                         | Others            | Alice as seen by Bob                 | [view](example/contexts/images/self.bob-johnson(bob-johnson)(others)(08).png)|
-| 9 | [self.citibank(citibank)(banking-payments)(09)](example/contexts/self.citibank(citibank)(banking-payments)(09).databook.md)     | Banking & Payments Firms | Debit card                           | [view](example/contexts/images/self.citibank(citibank)(banking-payments)(09).png) |
+| 8  | [self.bob-johnson(bob-johnson)(others)(08)](example/topics/self.bob-johnson(bob-johnson)(others)(08).databook.md)                         | Others            | Alice as seen by Bob                 | [view](example/topics/images/self.bob-johnson(bob-johnson)(others)(08).png)|
+| 9 | [self.citibank(citibank)(banking-payments)(09)](example/topics/self.citibank(citibank)(banking-payments)(09).databook.md)     | Banking & Payments Firms | Debit card                           | [view](example/topics/images/self.citibank(citibank)(banking-payments)(09).png) |
 
-The following table lists contexts about other people (Paula and Bob) or groups (Boston Hub Society) in Alice's Mia. All files are in `example/contexts/`.
+The following table lists topics about other people (Paula and Bob) or groups (Boston Hub Society) in Alice's Mia. All files are in `example/topics/`.
 
-| #  | DataBook file                                                                                     | Context type | Key data                                                         | Diagram |
+| #  | DataBook file                                                                                     | Topic type | Key data                                                         | Diagram |
 |--- |:-------------------------------------------------------------------------------------------------|:-------------|:-----------------------------------------------------------------|:--------|
-| 1  | [bhs-group.members(boston-hub-society)(affiliations)(01)](example/contexts/bhs-group.members(boston-hub-society)(affiliations)(01).databook.md)             | Affiliations | BHS group instance with Alice and Bob as members                | [view](example/contexts/images/bhs-group.members(boston-hub-society)(affiliations)(01).png) |
-| 2  | [bob-johnson.bob-johnson(bob-johnson)(others)(02)](example/contexts/bob-johnson.bob-johnson(bob-johnson)(others)(02).databook.md)                     | Others       | Bob's self-claimed Bob persona                                 | [view](example/contexts/images/bob-johnson.bob-johnson(bob-johnson)(others)(02).png)|
-| 3  | [bob-johnson.bob-johnson(boston-hub-society)(affiliations)(03)](example/contexts/bob-johnson.bob-johnson(boston-hub-society)(affiliations)(03).databook.md)                     | Affiliations | Bob's BHS member persona (name, email, phone, address)          | [view](example/contexts/images/bob-johnson.bob-johnson(boston-hub-society)(affiliations)(03).png) |
-| 4  | [bob-johnson.self(bob-johnson)(others)(04)](example/contexts/bob-johnson.self(bob-johnson)(others)(04).databook.md)                 | Others       | Alice's notes about Bob; fav drink: oat milk cappuccino         | [view](example/contexts/images/bob-johnson.self(bob-johnson)(others)(04).png) |
-| 5  | [paula-walker.paula-walker(paula-walker)(immediate-family)(05)](example/contexts/paula-walker.paula-walker(paula-walker)(immediate-family)(05).databook.md) | Immediate Family       | Paula's own family persona; social network with Alice       | [view](example/contexts/images/paula-walker.paula-walker(paula-walker)(immediate-family)(05).png)|
-| 6  | [paula-walker.self(paula-walker)(acme)(06)](example/contexts/paula-walker.self(paula-walker)(acme)(06).databook.md)           | Employee     | Paula as Alice's Acme colleague (Alice-claimed)                | [view](example/contexts/images/paula-walker.self(paula-walker)(acme)(06).png)|
-| 7  | [paula-walker.self(paula-walker)(immediate-family)(07)](example/contexts/paula-walker.self(paula-walker)(immediate-family)(07).databook.md) | Immediate Family       | Paula as Alice's family member (Alice-claimed)           | [view](example/contexts/images/paula-walker.self(paula-walker)(immediate-family)(07).png)|
-| 25 | [jane-kolpakova.self(jane-kolpakova)(25)](example/contexts/jane-kolpakova.self(jane-kolpakova)(25).databook.md) | Primary Care Physician       | Alice's record of Dr. Jane Kolpakova, Paula Walker's primary care physician           | [view](example/contexts/images/jane-kolpakova.self(jane-kolpakova)(25).png)|
-| 26 | [paula-walker.self(alice-carol-about-mom)(health)(26)](example/contexts/paula-walker.self(alice-carol-about-mom)(health)(26).databook.md) | Medical Appointment       | Alice and Carol's shared claims for Paula's medical appointment — medications, allergies, insurance, PCP reference           | [view](example/contexts/images/paula-walker.self(alice-carol-about-mom)(health)(26).png)|
+| 1  | [bhs-group.members(boston-hub-society)(affiliations)(01)](example/topics/bhs-group.members(boston-hub-society)(affiliations)(01).databook.md)             | Affiliations | BHS group instance with Alice and Bob as members                | [view](example/topics/images/bhs-group.members(boston-hub-society)(affiliations)(01).png) |
+| 2  | [bob-johnson.bob-johnson(bob-johnson)(others)(02)](example/topics/bob-johnson.bob-johnson(bob-johnson)(others)(02).databook.md)                     | Others       | Bob's self-claimed Bob persona                                 | [view](example/topics/images/bob-johnson.bob-johnson(bob-johnson)(others)(02).png)|
+| 3  | [bob-johnson.bob-johnson(boston-hub-society)(affiliations)(03)](example/topics/bob-johnson.bob-johnson(boston-hub-society)(affiliations)(03).databook.md)                     | Affiliations | Bob's BHS member persona (name, email, phone, address)          | [view](example/topics/images/bob-johnson.bob-johnson(boston-hub-society)(affiliations)(03).png) |
+| 4  | [bob-johnson.self(bob-johnson)(others)(04)](example/topics/bob-johnson.self(bob-johnson)(others)(04).databook.md)                 | Others       | Alice's notes about Bob; fav drink: oat milk cappuccino         | [view](example/topics/images/bob-johnson.self(bob-johnson)(others)(04).png) |
+| 5  | [paula-walker.paula-walker(paula-walker)(immediate-family)(05)](example/topics/paula-walker.paula-walker(paula-walker)(immediate-family)(05).databook.md) | Immediate Family       | Paula's own family persona; social network with Alice       | [view](example/topics/images/paula-walker.paula-walker(paula-walker)(immediate-family)(05).png)|
+| 6  | [paula-walker.self(paula-walker)(acme)(06)](example/topics/paula-walker.self(paula-walker)(acme)(06).databook.md)           | Employee     | Paula as Alice's Acme colleague (Alice-claimed)                | [view](example/topics/images/paula-walker.self(paula-walker)(acme)(06).png)|
+| 7  | [paula-walker.self(paula-walker)(immediate-family)(07)](example/topics/paula-walker.self(paula-walker)(immediate-family)(07).databook.md) | Immediate Family       | Paula as Alice's family member (Alice-claimed)           | [view](example/topics/images/paula-walker.self(paula-walker)(immediate-family)(07).png)|
+| 25 | [jane-kolpakova.self(jane-kolpakova)(25)](example/topics/jane-kolpakova.self(jane-kolpakova)(25).databook.md) | Primary Care Physician       | Alice's record of Dr. Jane Kolpakova, Paula Walker's primary care physician           | [view](example/topics/images/jane-kolpakova.self(jane-kolpakova)(25).png)|
+| 26 | [paula-walker.self(alice-carol-about-mom)(health)(26)](example/topics/paula-walker.self(alice-carol-about-mom)(health)(26).databook.md) | Medical Appointment       | Alice and Carol's shared claims for Paula's medical appointment — medications, allergies, insurance, PCP reference           | [view](example/topics/images/paula-walker.self(alice-carol-about-mom)(health)(26).png)|
 
 
 
-### Named Graph Scoping and Context-Specific Membership
+### Named Graph Scoping and Topic-Specific Membership
 
-A `BFO_0000115` (has member part) triple on a Social Network individual — for example, `:Alice_Family_Network BFO_0000115 :Paula_Walker` in context 21 — targets `:Paula_Walker` as a person entity, not as a context-specific slice of her data. The named graph architecture provides the isolation: that triple lives inside context 21's named graph, and when an application needs "Paula Walker's family context data" it queries context 21's graph together with context 5's graph, rather than the full merged dataset.
+A `BFO_0000115` (has member part) triple on a Social Network individual — for example, `:Alice_Family_Network BFO_0000115 :Paula_Walker` in topic 21 — targets `:Paula_Walker` as a person entity, not as a topic-specific slice of her data. The named graph architecture provides the isolation: that triple lives inside topic 21's named graph, and when an application needs "Paula Walker's family topic data" it queries topic 21's graph together with topic 5's graph, rather than the full merged dataset.
 
 This is the correct design for three reasons:
 
-- **BFO semantics**: changing the range of `BFO_0000115` to a DataBook document IRI (e.g. `<https://www.example.org/mia/contexts/paula-walker.self(paula-walker)(immediate-family)(07)>`) would be a semantic error — the range of `has member part` must be a continuant (a person or group), not a document.
-- **Model simplicity**: introducing context-specific "view" individuals (e.g. `:Paula_Walker_Family`) would reintroduce the layered complexity that the removal of `p:Persona` was designed to eliminate.
+- **BFO semantics**: changing the range of `BFO_0000115` to a DataBook document IRI (e.g. `<https://www.example.org/mia/topics/paula-walker.self(paula-walker)(immediate-family)(07)>`) would be a semantic error — the range of `has member part` must be a continuant (a person or group), not a document.
+- **Model simplicity**: introducing topic-specific "view" individuals (e.g. `:Paula_Walker_Family`) would reintroduce the layered complexity that the removal of `p:Persona` was designed to eliminate.
 - **Tooling maturity**: annotating the triple with RDF-star (`<< :Alice_Family_Network BFO_0000115 :Paula_Walker >> mia:inContext <...>`) is a valid future option, but is not yet supported by Protégé and remains non-standard.
 
-The practical implication is that **Tier 1 validation** (which merges all graphs) correctly finds all reachability links across the full dataset, while **application queries** that display a social network's members should join against specific context named graphs rather than the full triplestore merge.
+The practical implication is that **Tier 1 validation** (which merges all graphs) correctly finds all reachability links across the full dataset, while **application queries** that display a social network's members should join against specific topic named graphs rather than the full triplestore merge.
 
 ## Diagrams
 
-`draw.py` generates a Mermaid (`.mmd`) and PNG diagram from any context DataBook file:
+`draw.py` generates a Mermaid (`.mmd`) and PNG diagram from any topic DataBook file:
 
 ```bash
-python3 draw.py example/contexts/self.citibank(citibank)(banking-payments)(09).databook.md
-python3 draw.py example/contexts/self.self(paradise)(municipality)(18).databook.md
+python3 draw.py example/topics/self.citibank(citibank)(banking-payments)(09).databook.md
+python3 draw.py example/topics/self.self(paradise)(municipality)(18).databook.md
 ```
 
 Both output files are written to the same `images/` directory as the existing PNG diagrams.
@@ -768,9 +768,9 @@ done
 
 A file that fails here will also fail silently in `databook extract`, producing no Turtle output and causing downstream `riot` or SHACL errors that are harder to trace.
 
-### Tier 1 — general validation (all context files)
+### Tier 1 — general validation (all topic files)
 
-`persona-shacl.ttl` applies to every `p:Person` individual across all context files.
+`persona-shacl.ttl` applies to every `p:Person` individual across all topic files.
 
 ```bash
 # Step 1 — extract turtle from every DataBook file (excluding under-development)
@@ -779,12 +779,12 @@ for f in $(find example -name "*.databook.md" \
   databook extract "$f" 2>/dev/null
 done > /tmp/mia-data.ttl
 
-# Step 1b — synthesize cat:/cell:/context: triples from category, cell, and
-# context DataBook YAML frontmatter (mia.* fields). databook extract only
+# Step 1b — synthesize cat:/c:/topic: triples from category, cell, and
+# topic DataBook YAML frontmatter (mia.* fields). databook extract only
 # pulls fenced Turtle blocks, which category/cell DataBooks don't carry —
-# without this step, cat:Node/cell:Cell individuals and context:SCcontext's
+# without this step, cat:Node/c:Cell individuals and topic:SCtopic's
 # subject/claimant never reach the merged graph, and category-shacl.ttl,
-# cell-shacl.ttl, and context-shacl.ttl's :SCcontextShape never fire against
+# cell-shacl.ttl, and topic-shacl.ttl's :SCtopicShape never fire against
 # real instance data. See yaml-to-rdf.py.
 python3 yaml-to-rdf.py . > /tmp/mia-yaml.ttl
 
@@ -792,15 +792,15 @@ python3 yaml-to-rdf.py . > /tmp/mia-yaml.ttl
 # (cell-templates.ttl is deliberately excluded here, unlike Tier 2's base merge
 # below: its 4 template individuals are generic, reusable content with no real
 # person bound to them, so they can't sensibly carry cell-shacl.ttl's required
-# cell:primary — they're validated only via cell-templates-shacl.ttl, in Tier 2)
+# c:primary — they're validated only via cell-templates-shacl.ttl, in Tier 2)
 riot --output=turtle \
   project_files/bfo-core.ttl \
   project_files/PersonOntology.ttl \
   project_files/AddressOntology.ttl \
   project_files/StagingOntology.ttl \
-  persona.ttl persona-templates.ttl context.ttl cell.ttl category.ttl \
+  persona.ttl persona-templates.ttl topic.ttl cell.ttl category.ttl \
   group.ttl organization.ttl \
-  example/contexts/self.ttl \
+  example/topics/self.ttl \
   /tmp/mia-data.ttl \
   /tmp/mia-yaml.ttl \
   2>/dev/null > /tmp/mia-merged.ttl
@@ -811,7 +811,7 @@ riot --output=turtle \
 # ontology, pdn-identity.ttl, isn't part of the Step 2 merge — nothing here ever
 # references an identity: term, see persona.ttl 4.0.6)
 grep -v 'owl:imports' persona-shacl.ttl > /tmp/mia-shapes.ttl
-grep -v 'owl:imports' context-shacl.ttl >> /tmp/mia-shapes.ttl
+grep -v 'owl:imports' topic-shacl.ttl >> /tmp/mia-shapes.ttl
 grep -v 'owl:imports' category-shacl.ttl >> /tmp/mia-shapes.ttl
 grep -v 'owl:imports' cell-shacl.ttl >> /tmp/mia-shapes.ttl
 grep -v 'owl:imports' group-shacl.ttl >> /tmp/mia-shapes.ttl
@@ -823,9 +823,9 @@ shacl validate --shapes /tmp/mia-shapes.ttl --data /tmp/mia-merged.ttl --text
 
 Expected output: `Conforms`
 
-### Tier 2 — per-template validation (individual context files)
+### Tier 2 — per-template validation (individual topic files)
 
-Four of the five per-template shapes (BirthCertificate, DriversLicense, Passport, MedicalAppointment) live in `cell-templates-shacl.ttl`; JSContactCard's shape remains a standalone file in `shacl/` (it has no `cat:Category` class of its own — see [Persona Templates](#persona-templates)). Each is run against only the relevant context file merged with the foundation ontologies.
+Four of the five per-template shapes (BirthCertificate, DriversLicense, Passport, MedicalAppointment) live in `cell-templates-shacl.ttl`; JSContactCard's shape remains a standalone file in `shacl/` (it has no `cat:Category` class of its own — see [Persona Templates](#persona-templates)). Each is run against only the relevant topic file merged with the foundation ontologies.
 
 ```bash
 # Shared base: foundation ontologies + application ontologies + self.ttl
@@ -834,35 +834,35 @@ riot --output=turtle \
   project_files/PersonOntology.ttl \
   project_files/AddressOntology.ttl \
   project_files/StagingOntology.ttl \
-  persona.ttl persona-templates.ttl context.ttl cell.ttl category.ttl cell-templates.ttl \
+  persona.ttl persona-templates.ttl topic.ttl cell.ttl category.ttl cell-templates.ttl \
   group.ttl organization.ttl \
-  example/contexts/self.ttl \
+  example/topics/self.ttl \
   2>/dev/null > /tmp/mia-base.ttl
 
 # BirthCertificate — self.self(texas-vital-records)(state)(24).databook.md
-databook extract "example/contexts/self.self(texas-vital-records)(state)(24).databook.md" 2>/dev/null > /tmp/data-birth-cert-raw.ttl
+databook extract "example/topics/self.self(texas-vital-records)(state)(24).databook.md" 2>/dev/null > /tmp/data-birth-cert-raw.ttl
 riot --output=turtle /tmp/mia-base.ttl /tmp/data-birth-cert-raw.ttl 2>/dev/null > /tmp/data-birth-cert.ttl
 grep -v 'owl:imports' cell-templates-shacl.ttl > /tmp/shapes-cell-templates.ttl
 shacl validate --shapes /tmp/shapes-cell-templates.ttl --data /tmp/data-birth-cert.ttl --text
 
 # JSContactCard — self.self(alice-walker)(acme)(10).databook.md
-databook extract "example/contexts/self.self(alice-walker)(acme)(10).databook.md" 2>/dev/null > /tmp/data-jscontact-raw.ttl
+databook extract "example/topics/self.self(alice-walker)(acme)(10).databook.md" 2>/dev/null > /tmp/data-jscontact-raw.ttl
 riot --output=turtle /tmp/mia-base.ttl /tmp/data-jscontact-raw.ttl 2>/dev/null > /tmp/data-jscontact.ttl
 grep -v 'owl:imports' shacl/jscontactcard-shacl.ttl > /tmp/shapes-jscontact.ttl
 shacl validate --shapes /tmp/shapes-jscontact.ttl --data /tmp/data-jscontact.ttl --text
 
 # DriversLicense — self.self(california-dmv)(state)(15).databook.md
-databook extract "example/contexts/self.self(california-dmv)(state)(15).databook.md" 2>/dev/null > /tmp/data-dl-raw.ttl
+databook extract "example/topics/self.self(california-dmv)(state)(15).databook.md" 2>/dev/null > /tmp/data-dl-raw.ttl
 riot --output=turtle /tmp/mia-base.ttl /tmp/data-dl-raw.ttl 2>/dev/null > /tmp/data-dl.ttl
 shacl validate --shapes /tmp/shapes-cell-templates.ttl --data /tmp/data-dl.ttl --text
 
 # Passport — self.self(passport)(federal)(19).databook.md
-databook extract "example/contexts/self.self(passport)(federal)(19).databook.md" 2>/dev/null > /tmp/data-passport-raw.ttl
+databook extract "example/topics/self.self(passport)(federal)(19).databook.md" 2>/dev/null > /tmp/data-passport-raw.ttl
 riot --output=turtle /tmp/mia-base.ttl /tmp/data-passport-raw.ttl 2>/dev/null > /tmp/data-passport.ttl
 shacl validate --shapes /tmp/shapes-cell-templates.ttl --data /tmp/data-passport.ttl --text
 
 # MedicalAppointment — paula-walker.self(alice-carol-about-mom)(health)(26).databook.md
-databook extract "example/contexts/paula-walker.self(alice-carol-about-mom)(health)(26).databook.md" 2>/dev/null > /tmp/data-medical-appt-raw.ttl
+databook extract "example/topics/paula-walker.self(alice-carol-about-mom)(health)(26).databook.md" 2>/dev/null > /tmp/data-medical-appt-raw.ttl
 riot --output=turtle /tmp/mia-base.ttl /tmp/data-medical-appt-raw.ttl 2>/dev/null > /tmp/data-medical-appt.ttl
 shacl validate --shapes /tmp/shapes-cell-templates.ttl --data /tmp/data-medical-appt.ttl --text
 ```

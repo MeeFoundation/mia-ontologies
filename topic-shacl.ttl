@@ -1,0 +1,42 @@
+@prefix : <http://mee.foundation/ontologies/topic/shapes#> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix topic: <http://mee.foundation/ontologies/topic#> .
+@prefix persona: <http://mee.foundation/ontologies/persona#> .
+@prefix g: <http://mee.foundation/ontologies/group#> .
+@prefix o: <http://mee.foundation/ontologies/organization#> .
+
+<http://mee.foundation/ontologies/topic/shapes> rdf:type owl:Ontology ;
+    owl:imports <http://mee.foundation/ontologies/topic> ;
+    owl:versionInfo "Version 1.2.0 - renamed context-shacl.ttl/:SCcontextShape to topic-shacl.ttl/:SCtopicShape following context.ttl's rename to topic.ttl; changed topic:subject's constraint from sh:or(persona:Person/g:Group/o:Organization) to sh:nodeKind sh:IRI, matching topic:subject's broadened xsd:anyURI range in topic.ttl (a topic's subject need not be a person's identity). topic:claimant's shape (still constrained to Person/Group/Organization) is unchanged. Cardinality (minCount 1, maxCount 1) unchanged on both properties."@en ;
+    rdfs:label "Topic Ontology SHACL Validation Shapes"@en ;
+    rdfs:comment "SHACL validation shapes for topic.ttl's topic:SCtopic DataBook instances."@en .
+
+
+#################################################################
+#  Topic DataBook (topic:SCtopic)
+#  Validates the subject/claimant classification fields on every
+#  topic DataBook
+#################################################################
+
+:SCtopicShape
+    a sh:NodeShape ;
+    sh:targetClass topic:SCtopic ;
+    sh:message "SCtopic validation: claimant must be exactly one Person, Group, or Organization; subject must be exactly one IRI."@en ;
+    sh:property [
+        sh:path topic:subject ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:nodeKind sh:IRI ;
+        sh:message "topic:subject must have exactly one value, and it must be an IRI."@en
+    ] ;
+    sh:property [
+        sh:path topic:claimant ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:or ( [ sh:class persona:Person ] [ sh:class g:Group ] [ sh:class o:Organization ] ) ;
+        sh:message "topic:claimant must have exactly one value, and it must be a persona:Person, g:Group, or o:Organization."@en
+    ] .

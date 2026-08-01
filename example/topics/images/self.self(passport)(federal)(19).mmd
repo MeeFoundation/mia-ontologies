@@ -1,0 +1,36 @@
+flowchart TD
+    classDef person fill:#fffacd,stroke:#aaa,color:#333
+    classDef grp    fill:#d4edda,stroke:#aaa,color:#333
+    classDef org    fill:#cce5ff,stroke:#aaa,color:#333
+    classDef lit    fill:none,stroke:none,font-style:italic,color:#2a7a2a
+    classDef meta   fill:#f5f5ff,stroke:#9999cc,color:#333
+
+    subgraph ctx["Topic"]
+        direction LR
+        ctx_meta["claimant: :Self\nsubject: :Self\ntemplate: persona:PassportDocument"]:::meta
+    end
+
+    n104df4bab92a[":Alice_Passport_Number\n(PassportNumber)"]
+    n1e9b86ff4c78[":Alice_US_Passport\n(PassportDocument)"]
+    nb6ab5d836715("Margery"):::lit
+    n46de2cd1f924("Alice"):::lit
+    n4f0b7c789473("Walker"):::lit
+    n49ceb83be392("1985-07-04"):::lit
+    ncf300ccc8510("USA"):::lit
+    n1a64d17a98e9("Austin, Texas, USA"):::lit
+    n27045a6ab6dd("F"):::lit
+    nc92948e0a838("2021-07-04"):::lit
+    n0f8fb685f346("2031-07-04"):::lit
+    n0b3af7b5a715("https://example.org/alice-passport-photo.jpg"):::lit
+
+    n1e9b86ff4c78 -->|"GivenName"| nb6ab5d836715
+    n1e9b86ff4c78 -->|"AdditionalName"| n46de2cd1f924
+    n1e9b86ff4c78 -->|"FamilyName"| n4f0b7c789473
+    n1e9b86ff4c78 -->|"ent00000046"| n49ceb83be392
+    n1e9b86ff4c78 -->|"IssuingJurisdiction"| ncf300ccc8510
+    n1e9b86ff4c78 -->|"PlaceOfBirth"| n1a64d17a98e9
+    n1e9b86ff4c78 -->|"GenderMarker"| n27045a6ab6dd
+    n1e9b86ff4c78 -->|"IssueDate"| nc92948e0a838
+    n1e9b86ff4c78 -->|"ExpirationDate"| n0f8fb685f346
+    n1e9b86ff4c78 -->|"isCarrierOf"| n104df4bab92a
+    n1e9b86ff4c78 -->|"hasPhoto"| n0b3af7b5a715

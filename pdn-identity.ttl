@@ -14,7 +14,7 @@
     rdfs:comment """PDN Identity Ontology for the Mee Identity Agent.
                     Defines the taxonomy of PDN node identifiers — the typed tokens that
                     allow a Person (Individual), Group, or Organization to be addressed over the
-                    Personal Data Network. Peer of persona.ttl and context.ttl."""@en .
+                    Personal Data Network. Peer of persona.ttl and topic.ttl."""@en .
 
 
 #################################################################

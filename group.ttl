@@ -15,7 +15,7 @@
     rdfs:label "Group Ontology"@en ;
     rdfs:comment """Group Ontology for the Mee Identity Agent.
                     Describes groups or communities that participate in the Personal Data Network.
-                    Peer of persona.ttl, context.ttl, pdn-identity.ttl, and organization.ttl."""@en .
+                    Peer of persona.ttl, topic.ttl, pdn-identity.ttl, and organization.ttl."""@en .
 
 
 #################################################################

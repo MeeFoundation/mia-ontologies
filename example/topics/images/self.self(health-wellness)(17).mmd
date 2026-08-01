@@ -1,0 +1,20 @@
+flowchart TD
+    classDef person fill:#fffacd,stroke:#aaa,color:#333
+    classDef grp    fill:#d4edda,stroke:#aaa,color:#333
+    classDef org    fill:#cce5ff,stroke:#aaa,color:#333
+    classDef lit    fill:none,stroke:none,font-style:italic,color:#2a7a2a
+    classDef meta   fill:#f5f5ff,stroke:#9999cc,color:#333
+
+    subgraph ctx["Topic"]
+        direction LR
+        ctx_meta["claimant: :Self\nsubject: :Self"]:::meta
+    end
+
+    n5fecfaaf895f[":Alice_Height\n(Height)"]
+    n89a1fac192dc[":Alice_Height_Measurement\n(RatioMeasurementICE)"]
+    n07bac97f4199("Inch"):::lit
+    nb51e42161d31("68"):::lit
+
+    n89a1fac192dc -->|"isRatioMeasurementOf"| n5fecfaaf895f
+    n89a1fac192dc -->|"usesMeasurementUnit"| n07bac97f4199
+    n89a1fac192dc -->|"hasDecimalValue"| nb51e42161d31

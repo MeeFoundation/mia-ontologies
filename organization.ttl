@@ -15,7 +15,7 @@
     rdfs:label "Organization Ontology"@en ;
     rdfs:comment """Organization Ontology for the Mee Identity Agent.
                     Describes organizations that participate in the Personal Data Network.
-                    Peer of persona.ttl, context.ttl, pdn-identity.ttl, and group.ttl."""@en .
+                    Peer of persona.ttl, topic.ttl, pdn-identity.ttl, and group.ttl."""@en .
 
 
 #################################################################

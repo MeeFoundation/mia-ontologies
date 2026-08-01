@@ -1,0 +1,24 @@
+flowchart TD
+    classDef person fill:#fffacd,stroke:#aaa,color:#333
+    classDef grp    fill:#d4edda,stroke:#aaa,color:#333
+    classDef org    fill:#cce5ff,stroke:#aaa,color:#333
+    classDef lit    fill:none,stroke:none,font-style:italic,color:#2a7a2a
+    classDef meta   fill:#f5f5ff,stroke:#9999cc,color:#333
+
+    subgraph ctx["Topic"]
+        direction LR
+        ctx_meta["claimant: :Self\nsubject: :Self"]:::meta
+    end
+
+    nbb363374209c[":Address_BHS\n(PostalAddress)"]
+    n44ef4d1c9735("123 Sleepy Hollow"):::lit
+    nc2941a41bdf4("Paradise"):::lit
+    n33cce4d42f1a("CA"):::lit
+    n23353831a7c9("95969"):::lit
+    na20d81d7f4f5("USA"):::lit
+
+    nbb363374209c -->|"hasContinuantPart"| n44ef4d1c9735
+    nbb363374209c -->|"hasContinuantPart"| nc2941a41bdf4
+    nbb363374209c -->|"hasContinuantPart"| n33cce4d42f1a
+    nbb363374209c -->|"hasContinuantPart"| n23353831a7c9
+    nbb363374209c -->|"hasContinuantPart"| na20d81d7f4f5

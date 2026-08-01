@@ -17,8 +17,8 @@
     dc:date "2026-07-13"^^xsd:date ;
     owl:versionInfo "Version 1.0.7 - file renamed from category-templates-shacl.ttl to cell-templates-shacl.ttl (this shape now lives alongside cat:BirthCertificate's cell:Cell template in cell-templates.ttl, formerly category-templates.ttl); IRI unchanged."@en ;
     rdfs:label "Birth Certificate Template SHACL Shapes"@en ;
-    rdfs:comment """SHACL shapes for validating context files carrying context:template persona:BirthCertificateDocument.
-                    Apply in addition to persona-shacl.ttl when validating a birth certificate context file.
+    rdfs:comment """SHACL shapes for validating topic files carrying topic:template persona:BirthCertificateDocument.
+                    Apply in addition to persona-shacl.ttl when validating a birth certificate topic file.
                     Targets persona:BirthCertificateDocument document individuals directly — identity claims
                     (names, designators) are properties of the document, not the Person."""@en .
 
@@ -95,8 +95,8 @@
     dc:date "2026-07-21"^^xsd:date ;
     owl:versionInfo "Version 1.1.0 - migrated designator targets to committed cco: terms: DriversLicenseNumber -> cco:ent00000065; IssuingJurisdiction -> cco:ent00000068; expiration reshaped to has-expiration-date predicate (cco:ent00000070) with Calendar Date Identifier (cco:ont00001340) value. (1.0.7: file renamed from category-templates-shacl.ttl to cell-templates-shacl.ttl; IRI unchanged.)"@en ;
     rdfs:label "Driver's License Template SHACL Shapes"@en ;
-    rdfs:comment """SHACL shapes for validating context files carrying context:template persona:DriversLicenseDocument.
-                    Apply in addition to persona-shacl.ttl when validating a driver's license context file.
+    rdfs:comment """SHACL shapes for validating topic files carrying topic:template persona:DriversLicenseDocument.
+                    Apply in addition to persona-shacl.ttl when validating a driver's license topic file.
                     Targets persona:DriversLicenseDocument document individuals directly — identity claims
                     (names, dates, license number) are properties of the document, not the Person."""@en .
 
@@ -216,8 +216,8 @@
     dc:date "2026-07-21"^^xsd:date ;
     owl:versionInfo "Version 1.1.0 - migrated designator targets to committed cco: terms: PassportNumber -> cco:ent00000066; IssuingCountry -> cco:ent00000068 (collapsed into Issuing Jurisdiction); PlaceOfBirth -> cco:ent00000067; issue/expiration reshaped to has-issue-date (cco:ent00000069) and has-expiration-date (cco:ent00000070) predicates with Calendar Date Identifier (cco:ont00001340) values. (1.0.7: file renamed from category-templates-shacl.ttl to cell-templates-shacl.ttl; IRI unchanged.)"@en ;
     rdfs:label "Passport Template SHACL Shapes"@en ;
-    rdfs:comment """SHACL shapes for validating context files carrying context:template persona:PassportDocument.
-                    Apply in addition to persona-shacl.ttl when validating a passport context file.
+    rdfs:comment """SHACL shapes for validating topic files carrying topic:template persona:PassportDocument.
+                    Apply in addition to persona-shacl.ttl when validating a passport topic file.
                     Targets persona:PassportDocument document individuals directly — identity claims
                     (names, dates, passport number) are properties of the document, not the Person."""@en .
 
@@ -354,8 +354,8 @@
     dc:date "2026-07-13"^^xsd:date ;
     owl:versionInfo "Version 1.0.5 - file renamed from category-templates-shacl.ttl to cell-templates-shacl.ttl (this shape now lives alongside cat:MedicalAppointmentInfo's cell:Cell template in cell-templates.ttl, formerly category-templates.ttl); IRI unchanged."@en ;
     rdfs:label "Medical Appointment Template SHACL Shapes"@en ;
-    rdfs:comment """SHACL shapes for validating context files carrying context:template persona:MedicalAppointmentRecord.
-                    Apply in addition to persona-shacl.ttl when validating a medical appointment context file.
+    rdfs:comment """SHACL shapes for validating topic files carrying topic:template persona:MedicalAppointmentRecord.
+                    Apply in addition to persona-shacl.ttl when validating a medical appointment topic file.
                     Targets persona:MedicalAppointmentRecord individuals directly — the claims needed to arrange
                     the appointment are properties of the record, not of the patient's Person individual."""@en .
 

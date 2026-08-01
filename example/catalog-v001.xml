@@ -8,8 +8,8 @@
          uri="file:/Users/paul/Documents/Work/GitHub/mia-ontologies/persona-templates.ttl"/>
     <uri id="jscontactcard-shacl"      name="http://mee.foundation/ontologies/persona/shapes/jscontactcard"
          uri="file:/Users/paul/Documents/Work/GitHub/mia-ontologies/shacl/jscontactcard-shacl.ttl"/>
-    <uri id="context"                  name="http://mee.foundation/ontologies/context"
-         uri="file:/Users/paul/Documents/Work/GitHub/mia-ontologies/context.ttl"/>
+    <uri id="topic"                    name="http://mee.foundation/ontologies/topic"
+         uri="file:/Users/paul/Documents/Work/GitHub/mia-ontologies/topic.ttl"/>
     <uri id="cell"                 name="http://mee.foundation/ontologies/cell"
          uri="file:/Users/paul/Documents/Work/GitHub/mia-ontologies/cell.ttl"/>
     <uri id="category"             name="http://mee.foundation/ontologies/category"

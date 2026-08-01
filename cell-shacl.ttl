@@ -5,13 +5,13 @@
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
 @prefix owl: <http://www.w3.org/2002/07/owl#> .
 @prefix cell: <http://mee.foundation/ontologies/cell#> .
-@prefix context: <http://mee.foundation/ontologies/context#> .
+@prefix topic: <http://mee.foundation/ontologies/topic#> .
 @prefix p: <http://mee.foundation/ontologies/persona#> .
 @prefix g: <http://mee.foundation/ontologies/group#> .
 @prefix o: <http://mee.foundation/ontologies/organization#> .
 
 <http://mee.foundation/ontologies/cell/shapes> rdf:type owl:Ontology ;
-    owl:versionInfo "Version 3.8.0 - updated for cell.ttl 3.10.0's rename of cell:graph to cell:primary and cell:sc-context to cell:secondary: moved both property shapes from :CellShape to :ACellShape (domain narrowed to cell:ACell), made cell:primary required (sh:minCount 1, sh:maxCount 1) and constrained to sh:class context:SCcontext, and constrained cell:secondary to sh:class context:SCcontext (cardinality still unconstrained)."@en ;
+    owl:versionInfo "Version 3.9.0 - renamed context:/SCcontext references to topic:/SCtopic (cell:primary/cell:secondary's sh:class constraint on :ACellShape) following context.ttl's rename to topic.ttl. No change to cardinality or which properties are constrained."@en ;
     rdfs:label "Cell Ontology SHACL Validation Shapes"@en ;
     rdfs:comment "SHACL validation shapes for cell:Cell DataBook instances (the content facet of a cell) in the Cell Ontology."@en .
 
@@ -86,24 +86,24 @@
     sh:targetClass cell:ACell ;
     sh:message "Actual Cell validation."@en ;
 
-    # cell:primary — exactly one value, must be a context:SCcontext.
+    # cell:primary — exactly one value, must be a topic:SCtopic.
     # Renamed from cell:graph (cell.ttl 3.10.0); the old plain-Context,
     # no-claimant use case is retired, so every primary is now an
-    # SCcontext like every secondary.
+    # SCtopic like every secondary.
     sh:property [
         sh:path cell:primary ;
         sh:minCount 1 ;
         sh:maxCount 1 ;
-        sh:class context:SCcontext ;
-        sh:message "A cell:ACell's cell:primary is required, exactly one value, and must be a context:SCcontext."@en
+        sh:class topic:SCtopic ;
+        sh:message "A cell:ACell's cell:primary is required, exactly one value, and must be a topic:SCtopic."@en
     ] ;
 
-    # cell:secondary — zero or more, each a context:SCcontext.
+    # cell:secondary — zero or more, each a topic:SCtopic.
     # Renamed from cell:sc-context (cell.ttl 3.10.0).
     sh:property [
         sh:path cell:secondary ;
-        sh:class context:SCcontext ;
-        sh:message "A cell:ACell's cell:secondary values, if any, must each be a context:SCcontext."@en
+        sh:class topic:SCtopic ;
+        sh:message "A cell:ACell's cell:secondary values, if any, must each be a topic:SCtopic."@en
     ] ;
 
     # cell:creator — at most one value, must be a Person, Group, or Organization

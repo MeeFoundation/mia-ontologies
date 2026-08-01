@@ -1,0 +1,20 @@
+flowchart TD
+    classDef person fill:#fffacd,stroke:#aaa,color:#333
+    classDef grp    fill:#d4edda,stroke:#aaa,color:#333
+    classDef org    fill:#cce5ff,stroke:#aaa,color:#333
+    classDef lit    fill:none,stroke:none,font-style:italic,color:#2a7a2a
+    classDef meta   fill:#f5f5ff,stroke:#9999cc,color:#333
+
+    subgraph ctx["Topic"]
+        direction LR
+        ctx_meta["claimant: :Self\nsubject: :Jane_Kolpakova"]:::meta
+    end
+
+    nb56a5989f29e[":Jane_Kolpakova\n(Person)"]:::person
+    n7cfb04431e60("Jane"):::lit
+    nc4b3a5d47849("Kolpakova"):::lit
+    n52c6c3552f85("Paula Walker's primary care physician"):::lit
+
+    nb56a5989f29e -->|"GivenName"| n7cfb04431e60
+    nb56a5989f29e -->|"FamilyName"| nc4b3a5d47849
+    nb56a5989f29e -->|"ont00001917"| n52c6c3552f85

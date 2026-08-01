@@ -1,0 +1,48 @@
+---
+id: https://www.example.org/mia/topics/self.self(att)(companies)(11)
+title: "About Alice Walker in the Companies cell as claimed by Alice Walker"
+type: topic-databook
+version: 2.0.11
+created: 2026-06-01
+description: >
+  Alice Walker's AT&T topic. Records her mobile phone number as self-entered data
+  about her AT&T account relationship.
+mia:
+  claimant: ":Self"
+  subject: ":Self"
+graph:
+  named_graph: https://www.example.org/mia/topics/self.self(att)(companies)(11)#graph
+  rdf_version: "1.1"
+shapes:
+  - http://mee.foundation/ontologies/persona/shapes
+  - http://mee.foundation/ontologies/topic/shapes
+process:
+  transformer: human
+  timestamp: 2026-06-19T00:00:00Z
+  agent:
+    name: Paul Trevithick
+    role: author
+---
+
+## Overview
+
+This topic captures Alice Walker's AT&T account topic. Alice self-enters her mobile phone number (+15108149999, E.164 format). AT&T is not a PDN node, so Alice records this data herself rather than receiving it from AT&T.
+
+## Identity Data
+
+```turtle
+<!-- databook:id: alice-att-identity -->
+<!-- databook:graph: https://www.example.org/mia/topics/self.self(att)(companies)(11)#graph -->
+@prefix : <http://www.example.org/mia#> .
+@prefix persona: <http://mee.foundation/ontologies/persona#> .
+@prefix cco: <https://purl.org/cco/> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+
+:Self <https://purl.org/cco/ont00001879> [  # designated by → Phone
+        rdf:type cco:ent00000023 ;
+        <https://purl.org/cco/ont00001765> "+15108149999" ;
+        rdfs:comment "E.164 format (international standard)"@en
+    ] .
+```

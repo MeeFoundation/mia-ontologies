@@ -1,5 +1,5 @@
 @prefix cell: <http://mee.foundation/ontologies/cell#> .
-@prefix context: <http://mee.foundation/ontologies/context#> .
+@prefix topic: <http://mee.foundation/ontologies/topic#> .
 @prefix p: <http://mee.foundation/ontologies/persona#> .
 @prefix g: <http://mee.foundation/ontologies/group#> .
 @prefix o: <http://mee.foundation/ontologies/organization#> .
@@ -12,10 +12,10 @@
 @base <http://mee.foundation/ontologies/cell> .
 
 <http://mee.foundation/ontologies/cell> rdf:type owl:Ontology ;
-    owl:versionIRI <http://mee.foundation/ontologies/cell/3.10.0> ;
-    dc:date "2026-07-31"^^xsd:date ;
-    owl:imports <http://mee.foundation/ontologies/context> ;
-    owl:versionInfo "Version 3.10.0 - renamed cell:graph to cell:primary and cell:sc-context to cell:secondary; narrowed cell:primary's range from context:Context to context:SCcontext (the plain-Context, no-claimant use case is retired); moved both properties' domain from cell:Cell to cell:ACell, alongside cell:parties/cell:creator/cell:shape; cell:primary is now required (exactly one), enforced in cell-shacl.ttl's :ACellShape."@en ;
+    owl:versionIRI <http://mee.foundation/ontologies/cell/3.11.0> ;
+    dc:date "2026-08-01"^^xsd:date ;
+    owl:imports <http://mee.foundation/ontologies/topic> ;
+    owl:versionInfo "Version 3.11.0 - renamed context.ttl's context:/SCcontext references to topic:/SCtopic (cell:primary/cell:secondary's shared range, cell.ttl's owl:imports target) to match context.ttl's rename to topic.ttl. No change to any domain/range or cardinality."@en ;
     rdfs:label "Cell Ontology"@en ;
     rdfs:comment """Cell Ontology for the Mee Identity Agent. Defines cell:Cell — the self-contained content facet of a cell — independent of where any cat:Category (see category.ttl) chooses to place it in a navigational tree. cell:Cell splits further into two orthogonal sub-facets: cell:TCell (template) and cell:ACell (actual/instantiated), which a single cell individual may carry either or both of."""@en .
 
@@ -51,14 +51,14 @@ cell:label rdf:type owl:AnnotationProperty ;
 #    cell:Cell itself carries only what's common to every cell
 #    regardless of facet: file-system bookkeeping (cell:note,
 #    cell:folder). Everything facet-specific — including the
-#    context links cell:primary/cell:secondary — lives on cell:TCell
+#    topic links cell:primary/cell:secondary — lives on cell:TCell
 #    or cell:ACell below.
 #################################################################
 
 cell:Cell rdf:type owl:Class ;
     cell:abstract true ;
     rdfs:label "Cell"@en ;
-    rdfs:comment "Superclass of every cell individual, carrying only what's common regardless of facet: file-system bookkeeping (cell:note, cell:folder). Formerly named cell:Parties as a class (the tree-position class, before cell.ttl's 3.0.0 split moved that name to category.ttl's cat:Category). A cell:Cell carries no tree position of its own and no link to one — it is instead pointed at by a cat:Node's cat:cell property (see category.ttl); attaching or moving a cell in any tree only ever touches that node's own cat:cell, never anything on the cell itself, which is what keeps a cell robust under PDN sync. Party composition (cell:parties, cell:OneParty/cell:MultiParty), creator metadata (cell:creator), context links (cell:primary/cell:secondary), and validation (cell:shape) now live on the cell:ACell facet, not directly here — see cell.ttl 3.7.0/3.10.0."@en .
+    rdfs:comment "Superclass of every cell individual, carrying only what's common regardless of facet: file-system bookkeeping (cell:note, cell:folder). Formerly named cell:Parties as a class (the tree-position class, before cell.ttl's 3.0.0 split moved that name to category.ttl's cat:Category). A cell:Cell carries no tree position of its own and no link to one — it is instead pointed at by a cat:Node's cat:cell property (see category.ttl); attaching or moving a cell in any tree only ever touches that node's own cat:cell, never anything on the cell itself, which is what keeps a cell robust under PDN sync. Party composition (cell:parties, cell:OneParty/cell:MultiParty), creator metadata (cell:creator), topic links (cell:primary/cell:secondary), and validation (cell:shape) now live on the cell:ACell facet, not directly here — see cell.ttl 3.7.0/3.10.0."@en .
 
 
 #################################################################
@@ -69,15 +69,15 @@ cell:Cell rdf:type owl:Class ;
 #
 #    cell:TCell — the template facet. Carries cell:templateShape,
 #    reachable from a cat:Category subclass via cat:templateCell
-#    (category.ttl). Describes what a context filed under that
+#    (category.ttl). Describes what a topic filed under that
 #    category is expected to look like once instantiated.
 #
 #    cell:ACell — the actual/instantiated facet. Carries cell:parties
 #    (and, by extension, cell:OneParty/cell:MultiParty), cell:creator,
-#    its context links cell:primary (required, exactly one) and
+#    its topic links cell:primary (required, exactly one) and
 #    cell:secondary (any number), and cell:shape — the sh:NodeShape(s)
 #    validating this specific cell's own content directly, as opposed
-#    to content a future context filed under a template category
+#    to content a future topic filed under a template category
 #    should conform to.
 #
 #    A cell individual may carry either facet alone, or both at once:
@@ -92,31 +92,31 @@ cell:TCell rdf:type owl:Class ;
     cell:abstract true ;
     rdfs:subClassOf cell:Cell ;
     rdfs:label "Template Cell"@en ;
-    rdfs:comment "The template facet of a cell:Cell. A cell:TCell individual is reachable from a cat:Category subclass via that class's cat:templateCell value (category.ttl) — it's what Mia clones into a new cell when a category of that class is first instantiated into a user's tree (Lazy Instantiation). Carries cell:templateShape, linking to the sh:NodeShape(s) describing the content a context filed under that category is expected to conform to. Most cell:TCell individuals carry no cell:templateShape value — that's the default, not an omission. Formerly, template cells were plainly typed cell:Cell and cell:templateShape had domain cell:Cell; both moved here in cell.ttl 3.7.0."@en .
+    rdfs:comment "The template facet of a cell:Cell. A cell:TCell individual is reachable from a cat:Category subclass via that class's cat:templateCell value (category.ttl) — it's what Mia clones into a new cell when a category of that class is first instantiated into a user's tree (Lazy Instantiation). Carries cell:templateShape, linking to the sh:NodeShape(s) describing the content a topic filed under that category is expected to conform to. Most cell:TCell individuals carry no cell:templateShape value — that's the default, not an omission. Formerly, template cells were plainly typed cell:Cell and cell:templateShape had domain cell:Cell; both moved here in cell.ttl 3.7.0."@en .
 
 cell:templateShape rdf:type owl:ObjectProperty ;
     rdfs:domain cell:TCell ;
     rdfs:range sh:NodeShape ;
     rdfs:label "templateShape"@en ;
-    rdfs:comment "Links a cell:TCell individual (one reached via a cat:Category subclass's cat:templateCell, category.ttl) directly to the sh:NodeShape(s) that describe the content a context file filed under that category is expected to conform to — e.g. ctpl:PassportTemplateCell (cell-templates.ttl) carries pshapes:PassportDocumentShape (cell-templates-shacl.ttl). Makes the shape reachable by RDF traversal alone (cat:Category -> cat:templateCell -> cell:templateShape -> sh:NodeShape), not merely by file co-location or naming convention. A template cell with no known shape (most of them) carries no cell:templateShape value. Distinct from cell:shape (cell:ACell), which validates an actual cell's own content directly rather than describing what a future context filed under a template category should look like — though when Lazy Instantiation clones this TCell into a new ACell, this value is exactly what gets copied into that clone's cell:shape. Formerly cat:templateShape (category.ttl), then domain cell:Cell (cell.ttl 3.6.0); narrowed to cell:TCell in cell.ttl 3.7.0 once the template facet was split out."@en .
+    rdfs:comment "Links a cell:TCell individual (one reached via a cat:Category subclass's cat:templateCell, category.ttl) directly to the sh:NodeShape(s) that describe the content a topic file filed under that category is expected to conform to — e.g. ctpl:PassportTemplateCell (cell-templates.ttl) carries pshapes:PassportDocumentShape (cell-templates-shacl.ttl). Makes the shape reachable by RDF traversal alone (cat:Category -> cat:templateCell -> cell:templateShape -> sh:NodeShape), not merely by file co-location or naming convention. A template cell with no known shape (most of them) carries no cell:templateShape value. Distinct from cell:shape (cell:ACell), which validates an actual cell's own content directly rather than describing what a future topic filed under a template category should look like — though when Lazy Instantiation clones this TCell into a new ACell, this value is exactly what gets copied into that clone's cell:shape. Formerly cat:templateShape (category.ttl), then domain cell:Cell (cell.ttl 3.6.0); narrowed to cell:TCell in cell.ttl 3.7.0 once the template facet was split out."@en .
 
 cell:ACell rdf:type owl:Class ;
     cell:abstract true ;
     rdfs:subClassOf cell:Cell ;
     rdfs:label "Actual Cell"@en ;
-    rdfs:comment "The actual/instantiated facet of a cell:Cell — real, party-classified content, as opposed to reusable template content (cell:TCell). Carries cell:parties (and is further specialized by party count into cell:OneParty and cell:MultiParty — see Cell Party Composition below), cell:creator, its context links cell:primary (required, exactly one context:SCcontext) and cell:secondary (any number of additional context:SCcontext values), and cell:shape. Every concrete party-count class (cell:OneParty, cell:TwoParty, cell:ThreePlusParty) is a subclass of cell:ACell, not cell:Cell directly, as of cell.ttl 3.7.0 — so an ordinary instantiated cell is typed through its party class alone, and only a cell that is also a template (see cell-templates.ttl) needs cell:TCell added explicitly. A cell is not typed cell:ACell at all until it has real content (cell:parties set) — a pure tree-position placeholder with nothing filed under it yet stays a bare cell:Cell, and is therefore exempt from requiring cell:primary."@en .
+    rdfs:comment "The actual/instantiated facet of a cell:Cell — real, party-classified content, as opposed to reusable template content (cell:TCell). Carries cell:parties (and is further specialized by party count into cell:OneParty and cell:MultiParty — see Cell Party Composition below), cell:creator, its topic links cell:primary (required, exactly one topic:SCtopic) and cell:secondary (any number of additional topic:SCtopic values), and cell:shape. Every concrete party-count class (cell:OneParty, cell:TwoParty, cell:ThreePlusParty) is a subclass of cell:ACell, not cell:Cell directly, as of cell.ttl 3.7.0 — so an ordinary instantiated cell is typed through its party class alone, and only a cell that is also a template (see cell-templates.ttl) needs cell:TCell added explicitly. A cell is not typed cell:ACell at all until it has real content (cell:parties set) — a pure tree-position placeholder with nothing filed under it yet stays a bare cell:Cell, and is therefore exempt from requiring cell:primary."@en .
 
 cell:shape rdf:type owl:ObjectProperty ;
     rdfs:domain cell:ACell ;
     rdfs:range sh:NodeShape ;
     rdfs:label "shape"@en ;
-    rdfs:comment "Links an actual (non-template) cell:ACell individual directly to the sh:NodeShape(s) validating that specific cell's own content — its own linked context data — rather than describing what a context filed under some other, template category should look like (that's cell:templateShape, on cell:TCell). Populated by copy-on-clone: when Lazy Instantiation clones a cat:Category subclass's cell:TCell (via cat:templateCell) into a new cell:ACell for a user's tree, whatever cell:templateShape value the TCell carried is copied into the new ACell's cell:shape — the same validation expectation, now attached to the concrete instance rather than the abstract template, so content later filed under that instantiated cell can actually be validated. Optional; most cells carry no cell:shape value, since most template cells carry no cell:templateShape value to copy in the first place."@en .
+    rdfs:comment "Links an actual (non-template) cell:ACell individual directly to the sh:NodeShape(s) validating that specific cell's own content — its own linked topic data — rather than describing what a topic filed under some other, template category should look like (that's cell:templateShape, on cell:TCell). Populated by copy-on-clone: when Lazy Instantiation clones a cat:Category subclass's cell:TCell (via cat:templateCell) into a new cell:ACell for a user's tree, whatever cell:templateShape value the TCell carried is copied into the new ACell's cell:shape — the same validation expectation, now attached to the concrete instance rather than the abstract template, so content later filed under that instantiated cell can actually be validated. Optional; most cells carry no cell:shape value, since most template cells carry no cell:templateShape value to copy in the first place."@en .
 
 cell:creator rdf:type owl:ObjectProperty ;
     rdfs:domain cell:ACell ;
     rdfs:range [ rdf:type owl:Class ; owl:unionOf ( p:Person g:Group o:Organization ) ] ;
     rdfs:label "creator"@en ;
-    rdfs:comment "Identifies who created a cell's content — a named individual of p:Person, g:Group, or o:Organization. At most one value. Mirrors the union-range pattern used by context:subject and context:claimant (context.ttl), referencing those classes by name without owl:imports. Domain narrowed from cell:Cell to cell:ACell in cell.ttl 3.7.0, since only actual/instantiated cells have a creator."@en .
+    rdfs:comment "Identifies who created a cell's content — a named individual of p:Person, g:Group, or o:Organization. At most one value. Mirrors the union-range pattern used by topic:claimant (topic.ttl), referencing those classes by name without owl:imports. Domain narrowed from cell:Cell to cell:ACell in cell.ttl 3.7.0, since only actual/instantiated cells have a creator."@en .
 
 cell:parties rdf:type owl:ObjectProperty ;
     rdfs:domain cell:ACell ;
@@ -162,7 +162,7 @@ cell:OneParty rdf:type owl:Class ;
 
 
 #################################################################
-#    Cell Context Links
+#    Cell Topic Links
 #
 #    Both properties below have domain cell:ACell (moved from
 #    cell:Cell in cell.ttl 3.10.0) — a cell not yet typed cell:ACell
@@ -171,15 +171,15 @@ cell:OneParty rdf:type owl:Class ;
 
 cell:primary rdf:type owl:ObjectProperty ;
     rdfs:domain cell:ACell ;
-    rdfs:range context:SCcontext ;
+    rdfs:range topic:SCtopic ;
     rdfs:label "primary"@en ;
-    rdfs:comment "Links an actual (instantiated) cell to its single primary Subject-Claimant context — the one main context:SCcontext (context.ttl) the cell's content centers on. Required: exactly one value, enforced by cell-shacl.ttl's :ACellShape (not expressed as an OWL cardinality restriction here, matching this ontology's existing convention for cell:parties). Renamed from cell:graph (cell.ttl 3.10.0), which pointed at a plain context:Context with no subject/claimant — that no-claimant, jointly-maintained-by-multiple-parties use case is retired; every context a cell:ACell links to, via cell:primary or cell:secondary, is now a context:SCcontext with a subject and a claimant."@en .
+    rdfs:comment "Links an actual (instantiated) cell to its single primary Subject-Claimant topic — the one main topic:SCtopic (topic.ttl) the cell's content centers on. Required: exactly one value, enforced by cell-shacl.ttl's :ACellShape (not expressed as an OWL cardinality restriction here, matching this ontology's existing convention for cell:parties). Renamed from cell:graph (cell.ttl 3.10.0), which pointed at a plain context:Context with no subject/claimant — that no-claimant, jointly-maintained-by-multiple-parties use case is retired; every topic a cell:ACell links to, via cell:primary or cell:secondary, is now a topic:SCtopic with a subject and a claimant."@en .
 
 cell:secondary rdf:type owl:ObjectProperty ;
     rdfs:domain cell:ACell ;
-    rdfs:range context:SCcontext ;
+    rdfs:range topic:SCtopic ;
     rdfs:label "secondary"@en ;
-    rdfs:comment "Links an actual (instantiated) cell to any number of additional Subject-Claimant classified context DataBooks (context:SCcontext, which has no subclasses — see context.ttl 1.9.0), beyond its one required cell:primary. Renamed from cell:sc-context (cell.ttl 3.10.0; domain narrowed from cell:Cell to cell:ACell in the same change). Replaces the former cell:sbs/cell:obs/cell:sbo/cell:obo (each restricted to one of the four self-vs-other cases and, for the other-party three, to cell:MultiParty): a single multi-valued property now covers every case uniformly, on any cell:ACell regardless of party count. Which of the four cases (self-by-self, other-by-self, other-by-other, self-by-other) a given value represents comes from that context's own subject/claimant combination, not from which property linked it or from a distinct rdf:type. Cardinality remains unconstrained — a cell may have zero, one, or many cell:secondary values, in addition to its one cell:primary."@en .
+    rdfs:comment "Links an actual (instantiated) cell to any number of additional Subject-Claimant classified topic DataBooks (topic:SCtopic, which has no subclasses — see topic.ttl 1.9.0), beyond its one required cell:primary. Renamed from cell:sc-context (cell.ttl 3.10.0; domain narrowed from cell:Cell to cell:ACell in the same change). Replaces the former cell:sbs/cell:obs/cell:sbo/cell:obo (each restricted to one of the four self-vs-other cases and, for the other-party three, to cell:MultiParty): a single multi-valued property now covers every case uniformly, on any cell:ACell regardless of party count. Which of the four cases (self-by-self, other-by-self, other-by-other, self-by-other) a given value represents comes from that topic's own subject/claimant combination, not from which property linked it or from a distinct rdf:type. Cardinality remains unconstrained — a cell may have zero, one, or many cell:secondary values, in addition to its one cell:primary."@en .
 
 
 #################################################################

@@ -1,21 +1,21 @@
 #!/usr/bin/env python3
 """
-yaml-to-rdf.py  —  Synthesize cat:/cell:/context: triples from the `mia.` YAML
-frontmatter of category, cell, and context DataBooks.
+yaml-to-rdf.py  —  Synthesize cat:/cell:/topic: triples from the `mia.` YAML
+frontmatter of category, cell, and topic DataBooks.
 
 Why this exists: `databook extract` only pulls fenced Turtle blocks out of a
 DataBook — but category-databook and cell-databook files carry all of their
 content as `mia.` YAML frontmatter, with no Turtle block at all. Without this
-script, cat:Node/cell:Cell individuals (and context:SCcontext's subject/
+script, cat:Node/cell:Cell individuals (and topic:SCtopic's subject/
 claimant) never appear in the graph SHACL validates, so category-shacl.ttl,
-cell-shacl.ttl, and context-shacl.ttl's :SCcontextShape never fire against
+cell-shacl.ttl, and topic-shacl.ttl's :SCtopicShape never fire against
 real instance data. This script closes that gap by mapping each `mia.` field
 to its corresponding ontology property, matching the mapping tables documented
-in README.md's Category/Cell/Context Ontology sections.
+in README.md's Category/Cell/Topic Ontology sections.
 
-A context DataBook's `mia.claimant`/`mia.subject` are typed on its plain `id`,
-not `graph.named_graph` (id + "#graph") — matching context.ttl 1.11.0's
-context:subject/context:claimant doc comments, and the IRI cell:primary/
+A topic DataBook's `mia.claimant`/`mia.subject` are typed on its plain `id`,
+not `graph.named_graph` (id + "#graph") — matching topic.ttl's
+topic:subject/topic:claimant doc comments, and the IRI cell:primary/
 cell:secondary actually reference in every cell DataBook's YAML.
 
 Usage:   python3 yaml-to-rdf.py [repo-root] > yaml-data.ttl
@@ -29,7 +29,7 @@ import os, re, sys, yaml, glob
 
 CAT = "http://mee.foundation/ontologies/category#"
 CELL = "http://mee.foundation/ontologies/cell#"
-CONTEXT = "http://mee.foundation/ontologies/context#"
+TOPIC = "http://mee.foundation/ontologies/topic#"
 PSHAPES = "http://mee.foundation/ontologies/persona/shapes#"
 XSD = "http://www.w3.org/2001/XMLSchema#"
 MIA_NS = "http://www.example.org/mia#"
@@ -37,7 +37,7 @@ MIA_NS = "http://www.example.org/mia#"
 PREFIXES = {
     "cat": CAT,
     "cell": CELL,
-    "context": CONTEXT,
+    "topic": TOPIC,
     "pshapes": PSHAPES,
 }
 
@@ -139,8 +139,8 @@ def process_cell_databook(fm, triples):
     if mia.get("folder"):
         emit_lit(triples, subj, CELL + "folder", mia["folder"], XSD + "anyURI")
 
-    for ctx_iri in as_list(mia.get("secondary")):
-        emit_obj(triples, subj, CELL + "secondary", resolve(ctx_iri))
+    for topic_iri in as_list(mia.get("secondary")):
+        emit_obj(triples, subj, CELL + "secondary", resolve(topic_iri))
 
     if mia.get("primary"):
         emit_obj(triples, subj, CELL + "primary", resolve(mia["primary"]))
@@ -149,16 +149,16 @@ def process_cell_databook(fm, triples):
         emit_obj(triples, subj, CELL + "shape", resolve(mia["shape"]))
 
 
-def process_context_databook(fm, triples):
+def process_topic_databook(fm, triples):
     mia = fm.get("mia", {}) or {}
     claimant = mia.get("claimant")
     subject = mia.get("subject")
     if not (claimant and subject):
-        return  # no subject/claimant — not an SCcontext, skip
+        return  # no subject/claimant — not an SCtopic, skip
     subj = fm["id"]
-    emit_type(triples, subj, CONTEXT + "SCcontext")
-    emit_obj(triples, subj, CONTEXT + "claimant", resolve(claimant))
-    emit_obj(triples, subj, CONTEXT + "subject", resolve(subject))
+    emit_type(triples, subj, TOPIC + "SCtopic")
+    emit_obj(triples, subj, TOPIC + "claimant", resolve(claimant))
+    emit_obj(triples, subj, TOPIC + "subject", resolve(subject))
 
 
 def main(root):
@@ -176,14 +176,14 @@ def main(root):
         elif t == "cell-databook":
             process_cell_databook(fm, triples)
 
-    for path in sorted(glob.glob(os.path.join(root, "example", "contexts", "*.databook.md"))):
+    for path in sorted(glob.glob(os.path.join(root, "example", "topics", "*.databook.md"))):
         if "under-development" in path.split(os.sep):
             continue
         fm = frontmatter(path)
         if not fm:
             continue
-        if fm.get("type") == "context-databook":
-            process_context_databook(fm, triples)
+        if fm.get("type") == "topic-databook":
+            process_topic_databook(fm, triples)
 
     print("\n".join(triples))
 

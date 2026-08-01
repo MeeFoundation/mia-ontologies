@@ -11,10 +11,10 @@
     dc:date "2026-07-18"^^xsd:date ;
     owl:versionInfo "Version 2.4.0 - deprecated the government-ID and date designator classes (DriversLicenseNumber, PassportNumber, PlaceOfBirth, IssuingJurisdiction, IssuingCountry, IssueDate) in favour of committed cco: ent IRIs; usages migrated, declarations retained with owl:deprecated + rdfs:seeAlso aliases (see block at end of file). (2.3.0: fixed stale doc-comment references to cat:templateShapes (category.ttl): the property moved to cell.ttl as cell:templateShapes back in cell.ttl 3.6.0, and was renamed cell:templateShape (singular) in cell.ttl 3.9.0 — comments here still said cat:templateShapes and 'class-level cell:Cell template', neither ever updated. No change to any class or property defined in this file."@en ;
     rdfs:label "Persona Templates Ontology"@en ;
-    rdfs:comment """Template type classification used as values for the context:template annotation property.
+    rdfs:comment """Template type classification used as values for the topic:template annotation property.
                     Each concrete template type (BirthCertificateDocument, JSContactCard, DriversLicenseDocument,
                     PassportDocument, MedicalAppointmentRecord) identifies which per-template SHACL shapes to
-                    apply when validating a context file. Four of the five (all but JSContactCard) have their
+                    apply when validating a topic file. Four of the five (all but JSContactCard) have their
                     shapes in cell-templates-shacl.ttl, linked from a class-level cell:TCell template
                     (cell-templates.ttl) via cell:templateShape (cell.ttl).
 
@@ -43,9 +43,9 @@
 
 persona:PersonaTemplate rdf:type owl:Class ;
     rdfs:label "Persona Template"@en ;
-    rdfs:comment """Abstract superclass for template type labels used as values for context:template.
+    rdfs:comment """Abstract superclass for template type labels used as values for topic:template.
                     Concrete subtypes (BirthCertificateDocument, JSContactCard, DriversLicenseDocument)
-                    identify which SHACL shapes file applies to a given context file."""@en .
+                    identify which SHACL shapes file applies to a given topic file."""@en .
 
 
 #################################################################
@@ -58,7 +58,7 @@ persona:IdentityDocument rdf:type owl:Class ;
     rdfs:comment """A government-issued document that formally identifies a person,
                     such as a birth certificate, driver's license, or passport.
                     Subclasses (p:BirthCertificateDocument, p:DriversLicenseDocument, p:PassportDocument)
-                    are also p:PersonaTemplate subclasses used as context:template annotation values.
+                    are also p:PersonaTemplate subclasses used as topic:template annotation values.
                     Instances are linked from persona:Person via persona:hasIdentityDocument."""@en .
 
 persona:hasIdentityDocument rdf:type owl:ObjectProperty ;
@@ -76,9 +76,9 @@ persona:BirthCertificateDocument rdf:type owl:Class ;
     rdfs:subClassOf persona:PersonaTemplate ;
     rdfs:subClassOf persona:IdentityDocument ;
     rdfs:label "Birth Certificate"@en ;
-    rdfs:comment """Template type label for a context whose purpose is to carry a person's legal
-                    birth certificate name record. Used as the value of context:template on the
-                    context file's ontology IRI. Selects the SHACL shape :BirthCertificateDocumentShape
+    rdfs:comment """Template type label for a topic whose purpose is to carry a person's legal
+                    birth certificate name record. Used as the value of topic:template on the
+                    topic file's ontology IRI. Selects the SHACL shape :BirthCertificateDocumentShape
                     in cell-templates-shacl.ttl, linked from cat:BirthCertificate's template cell
                     (cell-templates.ttl) via cell:templateShape — IRI
                     http://mee.foundation/ontologies/persona/shapes/birthcertificate — for
@@ -112,10 +112,10 @@ persona:DriversLicenseDocument rdf:type owl:Class ;
     rdfs:subClassOf persona:PersonaTemplate ;
     rdfs:subClassOf persona:IdentityDocument ;
     rdfs:label "Driver's License"@en ;
-    rdfs:comment """Template type label for a context whose purpose is to carry the identity
+    rdfs:comment """Template type label for a topic whose purpose is to carry the identity
                     claims on a state-issued driver's license: legal name, date of birth,
                     driver's license number, and expiration date. Residential address is optional.
-                    Used as the value of context:template on the context file's ontology IRI.
+                    Used as the value of topic:template on the topic file's ontology IRI.
                     Selects the SHACL shape :DriversLicenseDocumentShape in cell-templates-shacl.ttl,
                     linked from cat:DriversLicense's template cell (cell-templates.ttl) via
                     cell:templateShape — IRI
@@ -174,11 +174,11 @@ persona:PassportDocument rdf:type owl:Class ;
     rdfs:subClassOf persona:PersonaTemplate ;
     rdfs:subClassOf persona:IdentityDocument ;
     rdfs:label "Passport"@en ;
-    rdfs:comment """Template type label for a context whose purpose is to carry the identity
+    rdfs:comment """Template type label for a topic whose purpose is to carry the identity
                     claims on a government-issued passport: legal name, date of birth, passport
                     number, issue date, expiration date, issuing country, place of birth, and
-                    gender marker. Photo is optional. Used as the value of context:template on
-                    the context file's ontology IRI. Selects the SHACL shape :PassportDocumentShape
+                    gender marker. Photo is optional. Used as the value of topic:template on
+                    the topic file's ontology IRI. Selects the SHACL shape :PassportDocumentShape
                     in cell-templates-shacl.ttl, linked from cat:Passport's template cell
                     (cell-templates.ttl) via cell:templateShape — IRI
                     http://mee.foundation/ontologies/persona/shapes/passport — for
@@ -193,10 +193,10 @@ persona:PassportDocument rdf:type owl:Class ;
 persona:JSContactCard rdf:type owl:Class ;
     rdfs:subClassOf persona:PersonaTemplate ;
     rdfs:label "JSContact Card"@en ;
-    rdfs:comment """Template type label for a context whose purpose is to carry professional
+    rdfs:comment """Template type label for a topic whose purpose is to carry professional
                     contact details in the JSContact (RFC 9553) format. OrganizationName and
                     at least one contact channel (email or phone) are required. Used as the
-                    value of context:template on the context file's ontology IRI.
+                    value of topic:template on the topic file's ontology IRI.
                     Selects shacl/jscontactcard-shacl.ttl for validation."""@en .
 
 
@@ -371,7 +371,7 @@ persona:hasPhoto rdf:type owl:DatatypeProperty ;
 persona:MedicalAppointmentRecord rdf:type owl:Class ;
     rdfs:subClassOf persona:PersonaTemplate ;
     rdfs:label "Medical Appointment"@en ;
-    rdfs:comment """Template type label for a context whose purpose is to carry the claims
+    rdfs:comment """Template type label for a topic whose purpose is to carry the claims
                     needed to arrange a medical appointment on behalf of someone else (e.g. a
                     family member), shared between the two parties coordinating that care.
                     Also the class of the shareable claims record individual itself, following
@@ -379,9 +379,9 @@ persona:MedicalAppointmentRecord rdf:type owl:Class ;
                     are properties of the MedicalAppointmentRecord, not of the patient's Person
                     individual directly. Any referenced third party (e.g. the patient, their
                     primary care physician) must have their relevant claims copied into this
-                    context, since each context's named graph must be self-contained for p2p
+                    topic, since each topic's named graph must be self-contained for p2p
                     sync between the coordinating parties' Mia instances. Used as the value
-                    of context:template on the context file's
+                    of topic:template on the topic file's
                     ontology IRI. Selects the SHACL shape :MedicalAppointmentRecordShape in
                     cell-templates-shacl.ttl, linked from cat:MedicalAppointmentInfo's template
                     cell (cell-templates.ttl) via cell:templateShape — IRI

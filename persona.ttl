@@ -11,13 +11,13 @@
 @base <http://mee.foundation/ontologies/persona> .
 
 <http://mee.foundation/ontologies/persona> rdf:type owl:Ontology ;
-    owl:versionIRI <http://mee.foundation/ontologies/persona/4.1.0> ;
+    owl:versionIRI <http://mee.foundation/ontologies/persona/4.2.0> ;
     owl:imports <https://purl.org/cco/person> ;
     owl:imports <https://purl.org/cco/address> ;
     owl:imports <https://purl.org/cco/staging> ;
     owl:imports <http://mee.foundation/ontologies/persona-templates> ;
-    dc:date "2026-07-21"^^xsd:date ;
-    owl:versionInfo "Version 4.1.0 - deprecated p:hasPaymentCard, p:CheckingAccountNumber, and p:RoutingNumber in favour of committed cco: terms (cco:ent00000073, cco:ent00000071, cco:ent00000072); usages migrated, declarations retained with owl:deprecated + rdfs:seeAlso aliases (block at end of file). p:CheckingAccount and the bank-account properties are intentionally left in place pending the account-entity decision. (4.0.6: removed the owl:imports of pdn-identity.ttl and resynced owl:versionIRI with owl:versionInfo.)"@en ;
+    dc:date "2026-08-01"^^xsd:date ;
+    owl:versionInfo "Version 4.2.0 - updated doc comments referencing context files/context.ttl to topic files/topic.ttl following the ontology-wide context→topic rename. No change to any triples. (4.1.0: deprecated p:hasPaymentCard, p:CheckingAccountNumber, and p:RoutingNumber in favour of committed cco: terms (cco:ent00000073, cco:ent00000071, cco:ent00000072); usages migrated, declarations retained with owl:deprecated + rdfs:seeAlso aliases (block at end of file). p:CheckingAccount and the bank-account properties are intentionally left in place pending the account-entity decision. 4.0.6: removed the owl:imports of pdn-identity.ttl and resynced owl:versionIRI with owl:versionInfo.)"@en ;
     rdfs:label "Persona Ontology"@en ;
     rdfs:comment """Persona Ontology for the Mee Identity Agent.
 
@@ -26,7 +26,7 @@
 
                     ARCHITECTURE:
                     This application ontology serves as:
-                    1. Aggregation point (imports 3 domain ontologies + context.ttl)
+                    1. Aggregation point (imports 3 domain ontologies + topic.ttl)
                     2. Documentation (annotations show which classes Persona uses)
                     3. Extension point (Persona-specific terms: future: accounts, service providers)
 
@@ -132,10 +132,10 @@ p:usagePattern rdf:type owl:AnnotationProperty ;
 p:Person rdf:type owl:Class ;
     rdfs:subClassOf <https://purl.org/cco/ont00001262> ;  # CCO Person
     rdfs:label "Person"@en ;
-    rdfs:comment """A Mee-specific extension of CCO Person. Each context file (named graph)
+    rdfs:comment """A Mee-specific extension of CCO Person. Each topic file (named graph)
                     contains exactly one persona:Person individual representing the subject
-                    of that context. The same IRI is used for the same real-world person
-                    across all context files — each file is a named-graph slice of that
+                    of that topic. The same IRI is used for the same real-world person
+                    across all topic files — each file is a named-graph slice of that
                     person's identity data."""@en .
 
 
@@ -148,7 +148,7 @@ p:hasSocialNetwork rdf:type owl:ObjectProperty ;
     rdfs:range cco:ont00001183 ;    # Social Network
     rdfs:label "has social network"@en ;
     rdfs:comment """Links a Person to a Social Network — the set of other people
-                    with whom the person has relationships in that context. The Person is
+                    with whom the person has relationships in that topic. The Person is
                     not a member of the network; the network contains only the people they
                     relate to."""@en .
 

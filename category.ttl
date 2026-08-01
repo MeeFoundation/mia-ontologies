@@ -9,11 +9,11 @@
 @base <http://mee.foundation/ontologies/category> .
 
 <http://mee.foundation/ontologies/category> rdf:type owl:Ontology ;
-    owl:versionIRI <http://mee.foundation/ontologies/category/1.20.0> ;
-    dc:date "2026-07-20"^^xsd:date ;
+    owl:versionIRI <http://mee.foundation/ontologies/category/1.21.0> ;
+    dc:date "2026-08-01"^^xsd:date ;
     owl:imports <http://mee.foundation/ontologies/cell> ;
     owl:imports <http://mee.foundation/ontologies/cell-templates> ;
-    owl:versionInfo "Version 1.20.0 - split cat:Meetings(org) into cat:Meetings(org) (internal/client-customer meetings) and new cat:Events(org) (external, travel-to, or larger-scale gatherings); moved cat:Conferences under cat:Events(org)."@en ;
+    owl:versionInfo "Version 1.21.0 - updated doc comments mentioning context.ttl/context files to topic.ttl/topic files following the ontology-wide context→topic rename. No change to any triples. (1.20.0: split cat:Meetings(org) into cat:Meetings(org) (internal/client-customer meetings) and new cat:Events(org) (external, travel-to, or larger-scale gatherings); moved cat:Conferences under cat:Events(org).)"@en ;
     rdfs:label "Category Ontology"@en ;
     rdfs:comment """Category Ontology for the Mee Identity Agent."""@en .
 
@@ -92,13 +92,13 @@ cat:Person rdf:type owl:Class ;
     cell:abstract true ;
     rdfs:subClassOf cat:Category ;
     rdfs:label "Person"@en ;
-    rdfs:comment "Superclass of all built-in context categories that involve interactions with people or person-centric topics (e.g. People, Work, Government)."@en .
+    rdfs:comment "Superclass of all built-in topic categories that involve interactions with people or person-centric topics (e.g. People, Work, Government)."@en .
 
 cat:Organization rdf:type owl:Class ;
     cell:abstract true ;
     rdfs:subClassOf cat:Category ;
     rdfs:label "Organization"@en ;
-    rdfs:comment "Superclass of all built-in context categories that involve interactions with organizations (e.g. Companies, BankingPayments(org))."@en .
+    rdfs:comment "Superclass of all built-in topic categories that involve interactions with organizations (e.g. Companies, BankingPayments(org))."@en .
 
 #################################################################
 #    Personal subclasses
@@ -359,7 +359,7 @@ cat:Events rdf:type owl:Class ;
 
 
 #################################################################
-#    cat:Government Contexts and subclasses
+#    cat:Government Topics and subclasses
 #################################################################
 
 cat:Government rdf:type owl:Class ;
@@ -370,7 +370,7 @@ cat:Government rdf:type owl:Class ;
 cat:Federal rdf:type owl:Class ;
     rdfs:subClassOf cat:Government ;
     rdfs:label "Federal"@en ;
-    rdfs:comment "Federal government context (e.g. passport, federal tax records)."@en .
+    rdfs:comment "Federal government topic (e.g. passport, federal tax records)."@en .
 
 cat:SSA rdf:type owl:Class ;
     rdfs:subClassOf cat:Federal ;
@@ -386,7 +386,7 @@ cat:Passport rdf:type owl:Class ;
 cat:State rdf:type owl:Class ;
     rdfs:subClassOf cat:Government ;
     rdfs:label "State"@en ;
-    rdfs:comment "State government context (e.g. driver's license, state tax records)."@en .
+    rdfs:comment "State government topic (e.g. driver's license, state tax records)."@en .
 
 cat:BirthCertificate rdf:type owl:Class ;
     rdfs:subClassOf cat:State ;
@@ -403,7 +403,7 @@ cat:DriversLicense rdf:type owl:Class ;
 cat:Municipality rdf:type owl:Class ;
     rdfs:subClassOf cat:Government ;
     rdfs:label "Municipality"@en ;
-    rdfs:comment "Municipal government context (e.g. local permits, library card)."@en .
+    rdfs:comment "Municipal government topic (e.g. local permits, library card)."@en .
 
 cat:Residence rdf:type owl:Class ;
     rdfs:subClassOf cat:Municipality ;

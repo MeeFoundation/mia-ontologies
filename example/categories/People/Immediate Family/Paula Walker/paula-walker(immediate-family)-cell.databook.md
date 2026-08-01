@@ -5,12 +5,12 @@ type: cell-databook
 version: 1.0.6
 created: 2026-07-10
 description: >
-  Cell DataBook of category "Paula Walker" (mia.catType: ImmediateFamily). Content may include secondary/folder/note links, and may carry a required primary context.
+  Cell DataBook of category "Paula Walker" (mia.catType: ImmediateFamily). Content may include secondary/folder/note links, and may carry a required primary topic.
 mia:
   creator: ":Self"
   parties: "cell:TwoParty"
-  primary: "https://www.example.org/mia/contexts/paula-walker.paula-walker(paula-walker)(immediate-family)(05)"
+  primary: "https://www.example.org/mia/topics/paula-walker.paula-walker(paula-walker)(immediate-family)(05)"
   secondary:
-    - "https://www.example.org/mia/contexts/self.self(paula-walker)(immediate-family)(21)"
-    - "https://www.example.org/mia/contexts/paula-walker.self(paula-walker)(immediate-family)(07)"
+    - "https://www.example.org/mia/topics/self.self(paula-walker)(immediate-family)(21)"
+    - "https://www.example.org/mia/topics/paula-walker.self(paula-walker)(immediate-family)(07)"
 ---
