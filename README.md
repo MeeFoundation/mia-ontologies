@@ -35,16 +35,16 @@ These nodes may be `cat:CategoryDefined` or `cat:UserDefined`. The former point 
 
 <p align="center"><img src="images/category-ontology/category.png" alt="Category hierarchy"></p>
 
-Mia's provides two predefined `cat:Category` class hierarchies (`category.ttl`'s `rdfs:subClassOf` structure), rooted at the abstract `cat:Person` and `cat:Organization` classes. Some classes in this hierarchy have starter content pointed to via `cat:templateCell` and asserted directly in `category.ttl` alongside the class's own declaration, pointing at a `c:TCell` individual defined in the companion file `cell-templates.ttl` — the *cell template* for that class.
+Mia's provides two predefined `cat:Category` class hierarchies (`category.ttl`'s `rdfs:subClassOf` structure), rooted in the abstract `cat:Person` and `cat:Organization` classes. Some classes in this hierarchy have starter content pointed to via `cat:templateCell` and asserted directly in `category.ttl` alongside the class's own declaration, pointing at a `c:TCell` individual defined in the companion file `cell-templates.ttl` — the *cell template* for that class.
 
-The nodes in the user's tree have no content of their own. Instead, each points, via `cat:cell`, to a `c:ACell` which holds content. When a category is instantiated into the user's tree, Mia clones its class's `cat:templateCell` (if one exists) into a new cell for that node — this is how a **cell template** becomes the starting content for an instantiated cell (see [Lazy Instantiation](#lazy-instantiation)).
+The `cat:Nodes` in the user's tree have no content of their own. Instead, each points, via `cat:cell`, to a `c:ACell` which holds content. When a category is instantiated into the user's tree, Mia clones its class's `cat:templateCell`, if it exists, into a new `ACell` for that node — this is how a **cell template** becomes the starter content for an instantiated cell (see [Lazy Instantiation](#lazy-instantiation)).
 
-The user is free to rearrange their instance tree as they wish, adding new `cat:UserDefined` nodes and moving other nodes around. The instance tree is really just a way to organize the cells associated with each node. A `cat:CategoryDefined` or `cat:UserDefined` node has an optional `cat:label` that allows the user override the display name (e.g. "Client").
+The user is free to rearrange their `Node` tree as they wish, adding new `cat:UserDefined` nodes and moving other nodes around. The instance tree is really just a way to organize the cells associated with each node. A `cat:CategoryDefined` or `cat:UserDefined` node has an optional `cat:label` that allows the user override the display name (e.g. "Client").
 
 ### Category Properties
 
 - **`cat:catType`** — the `cat:Category` subclass this category is or was instantiated from, or `Category` itself. Domain `cat:Category`.
-- **`cat:templateCell`** — links a `cat:Category` subclass directly to the `c:TCell` individual serving as its reusable template content. An `owl:AnnotationProperty`, asserted directly on the class IRI (e.g. `cat:Passport`), not on any instance. Defined in `category.ttl`; the pointer triples for the 4 templated classes are asserted right alongside each class's own declaration, also in `category.ttl` — only the target `c:TCell` individuals themselves live in the companion file `cell-templates.ttl`. Most classes have no `cat:templateCell` value — that's the default, not an omission. That target cell may itself carry `c:templateShape` (`cell.ttl`), continuing the traversal to a SHACL shape — see [Cell Ontology](#cell-ontology) below.
+- **`cat:templateCell`** — links a `cat:Category` subclass directly to the `c:TCell` individual serving as its reusable template content.
 
 ### Node Properties
 
