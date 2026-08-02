@@ -29,13 +29,13 @@ After describing these ontologies in more detail, we conclude with an illustrati
 
 ## Category Ontology
 
-Using Mia the user creates category trees to organize cells that they create themselves or are shared with them. The nodes of the tree are `cat:Node` instances with `child` properties pointing to sub-nodes.
+Using Mia the user creates category trees to organize cells that they create themselves or are shared with them. The nodes of this tree are `cat:Node` instances with `child` properties pointing to sub-nodes.
 
-These nodes may be `cat:CategoryDefined` or `cat:UserDefined`. The former point (via `cat:catetory`) to a subclass in the predefined `cat:Category` class hierarchy which indicates the kind of information it is about. `cat:Category` and is subclasses vary in scope from broad groupings of information to narrower ones. In the social domain, for example, a category might be about "People", or more narrowly about "Immediate Family", and ultimately about just a single family member. The user is also free to also construct user-defined nodes which do not use any of the predefined categories. 
+These nodes may be `cat:CategoryDefined` or `cat:UserDefined`. The former point (via `cat:catetory`) to a subclass in the predefined `cat:Category` class hierarchy which indicates a kind information (e.g. "Work", "People", "Food", etc.). `cat:Category` subclasses vary in scope from broad groupings of information to narrower ones. In the social domain, for example, a category might be about "People", or more narrowly about "Immediate Family", and ultimately about just one family member. The user is also free to also construct user-defined (`cat:UserDefined`) nodes which are not restricted to the predefined categories. 
 
 <p align="center"><img src="images/category-ontology/category.png" alt="Category hierarchy"></p>
 
-Mia's provides two predefined `cat:Category` class hierarchies (`category.ttl`'s `rdfs:subClassOf` structure), rooted in the abstract `cat:Person` and `cat:Organization` classes. Some classes in this hierarchy have starter content pointed to via `cat:templateCell` and asserted directly in `category.ttl` alongside the class's own declaration, pointing at a `c:TCell` individual defined in the companion file `cell-templates.ttl` — the *cell template* for that class.
+Mia provides two predefined `cat:Category` class hierarchies rooted in the `cat:Person` and `cat:Organization`. Some classes in this hierarchy have "starter" content pointed to via `cat:templateCell` and asserted directly in `category.ttl` alongside the class's own declaration, pointing at a `c:TCell` individual defined in the companion file `cell-templates.ttl` — the *cell template* for that class.
 
 The `cat:Nodes` in the user's tree have no content of their own. Instead, each points, via `cat:cell`, to a `c:ACell` which holds content. When a category is instantiated into the user's tree, Mia clones its class's `cat:templateCell`, if it exists, into a new `ACell` for that node — this is how a **cell template** becomes the starter content for an instantiated cell (see [Lazy Instantiation](#lazy-instantiation)).
 
@@ -157,13 +157,13 @@ The user is free to rearrange their `Node` tree as they wish, adding new `cat:Us
 
 ### Category DataBooks
 
-Each node in a user's own instance tree is represented by a **category DataBook** (`.databook.md` file with `type: category-databook`), linked to its child nodes via the parent's `cat:child` property, whose value is the child's IRI. This tree contains a mixture of user-defined categories and categories instantiated from canonical classes. A `cat:CategoryDefined` node carries a `category:` value (the class it represents, e.g. `"cat:Work"`) — the same value that identifies which canonical class it was instantiated from, since there is no separate canonical individual to point back to (see [Canonical Classes vs. Instance Category Tree](#canonical-classes-vs-instance-category-tree) above).
+Each node in a user's own instance tree is represented by a **category DataBook** (`.databook.md` file with `type: category-databook`), linked to its child nodes via yjr `cat:child` property, whose value is the child's IRI. This tree contains a mixture of user-defined categories and categories instantiated from canonical classes. A `cat:CategoryDefined` node carries a `category:` value (the class it represents, e.g. `"cat:Work"`) — the same value that identifies which canonical class it was instantiated from, since there is no separate canonical individual to point back to (see [Canonical Classes vs. Instance Category Tree](#canonical-classes-vs-instance-category-tree) above).
 
 #### Cell/Category Split
 
-Every category DataBook in a user's own instance tree is associated, in the same folder, with one or more cell DataBooks (see [Cell DataBooks](#cell-databooks) below) holding its content and any topic links — many-to-one, not 1:1. `c:Cell` has no property linking back to a node at all — the association is recorded only on the category side, via `cat:cell`, asserted on every category DataBook that has content, whether it's a `cat:CategoryDefined` or a `cat:UserDefined` (`example/categories/`).
+Every category DataBook in a user's instance tree is associated, in the same folder, with one or more cell DataBooks (see [Cell DataBooks](#cell-databooks) below) holding its content and any topic links — many-to-one, not 1:1. 
 
-This — keeping any category→cell link entirely on the category side — is what makes a shared cell's content fully portable: moving or renaming any category anywhere in any tree is done through its parent's `cat:child` list, never through the category's own properties, so a category's `cat:cell` value(s) never need to change when the category itself moves. It's also what makes the many-to-one relationship straightforward: adding a second cell to an existing category is just adding another `cat:cell` value pointing at that new cell DataBook — nothing about the cell(s) already there changes.
+A `c:Cell` has no property pointing back to a node — the association is recorded only on the category side, via `cat:cell`, asserted on every category DataBook that has content, whether it's a `cat:CategoryDefined` or a `cat:UserDefined` (`example/categories/`). This — keeping any category→cell link entirely on the category side — is what makes a shared cell's content portable: moving or renaming any category anywhere in any tree is done through its parent's `cat:child` list, never through the category's own properties, so a category's `cat:cell` value(s) never needs to change when the category itself moves. This is also what makes the many-to-one relationship straightforward: adding a second cell to an existing category is just adding another `cat:cell` value pointing at that new cell DataBook — nothing about the cell(s) already there changes.
 
 #### Properties
 
@@ -193,11 +193,13 @@ Category DataBook instances are validated by `category-shacl.ttl`. `catType`/`ch
 
 ## Cell Ontology
 
-The cell ontology defines `c:Cell` — a self-contained unit of *content*. `c:Cell` splits into two facets: `c:TCell`, the *template* facet, and `c:ACell`, the *actual* (instantiated) facet. A cell always carries the `c:ACell` facet once it has real content; `c:TCell` is added on top of that when the cell also serves as a reusable template — a bare `c:TCell` with no `c:ACell` doesn't occur in practice.
+The cell ontology defines `c:Cell` — a self-contained unit of *content* that can be kept private or shared with others.
+
+The Cell class has two facets: `c:TCell`, the *template* facet, and `c:ACell`, the *actual* (instantiated) facet. A cell always carries the `c:ACell` facet once it has real content; `c:TCell` is added on top of that when the cell also serves as a reusable template — a bare `c:TCell` with no `c:ACell` doesn't occur in practice.
 
 ### Cell
 
-A cell (`c:Cell`) is a private, secure collaboration space created and managed by the Mia software application. It is a self-contained unit of content that can be shared with one or more other parties. These other parties are usually other users, but may also be groups or organizations that have implemented compatible nodes on the Personal Data Network.
+A cell is a private, secure collaboration space created and managed by the Mia software application. It is a self-contained unit of content that can be shared with one or more other parties. These other parties are usually other users, but may also be groups or organizations that are compatible with the Personal Data Network.
 
 <p align="center"><img src="images/cell-ontology/cell.png" alt="Cell hierarchy"></p>
 
@@ -212,44 +214,44 @@ A cell (`c:Cell`) is a private, secure collaboration space created and managed b
 
 - **`c:chat`** — optional path to chat stream
 
-### TCell 
+### TCell (Template Cell)
 
 A cell pointed to by a `cat:Category` subclass (via `cat:templateCell`) serves as a **cell template** — a reusable, typically empty shape that the application clones into a new cell whenever a category of that class is first instantiated into a user's tree (see [Lazy Instantiation](#lazy-instantiation)). Such a cell is typed `c:TCell`, the template facet. An ordinary, already-instantiated cell is typed `c:ACell`, the actual facet, instead — carrying real party composition, creator, and content. A cell template is simultaneously both: it is reusable template content (`c:TCell`) that also carries real party-classified content of its own (`c:ACell`, via `c:OneParty`/`c:TwoParty`/`c:ThreePlusParty`) — see [Cell Ontology File](#cell-ontology-file) below.
 
 
-#### TCell Properties
+#### Properties
 
-If a TCell has a `c:templateShape` value, then when the category pointing to it is instantiated (see [Lazy Instantiation](#lazy-instantiation)), whatever value this property holds on the `c:TCell` being instantiated is copied into the new `c:ACell`'s `c:shape`.
+If a `c:TCell` has a `c:templateShape` value, then when the category pointing to it is instantiated (see [Lazy Instantiation](#lazy-instantiation)), whatever value this property has is copied into the new `c:ACell`'s `c:shape`.
 
 - **`c:templateShape`** — links a `c:TCell` individual directly to the `sh:NodeShape`(s) describing the content expected of a topic graph file filed under its category — e.g. `ctpl:PassportTemplateCell` carries `pshapes:PassportDocumentShape`. An `owl:ObjectProperty`, domain `c:TCell`, range `sh:NodeShape`. Makes the shape reachable by pure RDF traversal (`cat:Category` → `cat:templateCell` → `c:templateShape` → `sh:NodeShape`), not just by file co-location or naming convention. 
 
-### ACell
+### ACell (Asserted Cell)
 
-A `c:ACell` is the *actual* (instantiated) facet of an abstract `c:Cell`. It carries `c:parties`, `c:creator`, `c:subject`, `c:partyTopics`, `c:otherTopics`, and `c:shape`. Every concrete party-count class (`c:OneParty`/`c:TwoParty`/`c:ThreePlusParty`) is a subclass of `c:ACell`, not `c:Cell` directly. A cell isn't typed `c:ACell` at all until it has real content (`c:parties` set) — a pure tree-position placeholder with nothing filed under it yet stays a bare `c:Cell`, exempt from requiring `c:subject`/`c:partyTopics`.
+A `c:ACell` is the instantiated facet of an abstract `c:Cell`. It carries `c:parties`, `c:creator`, `c:subject`, `c:partyTopics`, `c:otherTopics`, and `c:shape`. A cell isn't typed `c:ACell` until it has real content (`c:parties` set) — a pure tree-position placeholder with nothing filed under it yet stays a bare `c:Cell`, exempt from requiring `c:subject`/`c:partyTopics`.
 
 A cell needing both facets at once — e.g. every individual in `cell-templates.ttl`, which is both reusable template content and real party-classified content — is simply multi-typed with both `c:TCell` and its `c:ACell`-lineage class (e.g. `c:OneParty`).
 
-#### ACell Properties
+#### Properties
 
-- **`c:subject`** — one or two values (`xsd:anyURI`s) are required. It/they indicate what this cell is "about". These one or two values are the values of the `t:subject` properties of one or two of the topic graphs (`t:SCTopicGraph`s) pointed to by the cell's `c:partyTopics`/`c:otherTopics` links (see below).
+- **`c:subject`** — either exactly one or two values (`xsd:anyURI`s) are required. The subject indicates what this cell is about. Its values are the values of the `t:subject` properties of one or two of the topic graphs (`t:SCTopicGraph`s) pointed to by the cell's `c:partyTopics` or `c:otherTopics` links.
 
-- **`c:partyTopics`** — link to the required baseline of subject-claimant topic graphs (`t:SCTopicGraph`) that hold the structured content of the cell — at least one per party in the relationship. One or more values, required; cardinality varies by party count — see [Cell Party Composition](#cell-party-composition). Each SCTopicGraph has a *subject* and a *claimant*. The subject is typically a person, organization, or group, but it could be any other entity the Persona ontology can describe. The claimant is the person, group or organization that is asserting the values of the claims in the container. See [Topic Ontology](#topic-ontology) for details.
+- **`c:partyTopics`** — one or more values, required; It is a link to the required baseline of subject-claimant topic graphs (`t:SCTopicGraph`) that hold the structured content of the cell related to the parties with which the cell has been shared. Its cardinality varies by party count — see [Cell Party Composition](#cell-party-composition). Each SCTopicGraph has a *subject* and a *claimant*. The subject is typically a person, organization, or group, but it could be any other entity the Persona ontology can describe. The claimant is the person, group or organization that is asserting the values of the claims in the container. See [Topic Ontology](#topic-ontology) for details.
 
-- **`c:otherTopics`** — link to any number of additional subject-claimant topic graphs (`t:SCTopicGraph`) beyond the required `c:partyTopics` baseline — e.g. extra notes or supplementary claims not tied to a specific self-vs-other combination. Optional, unbounded (0..N), uniformly regardless of party count.
+- **`c:otherTopics`** — optional, unbounded (0..N), uniformly regardless of party count. Link to any number of additional subject-claimant topic graphs beyond those referenced by `c:partyTopics`.
 
-- **`c:shape`** — links a `c:ACell` individual directly to the `sh:NodeShape`(s) validating that specific cell's own content, as opposed to `c:templateShape`, which describes what a topic filed under some other, template category should look like. An `owl:ObjectProperty`, domain `c:ACell`, range `sh:NodeShape`. Optional; most actual cells carry no `c:shape` value. Populated by copy-on-clone: when Lazy Instantiation clones a `c:TCell` into a new `c:ACell`, whatever `c:templateShape` value the `TCell` carried is copied into the clone's `c:shape` — the same validation expectation, now attached to the concrete instance rather than the abstract template.
+- **`c:shape`** — a `owl:ObjectProperty`, domain `c:ACell`, range `sh:NodeShape`. Optional; most actual cells carry no `c:shape` value. Links a `c:ACell` individual directly to the `sh:NodeShape`(s) validating that specific cell's own content, as opposed to `c:templateShape`, which describes what a topic filed under some other, template category should look like. Populated by copy-on-clone: when Lazy Instantiation clones a `c:TCell` into a new `c:ACell` — whatever `c:templateShape` value the `TCell` carried is copied into the clone's `c:shape` with the same validation expectation.
 
-- **`c:creator`** — identifies who created this cell's content: a single `p:Person`, `g:Group`, or `o:Organization`. Optional, at most one value.
+- **`c:creator`** — optional, at most one value. Identifies who created this cell's content: a single `p:Person`, `g:Group`, or `o:Organization`. 
 
-- **`c:parties`** — the concrete `c:ACell` subtype this DataBook instantiates: `c:OneParty`, `c:TwoParty`, or `c:ThreePlusParty`. Value is the class itself (e.g. `mia.parties: "c:OneParty"`), not a string, mirroring `cat:category`'s class-value pattern (category.ttl). See [Cell Party Composition](#cell-party-composition) above.
+- **`c:parties`** — the concrete `c:ACell` subtype this DataBook instantiates: `c:OneParty`, `c:TwoParty`, or `c:ThreePlusParty`. Value is the class itself (e.g. `mia.parties: "c:OneParty"`). See [Cell Party Composition](#cell-party-composition) above.
 
-- **`c:label`** — default display name for a concrete `c:Cell` subtype (`OneParty`/`TwoParty`/`ThreePlusParty`), e.g. `"Two-Party Cell"`. Asserted directly on the class, not an instance — distinct from `cat:label` (category.ttl), which is the user-editable per-instance display name of an associated `cat:Category`.
+- **`c:label`** — default display name for a `c:ACell` subtype (`OneParty`/`TwoParty`/`ThreePlusParty`), e.g. `"Two-Party Cell"`. Asserted directly on the class, not an instance — distinct from `cat:label` (category.ttl), which is the user-editable per-instance display name of an associated `cat:Category`.
 
 #### Cell Parties
 
-Every `c:ACell` is classified by `c:parties` (and redundantly by its subclass) according to how many total parties (the user plus zero or more others) it has been shared with. There are three concrete types: `c:OneParty` (a cell created by the user and not (yet) shared with any other party), `c:TwoParty` (the user plus exactly one other party), and `c:ThreePlusParty` (the user plus two or more other parties).
+Every `c:ACell` is classified by `c:parties` (and redundantly by its subclass) according to how many total parties (the user plus zero or more others) it has been shared with. There are three concrete types: `c:OneParty` (a cell created by the user and not shared with any other party), `c:TwoParty` (the user plus exactly one other party), and `c:ThreePlusParty` (the user plus two or more other parties).
 
-Every `c:ACell` carries one or two `c:subject` values (the resource(s) the cell is about), one or more `c:partyTopics` links (the required baseline of topic containers backing its content, one or more per party), and any number of `c:otherTopics` links (additional topics beyond that baseline), regardless of party count. `c:subject` is exactly one value for `OneParty` (`:Self` alone) or `ThreePlusParty` (the shared group/organization entity alone) cells, and one or two for `TwoParty` cells (`:Self` and, when the other party is itself an independent subject, the other party too). `c:partyTopics`'s required total varies by party count: exactly 1 for `OneParty` (its one topic), 2 to 4 for `TwoParty` (one per party, up to all four self-vs-other combinations), and at least 3 for `ThreePlusParty` (one per party, no upper bound). `c:otherTopics` is always optional and unbounded (0..N), for any party count.
+Every `c:ACell` carries one or two `c:subject` values (the resource(s) the cell is about), one or more `c:partyTopics` links (the required baseline of topic containers backing its content, one or more per party), and any number of `c:otherTopics` links (additional topics beyond that baseline), regardless of party count. `c:subject` is exactly one value for `OneParty` (`:Self` alone) or `ThreePlusParty` (the shared group/organization entity alone) cells, and one or two for `TwoParty` cells (`:Self` and, when the other party is itself an independent subject, the other party too). `c:partyTopics`'s required total varies by party count: exactly 1 for `OneParty` (its one topic), 2 to 4 for `TwoParty` (one per party, up to all four self-vs-other combinations), and at least 3 for `ThreePlusParty` (one per party, no upper bound). `c:otherTopics` is always optional and unbounded (0..N), for any party count. This is summarized in the table below:
 
 | Property        | OneParty | TwoParty | ThreePlusParty  |
 |-----------------|----------|----------|-----------------|
@@ -260,15 +262,18 @@ Every `c:ACell` carries one or two `c:subject` values (the resource(s) the cell 
 
 ### Cells and Categories
 
-The diagram below shows representative kinds of cell/category pairs, each labeled with its `cat:catType` (green text) above its `cat:label` (black text), when set. In each cell are four gray icons representing four shared objects. The folder icon represents the folder associated with the cell. The gray circle in the upper right represents one of the cell's linked topics (`c:partyTopics`/`c:otherTopics`). In the lower right is the cell's chat window where parties in the cell can chat with one another.
-
-> **Note:** this diagram predates both the `c:subject`/`c:topics` split (cell.ttl 3.12.0, still showing the retired `c:primary`/`c:secondary` distinction) and the later `c:topics` → `c:partyTopics`/`c:otherTopics` split (cell.ttl 3.14.0); it needs manual redrawing and is described here in its pre-3.12.0 form.
+The diagram below shows representative kinds of cell/category pairs, each labeled with its `cat:catType` in green text. When set its `cat:label` is shown in black text. In each cell are a set of gray icons representing objects that are shared with all members (parties) of the cell.
+* A folder for the cell's folder, files and subfolders
+* The cell's Markdown note 
+* The cells' chat stream where members of cell can chat with one another.
 
 <p align="center"><img src="images/cat-cell-topic.png" alt="Cells, categories, and topics"></p>
 
 The first, "Work", is a `cat:CategoryDefined` representing `cat:Work` (a `cat:Person` subclass) with no override label. The second, "Organization / Acme", is a `cat:CategoryDefined` representing `cat:Organization`, `cat:label`-renamed to "Acme". The third, "Favorites", is a hypothetical `cat:UserDefined` category with no canonical counterpart at all, `cat:label`-renamed to "Favorites" (not tied to any real example data). The fourth, "Person / Bob Johnson", is a `c:TwoParty` cell between the user and another Mia user, Bob — shown with all four self-vs-other classified topics filled (self-by-self, other-by-self, self-by-other, other-by-other), all linked via the cell's `c:partyTopics` (its `c:subject` is `:Self` and `:Bob_Johnson`). The last, "Affiliations / Boston Hub Society", is a `c:ThreePlusParty` cell with two other-party members, Carol and BHS. 
 
-Each of these five example cells contains topics shown as circles. White circles are topics whose triples are claimed by the self (the user). Green circles are topics whose triples are claimed by a person other than the self, by an organization (`o:Organization`), or by a group (`g:Group`), and synchronized with the user's Mia instance over the PDN. For example the BHS cell at the bottom has three topics: Self (the user)'s BHS profile, the BHS group's own profile and Bob Johnson's BHS member profile as claimed by Bob.
+The blue text in the upper left of the cell is the 1-2 subject(s) of the cell. If a `c:TwoParty` cell has a single subject this subject must be the subject of a topic graph in the c`:otherTopics`. And if `c:TwoParty` cell has two subjects they must be two distinct subjects of the 2..4 topic graphs pointed to by `c:partyTopics`. A TwoParty cell with two subjects is essentially about the connection/relationship between the two parties.
+
+Each of these five example cells contains topic graphs shown as circles. White circles are topic graphs whose triples are claimed by the self (the user). Green circles are topic graphs whose triples are claimed by a person other than the self, by an organization (`o:Organization`), or by a group (`g:Group`), and synchronized with the user's Mia instance over the PDN. For example the BHS cell at the bottom has three topics: Self (the user)'s BHS profile, the BHS group's own profile and Bob Johnson's BHS member profile as claimed by Bob.
 
 A class's template cell (`cell-templates.ttl`) may also carry validation metadata declared in the paired `cell-templates-shacl.ttl`. This metadata lives on the class-level template only.
 
