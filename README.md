@@ -1,8 +1,9 @@
 # Mia Ontologies
 
-This document describes the ontologies used by the Mee Identity Agent (Mia) software application. The application lets the user create *cells* – private, secure collaboration spaces which can be joined by other Mia users and/or nodes on the Personal Data Network (PDN) hosted by organizations or groups.
+This document describes the ontologies used by the Mee Identity Agent (Mia) software application. The application lets the user create *cells* – private, secure collaboration spaces which can be joined by other Mia users and/or nodes on the Personal Data Network (PDN) hosted by groups, or organizations.
 
-Mia's ontologies import and profile existing ontologies — documenting which of their classes and properties Mia requires or uses — and extending them with Mia-specific classes and properties. They include the following **domain ontologies** model claims about people, organizations, groups and other topics contained in `t:SCTopicGraph` instances:
+The following **domain ontologies** model claims about people, organizations, groups and other topics contained in `t:SCTopicGraph` instances. They import and profile existing ontologies — documenting which of their classes and properties Mia requires or uses — and extending them with Mia-specific classes and properties
+
 - **Persona ontology** — models a person: names, addresses, phone numbers, relationships, payment cards, and more. It is built on BFO (Basic Formal Ontology) and CCO (Common Core Ontologies) as the upper ontological foundation, and on domain ontologies that extend CCO:
   - **PersonOntology** — person, name types, parent-child relationships
   - **AddressOntology** — postal address structure
@@ -11,9 +12,9 @@ Mia's ontologies import and profile existing ontologies — documenting which of
 - **Organization ontology** — models organizations (companies, government agencies, non-profits, etc.) 
 - **Group ontology** — a group made up of individuals and/or organizations.
 
-Also included are the Category, Cell and Topic metadata ontologies. Categories are used to organize information in cells. Cells define the boundaries and "outer" structure of data spaces that can be shared with other users and organizations. Topics provide a lightweight container for information about people and other topics using the Persona ontology.
+Also included are the Category, Cell and Topic *metadata* ontologies. *Categories* are used to organize *cells* into a tree structure of subject areas. *Cells* are data spaces that can be shared with other users and organizations. Cells contain content including notes, files, folders, chat streams as well as structure information blocks called *topics* that follow the Persona ontology.
 
-Throughout, we use these short-hands:
+Throughout this document we use these short-hands:
 
 - `cat:` for the `category:` namespace (`http://mee.foundation/ontologies/category#`)
 - `c:` for the `cell:` namespace (`http://mee.foundation/ontologies/cell#`)
@@ -24,13 +25,13 @@ Throughout, we use these short-hands:
 - `ako` for `rdfs:subClassOf` ("a kind of")
 - `isa` for 'rdf:type` ("is a")
 
-After describing these ontologies in more detail, we will conclude with an illustration of their use by a hypothetical user, Alice Walker.
+After describing these ontologies in more detail, we conclude with an illustration of their use by a hypothetical Mia user, Alice Walker.
 
 ## Category Ontology
 
-Using the app the user creates category trees to organize their cells. The nodes of the tree are formed of `cat:Node` instances with child properties pointing to sub-nodes and thus forming the tree.
+Using Mia the user creates category trees to organize cells that they create themselves or are shared with them. The nodes of the tree are `cat:Node` instances with `child` properties pointing to sub-nodes.
 
-These nodes may be a `cat:CategoryDefined` or `cat:UserDefined`. The former point (via `cat:catetory`) to a subclass in the predefined `cat:Category` class hierarchy which indicates the kind of information it is about. `cat:Category` and is subclasses vary in scope from broad groupings of information to narrower ones. In the social domain, for example, a category might be about "People", or more narrowly about "Immediate Family", and ultimately about just a single family member. The user is also free to also construct user-defined nodes which do not use any of the predefined categories. 
+These nodes may be `cat:CategoryDefined` or `cat:UserDefined`. The former point (via `cat:catetory`) to a subclass in the predefined `cat:Category` class hierarchy which indicates the kind of information it is about. `cat:Category` and is subclasses vary in scope from broad groupings of information to narrower ones. In the social domain, for example, a category might be about "People", or more narrowly about "Immediate Family", and ultimately about just a single family member. The user is also free to also construct user-defined nodes which do not use any of the predefined categories. 
 
 <p align="center"><img src="images/category-ontology/category.png" alt="Category hierarchy"></p>
 
