@@ -2,7 +2,7 @@
 id: https://www.example.org/mia/topics/bob-johnson.bob-johnson(boston-hub-society)(affiliations)(03)
 title: "About Bob Johnson in the Boston Hub Society cell as claimed by Bob Johnson"
 type: topic-databook
-version: 2.0.9
+version: 2.0.11
 created: 2026-06-15
 description: >
   Bob Johnson's BHS profile, received from Bob's Mia via PDN.
@@ -28,10 +28,10 @@ process:
 
 This topic captures Bob Johnson's BHS profile as transmitted from Bob's Mia to Alice's Mia over the PDN. It records the name Bob presents to the Boston Hub Society group.
 
-## Identity Data
+## Topic Graph
 
 ```turtle
-<!-- databook:id: bob-bhs-identity -->
+<!-- databook:id: bob-bhs-topic-graph -->
 <!-- databook:graph: https://www.example.org/mia/topics/bob-johnson.bob-johnson(boston-hub-society)(affiliations)(03)#graph -->
 @prefix : <http://www.example.org/mia#> .
 @prefix persona: <http://mee.foundation/ontologies/persona#> .

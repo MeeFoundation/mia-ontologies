@@ -2,7 +2,7 @@
 id: https://www.example.org/mia/topics/self.self(boston-hub-society)(affiliations)(14)
 title: "About Alice Walker in the Boston Hub Society cell as claimed by Alice Walker"
 type: topic-databook
-version: 2.0.12
+version: 2.0.14
 created: 2026-06-11
 description: >
   Alice Walker's self-claimed BHS profile, including her current address, phone number,
@@ -28,10 +28,10 @@ process:
 
 This topic captures Alice Walker's BHS profile — the identity data she shares with the Boston Hub Society group. It includes her current Paradise, CA address, her phone number, and her Gmail address.
 
-## Identity Data
+## Topic Graph
 
 ```turtle
-<!-- databook:id: alice-bhs-identity -->
+<!-- databook:id: alice-bhs-topic-graph -->
 <!-- databook:graph: https://www.example.org/mia/topics/self.self(boston-hub-society)(affiliations)(14)#graph -->
 @prefix : <http://www.example.org/mia#> .
 @prefix persona: <http://mee.foundation/ontologies/persona#> .

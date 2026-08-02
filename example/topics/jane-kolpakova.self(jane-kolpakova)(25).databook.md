@@ -2,7 +2,7 @@
 id: https://www.example.org/mia/topics/jane-kolpakova.self(jane-kolpakova)(25)
 title: "About Jane Kolpakova in the PrimaryCarePhysician cell as claimed by Alice Walker"
 type: topic-databook
-version: 1.0.9
+version: 1.0.11
 created: 2026-07-08
 description: >
   Alice's record of Dr. Jane Kolpakova, the primary care physician for
@@ -28,10 +28,10 @@ process:
 
 This topic captures Alice's record of Dr. Jane Kolpakova, who is the primary care physician for Alice's mother, Paula Walker. Alice keeps this information so she and her sister Carol can coordinate Paula's medical appointments.
 
-## Identity Data
+## Topic Graph
 
 ```turtle
-<!-- databook:id: jane-kolpakova-alice-identity -->
+<!-- databook:id: jane-kolpakova-alice-topic-graph -->
 <!-- databook:graph: https://www.example.org/mia/topics/jane-kolpakova.self(jane-kolpakova)(25)#graph -->
 @prefix : <http://www.example.org/mia#> .
 @prefix persona: <http://mee.foundation/ontologies/persona#> .

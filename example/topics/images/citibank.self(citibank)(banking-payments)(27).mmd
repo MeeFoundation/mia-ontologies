@@ -7,12 +7,10 @@ flowchart TD
 
     subgraph ctx["Topic"]
         direction LR
-        ctx_meta["claimant: :Self\nsubject: :Self"]:::meta
+        ctx_meta["claimant: :Self\nsubject: :Citibank"]:::meta
     end
 
-    n29ddd4160a4b[":Alice_Family_Network\n(SocialNetwork)"]
-    nb654756d5ced[":Paula_Walker"]
-    ne701b3db8a90[":Carol_Walker"]
+    n0415a88486d3[":Citibank\n(Organization)"]:::org
+    n9a0f8a3b4f51("My primary checking account is here — used for rent and bill-pay autopay. Opened 2019."):::lit
 
-    n29ddd4160a4b -->|"hasMemberPart"| nb654756d5ced
-    n29ddd4160a4b -->|"hasMemberPart"| ne701b3db8a90
+    n0415a88486d3 -->|"ont00001917"| n9a0f8a3b4f51

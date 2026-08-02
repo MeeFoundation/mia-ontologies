@@ -11,7 +11,7 @@
 @prefix o: <http://mee.foundation/ontologies/organization#> .
 
 <http://mee.foundation/ontologies/cell/shapes> rdf:type owl:Ontology ;
-    owl:versionInfo "Version 3.9.0 - renamed context:/SCcontext references to topic:/SCtopic (cell:primary/cell:secondary's sh:class constraint on :ACellShape) following context.ttl's rename to topic.ttl. No change to cardinality or which properties are constrained."@en ;
+    owl:versionInfo "Version 3.12.0 - split cell:topics's constraint into cell:otherTopics (unbounded, uniform, stays on :ACellShape) and cell:partyTopics (required baseline, now enforced per party count by three new shapes: :OnePartyShape, :TwoPartyShape, :ThreePlusPartyShape, targeting cell:OneParty/cell:TwoParty/cell:ThreePlusParty respectively). Also moved cell:subject's minCount/maxCount off the uniform :ACellShape and onto those same three per-party shapes, tightening it from a blanket 1..2 to exactly 1 for cell:OneParty/cell:ThreePlusParty and 1..2 for cell:TwoParty — :ACellShape now only checks cell:subject's sh:nodeKind sh:IRI uniformly."@en ;
     rdfs:label "Cell Ontology SHACL Validation Shapes"@en ;
     rdfs:comment "SHACL validation shapes for cell:Cell DataBook instances (the content facet of a cell) in the Cell Ontology."@en .
 
@@ -19,10 +19,11 @@
 #################################################################
 #  Cell
 #  cell:Cell (formerly cell:Parties) carries only what's common to
-#  every cell regardless of facet: note/folder. Context links
-#  (cell:primary/cell:secondary) live on :ACellShape below, since
-#  their domain narrowed from cell:Cell to cell:ACell in cell.ttl
-#  3.10.0 — a cell not yet typed cell:ACell has neither.
+#  every cell regardless of facet: note/folder. Identity/topic links
+#  (cell:subject/cell:partyTopics/cell:otherTopics) live on
+#  :ACellShape and the per-party-count shapes below, since their
+#  domain narrowed from cell:Cell to cell:ACell in cell.ttl 3.10.0 —
+#  a cell not yet typed cell:ACell has none of them.
 #################################################################
 
 :CellShape
@@ -77,8 +78,15 @@
 #  cell:ACell is the actual/instantiated facet of a cell (cell.ttl
 #  3.7.0) — real, party-classified content. creator and parties
 #  moved here from :CellShape when their domain narrowed from
-#  cell:Cell to cell:ACell; primary and secondary (renamed from
-#  graph/sc-context) moved here the same way in cell.ttl 3.10.0.
+#  cell:Cell to cell:ACell; subject and topics (renamed from
+#  primary/secondary, themselves renamed from graph/sc-context)
+#  moved here the same way in cell.ttl 3.10.0/3.12.0. As of cell.ttl
+#  3.14.0/cell-shacl.ttl 3.12.0, cell:subject's and cell:topics's
+#  per-party-count cardinality is no longer enforced uniformly here —
+#  see :OnePartyShape/:TwoPartyShape/:ThreePlusPartyShape below.
+#  :ACellShape retains only cell:subject's structural sh:nodeKind
+#  check (applies regardless of party count) and cell:otherTopics's
+#  unbounded, uniform constraint.
 #################################################################
 
 :ACellShape
@@ -86,24 +94,29 @@
     sh:targetClass cell:ACell ;
     sh:message "Actual Cell validation."@en ;
 
-    # cell:primary — exactly one value, must be a topic:SCtopic.
-    # Renamed from cell:graph (cell.ttl 3.10.0); the old plain-Context,
-    # no-claimant use case is retired, so every primary is now an
-    # SCtopic like every secondary.
+    # cell:subject — each value must be an IRI (not constrained to
+    # sh:class topic:SCTopicGraph — its range widened to xsd:anyURI in
+    # cell.ttl 3.12.0, since its values are the resource(s) the cell is
+    # about, e.g. a p:Person/g:Group/o:Organization, not a topic
+    # container). Cardinality (exactly 1 vs 1..2) now varies by party
+    # count — see :OnePartyShape/:TwoPartyShape/:ThreePlusPartyShape
+    # below, not here.
     sh:property [
-        sh:path cell:primary ;
-        sh:minCount 1 ;
-        sh:maxCount 1 ;
-        sh:class topic:SCtopic ;
-        sh:message "A cell:ACell's cell:primary is required, exactly one value, and must be a topic:SCtopic."@en
+        sh:path cell:subject ;
+        sh:nodeKind sh:IRI ;
+        sh:message "A cell:ACell's cell:subject value(s) must each be an IRI."@en
     ] ;
 
-    # cell:secondary — zero or more, each a topic:SCtopic.
-    # Renamed from cell:sc-context (cell.ttl 3.10.0).
+    # cell:otherTopics — any number of additional topics beyond the
+    # required cell:partyTopics baseline, each a topic:SCTopicGraph.
+    # Optional and unbounded uniformly across all party counts, unlike
+    # cell:partyTopics (see :OnePartyShape/:TwoPartyShape/
+    # :ThreePlusPartyShape below). Split from cell:topics (cell.ttl up
+    # to 3.13.0).
     sh:property [
-        sh:path cell:secondary ;
-        sh:class topic:SCtopic ;
-        sh:message "A cell:ACell's cell:secondary values, if any, must each be a topic:SCtopic."@en
+        sh:path cell:otherTopics ;
+        sh:class topic:SCTopicGraph ;
+        sh:message "A cell:ACell's cell:otherTopics values, if present, must each be a topic:SCTopicGraph."@en
     ] ;
 
     # cell:creator — at most one value, must be a Person, Group, or Organization
@@ -135,4 +148,77 @@
         sh:path cell:shape ;
         sh:maxCount 1 ;
         sh:message "A cell:ACell may have at most one cell:shape value."@en
+    ] .
+
+
+#################################################################
+#  Per-Party-Count Shapes
+#  cell:subject and cell:partyTopics both scale with how many total
+#  parties a cell:ACell individual represents (cell.ttl's Cell Party
+#  Composition). Since yaml-to-rdf.py types every cell:ACell instance
+#  with its concrete party class (cell:OneParty/cell:TwoParty/
+#  cell:ThreePlusParty) in addition to asserting cell:parties, these
+#  three shapes can target those classes directly via sh:targetClass.
+#  cell:otherTopics is deliberately absent here — it stays uniform,
+#  unbounded, and optional regardless of party count (see :ACellShape
+#  above).
+#################################################################
+
+:OnePartyShape
+    a sh:NodeShape ;
+    sh:targetClass cell:OneParty ;
+    sh:message "OneParty Cell validation."@en ;
+
+    sh:property [
+        sh:path cell:subject ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:message "A cell:OneParty's cell:subject is required, exactly one value."@en
+    ] ;
+
+    sh:property [
+        sh:path cell:partyTopics ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:class topic:SCTopicGraph ;
+        sh:message "A cell:OneParty's cell:partyTopics is required, exactly one value, and it must be a topic:SCTopicGraph."@en
+    ] .
+
+:TwoPartyShape
+    a sh:NodeShape ;
+    sh:targetClass cell:TwoParty ;
+    sh:message "TwoParty Cell validation."@en ;
+
+    sh:property [
+        sh:path cell:subject ;
+        sh:minCount 1 ;
+        sh:maxCount 2 ;
+        sh:message "A cell:TwoParty's cell:subject is required, one or two values."@en
+    ] ;
+
+    sh:property [
+        sh:path cell:partyTopics ;
+        sh:minCount 2 ;
+        sh:maxCount 4 ;
+        sh:class topic:SCTopicGraph ;
+        sh:message "A cell:TwoParty's cell:partyTopics is required, two to four values (one per self-vs-other combination), and each must be a topic:SCTopicGraph."@en
+    ] .
+
+:ThreePlusPartyShape
+    a sh:NodeShape ;
+    sh:targetClass cell:ThreePlusParty ;
+    sh:message "ThreePlusParty Cell validation."@en ;
+
+    sh:property [
+        sh:path cell:subject ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:message "A cell:ThreePlusParty's cell:subject is required, exactly one value."@en
+    ] ;
+
+    sh:property [
+        sh:path cell:partyTopics ;
+        sh:minCount 3 ;
+        sh:class topic:SCTopicGraph ;
+        sh:message "A cell:ThreePlusParty's cell:partyTopics is required, at least three values (one per party), and each must be a topic:SCTopicGraph."@en
     ] .

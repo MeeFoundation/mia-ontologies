@@ -2,7 +2,7 @@
 id: https://www.example.org/mia/topics/paula-walker.paula-walker(paula-walker)(immediate-family)(05)
 title: "About Paula Walker in the ImmediateFamily cell as claimed by Paula Walker"
 type: topic-databook
-version: 2.0.12
+version: 2.0.14
 created: 2026-06-14
 description: >
   Paula Walker's self-claimed family persona, received from Paula's Mia via PDN.
@@ -27,10 +27,10 @@ process:
 
 This topic captures Paula Walker's self-claimed family persona as transmitted from Paula's Mia to Alice's Mia over the PDN.
 
-## Identity Data
+## Topic Graph
 
 ```turtle
-<!-- databook:id: paula-family-paula-identity -->
+<!-- databook:id: paula-family-paula-topic-graph -->
 <!-- databook:graph: https://www.example.org/mia/topics/paula-walker.paula-walker(paula-walker)(immediate-family)(05)#graph -->
 @prefix : <http://www.example.org/mia#> .
 @prefix persona: <http://mee.foundation/ontologies/persona#> .

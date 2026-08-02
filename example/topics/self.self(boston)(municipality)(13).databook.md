@@ -2,7 +2,7 @@
 id: https://www.example.org/mia/topics/self.self(boston)(municipality)(13)
 title: "About Alice Walker in the Municipality cell as claimed by Alice Walker"
 type: topic-databook
-version: 2.0.11
+version: 2.0.13
 created: 2026-06-01
 description: >
   Alice Walker's previous residential address in Boston, MA (January 2020 to August 2025).
@@ -28,10 +28,10 @@ process:
 
 This topic captures Alice Walker's previous residential address: 456 Commonwealth Ave, Boston, MA 02215. The address designation spans January 2020 to August 2025. See `14-alice(paradise)alice` for her current address.
 
-## Identity Data
+## Topic Graph
 
 ```turtle
-<!-- databook:id: alice-boston-identity -->
+<!-- databook:id: alice-boston-topic-graph -->
 <!-- databook:graph: https://www.example.org/mia/topics/self.self(boston)(municipality)(13)#graph -->
 @prefix : <http://www.example.org/mia#> .
 @prefix persona: <http://mee.foundation/ontologies/persona#> .

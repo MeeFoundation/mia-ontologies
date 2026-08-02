@@ -11,10 +11,10 @@
 @base <http://mee.foundation/ontologies/topic> .
 
 <http://mee.foundation/ontologies/topic> rdf:type owl:Ontology ;
-    owl:versionIRI <http://mee.foundation/ontologies/topic/1.13.0> ;
-    dc:date "2026-08-01"^^xsd:date ;
+    owl:versionIRI <http://mee.foundation/ontologies/topic/1.15.0> ;
+    dc:date "2026-08-02"^^xsd:date ;
     owl:imports <http://mee.foundation/ontologies/cell> ;
-    owl:versionInfo "Version 1.13.0 - renamed context.ttl/context: throughout to topic.ttl/topic: (context:Context to topic:Topic, context:SCcontext to topic:SCtopic; claimant/subject/template keep their names, only the prefix changes); broadened topic:subject's rdfs:range from a union of p:Person/g:Group/o:Organization to xsd:anyURI, since a topic's subject need not be a person's identity — topic:claimant's range is unchanged, the claimant remains necessarily an agent. Doc comments on topic:Topic and topic:subject reworded to drop the assumption that a topic's content is a person's identity data."@en ;
+    owl:versionInfo "Version 1.15.0 - renamed topic:Topic to topic:TopicGraph and topic:SCtopic to topic:SCTopicGraph for clarity and consistency with the 'Topic Graph' DataBook section heading convention (each topic DataBook's fenced content becomes exactly the named graph these classes classify). Capitalization also normalized (SCtopic's lowercase 't' was inconsistent with the SC acronym prefix). No change to class hierarchy, domains/ranges, or cardinality — instances of both classes are still typed and asserted on the DataBook's own plain `id` IRI, not the `#graph`-suffixed graph.named_graph IRI that is the actual named graph; the new names describe what the DataBook's content represents, not a change to which IRI carries the type triple."@en ;
     rdfs:label "Topic Ontology"@en ;
     rdfs:comment """Topic Ontology for the Mee Identity Agent"""@en .
 
@@ -28,10 +28,10 @@ topic:claimant rdf:type owl:AnnotationProperty ;
     rdfs:comment """Annotates a topic DataBook with the identity making the claim —
                     a named individual of p:Person, g:Group, or o:Organization (e.g. :Self,
                     a p:Person, g:Group, or o:Organization instance). Applied to the topic
-                    DataBook's own IRI (its plain `id`) — the same IRI cell:primary/
-                    cell:secondary link to from the cell side — not to the `#graph`-suffixed
+                    DataBook's own IRI (its plain `id`) — the same IRI cell:topics
+                    links to from the cell side — not to the `#graph`-suffixed
                     `graph.named_graph` IRI, and not to the Person individual."""@en ;
-    rdfs:domain topic:SCtopic ;
+    rdfs:domain topic:SCTopicGraph ;
     rdfs:range [ rdf:type owl:Class ; owl:unionOf ( p:Person g:Group o:Organization ) ] .
 
 topic:subject rdf:type owl:AnnotationProperty ;
@@ -43,10 +43,10 @@ topic:subject rdf:type owl:AnnotationProperty ;
                     :Self, a p:Person, g:Group, or o:Organization instance), but that is
                     a convention of the example data, not an ontology requirement.
                     Applied to the topic DataBook's own IRI (its plain `id`) — the same
-                    IRI cell:primary/cell:secondary link to from the cell side — not to
+                    IRI cell:topics links to from the cell side — not to
                     the `#graph`-suffixed `graph.named_graph` IRI, and not to the
                     subject resource itself."""@en ;
-    rdfs:domain topic:SCtopic ;
+    rdfs:domain topic:SCTopicGraph ;
     rdfs:range xsd:anyURI .
 
 topic:template rdf:type owl:AnnotationProperty ;
@@ -59,20 +59,20 @@ topic:template rdf:type owl:AnnotationProperty ;
                     Applied to the topic DataBook's own IRI (its plain `id`), not the
                     `#graph`-suffixed `graph.named_graph` IRI — matching topic:subject and
                     topic:claimant."""@en ;
-    rdfs:domain topic:Topic ;
+    rdfs:domain topic:TopicGraph ;
     rdfs:range <http://mee.foundation/ontologies/persona#PersonaTemplate> .
 
 
 #################################################################
-#    Topic (DataBook) and SCtopic
+#    TopicGraph (DataBook) and SCTopicGraph
 #################################################################
 
-topic:Topic rdf:type owl:Class ;
+topic:TopicGraph rdf:type owl:Class ;
     cell:abstract true ;
-    rdfs:label "Topic"@en ;
-    rdfs:comment "A topic DataBook — a named graph of claims about some resource, filed in a specific relationship or situation, extracted into a named graph (graph.named_graph, the DataBook's own `id` plus a `#graph` fragment). The resource it is about need not be a person's identity — see topic:subject. Instances of this class and its annotations (topic:subject, topic:claimant, topic:template) are typed and asserted on the DataBook's own `id` IRI, not the `#graph`-suffixed named graph IRI that wraps its extracted content."@en .
+    rdfs:label "TopicGraph"@en ;
+    rdfs:comment "A topic DataBook — a named graph of claims about some resource, filed in a specific relationship or situation, extracted into a named graph (graph.named_graph, the DataBook's own `id` plus a `#graph` fragment). Renamed from topic:Topic (topic.ttl 1.15.0) for clarity, since this class's instances represent exactly the content that becomes that named graph — see the 'Topic Graph' DataBook section heading convention. The resource it is about need not be a person's identity — see topic:subject. Instances of this class and its annotations (topic:subject, topic:claimant, topic:template) are typed and asserted on the DataBook's own `id` IRI, not the `#graph`-suffixed named graph IRI that wraps its extracted content."@en .
 
-topic:SCtopic rdf:type owl:Class ;
-    rdfs:subClassOf topic:Topic ;
-    rdfs:label "SCtopic"@en ;
-    rdfs:comment "Subject-Claimant topic: the concrete class every self-vs-other classified topic DataBook is typed as directly — it has no subclasses (the former SBScontext/OBScontext/OBOcontext/SBOcontext were deleted; the four self-vs-other cases they distinguished are now determined directly from the combination of subject and claimant, rather than from a separate context:about-by value or distinct rdf:types). Carries the subject and claimant annotations — every topic reachable from a cell, via cell:primary or cell:secondary (cell.ttl 3.10.0), is a topic:SCtopic and so always carries them; the earlier plain topic:Topic, no-claimant use case (formerly reached via cell:graph) is retired."@en .
+topic:SCTopicGraph rdf:type owl:Class ;
+    rdfs:subClassOf topic:TopicGraph ;
+    rdfs:label "SCTopicGraph"@en ;
+    rdfs:comment "Subject-Claimant topic graph: the concrete class every self-vs-other classified topic DataBook is typed as directly — it has no subclasses (the former SBScontext/OBScontext/OBOcontext/SBOcontext were deleted; the four self-vs-other cases they distinguished are now determined directly from the combination of subject and claimant, rather than from a separate context:about-by value or distinct rdf:types). Carries the subject and claimant annotations — every topic reachable from a cell, via cell:topics (cell.ttl 3.12.0; formerly cell:primary or cell:secondary), is a topic:SCTopicGraph and so always carries them; the earlier plain topic:TopicGraph, no-claimant use case (formerly reached via cell:graph) is retired. Renamed from topic:SCtopic (topic.ttl 1.15.0); the capital 'T' also normalizes the acronym-prefix + word CamelCase convention that topic:SCtopic's lowercase 't' broke."@en .

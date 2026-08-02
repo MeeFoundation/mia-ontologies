@@ -2,12 +2,13 @@
 id: http://www.example.org/mia/categories/ownership-cell
 title: "Ownership (Cell)"
 type: cell-databook
-version: 1.0.6
+version: 1.0.8
 created: 2026-07-10
 description: >
-  Cell DataBook of category "Ownership" (mia.catType: Ownership). Content may include secondary/folder/note links, and may carry a required primary topic.
+  Cell DataBook of category "Ownership" (mia.catType: Ownership). Content may include topics/folder/note links, and may carry one or two required subject values.
 mia:
   creator: ":Self"
   parties: "cell:OneParty"
-  primary: "https://www.example.org/mia/topics/self.self(ownership)(22)"
+  subject: ":Self"
+  partyTopics: "https://www.example.org/mia/topics/self.self(ownership)(22)"
 ---

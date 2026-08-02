@@ -2,7 +2,7 @@
 id: https://www.example.org/mia/topics/self.self(health-wellness)(17)
 title: "About Alice Walker in the Health & Wellness cell as claimed by Alice Walker"
 type: topic-databook
-version: 1.0.8
+version: 1.0.10
 created: 2026-06-20
 description: >
   Alice Walker's physical body characteristics: height, eye color, and hair color.
@@ -28,10 +28,10 @@ process:
 
 This topic captures Alice Walker's physical body characteristics — properties that are intrinsic to her as a person and do not belong to any particular institutional or social topic. Height is recorded as a CCO Height quality with a RatioMeasurementICE (68 inches). Eye color is modeled as Alice bearing a BlueEyeColor quality directly. Hair color is borne by her ScalpHair continuant part.
 
-## Identity Data
+## Topic Graph
 
 ```turtle
-<!-- databook:id: alice-health-identity -->
+<!-- databook:id: alice-health-topic-graph -->
 <!-- databook:graph: https://www.example.org/mia/topics/self.self(health-wellness)(17)#graph -->
 @prefix : <http://www.example.org/mia#> .
 @prefix persona: <http://mee.foundation/ontologies/persona#> .

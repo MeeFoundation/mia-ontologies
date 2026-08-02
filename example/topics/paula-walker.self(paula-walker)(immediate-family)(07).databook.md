@@ -2,7 +2,7 @@
 id: https://www.example.org/mia/topics/paula-walker.self(paula-walker)(immediate-family)(07)
 title: "About Paula Walker in the ImmediateFamily cell as claimed by Alice Walker"
 type: topic-databook
-version: 2.0.12
+version: 2.0.14
 created: 2026-06-14
 description: >
   Alice's record of her family member Paula Walker, including Paula's given and family name.
@@ -27,10 +27,10 @@ process:
 
 This topic captures Alice's record of her family member Paula Walker. Alice claims Paula's name in the family topic.
 
-## Identity Data
+## Topic Graph
 
 ```turtle
-<!-- databook:id: paula-family-alice-identity -->
+<!-- databook:id: paula-family-alice-topic-graph -->
 <!-- databook:graph: https://www.example.org/mia/topics/paula-walker.self(paula-walker)(immediate-family)(07)#graph -->
 @prefix : <http://www.example.org/mia#> .
 @prefix persona: <http://mee.foundation/ontologies/persona#> .

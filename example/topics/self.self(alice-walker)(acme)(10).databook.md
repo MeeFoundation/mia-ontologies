@@ -2,7 +2,7 @@
 id: https://www.example.org/mia/topics/self.self(alice-walker)(acme)(10)
 title: "About Alice Walker in the Alice Walker cell as claimed by Alice Walker"
 type: topic-databook
-version: 2.0.12
+version: 2.0.14
 created: 2026-06-14
 description: >
   Alice Walker's JSContactCard business card persona. Records her professional contact
@@ -30,10 +30,10 @@ process:
 
 This topic captures Alice Walker's professional business card in JSContactCard format. It records her full name, work email (alice@acme.com), work phone (+15108149999), employer (Acme), department (Engineering), job title (Software Engineer), and LinkedIn profile URL. Validated by the `JSContactCard` per-template SHACL shapes.
 
-## Identity Data
+## Topic Graph
 
 ```turtle
-<!-- databook:id: alice-business-card-identity -->
+<!-- databook:id: alice-business-card-topic-graph -->
 <!-- databook:graph: https://www.example.org/mia/topics/self.self(alice-walker)(acme)(10)#graph -->
 @prefix : <http://www.example.org/mia#> .
 @prefix persona: <http://mee.foundation/ontologies/persona#> .

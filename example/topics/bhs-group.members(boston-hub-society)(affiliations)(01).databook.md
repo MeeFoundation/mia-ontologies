@@ -2,7 +2,7 @@
 id: https://www.example.org/mia/topics/bhs-group.members(boston-hub-society)(affiliations)(01)
 title: "About Boston Hub Society in the Boston Hub Society cell as claimed by Boston Hub Society"
 type: topic-databook
-version: 2.0.10
+version: 2.0.12
 created: 2026-06-12
 description: >
   The Boston Hub Society group instance, with Alice and Bob as members.
@@ -28,10 +28,10 @@ process:
 
 This topic captures the Boston Hub Society as a `g:Group` entity. It records the group's membership: Alice Walker (`:Self`) and Bob Johnson (`:Bob_Johnson`). Any permitted member may claim or update this topic.
 
-## Identity Data
+## Topic Graph
 
 ```turtle
-<!-- databook:id: bhs-group-identity -->
+<!-- databook:id: bhs-group-topic-graph -->
 <!-- databook:graph: https://www.example.org/mia/topics/bhs-group.members(boston-hub-society)(affiliations)(01)#graph -->
 @prefix : <http://www.example.org/mia#> .
 @prefix g: <http://mee.foundation/ontologies/group#> .

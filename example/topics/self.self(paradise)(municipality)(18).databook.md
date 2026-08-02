@@ -2,7 +2,7 @@
 id: https://www.example.org/mia/topics/self.self(paradise)(municipality)(18)
 title: "About Alice Walker in the Municipality cell as claimed by Alice Walker"
 type: topic-databook
-version: 2.0.11
+version: 2.0.13
 created: 2026-06-01
 description: >
   Alice Walker's current residential address in Paradise, CA (September 2025 to present).
@@ -28,10 +28,10 @@ process:
 
 This topic captures Alice Walker's current residential address: 123 Sleepy Hollow, Paradise, CA 95969. The address designation has a start date of September 2025 and no end date, indicating it is her current residence. See `15-alice(boston)alice` for her previous address.
 
-## Identity Data
+## Topic Graph
 
 ```turtle
-<!-- databook:id: alice-paradise-identity -->
+<!-- databook:id: alice-paradise-topic-graph -->
 <!-- databook:graph: https://www.example.org/mia/topics/self.self(paradise)(municipality)(18)#graph -->
 @prefix : <http://www.example.org/mia#> .
 @prefix persona: <http://mee.foundation/ontologies/persona#> .

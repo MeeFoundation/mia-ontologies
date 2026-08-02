@@ -2,7 +2,7 @@
 id: https://www.example.org/mia/topics/self.self(google)(companies)(16)
 title: "About Alice Walker in the Companies cell as claimed by Alice Walker"
 type: topic-databook
-version: 2.0.11
+version: 2.0.13
 created: 2026-06-01
 description: >
   Alice Walker's Google topic. Records her Gmail address as self-entered data
@@ -28,10 +28,10 @@ process:
 
 This topic captures Alice Walker's Google account topic. Alice self-enters her Gmail address (awalker@gmail.com). Google is not a PDN node, so Alice records this data herself rather than receiving it from Google.
 
-## Identity Data
+## Topic Graph
 
 ```turtle
-<!-- databook:id: alice-google-identity -->
+<!-- databook:id: alice-google-topic-graph -->
 <!-- databook:graph: https://www.example.org/mia/topics/self.self(google)(companies)(16)#graph -->
 @prefix : <http://www.example.org/mia#> .
 @prefix persona: <http://mee.foundation/ontologies/persona#> .

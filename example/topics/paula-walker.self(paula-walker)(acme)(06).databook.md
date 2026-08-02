@@ -2,7 +2,7 @@
 id: https://www.example.org/mia/topics/paula-walker.self(paula-walker)(acme)(06)
 title: "About Paula Walker in the Employee cell as claimed by Alice Walker"
 type: topic-databook
-version: 2.0.9
+version: 2.0.11
 created: 2026-06-14
 description: >
   Alice's record of her colleague Paula Walker in the Acme employment topic.
@@ -28,10 +28,10 @@ process:
 
 This topic captures Alice's record of her colleague Paula Walker in their shared Acme employment topic. Alice self-claims this topic; it is paired with Paula's own Acme persona in `20-alice(acme)alice`.
 
-## Identity Data
+## Topic Graph
 
 ```turtle
-<!-- databook:id: paula-acme-identity -->
+<!-- databook:id: paula-acme-topic-graph -->
 <!-- databook:graph: https://www.example.org/mia/topics/paula-walker.self(paula-walker)(acme)(06)#graph -->
 @prefix : <http://www.example.org/mia#> .
 @prefix persona: <http://mee.foundation/ontologies/persona#> .

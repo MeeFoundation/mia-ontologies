@@ -2,7 +2,7 @@
 id: https://www.example.org/mia/topics/self.self(social-security-administration)(federal)(23)
 title: "About Alice Walker in the Federal cell as claimed by Alice Walker"
 type: topic-databook
-version: 2.0.11
+version: 2.0.13
 created: 2026-06-01
 description: >
   Alice Walker's SSA topic. Records her Social Security Number as self-entered data.
@@ -28,10 +28,10 @@ process:
 
 This topic captures Alice Walker's Social Security Administration record. Alice self-enters her SSN (123-45-6788) from her physical Social Security card. The SSA is not a PDN node, so this data is self-claimed rather than received from the SSA directly.
 
-## Identity Data
+## Topic Graph
 
 ```turtle
-<!-- databook:id: alice-ssa-identity -->
+<!-- databook:id: alice-ssa-topic-graph -->
 <!-- databook:graph: https://www.example.org/mia/topics/self.self(social-security-administration)(federal)(23)#graph -->
 @prefix : <http://www.example.org/mia#> .
 @prefix persona: <http://mee.foundation/ontologies/persona#> .

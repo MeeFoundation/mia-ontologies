@@ -2,7 +2,7 @@
 id: https://www.example.org/mia/topics/bob-johnson.bob-johnson(bob-johnson)(others)(02)
 title: "About Bob Johnson in the Others cell as claimed by Bob Johnson"
 type: topic-databook
-version: 2.0.11
+version: 2.0.13
 created: 2026-06-15
 description: >
   Bob Johnson's self-claimed Bob-topic persona, received from Bob's Mia via PDN.
@@ -28,10 +28,10 @@ process:
 
 This topic captures Bob Johnson's self-claimed Bob-topic persona, transmitted from Bob's Mia to Alice's Mia over the PDN. It records Bob's name and his social network link to Alice.
 
-## Identity Data
+## Topic Graph
 
 ```turtle
-<!-- databook:id: bob-bob-bob-identity -->
+<!-- databook:id: bob-bob-bob-topic-graph -->
 <!-- databook:graph: https://www.example.org/mia/topics/bob-johnson.bob-johnson(bob-johnson)(others)(02)#graph -->
 @prefix : <http://www.example.org/mia#> .
 @prefix persona: <http://mee.foundation/ontologies/persona#> .

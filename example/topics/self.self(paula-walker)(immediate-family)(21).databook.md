@@ -2,7 +2,7 @@
 id: https://www.example.org/mia/topics/self.self(paula-walker)(immediate-family)(21)
 title: "About Alice Walker in the ImmediateFamily cell as claimed by Alice Walker"
 type: topic-databook
-version: 2.0.14
+version: 2.0.18
 created: 2026-06-01
 description: >
   Alice Walker's family topic. Records her maternal relationship with Paula Walker
@@ -26,12 +26,12 @@ process:
 
 ## Overview
 
-This topic captures Alice Walker's family relationships. It records her maternal relationship with Paula Walker and her family social network, which includes Paula Walker as a member. Paula's own family topic (`paula-walker.paula-walker(paula-walker)(immediate-family)(05)`) is the peer record in this relationship.
+This topic captures Alice Walker's family relationships. It records her maternal relationship with Paula Walker and her family social network, which includes Paula Walker and Carol Walker (Alice's sister) as members. Paula's own family topic (`paula-walker.paula-walker(paula-walker)(immediate-family)(05)`) is the peer record in this relationship; Carol's own claimed record about their mother appears separately in the "Med. App. Info" cell (topic 28).
 
-## Identity Data
+## Topic Graph
 
 ```turtle
-<!-- databook:id: alice-family-identity -->
+<!-- databook:id: alice-family-topic-graph -->
 <!-- databook:graph: https://www.example.org/mia/topics/self.self(paula-walker)(immediate-family)(21)#graph -->
 @prefix : <http://www.example.org/mia#> .
 @prefix persona: <http://mee.foundation/ontologies/persona#> .
@@ -55,5 +55,6 @@ This topic captures Alice Walker's family relationships. It records her maternal
 :Alice_Family_Network rdf:type owl:NamedIndividual ,
                                cco:ont00001183 ;  # Social Network
     rdfs:label "Alice Walker's family connections"@en ;
-    <http://purl.obolibrary.org/obo/BFO_0000115> :Paula_Walker .  # has member part
+    <http://purl.obolibrary.org/obo/BFO_0000115> :Paula_Walker ,  # has member part
+                                                  :Carol_Walker .  # has member part (Alice's sister)
 ```

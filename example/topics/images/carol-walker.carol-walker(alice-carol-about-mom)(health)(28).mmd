@@ -1,0 +1,22 @@
+flowchart TD
+    classDef person fill:#fffacd,stroke:#aaa,color:#333
+    classDef grp    fill:#d4edda,stroke:#aaa,color:#333
+    classDef org    fill:#cce5ff,stroke:#aaa,color:#333
+    classDef lit    fill:none,stroke:none,font-style:italic,color:#2a7a2a
+    classDef meta   fill:#f5f5ff,stroke:#9999cc,color:#333
+
+    subgraph ctx["Topic"]
+        direction LR
+        ctx_meta["claimant: :Carol_Walker\nsubject: :Carol_Walker"]:::meta
+    end
+
+    n4c1f2977b9f4[":Carol_Walker\n(Person)"]:::person
+    n8a25b17f239f("Carol"):::lit
+    ndb95fbe3d8a4("Walker"):::lit
+    n8f65569e7b48("+19165550198"):::lit
+    nf8e6c4524cf9("Usually available weekday evenings and weekends for Mom's appointments."):::lit
+
+    n4c1f2977b9f4 -->|"GivenName"| n8a25b17f239f
+    n4c1f2977b9f4 -->|"FamilyName"| ndb95fbe3d8a4
+    n4c1f2977b9f4 -->|"TelephoneNumber"| n8f65569e7b48
+    n4c1f2977b9f4 -->|"ont00001917"| nf8e6c4524cf9

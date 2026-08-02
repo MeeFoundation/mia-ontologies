@@ -2,7 +2,7 @@
 id: https://www.example.org/mia/topics/self.citibank(citibank)(banking-payments)(09)
 title: "About Alice Walker in the BankingPayments cell as claimed by Citibank"
 type: topic-databook
-version: 2.0.13
+version: 2.0.15
 created: 2026-06-15
 description: >
   Alice Walker's Citibank topic. Records her VISA debit card, checking account,
@@ -28,10 +28,10 @@ process:
 
 This topic captures Alice Walker's financial relationship with Citibank. Citibank is a PDN Organization node which directly claims the information about Alice in this topic. The information in this topic has been transmitted from the Citibank PDN node to Alice's Mia. It includes a VISA debit card linked to a checking account, plus an online service account for online.citi.com.
 
-## Identity Data
+## Topic Graph
 
 ```turtle
-<!-- databook:id: citibank-identity -->
+<!-- databook:id: citibank-topic-graph -->
 <!-- databook:graph: https://www.example.org/mia/topics/self.citibank(citibank)(banking-payments)(09)#graph -->
 @prefix : <http://www.example.org/mia#> .
 @prefix persona: <http://mee.foundation/ontologies/persona#> .

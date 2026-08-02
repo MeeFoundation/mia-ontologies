@@ -2,7 +2,7 @@
 id: https://www.example.org/mia/topics/self.bob-johnson(bob-johnson)(others)(08)
 title: "About Alice Walker in the Others cell as claimed by Bob Johnson"
 type: topic-databook
-version: 2.0.12
+version: 2.0.14
 created: 2026-06-13
 description: >
   Claims Bob makes about Alice.
@@ -27,10 +27,10 @@ process:
 
 This topic captures Bob's record of Alice in their 1:1 relationship topic, transmitted from Bob's Mia to Alice's Mia over the PDN. Bob notes Alice's favorite drink.
 
-## Identity Data
+## Topic Graph
 
 ```turtle
-<!-- databook:id: alice-bob-bob-identity -->
+<!-- databook:id: alice-bob-bob-topic-graph -->
 <!-- databook:graph: https://www.example.org/mia/topics/self.bob-johnson(bob-johnson)(others)(08)#graph -->
 @prefix : <http://www.example.org/mia#> .
 @prefix persona: <http://mee.foundation/ontologies/persona#> .

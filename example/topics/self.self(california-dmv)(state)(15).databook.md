@@ -2,7 +2,7 @@
 id: https://www.example.org/mia/topics/self.self(california-dmv)(state)(15)
 title: "About Alice Walker in the State cell as claimed by Alice Walker"
 type: topic-databook
-version: 2.0.14
+version: 2.0.16
 created: 2026-06-15
 description: >
   Alice Walker's California driver's license topic. Records her legal name, date of birth,
@@ -30,10 +30,10 @@ process:
 
 This topic captures Alice Walker's California driver's license identity data. Alice self-enters her legal name (Margery Alice Walker), date of birth (1985-07-04), California license number (A1234567), expiration date (2031-07-04), issuing jurisdiction (CA), and a photo. Validated by the `DriversLicense` per-template SHACL shapes.
 
-## Identity Data
+## Topic Graph
 
 ```turtle
-<!-- databook:id: alice-driverslicense-identity -->
+<!-- databook:id: alice-driverslicense-topic-graph -->
 <!-- databook:graph: https://www.example.org/mia/topics/self.self(california-dmv)(state)(15)#graph -->
 @prefix : <http://www.example.org/mia#> .
 @prefix persona: <http://mee.foundation/ontologies/persona#> .

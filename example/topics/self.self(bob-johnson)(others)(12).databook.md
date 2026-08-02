@@ -2,7 +2,7 @@
 id: https://www.example.org/mia/topics/self.self(bob-johnson)(others)(12)
 title: "About Alice Walker in the Others cell as claimed by Alice Walker"
 type: topic-databook
-version: 2.0.13
+version: 2.0.15
 created: 2026-06-12
 description: >
   Alice Walker's self-claimed persona for her 1:1 relationship with Bob Johnson.
@@ -28,10 +28,10 @@ process:
 
 This topic captures Alice Walker's self-claimed persona in her 1:1 relationship with Bob Johnson. It records the name Alice presents to Bob and her social network link to him.
 
-## Identity Data
+## Topic Graph
 
 ```turtle
-<!-- databook:id: alice-bob-alice-identity -->
+<!-- databook:id: alice-bob-alice-topic-graph -->
 <!-- databook:graph: https://www.example.org/mia/topics/self.self(bob-johnson)(others)(12)#graph -->
 @prefix : <http://www.example.org/mia#> .
 @prefix persona: <http://mee.foundation/ontologies/persona#> .

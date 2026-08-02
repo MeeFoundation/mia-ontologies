@@ -2,7 +2,7 @@
 id: https://www.example.org/mia/topics/self.self(att)(companies)(11)
 title: "About Alice Walker in the Companies cell as claimed by Alice Walker"
 type: topic-databook
-version: 2.0.11
+version: 2.0.13
 created: 2026-06-01
 description: >
   Alice Walker's AT&T topic. Records her mobile phone number as self-entered data
@@ -28,10 +28,10 @@ process:
 
 This topic captures Alice Walker's AT&T account topic. Alice self-enters her mobile phone number (+15108149999, E.164 format). AT&T is not a PDN node, so Alice records this data herself rather than receiving it from AT&T.
 
-## Identity Data
+## Topic Graph
 
 ```turtle
-<!-- databook:id: alice-att-identity -->
+<!-- databook:id: alice-att-topic-graph -->
 <!-- databook:graph: https://www.example.org/mia/topics/self.self(att)(companies)(11)#graph -->
 @prefix : <http://www.example.org/mia#> .
 @prefix persona: <http://mee.foundation/ontologies/persona#> .

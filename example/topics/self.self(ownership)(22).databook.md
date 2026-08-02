@@ -2,7 +2,7 @@
 id: https://www.example.org/mia/topics/self.self(ownership)(22)
 title: "About Alice Walker in the Ownership cell as claimed by Alice Walker"
 type: topic-databook
-version: 2.0.10
+version: 2.0.12
 created: 2026-06-01
 description: >
   Alice Walker's possessions topic. Records the physical cards she carries day-to-day:
@@ -29,10 +29,10 @@ process:
 
 This topic captures Alice Walker's day-to-day physical possessions. Her wallet holds her driver's license and payment card. Her health insurance card is carried separately (not in the wallet). Her Social Security card is stored at home for safety.
 
-## Identity Data
+## Topic Graph
 
 ```turtle
-<!-- databook:id: alice-possessions-identity -->
+<!-- databook:id: alice-possessions-topic-graph -->
 <!-- databook:graph: https://www.example.org/mia/topics/self.self(ownership)(22)#graph -->
 @prefix : <http://www.example.org/mia#> .
 @prefix persona: <http://mee.foundation/ontologies/persona#> .

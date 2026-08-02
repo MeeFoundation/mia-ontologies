@@ -2,7 +2,7 @@
 id: https://www.example.org/mia/topics/self.self(texas-vital-records)(state)(24)
 title: "About Alice Walker in the State cell as claimed by Alice Walker"
 type: topic-databook
-version: 2.0.14
+version: 2.0.16
 created: 2026-06-01
 description: >
   Alice Walker's Texas birth certificate topic. Records her legal name (Margery Alice Walker)
@@ -30,10 +30,10 @@ process:
 
 This topic captures Alice Walker's Texas birth certificate identity data. Alice self-enters her legal name (Margery Alice Walker) and maiden name (Margery Alice Arnold) from her physical birth certificate. Validated by the `BirthCertificate` per-template SHACL shapes.
 
-## Identity Data
+## Topic Graph
 
 ```turtle
-<!-- databook:id: alice-tx-birth-cert-identity -->
+<!-- databook:id: alice-tx-birth-cert-topic-graph -->
 <!-- databook:graph: https://www.example.org/mia/topics/self.self(texas-vital-records)(state)(24)#graph -->
 @prefix : <http://www.example.org/mia#> .
 @prefix persona: <http://mee.foundation/ontologies/persona#> .

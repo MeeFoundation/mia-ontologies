@@ -2,7 +2,7 @@
 id: https://www.example.org/mia/topics/self.self(paula-walker)(acme)(20)
 title: "About Alice Walker in the Employee cell as claimed by Alice Walker"
 type: topic-databook
-version: 2.0.12
+version: 2.0.14
 created: 2026-06-12
 description: >
   Alice Walker's Acme employment topic. Records her work email address and her
@@ -28,10 +28,10 @@ process:
 
 This topic captures Alice Walker's employee identity at Acme. It records her work email address (alice@acme.com) and her Acme social network, which includes colleague Paula Walker. Alice's business card topic (`21-alice(business-card)alice`) derives professional contact details from this topic.
 
-## Identity Data
+## Topic Graph
 
 ```turtle
-<!-- databook:id: alice-acme-identity -->
+<!-- databook:id: alice-acme-topic-graph -->
 <!-- databook:graph: https://www.example.org/mia/topics/self.self(paula-walker)(acme)(20)#graph -->
 @prefix : <http://www.example.org/mia#> .
 @prefix persona: <http://mee.foundation/ontologies/persona#> .

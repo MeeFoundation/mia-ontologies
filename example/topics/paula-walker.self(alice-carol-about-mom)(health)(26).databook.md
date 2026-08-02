@@ -2,7 +2,7 @@
 id: https://www.example.org/mia/topics/paula-walker.self(alice-carol-about-mom)(health)(26)
 title: "Medical appointment claims for Paula Walker, shared between Alice and Carol"
 type: topic-databook
-version: 1.0.13
+version: 1.0.15
 created: 2026-07-08
 description: >
   Alice's shared record of the claims needed to arrange a medical appointment
@@ -29,10 +29,10 @@ process:
 
 This topic captures Alice's shared record of the claims needed to arrange a medical appointment on behalf of their mother, Paula Walker. Alice maintains this record on her own Mia and syncs it to Carol's Mia over the PDN so both sisters can coordinate Paula's care. Because each topic's named graph must be self-contained for p2p sync to work, the claims about Paula and about her primary care physician, Dr. Jane Kolpakova, are copied directly into this topic rather than merely linked — Alice already holds Dr. Jane's information in her own Mia, so it is Alice's Mia that copies it over. Validated by the `MedicalAppointment` per-template SHACL shapes.
 
-## Identity Data
+## Topic Graph
 
 ```turtle
-<!-- databook:id: alice-paula-medical-appointment-identity -->
+<!-- databook:id: alice-paula-medical-appointment-topic-graph -->
 <!-- databook:graph: https://www.example.org/mia/topics/paula-walker.self(alice-carol-about-mom)(health)(26)#graph -->
 @prefix : <http://www.example.org/mia#> .
 @prefix persona: <http://mee.foundation/ontologies/persona#> .

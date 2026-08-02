@@ -6,17 +6,17 @@ frontmatter of category, cell, and topic DataBooks.
 Why this exists: `databook extract` only pulls fenced Turtle blocks out of a
 DataBook — but category-databook and cell-databook files carry all of their
 content as `mia.` YAML frontmatter, with no Turtle block at all. Without this
-script, cat:Node/cell:Cell individuals (and topic:SCtopic's subject/
+script, cat:Node/cell:Cell individuals (and topic:SCTopicGraph's subject/
 claimant) never appear in the graph SHACL validates, so category-shacl.ttl,
-cell-shacl.ttl, and topic-shacl.ttl's :SCtopicShape never fire against
+cell-shacl.ttl, and topic-shacl.ttl's :SCTopicGraphShape never fire against
 real instance data. This script closes that gap by mapping each `mia.` field
 to its corresponding ontology property, matching the mapping tables documented
 in README.md's Category/Cell/Topic Ontology sections.
 
 A topic DataBook's `mia.claimant`/`mia.subject` are typed on its plain `id`,
 not `graph.named_graph` (id + "#graph") — matching topic.ttl's
-topic:subject/topic:claimant doc comments, and the IRI cell:primary/
-cell:secondary actually reference in every cell DataBook's YAML.
+topic:subject/topic:claimant doc comments, and the IRI cell:partyTopics/
+cell:otherTopics actually reference in every cell DataBook's YAML.
 
 Usage:   python3 yaml-to-rdf.py [repo-root] > yaml-data.ttl
 Output:  Turtle triples on stdout — merge with `riot` alongside data extracted
@@ -123,8 +123,9 @@ def process_cell_databook(fm, triples):
         # Only an actually-instantiated cell (real content, cell:parties set)
         # is typed cell:ACell — a pure tree-position placeholder with nothing
         # filed under it yet stays a bare cell:Cell (cell.ttl 3.10.0), and is
-        # therefore exempt from cell-shacl.ttl's :ACellShape, including its
-        # required cell:primary.
+        # therefore exempt from cell-shacl.ttl's :ACellShape and the
+        # per-party-count shapes, including their required
+        # cell:subject/cell:partyTopics.
         emit_type(triples, subj, CELL + "ACell")
         party_iri = resolve(parties)
         emit_type(triples, subj, party_iri)
@@ -139,11 +140,14 @@ def process_cell_databook(fm, triples):
     if mia.get("folder"):
         emit_lit(triples, subj, CELL + "folder", mia["folder"], XSD + "anyURI")
 
-    for topic_iri in as_list(mia.get("secondary")):
-        emit_obj(triples, subj, CELL + "secondary", resolve(topic_iri))
+    for topic_iri in as_list(mia.get("partyTopics")):
+        emit_obj(triples, subj, CELL + "partyTopics", resolve(topic_iri))
 
-    if mia.get("primary"):
-        emit_obj(triples, subj, CELL + "primary", resolve(mia["primary"]))
+    for topic_iri in as_list(mia.get("otherTopics")):
+        emit_obj(triples, subj, CELL + "otherTopics", resolve(topic_iri))
+
+    for subject_iri in as_list(mia.get("subject")):
+        emit_obj(triples, subj, CELL + "subject", resolve(subject_iri))
 
     if mia.get("shape"):
         emit_obj(triples, subj, CELL + "shape", resolve(mia["shape"]))
@@ -154,9 +158,9 @@ def process_topic_databook(fm, triples):
     claimant = mia.get("claimant")
     subject = mia.get("subject")
     if not (claimant and subject):
-        return  # no subject/claimant — not an SCtopic, skip
+        return  # no subject/claimant — not an SCTopicGraph, skip
     subj = fm["id"]
-    emit_type(triples, subj, TOPIC + "SCtopic")
+    emit_type(triples, subj, TOPIC + "SCTopicGraph")
     emit_obj(triples, subj, TOPIC + "claimant", resolve(claimant))
     emit_obj(triples, subj, TOPIC + "subject", resolve(subject))
 
