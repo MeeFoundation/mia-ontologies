@@ -522,6 +522,58 @@ print('All cells satisfy the distinct-subject-count rule.' if violations == 0 el
 
 If a violation is found, add a `partyTopics` entry whose `subject` is a party not yet represented (real content, not a placeholder — see the `cell:topics` → `partyTopics`/`otherTopics` split history for worked examples), or reconsider whether the cell's `mia.parties` value is correct (e.g. a service-provider relationship with no true second party may belong as `cell:OneParty` instead of `cell:TwoParty`).
 
+**Check 18 — `cell:TwoParty` subject count governs whether a subject's topic sits in `partyTopics` or `otherTopics`**: Check 17 confirms *enough* distinct subjects appear somewhere among `partyTopics`, but not *which* list (`partyTopics` vs `otherTopics`) a given subject's topic belongs in — that placement depends on how many `cell:subject` values the `TwoParty` cell itself carries (`:TwoPartyShape` allows 1 or 2). The additional invariant: **if a `TwoParty` cell has a single `subject` value**, that subject is not one of the cell's two active parties (whose own topics fill the required 2..4 `partyTopics` baseline) — it's the person the relationship is *about*, so its topic must instead be linked via `otherTopics` (e.g. `alice-carol-about-mom(health)-cell.databook.md`: `subject: ":Paula_Walker"`; `partyTopics` holds Carol's and Self's topics, `otherTopics` holds Paula's own topic). **If a `TwoParty` cell has two `subject` values**, those two values are the cell's active parties, and each must be the `t:subject` of at least one topic among that cell's `partyTopics` (already covered by Check 17's count, but here checked by actual value match, not just count). This is not itself an OWL/SHACL-expressible constraint (same reasoning as Check 17), so it's checked here instead. Run:
+
+```python
+import re, yaml, glob
+
+def frontmatter(path):
+    text = open(path, encoding='utf-8').read()
+    m = re.match(r'^---\n(.*?)\n---', text, re.DOTALL)
+    return yaml.safe_load(m.group(1)) if m else None
+
+topic_subject = {}
+for f in glob.glob('example/topics/*.databook.md'):
+    fm = frontmatter(f)
+    if fm and fm.get('type') == 'topic-databook':
+        mia = fm.get('mia', {}) or {}
+        if mia.get('subject'):
+            topic_subject[fm['id']] = mia['subject']
+
+violations = 0
+for f in glob.glob('example/categories/**/*-cell.databook.md', recursive=True):
+    fm = frontmatter(f)
+    if not fm:
+        continue
+    mia = fm.get('mia', {}) or {}
+    if mia.get('parties') != 'cell:TwoParty':
+        continue
+    subj = mia.get('subject')
+    subj = subj if isinstance(subj, list) else [subj]
+    pt = mia.get('partyTopics') or []
+    pt = pt if isinstance(pt, list) else [pt]
+    ot = mia.get('otherTopics') or []
+    ot = ot if isinstance(ot, list) else [ot]
+    pt_subs = {topic_subject.get(t) for t in pt}
+    ot_subs = {topic_subject.get(t) for t in ot}
+    if len(subj) == 1:
+        s = subj[0]
+        if s not in ot_subs:
+            violations += 1
+            print(f'VIOLATION single-subject {s!r} not found among otherTopics subjects {ot_subs} in {f}')
+    elif len(subj) == 2:
+        missing = [s for s in subj if s not in pt_subs]
+        if missing:
+            violations += 1
+            print(f'VIOLATION two-subject cell missing {missing} from partyTopics subjects {pt_subs} in {f}')
+    else:
+        violations += 1
+        print(f'VIOLATION {f}: cell:subject has {len(subj)} values, expected 1 or 2 for cell:TwoParty')
+print('All cell:TwoParty cells satisfy the subject/otherTopics-partyTopics placement rule.' if violations == 0 else f'{violations} violation(s) found.')
+```
+
+If a violation is found, either relink the offending topic to the correct list (`partyTopics` for an active party's own topic, `otherTopics` for the single named subject's own topic when the cell has only one `cell:subject` value), or reconsider whether `cell:subject`'s value(s) are correct for the relationship being modeled.
+
 ## Keeping Files in Sync
 
 Whenever changes are made to any topic file, `persona.ttl`, or `topic.ttl`, `persona-shacl.ttl` must be updated to match:
