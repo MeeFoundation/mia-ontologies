@@ -246,8 +246,6 @@ A cell needing both facets at once — e.g. every individual in `cell-templates.
 
 - **`c:parties`** — the concrete `c:ACell` subtype this DataBook instantiates: `c:OneParty`, `c:TwoParty`, or `c:ThreePlusParty`. Value is the class itself (e.g. `mia.parties: "c:OneParty"`). See [Cell Party Composition](#cell-party-composition) above.
 
-- **`c:label`** — default display name for a `c:ACell` subtype (`OneParty`/`TwoParty`/`ThreePlusParty`), e.g. `"Two-Party Cell"`. Asserted directly on the class, not an instance — distinct from `cat:label` (category.ttl), which is the user-editable per-instance display name of an associated `cat:Category`.
-
 #### Cell Parties
 
 Every `c:ACell` is classified by `c:parties` (and redundantly by its subclass) according to how many total parties (the user plus zero or more others) it has been shared with. There are three concrete types: `c:OneParty` (a cell created by the user and not shared with any other party), `c:TwoParty` (the user plus exactly one other party), and `c:ThreePlusParty` (the user plus two or more other parties).
