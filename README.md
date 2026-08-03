@@ -31,7 +31,9 @@ After describing these ontologies in more detail, we conclude with an illustrati
 
 Using Mia the user creates category trees to organize cells that they create themselves or are shared with them. The nodes of this tree are `cat:Node` instances with `child` properties pointing to sub-nodes.
 
-These nodes may be `cat:CategoryDefined` or `cat:UserDefined`. The former point (via `cat:catetory`) to a subclass in the predefined `cat:Category` class hierarchy which indicates a kind information (e.g. "Work", "People", "Food", etc.). `cat:Category` subclasses vary in scope from broad groupings of information to narrower ones. In the social domain, for example, a category might be about "People", or more narrowly about "Immediate Family", and ultimately about just one family member. The user is also free to also construct user-defined (`cat:UserDefined`) nodes which are not restricted to the predefined categories. 
+These nodes may be `cat:CategoryDefined` or `cat:UserDefined`. The former point (via `cat:catetory`) to a subclass in the predefined `cat:Category` class hierarchy which indicates a kind information (e.g. "Work", "People", "Food", etc.). `cat:Category` subclasses vary in scope from broad groupings of information to narrower ones. In the social domain, for example, a category might be about "People", or more narrowly about "Immediate Family", and ultimately about just one family member. All predefined categories are *symmetric*. For example, "Extended Family" is symmetric because if Alice is a member of Bob's extended family, the reverse is also always true. 
+
+The user is also free to also construct user-defined (`cat:UserDefined`) nodes which are not restricted to the predefined categories. These need not be symmetric.
 
 <p align="center"><img src="images/category-ontology/category.png" alt="Category hierarchy"></p>
 
@@ -205,7 +207,7 @@ A cell is a private, secure collaboration space created and managed by the Mia s
 
 #### Cell Properties
 
-- **`c:origin`** — the `cat:Category` class from which this cell was originally instantiated. When the cell is shared with another party, this party's Mia app can look at this value and use it as a strong hint as to which Category in the recipient's app should point to this received/shared cell. Some limited mobility between categories is allowed in the Mia app especially to handle the case where the user wishes to have a "spacer" user-defined `cat:Node` point to it. 
+- **`c:origin`** — For `cat:CategoryDefine` nodes, the value of `cat:category` else nil. When a cell is shared with another party, the recipient's app can look at this value (if not nil) and use it as a hint as to which `cat:Node` in the recipient's app should point to it.
 
 - **`c:note`** — optional path to a Markdown note in the *notes* folder/file hierarchy for this cell.
 
