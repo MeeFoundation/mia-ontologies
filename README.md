@@ -212,7 +212,7 @@ A cell is a private, secure collaboration space created and managed by the Mia s
 
 - **`c:folder`** — optional path to a folder in the *files* folder/file hierarchy for this cell.
 
-- **`c:chat`** — optional path to chat stream
+- **`c:chat`** — optional path to chat stream.
 
 ### TCell (Template Cell)
 
