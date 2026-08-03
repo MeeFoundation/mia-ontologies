@@ -522,7 +522,7 @@ print('All cells satisfy the distinct-subject-count rule.' if violations == 0 el
 
 If a violation is found, add a `partyTopics` entry whose `subject` is a party not yet represented (real content, not a placeholder — see the `cell:topics` → `partyTopics`/`otherTopics` split history for worked examples), or reconsider whether the cell's `mia.parties` value is correct (e.g. a service-provider relationship with no true second party may belong as `cell:OneParty` instead of `cell:TwoParty`).
 
-**Check 18 — `cell:TwoParty` subject count governs whether a subject's topic sits in `partyTopics` or `otherTopics`**: Check 17 confirms *enough* distinct subjects appear somewhere among `partyTopics`, but not *which* list (`partyTopics` vs `otherTopics`) a given subject's topic belongs in — that placement depends on how many `cell:subject` values the `TwoParty` cell itself carries (`:TwoPartyShape` allows 1 or 2). The additional invariant: **if a `TwoParty` cell has a single `subject` value**, that subject is not one of the cell's two active parties (whose own topics fill the required 2..4 `partyTopics` baseline) — it's the person the relationship is *about*, so its topic must instead be linked via `otherTopics` (e.g. `alice-carol-about-mom(health)-cell.databook.md`: `subject: ":Paula_Walker"`; `partyTopics` holds Carol's and Self's topics, `otherTopics` holds Paula's own topic). **If a `TwoParty` cell has two `subject` values**, those two values are the cell's active parties, and each must be the `t:subject` of at least one topic among that cell's `partyTopics` (already covered by Check 17's count, but here checked by actual value match, not just count). This is not itself an OWL/SHACL-expressible constraint (same reasoning as Check 17), so it's checked here instead. Run:
+**Check 18 — `cell:subject` cardinality governs whether a subject's topic sits in `partyTopics` or `otherTopics`**: Check 17 confirms *enough* distinct subjects appear somewhere among `partyTopics`, but not *which* list (`partyTopics` vs `otherTopics`) a given subject's topic belongs in — that placement depends on how many `cell:subject` values the cell itself carries (`:OnePartyShape` and `:ThreePlusPartyShape` require exactly 1; `:TwoPartyShape` allows 1 or 2). The additional invariant: **if a `cell:OneParty` or `cell:TwoParty` cell has a single `subject` value**, that subject is the entity the relationship is *about* — it is not automatically one of the cell's active parties (whose own topics fill the required `partyTopics` baseline: exactly 1 for `OneParty`, 2..4 for `TwoParty`) — so a topic whose `t:subject` matches the cell's `subject` must be linked via `otherTopics`, not `partyTopics` (e.g. `paula-walker(acme)-cell.databook.md`: `parties: "cell:OneParty"`, `subject: ":Paula_Walker"`; `partyTopics` holds Self's own topic (the party), `otherTopics` holds Paula's — the subject's — topic; similarly `alice-carol-about-mom(health)-cell.databook.md`, a `cell:TwoParty` with `subject: ":Paula_Walker"`: `partyTopics` holds Carol's and Self's topics, `otherTopics` holds Paula's own topic). **Exception**: if there aren't enough *other* topics (whose subject differs from the cell's subject) to fill the required `partyTopics` minimum, the subject's own topic may fill the shortfall instead — e.g. `jane-kolpakova-cell.databook.md` (`cell:OneParty`, `subject: ":Jane_Kolpakova"`) has only one topic total, about Jane herself, and no alternative exists, so it necessarily occupies the required `partyTopics` slot. **If a `TwoParty` cell has two `subject` values**, those two values are the cell's active parties, and each must be the `t:subject` of at least one topic among that cell's `partyTopics` (already covered by Check 17's count, but here checked by actual value match, not just count). This is not itself an OWL/SHACL-expressible constraint (same reasoning as Check 17), so it's checked here instead. Run:
 
 ```python
 import re, yaml, glob
@@ -540,13 +540,15 @@ for f in glob.glob('example/topics/*.databook.md'):
         if mia.get('subject'):
             topic_subject[fm['id']] = mia['subject']
 
+REQUIRED_MIN = {'cell:OneParty': 1, 'cell:TwoParty': 2}
 violations = 0
 for f in glob.glob('example/categories/**/*-cell.databook.md', recursive=True):
     fm = frontmatter(f)
     if not fm:
         continue
     mia = fm.get('mia', {}) or {}
-    if mia.get('parties') != 'cell:TwoParty':
+    parties = mia.get('parties')
+    if parties not in REQUIRED_MIN:
         continue
     subj = mia.get('subject')
     subj = subj if isinstance(subj, list) else [subj]
@@ -554,25 +556,30 @@ for f in glob.glob('example/categories/**/*-cell.databook.md', recursive=True):
     pt = pt if isinstance(pt, list) else [pt]
     ot = mia.get('otherTopics') or []
     ot = ot if isinstance(ot, list) else [ot]
-    pt_subs = {topic_subject.get(t) for t in pt}
-    ot_subs = {topic_subject.get(t) for t in ot}
+    pt_subs = {t: topic_subject.get(t) for t in pt}
+    ot_subs = {t: topic_subject.get(t) for t in ot}
     if len(subj) == 1:
         s = subj[0]
-        if s not in ot_subs:
-            violations += 1
-            print(f'VIOLATION single-subject {s!r} not found among otherTopics subjects {ot_subs} in {f}')
-    elif len(subj) == 2:
-        missing = [s for s in subj if s not in pt_subs]
+        all_linked = {**pt_subs, **ot_subs}
+        other_topics_available = [t for t, sub in all_linked.items() if sub != s]
+        required_min = REQUIRED_MIN[parties]
+        if len(other_topics_available) >= required_min:
+            bad = [t for t, sub in pt_subs.items() if sub == s]
+            if bad:
+                violations += 1
+                print(f'VIOLATION single-subject {s!r} topic(s) {bad} found in partyTopics (belong in otherTopics) in {f}')
+    elif len(subj) == 2 and parties == 'cell:TwoParty':
+        missing = [s for s in subj if s not in pt_subs.values()]
         if missing:
             violations += 1
-            print(f'VIOLATION two-subject cell missing {missing} from partyTopics subjects {pt_subs} in {f}')
+            print(f'VIOLATION two-subject cell missing {missing} from partyTopics subjects {set(pt_subs.values())} in {f}')
     else:
         violations += 1
-        print(f'VIOLATION {f}: cell:subject has {len(subj)} values, expected 1 or 2 for cell:TwoParty')
-print('All cell:TwoParty cells satisfy the subject/otherTopics-partyTopics placement rule.' if violations == 0 else f'{violations} violation(s) found.')
+        print(f'VIOLATION {f}: cell:subject has {len(subj)} values, expected 1 for cell:OneParty or 1-2 for cell:TwoParty')
+print('All cell:OneParty/TwoParty cells satisfy the subject/otherTopics-partyTopics placement rule.' if violations == 0 else f'{violations} violation(s) found.')
 ```
 
-If a violation is found, either relink the offending topic to the correct list (`partyTopics` for an active party's own topic, `otherTopics` for the single named subject's own topic when the cell has only one `cell:subject` value), or reconsider whether `cell:subject`'s value(s) are correct for the relationship being modeled.
+If a violation is found, either relink the offending topic to the correct list (`partyTopics` for an active party's own topic, `otherTopics` for the single named subject's own topic when the cell has only one `cell:subject` value and enough other topics exist to fill `partyTopics` without it), or reconsider whether `cell:subject`'s value(s) or `cell:parties`'s value are correct for the relationship being modeled.
 
 ## Keeping Files in Sync
 
