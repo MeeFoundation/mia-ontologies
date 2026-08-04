@@ -109,7 +109,7 @@ The user is free to rearrange their `Node` tree as they wish, adding new `cat:Us
 1. **Sports & Entertainment** (`cat:SportsEntertainment`) — sports, hobbies, entertainment, and media interests. Favorite teams, venues, streaming services, ticketing. See also `cat:Affiliations` for club or team memberships.
 1. **Education** (`cat:Education`) — educational history and ongoing learning — schools, degrees, certifications, transcripts, and enrolled courses.
 1. **Hobbies & Interests** (`cat:HobbiesInterests`) — personal hobbies and creative or cultural interests — e.g. drawing, painting, dancing, religion, singing. See also `cat:SportsEntertainment` for sports/media interests, and `cat:Affiliations` for formal memberships tied to a hobby or interest.
-1. **Legal** (`cat:Legal`) — legal matters, contracts, agreements, trusts, wills, and professional legal relationships.
+1. **Legal** (`cat:Legal`) — legal matters, contracts, agreements, trusts, wills, and professional legal relationships. Includes durable power of attorney and healthcare proxy agreements.
 1. **Projects** (`cat:Projects`) — involvement in a specific project or initiative.
 1. **Events** (`cat:Events`) — participation in or relationship to a specific event or gathering.
 1. **Information** (`cat:Information`) — general knowledge selected by you, web links, documents, images.
@@ -416,9 +416,11 @@ The Persona ontology defines a formal, machine-readable model of a person. It is
 
 We represent a person with the `p:Person` class — a Mia-specific subclass of CCO `Person` (`cco:ont00001262`).  The Mia user's own `p:Person` individual always uses the IRI `:Self` across all of their cell's topic files; other people, groups, and organizations are assigned locally-minted named IRIs (e.g. `:Bob_Johnson`). `:Self`'s type declaration (`rdf:type owl:NamedIndividual, persona:Person`) is asserted in `example/topics/self.ttl` (see the [Validation](#validation) section for how `self.ttl` is merged in alongside topic DataBooks). 
 
-The persona ontology is used to describe the contents of **topic graphs** of **cells** (see [Cell Ontology](#cell-ontology) and [Topic Ontology](#topic-ontology)). These topic graphs, when describing people, function as *named-graph slices* — each is an independent facet of an identity in a specific cell context, carrying the claims relevant to that topic: names, addresses, phone numbers, SSNs, physical characteristics, parent-child relationships, social connections, payment cards, and more. The Persona ontology reuses existing well-known ontologies wherever possible and defines new terms only where no suitable existing term exists.
 
 <p align="center"><img src="images/persona-ontology/persona.png" alt="Persona model"></p>
+
+The persona ontology is used to describe the contents of **topic graphs** of **cells** (see [Cell Ontology](#cell-ontology) and [Topic Ontology](#topic-ontology)). These topic graphs, when describing people, function as *named-graph slices* — each is an independent facet of an identity in a specific cell context, carrying the claims relevant to that topic: names, addresses, phone numbers, SSNs, physical characteristics, parent-child relationships, social connections, payment cards, and more. The Persona ontology reuses existing well-known ontologies wherever possible and defines new terms only where no suitable existing term exists.
+
 
 ### Key Properties and Classes
 
