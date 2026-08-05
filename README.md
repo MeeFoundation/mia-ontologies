@@ -64,7 +64,7 @@ The user is free to rearrange their `Node` tree as they wish, adding new `cat:Us
     - **Extended Family** (`cat:ExtendedFamily`) — relatives outside the immediate nuclear group, such as grandparents, aunts, uncles, cousins, nieces and nephews.
     - **In-Laws / Step-Family** (`cat:InLawsStepFamily`) — relatives gained through marriage or legal guardianship, including a spouse's parents and siblings, or children from a previous relationship.
     - **Others** (`cat:Others`) — people you know socially or professionally who are not part of your family — acquaintances, friends, neighbors, or other connections.
-1. **Affiliations** (`cat:Affiliations`) — clubs, charities, faith groups, and other group affiliations not covered by a more specific category — includes formal memberships and their social networks, some of which may be `c:ThreePlusParty` ("Multi-Party Cell") cells that exist as a `g:Group` on the PDN. See also Sports & Entertainment for personal sports and entertainment interests, like following a favorite team, that aren't tied to a formal membership.
+1. **Affiliations** (`cat:Affiliations`) — a catch-all for clubs, charities, faith groups, and other group affiliations that are not covered by a more specific category (e.g. `cat:Sports&Entertainment`, `cat:Food`, etc.) 
 1. **Health & Wellness** (`cat:HealthWellness`) — personal health and wellness information. Medical history, allergies, medications, vaccinations, prescriptions, eyeglasses.
     - **Medical** (`cat:Medical`) — medical (as opposed to dental or vision) care — diagnoses, treatments, providers, and insurance.
         - **History** (`cat:MedicalHistory`) — past diagnoses, conditions, surgeries, and treatments.
@@ -106,14 +106,13 @@ The user is free to rearrange their `Node` tree as they wish, adding new `cat:Us
     - **Vehicles** (`cat:Vehicles`) — related to owning and maintaining a vehicle. Vehicle insurance, repairs, mechanics, garages. 
 1. **Travel** (`cat:Travel`) — travel plans, trips, and related information. Loyalty programs, airlines, bus lines, trains.
 1. **Food** (`cat:Food`) — food preferences, dietary restrictions, favorite restaurants, recipes, shopping lists, and other food-related interests
-1. **Sports & Entertainment** (`cat:SportsEntertainment`) — sports, hobbies, entertainment, and media interests. Favorite teams, venues, streaming services, ticketing. See also `cat:Affiliations` for club or team memberships.
+1. **Sports & Entertainment** (`cat:SportsEntertainment`) — sports events (watching or participating) and entertainment (movies, plays, jazz clubs). Favorite teams/groups, venues, streaming services, ticketing. See `cat:Interests` for other interests.
 1. **Education** (`cat:Education`) — educational history and ongoing learning — schools, degrees, certifications, transcripts, and enrolled courses.
-1. **Hobbies & Interests** (`cat:HobbiesInterests`) — personal hobbies and creative or cultural interests — e.g. drawing, painting, dancing, religion, singing. See also `cat:SportsEntertainment` for sports/media interests, and `cat:Affiliations` for formal memberships tied to a hobby or interest.
+1. **Interests** (`cat:Interests`) — things that interest, delight, and inspire — e.g. drawing, painting, dancing, religion, gaming, music. See `cat:SportsEntertainment` for sports and entertainment, and `cat:Affiliations` for formal memberships tied to a hobby or interest.
 1. **Legal** (`cat:Legal`) — legal matters, contracts, agreements, trusts, wills, and professional legal relationships. Includes durable power of attorney and healthcare proxy agreements.
 1. **Projects** (`cat:Projects`) — involvement in a specific project or initiative.
 1. **Events** (`cat:Events`) — participation in or relationship to a specific event or gathering.
 1. **Information** (`cat:Information`) — general knowledge selected by you, web links, documents, images.
-    - **Learnings** (`cat:Learnings`) — knowledge gained through personal experience.
 1. **Government** (`cat:Government`) — government-issued credentials, tax records, and civic relationships.
     - **Federal** (`cat:Federal`) — federal government topic (e.g. passport, federal tax records).
         - **SSA** (`cat:SSA`) — the Social Security Administration.
@@ -123,7 +122,7 @@ The user is free to rearrange their `Node` tree as they wish, adding new `cat:Us
         - **Drivers License** (`cat:DriversLicense`) — a state agency that issues and holds driver's license records.
     - **Municipality** (`cat:Municipality`) — municipal government topic (e.g. local permits, library card).
         - **Residence** (`cat:Residence`) — a place a person has lived, current or past.
-1. **Companies** (`cat:Companies`) — miscellaneous companies and organizations that provide services or products to you. See also Finances, Health, Home, Food for companies and organizations related to those areas.
+1. **Companies** (`cat:Companies`) — a catch-all for your relationships with companies and organizations that provide services and/or products to you that are not included in more specific categories such `Cat:Finances`, `cat:HealthWellness`, `cat:Home`, `cat:Food`, etc.
 
 ### Organizational Categories
 

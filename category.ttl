@@ -9,11 +9,11 @@
 @base <http://mee.foundation/ontologies/category> .
 
 <http://mee.foundation/ontologies/category> rdf:type owl:Ontology ;
-    owl:versionIRI <http://mee.foundation/ontologies/category/1.23.0> ;
-    dc:date "2026-08-04"^^xsd:date ;
+    owl:versionIRI <http://mee.foundation/ontologies/category/1.25.0> ;
+    dc:date "2026-08-05"^^xsd:date ;
     owl:imports <http://mee.foundation/ontologies/cell> ;
     owl:imports <http://mee.foundation/ontologies/cell-templates> ;
-    owl:versionInfo "Version 1.23.0 - renamed cat:PersonalFinance to cat:Bookkeeping (label \"Personal Finance\" -> \"Bookkeeping\"; no other change). (1.22.0: removed cat:Friends (unused leaf category under cat:People; no cat:templateCell, no example content). 1.21.0: updated doc comments mentioning context.ttl/context files to topic.ttl/topic files following the ontology-wide context→topic rename. No change to any triples. 1.20.0: split cat:Meetings(org) into cat:Meetings(org) (internal/client-customer meetings) and new cat:Events(org) (external, travel-to, or larger-scale gatherings); moved cat:Conferences under cat:Events(org).)"@en ;
+    owl:versionInfo "Version 1.25.0 - removed cat:Learnings (unused leaf category under cat:Information; no cat:templateCell, no example content). (1.24.0: renamed cat:HobbiesInterests to cat:Interests (label \"Hobbies & Interests\" -> \"Interests\"); reconciled rdfs:comment text on all Personal and Organizational leaf categories against README.md's descriptive text (treated as authoritative), updating cat:People, cat:Others, cat:HealthWellness, cat:MedicalProviders, cat:MedicalAppointmentInfo, cat:VisionHistory, cat:Nutrition, cat:MentalHealth, cat:Bookkeeping, cat:Legal, cat:SSA, cat:Residence, cat:Interests, cat:Meetings(org), cat:BankingPayments(org), cat:Investing(org), cat:LendingCredit(org), cat:Insurance(org), and cat:Advisory(org) to match. 1.23.0: renamed cat:PersonalFinance to cat:Bookkeeping (label \"Personal Finance\" -> \"Bookkeeping\"; no other change). 1.22.0: removed cat:Friends (unused leaf category under cat:People; no cat:templateCell, no example content). 1.21.0: updated doc comments mentioning context.ttl/context files to topic.ttl/topic files following the ontology-wide context→topic rename. No change to any triples. 1.20.0: split cat:Meetings(org) into cat:Meetings(org) (internal/client-customer meetings) and new cat:Events(org) (external, travel-to, or larger-scale gatherings); moved cat:Conferences under cat:Events(org).)"@en ;
     rdfs:label "Category Ontology"@en ;
     rdfs:comment """Category Ontology for the Mee Identity Agent."""@en .
 
@@ -122,7 +122,7 @@ cat:Affiliations rdf:type owl:Class ;
 cat:People rdf:type owl:Class ;
     rdfs:subClassOf cat:Person ;
     rdfs:label "People"@en ;
-    rdfs:comment "People in your social or professional life. Use this category for people not otherwise tied to a specific domain — a bookkeeper you know belongs under Finances (Advisory), and your primary care physician belongs under Health (Primary Care Physician), rather than here."@en .
+    rdfs:comment "People in your social or professional life. Use this category for people not otherwise tied to a specific domain — a bookkeeper you know belongs under Finances (Advisory Firms), and your primary care physician belongs under Health & Wellness (Medical > Providers > Primary Care Physician), rather than here."@en .
 
 cat:ImmediateFamily rdf:type owl:Class ;
     rdfs:subClassOf cat:People ;
@@ -142,7 +142,7 @@ cat:InLawsStepFamily rdf:type owl:Class ;
 cat:Others rdf:type owl:Class ;
     rdfs:subClassOf cat:People ;
     rdfs:label "Others"@en ;
-    rdfs:comment "People you know socially or professionally who are not family or friends — acquaintances, neighbors, or other connections not yet more specifically categorized."@en .
+    rdfs:comment "People you know socially or professionally who are not part of your family — acquaintances, friends, neighbors, or other connections."@en .
 
 #################################################################
 #    cat:Work and subclasses
@@ -176,7 +176,7 @@ cat:Finances rdf:type owl:Class ;
 cat:Bookkeeping rdf:type owl:Class ;
     rdfs:subClassOf cat:Finances ;
     rdfs:label "Bookkeeping"@en ;
-    rdfs:comment "Your own money management, as opposed to the firms you use to manage it: budgeting, expense tracking, income, debts, IOUs, and savings goals."@en .
+    rdfs:comment "Budgeting, expense tracking, income, debts, IOUs, and savings goals."@en .
 
 cat:BankingPayments rdf:type owl:Class ;
     rdfs:subClassOf cat:Finances ;
@@ -210,7 +210,7 @@ cat:Advisory rdf:type owl:Class ;
 cat:HealthWellness rdf:type owl:Class ;
     rdfs:subClassOf cat:Person ;
     rdfs:label "Health & Wellness"@en ;
-    rdfs:comment "Personal health and wellness information. Medical history, allergies, medications, vaccinations."@en .
+    rdfs:comment "Personal health and wellness information. Medical history, allergies, medications, vaccinations, prescriptions, eyeglasses."@en .
 
 cat:Medical rdf:type owl:Class ;
     rdfs:subClassOf cat:HealthWellness ;
@@ -230,7 +230,7 @@ cat:MedicalInsurance rdf:type owl:Class ;
 cat:MedicalProviders rdf:type owl:Class ;
     rdfs:subClassOf cat:Medical ;
     rdfs:label "Providers"@en ;
-    rdfs:comment "Medical providers and practices you see for care, including your primary care physician and any medical appointments you help arrange."@en .
+    rdfs:comment "Medical providers and practices you see for care."@en .
 
 cat:PrimaryCarePhysician rdf:type owl:Class ;
     rdfs:subClassOf cat:MedicalProviders ;
@@ -240,7 +240,7 @@ cat:PrimaryCarePhysician rdf:type owl:Class ;
 cat:MedicalAppointmentInfo rdf:type owl:Class ;
     rdfs:subClassOf cat:MedicalProviders ;
     rdfs:label "Medical Appointment Info"@en ;
-    rdfs:comment "A medical appointment a person manages on behalf of someone else they care for, e.g. a family member."@en ;
+    rdfs:comment "A medical appointment you're helping arrange on behalf of someone else."@en ;
     cat:templateCell ctpl:MedicalAppointmentInfoTemplateCell .
 
 cat:Dental rdf:type owl:Class ;
@@ -271,7 +271,7 @@ cat:Vision rdf:type owl:Class ;
 cat:VisionHistory rdf:type owl:Class ;
     rdfs:subClassOf cat:Vision ;
     rdfs:label "History"@en ;
-    rdfs:comment "Personal vision/eye care history: past prescriptions, treatments, and conditions."@en .
+    rdfs:comment "Past eye-care prescriptions, treatments, and conditions."@en .
 
 cat:VisionInsurance rdf:type owl:Class ;
     rdfs:subClassOf cat:Vision ;
@@ -296,7 +296,7 @@ cat:FitnessProviders rdf:type owl:Class ;
 cat:Nutrition rdf:type owl:Class ;
     rdfs:subClassOf cat:HealthWellness ;
     rdfs:label "Nutrition"@en ;
-    rdfs:comment "Nutritionists and dietitians — dietary counseling and meal planning."@en .
+    rdfs:comment "Nutritionists and dietitians."@en .
 
 cat:NutritionHistory rdf:type owl:Class ;
     rdfs:subClassOf cat:Nutrition ;
@@ -311,7 +311,7 @@ cat:NutritionProviders rdf:type owl:Class ;
 cat:MentalHealth rdf:type owl:Class ;
     rdfs:subClassOf cat:HealthWellness ;
     rdfs:label "Mental Health"@en ;
-    rdfs:comment "Mental and behavioral health care — therapy, counseling, and psychiatric care."@en .
+    rdfs:comment "Mental and behavioral health care."@en .
 
 cat:MentalHealthHistory rdf:type owl:Class ;
     rdfs:subClassOf cat:MentalHealth ;
@@ -370,7 +370,7 @@ cat:Federal rdf:type owl:Class ;
 cat:SSA rdf:type owl:Class ;
     rdfs:subClassOf cat:Federal ;
     rdfs:label "SSA"@en ;
-    rdfs:comment "The Social Security Administration — issues and holds Social Security records."@en .
+    rdfs:comment "The Social Security Administration."@en .
 
 cat:Passport rdf:type owl:Class ;
     rdfs:subClassOf cat:Federal ;
@@ -403,7 +403,7 @@ cat:Municipality rdf:type owl:Class ;
 cat:Residence rdf:type owl:Class ;
     rdfs:subClassOf cat:Municipality ;
     rdfs:label "Residence"@en ;
-    rdfs:comment "A place a person has lived — current or past residential address."@en .
+    rdfs:comment "A place a person has lived, current or past."@en .
 
 #################################################################
 #    cat:Information and subclasses
@@ -413,11 +413,6 @@ cat:Information rdf:type owl:Class ;
     rdfs:subClassOf cat:Person ;
     rdfs:label "Information"@en ;
     rdfs:comment "General knowledge selected by you, web links, documents, images."@en .
-
-cat:Learnings rdf:type owl:Class ;
-    rdfs:subClassOf cat:Information ;
-    rdfs:label "Learnings"@en ;
-    rdfs:comment "Knowledge gained through personal experience."@en .
 
 #################################################################
 #    cat:Ownership and subclasses
@@ -459,7 +454,7 @@ cat:Projects rdf:type owl:Class ;
 cat:Legal rdf:type owl:Class ;
     rdfs:subClassOf cat:Person ;
     rdfs:label "Legal"@en ;
-    rdfs:comment "Legal matters, contracts, agreements, trusts, wills, and professional legal relationships."@en .
+    rdfs:comment "Legal matters, contracts, agreements, trusts, wills, and professional legal relationships. Includes durable power of attorney and healthcare proxy agreements."@en .
 
 #################################################################
 #    cat:Travel
@@ -489,13 +484,13 @@ cat:Education rdf:type owl:Class ;
     rdfs:comment "Educational history and ongoing learning — schools, degrees, certifications, transcripts, and enrolled courses."@en .
 
 #################################################################
-#    cat:HobbiesInterests
+#    cat:Interests
 #################################################################
 
-cat:HobbiesInterests rdf:type owl:Class ;
+cat:Interests rdf:type owl:Class ;
     rdfs:subClassOf cat:Person ;
-    rdfs:label "Hobbies & Interests"@en ;
-    rdfs:comment "Personal hobbies and creative or cultural interests — e.g. drawing, painting, dancing, religion, singing. See also Sports & Entertainment for sports/media interests, and Affiliations for formal memberships tied to a hobby or interest."@en .
+    rdfs:label "Interests"@en ;
+    rdfs:comment "Creative or cultural interests — e.g. drawing, painting, dancing, religion, singing, music. See also Sports & Entertainment for sports/media interests, and Affiliations for formal memberships tied to a hobby or interest."@en .
 
 #################################################################
 #    cat:SportsEntertainment
@@ -583,7 +578,7 @@ cat:Projects\(org\) rdf:type owl:Class ;
 cat:Meetings\(org\) rdf:type owl:Class ;
     rdfs:subClassOf cat:Organization ;
     rdfs:label "Meetings (org)"@en ;
-    rdfs:comment "Face-to-face or online meetings, whether internal or with clients/customers. See also Events (org) for external, travel-to or larger-scale gatherings such as conferences, webinars, and town halls."@en .
+    rdfs:comment "Face-to-face or online meetings, whether internal or with clients/customers. See also Events (org) for external, travel-to or larger-scale gatherings."@en .
 
 cat:Events\(org\) rdf:type owl:Class ;
     rdfs:subClassOf cat:Organization ;
@@ -618,24 +613,24 @@ cat:Finances\(org\) rdf:type owl:Class ;
 cat:BankingPayments\(org\) rdf:type owl:Class ;
     rdfs:subClassOf cat:Finances\(org\) ;
     rdfs:label "Banking & Payments (org)"@en ;
-    rdfs:comment "Firms that help the organization store, access, and move its cash — retail banks, payment processors, and remittance firms."@en .
+    rdfs:comment "Firms that help organizations store, access, and move their cash. These include Retail Banks & Credit Unions, which provide checking accounts, savings accounts, and debit cards. These also include Payment Processors like Visa, Mastercard, or PayPal."@en .
 
 cat:Investing\(org\) rdf:type owl:Class ;
     rdfs:subClassOf cat:Finances\(org\) ;
     rdfs:label "Investing (org)"@en ;
-    rdfs:comment "Firms that help the organization invest and grow its assets — brokerage firms, robo-advisors, and mutual fund companies."@en .
+    rdfs:comment "These include Investment firms, Private Equity firms, Venture Capitalists, Brokerage Firms like Charles Schwab and Mutual Fund companies like Vanguard or Fidelity."@en .
 
 cat:LendingCredit\(org\) rdf:type owl:Class ;
     rdfs:subClassOf cat:Finances\(org\) ;
     rdfs:label "Lending & Credit (org)"@en ;
-    rdfs:comment "Firms that lend the organization money — mortgage lenders, commercial finance companies, and credit card issuers."@en .
+    rdfs:comment "Banks or specialized companies that give loans for specific purposes and Credit Card Issuers that give employees a card for travel and related expenses."@en .
 
 cat:Insurance\(org\) rdf:type owl:Class ;
     rdfs:subClassOf cat:Finances\(org\) ;
     rdfs:label "Insurance (org)"@en ;
-    rdfs:comment "Firms that insure the organization against financial loss — property, casualty, and liability insurance."@en .
+    rdfs:comment "Firms that protect organizations from risks."@en .
 
 cat:Advisory\(org\) rdf:type owl:Class ;
     rdfs:subClassOf cat:Finances\(org\) ;
     rdfs:label "Advisory (org)"@en ;
-    rdfs:comment "Firms and individuals who advise the organization on how to use its money — financial planners, estate planners, accountants, and bookkeepers."@en .
+    rdfs:comment "Financial Planners, outsourced CFO consultants, Accountants and Bookkeepers and Tax preparers."@en .
