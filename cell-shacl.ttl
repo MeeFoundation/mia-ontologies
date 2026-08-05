@@ -11,7 +11,7 @@
 @prefix o: <http://mee.foundation/ontologies/organization#> .
 
 <http://mee.foundation/ontologies/cell/shapes> rdf:type owl:Ontology ;
-    owl:versionInfo "Version 3.12.0 - split cell:topics's constraint into cell:otherTopics (unbounded, uniform, stays on :ACellShape) and cell:partyTopics (required baseline, now enforced per party count by three new shapes: :OnePartyShape, :TwoPartyShape, :ThreePlusPartyShape, targeting cell:OneParty/cell:TwoParty/cell:ThreePlusParty respectively). Also moved cell:subject's minCount/maxCount off the uniform :ACellShape and onto those same three per-party shapes, tightening it from a blanket 1..2 to exactly 1 for cell:OneParty/cell:ThreePlusParty and 1..2 for cell:TwoParty — :ACellShape now only checks cell:subject's sh:nodeKind sh:IRI uniformly."@en ;
+    owl:versionInfo "Version 3.13.0 - removed :CellShape's cell:note constraint (cell:note was removed from cell.ttl 3.15.0, merging the separate notes/files folder hierarchies into one under cell:folder); :CellShape now constrains only cell:folder's cardinality. (3.12.0: split cell:topics's constraint into cell:otherTopics (unbounded, uniform, stays on :ACellShape) and cell:partyTopics (required baseline, now enforced per party count by three new shapes: :OnePartyShape, :TwoPartyShape, :ThreePlusPartyShape, targeting cell:OneParty/cell:TwoParty/cell:ThreePlusParty respectively). Also moved cell:subject's minCount/maxCount off the uniform :ACellShape and onto those same three per-party shapes, tightening it from a blanket 1..2 to exactly 1 for cell:OneParty/cell:ThreePlusParty and 1..2 for cell:TwoParty — :ACellShape now only checks cell:subject's sh:nodeKind sh:IRI uniformly.)"@en ;
     rdfs:label "Cell Ontology SHACL Validation Shapes"@en ;
     rdfs:comment "SHACL validation shapes for cell:Cell DataBook instances (the content facet of a cell) in the Cell Ontology."@en .
 
@@ -19,7 +19,7 @@
 #################################################################
 #  Cell
 #  cell:Cell (formerly cell:Parties) carries only what's common to
-#  every cell regardless of facet: note/folder. Identity/topic links
+#  every cell regardless of facet: folder. Identity/topic links
 #  (cell:subject/cell:partyTopics/cell:otherTopics) live on
 #  :ACellShape and the per-party-count shapes below, since their
 #  domain narrowed from cell:Cell to cell:ACell in cell.ttl 3.10.0 —
@@ -31,14 +31,7 @@
     sh:targetClass cell:Cell ;
     sh:message "Cell validation."@en ;
 
-    # cell:note — at most one markdown notes file path
-    sh:property [
-        sh:path cell:note ;
-        sh:maxCount 1 ;
-        sh:message "A cell may have at most one cell:note value."@en
-    ] ;
-
-    # cell:folder — at most one associated files folder path
+    # cell:folder — at most one associated folder path
     sh:property [
         sh:path cell:folder ;
         sh:maxCount 1 ;

@@ -12,10 +12,10 @@
 @base <http://mee.foundation/ontologies/cell> .
 
 <http://mee.foundation/ontologies/cell> rdf:type owl:Ontology ;
-    owl:versionIRI <http://mee.foundation/ontologies/cell/3.14.0> ;
-    dc:date "2026-08-02"^^xsd:date ;
+    owl:versionIRI <http://mee.foundation/ontologies/cell/3.15.0> ;
+    dc:date "2026-08-05"^^xsd:date ;
     owl:imports <http://mee.foundation/ontologies/topic> ;
-    owl:versionInfo "Version 3.14.0 - split cell:topics into cell:partyTopics (the required per-party baseline, one or more per party in the relationship) and cell:otherTopics (any number of additional topics beyond that baseline). Cardinality for both is enforced per party count by cell-shacl.ttl's new per-party-class shapes, not uniformly as cell:topics's single sh:minCount 1 was. No change to domain (cell:ACell) or range (topic:SCTopicGraph)."@en ;
+    owl:versionInfo "Version 3.15.0 - removed cell:note and merged the separate notes/files folder hierarchies into a single hierarchy under cell:folder, since modern PKM tools such as Obsidian handle non-Markdown files natively and no longer need a dedicated notes-only vault kept apart from arbitrary files. A cell's folder note (X.md matching its folder's name X, per the Obsidian Folder Notes plugin convention) is now discovered by naming convention inside cell:folder's single folder rather than tracked by a separate property. No change to cell:folder's domain (cell:Cell) or range (xsd:anyURI)."@en ;
     rdfs:label "Cell Ontology"@en ;
     rdfs:comment """Cell Ontology for the Mee Identity Agent. Defines cell:Cell — the self-contained content facet of a cell — independent of where any cat:Category (see category.ttl) chooses to place it in a navigational tree. cell:Cell splits further into two orthogonal sub-facets: cell:TCell (template) and cell:ACell (actual/instantiated), which a single cell individual may carry either or both of."""@en .
 
@@ -49,17 +49,17 @@ cell:label rdf:type owl:AnnotationProperty ;
 #    an independent piece of content at that one tree position.
 #
 #    cell:Cell itself carries only what's common to every cell
-#    regardless of facet: file-system bookkeeping (cell:note,
-#    cell:folder). Everything facet-specific — including
-#    cell:subject (the resource(s) the cell is about) and
-#    cell:partyTopics/cell:otherTopics (its linked topic:SCTopicGraph
-#    container(s)) — lives on cell:TCell or cell:ACell below.
+#    regardless of facet: file-system bookkeeping (cell:folder).
+#    Everything facet-specific — including cell:subject (the
+#    resource(s) the cell is about) and cell:partyTopics/
+#    cell:otherTopics (its linked topic:SCTopicGraph container(s))
+#    — lives on cell:TCell or cell:ACell below.
 #################################################################
 
 cell:Cell rdf:type owl:Class ;
     cell:abstract true ;
     rdfs:label "Cell"@en ;
-    rdfs:comment "Superclass of every cell individual, carrying only what's common regardless of facet: file-system bookkeeping (cell:note, cell:folder). Formerly named cell:Parties as a class (the tree-position class, before cell.ttl's 3.0.0 split moved that name to category.ttl's cat:Category). A cell:Cell carries no tree position of its own and no link to one — it is instead pointed at by a cat:Node's cat:cell property (see category.ttl); attaching or moving a cell in any tree only ever touches that node's own cat:cell, never anything on the cell itself, which is what keeps a cell robust under PDN sync. Party composition (cell:parties, cell:OneParty/cell:MultiParty), creator metadata (cell:creator), identity/topic links (cell:subject, cell:partyTopics, cell:otherTopics), and validation (cell:shape) now live on the cell:ACell facet, not directly here — see cell.ttl 3.7.0/3.10.0/3.12.0/3.14.0."@en .
+    rdfs:comment "Superclass of every cell individual, carrying only what's common regardless of facet: file-system bookkeeping (cell:folder). Formerly named cell:Parties as a class (the tree-position class, before cell.ttl's 3.0.0 split moved that name to category.ttl's cat:Category). A cell:Cell carries no tree position of its own and no link to one — it is instead pointed at by a cat:Node's cat:cell property (see category.ttl); attaching or moving a cell in any tree only ever touches that node's own cat:cell, never anything on the cell itself, which is what keeps a cell robust under PDN sync. Party composition (cell:parties, cell:OneParty/cell:MultiParty), creator metadata (cell:creator), identity/topic links (cell:subject, cell:partyTopics, cell:otherTopics), and validation (cell:shape) now live on the cell:ACell facet, not directly here — see cell.ttl 3.7.0/3.10.0/3.12.0/3.14.0."@en .
 
 
 #################################################################
@@ -206,69 +206,62 @@ cell:otherTopics rdf:type owl:ObjectProperty ;
 
 
 #################################################################
-#    Cell Notes and Folders
+#    Cell Folders
 #
-#    Every cell is associated with two separate but parallel
-#    folder hierarchies that mirror its cat:Node's position in
-#    the user's tree and are kept in sync by the Mia application:
+#    Every cell is associated with one folder in local storage,
+#    mirroring its cat:Node's position in the user's tree and kept
+#    in sync by the Mia application: one folder per cell, rooted at
+#    a single configurable Cells root (e.g. ~/Cells/). Folder names
+#    and nesting match the category tree exactly.
 #
-#    Notes hierarchy — one folder per cell plus one .md file
-#    per cell, rooted at a configurable notes root (e.g.
-#    ~/MiaNotes/). Folder names and nesting match the category tree
-#    exactly. The note for a cell is stored as X.md inside the
-#    X folder (e.g. Family/Family.md) — the same name as the folder
-#    itself. This matches the Obsidian Folder Notes plugin
-#    convention, which treats a file named exactly after its
-#    containing folder as the note for that folder.
+#    A cell's folder may hold arbitrary files and any number of
+#    additional subfolders (to any depth) that are not themselves
+#    part of the category tree. Among those files, one file named
+#    X.md (matching the folder's own name X) is recognized by
+#    convention as the folder note for that cell — matching the
+#    Obsidian Folder Notes plugin convention, and directly
+#    compatible with other PKM folder-note tools such as Logseq or
+#    Foam. This is a naming convention only, discovered by looking
+#    inside the folder — unlike in earlier revisions of this design,
+#    it is not tracked by a separate ontology property.
 #
-#    Traditional PKM tools have no built-in way to associate a note
-#    with a folder itself. Mia's same-name convention solves this:
-#    the cell note is co-located with its folder and directly
-#    compatible with PKM folder-note tools such as Obsidian (Folder
-#    Notes plugin), Logseq, or Foam.
-#
-#    Files hierarchy — one folder per cell, rooted at a
-#    configurable files root (e.g. ~/MiaFiles/). Folder names and
-#    nesting match the category tree exactly. Each folder may
-#    contain arbitrary files and additional subfolders that are not
-#    part of the category tree itself.
+#    Because a cell's own note and its other files now share one
+#    folder, the single Cells root can be opened directly as a PKM
+#    vault (e.g. an Obsidian vault) without hiding anything from it:
+#    modern PKM tools handle non-Markdown files natively, so there
+#    is no longer a need for a second, notes-only hierarchy kept
+#    separate from arbitrary files (cell.ttl up to 3.14.0 kept two
+#    such parallel hierarchies — a notes hierarchy, cell:note, and a
+#    files hierarchy, cell:folder — each with its own root; merged
+#    into this single hierarchy in cell.ttl 3.15.0).
 #
 #    When a cat:Node is created, renamed, or deleted, Mia updates
-#    both hierarchies automatically for every cell it references via
-#    cat:cell. The two roots are stored separately so the notes
-#    hierarchy can be opened as a standalone PKM vault without
-#    exposing the files hierarchy.
+#    the hierarchy automatically for every cell it references via
+#    cat:cell.
 #
-#    Redundancy and robustness: in the normal case cell:note and
-#    cell:folder are technically redundant — both paths can be
-#    derived from the associated cat:Node's tree position plus the
-#    two configured roots. They are retained for three reasons:
+#    Redundancy and robustness: in the normal case cell:folder is
+#    technically redundant — its path can be derived from the
+#    associated cat:Node's tree position plus the configured Cells
+#    root. It is retained explicitly for three reasons:
 #
-#    1. Divergence detection: if a stored path no longer matches
+#    1. Divergence detection: if the stored path no longer matches
 #       the derived path, Mia knows the user has manually renamed
 #       or rearranged folders outside of Mia and can alert them or
 #       attempt reconciliation rather than failing silently.
 #
 #    2. Graceful degradation: Mia can continue to locate a
-#       cell's folder or note via the stored path even when
-#       the folder hierarchy has drifted out of sync with the
-#       category tree.
+#       cell's folder via the stored path even when the folder
+#       hierarchy has drifted out of sync with the category tree.
 #
 #    3. Intentional overrides: a user may deliberately want a
 #       cell's folder to live somewhere other than the derived
 #       location (e.g. ~/Photos/Family/ rather than the default
-#       ~/MiaFiles/People/Family/). The explicit link records that
+#       ~/Cells/People/Family/). The explicit link records that
 #       intentional deviation without disrupting the category tree.
 #################################################################
-
-cell:note rdf:type owl:AnnotationProperty ;
-    rdfs:domain cell:Cell ;
-    rdfs:range xsd:anyURI ;
-    rdfs:label "note"@en ;
-    rdfs:comment "Relative path within the notes hierarchy root to the cell note file, stored as CellName.md inside the cell folder (e.g. family/Family.md) — matching the Obsidian Folder Notes plugin convention. Normally derived automatically by Mia from the associated cat:Category's tree position; retained explicitly for divergence detection, graceful degradation, and intentional overrides."@en .
 
 cell:folder rdf:type owl:AnnotationProperty ;
     rdfs:domain cell:Cell ;
     rdfs:range xsd:anyURI ;
     rdfs:label "folder"@en ;
-    rdfs:comment "Relative path within the files hierarchy root to the folder for this cell. Normally derived automatically by Mia from the associated cat:Category's tree position; retained explicitly for divergence detection, graceful degradation, and intentional overrides."@en .
+    rdfs:comment "Relative path within the Cells root to the folder for this cell — the sole file-system location for both the cell's own folder note (X.md, matching the folder's own name X, per the Obsidian Folder Notes plugin convention) and any other arbitrary files or subfolders. Normally derived automatically by Mia from the associated cat:Category's tree position; retained explicitly for divergence detection, graceful degradation, and intentional overrides. Formerly one of two parallel properties alongside cell:note (removed in cell.ttl 3.15.0, once the separate notes and files hierarchies were merged into one — modern PKM tools such as Obsidian handle non-Markdown files natively, removing the only reason to keep them apart)."@en .

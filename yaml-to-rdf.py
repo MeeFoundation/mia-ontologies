@@ -134,9 +134,6 @@ def process_cell_databook(fm, triples):
     if mia.get("creator"):
         emit_obj(triples, subj, CELL + "creator", resolve(mia["creator"]))
 
-    if mia.get("note"):
-        emit_lit(triples, subj, CELL + "note", mia["note"], XSD + "anyURI")
-
     if mia.get("folder"):
         emit_lit(triples, subj, CELL + "folder", mia["folder"], XSD + "anyURI")
 
@@ -168,7 +165,7 @@ def process_topic_databook(fm, triples):
 def main(root):
     triples = []
 
-    for path in sorted(glob.glob(os.path.join(root, "example", "categories", "**", "*.databook.md"), recursive=True)):
+    for path in sorted(glob.glob(os.path.join(root, "example", "Cells", "**", "*.databook.md"), recursive=True)):
         if "under-development" in path.split(os.sep):
             continue
         fm = frontmatter(path)
