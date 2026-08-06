@@ -2,7 +2,7 @@
 
 This document describes the ontologies used by the Mee Identity Agent (Mia) software application. The application lets the user create *cells* – private, secure collaboration spaces which can be joined by other Mia users and/or nodes on the Personal Data Network (PDN) hosted by groups, or organizations.
 
-The following **domain ontologies** model claims about people, organizations, groups and other topics contained in `t:SCTopicGraph` instances. They import and profile existing ontologies — documenting which of their classes and properties Mia requires or uses — and extending them with Mia-specific classes and properties
+The following **domain ontologies** model claims about people, organizations, groups, and other subjects — these claims live in `t:SCTopicGraph` instances. They import and profile existing ontologies — documenting which of their classes and properties Mia requires or uses — and extending them with Mia-specific classes and properties
 
 - **Persona ontology** — models a person: names, addresses, phone numbers, relationships, payment cards, and more. It is built on BFO (Basic Formal Ontology) and CCO (Common Core Ontologies) as the upper ontological foundation, and on domain ontologies that extend CCO:
   - **PersonOntology** — person, name types, parent-child relationships
@@ -12,7 +12,7 @@ The following **domain ontologies** model claims about people, organizations, gr
 - **Organization ontology** — models organizations (companies, government agencies, non-profits, etc.) 
 - **Group ontology** — a group made up of individuals and/or organizations.
 
-Also included are the Category, Cell and Topic *metadata* ontologies. *Categories* are used to organize *cells* into a tree structure of subject areas. *Cells* are data spaces that can be shared with other users and organizations. Cells contain content including notes, files, folders, chat streams as well as structure information blocks called *topics* that follow the Persona ontology.
+Also included are the Category, Cell and Topic *metadata* ontologies. *Categories* are used to organize *cells* into a tree structure of subject areas. *Cells* are data spaces that can be shared with other users and organizations. Cells contain content including files (including folder notes), folders, chat streams, as well as structure information blocks called *topics* that typically follow the Persona ontology.
 
 Throughout this document we use these short-hands:
 
@@ -22,8 +22,6 @@ Throughout this document we use these short-hands:
 - `p:` for the `persona:` namespace (`http://mee.foundation/ontologies/persona#`)
 - `o:` for the `organization:` namespace (`http://mee.foundation/ontologies/organization#`).
 - `g:` for the `group:` namespace (`http://mee.foundation/ontologies/group#`)
-- `ako` for `rdfs:subClassOf` ("a kind of")
-- `isa` for 'rdf:type` ("is a")
 
 After describing these ontologies in more detail, we conclude with an illustration of their use by a hypothetical Mia user, Alice Walker.
 
@@ -35,13 +33,11 @@ Using Mia the user creates category trees (filesystem folders) to organize cells
 
 These categories vary in scope from broad groupings of information to narrower ones. In the social domain, for example, a category might be about "People", or more narrowly about "Immediate Family", and ultimately about just one family member. All predefined categories are *symmetric*. For example, "Extended Family" is symmetric because if Alice is a member of Bob's extended family, the reverse is also always true.
 
-
-
 Mia includes two predefined `cat:Category` class hierarchies rooted in the `cat:Person` and `cat:Organization`. Some classes in this hierarchy have "starter" content pointed to via `cat:templateCell` and asserted directly in `category.ttl` alongside the class's own declaration, pointing at a `c:TCell` individual defined in the companion file `cell-templates.ttl` — the *cell template* for that class.
 
 A category folder has no content of its own — its content lives entirely in the `c:ACell`(s) held by the cell-databook file(s) co-located in that same folder; `c:Cell` carries no property pointing back to a folder at all, since there's no folder individual to point at. When a category folder is created, Mia clones its class's `cat:templateCell`, if it exists, into a new `ACell`(DataBook file) for it — this is how a **cell template** becomes the starter content for an instantiated cell (see [Lazy Instantiation](#lazy-instantiation)).
 
-The user is free to construct folders not included in the predefined categories. These, by the way, need not be symmetric, and simply carry no `c:origin` value on their cell. The user aslo free to rearrange their folder tree as they wish, adding new folders and moving others around, within the Mia app or outside of it entirely as a filesystem operation.
+The user is free to construct folders not included in the predefined categories. These, by the way, need not be symmetric, and simply carry no `c:origin` value on their cell. The user is also free to rearrange their folder tree as they wish, adding new folders and moving others around, within the Mia app or outside of it entirely as a filesystem operation.
 
 ### Category Properties
 
@@ -56,7 +52,7 @@ The user is free to construct folders not included in the predefined categories.
     - **Extended Family** (`cat:ExtendedFamily`) — relatives outside the immediate nuclear group, such as grandparents, aunts, uncles, cousins, nieces and nephews.
     - **In-Laws / Step-Family** (`cat:InLawsStepFamily`) — relatives gained through marriage or legal guardianship, including a spouse's parents and siblings, or children from a previous relationship.
     - **Others** (`cat:Others`) — people you know socially or professionally who are not part of your family — acquaintances, friends, neighbors, or other connections.
-1. **Affiliations** (`cat:Affiliations`) — a catch-all for clubs, charities, faith groups, and other group affiliations that are not covered by a more specific category (e.g. `cat:Sports&Entertainment`, `cat:Food`, etc.) 
+1. **Affiliations** (`cat:Affiliations`) — a catch-all for clubs, charities, faith groups, and other group affiliations that are not covered by a more specific category (e.g. `cat:SportsEntertainment`, `cat:Food`, etc.) 
 1. **Health & Wellness** (`cat:HealthWellness`) — personal health and wellness information. Medical history, allergies, medications, vaccinations, prescriptions, eyeglasses.
     - **Medical** (`cat:Medical`) — medical (as opposed to dental or vision) care — diagnoses, treatments, providers, and insurance.
         - **History** (`cat:MedicalHistory`) — past diagnoses, conditions, surgeries, and treatments.
@@ -157,8 +153,12 @@ The tree of category folders contains a mixture of user-defined categories and c
 
 **`category.ttl`** — The Category ontology, defining:
   - *Classes*: `cat:Category` (abstract; formerly `c:Cell`), `cat:Person`, `cat:Organization`, and all leaf category subclasses (the classificatory hierarchy — the only hierarchy this file defines; category.ttl 1.31.0 deleted the tree-position facet, `cat:Folder` and its subclasses `cat:CategoryDefined`/`cat:UserDefined`, outright, since a folder's tree position is now purely a filesystem fact).
-  - *Annotation properties*: `cat:templateCell` (domain `owl:Class`, range `c:TCell` — links a `cat:Category` subclass directly to its reusable template cell; narrowed from `c:Cell` in category.ttl 1.18.0, once cell.ttl 3.7.0 split `c:Cell` into the `c:TCell`/`c:ACell` facets; see [cell-templates.ttl](#persona-templates)).
+  - *Annotation properties*: `cat:templateCell` (domain `owl:Class`, range `c:TCell` — links a `cat:Category` subclass directly to its reusable template cell; narrowed from `c:Cell` in category.ttl 1.18.0, once cell.ttl 3.7.0 split `c:Cell` into the `c:TCell`/`c:ACell` facets; see [cell-templates.ttl](#persona-ontology-files)).
   This is now `category.ttl`'s only property. `category.ttl` imports `cell.ttl` (to reuse `c:abstract` to mark non-instantiated classes, and by name in `c:origin`'s doc comments) and `cell-templates.ttl` (for the `ctpl:*TemplateCell` individuals its own `cat:templateCell` assertions point at). This import is one-directional only: `cell-templates.ttl` imports `cell.ttl` directly rather than importing `category.ttl` back, since the only `cat:` term it ever used, `cat:templateShape`, moved to `cell.ttl` as `c:templateShape` (its domain/range — `c:Cell`/`sh:NodeShape` at the time, narrowed to `c:TCell`/`sh:NodeShape` in cell.ttl 3.7.0's facet split — never actually referenced a `cat:` term) — so there is no mutual import here, unlike `topic.ttl`/`cell.ttl`.
+
+### Lazy Instantiation
+
+Most `cat:Category` subclasses have no folder anywhere in a user's tree until the user actually files something under them — canonical categories are never pre-created ahead of time. When a folder matching a templated class (one carrying a `cat:templateCell` value) is first given content, Mia clones that class's `c:TCell` template into a new cell for that folder: whatever `c:templateShape` value the template carried is copied into the new cell's `c:shape`, and the clone is given real member-classified content — typed with a concrete `c:ACell` subclass (e.g. `c:OneMember`) — rather than staying purely a template. This is what turns a `cat:Category` class's reusable starter content (`cat:templateCell` → `c:TCell` → optionally `c:templateShape`) into one specific cell's actual starter content only once it's needed, rather than eagerly pre-populating a folder for every `cat:Category` subclass whether or not the user ever uses it.
 
 ## Cell Ontology
 
@@ -172,17 +172,15 @@ A cell is a private, secure collaboration space created and managed by the Mia s
 
 <p align="center"><img src="images/cell-ontology/cell.png" alt="Cell hierarchy"></p>
 
-
 #### Cell Properties
 
 - **`c:origin`** — The value is the matching `cat:Category` subclass whenever this cell's containing folder's own name matches a real one (e.g. `cat:Others`) — else nil, for a folder with no matching canonical class. When a cell is shared with another member, the recipient's app can look at this value (if not nil) and use it as a hint as to which folder in the recipient's own tree it should be filed under. Domain `c:Cell`, range `cat:Category` (referenced by name, no `owl:imports`), at most one value (0..1) — see [Cell Ontology File](#cell-ontology-file) below.
 
-- **`c:chat`** — optional path to chat stream.
+- **`c:chat`** — optional path to chat stream. Aspirational: shown in `images/cell-ontology/cell.png`'s diagram and described here for intended semantics, but not yet defined as an actual property in `cell.ttl` (see `CLAUDE.md`'s Check 12 for this open discrepancy).
 
 ### TCell (Template Cell)
 
 A cell pointed to by a `cat:Category` subclass (via `cat:templateCell`) serves as a **cell template** — a reusable, typically empty shape that the application clones into a new cell whenever a category of that class is first instantiated into a user's tree (see [Lazy Instantiation](#lazy-instantiation)). Such a cell is typed `c:TCell`, the template facet. An ordinary, already-instantiated cell is typed `c:ACell`, the actual facet, instead — carrying real member composition, creator, and content. A cell template is simultaneously both: it is reusable template content (`c:TCell`) that also carries real member-classified content of its own (`c:ACell`, via `c:OneMember`/`c:TwoMember`/`c:ThreePlusMember`) — see [Cell Ontology File](#cell-ontology-file) below.
-
 
 #### Properties
 
@@ -222,7 +220,6 @@ Every `c:ACell` carries one or two `c:subject` values (the resource(s) the cell 
 | `c:memberTopics` | 1         | 2..4      | 3..N            |
 | `c:otherTopics`  | 0..N      | 0..N      | 0..N            |
 
-
 ### Cells and Categories
 
 The diagram below shows representative kinds of cell/category pairs, each labeled with its category's kind (green text) and, when set, a display name (black text) — informal box-label conventions in the diagram itself, not backed by any RDF property (a folder's tree position and display name are purely filesystem facts, with no per-folder individual to carry them). In each cell are a set of gray icons representing objects that are shared with all members of the cell.
@@ -233,7 +230,7 @@ The diagram below shows representative kinds of cell/category pairs, each labele
 
 The first, "Work", is a folder named to match `cat:Work` (a `cat:Person` subclass) with no override display name — its cell carries `c:origin` `cat:Work`. The second, "Organization / Acme", is a folder representing `cat:Organization`, displayed as "Acme" — its cell likewise carries `c:origin` `cat:Organization`. The third, "Favorites", is a hypothetical folder with no canonical counterpart at all, displayed as "Favorites" (not tied to any real example data) — its cell carries no `c:origin` value. The fourth, "Others / Bob Johnson", is a `c:TwoMember` cell between the user and another Mia user, Bob — shown with all four self-vs-other classified topics filled (self-by-self, other-by-self, self-by-other, other-by-other), all linked via the cell's `c:memberTopics` (its `c:subject` is `:Self` and `:Bob_Johnson`). The last, "Affiliations / Boston Hub Society", is a `c:ThreePlusMember` cell with two other members, Carol and BHS. 
 
-The blue text in the upper left of the cell is the 1-2 subject(s) of the cell. If a `c:TwoMember` cell has a single subject this subject must be the subject of a topic graph in the c`:otherTopics`. And if `c:TwoMember` cell has two subjects they must be two distinct subjects of the 2..4 topic graphs pointed to by `c:memberTopics`. A TwoMember cell with two subjects is essentially about the connection/relationship between the two members.
+The blue text in the upper left of the cell is the 1-2 subject(s) of the cell. If a `c:TwoMember` cell has a single subject this subject must be the subject of a topic graph in the `c:otherTopics`. And if `c:TwoMember` cell has two subjects they must be two distinct subjects of the 2..4 topic graphs pointed to by `c:memberTopics`. A TwoMember cell with two subjects is essentially about the connection/relationship between the two members.
 
 Each of these five example cells contains topic graphs shown as circles. White circles are topic graphs whose triples are claimed by the self (the user). Green circles are topic graphs whose triples are claimed by a person other than the self, by an organization (`o:Organization`), or by a group (`g:Group`), and synchronized with the user's Mia instance over the PDN. For example the BHS cell at the bottom has three topics: Self (the user)'s BHS profile, the BHS group's own profile and Bob Johnson's BHS member profile as claimed by Bob.
 
@@ -275,8 +272,6 @@ The following properties are defined in `cell.ttl` and represented as `mia.` YAM
 | `mia.creator` | `c:creator` | 0..1 | Who created this cell's content — a `p:Person`, `g:Group`, or `o:Organization` |
 | `mia.subject` | `c:subject` | 1..2 | The resource(s) (e.g. `:Self`, `:Bob_Johnson`) the cell's content is about |
 | `mia.shape` | `c:shape` | 0..1 | Optional `sh:NodeShape` validating this specific cell's own content directly |
-
-Cell folders live in a single hierarchy whose structure mirrors the category hierarchy.
 
 #### Subject and Topic Link Properties
 
@@ -365,13 +360,11 @@ A topic's own metadata (claimant, subject) is declared in its `mia.topics[]` ent
 
 The Persona ontology defines a formal, machine-readable model of a person. It is used by triples stored in `t:TopicGraph` instances. 
 
-We represent a person with the `p:Person` class — a Mia-specific subclass of CCO `Person` (`cco:ont00001262`).  The Mia user's own `p:Person` individual always uses the IRI `:Self` across all of their topics; other people, groups, and organizations are assigned locally-minted named IRIs (e.g. `:Bob_Johnson`). `:Self`'s type declaration (`rdf:type owl:NamedIndividual, persona:Person`) is asserted in `example/topics/self.ttl` (see the [Validation](#validation) section for how `self.ttl` is merged in alongside every embedded topic). 
-
+We represent a person with the `p:Person` class — a Mia-specific subclass of CCO `Person` (`cco:ont00001262`).  The Mia user's own `p:Person` individual always uses the IRI `:Self` across all of their topics; other people, groups, and organizations are assigned locally-minted named IRIs (e.g. `:Bob_Johnson`). `:Self`'s type declaration (`rdf:type owl:NamedIndividual, persona:Person`) is asserted in `example/topics/self.ttl` (see the [Validation](#validation) section for how `self.ttl` is merged in alongside every embedded topic).
 
 <p align="center"><img src="images/persona-ontology/persona.png" alt="Persona model"></p>
 
 The persona ontology is used to describe the contents of **topic graphs** of **cells** (see [Cell Ontology](#cell-ontology) and [Topic Ontology](#topic-ontology)). These topic graphs, when describing people, function as *named-graph slices* — each is an independent facet of an identity in a specific cell context, carrying the claims relevant to that topic: names, addresses, phone numbers, SSNs, physical characteristics, parent-child relationships, social connections, payment cards, and more. The Persona ontology reuses existing well-known ontologies wherever possible and defines new terms only where no suitable existing term exists.
-
 
 ### Key Properties and Classes
 
@@ -613,7 +606,7 @@ Alice's topics live embedded inside the cell DataBooks in `example/Cells/` — e
 Alice's category tree is simply the folder hierarchy under `example/Cells/` — every folder's own cell-databook file holds its content (or a placeholder); there is no RDF individual representing the folder itself. The full tree can be walked starting from the cell-databook directly inside `example/Cells/` itself (`Cells(person).databook.md`). Folders fall into two kinds, distinguished purely by whether their own cell-databook carries a `c:origin` value:
 
 - **Categories matching a canonical class** (the folder's own name matches a real `cat:Category` subclass, and its cell-databook's `mia.origin` field names it directly) — this covers both the top-level categories and their child categories, and most specific people/companies/agencies Alice interacts with (e.g. `Bob Johnson(others)`, `c:origin` `cat:Others`; `Citibank(banking-payments)`, `c:origin` `cat:BankingPayments`). Topic links (`c:memberTopics`/`c:otherTopics`), and the resource(s) each cell is about (`c:subject`), are attached to each category's own cell DataBook, not any separate category node.
-- **Categories with no canonical counterpart** (the folder's own cell-databook carries no `c:origin` value at all) — for an entity with no matching class. This example tree doesn't currently have one: even `acme(organization)` (Alice's employer, which has no specific canonical class of its own) carries `c:origin` `cat:Organization` — the most specific applicable classification. Its folder is simply named "Acme" — no display-name override exists any more, since a category's display name is just its own OS folder name, used verbatim.
+- **Categories with no canonical counterpart** (the folder's own cell-databook carries no `c:origin` value at all) — for an entity with no matching class. This example tree doesn't currently have one: even `Acme(organization)` (Alice's employer, which has no specific canonical class of its own) carries `c:origin` `cat:Organization` — the most specific applicable classification. Its folder is simply named "Acme" — no display-name override exists any more, since a category's display name is just its own OS folder name, used verbatim.
 
 Every category folder here matches a canonical class (a folder with no canonical counterpart at all is also possible, and would simply carry no `c:origin` value on its cell, but none currently appears in this example tree), holding, directly inside it, a cell DataBook with its content — there is no per-folder association to synthesize any more, since the cell-databook's containing folder already *is* the category.
 
@@ -640,7 +633,6 @@ Alice has relationships with two companies, Google and AT&T:
 
 Alice has a relationship with Citibank. In our example Citibank exists as a node on the PDN and directly claims information about their customer, Alice in topic #9.
 <p align="center"><img src="example/images/finances.png" alt="Financial cells"></p>
-
 
 Here are the cells related to Alice's interactions with various state governments:
 <p align="center"><img src="example/images/gov-state.png" alt="Government — State cells"></p>
@@ -702,8 +694,6 @@ The following table lists topics about other people (Paula and Bob) or groups (B
 | 30 | [Med. App. Info(medical-appointment-info).databook.md](<example/Cells/People/Immediate Family/Paula Walker/Health & Wellness/Medical/Providers/Med. App. Info/Med. App. Info(medical-appointment-info).databook.md#topic-30>) | Medical Appointment       | Alice's own self-claimed contact info — the other of this cell's two members, alongside Carol (topic 28)           | [view](example/topics/images/self.self(Med.-App.-Info)(medical-appointment-info)(30).png) |
 | 27 | [Citibank(banking-payments).databook.md](<example/Cells/Finances/Banking & Payments/Citibank/Citibank(banking-payments).databook.md#topic-27>) | Banking & Payments Firms | Alice's own self-claimed notes about Citibank as an institution, alongside Citibank's own claimed record about her (topic 09) | [view](example/topics/images/citibank.self(Citibank)(banking-payments)(27).png) |
 | 31 | [Fred Flintstone(others).databook.md](<example/Cells/People/Others/Fred Flintstone/Fred Flintstone(others).databook.md#topic-31>)                     | Others       | Fred's self-claimed Fred persona                                 | [view](example/topics/images/fred-flintstone.fred-flintstone(Fred-Flintstone)(others)(31).png) |
-
-
 
 ### Named Graph Scoping and Topic-Specific Membership
 
