@@ -29,23 +29,23 @@ After describing these ontologies in more detail, we conclude with an illustrati
 
 ## Category Ontology
 
-Using Mia the user creates category trees to organize cells that they create themselves or are shared with them. A category's tree position is purely a filesystem fact — the folder it lives in, nested however the user likes — with no RDF individual representing that folder at all. `cat:Category` itself is only the *classificatory* side: which kind of thing a category is (e.g. "Work", "People", "Food", etc.), a fact recorded not by any per-folder individual but by the class hierarchy itself, and echoed on a folder's cell via `c:origin` (see the Cell Ontology section below) whenever the folder's own name happens to match one of these classes.
-
-`cat:Category` subclasses vary in scope from broad groupings of information to narrower ones. In the social domain, for example, a category might be about "People", or more narrowly about "Immediate Family", and ultimately about just one family member. All predefined categories are *symmetric*. For example, "Extended Family" is symmetric because if Alice is a member of Bob's extended family, the reverse is also always true.
-
-The user is also free to construct folders that don't match any predefined category — these need not be symmetric, and simply carry no `c:origin` value on their cell.
+Using Mia the user creates category trees (filesystem folders) to organize cells that they create themselves or are shared with them. Mia encourages the user to create these folders following the pattern of the tree of `cat:Category` classes and subclasses. A folder's display name is simply its own OS name, used verbatim.
 
 <p align="center"><img src="images/category-ontology/category.png" alt="Category hierarchy"></p>
 
-Mia provides two predefined `cat:Category` class hierarchies rooted in the `cat:Person` and `cat:Organization`. Some classes in this hierarchy have "starter" content pointed to via `cat:templateCell` and asserted directly in `category.ttl` alongside the class's own declaration, pointing at a `c:TCell` individual defined in the companion file `cell-templates.ttl` — the *cell template* for that class.
+These categories vary in scope from broad groupings of information to narrower ones. In the social domain, for example, a category might be about "People", or more narrowly about "Immediate Family", and ultimately about just one family member. All predefined categories are *symmetric*. For example, "Extended Family" is symmetric because if Alice is a member of Bob's extended family, the reverse is also always true.
 
-A category folder in the user's tree has no content of its own — its content lives entirely in the `c:ACell`(s) held by the cell-databook file(s) co-located in that same folder; `c:Cell` carries no property pointing back to a folder at all, since there's no folder individual to point at. When a category is instantiated into the user's tree, Mia clones its class's `cat:templateCell`, if it exists, into a new `ACell` for that folder — this is how a **cell template** becomes the starter content for an instantiated cell (see [Lazy Instantiation](#lazy-instantiation)).
 
-The user is free to rearrange their folder tree as they wish, adding new folders and moving others around, entirely as a filesystem operation — there is no RDF triple to update on either side. A folder's display name is simply its own OS name, used verbatim, with no override mechanism.
+
+Mia includes two predefined `cat:Category` class hierarchies rooted in the `cat:Person` and `cat:Organization`. Some classes in this hierarchy have "starter" content pointed to via `cat:templateCell` and asserted directly in `category.ttl` alongside the class's own declaration, pointing at a `c:TCell` individual defined in the companion file `cell-templates.ttl` — the *cell template* for that class.
+
+A category folder has no content of its own — its content lives entirely in the `c:ACell`(s) held by the cell-databook file(s) co-located in that same folder; `c:Cell` carries no property pointing back to a folder at all, since there's no folder individual to point at. When a category folder is created, Mia clones its class's `cat:templateCell`, if it exists, into a new `ACell`(DataBook file) for it — this is how a **cell template** becomes the starter content for an instantiated cell (see [Lazy Instantiation](#lazy-instantiation)).
+
+The user is free to construct folders not included in the predefined categories. These, by the way, need not be symmetric, and simply carry no `c:origin` value on their cell. The user aslo free to rearrange their folder tree as they wish, adding new folders and moving others around, within the Mia app or outside of it entirely as a filesystem operation.
 
 ### Category Properties
 
-- **`cat:templateCell`** — links a `cat:Category` subclass directly to the `c:TCell` individual serving as its reusable template content.
+- **`cat:templateCell`** — links a `cat:Category` subclass directly to the `c:TCell` (template cell) individual serving as its reusable template content.
 
 ### Personal Categories
 
@@ -149,11 +149,9 @@ The user is free to rearrange their folder tree as they wish, adding new folders
 
 ### Category Folders
 
-Each folder in a user's own instance tree holds one or more **cell DataBooks** (`.databook.md` files with `type: cell-databook`) directly inside it — there is no separate category-databook file, and no RDF individual representing the folder itself at all. That cell-databook holds the folder's real content, or an empty placeholder if nothing has been filed there yet (see [Cell Folders](#cell-folders) below's folder ownership boundary rule). This tree contains a mixture of user-defined categories and categories matching a canonical class, distinguished purely by whether the folder's own cell-databook carries a `c:origin` value — asserted directly, via `mia.origin` in that cell-databook's own YAML frontmatter, whenever the folder's name matches a real `cat:Category` subclass, and absent otherwise. Tree position (nesting) is likewise a pure filesystem fact, with no `child`-style property to assert anywhere.
+Every category folder holds one or more cell DataBooks (see [Cell DataBooks](#cell-databooks) below). The tree of folders contains a mixture of user-defined categories and categories matching a canonical class, distinguished purely by whether the folder's own cell-databook carries a `c:origin` value — asserted directly, via `mia.origin` in that cell-databook's own YAML frontmatter, whenever the folder's name matches a real `cat:Category` subclass, and absent otherwise. Tree position (nesting) is likewise a pure filesystem fact, with no `child`-style property to assert anywhere.
 
-#### Cell/Category Split
-
-Every category folder holds one or more cell DataBooks (see [Cell DataBooks](#cell-databooks) below) holding its content and any topic links — many-to-one, not 1:1. Since there's no folder individual, there's no folder→cell link to assert either — a folder's cell-databook(s) are simply whichever `*.databook.md` files live in that folder on disk. This is what makes a shared cell's content portable: moving or renaming any category anywhere in any tree is a pure filesystem operation (move or rename the folder), with no RDF triple to update on either side. It's also what makes the many-to-one relationship straightforward: adding a second cell to an existing category is just adding another `-cell-2`-suffixed cell-databook file to that folder — nothing about the cell(s) already there changes.
+A folder's cell-databook(s) are simply whichever `*.databook.md` files live in that folder on disk the first segment of whose filename matches the name of the parent folder. This is what makes a shared cell's content portable: moving or renaming any category anywhere in any tree is a pure filesystem operation (move or rename the folder). 
 
 ### Category Ontology File
 
