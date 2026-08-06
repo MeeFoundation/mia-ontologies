@@ -45,7 +45,6 @@ import os, re, sys, yaml, glob
 CELL = "http://mee.foundation/ontologies/cell#"
 TOPIC = "http://mee.foundation/ontologies/topic#"
 PSHAPES = "http://mee.foundation/ontologies/persona/shapes#"
-XSD = "http://www.w3.org/2001/XMLSchema#"
 MIA_NS = "http://www.example.org/mia#"
 
 PREFIXES = {
@@ -69,10 +68,6 @@ def resolve(val):
     return MIA_NS + val
 
 
-def esc(s):
-    return s.replace("\\", "\\\\").replace('"', '\\"')
-
-
 def frontmatter(path):
     text = open(path, encoding="utf-8").read()
     m = re.match(r"^---\n(.*?)\n---", text, re.DOTALL)
@@ -91,13 +86,6 @@ def emit_type(triples, subj, type_iri):
 
 def emit_obj(triples, subj, prop, obj_iri):
     triples.append(f"<{subj}> <{prop}> <{obj_iri}> .")
-
-
-def emit_lit(triples, subj, prop, value, datatype=None):
-    if datatype:
-        triples.append(f'<{subj}> <{prop}> "{esc(value)}"^^<{datatype}> .')
-    else:
-        triples.append(f'<{subj}> <{prop}> "{esc(value)}" .')
 
 
 def process_cell_databook(fm, triples):
@@ -127,9 +115,6 @@ def process_cell_databook(fm, triples):
 
     if mia.get("creator"):
         emit_obj(triples, subj, CELL + "creator", resolve(mia["creator"]))
-
-    if mia.get("folder"):
-        emit_lit(triples, subj, CELL + "folder", mia["folder"], XSD + "anyURI")
 
     for topic_iri in as_list(mia.get("memberTopics")):
         emit_obj(triples, subj, CELL + "memberTopics", resolve(topic_iri))

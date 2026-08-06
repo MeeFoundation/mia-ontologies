@@ -57,7 +57,6 @@ mia:
         agent:
           name: Paul Trevithick
           role: author
-  folder: "People/Immediate Family/Paula Walker/Health & Wellness/Medical/Providers/Med. App. Info"
   shape: "pshapes:MedicalAppointmentRecordShape"
 ---
 

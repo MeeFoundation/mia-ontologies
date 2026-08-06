@@ -13,10 +13,10 @@
 @base <http://mee.foundation/ontologies/cell> .
 
 <http://mee.foundation/ontologies/cell> rdf:type owl:Ontology ;
-    owl:versionIRI <http://mee.foundation/ontologies/cell/3.21.0> ;
+    owl:versionIRI <http://mee.foundation/ontologies/cell/3.23.0> ;
     dc:date "2026-08-06"^^xsd:date ;
     owl:imports <http://mee.foundation/ontologies/topic> ;
-    owl:versionInfo "Version 3.21.0 - reworded every design comment referencing cat:Folder as a real entity (cell:Cell's own class comment, the Cell Folders design-comment block, and cell:origin's own comment), since category.ttl 1.31.0 deleted cat:Folder and its subclasses cat:CategoryDefined/cat:UserDefined outright — a folder is now purely a filesystem concept with no RDF individual representing it at all, not something these comments should describe as if it still had a formal class backing it. No triples added, removed, or altered — cell:origin's own domain/range/cardinality (cell:Cell/cat:Category/0..1) is unaffected, since cat:Category itself survives; only the comment language calling out the (now nonexistent) cat:Folder/cat:cell/cat:child by name has changed. (3.20.0 - added cell:origin (domain cell:Cell, range cat:Category, at most one value — 0..1, matching README.md's pre-existing 'else nil for cat:UserDefined folders' description of this property, not the cell.png diagram's 1..1 label) — for a cell filed under a cat:CategoryDefined folder, that folder's own cat:category value, letting a recipient's Mia app use it as a hint for where to file a shared cell in the recipient's own tree; referencing cat:Category by name without owl:imports (mirroring cell:creator's identical pattern for p:Person/g:Group/o:Organization). Resolves the previously open cell.png diagram discrepancy noted in CLAUDE.md's Check 12 (the diagram's origin arrow off Cell had no matching property) — modulo the cardinality mismatch just noted, flagged rather than silently resolved. cell-shacl.ttl's :CellShape gained a matching cell:origin cardinality constraint. Does not violate cell:Cell's 'no link to a tree position' design: cell:origin's range is the classificatory cat:Category, not the tree-position cat:Folder, so it records what kind of thing the cell is, not where it lives on either side of a share. (3.19.0 - reworded the folder ownership boundary rule in the Cell Folders design comment (documented in 3.16.0) to key on 'a *.databook.md file' rather than 'a *.databook.md file whose type is category-databook' — category-databook no longer exists as a DataBook type in a user's instance tree (category.ttl 1.30.0); cell-databook is now the sole type there, and its mere presence is itself the tree-node marker. Comment-only change; no triples added, removed, or altered. (3.18.0 - updated design comments referencing cat:Node to cat:Folder (renamed in category.ttl 1.29.0). Comment-only change; no triples added, removed, or altered. (3.17.0 - renamed cell:parties to cell:memberCount, cell:partyTopics to cell:memberTopics, and the member-count hierarchy cell:OneParty/cell:MultiParty/cell:TwoParty/cell:ThreePlusParty to cell:OneMember/cell:MultiMember/cell:TwoMember/cell:ThreePlusMember. No domain/range/cardinality changes; a pure terminology shift from 'party' to 'member' throughout the ontology's own comments (cell-shacl.ttl's matching per-member shapes renamed too: :OnePartyShape/:TwoPartyShape/:ThreePlusPartyShape -> :OneMemberShape/:TwoMemberShape/:ThreePlusMemberShape). cell:label's example display strings were updated to match, per the redrawn cell.png/cat-cell-topic.png: 'Two-Party Cell' -> 'Two-Member Cell', 'Multi-Party Cell' -> 'Multi-Member Cell', and 'Cell' -> 'Single-Member Cell' (this last one renamed too, not just the two 'Party' strings, to read consistently alongside its siblings). 3.16.0 - documented the folder ownership boundary rule in the Cell Folders design comment: a subfolder is excluded from its parent cell's own content, belonging instead to whatever cat:Node it is itself the folder of, if and only if it directly contains a *.databook.md file with type category-databook. Resolves ownership one folder at a time (no category-tree traversal needed) and stays correct even if the user moves folders around outside Mia, since the marker travels with its folder. Comment-only change; no triples added, removed, or altered. 3.15.0 - removed cell:note and merged the separate notes/files folder hierarchies into a single hierarchy under cell:folder, since modern PKM tools such as Obsidian handle non-Markdown files natively and no longer need a dedicated notes-only vault kept apart from arbitrary files. A cell's folder note (X.md matching its folder's name X, per the Obsidian Folder Notes plugin convention) is now discovered by naming convention inside cell:folder's single folder rather than tracked by a separate property. No change to cell:folder's domain (cell:Cell) or range (xsd:anyURI).))))"@en ;
+    owl:versionInfo "Version 3.23.0 - removed cell:folder outright. A cell's folder is now purely the filesystem folder its cell-databook file physically lives in, never a stored path: since cell.ttl 3.22.0 established that a folder holds at most one cell-databook, this folder<->cell mapping is always unambiguous with nothing left to record, detect divergence in, or override — the folder simply IS wherever the databook file sits. A cell's own content (its folder note and any other arbitrary files) is everything in that folder except the databook file itself, the one X.md folder-note file matching the folder's own name, and any subfolder that is itself a category folder (belongs to a separate, nested cell instead). Reworded the 'Cell Folders' design-comment block accordingly and dropped the file-system-bookkeeping mention from cell:Cell's own class comment. cell-shacl.ttl's :CellShape lost its matching cell:folder cardinality constraint. images/cell-ontology/cell.png still shows a folder arrow off Cell — flagged as a new still-open discrepancy in CLAUDE.md's Check 12, not silently resolved. (3.22.0 - corrected the Cell design-comment block's folder/cell relationship from many-to-one to strictly one-to-one: a folder holds at most one cell-databook, whose filename must be an exact copy of the folder's own name — a folder with no such matching cell-databook is a plain filesystem folder, not a category folder at all. A cell is self-contained; letting two cells share a folder would risk a single file in that folder becoming ambiguously part of both. No triples added, removed, or altered — this class-level design comment carries no OWL axioms of its own. (3.21.0 - reworded every design comment referencing cat:Folder as a real entity (cell:Cell's own class comment, the Cell Folders design-comment block, and cell:origin's own comment), since category.ttl 1.31.0 deleted cat:Folder and its subclasses cat:CategoryDefined/cat:UserDefined outright — a folder is now purely a filesystem concept with no RDF individual representing it at all, not something these comments should describe as if it still had a formal class backing it. No triples added, removed, or altered — cell:origin's own domain/range/cardinality (cell:Cell/cat:Category/0..1) is unaffected, since cat:Category itself survives; only the comment language calling out the (now nonexistent) cat:Folder/cat:cell/cat:child by name has changed. (3.20.0 - added cell:origin (domain cell:Cell, range cat:Category, at most one value — 0..1, matching README.md's pre-existing 'else nil for cat:UserDefined folders' description of this property, not the cell.png diagram's 1..1 label) — for a cell filed under a cat:CategoryDefined folder, that folder's own cat:category value, letting a recipient's Mia app use it as a hint for where to file a shared cell in the recipient's own tree; referencing cat:Category by name without owl:imports (mirroring cell:creator's identical pattern for p:Person/g:Group/o:Organization). Resolves the previously open cell.png diagram discrepancy noted in CLAUDE.md's Check 12 (the diagram's origin arrow off Cell had no matching property) — modulo the cardinality mismatch just noted, flagged rather than silently resolved. cell-shacl.ttl's :CellShape gained a matching cell:origin cardinality constraint. Does not violate cell:Cell's 'no link to a tree position' design: cell:origin's range is the classificatory cat:Category, not the tree-position cat:Folder, so it records what kind of thing the cell is, not where it lives on either side of a share. (3.19.0 - reworded the folder ownership boundary rule in the Cell Folders design comment (documented in 3.16.0) to key on 'a *.databook.md file' rather than 'a *.databook.md file whose type is category-databook' — category-databook no longer exists as a DataBook type in a user's instance tree (category.ttl 1.30.0); cell-databook is now the sole type there, and its mere presence is itself the tree-node marker. Comment-only change; no triples added, removed, or altered. (3.18.0 - updated design comments referencing cat:Node to cat:Folder (renamed in category.ttl 1.29.0). Comment-only change; no triples added, removed, or altered. (3.17.0 - renamed cell:parties to cell:memberCount, cell:partyTopics to cell:memberTopics, and the member-count hierarchy cell:OneParty/cell:MultiParty/cell:TwoParty/cell:ThreePlusParty to cell:OneMember/cell:MultiMember/cell:TwoMember/cell:ThreePlusMember. No domain/range/cardinality changes; a pure terminology shift from 'party' to 'member' throughout the ontology's own comments (cell-shacl.ttl's matching per-member shapes renamed too: :OnePartyShape/:TwoPartyShape/:ThreePlusPartyShape -> :OneMemberShape/:TwoMemberShape/:ThreePlusMemberShape). cell:label's example display strings were updated to match, per the redrawn cell.png/cat-cell-topic.png: 'Two-Party Cell' -> 'Two-Member Cell', 'Multi-Party Cell' -> 'Multi-Member Cell', and 'Cell' -> 'Single-Member Cell' (this last one renamed too, not just the two 'Party' strings, to read consistently alongside its siblings). 3.16.0 - documented the folder ownership boundary rule in the Cell Folders design comment: a subfolder is excluded from its parent cell's own content, belonging instead to whatever cat:Node it is itself the folder of, if and only if it directly contains a *.databook.md file with type category-databook. Resolves ownership one folder at a time (no category-tree traversal needed) and stays correct even if the user moves folders around outside Mia, since the marker travels with its folder. Comment-only change; no triples added, removed, or altered. 3.15.0 - removed cell:note and merged the separate notes/files folder hierarchies into a single hierarchy under cell:folder, since modern PKM tools such as Obsidian handle non-Markdown files natively and no longer need a dedicated notes-only vault kept apart from arbitrary files. A cell's folder note (X.md matching its folder's name X, per the Obsidian Folder Notes plugin convention) is now discovered by naming convention inside cell:folder's single folder rather than tracked by a separate property. No change to cell:folder's domain (cell:Cell) or range (xsd:anyURI).))))))"@en ;
     rdfs:label "Cell Ontology"@en ;
     rdfs:comment """Cell Ontology for the Mee Identity Agent. Defines cell:Cell — the self-contained content facet of a cell — independent of where any cat:Category (see category.ttl) chooses to place it in a navigational tree. cell:Cell splits further into two orthogonal sub-facets: cell:TCell (template) and cell:ACell (actual/instantiated), which a single cell individual may carry either or both of."""@en .
 
@@ -43,18 +43,25 @@ cell:label rdf:type owl:AnnotationProperty ;
 #
 #    A cell:Cell instance is a self-contained content record —
 #    independent of any tree position in a category tree. A cell:Cell
-#    lives inside a filesystem folder (see cell:folder), but there is
+#    lives inside a filesystem folder — simply whichever folder its
+#    own cell-databook file physically sits in, never a stored path
+#    (cell:folder, removed in cell.ttl 3.23.0) — and there is
 #    no RDF individual representing that folder at all any more
 #    (category.ttl 1.31.0 deleted cat:Folder and its subclasses
 #    outright) — the association is purely a filesystem fact: whatever
 #    cell-databook file physically sits in a folder IS that folder's
-#    content. The relationship is many-to-one, not 1:1: one or more
-#    cell:Cell individuals (cell-databook files) may share the same
-#    folder, each an independent piece of content at that one tree
-#    position.
+#    content. The relationship is strictly one-to-one, not many-to-one:
+#    a folder holds at most one cell-databook file, whose filename must
+#    be an exact copy of the folder's own name. A folder with no such
+#    matching cell-databook is not a category folder at all — just a
+#    plain filesystem folder, possibly holding nested category folders
+#    of its own. There is no way for two cell:Cell individuals to share
+#    one folder: a cell is self-contained, and letting two cells share
+#    a folder would risk a single file in that folder becoming
+#    ambiguously part of both.
 #
 #    cell:Cell itself carries only what's common to every cell
-#    regardless of facet: file-system bookkeeping (cell:folder).
+#    regardless of facet: inherent classification (cell:origin).
 #    Everything facet-specific — including cell:subject (the
 #    resource(s) the cell is about) and cell:memberTopics/
 #    cell:otherTopics (its linked topic:SCTopicGraph container(s))
@@ -64,7 +71,7 @@ cell:label rdf:type owl:AnnotationProperty ;
 cell:Cell rdf:type owl:Class ;
     cell:abstract true ;
     rdfs:label "Cell"@en ;
-    rdfs:comment "Superclass of every cell individual, carrying only what's common regardless of facet: file-system bookkeeping (cell:folder) and inherent classification (cell:origin, cell.ttl 3.20.0). Formerly named cell:Parties as a class (the tree-position class, before cell.ttl's 3.0.0 split moved that name to category.ttl's cat:Category). A cell:Cell carries no tree position of its own and no link to one — its containing folder is purely a filesystem fact, with no RDF individual representing it at all (category.ttl 1.31.0 deleted cat:Folder and its subclasses outright); moving a cell to a different folder is a pure filesystem operation, never anything asserted on the cell itself, which is what keeps a cell robust under PDN sync. cell:origin does not violate this: its range is the abstract classificatory cat:Category, not a tree position, so it records what kind of thing the cell is, never where it currently lives. Member composition (cell:memberCount, cell:OneMember/cell:MultiMember), creator metadata (cell:creator), identity/topic links (cell:subject, cell:memberTopics, cell:otherTopics), and validation (cell:shape) now live on the cell:ACell facet, not directly here — see cell.ttl 3.7.0/3.10.0/3.12.0/3.14.0/3.17.0."@en .
+    rdfs:comment "Superclass of every cell individual, carrying only what's common regardless of facet: inherent classification (cell:origin, cell.ttl 3.20.0) — formerly also file-system bookkeeping (cell:folder), removed outright in cell.ttl 3.23.0 once a folder was established to hold at most one cell-databook, making a stored path fully redundant. Formerly named cell:Parties as a class (the tree-position class, before cell.ttl's 3.0.0 split moved that name to category.ttl's cat:Category). A cell:Cell carries no tree position of its own and no link to one — its containing folder is purely a filesystem fact, with no RDF individual representing it at all (category.ttl 1.31.0 deleted cat:Folder and its subclasses outright); moving a cell to a different folder is a pure filesystem operation, never anything asserted on the cell itself, which is what keeps a cell robust under PDN sync. cell:origin does not violate this: its range is the abstract classificatory cat:Category, not a tree position, so it records what kind of thing the cell is, never where it currently lives. Member composition (cell:memberCount, cell:OneMember/cell:MultiMember), creator metadata (cell:creator), identity/topic links (cell:subject, cell:memberTopics, cell:otherTopics), and validation (cell:shape) now live on the cell:ACell facet, not directly here — see cell.ttl 3.7.0/3.10.0/3.12.0/3.14.0/3.17.0."@en .
 
 
 #################################################################
@@ -213,25 +220,32 @@ cell:otherTopics rdf:type owl:ObjectProperty ;
 #################################################################
 #    Cell Folders
 #
-#    Every cell is associated with one folder in local storage,
-#    mirroring its position in the user's category tree and kept
-#    in sync by the Mia application: one folder per cell, rooted at
-#    a single configurable Cells root (e.g. ~/Cells/). Folder names
-#    and nesting match the category tree exactly. There is no RDF
-#    individual representing that folder at all (category.ttl 1.31.0
-#    deleted cat:Folder and its subclasses outright) — the tree
-#    position is purely a filesystem fact.
+#    Every cell IS its own folder in local storage — not merely
+#    associated with one via a stored path (cell:folder, removed
+#    outright in cell.ttl 3.23.0). A cell's folder is simply whichever
+#    folder its own cell-databook file physically lives in; since a
+#    folder holds at most one cell-databook (see the Cell section
+#    above), this folder<->cell mapping is always unambiguous, with
+#    nothing left to store, detect divergence in, or keep in sync.
+#    There is no RDF individual representing that folder at all
+#    (category.ttl 1.31.0 deleted cat:Folder and its subclasses
+#    outright) — the folder is purely a filesystem fact.
 #
-#    A cell's folder may hold arbitrary files and any number of
-#    additional subfolders (to any depth) that are not themselves
-#    part of the category tree. Among those files, one file named
-#    X.md (matching the folder's own name X) is recognized by
-#    convention as the folder note for that cell — matching the
-#    Obsidian Folder Notes plugin convention, and directly
-#    compatible with other PKM folder-note tools such as Logseq or
-#    Foam. This is a naming convention only, discovered by looking
-#    inside the folder — unlike in earlier revisions of this design,
-#    it is not tracked by a separate ontology property.
+#    A cell's own content — its folder note and any other arbitrary
+#    files — is everything inside that folder EXCEPT:
+#      1. the cell-databook file itself;
+#      2. the one file named X.md (matching the folder's own name X),
+#         recognized by convention as the folder note for that cell —
+#         matching the Obsidian Folder Notes plugin convention, and
+#         directly compatible with other PKM folder-note tools such
+#         as Logseq or Foam; and
+#      3. any subfolder that is itself a category folder (i.e.
+#         directly contains its own cell-databook file) — that
+#         subfolder belongs to a separate, nested cell instead (see
+#         the folder ownership boundary rule below).
+#    Both (1) and (2) are naming conventions only, discovered by
+#    looking inside the folder — neither is tracked by a separate
+#    ontology property.
 #
 #    Folder ownership boundary: a subfolder is excluded from its
 #    parent cell's own content — belonging instead to a separate,
@@ -249,10 +263,8 @@ cell:otherTopics rdf:type owl:ObjectProperty ;
 #    resolvable one folder at a time — check what's directly inside
 #    a subfolder, not the whole category tree — and robust to the
 #    user moving folders around outside Mia, since the marker file
-#    travels with whatever folder it's inside, unlike a path
-#    recorded elsewhere (e.g. cell:folder's own stored value, see
-#    below), which can only be reconciled against the tree, not
-#    derived from the folder alone.
+#    travels with whatever folder it's inside; there is no separately
+#    recorded path to reconcile against, since cell.ttl 3.23.0.
 #
 #    Because a cell's own note and its other files now share one
 #    folder, the single Cells root can be opened directly as a PKM
@@ -262,38 +274,24 @@ cell:otherTopics rdf:type owl:ObjectProperty ;
 #    separate from arbitrary files (cell.ttl up to 3.14.0 kept two
 #    such parallel hierarchies — a notes hierarchy, cell:note, and a
 #    files hierarchy, cell:folder — each with its own root; merged
-#    into this single hierarchy in cell.ttl 3.15.0).
+#    into this single hierarchy in cell.ttl 3.15.0, and cell:folder
+#    itself removed outright in cell.ttl 3.23.0 once a folder holding
+#    at most one cell-databook made a stored path fully redundant).
 #
-#    When a category folder is created, renamed, or deleted, Mia
-#    updates the hierarchy automatically for the cell-databook(s) it
-#    directly contains.
-#
-#    Redundancy and robustness: in the normal case cell:folder is
-#    technically redundant — its path can be derived from the cell's
-#    own position in the category tree plus the configured Cells
-#    root. It is retained explicitly for three reasons:
-#
-#    1. Divergence detection: if the stored path no longer matches
-#       the derived path, Mia knows the user has manually renamed
-#       or rearranged folders outside of Mia and can alert them or
-#       attempt reconciliation rather than failing silently.
-#
-#    2. Graceful degradation: Mia can continue to locate a
-#       cell's folder via the stored path even when the folder
-#       hierarchy has drifted out of sync with the category tree.
-#
-#    3. Intentional overrides: a user may deliberately want a
-#       cell's folder to live somewhere other than the derived
-#       location (e.g. ~/Photos/Family/ rather than the default
-#       ~/Cells/People/Family/). The explicit link records that
-#       intentional deviation without disrupting the category tree.
+#    cell:folder used to record this folder's path explicitly, for
+#    three stated reasons: divergence detection (the stored path no
+#    longer matching a separately derived one), graceful degradation
+#    (locating a cell's folder even if that derived path drifted),
+#    and intentional overrides (a cell's folder living somewhere other
+#    than its derived category-tree location, e.g. ~/Photos/Family/
+#    instead of ~/Cells/People/Family/). All three are moot now that a
+#    folder holds at most one cell-databook: there is no separate
+#    "derived path" to diverge from or degrade relative to — the
+#    folder simply IS wherever the databook file physically sits — and
+#    an "override" is just putting the databook file wherever the user
+#    wants, with nothing to explicitly record, since the folder is
+#    inherently wherever that file is.
 #################################################################
-
-cell:folder rdf:type owl:AnnotationProperty ;
-    rdfs:domain cell:Cell ;
-    rdfs:range xsd:anyURI ;
-    rdfs:label "folder"@en ;
-    rdfs:comment "Relative path within the Cells root to the folder for this cell — the sole file-system location for both the cell's own folder note (X.md, matching the folder's own name X, per the Obsidian Folder Notes plugin convention) and any other arbitrary files or subfolders. Normally derived automatically by Mia from the associated cat:Category's tree position; retained explicitly for divergence detection, graceful degradation, and intentional overrides. Formerly one of two parallel properties alongside cell:note (removed in cell.ttl 3.15.0, once the separate notes and files hierarchies were merged into one — modern PKM tools such as Obsidian handle non-Markdown files natively, removing the only reason to keep them apart)."@en .
 
 cell:origin rdf:type owl:ObjectProperty ;
     rdfs:domain cell:Cell ;
