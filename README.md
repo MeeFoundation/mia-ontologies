@@ -654,7 +654,7 @@ Alice's topic DataBooks are in `example/topics/`. Some are authored by Alice (se
 Alice's category DataBooks are in `example/Cells/`. The full tree can be walked starting from `example/Cells/categories.databook.md`. It contains two kinds of entries:
 
 - **`cat:CategoryDefined` categories** (`mia.catType` set to the specific class it was instantiated from, e.g. `People`, `Employees`, `Others`, `BankingPayments`) — this covers both the 19 top-level categories and their child categories, and most specific people/companies/agencies Alice interacts with (e.g. `bob-johnson(others)`, instantiated from `Others`; `citibank(banking-payments)`, instantiated from `BankingPayments`). Each carries a `category:` property naming the `cat:Category` class it represents (e.g. `category: "cat:People"`) — this single value both classifies the node and records which class it was instantiated from. Topic links (`c:partyTopics`/`c:otherTopics`), and the resource(s) each cell is about (`c:subject`), are attached to each category's *associated cell DataBook*, not the category itself.
-- **`cat:UserDefined` categories** (`mia.catType: Category`, no `category:` value) — for an entity with no canonical counterpart at all. This example tree doesn't currently have one: even `acme(work)` (Alice's employer, which has no specific canonical class of its own) is a `cat:CategoryDefined` whose own `cat:category` is the abstract `cat:Organization` — the most specific applicable classification — with `cat:label` "Acme" recording the rename.
+- **`cat:UserDefined` categories** (`mia.catType: Category`, no `category:` value) — for an entity with no canonical counterpart at all. This example tree doesn't currently have one: even `acme(organization)` (Alice's employer, which has no specific canonical class of its own) is a `cat:CategoryDefined` whose own `cat:category` is the abstract `cat:Organization` — the most specific applicable classification — with `cat:label` "Acme" recording the rename.
 
 Every category DataBook here is a `cat:CategoryDefined` (a `cat:UserDefined` node, for a category with no canonical counterpart at all, is also possible but not currently used in this example tree), associated, in the same folder, with a cell DataBook (filename/id with a `-cell` suffix) holding its content — the association is recorded as `mia.cell` on the category, the same way it is for every canonical category too.
 
@@ -701,21 +701,21 @@ The topics in the table below are *about* Alice and claimed *by* Alice. All `.da
 
 | #  | DataBook file                                                                          | Topic type | Key data                                                         | Diagram |
 |--- |:--------------------------------------------------------------------------------------|:-------------|:-----------------------------------------------------------------|:--------|
-| 10 | [self.self(alice-walker)(acme)(10)](example/topics/self.self(alice-walker)(acme)(10).databook.md) | Employee     | Business card — given name, family name, email, phone, employer  | [view](example/topics/images/self.self(alice-walker)(acme)(10).png) |
+| 10 | [self.self(alice-walker)(employee)(10)](example/topics/self.self(alice-walker)(employee)(10).databook.md) | Employee     | Business card — given name, family name, email, phone, employer  | [view](example/topics/images/self.self(alice-walker)(employee)(10).png) |
 | 11 | [self.self(att)(companies)(11)](example/topics/self.self(att)(companies)(11).databook.md)                     | Companies    | Phone number                                                     | [view](example/topics/images/self.self(att)(companies)(11).png) |
 | 12 | [self.self(bob-johnson)(others)(12)](example/topics/self.self(bob-johnson)(others)(12).databook.md)                     | Others       | Alice's 1:1 topic with Bob; social network with Bob as member  | [view](example/topics/images/self.self(bob-johnson)(others)(12).png)|
-| 13 | [self.self(boston)(municipality)(13)](example/topics/self.self(boston)(municipality)(13).databook.md)               | Municipality | Previous address — Boston, MA (2020–2025) with temporal interval | [view](example/topics/images/self.self(boston)(municipality)(13).png) |
+| 13 | [self.self(boston)(residence)(13)](example/topics/self.self(boston)(residence)(13).databook.md)               | Municipality | Previous address — Boston, MA (2020–2025) with temporal interval | [view](example/topics/images/self.self(boston)(residence)(13).png) |
 | 14  | [self.self(boston-hub-society)(affiliations)(14)](example/topics/self.self(boston-hub-society)(affiliations)(14).databook.md)                     | Affiliations | BHS profile: email, phone and current address                    | [view](example/topics/images/self.self(boston-hub-society)(affiliations)(14).png)|
-| 15 | [self.self(california-dmv)(state)(15)](example/topics/self.self(california-dmv)(state)(15).databook.md) | State      | California driver's license — legal name, DOB, DL#, expiry, photo | [view](example/topics/images/self.self(california-dmv)(state)(15).png) |
+| 15 | [self.self(california-dmv)(drivers-license)(15)](example/topics/self.self(california-dmv)(drivers-license)(15).databook.md) | State      | California driver's license — legal name, DOB, DL#, expiry, photo | [view](example/topics/images/self.self(california-dmv)(drivers-license)(15).png) |
 | 16 | [self.self(google)(companies)(16)](example/topics/self.self(google)(companies)(16).databook.md)               | Companies    | Gmail address                                                    | [view](example/topics/images/self.self(google)(companies)(16).png) |
-| 17 | [self.self(health-wellness)(17)](example/topics/self.self(health-wellness)(17).databook.md)                 | Health & Wellness     | Physical body — height (68 in.), blue eyes, grey hair            | [view](example/topics/images/self.self(health-wellness)(17).png) |
-| 18 | [self.self(paradise)(municipality)(18)](example/topics/self.self(paradise)(municipality)(18).databook.md)           | Municipality | Current address — Paradise, CA (2025–present)                    | [view](example/topics/images/self.self(paradise)(municipality)(18).png) |
-| 19 | [self.self(passport)(federal)(19)](example/topics/self.self(passport)(federal)(19).databook.md)             | Federal    | US passport — legal name, DOB, passport#, issue/expiry, place of birth, gender marker, photo | [view](example/topics/images/self.self(passport)(federal)(19).png) |
-| 20 | [self.self(paula-walker)(acme)(20)](example/topics/self.self(paula-walker)(acme)(20).databook.md)                   | Employee     | Acme employee topic; company email; works with Paula           | [view](example/topics/images/self.self(paula-walker)(acme)(20).png)|
+| 17 | [self.self(health-wellness)(health-wellness)(17)](example/topics/self.self(health-wellness)(health-wellness)(17).databook.md)                 | Health & Wellness     | Physical body — height (68 in.), blue eyes, grey hair            | [view](example/topics/images/self.self(health-wellness)(health-wellness)(17).png) |
+| 18 | [self.self(paradise)(residence)(18)](example/topics/self.self(paradise)(residence)(18).databook.md)           | Municipality | Current address — Paradise, CA (2025–present)                    | [view](example/topics/images/self.self(paradise)(residence)(18).png) |
+| 19 | [self.self(passport)(passport)(19)](example/topics/self.self(passport)(passport)(19).databook.md)             | Federal    | US passport — legal name, DOB, passport#, issue/expiry, place of birth, gender marker, photo | [view](example/topics/images/self.self(passport)(passport)(19).png) |
+| 20 | [self.self(paula-walker)(employee)(20)](example/topics/self.self(paula-walker)(employee)(20).databook.md)                   | Employee     | Acme employee topic; company email; works with Paula           | [view](example/topics/images/self.self(paula-walker)(employee)(20).png)|
 | 21 | [self.self(paula-walker)(immediate-family)(21)](example/topics/self.self(paula-walker)(immediate-family)(21).databook.md)   | Immediate Family       | Alice as a family member                       | [view](example/topics/images/self.self(paula-walker)(immediate-family)(21).png) |
-| 22 | [self.self(ownership)(22)](example/topics/self.self(ownership)(22).databook.md)     | Ownership  | Wallet (driver's license + payment card); health ins., SSN card  | [view](example/topics/images/self.self(ownership)(22).png) |
-| 23 | [self.self(social-security-administration)(federal)(23)](example/topics/self.self(social-security-administration)(federal)(23).databook.md)                     | Federal      | Social security number (SSN)                                     | [view](example/topics/images/self.self(social-security-administration)(federal)(23).png) |
-| 24 | [self.self(texas-vital-records)(state)(24)](example/topics/self.self(texas-vital-records)(state)(24).databook.md) | State        | Legal names, maiden name                                         | [view](example/topics/images/self.self(texas-vital-records)(state)(24).png) |
+| 22 | [self.self(ownership)(ownership)(22)](example/topics/self.self(ownership)(ownership)(22).databook.md)     | Ownership  | Wallet (driver's license + payment card); health ins., SSN card  | [view](example/topics/images/self.self(ownership)(ownership)(22).png) |
+| 23 | [self.self(social-security-administration)(ssa)(23)](example/topics/self.self(social-security-administration)(ssa)(23).databook.md)                     | Federal      | Social security number (SSN)                                     | [view](example/topics/images/self.self(social-security-administration)(ssa)(23).png) |
+| 24 | [self.self(texas-vital-records)(birth-certificate)(24)](example/topics/self.self(texas-vital-records)(birth-certificate)(24).databook.md) | State        | Legal names, maiden name                                         | [view](example/topics/images/self.self(texas-vital-records)(birth-certificate)(24).png) |
 | 29 | [self.self(fred-flintstone)(others)(29)](example/topics/self.self(fred-flintstone)(others)(29).databook.md)                     | Others       | Alice's 1:1 topic with Fred; social network with Fred as member  | [view](example/topics/images/self.self(fred-flintstone)(others)(29).png) |
 
 The following table lists topics that are *about* Alice but claimed by others.
@@ -734,12 +734,12 @@ The following table lists topics about other people (Paula and Bob) or groups (B
 | 3  | [bob-johnson.bob-johnson(boston-hub-society)(affiliations)(03)](example/topics/bob-johnson.bob-johnson(boston-hub-society)(affiliations)(03).databook.md)                     | Affiliations | Bob's BHS member persona (name, email, phone, address)          | [view](example/topics/images/bob-johnson.bob-johnson(boston-hub-society)(affiliations)(03).png) |
 | 4  | [bob-johnson.self(bob-johnson)(others)(04)](example/topics/bob-johnson.self(bob-johnson)(others)(04).databook.md)                 | Others       | Alice's notes about Bob; fav drink: oat milk cappuccino         | [view](example/topics/images/bob-johnson.self(bob-johnson)(others)(04).png) |
 | 5  | [paula-walker.paula-walker(paula-walker)(immediate-family)(05)](example/topics/paula-walker.paula-walker(paula-walker)(immediate-family)(05).databook.md) | Immediate Family       | Paula's own family persona; social network with Alice       | [view](example/topics/images/paula-walker.paula-walker(paula-walker)(immediate-family)(05).png)|
-| 6  | [paula-walker.self(paula-walker)(acme)(06)](example/topics/paula-walker.self(paula-walker)(acme)(06).databook.md)           | Employee     | Paula as Alice's Acme colleague (Alice-claimed)                | [view](example/topics/images/paula-walker.self(paula-walker)(acme)(06).png)|
+| 6  | [paula-walker.self(paula-walker)(employee)(06)](example/topics/paula-walker.self(paula-walker)(employee)(06).databook.md)           | Employee     | Paula as Alice's Acme colleague (Alice-claimed)                | [view](example/topics/images/paula-walker.self(paula-walker)(employee)(06).png)|
 | 7  | [paula-walker.self(paula-walker)(immediate-family)(07)](example/topics/paula-walker.self(paula-walker)(immediate-family)(07).databook.md) | Immediate Family       | Paula as Alice's family member (Alice-claimed)           | [view](example/topics/images/paula-walker.self(paula-walker)(immediate-family)(07).png)|
-| 25 | [jane-kolpakova.self(jane-kolpakova)(25)](example/topics/jane-kolpakova.self(jane-kolpakova)(25).databook.md) | Primary Care Physician       | Alice's record of Dr. Jane Kolpakova, Paula Walker's primary care physician           | [view](example/topics/images/jane-kolpakova.self(jane-kolpakova)(25).png)|
-| 26 | [paula-walker.self(alice-carol-about-mom)(health)(26)](example/topics/paula-walker.self(alice-carol-about-mom)(health)(26).databook.md) | Medical Appointment       | Alice and Carol's shared claims for Paula's medical appointment — medications, allergies, insurance, PCP reference           | [view](example/topics/images/paula-walker.self(alice-carol-about-mom)(health)(26).png)|
-| 28 | [carol-walker.carol-walker(alice-carol-about-mom)(health)(28)](example/topics/carol-walker.carol-walker(alice-carol-about-mom)(health)(28).databook.md) | Medical Appointment       | Carol's own self-claimed persona and contact info — one of this cell's two parties, alongside Alice (topic 30)           | [view](example/topics/images/carol-walker.carol-walker(alice-carol-about-mom)(health)(28).png) |
-| 30 | [self.self(alice-carol-about-mom)(health)(30)](example/topics/self.self(alice-carol-about-mom)(health)(30).databook.md) | Medical Appointment       | Alice's own self-claimed contact info — the other of this cell's two parties, alongside Carol (topic 28)           | [view](example/topics/images/self.self(alice-carol-about-mom)(health)(30).png) |
+| 25 | [jane-kolpakova.self(jane-kolpakova)(primary-care-physician)(25)](example/topics/jane-kolpakova.self(jane-kolpakova)(primary-care-physician)(25).databook.md) | Primary Care Physician       | Alice's record of Dr. Jane Kolpakova, Paula Walker's primary care physician           | [view](example/topics/images/jane-kolpakova.self(jane-kolpakova)(primary-care-physician)(25).png)|
+| 26 | [paula-walker.self(alice-carol-about-mom)(medical-appointment-info)(26)](example/topics/paula-walker.self(alice-carol-about-mom)(medical-appointment-info)(26).databook.md) | Medical Appointment       | Alice and Carol's shared claims for Paula's medical appointment — medications, allergies, insurance, PCP reference           | [view](example/topics/images/paula-walker.self(alice-carol-about-mom)(medical-appointment-info)(26).png)|
+| 28 | [carol-walker.carol-walker(alice-carol-about-mom)(medical-appointment-info)(28)](example/topics/carol-walker.carol-walker(alice-carol-about-mom)(medical-appointment-info)(28).databook.md) | Medical Appointment       | Carol's own self-claimed persona and contact info — one of this cell's two parties, alongside Alice (topic 30)           | [view](example/topics/images/carol-walker.carol-walker(alice-carol-about-mom)(medical-appointment-info)(28).png) |
+| 30 | [self.self(alice-carol-about-mom)(medical-appointment-info)(30)](example/topics/self.self(alice-carol-about-mom)(medical-appointment-info)(30).databook.md) | Medical Appointment       | Alice's own self-claimed contact info — the other of this cell's two parties, alongside Carol (topic 28)           | [view](example/topics/images/self.self(alice-carol-about-mom)(medical-appointment-info)(30).png) |
 | 27 | [citibank.self(citibank)(banking-payments)(27)](example/topics/citibank.self(citibank)(banking-payments)(27).databook.md) | Banking & Payments Firms | Alice's own self-claimed notes about Citibank as an institution, alongside Citibank's own claimed record about her (topic 09) | [view](example/topics/images/citibank.self(citibank)(banking-payments)(27).png) |
 | 31 | [fred-flintstone.fred-flintstone(fred-flintstone)(others)(31)](example/topics/fred-flintstone.fred-flintstone(fred-flintstone)(others)(31).databook.md)                     | Others       | Fred's self-claimed Fred persona                                 | [view](example/topics/images/fred-flintstone.fred-flintstone(fred-flintstone)(others)(31).png) |
 
@@ -763,7 +763,7 @@ The practical implication is that **Tier 1 validation** (which merges all graphs
 
 ```bash
 python3 draw.py example/topics/self.citibank(citibank)(banking-payments)(09).databook.md
-python3 draw.py example/topics/self.self(paradise)(municipality)(18).databook.md
+python3 draw.py example/topics/self.self(paradise)(residence)(18).databook.md
 ```
 
 Both output files are written to the same `images/` directory as the existing PNG diagrams.
@@ -864,30 +864,30 @@ riot --output=turtle \
   example/topics/self.ttl \
   2>/dev/null > /tmp/mia-base.ttl
 
-# BirthCertificate — self.self(texas-vital-records)(state)(24).databook.md
-databook extract "example/topics/self.self(texas-vital-records)(state)(24).databook.md" 2>/dev/null > /tmp/data-birth-cert-raw.ttl
+# BirthCertificate — self.self(texas-vital-records)(birth-certificate)(24).databook.md
+databook extract "example/topics/self.self(texas-vital-records)(birth-certificate)(24).databook.md" 2>/dev/null > /tmp/data-birth-cert-raw.ttl
 riot --output=turtle /tmp/mia-base.ttl /tmp/data-birth-cert-raw.ttl 2>/dev/null > /tmp/data-birth-cert.ttl
 grep -v 'owl:imports' cell-templates-shacl.ttl > /tmp/shapes-cell-templates.ttl
 shacl validate --shapes /tmp/shapes-cell-templates.ttl --data /tmp/data-birth-cert.ttl --text
 
-# JSContactCard — self.self(alice-walker)(acme)(10).databook.md
-databook extract "example/topics/self.self(alice-walker)(acme)(10).databook.md" 2>/dev/null > /tmp/data-jscontact-raw.ttl
+# JSContactCard — self.self(alice-walker)(employee)(10).databook.md
+databook extract "example/topics/self.self(alice-walker)(employee)(10).databook.md" 2>/dev/null > /tmp/data-jscontact-raw.ttl
 riot --output=turtle /tmp/mia-base.ttl /tmp/data-jscontact-raw.ttl 2>/dev/null > /tmp/data-jscontact.ttl
 grep -v 'owl:imports' shacl/jscontactcard-shacl.ttl > /tmp/shapes-jscontact.ttl
 shacl validate --shapes /tmp/shapes-jscontact.ttl --data /tmp/data-jscontact.ttl --text
 
-# DriversLicense — self.self(california-dmv)(state)(15).databook.md
-databook extract "example/topics/self.self(california-dmv)(state)(15).databook.md" 2>/dev/null > /tmp/data-dl-raw.ttl
+# DriversLicense — self.self(california-dmv)(drivers-license)(15).databook.md
+databook extract "example/topics/self.self(california-dmv)(drivers-license)(15).databook.md" 2>/dev/null > /tmp/data-dl-raw.ttl
 riot --output=turtle /tmp/mia-base.ttl /tmp/data-dl-raw.ttl 2>/dev/null > /tmp/data-dl.ttl
 shacl validate --shapes /tmp/shapes-cell-templates.ttl --data /tmp/data-dl.ttl --text
 
-# Passport — self.self(passport)(federal)(19).databook.md
-databook extract "example/topics/self.self(passport)(federal)(19).databook.md" 2>/dev/null > /tmp/data-passport-raw.ttl
+# Passport — self.self(passport)(passport)(19).databook.md
+databook extract "example/topics/self.self(passport)(passport)(19).databook.md" 2>/dev/null > /tmp/data-passport-raw.ttl
 riot --output=turtle /tmp/mia-base.ttl /tmp/data-passport-raw.ttl 2>/dev/null > /tmp/data-passport.ttl
 shacl validate --shapes /tmp/shapes-cell-templates.ttl --data /tmp/data-passport.ttl --text
 
-# MedicalAppointment — paula-walker.self(alice-carol-about-mom)(health)(26).databook.md
-databook extract "example/topics/paula-walker.self(alice-carol-about-mom)(health)(26).databook.md" 2>/dev/null > /tmp/data-medical-appt-raw.ttl
+# MedicalAppointment — paula-walker.self(alice-carol-about-mom)(medical-appointment-info)(26).databook.md
+databook extract "example/topics/paula-walker.self(alice-carol-about-mom)(medical-appointment-info)(26).databook.md" 2>/dev/null > /tmp/data-medical-appt-raw.ttl
 riot --output=turtle /tmp/mia-base.ttl /tmp/data-medical-appt-raw.ttl 2>/dev/null > /tmp/data-medical-appt.ttl
 shacl validate --shapes /tmp/shapes-cell-templates.ttl --data /tmp/data-medical-appt.ttl --text
 ```
