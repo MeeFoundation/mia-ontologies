@@ -1,10 +1,16 @@
 #!/usr/bin/env python3
 """
-draw.py  —  Generate a Mermaid (.mmd) and PNG diagram from a Persona topic DataBook or .ttl file.
+draw.py  —  Generate a Mermaid (.mmd) and PNG diagram for a single topic's
+RDF content, whether that topic is embedded in a cell-databook (post-merge)
+or (for legacy/under-development .ttl files) stands alone.
 
-Usage:   python draw.py <topic_file.databook.md>
+Usage:   python draw.py <cell_file.databook.md> <topic-id-or-local-name>
          python draw.py <topic_file.ttl>
-Output:  <stem>.mmd and <stem>.png in the same images/ directory as the PNG diagrams.
+Output:  <topic-id-local-name>.mmd and .png, always written to
+         example/topics/images/ regardless of where the source cell file
+         lives — topic diagrams keep their pre-merge names/location even
+         though the topic's own file no longer exists (must be run from the
+         repo root for this relative path to resolve).
 
 Requires: pip install rdflib pyyaml
           mmdc (Mermaid CLI) for PNG generation: npm install -g @mermaid-js/mermaid-cli
@@ -26,6 +32,8 @@ from pathlib import Path
 
 from rdflib import BNode, Graph, Literal, Namespace, URIRef
 from rdflib.namespace import OWL, RDF, RDFS
+
+from databook_topics import extract_topic_block, find_topic_entry, split_frontmatter
 
 # ── Namespaces ─────────────────────────────────────────────────────────────────
 PERSONA = Namespace("http://mee.foundation/ontologies/persona#")
@@ -179,40 +187,24 @@ def esc(s: str) -> str:
 
 # ── DataBook loading ───────────────────────────────────────────────────────────
 
-def load_databook(path: Path):
+def load_databook(path: Path, topic_id: str | None = None):
+    """Parse a cell-databook's frontmatter, and (when topic_id is given)
+    isolate just that one embedded topic's turtle fence — a merged cell
+    file's body may contain several fences, one per mia.topics entry, so
+    concatenating all of them (the old, pre-merge behavior) would wrongly
+    combine sibling topics' RDF into one graph."""
     content = path.read_text()
-    lines = content.split("\n")
-
-    fm_start = fm_end = -1
-    for i, line in enumerate(lines):
-        if line.strip() == "---":
-            if fm_start < 0:
-                fm_start = i
-            elif fm_end < 0:
-                fm_end = i
-                break
-
-    frontmatter = {}
-    if fm_start >= 0 and fm_end > fm_start:
-        try:
-            frontmatter = yaml.safe_load("\n".join(lines[fm_start + 1:fm_end])) or {}
-        except yaml.YAMLError:
-            pass
-
-    turtle_lines = []
-    in_fence = False
-    for line in lines[fm_end + 1:]:
-        if line.strip() == "```turtle":
-            in_fence = True
-            continue
-        if in_fence and line.strip() == "```":
-            in_fence = False
-            continue
-        if in_fence and not line.startswith("<!-- databook:"):
-            turtle_lines.append(line)
+    try:
+        fm_text, _, body = split_frontmatter(content)
+        frontmatter = yaml.safe_load(fm_text) or {}
+    except (ValueError, yaml.YAMLError):
+        frontmatter, body = {}, ""
 
     g = Graph()
-    if turtle_lines:
+    if topic_id is not None:
+        turtle_lines = extract_topic_block(body, f"{topic_id}#graph")
+        if turtle_lines is None:
+            sys.exit(f"No topic graph found for {topic_id!r} in {path}")
         g.parse(data="\n".join(turtle_lines), format="turtle")
 
     return g, frontmatter
@@ -462,14 +454,33 @@ def generate_png(mmd_path: Path, png_path: Path) -> None:
 
 def main() -> None:
     if len(sys.argv) < 2:
-        sys.exit("Usage: python draw.py <topic_file.databook.md|.ttl>")
+        sys.exit(
+            "Usage: python draw.py <cell_file.databook.md> <topic-id-or-local-name>\n"
+            "       python draw.py <topic_file.ttl>"
+        )
     src = Path(sys.argv[1])
     if not src.exists():
         sys.exit(f"File not found: {src}")
 
     if src.name.endswith(".databook.md"):
-        g, frontmatter = load_databook(src)
-        stem = src.name[: -len(".databook.md")]
+        if len(sys.argv) < 3:
+            sys.exit(
+                "A cell-databook file requires a 2nd argument: the topic's id "
+                "(or just its local name, the string after the final '/')."
+            )
+        topic_arg = sys.argv[2]
+        _, cell_fm = load_databook(src)  # frontmatter only — no topic_id yet
+        topics = (cell_fm.get("mia") or {}).get("topics") or []
+        match = find_topic_entry(topics, topic_arg)
+        if not match:
+            sys.exit(f"No mia.topics entry with id/local-name {topic_arg!r} in {src}")
+        topic_id = match["id"]
+        stem = topic_id.rsplit("/", 1)[-1]  # unchanged filename-stem convention
+        g, _ = load_databook(src, topic_id)
+        # Use this one topic's own claimant/subject for the "Topic" metadata
+        # box — not the owning cell's aggregate mia.subject/mia.creator.
+        frontmatter = {"mia": {"claimant": match.get("claimant"), "subject": match.get("subject")}}
+        out_dir = Path("example/topics/images")  # fixed — topic PNGs never move
     else:
         g = Graph()
         g.parse(str(src), format="turtle")
@@ -480,10 +491,10 @@ def main() -> None:
             if ctype:
                 frontmatter = {"mia": {"contextCategory": lbl(ctype)}}
         stem = src.stem
+        # Write to images/ subdirectory if it exists, otherwise alongside the source
+        images_dir = src.parent / "images"
+        out_dir = images_dir if images_dir.is_dir() else src.parent
 
-    # Write to images/ subdirectory if it exists, otherwise alongside the source
-    images_dir = src.parent / "images"
-    out_dir = images_dir if images_dir.is_dir() else src.parent
     out = out_dir / f"{stem}.mmd"
 
     out.write_text(build_mermaid(g, frontmatter, src.parent) + "\n")

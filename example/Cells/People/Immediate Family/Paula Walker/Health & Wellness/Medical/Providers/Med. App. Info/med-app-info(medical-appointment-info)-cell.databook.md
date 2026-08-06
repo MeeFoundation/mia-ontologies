@@ -2,7 +2,7 @@
 id: http://www.example.org/mia/categories/med-app-info(medical-appointment-info)-cell
 title: "Med. App. Info (Cell)"
 type: cell-databook
-version: 1.0.14
+version: 1.1.0
 created: 2026-07-10
 description: >
   Cell DataBook of category "Med. App. Info" (mia.catType: MedicalAppointmentInfo). Content may include topics/folder/note links, and may carry one or two required subject values. Since this cell has a single subject (Paula), her own topic is linked via otherTopics rather than memberTopics — the two memberTopics values belong to the two active members (Carol and Self), per CLAUDE.md Check 18.
@@ -15,6 +15,199 @@ mia:
     - "https://www.example.org/mia/topics/self.self(med-app-info)(medical-appointment-info)(30)"
   otherTopics:
     - "https://www.example.org/mia/topics/paula-walker.self(med-app-info)(medical-appointment-info)(26)"
+  topics:
+    - id: "https://www.example.org/mia/topics/paula-walker.self(med-app-info)(medical-appointment-info)(26)"
+      title: "Medical appointment claims for Paula Walker, shared between Alice and Carol"
+      claimant: ":Self"
+      subject: ":Paula_Walker"
+      template: "persona:MedicalAppointmentRecord"
+      shapes:
+        - http://mee.foundation/ontologies/persona/shapes
+        - http://mee.foundation/ontologies/persona/shapes/medical-appointment
+      process:
+        transformer: human
+        timestamp: 2026-07-08T00:00:00Z
+        agent:
+          name: Paul Trevithick
+          role: author
+    - id: "https://www.example.org/mia/topics/carol-walker.carol-walker(med-app-info)(medical-appointment-info)(28)"
+      title: "About Carol Walker in the Med. App. Info cell as claimed by Carol Walker"
+      claimant: ":Carol_Walker"
+      subject: ":Carol_Walker"
+      shapes:
+        - http://mee.foundation/ontologies/persona/shapes
+        - http://mee.foundation/ontologies/topic/shapes
+      process:
+        transformer: human
+        timestamp: 2026-08-02T00:00:00Z
+        agent:
+          name: Paul Trevithick
+          role: author
+    - id: "https://www.example.org/mia/topics/self.self(med-app-info)(medical-appointment-info)(30)"
+      title: "About Alice Walker in the Med. App. Info cell as claimed by Alice Walker"
+      claimant: ":Self"
+      subject: ":Self"
+      shapes:
+        - http://mee.foundation/ontologies/persona/shapes
+        - http://mee.foundation/ontologies/topic/shapes
+      process:
+        transformer: human
+        timestamp: 2026-08-02T00:00:00Z
+        agent:
+          name: Paul Trevithick
+          role: author
   folder: "People/Immediate Family/Paula Walker/Health & Wellness/Medical/Providers/Med. App. Info"
   shape: "pshapes:MedicalAppointmentRecordShape"
 ---
+
+## Topics
+
+<a id="topic-26"></a>
+### Topic 26 — Medical appointment claims for Paula Walker, shared between Alice and Carol
+
+#### Overview
+
+This topic captures Alice's shared record of the claims needed to arrange a medical appointment on behalf of their mother, Paula Walker. Alice maintains this record on her own Mia and syncs it to Carol's Mia over the PDN so both sisters can coordinate Paula's care. Because each topic's named graph must be self-contained for p2p sync to work, the claims about Paula and about her primary care physician, Dr. Jane Kolpakova, are copied directly into this topic rather than merely linked — Alice already holds Dr. Jane's information in her own Mia, so it is Alice's Mia that copies it over. Validated by the `MedicalAppointment` per-template SHACL shapes.
+
+#### Topic Graph
+
+```turtle
+<!-- databook:id: alice-paula-medical-appointment-topic-graph -->
+<!-- databook:graph: https://www.example.org/mia/topics/paula-walker.self(med-app-info)(medical-appointment-info)(26)#graph -->
+@prefix : <http://www.example.org/mia#> .
+@prefix persona: <http://mee.foundation/ontologies/persona#> .
+@prefix cco: <https://purl.org/cco/> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+# ── Copied third-party individuals (self-containment for p2p sync) ──────────
+
+:Paula_Walker rdf:type owl:NamedIndividual ,
+               persona:Person ;
+    rdfs:label "Paula Walker"@en ;
+
+    <https://purl.org/cco/ont00001879> [  # designated by → GivenName
+        rdf:type cco:ent00000002 ;  # GivenName
+        <https://purl.org/cco/ont00001765> "Paula"
+    ] ;
+
+    <https://purl.org/cco/ont00001879> [  # designated by → FamilyName
+        rdf:type cco:ent00000004 ;  # FamilyName
+        <https://purl.org/cco/ont00001765> "Walker"
+    ] .
+
+:Jane_Kolpakova rdf:type owl:NamedIndividual ,
+               persona:Person ;
+    rdfs:label "Jane Kolpakova (Primary Care Physician)"@en ;
+
+    <https://purl.org/cco/ont00001879> [  # designated by → GivenName
+        rdf:type cco:ent00000002 ;  # GivenName
+        <https://purl.org/cco/ont00001765> "Jane"
+    ] ;
+
+    <https://purl.org/cco/ont00001879> [  # designated by → FamilyName
+        rdf:type cco:ent00000004 ;  # FamilyName
+        <https://purl.org/cco/ont00001765> "Kolpakova"
+    ] ;
+
+    <https://purl.org/cco/ont00001917> [  # described by → Person Note
+        rdf:type cco:ent00000048 ;
+        <https://purl.org/cco/ont00001765> "Paula Walker's primary care physician"
+    ] .
+
+# ── The shared Medical Appointment claims record ─────────────────────────────
+
+:Paula_Medical_Appointment rdf:type owl:NamedIndividual ,
+               persona:MedicalAppointmentRecord ;
+    rdfs:label "Paula Walker's Medical Appointment Claims"@en ;
+    rdfs:comment "Claims Alice and Carol share to arrange and manage medical appointments for Paula."@en ;
+
+    persona:forPatient :Paula_Walker ;
+    persona:hasPrimaryCarePhysician :Jane_Kolpakova ;
+
+    persona:currentMedication "Lisinopril 10mg daily" ,
+                               "Metformin 500mg twice daily" ;
+
+    persona:allergy "Penicillin" ;
+
+    persona:medicalHistoryNote "Type 2 diabetes; hypertension." ;
+
+    persona:insuranceProvider "Medicare" ;
+    persona:insurancePolicyNumber "1EG4-TE5-MK72" ;
+
+    persona:preferredPharmacy "CVS Pharmacy, 123 Main St, Paradise, CA" .
+```
+
+<a id="topic-28"></a>
+### Topic 28 — About Carol Walker in the Med. App. Info cell as claimed by Carol Walker
+
+#### Overview
+
+This topic captures Carol Walker's own self-claimed persona and contact info, shared directly from her own Mia to Alice's over the PDN. This cell's two members are Alice and Carol (its `c:subject`, `:Paula_Walker`, is a third party the cell is *about*, not one of its members) — this topic and its counterpart (topic 30, Alice's own self-claimed contact info) together represent those two members, alongside topic 26 (Alice's claims about Paula's medical appointment).
+
+#### Topic Graph
+
+```turtle
+<!-- databook:id: carol-self-topic-graph -->
+<!-- databook:graph: https://www.example.org/mia/topics/carol-walker.carol-walker(med-app-info)(medical-appointment-info)(28)#graph -->
+@prefix : <http://www.example.org/mia#> .
+@prefix persona: <http://mee.foundation/ontologies/persona#> .
+@prefix cco: <https://purl.org/cco/> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+
+:Carol_Walker rdf:type owl:NamedIndividual ,
+               persona:Person ;
+    rdfs:label "Carol Walker"@en ;
+
+    <https://purl.org/cco/ont00001879> [  # designated by → GivenName
+        rdf:type cco:ent00000002 ;  # GivenName
+        <https://purl.org/cco/ont00001765> "Carol"
+    ] ;
+
+    <https://purl.org/cco/ont00001879> [  # designated by → FamilyName
+        rdf:type cco:ent00000004 ;  # FamilyName
+        <https://purl.org/cco/ont00001765> "Walker"
+    ] ;
+
+    <https://purl.org/cco/ont00001879> [  # designated by → Phone
+        rdf:type cco:ent00000023 ;
+        <https://purl.org/cco/ont00001765> "+19165550198"
+    ] ;
+
+    <https://purl.org/cco/ont00001917> [  # described by → Person Note
+        rdf:type cco:ent00000048 ;
+        <https://purl.org/cco/ont00001765> "Usually available weekday evenings and weekends for Mom's appointments."
+    ] .
+```
+
+<a id="topic-30"></a>
+### Topic 30 — About Alice Walker in the Med. App. Info cell as claimed by Alice Walker
+
+#### Overview
+
+This topic captures Alice Walker's own self-claimed contact info, kept in this cell so Carol can reach her while coordinating Paula's medical appointments. This cell's two members are Alice and Carol (its `c:subject`, `:Paula_Walker`, is a third party the cell is *about*, not one of its members) — this topic and its counterpart (topic 28, Carol's own self-claimed persona) together represent those two members, alongside topic 26 (Alice's claims about Paula's medical appointment).
+
+#### Topic Graph
+
+```turtle
+<!-- databook:id: alice-self-topic-graph -->
+<!-- databook:graph: https://www.example.org/mia/topics/self.self(med-app-info)(medical-appointment-info)(30)#graph -->
+@prefix : <http://www.example.org/mia#> .
+@prefix cco: <https://purl.org/cco/> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+
+:Self <https://purl.org/cco/ont00001879> [  # designated by → Phone
+        rdf:type cco:ent00000023 ;
+        <https://purl.org/cco/ont00001765> "+15108149999"
+    ] ;
+
+    <https://purl.org/cco/ont00001917> [  # described by → Person Note
+        rdf:type cco:ent00000048 ;
+        <https://purl.org/cco/ont00001765> "Best reached by text for scheduling Mom's appointments."
+    ] .
+```

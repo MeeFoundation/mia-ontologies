@@ -34,32 +34,34 @@ There are no build, compile, test, or lint commands. The files are Turtle (`.ttl
 
 ## Example Files
 
-| File | Purpose |
+Every topic below is now an embedded section (`mia.topics` entry + `### Topic NN` body) inside its owning cell-databook file under `example/Cells/` — there are no more standalone topic files (see [Topic ID Naming Convention](#topic-id-naming-convention)).
+
+| Topic — File | Purpose |
 |------|---------|
-| `example/topics/paula-walker.self(paula-walker)(employee)(06).databook.md` | Paula Walker as Alice's Acme colleague — claimed by Alice |
-| `example/topics/paula-walker.self(paula-walker)(immediate-family)(07).databook.md` | Paula Walker as Alice's family member — claimed by Alice |
-| `example/topics/paula-walker.paula-walker(paula-walker)(immediate-family)(05).databook.md` | Paula Walker's own family persona; social network with Alice |
-| `example/topics/self.bob-johnson(bob-johnson)(others)(08).databook.md` | Alice Walker as seen by Bob Johnson — claimed by Bob |
-| `example/topics/bob-johnson.self(bob-johnson)(others)(04).databook.md` | Alice's notes about Bob Johnson; favorite drink: oat milk cappuccino |
-| `example/topics/bob-johnson.bob-johnson(bob-johnson)(others)(02).databook.md` | Bob Johnson's self-claimed persona; social network with Alice |
-| `example/topics/self.self(boston-hub-society)(affiliations)(14).databook.md` | Alice's Boston Hub Society profile — email, phone, and current address |
-| `example/topics/bhs-group.members(boston-hub-society)(affiliations)(01).databook.md` | BHS Group — g:Group instance with Alice and Bob as members |
-| `example/topics/bob-johnson.bob-johnson(boston-hub-society)(affiliations)(03).databook.md` | Bob Johnson's BHS member persona — name, email, phone, address |
-| `example/topics/self.citibank(citibank)(banking-payments)(09).databook.md` | Alice's Citibank topic — debit card; claimed by Citibank |
-| `example/topics/self.self(google)(companies)(16).databook.md` | Alice's Google topic — Gmail address |
-| `example/topics/self.self(att)(companies)(11).databook.md` | Alice's AT&T topic — phone number |
-| `example/topics/self.self(texas-vital-records)(birth-certificate)(24).databook.md` | Alice's Texas birth certificate — legal names, maiden name |
-| `example/topics/self.self(paradise)(residence)(18).databook.md` | Alice's Paradise, CA address — current residence (2025–present) |
-| `example/topics/self.self(boston)(residence)(13).databook.md` | Alice's Boston, MA address — previous residence (2020–2025) |
-| `example/topics/self.self(social-security-administration)(ssa)(23).databook.md` | Alice's Social Security Number |
-| `example/topics/self.self(bob-johnson)(others)(12).databook.md` | Alice's 1:1 topic with Bob; social network with Bob as member |
-| `example/topics/self.self(paula-walker)(immediate-family)(21).databook.md` | Alice's family topic — social network with Paula Walker as member |
-| `example/topics/self.self(ownership)(22).databook.md` | Alice's possessions — wallet, health insurance card, SSN card |
-| `example/topics/self.self(paula-walker)(employee)(20).databook.md` | Alice's Acme employee topic; social network with Paula Walker |
-| `example/topics/self.self(alice-walker)(employee)(10).databook.md` | Alice's business card (JSContactCard) — name, email, phone, employer, job title |
-| `example/topics/self.self(california-dmv)(drivers-license)(15).databook.md` | Alice's California driver's license — legal name, DOB, DL#, expiry, photo |
-| `example/topics/self.self(passport)(19).databook.md` | Alice's US passport — legal name, DOB, passport#, issue/expiry, place of birth, gender marker, photo |
-| `example/topics/self.self(health-wellness)(17).databook.md` | Alice's physical characteristics — height, eye color, hair color |
+| Topic 06 — `example/Cells/Work/Acme/Employees/Paula Walker/paula-walker(employee)-cell.databook.md` | Paula Walker as Alice's Acme colleague — claimed by Alice |
+| Topic 07 — `example/Cells/People/Immediate Family/Paula Walker/paula-walker(immediate-family)-cell.databook.md` | Paula Walker as Alice's family member — claimed by Alice |
+| Topic 05 — `example/Cells/People/Immediate Family/Paula Walker/paula-walker(immediate-family)-cell.databook.md` | Paula Walker's own family persona; social network with Alice |
+| Topic 08 — `example/Cells/People/Others/Bob Johnson/bob-johnson(others)-cell.databook.md` | Alice Walker as seen by Bob Johnson — claimed by Bob |
+| Topic 04 — `example/Cells/People/Others/Bob Johnson/bob-johnson(others)-cell.databook.md` | Alice's notes about Bob Johnson; favorite drink: oat milk cappuccino |
+| Topic 02 — `example/Cells/People/Others/Bob Johnson/bob-johnson(others)-cell.databook.md` | Bob Johnson's self-claimed persona; social network with Alice |
+| Topic 14 — `example/Cells/Affiliations/Boston Hub Society/boston-hub-society(affiliations)-cell.databook.md` | Alice's Boston Hub Society profile — email, phone, and current address |
+| Topic 01 — `example/Cells/Affiliations/Boston Hub Society/boston-hub-society(affiliations)-cell.databook.md` | BHS Group — g:Group instance with Alice and Bob as members |
+| Topic 03 — `example/Cells/Affiliations/Boston Hub Society/boston-hub-society(affiliations)-cell.databook.md` | Bob Johnson's BHS member persona — name, email, phone, address |
+| Topic 09 — `example/Cells/Finances/Banking & Payments/Citibank/citibank(banking-payments)-cell.databook.md` | Alice's Citibank topic — debit card; claimed by Citibank |
+| Topic 16 — `example/Cells/Companies/Google/google(companies)-cell.databook.md` | Alice's Google topic — Gmail address |
+| Topic 11 — `example/Cells/Companies/ATT/att(companies)-cell.databook.md` | Alice's AT&T topic — phone number |
+| Topic 24 — `example/Cells/Government/State/Texas Vital Records/texas-vital-records(birth-certificate)-cell.databook.md` | Alice's Texas birth certificate — legal names, maiden name |
+| Topic 18 — `example/Cells/Government/Municipality/Paradise/paradise(residence)-cell.databook.md` | Alice's Paradise, CA address — current residence (2025–present) |
+| Topic 13 — `example/Cells/Government/Municipality/Boston/boston(residence)-cell.databook.md` | Alice's Boston, MA address — previous residence (2020–2025) |
+| Topic 23 — `example/Cells/Government/Federal/Social Security Administration/social-security-administration(ssa)-cell.databook.md` | Alice's Social Security Number |
+| Topic 12 — `example/Cells/People/Others/Bob Johnson/bob-johnson(others)-cell.databook.md` | Alice's 1:1 topic with Bob; social network with Bob as member |
+| Topic 21 — `example/Cells/People/Immediate Family/Paula Walker/paula-walker(immediate-family)-cell.databook.md` | Alice's family topic — social network with Paula Walker as member |
+| Topic 22 — `example/Cells/Ownership/ownership-cell.databook.md` | Alice's possessions — wallet, health insurance card, SSN card |
+| Topic 20 — `example/Cells/Work/Acme/Employees/Paula Walker/paula-walker(employee)-cell.databook.md` | Alice's Acme employee topic; social network with Paula Walker |
+| Topic 10 — `example/Cells/Work/Acme/Employees/Alice Walker/alice-walker(employee)-cell.databook.md` | Alice's business card (JSContactCard) — name, email, phone, employer, job title |
+| Topic 15 — `example/Cells/Government/State/California DMV/california-dmv(drivers-license)-cell.databook.md` | Alice's California driver's license — legal name, DOB, DL#, expiry, photo |
+| Topic 19 — `example/Cells/Government/Federal/Passport/passport-cell.databook.md` | Alice's US passport — legal name, DOB, passport#, issue/expiry, place of birth, gender marker, photo |
+| Topic 17 — `example/Cells/People/Immediate Family/Paula Walker/Health & Wellness/health-wellness-cell.databook.md` | Alice's physical characteristics — height, eye color, hair color |
 | `example/topics/under-development/paula(fl-birth-cert)alice.ttl` | Paula Walker's Florida Birth Certificate Persona — legal name record (under development) |
 | `example/topics/self.ttl` | `:Self`'s sole type declaration (`rdf:type owl:NamedIndividual, persona:Person`); not `owl:imports`ed anywhere, merged in only for validation |
 
@@ -73,10 +75,10 @@ Triplestore (Fuseki) — loads all DataBook files directly:
   │   ├─ PersonOntology.ttl
   │   ├─ AddressOntology.ttl
   │   └─ StagingOntology.ttl → BFO terms
-  ├─ example/topics/paula-walker.self(paula-walker)(employee)(06).databook.md
-  ├─ example/topics/paula-walker.self(paula-walker)(immediate-family)(07).databook.md
-  ├─ … (all numbered topic DataBooks)
-  ├─ example/topics/self.self(health-wellness)(17).databook.md
+  ├─ example/Cells/Work/Acme/Employees/Paula Walker/paula-walker(employee)-cell.databook.md      (embeds topics 06, 20)
+  ├─ example/Cells/People/Immediate Family/Paula Walker/paula-walker(immediate-family)-cell.databook.md  (embeds topics 05, 07, 21)
+  ├─ … (all other cell-databooks, each embedding one or more numbered topics via mia.topics)
+  ├─ example/Cells/People/Immediate Family/Paula Walker/Health & Wellness/health-wellness-cell.databook.md  (embeds topic 17)
   └─ example/topics/self.ttl        (:Self's bare type declaration — merged in for validation, never owl:imports'd)
 
 persona-shacl.ttl — no owl:imports of data; validated against the loaded dataset
@@ -103,43 +105,43 @@ Category-databook and cell-databook filenames follow:
 
 `<local>` is the folder's own hyphenated lowercase local name (e.g. `acme`, `paula-walker`). `<catType>` is the folder's own `mia.catType` value, kebab-cased (e.g. `Employee` → `employee`, `ImmediateFamily` → `immediate-family`, `SSA` → `ssa` — kebab-casing is acronym-aware: a hyphen is inserted only at a lowercase→uppercase boundary or an uppercase-run→lowercase boundary, so consecutive capitals stay together). A cell-databook has no `catType` of its own (`cat:catType`'s domain is `cat:Category`, not `cell:Cell`) — it borrows its sibling category-databook's `catType` (the one in the same folder). The `id:` local name always matches the filename root exactly, including the `-cat`/`-cell` suffix (Check 9).
 
-**Compression rule**: if `<local>` is identical to the kebab-cased `<catType>`, the parenthetical is dropped entirely, since it's pure redundancy — `<local>-cat.databook.md` / `<local>-cell[-N].databook.md` — rather than `<local>(<local>)-cat.databook.md`. For example `cat:Work`'s folder has local name `work`, and its own `catType` (`Work`) also kebab-cases to `work`, so its files are `work-cat.databook.md`/`work-cell.databook.md`, not `work(work)-cat.databook.md`. This applies only on an exact string match — `acme(organization)-cat.databook.md` keeps its parenthetical since `acme` ≠ `organization`. Most of the top-level tree scaffold compresses this way (`work`, `people`, `others`, `companies`, `finances`, `government`, `state`, `municipality`, `federal`, `ownership`, `affiliations`, `employees`, `immediate-family`, `health-wellness`, `medical`, `banking-payments`), since these folders' own local name simply *is* their category (there's no more-specific person/organization/thing filed there directly — that's one level further down, e.g. `boston-hub-society(affiliations)` or `acme(organization)`, which don't compress). The same rule applies identically to a topic's `(<containing-cell>)` segment (see [Topic File Naming Convention](#topic-file-naming-convention) below), since that segment is always derived directly from the (possibly-compressed) cell filename.
+**Compression rule**: if `<local>` is identical to the kebab-cased `<catType>`, the parenthetical is dropped entirely, since it's pure redundancy — `<local>-cat.databook.md` / `<local>-cell[-N].databook.md` — rather than `<local>(<local>)-cat.databook.md`. For example `cat:Work`'s folder has local name `work`, and its own `catType` (`Work`) also kebab-cases to `work`, so its files are `work-cat.databook.md`/`work-cell.databook.md`, not `work(work)-cat.databook.md`. This applies only on an exact string match — `acme(organization)-cat.databook.md` keeps its parenthetical since `acme` ≠ `organization`. Most of the top-level tree scaffold compresses this way (`work`, `people`, `others`, `companies`, `finances`, `government`, `state`, `municipality`, `federal`, `ownership`, `affiliations`, `employees`, `immediate-family`, `health-wellness`, `medical`, `banking-payments`), since these folders' own local name simply *is* their category (there's no more-specific person/organization/thing filed there directly — that's one level further down, e.g. `boston-hub-society(affiliations)` or `acme(organization)`, which don't compress). The same rule applies identically to a topic's `(<containing-cell>)` segment (see [Topic ID Naming Convention](#topic-id-naming-convention) below), since that segment is always derived directly from the (possibly-compressed) cell filename.
 
 This replaced an earlier convention that disambiguated using the folder's *parent's* local name instead (e.g. `acme(work).databook.md`) — redundant with the folder position that already encodes it, and inconsistently chosen in practice (folder naming "is not standardized," per Check 11, so a filename might name the immediate parent, a grandparent, or something else entirely). Using the folder's own `catType` instead has a useful side effect: it's exactly what disambiguates a local name that legitimately recurs in two different roles — e.g. Paula Walker is both her own Immediate Family folder (`catType: ImmediateFamily` → `paula-walker(immediate-family)`) and her Acme employee record (`catType: Employee` → `paula-walker(employee)`); the same bare local name, but never colliding, since a repeated local name always means a *different* role and therefore a different `catType`.
 
-### Topic File Naming Convention
+### Topic ID Naming Convention
 
-Topic filenames follow a single flat pattern:
+**Historical note**: this convention originally governed topic *filenames*. Topic content was later merged into its owning cell-databook's `mia.topics` list and body (see [Key Architectural Patterns](#key-architectural-patterns)'s Cell/Category split note) — a topic no longer has a file or filename of its own. This convention now governs only the string shape of each `mia.topics[].id` value (which doubles as the topic's own named-graph identity, `{id}#graph` — unchanged by the merge), not any file on disk. A topic's id local-name follows a single flat pattern:
 
 ```
-<subject>.<claimant>(<containing-cell>)(<NN>).databook.md
+<subject>.<claimant>(<containing-cell>)(<NN>)
 ```
 
 | Segment | Meaning |
 |---------|---------|
 | `<subject>` | The entity the Persona is about. Use `self` when the subject is the Mia user's own `p:Person` (`:Self`); otherwise use the full hyphenated lowercase name (e.g. `paula-walker`, `bob-johnson`, `bhs-group`). (In the ontology, `topic:subject`'s range is any resource IRI — every subject value in this example happens to be a `p:Person`/`g:Group`/`o:Organization`, but that's a convention of the example, not an ontology requirement.) |
 | `<claimant>` | Who claimed the data. Use `self` when the claimant is `:Self`; use the full hyphenated lowercase name for other claimants (e.g. `bob-johnson`, `citibank`); use the literal `members` for `cell:ThreePlusMember` topics where any permitted member may write. |
-| `(<containing-cell>)` | A topic DataBook carries no field pointing back at its cell — the containing cell is found by reverse lookup: the one `cell:Cell` DataBook whose `memberTopics` or `otherTopics` field references this topic's `id`. This segment is that cell's filename, **minus its trailing `-cell` suffix** — i.e., the readable name of the `cat:CategoryDefined`/`cat:UserDefined` category associated with that cell (the association is recorded as `mia.cell` on the category — the only place any category/cell association is recorded, for any `cat:Folder`). Ordinarily this is two parenthetical segments — the category's local name, then its own `catType` (kebab-cased) — but per the [Category/Cell DataBook Filename Convention](#categorycell-databook-filename-convention) below's compression rule, when the cell's own local name is identical to its `catType` kebab-cased, the cell's filename (and so this segment) collapses to a single bare parenthetical instead of the doubled-up form. Two-segment examples: `(bob-johnson)(others)`, `(boston-hub-society)(affiliations)`, `(paula-walker)(immediate-family)`, `(citibank)(banking-payments)`, `(paula-walker)(employee)` (Paula's *Acme employee* cell — same local name as her Immediate Family cell above, disambiguated only by the differing `catType`). Compressed, single-segment examples: `(ownership)` (topic #22 — a top-level category whose local name and `catType` happen to coincide), `(passport)` (topic #19), `(health-wellness)` (topic #17). |
+| `(<containing-cell>)` | The readable local name of the cell-databook this `mia.topics` entry lives inside (that owning cell's own filename/id, **minus its trailing `-cell` suffix**) — i.e., the `cat:CategoryDefined`/`cat:UserDefined` category associated with that cell (the association is recorded as `mia.cell` on the category — the only place any category/cell association is recorded, for any `cat:Folder`). Ordinarily this is two parenthetical segments — the category's local name, then its own `catType` (kebab-cased) — but per the [Category/Cell DataBook Filename Convention](#categorycell-databook-filename-convention) below's compression rule, when the cell's own local name is identical to its `catType` kebab-cased, the cell's filename (and so this segment) collapses to a single bare parenthetical instead of the doubled-up form. Two-segment examples: `(bob-johnson)(others)`, `(boston-hub-society)(affiliations)`, `(paula-walker)(immediate-family)`, `(citibank)(banking-payments)`, `(paula-walker)(employee)` (Paula's *Acme employee* cell — same local name as her Immediate Family cell above, disambiguated only by the differing `catType`). Compressed, single-segment examples: `(ownership)` (topic #22 — a top-level category whose local name and `catType` happen to coincide), `(passport)` (topic #19), `(health-wellness)` (topic #17). |
 | `(<NN>)` | Zero-padded two-digit topic number in parentheses, matching the diagram label. |
 
-**Exception — `cell:ThreePlusMember` topics**: A group topic (`memberCount: ThreePlusMember`) has no single claimant — any permitted member can write to it and changes replicate to all members. The `<claimant>` segment is the literal `members` rather than an individual name. Example: `bhs-group.members(boston-hub-society)(affiliations)(01).databook.md` — about BHS Group, containing cell "boston-hub-society(affiliations)", claimed by the group's members collectively.
+**Exception — `cell:ThreePlusMember` topics**: A group topic (`memberCount: ThreePlusMember`) has no single claimant — any permitted member can write to it and changes replicate to all members. The `<claimant>` segment is the literal `members` rather than an individual name. Example id local-name: `bhs-group.members(boston-hub-society)(affiliations)(01)` — about BHS Group, containing cell "boston-hub-society(affiliations)", claimed by the group's members collectively.
 
-**`mia.claimant` vocabulary**: The YAML field takes the local IRI of a `p:Person`, `g:Group`, or `o:Organization` individual — NOT an `i:PDNidentifier`. Specifically: `:Self` (the Mia user's `p:Person`) for self-claimed topics; a named `p:Person` individual (e.g. `:Bob_Johnson`) when another Mia user claims the data; a named `g:Group` individual (e.g. `:BHS_Group`) for group topics; and a named `o:Organization` individual (e.g. `:Citibank`) only when the claiming organization is itself PDN-interoperable. In the example data **only Citibank is treated as PDN-interoperable**, so only `self.citibank(citibank)(banking-payments)(09).databook.md` uses `claimant: ":Citibank"`. All other organization-related topics (Google, AT&T, SSA, etc.) use `claimant: ":Self"` because Alice self-enters that data — those organizations aren't PDN-interoperable. (This distinction is currently just a data-modeling convention in the example, not formally enforced by any property — `identity:hasPDNidentifier`, which would have modeled it, was removed as unused; see pdn-identity.ttl 1.3.0.)
+**`claimant` vocabulary** (a `mia.topics[]` entry's own field): takes the local IRI of a `p:Person`, `g:Group`, or `o:Organization` individual — NOT an `i:PDNidentifier`. Specifically: `:Self` (the Mia user's `p:Person`) for self-claimed topics; a named `p:Person` individual (e.g. `:Bob_Johnson`) when another Mia user claims the data; a named `g:Group` individual (e.g. `:BHS_Group`) for group topics; and a named `o:Organization` individual (e.g. `:Citibank`) only when the claiming organization is itself PDN-interoperable. In the example data **only Citibank is treated as PDN-interoperable**, so only the topic embedded in `citibank(banking-payments)-cell.databook.md` with id local-name `self.citibank(citibank)(banking-payments)(09)` uses `claimant: ":Citibank"`. All other organization-related topics (Google, AT&T, SSA, etc.) use `claimant: ":Self"` because Alice self-enters that data — those organizations aren't PDN-interoperable. (This distinction is currently just a data-modeling convention in the example, not formally enforced by any property — `identity:hasPDNidentifier`, which would have modeled it, was removed as unused; see pdn-identity.ttl 1.3.0.)
 
 **"Other" claimants**: When the claimant is someone other than the current Mia user (`:Self`), the claimant is a named individual of one of:
 - `p:Person` — another Mia user (a different person, e.g. `:Bob_Johnson` claiming data about Alice)
 - `o:Organization` — a company, nonprofit, or government agency that is a PDN node (e.g. `:Citibank`)
 - `g:Group` — a group of Mia users (e.g. `:BHS_Group`)
 
-**Examples:**
+**Examples** (id local-name; the owning cell-databook file is found via [Check 3](#integrity-checks)):
 
-| Filename | Subject | Claimed by | Containing cell |
+| Id local-name | Subject | Claimed by | Containing cell |
 |----------|---------|-------------|---------------------|
-| `self.citibank(citibank)(banking-payments)(09).databook.md` | Self (Alice) | Citibank | citibank(banking-payments) |
-| `paula-walker.self(paula-walker)(immediate-family)(07).databook.md` | Paula Walker | Self (Alice) | paula-walker(immediate-family) |
-| `self.bob-johnson(bob-johnson)(others)(08).databook.md` | Self (Alice) | Bob Johnson | bob-johnson(others) |
-| `bob-johnson.bob-johnson(boston-hub-society)(affiliations)(03).databook.md` | Bob Johnson | Bob Johnson | boston-hub-society(affiliations) |
-| `bhs-group.members(boston-hub-society)(affiliations)(01).databook.md` | BHS Group | members (group) | boston-hub-society(affiliations) |
+| `self.citibank(citibank)(banking-payments)(09)` | Self (Alice) | Citibank | citibank(banking-payments) |
+| `paula-walker.self(paula-walker)(immediate-family)(07)` | Paula Walker | Self (Alice) | paula-walker(immediate-family) |
+| `self.bob-johnson(bob-johnson)(others)(08)` | Self (Alice) | Bob Johnson | bob-johnson(others) |
+| `bob-johnson.bob-johnson(boston-hub-society)(affiliations)(03)` | Bob Johnson | Bob Johnson | boston-hub-society(affiliations) |
+| `bhs-group.members(boston-hub-society)(affiliations)(01)` | BHS Group | members (group) | boston-hub-society(affiliations) |
 
 ### Key Architectural Patterns
 
@@ -171,7 +173,7 @@ Classes and properties use numeric IRIs. The most common:
 
 ## Versioning
 
-Before committing any change to any topic file, `persona.ttl`, `topic.ttl`, `cell.ttl`, `category.ttl`, or `persona-shacl.ttl`, increment the **minor version number** in that file's `owl:versionInfo` annotation and update the description to summarise the change. For example:
+Before committing any change to `persona.ttl`, `topic.ttl`, `cell.ttl`, `category.ttl`, or `persona-shacl.ttl`, increment the **minor version number** in that file's `owl:versionInfo` annotation and update the description to summarise the change. For example:
 
 ```
 owl:versionInfo "Version 3.0.3 - added social network"@en
@@ -185,88 +187,57 @@ owl:versionInfo "Version 3.0.4 - added birth date"@en
 
 Files inside any directory named `under-development/` (at any depth) are works-in-progress and must be **excluded from all integrity checks** below.
 
-After any change to topic files or cell DataBooks, verify the following.
+After any change to a topic (its `mia.topics` entry or `### Topic NN` body section) or a cell DataBook, verify the following.
 
-**Check 1 — Diagram ↔ files ↔ README coverage**: Every numbered topic circle in any of the 11 cell diagrams (`example/images/`) must have (a) a corresponding `.databook.md` file in `example/topics/` and (b) a row in one of the tables in the **Alice's Personas and Topics** section of `README.md`. Conversely, every row in those tables must correspond to a numbered circle in a diagram and a file that actually exists. If a circle exists in a diagram but has no `.databook.md` file or README row, create them to match the diagram.
+**Check 1 — Diagram ↔ files ↔ README coverage**: Every numbered topic circle in any of the 11 cell diagrams (`example/images/`) must have (a) a corresponding embedded topic section — a `mia.topics` entry plus its `### Topic NN` body section — inside a cell-databook file under `example/Cells/`, and (b) a row in one of the tables in the **Alice's Personas and Topics** section of `README.md`. Conversely, every row in those tables must correspond to a numbered circle in a diagram and an embedded topic that actually exists. If a circle exists in a diagram but has no embedded topic or README row, create them to match the diagram.
 
-**Check 2 — Filename convention**: Every topic filename must follow `<subject>.<claimant>(<containing-cell>)(<NN>).databook.md`. `<subject>` must be `self` when the subject is `:Self`, or the full hyphenated lowercase name otherwise. `<claimant>` must be `self` when the claimant is `:Self`, or the full hyphenated lowercase name otherwise — except for `c:Group` topics, where it must be the literal string `members`. `(<containing-cell>)` encodes the local name of the one `cell:Cell` DataBook whose `memberTopics` or `otherTopics` field references this topic (found by reverse lookup — a topic carries no field pointing back at its cell) — two segments (the cell's own local name, then its own `catType` kebab-cased) ordinarily, e.g. `(bob-johnson)(others)`, or a single compressed segment when the cell's local name and `catType` kebab-case to the same string, e.g. `(ownership)` (see [Category/Cell DataBook Filename Convention](#categorycell-databook-filename-convention)). `(<NN>)` is the zero-padded two-digit topic number. If a filename does not match this pattern, rename it to conform.
+**Check 2 — Topic id naming convention**: Every `mia.topics[].id` value's local-name (the string after the final `/`) — across all cell-databooks in `example/Cells/` — must follow `<subject>.<claimant>(<containing-cell>)(<NN>)`. `<subject>` must be `self` when the subject is `:Self`, or the full hyphenated lowercase name otherwise. `<claimant>` must be `self` when the claimant is `:Self`, or the full hyphenated lowercase name otherwise — except for `cell:ThreePlusMember` topics, where it must be the literal string `members`. `(<containing-cell>)` encodes the local name of the *owning* cell-databook itself (the file this `mia.topics` entry lives in, minus its trailing `-cell` suffix) — two segments ordinarily, e.g. `(bob-johnson)(others)`, or a single compressed segment when the cell's local name and `catType` kebab-case to the same string, e.g. `(ownership)` (see [Category/Cell DataBook Filename Convention](#categorycell-databook-filename-convention)). `(<NN>)` is the zero-padded two-digit topic number. If an id does not match this pattern, flag it rather than silently renaming — unlike the old topic-filename convention, `mia.topics[].id` also doubles as the topic's own named-graph identity (`{id}#graph`), so changing it is a bigger operation than a file rename ever was.
 
-**Check 3 — containing-cell ↔ filename consistency**: For every topic DataBook in `example/topics/` (excluding `under-development/`), find the one cell DataBook (in `example/Cells/`, the only remaining per-folder instance tree — canonical templates have no cells of their own since category.ttl 1.8.0) whose `memberTopics` or `otherTopics` field references this topic's `id` — a topic carries no field pointing back at its cell, so this is always a reverse lookup, never a direct read. That cell's filename, **minus a trailing `-cell` suffix**, must equal the `(<containing-cell>)` segment extracted from the topic's filename. The topic filename uses either two parenthetical segments before the number (e.g. `(bob-johnson)(others)` — concatenate them as `bob-johnson(others)` to form the expected local name) or, when the containing cell's own name compresses per the [Category/Cell DataBook Filename Convention](#categorycell-databook-filename-convention), a single segment (e.g. `(ownership)`, matching the compressed `ownership-cell.databook.md`). A topic that resolves to zero or more than one referencing cell is also an error. Run:
+**Check 3 — `mia.topics` ↔ `memberTopics`/`otherTopics` consistency**: Since a topic now lives physically inside its owning cell-databook file, containment is structural rather than a cross-file reverse lookup — but the two lists that record it independently (`mia.memberTopics`/`mia.otherTopics`, and the newer `mia.topics`) must still agree exactly. For every cell-databook under `example/Cells/`, the set of ids across `mia.memberTopics`+`mia.otherTopics` and the set of `mia.topics[].id` values must be identical — every linked id has a matching `topics` entry supplying its metadata, and every `topics` entry is linked from one of the two lists. Run:
 
 ```python
-import os, re, yaml
-
-topic_dir = 'example/topics'
-cell_dirs = ['example/Cells']
-link_fields = ('memberTopics', 'otherTopics')
-
-def fn_cell_local(fname):
-    base = fname[:-len('.databook.md')]
-    m = re.match(r'^[^.]+\.[^(]+((?:\([^)]+\))+)\(\d{2}\)$', base)
-    if not m:
-        return None
-    segs = re.findall(r'\(([^)]+)\)', m.group(1))
-    return segs[0] if len(segs) == 1 else f'{segs[0]}({segs[1]})'
+import glob, re, yaml
 
 def frontmatter(path):
-    text = open(path).read()
+    text = open(path, encoding='utf-8').read()
     m = re.match(r'^---\n(.*?)\n---', text, re.DOTALL)
     return yaml.safe_load(m.group(1)) if m else None
 
-# topic id -> list of cell filenames that reference it
-topic_to_cells = {}
-for cell_dir in cell_dirs:
-    for dirpath, _, filenames in os.walk(cell_dir):
-        if 'under-development' in dirpath.split(os.sep):
-            continue
-        for fname in filenames:
-            if not fname.endswith('.databook.md'):
-                continue
-            fm = frontmatter(os.path.join(dirpath, fname))
-            if not fm or fm.get('type') != 'cell-databook':
-                continue
-            mia = fm.get('mia', {}) or {}
-            for field in link_fields:
-                val = mia.get(field)
-                if not val:
-                    continue
-                for topic_id in (val if isinstance(val, list) else [val]):
-                    topic_to_cells.setdefault(topic_id, []).append(fname)
-
 errors = 0
-for fname in sorted(os.listdir(topic_dir)):
-    if not fname.endswith('.databook.md'):
+for path in sorted(glob.glob('example/Cells/**/*.databook.md', recursive=True)):
+    if 'under-development' in path.split('/'):
         continue
-    path = f'{topic_dir}/{fname}'
     fm = frontmatter(path)
-    topic_id = fm.get('id')
-    cells = topic_to_cells.get(topic_id, [])
-    if len(cells) != 1:
-        print(f'{fname}: expected exactly 1 referencing cell, found {len(cells)}: {cells}')
-        errors += 1
+    if not fm or fm.get('type') != 'cell-databook':
         continue
-    cell_local = cells[0][:-len('.databook.md')]
-    if cell_local.endswith('-cell'):
-        cell_local = cell_local[:-len('-cell')]
-    expected = fn_cell_local(fname)
-    if cell_local != expected:
-        print(f'MISMATCH {fname}:')
-        print(f'  filename implies: {expected!r}')
-        print(f'  referencing cell (–cell stripped): {cell_local!r}')
+    mia = fm.get('mia', {}) or {}
+    linked_ids = set()
+    for field in ('memberTopics', 'otherTopics'):
+        val = mia.get(field)
+        if val:
+            linked_ids.update(val if isinstance(val, list) else [val])
+    topic_ids = {t['id'] for t in (mia.get('topics') or []) if isinstance(t, dict) and t.get('id')}
+    missing = linked_ids - topic_ids
+    unlinked = topic_ids - linked_ids
+    if missing:
+        print(f'{path}: memberTopics/otherTopics reference(s) with no matching mia.topics entry: {sorted(missing)}')
+        errors += 1
+    if unlinked:
+        print(f'{path}: mia.topics entry/entries with no memberTopics/otherTopics link: {sorted(unlinked)}')
         errors += 1
 if not errors:
-    print('All topics resolve to exactly one referencing cell, matching their filenames.')
+    print('All cell-databooks: mia.topics entries and memberTopics/otherTopics links are in 1:1 correspondence.')
 ```
 
-If mismatches appear, the filename `(<containing-cell>)` segments are authoritative — update the cell DataBook's `memberTopics`/`otherTopics` value to reference the correct topic (or rename the topic file if it was misnamed).
+If a mismatch appears, add the missing `mia.topics` entry (or `### Topic NN` body section) or the missing `memberTopics`/`otherTopics` reference — whichever side is incomplete.
 
-**Check 4 — No orphan Persons**: Every `persona:Person` individual other than `:Self` must be reachable via `BFO_0000115` (has member part) from a `g:Group` or from a Social Network individual linked to another `persona:Person` via `persona:hasSocialNetwork`. `:Self` is always the root and needs no incoming link. **Exception**: a `persona:Person` referenced only via a professional/service-designation property (e.g. `persona:hasPrimaryCarePhysician`) rather than social-network membership is exempt — it represents a service relationship (e.g. a physician), not a social connection, so it has no social network to be reachable from. Example: `:Jane_Kolpakova` (topic #25), Paula Walker's primary care physician.
+**Check 4 — No orphan Persons**: Every `persona:Person` individual other than `:Self` must be reachable via `BFO_0000115` (has member part) from a `g:Group` or from a Social Network individual linked to another `persona:Person` via `persona:hasSocialNetwork`. `:Self` is always the root and needs no incoming link. Since topics are now embedded topic sections across every cell-databook under `example/Cells/**` (rather than standalone files in `example/topics/`), this check's scope is the merged Tier 1 data graph, which already spans every embedded topic. **Exception**: a `persona:Person` referenced only via a professional/service-designation property (e.g. `persona:hasPrimaryCarePhysician`) rather than social-network membership is exempt — it represents a service relationship (e.g. a physician), not a social connection, so it has no social network to be reachable from. Example: `:Jane_Kolpakova` (topic #25), Paula Walker's primary care physician.
 
-**Check 5 — Validation command completeness**: The `## Validation` section of `README.md` must document two tiers. Tier 1 uses five steps: (1) a `find example -name "*.databook.md"` loop using `databook extract` to extract turtle content and produce a merged turtle file of all topic data (excluding `under-development/`); (1b) `python3 yaml-to-rdf.py` to synthesize `cat:`/`cell:`/`topic:` triples from category, cell, and topic DataBook `mia.` YAML frontmatter — `databook extract` only pulls fenced Turtle blocks, which category/cell DataBooks never carry, so without this step `cat:Folder`/`cell:Cell` individuals and `topic:SCTopicGraph`'s subject/claimant never reach the merged graph and `category-shacl.ttl`/`cell-shacl.ttl`/`topic-shacl.ttl`'s `:SCTopicGraphShape` never fire against real instance data; (2) a `riot` merge of both extracted files with all application ontology TTL files and the foundation ontologies listed explicitly from `project_files/` — `cell-templates.ttl` is deliberately excluded from this merge (unlike Tier 2's per-file base merge, below): its 4 template individuals are generic, reusable content bound to no real person, so they can't sensibly carry `cell-shacl.ttl`'s required `cell:subject`/`cell:memberTopics`, and are instead validated only via `cell-templates-shacl.ttl` in Tier 2; (3) a `grep -v owl:imports` on `persona-shacl.ttl`, `topic-shacl.ttl`, `category-shacl.ttl`, `cell-shacl.ttl`, `group-shacl.ttl`, and `organization-shacl.ttl` to collect shapes (`shacl/jscontactcard-shacl.ttl` and `cell-templates-shacl.ttl` are excluded here — they target document classes and would fire incorrectly on all individuals when applied to merged data; `pdn-identity-shacl.ttl` is also excluded — its ontology, `pdn-identity.ttl`, isn't part of the Step 2 merge, since nothing in the active ontology stack references an `identity:` term any more); (4) a `shacl validate` call. Tier 2 lists explicit per-file `databook extract` + `riot` + `shacl validate` commands for each template topic file paired with its shapes source — `cell-templates-shacl.ttl` directly for BirthCertificate/DriversLicense/Passport/MedicalAppointment, or `shacl/jscontactcard-shacl.ttl` directly for JSContactCard (both are plain `.ttl` files, not DataBook fragments); Tier 2 does not need `yaml-to-rdf.py` since it validates individual topic files directly, not category/cell DataBooks. If the commands change, update the README to match.
+**Check 5 — Validation command completeness**: The `## Validation` section of `README.md` must document two tiers. Tier 1 uses five steps: (1) a `find example -name "*.databook.md"` loop using `databook extract` to extract turtle content and produce a merged turtle file of all topic data (excluding `under-development/`) — directory-agnostic, so it naturally concatenates every embedded topic within a cell-databook, which is exactly what Tier 1 wants; (1b) `python3 yaml-to-rdf.py` to synthesize `cat:`/`cell:`/`topic:` triples from category and cell DataBook `mia.` YAML frontmatter, including each cell's `mia.topics` list (a topic's `claimant`/`subject` live there now, not in a separate topic-databook file) — `databook extract` only pulls fenced Turtle blocks, which category/cell DataBooks mostly don't carry, so without this step `cat:Folder`/`cell:Cell` individuals and `topic:SCTopicGraph`'s subject/claimant never reach the merged graph and `category-shacl.ttl`/`cell-shacl.ttl`/`topic-shacl.ttl`'s `:SCTopicGraphShape` never fire against real instance data; (2) a `riot` merge of both extracted files with all application ontology TTL files and the foundation ontologies listed explicitly from `project_files/` — `cell-templates.ttl` is deliberately excluded from this merge (unlike Tier 2's per-file base merge, below): its 4 template individuals are generic, reusable content bound to no real person, so they can't sensibly carry `cell-shacl.ttl`'s required `cell:subject`/`cell:memberTopics`, and are instead validated only via `cell-templates-shacl.ttl` in Tier 2; (3) a `grep -v owl:imports` on `persona-shacl.ttl`, `topic-shacl.ttl`, `category-shacl.ttl`, `cell-shacl.ttl`, `group-shacl.ttl`, and `organization-shacl.ttl` to collect shapes (`shacl/jscontactcard-shacl.ttl` and `cell-templates-shacl.ttl` are excluded here — they target document classes and would fire incorrectly on all individuals when applied to merged data; `pdn-identity-shacl.ttl` is also excluded — its ontology, `pdn-identity.ttl`, isn't part of the Step 2 merge, since nothing in the active ontology stack references an `identity:` term any more); (4) a `shacl validate` call. Tier 2 lists explicit per-topic `extract-topic.py` + `riot` + `shacl validate` commands for each template topic paired with its owning cell-databook file and its shapes source — `cell-templates-shacl.ttl` directly for BirthCertificate/DriversLicense/Passport/MedicalAppointment, or `shacl/jscontactcard-shacl.ttl` directly for JSContactCard (both are plain `.ttl` files, not DataBook fragments). `extract-topic.py` (not `databook extract`) is required here because a cell-databook may embed more than one topic — e.g. the MedicalAppointment case lives in a three-topic cell, so a whole-file extraction would wrongly pull in its two sibling topics' data. Tier 2 does not need `yaml-to-rdf.py` since it validates one topic's isolated Turtle directly, not category/cell YAML frontmatter. If the commands change, update the README to match.
 
-**Check 6 — PNG file location**: The diagram PNG for every topic file must be stored directly in `example/topics/images/` (flat, no subfolders — not `images/example/`). Files in `under-development/` are excluded.
+**Check 6 — PNG file location**: The diagram PNG for every embedded topic (each `mia.topics` entry across every cell-databook under `example/Cells/`) must be stored directly in `example/topics/images/` (flat, no subfolders — not `images/example/`) — this location is unchanged by the topic/cell merge; only the topics' own `.databook.md` files were removed, not this images directory. Files in `under-development/` are excluded.
 
-**Check 7 — PNG filename convention**: Every diagram PNG in `example/topics/images/` must use the same base filename as the corresponding `.databook.md` file in `example/topics/`, with `.png` substituted for `.databook.md`. For example, `self.self(boston-hub-society)(affiliations)(14).databook.md` → `self.self(boston-hub-society)(affiliations)(14).png`. If the PNG does not yet exist, the README Diagram cell must be marked `*(todo)*` rather than left blank.
+**Check 7 — PNG filename convention**: Every diagram PNG in `example/topics/images/` must use the same base filename as the topic's own `mia.topics[].id` local-name (the string after the final `/`), with `.png` appended. For example, id local-name `self.self(boston-hub-society)(affiliations)(14)` → `self.self(boston-hub-society)(affiliations)(14).png`. If the PNG does not yet exist, the README Diagram cell must be marked `*(todo)*` rather than left blank.
 
 **Check 8 — No broken image links in README**: Every PNG path referenced in `README.md` (both `<img src="...">` tags and `[view](...)` table links) must resolve to an actual file on disk. Run:
 
@@ -315,6 +286,8 @@ for directory, base, recursive in checks:
 
 If a mismatch is found, rename the file so its root matches the id local name (preferred) or update the `id:` to match the filename — whichever is consistent with the broader naming conventions. Additionally, every category's associated cell(s) must resolve to `cell-databook` file(s) that exist in the **same directory** (see Check 11) — found via `mia.cell` on the category, pointing forward at its cell(s) (`cell:Cell` has no property pointing back at all, regardless of the folder's kind). A category may have more than one such cell.
 
+Note: this check's `^id:\s*(\S+)` regex is anchored at true line-start with no leading whitespace, so it only ever matches a file's own top-level `id:` line — a nested, indented `mia.topics[].id` value never matches this anchor and is intentionally out of scope here (a topic's `id` is not expected to relate to its owning cell file's name at all; see Check 2 for that). This imposes a requirement on any script that writes `mia.topics`: never emit an unindented `id:` at column 0.
+
 **Check 10 — Example cell diagrams are authoritative**: The 11 cell diagrams in `example/images/` are the authoritative source of truth for the example cell tree. When any discrepancy is found between a diagram and the DataBook files, the diagram wins — update the DataBooks to match, not the other way around. Each diagram box now corresponds to a `category-databook` (tree position, box label = its `title:`) in `example/Cells/` associated with one or more `cell-databook`s (content) in the same folder, via the category's own `mia.cell` value(s). After any change to `example/Cells/` DataBooks or to the 11 diagrams, verify all of the following:
 
 - **10a — Every cell box has a category DataBook**: Every cell box (blue/tan canonical or white user-defined) shown in any of the 11 diagrams must have a corresponding `category-databook` `.databook.md` file in `example/Cells/` whose `title:` matches the box label. If a box has no DataBook, create the category DataBook and its associated cell DataBook.
@@ -323,7 +296,7 @@ If a mismatch is found, rename the file so its root matches the id local name (p
 
 - **10c — Solid topic circles match DataBook links**: Every solid (filled) topic circle attached to a cell box indicates a real topic link. The **cell DataBook** associated with that box's category (via the category's own `mia.cell` value(s)) must carry a corresponding `memberTopics` or `otherTopics` value pointing to the topic DataBook IRI. A dashed (empty) circle indicates an unfilled slot — the cell DataBook must NOT have a link for that slot.
 
-- **10d — Numbered topic circles have matching files**: Every numbered topic circle (e.g. `[10]`, `[17]`) shown in a diagram must correspond to an actual `.databook.md` file in `example/topics/` whose filename contains that number (e.g. `(10)`, `(17)`).
+- **10d — Numbered topic circles have matching embedded topics**: Every numbered topic circle (e.g. `[10]`, `[17]`) shown in a diagram must correspond to a `mia.topics` entry (equivalently, a `### Topic NN` body section) in some cell-databook under `example/Cells/` whose id contains that number (e.g. `(10)`, `(17)`).
 
 - **10e — Child arrows match DataBook child links**: Every downward child arrow from cell box A to cell box B in a diagram must correspond to a `child:` entry in A's **category** DataBook pointing to B's category IRI. Conversely, every `child:` entry in a category DataBook must be reflected by a visible child arrow in the diagram.
 
@@ -419,7 +392,7 @@ for root in ['example/Cells']:
         print(' -', e)
 ```
 
-If a nesting mismatch or orphan is found, move the file to the correct folder (preferred) or fix the `mia.child` link — whichever reflects the intended tree. An empty/placeholder folder is not necessarily an error — flag it to the user rather than deleting it, since it may be a deliberate placeholder for content not yet added.
+If a nesting mismatch or orphan is found, move the file to the correct folder (preferred) or fix the `mia.child` link — whichever reflects the intended tree. An empty/placeholder folder is not necessarily an error — flag it to the user rather than deleting it, since it may be a deliberate placeholder for content not yet added. Cell-databook files now routinely carry substantial body content (one `### Topic NN` section per embedded topic) — this is expected and not itself a violation of this check, which only validates folder nesting, not file size or content.
 
 **Check 12 — `cell.ttl` matches `images/cell-ontology/cell.png`**: Current as of cell.ttl 3.17.0 for the party→member rename — the diagram was redrawn to show `memberCount`, `memberTopics`, and the `OneMember`/`MultiMember`(abstract)/`TwoMember`/`ThreePlusMember` class names in place of the retired `parties`/`partyTopics`/`OneParty`/`MultiParty`/`TwoParty`/`ThreePlusParty`. ⚠️ **Open discrepancy**: the diagram also shows two arrows off `Cell` that have no counterpart in `cell.ttl` — `origin` (to a `cat:Category` box, 1..1) and `chat` (to a box literally labeled "TBD"). `cell.ttl` defines only `cell:folder` on `cell:Cell` (`cell:Cell` carries no link back to a folder at all — CLAUDE.md's design explicitly puts that link only on the category side, as `cat:cell` — so an `origin` arrow pointing back at `cat:Category` runs contrary to that design). Per this check's own rule below, don't silently resolve this either direction — surface it and ask whether `origin`/`chat` are planned properties not yet added to `cell.ttl`, a stale leftover from an earlier design, or something else. Otherwise current as of cell.ttl 3.15.0: the diagram no longer shows a `note` arrow off `Cell`, matching `cell.ttl` 3.15.0's removal of `cell:note` (the separate notes/files folder hierarchies merged into one single hierarchy under `cell:folder`); also correctly shows the `memberTopics`/`otherTopics` split (cell.ttl 3.14.0, renamed from `partyTopics` in 3.17.0) and the `t:SCTopicGraph` label (topic.ttl 1.15.0), both drawn as two separate arrows off `ACell` to a `t:SCTopicGraph` box. `Cell` (abstract, blue) carries `folder` (plus the not-yet-reconciled `origin`/`chat` above). `Cell` splits into two orthogonal facets, mirroring `category.ttl`'s Category/Folder split (see Check 14): `TCell` (abstract, blue, the template facet) carries `templateShape` (to a `sh:NodeShape` box); `ACell` (abstract, blue, the actual/instantiated facet) carries `subject` (to an `xsd:anyURI` box, 1..2 — renamed from `primary` in cell.ttl 3.12.0, range widened from `topic:SCTopicGraph`), `memberTopics` (to a `t:SCTopicGraph` box, cardinality varying by member count — split from `topics`/`secondary`, cell.ttl 3.14.0), `otherTopics` (to a `t:SCTopicGraph` box, 0..N uniformly — the other half of that same split), `shape` (to a `sh:NodeShape` box), `creator` (to a union of `p:Person`/`o:Organization`/`g:Group`), and `memberCount` (to `OneMember`/`TwoMember`/`ThreePlusMember` 1..1). The member-composition hierarchy — `OneMember` and `MultiMember` (abstract) → `TwoMember`/`ThreePlusMember` — hangs off `ACell`, not `Cell` directly; `TCell` has no subclasses of its own, since a template cell individual is instead multi-typed with both `TCell` and its `ACell`-lineage class (e.g. `OneMember`) — see `cell-templates.ttl`. `MultiMember` shows no arrows of its own, matching `cell:subject`/`cell:memberTopics`/`cell:otherTopics`'s domain being the broader `cell:ACell` rather than `cell:MultiMember`. No arrow points from `Cell`, `TCell`, or `ACell` to any `cat:Folder` box, matching that link now being asserted only on the category side (see Check 14) — modulo the open `origin` discrepancy noted above. This diagram is the ontology-level (not example-tree) picture of `cell:Cell`'s structure (redrawn for the 3.0.0/1.0.0 Cell/Category split, again for the 3.7.0 TCell/ACell split, again for the 3.10.0 graph/sc-context → primary/secondary rename, again for the 3.12.0 primary/secondary → subject/topics rename, again for the topic.ttl 1.15.0 SCtopic → SCTopicGraph label fix and the cell.ttl 3.14.0 topics → partyTopics/otherTopics arrow split, again for the cell.ttl 3.15.0 removal of the `note` arrow, and again for the cell.ttl 3.17.0 party→member rename) — the member-composition hierarchy and its content-linking properties. Unlike Check 10 (example diagrams, where the diagram always wins), this check does not presume which side is authoritative when the two disagree — surface the discrepancy and ask:
 
@@ -443,10 +416,10 @@ If a nesting mismatch or orphan is found, move the file to the correct folder (p
 
 **Check 15 — `images/cat-cell-topic.png` matches example usage**: Current as of cell.ttl 3.17.0 — redrawn with a substantially reworked Key legend, now split into two separate boxes on the right rather than one combined Key: a **Category** legend (title "Class"/"Label") giving the three `cat:Category`-family swatches — Person (tan), UserDefined (purple), Organization (light blue), matching Check 14's `cat:Person`/`cat:Organization` naming — and a **Cell** legend giving: a blue **Subject** heading over a green-filled circle labeled "Claimed by Other", a white/outlined circle labeled "Claimed by Self", and a gray swatch labeled "Shared"; two more circle entries labeled "Member Topic" and "Other Topic" (mapping to `c:memberTopics`/`c:otherTopics` respectively — visually similar at normal viewing size, so lean on the legend's text labels rather than trying to eyeball a ring-style difference); and three cell-box border-style entries — "Multi-Member Cell" (bold/double border), "Two-Member Cell" (double border), "Single-Member Cell" (single border) — these are exactly the `cell:label` strings cell.ttl 3.17.0 updated `cell:ThreePlusMember`/`cell:TwoMember`/`cell:OneMember` to (see Check 12d). Every topic circle in the diagram body now also carries an explicit subject-name label (e.g. "Bob", "Self", "Carol", "BHS") baked directly into the circle, not just a bare ring — a strictly more informative rendering than the diagram's earlier unlabeled-circle form. This diagram illustrates representative cell/category associations, generically rather than tied to a specific example instance: "Work" (a `cat:CategoryDefined` representing `cat:Work`, no override label), "Organization / Acme" (a `cat:CategoryDefined` representing `cat:Organization`, `cat:label`-renamed "Acme"), "Favorites" (a hypothetical `cat:UserDefined` category with no canonical counterpart, not tied to any real example data — there is currently no real `cat:UserDefined` example in the tree), "Others / Bob Johnson" (a `cat:CategoryDefined` representing `cat:Others`, `cat:label`-renamed "Bob Johnson" — a `cell:TwoMember` cell, all four topic link types filled), and "Affiliations / Boston Hub Society" (a `cell:ThreePlusMember` cell with two other members, Carol and BHS) — it replaces the earlier `images/cell-ontology/cells+contexts.png`. Each box's header shows `cat:catType` (green) over `cat:label` (bold) when a label is set, or just `catType` alone otherwise (e.g. "Work", which has no override label). Every cell box also shows a folder icon and a second icon next to it (chat, per the label used in `images/cell-ontology/cell.png` — see Check 12's open `cell:chat` discrepancy there, which applies equally here since this diagram draws the same two-icon pair on every cell box). Re-verify each box's `Member Topic`/`Other Topic` circles and blue `Subject` text remain a valid illustration of the properties and cardinalities described in the Cell and Category Ontology sections of `README.md` after any change to those properties.
 
-**Check 16 — IRI roots: `mee.foundation/ontologies` for foundational files, `www.example.org` for example data**: Every foundational ontology and SHACL shapes file — `persona.ttl`, `topic.ttl`, `cell.ttl`, `category.ttl`, `cell-templates.ttl`, `pdn-identity.ttl`, `group.ttl`, `organization.ttl`, `persona-templates.ttl`, their `*-shacl.ttl` companions (including `cell-templates-shacl.ttl`), and the per-template files in `shacl/` — must declare its `owl:Ontology` IRI under `http://mee.foundation/ontologies/`. There is no longer a separate canonical category/cell DataBook tree to check (`categories-person/`/`categories-org/` were removed in category.ttl 1.8.0) — the canonical tree's IRI roots are covered by `category.ttl`/`cell-templates.ttl` themselves. Every DataBook under `example/Cells/` and `example/topics/` (excluding `under-development/`) represents Alice's own example instance data, so its `id:` must be grounded under `http://www.example.org/` (or `https://www.example.org/`). Run:
+**Check 16 — IRI roots: `mee.foundation/ontologies` for foundational files, `www.example.org` for example data**: Every foundational ontology and SHACL shapes file — `persona.ttl`, `topic.ttl`, `cell.ttl`, `category.ttl`, `cell-templates.ttl`, `pdn-identity.ttl`, `group.ttl`, `organization.ttl`, `persona-templates.ttl`, their `*-shacl.ttl` companions (including `cell-templates-shacl.ttl`), and the per-template files in `shacl/` — must declare its `owl:Ontology` IRI under `http://mee.foundation/ontologies/`. There is no longer a separate canonical category/cell DataBook tree to check (`categories-person/`/`categories-org/` were removed in category.ttl 1.8.0) — the canonical tree's IRI roots are covered by `category.ttl`/`cell-templates.ttl` themselves. Every DataBook under `example/Cells/` (excluding `under-development/`) represents Alice's own example instance data, so both its own `id:` and every `mia.topics[].id` value it carries must be grounded under `http://www.example.org/` (or `https://www.example.org/`). Run:
 
 ```python
-import os, re, glob
+import os, re, glob, yaml
 
 FOUNDATIONAL_TTL = [
     'persona.ttl', 'topic.ttl', 'cell.ttl', 'category.ttl', 'cell-templates.ttl',
@@ -470,30 +443,37 @@ for path in FOUNDATIONAL_TTL:
         print(f'WRONG ROOT (expected mee.foundation): {path} -> {m.group(1)}')
         errors += 1
 
-def check_id_root(pattern, expected_prefixes, recursive):
+def frontmatter(path):
+    text = open(path, encoding='utf-8').read()
+    m = re.match(r'^---\n(.*?)\n---', text, re.DOTALL)
+    return yaml.safe_load(m.group(1)) if m else None
+
+def check_cell_tree_id_roots(pattern, expected_prefixes):
     global errors
-    paths = glob.glob(pattern, recursive=recursive)
-    for path in sorted(paths):
+    for path in sorted(glob.glob(pattern, recursive=True)):
         if 'under-development' in path.split(os.sep):
             continue
-        text = open(path).read()
-        m = re.search(r'^id:\s*(\S+)', text, re.MULTILINE)
-        if not m:
+        fm = frontmatter(path)
+        if not fm:
             continue
-        iri = m.group(1).strip()
-        if not any(iri.startswith(p) for p in expected_prefixes):
+        iri = fm.get('id')
+        if iri and not any(str(iri).startswith(p) for p in expected_prefixes):
             print(f'WRONG ID ROOT: {path} -> {iri}')
             errors += 1
+        for topic in (fm.get('mia', {}) or {}).get('topics') or []:
+            tid = topic.get('id') if isinstance(topic, dict) else None
+            if tid and not any(tid.startswith(p) for p in expected_prefixes):
+                print(f'WRONG TOPIC ID ROOT: {path} -> {tid}')
+                errors += 1
 
-check_id_root('example/Cells/**/*.databook.md', ['http://www.example.org/', 'https://www.example.org/'], True)
-check_id_root('example/topics/*.databook.md', ['http://www.example.org/', 'https://www.example.org/'], False)
+check_cell_tree_id_roots('example/Cells/**/*.databook.md', ['http://www.example.org/', 'https://www.example.org/'])
 
 print('OK — no IRI-root violations found.' if errors == 0 else f'{errors} violation(s) found.')
 ```
 
 If a violation is found, rename the offending file's `owl:Ontology`/`id:` IRI to the correct root, and update every DataBook `shapes:` YAML reference, catalog entry, and cross-reference that pointed at the old IRI to match (see Check 5's Tier 1/Tier 2 validation commands, which also hardcode these IRIs via the `shapes:` mechanism).
 
-**Check 17 — `memberTopics` distinct-subject count matches member class**: `cell:memberTopics`'s cardinality (cell-shacl.ttl's `:OneMemberShape`/`:TwoMemberShape`/`:ThreePlusMemberShape`) guarantees *enough* topics per member count, but not that they're topics *about* the right number of distinct members — a cell could satisfy the count while every topic repeats the same `t:subject` (e.g. two `memberTopics` both with `subject: ":Self"` on a `TwoMember` cell). The additional invariant: across all of a cell's `memberTopics` (found via the topic's own `mia.subject`, not `mia.claimant`), the number of **distinct** `t:subject` values must be at least 1 for `cell:OneMember`, 2 for `cell:TwoMember`, and 3 for `cell:ThreePlusMember` — one per member in the relationship. This is not itself an OWL/SHACL-expressible constraint (it requires dereferencing each `memberTopics` value's own `subject`, not just counting `memberTopics` values), so it's checked here instead. Run:
+**Check 17 — `memberTopics` distinct-subject count matches member class**: `cell:memberTopics`'s cardinality (cell-shacl.ttl's `:OneMemberShape`/`:TwoMemberShape`/`:ThreePlusMemberShape`) guarantees *enough* topics per member count, but not that they're topics *about* the right number of distinct members — a cell could satisfy the count while every topic repeats the same `t:subject` (e.g. two `memberTopics` both with `subject: ":Self"` on a `TwoMember` cell). The additional invariant: across all of a cell's `memberTopics` (found via the topic's own `subject`, not `claimant`, in that same cell's own `mia.topics` list — no longer a separate topic-databook file), the number of **distinct** `t:subject` values must be at least 1 for `cell:OneMember`, 2 for `cell:TwoMember`, and 3 for `cell:ThreePlusMember` — one per member in the relationship. This is not itself an OWL/SHACL-expressible constraint (it requires dereferencing each `memberTopics` value's own `subject`, not just counting `memberTopics` values), so it's checked here instead. Run:
 
 ```python
 import re, yaml, glob
@@ -502,14 +482,6 @@ def frontmatter(path):
     text = open(path, encoding='utf-8').read()
     m = re.match(r'^---\n(.*?)\n---', text, re.DOTALL)
     return yaml.safe_load(m.group(1)) if m else None
-
-topic_subject = {}
-for f in glob.glob('example/topics/*.databook.md'):
-    fm = frontmatter(f)
-    if fm and fm.get('type') == 'topic-databook':
-        mia = fm.get('mia', {}) or {}
-        if mia.get('subject'):
-            topic_subject[fm['id']] = mia['subject']
 
 expected = {'cell:OneMember': 1, 'cell:TwoMember': 2, 'cell:ThreePlusMember': 3}
 violations = 0
@@ -521,13 +493,14 @@ for f in glob.glob('example/Cells/**/*-cell.databook.md', recursive=True):
     member_count = mia.get('memberCount')
     if not member_count:
         continue
+    topic_subject = {t['id']: t.get('subject') for t in (mia.get('topics') or []) if isinstance(t, dict)}
     pt = mia.get('memberTopics')
     pt = pt if isinstance(pt, list) else [pt]
     subs = set()
     for tid in pt:
         s = topic_subject.get(tid)
         if s is None:
-            print(f'{f}: topic {tid} not found or has no subject')
+            print(f'{f}: topic {tid} not found in mia.topics, or has no subject')
             continue
         subs.add(s if isinstance(s, str) else tuple(s))
     need = expected[member_count]
@@ -549,14 +522,6 @@ def frontmatter(path):
     m = re.match(r'^---\n(.*?)\n---', text, re.DOTALL)
     return yaml.safe_load(m.group(1)) if m else None
 
-topic_subject = {}
-for f in glob.glob('example/topics/*.databook.md'):
-    fm = frontmatter(f)
-    if fm and fm.get('type') == 'topic-databook':
-        mia = fm.get('mia', {}) or {}
-        if mia.get('subject'):
-            topic_subject[fm['id']] = mia['subject']
-
 REQUIRED_MIN = {'cell:OneMember': 1, 'cell:TwoMember': 2}
 violations = 0
 for f in glob.glob('example/Cells/**/*-cell.databook.md', recursive=True):
@@ -567,6 +532,7 @@ for f in glob.glob('example/Cells/**/*-cell.databook.md', recursive=True):
     member_count = mia.get('memberCount')
     if member_count not in REQUIRED_MIN:
         continue
+    topic_subject = {t['id']: t.get('subject') for t in (mia.get('topics') or []) if isinstance(t, dict)}
     subj = mia.get('subject')
     subj = subj if isinstance(subj, list) else [subj]
     pt = mia.get('memberTopics') or []
@@ -602,16 +568,17 @@ If a violation is found, either relink the offending topic to the correct list (
 
 Whenever changes are made to any topic file, `persona.ttl`, or `topic.ttl`, `persona-shacl.ttl` must be updated to match:
 
-- **New property usage in a topic file** (e.g., a new physical characteristic, relationship, or identifier added to a Person or Persona instance) → add or extend a SHACL shape to validate that property on the relevant target class.
+- **New property usage in a topic** (e.g., a new physical characteristic, relationship, or identifier added to a Person or Persona instance) → add or extend a SHACL shape to validate that property on the relevant target class.
 - **New class or property defined in `persona.ttl`** (e.g., `persona:hasSocialNetwork`) → add a SHACL shape that constrains how instances of the domain class may or must use it.
 
 Always update `persona-shacl.ttl` in the same edit session as the change that triggers it.
 
 ## Validation
 
-**SHACL validation** (e.g., using Apache Jena's `shaclvalidate`):
+**SHACL validation** (e.g., using Apache Jena's `shaclvalidate`) — run against turtle extracted from a cell-databook (see README.md's Validation section for the full extraction pipeline; topic 14 is embedded in this cell):
 ```bash
-shaclvalidate -datafile example/topics/self.self(boston-hub-society)(affiliations)(14).databook.md -shapesfile persona-shacl.ttl
+databook extract "example/Cells/Affiliations/Boston Hub Society/boston-hub-society(affiliations)-cell.databook.md" > /tmp/data.ttl
+shaclvalidate -datafile /tmp/data.ttl -shapesfile persona-shacl.ttl
 ```
 
 **Protégé**: Load `persona.ttl`; Protégé will import the domain ontologies via IRI resolution. Use the reasoner (HermiT/Pellet) to check consistency.

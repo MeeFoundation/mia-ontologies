@@ -4,19 +4,26 @@ yaml-to-rdf.py  —  Synthesize cat:/cell:/topic: triples from the `mia.` YAML
 frontmatter of category, cell, and topic DataBooks.
 
 Why this exists: `databook extract` only pulls fenced Turtle blocks out of a
-DataBook — but category-databook and cell-databook files carry all of their
-content as `mia.` YAML frontmatter, with no Turtle block at all. Without this
-script, cat:Folder/cell:Cell individuals (and topic:SCTopicGraph's subject/
-claimant) never appear in the graph SHACL validates, so category-shacl.ttl,
+DataBook — but category-databook and cell-databook files carry most of their
+content as `mia.` YAML frontmatter, not Turtle. Without this script,
+cat:Folder/cell:Cell individuals (and topic:SCTopicGraph's subject/claimant)
+never appear in the graph SHACL validates, so category-shacl.ttl,
 cell-shacl.ttl, and topic-shacl.ttl's :SCTopicGraphShape never fire against
 real instance data. This script closes that gap by mapping each `mia.` field
 to its corresponding ontology property, matching the mapping tables documented
 in README.md's Category/Cell/Topic Ontology sections.
 
-A topic DataBook's `mia.claimant`/`mia.subject` are typed on its plain `id`,
-not `graph.named_graph` (id + "#graph") — matching topic.ttl's
-topic:subject/topic:claimant doc comments, and the IRI cell:memberTopics/
-cell:otherTopics actually reference in every cell DataBook's YAML.
+Since topic-databooks were merged into their owning cell-databooks (each
+topic's Turtle content and Overview now live in that cell file's body; its
+`claimant`/`subject`/etc. now live in a `mia.topics` list on that same cell's
+frontmatter — see CLAUDE.md's "Topic ID Naming Convention" section), there is
+no separate `example/topics/*.databook.md` glob any more: `process_cell_databook`
+below now also iterates `mia.topics` and emits the same three triples per
+entry that `process_topic_databook` used to emit per file.
+
+A topic's `claimant`/`subject` are typed on its plain `mia.topics[].id`, not
+that id + "#graph" — matching topic.ttl's topic:subject/topic:claimant doc
+comments, and the IRI cell:memberTopics/cell:otherTopics actually reference.
 
 Usage:   python3 yaml-to-rdf.py [repo-root] > yaml-data.ttl
 Output:  Turtle triples on stdout — merge with `riot` alongside data extracted
@@ -149,14 +156,19 @@ def process_cell_databook(fm, triples):
     if mia.get("shape"):
         emit_obj(triples, subj, CELL + "shape", resolve(mia["shape"]))
 
+    for topic in as_list(mia.get("topics")):
+        process_embedded_topic(topic, triples)
 
-def process_topic_databook(fm, triples):
-    mia = fm.get("mia", {}) or {}
-    claimant = mia.get("claimant")
-    subject = mia.get("subject")
+
+def process_embedded_topic(topic, triples):
+    """Emit topic:SCTopicGraph/claimant/subject for one mia.topics[] entry —
+    replaces the old process_topic_databook, which read the same three
+    fields from a separate topic-databook file's own frontmatter."""
+    claimant = topic.get("claimant")
+    subject = topic.get("subject")
     if not (claimant and subject):
         return  # no subject/claimant — not an SCTopicGraph, skip
-    subj = fm["id"]
+    subj = topic["id"]
     emit_type(triples, subj, TOPIC + "SCTopicGraph")
     emit_obj(triples, subj, TOPIC + "claimant", resolve(claimant))
     emit_obj(triples, subj, TOPIC + "subject", resolve(subject))
@@ -176,15 +188,6 @@ def main(root):
             process_category_databook(fm, triples)
         elif t == "cell-databook":
             process_cell_databook(fm, triples)
-
-    for path in sorted(glob.glob(os.path.join(root, "example", "topics", "*.databook.md"))):
-        if "under-development" in path.split(os.sep):
-            continue
-        fm = frontmatter(path)
-        if not fm:
-            continue
-        if fm.get("type") == "topic-databook":
-            process_topic_databook(fm, triples)
 
     print("\n".join(triples))
 
