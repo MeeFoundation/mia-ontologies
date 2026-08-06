@@ -8,9 +8,9 @@ description: >
   Cell DataBook of category "Boston Hub Society" (mia.catType: Affiliations). Content may include topics/folder/note links, and may carry one or two required subject values.
 mia:
   creator: ":Self"
-  parties: "cell:ThreePlusParty"
+  memberCount: "cell:ThreePlusMember"
   subject: ":BHS_Group"
-  partyTopics:
+  memberTopics:
     - "https://www.example.org/mia/topics/bhs-group.members(boston-hub-society)(affiliations)(01)"
     - "https://www.example.org/mia/topics/self.self(boston-hub-society)(affiliations)(14)"
     - "https://www.example.org/mia/topics/bob-johnson.bob-johnson(boston-hub-society)(affiliations)(03)"

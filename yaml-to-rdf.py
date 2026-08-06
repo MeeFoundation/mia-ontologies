@@ -15,7 +15,7 @@ in README.md's Category/Cell/Topic Ontology sections.
 
 A topic DataBook's `mia.claimant`/`mia.subject` are typed on its plain `id`,
 not `graph.named_graph` (id + "#graph") — matching topic.ttl's
-topic:subject/topic:claimant doc comments, and the IRI cell:partyTopics/
+topic:subject/topic:claimant doc comments, and the IRI cell:memberTopics/
 cell:otherTopics actually reference in every cell DataBook's YAML.
 
 Usage:   python3 yaml-to-rdf.py [repo-root] > yaml-data.ttl
@@ -118,18 +118,18 @@ def process_cell_databook(fm, triples):
 
     emit_type(triples, subj, CELL + "Cell")
 
-    parties = mia.get("parties")
-    if parties:
-        # Only an actually-instantiated cell (real content, cell:parties set)
-        # is typed cell:ACell — a pure tree-position placeholder with nothing
-        # filed under it yet stays a bare cell:Cell (cell.ttl 3.10.0), and is
-        # therefore exempt from cell-shacl.ttl's :ACellShape and the
-        # per-party-count shapes, including their required
-        # cell:subject/cell:partyTopics.
+    member_count = mia.get("memberCount")
+    if member_count:
+        # Only an actually-instantiated cell (real content, cell:memberCount
+        # set) is typed cell:ACell — a pure tree-position placeholder with
+        # nothing filed under it yet stays a bare cell:Cell (cell.ttl 3.10.0),
+        # and is therefore exempt from cell-shacl.ttl's :ACellShape and the
+        # per-member-count shapes, including their required
+        # cell:subject/cell:memberTopics.
         emit_type(triples, subj, CELL + "ACell")
-        party_iri = resolve(parties)
-        emit_type(triples, subj, party_iri)
-        emit_obj(triples, subj, CELL + "parties", party_iri)
+        member_iri = resolve(member_count)
+        emit_type(triples, subj, member_iri)
+        emit_obj(triples, subj, CELL + "memberCount", member_iri)
 
     if mia.get("creator"):
         emit_obj(triples, subj, CELL + "creator", resolve(mia["creator"]))
@@ -137,8 +137,8 @@ def process_cell_databook(fm, triples):
     if mia.get("folder"):
         emit_lit(triples, subj, CELL + "folder", mia["folder"], XSD + "anyURI")
 
-    for topic_iri in as_list(mia.get("partyTopics")):
-        emit_obj(triples, subj, CELL + "partyTopics", resolve(topic_iri))
+    for topic_iri in as_list(mia.get("memberTopics")):
+        emit_obj(triples, subj, CELL + "memberTopics", resolve(topic_iri))
 
     for topic_iri in as_list(mia.get("otherTopics")):
         emit_obj(triples, subj, CELL + "otherTopics", resolve(topic_iri))

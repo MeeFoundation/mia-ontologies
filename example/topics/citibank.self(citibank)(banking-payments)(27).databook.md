@@ -7,7 +7,7 @@ created: 2026-08-02
 description: >
   Alice Walker's own self-claimed notes about Citibank as an institution, alongside
   Citibank's own claimed record about Alice (topic 09) — the two distinct subjects
-  (`:Self`, `:Citibank`) this `cell:TwoParty` cell's `partyTopics` must cover.
+  (`:Self`, `:Citibank`) this `cell:TwoMember` cell's `memberTopics` must cover.
 mia:
   claimant: ":Self"
   subject: ":Citibank"
@@ -27,7 +27,7 @@ process:
 
 ## Overview
 
-This topic captures Alice Walker's own self-claimed notes about Citibank as an institution — her own record of the organization, distinct from Citibank's own claimed record about her (topic 09). Together the two topics give this cell's `partyTopics` the two distinct subjects (`:Self`, `:Citibank`) required for a `cell:TwoParty` cell.
+This topic captures Alice Walker's own self-claimed notes about Citibank as an institution — her own record of the organization, distinct from Citibank's own claimed record about her (topic 09). Together the two topics give this cell's `memberTopics` the two distinct subjects (`:Self`, `:Citibank`) required for a `cell:TwoMember` cell.
 
 ## Topic Graph
 

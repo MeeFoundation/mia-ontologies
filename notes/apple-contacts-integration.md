@@ -30,9 +30,9 @@ This display truncation limit is not publicly documented by Apple and likely var
 
 ## Level 2: Groups ↔ c:UserDefined Categories
 
-Apple Contacts groups are **flat** (one level only) and untyped. Mia's category tree is hierarchical and typed (`c:TwoParty`, `c:MultiParty`, `c:UserDefined`, etc.).
+Apple Contacts groups are **flat** (one level only) and untyped. Mia's category tree is hierarchical and typed (`c:TwoMember`, `c:MultiMember`, `c:UserDefined`, etc.).
 
-**Import (Apple Contacts → Mia):** each Apple group becomes a leaf-level `c:TwoParty` or `c:UserDefined` category. No hierarchy is lost since Apple groups have none.
+**Import (Apple Contacts → Mia):** each Apple group becomes a leaf-level `c:TwoMember` or `c:UserDefined` category. No hierarchy is lost since Apple groups have none.
 
 **Export (Mia → Apple Contacts):** the hierarchy must be flattened. Two options:
 

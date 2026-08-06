@@ -8,11 +8,11 @@ description: >
   Cell DataBook of category "Bob Johnson" (mia.catType: Others). Content may include topics/folder/note links, and may carry one or two required subject values.
 mia:
   creator: ":Self"
-  parties: "cell:TwoParty"
+  memberCount: "cell:TwoMember"
   subject:
     - ":Bob_Johnson"
     - ":Self"
-  partyTopics:
+  memberTopics:
     - "https://www.example.org/mia/topics/bob-johnson.bob-johnson(bob-johnson)(others)(02)"
     - "https://www.example.org/mia/topics/self.self(bob-johnson)(others)(12)"
     - "https://www.example.org/mia/topics/bob-johnson.self(bob-johnson)(others)(04)"

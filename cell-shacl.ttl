@@ -11,7 +11,7 @@
 @prefix o: <http://mee.foundation/ontologies/organization#> .
 
 <http://mee.foundation/ontologies/cell/shapes> rdf:type owl:Ontology ;
-    owl:versionInfo "Version 3.13.0 - removed :CellShape's cell:note constraint (cell:note was removed from cell.ttl 3.15.0, merging the separate notes/files folder hierarchies into one under cell:folder); :CellShape now constrains only cell:folder's cardinality. (3.12.0: split cell:topics's constraint into cell:otherTopics (unbounded, uniform, stays on :ACellShape) and cell:partyTopics (required baseline, now enforced per party count by three new shapes: :OnePartyShape, :TwoPartyShape, :ThreePlusPartyShape, targeting cell:OneParty/cell:TwoParty/cell:ThreePlusParty respectively). Also moved cell:subject's minCount/maxCount off the uniform :ACellShape and onto those same three per-party shapes, tightening it from a blanket 1..2 to exactly 1 for cell:OneParty/cell:ThreePlusParty and 1..2 for cell:TwoParty — :ACellShape now only checks cell:subject's sh:nodeKind sh:IRI uniformly.)"@en ;
+    owl:versionInfo "Version 3.14.0 - renamed :OnePartyShape/:TwoPartyShape/:ThreePlusPartyShape to :OneMemberShape/:TwoMemberShape/:ThreePlusMemberShape and their sh:targetClass values to cell:OneMember/cell:TwoMember/cell:ThreePlusMember, matching cell.ttl 3.17.0's cell:OneParty/cell:TwoParty/cell:ThreePlusParty -> cell:OneMember/cell:TwoMember/cell:ThreePlusMember rename; also updated :ACellShape's cell:parties/cell:partyTopics sh:path values to cell:memberCount/cell:memberTopics. No cardinality changes — a pure terminology shift. (3.13.0 - removed :CellShape's cell:note constraint (cell:note was removed from cell.ttl 3.15.0, merging the separate notes/files folder hierarchies into one under cell:folder); :CellShape now constrains only cell:folder's cardinality. 3.12.0: split cell:topics's constraint into cell:otherTopics (unbounded, uniform, stays on :ACellShape) and cell:partyTopics (required baseline, now enforced per party count by three new shapes: :OnePartyShape, :TwoPartyShape, :ThreePlusPartyShape, targeting cell:OneParty/cell:TwoParty/cell:ThreePlusParty respectively). Also moved cell:subject's minCount/maxCount off the uniform :ACellShape and onto those same three per-party shapes, tightening it from a blanket 1..2 to exactly 1 for cell:OneParty/cell:ThreePlusParty and 1..2 for cell:TwoParty — :ACellShape now only checks cell:subject's sh:nodeKind sh:IRI uniformly.)"@en ;
     rdfs:label "Cell Ontology SHACL Validation Shapes"@en ;
     rdfs:comment "SHACL validation shapes for cell:Cell DataBook instances (the content facet of a cell) in the Cell Ontology."@en .
 
@@ -20,8 +20,8 @@
 #  Cell
 #  cell:Cell (formerly cell:Parties) carries only what's common to
 #  every cell regardless of facet: folder. Identity/topic links
-#  (cell:subject/cell:partyTopics/cell:otherTopics) live on
-#  :ACellShape and the per-party-count shapes below, since their
+#  (cell:subject/cell:memberTopics/cell:otherTopics) live on
+#  :ACellShape and the per-member-count shapes below, since their
 #  domain narrowed from cell:Cell to cell:ACell in cell.ttl 3.10.0 —
 #  a cell not yet typed cell:ACell has none of them.
 #################################################################
@@ -69,16 +69,16 @@
 #################################################################
 #  ACell
 #  cell:ACell is the actual/instantiated facet of a cell (cell.ttl
-#  3.7.0) — real, party-classified content. creator and parties
+#  3.7.0) — real, member-classified content. creator and memberCount
 #  moved here from :CellShape when their domain narrowed from
 #  cell:Cell to cell:ACell; subject and topics (renamed from
 #  primary/secondary, themselves renamed from graph/sc-context)
 #  moved here the same way in cell.ttl 3.10.0/3.12.0. As of cell.ttl
 #  3.14.0/cell-shacl.ttl 3.12.0, cell:subject's and cell:topics's
-#  per-party-count cardinality is no longer enforced uniformly here —
-#  see :OnePartyShape/:TwoPartyShape/:ThreePlusPartyShape below.
+#  per-member-count cardinality is no longer enforced uniformly here —
+#  see :OneMemberShape/:TwoMemberShape/:ThreePlusMemberShape below.
 #  :ACellShape retains only cell:subject's structural sh:nodeKind
-#  check (applies regardless of party count) and cell:otherTopics's
+#  check (applies regardless of member count) and cell:otherTopics's
 #  unbounded, uniform constraint.
 #################################################################
 
@@ -91,8 +91,8 @@
     # sh:class topic:SCTopicGraph — its range widened to xsd:anyURI in
     # cell.ttl 3.12.0, since its values are the resource(s) the cell is
     # about, e.g. a p:Person/g:Group/o:Organization, not a topic
-    # container). Cardinality (exactly 1 vs 1..2) now varies by party
-    # count — see :OnePartyShape/:TwoPartyShape/:ThreePlusPartyShape
+    # container). Cardinality (exactly 1 vs 1..2) now varies by member
+    # count — see :OneMemberShape/:TwoMemberShape/:ThreePlusMemberShape
     # below, not here.
     sh:property [
         sh:path cell:subject ;
@@ -101,10 +101,10 @@
     ] ;
 
     # cell:otherTopics — any number of additional topics beyond the
-    # required cell:partyTopics baseline, each a topic:SCTopicGraph.
-    # Optional and unbounded uniformly across all party counts, unlike
-    # cell:partyTopics (see :OnePartyShape/:TwoPartyShape/
-    # :ThreePlusPartyShape below). Split from cell:topics (cell.ttl up
+    # required cell:memberTopics baseline, each a topic:SCTopicGraph.
+    # Optional and unbounded uniformly across all member counts, unlike
+    # cell:memberTopics (see :OneMemberShape/:TwoMemberShape/
+    # :ThreePlusMemberShape below). Split from cell:topics (cell.ttl up
     # to 3.13.0).
     sh:property [
         sh:path cell:otherTopics ;
@@ -120,16 +120,16 @@
         sh:message "A cell:ACell's cell:creator, if present, must be a single p:Person, g:Group, or o:Organization."@en
     ] ;
 
-    # cell:parties — exactly one value, must be the class
-    # cell:OneParty, cell:TwoParty, or cell:ThreePlusParty itself
+    # cell:memberCount — exactly one value, must be the class
+    # cell:OneMember, cell:TwoMember, or cell:ThreePlusMember itself
     # (class-value punning, not a string). Required: every cell:ACell
     # instance is typed as one of these three by definition.
     sh:property [
-        sh:path cell:parties ;
+        sh:path cell:memberCount ;
         sh:minCount 1 ;
         sh:maxCount 1 ;
-        sh:in ( cell:OneParty cell:TwoParty cell:ThreePlusParty ) ;
-        sh:message "A cell:ACell's cell:parties is required and must be the class cell:OneParty, cell:TwoParty, or cell:ThreePlusParty."@en
+        sh:in ( cell:OneMember cell:TwoMember cell:ThreePlusMember ) ;
+        sh:message "A cell:ACell's cell:memberCount is required and must be the class cell:OneMember, cell:TwoMember, or cell:ThreePlusMember."@en
     ] ;
 
     # cell:shape — at most one value. Not constrained to sh:class sh:NodeShape
@@ -145,73 +145,73 @@
 
 
 #################################################################
-#  Per-Party-Count Shapes
-#  cell:subject and cell:partyTopics both scale with how many total
-#  parties a cell:ACell individual represents (cell.ttl's Cell Party
+#  Per-Member-Count Shapes
+#  cell:subject and cell:memberTopics both scale with how many total
+#  members a cell:ACell individual represents (cell.ttl's Cell Member
 #  Composition). Since yaml-to-rdf.py types every cell:ACell instance
-#  with its concrete party class (cell:OneParty/cell:TwoParty/
-#  cell:ThreePlusParty) in addition to asserting cell:parties, these
+#  with its concrete member class (cell:OneMember/cell:TwoMember/
+#  cell:ThreePlusMember) in addition to asserting cell:memberCount, these
 #  three shapes can target those classes directly via sh:targetClass.
 #  cell:otherTopics is deliberately absent here — it stays uniform,
-#  unbounded, and optional regardless of party count (see :ACellShape
+#  unbounded, and optional regardless of member count (see :ACellShape
 #  above).
 #################################################################
 
-:OnePartyShape
+:OneMemberShape
     a sh:NodeShape ;
-    sh:targetClass cell:OneParty ;
-    sh:message "OneParty Cell validation."@en ;
+    sh:targetClass cell:OneMember ;
+    sh:message "OneMember Cell validation."@en ;
 
     sh:property [
         sh:path cell:subject ;
         sh:minCount 1 ;
         sh:maxCount 1 ;
-        sh:message "A cell:OneParty's cell:subject is required, exactly one value."@en
+        sh:message "A cell:OneMember's cell:subject is required, exactly one value."@en
     ] ;
 
     sh:property [
-        sh:path cell:partyTopics ;
+        sh:path cell:memberTopics ;
         sh:minCount 1 ;
         sh:maxCount 1 ;
         sh:class topic:SCTopicGraph ;
-        sh:message "A cell:OneParty's cell:partyTopics is required, exactly one value, and it must be a topic:SCTopicGraph."@en
+        sh:message "A cell:OneMember's cell:memberTopics is required, exactly one value, and it must be a topic:SCTopicGraph."@en
     ] .
 
-:TwoPartyShape
+:TwoMemberShape
     a sh:NodeShape ;
-    sh:targetClass cell:TwoParty ;
-    sh:message "TwoParty Cell validation."@en ;
+    sh:targetClass cell:TwoMember ;
+    sh:message "TwoMember Cell validation."@en ;
 
     sh:property [
         sh:path cell:subject ;
         sh:minCount 1 ;
         sh:maxCount 2 ;
-        sh:message "A cell:TwoParty's cell:subject is required, one or two values."@en
+        sh:message "A cell:TwoMember's cell:subject is required, one or two values."@en
     ] ;
 
     sh:property [
-        sh:path cell:partyTopics ;
+        sh:path cell:memberTopics ;
         sh:minCount 2 ;
         sh:maxCount 4 ;
         sh:class topic:SCTopicGraph ;
-        sh:message "A cell:TwoParty's cell:partyTopics is required, two to four values (one per self-vs-other combination), and each must be a topic:SCTopicGraph."@en
+        sh:message "A cell:TwoMember's cell:memberTopics is required, two to four values (one per self-vs-other combination), and each must be a topic:SCTopicGraph."@en
     ] .
 
-:ThreePlusPartyShape
+:ThreePlusMemberShape
     a sh:NodeShape ;
-    sh:targetClass cell:ThreePlusParty ;
-    sh:message "ThreePlusParty Cell validation."@en ;
+    sh:targetClass cell:ThreePlusMember ;
+    sh:message "ThreePlusMember Cell validation."@en ;
 
     sh:property [
         sh:path cell:subject ;
         sh:minCount 1 ;
         sh:maxCount 1 ;
-        sh:message "A cell:ThreePlusParty's cell:subject is required, exactly one value."@en
+        sh:message "A cell:ThreePlusMember's cell:subject is required, exactly one value."@en
     ] ;
 
     sh:property [
-        sh:path cell:partyTopics ;
+        sh:path cell:memberTopics ;
         sh:minCount 3 ;
         sh:class topic:SCTopicGraph ;
-        sh:message "A cell:ThreePlusParty's cell:partyTopics is required, at least three values (one per party), and each must be a topic:SCTopicGraph."@en
+        sh:message "A cell:ThreePlusMember's cell:memberTopics is required, at least three values (one per member), and each must be a topic:SCTopicGraph."@en
     ] .

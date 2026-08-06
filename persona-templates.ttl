@@ -8,8 +8,8 @@
 @base <http://mee.foundation/ontologies/persona-templates> .
 
 <http://mee.foundation/ontologies/persona-templates> rdf:type owl:Ontology ;
-    dc:date "2026-07-18"^^xsd:date ;
-    owl:versionInfo "Version 2.4.0 - deprecated the government-ID and date designator classes (DriversLicenseNumber, PassportNumber, PlaceOfBirth, IssuingJurisdiction, IssuingCountry, IssueDate) in favour of committed cco: ent IRIs; usages migrated, declarations retained with owl:deprecated + rdfs:seeAlso aliases (see block at end of file). (2.3.0: fixed stale doc-comment references to cat:templateShapes (category.ttl): the property moved to cell.ttl as cell:templateShapes back in cell.ttl 3.6.0, and was renamed cell:templateShape (singular) in cell.ttl 3.9.0 — comments here still said cat:templateShapes and 'class-level cell:Cell template', neither ever updated. No change to any class or property defined in this file."@en ;
+    dc:date "2026-08-06"^^xsd:date ;
+    owl:versionInfo "Version 2.5.0 - fixed stale doc-comment wording in persona:MedicalAppointmentRecord's rdfs:comment: 'parties' (as in 'the two parties coordinating that care', 'the coordinating parties' Mia instances') replaced with 'members', matching the cell:parties/cell:partyTopics -> cell:memberCount/cell:memberTopics rename in cell.ttl 3.17.0. No change to any class or property defined in this file. (2.4.0 - deprecated the government-ID and date designator classes (DriversLicenseNumber, PassportNumber, PlaceOfBirth, IssuingJurisdiction, IssuingCountry, IssueDate) in favour of committed cco: ent IRIs; usages migrated, declarations retained with owl:deprecated + rdfs:seeAlso aliases (see block at end of file). 2.3.0: fixed stale doc-comment references to cat:templateShapes (category.ttl): the property moved to cell.ttl as cell:templateShapes back in cell.ttl 3.6.0, and was renamed cell:templateShape (singular) in cell.ttl 3.9.0 — comments here still said cat:templateShapes and 'class-level cell:Cell template', neither ever updated. No change to any class or property defined in this file.)"@en ;
     rdfs:label "Persona Templates Ontology"@en ;
     rdfs:comment """Template type classification used as values for the topic:template annotation property.
                     Each concrete template type (BirthCertificateDocument, JSContactCard, DriversLicenseDocument,
@@ -373,14 +373,14 @@ persona:MedicalAppointmentRecord rdf:type owl:Class ;
     rdfs:label "Medical Appointment"@en ;
     rdfs:comment """Template type label for a topic whose purpose is to carry the claims
                     needed to arrange a medical appointment on behalf of someone else (e.g. a
-                    family member), shared between the two parties coordinating that care.
+                    family member), shared between the two members coordinating that care.
                     Also the class of the shareable claims record individual itself, following
                     the same document-individual pattern as p:PassportDocument: the claims below
                     are properties of the MedicalAppointmentRecord, not of the patient's Person
                     individual directly. Any referenced third party (e.g. the patient, their
                     primary care physician) must have their relevant claims copied into this
                     topic, since each topic's named graph must be self-contained for p2p
-                    sync between the coordinating parties' Mia instances. Used as the value
+                    sync between the coordinating members' Mia instances. Used as the value
                     of topic:template on the topic file's
                     ontology IRI. Selects the SHACL shape :MedicalAppointmentRecordShape in
                     cell-templates-shacl.ttl, linked from cat:MedicalAppointmentInfo's template

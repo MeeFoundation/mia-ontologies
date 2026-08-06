@@ -8,11 +8,11 @@ description: >
   Cell DataBook of category "Fred Flintstone" (mia.catType: Others). Content may include topics/folder/note links, and may carry one or two required subject values.
 mia:
   creator: ":Self"
-  parties: "cell:TwoParty"
+  memberCount: "cell:TwoMember"
   subject:
     - ":Fred_Flintstone"
     - ":Self"
-  partyTopics:
+  memberTopics:
     - "https://www.example.org/mia/topics/fred-flintstone.fred-flintstone(fred-flintstone)(others)(31)"
     - "https://www.example.org/mia/topics/self.self(fred-flintstone)(others)(29)"
 ---

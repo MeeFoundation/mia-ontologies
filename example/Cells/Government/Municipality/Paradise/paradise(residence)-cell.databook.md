@@ -8,7 +8,7 @@ description: >
   Cell DataBook of category "Paradise" (mia.catType: Residence). Content may include topics/folder/note links, and may carry one or two required subject values.
 mia:
   creator: ":Self"
-  parties: "cell:OneParty"
+  memberCount: "cell:OneMember"
   subject: ":Self"
-  partyTopics: "https://www.example.org/mia/topics/self.self(paradise)(residence)(18)"
+  memberTopics: "https://www.example.org/mia/topics/self.self(paradise)(residence)(18)"
 ---

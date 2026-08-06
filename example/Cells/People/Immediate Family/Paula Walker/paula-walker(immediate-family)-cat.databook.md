@@ -10,5 +10,5 @@ mia:
   catType: "ImmediateFamily"
   cell: "http://www.example.org/mia/categories/paula-walker(immediate-family)-cell"
   category: "cat:ImmediateFamily"
-  child: "http://www.example.org/mia/categories/health-wellness(health-wellness)-cat"
+  child: "http://www.example.org/mia/categories/health-wellness-cat"
 ---

@@ -8,11 +8,11 @@ description: >
   Cell DataBook of category "Paula Walker" (mia.catType: ImmediateFamily). Content may include topics/folder/note links, and may carry one or two required subject values.
 mia:
   creator: ":Self"
-  parties: "cell:TwoParty"
+  memberCount: "cell:TwoMember"
   subject:
     - ":Paula_Walker"
     - ":Self"
-  partyTopics:
+  memberTopics:
     - "https://www.example.org/mia/topics/paula-walker.paula-walker(paula-walker)(immediate-family)(05)"
     - "https://www.example.org/mia/topics/self.self(paula-walker)(immediate-family)(21)"
     - "https://www.example.org/mia/topics/paula-walker.self(paula-walker)(immediate-family)(07)"
