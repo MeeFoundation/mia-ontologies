@@ -5,18 +5,18 @@ flowchart TD
     classDef lit    fill:none,stroke:none,font-style:italic,color:#2a7a2a
     classDef meta   fill:#f5f5ff,stroke:#9999cc,color:#333
 
-    subgraph ctx["Topic"]
+    subgraph ctx["Topic Graph"]
         direction LR
         ctx_meta["claimant: :Fred_Flintstone\nsubject: :Fred_Flintstone"]:::meta
     end
 
     n65f31abcd71e[":Fred_Flintstone\n(Person)"]:::person
-    ne066edd6fe58("Fred"):::lit
-    n2204fb38aa31("Flintstone"):::lit
+    n80d71410cf6b("Fred"):::lit
+    nafcbdf720538("Flintstone"):::lit
     n48ac21e51de9[":Fred_Fred_Network\n(SocialNetwork)"]
     n89768dce3f8b[":Self"]
 
-    n65f31abcd71e -->|"GivenName"| ne066edd6fe58
-    n65f31abcd71e -->|"FamilyName"| n2204fb38aa31
+    n65f31abcd71e -->|"GivenName"| n80d71410cf6b
+    n65f31abcd71e -->|"FamilyName"| nafcbdf720538
     n65f31abcd71e -->|"hasSocialNetwork"| n48ac21e51de9
     n48ac21e51de9 -->|"hasMemberPart"| n89768dce3f8b

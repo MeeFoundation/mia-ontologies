@@ -5,14 +5,14 @@ flowchart TD
     classDef lit    fill:none,stroke:none,font-style:italic,color:#2a7a2a
     classDef meta   fill:#f5f5ff,stroke:#9999cc,color:#333
 
-    subgraph ctx["Topic"]
+    subgraph ctx["Topic Graph"]
         direction LR
         ctx_meta["claimant: :Self\nsubject: :Paula_Walker"]:::meta
     end
 
     nf4296ab13de4[":Paula_Walker\n(Person)"]:::person
-    n9014d3444c3a("Paula"):::lit
-    n82c3b4a9c89b("Walker"):::lit
+    n43c89135a6d7("Paula"):::lit
+    ne96d33ae7fe4("Walker"):::lit
 
-    nf4296ab13de4 -->|"GivenName"| n9014d3444c3a
-    nf4296ab13de4 -->|"FamilyName"| n82c3b4a9c89b
+    nf4296ab13de4 -->|"GivenName"| n43c89135a6d7
+    nf4296ab13de4 -->|"FamilyName"| ne96d33ae7fe4

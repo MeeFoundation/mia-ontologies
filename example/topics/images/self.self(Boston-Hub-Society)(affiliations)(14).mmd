@@ -5,20 +5,20 @@ flowchart TD
     classDef lit    fill:none,stroke:none,font-style:italic,color:#2a7a2a
     classDef meta   fill:#f5f5ff,stroke:#9999cc,color:#333
 
-    subgraph ctx["Topic"]
+    subgraph ctx["Topic Graph"]
         direction LR
         ctx_meta["claimant: :Self\nsubject: :Self"]:::meta
     end
 
     nbb363374209c[":Address_BHS\n(PostalAddress)"]
-    nf6bcd6333282("123 Sleepy Hollow"):::lit
-    n8d4be0743f9b("Paradise"):::lit
-    na55f125aa40a("CA"):::lit
-    nbcbc4da17527("95969"):::lit
-    n43696f28f88d("USA"):::lit
+    n8add0abf603e("123 Sleepy Hollow"):::lit
+    n804055110c11("Paradise"):::lit
+    n154189b94638("CA"):::lit
+    n795f512a21e1("95969"):::lit
+    n19fc2ae030b8("USA"):::lit
 
-    nbb363374209c -->|"hasContinuantPart"| nf6bcd6333282
-    nbb363374209c -->|"hasContinuantPart"| n8d4be0743f9b
-    nbb363374209c -->|"hasContinuantPart"| na55f125aa40a
-    nbb363374209c -->|"hasContinuantPart"| nbcbc4da17527
-    nbb363374209c -->|"hasContinuantPart"| n43696f28f88d
+    nbb363374209c -->|"hasContinuantPart"| n8add0abf603e
+    nbb363374209c -->|"hasContinuantPart"| n804055110c11
+    nbb363374209c -->|"hasContinuantPart"| n154189b94638
+    nbb363374209c -->|"hasContinuantPart"| n795f512a21e1
+    nbb363374209c -->|"hasContinuantPart"| n19fc2ae030b8

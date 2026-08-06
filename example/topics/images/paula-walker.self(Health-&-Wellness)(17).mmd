@@ -5,16 +5,16 @@ flowchart TD
     classDef lit    fill:none,stroke:none,font-style:italic,color:#2a7a2a
     classDef meta   fill:#f5f5ff,stroke:#9999cc,color:#333
 
-    subgraph ctx["Topic"]
+    subgraph ctx["Topic Graph"]
         direction LR
-        ctx_meta["claimant: :Self\nsubject: :Self"]:::meta
+        ctx_meta["claimant: :Self\nsubject: :Paula_Walker"]:::meta
     end
 
-    n5fecfaaf895f[":Alice_Height\n(Height)"]
-    n89a1fac192dc[":Alice_Height_Measurement\n(RatioMeasurementICE)"]
-    n07bac97f4199("Inch"):::lit
-    nb51e42161d31("68"):::lit
+    nc36fed847485[":Paula_Height\n(Height)"]
+    n1f7e6a8b4a05[":Paula_Height_Measurement\n(RatioMeasurementICE)"]
+    n2e775ee70f4a("Inch"):::lit
+    n5e7c1b310699("68"):::lit
 
-    n89a1fac192dc -->|"isRatioMeasurementOf"| n5fecfaaf895f
-    n89a1fac192dc -->|"usesMeasurementUnit"| n07bac97f4199
-    n89a1fac192dc -->|"hasDecimalValue"| nb51e42161d31
+    n1f7e6a8b4a05 -->|"isRatioMeasurementOf"| nc36fed847485
+    n1f7e6a8b4a05 -->|"usesMeasurementUnit"| n2e775ee70f4a
+    n1f7e6a8b4a05 -->|"hasDecimalValue"| n5e7c1b310699

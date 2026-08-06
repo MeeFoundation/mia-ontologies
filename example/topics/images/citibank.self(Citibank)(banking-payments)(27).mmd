@@ -5,12 +5,12 @@ flowchart TD
     classDef lit    fill:none,stroke:none,font-style:italic,color:#2a7a2a
     classDef meta   fill:#f5f5ff,stroke:#9999cc,color:#333
 
-    subgraph ctx["Topic"]
+    subgraph ctx["Topic Graph"]
         direction LR
         ctx_meta["claimant: :Self\nsubject: :Citibank"]:::meta
     end
 
     n0415a88486d3[":Citibank\n(Organization)"]:::org
-    nad0bbec82066("My primary checking account is here — used for rent and bill-pay autopay. Opened 2019."):::lit
+    nb1028337a980("My primary checking account is here — used for rent and bill-pay autopay. Opened 2019."):::lit
 
-    n0415a88486d3 -->|"ont00001917"| nad0bbec82066
+    n0415a88486d3 -->|"ont00001917"| nb1028337a980

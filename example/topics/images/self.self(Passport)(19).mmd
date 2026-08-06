@@ -5,32 +5,32 @@ flowchart TD
     classDef lit    fill:none,stroke:none,font-style:italic,color:#2a7a2a
     classDef meta   fill:#f5f5ff,stroke:#9999cc,color:#333
 
-    subgraph ctx["Topic"]
+    subgraph ctx["Topic Graph"]
         direction LR
         ctx_meta["claimant: :Self\nsubject: :Self\ntemplate: persona:PassportDocument"]:::meta
     end
 
     n104df4bab92a[":Alice_Passport_Number\n(PassportNumber)"]
     n1e9b86ff4c78[":Alice_US_Passport\n(PassportDocument)"]
-    nbbb0f32ea66b("Margery"):::lit
-    nf6348260cc84("Alice"):::lit
-    n803bbd2ffa03("Walker"):::lit
-    nafb85a00986b("1985-07-04"):::lit
-    nde66a958deff("USA"):::lit
-    n80647c2a8fe6("Austin, Texas, USA"):::lit
-    ne32680bf1086("F"):::lit
-    nbbbf6579e6ef("2021-07-04"):::lit
-    n9f01ce52a975("2031-07-04"):::lit
+    n481888e58193("Margery"):::lit
+    nef7b9b4ce127("Alice"):::lit
+    n6e9183ac3ca2("Walker"):::lit
+    n1ea2b868cd1f("1985-07-04"):::lit
+    n1c992d3e9102("USA"):::lit
+    ned07da8e9dc1("Austin, Texas, USA"):::lit
+    n636ff062d8e1("F"):::lit
+    nd20f5b2b564a("2021-07-04"):::lit
+    ncc041a6cf459("2031-07-04"):::lit
     n0b3af7b5a715("https://example.org/alice-passport-photo.jpg"):::lit
 
-    n1e9b86ff4c78 -->|"GivenName"| nbbb0f32ea66b
-    n1e9b86ff4c78 -->|"AdditionalName"| nf6348260cc84
-    n1e9b86ff4c78 -->|"FamilyName"| n803bbd2ffa03
-    n1e9b86ff4c78 -->|"ent00000046"| nafb85a00986b
-    n1e9b86ff4c78 -->|"IssuingJurisdiction"| nde66a958deff
-    n1e9b86ff4c78 -->|"PlaceOfBirth"| n80647c2a8fe6
-    n1e9b86ff4c78 -->|"GenderMarker"| ne32680bf1086
-    n1e9b86ff4c78 -->|"IssueDate"| nbbbf6579e6ef
-    n1e9b86ff4c78 -->|"ExpirationDate"| n9f01ce52a975
+    n1e9b86ff4c78 -->|"GivenName"| n481888e58193
+    n1e9b86ff4c78 -->|"AdditionalName"| nef7b9b4ce127
+    n1e9b86ff4c78 -->|"FamilyName"| n6e9183ac3ca2
+    n1e9b86ff4c78 -->|"ent00000046"| n1ea2b868cd1f
+    n1e9b86ff4c78 -->|"IssuingJurisdiction"| n1c992d3e9102
+    n1e9b86ff4c78 -->|"PlaceOfBirth"| ned07da8e9dc1
+    n1e9b86ff4c78 -->|"GenderMarker"| n636ff062d8e1
+    n1e9b86ff4c78 -->|"IssueDate"| nd20f5b2b564a
+    n1e9b86ff4c78 -->|"ExpirationDate"| ncc041a6cf459
     n1e9b86ff4c78 -->|"isCarrierOf"| n104df4bab92a
     n1e9b86ff4c78 -->|"hasPhoto"| n0b3af7b5a715

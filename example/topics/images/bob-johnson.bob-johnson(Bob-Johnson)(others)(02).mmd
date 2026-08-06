@@ -5,7 +5,7 @@ flowchart TD
     classDef lit    fill:none,stroke:none,font-style:italic,color:#2a7a2a
     classDef meta   fill:#f5f5ff,stroke:#9999cc,color:#333
 
-    subgraph ctx["Topic"]
+    subgraph ctx["Topic Graph"]
         direction LR
         ctx_meta["claimant: :Bob_Johnson\nsubject: :Bob_Johnson"]:::meta
     end
@@ -13,10 +13,10 @@ flowchart TD
     n19c34148fc05[":Bob_Bob_Network\n(SocialNetwork)"]
     n89768dce3f8b[":Self"]
     n166b15bd501b[":Bob_Johnson\n(Person)"]:::person
-    na1daf5ac411b("Bob"):::lit
-    n3ea3faf79770("Johnson"):::lit
+    n1c0a7166a630("Bob"):::lit
+    ne37bb84c7150("Johnson"):::lit
 
     n19c34148fc05 -->|"hasMemberPart"| n89768dce3f8b
-    n166b15bd501b -->|"GivenName"| na1daf5ac411b
-    n166b15bd501b -->|"FamilyName"| n3ea3faf79770
+    n166b15bd501b -->|"GivenName"| n1c0a7166a630
+    n166b15bd501b -->|"FamilyName"| ne37bb84c7150
     n166b15bd501b -->|"hasSocialNetwork"| n19c34148fc05

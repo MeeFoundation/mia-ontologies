@@ -5,12 +5,12 @@ flowchart TD
     classDef lit    fill:none,stroke:none,font-style:italic,color:#2a7a2a
     classDef meta   fill:#f5f5ff,stroke:#9999cc,color:#333
 
-    subgraph ctx["Topic"]
+    subgraph ctx["Topic Graph"]
         direction LR
         ctx_meta["claimant: :Self\nsubject: :Bob_Johnson"]:::meta
     end
 
     n166b15bd501b[":Bob_Johnson\n(Person)"]:::person
-    n6a53076332bd("Fav drink: oat milk cappuccino"):::lit
+    nff2c36661fb7("Fav drink: oat milk cappuccino"):::lit
 
-    n166b15bd501b -->|"ont00001917"| n6a53076332bd
+    n166b15bd501b -->|"ont00001917"| nff2c36661fb7

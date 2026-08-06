@@ -271,7 +271,7 @@ def _meta_subgraph(mia: dict, src_dir: Path | None = None) -> list[str]:
         return []
     label = "\\n".join(esc(p) for p in props)
     return [
-        '    subgraph ctx["Topic"]',
+        '    subgraph ctx["Topic Graph"]',
         "        direction LR",
         f'        ctx_meta["{label}"]:::meta',
         "    end",
@@ -477,9 +477,14 @@ def main() -> None:
         topic_id = match["id"]
         stem = topic_id.rsplit("/", 1)[-1]  # unchanged filename-stem convention
         g, _ = load_databook(src, topic_id)
-        # Use this one topic's own claimant/subject for the "Topic" metadata
-        # box — not the owning cell's aggregate mia.subject/mia.creator.
-        frontmatter = {"mia": {"claimant": match.get("claimant"), "subject": match.get("subject")}}
+        # Use this one topic's own claimant/subject/template for the "Topic
+        # Graph" metadata box — not the owning cell's aggregate
+        # mia.subject/mia.creator.
+        frontmatter = {"mia": {
+            "claimant": match.get("claimant"),
+            "subject": match.get("subject"),
+            "template": match.get("template"),
+        }}
         out_dir = Path("example/topics/images")  # fixed — topic PNGs never move
     else:
         g = Graph()

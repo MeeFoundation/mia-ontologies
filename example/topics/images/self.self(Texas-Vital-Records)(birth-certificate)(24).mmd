@@ -5,18 +5,18 @@ flowchart TD
     classDef lit    fill:none,stroke:none,font-style:italic,color:#2a7a2a
     classDef meta   fill:#f5f5ff,stroke:#9999cc,color:#333
 
-    subgraph ctx["Topic"]
+    subgraph ctx["Topic Graph"]
         direction LR
         ctx_meta["claimant: :Self\nsubject: :Self\ntemplate: persona:BirthCertificateDocument"]:::meta
     end
 
     n0b5b9e968f7f[":Alice_TX_Birth_Certificate\n(BirthCertificateDocument)"]
-    n2ff08d1ea4da("Margery"):::lit
-    n091b8d0db85b("Alice"):::lit
-    nab14fd21d78a("Walker"):::lit
-    n3a39dc1d7e71("Margery Alice Arnold"):::lit
+    n00e72bad01f7("Margery"):::lit
+    nafd8e98af0aa("Alice"):::lit
+    n9ad064e9e449("Walker"):::lit
+    n81567635f036("Margery Alice Arnold"):::lit
 
-    n0b5b9e968f7f -->|"GivenName"| n2ff08d1ea4da
-    n0b5b9e968f7f -->|"AdditionalName"| n091b8d0db85b
-    n0b5b9e968f7f -->|"FamilyName"| nab14fd21d78a
-    n0b5b9e968f7f -->|"AlternateName"| n3a39dc1d7e71
+    n0b5b9e968f7f -->|"GivenName"| n00e72bad01f7
+    n0b5b9e968f7f -->|"AdditionalName"| nafd8e98af0aa
+    n0b5b9e968f7f -->|"FamilyName"| n9ad064e9e449
+    n0b5b9e968f7f -->|"AlternateName"| n81567635f036

@@ -5,16 +5,16 @@ flowchart TD
     classDef lit    fill:none,stroke:none,font-style:italic,color:#2a7a2a
     classDef meta   fill:#f5f5ff,stroke:#9999cc,color:#333
 
-    subgraph ctx["Topic"]
+    subgraph ctx["Topic Graph"]
         direction LR
         ctx_meta["claimant: :Self\nsubject: :Jane_Kolpakova"]:::meta
     end
 
     nb56a5989f29e[":Jane_Kolpakova\n(Person)"]:::person
-    n4147de396968("Jane"):::lit
-    n0c5a289e7d28("Kolpakova"):::lit
-    n596910f31082("Paula Walker's primary care physician"):::lit
+    n82cd1cba46bc("Jane"):::lit
+    n491c02ea2091("Kolpakova"):::lit
+    n1ade9ae9fb0b("Paula Walker's primary care physician"):::lit
 
-    nb56a5989f29e -->|"GivenName"| n4147de396968
-    nb56a5989f29e -->|"FamilyName"| n0c5a289e7d28
-    nb56a5989f29e -->|"ont00001917"| n596910f31082
+    nb56a5989f29e -->|"GivenName"| n82cd1cba46bc
+    nb56a5989f29e -->|"FamilyName"| n491c02ea2091
+    nb56a5989f29e -->|"ont00001917"| n1ade9ae9fb0b

@@ -5,18 +5,18 @@ flowchart TD
     classDef lit    fill:none,stroke:none,font-style:italic,color:#2a7a2a
     classDef meta   fill:#f5f5ff,stroke:#9999cc,color:#333
 
-    subgraph ctx["Topic"]
+    subgraph ctx["Topic Graph"]
         direction LR
         ctx_meta["claimant: :Carol_Walker\nsubject: :Carol_Walker"]:::meta
     end
 
     n4c1f2977b9f4[":Carol_Walker\n(Person)"]:::person
-    n8a25b17f239f("Carol"):::lit
-    ndb95fbe3d8a4("Walker"):::lit
-    n8f65569e7b48("+19165550198"):::lit
-    nf8e6c4524cf9("Usually available weekday evenings and weekends for Mom's appointments."):::lit
+    nc86adff23efe("Carol"):::lit
+    n414f0de8b4de("Walker"):::lit
+    nd6c76ab97eae("+19165550198"):::lit
+    na0a3189bb26d("Usually available weekday evenings and weekends for Mom's appointments."):::lit
 
-    n4c1f2977b9f4 -->|"GivenName"| n8a25b17f239f
-    n4c1f2977b9f4 -->|"FamilyName"| ndb95fbe3d8a4
-    n4c1f2977b9f4 -->|"TelephoneNumber"| n8f65569e7b48
-    n4c1f2977b9f4 -->|"ont00001917"| nf8e6c4524cf9
+    n4c1f2977b9f4 -->|"GivenName"| nc86adff23efe
+    n4c1f2977b9f4 -->|"FamilyName"| n414f0de8b4de
+    n4c1f2977b9f4 -->|"TelephoneNumber"| nd6c76ab97eae
+    n4c1f2977b9f4 -->|"ont00001917"| na0a3189bb26d

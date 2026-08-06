@@ -632,6 +632,7 @@ Alice's mother, Paula Walker, is filed under Immediate Family. Paula's own Healt
 <p align="center"><img src="example/images/health.png" alt="Health & Wellness cell (work in progress)"></p>
 
 Alice is an employee of Acme, so under her Work cell she has created a user-defined cell called Acme to represent her employer. Since Acme is an organization, Alice has under her Acme cell switched from adding `cat:Person` categories to `cat:Organization` categories (light blue color) and added an Employees cell which acts as a parent holding an Employee cell for each person there she tracks, including herself. Her own "Alice Walker" cell holds her Business Card claims — job title at Acme, work telephone number, work email, etc. One of the employees she works with is Paula Walker, so she adds a Paula Walker cell too.
+
 <p align="center"><img src="example/images/work.png" alt="Work cells"></p>
 
 Alice has relationships with two companies, Google and AT&T:
