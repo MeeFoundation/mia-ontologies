@@ -8,9 +8,9 @@
 @prefix cell: <http://mee.foundation/ontologies/cell#> .
 
 <http://mee.foundation/ontologies/category/shapes> rdf:type owl:Ontology ;
-    owl:versionInfo "Version 1.8.0 - removed :CategoryDefinedShape's sh:class cat:Category constraint on cat:category: a legal value is rdfs:subClassOf cat:Category, never rdf:type cat:Category, so the constraint could never be satisfied by any real data — first caught once category DataBook YAML frontmatter started being validated for real (see README's Validation section)."@en ;
+    owl:versionInfo "Version 1.9.0 - renamed :NodeShape to :FolderShape, targeting cat:Folder (renamed from cat:Node in category.ttl 1.29.0). No cardinality or class-constraint changes. (1.8.0 - removed :CategoryDefinedShape's sh:class cat:Category constraint on cat:category: a legal value is rdfs:subClassOf cat:Category, never rdf:type cat:Category, so the constraint could never be satisfied by any real data — first caught once category DataBook YAML frontmatter started being validated for real (see README's Validation section).)"@en ;
     rdfs:label "Category Ontology SHACL Validation Shapes"@en ;
-    rdfs:comment "SHACL validation shapes for cat:Category/cat:Node DataBook instances (the classificatory and tree-position facets of a cell) in the Category Ontology."@en .
+    rdfs:comment "SHACL validation shapes for cat:Category/cat:Folder DataBook instances (the classificatory and tree-position facets of a cell) in the Category Ontology."@en .
 
 
 #################################################################
@@ -39,37 +39,37 @@
     ] .
 
 #################################################################
-#  Node
-#  Every cat:Node instance (Copy or UserDefined) has zero or more
-#  cat:child links to more specific child nodes, and zero or more
-#  cat:cell links to the cell:Cell(s) it holds.
+#  Folder
+#  Every cat:Folder instance (CategoryDefined or UserDefined) has
+#  zero or more cat:child links to more specific child folders, and
+#  zero or more cat:cell links to the cell:Cell(s) it holds.
 #################################################################
 
-:NodeShape
+:FolderShape
     a sh:NodeShape ;
-    sh:targetClass cat:Node ;
-    sh:message "Node validation."@en ;
+    sh:targetClass cat:Folder ;
+    sh:message "Folder validation."@en ;
 
-    # cat:child — zero or more, each a cat:Node
+    # cat:child — zero or more, each a cat:Folder
     sh:property [
         sh:path cat:child ;
-        sh:class cat:Node ;
-        sh:message "A node's cat:child values, if any, must each be a cat:Node."@en
+        sh:class cat:Folder ;
+        sh:message "A folder's cat:child values, if any, must each be a cat:Folder."@en
     ] ;
 
     # cat:cell — zero or more, each a cell:Cell. No minCount: not
-    # every node necessarily has content yet, and no maxCount: the
-    # relationship is many-to-one (many cells may share one node).
+    # every folder necessarily has content yet, and no maxCount: the
+    # relationship is many-to-one (many cells may share one folder).
     sh:property [
         sh:path cat:cell ;
         sh:class cell:Cell ;
-        sh:message "A node's cat:cell values, if any, must each be a cell:Cell."@en
+        sh:message "A folder's cat:cell values, if any, must each be a cell:Cell."@en
     ] .
 
 #################################################################
 #  Label
 #  cat:label applies to both cat:CategoryDefined and cat:UserDefined
-#  — any node in a user's own instance tree, whether instantiated
+#  — any folder in a user's own instance tree, whether instantiated
 #  from a canonical template or created directly.
 #################################################################
 
@@ -82,17 +82,17 @@
     sh:property [
         sh:path cat:label ;
         sh:maxCount 1 ;
-        sh:message "A node may have at most one cat:label value."@en
+        sh:message "A folder may have at most one cat:label value."@en
     ] .
 
 #################################################################
 #  CategoryDefined
-#  A cat:CategoryDefined node has at most one cat:category, pointing
+#  A cat:CategoryDefined folder has at most one cat:category, pointing
 #  at the cat:Category subclass it represents — this also records
 #  which class it was effectively instantiated from, since
 #  category.ttl 1.8.0 removed the separate
 #  cat:Canonical/cat:copiedFrom mechanism.
-#  (A user-created node with no canonical counterpart is a
+#  (A user-created folder with no canonical counterpart is a
 #  cat:UserDefined instead, which carries no cat:category at all —
 #  see :LabelShape above for the cat:label constraint shared by both.)
 #################################################################
@@ -100,7 +100,7 @@
 :CategoryDefinedShape
     a sh:NodeShape ;
     sh:targetClass cat:CategoryDefined ;
-    sh:message "CategoryDefined node validation."@en ;
+    sh:message "CategoryDefined folder validation."@en ;
 
     # cat:category — at most one, pointing at a cat:Category subclass.
     # Not constrained to sh:class cat:Category: a legal value (e.g.
@@ -113,5 +113,5 @@
     sh:property [
         sh:path cat:category ;
         sh:maxCount 1 ;
-        sh:message "A cat:CategoryDefined node may have at most one cat:category value."@en
+        sh:message "A cat:CategoryDefined folder may have at most one cat:category value."@en
     ] .

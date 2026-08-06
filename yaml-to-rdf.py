@@ -6,7 +6,7 @@ frontmatter of category, cell, and topic DataBooks.
 Why this exists: `databook extract` only pulls fenced Turtle blocks out of a
 DataBook — but category-databook and cell-databook files carry all of their
 content as `mia.` YAML frontmatter, with no Turtle block at all. Without this
-script, cat:Node/cell:Cell individuals (and topic:SCTopicGraph's subject/
+script, cat:Folder/cell:Cell individuals (and topic:SCTopicGraph's subject/
 claimant) never appear in the graph SHACL validates, so category-shacl.ttl,
 cell-shacl.ttl, and topic-shacl.ttl's :SCTopicGraphShape never fire against
 real instance data. This script closes that gap by mapping each `mia.` field
@@ -90,7 +90,7 @@ def process_category_databook(fm, triples):
     subj = fm["id"]
     mia = fm.get("mia", {}) or {}
 
-    emit_type(triples, subj, CAT + "Node")
+    emit_type(triples, subj, CAT + "Folder")
     if mia.get("category"):
         emit_type(triples, subj, CAT + "CategoryDefined")
     else:

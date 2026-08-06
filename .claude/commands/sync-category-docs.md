@@ -9,7 +9,7 @@ Reconcile `category.ttl`'s `rdfs:comment` text for every leaf category under `ca
 ## Scope
 
 - Covers every `cat:X` class declared `rdfs:subClassOf cat:Person` or (transitively) one of its subclasses, and likewise for `cat:Organization` — i.e. every class listed as a bullet/sub-bullet in the two README sections.
-- Does **not** touch `cat:Category`, `cat:Node`, `cat:Person`, or `cat:Organization` themselves (the abstract root/superclasses) — only their leaf/branch subclasses.
+- Does **not** touch `cat:Category`, `cat:Folder`, `cat:Person`, or `cat:Organization` themselves (the abstract root/superclasses) — only their leaf/branch subclasses.
 - Does **not** add or remove categories, or rename anything — this command only reconciles description *text*. Renames and additions/removals are separate, explicit requests.
 
 ## Method
