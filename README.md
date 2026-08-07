@@ -598,6 +598,8 @@ Alice knows two people, Bob and Fred. She has created and shared two *Two-Member
 
 <p align="center"><img src="example/images/people.png" alt="People cells"></p>
 
+### Taking Care of Paula
+
 Alice's mother, Paula Walker, is a category folder called *Paula* under *Immediate Family*. The Self, Paula cell (topics 7, 5, 21) capture her connection with Paula. Alice spends time taking care of her mother, so she has, by herself assembled some information about Paul in non-shared cells. In the *Health & Wellness* category folder Alice keeps a record of Paula's physical characteristics such as height, eye color, hair color in topic 17.  
 
 Under *Medical* > *Providers* > *Primary Care Physician*, Alice keeps a record of Dr. Jane Kolpakova, Paula's primary care physician (topic 25). Alice's sister Carol is involved in taking care of their mother. They need to arrange medical appointments, etc. and to do so, they need to share and synchronize medical information about Paula including her list of medications, medical history, health insurance policy, contact information and so on. To work on this as a team, Alice creates a two-member *Med. App. Info* cell and shares it with Carol. They both use it to share information about Paula's upcoming medical appointment (topic 26). This topic includes the name of Paula's doctor (primary care physician) which Mia copies from the Dr. Jane Kolpakova cell (topic 25). 
@@ -608,29 +610,50 @@ Under *Medical* > *Providers* > *Primary Care Physician*, Alice keeps a record o
 
 <p align="center"><img src="example/images/health.png" alt="Health & Wellness cell (work in progress)"></p>
 
+### Working for Acme
+
 Alice is an employee of Acme, so under her *Work* category folder she has created *Acme* to represent her employer. Since Acme is an organization, rather than using `cat:Person` categories she has switched to `cat:Organization` categories (light blue color). Under *Employees* she has added her own *Alice Walker* category that holds her Business Card claims (topic 10) — job title at Acme, work telephone number, work email, etc. One of the employees she works with is Paula Walker, so she has a Paula Walker category for her. Its cell contains statements Alice has made about Paula (topic 6) and statements about herself (topic 20) neither of which have been shared with Paula since this is a (non-shared) Single-Member Cell.
 
 <p align="center"><img src="example/images/work.png" alt="Work cells"></p>
 
-Alice has relationships with two companies, Google and AT&T:
+### Two Service Providers
+
+Alice has relationships with two companies, Google and ATT. The former provides her with her Gmail address and the latter is her cell phone provider.
+
 <p align="center"><img src="example/images/companies.png" alt="Companies cells"></p>
 
-Alice has a relationship with Citibank. In our example Citibank exists as a node on the PDN and directly claims information about their customer, Alice in topic #9.
+### Checking Account and Debit Card
+
+Alice has a checking account (and associated debit care) at Citibank. In our example Citibank is compatible with PDN and participates directly as a member of this Self<>Citibank cell. Citibank directly write the data about Alice's checking account into topic 9. It is colored green because the claimant is Citibank, not Alice. Alice self-asserts her username and password. Citibank asserts some information about itself in topic 27.
+
 <p align="center"><img src="example/images/finances.png" alt="Financial cells"></p>
 
-Here are the cells related to Alice's interactions with various state governments:
+### Birth Certificate and Driver's License
+
+Alice was born in Texas and their vital records department issued a birth certificate about Alice. Alice has manually entered the information from her birth certificate (topic 24) and has included a scan of her paper birth certificate in *Texas Vital Records* category folder (not shown). She recently moved to Paradise, California, and was issued a license by the California DMV. Alice manually entered the information from her plastic license card (topic 15) and included a scan of it in the *California DMV* folder (not shown).
+
 <p align="center"><img src="example/images/gov-state.png" alt="Government — State cells"></p>
-Here are the cells related to Alice's interactions with the federal government:
+
+### Passport and Social Security Number
+
 <p align="center"><img src="example/images/gov-federal.png" alt="Government — Federal cells"></p>
 
-Here are the cells related to Alice's interactions with two municipal governments:
+### Current and Previous Homes
+
+Alice used to live in Boston until late 2025, but now lives in Paradise, CA. Information about these two residences are in topics 13 and 18. 
 
 <p align="center"><img src="example/images/gov-municipality.png" alt="Government — Municipality cells"></p>
 
-Here are Alice's cells related to her personal health and her possessions:
+### Possessions 
+
+Alice, like everyone, owns (or borrows, or rents) a bunch of things. A few of them are described in topic 22. Alice has things like a plastic direver's license card, a health insurance cards, social security number cards. She also has a wallet. She keeps some of these in her wallet and some separately. Presumably Alice has a vehicle of some kind, and so many other things, so this example is extremely limited at the moment.
+
 <p align="center"><img src="example/images/misc.png" alt="Miscellaneous cells"></p>
 
-The last diagram shows Alice's membership in the Boston Hub Society, an informal professional social network that exists as a `g:Group` node on the PDN:
+### Boston Hub Society
+
+Alice is a member of the Boston Hub Society, an informal professional social network. We envision a future state where the BHS not only has a website but is also compatible with the PDN network and can join cells as a `g:Group` member. In this future world, Alice maintains her BHS profile in topic 14, Bob another member is keeps his profile updated (topic 3), and the BHS itself can share some members-only information in topic 1.
+
 <p align="center"><img src="example/images/affiliations.png" alt="Affiliations cells"></p>
 
 The topics in the table below are *about* Alice and claimed *by* Alice. The "Cell DataBook" link jumps straight to each topic's own `### Topic NN` section inside its owning cell-databook file under `example/Cells/`.
