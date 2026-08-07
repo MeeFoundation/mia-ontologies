@@ -166,7 +166,7 @@ In the center of the diagram below is a three level snippet of the user's catego
   - *Annotation properties*: `cat:templateCell` (domain `owl:Class`, range `c:TCell` — links a `cat:Category` subclass directly to its reusable template cell; narrowed from `c:Cell` in category.ttl 1.18.0, once cell.ttl 3.7.0 split `c:Cell` into the `c:TCell`/`c:ACell` facets; see [cell-templates.ttl](#persona-ontology-files)).
   This is now `category.ttl`'s only property. `category.ttl` imports `cell.ttl` (to reuse `c:abstract` to mark non-instantiated classes, and by name in `c:origin`'s doc comments) and `cell-templates.ttl` (for the `ctpl:*TemplateCell` individuals its own `cat:templateCell` assertions point at). This import is one-directional only: `cell-templates.ttl` imports `cell.ttl` directly rather than importing `category.ttl` back, since the only `cat:` term it ever used, `cat:templateShape`, moved to `cell.ttl` as `c:templateShape` (its domain/range — `c:Cell`/`sh:NodeShape` at the time, narrowed to `c:TCell`/`sh:NodeShape` in cell.ttl 3.7.0's facet split — never actually referenced a `cat:` term) — so there is no mutual import here, unlike `topic.ttl`/`cell.ttl`.
 
-### Lazy Instantiation
+#### Lazy Instantiation
 
 Empty file system folders for most `cat:Category` subclasses are not pre-created ahead of time. A folder is not created until the user wishes to create a cell that needs that folder to hold it. When a folder matching a templated class (one carrying a `cat:templateCell` value) is first given content, Mia clones that class's `c:TCell` template into a new cell for that folder: whatever `c:templateShape` value the template carried is copied into the new cell's `c:shape`, and the clone is given real member-classified content — typed with a concrete `c:ACell` subclass (e.g. `c:OneMember`) — rather than staying purely a template. 
 
@@ -218,17 +218,19 @@ A cell needing both facets at once — e.g. every individual in `cell-templates.
 
 - **`c:memberCount`** — the concrete `c:ACell` subtype this DataBook instantiates: `c:OneMember`, `c:TwoMember`, or `c:ThreePlusMember`. Value is the class itself (e.g. `mia.memberCount: "c:OneMember"`). See [Cell Member Composition](#cell-member-composition) above.
 
-#### Cell Member Composition
+#### Cell Members
 
-Every `c:ACell` is classified by `c:memberCount` (and redundantly by its subclass) according to how many total members (the user plus zero or more others) it has been shared with. There are three concrete types: `c:OneMember` (a cell created by the user and not shared with any other member), `c:TwoMember` (the user plus exactly one other member), and `c:ThreePlusMember` (the user plus two or more other members).
+Every `c:ACell` has a `c:memberCount`, which is a tally of the number of members of the cell. There are three concrete types: `c:OneMember` (a cell created by the user and not shared with any other member), `c:TwoMember` (the user plus exactly one other member), and `c:ThreePlusMember` (the user plus two or more other members).
 
-Every `c:ACell` carries one or two `c:subject` values (the resource(s) the cell is about), one or more `c:memberTopics` links (the required baseline of topic containers backing its content, one or more per member), and any number of `c:otherTopics` links (additional topics beyond that baseline), regardless of member count. `c:subject` is exactly one value for `OneMember` (`:Self` alone) or `ThreePlusMember` (the shared group/organization entity alone) cells, and one or two for `TwoMember` cells (`:Self` and, when the other member is itself an independent subject, the other member too). `c:memberTopics`'s required total varies by member count: exactly 1 for `OneMember` (its one topic), 2 to 4 for `TwoMember` (one per member, up to all four self-vs-other combinations), and at least 3 for `ThreePlusMember` (one per member, no upper bound). `c:otherTopics` is always optional and unbounded (0..N), for any member count. This is summarized in the table below:
+Every `c:ACell` carries either one or two `c:subject` values (the resource(s) or "content" the cell is primarily about), one or more `c:memberTopics` links (the required baseline of topic containers backing its content, one or more per member), and any number of `c:otherTopics` links (additional topics beyond that baseline), regardless of member count. The cardinality of each is shown in the table below:
 
 | Property         | OneMember | TwoMember | ThreePlusMember |
 |------------------|-----------|-----------|-----------------|
 | `c:subject`      | 1         | 1..2      | 1               |
 | `c:memberTopics` | 1         | 2..4      | 3..N            |
 | `c:otherTopics`  | 0..N      | 0..N      | 0..N            |
+
+The `c:memberTopics` and `c:otherTopics` are lists of `t:TopicGraphs`. See the [Topic Ontology](#topic-ontology) for details.
 
 ### Cells within Category folders
 
