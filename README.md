@@ -707,8 +707,6 @@ This is the correct design for three reasons:
 
 The practical implication is that **Tier 1 validation** (which merges all graphs) correctly finds all reachability links across the full dataset, while **application queries** that display a social network's members should join against specific topic named graphs rather than the full triplestore merge.
 
-Each topic's named graph is a logical identifier, not a physical one, so this isolation is unaffected by topics now living inside their owning cell-databook file rather than a standalone file of their own — the graph IRI (`{topic id}#graph`) is unchanged, and each topic's fenced Turtle block still carries its own `<!-- databook:graph: ... -->` marker identifying it.
-
 ## Diagrams
 
 `draw.py` generates a Mermaid (`.mmd`) and PNG diagram for a single embedded topic, given its owning cell-databook file and its id (or id local-name):
