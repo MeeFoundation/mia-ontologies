@@ -590,15 +590,11 @@ The Group ontology introduces the concept of a *shared* group (`g:Group`) whose 
 
 ## Illustrative Example: Alice 
 
-This section describes the local Mia dataset for a hypothetical user, Alice Walker.
-
-### Alice's Categories & Cells
-
-Alice's cells (DataBook files) live in category folders rooted at `example/Cells/`. 
+This section describes the local Mia dataset for a hypothetical user, Alice Walker. Alice's cells (DataBook files) live in category folders rooted at `example/Cells/`. 
 
 ### Bob and Fred
 
-Alice knows two people, Bob and Fred. She has created shared, *Two-Member* cells with each. She has filed these cells under *Others*. She has filed the shared (Bob, Self(Alice)) cell under a category folder called *Bob Johnson*. Presumably Bob, in his Mia app, has shared this identical, shared cell under his *Others* category folder. Alice has included some claims about herself (topic 12) including her given name "Aice", her family name "Walker", etc. She has included (topic 4) her claim that Bob's favorite drink is an oat milk cappuccino. Bob has claimed some contact information about himself (topic 2), and he claims that her favorite drink is Pepsi (topic 8).
+Alice knows two people, Bob and Fred. She has created shared, *Two-Member* cells with each. She has filed these cells under *Others*. She has filed the shared (Bob, Self(Alice)) cell under a category folder called *Bob Johnson*. Presumably Bob, in his Mia app, has shared this identical, shared cell under his *Others* category folder. Alice has included some claims about herself (topic 12) including her given name "Alice", her family name "Walker", etc. She has included (topic 4) her claim that Bob's favorite drink is an oat milk cappuccino. Bob has claimed some contact information about himself (topic 2), and he claims that her favorite drink is Pepsi (topic 8).
 
 <p align="center"><img src="example/images/people.png" alt="People cells"></p>
 
