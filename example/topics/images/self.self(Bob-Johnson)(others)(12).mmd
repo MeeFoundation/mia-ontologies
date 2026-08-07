@@ -12,5 +12,13 @@ flowchart TD
 
     ne62a8f0f56d6[":Alice_Bob_Network\n(SocialNetwork)"]
     ncea94215aa38[":Bob_Johnson"]
+    ne0c3ba92f1db[":Self\n(Person)"]:::person
+    ne2d58225bffa("Alice Walker"):::lit
+    n24b5db82bece("Alice"):::lit
+    n68691190e176("Walker"):::lit
 
     ne62a8f0f56d6 -->|"hasMemberPart"| ncea94215aa38
+    ne0c3ba92f1db -->|"AlternateName"| ne2d58225bffa
+    ne0c3ba92f1db -->|"GivenName"| n24b5db82bece
+    ne0c3ba92f1db -->|"FamilyName"| n68691190e176
+    ne0c3ba92f1db -->|"hasSocialNetwork"| ne62a8f0f56d6

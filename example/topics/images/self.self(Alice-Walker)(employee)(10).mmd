@@ -10,3 +10,21 @@ flowchart TD
         ctx_meta["claimant: :Self\nsubject: :Self\ntemplate: persona:JSContactCard"]:::meta
     end
 
+    ne0c3ba92f1db[":Self\n(Person)"]:::person
+    n9875ee9f9bfe("Alice"):::lit
+    n13a0e0741314("Walker"):::lit
+    nd4903f0d3c47("alice@acme.com"):::lit
+    n2a1c264e5432("+15108149999"):::lit
+    n12b5c9c0e210("Acme"):::lit
+    nf9ddf72fb8eb("Engineering"):::lit
+    nf47773635bca("Software Engineer"):::lit
+    n6f51fe59be24("https://www.linkedin.com/in/alicewalker"):::lit
+
+    ne0c3ba92f1db -->|"GivenName"| n9875ee9f9bfe
+    ne0c3ba92f1db -->|"FamilyName"| n13a0e0741314
+    ne0c3ba92f1db -->|"EmailAddress"| nd4903f0d3c47
+    ne0c3ba92f1db -->|"TelephoneNumber"| n2a1c264e5432
+    ne0c3ba92f1db -->|"OrganizationName"| n12b5c9c0e210
+    ne0c3ba92f1db -->|"OrganizationUnit"| nf9ddf72fb8eb
+    ne0c3ba92f1db -->|"JobTitle"| nf47773635bca
+    ne0c3ba92f1db -->|"WebURL"| n6f51fe59be24

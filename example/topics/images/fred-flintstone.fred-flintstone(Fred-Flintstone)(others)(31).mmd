@@ -11,12 +11,12 @@ flowchart TD
     end
 
     n65f31abcd71e[":Fred_Flintstone\n(Person)"]:::person
-    n80d71410cf6b("Fred"):::lit
-    nafcbdf720538("Flintstone"):::lit
+    nf1016795299f("Fred"):::lit
+    n2f41a7c3531c("Flintstone"):::lit
     n48ac21e51de9[":Fred_Fred_Network\n(SocialNetwork)"]
-    n89768dce3f8b[":Self"]
+    ne0c3ba92f1db[":Self\n(Person)"]:::person
 
-    n65f31abcd71e -->|"GivenName"| n80d71410cf6b
-    n65f31abcd71e -->|"FamilyName"| nafcbdf720538
+    n65f31abcd71e -->|"GivenName"| nf1016795299f
+    n65f31abcd71e -->|"FamilyName"| n2f41a7c3531c
     n65f31abcd71e -->|"hasSocialNetwork"| n48ac21e51de9
-    n48ac21e51de9 -->|"hasMemberPart"| n89768dce3f8b
+    n48ac21e51de9 -->|"hasMemberPart"| ne0c3ba92f1db

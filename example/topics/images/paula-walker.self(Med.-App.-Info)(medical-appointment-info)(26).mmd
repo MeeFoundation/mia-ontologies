@@ -11,9 +11,9 @@ flowchart TD
     end
 
     nb56a5989f29e[":Jane_Kolpakova\n(Person)"]:::person
-    n6eabd9fe240e("Jane"):::lit
-    n3439d1231fea("Kolpakova"):::lit
-    nd1f1975f109f("Paula Walker's primary care physician"):::lit
+    n95cfbaca1339("Jane"):::lit
+    n1b3779ccfa03("Kolpakova"):::lit
+    nf659c998053a("Paula Walker's primary care physician"):::lit
     n9c0041903ee1[":Paula_Medical_Appointment\n(MedicalAppointmentRecord)"]
     nf4296ab13de4[":Paula_Walker\n(Person)"]:::person
     nd3d68245abd1("Lisinopril 10mg daily"):::lit
@@ -23,12 +23,12 @@ flowchart TD
     nb048c127c644("Medicare"):::lit
     nd767c2e2c89d("1EG4-TE5-MK72"):::lit
     nfb1be0ec8e6d("CVS Pharmacy, 123 Main St, Paradise, CA"):::lit
-    nd475a78703f5("Paula"):::lit
-    n1fb00656f0e2("Walker"):::lit
+    nb37f2c863cca("Paula"):::lit
+    nd093b177ee22("Walker"):::lit
 
-    nb56a5989f29e -->|"GivenName"| n6eabd9fe240e
-    nb56a5989f29e -->|"FamilyName"| n3439d1231fea
-    nb56a5989f29e -->|"ont00001917"| nd1f1975f109f
+    nb56a5989f29e -->|"GivenName"| n95cfbaca1339
+    nb56a5989f29e -->|"FamilyName"| n1b3779ccfa03
+    nb56a5989f29e -->|"ont00001917"| nf659c998053a
     n9c0041903ee1 -->|"forPatient"| nf4296ab13de4
     n9c0041903ee1 -->|"hasPrimaryCarePhysician"| nb56a5989f29e
     n9c0041903ee1 -->|"currentMedication"| nd3d68245abd1
@@ -38,5 +38,5 @@ flowchart TD
     n9c0041903ee1 -->|"insuranceProvider"| nb048c127c644
     n9c0041903ee1 -->|"insurancePolicyNumber"| nd767c2e2c89d
     n9c0041903ee1 -->|"preferredPharmacy"| nfb1be0ec8e6d
-    nf4296ab13de4 -->|"GivenName"| nd475a78703f5
-    nf4296ab13de4 -->|"FamilyName"| n1fb00656f0e2
+    nf4296ab13de4 -->|"GivenName"| nb37f2c863cca
+    nf4296ab13de4 -->|"FamilyName"| nd093b177ee22

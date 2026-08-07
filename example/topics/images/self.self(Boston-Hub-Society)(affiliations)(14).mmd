@@ -11,14 +11,22 @@ flowchart TD
     end
 
     nbb363374209c[":Address_BHS\n(PostalAddress)"]
-    n8add0abf603e("123 Sleepy Hollow"):::lit
-    n804055110c11("Paradise"):::lit
-    n154189b94638("CA"):::lit
-    n795f512a21e1("95969"):::lit
-    n19fc2ae030b8("USA"):::lit
+    n71f8bbd246c7("123 Sleepy Hollow"):::lit
+    nc7cebb1661db("Paradise"):::lit
+    nbacb8488dd33("CA"):::lit
+    n9b37dab16c47("95969"):::lit
+    n68cd39ed1821("USA"):::lit
+    ne0c3ba92f1db[":Self\n(Person)"]:::person
+    n8312d2e3da2a("Alice Walker"):::lit
+    n46dcdc758bb7("+15108149999"):::lit
+    n278afb4c9de4("awalker@gmail.com"):::lit
 
-    nbb363374209c -->|"hasContinuantPart"| n8add0abf603e
-    nbb363374209c -->|"hasContinuantPart"| n804055110c11
-    nbb363374209c -->|"hasContinuantPart"| n154189b94638
-    nbb363374209c -->|"hasContinuantPart"| n795f512a21e1
-    nbb363374209c -->|"hasContinuantPart"| n19fc2ae030b8
+    nbb363374209c -->|"hasContinuantPart"| n71f8bbd246c7
+    nbb363374209c -->|"hasContinuantPart"| nc7cebb1661db
+    nbb363374209c -->|"hasContinuantPart"| nbacb8488dd33
+    nbb363374209c -->|"hasContinuantPart"| n9b37dab16c47
+    nbb363374209c -->|"hasContinuantPart"| n68cd39ed1821
+    ne0c3ba92f1db -->|"AlternateName"| n8312d2e3da2a
+    ne0c3ba92f1db -->|"designated by"| nbb363374209c
+    ne0c3ba92f1db -->|"TelephoneNumber"| n46dcdc758bb7
+    ne0c3ba92f1db -->|"EmailAddress"| n278afb4c9de4

@@ -592,17 +592,17 @@ The Group ontology introduces the concept of a *shared* group (`g:Group`) whose 
 
 This section describes the local Mia dataset for a hypothetical user, Alice Walker.
 
-### Alice's Cells and Topics
+### Alice's Categories & Cells
 
 Alice's cells (DataBook files) live in category folders rooted at `example/Cells/`. 
 
-#### Category, Cell Diagrams
+### Bob and Fred
 
-The following sequence of diagrams maps out the categories, cells and topics of our Alice example. We start with the People cell — Alice's relationship with someone she knows named Bob Johnson. Bob is someone Alice knows but who isn't family or a close friend, so she has filed him under the Others cell.
+Alice knows two people, Bob and Fred. She has created shared, *Two-Member* cells with each. She has filed these cells under *Others*. She has filed the shared (Bob, Self(Alice)) cell under a category folder called *Bob Johnson*. Presumably Bob, in his Mia app, has shared this identical, shared cell under his *Others* category folder. Alice has included some claims about herself (topic 12) including her given name "Aice", her family name "Walker", etc. She has included (topic 4) her claim that Bob's favorite drink is an oat milk cappuccino. Bob has claimed some contact information about himself (topic 2), and he claims that her favorite drink is Pepsi (topic 8).
 
 <p align="center"><img src="example/images/people.png" alt="People cells"></p>
 
-Alice's mother, Paula Walker, is filed under Immediate Family. Paula's own Health & Wellness cell — Medical, Dental, Vision, and Wellness — holds Alice's record of Paula's physical characteristics (height, eye color, hair color — topic #17) and, further down, her medical information. Under Medical > Providers, Alice keeps a record of Dr. Jane Kolpakova, Paula's primary care physician (topic #25). Alice and her sister, Carol, are also taking care of their mother Paula Walker and need to arrange medical appointments for her. To do so, they need to share and synchronize medical information about Paula including her list of medications, medical history, health insurance policy, contact information and so on. Alice creates a two-member Medical Appointment Info cell with Carol, also filed under Medical > Providers, that they use to share information about Paula. The Paula's medical information is captured in topic #26. Of the many claims, one of them will be the name of Paula's doctor (primary care physician), copied from the Dr. Jane Kolpakova cell shown in the same diagram. The resulting tree, from People down through both provider cells, is shown below:
+Alice's mother, Paula Walker, is filed under *Immediate Family*. Paula's own Health & Wellness category folder, *Health & Wellness*, holds Alice's record of Paula's physical characteristics (height, eye color, hair color — topic #17) and, further down, her medical information. Under Medical > Providers, Alice keeps a record of Dr. Jane Kolpakova, Paula's primary care physician (topic #25). Alice and her sister, Carol, are also taking care of their mother Paula Walker and need to arrange medical appointments for her. To do so, they need to share and synchronize medical information about Paula including her list of medications, medical history, health insurance policy, contact information and so on. Alice creates a two-member Medical Appointment Info cell with Carol, also filed under Medical > Providers, that they use to share information about Paula. The Paula's medical information is captured in topic #26. Of the many claims, one of them will be the name of Paula's doctor (primary care physician), copied from the Dr. Jane Kolpakova cell shown in the same diagram. The resulting tree, from People down through both provider cells, is shown below:
 
 <p align="center"><img src="example/images/people2.png" alt="People cells, continued — Immediate Family, Paula Walker, and her Health & Wellness, Medical, and Providers cells"></p>
 
@@ -610,7 +610,7 @@ Alice's mother, Paula Walker, is filed under Immediate Family. Paula's own Healt
 
 <p align="center"><img src="example/images/health.png" alt="Health & Wellness cell (work in progress)"></p>
 
-Alice is an employee of Acme, so under her Work cell she has created a user-defined cell called Acme to represent her employer. Since Acme is an organization, Alice has under her Acme cell switched from adding `cat:Person` categories to `cat:Organization` categories (light blue color) and added an Employees cell which acts as a parent holding an Employee cell for each person there she tracks, including herself. Her own "Alice Walker" cell holds her Business Card claims — job title at Acme, work telephone number, work email, etc. One of the employees she works with is Paula Walker, so she adds a Paula Walker cell too.
+Alice is an employee of Acme, so under her *Work* category folder she has created *Acme* to represent her employer. Since Acme is an organization, rather than using `cat:Person` categories she has switched to `cat:Organization` categories (light blue color). Under *Employees* she has added her own *Alice Walker* category that holds her Business Card claims (topic 10) — job title at Acme, work telephone number, work email, etc. One of the employees she works with is Paula Walker, so she has a Paula Walker category for her. Its cell contains statements Alice has made about Paula (topic 6) and statements about herself (topic 20) neither of which have been shared with Paula since this is a (non-shared) Single-Member Cell.
 
 <p align="center"><img src="example/images/work.png" alt="Work cells"></p>
 

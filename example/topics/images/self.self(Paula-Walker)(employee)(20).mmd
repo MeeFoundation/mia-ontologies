@@ -12,5 +12,11 @@ flowchart TD
 
     n2ed3865285b0[":Alice_Acme_Network\n(SocialNetwork)"]
     nb654756d5ced[":Paula_Walker"]
+    ne0c3ba92f1db[":Self\n(Person)"]:::person
+    n7a23ae638ab2("Alice Walker"):::lit
+    n13be40399db7("alice@acme.com"):::lit
 
     n2ed3865285b0 -->|"hasMemberPart"| nb654756d5ced
+    ne0c3ba92f1db -->|"AlternateName"| n7a23ae638ab2
+    ne0c3ba92f1db -->|"EmailAddress"| n13be40399db7
+    ne0c3ba92f1db -->|"hasSocialNetwork"| n2ed3865285b0

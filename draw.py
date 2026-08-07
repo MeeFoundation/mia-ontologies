@@ -167,6 +167,8 @@ SKIP_PROPS = {
 
 SKIP_TYPES = {OWL.NamedIndividual, OWL.Thing, OWL.Ontology}
 MIA_NS = "http://www.example.org/mia#"
+SELF_IRI = URIRef(MIA_NS + "Self")
+SELF_TTL = Path("example/topics/self.ttl")
 
 
 def lbl(iri: URIRef) -> str:
@@ -477,6 +479,19 @@ def main() -> None:
         topic_id = match["id"]
         stem = topic_id.rsplit("/", 1)[-1]  # unchanged filename-stem convention
         g, _ = load_databook(src, topic_id)
+        # :Self's bare rdf:type owl:NamedIndividual/persona:Person declaration
+        # lives only in example/topics/self.ttl, not repeated per-topic (see
+        # CLAUDE.md's ":Self" IRI convention) — without merging it in here,
+        # build_mermaid's `individuals` set (built from an in-graph
+        # owl:NamedIndividual typing) never includes :Self, so every one of
+        # its designator triples (names, emails, phones, etc.) is silently
+        # skipped whenever a topic's content hangs off :Self, which is most
+        # topics. Only merge when :Self is actually referenced, so a topic
+        # that never mentions :Self doesn't gain a stray unconnected node.
+        if SELF_TTL.exists() and (
+            any(g.triples((SELF_IRI, None, None))) or any(g.triples((None, None, SELF_IRI)))
+        ):
+            g.parse(str(SELF_TTL), format="turtle")
         # Use this one topic's own claimant/subject/template for the "Topic
         # Graph" metadata box — not the owning cell's aggregate
         # mia.subject/mia.creator.

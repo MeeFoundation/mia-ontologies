@@ -12,5 +12,13 @@ flowchart TD
 
     na0f9c29996d0[":Alice_Fred_Network\n(SocialNetwork)"]
     ne18068490c1e[":Fred_Flintstone"]
+    ne0c3ba92f1db[":Self\n(Person)"]:::person
+    nf6da5698b516("Alice Walker"):::lit
+    n6b30dfb5c12f("Alice"):::lit
+    na69a62155c09("Walker"):::lit
 
     na0f9c29996d0 -->|"hasMemberPart"| ne18068490c1e
+    ne0c3ba92f1db -->|"AlternateName"| nf6da5698b516
+    ne0c3ba92f1db -->|"GivenName"| n6b30dfb5c12f
+    ne0c3ba92f1db -->|"FamilyName"| na69a62155c09
+    ne0c3ba92f1db -->|"hasSocialNetwork"| na0f9c29996d0
