@@ -12,7 +12,7 @@ The following **domain ontologies** model claims about people, organizations, gr
 - **Organization ontology** — models organizations (companies, government agencies, non-profits, etc.) 
 - **Group ontology** — a group made up of individuals and/or organizations.
 
-Also included are the Category, Cell and Topic *metadata* ontologies. *Categories* are used to organize *cells* into a tree structure of subject areas. *Cells* are data spaces that can be shared with other users and organizations. Cells contain content including files (including folder notes), folders, chat streams, as well as structure information blocks called *topics* that typically follow the Persona ontology.
+Also included are the Category, Cell and Topic **metadata ontologies**. *Categories* are used to organize *cells* into a tree structure of subject areas. *Cells* are data spaces that can be shared with other users and organizations. Cells contain content including files (including folder notes), folders, chat streams, as well as structure information blocks called *topics* that typically follow the Persona ontology.
 
 Throughout this document we use these short-hands:
 
