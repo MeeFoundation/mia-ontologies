@@ -174,7 +174,7 @@ A cell is a private, secure collaboration space created and managed by the Mia s
 
 #### Cell Properties
 
-- **`c:origin`** — The value is the matching `cat:Category` subclass whenever this cell's containing folder's own name matches a real one (e.g. `cat:Others`) — else nil, for a folder with no matching canonical class. When a cell is shared with another member, the recipient's app can look at this value (if not nil) and use it as a hint as to which folder in the recipient's own tree it should be filed under. Domain `c:Cell`, range `cat:Category` (referenced by name, no `owl:imports`), at most one value (0..1) — see [Cell Ontology File](#cell-ontology-file) below.
+- **`c:origin`** — The original category from which this cell was clone/instantiated. When a cell is shared with another member, the recipient's app can look at this value (if not nil) and use it as a hint as to which folder in the recipient's own tree it should be filed under. Domain `c:Cell`, range `cat:Category` (referenced by name, no `owl:imports`), at most one value (0..1) — see [Cell Ontology File](#cell-ontology-file) below.
 
 - **`c:chat`** — optional path to chat stream. Aspirational: shown in `images/cell-ontology/cell.png`'s diagram and described here for intended semantics, but not yet defined as an actual property in `cell.ttl` (see `CLAUDE.md`'s Check 12 for this open discrepancy).
 
