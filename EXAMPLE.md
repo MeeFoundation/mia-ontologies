@@ -26,9 +26,9 @@ Alice is an employee of Acme, so under her *Work* category folder she has create
 
 <p align="center"><img src="example/images/work.png" alt="Work cells"></p>
 
-### Two Service Providers
+### Service Providers
 
-Alice has relationships with two companies, Google and ATT. The former provides her with her Gmail address and the latter is her cell phone provider.
+Alice has relationships with two companies, Google and ATT. The former provides her Gmail address, and the latter is her cell phone provider.
 
 <p align="center"><img src="example/images/companies.png" alt="Companies cells"></p>
 
