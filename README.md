@@ -387,6 +387,18 @@ This section describes classes and properties related to a person's social netwo
 - `p:hasSocialNetwork` — a social network — other people known by the `p:Person` carrying the social network. The holder is not included as a member part of the social network object, but *is* considered to be a part of it by virtue of holding the network entity.
 - `BFO_0000115` — has member part. Links to `p:Person` members of this network.
 
+#### Named Graph Scoping and Topic-Specific Membership
+
+A `BFO_0000115` (has member part) triple on a Social Network individual — for example, `:Alice_Family_Network BFO_0000115 :Paula_Walker` in a topic about Alice's immediate family — targets `:Paula_Walker` as a person entity, not as a topic-specific slice of her data. The named graph architecture provides the isolation: that triple lives inside its own topic's named graph, and when an application needs "Paula Walker's family topic data" it queries that topic's graph together with Paula's own family-topic graph, rather than the full merged dataset. (See topics #21 and #5 in the [Illustrative Example](#alices-cells-and-topics) below for the concrete instance of this pattern.)
+
+This is the correct design for three reasons:
+
+- **BFO semantics**: changing the range of `BFO_0000115` to a DataBook document IRI (e.g. `<https://www.example.org/mia/topics/paula-walker.self(Paula-Walker)(immediate-family)(07)>`) would be a semantic error — the range of `has member part` must be a continuant (a person or group), not a document.
+- **Model simplicity**: introducing topic-specific "view" individuals (e.g. `:Paula_Walker_Family`) would reintroduce the layered complexity that the removal of `p:Persona` was designed to eliminate.
+- **Tooling maturity**: annotating the triple with RDF-star (`<< :Alice_Family_Network BFO_0000115 :Paula_Walker >> mia:inContext <...>`) is a valid future option, but is not yet supported by Protégé and remains non-standard.
+
+The practical implication is that **Tier 1 validation** (which merges all graphs) correctly finds all reachability links across the full dataset, while **application queries** that display a social network's members should join against specific topic named graphs rather than the full triplestore merge.
+
 ### Possession-Related Classes and Properties
 
 This section describes properties and classes related to things a person has, holds, possesses, purchased, or rents.
@@ -694,18 +706,6 @@ The following table lists topics about other people (Paula and Bob) or groups (B
 | 30 | [Med. App. Info(medical-appointment-info).databook.md](<example/Cells/People/Immediate Family/Paula Walker/Health & Wellness/Medical/Providers/Med. App. Info/Med. App. Info(medical-appointment-info).databook.md#topic-30>) | Medical Appointment       | Alice's own self-claimed contact info — the other of this cell's two members, alongside Carol (topic 28)           | [view](example/topics/images/self.self(Med.-App.-Info)(medical-appointment-info)(30).png) |
 | 27 | [Citibank(banking-payments).databook.md](<example/Cells/Finances/Banking & Payments/Citibank/Citibank(banking-payments).databook.md#topic-27>) | Banking & Payments Firms | Alice's own self-claimed notes about Citibank as an institution, alongside Citibank's own claimed record about her (topic 09) | [view](example/topics/images/citibank.self(Citibank)(banking-payments)(27).png) |
 | 31 | [Fred Flintstone(others).databook.md](<example/Cells/People/Others/Fred Flintstone/Fred Flintstone(others).databook.md#topic-31>)                     | Others       | Fred's self-claimed Fred persona                                 | [view](example/topics/images/fred-flintstone.fred-flintstone(Fred-Flintstone)(others)(31).png) |
-
-### Named Graph Scoping and Topic-Specific Membership
-
-A `BFO_0000115` (has member part) triple on a Social Network individual — for example, `:Alice_Family_Network BFO_0000115 :Paula_Walker` in topic 21 — targets `:Paula_Walker` as a person entity, not as a topic-specific slice of her data. The named graph architecture provides the isolation: that triple lives inside topic 21's named graph, and when an application needs "Paula Walker's family topic data" it queries topic 21's graph together with topic 5's graph, rather than the full merged dataset.
-
-This is the correct design for three reasons:
-
-- **BFO semantics**: changing the range of `BFO_0000115` to a DataBook document IRI (e.g. `<https://www.example.org/mia/topics/paula-walker.self(Paula-Walker)(immediate-family)(07)>`) would be a semantic error — the range of `has member part` must be a continuant (a person or group), not a document.
-- **Model simplicity**: introducing topic-specific "view" individuals (e.g. `:Paula_Walker_Family`) would reintroduce the layered complexity that the removal of `p:Persona` was designed to eliminate.
-- **Tooling maturity**: annotating the triple with RDF-star (`<< :Alice_Family_Network BFO_0000115 :Paula_Walker >> mia:inContext <...>`) is a valid future option, but is not yet supported by Protégé and remains non-standard.
-
-The practical implication is that **Tier 1 validation** (which merges all graphs) correctly finds all reachability links across the full dataset, while **application queries** that display a social network's members should join against specific topic named graphs rather than the full triplestore merge.
 
 ## Diagrams
 
