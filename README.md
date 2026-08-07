@@ -145,9 +145,19 @@ The user is free to construct folders not included in the predefined categories.
 
 ### Category Folders
 
-A folder qualifies as a **category folder** exactly when it holds one **cell DataBook** (see [Cell DataBooks](#cell-databooks) below) directly inside it, whose filename's `<local>` segment is an exact copy of the folder's own name. That single file both marks the folder as a category-tree node and holds all of its content (or an empty placeholder, if nothing has been filed there yet). A folder with no such matching cell-databook is simply a plain filesystem folder, not a category folder — even if it contains nested category folders of its own. A category folder can never hold more than one cell: a `c:Cell` is self-contained, and letting two cells share a folder would risk a single file in that folder becoming ambiguously part of both.
+A folder qualifies as a **category folder** exactly when it holds one **cell DataBook** (see [Cell DataBooks](#cell-databooks) below) directly inside it, whose filename's `<local>` segment is an exact copy of the folder's own name. That single file both marks the folder as a *category* folder. A folder without a matching cell-databook is simply a plain filesystem folder, not a *category* folder — even if it contains nested category folders of its own. A category folder can never hold more than one cell because a `c:Cell` is, by definition, self-contained, and letting two cells share a folder would risk a single file in that folder becoming ambiguously part of both.
 
-The tree of category folders contains a mixture of user-defined categories and categories matching a canonical class, distinguished purely by whether the folder's own cell-databook carries a `c:origin` value — asserted directly, via `mia.origin` in that cell-databook's own YAML frontmatter, recording the `cat:Category` subclass the cell was originally instantiated as, if any, and absent otherwise. This value is fixed at that point, not re-derived from the folder's current name — a folder can be freely renamed or moved without needing to update it. Tree position (nesting) is likewise a pure filesystem fact, with no `child`-style property to assert anywhere. This one-to-one folder/cell correspondence is also what makes a shared cell's content portable: moving or renaming any category anywhere in any tree is a pure filesystem operation (move or rename the folder), with no RDF triple to update on either side.
+A category folder may be *user-defined* or *category-defined*. They can be distinguished purely by whether the folder's own cell-databook carries a `c:origin` value. User-defined category folders do not have an `c:origin` value. Category-defined category folders assert this value in `mia.origin` in its cell-databook's own YAML frontmatter. The value records the `cat:Category` subclass the cell was originally instantiated from. This value is fixed at that point, not re-derived from the folder's current name — a folder can be freely renamed or moved without needing to update it. 
+
+#### Three Examples of Category Folders
+
+In the center of the diagram below is a three level snippet of the user's category folder tree. 
+
+<p align="center"><img src="images/folder-mapping.png" alt="Cells, categories, and topics"></p>
+
+- Each folder may hold arbitrary files, and may also contain additional subfolders (to any depth) that are not part of the canonical category tree. These are all part of the cell content that is shared when the folder's cell is shared.
+- One special file, acts as a note about the folder itself. These so-called *folder note* are stored as a file named `X.md` inside the `X` folder. Using the same name as the folder matches the convention used by PKM (Personal Knowledge Management) tools such as Obsidian (using the Folder Notes plugin), Logseq, Foam and others.
+- Another special file, is the category folder's associated **cell DataBook** (a `.databook.md` file with `type: cell-databook`) — see [Category Folders](#category-folders) above for why a folder can never hold more than one. A cell DataBook's `id` matches its containing folder's own name verbatim, with each space replaced by a hyphen (spaces are illegal inside a raw Turtle IRI).
 
 ### Category Ontology File
 
@@ -162,7 +172,7 @@ Empty file system folders for most `cat:Category` subclasses are not pre-created
 
 ## Cell Ontology
 
-The cell ontology defines `c:Cell` — a self-contained unit of *content* that can be kept private or shared with others.
+The cell ontology defines the concept of a cell (`c:Cell`) — a self-contained unit of information that can be kept private or shared with others.
 
 The Cell class has two facets: `c:TCell`, the *template* facet, and `c:ACell`, the *actual* (instantiated) facet. A cell always carries the `c:ACell` facet once it has real content; `c:TCell` is added on top of that when the cell also serves as a reusable template — a bare `c:TCell` with no `c:ACell` doesn't occur in practice.
 
@@ -220,46 +230,17 @@ Every `c:ACell` carries one or two `c:subject` values (the resource(s) the cell 
 | `c:memberTopics` | 1         | 2..4      | 3..N            |
 | `c:otherTopics`  | 0..N      | 0..N      | 0..N            |
 
-### Cells and Categories
+### Cells within Category folders
 
-The diagram below shows representative kinds of cell/category pairs, each labeled with its category's kind (green text) and, when set, a display name (black text) — informal box-label conventions in the diagram itself, not backed by any RDF property (a folder's tree position and display name are purely filesystem facts, with no per-folder individual to carry them). In each cell are a set of gray icons representing objects that are shared with all members of the cell.
-* A folder for the cell's content — its folder note, other files, and subfolders
-* The cells' chat stream where members of cell can chat with one another.
+The diagram below shows a few representative category folders, each holding a cell. 
 
 <p align="center"><img src="images/cat-cell-topic.png" alt="Cells, categories, and topics"></p>
 
-The first, "Work", is a folder named to match `cat:Work` (a `cat:Person` subclass) with no override display name — its cell carries `c:origin` `cat:Work`. The second, "Organization / Acme", is a folder representing `cat:Organization`, displayed as "Acme" — its cell likewise carries `c:origin` `cat:Organization`. The third, "Favorites", is a hypothetical folder with no canonical counterpart at all, displayed as "Favorites" (not tied to any real example data) — its cell carries no `c:origin` value. The fourth, "Others / Bob Johnson", is a `c:TwoMember` cell between the user and another Mia user, Bob — shown with all four self-vs-other classified topics filled (self-by-self, other-by-self, self-by-other, other-by-other), all linked via the cell's `c:memberTopics` (its `c:subject` is `:Self` and `:Bob_Johnson`). The last, "Affiliations / Boston Hub Society", is a `c:ThreePlusMember` cell with two other members, Carol and BHS. 
+The blue text in the upper left of the cell displays the 1-2 subject(s) of the cell. If a `c:TwoMember` cell has a single subject this subject must be the subject of a topic graph in the `c:otherTopics`. And if `c:TwoMember` cell has two subjects they must be two distinct subjects of the 2..4 topic graphs pointed to by `c:memberTopics`. A TwoMember cell with two subjects is essentially about the connection/relationship between the two members.
 
-The blue text in the upper left of the cell is the 1-2 subject(s) of the cell. If a `c:TwoMember` cell has a single subject this subject must be the subject of a topic graph in the `c:otherTopics`. And if `c:TwoMember` cell has two subjects they must be two distinct subjects of the 2..4 topic graphs pointed to by `c:memberTopics`. A TwoMember cell with two subjects is essentially about the connection/relationship between the two members.
-
-Each of these five example cells contains topic graphs shown as circles. White circles are topic graphs whose triples are claimed by the self (the user). Green circles are topic graphs whose triples are claimed by a person other than the self, by an organization (`o:Organization`), or by a group (`g:Group`), and synchronized with the user's Mia instance over the PDN. For example the BHS cell at the bottom has three topics: Self (the user)'s BHS profile, the BHS group's own profile and Bob Johnson's BHS member profile as claimed by Bob.
+Within each cell, topic graphs shown as circles. White circles are topic graphs whose triples are claimed by the self (the user). Green circles are topic graphs whose triples are claimed by a person other than the self, by an organization (`o:Organization`), or by a group (`g:Group`), and synchronized with the user's Mia instance over the PDN. For example the BHS cell at the bottom has three topics: Self (the user)'s BHS profile, the BHS group's own profile and Bob Johnson's BHS member profile as claimed by Bob.
 
 A class's template cell (`cell-templates.ttl`) may also carry validation metadata declared in the paired `cell-templates-shacl.ttl`. This metadata lives on the class-level template only.
-
-#### Cell Folders
-
-A cell's folder is simply whichever folder its cell-databook file physically lives in, within a single unified folder hierarchy in local storage — there is no stored path property (`c:folder` was removed outright, cell.ttl 3.23.0) and no separate RDF individual to keep in sync. Creating, renaming, or deleting a category is simply creating, renaming, or deleting the folder itself.
-
-In the center of the diagram below is a three level snippet of the user's category tree. It shows how that snippet maps to (and controls) the folder hierarchy to its right. Essentially when the user looks in a cell, say the middle one above, they see only the folders and files of the corresponding color, not the surrounding folders and files associated with the category/cell above and the category/cell below. Logically these same-colored files and folders are considered to be a part of the cell even though physically they sit alongside sibling cells' folders in the same tree.
-
-<p align="center"><img src="images/folder-mapping.png" alt="Cells, categories, and topics"></p>
-
-Canonical categories are not instantiated into a user's tree ahead of time. Mia instantiates a canonical category — cloning the `c:TCell` its class carries via `cat:templateCell` into a new cell, if that class has one — into the tree, and creates its folder, only once the user actually has content for it.
-
-The **hierarchy** mirrors the category tree structure. It exists as a folder structure, rooted at a single configurable **Cells root** (e.g. `~/Cells` on macOS). A couple of details:
-
-- In addition to arbitrary files, one special *folder note* acts as a note about the folder itself. These so-called 'folder notes' are stored as a file named `X.md` inside the `X` folder. Using the same name as the folder matches the convention used by PKM (Personal Knowledge Management) tools such as Obsidian (using the Folder Notes plugin), Logseq, Foam and others.
-- Each folder may hold arbitrary files, and may also contain additional subfolders (to any depth) that are not part of the category tree.
-- A subfolder counts as "part of the category tree" — and so is excluded from this cell's own content, belonging instead to whatever category it is itself the folder of — exactly when it directly contains a cell-databook file (a `.databook.md` with `type: cell-databook` — the sole DataBook type in a user's instance tree now, doubling as both a folder's real/placeholder content holder and its tree-node marker). This is checkable one folder at a time: look inside that one subfolder, not the whole category tree. It also stays correct if the user renames or moves folders around outside Mia, since that marker file travels along with whatever folder it's inside.
-- Any file or folder directly inside the Cells root that is not a recognized top-level category folder falls outside the category tree and is ignored by Mia.
-
-Because a cell's own note and its other files now share one folder, the Cells root can be opened directly as a PKM vault (e.g. an Obsidian vault) without hiding anything from it — modern PKM tools handle non-Markdown files natively, so there is no longer a need for a second, notes-only hierarchy kept separate from arbitrary files, as there was in earlier revisions of this design.
-
-A cell's folder path is never stored — it is always exactly wherever its cell-databook file physically sits, which is unambiguous since a folder holds at most one cell-databook (see [Category Folders](#category-folders) above). This makes the reasons an earlier revision of this design once cited for keeping an explicit `c:folder` path moot: there is no separately derived path for a stored one to diverge from or degrade relative to, and a user who wants a cell's folder to live somewhere other than its default category-tree location can simply put that cell's databook file there directly — the folder is inherently wherever that file is, with nothing extra to record.
-
-### Cell DataBooks
-
-A category folder has exactly one associated **cell DataBook** (a `.databook.md` file with `type: cell-databook`) — see [Category Folders](#category-folders) above for why a folder can never hold more than one. A cell DataBook's `id` matches its containing folder's own name verbatim, with each space replaced by a hyphen (spaces are illegal inside a raw Turtle IRI).
 
 #### Properties
 
