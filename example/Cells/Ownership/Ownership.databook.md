@@ -51,7 +51,9 @@ This topic captures Alice Walker's day-to-day physical possessions. Her wallet h
 
 :Self persona:hasWallet :Alice_Wallet ;
     persona:hasPhysicalCard :Alice_HealthInsuranceCard ;   # not in wallet — carried separately
-    persona:hasPhysicalCard :Alice_SSNCard .               # not in wallet — stored at home for safety
+    persona:hasPhysicalCard :Alice_SSNCard ;               # not in wallet — stored at home for safety
+    persona:hasPhysicalCard :Alice_DriversLicense ;        # in wallet
+    persona:hasPhysicalCard :Alice_PaymentCard .           # in wallet
 
 
 :Alice_Wallet rdf:type owl:NamedIndividual ,

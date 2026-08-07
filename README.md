@@ -387,7 +387,7 @@ The practical implication is that **Tier 1 validation** (which merges all graphs
 This section describes properties and classes related to things a person has, holds, possesses, purchased, or rents.
 
 - Physical plastic/paper cards are `MaterialArtifact` subclasses that include driver's license, health insurance card, payment card, etc.
-- Physical wallets — cards may be placed in a wallet (via BFO `continuant part of`) or held directly by the `p:Person` (via `p:hasPhysicalCard`).
+- Physical wallets — `p:hasPhysicalCard` records that a `p:Person` possesses a card, wallet-contained or not; BFO `continuant part of` separately records that a specific card is currently inside a specific `p:Wallet`. These are independent, complementary facts, not alternatives — a wallet-contained card carries both.
 
 <p align="center"><img src="images/persona-ontology/persona-card.png" alt="Card possessions model"></p>
 
@@ -405,7 +405,7 @@ This section describes properties and classes related to things a person has, ho
 - `is carrier of` (from BFO) — used to link a physical card to its corresponding `p:Person` in another topic.
 - `p:hasWallet` — links a `p:Person` to a physical wallet (see Possessions below).
 - `p:hasImageScan` — a link to a scanned image of this card.
-- `p:hasPhysicalCard` — links a `p:Person` to a `p:PhysicalCard` carried outside of a wallet (see Possessions below).
+- `p:hasPhysicalCard` — links a `p:Person` to a `p:PhysicalCard` they possess, whether carried directly or held inside a wallet (see Possessions below).
 
 ### Accounts
 
@@ -646,9 +646,25 @@ Alice used to live in Boston until late 2025, but now lives in Paradise, CA. Inf
 
 ### Possessions 
 
-Alice, like everyone, owns (or borrows, or rents) a bunch of things. A few of them are described in topic 22. Alice has things like a plastic direver's license card, a health insurance cards, social security number cards. She also has a wallet. She keeps some of these in her wallet and some separately. Presumably Alice has a vehicle of some kind, and so many other things, so this example is extremely limited at the moment.
+Alice, like everyone, owns (or borrows, or rents) a zillions of things. A tiny few of them are described in topic 22. We focused on a few identity documents. Alice has a plastic driver's license card, a health insurance cards, social security number cards. She also has a wallet. She keeps some of these in her wallet and some separately. Presumably Alice has a vehicle of some kind, and so many other things, so this example is extremely limited at the moment. 
+
+Here are a few lines from topic 22:
+```turtle 
+:Self persona:hasWallet :Alice_Wallet ;
+    persona:hasPhysicalCard :Alice_HealthInsuranceCard ;   # carried separately
+    persona:hasPhysicalCard :Alice_SSNCard ;               # stored at home
+    persona:hasPhysicalCard :Alice_DriversLicense ;        # in wallet
+    persona:hasPhysicalCard :Alice_PaymentCard .           # in wallet
+
+:Alice_DriversLicense rdf:type persona:PhysicalDriversLicense ;
+    BFO_0000176 :Alice_Wallet .                            # in the wallet
+
+:Alice_PaymentCard rdf:type persona:PhysicalPaymentCard ;
+    BFO_0000176 :Alice_Wallet .                            # in the wallet
+```
 
 <p align="center"><img src="example/images/misc.png" alt="Miscellaneous cells"></p>
+
 
 ### Boston Hub Society
 
