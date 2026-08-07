@@ -1,6 +1,6 @@
 # Mia Ontologies — Illustrative Example
 
-This file continues [README.md](README.md), which describes the Category, Cell, Topic, Persona, Organization, and Group ontologies. Below is a worked illustrative example — a hypothetical Mia user, Alice Walker — showing how those ontologies are used together, followed by diagram-generation instructions and the full validation pipeline for the example dataset.
+This file continues [README.md](README.md), which describes the Category, Cell, Topic, Persona, Organization, and Group ontologies. It provides an illustrative example — a hypothetical Mia user, Alice Walker — showing how those ontologies are used together, followed by diagram-generation instructions and the full validation pipeline for the example dataset.
 
 ## Illustrative Example: Alice 
 
