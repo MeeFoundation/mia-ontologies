@@ -1,11 +1,11 @@
 ---
 id: http://www.example.org/mia/categories/Jane-Kolpakova(primary-care-physician)
-title: "Dr. Jane Kolpakova"
+title: "Jane Kolpakova"
 type: cell-databook
-version: 1.1.0
+version: 1.2.0
 created: 2026-07-10
 description: >
-  Cell DataBook of category "Dr. Jane Kolpakova" (cell:origin: cat:PrimaryCarePhysician). Content may include topics/folder/note links, and may carry one or two required subject values.
+  Cell DataBook of category "Jane Kolpakova" (cell:origin: cat:PrimaryCarePhysician). Content may include topics/folder/note links, and may carry one or two required subject values.
 mia:
   origin: "cat:PrimaryCarePhysician"
   creator: ":Self"

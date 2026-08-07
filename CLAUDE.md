@@ -303,6 +303,8 @@ Note: this check's `^id:\s*(\S+)` regex is anchored at true line-start with no l
 
 - **10g — Blue "Subject" annotation matches `cell:subject`**: Per the Key legend's "Subject" entry, a cell box carries a blue "Subject" text annotation listing the name(s) of the resource(s) the cell's relationship is about, comma-separated when there are two. This text must list exactly the same value(s) — by name, not IRI — as the actual `mia.subject` value(s) of the cell-databook co-located in that box's own folder, no more and no fewer. This is a visual check (no script) — e.g. `finances.png`'s "Banking & Payments / Citibank" box's Subject annotation reads "Self, Citibank", matching `Citibank(banking-payments).databook.md`'s `mia.subject: [":Self", ":Citibank"]`.
 
+- **10h — Black parenthetical origin-label text matches `cell:origin`'s class label**: Immediately after the blue Subject text (e.g. `Self (Companies)`), a cell box may carry a black parenthetical giving its `cell:origin` class's `rdfs:label` (from `category.ttl`) in human-readable form. It follows the exact same compression rule as the Category/Cell DataBook Filename Convention's `<local>(<catType>)` filename form: shown only when that label differs from the box's own folder-name label, and omitted entirely when the two are identical. This text must match the co-located cell-databook's actual `mia.origin` class's `rdfs:label`, verbatim — no more and no fewer words, never invented or abbreviated further. This is a visual check (no script) — e.g. `companies.png`'s "Google" and "ATT" boxes both show `(Companies)`, matching their shared `mia.origin: "cat:Companies"` (label "Companies"); `gov-state.png`'s "Texas Vital Records" and "California DMV" boxes show `(Birth Certificate)` and `(Drivers License)`, matching `cat:BirthCertificate`'s and `cat:DriversLicense`'s labels; `misc.png`'s "Ownership" box shows no parenthetical at all, correctly compressed since `cat:Ownership`'s label already equals the folder name "Ownership".
+
 The 11 diagrams are: `example/images/people.png`, `example/images/people2.png`, `example/images/health.png`, `example/images/work.png`, `example/images/companies.png`, `example/images/finances.png`, `example/images/gov-state.png`, `example/images/gov-federal.png`, `example/images/gov-municipality.png`, `example/images/misc.png`, `example/images/affiliations.png`.
 
 **Check 11 — Physical folder structure IS the category tree in `example/Cells/`**: This check applies only to `example/Cells/` — the user's own instance tree — since there is no longer a separate canonical-instance file tree to mirror (`categories-person/`/`categories-org/` were removed in category.ttl 1.8.0). There is no longer a `mia.child`/`mia.cell` YAML list to cross-check the tree against either — category.ttl 1.31.0 deleted `cat:child`/`cat:cell` (and `cat:Folder` itself) outright, so this check has no independently-asserted list to "mirror" at all; it collapses to a pure filesystem sanity check with no YAML frontmatter parsing at all. A folder counts as a category-tree node ("marker dir") iff it directly contains exactly one `*.databook.md` file (the only DataBook type in a user's instance tree is now cell-databook, so no `-cell` marker is needed to identify one) — that file is simultaneously the folder's real (or placeholder) content and its tree-node marker (cell.ttl's folder ownership boundary rule, 3.16.0/3.19.0). A folder can never legally hold more than one cell-databook (cell.ttl 3.22.0): a `cell:Cell` is self-contained, and letting two cells share a folder would risk a single file in that folder becoming ambiguously part of both — this check flags any such folder as an error. Folder naming is not standardized — it may be the category's display label, a role-based label, or anything else — but a cell-databook's own filename is now always the folder's exact verbatim name (see the Category/Cell DataBook Filename Convention), so this check's per-folder marker test and its filename root are one and the same string. No bare, marker-less pass-through directories are permitted between two marker dirs. Run:
@@ -539,6 +541,36 @@ print('All cell:OneMember/TwoMember cells satisfy the subject/otherTopics-member
 ```
 
 If a violation is found, either relink the offending topic to the correct list (`memberTopics` for an active member's own topic, `otherTopics` for the single named subject's own topic when the cell has only one `cell:subject` value and enough other topics exist to fill `memberTopics` without it), or reconsider whether `cell:subject`'s value(s) or `cell:memberCount`'s value are correct for the relationship being modeled.
+
+**Check 19 — Cell-databook `title:` matches its own folder's OS name**: The Category/Cell DataBook Filename Convention already requires a cell-databook's *filename root* to be an exact copy of its folder's own name, but that convention is about the filename — not the separate `title:` YAML field, which several other checks (notably Check 10a's box-label match) treat as authoritative for what a cell "is called." Nothing previously verified that `title:` and the folder's actual OS name hadn't quietly drifted apart. The invariant: for every cell-databook under `example/Cells/`, `title:` must equal `os.path.basename` of the folder it directly lives in, verbatim (same case/spacing/punctuation rule as the filename convention — no kebab-casing, no paraphrasing). Run:
+
+```python
+import os, re, yaml
+
+def frontmatter(path):
+    text = open(path, encoding='utf-8').read()
+    m = re.match(r'^---\n(.*?)\n---', text, re.DOTALL)
+    return yaml.safe_load(m.group(1)) if m else None
+
+errors = 0
+for dirpath, _, filenames in os.walk('example/Cells'):
+    if 'under-development' in dirpath.split(os.sep):
+        continue
+    cells = [f for f in filenames if f.endswith('.databook.md')]
+    for fname in cells:
+        path = os.path.join(dirpath, fname)
+        fm = frontmatter(path)
+        if not fm:
+            continue
+        title = fm.get('title')
+        folder_name = os.path.basename(dirpath)
+        if title != folder_name:
+            print(f'MISMATCH  {path}  folder={folder_name!r}  title={title!r}')
+            errors += 1
+print('OK — title: matches its own folder name for every cell-databook.' if errors == 0 else f'{errors} mismatch(es) found.')
+```
+
+If a mismatch is found, don't silently pick a side — flag it (matching Check 12/13's own rule for ambiguous-authority discrepancies): a `title:` that adds an honorific, expands an abbreviation, or otherwise "reads nicer" than the raw folder name (e.g. `Dr. Jane Kolpakova` vs. folder `Jane Kolpakova`, or `AT&T` vs. folder `ATT`) may be a deliberate display-name choice or may be undetected drift — ask which, since the folder name is also what Check 9's `id:` derivation and Check 10a's diagram-box match both key off.
 
 ## Keeping Files in Sync
 
