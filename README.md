@@ -158,7 +158,7 @@ The tree of category folders contains a mixture of user-defined categories and c
 
 ### Lazy Instantiation
 
-Most `cat:Category` subclasses have no folder anywhere in a user's tree until the user actually files something under them — canonical categories are never pre-created ahead of time. When a folder matching a templated class (one carrying a `cat:templateCell` value) is first given content, Mia clones that class's `c:TCell` template into a new cell for that folder: whatever `c:templateShape` value the template carried is copied into the new cell's `c:shape`, and the clone is given real member-classified content — typed with a concrete `c:ACell` subclass (e.g. `c:OneMember`) — rather than staying purely a template. This is what turns a `cat:Category` class's reusable starter content (`cat:templateCell` → `c:TCell` → optionally `c:templateShape`) into one specific cell's actual starter content only once it's needed, rather than eagerly pre-populating a folder for every `cat:Category` subclass whether or not the user ever uses it.
+Empty file system folders for most `cat:Category` subclasses are not pre-created ahead of time. A folder is not created until the user wishes to create a cell that needs that folder to hold it. When a folder matching a templated class (one carrying a `cat:templateCell` value) is first given content, Mia clones that class's `c:TCell` template into a new cell for that folder: whatever `c:templateShape` value the template carried is copied into the new cell's `c:shape`, and the clone is given real member-classified content — typed with a concrete `c:ACell` subclass (e.g. `c:OneMember`) — rather than staying purely a template. 
 
 ## Cell Ontology
 
