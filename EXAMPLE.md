@@ -20,10 +20,6 @@ Under *Medical* > *Providers* > *Primary Care Physician*, Alice keeps a record o
 
 <p align="center"><img src="example/images/people2.png" alt="People cells, continued — Immediate Family, Paula Walker, and her Health & Wellness, Medical, and Providers cells"></p>
 
-*(This diagram is a work in progress and will be expanded to show the Health & Wellness cell in more detail.)*
-
-<p align="center"><img src="example/images/health.png" alt="Health & Wellness cell (work in progress)"></p>
-
 ### Working for Acme
 
 Alice is an employee of Acme, so under her *Work* category folder she has created *Acme* to represent her employer. Since Acme is an organization, rather than using `cat:Person` categories she has switched to `cat:Organization` categories (light blue color). Under *Employees* she has added her own *Alice Walker* category that holds her Business Card claims (topic 10) — job title at Acme, work telephone number, work email, etc. One of the employees she works with is Paula Walker, so she has a Paula Walker category for her. Its cell contains statements Alice has made about Paula (topic 6) and statements about herself (topic 20) neither of which have been shared with Paula since this is a (non-shared) Single-Member Cell.
@@ -60,7 +56,7 @@ Alice used to live in Boston until late 2025, but now lives in Paradise, CA. Inf
 
 ### Possessions 
 
-Alice, like everyone, owns (or borrows, or rents) a zillions of things. A tiny few of them are described in topic 22. We focused on a few identity documents. Alice has a plastic driver's license card, a health insurance cards, social security number cards. She also has a wallet. She keeps some of these in her wallet and some separately. Presumably Alice has a vehicle of some kind, and so many other things, so this example is extremely limited at the moment. 
+Alice, like everyone, owns (or borrows, or rents) zillions of things. A tiny few of them are described in topic 22. We focused on a few identity documents. Alice has a plastic driver's license card, a health insurance cards, social security number cards. She also has a wallet. She keeps some of these in her wallet and some separately. Presumably Alice has a vehicle of some kind, and so many other things, so this example is extremely limited at the moment. 
 
 Here are a few lines from topic 22:
 ```turtle 
