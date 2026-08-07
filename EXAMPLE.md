@@ -95,11 +95,11 @@ The topics in the table below are *about* Alice and claimed *by* Alice. The "Cel
 | 16 | [Google(companies).databook.md](<example/Cells/Companies/Google/Google(companies).databook.md#topic-16>)               | Companies    | Gmail address                                                    | [view](example/topics/images/self.self(Google)(companies)(16).png) |
 | 17 | [Health & Wellness.databook.md](<example/Cells/People/Immediate Family/Paula Walker/Health & Wellness/Health & Wellness.databook.md#topic-17>)                 | Health & Wellness     | Paula's physical body — height (68 in.), blue eyes, grey hair — as recorded by Alice            | [view](example/topics/images/paula-walker.self(Health-&-Wellness)(17).png) |
 | 18 | [Paradise(residence).databook.md](<example/Cells/Government/Municipality/Paradise/Paradise(residence).databook.md#topic-18>)           | Municipality | Current address — Paradise, CA (2025–present)                    | [view](example/topics/images/self.self(Paradise)(residence)(18).png) |
-| 19 | [Passport.databook.md](<example/Cells/Government/Federal/Passport/Passport.databook.md#topic-19>)             | Federal    | US passport — legal name, DOB, passport#, issue/expiry, place of birth, gender marker, photo | [view](example/topics/images/self.self(Passport)(19).png) |
+| 19 | [Department of State(passport).databook.md](<example/Cells/Government/Federal/Department of State/Department of State(passport).databook.md#topic-19>)             | Federal    | US passport — legal name, DOB, passport#, issue/expiry, place of birth, gender marker, photo | [view](example/topics/images/self.self(Department-of-State)(passport)(19).png) |
 | 20 | [Paula Walker(employee).databook.md](<example/Cells/Work/Acme/Employees/Paula Walker/Paula Walker(employee).databook.md#topic-20>)                   | Employee     | Acme employee topic; company email; works with Paula           | [view](example/topics/images/self.self(Paula-Walker)(employee)(20).png)|
 | 21 | [Paula Walker(immediate-family).databook.md](<example/Cells/People/Immediate Family/Paula Walker/Paula Walker(immediate-family).databook.md#topic-21>)   | Immediate Family       | Alice as a family member                       | [view](example/topics/images/self.self(Paula-Walker)(immediate-family)(21).png) |
 | 22 | [Ownership.databook.md](<example/Cells/Ownership/Ownership.databook.md#topic-22>)     | Ownership  | Wallet (driver's license + payment card); health ins., SSN card  | [view](example/topics/images/self.self(Ownership)(22).png) |
-| 23 | [Social Security Administration(ssa).databook.md](<example/Cells/Government/Federal/Social Security Administration/Social Security Administration(ssa).databook.md#topic-23>)                     | Federal      | Social security number (SSN)                                     | [view](example/topics/images/self.self(Social-Security-Administration)(ssa)(23).png) |
+| 23 | [Social Security Administration(ssn).databook.md](<example/Cells/Government/Federal/Social Security Administration/Social Security Administration(ssn).databook.md#topic-23>)                     | Federal      | Social security number (SSN)                                     | [view](example/topics/images/self.self(Social-Security-Administration)(ssn)(23).png) |
 | 24 | [Texas Vital Records(birth-certificate).databook.md](<example/Cells/Government/State/Texas Vital Records/Texas Vital Records(birth-certificate).databook.md#topic-24>) | State        | Legal names, maiden name                                         | [view](example/topics/images/self.self(Texas-Vital-Records)(birth-certificate)(24).png) |
 | 29 | [Fred Flintstone(others).databook.md](<example/Cells/People/Others/Fred Flintstone/Fred Flintstone(others).databook.md#topic-29>)                     | Others       | Alice's 1:1 topic with Fred; social network with Fred as member  | [view](example/topics/images/self.self(Fred-Flintstone)(others)(29).png) |
 
@@ -261,8 +261,8 @@ python3 extract-topic.py "example/Cells/Government/State/California DMV/Californ
 riot --output=turtle /tmp/mia-base.ttl /tmp/data-dl-raw.ttl 2>/dev/null > /tmp/data-dl.ttl
 shacl validate --shapes /tmp/shapes-cell-templates.ttl --data /tmp/data-dl.ttl --text
 
-# Passport — self.self(Passport)(19)
-python3 extract-topic.py "example/Cells/Government/Federal/Passport/Passport.databook.md" "self.self(Passport)(19)" > /tmp/data-passport-raw.ttl
+# Passport — self.self(Department-of-State)(passport)(19)
+python3 extract-topic.py "example/Cells/Government/Federal/Department of State/Department of State(passport).databook.md" "self.self(Department-of-State)(passport)(19)" > /tmp/data-passport-raw.ttl
 riot --output=turtle /tmp/mia-base.ttl /tmp/data-passport-raw.ttl 2>/dev/null > /tmp/data-passport.ttl
 shacl validate --shapes /tmp/shapes-cell-templates.ttl --data /tmp/data-passport.ttl --text
 

@@ -103,11 +103,11 @@ The user is free to construct folders not included in the predefined categories.
 1. **Information** (`cat:Information`) — general knowledge selected by you, web links, documents, images.
 1. **Government** (`cat:Government`) — government-issued credentials, tax records, and civic relationships.
     - **Federal** (`cat:Federal`) — federal government topic (e.g. passport, federal tax records).
-        - **SSA** (`cat:SSA`) — social security number issued by the federal Social Security. Administration.
+        - **SSN** (`cat:SSN`) — social security number issued by the federal Social Security Administration.
         - **Passport** (`cat:Passport`) — passport issued by the Department of State.
     - **State** (`cat:State`) — state government topic (e.g. driver's license, state tax records).
         - **Birth Certificate** (`cat:BirthCertificate`) — a birth certificate issued by a state agency that issues and holds these records.
-        - **Drivers License** (`cat:DriversLicense`) — a driver's license issued by a ttate agency that issues and holds these records.
+        - **Drivers License** (`cat:DriversLicense`) — a driver's license issued by a state agency that issues and holds these records.
     - **Municipality** (`cat:Municipality`) — municipal government topic (e.g. local permits, library card).
         - **Residence** (`cat:Residence`) — a place a person has lived, current or past.
 1. **Companies** (`cat:Companies`) — a catch-all for your relationships with companies and organizations that provide services and/or products to you that are not included in more specific categories such `Cat:Finances`, `cat:HealthWellness`, `cat:Home`, `cat:Food`, etc.
@@ -151,7 +151,7 @@ A category folder may be *user-defined* or *category-defined*. They can be disti
 
 #### Examples of Category Folders
 
-In the center of the diagram below is a three level snippet of the user's category folder tree. 
+In the center of the diagram below is a three level snippet of the user's category folders. 
 
 <p align="center"><img src="images/folder-mapping.png" alt="Cells, categories, and topics"></p>
 
