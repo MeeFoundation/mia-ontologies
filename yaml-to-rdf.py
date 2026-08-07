@@ -35,7 +35,7 @@ comments, and the IRI cell:memberTopics/cell:otherTopics actually reference.
 
 Usage:   python3 yaml-to-rdf.py [repo-root] > yaml-data.ttl
 Output:  Turtle triples on stdout — merge with `riot` alongside data extracted
-         via `databook extract` (see README.md's Validation section).
+         via `databook extract` (see EXAMPLE.md's Validation section).
 
 Requires: pip install pyyaml
 """

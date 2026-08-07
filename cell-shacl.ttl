@@ -65,7 +65,7 @@
     # sh:NodeShape here: the individuals it points at (e.g.
     # pshapes:PassportDocumentShape) are only typed sh:NodeShape in
     # cell-templates-shacl.ttl, which is deliberately excluded from Tier 1's
-    # merged-data validation (see README.md's Validation section) — asserting
+    # merged-data validation (see EXAMPLE.md's Validation section) — asserting
     # sh:class here would spuriously fail against that merged graph. Most
     # template cells carry no cell:templateShape value at all — that's the
     # default.

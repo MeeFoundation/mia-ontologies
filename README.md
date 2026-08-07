@@ -23,7 +23,7 @@ Throughout this document we use these short-hands:
 - `o:` for the `organization:` namespace (`http://mee.foundation/ontologies/organization#`).
 - `g:` for the `group:` namespace (`http://mee.foundation/ontologies/group#`)
 
-After describing these ontologies in more detail, we conclude with an illustration of their use by a hypothetical Mia user, Alice Walker.
+After describing these ontologies in more detail, see [**EXAMPLE.md**](EXAMPLE.md) for an illustration of their use by a hypothetical Mia user, Alice Walker, along with diagram-generation and validation instructions for the example dataset.
 
 ## Category Ontology
 
@@ -145,7 +145,7 @@ The user is free to construct folders not included in the predefined categories.
 
 ### Category Folders
 
-A folder qualifies as a **category folder** exactly when it holds one **cell DataBook** (see [Cell DataBooks](#cell-databooks) below) directly inside it, whose filename's `<local>` segment is an exact copy of the folder's own name. That single file both marks the folder as a *category* folder. A folder without a matching cell-databook is simply a plain filesystem folder, not a *category* folder — even if it contains nested category folders of its own. A category folder can never hold more than one cell because a `c:Cell` is, by definition, self-contained, and letting two cells share a folder would risk a single file in that folder becoming ambiguously part of both.
+A folder qualifies as a **category folder** exactly when it holds one **cell DataBook** (see [Three Examples of Category Folders](#three-examples-of-category-folders) below) directly inside it, whose filename's `<local>` segment is an exact copy of the folder's own name. That single file both marks the folder as a *category* folder. A folder without a matching cell-databook is simply a plain filesystem folder, not a *category* folder — even if it contains nested category folders of its own. A category folder can never hold more than one cell because a `c:Cell` is, by definition, self-contained, and letting two cells share a folder would risk a single file in that folder becoming ambiguously part of both.
 
 A category folder may be *user-defined* or *category-defined*. They can be distinguished purely by whether the folder's own cell-databook carries a `c:origin` value. User-defined category folders do not have an `c:origin` value. Category-defined category folders assert this value in `mia.origin` in its cell-databook's own YAML frontmatter. The value records the `cat:Category` subclass the cell was originally instantiated from. This value is fixed at that point, not re-derived from the folder's current name — a folder can be freely renamed or moved without needing to update it. 
 
@@ -208,7 +208,7 @@ A cell needing both facets at once — e.g. every individual in `cell-templates.
 
 - **`c:subject`** — either exactly one or two values (`xsd:anyURI`s) are required. The subject indicates what this cell is about. Its values are the values of the `t:subject` properties of one or two of the topic graphs (`t:SCTopicGraph`s) pointed to by the cell's `c:memberTopics` or `c:otherTopics` links.
 
-- **`c:memberTopics`** — one or more values, required; It is a link to the required baseline of subject-claimant topic graphs (`t:SCTopicGraph`) that hold the structured content of the cell related to the members with which the cell has been shared. Its cardinality varies by member count — see [Cell Member Composition](#cell-member-composition). Each SCTopicGraph has a *subject* and a *claimant*. The subject is typically a person, organization, or group, but it could be any other entity the Persona ontology can describe. The claimant is the person, group or organization that is asserting the values of the claims in the container. See [Topic Ontology](#topic-ontology) for details.
+- **`c:memberTopics`** — one or more values, required; It is a link to the required baseline of subject-claimant topic graphs (`t:SCTopicGraph`) that hold the structured content of the cell related to the members with which the cell has been shared. Its cardinality varies by member count — see [Cell Members](#cell-members). Each SCTopicGraph has a *subject* and a *claimant*. The subject is typically a person, organization, or group, but it could be any other entity the Persona ontology can describe. The claimant is the person, group or organization that is asserting the values of the claims in the container. See [Topic Ontology](#topic-ontology) for details.
 
 - **`c:otherTopics`** — optional, unbounded (0..N), uniformly regardless of member count. Link to any number of additional subject-claimant topic graphs beyond those referenced by `c:memberTopics`.
 
@@ -216,7 +216,7 @@ A cell needing both facets at once — e.g. every individual in `cell-templates.
 
 - **`c:creator`** — optional, at most one value. Identifies who created this cell's content: a single `p:Person`, `g:Group`, or `o:Organization`. 
 
-- **`c:memberCount`** — the concrete `c:ACell` subtype this DataBook instantiates: `c:OneMember`, `c:TwoMember`, or `c:ThreePlusMember`. Value is the class itself (e.g. `mia.memberCount: "c:OneMember"`). See [Cell Member Composition](#cell-member-composition) above.
+- **`c:memberCount`** — the concrete `c:ACell` subtype this DataBook instantiates: `c:OneMember`, `c:TwoMember`, or `c:ThreePlusMember`. Value is the class itself (e.g. `mia.memberCount: "c:OneMember"`). See [Cell Members](#cell-members) above.
 
 #### Cell Members
 
@@ -276,11 +276,11 @@ Each cell DataBook carries one or two `c:subject` values identifying who or what
   - *Object properties*: `c:origin` (domain `c:Cell`, range `cat:Category` — added cell.ttl 3.20.0; the `cat:Category` subclass this cell was originally instantiated as, else nil; fixed at creation, not re-derived from the folder's current name; at most one value); `c:templateShape` (domain `c:TCell`); `c:memberCount`/`c:creator`/`c:memberTopics`/`c:otherTopics`/`c:shape` (domain `c:ACell` — a cell isn't typed `c:ACell`, and so carries none of these, until it has real content). `c:creator`'s range is a union of `p:Person`, `g:Group`, and `o:Organization` — the same union-range pattern used by `topic:claimant` (see [Topic Ontology File](#topic-ontology-file)). `c:memberCount`'s range is `c:ACell` itself: its value is the concrete subclass (`c:OneMember`/`c:TwoMember`/`c:ThreePlusMember`), not a string — class-value punning; `c:origin`'s range `cat:Category` uses this same punning — its value is the concrete leaf subclass (e.g. `cat:Others`), not a string. `c:templateShape`'s and `c:shape`'s ranges are both `sh:NodeShape` — see [Cell Ontology](#cell-ontology) above — but on different domains: `templateShape` describes what a topic filed under a *template* category should look like, while `shape` validates an *actual* cell's own content directly. `c:memberTopics`/`c:otherTopics`'s range is `t:SCTopicGraph` — the former is the required per-member baseline (split from the single `c:topics` property, cell.ttl 3.14.0), the latter any number of additional topics beyond it. `c:Cell` carries no property pointing back to a folder at all — a folder is now purely a filesystem concept with no RDF individual to point at (category.ttl 1.31.0 deleted `cat:Folder` and its subclasses outright); `c:origin`'s range is the classificatory `cat:Category`, not a tree position — it records what kind of thing a cell is, not where it lives, letting a recipient's app use it as a filing hint when a cell is shared over PDN.
   These terms are referenced by name in the YAML frontmatter of each cell DataBook file. `cell.ttl` imports `topic.ttl` (for `c:memberTopics`/`c:otherTopics`'s range, `t:SCTopicGraph`); `topic.ttl` in turn imports `cell.ttl` back, solely to reuse `c:abstract` — a mutual import. `category.ttl` also imports `cell.ttl` (to reuse `c:abstract`, and by name in `c:origin`'s doc comments), but `cell.ttl` does not import `category.ttl` back — `c:origin`'s range `cat:Category` is referenced by name only, exactly like `cell.ttl` already does for `p:Person`/`g:Group`/`o:Organization` in `c:creator`'s range, without importing `persona.ttl`, `group.ttl`, or `organization.ttl` — the same choice `topic.ttl` makes for `topic:claimant`.
 
-**`cell-shacl.ttl`** — SHACL shapes for cell DataBook instances, split across shapes matching `cell.ttl`'s facet split: `:CellShape` (target `c:Cell`) constrains `c:origin` to at most one value (0..1, added cell-shacl.ttl 3.15.0 — not constrained via `sh:class cat:Category`, since a legal value is the concrete leaf subclass itself, never `rdf:type cat:Category`, mirroring `c:memberCount`'s own identical unconstrained, class-value-punning treatment above; its earlier `c:folder` cardinality constraint was removed outright in cell-shacl.ttl 3.17.0, once `c:folder` itself was removed from `cell.ttl`); `:TCellShape` (target `c:TCell`) constrains `c:templateShape` to at most one value; `:ACellShape` (target `c:ACell`) constrains `c:creator` to at most one value which, if present, must be a `p:Person`, `g:Group`, or `o:Organization`, `c:memberCount` to exactly one value which must be the class `c:OneMember`, `c:TwoMember`, or `c:ThreePlusMember`, `c:subject` values to each be an IRI (`sh:nodeKind sh:IRI`, not `sh:class`, since its range is `xsd:anyURI` not `t:SCTopicGraph`), `c:otherTopics` values (if any) to each be a `t:SCTopicGraph`, and `c:shape` to at most one value. Cardinality for `c:subject` and `c:memberTopics` is no longer enforced uniformly on `:ACellShape` — instead three new shapes, `:OneMemberShape`/`:TwoMemberShape`/`:ThreePlusMemberShape` (targeting `c:OneMember`/`c:TwoMember`/`c:ThreePlusMember` directly, since `yaml-to-rdf.py` types every cell individual with its concrete member class), enforce `c:subject` as exactly 1/1..2/exactly 1 and `c:memberTopics` as exactly 1/2..4/at least 3 respectively — replacing the single `c:topics` property's old blanket "at least one, no upper bound" rule, which didn't vary by member count. `c:templateShape`/`c:shape` are deliberately not constrained to `sh:class sh:NodeShape`: the individuals they point at are only typed `sh:NodeShape` in `cell-templates-shacl.ttl`, which Tier 1 validation deliberately excludes from its merged-data run (see [Validation](#validation)), so that constraint would spuriously fail there.
+**`cell-shacl.ttl`** — SHACL shapes for cell DataBook instances, split across shapes matching `cell.ttl`'s facet split: `:CellShape` (target `c:Cell`) constrains `c:origin` to at most one value (0..1, added cell-shacl.ttl 3.15.0 — not constrained via `sh:class cat:Category`, since a legal value is the concrete leaf subclass itself, never `rdf:type cat:Category`, mirroring `c:memberCount`'s own identical unconstrained, class-value-punning treatment above; its earlier `c:folder` cardinality constraint was removed outright in cell-shacl.ttl 3.17.0, once `c:folder` itself was removed from `cell.ttl`); `:TCellShape` (target `c:TCell`) constrains `c:templateShape` to at most one value; `:ACellShape` (target `c:ACell`) constrains `c:creator` to at most one value which, if present, must be a `p:Person`, `g:Group`, or `o:Organization`, `c:memberCount` to exactly one value which must be the class `c:OneMember`, `c:TwoMember`, or `c:ThreePlusMember`, `c:subject` values to each be an IRI (`sh:nodeKind sh:IRI`, not `sh:class`, since its range is `xsd:anyURI` not `t:SCTopicGraph`), `c:otherTopics` values (if any) to each be a `t:SCTopicGraph`, and `c:shape` to at most one value. Cardinality for `c:subject` and `c:memberTopics` is no longer enforced uniformly on `:ACellShape` — instead three new shapes, `:OneMemberShape`/`:TwoMemberShape`/`:ThreePlusMemberShape` (targeting `c:OneMember`/`c:TwoMember`/`c:ThreePlusMember` directly, since `yaml-to-rdf.py` types every cell individual with its concrete member class), enforce `c:subject` as exactly 1/1..2/exactly 1 and `c:memberTopics` as exactly 1/2..4/at least 3 respectively — replacing the single `c:topics` property's old blanket "at least one, no upper bound" rule, which didn't vary by member count. `c:templateShape`/`c:shape` are deliberately not constrained to `sh:class sh:NodeShape`: the individuals they point at are only typed `sh:NodeShape` in `cell-templates-shacl.ttl`, which Tier 1 validation deliberately excludes from its merged-data run (see [Validation](EXAMPLE.md#validation)), so that constraint would spuriously fail there.
 
 ### Cell Ontology Validation
 
-Cell DataBook instances are validated by `cell-shacl.ttl`: `origin`/`memberCount`/`subject`/`memberTopics`/`otherTopics`/`creator`/`shape` exist solely as `mia.` YAML frontmatter fields on cell DataBooks, so `yaml-to-rdf.py` synthesizes the corresponding `c:` triples (`rdf:type c:Cell`, `c:origin` if present, plus `rdf:type c:ACell`/the concrete member class/`c:memberCount`/`c:creator`/`c:subject`/`c:memberTopics`/`c:otherTopics`/`c:shape` once `memberCount` is set) directly from frontmatter, letting `:CellShape`/`:ACellShape`/the per-member-count shapes actually fire against real instance data — see [Tier 1](#validation). `c:origin` is asserted on every `c:Cell` regardless of facet, including a bare placeholder with no real content yet, since its domain is `c:Cell` itself, not `c:ACell`. A cell-databook with no `mia.memberCount` value (a pure tree-position placeholder with nothing filed under it yet) is synthesized as a bare `c:Cell` only, so it is not subject to `:ACellShape`'s or the per-member shapes' required `c:subject`/`c:memberTopics`. (`c:TCell` individuals live only in `cell-templates.ttl`, a plain `.ttl` file rather than a DataBook excluded from Tier 1's merge entirely — see [Validation](#validation) — so they need no such synthesis either.)
+Cell DataBook instances are validated by `cell-shacl.ttl`: `origin`/`memberCount`/`subject`/`memberTopics`/`otherTopics`/`creator`/`shape` exist solely as `mia.` YAML frontmatter fields on cell DataBooks, so `yaml-to-rdf.py` synthesizes the corresponding `c:` triples (`rdf:type c:Cell`, `c:origin` if present, plus `rdf:type c:ACell`/the concrete member class/`c:memberCount`/`c:creator`/`c:subject`/`c:memberTopics`/`c:otherTopics`/`c:shape` once `memberCount` is set) directly from frontmatter, letting `:CellShape`/`:ACellShape`/the per-member-count shapes actually fire against real instance data — see [Tier 1](EXAMPLE.md#validation). `c:origin` is asserted on every `c:Cell` regardless of facet, including a bare placeholder with no real content yet, since its domain is `c:Cell` itself, not `c:ACell`. A cell-databook with no `mia.memberCount` value (a pure tree-position placeholder with nothing filed under it yet) is synthesized as a bare `c:Cell` only, so it is not subject to `:ACellShape`'s or the per-member shapes' required `c:subject`/`c:memberTopics`. (`c:TCell` individuals live only in `cell-templates.ttl`, a plain `.ttl` file rather than a DataBook excluded from Tier 1's merge entirely — see [Validation](EXAMPLE.md#validation) — so they need no such synthesis either.)
 
 ## Topic Ontology
 
@@ -337,13 +337,13 @@ A topic's own metadata is carried as an entry in its owning cell-databook's `mia
 
 ### Topic Ontology Validation
 
-A topic's own metadata (claimant, subject) is declared in its `mia.topics[]` entry, not a separate DataBook's YAML frontmatter. `topic-shacl.ttl`'s `:SCTopicGraphShape` (see above) targets `topic:SCTopicGraph`, but that typing is itself only ever asserted via the `claimant`/`subject` fields of that entry, never as a literal `rdf:type topic:SCTopicGraph` triple in the topic's own extracted Turtle body. `yaml-to-rdf.py` synthesizes it directly from the owning cell-databook's frontmatter — `rdf:type topic:SCTopicGraph` plus `topic:claimant`/`topic:subject`, asserted on the topic's plain `id` (the `mia.topics[].id` value), not the `#graph`-suffixed `graph.named_graph` IRI (see `topic.ttl` 1.11.0) — so `:SCTopicGraphShape` actually fires against real instance data; see [Tier 1](#validation). The remaining classification facts are synthesized the same way from the cell-databook's own frontmatter: `origin`/`memberCount`/`subject`/`memberTopics`/`otherTopics`/`creator`/`shape` (see [Cell Ontology Validation](#cell-ontology-validation)) — there is no separate folder-level synthesis any more, since a folder's tree position is purely a filesystem fact with no RDF individual of its own.
+A topic's own metadata (claimant, subject) is declared in its `mia.topics[]` entry, not a separate DataBook's YAML frontmatter. `topic-shacl.ttl`'s `:SCTopicGraphShape` (see above) targets `topic:SCTopicGraph`, but that typing is itself only ever asserted via the `claimant`/`subject` fields of that entry, never as a literal `rdf:type topic:SCTopicGraph` triple in the topic's own extracted Turtle body. `yaml-to-rdf.py` synthesizes it directly from the owning cell-databook's frontmatter — `rdf:type topic:SCTopicGraph` plus `topic:claimant`/`topic:subject`, asserted on the topic's plain `id` (the `mia.topics[].id` value), not the `#graph`-suffixed `graph.named_graph` IRI (see `topic.ttl` 1.11.0) — so `:SCTopicGraphShape` actually fires against real instance data; see [Tier 1](EXAMPLE.md#validation). The remaining classification facts are synthesized the same way from the cell-databook's own frontmatter: `origin`/`memberCount`/`subject`/`memberTopics`/`otherTopics`/`creator`/`shape` (see [Cell Ontology Validation](#cell-ontology-validation)) — there is no separate folder-level synthesis any more, since a folder's tree position is purely a filesystem fact with no RDF individual of its own.
 
 ## Persona Ontology
 
 The Persona ontology defines a formal, machine-readable model of a person. It is used by triples stored in `t:TopicGraph` instances. 
 
-We represent a person with the `p:Person` class — a Mia-specific subclass of CCO `Person` (`cco:ont00001262`).  The Mia user's own `p:Person` individual always uses the IRI `:Self` across all of their topics; other people, groups, and organizations are assigned locally-minted named IRIs (e.g. `:Bob_Johnson`). `:Self`'s type declaration (`rdf:type owl:NamedIndividual, persona:Person`) is asserted in `example/topics/self.ttl` (see the [Validation](#validation) section for how `self.ttl` is merged in alongside every embedded topic).
+We represent a person with the `p:Person` class — a Mia-specific subclass of CCO `Person` (`cco:ont00001262`).  The Mia user's own `p:Person` individual always uses the IRI `:Self` across all of their topics; other people, groups, and organizations are assigned locally-minted named IRIs (e.g. `:Bob_Johnson`). `:Self`'s type declaration (`rdf:type owl:NamedIndividual, persona:Person`) is asserted in `example/topics/self.ttl` (see the [Validation](EXAMPLE.md#validation) section for how `self.ttl` is merged in alongside every embedded topic).
 
 <p align="center"><img src="images/persona-ontology/persona.png" alt="Persona model"></p>
 
@@ -372,7 +372,7 @@ This section describes classes and properties related to a person's social netwo
 
 #### Named Graph Scoping and Topic-Specific Membership
 
-A `BFO_0000115` (has member part) triple on a Social Network individual — for example, `:Alice_Family_Network BFO_0000115 :Paula_Walker` in a topic about Alice's immediate family — targets `:Paula_Walker` as a person entity, not as a topic-specific slice of her data. The named graph architecture provides the isolation: that triple lives inside its own topic's named graph, and when an application needs "Paula Walker's family topic data" it queries that topic's graph together with Paula's own family-topic graph, rather than the full merged dataset. (See topics #21 and #5 in the [Illustrative Example](#alices-cells-and-topics) below for the concrete instance of this pattern.)
+A `BFO_0000115` (has member part) triple on a Social Network individual — for example, `:Alice_Family_Network BFO_0000115 :Paula_Walker` in a topic about Alice's immediate family — targets `:Paula_Walker` as a person entity, not as a topic-specific slice of her data. The named graph architecture provides the isolation: that triple lives inside its own topic's named graph, and when an application needs "Paula Walker's family topic data" it queries that topic's graph together with Paula's own family-topic graph, rather than the full merged dataset. (See topics #21 and #5 in the [Illustrative Example](EXAMPLE.md#illustrative-example-alice) for the concrete instance of this pattern.)
 
 This is the correct design for three reasons:
 
@@ -550,7 +550,7 @@ The table below maps every JSContact (RFC 9553) property to its representation i
 
 ### Persona Ontology Validation
 
-`persona-shacl.ttl` runs against merged data from all topics (Tier 1 validation). Per-template SHACL files in `shacl/` run against individual topics, each isolated via `extract-topic.py` from its owning cell-databook (Tier 2): birth certificate, JSContactCard, driver's license, passport, and medical appointment each have their own shape file and are validated separately to avoid their `sh:targetClass` constraints firing on every relevant slice in the merged dataset. See the [Validation](#validation) section for commands.
+`persona-shacl.ttl` runs against merged data from all topics (Tier 1 validation). Per-template SHACL files in `shacl/` run against individual topics, each isolated via `extract-topic.py` from its owning cell-databook (Tier 2): birth certificate, JSContactCard, driver's license, passport, and medical appointment each have their own shape file and are validated separately to avoid their `sh:targetClass` constraints firing on every relevant slice in the merged dataset. See the [Validation](EXAMPLE.md#validation) section for commands.
 
 ## Organization Ontology
 
@@ -588,280 +588,6 @@ The Group ontology introduces the concept of a *shared* group (`g:Group`) whose 
 
 `group-shacl.ttl` validates `g:Group` instances. Key constraint: all members (via BFO `has member part`) must be `p:Person` or `o:Organization` instances.
 
-## Illustrative Example: Alice 
+---
 
-This section describes the local Mia dataset for a hypothetical user, Alice Walker. Alice's cells (DataBook files) live in category folders rooted at `example/Cells/`. 
-
-### Bob and Fred
-
-Alice knows two people, Bob and Fred. She has created and shared two *Two-Member* cells with each of them and filed them under *Others*. She filed the (Bob, Self(Alice)) cell under a category folder called *Bob Johnson*. Presumably Bob, in his Mia app, has shared this identical, shared cell under his *Others* category folder. Alice has included some claims about herself (topic 12) including her given name "Alice", her family name "Walker", etc. She has included (topic 4) her claim that Bob's favorite drink is an oat milk cappuccino. Bob has claimed some contact information about himself (topic 2), and he claims that her favorite drink is Pepsi (topic 8).
-
-<p align="center"><img src="example/images/people.png" alt="People cells"></p>
-
-### Taking Care of Paula
-
-Alice's mother, Paula Walker, is a category folder called *Paula* under *Immediate Family*. The Self, Paula cell (topics 7, 5, 21) capture her connection with Paula. Alice spends time taking care of her mother, so she has, by herself assembled some information about Paul in non-shared cells. In the *Health & Wellness* category folder Alice keeps a record of Paula's physical characteristics such as height, eye color, hair color in topic 17.  
-
-Under *Medical* > *Providers* > *Primary Care Physician*, Alice keeps a record of Dr. Jane Kolpakova, Paula's primary care physician (topic 25). Alice's sister Carol is involved in taking care of their mother. They need to arrange medical appointments, etc. and to do so, they need to share and synchronize medical information about Paula including her list of medications, medical history, health insurance policy, contact information and so on. To work on this as a team, Alice creates a two-member *Med. App. Info* cell and shares it with Carol. They both use it to share information about Paula's upcoming medical appointment (topic 26). This topic includes the name of Paula's doctor (primary care physician) which Mia copies from the Dr. Jane Kolpakova cell (topic 25). 
-
-<p align="center"><img src="example/images/people2.png" alt="People cells, continued — Immediate Family, Paula Walker, and her Health & Wellness, Medical, and Providers cells"></p>
-
-*(This diagram is a work in progress and will be expanded to show the Health & Wellness cell in more detail.)*
-
-<p align="center"><img src="example/images/health.png" alt="Health & Wellness cell (work in progress)"></p>
-
-### Working for Acme
-
-Alice is an employee of Acme, so under her *Work* category folder she has created *Acme* to represent her employer. Since Acme is an organization, rather than using `cat:Person` categories she has switched to `cat:Organization` categories (light blue color). Under *Employees* she has added her own *Alice Walker* category that holds her Business Card claims (topic 10) — job title at Acme, work telephone number, work email, etc. One of the employees she works with is Paula Walker, so she has a Paula Walker category for her. Its cell contains statements Alice has made about Paula (topic 6) and statements about herself (topic 20) neither of which have been shared with Paula since this is a (non-shared) Single-Member Cell.
-
-<p align="center"><img src="example/images/work.png" alt="Work cells"></p>
-
-### Two Service Providers
-
-Alice has relationships with two companies, Google and ATT. The former provides her with her Gmail address and the latter is her cell phone provider.
-
-<p align="center"><img src="example/images/companies.png" alt="Companies cells"></p>
-
-### Checking Account and Debit Card
-
-Alice has a checking account (and associated debit care) at Citibank. In our example Citibank is compatible with PDN and participates directly as a member of this Self<>Citibank cell. Citibank directly write the data about Alice's checking account into topic 9. It is colored green because the claimant is Citibank, not Alice. Alice self-asserts her username and password. Citibank asserts some information about itself in topic 27.
-
-<p align="center"><img src="example/images/finances.png" alt="Financial cells"></p>
-
-### Birth Certificate and Driver's License
-
-Alice was born in Texas and their vital records department issued a birth certificate about Alice. Alice has manually entered the information from her birth certificate (topic 24) and has included a scan of her paper birth certificate in *Texas Vital Records* category folder (not shown). She recently moved to Paradise, California, and was issued a license by the California DMV. Alice manually entered the information from her plastic license card (topic 15) and included a scan of it in the *California DMV* folder (not shown).
-
-<p align="center"><img src="example/images/gov-state.png" alt="Government — State cells"></p>
-
-### Passport and Social Security Number
-
-<p align="center"><img src="example/images/gov-federal.png" alt="Government — Federal cells"></p>
-
-### Current and Previous Homes
-
-Alice used to live in Boston until late 2025, but now lives in Paradise, CA. Information about these two residences are in topics 13 and 18. 
-
-<p align="center"><img src="example/images/gov-municipality.png" alt="Government — Municipality cells"></p>
-
-### Possessions 
-
-Alice, like everyone, owns (or borrows, or rents) a zillions of things. A tiny few of them are described in topic 22. We focused on a few identity documents. Alice has a plastic driver's license card, a health insurance cards, social security number cards. She also has a wallet. She keeps some of these in her wallet and some separately. Presumably Alice has a vehicle of some kind, and so many other things, so this example is extremely limited at the moment. 
-
-Here are a few lines from topic 22:
-```turtle 
-:Self persona:hasWallet :Alice_Wallet ;
-    persona:hasPhysicalCard :Alice_HealthInsuranceCard ;   # carried separately
-    persona:hasPhysicalCard :Alice_SSNCard ;               # stored at home
-    persona:hasPhysicalCard :Alice_DriversLicense ;        # in wallet
-    persona:hasPhysicalCard :Alice_PaymentCard .           # in wallet
-
-:Alice_DriversLicense rdf:type persona:PhysicalDriversLicense ;
-    BFO_0000176 :Alice_Wallet .                            # in the wallet
-
-:Alice_PaymentCard rdf:type persona:PhysicalPaymentCard ;
-    BFO_0000176 :Alice_Wallet .                            # in the wallet
-```
-
-<p align="center"><img src="example/images/misc.png" alt="Miscellaneous cells"></p>
-
-
-### Boston Hub Society
-
-Alice is a member of the Boston Hub Society, an informal professional social network. We envision a future state where the BHS not only has a website but is also compatible with the PDN network and can join cells as a `g:Group` member. In this future world, Alice maintains her BHS profile in topic 14, Bob another member is keeps his profile updated (topic 3), and the BHS itself can share some members-only information in topic 1.
-
-<p align="center"><img src="example/images/affiliations.png" alt="Affiliations cells"></p>
-
-The topics in the table below are *about* Alice and claimed *by* Alice. The "Cell DataBook" link jumps straight to each topic's own `### Topic NN` section inside its owning cell-databook file under `example/Cells/`.
-
-| #  | Cell DataBook                                                                          | Topic type | Key data                                                         | Diagram |
-|--- |:--------------------------------------------------------------------------------------|:-------------|:-----------------------------------------------------------------|:--------|
-| 10 | [Alice Walker(employee).databook.md](<example/Cells/Work/Acme/Employees/Alice Walker/Alice Walker(employee).databook.md#topic-10>) | Employee     | Business card — given name, family name, email, phone, employer  | [view](example/topics/images/self.self(Alice-Walker)(employee)(10).png) |
-| 11 | [ATT(companies).databook.md](<example/Cells/Companies/ATT/ATT(companies).databook.md#topic-11>)                     | Companies    | Phone number                                                     | [view](example/topics/images/self.self(ATT)(companies)(11).png) |
-| 12 | [Bob Johnson(others).databook.md](<example/Cells/People/Others/Bob Johnson/Bob Johnson(others).databook.md#topic-12>)                     | Others       | Alice's 1:1 topic with Bob; social network with Bob as member  | [view](example/topics/images/self.self(Bob-Johnson)(others)(12).png)|
-| 13 | [Boston(residence).databook.md](<example/Cells/Government/Municipality/Boston/Boston(residence).databook.md#topic-13>)               | Municipality | Previous address — Boston, MA (2020–2025) with temporal interval | [view](example/topics/images/self.self(Boston)(residence)(13).png) |
-| 14  | [Boston Hub Society(affiliations).databook.md](<example/Cells/Affiliations/Boston Hub Society/Boston Hub Society(affiliations).databook.md#topic-14>)                     | Affiliations | BHS profile: email, phone and current address                    | [view](example/topics/images/self.self(Boston-Hub-Society)(affiliations)(14).png)|
-| 15 | [California DMV(drivers-license).databook.md](<example/Cells/Government/State/California DMV/California DMV(drivers-license).databook.md#topic-15>) | State      | California driver's license — legal name, DOB, DL#, expiry, photo | [view](example/topics/images/self.self(California-DMV)(drivers-license)(15).png) |
-| 16 | [Google(companies).databook.md](<example/Cells/Companies/Google/Google(companies).databook.md#topic-16>)               | Companies    | Gmail address                                                    | [view](example/topics/images/self.self(Google)(companies)(16).png) |
-| 17 | [Health & Wellness.databook.md](<example/Cells/People/Immediate Family/Paula Walker/Health & Wellness/Health & Wellness.databook.md#topic-17>)                 | Health & Wellness     | Paula's physical body — height (68 in.), blue eyes, grey hair — as recorded by Alice            | [view](example/topics/images/paula-walker.self(Health-&-Wellness)(17).png) |
-| 18 | [Paradise(residence).databook.md](<example/Cells/Government/Municipality/Paradise/Paradise(residence).databook.md#topic-18>)           | Municipality | Current address — Paradise, CA (2025–present)                    | [view](example/topics/images/self.self(Paradise)(residence)(18).png) |
-| 19 | [Passport.databook.md](<example/Cells/Government/Federal/Passport/Passport.databook.md#topic-19>)             | Federal    | US passport — legal name, DOB, passport#, issue/expiry, place of birth, gender marker, photo | [view](example/topics/images/self.self(Passport)(19).png) |
-| 20 | [Paula Walker(employee).databook.md](<example/Cells/Work/Acme/Employees/Paula Walker/Paula Walker(employee).databook.md#topic-20>)                   | Employee     | Acme employee topic; company email; works with Paula           | [view](example/topics/images/self.self(Paula-Walker)(employee)(20).png)|
-| 21 | [Paula Walker(immediate-family).databook.md](<example/Cells/People/Immediate Family/Paula Walker/Paula Walker(immediate-family).databook.md#topic-21>)   | Immediate Family       | Alice as a family member                       | [view](example/topics/images/self.self(Paula-Walker)(immediate-family)(21).png) |
-| 22 | [Ownership.databook.md](<example/Cells/Ownership/Ownership.databook.md#topic-22>)     | Ownership  | Wallet (driver's license + payment card); health ins., SSN card  | [view](example/topics/images/self.self(Ownership)(22).png) |
-| 23 | [Social Security Administration(ssa).databook.md](<example/Cells/Government/Federal/Social Security Administration/Social Security Administration(ssa).databook.md#topic-23>)                     | Federal      | Social security number (SSN)                                     | [view](example/topics/images/self.self(Social-Security-Administration)(ssa)(23).png) |
-| 24 | [Texas Vital Records(birth-certificate).databook.md](<example/Cells/Government/State/Texas Vital Records/Texas Vital Records(birth-certificate).databook.md#topic-24>) | State        | Legal names, maiden name                                         | [view](example/topics/images/self.self(Texas-Vital-Records)(birth-certificate)(24).png) |
-| 29 | [Fred Flintstone(others).databook.md](<example/Cells/People/Others/Fred Flintstone/Fred Flintstone(others).databook.md#topic-29>)                     | Others       | Alice's 1:1 topic with Fred; social network with Fred as member  | [view](example/topics/images/self.self(Fred-Flintstone)(others)(29).png) |
-
-The following table lists topics that are *about* Alice but claimed by others.
-
-| #  | Cell DataBook                                                                         | Topic type | Key data                             | Diagram |
-|--- |:-------------------------------------------------------------------------------------|:-------------|:-------------------------------------|:--------|
-| 8  | [Bob Johnson(others).databook.md](<example/Cells/People/Others/Bob Johnson/Bob Johnson(others).databook.md#topic-08>)                         | Others            | Alice as seen by Bob                 | [view](example/topics/images/self.bob-johnson(Bob-Johnson)(others)(08).png)|
-| 9 | [Citibank(banking-payments).databook.md](<example/Cells/Finances/Banking & Payments/Citibank/Citibank(banking-payments).databook.md#topic-09>)     | Banking & Payments Firms | Debit card                           | [view](example/topics/images/self.citibank(Citibank)(banking-payments)(09).png) |
-
-The following table lists topics about other people (Paula and Bob) or groups (Boston Hub Society) in Alice's Mia. As above, each "Cell DataBook" link jumps to that topic's section inside its owning cell-databook file.
-
-| #  | Cell DataBook                                                                                     | Topic type | Key data                                                         | Diagram |
-|--- |:-------------------------------------------------------------------------------------------------|:-------------|:-----------------------------------------------------------------|:--------|
-| 1  | [Boston Hub Society(affiliations).databook.md](<example/Cells/Affiliations/Boston Hub Society/Boston Hub Society(affiliations).databook.md#topic-01>)             | Affiliations | BHS group instance with Alice and Bob as members                | [view](example/topics/images/bhs-group.members(Boston-Hub-Society)(affiliations)(01).png) |
-| 2  | [Bob Johnson(others).databook.md](<example/Cells/People/Others/Bob Johnson/Bob Johnson(others).databook.md#topic-02>)                     | Others       | Bob's self-claimed Bob persona                                 | [view](example/topics/images/bob-johnson.bob-johnson(Bob-Johnson)(others)(02).png)|
-| 3  | [Boston Hub Society(affiliations).databook.md](<example/Cells/Affiliations/Boston Hub Society/Boston Hub Society(affiliations).databook.md#topic-03>)                     | Affiliations | Bob's BHS member persona (name, email, phone, address)          | [view](example/topics/images/bob-johnson.bob-johnson(Boston-Hub-Society)(affiliations)(03).png) |
-| 4  | [Bob Johnson(others).databook.md](<example/Cells/People/Others/Bob Johnson/Bob Johnson(others).databook.md#topic-04>)                 | Others       | Alice's notes about Bob; fav drink: oat milk cappuccino         | [view](example/topics/images/bob-johnson.self(Bob-Johnson)(others)(04).png) |
-| 5  | [Paula Walker(immediate-family).databook.md](<example/Cells/People/Immediate Family/Paula Walker/Paula Walker(immediate-family).databook.md#topic-05>) | Immediate Family       | Paula's own family persona; social network with Alice       | [view](example/topics/images/paula-walker.paula-walker(Paula-Walker)(immediate-family)(05).png)|
-| 6  | [Paula Walker(employee).databook.md](<example/Cells/Work/Acme/Employees/Paula Walker/Paula Walker(employee).databook.md#topic-06>)           | Employee     | Paula as Alice's Acme colleague (Alice-claimed)                | [view](example/topics/images/paula-walker.self(Paula-Walker)(employee)(06).png)|
-| 7  | [Paula Walker(immediate-family).databook.md](<example/Cells/People/Immediate Family/Paula Walker/Paula Walker(immediate-family).databook.md#topic-07>) | Immediate Family       | Paula as Alice's family member (Alice-claimed)           | [view](example/topics/images/paula-walker.self(Paula-Walker)(immediate-family)(07).png)|
-| 25 | [Jane Kolpakova(primary-care-physician).databook.md](<example/Cells/People/Immediate Family/Paula Walker/Health & Wellness/Medical/Providers/Jane Kolpakova/Jane Kolpakova(primary-care-physician).databook.md#topic-25>) | Primary Care Physician       | Alice's record of Dr. Jane Kolpakova, Paula Walker's primary care physician           | [view](example/topics/images/jane-kolpakova.self(Jane-Kolpakova)(primary-care-physician)(25).png)|
-| 26 | [Med. App. Info(medical-appointment-info).databook.md](<example/Cells/People/Immediate Family/Paula Walker/Health & Wellness/Medical/Providers/Med. App. Info/Med. App. Info(medical-appointment-info).databook.md#topic-26>) | Medical Appointment       | Alice and Carol's shared claims for Paula's medical appointment — medications, allergies, insurance, PCP reference           | [view](example/topics/images/paula-walker.self(Med.-App.-Info)(medical-appointment-info)(26).png)|
-| 28 | [Med. App. Info(medical-appointment-info).databook.md](<example/Cells/People/Immediate Family/Paula Walker/Health & Wellness/Medical/Providers/Med. App. Info/Med. App. Info(medical-appointment-info).databook.md#topic-28>) | Medical Appointment       | Carol's own self-claimed persona and contact info — one of this cell's two members, alongside Alice (topic 30)           | [view](example/topics/images/carol-walker.carol-walker(Med.-App.-Info)(medical-appointment-info)(28).png) |
-| 30 | [Med. App. Info(medical-appointment-info).databook.md](<example/Cells/People/Immediate Family/Paula Walker/Health & Wellness/Medical/Providers/Med. App. Info/Med. App. Info(medical-appointment-info).databook.md#topic-30>) | Medical Appointment       | Alice's own self-claimed contact info — the other of this cell's two members, alongside Carol (topic 28)           | [view](example/topics/images/self.self(Med.-App.-Info)(medical-appointment-info)(30).png) |
-| 27 | [Citibank(banking-payments).databook.md](<example/Cells/Finances/Banking & Payments/Citibank/Citibank(banking-payments).databook.md#topic-27>) | Banking & Payments Firms | Alice's own self-claimed notes about Citibank as an institution, alongside Citibank's own claimed record about her (topic 09) | [view](example/topics/images/citibank.self(Citibank)(banking-payments)(27).png) |
-| 31 | [Fred Flintstone(others).databook.md](<example/Cells/People/Others/Fred Flintstone/Fred Flintstone(others).databook.md#topic-31>)                     | Others       | Fred's self-claimed Fred persona                                 | [view](example/topics/images/fred-flintstone.fred-flintstone(Fred-Flintstone)(others)(31).png) |
-
-## Diagrams
-
-`draw.py` generates a Mermaid (`.mmd`) and PNG diagram for a single embedded topic, given its owning cell-databook file and its id (or id local-name):
-
-```bash
-python3 draw.py "example/Cells/Finances/Banking & Payments/Citibank/Citibank(banking-payments).databook.md" "self.citibank(Citibank)(banking-payments)(09)"
-python3 draw.py "example/Cells/Government/Municipality/Paradise/Paradise(residence).databook.md" "self.self(Paradise)(residence)(18)"
-```
-
-Both output files are always written to `example/topics/images/` (must be run from the repo root), keyed by the topic's own id local-name — the same location and naming topic diagrams used before the topic/cell merge, even though the topic's own file no longer exists.
-
-**Dependencies** (one-time setup):
-```bash
-pip install rdflib pyyaml
-npm install -g @mermaid-js/mermaid-cli
-```
-
-Each diagram shows the `p:Person` individual (yellow), supporting named individuals (white boxes), class labels (plain text), blank-node designator chains, and literal values (green).
-
-## Validation
-
-Validation requires [Apache Jena](https://jena.apache.org/) (`riot`, `shacl`), the [DataBook CLI](https://github.com/kurtcagle/databook) (`databook`; install: `git clone https://github.com/kurtcagle/databook.git && cd databook && npm install && npm install -g .`) — the CLI's reference implementation moved here from `w3c-cg/holon`, which retired its two previously-vendored copies in favor of this single upstream source — `pyyaml` for `yaml-to-rdf.py` (`pip install pyyaml`), and `extract-topic.py` (no extra dependencies) for isolating one embedded topic's Turtle block from a cell-databook that may hold several — needed since `databook extract` has no notion of "pick one topic out of many" and Tier 2 validates one topic at a time. SHACL shapes remain plain Turtle (`.ttl`).
-
-### Quick check — DataBook syntax
-
-Verify that every DataBook file has valid YAML frontmatter and well-formed block annotations:
-
-```bash
-find example -name "*.databook.md" -not -path "*/under-development/*" -print0 | sort -z |
-while IFS= read -r -d '' f; do
-  databook head "$f" -q > /dev/null || echo "FAIL: $f"
-done
-```
-
-A file that fails here will also fail silently in `databook extract`, producing no Turtle output and causing downstream `riot` or SHACL errors that are harder to trace. (Uses `-print0`/`read -d ''` rather than `for f in $(find ...)` — cell-databook paths under `example/Cells/` routinely contain spaces, e.g. `Banking & Payments`, which word-splitting would otherwise silently break.)
-
-### Tier 1 — general validation (all topics)
-
-`persona-shacl.ttl` applies to every `p:Person` individual across every embedded topic.
-
-```bash
-# Step 1 — extract turtle from every DataBook file (excluding under-development).
-# Uses -print0/read -d '' rather than for f in $(find ...) — cell-databook paths
-# under example/Cells/ routinely contain spaces (e.g. "Banking & Payments"),
-# which word-splitting would otherwise silently break.
-> /tmp/mia-data.ttl
-find example -name "*.databook.md" -not -path "*/under-development/*" -print0 | sort -z |
-while IFS= read -r -d '' f; do
-  databook extract "$f" 2>/dev/null
-done >> /tmp/mia-data.ttl
-
-# Step 1b — synthesize c:/topic: triples from each cell DataBook's own YAML
-# frontmatter (mia.* fields, including its mia.topics list — since
-# topic-databooks were merged into their owning cell-databooks, a topic's
-# claimant/subject now live there rather than in a separate topic-databook
-# file). There is no cat: synthesis at all any more — category.ttl 1.31.0
-# deleted cat:Folder and its subclasses outright, so a folder's tree position
-# is purely a filesystem fact with no RDF individual to synthesize; the only
-# surviving classification fact, c:origin, is read directly from each cell
-# DataBook's own explicit mia.origin field. databook extract only pulls
-# fenced Turtle blocks, which cell DataBooks don't carry — without this
-# step, c:Cell individuals and topic:SCTopicGraph's subject/claimant never
-# reach the merged graph, and cell-shacl.ttl/topic-shacl.ttl's
-# :SCTopicGraphShape never fire against real instance data. See yaml-to-rdf.py.
-python3 yaml-to-rdf.py . > /tmp/mia-yaml.ttl
-
-# Step 2 — merge data with all ontology files, foundation ontologies, and self.ttl
-# (cell-templates.ttl is deliberately excluded here, unlike Tier 2's base merge
-# below: its 4 template individuals are generic, reusable content with no real
-# person bound to them, so they can't sensibly carry cell-shacl.ttl's required
-# c:subject/c:memberTopics — they're validated only via cell-templates-shacl.ttl, in Tier 2)
-riot --output=turtle \
-  project_files/bfo-core.ttl \
-  project_files/PersonOntology.ttl \
-  project_files/AddressOntology.ttl \
-  project_files/StagingOntology.ttl \
-  persona.ttl persona-templates.ttl topic.ttl cell.ttl category.ttl \
-  group.ttl organization.ttl \
-  example/topics/self.ttl \
-  /tmp/mia-data.ttl \
-  /tmp/mia-yaml.ttl \
-  2>/dev/null > /tmp/mia-merged.ttl
-
-# Step 3 — collect shapes (shacl/jscontactcard-shacl.ttl and cell-templates-shacl.ttl
-# excluded — see Tier 2; both target document classes and would fire incorrectly on all
-# individuals when applied to merged data. pdn-identity-shacl.ttl is also excluded: its
-# ontology, pdn-identity.ttl, isn't part of the Step 2 merge — nothing here ever
-# references an identity: term, see persona.ttl 4.0.6)
-grep -v 'owl:imports' persona-shacl.ttl > /tmp/mia-shapes.ttl
-grep -v 'owl:imports' topic-shacl.ttl >> /tmp/mia-shapes.ttl
-grep -v 'owl:imports' cell-shacl.ttl >> /tmp/mia-shapes.ttl
-grep -v 'owl:imports' group-shacl.ttl >> /tmp/mia-shapes.ttl
-grep -v 'owl:imports' organization-shacl.ttl >> /tmp/mia-shapes.ttl
-
-# Step 4 — validate
-shacl validate --shapes /tmp/mia-shapes.ttl --data /tmp/mia-merged.ttl --text
-```
-
-Expected output: `Conforms`
-
-### Tier 2 — per-template validation (individual topics)
-
-Four of the five per-template shapes (BirthCertificate, DriversLicense, Passport, MedicalAppointment) live in `cell-templates-shacl.ttl`; JSContactCard's shape remains a standalone file in `shacl/` (it has no `cat:Category` class of its own — see [Persona Templates](#persona-templates)). Each is run against only the relevant topic, isolated via `extract-topic.py` from its owning cell-databook file and merged with the foundation ontologies. Isolation matters because a cell may hold more than one topic — the MedicalAppointment case below lives in a three-topic cell, so a whole-file `databook extract` there would wrongly pull in its two sibling topics' data too.
-
-```bash
-# Shared base: foundation ontologies + application ontologies + self.ttl
-riot --output=turtle \
-  project_files/bfo-core.ttl \
-  project_files/PersonOntology.ttl \
-  project_files/AddressOntology.ttl \
-  project_files/StagingOntology.ttl \
-  persona.ttl persona-templates.ttl topic.ttl cell.ttl category.ttl cell-templates.ttl \
-  group.ttl organization.ttl \
-  example/topics/self.ttl \
-  2>/dev/null > /tmp/mia-base.ttl
-
-# BirthCertificate — self.self(Texas-Vital-Records)(birth-certificate)(24)
-python3 extract-topic.py "example/Cells/Government/State/Texas Vital Records/Texas Vital Records(birth-certificate).databook.md" "self.self(Texas-Vital-Records)(birth-certificate)(24)" > /tmp/data-birth-cert-raw.ttl
-riot --output=turtle /tmp/mia-base.ttl /tmp/data-birth-cert-raw.ttl 2>/dev/null > /tmp/data-birth-cert.ttl
-grep -v 'owl:imports' cell-templates-shacl.ttl > /tmp/shapes-cell-templates.ttl
-shacl validate --shapes /tmp/shapes-cell-templates.ttl --data /tmp/data-birth-cert.ttl --text
-
-# JSContactCard — self.self(Alice-Walker)(employee)(10)
-python3 extract-topic.py "example/Cells/Work/Acme/Employees/Alice Walker/Alice Walker(employee).databook.md" "self.self(Alice-Walker)(employee)(10)" > /tmp/data-jscontact-raw.ttl
-riot --output=turtle /tmp/mia-base.ttl /tmp/data-jscontact-raw.ttl 2>/dev/null > /tmp/data-jscontact.ttl
-grep -v 'owl:imports' shacl/jscontactcard-shacl.ttl > /tmp/shapes-jscontact.ttl
-shacl validate --shapes /tmp/shapes-jscontact.ttl --data /tmp/data-jscontact.ttl --text
-
-# DriversLicense — self.self(California-DMV)(drivers-license)(15)
-python3 extract-topic.py "example/Cells/Government/State/California DMV/California DMV(drivers-license).databook.md" "self.self(California-DMV)(drivers-license)(15)" > /tmp/data-dl-raw.ttl
-riot --output=turtle /tmp/mia-base.ttl /tmp/data-dl-raw.ttl 2>/dev/null > /tmp/data-dl.ttl
-shacl validate --shapes /tmp/shapes-cell-templates.ttl --data /tmp/data-dl.ttl --text
-
-# Passport — self.self(Passport)(19)
-python3 extract-topic.py "example/Cells/Government/Federal/Passport/Passport.databook.md" "self.self(Passport)(19)" > /tmp/data-passport-raw.ttl
-riot --output=turtle /tmp/mia-base.ttl /tmp/data-passport-raw.ttl 2>/dev/null > /tmp/data-passport.ttl
-shacl validate --shapes /tmp/shapes-cell-templates.ttl --data /tmp/data-passport.ttl --text
-
-# MedicalAppointment — paula-walker.self(Med.-App.-Info)(medical-appointment-info)(26)
-# (this cell has THREE embedded topics — extract-topic.py isolates just this one,
-# unlike the other four, which happen to be alone in a single-topic cell)
-python3 extract-topic.py "example/Cells/People/Immediate Family/Paula Walker/Health & Wellness/Medical/Providers/Med. App. Info/Med. App. Info(medical-appointment-info).databook.md" "paula-walker.self(Med.-App.-Info)(medical-appointment-info)(26)" > /tmp/data-medical-appt-raw.ttl
-riot --output=turtle /tmp/mia-base.ttl /tmp/data-medical-appt-raw.ttl 2>/dev/null > /tmp/data-medical-appt.ttl
-shacl validate --shapes /tmp/shapes-cell-templates.ttl --data /tmp/data-medical-appt.ttl --text
-```
-
-Expected output for each: `Conforms`
+See [**EXAMPLE.md**](EXAMPLE.md) for a worked illustrative example (Alice Walker) showing how these ontologies are used together in practice, plus diagram-generation instructions and the full validation pipeline for the example dataset.
