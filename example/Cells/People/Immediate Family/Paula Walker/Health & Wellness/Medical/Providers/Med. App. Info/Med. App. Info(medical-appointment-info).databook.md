@@ -12,51 +12,30 @@ mia:
   memberCount: "cell:TwoMember"
   subject: ":Paula_Walker"
   memberTopics:
-    - "carol-walker.carol-walker(Med.-App.-Info)(medical-appointment-info)(28)"
-    - "self.self(Med.-App.-Info)(medical-appointment-info)(30)"
+    - "topic-28"
+    - "topic-30"
   otherTopics:
-    - "paula-walker.self(Med.-App.-Info)(medical-appointment-info)(26)"
+    - "topic-26"
   topics:
-    - id: "http://www.example.org/mia/topics/paula-walker.self(Med.-App.-Info)(medical-appointment-info)(26)"
-      title: "Medical appointment claims for Paula Walker, shared between Alice and Carol"
+    - id: "http://www.example.org/mia/topics/topic-26"
       claimant: ":Self"
       subject: ":Paula_Walker"
       template: "persona:MedicalAppointmentRecord"
       shapes:
         - http://mee.foundation/ontologies/persona/shapes
         - http://mee.foundation/ontologies/persona/shapes/medical-appointment
-      process:
-        transformer: human
-        timestamp: 2026-07-08T00:00:00Z
-        agent:
-          name: Paul Trevithick
-          role: author
-    - id: "http://www.example.org/mia/topics/carol-walker.carol-walker(Med.-App.-Info)(medical-appointment-info)(28)"
-      title: "About Carol Walker in the Med. App. Info cell as claimed by Carol Walker"
+    - id: "http://www.example.org/mia/topics/topic-28"
       claimant: ":Carol_Walker"
       subject: ":Carol_Walker"
       shapes:
         - http://mee.foundation/ontologies/persona/shapes
         - http://mee.foundation/ontologies/topic/shapes
-      process:
-        transformer: human
-        timestamp: 2026-08-02T00:00:00Z
-        agent:
-          name: Paul Trevithick
-          role: author
-    - id: "http://www.example.org/mia/topics/self.self(Med.-App.-Info)(medical-appointment-info)(30)"
-      title: "About Alice Walker in the Med. App. Info cell as claimed by Alice Walker"
+    - id: "http://www.example.org/mia/topics/topic-30"
       claimant: ":Self"
       subject: ":Self"
       shapes:
         - http://mee.foundation/ontologies/persona/shapes
         - http://mee.foundation/ontologies/topic/shapes
-      process:
-        transformer: human
-        timestamp: 2026-08-02T00:00:00Z
-        agent:
-          name: Paul Trevithick
-          role: author
   shape: "pshapes:MedicalAppointmentRecordShape"
 ---
 
@@ -73,7 +52,7 @@ This topic captures Alice's shared record of the claims needed to arrange a medi
 
 ```turtle
 <!-- databook:id: alice-paula-medical-appointment-topic-graph -->
-<!-- databook:graph: http://www.example.org/mia/topics/paula-walker.self(Med.-App.-Info)(medical-appointment-info)(26)#graph -->
+<!-- databook:graph: http://www.example.org/mia/topics/topic-26#graph -->
 @prefix : <http://www.example.org/mia#> .
 @prefix persona: <http://mee.foundation/ontologies/persona#> .
 @prefix cco: <https://purl.org/cco/> .
@@ -151,7 +130,7 @@ This topic captures Carol Walker's own self-claimed persona and contact info, sh
 
 ```turtle
 <!-- databook:id: carol-self-topic-graph -->
-<!-- databook:graph: http://www.example.org/mia/topics/carol-walker.carol-walker(Med.-App.-Info)(medical-appointment-info)(28)#graph -->
+<!-- databook:graph: http://www.example.org/mia/topics/topic-28#graph -->
 @prefix : <http://www.example.org/mia#> .
 @prefix persona: <http://mee.foundation/ontologies/persona#> .
 @prefix cco: <https://purl.org/cco/> .
@@ -195,7 +174,7 @@ This topic captures Alice Walker's own self-claimed contact info, kept in this c
 
 ```turtle
 <!-- databook:id: alice-self-topic-graph -->
-<!-- databook:graph: http://www.example.org/mia/topics/self.self(Med.-App.-Info)(medical-appointment-info)(30)#graph -->
+<!-- databook:graph: http://www.example.org/mia/topics/topic-30#graph -->
 @prefix : <http://www.example.org/mia#> .
 @prefix cco: <https://purl.org/cco/> .
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .

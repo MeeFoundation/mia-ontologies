@@ -14,63 +14,35 @@ mia:
     - ":Bob_Johnson"
     - ":Self"
   memberTopics:
-    - "bob-johnson.bob-johnson(Bob-Johnson)(others)(02)"
-    - "self.self(Bob-Johnson)(others)(12)"
-    - "bob-johnson.self(Bob-Johnson)(others)(04)"
-    - "self.bob-johnson(Bob-Johnson)(others)(08)"
+    - "topic-02"
+    - "topic-12"
+    - "topic-04"
+    - "topic-08"
   topics:
-    - id: "http://www.example.org/mia/topics/bob-johnson.bob-johnson(Bob-Johnson)(others)(02)"
-      title: "About Bob Johnson in the Others cell as claimed by Bob Johnson"
+    - id: "http://www.example.org/mia/topics/topic-02"
       claimant: ":Bob_Johnson"
       subject: ":Bob_Johnson"
       shapes:
         - http://mee.foundation/ontologies/persona/shapes
         - http://mee.foundation/ontologies/topic/shapes
-      process:
-        transformer: human
-        timestamp: 2026-06-19T00:00:00Z
-        agent:
-          name: Paul Trevithick
-          role: author
-    - id: "http://www.example.org/mia/topics/bob-johnson.self(Bob-Johnson)(others)(04)"
-      title: "About Bob Johnson in the Others cell as claimed by Alice Walker"
+    - id: "http://www.example.org/mia/topics/topic-04"
       claimant: ":Self"
       subject: ":Bob_Johnson"
       shapes:
         - http://mee.foundation/ontologies/persona/shapes
         - http://mee.foundation/ontologies/topic/shapes
-      process:
-        transformer: human
-        timestamp: 2026-06-19T00:00:00Z
-        agent:
-          name: Paul Trevithick
-          role: author
-    - id: "http://www.example.org/mia/topics/self.bob-johnson(Bob-Johnson)(others)(08)"
-      title: "About Alice Walker in the Others cell as claimed by Bob Johnson"
+    - id: "http://www.example.org/mia/topics/topic-08"
       claimant: ":Bob_Johnson"
       subject: ":Self"
       shapes:
         - http://mee.foundation/ontologies/persona/shapes
         - http://mee.foundation/ontologies/topic/shapes
-      process:
-        transformer: human
-        timestamp: 2026-06-19T00:00:00Z
-        agent:
-          name: Paul Trevithick
-          role: author
-    - id: "http://www.example.org/mia/topics/self.self(Bob-Johnson)(others)(12)"
-      title: "About Alice Walker in the Others cell as claimed by Alice Walker"
+    - id: "http://www.example.org/mia/topics/topic-12"
       claimant: ":Self"
       subject: ":Self"
       shapes:
         - http://mee.foundation/ontologies/persona/shapes
         - http://mee.foundation/ontologies/topic/shapes
-      process:
-        transformer: human
-        timestamp: 2026-06-19T00:00:00Z
-        agent:
-          name: Paul Trevithick
-          role: author
 ---
 
 ## Topics
@@ -86,7 +58,7 @@ This topic captures Bob Johnson's self-claimed Bob-topic persona, transmitted fr
 
 ```turtle
 <!-- databook:id: bob-bob-bob-topic-graph -->
-<!-- databook:graph: http://www.example.org/mia/topics/bob-johnson.bob-johnson(Bob-Johnson)(others)(02)#graph -->
+<!-- databook:graph: http://www.example.org/mia/topics/topic-02#graph -->
 @prefix : <http://www.example.org/mia#> .
 @prefix persona: <http://mee.foundation/ontologies/persona#> .
 @prefix cco: <https://purl.org/cco/> .
@@ -129,7 +101,7 @@ This topic captures Alice's record of Bob Johnson in their 1:1 relationship topi
 
 ```turtle
 <!-- databook:id: bob-bob-alice-topic-graph -->
-<!-- databook:graph: http://www.example.org/mia/topics/bob-johnson.self(Bob-Johnson)(others)(04)#graph -->
+<!-- databook:graph: http://www.example.org/mia/topics/topic-04#graph -->
 @prefix : <http://www.example.org/mia#> .
 @prefix persona: <http://mee.foundation/ontologies/persona#> .
 @prefix cco: <https://purl.org/cco/> .
@@ -158,7 +130,7 @@ This topic captures Bob's record of Alice in their 1:1 relationship topic, trans
 
 ```turtle
 <!-- databook:id: alice-bob-bob-topic-graph -->
-<!-- databook:graph: http://www.example.org/mia/topics/self.bob-johnson(Bob-Johnson)(others)(08)#graph -->
+<!-- databook:graph: http://www.example.org/mia/topics/topic-08#graph -->
 @prefix : <http://www.example.org/mia#> .
 @prefix persona: <http://mee.foundation/ontologies/persona#> .
 @prefix cco: <https://purl.org/cco/> .
@@ -183,7 +155,7 @@ This topic captures Alice Walker's self-claimed persona in her 1:1 relationship 
 
 ```turtle
 <!-- databook:id: alice-bob-alice-topic-graph -->
-<!-- databook:graph: http://www.example.org/mia/topics/self.self(Bob-Johnson)(others)(12)#graph -->
+<!-- databook:graph: http://www.example.org/mia/topics/topic-12#graph -->
 @prefix : <http://www.example.org/mia#> .
 @prefix persona: <http://mee.foundation/ontologies/persona#> .
 @prefix cco: <https://purl.org/cco/> .

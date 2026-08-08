@@ -11,21 +11,14 @@ mia:
   creator: ":Self"
   memberCount: "cell:OneMember"
   subject: ":Paula_Walker"
-  memberTopics: "paula-walker.self(Health-&-Wellness)(17)"
+  memberTopics: "topic-17"
   topics:
-    - id: "http://www.example.org/mia/topics/paula-walker.self(Health-&-Wellness)(17)"
-      title: "About Paula Walker in the Health & Wellness cell as claimed by Alice Walker"
+    - id: "http://www.example.org/mia/topics/topic-17"
       claimant: ":Self"
       subject: ":Paula_Walker"
       shapes:
         - http://mee.foundation/ontologies/persona/shapes
         - http://mee.foundation/ontologies/topic/shapes
-      process:
-        transformer: human
-        timestamp: 2026-06-20T00:00:00Z
-        agent:
-          name: Paul Trevithick
-          role: author
 ---
 
 ## Topics
@@ -41,7 +34,7 @@ This topic captures Paula Walker's physical body characteristics — properties 
 
 ```turtle
 <!-- databook:id: paula-health-topic-graph -->
-<!-- databook:graph: http://www.example.org/mia/topics/paula-walker.self(Health-&-Wellness)(17)#graph -->
+<!-- databook:graph: http://www.example.org/mia/topics/topic-17#graph -->
 @prefix : <http://www.example.org/mia#> .
 @prefix persona: <http://mee.foundation/ontologies/persona#> .
 @prefix cco: <https://purl.org/cco/> .

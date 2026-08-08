@@ -11,21 +11,14 @@ mia:
   creator: ":Self"
   memberCount: "cell:OneMember"
   subject: ":Jane_Kolpakova"
-  memberTopics: "jane-kolpakova.self(Jane-Kolpakova)(primary-care-physician)(25)"
+  memberTopics: "topic-25"
   topics:
-    - id: "http://www.example.org/mia/topics/jane-kolpakova.self(Jane-Kolpakova)(primary-care-physician)(25)"
-      title: "About Jane Kolpakova in the PrimaryCarePhysician cell as claimed by Alice Walker"
+    - id: "http://www.example.org/mia/topics/topic-25"
       claimant: ":Self"
       subject: ":Jane_Kolpakova"
       shapes:
         - http://mee.foundation/ontologies/persona/shapes
         - http://mee.foundation/ontologies/topic/shapes
-      process:
-        transformer: human
-        timestamp: 2026-07-08T00:00:00Z
-        agent:
-          name: Paul Trevithick
-          role: author
 ---
 
 ## Topics
@@ -41,7 +34,7 @@ This topic captures Alice's record of Dr. Jane Kolpakova, who is the primary car
 
 ```turtle
 <!-- databook:id: jane-kolpakova-alice-topic-graph -->
-<!-- databook:graph: http://www.example.org/mia/topics/jane-kolpakova.self(Jane-Kolpakova)(primary-care-physician)(25)#graph -->
+<!-- databook:graph: http://www.example.org/mia/topics/topic-25#graph -->
 @prefix : <http://www.example.org/mia#> .
 @prefix persona: <http://mee.foundation/ontologies/persona#> .
 @prefix cco: <https://purl.org/cco/> .

@@ -14,35 +14,21 @@ mia:
     - ":Self"
     - ":Citibank"
   memberTopics:
-    - "self.citibank(Citibank)(banking-payments)(09)"
-    - "citibank.self(Citibank)(banking-payments)(27)"
+    - "topic-09"
+    - "topic-27"
   topics:
-    - id: "http://www.example.org/mia/topics/self.citibank(Citibank)(banking-payments)(09)"
-      title: "About Alice Walker in the BankingPayments cell as claimed by Citibank"
+    - id: "http://www.example.org/mia/topics/topic-09"
       claimant: ":Citibank"
       subject: ":Self"
       shapes:
         - http://mee.foundation/ontologies/persona/shapes
         - http://mee.foundation/ontologies/topic/shapes
-      process:
-        transformer: human
-        timestamp: 2026-06-19T00:00:00Z
-        agent:
-          name: Paul Trevithick
-          role: author
-    - id: "http://www.example.org/mia/topics/citibank.self(Citibank)(banking-payments)(27)"
-      title: "About Citibank in the BankingPayments cell as claimed by Alice Walker"
+    - id: "http://www.example.org/mia/topics/topic-27"
       claimant: ":Self"
       subject: ":Citibank"
       shapes:
         - http://mee.foundation/ontologies/persona/shapes
         - http://mee.foundation/ontologies/topic/shapes
-      process:
-        transformer: human
-        timestamp: 2026-08-02T00:00:00Z
-        agent:
-          name: Paul Trevithick
-          role: author
 ---
 
 ## Topics
@@ -58,7 +44,7 @@ This topic captures Alice Walker's financial relationship with Citibank. Citiban
 
 ```turtle
 <!-- databook:id: citibank-topic-graph -->
-<!-- databook:graph: http://www.example.org/mia/topics/self.citibank(Citibank)(banking-payments)(09)#graph -->
+<!-- databook:graph: http://www.example.org/mia/topics/topic-09#graph -->
 @prefix : <http://www.example.org/mia#> .
 @prefix persona: <http://mee.foundation/ontologies/persona#> .
 @prefix o: <http://mee.foundation/ontologies/organization#> .
@@ -125,7 +111,7 @@ This topic captures Alice Walker's own self-claimed notes about Citibank as an i
 
 ```turtle
 <!-- databook:id: alice-citibank-org-topic-graph -->
-<!-- databook:graph: http://www.example.org/mia/topics/citibank.self(Citibank)(banking-payments)(27)#graph -->
+<!-- databook:graph: http://www.example.org/mia/topics/topic-27#graph -->
 @prefix : <http://www.example.org/mia#> .
 @prefix o: <http://mee.foundation/ontologies/organization#> .
 @prefix cco: <https://purl.org/cco/> .

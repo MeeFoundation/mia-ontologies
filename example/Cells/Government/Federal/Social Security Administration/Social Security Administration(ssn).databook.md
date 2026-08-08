@@ -11,21 +11,14 @@ mia:
   creator: ":Self"
   memberCount: "cell:OneMember"
   subject: ":Self"
-  memberTopics: "self.self(Social-Security-Administration)(ssn)(23)"
+  memberTopics: "topic-23"
   topics:
-    - id: "http://www.example.org/mia/topics/self.self(Social-Security-Administration)(ssn)(23)"
-      title: "About Alice Walker in the Federal cell as claimed by Alice Walker"
+    - id: "http://www.example.org/mia/topics/topic-23"
       claimant: ":Self"
       subject: ":Self"
       shapes:
         - http://mee.foundation/ontologies/persona/shapes
         - http://mee.foundation/ontologies/topic/shapes
-      process:
-        transformer: human
-        timestamp: 2026-06-19T00:00:00Z
-        agent:
-          name: Paul Trevithick
-          role: author
 ---
 
 ## Topics
@@ -41,7 +34,7 @@ This topic captures Alice Walker's Social Security Administration record. Alice 
 
 ```turtle
 <!-- databook:id: alice-ssa-topic-graph -->
-<!-- databook:graph: http://www.example.org/mia/topics/self.self(Social-Security-Administration)(ssn)(23)#graph -->
+<!-- databook:graph: http://www.example.org/mia/topics/topic-23#graph -->
 @prefix : <http://www.example.org/mia#> .
 @prefix persona: <http://mee.foundation/ontologies/persona#> .
 @prefix cco: <https://purl.org/cco/> .

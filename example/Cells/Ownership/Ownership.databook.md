@@ -11,21 +11,14 @@ mia:
   creator: ":Self"
   memberCount: "cell:OneMember"
   subject: ":Self"
-  memberTopics: "self.self(Ownership)(22)"
+  memberTopics: "topic-22"
   topics:
-    - id: "http://www.example.org/mia/topics/self.self(Ownership)(22)"
-      title: "About Alice Walker in the Ownership cell as claimed by Alice Walker"
+    - id: "http://www.example.org/mia/topics/topic-22"
       claimant: ":Self"
       subject: ":Self"
       shapes:
         - http://mee.foundation/ontologies/persona/shapes
         - http://mee.foundation/ontologies/topic/shapes
-      process:
-        transformer: human
-        timestamp: 2026-06-19T00:00:00Z
-        agent:
-          name: Paul Trevithick
-          role: author
 ---
 
 ## Topics
@@ -41,7 +34,7 @@ This topic captures Alice Walker's day-to-day physical possessions. Her wallet h
 
 ```turtle
 <!-- databook:id: alice-possessions-topic-graph -->
-<!-- databook:graph: http://www.example.org/mia/topics/self.self(Ownership)(22)#graph -->
+<!-- databook:graph: http://www.example.org/mia/topics/topic-22#graph -->
 @prefix : <http://www.example.org/mia#> .
 @prefix persona: <http://mee.foundation/ontologies/persona#> .
 @prefix owl: <http://www.w3.org/2002/07/owl#> .

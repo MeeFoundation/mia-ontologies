@@ -11,35 +11,21 @@ mia:
   creator: ":Self"
   memberCount: "cell:OneMember"
   subject: ":Paula_Walker"
-  memberTopics: "self.self(Paula-Walker)(employee)(20)"
-  otherTopics: "paula-walker.self(Paula-Walker)(employee)(06)"
+  memberTopics: "topic-20"
+  otherTopics: "topic-06"
   topics:
-    - id: "http://www.example.org/mia/topics/paula-walker.self(Paula-Walker)(employee)(06)"
-      title: "About Paula Walker in the Employee cell as claimed by Alice Walker"
+    - id: "http://www.example.org/mia/topics/topic-06"
       claimant: ":Self"
       subject: ":Paula_Walker"
       shapes:
         - http://mee.foundation/ontologies/persona/shapes
         - http://mee.foundation/ontologies/topic/shapes
-      process:
-        transformer: human
-        timestamp: 2026-06-19T00:00:00Z
-        agent:
-          name: Paul Trevithick
-          role: author
-    - id: "http://www.example.org/mia/topics/self.self(Paula-Walker)(employee)(20)"
-      title: "About Alice Walker in the Employee cell as claimed by Alice Walker"
+    - id: "http://www.example.org/mia/topics/topic-20"
       claimant: ":Self"
       subject: ":Self"
       shapes:
         - http://mee.foundation/ontologies/persona/shapes
         - http://mee.foundation/ontologies/topic/shapes
-      process:
-        transformer: human
-        timestamp: 2026-06-19T00:00:00Z
-        agent:
-          name: Paul Trevithick
-          role: author
 ---
 
 ## Topics
@@ -55,7 +41,7 @@ This topic captures Alice's record of her colleague Paula Walker in their shared
 
 ```turtle
 <!-- databook:id: paula-acme-topic-graph -->
-<!-- databook:graph: http://www.example.org/mia/topics/paula-walker.self(Paula-Walker)(employee)(06)#graph -->
+<!-- databook:graph: http://www.example.org/mia/topics/topic-06#graph -->
 @prefix : <http://www.example.org/mia#> .
 @prefix persona: <http://mee.foundation/ontologies/persona#> .
 @prefix owl: <http://www.w3.org/2002/07/owl#> .
@@ -78,7 +64,7 @@ This topic captures Alice Walker's employee identity at Acme. It records her wor
 
 ```turtle
 <!-- databook:id: alice-acme-topic-graph -->
-<!-- databook:graph: http://www.example.org/mia/topics/self.self(Paula-Walker)(employee)(20)#graph -->
+<!-- databook:graph: http://www.example.org/mia/topics/topic-20#graph -->
 @prefix : <http://www.example.org/mia#> .
 @prefix persona: <http://mee.foundation/ontologies/persona#> .
 @prefix cco: <https://purl.org/cco/> .

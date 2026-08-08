@@ -11,10 +11,9 @@ mia:
   creator: ":Self"
   memberCount: "cell:OneMember"
   subject: ":Self"
-  memberTopics: "self.self(Texas-Vital-Records)(birth-certificate)(24)"
+  memberTopics: "topic-24"
   topics:
-    - id: "http://www.example.org/mia/topics/self.self(Texas-Vital-Records)(birth-certificate)(24)"
-      title: "About Alice Walker in the State cell as claimed by Alice Walker"
+    - id: "http://www.example.org/mia/topics/topic-24"
       claimant: ":Self"
       subject: ":Self"
       template: "persona:BirthCertificateDocument"
@@ -22,12 +21,6 @@ mia:
         - http://mee.foundation/ontologies/persona/shapes
         - http://mee.foundation/ontologies/topic/shapes
         - http://mee.foundation/ontologies/persona/shapes/birthcertificate
-      process:
-        transformer: human
-        timestamp: 2026-06-19T00:00:00Z
-        agent:
-          name: Paul Trevithick
-          role: author
   shape: "pshapes:BirthCertificateDocumentShape"
 ---
 
@@ -44,7 +37,7 @@ This topic captures Alice Walker's Texas birth certificate identity data. Alice 
 
 ```turtle
 <!-- databook:id: alice-tx-birth-cert-topic-graph -->
-<!-- databook:graph: http://www.example.org/mia/topics/self.self(Texas-Vital-Records)(birth-certificate)(24)#graph -->
+<!-- databook:graph: http://www.example.org/mia/topics/topic-24#graph -->
 @prefix : <http://www.example.org/mia#> .
 @prefix persona: <http://mee.foundation/ontologies/persona#> .
 @prefix cco: <https://purl.org/cco/> .

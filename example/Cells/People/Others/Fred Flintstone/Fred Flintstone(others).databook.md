@@ -14,35 +14,21 @@ mia:
     - ":Fred_Flintstone"
     - ":Self"
   memberTopics:
-    - "fred-flintstone.fred-flintstone(Fred-Flintstone)(others)(31)"
-    - "self.self(Fred-Flintstone)(others)(29)"
+    - "topic-31"
+    - "topic-29"
   topics:
-    - id: "http://www.example.org/mia/topics/self.self(Fred-Flintstone)(others)(29)"
-      title: "About Alice Walker in the Others cell as claimed by Alice Walker"
+    - id: "http://www.example.org/mia/topics/topic-29"
       claimant: ":Self"
       subject: ":Self"
       shapes:
         - http://mee.foundation/ontologies/persona/shapes
         - http://mee.foundation/ontologies/topic/shapes
-      process:
-        transformer: human
-        timestamp: 2026-08-03T00:00:00Z
-        agent:
-          name: Paul Trevithick
-          role: author
-    - id: "http://www.example.org/mia/topics/fred-flintstone.fred-flintstone(Fred-Flintstone)(others)(31)"
-      title: "About Fred Flintstone in the Others cell as claimed by Fred Flintstone"
+    - id: "http://www.example.org/mia/topics/topic-31"
       claimant: ":Fred_Flintstone"
       subject: ":Fred_Flintstone"
       shapes:
         - http://mee.foundation/ontologies/persona/shapes
         - http://mee.foundation/ontologies/topic/shapes
-      process:
-        transformer: human
-        timestamp: 2026-08-03T00:00:00Z
-        agent:
-          name: Paul Trevithick
-          role: author
 ---
 
 ## Topics
@@ -58,7 +44,7 @@ This topic captures Alice Walker's self-claimed persona in her 1:1 relationship 
 
 ```turtle
 <!-- databook:id: alice-fred-alice-topic-graph -->
-<!-- databook:graph: http://www.example.org/mia/topics/self.self(Fred-Flintstone)(others)(29)#graph -->
+<!-- databook:graph: http://www.example.org/mia/topics/topic-29#graph -->
 @prefix : <http://www.example.org/mia#> .
 @prefix persona: <http://mee.foundation/ontologies/persona#> .
 @prefix cco: <https://purl.org/cco/> .
@@ -103,7 +89,7 @@ This topic captures Fred Flintstone's self-claimed persona, transmitted from Fre
 
 ```turtle
 <!-- databook:id: fred-fred-fred-topic-graph -->
-<!-- databook:graph: http://www.example.org/mia/topics/fred-flintstone.fred-flintstone(Fred-Flintstone)(others)(31)#graph -->
+<!-- databook:graph: http://www.example.org/mia/topics/topic-31#graph -->
 @prefix : <http://www.example.org/mia#> .
 @prefix persona: <http://mee.foundation/ontologies/persona#> .
 @prefix cco: <https://purl.org/cco/> .

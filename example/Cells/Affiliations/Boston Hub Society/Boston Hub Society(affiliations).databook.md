@@ -12,49 +12,28 @@ mia:
   memberCount: "cell:ThreePlusMember"
   subject: ":BHS_Group"
   memberTopics:
-    - "bhs-group.members(Boston-Hub-Society)(affiliations)(01)"
-    - "self.self(Boston-Hub-Society)(affiliations)(14)"
-    - "bob-johnson.bob-johnson(Boston-Hub-Society)(affiliations)(03)"
+    - "topic-01"
+    - "topic-14"
+    - "topic-03"
   topics:
-    - id: "http://www.example.org/mia/topics/bhs-group.members(Boston-Hub-Society)(affiliations)(01)"
-      title: "About Boston Hub Society in the Boston Hub Society cell as claimed by Boston Hub Society"
+    - id: "http://www.example.org/mia/topics/topic-01"
       claimant: ":BHS_Group"
       subject: ":BHS_Group"
       shapes:
         - http://mee.foundation/ontologies/persona/shapes
         - http://mee.foundation/ontologies/topic/shapes
-      process:
-        transformer: human
-        timestamp: 2026-06-19T00:00:00Z
-        agent:
-          name: Paul Trevithick
-          role: author
-    - id: "http://www.example.org/mia/topics/bob-johnson.bob-johnson(Boston-Hub-Society)(affiliations)(03)"
-      title: "About Bob Johnson in the Boston Hub Society cell as claimed by Bob Johnson"
+    - id: "http://www.example.org/mia/topics/topic-03"
       claimant: ":Bob_Johnson"
       subject: ":Bob_Johnson"
       shapes:
         - http://mee.foundation/ontologies/persona/shapes
         - http://mee.foundation/ontologies/topic/shapes
-      process:
-        transformer: human
-        timestamp: 2026-06-19T00:00:00Z
-        agent:
-          name: Paul Trevithick
-          role: author
-    - id: "http://www.example.org/mia/topics/self.self(Boston-Hub-Society)(affiliations)(14)"
-      title: "About Alice Walker in the Boston Hub Society cell as claimed by Alice Walker"
+    - id: "http://www.example.org/mia/topics/topic-14"
       claimant: ":Self"
       subject: ":Self"
       shapes:
         - http://mee.foundation/ontologies/persona/shapes
         - http://mee.foundation/ontologies/topic/shapes
-      process:
-        transformer: human
-        timestamp: 2026-06-19T00:00:00Z
-        agent:
-          name: Paul Trevithick
-          role: author
 ---
 
 ## Topics
@@ -70,7 +49,7 @@ This topic captures the Boston Hub Society as a `g:Group` entity. It records the
 
 ```turtle
 <!-- databook:id: bhs-group-topic-graph -->
-<!-- databook:graph: http://www.example.org/mia/topics/bhs-group.members(Boston-Hub-Society)(affiliations)(01)#graph -->
+<!-- databook:graph: http://www.example.org/mia/topics/topic-01#graph -->
 @prefix : <http://www.example.org/mia#> .
 @prefix g: <http://mee.foundation/ontologies/group#> .
 @prefix owl: <http://www.w3.org/2002/07/owl#> .
@@ -96,7 +75,7 @@ This topic captures Bob Johnson's BHS profile as transmitted from Bob's Mia to A
 
 ```turtle
 <!-- databook:id: bob-bhs-topic-graph -->
-<!-- databook:graph: http://www.example.org/mia/topics/bob-johnson.bob-johnson(Boston-Hub-Society)(affiliations)(03)#graph -->
+<!-- databook:graph: http://www.example.org/mia/topics/topic-03#graph -->
 @prefix : <http://www.example.org/mia#> .
 @prefix persona: <http://mee.foundation/ontologies/persona#> .
 @prefix cco: <https://purl.org/cco/> .
@@ -130,7 +109,7 @@ This topic captures Alice Walker's BHS profile — the identity data she shares 
 
 ```turtle
 <!-- databook:id: alice-bhs-topic-graph -->
-<!-- databook:graph: http://www.example.org/mia/topics/self.self(Boston-Hub-Society)(affiliations)(14)#graph -->
+<!-- databook:graph: http://www.example.org/mia/topics/topic-14#graph -->
 @prefix : <http://www.example.org/mia#> .
 @prefix persona: <http://mee.foundation/ontologies/persona#> .
 @prefix cco: <https://purl.org/cco/> .

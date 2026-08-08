@@ -11,10 +11,9 @@ mia:
   creator: ":Self"
   memberCount: "cell:OneMember"
   subject: ":Self"
-  memberTopics: "self.self(Department-of-State)(passport)(19)"
+  memberTopics: "topic-19"
   topics:
-    - id: "http://www.example.org/mia/topics/self.self(Department-of-State)(passport)(19)"
-      title: "About Alice Walker in the Federal cell as claimed by Alice Walker"
+    - id: "http://www.example.org/mia/topics/topic-19"
       claimant: ":Self"
       subject: ":Self"
       template: "persona:PassportDocument"
@@ -22,12 +21,6 @@ mia:
         - http://mee.foundation/ontologies/persona/shapes
         - http://mee.foundation/ontologies/topic/shapes
         - http://mee.foundation/ontologies/persona/shapes/passport
-      process:
-        transformer: human
-        timestamp: 2026-06-20T00:00:00Z
-        agent:
-          name: Paul Trevithick
-          role: author
   shape: "pshapes:PassportDocumentShape"
 ---
 
@@ -44,7 +37,7 @@ This topic captures Alice Walker's US passport identity data. Alice self-enters 
 
 ```turtle
 <!-- databook:id: alice-passport-topic-graph -->
-<!-- databook:graph: http://www.example.org/mia/topics/self.self(Department-of-State)(passport)(19)#graph -->
+<!-- databook:graph: http://www.example.org/mia/topics/topic-19#graph -->
 @prefix : <http://www.example.org/mia#> .
 @prefix persona: <http://mee.foundation/ontologies/persona#> .
 @prefix cco: <https://purl.org/cco/> .

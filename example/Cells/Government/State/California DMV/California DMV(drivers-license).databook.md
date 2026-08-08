@@ -11,10 +11,9 @@ mia:
   creator: ":Self"
   memberCount: "cell:OneMember"
   subject: ":Self"
-  memberTopics: "self.self(California-DMV)(drivers-license)(15)"
+  memberTopics: "topic-15"
   topics:
-    - id: "http://www.example.org/mia/topics/self.self(California-DMV)(drivers-license)(15)"
-      title: "About Alice Walker in the State cell as claimed by Alice Walker"
+    - id: "http://www.example.org/mia/topics/topic-15"
       claimant: ":Self"
       subject: ":Self"
       template: "persona:DriversLicenseDocument"
@@ -22,12 +21,6 @@ mia:
         - http://mee.foundation/ontologies/persona/shapes
         - http://mee.foundation/ontologies/topic/shapes
         - http://mee.foundation/ontologies/persona/shapes/driverslicense
-      process:
-        transformer: human
-        timestamp: 2026-06-19T00:00:00Z
-        agent:
-          name: Paul Trevithick
-          role: author
   shape: "pshapes:DriversLicenseDocumentShape"
 ---
 
@@ -44,7 +37,7 @@ This topic captures Alice Walker's California driver's license identity data. Al
 
 ```turtle
 <!-- databook:id: alice-driverslicense-topic-graph -->
-<!-- databook:graph: http://www.example.org/mia/topics/self.self(California-DMV)(drivers-license)(15)#graph -->
+<!-- databook:graph: http://www.example.org/mia/topics/topic-15#graph -->
 @prefix : <http://www.example.org/mia#> .
 @prefix persona: <http://mee.foundation/ontologies/persona#> .
 @prefix cco: <https://purl.org/cco/> .

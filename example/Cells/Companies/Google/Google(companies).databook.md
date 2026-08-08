@@ -11,21 +11,14 @@ mia:
   creator: ":Self"
   memberCount: "cell:OneMember"
   subject: ":Self"
-  memberTopics: "self.self(Google)(companies)(16)"
+  memberTopics: "topic-16"
   topics:
-    - id: "http://www.example.org/mia/topics/self.self(Google)(companies)(16)"
-      title: "About Alice Walker in the Companies cell as claimed by Alice Walker"
+    - id: "http://www.example.org/mia/topics/topic-16"
       claimant: ":Self"
       subject: ":Self"
       shapes:
         - http://mee.foundation/ontologies/persona/shapes
         - http://mee.foundation/ontologies/topic/shapes
-      process:
-        transformer: human
-        timestamp: 2026-06-19T00:00:00Z
-        agent:
-          name: Paul Trevithick
-          role: author
 ---
 
 ## Topics
@@ -41,7 +34,7 @@ This topic captures Alice Walker's Google account topic. Alice self-enters her G
 
 ```turtle
 <!-- databook:id: alice-google-topic-graph -->
-<!-- databook:graph: http://www.example.org/mia/topics/self.self(Google)(companies)(16)#graph -->
+<!-- databook:graph: http://www.example.org/mia/topics/topic-16#graph -->
 @prefix : <http://www.example.org/mia#> .
 @prefix persona: <http://mee.foundation/ontologies/persona#> .
 @prefix cco: <https://purl.org/cco/> .

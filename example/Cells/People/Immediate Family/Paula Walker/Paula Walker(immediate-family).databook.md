@@ -14,49 +14,28 @@ mia:
     - ":Paula_Walker"
     - ":Self"
   memberTopics:
-    - "paula-walker.paula-walker(Paula-Walker)(immediate-family)(05)"
-    - "self.self(Paula-Walker)(immediate-family)(21)"
-    - "paula-walker.self(Paula-Walker)(immediate-family)(07)"
+    - "topic-05"
+    - "topic-21"
+    - "topic-07"
   topics:
-    - id: "http://www.example.org/mia/topics/paula-walker.paula-walker(Paula-Walker)(immediate-family)(05)"
-      title: "About Paula Walker in the ImmediateFamily cell as claimed by Paula Walker"
+    - id: "http://www.example.org/mia/topics/topic-05"
       claimant: ":Paula_Walker"
       subject: ":Paula_Walker"
       shapes:
         - http://mee.foundation/ontologies/persona/shapes
         - http://mee.foundation/ontologies/topic/shapes
-      process:
-        transformer: human
-        timestamp: 2026-06-19T00:00:00Z
-        agent:
-          name: Paul Trevithick
-          role: author
-    - id: "http://www.example.org/mia/topics/paula-walker.self(Paula-Walker)(immediate-family)(07)"
-      title: "About Paula Walker in the ImmediateFamily cell as claimed by Alice Walker"
+    - id: "http://www.example.org/mia/topics/topic-07"
       claimant: ":Self"
       subject: ":Paula_Walker"
       shapes:
         - http://mee.foundation/ontologies/persona/shapes
         - http://mee.foundation/ontologies/topic/shapes
-      process:
-        transformer: human
-        timestamp: 2026-06-19T00:00:00Z
-        agent:
-          name: Paul Trevithick
-          role: author
-    - id: "http://www.example.org/mia/topics/self.self(Paula-Walker)(immediate-family)(21)"
-      title: "About Alice Walker in the ImmediateFamily cell as claimed by Alice Walker"
+    - id: "http://www.example.org/mia/topics/topic-21"
       claimant: ":Self"
       subject: ":Self"
       shapes:
         - http://mee.foundation/ontologies/persona/shapes
         - http://mee.foundation/ontologies/topic/shapes
-      process:
-        transformer: human
-        timestamp: 2026-06-20T00:00:00Z
-        agent:
-          name: Paul Trevithick
-          role: author
 ---
 
 ## Topics
@@ -72,7 +51,7 @@ This topic captures Paula Walker's self-claimed family persona as transmitted fr
 
 ```turtle
 <!-- databook:id: paula-family-paula-topic-graph -->
-<!-- databook:graph: http://www.example.org/mia/topics/paula-walker.paula-walker(Paula-Walker)(immediate-family)(05)#graph -->
+<!-- databook:graph: http://www.example.org/mia/topics/topic-05#graph -->
 @prefix : <http://www.example.org/mia#> .
 @prefix persona: <http://mee.foundation/ontologies/persona#> .
 @prefix owl: <http://www.w3.org/2002/07/owl#> .
@@ -95,7 +74,7 @@ This topic captures Alice's record of her family member Paula Walker. Alice clai
 
 ```turtle
 <!-- databook:id: paula-family-alice-topic-graph -->
-<!-- databook:graph: http://www.example.org/mia/topics/paula-walker.self(Paula-Walker)(immediate-family)(07)#graph -->
+<!-- databook:graph: http://www.example.org/mia/topics/topic-07#graph -->
 @prefix : <http://www.example.org/mia#> .
 @prefix persona: <http://mee.foundation/ontologies/persona#> .
 @prefix cco: <https://purl.org/cco/> .
@@ -123,13 +102,13 @@ This topic captures Alice's record of her family member Paula Walker. Alice clai
 
 #### Overview
 
-This topic captures Alice Walker's family relationships. It records her maternal relationship with Paula Walker and her family social network, which includes Paula Walker and Carol Walker (Alice's sister) as members. Paula's own family topic (`paula-walker.paula-walker(Paula-Walker)(immediate-family)(05)`) is the peer record in this relationship; Carol's own claimed record about their mother appears separately in the "Med. App. Info" cell (topic 28).
+This topic captures Alice Walker's family relationships. It records her maternal relationship with Paula Walker and her family social network, which includes Paula Walker and Carol Walker (Alice's sister) as members. Paula's own family topic (`topic-05`) is the peer record in this relationship; Carol's own claimed record about their mother appears separately in the "Med. App. Info" cell (topic 28).
 
 #### Topic Graph
 
 ```turtle
 <!-- databook:id: alice-family-topic-graph -->
-<!-- databook:graph: http://www.example.org/mia/topics/self.self(Paula-Walker)(immediate-family)(21)#graph -->
+<!-- databook:graph: http://www.example.org/mia/topics/topic-21#graph -->
 @prefix : <http://www.example.org/mia#> .
 @prefix persona: <http://mee.foundation/ontologies/persona#> .
 @prefix cco: <https://purl.org/cco/> .
