@@ -46,7 +46,7 @@ mia:
 
 #### Overview
 
-This topic captures Alice's shared record of the claims needed to arrange a medical appointment on behalf of their mother, Paula Walker. Alice maintains this record on her own Mia and syncs it to Carol's Mia over the PDN so both sisters can coordinate Paula's care. Because each topic's named graph must be self-contained for p2p sync to work, the claims about Paula and about her primary care physician, Dr. Jane Kolpakova, are copied directly into this topic rather than merely linked — Alice already holds Dr. Jane's information in her own Mia, so it is Alice's Mia that copies it over. Validated by the `MedicalAppointment` per-template SHACL shapes.
+This topic captures Alice's shared record of the claims needed to arrange a medical appointment on behalf of their mother, Paula Walker. Alice maintains this record on her own Mia and syncs it to Carol's Mia over the PDN so both sisters can coordinate Paula's care. Because each topic's named graph must be self-contained for p2p sync to work, the claims about Paula and about her primary care physician, Dr. Jane Starostina, are copied directly into this topic rather than merely linked — Alice already holds Dr. Jane's information in her own Mia, so it is Alice's Mia that copies it over. Validated by the `MedicalAppointment` per-template SHACL shapes.
 
 #### Topic Graph
 
@@ -77,9 +77,9 @@ This topic captures Alice's shared record of the claims needed to arrange a medi
         <https://purl.org/cco/ont00001765> "Walker"
     ] .
 
-:Jane_Kolpakova rdf:type owl:NamedIndividual ,
+:Jane_Starostina rdf:type owl:NamedIndividual ,
                persona:Person ;
-    rdfs:label "Jane Kolpakova (Primary Care Physician)"@en ;
+    rdfs:label "Jane Starostina (Primary Care Physician)"@en ;
 
     <https://purl.org/cco/ont00001879> [  # designated by → GivenName
         rdf:type cco:ent00000002 ;  # GivenName
@@ -88,7 +88,7 @@ This topic captures Alice's shared record of the claims needed to arrange a medi
 
     <https://purl.org/cco/ont00001879> [  # designated by → FamilyName
         rdf:type cco:ent00000004 ;  # FamilyName
-        <https://purl.org/cco/ont00001765> "Kolpakova"
+        <https://purl.org/cco/ont00001765> "Starostina"
     ] ;
 
     <https://purl.org/cco/ont00001917> [  # described by → Person Note
@@ -104,7 +104,7 @@ This topic captures Alice's shared record of the claims needed to arrange a medi
     rdfs:comment "Claims Alice and Carol share to arrange and manage medical appointments for Paula."@en ;
 
     persona:forPatient :Paula_Walker ;
-    persona:hasPrimaryCarePhysician :Jane_Kolpakova ;
+    persona:hasPrimaryCarePhysician :Jane_Starostina ;
 
     persona:currentMedication "Lisinopril 10mg daily" ,
                                "Metformin 500mg twice daily" ;

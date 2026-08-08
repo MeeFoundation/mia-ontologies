@@ -14,7 +14,6 @@
     owl:versionIRI <http://mee.foundation/ontologies/topic/1.15.0> ;
     dc:date "2026-08-02"^^xsd:date ;
     owl:imports <http://mee.foundation/ontologies/cell> ;
-    owl:versionInfo "Version 1.15.0 - renamed topic:Topic to topic:TopicGraph and topic:SCtopic to topic:SCTopicGraph for clarity and consistency with the 'Topic Graph' DataBook section heading convention (each topic DataBook's fenced content becomes exactly the named graph these classes classify). Capitalization also normalized (SCtopic's lowercase 't' was inconsistent with the SC acronym prefix). No change to class hierarchy, domains/ranges, or cardinality — instances of both classes are still typed and asserted on the DataBook's own plain `id` IRI, not the `#graph`-suffixed graph.named_graph IRI that is the actual named graph; the new names describe what the DataBook's content represents, not a change to which IRI carries the type triple."@en ;
     rdfs:label "Topic Ontology"@en ;
     rdfs:comment """Topic Ontology for the Mee Identity Agent"""@en .
 
