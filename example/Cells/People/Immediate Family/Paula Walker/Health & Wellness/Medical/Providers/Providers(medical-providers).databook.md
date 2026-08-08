@@ -1,5 +1,5 @@
 ---
-id: http://www.example.org/mia/categories/Providers(medical-providers)
+id: http://www.example.org/mia/cells/cell-26
 title: "Providers"
 type: cell-databook
 version: 1.0.5

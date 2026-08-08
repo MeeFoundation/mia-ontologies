@@ -1,5 +1,5 @@
 ---
-id: http://www.example.org/mia/categories/Banking-&-Payments
+id: http://www.example.org/mia/cells/cell-08
 title: "Banking & Payments"
 type: cell-databook
 version: 1.0.5

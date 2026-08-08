@@ -1,5 +1,5 @@
 ---
-id: http://www.example.org/mia/categories/Companies
+id: http://www.example.org/mia/cells/cell-04
 title: "Companies"
 type: cell-databook
 version: 1.0.5

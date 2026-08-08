@@ -1,5 +1,5 @@
 ---
-id: http://www.example.org/mia/categories/Med.-App.-Info(medical-appointment-info)
+id: http://www.example.org/mia/cells/cell-28
 title: "Med. App. Info"
 type: cell-databook
 version: 1.1.0
@@ -42,7 +42,7 @@ mia:
 ## Topics
 
 <a id="topic-26"></a>
-### Topic 26 — Medical appointment claims for Paula Walker, shared between Alice and Carol
+### Topic 26
 
 #### Overview
 
@@ -120,7 +120,7 @@ This topic captures Alice's shared record of the claims needed to arrange a medi
 ```
 
 <a id="topic-28"></a>
-### Topic 28 — About Carol Walker in the Med. App. Info cell as claimed by Carol Walker
+### Topic 28
 
 #### Overview
 
@@ -164,7 +164,7 @@ This topic captures Carol Walker's own self-claimed persona and contact info, sh
 ```
 
 <a id="topic-30"></a>
-### Topic 30 — About Alice Walker in the Med. App. Info cell as claimed by Alice Walker
+### Topic 30
 
 #### Overview
 

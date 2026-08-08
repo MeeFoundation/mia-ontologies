@@ -1,5 +1,5 @@
 ---
-id: http://www.example.org/mia/categories/Paula-Walker(immediate-family)
+id: http://www.example.org/mia/cells/cell-23
 title: "Paula Walker"
 type: cell-databook
 version: 1.1.0
@@ -41,7 +41,7 @@ mia:
 ## Topics
 
 <a id="topic-05"></a>
-### Topic 05 — About Paula Walker in the ImmediateFamily cell as claimed by Paula Walker
+### Topic 05
 
 #### Overview
 
@@ -64,7 +64,7 @@ This topic captures Paula Walker's self-claimed family persona as transmitted fr
 ```
 
 <a id="topic-07"></a>
-### Topic 07 — About Paula Walker in the ImmediateFamily cell as claimed by Alice Walker
+### Topic 07
 
 #### Overview
 
@@ -98,7 +98,7 @@ This topic captures Alice's record of her family member Paula Walker. Alice clai
 ```
 
 <a id="topic-21"></a>
-### Topic 21 — About Alice Walker in the ImmediateFamily cell as claimed by Alice Walker
+### Topic 21
 
 #### Overview
 

@@ -1,5 +1,5 @@
 ---
-id: http://www.example.org/mia/categories/Immediate-Family
+id: http://www.example.org/mia/cells/cell-22
 title: "Immediate Family"
 type: cell-databook
 version: 1.0.5

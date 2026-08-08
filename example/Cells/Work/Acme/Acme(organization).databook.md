@@ -1,5 +1,5 @@
 ---
-id: http://www.example.org/mia/categories/Acme(organization)
+id: http://www.example.org/mia/cells/cell-33
 title: "Acme"
 type: cell-databook
 version: 1.0.7

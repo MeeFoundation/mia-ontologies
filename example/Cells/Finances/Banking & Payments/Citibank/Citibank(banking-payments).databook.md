@@ -1,5 +1,5 @@
 ---
-id: http://www.example.org/mia/categories/Citibank(banking-payments)
+id: http://www.example.org/mia/cells/cell-09
 title: "Citibank"
 type: cell-databook
 version: 1.1.0
@@ -34,7 +34,7 @@ mia:
 ## Topics
 
 <a id="topic-09"></a>
-### Topic 09 — About Alice Walker in the BankingPayments cell as claimed by Citibank
+### Topic 09
 
 #### Overview
 
@@ -101,7 +101,7 @@ This topic captures Alice Walker's financial relationship with Citibank. Citiban
 ```
 
 <a id="topic-27"></a>
-### Topic 27 — About Citibank in the BankingPayments cell as claimed by Alice Walker
+### Topic 27
 
 #### Overview
 

@@ -1,5 +1,5 @@
 ---
-id: http://www.example.org/mia/categories/Government
+id: http://www.example.org/mia/cells/cell-10
 title: "Government"
 type: cell-databook
 version: 1.0.5

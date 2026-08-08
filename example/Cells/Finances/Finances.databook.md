@@ -1,5 +1,5 @@
 ---
-id: http://www.example.org/mia/categories/Finances
+id: http://www.example.org/mia/cells/cell-07
 title: "Finances"
 type: cell-databook
 version: 1.0.5

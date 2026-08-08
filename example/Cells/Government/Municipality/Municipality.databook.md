@@ -1,5 +1,5 @@
 ---
-id: http://www.example.org/mia/categories/Municipality
+id: http://www.example.org/mia/cells/cell-14
 title: "Municipality"
 type: cell-databook
 version: 1.0.5

@@ -1,5 +1,5 @@
 ---
-id: http://www.example.org/mia/categories/Others
+id: http://www.example.org/mia/cells/cell-29
 title: "Others"
 type: cell-databook
 version: 1.0.5

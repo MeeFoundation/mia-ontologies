@@ -1,5 +1,5 @@
 ---
-id: http://www.example.org/mia/categories/Fred-Flintstone(others)
+id: http://www.example.org/mia/cells/cell-31
 title: "Fred Flintstone"
 type: cell-databook
 version: 1.1.0
@@ -34,7 +34,7 @@ mia:
 ## Topics
 
 <a id="topic-29"></a>
-### Topic 29 — About Alice Walker in the Others cell as claimed by Alice Walker
+### Topic 29
 
 #### Overview
 
@@ -79,7 +79,7 @@ This topic captures Alice Walker's self-claimed persona in her 1:1 relationship 
 ```
 
 <a id="topic-31"></a>
-### Topic 31 — About Fred Flintstone in the Others cell as claimed by Fred Flintstone
+### Topic 31
 
 #### Overview
 

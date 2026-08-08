@@ -1,5 +1,5 @@
 ---
-id: http://www.example.org/mia/categories/Social-Security-Administration(ssn)
+id: http://www.example.org/mia/cells/cell-13
 title: "Social Security Administration"
 type: cell-databook
 version: 1.2.0
@@ -24,7 +24,7 @@ mia:
 ## Topics
 
 <a id="topic-23"></a>
-### Topic 23 — About Alice Walker in the Federal cell as claimed by Alice Walker
+### Topic 23
 
 #### Overview
 

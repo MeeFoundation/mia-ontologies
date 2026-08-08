@@ -1,5 +1,5 @@
 ---
-id: http://www.example.org/mia/categories/Google(companies)
+id: http://www.example.org/mia/cells/cell-06
 title: "Google"
 type: cell-databook
 version: 1.1.0
@@ -24,7 +24,7 @@ mia:
 ## Topics
 
 <a id="topic-16"></a>
-### Topic 16 — About Alice Walker in the Companies cell as claimed by Alice Walker
+### Topic 16
 
 #### Overview
 

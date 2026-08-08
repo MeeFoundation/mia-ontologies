@@ -1,5 +1,5 @@
 ---
-id: http://www.example.org/mia/categories/Health-&-Wellness
+id: http://www.example.org/mia/cells/cell-24
 title: "Health & Wellness"
 type: cell-databook
 version: 1.1.0
@@ -24,7 +24,7 @@ mia:
 ## Topics
 
 <a id="topic-17"></a>
-### Topic 17 — About Paula Walker in the Health & Wellness cell as claimed by Alice Walker
+### Topic 17
 
 #### Overview
 

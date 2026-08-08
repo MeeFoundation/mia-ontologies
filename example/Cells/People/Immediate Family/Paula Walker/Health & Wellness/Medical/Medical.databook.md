@@ -1,5 +1,5 @@
 ---
-id: http://www.example.org/mia/categories/Medical
+id: http://www.example.org/mia/cells/cell-25
 title: "Medical"
 type: cell-databook
 version: 1.0.5

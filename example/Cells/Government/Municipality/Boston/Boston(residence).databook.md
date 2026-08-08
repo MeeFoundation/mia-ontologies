@@ -1,5 +1,5 @@
 ---
-id: http://www.example.org/mia/categories/Boston(residence)
+id: http://www.example.org/mia/cells/cell-15
 title: "Boston"
 type: cell-databook
 version: 1.1.0
@@ -24,7 +24,7 @@ mia:
 ## Topics
 
 <a id="topic-13"></a>
-### Topic 13 — About Alice Walker in the Municipality cell as claimed by Alice Walker
+### Topic 13
 
 #### Overview
 

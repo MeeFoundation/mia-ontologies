@@ -1,5 +1,5 @@
 ---
-id: http://www.example.org/mia/categories/Texas-Vital-Records(birth-certificate)
+id: http://www.example.org/mia/cells/cell-19
 title: "Texas Vital Records"
 type: cell-databook
 version: 1.1.0
@@ -27,7 +27,7 @@ mia:
 ## Topics
 
 <a id="topic-24"></a>
-### Topic 24 — About Alice Walker in the State cell as claimed by Alice Walker
+### Topic 24
 
 #### Overview
 

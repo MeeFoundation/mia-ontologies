@@ -1,5 +1,5 @@
 ---
-id: http://www.example.org/mia/categories/Paula-Walker(employee)
+id: http://www.example.org/mia/cells/cell-36
 title: "Paula Walker"
 type: cell-databook
 version: 1.1.0
@@ -31,7 +31,7 @@ mia:
 ## Topics
 
 <a id="topic-06"></a>
-### Topic 06 — About Paula Walker in the Employee cell as claimed by Alice Walker
+### Topic 06
 
 #### Overview
 
@@ -54,7 +54,7 @@ This topic captures Alice's record of her colleague Paula Walker in their shared
 ```
 
 <a id="topic-20"></a>
-### Topic 20 — About Alice Walker in the Employee cell as claimed by Alice Walker
+### Topic 20
 
 #### Overview
 

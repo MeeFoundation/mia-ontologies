@@ -1,5 +1,5 @@
 ---
-id: http://www.example.org/mia/categories/Paradise(residence)
+id: http://www.example.org/mia/cells/cell-16
 title: "Paradise"
 type: cell-databook
 version: 1.1.0
@@ -24,7 +24,7 @@ mia:
 ## Topics
 
 <a id="topic-18"></a>
-### Topic 18 — About Alice Walker in the Municipality cell as claimed by Alice Walker
+### Topic 18
 
 #### Overview
 

@@ -1,5 +1,5 @@
 ---
-id: http://www.example.org/mia/categories/Alice-Walker(employee)
+id: http://www.example.org/mia/cells/cell-35
 title: "Alice Walker"
 type: cell-databook
 version: 1.1.0
@@ -26,7 +26,7 @@ mia:
 ## Topics
 
 <a id="topic-10"></a>
-### Topic 10 — About Alice Walker in the Alice Walker cell as claimed by Alice Walker
+### Topic 10
 
 #### Overview
 

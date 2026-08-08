@@ -1,5 +1,5 @@
 ---
-id: http://www.example.org/mia/categories/Jane-Kolpakova(primary-care-physician)
+id: http://www.example.org/mia/cells/cell-27
 title: "Jane Kolpakova"
 type: cell-databook
 version: 1.2.0
@@ -24,7 +24,7 @@ mia:
 ## Topics
 
 <a id="topic-25"></a>
-### Topic 25 — About Jane Kolpakova in the PrimaryCarePhysician cell as claimed by Alice Walker
+### Topic 25
 
 #### Overview
 

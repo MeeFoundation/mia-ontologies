@@ -1,5 +1,5 @@
 ---
-id: http://www.example.org/mia/categories/Department-of-State(passport)
+id: http://www.example.org/mia/cells/cell-12
 title: "Department of State"
 type: cell-databook
 version: 1.2.0
@@ -27,7 +27,7 @@ mia:
 ## Topics
 
 <a id="topic-19"></a>
-### Topic 19 — About Alice Walker in the Federal cell as claimed by Alice Walker
+### Topic 19
 
 #### Overview
 

@@ -1,5 +1,5 @@
 ---
-id: http://www.example.org/mia/categories/Employees
+id: http://www.example.org/mia/cells/cell-34
 title: "Employees"
 type: cell-databook
 version: 1.0.5

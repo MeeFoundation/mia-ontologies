@@ -1,5 +1,5 @@
 ---
-id: http://www.example.org/mia/categories/Work
+id: http://www.example.org/mia/cells/cell-32
 title: "Work"
 type: cell-databook
 version: 1.0.5

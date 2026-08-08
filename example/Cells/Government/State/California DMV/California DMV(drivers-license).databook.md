@@ -1,5 +1,5 @@
 ---
-id: http://www.example.org/mia/categories/California-DMV(drivers-license)
+id: http://www.example.org/mia/cells/cell-18
 title: "California DMV"
 type: cell-databook
 version: 1.1.0
@@ -27,7 +27,7 @@ mia:
 ## Topics
 
 <a id="topic-15"></a>
-### Topic 15 — About Alice Walker in the State cell as claimed by Alice Walker
+### Topic 15
 
 #### Overview
 

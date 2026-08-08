@@ -1,5 +1,5 @@
 ---
-id: http://www.example.org/mia/categories/Boston-Hub-Society(affiliations)
+id: http://www.example.org/mia/cells/cell-03
 title: "Boston Hub Society"
 type: cell-databook
 version: 1.1.0
@@ -39,7 +39,7 @@ mia:
 ## Topics
 
 <a id="topic-01"></a>
-### Topic 01 — About Boston Hub Society in the Boston Hub Society cell as claimed by Boston Hub Society
+### Topic 01
 
 #### Overview
 
@@ -65,7 +65,7 @@ This topic captures the Boston Hub Society as a `g:Group` entity. It records the
 ```
 
 <a id="topic-03"></a>
-### Topic 03 — About Bob Johnson in the Boston Hub Society cell as claimed by Bob Johnson
+### Topic 03
 
 #### Overview
 
@@ -99,7 +99,7 @@ This topic captures Bob Johnson's BHS profile as transmitted from Bob's Mia to A
 ```
 
 <a id="topic-14"></a>
-### Topic 14 — About Alice Walker in the Boston Hub Society cell as claimed by Alice Walker
+### Topic 14
 
 #### Overview
 

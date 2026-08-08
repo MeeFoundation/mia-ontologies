@@ -1,5 +1,5 @@
 ---
-id: http://www.example.org/mia/categories/Cells(person)
+id: http://www.example.org/mia/cells/cell-01
 title: "Cells"
 type: cell-databook
 version: 1.0.4

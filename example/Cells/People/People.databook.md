@@ -1,5 +1,5 @@
 ---
-id: http://www.example.org/mia/categories/People
+id: http://www.example.org/mia/cells/cell-21
 title: "People"
 type: cell-databook
 version: 1.0.5

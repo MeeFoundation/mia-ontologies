@@ -157,7 +157,7 @@ In the center of the diagram below is a three level snippet of the user's catego
 
 - Each folder may hold arbitrary files, and may also contain additional subfolders (to any depth) that are not part of the canonical category tree. These are all part of the cell content that is shared when the folder's cell is shared.
 - One special file, acts as a note about the folder itself. These so-called *folder note* are stored as a file named `X.md` inside the `X` folder. Using the same name as the folder matches the convention used by PKM (Personal Knowledge Management) tools such as Obsidian (using the Folder Notes plugin), Logseq, Foam and others.
-- Another special file, is the category folder's associated **cell DataBook** (a `.databook.md` file with `type: cell-databook`) — see [Category Folders](#category-folders) above for why a folder can never hold more than one. A cell DataBook's `id` matches its containing folder's own name verbatim, with each space replaced by a hyphen (spaces are illegal inside a raw Turtle IRI).
+- Another special file, is the category folder's associated **cell DataBook** (a `.databook.md` file with `type: cell-databook`) — see [Category Folders](#category-folders) above for why a folder can never hold more than one. A cell DataBook's *filename* matches its containing folder's own name verbatim, with each space replaced by a hyphen (spaces are illegal inside a raw Turtle IRI) — its `id`, however, is a flat, opaque `cell-<NN>` value independent of the folder name (see CLAUDE.md's Check 9), the same pattern topic ids already use.
 
 ### Category Ontology File
 
@@ -237,6 +237,8 @@ The `c:memberTopics` and `c:otherTopics` are lists of `t:TopicGraphs`. See the [
 The diagram below shows a few representative category folders, each holding a cell. 
 
 <p align="center"><img src="images/cat-cell-topic.png" alt="Cells, categories, and topics"></p>
+
+Each folder's own color is a visual restatement of the *user-defined* vs. *category-defined* distinction from [Category Folders](#category-folders) above, not a separate concept: tan folders (`Person`) and light blue folders (`Organization`) are category-defined — their cell-databook's `c:origin` names the `cat:Person`- or `cat:Organization`-side subclass it was instantiated from (e.g. `Employees`, `People`) — while purple folders (`UserDefined`) have no `c:origin` value at all (e.g. `Favorites`, `Bob Johnson`, `BHS`). This is purely a folder-level classification, not a property of the cell itself.
 
 The blue text in the upper left of the cell displays the 1-2 subject(s) of the cell. If a `c:TwoMember` cell has a single subject this subject must be the subject of a topic graph in the `c:otherTopics`. And if `c:TwoMember` cell has two subjects they must be two distinct subjects of the 2..4 topic graphs pointed to by `c:memberTopics`. A TwoMember cell with two subjects is essentially about the connection/relationship between the two members.
 

@@ -1,5 +1,5 @@
 ---
-id: http://www.example.org/mia/categories/Affiliations
+id: http://www.example.org/mia/cells/cell-02
 title: "Affiliations"
 type: cell-databook
 version: 1.0.5

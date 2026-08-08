@@ -1,5 +1,5 @@
 ---
-id: http://www.example.org/mia/categories/Bob-Johnson(others)
+id: http://www.example.org/mia/cells/cell-30
 title: "Bob Johnson"
 type: cell-databook
 version: 1.1.0
@@ -48,7 +48,7 @@ mia:
 ## Topics
 
 <a id="topic-02"></a>
-### Topic 02 — About Bob Johnson in the Others cell as claimed by Bob Johnson
+### Topic 02
 
 #### Overview
 
@@ -91,7 +91,7 @@ This topic captures Bob Johnson's self-claimed Bob-topic persona, transmitted fr
 ```
 
 <a id="topic-04"></a>
-### Topic 04 — About Bob Johnson in the Others cell as claimed by Alice Walker
+### Topic 04
 
 #### Overview
 
@@ -120,7 +120,7 @@ This topic captures Alice's record of Bob Johnson in their 1:1 relationship topi
 ```
 
 <a id="topic-08"></a>
-### Topic 08 — About Alice Walker in the Others cell as claimed by Bob Johnson
+### Topic 08
 
 #### Overview
 
@@ -145,7 +145,7 @@ This topic captures Bob's record of Alice in their 1:1 relationship topic, trans
 ```
 
 <a id="topic-12"></a>
-### Topic 12 — About Alice Walker in the Others cell as claimed by Alice Walker
+### Topic 12
 
 #### Overview
 

@@ -1,5 +1,5 @@
 ---
-id: http://www.example.org/mia/categories/Ownership
+id: http://www.example.org/mia/cells/cell-20
 title: "Ownership"
 type: cell-databook
 version: 1.1.0
@@ -24,7 +24,7 @@ mia:
 ## Topics
 
 <a id="topic-22"></a>
-### Topic 22 — About Alice Walker in the Ownership cell as claimed by Alice Walker
+### Topic 22
 
 #### Overview
 
