@@ -88,25 +88,25 @@ A summary of every content-bearing cell-databook under `example/Cells/`, grouped
 
 | Subsection | Category Folder | Cell DataBook | Subject(s) | Cell Origin | Topics |
 |---|---|---|---|---|---|
-| Bob and Fred | Bob Johnson | `Bob Johnson(others).databook.md` | Self, Bob Johnson | `cat:Others` | 2, 4, 8, 12 |
-| Bob and Fred | Fred Flintstone | `Fred Flintstone(others).databook.md` | Self, Fred Flintstone | `cat:Others` | 29, 31 |
-| Taking Care of Paula | Paula Walker | `Paula Walker(immediate-family).databook.md` | Self, Paula Walker | `cat:ImmediateFamily` | 5, 7, 21 |
-| Taking Care of Paula | Health & Wellness | `Health & Wellness.databook.md` | Paula Walker | `cat:HealthWellness` | 17 |
-| Taking Care of Paula | Jane Kolpakova | `Jane Kolpakova(primary-care-physician).databook.md` | Jane Kolpakova | `cat:PrimaryCarePhysician` | 25 |
-| Taking Care of Paula | Med. App. Info | `Med. App. Info(medical-appointment-info).databook.md` | Paula Walker | `cat:MedicalAppointmentInfo` | 26, 28, 30 |
-| Working for Acme | Alice Walker | `Alice Walker(employee).databook.md` | Self | `cat:Employee` | 10 |
-| Working for Acme | Paula Walker | `Paula Walker(employee).databook.md` | Paula Walker | `cat:Employee` | 6, 20 |
-| Service Providers | Google | `Google(companies).databook.md` | Self | `cat:Companies` | 16 |
-| Service Providers | ATT | `ATT(companies).databook.md` | Self | `cat:Companies` | 11 |
-| Checking Account and Debit Card | Citibank | `Citibank(banking-payments).databook.md` | Self, Citibank | `cat:BankingPayments` | 9, 27 |
-| Birth Certificate and Driver's License | Texas Vital Records | `Texas Vital Records(birth-certificate).databook.md` | Self | `cat:BirthCertificate` | 24 |
-| Birth Certificate and Driver's License | California DMV | `California DMV(drivers-license).databook.md` | Self | `cat:DriversLicense` | 15 |
-| Passport and Social Security Number | Department of State | `Department of State(passport).databook.md` | Self | `cat:Passport` | 19 |
-| Passport and Social Security Number | Social Security Administration | `Social Security Administration(ssn).databook.md` | Self | `cat:SSN` | 23 |
-| Current and Previous Homes | Boston | `Boston(residence).databook.md` | Self | `cat:Residence` | 13 |
-| Current and Previous Homes | Paradise | `Paradise(residence).databook.md` | Self | `cat:Residence` | 18 |
-| Possessions | Ownership | `Ownership.databook.md` | Self | `cat:Ownership` | 22 |
-| Boston Hub Society | Boston Hub Society | `Boston Hub Society(affiliations).databook.md` | BHS Group | `cat:Affiliations` | 1, 3, 14 |
+| Bob and Fred | Bob Johnson | [Bob Johnson(others).databook.md](<example/Cells/People/Others/Bob Johnson/Bob Johnson(others).databook.md>) | Self, Bob Johnson | `cat:Others` | 2, 4, 8, 12 |
+| Bob and Fred | Fred Flintstone | [Fred Flintstone(others).databook.md](<example/Cells/People/Others/Fred Flintstone/Fred Flintstone(others).databook.md>) | Self, Fred Flintstone | `cat:Others` | 29, 31 |
+| Taking Care of Paula | Paula Walker | [Paula Walker(immediate-family).databook.md](<example/Cells/People/Immediate Family/Paula Walker/Paula Walker(immediate-family).databook.md>) | Self, Paula Walker | `cat:ImmediateFamily` | 5, 7, 21 |
+| Taking Care of Paula | Health & Wellness | [Health & Wellness.databook.md](<example/Cells/People/Immediate Family/Paula Walker/Health & Wellness/Health & Wellness.databook.md>) | Paula Walker | `cat:HealthWellness` | 17 |
+| Taking Care of Paula | Jane Kolpakova | [Jane Kolpakova(primary-care-physician).databook.md](<example/Cells/People/Immediate Family/Paula Walker/Health & Wellness/Medical/Providers/Jane Kolpakova/Jane Kolpakova(primary-care-physician).databook.md>) | Jane Kolpakova | `cat:PrimaryCarePhysician` | 25 |
+| Taking Care of Paula | Med. App. Info | [Med. App. Info(medical-appointment-info).databook.md](<example/Cells/People/Immediate Family/Paula Walker/Health & Wellness/Medical/Providers/Med. App. Info/Med. App. Info(medical-appointment-info).databook.md>) | Paula Walker | `cat:MedicalAppointmentInfo` | 26, 28, 30 |
+| Working for Acme | Alice Walker | [Alice Walker(employee).databook.md](<example/Cells/Work/Acme/Employees/Alice Walker/Alice Walker(employee).databook.md>) | Self | `cat:Employee` | 10 |
+| Working for Acme | Paula Walker | [Paula Walker(employee).databook.md](<example/Cells/Work/Acme/Employees/Paula Walker/Paula Walker(employee).databook.md>) | Paula Walker | `cat:Employee` | 6, 20 |
+| Service Providers | Google | [Google(companies).databook.md](<example/Cells/Companies/Google/Google(companies).databook.md>) | Self | `cat:Companies` | 16 |
+| Service Providers | ATT | [ATT(companies).databook.md](<example/Cells/Companies/ATT/ATT(companies).databook.md>) | Self | `cat:Companies` | 11 |
+| Checking Account and Debit Card | Citibank | [Citibank(banking-payments).databook.md](<example/Cells/Finances/Banking & Payments/Citibank/Citibank(banking-payments).databook.md>) | Self, Citibank | `cat:BankingPayments` | 9, 27 |
+| Birth Certificate and Driver's License | Texas Vital Records | [Texas Vital Records(birth-certificate).databook.md](<example/Cells/Government/State/Texas Vital Records/Texas Vital Records(birth-certificate).databook.md>) | Self | `cat:BirthCertificate` | 24 |
+| Birth Certificate and Driver's License | California DMV | [California DMV(drivers-license).databook.md](<example/Cells/Government/State/California DMV/California DMV(drivers-license).databook.md>) | Self | `cat:DriversLicense` | 15 |
+| Passport and Social Security Number | Department of State | [Department of State(passport).databook.md](<example/Cells/Government/Federal/Department of State/Department of State(passport).databook.md>) | Self | `cat:Passport` | 19 |
+| Passport and Social Security Number | Social Security Administration | [Social Security Administration(ssn).databook.md](<example/Cells/Government/Federal/Social Security Administration/Social Security Administration(ssn).databook.md>) | Self | `cat:SSN` | 23 |
+| Current and Previous Homes | Boston | [Boston(residence).databook.md](<example/Cells/Government/Municipality/Boston/Boston(residence).databook.md>) | Self | `cat:Residence` | 13 |
+| Current and Previous Homes | Paradise | [Paradise(residence).databook.md](<example/Cells/Government/Municipality/Paradise/Paradise(residence).databook.md>) | Self | `cat:Residence` | 18 |
+| Possessions | Ownership | [Ownership.databook.md](<example/Cells/Ownership/Ownership.databook.md>) | Self | `cat:Ownership` | 22 |
+| Boston Hub Society | Boston Hub Society | [Boston Hub Society(affiliations).databook.md](<example/Cells/Affiliations/Boston Hub Society/Boston Hub Society(affiliations).databook.md>) | BHS Group | `cat:Affiliations` | 1, 3, 14 |
 
 ## Topics
 
