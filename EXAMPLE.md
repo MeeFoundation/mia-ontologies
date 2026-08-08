@@ -8,21 +8,21 @@ This section describes the local Mia dataset for a hypothetical user, Alice Walk
 
 ### Bob and Fred
 
-Alice knows two people, Bob and Fred. She has created and shared two *Two-Member* cells with each of them and filed them under *Others*. She filed the (Bob, Self(Alice)) cell under a category folder called *Bob Johnson*. Presumably Bob, in his Mia app, has shared this identical, shared cell under his *Others* category folder. Alice has included some claims about herself (topic 12) including her given name "Alice", her family name "Walker", etc. She has included (topic 4) her claim that Bob's favorite drink is an oat milk cappuccino. Bob has claimed some contact information about himself (topic 2), and he claims that her favorite drink is Pepsi (topic 8).
+Alice knows two people, Bob and Fred. She has created and shared two *Two-Member* cells with each of them and filed them under *Others*. She filed the (Bob, Self(Alice)) cell under a category folder called *Bob Johnson*. Presumably Bob, in his Mia app, has shared this identical, shared cell under his *Others* category folder. Alice has included some claims about herself ([topic 12](<example/Cells/People/Others/Bob Johnson/Bob Johnson(others).databook.md#topic-12>)) including her given name "Alice", her family name "Walker", etc. She has included ([topic 4](<example/Cells/People/Others/Bob Johnson/Bob Johnson(others).databook.md#topic-04>)) her claim that Bob's favorite drink is an oat milk cappuccino. Bob has claimed some contact information about himself ([topic 2](<example/Cells/People/Others/Bob Johnson/Bob Johnson(others).databook.md#topic-02>)), and he claims that her favorite drink is Pepsi ([topic 8](<example/Cells/People/Others/Bob Johnson/Bob Johnson(others).databook.md#topic-08>)).
 
 <p align="center"><img src="example/images/people.png" alt="People cells"></p>
 
 ### Taking Care of Paula
 
-Alice's mother, Paula Walker, is a category folder called *Paula* under *Immediate Family*. The Self, Paula cell (topics 7, 5, 21) capture her connection with Paula. Alice spends time taking care of her mother, so she has, by herself assembled some information about Paul in non-shared cells. In the *Health & Wellness* category folder Alice keeps a record of Paula's physical characteristics such as height, eye color, hair color in topic 17.  
+Alice's mother, Paula Walker, is a category folder called *Paula* under *Immediate Family*. The Self, Paula cell (topics [7](<example/Cells/People/Immediate Family/Paula Walker/Paula Walker(immediate-family).databook.md#topic-07>), [5](<example/Cells/People/Immediate Family/Paula Walker/Paula Walker(immediate-family).databook.md#topic-05>), [21](<example/Cells/People/Immediate Family/Paula Walker/Paula Walker(immediate-family).databook.md#topic-21>)) capture her connection with Paula. Alice spends time taking care of her mother, so she has, by herself assembled some information about Paul in non-shared cells. In the *Health & Wellness* category folder Alice keeps a record of Paula's physical characteristics such as height, eye color, hair color in [topic 17](<example/Cells/People/Immediate Family/Paula Walker/Health & Wellness/Health & Wellness.databook.md#topic-17>).  
 
-Under *Medical* > *Providers* > *Primary Care Physician*, Alice keeps a record of Dr. Jane Kolpakova, Paula's primary care physician (topic 25). Alice's sister Carol is involved in taking care of their mother. They need to arrange medical appointments, etc. and to do so, they need to share and synchronize medical information about Paula including her list of medications, medical history, health insurance policy, contact information and so on. To work on this as a team, Alice creates a two-member *Med. App. Info* cell and shares it with Carol. They both use it to share information about Paula's upcoming medical appointment (topic 26). This topic includes the name of Paula's doctor (primary care physician) which Mia copies from the Dr. Jane Kolpakova cell (topic 25). 
+Under *Medical* > *Providers* > *Primary Care Physician*, Alice keeps a record of Dr. Jane Kolpakova, Paula's primary care physician ([topic 25](<example/Cells/People/Immediate Family/Paula Walker/Health & Wellness/Medical/Providers/Jane Kolpakova/Jane Kolpakova(primary-care-physician).databook.md#topic-25>)). Alice's sister Carol is involved in taking care of their mother. They need to arrange medical appointments, etc. and to do so, they need to share and synchronize medical information about Paula including her list of medications, medical history, health insurance policy, contact information and so on. To work on this as a team, Alice creates a two-member *Med. App. Info* cell and shares it with Carol. They both use it to share information about Paula's upcoming medical appointment ([topic 26](<example/Cells/People/Immediate Family/Paula Walker/Health & Wellness/Medical/Providers/Med. App. Info/Med. App. Info(medical-appointment-info).databook.md#topic-26>)). This topic includes the name of Paula's doctor (primary care physician) which Mia copies from the Dr. Jane Kolpakova cell ([topic 25](<example/Cells/People/Immediate Family/Paula Walker/Health & Wellness/Medical/Providers/Jane Kolpakova/Jane Kolpakova(primary-care-physician).databook.md#topic-25>)). 
 
 <p align="center"><img src="example/images/people2.png" alt="People cells, continued — Immediate Family, Paula Walker, and her Health & Wellness, Medical, and Providers cells"></p>
 
 ### Working for Acme
 
-Alice is an employee of Acme, so under her *Work* category folder she has created *Acme* to represent her employer. Since Acme is an organization, rather than using `cat:Person` categories she has switched to `cat:Organization` categories (light blue color). Under *Employees* she has added her own *Alice Walker* category that holds her Business Card claims (topic 10) — job title at Acme, work telephone number, work email, etc. One of the employees she works with is Paula Walker, so she has a Paula Walker category for her. Its cell contains statements Alice has made about Paula (topic 6) and statements about herself (topic 20) neither of which have been shared with Paula since this is a (non-shared) Single-Member Cell.
+Alice is an employee of Acme, so under her *Work* category folder she has created *Acme* to represent her employer. Since Acme is an organization, rather than using `cat:Person` categories she has switched to `cat:Organization` categories (light blue color). Under *Employees* she has added her own *Alice Walker* category that holds her Business Card claims ([topic 10](<example/Cells/Work/Acme/Employees/Alice Walker/Alice Walker(employee).databook.md#topic-10>)) — job title at Acme, work telephone number, work email, etc. One of the employees she works with is Paula Walker, so she has a Paula Walker category for her. Its cell contains statements Alice has made about Paula ([topic 6](<example/Cells/Work/Acme/Employees/Paula Walker/Paula Walker(employee).databook.md#topic-06>)) and statements about herself ([topic 20](<example/Cells/Work/Acme/Employees/Paula Walker/Paula Walker(employee).databook.md#topic-20>)) neither of which have been shared with Paula since this is a (non-shared) Single-Member Cell.
 
 <p align="center"><img src="example/images/work.png" alt="Work cells"></p>
 
@@ -34,13 +34,13 @@ Alice has relationships with two companies, Google and ATT. The former provides 
 
 ### Checking Account and Debit Card
 
-Alice has a checking account (and associated debit care) at Citibank. In our example Citibank is compatible with PDN and participates directly as a member of this Self<>Citibank cell. Citibank directly write the data about Alice's checking account into topic 9. It is colored green because the claimant is Citibank, not Alice. Alice self-asserts her username and password. Citibank asserts some information about itself in topic 27.
+Alice has a checking account (and associated debit care) at Citibank. In our example Citibank is compatible with PDN and participates directly as a member of this Self<>Citibank cell. Citibank directly write the data about Alice's checking account into [topic 9](<example/Cells/Finances/Banking & Payments/Citibank/Citibank(banking-payments).databook.md#topic-09>). It is colored green because the claimant is Citibank, not Alice. Alice self-asserts her username and password. Citibank asserts some information about itself in [topic 27](<example/Cells/Finances/Banking & Payments/Citibank/Citibank(banking-payments).databook.md#topic-27>).
 
 <p align="center"><img src="example/images/finances.png" alt="Financial cells"></p>
 
 ### Birth Certificate and Driver's License
 
-Alice was born in Texas and their vital records department issued a birth certificate about Alice. Alice has manually entered the information from her birth certificate (topic 24) and has included a scan of her paper birth certificate in *Texas Vital Records* category folder (not shown). She recently moved to Paradise, California, and was issued a license by the California DMV. Alice manually entered the information from her plastic license card (topic 15) and included a scan of it in the *California DMV* folder (not shown).
+Alice was born in Texas and their vital records department issued a birth certificate about Alice. Alice has manually entered the information from her birth certificate ([topic 24](<example/Cells/Government/State/Texas Vital Records/Texas Vital Records(birth-certificate).databook.md#topic-24>)) and has included a scan of her paper birth certificate in *Texas Vital Records* category folder (not shown). She recently moved to Paradise, California, and was issued a license by the California DMV. Alice manually entered the information from her plastic license card ([topic 15](<example/Cells/Government/State/California DMV/California DMV(drivers-license).databook.md#topic-15>)) and included a scan of it in the *California DMV* folder (not shown).
 
 <p align="center"><img src="example/images/gov-state.png" alt="Government — State cells"></p>
 
@@ -50,15 +50,15 @@ Alice was born in Texas and their vital records department issued a birth certif
 
 ### Current and Previous Homes
 
-Alice used to live in Boston until late 2025, but now lives in Paradise, CA. Information about these two residences are in topics 13 and 18. 
+Alice used to live in Boston until late 2025, but now lives in Paradise, CA. Information about these two residences are in topics [13](<example/Cells/Government/Municipality/Boston/Boston(residence).databook.md#topic-13>) and [18](<example/Cells/Government/Municipality/Paradise/Paradise(residence).databook.md#topic-18>). 
 
 <p align="center"><img src="example/images/gov-municipality.png" alt="Government — Municipality cells"></p>
 
 ### Possessions 
 
-Alice, like everyone, owns (or borrows, or rents) zillions of things. A tiny few of them are described in topic 22. We focused on a few identity documents. Alice has a plastic driver's license card, a health insurance cards, social security number cards. She also has a wallet. She keeps some of these in her wallet and some separately. Presumably Alice has a vehicle of some kind, and so many other things, so this example is extremely limited at the moment. 
+Alice, like everyone, owns (or borrows, or rents) zillions of things. A tiny few of them are described in [topic 22](<example/Cells/Ownership/Ownership.databook.md#topic-22>). We focused on a few identity documents. Alice has a plastic driver's license card, a health insurance cards, social security number cards. She also has a wallet. She keeps some of these in her wallet and some separately. Presumably Alice has a vehicle of some kind, and so many other things, so this example is extremely limited at the moment. 
 
-Here are a few lines from topic 22:
+Here are a few lines from [topic 22](<example/Cells/Ownership/Ownership.databook.md#topic-22>):
 ```turtle 
 :Self persona:hasWallet :Alice_Wallet ;
     persona:hasPhysicalCard :Alice_HealthInsuranceCard ;   # carried separately
@@ -78,7 +78,7 @@ Here are a few lines from topic 22:
 
 ### Boston Hub Society
 
-Alice is a member of the Boston Hub Society, an informal professional social network. We envision a future state where the BHS not only has a website but is also compatible with the PDN network and can join cells as a `g:Group` member. In this future world, Alice maintains her BHS profile in topic 14, Bob another member is keeps his profile updated (topic 3), and the BHS itself can share some members-only information in topic 1.
+Alice is a member of the Boston Hub Society, an informal professional social network. We envision a future state where the BHS not only has a website but is also compatible with the PDN network and can join cells as a `g:Group` member. In this future world, Alice maintains her BHS profile in [topic 14](<example/Cells/Affiliations/Boston Hub Society/Boston Hub Society(affiliations).databook.md#topic-14>), Bob another member is keeps his profile updated ([topic 3](<example/Cells/Affiliations/Boston Hub Society/Boston Hub Society(affiliations).databook.md#topic-03>)), and the BHS itself can share some members-only information in [topic 1](<example/Cells/Affiliations/Boston Hub Society/Boston Hub Society(affiliations).databook.md#topic-01>).
 
 <p align="center"><img src="example/images/affiliations.png" alt="Affiliations cells"></p>
 
