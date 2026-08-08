@@ -5,18 +5,18 @@ type: cell-databook
 version: 1.1.0
 created: 2026-07-10
 description: >
-  Cell DataBook of category "Boston Hub Society" (cell:origin: cat:Affiliations). Content may include topics/folder/note links, and may carry one or two required subject values.
+  Cell DataBook of category "Boston Hub Society" (cell:origin: cat:Affiliations). May carry one or two required subject values.
 mia:
   origin: "cat:Affiliations"
   creator: ":Self"
   memberCount: "cell:ThreePlusMember"
   subject: ":BHS_Group"
   memberTopics:
-    - "https://www.example.org/mia/topics/bhs-group.members(Boston-Hub-Society)(affiliations)(01)"
-    - "https://www.example.org/mia/topics/self.self(Boston-Hub-Society)(affiliations)(14)"
-    - "https://www.example.org/mia/topics/bob-johnson.bob-johnson(Boston-Hub-Society)(affiliations)(03)"
+    - "bhs-group.members(Boston-Hub-Society)(affiliations)(01)"
+    - "self.self(Boston-Hub-Society)(affiliations)(14)"
+    - "bob-johnson.bob-johnson(Boston-Hub-Society)(affiliations)(03)"
   topics:
-    - id: "https://www.example.org/mia/topics/bhs-group.members(Boston-Hub-Society)(affiliations)(01)"
+    - id: "http://www.example.org/mia/topics/bhs-group.members(Boston-Hub-Society)(affiliations)(01)"
       title: "About Boston Hub Society in the Boston Hub Society cell as claimed by Boston Hub Society"
       claimant: ":BHS_Group"
       subject: ":BHS_Group"
@@ -29,7 +29,7 @@ mia:
         agent:
           name: Paul Trevithick
           role: author
-    - id: "https://www.example.org/mia/topics/bob-johnson.bob-johnson(Boston-Hub-Society)(affiliations)(03)"
+    - id: "http://www.example.org/mia/topics/bob-johnson.bob-johnson(Boston-Hub-Society)(affiliations)(03)"
       title: "About Bob Johnson in the Boston Hub Society cell as claimed by Bob Johnson"
       claimant: ":Bob_Johnson"
       subject: ":Bob_Johnson"
@@ -42,7 +42,7 @@ mia:
         agent:
           name: Paul Trevithick
           role: author
-    - id: "https://www.example.org/mia/topics/self.self(Boston-Hub-Society)(affiliations)(14)"
+    - id: "http://www.example.org/mia/topics/self.self(Boston-Hub-Society)(affiliations)(14)"
       title: "About Alice Walker in the Boston Hub Society cell as claimed by Alice Walker"
       claimant: ":Self"
       subject: ":Self"
@@ -70,7 +70,7 @@ This topic captures the Boston Hub Society as a `g:Group` entity. It records the
 
 ```turtle
 <!-- databook:id: bhs-group-topic-graph -->
-<!-- databook:graph: https://www.example.org/mia/topics/bhs-group.members(Boston-Hub-Society)(affiliations)(01)#graph -->
+<!-- databook:graph: http://www.example.org/mia/topics/bhs-group.members(Boston-Hub-Society)(affiliations)(01)#graph -->
 @prefix : <http://www.example.org/mia#> .
 @prefix g: <http://mee.foundation/ontologies/group#> .
 @prefix owl: <http://www.w3.org/2002/07/owl#> .
@@ -96,7 +96,7 @@ This topic captures Bob Johnson's BHS profile as transmitted from Bob's Mia to A
 
 ```turtle
 <!-- databook:id: bob-bhs-topic-graph -->
-<!-- databook:graph: https://www.example.org/mia/topics/bob-johnson.bob-johnson(Boston-Hub-Society)(affiliations)(03)#graph -->
+<!-- databook:graph: http://www.example.org/mia/topics/bob-johnson.bob-johnson(Boston-Hub-Society)(affiliations)(03)#graph -->
 @prefix : <http://www.example.org/mia#> .
 @prefix persona: <http://mee.foundation/ontologies/persona#> .
 @prefix cco: <https://purl.org/cco/> .
@@ -130,7 +130,7 @@ This topic captures Alice Walker's BHS profile — the identity data she shares 
 
 ```turtle
 <!-- databook:id: alice-bhs-topic-graph -->
-<!-- databook:graph: https://www.example.org/mia/topics/self.self(Boston-Hub-Society)(affiliations)(14)#graph -->
+<!-- databook:graph: http://www.example.org/mia/topics/self.self(Boston-Hub-Society)(affiliations)(14)#graph -->
 @prefix : <http://www.example.org/mia#> .
 @prefix persona: <http://mee.foundation/ontologies/persona#> .
 @prefix cco: <https://purl.org/cco/> .

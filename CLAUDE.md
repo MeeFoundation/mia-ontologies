@@ -61,7 +61,6 @@ Every topic below is now an embedded section (`mia.topics` entry + `### Topic NN
 | Topic 15 — `example/Cells/Government/State/California DMV/California DMV(drivers-license).databook.md` | Alice's California driver's license — legal name, DOB, DL#, expiry, photo |
 | Topic 19 — `example/Cells/Government/Federal/Department of State/Department of State(passport).databook.md` | Alice's US passport — legal name, DOB, passport#, issue/expiry, place of birth, gender marker, photo |
 | Topic 17 — `example/Cells/People/Immediate Family/Paula Walker/Health & Wellness/Health & Wellness.databook.md` | Paula's physical characteristics — height, eye color, hair color — as recorded by Alice |
-| `example/topics/under-development/paula(fl-birth-cert)alice.ttl` | Paula Walker's Florida Birth Certificate Persona — legal name record (under development) |
 | `example/topics/self.ttl` | `:Self`'s sole type declaration (`rdf:type owl:NamedIndividual, persona:Person`); not `owl:imports`ed anywhere, merged in only for validation |
 
 ## Architecture
@@ -191,15 +190,20 @@ After any change to a topic (its `mia.topics` entry or `### Topic NN` body secti
 
 **Check 2 — Topic id naming convention**: Every `mia.topics[].id` value's local-name (the string after the final `/`) — across all cell-databooks in `example/Cells/` — must follow `<subject>.<claimant>(<containing-cell>)(<NN>)`. `<subject>` must be `self` when the subject is `:Self`, or the full hyphenated lowercase name otherwise. `<claimant>` must be `self` when the claimant is `:Self`, or the full hyphenated lowercase name otherwise — except for `cell:ThreePlusMember` topics, where it must be the literal string `members`. `(<containing-cell>)` encodes the local name of the *owning* cell-databook itself (the file this `mia.topics` entry lives in, minus its trailing `-cell` suffix) — two segments ordinarily, e.g. `(Bob-Johnson)(others)`, or a single compressed segment when the cell's local name and `catType` kebab-case to the same string, e.g. `(Ownership)` (see [Category/Cell DataBook Filename Convention](#categorycell-databook-filename-convention)). `(<NN>)` is the zero-padded two-digit topic number. If an id does not match this pattern, flag it rather than silently renaming — unlike the old topic-filename convention, `mia.topics[].id` also doubles as the topic's own named-graph identity (`{id}#graph`), so changing it is a bigger operation than a file rename ever was.
 
-**Check 3 — `mia.topics` ↔ `memberTopics`/`otherTopics` consistency**: Since a topic now lives physically inside its owning cell-databook file, containment is structural rather than a cross-file reverse lookup — but the two lists that record it independently (`mia.memberTopics`/`mia.otherTopics`, and the newer `mia.topics`) must still agree exactly. For every cell-databook under `example/Cells/`, the set of ids across `mia.memberTopics`+`mia.otherTopics` and the set of `mia.topics[].id` values must be identical — every linked id has a matching `topics` entry supplying its metadata, and every `topics` entry is linked from one of the two lists. Run:
+**Check 3 — `mia.topics` ↔ `memberTopics`/`otherTopics` consistency**: Since a topic now lives physically inside its owning cell-databook file, containment is structural rather than a cross-file reverse lookup — but the two lists that record it independently (`mia.memberTopics`/`mia.otherTopics`, and the newer `mia.topics`) must still agree exactly. For every cell-databook under `example/Cells/`, the set of ids across `mia.memberTopics`+`mia.otherTopics` and the set of `mia.topics[].id` values must be identical — every linked id has a matching `topics` entry supplying its metadata, and every `topics` entry is linked from one of the two lists. `mia.memberTopics`/`mia.otherTopics` entries are written as the topic id's bare local name (e.g. `"self.self(Ownership)(22)"`) rather than the full `http://www.example.org/mia/topics/...` IRI — that base is constant across every topic id in the dataset and repeating it on every list entry is pure redundancy, since a topic only ever lives inside the one cell-databook file whose own `memberTopics`/`otherTopics` reference it (see [Topic ID Naming Convention](#topic-id-naming-convention)); `mia.topics[].id` itself keeps the full IRI, since that value also doubles as the topic's own named-graph identity (`{id}#graph`). This check normalizes both sides to the bare local name before comparing, so it still catches a real mismatch and isn't fooled by that form difference. Run:
 
 ```python
 import glob, re, yaml
+
+TOPICS_BASE_RE = re.compile(r'^https?://www\.example\.org/mia/topics/')
 
 def frontmatter(path):
     text = open(path, encoding='utf-8').read()
     m = re.match(r'^---\n(.*?)\n---', text, re.DOTALL)
     return yaml.safe_load(m.group(1)) if m else None
+
+def local_name(v):
+    return TOPICS_BASE_RE.sub('', v)
 
 errors = 0
 for path in sorted(glob.glob('example/Cells/**/*.databook.md', recursive=True)):
@@ -213,8 +217,8 @@ for path in sorted(glob.glob('example/Cells/**/*.databook.md', recursive=True)):
     for field in ('memberTopics', 'otherTopics'):
         val = mia.get(field)
         if val:
-            linked_ids.update(val if isinstance(val, list) else [val])
-    topic_ids = {t['id'] for t in (mia.get('topics') or []) if isinstance(t, dict) and t.get('id')}
+            linked_ids.update(local_name(v) for v in (val if isinstance(val, list) else [val]))
+    topic_ids = {local_name(t['id']) for t in (mia.get('topics') or []) if isinstance(t, dict) and t.get('id')}
     missing = linked_ids - topic_ids
     unlinked = topic_ids - linked_ids
     if missing:
@@ -394,7 +398,7 @@ If a `SKIP-LEVEL NESTING` issue is found, give the intervening folder its own ce
 
 **Check 15 — `images/cat-cell-topic.png` matches example usage**: Current as of cell.ttl 3.17.0 — redrawn with a substantially reworked Key legend, now split into two separate boxes on the right rather than one combined Key: a **Category** legend (title "Class"/"Label") giving the three `cat:Category`-family swatches — Person (tan), UserDefined (purple), Organization (light blue), matching Check 14's `cat:Person`/`cat:Organization` naming — and a **Cell** legend giving: a blue **Subject** heading over a green-filled circle labeled "Claimed by Other", a white/outlined circle labeled "Claimed by Self", and a gray swatch labeled "Shared"; two more circle entries labeled "Member Topic" and "Other Topic" (mapping to `c:memberTopics`/`c:otherTopics` respectively — visually similar at normal viewing size, so lean on the legend's text labels rather than trying to eyeball a ring-style difference); and three cell-box border-style entries — "Multi-Member Cell" (bold/double border), "Two-Member Cell" (double border), "Single-Member Cell" (single border) — these are exactly the `cell:label` strings cell.ttl 3.17.0 updated `cell:ThreePlusMember`/`cell:TwoMember`/`cell:OneMember` to (see Check 12d). Every topic circle in the diagram body now also carries an explicit subject-name label (e.g. "Bob", "Self", "Carol", "BHS") baked directly into the circle, not just a bare ring — a strictly more informative rendering than the diagram's earlier unlabeled-circle form. This diagram illustrates representative cell/category associations, generically rather than tied to a specific example instance: "Work" (a `cat:CategoryDefined` representing `cat:Work`, no override label), "Organization / Acme" (a `cat:CategoryDefined` representing `cat:Organization`, `cat:label`-renamed "Acme"), "Favorites" (a hypothetical `cat:UserDefined` category with no canonical counterpart, not tied to any real example data — there is currently no real `cat:UserDefined` example in the tree), "Others / Bob Johnson" (a `cat:CategoryDefined` representing `cat:Others`, `cat:label`-renamed "Bob Johnson" — a `cell:TwoMember` cell, all four topic link types filled), and "Affiliations / Boston Hub Society" (a `cell:ThreePlusMember` cell with two other members, Carol and BHS) — it replaces the earlier `images/cell-ontology/cells+contexts.png`. Each box's header shows `cat:catType` (green) over `cat:label` (bold) when a label is set, or just `catType` alone otherwise (e.g. "Work", which has no override label). Every cell box also shows a folder icon and a second icon next to it (chat, per the label used in `images/cell-ontology/cell.png` — see Check 12's open `cell:chat` discrepancy there, which applies equally here since this diagram draws the same two-icon pair on every cell box). Re-verify each box's `Member Topic`/`Other Topic` circles and blue `Subject` text remain a valid illustration of the properties and cardinalities described in the Cell and Category Ontology sections of `README.md` after any change to those properties.
 
-**Check 16 — IRI roots: `mee.foundation/ontologies` for foundational files, `www.example.org` for example data**: Every foundational ontology and SHACL shapes file — `persona.ttl`, `topic.ttl`, `cell.ttl`, `category.ttl`, `cell-templates.ttl`, `pdn-identity.ttl`, `group.ttl`, `organization.ttl`, `persona-templates.ttl`, their `*-shacl.ttl` companions (including `cell-templates-shacl.ttl`), and the per-template files in `shacl/` — must declare its `owl:Ontology` IRI under `http://mee.foundation/ontologies/`. There is no longer a separate canonical category/cell DataBook tree to check (`categories-person/`/`categories-org/` were removed in category.ttl 1.8.0) — the canonical tree's IRI roots are covered by `category.ttl`/`cell-templates.ttl` themselves. Every DataBook under `example/Cells/` (excluding `under-development/`) represents Alice's own example instance data, so both its own `id:` and every `mia.topics[].id` value it carries must be grounded under `http://www.example.org/` (or `https://www.example.org/`). Run:
+**Check 16 — IRI roots: `mee.foundation/ontologies` for foundational files, `www.example.org` for example data**: Every foundational ontology and SHACL shapes file — `persona.ttl`, `topic.ttl`, `cell.ttl`, `category.ttl`, `cell-templates.ttl`, `pdn-identity.ttl`, `group.ttl`, `organization.ttl`, `persona-templates.ttl`, their `*-shacl.ttl` companions (including `cell-templates-shacl.ttl`), and the per-template files in `shacl/` — must declare its `owl:Ontology` IRI under `http://mee.foundation/ontologies/`. There is no longer a separate canonical category/cell DataBook tree to check (`categories-person/`/`categories-org/` were removed in category.ttl 1.8.0) — the canonical tree's IRI roots are covered by `category.ttl`/`cell-templates.ttl` themselves. Every DataBook under `example/Cells/` (excluding `under-development/`) represents Alice's own example instance data, so both its own `id:` and every `mia.topics[].id` value it carries must be grounded under `http://www.example.org/` — `https://` is deliberately rejected here, not just accepted alongside it, since every identifier in the example tree (cell ids and topic ids alike) was standardized on the plain `http://` scheme for consistency; a stray `https://` is exactly the kind of drift this check exists to catch. Run:
 
 ```python
 import os, re, glob, yaml
@@ -444,7 +448,7 @@ def check_cell_tree_id_roots(pattern, expected_prefixes):
                 print(f'WRONG TOPIC ID ROOT: {path} -> {tid}')
                 errors += 1
 
-check_cell_tree_id_roots('example/Cells/**/*.databook.md', ['http://www.example.org/', 'https://www.example.org/'])
+check_cell_tree_id_roots('example/Cells/**/*.databook.md', ['http://www.example.org/'])
 
 print('OK — no IRI-root violations found.' if errors == 0 else f'{errors} violation(s) found.')
 ```
@@ -456,10 +460,15 @@ If a violation is found, rename the offending file's `owl:Ontology`/`id:` IRI to
 ```python
 import re, yaml, glob
 
+TOPICS_BASE_RE = re.compile(r'^https?://www\.example\.org/mia/topics/')
+
 def frontmatter(path):
     text = open(path, encoding='utf-8').read()
     m = re.match(r'^---\n(.*?)\n---', text, re.DOTALL)
     return yaml.safe_load(m.group(1)) if m else None
+
+def local_name(v):
+    return TOPICS_BASE_RE.sub('', v)
 
 expected = {'cell:OneMember': 1, 'cell:TwoMember': 2, 'cell:ThreePlusMember': 3}
 violations = 0
@@ -471,12 +480,15 @@ for f in glob.glob('example/Cells/**/*.databook.md', recursive=True):
     member_count = mia.get('memberCount')
     if not member_count:
         continue
-    topic_subject = {t['id']: t.get('subject') for t in (mia.get('topics') or []) if isinstance(t, dict)}
+    # mia.memberTopics/otherTopics hold bare topic-id local names; mia.topics[].id
+    # keeps the full IRI (it doubles as the topic's named-graph identity) — normalize
+    # both to the local name before looking up.
+    topic_subject = {local_name(t['id']): t.get('subject') for t in (mia.get('topics') or []) if isinstance(t, dict)}
     pt = mia.get('memberTopics')
     pt = pt if isinstance(pt, list) else [pt]
     subs = set()
     for tid in pt:
-        s = topic_subject.get(tid)
+        s = topic_subject.get(local_name(tid))
         if s is None:
             print(f'{f}: topic {tid} not found in mia.topics, or has no subject')
             continue
@@ -495,10 +507,15 @@ If a violation is found, add a `memberTopics` entry whose `subject` is a member 
 ```python
 import re, yaml, glob
 
+TOPICS_BASE_RE = re.compile(r'^https?://www\.example\.org/mia/topics/')
+
 def frontmatter(path):
     text = open(path, encoding='utf-8').read()
     m = re.match(r'^---\n(.*?)\n---', text, re.DOTALL)
     return yaml.safe_load(m.group(1)) if m else None
+
+def local_name(v):
+    return TOPICS_BASE_RE.sub('', v)
 
 REQUIRED_MIN = {'cell:OneMember': 1, 'cell:TwoMember': 2}
 violations = 0
@@ -510,15 +527,18 @@ for f in glob.glob('example/Cells/**/*.databook.md', recursive=True):
     member_count = mia.get('memberCount')
     if member_count not in REQUIRED_MIN:
         continue
-    topic_subject = {t['id']: t.get('subject') for t in (mia.get('topics') or []) if isinstance(t, dict)}
+    # mia.memberTopics/otherTopics hold bare topic-id local names; mia.topics[].id
+    # keeps the full IRI (it doubles as the topic's named-graph identity) — normalize
+    # both to the local name before looking up.
+    topic_subject = {local_name(t['id']): t.get('subject') for t in (mia.get('topics') or []) if isinstance(t, dict)}
     subj = mia.get('subject')
     subj = subj if isinstance(subj, list) else [subj]
     pt = mia.get('memberTopics') or []
     pt = pt if isinstance(pt, list) else [pt]
     ot = mia.get('otherTopics') or []
     ot = ot if isinstance(ot, list) else [ot]
-    pt_subs = {t: topic_subject.get(t) for t in pt}
-    ot_subs = {t: topic_subject.get(t) for t in ot}
+    pt_subs = {local_name(t): topic_subject.get(local_name(t)) for t in pt}
+    ot_subs = {local_name(t): topic_subject.get(local_name(t)) for t in ot}
     if len(subj) == 1:
         s = subj[0]
         all_linked = {**pt_subs, **ot_subs}

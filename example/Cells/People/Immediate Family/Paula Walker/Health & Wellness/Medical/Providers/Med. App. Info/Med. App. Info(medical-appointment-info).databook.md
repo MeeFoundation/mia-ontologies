@@ -5,19 +5,19 @@ type: cell-databook
 version: 1.1.0
 created: 2026-07-10
 description: >
-  Cell DataBook of category "Med. App. Info" (cell:origin: cat:MedicalAppointmentInfo). Content may include topics/folder/note links, and may carry one or two required subject values. Since this cell has a single subject (Paula), her own topic is linked via otherTopics rather than memberTopics — the two memberTopics values belong to the two active members (Carol and Self), per CLAUDE.md Check 18.
+  Cell DataBook of category "Med. App. Info" (cell:origin: cat:MedicalAppointmentInfo). May carry one or two required subject values. Since this cell has a single subject (Paula), her own topic is linked via otherTopics rather than memberTopics — the two memberTopics values belong to the two active members (Carol and Self), per CLAUDE.md Check 18.
 mia:
   origin: "cat:MedicalAppointmentInfo"
   creator: ":Self"
   memberCount: "cell:TwoMember"
   subject: ":Paula_Walker"
   memberTopics:
-    - "https://www.example.org/mia/topics/carol-walker.carol-walker(Med.-App.-Info)(medical-appointment-info)(28)"
-    - "https://www.example.org/mia/topics/self.self(Med.-App.-Info)(medical-appointment-info)(30)"
+    - "carol-walker.carol-walker(Med.-App.-Info)(medical-appointment-info)(28)"
+    - "self.self(Med.-App.-Info)(medical-appointment-info)(30)"
   otherTopics:
-    - "https://www.example.org/mia/topics/paula-walker.self(Med.-App.-Info)(medical-appointment-info)(26)"
+    - "paula-walker.self(Med.-App.-Info)(medical-appointment-info)(26)"
   topics:
-    - id: "https://www.example.org/mia/topics/paula-walker.self(Med.-App.-Info)(medical-appointment-info)(26)"
+    - id: "http://www.example.org/mia/topics/paula-walker.self(Med.-App.-Info)(medical-appointment-info)(26)"
       title: "Medical appointment claims for Paula Walker, shared between Alice and Carol"
       claimant: ":Self"
       subject: ":Paula_Walker"
@@ -31,7 +31,7 @@ mia:
         agent:
           name: Paul Trevithick
           role: author
-    - id: "https://www.example.org/mia/topics/carol-walker.carol-walker(Med.-App.-Info)(medical-appointment-info)(28)"
+    - id: "http://www.example.org/mia/topics/carol-walker.carol-walker(Med.-App.-Info)(medical-appointment-info)(28)"
       title: "About Carol Walker in the Med. App. Info cell as claimed by Carol Walker"
       claimant: ":Carol_Walker"
       subject: ":Carol_Walker"
@@ -44,7 +44,7 @@ mia:
         agent:
           name: Paul Trevithick
           role: author
-    - id: "https://www.example.org/mia/topics/self.self(Med.-App.-Info)(medical-appointment-info)(30)"
+    - id: "http://www.example.org/mia/topics/self.self(Med.-App.-Info)(medical-appointment-info)(30)"
       title: "About Alice Walker in the Med. App. Info cell as claimed by Alice Walker"
       claimant: ":Self"
       subject: ":Self"
@@ -73,7 +73,7 @@ This topic captures Alice's shared record of the claims needed to arrange a medi
 
 ```turtle
 <!-- databook:id: alice-paula-medical-appointment-topic-graph -->
-<!-- databook:graph: https://www.example.org/mia/topics/paula-walker.self(Med.-App.-Info)(medical-appointment-info)(26)#graph -->
+<!-- databook:graph: http://www.example.org/mia/topics/paula-walker.self(Med.-App.-Info)(medical-appointment-info)(26)#graph -->
 @prefix : <http://www.example.org/mia#> .
 @prefix persona: <http://mee.foundation/ontologies/persona#> .
 @prefix cco: <https://purl.org/cco/> .
@@ -151,7 +151,7 @@ This topic captures Carol Walker's own self-claimed persona and contact info, sh
 
 ```turtle
 <!-- databook:id: carol-self-topic-graph -->
-<!-- databook:graph: https://www.example.org/mia/topics/carol-walker.carol-walker(Med.-App.-Info)(medical-appointment-info)(28)#graph -->
+<!-- databook:graph: http://www.example.org/mia/topics/carol-walker.carol-walker(Med.-App.-Info)(medical-appointment-info)(28)#graph -->
 @prefix : <http://www.example.org/mia#> .
 @prefix persona: <http://mee.foundation/ontologies/persona#> .
 @prefix cco: <https://purl.org/cco/> .
@@ -195,7 +195,7 @@ This topic captures Alice Walker's own self-claimed contact info, kept in this c
 
 ```turtle
 <!-- databook:id: alice-self-topic-graph -->
-<!-- databook:graph: https://www.example.org/mia/topics/self.self(Med.-App.-Info)(medical-appointment-info)(30)#graph -->
+<!-- databook:graph: http://www.example.org/mia/topics/self.self(Med.-App.-Info)(medical-appointment-info)(30)#graph -->
 @prefix : <http://www.example.org/mia#> .
 @prefix cco: <https://purl.org/cco/> .
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .

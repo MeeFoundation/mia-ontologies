@@ -5,15 +5,15 @@ type: cell-databook
 version: 1.2.0
 created: 2026-07-10
 description: >
-  Cell DataBook of category "Department of State" (cell:origin: cat:Passport). Content may include topics/folder/note links, and may carry one or two required subject values.
+  Cell DataBook of category "Department of State" (cell:origin: cat:Passport). May carry one or two required subject values.
 mia:
   origin: "cat:Passport"
   creator: ":Self"
   memberCount: "cell:OneMember"
   subject: ":Self"
-  memberTopics: "https://www.example.org/mia/topics/self.self(Department-of-State)(passport)(19)"
+  memberTopics: "self.self(Department-of-State)(passport)(19)"
   topics:
-    - id: "https://www.example.org/mia/topics/self.self(Department-of-State)(passport)(19)"
+    - id: "http://www.example.org/mia/topics/self.self(Department-of-State)(passport)(19)"
       title: "About Alice Walker in the Federal cell as claimed by Alice Walker"
       claimant: ":Self"
       subject: ":Self"
@@ -44,7 +44,7 @@ This topic captures Alice Walker's US passport identity data. Alice self-enters 
 
 ```turtle
 <!-- databook:id: alice-passport-topic-graph -->
-<!-- databook:graph: https://www.example.org/mia/topics/self.self(Department-of-State)(passport)(19)#graph -->
+<!-- databook:graph: http://www.example.org/mia/topics/self.self(Department-of-State)(passport)(19)#graph -->
 @prefix : <http://www.example.org/mia#> .
 @prefix persona: <http://mee.foundation/ontologies/persona#> .
 @prefix cco: <https://purl.org/cco/> .

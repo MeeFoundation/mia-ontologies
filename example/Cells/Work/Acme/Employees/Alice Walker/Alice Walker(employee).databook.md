@@ -5,15 +5,15 @@ type: cell-databook
 version: 1.1.0
 created: 2026-07-10
 description: >
-  Cell DataBook of category "Alice Walker" (cell:origin: cat:Employee). Content may include topics/folder/note links, and may carry one or two required subject values.
+  Cell DataBook of category "Alice Walker" (cell:origin: cat:Employee). May carry one or two required subject values.
 mia:
   origin: "cat:Employee"
   creator: ":Self"
   memberCount: "cell:OneMember"
   subject: ":Self"
-  memberTopics: "https://www.example.org/mia/topics/self.self(Alice-Walker)(employee)(10)"
+  memberTopics: "self.self(Alice-Walker)(employee)(10)"
   topics:
-    - id: "https://www.example.org/mia/topics/self.self(Alice-Walker)(employee)(10)"
+    - id: "http://www.example.org/mia/topics/self.self(Alice-Walker)(employee)(10)"
       title: "About Alice Walker in the Alice Walker cell as claimed by Alice Walker"
       claimant: ":Self"
       subject: ":Self"
@@ -43,7 +43,7 @@ This topic captures Alice Walker's professional business card in JSContactCard f
 
 ```turtle
 <!-- databook:id: alice-business-card-topic-graph -->
-<!-- databook:graph: https://www.example.org/mia/topics/self.self(Alice-Walker)(employee)(10)#graph -->
+<!-- databook:graph: http://www.example.org/mia/topics/self.self(Alice-Walker)(employee)(10)#graph -->
 @prefix : <http://www.example.org/mia#> .
 @prefix persona: <http://mee.foundation/ontologies/persona#> .
 @prefix cco: <https://purl.org/cco/> .

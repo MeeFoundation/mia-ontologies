@@ -5,7 +5,7 @@ type: cell-databook
 version: 1.1.0
 created: 2026-07-10
 description: >
-  Cell DataBook of category "Citibank" (cell:origin: cat:BankingPayments). Content may include topics/folder/note links, and may carry one or two required subject values.
+  Cell DataBook of category "Citibank" (cell:origin: cat:BankingPayments). May carry one or two required subject values.
 mia:
   origin: "cat:BankingPayments"
   creator: ":Self"
@@ -14,10 +14,10 @@ mia:
     - ":Self"
     - ":Citibank"
   memberTopics:
-    - "https://www.example.org/mia/topics/self.citibank(Citibank)(banking-payments)(09)"
-    - "https://www.example.org/mia/topics/citibank.self(Citibank)(banking-payments)(27)"
+    - "self.citibank(Citibank)(banking-payments)(09)"
+    - "citibank.self(Citibank)(banking-payments)(27)"
   topics:
-    - id: "https://www.example.org/mia/topics/self.citibank(Citibank)(banking-payments)(09)"
+    - id: "http://www.example.org/mia/topics/self.citibank(Citibank)(banking-payments)(09)"
       title: "About Alice Walker in the BankingPayments cell as claimed by Citibank"
       claimant: ":Citibank"
       subject: ":Self"
@@ -30,7 +30,7 @@ mia:
         agent:
           name: Paul Trevithick
           role: author
-    - id: "https://www.example.org/mia/topics/citibank.self(Citibank)(banking-payments)(27)"
+    - id: "http://www.example.org/mia/topics/citibank.self(Citibank)(banking-payments)(27)"
       title: "About Citibank in the BankingPayments cell as claimed by Alice Walker"
       claimant: ":Self"
       subject: ":Citibank"
@@ -58,7 +58,7 @@ This topic captures Alice Walker's financial relationship with Citibank. Citiban
 
 ```turtle
 <!-- databook:id: citibank-topic-graph -->
-<!-- databook:graph: https://www.example.org/mia/topics/self.citibank(Citibank)(banking-payments)(09)#graph -->
+<!-- databook:graph: http://www.example.org/mia/topics/self.citibank(Citibank)(banking-payments)(09)#graph -->
 @prefix : <http://www.example.org/mia#> .
 @prefix persona: <http://mee.foundation/ontologies/persona#> .
 @prefix o: <http://mee.foundation/ontologies/organization#> .
@@ -125,7 +125,7 @@ This topic captures Alice Walker's own self-claimed notes about Citibank as an i
 
 ```turtle
 <!-- databook:id: alice-citibank-org-topic-graph -->
-<!-- databook:graph: https://www.example.org/mia/topics/citibank.self(Citibank)(banking-payments)(27)#graph -->
+<!-- databook:graph: http://www.example.org/mia/topics/citibank.self(Citibank)(banking-payments)(27)#graph -->
 @prefix : <http://www.example.org/mia#> .
 @prefix o: <http://mee.foundation/ontologies/organization#> .
 @prefix cco: <https://purl.org/cco/> .

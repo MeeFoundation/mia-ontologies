@@ -5,7 +5,7 @@ type: cell-databook
 version: 1.1.0
 created: 2026-07-10
 description: >
-  Cell DataBook of category "Paula Walker" (cell:origin: cat:ImmediateFamily). Content may include topics/folder/note links, and may carry one or two required subject values.
+  Cell DataBook of category "Paula Walker" (cell:origin: cat:ImmediateFamily). May carry one or two required subject values.
 mia:
   origin: "cat:ImmediateFamily"
   creator: ":Self"
@@ -14,11 +14,11 @@ mia:
     - ":Paula_Walker"
     - ":Self"
   memberTopics:
-    - "https://www.example.org/mia/topics/paula-walker.paula-walker(Paula-Walker)(immediate-family)(05)"
-    - "https://www.example.org/mia/topics/self.self(Paula-Walker)(immediate-family)(21)"
-    - "https://www.example.org/mia/topics/paula-walker.self(Paula-Walker)(immediate-family)(07)"
+    - "paula-walker.paula-walker(Paula-Walker)(immediate-family)(05)"
+    - "self.self(Paula-Walker)(immediate-family)(21)"
+    - "paula-walker.self(Paula-Walker)(immediate-family)(07)"
   topics:
-    - id: "https://www.example.org/mia/topics/paula-walker.paula-walker(Paula-Walker)(immediate-family)(05)"
+    - id: "http://www.example.org/mia/topics/paula-walker.paula-walker(Paula-Walker)(immediate-family)(05)"
       title: "About Paula Walker in the ImmediateFamily cell as claimed by Paula Walker"
       claimant: ":Paula_Walker"
       subject: ":Paula_Walker"
@@ -31,7 +31,7 @@ mia:
         agent:
           name: Paul Trevithick
           role: author
-    - id: "https://www.example.org/mia/topics/paula-walker.self(Paula-Walker)(immediate-family)(07)"
+    - id: "http://www.example.org/mia/topics/paula-walker.self(Paula-Walker)(immediate-family)(07)"
       title: "About Paula Walker in the ImmediateFamily cell as claimed by Alice Walker"
       claimant: ":Self"
       subject: ":Paula_Walker"
@@ -44,7 +44,7 @@ mia:
         agent:
           name: Paul Trevithick
           role: author
-    - id: "https://www.example.org/mia/topics/self.self(Paula-Walker)(immediate-family)(21)"
+    - id: "http://www.example.org/mia/topics/self.self(Paula-Walker)(immediate-family)(21)"
       title: "About Alice Walker in the ImmediateFamily cell as claimed by Alice Walker"
       claimant: ":Self"
       subject: ":Self"
@@ -72,7 +72,7 @@ This topic captures Paula Walker's self-claimed family persona as transmitted fr
 
 ```turtle
 <!-- databook:id: paula-family-paula-topic-graph -->
-<!-- databook:graph: https://www.example.org/mia/topics/paula-walker.paula-walker(Paula-Walker)(immediate-family)(05)#graph -->
+<!-- databook:graph: http://www.example.org/mia/topics/paula-walker.paula-walker(Paula-Walker)(immediate-family)(05)#graph -->
 @prefix : <http://www.example.org/mia#> .
 @prefix persona: <http://mee.foundation/ontologies/persona#> .
 @prefix owl: <http://www.w3.org/2002/07/owl#> .
@@ -95,7 +95,7 @@ This topic captures Alice's record of her family member Paula Walker. Alice clai
 
 ```turtle
 <!-- databook:id: paula-family-alice-topic-graph -->
-<!-- databook:graph: https://www.example.org/mia/topics/paula-walker.self(Paula-Walker)(immediate-family)(07)#graph -->
+<!-- databook:graph: http://www.example.org/mia/topics/paula-walker.self(Paula-Walker)(immediate-family)(07)#graph -->
 @prefix : <http://www.example.org/mia#> .
 @prefix persona: <http://mee.foundation/ontologies/persona#> .
 @prefix cco: <https://purl.org/cco/> .
@@ -129,7 +129,7 @@ This topic captures Alice Walker's family relationships. It records her maternal
 
 ```turtle
 <!-- databook:id: alice-family-topic-graph -->
-<!-- databook:graph: https://www.example.org/mia/topics/self.self(Paula-Walker)(immediate-family)(21)#graph -->
+<!-- databook:graph: http://www.example.org/mia/topics/self.self(Paula-Walker)(immediate-family)(21)#graph -->
 @prefix : <http://www.example.org/mia#> .
 @prefix persona: <http://mee.foundation/ontologies/persona#> .
 @prefix cco: <https://purl.org/cco/> .

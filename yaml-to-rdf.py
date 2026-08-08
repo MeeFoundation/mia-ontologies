@@ -46,6 +46,7 @@ CELL = "http://mee.foundation/ontologies/cell#"
 TOPIC = "http://mee.foundation/ontologies/topic#"
 PSHAPES = "http://mee.foundation/ontologies/persona/shapes#"
 MIA_NS = "http://www.example.org/mia#"
+TOPICS_BASE = "http://www.example.org/mia/topics/"
 
 PREFIXES = {
     "cat": "http://mee.foundation/ontologies/category#",
@@ -56,11 +57,26 @@ PREFIXES = {
 
 
 def resolve(val):
-    """Resolve a YAML-string value (curie or bare local name) to a full IRI."""
+    """Resolve a YAML-string value (curie, bare topic local name, or bare
+    MIA local name) to a full IRI.
+
+    mia.memberTopics/otherTopics entries are written as bare topic
+    id local names (e.g. "self.self(Ownership)(22)") rather than the full
+    http://www.example.org/mia/topics/... IRI — the base is constant across
+    every topic id in the dataset (mia.topics[].id and the #graph names still
+    spell it out in full, since those double as the topic's actual named-graph
+    identity), so repeating it on every memberTopics/otherTopics list entry is
+    pure baggage. A topic id local name always contains "(" (the
+    (<containing-cell>)(<NN>) suffix), which no other resolve()-able value
+    (":Self", "cat:Affiliations", "cell:OneMember", ...) ever does, so that's
+    what distinguishes the two bare forms below.
+    """
     if val.startswith("http://") or val.startswith("https://"):
         return val
     if val.startswith(":"):
         return MIA_NS + val[1:]
+    if "(" in val:
+        return TOPICS_BASE + val
     if ":" in val:
         prefix, local = val.split(":", 1)
         if prefix in PREFIXES:

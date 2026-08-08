@@ -5,15 +5,15 @@ type: cell-databook
 version: 1.1.0
 created: 2026-07-10
 description: >
-  Cell DataBook of category "Ownership" (cell:origin: cat:Ownership). Content may include topics/folder/note links, and may carry one or two required subject values.
+  Cell DataBook of category "Ownership" (cell:origin: cat:Ownership). May carry one or two required subject values.
 mia:
   origin: "cat:Ownership"
   creator: ":Self"
   memberCount: "cell:OneMember"
   subject: ":Self"
-  memberTopics: "https://www.example.org/mia/topics/self.self(Ownership)(22)"
+  memberTopics: "self.self(Ownership)(22)"
   topics:
-    - id: "https://www.example.org/mia/topics/self.self(Ownership)(22)"
+    - id: "http://www.example.org/mia/topics/self.self(Ownership)(22)"
       title: "About Alice Walker in the Ownership cell as claimed by Alice Walker"
       claimant: ":Self"
       subject: ":Self"
@@ -41,7 +41,7 @@ This topic captures Alice Walker's day-to-day physical possessions. Her wallet h
 
 ```turtle
 <!-- databook:id: alice-possessions-topic-graph -->
-<!-- databook:graph: https://www.example.org/mia/topics/self.self(Ownership)(22)#graph -->
+<!-- databook:graph: http://www.example.org/mia/topics/self.self(Ownership)(22)#graph -->
 @prefix : <http://www.example.org/mia#> .
 @prefix persona: <http://mee.foundation/ontologies/persona#> .
 @prefix owl: <http://www.w3.org/2002/07/owl#> .

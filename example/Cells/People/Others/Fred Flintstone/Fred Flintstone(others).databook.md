@@ -5,7 +5,7 @@ type: cell-databook
 version: 1.1.0
 created: 2026-08-03
 description: >
-  Cell DataBook of category "Fred Flintstone" (cell:origin: cat:Others). Content may include topics/folder/note links, and may carry one or two required subject values.
+  Cell DataBook of category "Fred Flintstone" (cell:origin: cat:Others). May carry one or two required subject values.
 mia:
   origin: "cat:Others"
   creator: ":Self"
@@ -14,10 +14,10 @@ mia:
     - ":Fred_Flintstone"
     - ":Self"
   memberTopics:
-    - "https://www.example.org/mia/topics/fred-flintstone.fred-flintstone(Fred-Flintstone)(others)(31)"
-    - "https://www.example.org/mia/topics/self.self(Fred-Flintstone)(others)(29)"
+    - "fred-flintstone.fred-flintstone(Fred-Flintstone)(others)(31)"
+    - "self.self(Fred-Flintstone)(others)(29)"
   topics:
-    - id: "https://www.example.org/mia/topics/self.self(Fred-Flintstone)(others)(29)"
+    - id: "http://www.example.org/mia/topics/self.self(Fred-Flintstone)(others)(29)"
       title: "About Alice Walker in the Others cell as claimed by Alice Walker"
       claimant: ":Self"
       subject: ":Self"
@@ -30,7 +30,7 @@ mia:
         agent:
           name: Paul Trevithick
           role: author
-    - id: "https://www.example.org/mia/topics/fred-flintstone.fred-flintstone(Fred-Flintstone)(others)(31)"
+    - id: "http://www.example.org/mia/topics/fred-flintstone.fred-flintstone(Fred-Flintstone)(others)(31)"
       title: "About Fred Flintstone in the Others cell as claimed by Fred Flintstone"
       claimant: ":Fred_Flintstone"
       subject: ":Fred_Flintstone"
@@ -58,7 +58,7 @@ This topic captures Alice Walker's self-claimed persona in her 1:1 relationship 
 
 ```turtle
 <!-- databook:id: alice-fred-alice-topic-graph -->
-<!-- databook:graph: https://www.example.org/mia/topics/self.self(Fred-Flintstone)(others)(29)#graph -->
+<!-- databook:graph: http://www.example.org/mia/topics/self.self(Fred-Flintstone)(others)(29)#graph -->
 @prefix : <http://www.example.org/mia#> .
 @prefix persona: <http://mee.foundation/ontologies/persona#> .
 @prefix cco: <https://purl.org/cco/> .
@@ -103,7 +103,7 @@ This topic captures Fred Flintstone's self-claimed persona, transmitted from Fre
 
 ```turtle
 <!-- databook:id: fred-fred-fred-topic-graph -->
-<!-- databook:graph: https://www.example.org/mia/topics/fred-flintstone.fred-flintstone(Fred-Flintstone)(others)(31)#graph -->
+<!-- databook:graph: http://www.example.org/mia/topics/fred-flintstone.fred-flintstone(Fred-Flintstone)(others)(31)#graph -->
 @prefix : <http://www.example.org/mia#> .
 @prefix persona: <http://mee.foundation/ontologies/persona#> .
 @prefix cco: <https://purl.org/cco/> .

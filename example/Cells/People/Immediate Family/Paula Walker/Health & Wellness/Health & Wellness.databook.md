@@ -5,15 +5,15 @@ type: cell-databook
 version: 1.1.0
 created: 2026-07-10
 description: >
-  Cell DataBook of category "Health & Wellness" (cell:origin: cat:HealthWellness). Content may include topics/folder/note links, and may carry one or two required subject values.
+  Cell DataBook of category "Health & Wellness" (cell:origin: cat:HealthWellness). May carry one or two required subject values.
 mia:
   origin: "cat:HealthWellness"
   creator: ":Self"
   memberCount: "cell:OneMember"
   subject: ":Paula_Walker"
-  memberTopics: "https://www.example.org/mia/topics/paula-walker.self(Health-&-Wellness)(17)"
+  memberTopics: "paula-walker.self(Health-&-Wellness)(17)"
   topics:
-    - id: "https://www.example.org/mia/topics/paula-walker.self(Health-&-Wellness)(17)"
+    - id: "http://www.example.org/mia/topics/paula-walker.self(Health-&-Wellness)(17)"
       title: "About Paula Walker in the Health & Wellness cell as claimed by Alice Walker"
       claimant: ":Self"
       subject: ":Paula_Walker"
@@ -41,7 +41,7 @@ This topic captures Paula Walker's physical body characteristics — properties 
 
 ```turtle
 <!-- databook:id: paula-health-topic-graph -->
-<!-- databook:graph: https://www.example.org/mia/topics/paula-walker.self(Health-&-Wellness)(17)#graph -->
+<!-- databook:graph: http://www.example.org/mia/topics/paula-walker.self(Health-&-Wellness)(17)#graph -->
 @prefix : <http://www.example.org/mia#> .
 @prefix persona: <http://mee.foundation/ontologies/persona#> .
 @prefix cco: <https://purl.org/cco/> .

@@ -5,15 +5,15 @@ type: cell-databook
 version: 1.2.0
 created: 2026-07-10
 description: >
-  Cell DataBook of category "Jane Kolpakova" (cell:origin: cat:PrimaryCarePhysician). Content may include topics/folder/note links, and may carry one or two required subject values.
+  Cell DataBook of category "Jane Kolpakova" (cell:origin: cat:PrimaryCarePhysician). May carry one or two required subject values.
 mia:
   origin: "cat:PrimaryCarePhysician"
   creator: ":Self"
   memberCount: "cell:OneMember"
   subject: ":Jane_Kolpakova"
-  memberTopics: "https://www.example.org/mia/topics/jane-kolpakova.self(Jane-Kolpakova)(primary-care-physician)(25)"
+  memberTopics: "jane-kolpakova.self(Jane-Kolpakova)(primary-care-physician)(25)"
   topics:
-    - id: "https://www.example.org/mia/topics/jane-kolpakova.self(Jane-Kolpakova)(primary-care-physician)(25)"
+    - id: "http://www.example.org/mia/topics/jane-kolpakova.self(Jane-Kolpakova)(primary-care-physician)(25)"
       title: "About Jane Kolpakova in the PrimaryCarePhysician cell as claimed by Alice Walker"
       claimant: ":Self"
       subject: ":Jane_Kolpakova"
@@ -41,7 +41,7 @@ This topic captures Alice's record of Dr. Jane Kolpakova, who is the primary car
 
 ```turtle
 <!-- databook:id: jane-kolpakova-alice-topic-graph -->
-<!-- databook:graph: https://www.example.org/mia/topics/jane-kolpakova.self(Jane-Kolpakova)(primary-care-physician)(25)#graph -->
+<!-- databook:graph: http://www.example.org/mia/topics/jane-kolpakova.self(Jane-Kolpakova)(primary-care-physician)(25)#graph -->
 @prefix : <http://www.example.org/mia#> .
 @prefix persona: <http://mee.foundation/ontologies/persona#> .
 @prefix cco: <https://purl.org/cco/> .

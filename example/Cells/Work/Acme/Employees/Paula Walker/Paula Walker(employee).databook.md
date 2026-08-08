@@ -5,16 +5,16 @@ type: cell-databook
 version: 1.1.0
 created: 2026-07-10
 description: >
-  Cell DataBook of category "Paula Walker" (cell:origin: cat:Employee). Content may include topics/folder/note links, and may carry one or two required subject values. This is a cell:OneMember cell — Paula is the subject, not a member; her own topic is linked via otherTopics rather than memberTopics, per CLAUDE.md Check 18.
+  Cell DataBook of category "Paula Walker" (cell:origin: cat:Employee). May carry one or two required subject values. This is a cell:OneMember cell — Paula is the subject, not a member; her own topic is linked via otherTopics rather than memberTopics, per CLAUDE.md Check 18.
 mia:
   origin: "cat:Employee"
   creator: ":Self"
   memberCount: "cell:OneMember"
   subject: ":Paula_Walker"
-  memberTopics: "https://www.example.org/mia/topics/self.self(Paula-Walker)(employee)(20)"
-  otherTopics: "https://www.example.org/mia/topics/paula-walker.self(Paula-Walker)(employee)(06)"
+  memberTopics: "self.self(Paula-Walker)(employee)(20)"
+  otherTopics: "paula-walker.self(Paula-Walker)(employee)(06)"
   topics:
-    - id: "https://www.example.org/mia/topics/paula-walker.self(Paula-Walker)(employee)(06)"
+    - id: "http://www.example.org/mia/topics/paula-walker.self(Paula-Walker)(employee)(06)"
       title: "About Paula Walker in the Employee cell as claimed by Alice Walker"
       claimant: ":Self"
       subject: ":Paula_Walker"
@@ -27,7 +27,7 @@ mia:
         agent:
           name: Paul Trevithick
           role: author
-    - id: "https://www.example.org/mia/topics/self.self(Paula-Walker)(employee)(20)"
+    - id: "http://www.example.org/mia/topics/self.self(Paula-Walker)(employee)(20)"
       title: "About Alice Walker in the Employee cell as claimed by Alice Walker"
       claimant: ":Self"
       subject: ":Self"
@@ -55,7 +55,7 @@ This topic captures Alice's record of her colleague Paula Walker in their shared
 
 ```turtle
 <!-- databook:id: paula-acme-topic-graph -->
-<!-- databook:graph: https://www.example.org/mia/topics/paula-walker.self(Paula-Walker)(employee)(06)#graph -->
+<!-- databook:graph: http://www.example.org/mia/topics/paula-walker.self(Paula-Walker)(employee)(06)#graph -->
 @prefix : <http://www.example.org/mia#> .
 @prefix persona: <http://mee.foundation/ontologies/persona#> .
 @prefix owl: <http://www.w3.org/2002/07/owl#> .
@@ -78,7 +78,7 @@ This topic captures Alice Walker's employee identity at Acme. It records her wor
 
 ```turtle
 <!-- databook:id: alice-acme-topic-graph -->
-<!-- databook:graph: https://www.example.org/mia/topics/self.self(Paula-Walker)(employee)(20)#graph -->
+<!-- databook:graph: http://www.example.org/mia/topics/self.self(Paula-Walker)(employee)(20)#graph -->
 @prefix : <http://www.example.org/mia#> .
 @prefix persona: <http://mee.foundation/ontologies/persona#> .
 @prefix cco: <https://purl.org/cco/> .
