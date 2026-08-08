@@ -128,6 +128,32 @@ The following table lists topics about other people (Paula and Bob) or groups (B
 | 27 | [Citibank(banking-payments).databook.md](<example/Cells/Finances/Banking & Payments/Citibank/Citibank(banking-payments).databook.md#topic-27>) | Banking & Payments Firms | Alice's own self-claimed notes about Citibank as an institution, alongside Citibank's own claimed record about her (topic 09) | [view](example/topics/images/citibank.self(Citibank)(banking-payments)(27).png) |
 | 31 | [Fred Flintstone(others).databook.md](<example/Cells/People/Others/Fred Flintstone/Fred Flintstone(others).databook.md#topic-31>)                     | Others       | Fred's self-claimed Fred persona                                 | [view](example/topics/images/fred-flintstone.fred-flintstone(Fred-Flintstone)(others)(31).png) |
 
+## Categories and Cells
+
+A summary of every content-bearing cell-databook under `example/Cells/`, grouped by the narrative subsection above it describes. Purely scaffolding folders (category folders with no cell content of their own, e.g. `Work.databook.md`, `People.databook.md`) are omitted.
+
+| Subsection | Category Folder | Cell DataBook | Subject(s) | Cell Origin | Topics |
+|---|---|---|---|---|---|
+| Bob and Fred | Bob Johnson | `Bob Johnson(others).databook.md` | Self, Bob Johnson | `cat:Others` | 2, 4, 8, 12 |
+| Bob and Fred | Fred Flintstone | `Fred Flintstone(others).databook.md` | Self, Fred Flintstone | `cat:Others` | 29, 31 |
+| Taking Care of Paula | Paula Walker | `Paula Walker(immediate-family).databook.md` | Self, Paula Walker | `cat:ImmediateFamily` | 5, 7, 21 |
+| Taking Care of Paula | Health & Wellness | `Health & Wellness.databook.md` | Paula Walker | `cat:HealthWellness` | 17 |
+| Taking Care of Paula | Jane Kolpakova | `Jane Kolpakova(primary-care-physician).databook.md` | Jane Kolpakova | `cat:PrimaryCarePhysician` | 25 |
+| Taking Care of Paula | Med. App. Info | `Med. App. Info(medical-appointment-info).databook.md` | Paula Walker | `cat:MedicalAppointmentInfo` | 26, 28, 30 |
+| Working for Acme | Alice Walker | `Alice Walker(employee).databook.md` | Self | `cat:Employee` | 10 |
+| Working for Acme | Paula Walker | `Paula Walker(employee).databook.md` | Paula Walker | `cat:Employee` | 6, 20 |
+| Service Providers | Google | `Google(companies).databook.md` | Self | `cat:Companies` | 16 |
+| Service Providers | ATT | `ATT(companies).databook.md` | Self | `cat:Companies` | 11 |
+| Checking Account and Debit Card | Citibank | `Citibank(banking-payments).databook.md` | Self, Citibank | `cat:BankingPayments` | 9, 27 |
+| Birth Certificate and Driver's License | Texas Vital Records | `Texas Vital Records(birth-certificate).databook.md` | Self | `cat:BirthCertificate` | 24 |
+| Birth Certificate and Driver's License | California DMV | `California DMV(drivers-license).databook.md` | Self | `cat:DriversLicense` | 15 |
+| Passport and Social Security Number | Department of State | `Department of State(passport).databook.md` | Self | `cat:Passport` | 19 |
+| Passport and Social Security Number | Social Security Administration | `Social Security Administration(ssn).databook.md` | Self | `cat:SSN` | 23 |
+| Current and Previous Homes | Boston | `Boston(residence).databook.md` | Self | `cat:Residence` | 13 |
+| Current and Previous Homes | Paradise | `Paradise(residence).databook.md` | Self | `cat:Residence` | 18 |
+| Possessions | Ownership | `Ownership.databook.md` | Self | `cat:Ownership` | 22 |
+| Boston Hub Society | Boston Hub Society | `Boston Hub Society(affiliations).databook.md` | BHS Group | `cat:Affiliations` | 1, 3, 14 |
+
 ## Diagrams
 
 `draw.py` generates a Mermaid (`.mmd`) and PNG diagram for a single embedded topic, given its owning cell-databook file and its id (or id local-name):
