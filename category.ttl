@@ -9,8 +9,8 @@
 @base <http://mee.foundation/ontologies/category> .
 
 <http://mee.foundation/ontologies/category> rdf:type owl:Ontology ;
-    owl:versionIRI <http://mee.foundation/ontologies/category/1.34.0> ;
-    dc:date "2026-08-07"^^xsd:date ;
+    owl:versionIRI <http://mee.foundation/ontologies/category/1.37.0> ;
+    dc:date "2026-08-08"^^xsd:date ;
     owl:imports <http://mee.foundation/ontologies/cell> ;
     owl:imports <http://mee.foundation/ontologies/cell-templates> ;
     rdfs:label "Category Ontology"@en ;
@@ -174,7 +174,7 @@ cat:Medical rdf:type owl:Class ;
 cat:MedicalHistory rdf:type owl:Class ;
     rdfs:subClassOf cat:Medical ;
     rdfs:label "History"@en ;
-    rdfs:comment "Personal medical history: past diagnoses, conditions, surgeries, and treatments."@en .
+    rdfs:comment "Past diagnoses, conditions, surgeries, and treatments."@en .
 
 cat:MedicalInsurance rdf:type owl:Class ;
     rdfs:subClassOf cat:Medical ;
@@ -205,7 +205,7 @@ cat:Dental rdf:type owl:Class ;
 cat:DentalHistory rdf:type owl:Class ;
     rdfs:subClassOf cat:Dental ;
     rdfs:label "History"@en ;
-    rdfs:comment "Personal dental history: past treatments, procedures, and conditions."@en .
+    rdfs:comment "Past dental treatments, procedures, and conditions."@en .
 
 cat:DentalInsurance rdf:type owl:Class ;
     rdfs:subClassOf cat:Dental ;
@@ -366,7 +366,7 @@ cat:Residence rdf:type owl:Class ;
 cat:Information rdf:type owl:Class ;
     rdfs:subClassOf cat:Person ;
     rdfs:label "Information"@en ;
-    rdfs:comment "General knowledge selected by you, web links, documents, images."@en .
+    rdfs:comment "Information about anything; articles, web links, documents, images. Includes topics that interest and inspire you (e.g. drawing, painting, dancing, religion, gaming, music). See cat:SportsEntertainment for sports and entertainment, and cat:Affiliations for formal memberships tied to a hobby or interest."@en .
 
 #################################################################
 #    cat:Ownership and subclasses
@@ -438,22 +438,13 @@ cat:Education rdf:type owl:Class ;
     rdfs:comment "Educational history and ongoing learning — schools, degrees, certifications, transcripts, and enrolled courses."@en .
 
 #################################################################
-#    cat:Interests
-#################################################################
-
-cat:Interests rdf:type owl:Class ;
-    rdfs:subClassOf cat:Person ;
-    rdfs:label "Interests"@en ;
-    rdfs:comment "Things that interest, delight, and inspire — e.g. drawing, painting, dancing, religion, gaming, music. See cat:SportsEntertainment for sports and entertainment, and cat:Affiliations for formal memberships tied to a hobby or interest."@en .
-
-#################################################################
 #    cat:SportsEntertainment
 #################################################################
 
 cat:SportsEntertainment rdf:type owl:Class ;
     rdfs:subClassOf cat:Person ;
     rdfs:label "Sports & Entertainment"@en ;
-    rdfs:comment "Sports events (watching or participating) and entertainment (movies, plays, jazz clubs). Favorite teams/groups, venues, streaming services, ticketing. See cat:Interests for other interests."@en .
+    rdfs:comment "Sports events (watching or participating) and entertainment (movies, plays, jazz clubs). Favorite teams/groups, venues, streaming services, ticketing. See cat:Information for other interests."@en .
 
 #################################################################
 #    Organizational subclasses
@@ -518,6 +509,16 @@ cat:BoardOfDirectors\(org\) rdf:type owl:Class ;
     rdfs:subClassOf cat:People\(org\) ;
     rdfs:label "Board of Directors (org)"@en ;
     rdfs:comment "The organization's board members."@en .
+
+cat:DirectReports\(org\) rdf:type owl:Class ;
+    rdfs:subClassOf cat:People\(org\) ;
+    rdfs:label "Direct Reports (org)"@en ;
+    rdfs:comment "Employees who report directly to a specific manager or role within the organization."@en .
+
+cat:Managers\(org\) rdf:type owl:Class ;
+    rdfs:subClassOf cat:People\(org\) ;
+    rdfs:label "Manager(s) (org)"@en ;
+    rdfs:comment "The manager or managers a specific employee or role reports to within the organization."@en .
 
 cat:KB rdf:type owl:Class ;
     rdfs:subClassOf cat:Organization ;

@@ -94,13 +94,12 @@ The user is free to construct folders not included in the predefined categories.
     - **Vehicles** (`cat:Vehicles`) — related to owning and maintaining a vehicle. Vehicle insurance, repairs, mechanics, garages. 
 1. **Travel** (`cat:Travel`) — travel plans, trips, and related information. Loyalty programs, airlines, bus lines, trains.
 1. **Food** (`cat:Food`) — food preferences, dietary restrictions, favorite restaurants, recipes, shopping lists, and other food-related interests
-1. **Sports & Entertainment** (`cat:SportsEntertainment`) — sports events (watching or participating) and entertainment (movies, plays, jazz clubs). Favorite teams/groups, venues, streaming services, ticketing. See `cat:Interests` for other interests.
+1. **Sports & Entertainment** (`cat:SportsEntertainment`) — sports events (watching or participating) and entertainment (movies, plays, jazz clubs). Favorite teams/groups, venues, streaming services, ticketing. See `cat:Information` for other interests.
 1. **Education** (`cat:Education`) — educational history and ongoing learning — schools, degrees, certifications, transcripts, and enrolled courses.
-1. **Interests** (`cat:Interests`) — things that interest, delight, and inspire — e.g. drawing, painting, dancing, religion, gaming, music. See `cat:SportsEntertainment` for sports and entertainment, and `cat:Affiliations` for formal memberships tied to a hobby or interest.
 1. **Legal** (`cat:Legal`) — legal matters, contracts, agreements, trusts, wills, and professional legal relationships. Includes durable power of attorney and healthcare proxy agreements.
 1. **Projects** (`cat:Projects`) — involvement in a specific project or initiative.
 1. **Events** (`cat:Events`) — participation in or relationship to a specific event or gathering.
-1. **Information** (`cat:Information`) — general knowledge selected by you, web links, documents, images.
+1. **Information** (`cat:Information`) — information about anything; articles, web links, documents, images. Includes topics that interest and inspire you (e.g. drawing, painting, dancing, religion, gaming, music). See `cat:SportsEntertainment` for sports and entertainment, and `cat:Affiliations` for formal memberships tied to a hobby or interest.
 1. **Government** (`cat:Government`) — government-issued credentials, tax records, and civic relationships.
     - **Federal** (`cat:Federal`) — federal government topic (e.g. passport, federal tax records).
         - **SSN** (`cat:SSN`) — social security number issued by the federal Social Security Administration.
@@ -128,6 +127,8 @@ The user is free to construct folders not included in the predefined categories.
     - **Colleagues** (`cat:Colleagues`) — coworkers and peers within the organization not tracked as formal Employee records.
     - **Advisors (org)** (`cat:Advisors(org)`) — individuals who advise the organization in a non-employee capacity.
     - **Board of Directors (org)** (`cat:BoardOfDirectors(org)`) — the organization's board members.
+    - **Direct Reports (org)** (`cat:DirectReports(org)`) — employees who report directly to a specific manager or role within the organization.
+    - **Manager(s) (org)** (`cat:Managers(org)`) — the manager or managers a specific employee or role reports to within the organization.
 1. **KB** (`cat:KB`) — corporate knowledge bases.
 1. **Projects (org)** (`cat:Projects(org)`) — projects related to R&D, manufacturing, sales, marketing, operations, HR, etc.
 1. **Meetings (org)** (`cat:Meetings(org)`) — face-to-face or online meetings, whether internal or with clients/customers. See also Events (org) for external, travel-to or larger-scale gatherings.
