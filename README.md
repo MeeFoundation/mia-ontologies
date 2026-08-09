@@ -122,17 +122,17 @@ The user is free to construct folders not included in the predefined categories.
 1. **People (org)** (`cat:People(org)`) — people the organization interacts with in a working capacity.
     - **Employees** (`cat:Employees`) — related to employees.
         - **Employee** (`cat:Employee`) — detailed information about a specific employee.
-    - **Consultants (org)** (`cat:Consultants(org)`) — engaged consultants.
-    - **Other (org)** (`cat:Other(org)`) — people associated with the organization who don't fit Employees, Consultants, or Colleagues.
+    - **Consultants** (`cat:Consultants`) — engaged consultants.
+    - **Others (org)** (`cat:Others(org)`) — people associated with the organization who don't fit Employees, Consultants, or Colleagues.
     - **Colleagues** (`cat:Colleagues`) — coworkers and peers within the organization not tracked as formal Employee records.
-    - **Advisors (org)** (`cat:Advisors(org)`) — individuals who advise the organization in a non-employee capacity.
-    - **Board of Directors (org)** (`cat:BoardOfDirectors(org)`) — the organization's board members.
-    - **Direct Reports (org)** (`cat:DirectReports(org)`) — employees who report directly to a specific manager or role within the organization.
-    - **Manager(s) (org)** (`cat:Managers(org)`) — the manager or managers a specific employee or role reports to within the organization.
+    - **Advisors** (`cat:Advisors`) — individuals who advise the organization in a non-employee capacity.
+    - **Board of Directors** (`cat:BoardOfDirectors`) — the organization's board members.
+    - **Direct Reports** (`cat:DirectReports`) — employees who report directly to a specific manager or role within the organization.
+    - **Manager(s)** (`cat:Managers`) — the manager or managers a specific employee or role reports to within the organization.
 1. **KB** (`cat:KB`) — corporate knowledge bases.
 1. **Projects (org)** (`cat:Projects(org)`) — projects related to R&D, manufacturing, sales, marketing, operations, HR, etc.
-1. **Meetings (org)** (`cat:Meetings(org)`) — face-to-face or online meetings, whether internal or with clients/customers. See also Events (org) for external, travel-to or larger-scale gatherings.
-1. **Events (org)** (`cat:Events(org)`) — external events that people travel to, or larger-scale gatherings — conferences, webinars, town halls, and similar events. See also Meetings (org) for ordinary internal or client/customer meetings.
+1. **Meetings** (`cat:Meetings`) — face-to-face or online meetings, whether internal or with clients/customers. See also Events (org) for external, travel-to or larger-scale gatherings.
+1. **Events (org)** (`cat:Events(org)`) — external events that people travel to, or larger-scale gatherings — conferences, webinars, town halls, and similar events. See also Meetings for ordinary internal or client/customer meetings.
     - **Conferences** (`cat:Conferences`) — a conference or professional gathering.
 1. **Suppliers** (`cat:Suppliers`) — companies that supply goods or services to this organization.
 1. **Legal (org)** (`cat:Legal(org)`) — contracts and agreements.
