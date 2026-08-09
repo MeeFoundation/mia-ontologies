@@ -226,7 +226,7 @@ python3 yaml-to-rdf.py . > /tmp/mia-yaml.ttl
 # (cell-templates.ttl is deliberately excluded here, unlike Tier 2's base merge
 # below: its 4 template individuals are generic, reusable content with no real
 # person bound to them, so they can't sensibly carry cell-shacl.ttl's required
-# c:subject/c:memberTopics — they're validated only via cell-templates-shacl.ttl, in Tier 2)
+# c:subject/c:memberTopics/c:creator — they're validated only via cell-templates-shacl.ttl, in Tier 2)
 riot --output=turtle \
   project_files/bfo-core.ttl \
   project_files/PersonOntology.ttl \
