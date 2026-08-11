@@ -209,9 +209,9 @@ A cell needing both facets at once — e.g. every individual in `cell-templates.
 
 #### Properties
 
-- **`c:subject`** — either exactly one or two values (`xsd:anyURI`s) are required. The subject indicates what this cell is about. Its values are the values of the `t:subject` properties of one or two of the topics (`t:SCTopicGraph`s) pointed to by the cell's `c:memberTopics` or `c:otherTopics` links.
+- **`c:subject`** — either exactly one or two values (`xsd:anyURI`s) are required. Indicates what this cell is about. Its values are the values of the `t:subject` properties of one or two of the topics (`t:SCTopicGraph`s) pointed to by the cell's `c:memberTopics` or `c:otherTopics` links.
 
-- **`c:memberTopics`** — one or more values, required; It is a link to the required baseline of subject-claimant topic graphs (`t:SCTopicGraph`) that hold the structured content of the cell related to the members with which the cell has been shared. Its cardinality varies by member count — see [Cell Members](#cell-members). Each SCTopicGraph has a *subject* and a *claimant*. The subject is typically a person, organization, or group, but it could be any other entity the Persona ontology can describe. The claimant is the person, group or organization that is asserting the values of the claims in the container. See [Topic Ontology](#topic-ontology) for details.
+- **`c:memberTopics`** — one or more values, required; It's a link to the required baseline of subject-claimant topic graphs (`t:SCTopicGraph`) that hold the structured content of the cell related to the members with which the cell has been shared. Its cardinality varies by member count — see [Cell Members](#cell-members). Each SCTopicGraph has a *subject* and a *claimant*. The subject is typically a person, organization, or group, but it could be any other entity the Persona ontology can describe. The claimant is the person, group or organization that is asserting the values of the claims in the container. See [Topic Ontology](#topic-ontology) for details.
 
 - **`c:otherTopics`** — optional, unbounded (0..N), uniformly regardless of member count. Link to any number of additional subject-claimant topic graphs beyond those referenced by `c:memberTopics`.
 
