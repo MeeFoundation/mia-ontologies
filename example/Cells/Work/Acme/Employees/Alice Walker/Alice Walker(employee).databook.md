@@ -39,7 +39,7 @@ This topic captures Alice Walker's professional business card in JSContactCard f
 <!-- databook:graph: http://www.example.org/mia/topics/topic-10#graph -->
 @prefix : <http://www.example.org/mia#> .
 @prefix persona: <http://mee.foundation/ontologies/persona#> .
-@prefix cco: <https://purl.org/cco/> .
+@prefix cco: <https://w3id.org/cco-domains/cco/> .
 @prefix owl: <http://www.w3.org/2002/07/owl#> .
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
@@ -48,53 +48,53 @@ This topic captures Alice Walker's professional business card in JSContactCard f
 
     # ── Name components ──────────────────────────────────────────────────────
 
-    <https://purl.org/cco/ont00001879> [  # designated by → GivenName
+    <https://w3id.org/cco-domains/cco/ont00001879> [  # designated by → GivenName
         rdf:type cco:ent00000002 ;
-        <https://purl.org/cco/ont00001765> "Alice"
+        <https://w3id.org/cco-domains/cco/ont00001765> "Alice"
     ] ;
 
-    <https://purl.org/cco/ont00001879> [  # designated by → FamilyName
+    <https://w3id.org/cco-domains/cco/ont00001879> [  # designated by → FamilyName
         rdf:type cco:ent00000004 ;
-        <https://purl.org/cco/ont00001765> "Walker"
+        <https://w3id.org/cco-domains/cco/ont00001765> "Walker"
     ] ;
 
     # ── Contact channels ─────────────────────────────────────────────────────
 
-    <https://purl.org/cco/ont00001879> [  # designated by → EmailAddress (work)
+    <https://w3id.org/cco-domains/cco/ont00001879> [  # designated by → EmailAddress (work)
         rdf:type cco:ent00000024 ;
-        <https://purl.org/cco/ont00001765> "alice@acme.com" ;
+        <https://w3id.org/cco-domains/cco/ont00001765> "alice@acme.com" ;
         persona:contactContext "work"
     ] ;
 
-    <https://purl.org/cco/ont00001879> [  # designated by → TelephoneNumber (work, voice)
+    <https://w3id.org/cco-domains/cco/ont00001879> [  # designated by → TelephoneNumber (work, voice)
         rdf:type cco:ent00000023 ;
-        <https://purl.org/cco/ont00001765> "+15108149999" ;
+        <https://w3id.org/cco-domains/cco/ont00001765> "+15108149999" ;
         persona:contactContext "work" ;
         persona:phoneFeature "voice"
     ] ;
 
     # ── Organisation ─────────────────────────────────────────────────────────
 
-    <https://purl.org/cco/ont00001879> [  # designated by → OrganizationName
+    <https://w3id.org/cco-domains/cco/ont00001879> [  # designated by → OrganizationName
         rdf:type cco:ent00000047 ;
-        <https://purl.org/cco/ont00001765> "Acme"
+        <https://w3id.org/cco-domains/cco/ont00001765> "Acme"
     ] ;
 
-    <https://purl.org/cco/ont00001879> [  # designated by → OrganizationUnit (department)
+    <https://w3id.org/cco-domains/cco/ont00001879> [  # designated by → OrganizationUnit (department)
         rdf:type persona:OrganizationUnit ;
-        <https://purl.org/cco/ont00001765> "Engineering"
+        <https://w3id.org/cco-domains/cco/ont00001765> "Engineering"
     ] ;
 
-    <https://purl.org/cco/ont00001879> [  # designated by → JobTitle
+    <https://w3id.org/cco-domains/cco/ont00001879> [  # designated by → JobTitle
         rdf:type persona:JobTitle ;
-        <https://purl.org/cco/ont00001765> "Software Engineer"
+        <https://w3id.org/cco-domains/cco/ont00001765> "Software Engineer"
     ] ;
 
     # ── Online services ──────────────────────────────────────────────────────
 
-    <https://purl.org/cco/ont00001879> [  # designated by → WebURL (LinkedIn profile)
+    <https://w3id.org/cco-domains/cco/ont00001879> [  # designated by → WebURL (LinkedIn profile)
         rdf:type persona:WebURL ;
-        <https://purl.org/cco/ont00001765> "https://www.linkedin.com/in/alicewalker" ;
+        <https://w3id.org/cco-domains/cco/ont00001765> "https://www.linkedin.com/in/alicewalker" ;
         persona:serviceLabel "linkedin"
     ] .
 ```

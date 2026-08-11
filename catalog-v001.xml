@@ -34,41 +34,38 @@
     <!-- ── Selfness files (now DataBook — loaded via triplestore, not owl:imports) ── -->
 
     <!-- ── Top-level domain ontologies ─────────────────────────────────── -->
-    <uri id="PersonOntology"   name="https://purl.org/cco/person"
+    <uri id="PersonOntology"   name="https://w3id.org/cco-domains/domains/PersonOntology"
          uri="project_files/PersonOntology.ttl"/>
-    <uri id="AddressOntology"  name="https://purl.org/cco/address"
+    <uri id="AddressOntology"  name="https://w3id.org/cco-domains/domains/AddressOntology"
          uri="project_files/AddressOntology.ttl"/>
-    <uri id="StagingOntology"  name="https://purl.org/cco/staging"
+    <uri id="StagingOntology"  name="https://w3id.org/cco-domains/domains/StagingOntology"
          uri="project_files/StagingOntology.ttl"/>
-    <uri id="PostalAddressOntology-legacy" name="https://purl.org/cco/postal-address"
-         uri="project_files/AddressOntology.ttl"/>
-
-    <!-- ── BFO foundation ───────────────────────────────────────────────── -->
+<!-- ── BFO foundation ───────────────────────────────────────────────── -->
     <uri id="bfo" name="http://purl.obolibrary.org/obo/bfo.owl"
          uri="project_files/bfo-core.ttl"/>
 
     <!-- ── CCO support ontologies ───────────────────────────────────────── -->
-    <uri id="InformationEntityOntology" name="https://purl.org/cco/InformationEntityOntology"
+    <uri id="InformationEntityOntology" name="https://w3id.org/cco-domains/cco/InformationEntityOntology"
          uri="project_files/InformationEntityOntology.ttl"/>
-    <uri id="AgentOntology"             name="https://purl.org/cco/AgentOntology"
+    <uri id="AgentOntology"             name="https://w3id.org/cco-domains/cco/AgentOntology"
          uri="project_files/AgentOntology.ttl"/>
-    <uri id="ArtifactOntology"          name="https://purl.org/cco/ArtifactOntology"
+    <uri id="ArtifactOntology"          name="https://w3id.org/cco-domains/cco/ArtifactOntology"
          uri="project_files/ArtifactOntology.ttl"/>
-    <uri id="CurrencyUnitOntology"      name="https://purl.org/cco/CurrencyUnitOntology"
+    <uri id="CurrencyUnitOntology"      name="https://w3id.org/cco-domains/cco/CurrencyUnitOntology"
          uri="project_files/CurrencyUnitOntology.ttl"/>
-    <uri id="EventOntology"             name="https://purl.org/cco/EventOntology"
+    <uri id="EventOntology"             name="https://w3id.org/cco-domains/cco/EventOntology"
          uri="project_files/EventOntology.ttl"/>
-    <uri id="ExtendedRelationOntology"  name="https://purl.org/cco/ExtendedRelationOntology"
+    <uri id="ExtendedRelationOntology"  name="https://w3id.org/cco-domains/cco/ExtendedRelationOntology"
          uri="project_files/ExtendedRelationOntology.ttl"/>
-    <uri id="FacilityOntology"          name="https://purl.org/cco/FacilityOntology"
+    <uri id="FacilityOntology"          name="https://w3id.org/cco-domains/cco/FacilityOntology"
          uri="project_files/FacilityOntology.ttl"/>
-    <uri id="GeospatialOntology"        name="https://purl.org/cco/GeospatialOntology"
+    <uri id="GeospatialOntology"        name="https://w3id.org/cco-domains/cco/GeospatialOntology"
          uri="project_files/GeospatialOntology.ttl"/>
-    <uri id="QualityOntology"           name="https://purl.org/cco/QualityOntology"
+    <uri id="QualityOntology"           name="https://w3id.org/cco-domains/cco/QualityOntology"
          uri="project_files/QualityOntology.ttl"/>
-    <uri id="TimeOntology"              name="https://purl.org/cco/TimeOntology"
+    <uri id="TimeOntology"              name="https://w3id.org/cco-domains/cco/TimeOntology"
          uri="project_files/TimeOntology.ttl"/>
-    <uri id="UnitsOfMeasureOntology"    name="https://purl.org/cco/UnitsOfMeasureOntology"
+    <uri id="UnitsOfMeasureOntology"    name="https://w3id.org/cco-domains/cco/UnitsOfMeasureOntology"
          uri="project_files/UnitsOfMeasureOntology.ttl"/>
 
 </catalog>

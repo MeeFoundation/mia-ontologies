@@ -40,14 +40,14 @@ This topic captures Alice Walker's US passport identity data. Alice self-enters 
 <!-- databook:graph: http://www.example.org/mia/topics/topic-19#graph -->
 @prefix : <http://www.example.org/mia#> .
 @prefix persona: <http://mee.foundation/ontologies/persona#> .
-@prefix cco: <https://purl.org/cco/> .
+@prefix cco: <https://w3id.org/cco-domains/cco/> .
 @prefix owl: <http://www.w3.org/2002/07/owl#> .
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 
 :Self persona:hasIdentityDocument :Alice_US_Passport ;
-    <https://purl.org/cco/ont00001879> :Alice_Passport_Number .  # Person designated by → Passport Number
+    <https://w3id.org/cco-domains/cco/ont00001879> :Alice_Passport_Number .  # Person designated by → Passport Number
 
 :Alice_US_Passport rdf:type owl:NamedIndividual ,
                              persona:PassportDocument ;
@@ -56,36 +56,36 @@ This topic captures Alice Walker's US passport identity data. Alice self-enters 
 
     # ── Legal name (matches Texas Birth Certificate and Driver's License) ────
 
-    <https://purl.org/cco/ont00001879> [  # designated by → GivenName (legal first name)
+    <https://w3id.org/cco-domains/cco/ont00001879> [  # designated by → GivenName (legal first name)
         rdf:type cco:ent00000002 ;  # GivenName
-        <https://purl.org/cco/ont00001765> "Margery"
+        <https://w3id.org/cco-domains/cco/ont00001765> "Margery"
     ] ;
 
-    <https://purl.org/cco/ont00001879> [  # designated by → AdditionalName (middle name)
+    <https://w3id.org/cco-domains/cco/ont00001879> [  # designated by → AdditionalName (middle name)
         rdf:type cco:ent00000003 ;  # AdditionalName
-        <https://purl.org/cco/ont00001765> "Alice"
+        <https://w3id.org/cco-domains/cco/ont00001765> "Alice"
     ] ;
 
-    <https://purl.org/cco/ont00001879> [  # designated by → FamilyName
+    <https://w3id.org/cco-domains/cco/ont00001879> [  # designated by → FamilyName
         rdf:type cco:ent00000004 ;  # FamilyName
-        <https://purl.org/cco/ont00001765> "Walker"
+        <https://w3id.org/cco-domains/cco/ont00001765> "Walker"
     ] ;
 
     # ── Dates ────────────────────────────────────────────────────────────────
 
-    <https://purl.org/cco/ont00001879> [  # designated by → Birthdate
+    <https://w3id.org/cco-domains/cco/ont00001879> [  # designated by → Birthdate
         rdf:type cco:ent00000046 ;  # Birthdate
-        <https://purl.org/cco/ont00001765> "1985-07-04"
+        <https://w3id.org/cco-domains/cco/ont00001765> "1985-07-04"
     ] ;
 
     cco:ent00000069 [  # has issue date → Calendar Date Identifier
         rdf:type cco:ont00001340 ;
-        <https://purl.org/cco/ont00001765> "2021-07-04"
+        <https://w3id.org/cco-domains/cco/ont00001765> "2021-07-04"
     ] ;
 
     cco:ent00000070 [  # has expiration date → Calendar Date Identifier
         rdf:type cco:ont00001340 ;
-        <https://purl.org/cco/ont00001765> "2031-07-04"
+        <https://w3id.org/cco-domains/cco/ont00001765> "2031-07-04"
     ] ;
 
     # ── Passport number (two-relation form: Person designated-by, document is-carrier-of) ──
@@ -94,23 +94,23 @@ This topic captures Alice Walker's US passport identity data. Alice self-enters 
 
     # ── Issuing country ──────────────────────────────────────────────────────
 
-    <https://purl.org/cco/ont00001879> [  # designated by → Issuing Jurisdiction
+    <https://w3id.org/cco-domains/cco/ont00001879> [  # designated by → Issuing Jurisdiction
         rdf:type cco:ent00000068 ;
-        <https://purl.org/cco/ont00001765> "USA"
+        <https://w3id.org/cco-domains/cco/ont00001765> "USA"
     ] ;
 
     # ── Place of birth ───────────────────────────────────────────────────────
 
-    <https://purl.org/cco/ont00001879> [  # designated by → Place of Birth
+    <https://w3id.org/cco-domains/cco/ont00001879> [  # designated by → Place of Birth
         rdf:type cco:ent00000067 ;
-        <https://purl.org/cco/ont00001765> "Austin, Texas, USA"
+        <https://w3id.org/cco-domains/cco/ont00001765> "Austin, Texas, USA"
     ] ;
 
     # ── Gender marker ────────────────────────────────────────────────────────
 
-    <https://purl.org/cco/ont00001879> [  # designated by → GenderMarker
+    <https://w3id.org/cco-domains/cco/ont00001879> [  # designated by → GenderMarker
         rdf:type persona:GenderMarker ;
-        <https://purl.org/cco/ont00001765> "F"
+        <https://w3id.org/cco-domains/cco/ont00001765> "F"
     ] ;
 
     # ── Photo ────────────────────────────────────────────────────────────────
@@ -120,5 +120,5 @@ This topic captures Alice Walker's US passport identity data. Alice self-enters 
 :Alice_Passport_Number rdf:type owl:NamedIndividual ,
                                 cco:ent00000066 ;  # Passport Number
     rdfs:label "Alice Walker's US Passport Number"@en ;
-    <https://purl.org/cco/ont00001765> "123456789" .  # placeholder US passport number
+    <https://w3id.org/cco-domains/cco/ont00001765> "123456789" .  # placeholder US passport number
 ```

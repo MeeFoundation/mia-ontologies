@@ -5,7 +5,7 @@
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
 @prefix owl: <http://www.w3.org/2002/07/owl#> .
 @prefix obo: <http://purl.obolibrary.org/obo/> .
-@prefix cco: <https://purl.org/cco/> .
+@prefix cco: <https://w3id.org/cco-domains/cco/> .
 @prefix mia: <http://www.example.org/mia#> .
 @prefix persona: <http://mee.foundation/ontologies/persona#> .
 
@@ -63,7 +63,7 @@
 
     # Optional: SSN (0..1); validity enforced by :SSNShape
     sh:property [
-        sh:path <https://purl.org/cco/ont00001879> ;  # designated by
+        sh:path <https://w3id.org/cco-domains/cco/ont00001879> ;  # designated by
         sh:qualifiedValueShape [ sh:class cco:ent00000008 ] ;
         sh:qualifiedMaxCount 1 ;
         sh:message "At most one SocialSecurityNumber may be attached to a Person."@en
@@ -71,7 +71,7 @@
 
     # Optional: email addresses (0..20); validity enforced by :EmailAddressShape
     sh:property [
-        sh:path <https://purl.org/cco/ont00001879> ;  # designated by
+        sh:path <https://w3id.org/cco-domains/cco/ont00001879> ;  # designated by
         sh:qualifiedValueShape [ sh:class cco:ent00000024 ] ;
         sh:qualifiedMaxCount 20 ;
         sh:message "EmailAddress values are optional; if present and typed, they must validate."@en
@@ -79,7 +79,7 @@
 
     # Optional: telephone numbers (0..20); validity enforced by :TelephoneNumberShape
     sh:property [
-        sh:path <https://purl.org/cco/ont00001879> ;  # designated by
+        sh:path <https://w3id.org/cco-domains/cco/ont00001879> ;  # designated by
         sh:qualifiedValueShape [ sh:class cco:ent00000023 ] ;
         sh:qualifiedMaxCount 20 ;
         sh:message "TelephoneNumber values are optional; if present and typed, they must validate."@en
@@ -87,7 +87,7 @@
 
     # Optional: organization names (0..many); each topic may carry its own OrganizationName
     sh:property [
-        sh:path <https://purl.org/cco/ont00001879> ;  # designated by
+        sh:path <https://w3id.org/cco-domains/cco/ont00001879> ;  # designated by
         sh:qualifiedValueShape [ sh:class cco:ent00000047 ] ;  # OrganizationName
         sh:qualifiedMinCount 0 ;
         sh:message "OrganizationName values, if present, must be of class cco:ent00000047."@en
@@ -117,7 +117,7 @@
 
     # Optional: online service account (0..1)
     sh:property [
-        sh:path <https://purl.org/cco/ent00000045> ;  # holds user account
+        sh:path <https://w3id.org/cco-domains/cco/ent00000045> ;  # holds user account
         sh:class cco:ent00000033 ;  # Online Service Account
         sh:maxCount 1 ;
         sh:message "A Person may hold at most one OnlineServiceAccount."@en
@@ -147,7 +147,7 @@
     sh:targetClass cco:ent00000006 ;  # AlternateName
     sh:message "AlternateName must have exactly one text value (a non-empty string)."@en ;
     sh:property [
-        sh:path <https://purl.org/cco/ont00001765> ;  # has text value
+        sh:path <https://w3id.org/cco-domains/cco/ont00001765> ;  # has text value
         sh:nodeKind sh:Literal ;
         sh:datatype xsd:string ;
         sh:minLength 1 ;
@@ -165,7 +165,7 @@
     sh:targetClass cco:ent00000008 ;
     sh:message "Social Security Number must follow NNN-NN-NNNN format."@en ;
     sh:property [
-        sh:path <https://purl.org/cco/ont00001765> ;  # has text value
+        sh:path <https://w3id.org/cco-domains/cco/ont00001765> ;  # has text value
         sh:nodeKind sh:Literal ;
         sh:datatype xsd:string ;
         sh:pattern "^\\d{3}-\\d{2}-\\d{4}$" ;
@@ -179,7 +179,7 @@
     sh:targetClass cco:ent00000024 ;
     sh:message "Email must be a single string like local-part@domain (basic validation)."@en ;
     sh:property [
-        sh:path <https://purl.org/cco/ont00001765> ;  # has text value
+        sh:path <https://w3id.org/cco-domains/cco/ont00001765> ;  # has text value
         sh:nodeKind sh:Literal ;
         sh:datatype xsd:string ;
         sh:pattern "^[^@\\s]+@[^@\\s]+\\.[^@\\s]+$" ;
@@ -193,7 +193,7 @@
     sh:targetClass cco:ent00000023 ;
     sh:message "Telephone number should follow E.164 format (recommended)."@en ;
     sh:property [
-        sh:path <https://purl.org/cco/ont00001765> ;  # has text value
+        sh:path <https://w3id.org/cco-domains/cco/ont00001765> ;  # has text value
         sh:nodeKind sh:Literal ;
         sh:datatype xsd:string ;
         sh:pattern "^\\+?[1-9]\\d{1,14}$" ;  # E.164: +[country][number]
@@ -260,7 +260,7 @@
     sh:targetClass cco:ent00000013 ;
     sh:message "State must be a valid US/USPS 2-letter abbreviation."@en ;
     sh:property [
-        sh:path <https://purl.org/cco/ont00001765> ;  # has text value
+        sh:path <https://w3id.org/cco-domains/cco/ont00001765> ;  # has text value
         sh:nodeKind sh:Literal ;
         sh:datatype xsd:string ;
         sh:in ("AL" "AK" "AZ" "AR" "CA" "CO" "CT" "DE" "FL" "GA"
@@ -279,7 +279,7 @@
     sh:targetClass cco:ent00000015 ;
     sh:message "ZIP Code must be 5-digit or ZIP+4 format."@en ;
     sh:property [
-        sh:path <https://purl.org/cco/ont00001765> ;  # has text value
+        sh:path <https://w3id.org/cco-domains/cco/ont00001765> ;  # has text value
         sh:nodeKind sh:Literal ;
         sh:datatype xsd:string ;
         sh:pattern "^\\d{5}(-\\d{4})?$" ;
@@ -293,7 +293,7 @@
     sh:targetClass cco:ent00000014 ;
     sh:message "If country is present, it must indicate the United States (controlled list)."@en ;
     sh:property [
-        sh:path <https://purl.org/cco/ont00001765> ;  # has text value
+        sh:path <https://w3id.org/cco-domains/cco/ont00001765> ;  # has text value
         sh:nodeKind sh:Literal ;
         sh:datatype xsd:string ;
         sh:in ("USA" "US" "UNITED STATES" "UNITED STATES OF AMERICA") ;
@@ -325,7 +325,7 @@
     sh:targetClass cco:ont00000026 ;  # Hair Color
     sh:message "HairColor must have exactly one text value (a non-empty string)."@en ;
     sh:property [
-        sh:path <https://purl.org/cco/ont00001765> ;  # has text value
+        sh:path <https://w3id.org/cco-domains/cco/ont00001765> ;  # has text value
         sh:nodeKind sh:Literal ;
         sh:datatype xsd:string ;
         sh:minLength 1 ;
@@ -369,7 +369,7 @@
     sh:message "A DebitCard must have a card number and expiration date."@en ;
 
     sh:property [
-        sh:path <https://purl.org/cco/ont00001879> ;  # designated by → Card Number (PAN)
+        sh:path <https://w3id.org/cco-domains/cco/ont00001879> ;  # designated by → Card Number (PAN)
         sh:qualifiedValueShape [ sh:class cco:ent00000052 ] ;
         sh:qualifiedMinCount 1 ;
         sh:qualifiedMaxCount 1 ;
@@ -385,7 +385,7 @@
     ] ;
 
     sh:property [
-        sh:path <https://purl.org/cco/ont00001879> ;  # designated by → CVV (optional)
+        sh:path <https://w3id.org/cco-domains/cco/ont00001879> ;  # designated by → CVV (optional)
         sh:qualifiedValueShape [ sh:class cco:ent00000053 ] ;
         sh:qualifiedMaxCount 1 ;
         sh:message "A DebitCard may have at most one CVV."@en
@@ -409,7 +409,7 @@
     sh:message "A CheckingAccount must have exactly one account number and one routing number."@en ;
 
     sh:property [
-        sh:path <https://purl.org/cco/ont00001879> ;  # designated by → Account Number
+        sh:path <https://w3id.org/cco-domains/cco/ont00001879> ;  # designated by → Account Number
         sh:qualifiedValueShape [ sh:class cco:ent00000071 ] ;  # Checking Account Number
         sh:qualifiedMinCount 1 ;
         sh:qualifiedMaxCount 1 ;
@@ -417,7 +417,7 @@
     ] ;
 
     sh:property [
-        sh:path <https://purl.org/cco/ont00001879> ;  # designated by → Routing Number
+        sh:path <https://w3id.org/cco-domains/cco/ont00001879> ;  # designated by → Routing Number
         sh:qualifiedValueShape [ sh:class cco:ent00000072 ] ;  # Routing Number
         sh:qualifiedMinCount 1 ;
         sh:qualifiedMaxCount 1 ;
@@ -434,7 +434,7 @@
     sh:message "An OnlineServiceAccount must have a service name and a user handle."@en ;
 
     sh:property [
-        sh:path <https://purl.org/cco/ent00000034> ;  # has service name
+        sh:path <https://w3id.org/cco-domains/cco/ent00000034> ;  # has service name
         sh:nodeKind sh:Literal ;
         sh:minCount 1 ;
         sh:maxCount 1 ;
@@ -442,7 +442,7 @@
     ] ;
 
     sh:property [
-        sh:path <https://purl.org/cco/ent00000035> ;  # has user handle
+        sh:path <https://w3id.org/cco-domains/cco/ent00000035> ;  # has user handle
         sh:nodeKind sh:Literal ;
         sh:minCount 1 ;
         sh:maxCount 1 ;

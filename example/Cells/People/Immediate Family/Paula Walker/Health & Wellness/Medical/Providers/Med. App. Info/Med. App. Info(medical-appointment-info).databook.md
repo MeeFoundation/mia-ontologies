@@ -55,7 +55,7 @@ This topic captures Alice's shared record of the claims needed to arrange a medi
 <!-- databook:graph: http://www.example.org/mia/topics/topic-26#graph -->
 @prefix : <http://www.example.org/mia#> .
 @prefix persona: <http://mee.foundation/ontologies/persona#> .
-@prefix cco: <https://purl.org/cco/> .
+@prefix cco: <https://w3id.org/cco-domains/cco/> .
 @prefix owl: <http://www.w3.org/2002/07/owl#> .
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
@@ -67,33 +67,33 @@ This topic captures Alice's shared record of the claims needed to arrange a medi
                persona:Person ;
     rdfs:label "Paula Walker"@en ;
 
-    <https://purl.org/cco/ont00001879> [  # designated by → GivenName
+    <https://w3id.org/cco-domains/cco/ont00001879> [  # designated by → GivenName
         rdf:type cco:ent00000002 ;  # GivenName
-        <https://purl.org/cco/ont00001765> "Paula"
+        <https://w3id.org/cco-domains/cco/ont00001765> "Paula"
     ] ;
 
-    <https://purl.org/cco/ont00001879> [  # designated by → FamilyName
+    <https://w3id.org/cco-domains/cco/ont00001879> [  # designated by → FamilyName
         rdf:type cco:ent00000004 ;  # FamilyName
-        <https://purl.org/cco/ont00001765> "Walker"
+        <https://w3id.org/cco-domains/cco/ont00001765> "Walker"
     ] .
 
 :Jane_Starostina rdf:type owl:NamedIndividual ,
                persona:Person ;
     rdfs:label "Jane Starostina (Primary Care Physician)"@en ;
 
-    <https://purl.org/cco/ont00001879> [  # designated by → GivenName
+    <https://w3id.org/cco-domains/cco/ont00001879> [  # designated by → GivenName
         rdf:type cco:ent00000002 ;  # GivenName
-        <https://purl.org/cco/ont00001765> "Jane"
+        <https://w3id.org/cco-domains/cco/ont00001765> "Jane"
     ] ;
 
-    <https://purl.org/cco/ont00001879> [  # designated by → FamilyName
+    <https://w3id.org/cco-domains/cco/ont00001879> [  # designated by → FamilyName
         rdf:type cco:ent00000004 ;  # FamilyName
-        <https://purl.org/cco/ont00001765> "Starostina"
+        <https://w3id.org/cco-domains/cco/ont00001765> "Starostina"
     ] ;
 
-    <https://purl.org/cco/ont00001917> [  # described by → Person Note
+    <https://w3id.org/cco-domains/cco/ont00001917> [  # described by → Person Note
         rdf:type cco:ent00000048 ;
-        <https://purl.org/cco/ont00001765> "Paula Walker's primary care physician"
+        <https://w3id.org/cco-domains/cco/ont00001765> "Paula Walker's primary care physician"
     ] .
 
 # ── The shared Medical Appointment claims record ─────────────────────────────
@@ -133,7 +133,7 @@ This topic captures Carol Walker's own self-claimed persona and contact info, sh
 <!-- databook:graph: http://www.example.org/mia/topics/topic-28#graph -->
 @prefix : <http://www.example.org/mia#> .
 @prefix persona: <http://mee.foundation/ontologies/persona#> .
-@prefix cco: <https://purl.org/cco/> .
+@prefix cco: <https://w3id.org/cco-domains/cco/> .
 @prefix owl: <http://www.w3.org/2002/07/owl#> .
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
@@ -142,24 +142,24 @@ This topic captures Carol Walker's own self-claimed persona and contact info, sh
                persona:Person ;
     rdfs:label "Carol Walker"@en ;
 
-    <https://purl.org/cco/ont00001879> [  # designated by → GivenName
+    <https://w3id.org/cco-domains/cco/ont00001879> [  # designated by → GivenName
         rdf:type cco:ent00000002 ;  # GivenName
-        <https://purl.org/cco/ont00001765> "Carol"
+        <https://w3id.org/cco-domains/cco/ont00001765> "Carol"
     ] ;
 
-    <https://purl.org/cco/ont00001879> [  # designated by → FamilyName
+    <https://w3id.org/cco-domains/cco/ont00001879> [  # designated by → FamilyName
         rdf:type cco:ent00000004 ;  # FamilyName
-        <https://purl.org/cco/ont00001765> "Walker"
+        <https://w3id.org/cco-domains/cco/ont00001765> "Walker"
     ] ;
 
-    <https://purl.org/cco/ont00001879> [  # designated by → Phone
+    <https://w3id.org/cco-domains/cco/ont00001879> [  # designated by → Phone
         rdf:type cco:ent00000023 ;
-        <https://purl.org/cco/ont00001765> "+19165550198"
+        <https://w3id.org/cco-domains/cco/ont00001765> "+19165550198"
     ] ;
 
-    <https://purl.org/cco/ont00001917> [  # described by → Person Note
+    <https://w3id.org/cco-domains/cco/ont00001917> [  # described by → Person Note
         rdf:type cco:ent00000048 ;
-        <https://purl.org/cco/ont00001765> "Usually available weekday evenings and weekends for Mom's appointments."
+        <https://w3id.org/cco-domains/cco/ont00001765> "Usually available weekday evenings and weekends for Mom's appointments."
     ] .
 ```
 
@@ -176,17 +176,17 @@ This topic captures Alice Walker's own self-claimed contact info, kept in this c
 <!-- databook:id: alice-self-topic-graph -->
 <!-- databook:graph: http://www.example.org/mia/topics/topic-30#graph -->
 @prefix : <http://www.example.org/mia#> .
-@prefix cco: <https://purl.org/cco/> .
+@prefix cco: <https://w3id.org/cco-domains/cco/> .
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
 
-:Self <https://purl.org/cco/ont00001879> [  # designated by → Phone
+:Self <https://w3id.org/cco-domains/cco/ont00001879> [  # designated by → Phone
         rdf:type cco:ent00000023 ;
-        <https://purl.org/cco/ont00001765> "+15108149999"
+        <https://w3id.org/cco-domains/cco/ont00001765> "+15108149999"
     ] ;
 
-    <https://purl.org/cco/ont00001917> [  # described by → Person Note
+    <https://w3id.org/cco-domains/cco/ont00001917> [  # described by → Person Note
         rdf:type cco:ent00000048 ;
-        <https://purl.org/cco/ont00001765> "Best reached by text for scheduling Mom's appointments."
+        <https://w3id.org/cco-domains/cco/ont00001765> "Best reached by text for scheduling Mom's appointments."
     ] .
 ```

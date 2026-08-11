@@ -47,26 +47,26 @@ This topic captures Alice Walker's self-claimed persona in her 1:1 relationship 
 <!-- databook:graph: http://www.example.org/mia/topics/topic-29#graph -->
 @prefix : <http://www.example.org/mia#> .
 @prefix persona: <http://mee.foundation/ontologies/persona#> .
-@prefix cco: <https://purl.org/cco/> .
+@prefix cco: <https://w3id.org/cco-domains/cco/> .
 @prefix owl: <http://www.w3.org/2002/07/owl#> .
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
 
 :Self rdfs:comment "Alice Walker's persona for her 1:1 relationship with Fred."@en ;
 
-    <https://purl.org/cco/ont00001879> [  # designated by → AlternateName
+    <https://w3id.org/cco-domains/cco/ont00001879> [  # designated by → AlternateName
         rdf:type cco:ent00000006 ;  # AlternateName
-        <https://purl.org/cco/ont00001765> "Alice Walker"
+        <https://w3id.org/cco-domains/cco/ont00001765> "Alice Walker"
     ] ;
 
-    <https://purl.org/cco/ont00001879> [  # designated by → GivenName
+    <https://w3id.org/cco-domains/cco/ont00001879> [  # designated by → GivenName
         rdf:type cco:ent00000002 ;  # GivenName
-        <https://purl.org/cco/ont00001765> "Alice"  # has text value
+        <https://w3id.org/cco-domains/cco/ont00001765> "Alice"  # has text value
     ] ;
 
-    <https://purl.org/cco/ont00001879> [  # designated by → FamilyName
+    <https://w3id.org/cco-domains/cco/ont00001879> [  # designated by → FamilyName
         rdf:type cco:ent00000004 ;  # FamilyName
-        <https://purl.org/cco/ont00001765> "Walker"  # has text value
+        <https://w3id.org/cco-domains/cco/ont00001765> "Walker"  # has text value
     ] ;
 
     persona:hasSocialNetwork :Alice_Fred_Network .
@@ -92,7 +92,7 @@ This topic captures Fred Flintstone's self-claimed persona, transmitted from Fre
 <!-- databook:graph: http://www.example.org/mia/topics/topic-31#graph -->
 @prefix : <http://www.example.org/mia#> .
 @prefix persona: <http://mee.foundation/ontologies/persona#> .
-@prefix cco: <https://purl.org/cco/> .
+@prefix cco: <https://w3id.org/cco-domains/cco/> .
 @prefix owl: <http://www.w3.org/2002/07/owl#> .
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
@@ -102,14 +102,14 @@ This topic captures Fred Flintstone's self-claimed persona, transmitted from Fre
     rdfs:label "Fred Flintstone"@en ;
     rdfs:comment "Fred Flintstone's self-claimed persona in his 1:1 relationship with Alice."@en ;
 
-    <https://purl.org/cco/ont00001879> [  # designated by → GivenName
+    <https://w3id.org/cco-domains/cco/ont00001879> [  # designated by → GivenName
         rdf:type cco:ent00000002 ;  # GivenName
-        <https://purl.org/cco/ont00001765> "Fred"  # has text value
+        <https://w3id.org/cco-domains/cco/ont00001765> "Fred"  # has text value
     ] ;
 
-    <https://purl.org/cco/ont00001879> [  # designated by → FamilyName
+    <https://w3id.org/cco-domains/cco/ont00001879> [  # designated by → FamilyName
         rdf:type cco:ent00000004 ;  # FamilyName
-        <https://purl.org/cco/ont00001765> "Flintstone"  # has text value
+        <https://w3id.org/cco-domains/cco/ont00001765> "Flintstone"  # has text value
     ] ;
 
     persona:hasSocialNetwork :Fred_Fred_Network .

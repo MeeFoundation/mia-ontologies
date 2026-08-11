@@ -37,15 +37,15 @@ This topic captures Alice Walker's Social Security Administration record. Alice 
 <!-- databook:graph: http://www.example.org/mia/topics/topic-23#graph -->
 @prefix : <http://www.example.org/mia#> .
 @prefix persona: <http://mee.foundation/ontologies/persona#> .
-@prefix cco: <https://purl.org/cco/> .
+@prefix cco: <https://w3id.org/cco-domains/cco/> .
 @prefix owl: <http://www.w3.org/2002/07/owl#> .
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
 
 :Self rdfs:comment "Alice Walker's persona for her Social Security Administration record."@en ;
 
-    <https://purl.org/cco/ont00001879> [  # designated by → SSN
+    <https://w3id.org/cco-domains/cco/ont00001879> [  # designated by → SSN
         rdf:type cco:ent00000008 ;
-        <https://purl.org/cco/ont00001765> "123-45-6788"
+        <https://w3id.org/cco-domains/cco/ont00001765> "123-45-6788"
     ] .
 ```

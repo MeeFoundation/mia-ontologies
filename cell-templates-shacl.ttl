@@ -4,7 +4,7 @@
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
 @prefix owl: <http://www.w3.org/2002/07/owl#> .
-@prefix cco: <https://purl.org/cco/> .
+@prefix cco: <https://w3id.org/cco-domains/cco/> .
 @prefix persona: <http://mee.foundation/ontologies/persona#> .
 @prefix dc: <http://purl.org/dc/elements/1.1/> .
 
@@ -41,7 +41,7 @@
     sh:or (
         [
             sh:property [
-                sh:path <https://purl.org/cco/ont00001879> ;  # designated by
+                sh:path <https://w3id.org/cco-domains/cco/ont00001879> ;  # designated by
                 sh:qualifiedValueShape [ sh:class cco:ent00000001 ] ;
                 sh:qualifiedMinCount 1 ;
                 sh:message "Birth certificate must record at least one FullName, OR provide GivenName + FamilyName."@en
@@ -51,7 +51,7 @@
             sh:and (
                 [
                     sh:property [
-                        sh:path <https://purl.org/cco/ont00001879> ;  # designated by
+                        sh:path <https://w3id.org/cco-domains/cco/ont00001879> ;  # designated by
                         sh:qualifiedValueShape [ sh:class cco:ent00000002 ] ;
                         sh:qualifiedMinCount 1 ;
                         sh:message "If no FullName is recorded, birth certificate must include at least one GivenName."@en
@@ -59,7 +59,7 @@
                 ]
                 [
                     sh:property [
-                        sh:path <https://purl.org/cco/ont00001879> ;  # designated by
+                        sh:path <https://w3id.org/cco-domains/cco/ont00001879> ;  # designated by
                         sh:qualifiedValueShape [ sh:class cco:ent00000004 ] ;
                         sh:qualifiedMinCount 1 ;
                         sh:message "If no FullName is recorded, birth certificate must include at least one FamilyName."@en
@@ -71,14 +71,14 @@
 
     # Optional name components
     sh:property [
-        sh:path <https://purl.org/cco/ont00001879> ;  # designated by
+        sh:path <https://w3id.org/cco-domains/cco/ont00001879> ;  # designated by
         sh:qualifiedValueShape [
             sh:or (
                 [ sh:class cco:ent00000003 ]
                 [ sh:class cco:ent00000005 ]
                 [ sh:class cco:ent00000006 ]
-                [ sh:class <https://purl.org/cco/ont00000990> ]  # Nickname
-                [ sh:class <https://purl.org/cco/ont00001331> ]  # Legal Name
+                [ sh:class <https://w3id.org/cco-domains/cco/ont00000990> ]  # Nickname
+                [ sh:class <https://w3id.org/cco-domains/cco/ont00001331> ]  # Legal Name
             )
         ] ;
         sh:qualifiedMaxCount 50 ;
@@ -123,7 +123,7 @@
     sh:or (
         [
             sh:property [
-                sh:path <https://purl.org/cco/ont00001879> ;
+                sh:path <https://w3id.org/cco-domains/cco/ont00001879> ;
                 sh:qualifiedValueShape [ sh:class cco:ent00000001 ] ;
                 sh:qualifiedMinCount 1 ;
                 sh:message "A DriversLicense must record a FullName, OR provide GivenName + FamilyName."@en
@@ -133,7 +133,7 @@
             sh:and (
                 [
                     sh:property [
-                        sh:path <https://purl.org/cco/ont00001879> ;
+                        sh:path <https://w3id.org/cco-domains/cco/ont00001879> ;
                         sh:qualifiedValueShape [ sh:class cco:ent00000002 ] ;
                         sh:qualifiedMinCount 1 ;
                         sh:message "If no FullName is recorded, a DriversLicense must include at least one GivenName."@en
@@ -141,7 +141,7 @@
                 ]
                 [
                     sh:property [
-                        sh:path <https://purl.org/cco/ont00001879> ;
+                        sh:path <https://w3id.org/cco-domains/cco/ont00001879> ;
                         sh:qualifiedValueShape [ sh:class cco:ent00000004 ] ;
                         sh:qualifiedMinCount 1 ;
                         sh:message "If no FullName is recorded, a DriversLicense must include at least one FamilyName."@en
@@ -153,7 +153,7 @@
 
     # ── Required: DateOfBirth, LicenseNumber, ExpirationDate ─────────────────
     sh:property [
-        sh:path <https://purl.org/cco/ont00001879> ;
+        sh:path <https://w3id.org/cco-domains/cco/ont00001879> ;
         sh:qualifiedValueShape [ sh:class cco:ent00000046 ] ;  # Birthdate
         sh:qualifiedMinCount 1 ;
         sh:qualifiedMaxCount 1 ;
@@ -179,21 +179,21 @@
 
     # ── Optional fields ──────────────────────────────────────────────────────
     sh:property [
-        sh:path <https://purl.org/cco/ont00001879> ;
+        sh:path <https://w3id.org/cco-domains/cco/ont00001879> ;
         sh:qualifiedValueShape [ sh:class cco:ent00000003 ] ;  # AdditionalName
         sh:qualifiedMaxCount 1 ;
         sh:message "A DriversLicense may record at most one AdditionalName."@en
     ] ;
 
     sh:property [
-        sh:path <https://purl.org/cco/ont00001879> ;
+        sh:path <https://w3id.org/cco-domains/cco/ont00001879> ;
         sh:qualifiedValueShape [ sh:class cco:ent00000010 ] ;  # USPostalAddress
         sh:qualifiedMaxCount 1 ;
         sh:message "A DriversLicense may record at most one residential address."@en
     ] ;
 
     sh:property [
-        sh:path <https://purl.org/cco/ont00001879> ;
+        sh:path <https://w3id.org/cco-domains/cco/ont00001879> ;
         sh:qualifiedValueShape [ sh:class cco:ent00000068 ] ;  # Issuing Jurisdiction
         sh:qualifiedMaxCount 1 ;
         sh:message "A DriversLicense may record at most one IssuingJurisdiction."@en
@@ -247,7 +247,7 @@
     sh:or (
         [
             sh:property [
-                sh:path <https://purl.org/cco/ont00001879> ;
+                sh:path <https://w3id.org/cco-domains/cco/ont00001879> ;
                 sh:qualifiedValueShape [ sh:class cco:ent00000001 ] ;
                 sh:qualifiedMinCount 1 ;
                 sh:message "A Passport must record a FullName, OR provide GivenName + FamilyName."@en
@@ -257,7 +257,7 @@
             sh:and (
                 [
                     sh:property [
-                        sh:path <https://purl.org/cco/ont00001879> ;
+                        sh:path <https://w3id.org/cco-domains/cco/ont00001879> ;
                         sh:qualifiedValueShape [ sh:class cco:ent00000002 ] ;
                         sh:qualifiedMinCount 1 ;
                         sh:message "If no FullName is recorded, a Passport must include at least one GivenName."@en
@@ -265,7 +265,7 @@
                 ]
                 [
                     sh:property [
-                        sh:path <https://purl.org/cco/ont00001879> ;
+                        sh:path <https://w3id.org/cco-domains/cco/ont00001879> ;
                         sh:qualifiedValueShape [ sh:class cco:ent00000004 ] ;
                         sh:qualifiedMinCount 1 ;
                         sh:message "If no FullName is recorded, a Passport must include at least one FamilyName."@en
@@ -277,7 +277,7 @@
 
     # ── Required: DateOfBirth, PassportNumber, ExpirationDate ────────────────
     sh:property [
-        sh:path <https://purl.org/cco/ont00001879> ;
+        sh:path <https://w3id.org/cco-domains/cco/ont00001879> ;
         sh:qualifiedValueShape [ sh:class cco:ent00000046 ] ;  # Birthdate
         sh:qualifiedMinCount 1 ;
         sh:qualifiedMaxCount 1 ;
@@ -303,7 +303,7 @@
 
     # ── Optional fields ──────────────────────────────────────────────────────
     sh:property [
-        sh:path <https://purl.org/cco/ont00001879> ;
+        sh:path <https://w3id.org/cco-domains/cco/ont00001879> ;
         sh:qualifiedValueShape [ sh:class cco:ent00000003 ] ;  # AdditionalName
         sh:qualifiedMaxCount 1 ;
         sh:message "A Passport may record at most one AdditionalName."@en
@@ -317,21 +317,21 @@
     ] ;
 
     sh:property [
-        sh:path <https://purl.org/cco/ont00001879> ;
+        sh:path <https://w3id.org/cco-domains/cco/ont00001879> ;
         sh:qualifiedValueShape [ sh:class cco:ent00000068 ] ;  # Issuing Jurisdiction (collapsed from IssuingCountry)
         sh:qualifiedMaxCount 1 ;
         sh:message "A Passport may record at most one IssuingCountry."@en
     ] ;
 
     sh:property [
-        sh:path <https://purl.org/cco/ont00001879> ;
+        sh:path <https://w3id.org/cco-domains/cco/ont00001879> ;
         sh:qualifiedValueShape [ sh:class cco:ent00000067 ] ;  # Place of Birth
         sh:qualifiedMaxCount 1 ;
         sh:message "A Passport may record at most one PlaceOfBirth."@en
     ] ;
 
     sh:property [
-        sh:path <https://purl.org/cco/ont00001879> ;
+        sh:path <https://w3id.org/cco-domains/cco/ont00001879> ;
         sh:qualifiedValueShape [ sh:class persona:GenderMarker ] ;
         sh:qualifiedMaxCount 1 ;
         sh:message "A Passport may record at most one GenderMarker."@en

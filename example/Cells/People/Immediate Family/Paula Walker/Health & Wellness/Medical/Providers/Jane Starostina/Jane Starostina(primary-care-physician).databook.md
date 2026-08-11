@@ -37,7 +37,7 @@ This topic captures Alice's record of Dr. Jane Starostina, who is the primary ca
 <!-- databook:graph: http://www.example.org/mia/topics/topic-25#graph -->
 @prefix : <http://www.example.org/mia#> .
 @prefix persona: <http://mee.foundation/ontologies/persona#> .
-@prefix cco: <https://purl.org/cco/> .
+@prefix cco: <https://w3id.org/cco-domains/cco/> .
 @prefix owl: <http://www.w3.org/2002/07/owl#> .
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
@@ -46,18 +46,18 @@ This topic captures Alice's record of Dr. Jane Starostina, who is the primary ca
                persona:Person ;
     rdfs:label "Jane Starostina (Primary Care Physician)"@en ;
 
-    <https://purl.org/cco/ont00001879> [  # designated by → GivenName
+    <https://w3id.org/cco-domains/cco/ont00001879> [  # designated by → GivenName
         rdf:type cco:ent00000002 ;  # GivenName
-        <https://purl.org/cco/ont00001765> "Jane"  # has text value
+        <https://w3id.org/cco-domains/cco/ont00001765> "Jane"  # has text value
     ] ;
 
-    <https://purl.org/cco/ont00001879> [  # designated by → FamilyName
+    <https://w3id.org/cco-domains/cco/ont00001879> [  # designated by → FamilyName
         rdf:type cco:ent00000004 ;  # FamilyName
-        <https://purl.org/cco/ont00001765> "Starostina"  # has text value
+        <https://w3id.org/cco-domains/cco/ont00001765> "Starostina"  # has text value
     ] ;
 
-    <https://purl.org/cco/ont00001917> [  # described by → Person Note
+    <https://w3id.org/cco-domains/cco/ont00001917> [  # described by → Person Note
         rdf:type cco:ent00000048 ;
-        <https://purl.org/cco/ont00001765> "Paula Walker's primary care physician"
+        <https://w3id.org/cco-domains/cco/ont00001765> "Paula Walker's primary care physician"
     ] .
 ```
