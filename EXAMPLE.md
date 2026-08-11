@@ -158,7 +158,7 @@ The following table lists topics about other people (Paula and Bob) or groups (B
 
 ## Diagrams
 
-`draw.py` generates a Mermaid (`.mmd`) and PNG diagram for a single embedded topic, given its owning cell-databook file and its id (or id local-name):
+`draw.py` generates a Mermaid (`.mmd`) and PNG diagram for a single embedded topic, given its owning cell DataBook file and its id (or id local-name):
 
 ```bash
 python3 draw.py "example/Cells/Finances/Banking & Payments/Citibank/Citibank(banking-payments).databook.md" "topic-09"
@@ -177,7 +177,7 @@ Each diagram shows the `p:Person` individual (yellow), supporting named individu
 
 ## Validation
 
-Validation requires [Apache Jena](https://jena.apache.org/) (`riot`, `shacl`), the [DataBook CLI](https://github.com/kurtcagle/databook) (`databook`; install: `git clone https://github.com/kurtcagle/databook.git && cd databook && npm install && npm install -g .`) — the CLI's reference implementation moved here from `w3c-cg/holon`, which retired its two previously-vendored copies in favor of this single upstream source — `pyyaml` for `yaml-to-rdf.py` (`pip install pyyaml`), and `extract-topic.py` (no extra dependencies) for isolating one embedded topic's Turtle block from a cell-databook that may hold several — needed since `databook extract` has no notion of "pick one topic out of many" and Tier 2 validates one topic at a time. SHACL shapes remain plain Turtle (`.ttl`).
+Validation requires [Apache Jena](https://jena.apache.org/) (`riot`, `shacl`), the [DataBook CLI](https://github.com/kurtcagle/databook) (`databook`; install: `git clone https://github.com/kurtcagle/databook.git && cd databook && npm install && npm install -g .`) — the CLI's reference implementation moved here from `w3c-cg/holon`, which retired its two previously-vendored copies in favor of this single upstream source — `pyyaml` for `yaml-to-rdf.py` (`pip install pyyaml`), and `extract-topic.py` (no extra dependencies) for isolating one embedded topic's Turtle from a cell DataBook that may hold several — needed since `databook extract` has no notion of "pick one topic out of many" and Tier 2 validates one topic at a time. SHACL shapes remain plain Turtle (`.ttl`).
 
 ### Quick check — DataBook syntax
 
@@ -190,7 +190,7 @@ while IFS= read -r -d '' f; do
 done
 ```
 
-A file that fails here will also fail silently in `databook extract`, producing no Turtle output and causing downstream `riot` or SHACL errors that are harder to trace. (Uses `-print0`/`read -d ''` rather than `for f in $(find ...)` — cell-databook paths under `example/Cells/` routinely contain spaces, e.g. `Banking & Payments`, which word-splitting would otherwise silently break.)
+A file that fails here will also fail silently in `databook extract`, producing no Turtle output and causing downstream `riot` or SHACL errors that are harder to trace. (Uses `-print0`/`read -d ''` rather than `for f in $(find ...)` — cell DataBook paths under `example/Cells/` routinely contain spaces, e.g. `Banking & Payments`, which word-splitting would otherwise silently break.)
 
 ### Tier 1 — general validation (all topics)
 
@@ -258,7 +258,7 @@ Expected output: `Conforms`
 
 ### Tier 2 — per-template validation (individual topics)
 
-Four of the five per-template shapes (BirthCertificate, DriversLicense, Passport, MedicalAppointment) live in `cell-templates-shacl.ttl`; JSContactCard's shape remains a standalone file in `shacl/` (it has no `cat:Category` class of its own — see [Persona Templates](README.md#persona-templates)). Each is run against only the relevant topic, isolated via `extract-topic.py` from its owning cell-databook file and merged with the foundation ontologies. Isolation matters because a cell may hold more than one topic — the MedicalAppointment case below lives in a three-topic cell, so a whole-file `databook extract` there would wrongly pull in its two sibling topics' data too.
+Four of the five per-template shapes (BirthCertificate, DriversLicense, Passport, MedicalAppointment) live in `cell-templates-shacl.ttl`; JSContactCard's shape remains a standalone file in `shacl/` (it has no `cat:Category` class of its own — see [Persona Templates](README.md#persona-templates)). Each is run against only the relevant topic, isolated via `extract-topic.py` from its owning cell DataBook file and merged with the foundation ontologies. Isolation matters because a cell may hold more than one topic — the MedicalAppointment case below lives in a three-topic cell, so a whole-file `databook extract` there would wrongly pull in its two sibling topics' data too.
 
 ```bash
 # Shared base: foundation ontologies + application ontologies + self.ttl
