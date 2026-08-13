@@ -1,5 +1,5 @@
 ---
-id: http://www.example.org/mia/cells/cell-19
+id: http://www.example.org/mia/cells/cell-10
 title: "Texas Vital Records"
 type: cell-databook
 version: 1.1.0
