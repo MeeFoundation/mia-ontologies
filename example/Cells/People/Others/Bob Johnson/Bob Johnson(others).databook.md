@@ -61,7 +61,7 @@ This topic captures Bob Johnson's self-claimed Bob-topic persona, transmitted fr
 <!-- databook:graph: http://www.example.org/mia/topics/topic-02#graph -->
 @prefix : <http://www.example.org/mia#> .
 @prefix persona: <http://mee.foundation/ontologies/persona#> .
-@prefix cco: <https://purl.org/cco/> .
+@prefix cco: <https://w3id.org/cco-domains/cco/> .
 @prefix owl: <http://www.w3.org/2002/07/owl#> .
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
@@ -71,14 +71,14 @@ This topic captures Bob Johnson's self-claimed Bob-topic persona, transmitted fr
     rdfs:label "Bob Johnson (Bob)"@en ;
     rdfs:comment "Bob Johnson's self-claimed persona in the 1:1 Bob topic."@en ;
 
-    <https://purl.org/cco/ont00001879> [  # designated by → GivenName
+    <https://w3id.org/cco-domains/cco/ont00001879> [  # designated by → GivenName
         rdf:type cco:ent00000002 ;  # GivenName
-        <https://purl.org/cco/ont00001765> "Bob"  # has text value
+        <https://w3id.org/cco-domains/cco/ont00001765> "Bob"  # has text value
     ] ;
 
-    <https://purl.org/cco/ont00001879> [  # designated by → FamilyName
+    <https://w3id.org/cco-domains/cco/ont00001879> [  # designated by → FamilyName
         rdf:type cco:ent00000004 ;  # FamilyName
-        <https://purl.org/cco/ont00001765> "Johnson"  # has text value
+        <https://w3id.org/cco-domains/cco/ont00001765> "Johnson"  # has text value
     ] ;
 
     persona:hasSocialNetwork :Bob_Bob_Network .
@@ -104,7 +104,7 @@ This topic captures Alice's record of Bob Johnson in their 1:1 relationship topi
 <!-- databook:graph: http://www.example.org/mia/topics/topic-04#graph -->
 @prefix : <http://www.example.org/mia#> .
 @prefix persona: <http://mee.foundation/ontologies/persona#> .
-@prefix cco: <https://purl.org/cco/> .
+@prefix cco: <https://w3id.org/cco-domains/cco/> .
 @prefix owl: <http://www.w3.org/2002/07/owl#> .
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
@@ -113,9 +113,9 @@ This topic captures Alice's record of Bob Johnson in their 1:1 relationship topi
               persona:Person ;
     rdfs:label "Bob Johnson (Bob-colleague-of-alice)"@en ;
 
-    <https://purl.org/cco/ont00001917> [  # described by → Person Note
+    <https://w3id.org/cco-domains/cco/ont00001917> [  # described by → Person Note
         rdf:type cco:ent00000048 ;
-        <https://purl.org/cco/ont00001765> "Fav drink: oat milk cappuccino"
+        <https://w3id.org/cco-domains/cco/ont00001765> "Fav drink: oat milk cappuccino"
     ] .
 ```
 
@@ -133,14 +133,14 @@ This topic captures Bob's record of Alice in their 1:1 relationship topic, trans
 <!-- databook:graph: http://www.example.org/mia/topics/topic-08#graph -->
 @prefix : <http://www.example.org/mia#> .
 @prefix persona: <http://mee.foundation/ontologies/persona#> .
-@prefix cco: <https://purl.org/cco/> .
+@prefix cco: <https://w3id.org/cco-domains/cco/> .
 @prefix owl: <http://www.w3.org/2002/07/owl#> .
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
 
-:Self <https://purl.org/cco/ont00001917> [  # described by → Person Note
+:Self <https://w3id.org/cco-domains/cco/ont00001917> [  # described by → Person Note
         rdf:type cco:ent00000048 ;
-        <https://purl.org/cco/ont00001765> "Favorite drink: pepsi"
+        <https://w3id.org/cco-domains/cco/ont00001765> "Favorite drink: pepsi"
     ] .
 ```
 
@@ -158,26 +158,26 @@ This topic captures Alice Walker's self-claimed persona in her 1:1 relationship 
 <!-- databook:graph: http://www.example.org/mia/topics/topic-12#graph -->
 @prefix : <http://www.example.org/mia#> .
 @prefix persona: <http://mee.foundation/ontologies/persona#> .
-@prefix cco: <https://purl.org/cco/> .
+@prefix cco: <https://w3id.org/cco-domains/cco/> .
 @prefix owl: <http://www.w3.org/2002/07/owl#> .
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
 
 :Self rdfs:comment "Alice Walker's persona for her 1:1 relationship with Bob."@en ;
 
-    <https://purl.org/cco/ont00001879> [  # designated by → AlternateName
+    <https://w3id.org/cco-domains/cco/ont00001879> [  # designated by → AlternateName
         rdf:type cco:ent00000006 ;  # AlternateName
-        <https://purl.org/cco/ont00001765> "Alice Walker"
+        <https://w3id.org/cco-domains/cco/ont00001765> "Alice Walker"
     ] ;
 
-    <https://purl.org/cco/ont00001879> [  # designated by → GivenName
+    <https://w3id.org/cco-domains/cco/ont00001879> [  # designated by → GivenName
         rdf:type cco:ent00000002 ;  # GivenName
-        <https://purl.org/cco/ont00001765> "Alice"  # has text value
+        <https://w3id.org/cco-domains/cco/ont00001765> "Alice"  # has text value
     ] ;
 
-    <https://purl.org/cco/ont00001879> [  # designated by → FamilyName
+    <https://w3id.org/cco-domains/cco/ont00001879> [  # designated by → FamilyName
         rdf:type cco:ent00000004 ;  # FamilyName
-        <https://purl.org/cco/ont00001765> "Walker"  # has text value
+        <https://w3id.org/cco-domains/cco/ont00001765> "Walker"  # has text value
     ] ;
 
     persona:hasSocialNetwork :Alice_Bob_Network .

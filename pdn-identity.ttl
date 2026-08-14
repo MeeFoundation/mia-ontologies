@@ -22,7 +22,7 @@
 #################################################################
 
 identity:PDNidentifier rdf:type owl:Class ;
-    rdfs:subClassOf <https://purl.org/cco/ont00000958> ;  # Information Content Entity
+    rdfs:subClassOf <https://w3id.org/cco-domains/cco/ont00000958> ;  # Information Content Entity
     rdfs:label "Mee Identity"@en ;
     rdfs:comment "Root class for all kinds of identities that Mia can communicate with over the internet using Personal Data Network protocols."@en .
 

@@ -37,7 +37,7 @@ This topic captures Paula Walker's physical body characteristics — properties 
 <!-- databook:graph: http://www.example.org/mia/topics/topic-17#graph -->
 @prefix : <http://www.example.org/mia#> .
 @prefix persona: <http://mee.foundation/ontologies/persona#> .
-@prefix cco: <https://purl.org/cco/> .
+@prefix cco: <https://w3id.org/cco-domains/cco/> .
 @prefix owl: <http://www.w3.org/2002/07/owl#> .
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
@@ -63,19 +63,19 @@ This topic captures Paula Walker's physical body characteristics — properties 
         rdf:type cco:ont00000058 ;  # Scalp Hair
         <http://purl.obolibrary.org/obo/BFO_0000196> [  # bearer of → Hair Color
             rdf:type cco:ont00000026 ;  # Hair Color
-            <https://purl.org/cco/ont00001765> "Grey" ;
+            <https://w3id.org/cco-domains/cco/ont00001765> "Grey" ;
             rdfs:comment "Hair color: Grey"@en
         ]
     ] .
 
 
 :Paula_Height rdf:type owl:NamedIndividual ,
-                       <https://purl.org/cco/ont00000967> ;  # Height (CCO Quality)
+                       <https://w3id.org/cco-domains/cco/ont00000967> ;  # Height (CCO Quality)
     rdfs:label "Paula Walker's height"@en .
 
 :Paula_Height_Measurement rdf:type owl:NamedIndividual ,
-                                   <https://purl.org/cco/ont00001022> ;  # Ratio Measurement ICE
-    <https://purl.org/cco/ont00001983> :Paula_Height ;
-    <https://purl.org/cco/ont00001863> <https://purl.org/cco/ont00001677> ;  # uses measurement unit: Inch
-    <https://purl.org/cco/ont00001769> "68"^^xsd:decimal .  # has decimal value
+                                   <https://w3id.org/cco-domains/cco/ont00001022> ;  # Ratio Measurement ICE
+    <https://w3id.org/cco-domains/cco/ont00001983> :Paula_Height ;
+    <https://w3id.org/cco-domains/cco/ont00001863> <https://w3id.org/cco-domains/cco/ont00001677> ;  # uses measurement unit: Inch
+    <https://w3id.org/cco-domains/cco/ont00001769> "68"^^xsd:decimal .  # has decimal value
 ```

@@ -40,14 +40,14 @@ This topic captures Alice Walker's California driver's license identity data. Al
 <!-- databook:graph: http://www.example.org/mia/topics/topic-15#graph -->
 @prefix : <http://www.example.org/mia#> .
 @prefix persona: <http://mee.foundation/ontologies/persona#> .
-@prefix cco: <https://purl.org/cco/> .
+@prefix cco: <https://w3id.org/cco-domains/cco/> .
 @prefix owl: <http://www.w3.org/2002/07/owl#> .
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 
 :Self persona:hasIdentityDocument :Alice_CA_DriversLicense ;
-    <https://purl.org/cco/ont00001879> :Alice_DL_Number .  # Person designated by → Drivers License Number
+    <https://w3id.org/cco-domains/cco/ont00001879> :Alice_DL_Number .  # Person designated by → Drivers License Number
 
 :Alice_CA_DriversLicense rdf:type owl:NamedIndividual ,
                                    persona:DriversLicenseDocument ;
@@ -56,31 +56,31 @@ This topic captures Alice Walker's California driver's license identity data. Al
 
     # ── Legal name (matches Texas Birth Certificate) ─────────────────────────
 
-    <https://purl.org/cco/ont00001879> [  # designated by → GivenName (legal first name)
+    <https://w3id.org/cco-domains/cco/ont00001879> [  # designated by → GivenName (legal first name)
         rdf:type cco:ent00000002 ;  # GivenName
-        <https://purl.org/cco/ont00001765> "Margery"
+        <https://w3id.org/cco-domains/cco/ont00001765> "Margery"
     ] ;
 
-    <https://purl.org/cco/ont00001879> [  # designated by → AdditionalName (middle name)
+    <https://w3id.org/cco-domains/cco/ont00001879> [  # designated by → AdditionalName (middle name)
         rdf:type cco:ent00000003 ;  # AdditionalName
-        <https://purl.org/cco/ont00001765> "Alice"
+        <https://w3id.org/cco-domains/cco/ont00001765> "Alice"
     ] ;
 
-    <https://purl.org/cco/ont00001879> [  # designated by → FamilyName
+    <https://w3id.org/cco-domains/cco/ont00001879> [  # designated by → FamilyName
         rdf:type cco:ent00000004 ;  # FamilyName
-        <https://purl.org/cco/ont00001765> "Walker"
+        <https://w3id.org/cco-domains/cco/ont00001765> "Walker"
     ] ;
 
     # ── Dates ────────────────────────────────────────────────────────────────
 
-    <https://purl.org/cco/ont00001879> [  # designated by → Birthdate
+    <https://w3id.org/cco-domains/cco/ont00001879> [  # designated by → Birthdate
         rdf:type cco:ent00000046 ;  # Birthdate
-        <https://purl.org/cco/ont00001765> "1985-07-04"
+        <https://w3id.org/cco-domains/cco/ont00001765> "1985-07-04"
     ] ;
 
     cco:ent00000070 [  # has expiration date → Calendar Date Identifier
         rdf:type cco:ont00001340 ;  # Calendar Date Identifier
-        <https://purl.org/cco/ont00001765> "2031-07-04"
+        <https://w3id.org/cco-domains/cco/ont00001765> "2031-07-04"
     ] ;
 
     # ── License number (two-relation form: Person designated-by, document is-carrier-of) ──
@@ -89,9 +89,9 @@ This topic captures Alice Walker's California driver's license identity data. Al
 
     # ── Issuing jurisdiction ─────────────────────────────────────────────────
 
-    <https://purl.org/cco/ont00001879> [  # designated by → Issuing Jurisdiction
+    <https://w3id.org/cco-domains/cco/ont00001879> [  # designated by → Issuing Jurisdiction
         rdf:type cco:ent00000068 ;
-        <https://purl.org/cco/ont00001765> "CA"
+        <https://w3id.org/cco-domains/cco/ont00001765> "CA"
     ] ;
 
     # ── Photo ────────────────────────────────────────────────────────────────
@@ -101,5 +101,5 @@ This topic captures Alice Walker's California driver's license identity data. Al
 :Alice_DL_Number rdf:type owl:NamedIndividual ,
                           cco:ent00000065 ;  # Drivers License Number
     rdfs:label "Alice Walker's California Driver's License Number"@en ;
-    <https://purl.org/cco/ont00001765> "A1234567" .  # placeholder California DL number
+    <https://w3id.org/cco-domains/cco/ont00001765> "A1234567" .  # placeholder California DL number
 ```

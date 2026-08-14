@@ -67,21 +67,21 @@ This topic captures Alice Walker's employee identity at Acme. It records her wor
 <!-- databook:graph: http://www.example.org/mia/topics/topic-20#graph -->
 @prefix : <http://www.example.org/mia#> .
 @prefix persona: <http://mee.foundation/ontologies/persona#> .
-@prefix cco: <https://purl.org/cco/> .
+@prefix cco: <https://w3id.org/cco-domains/cco/> .
 @prefix owl: <http://www.w3.org/2002/07/owl#> .
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
 
 :Self rdfs:comment "Alice Walker's persona for her employment at Acme."@en ;
 
-    <https://purl.org/cco/ont00001879> [  # designated by → AlternateName
+    <https://w3id.org/cco-domains/cco/ont00001879> [  # designated by → AlternateName
         rdf:type cco:ent00000006 ;  # AlternateName
-        <https://purl.org/cco/ont00001765> "Alice Walker"
+        <https://w3id.org/cco-domains/cco/ont00001765> "Alice Walker"
     ] ;
 
-    <https://purl.org/cco/ont00001879> [  # designated by → Email
+    <https://w3id.org/cco-domains/cco/ont00001879> [  # designated by → Email
         rdf:type cco:ent00000024 ;  # Email
-        <https://purl.org/cco/ont00001765> "alice@acme.com"  # has text value
+        <https://w3id.org/cco-domains/cco/ont00001765> "alice@acme.com"  # has text value
     ] ;
 
     persona:hasSocialNetwork :Alice_Acme_Network .

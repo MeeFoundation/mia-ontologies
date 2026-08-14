@@ -78,7 +78,7 @@ This topic captures Bob Johnson's BHS profile as transmitted from Bob's Mia to A
 <!-- databook:graph: http://www.example.org/mia/topics/topic-03#graph -->
 @prefix : <http://www.example.org/mia#> .
 @prefix persona: <http://mee.foundation/ontologies/persona#> .
-@prefix cco: <https://purl.org/cco/> .
+@prefix cco: <https://w3id.org/cco-domains/cco/> .
 @prefix owl: <http://www.w3.org/2002/07/owl#> .
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
@@ -87,14 +87,14 @@ This topic captures Bob Johnson's BHS profile as transmitted from Bob's Mia to A
               persona:Person ;
     rdfs:label "Bob Johnson (BHS)"@en ;
 
-    <https://purl.org/cco/ont00001879> [  # designated by → GivenName
+    <https://w3id.org/cco-domains/cco/ont00001879> [  # designated by → GivenName
         rdf:type cco:ent00000002 ;
-        <https://purl.org/cco/ont00001765> "Bob"
+        <https://w3id.org/cco-domains/cco/ont00001765> "Bob"
     ] ;
 
-    <https://purl.org/cco/ont00001879> [  # designated by → FamilyName
+    <https://w3id.org/cco-domains/cco/ont00001879> [  # designated by → FamilyName
         rdf:type cco:ent00000004 ;
-        <https://purl.org/cco/ont00001765> "Johnson"
+        <https://w3id.org/cco-domains/cco/ont00001765> "Johnson"
     ] .
 ```
 
@@ -112,28 +112,28 @@ This topic captures Alice Walker's BHS profile — the identity data she shares 
 <!-- databook:graph: http://www.example.org/mia/topics/topic-14#graph -->
 @prefix : <http://www.example.org/mia#> .
 @prefix persona: <http://mee.foundation/ontologies/persona#> .
-@prefix cco: <https://purl.org/cco/> .
+@prefix cco: <https://w3id.org/cco-domains/cco/> .
 @prefix owl: <http://www.w3.org/2002/07/owl#> .
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
 
 :Self rdfs:comment "Alice Walker's persona for her BHS group (aka her BHS profile)."@en ;
 
-    <https://purl.org/cco/ont00001879> [  # designated by → AlternateName
+    <https://w3id.org/cco-domains/cco/ont00001879> [  # designated by → AlternateName
         rdf:type cco:ent00000006 ;  # AlternateName
-        <https://purl.org/cco/ont00001765> "Alice Walker"
+        <https://w3id.org/cco-domains/cco/ont00001765> "Alice Walker"
     ] ;
 
-    <https://purl.org/cco/ont00001879> :Address_BHS ;  # designated by → current address
+    <https://w3id.org/cco-domains/cco/ont00001879> :Address_BHS ;  # designated by → current address
 
-    <https://purl.org/cco/ont00001879> [  # designated by → Phone
+    <https://w3id.org/cco-domains/cco/ont00001879> [  # designated by → Phone
         rdf:type cco:ent00000023 ;
-        <https://purl.org/cco/ont00001765> "+15108149999"
+        <https://w3id.org/cco-domains/cco/ont00001765> "+15108149999"
     ] ;
 
-    <https://purl.org/cco/ont00001879> [  # designated by → Email
+    <https://w3id.org/cco-domains/cco/ont00001879> [  # designated by → Email
         rdf:type cco:ent00000024 ;
-        <https://purl.org/cco/ont00001765> "awalker@gmail.com"
+        <https://w3id.org/cco-domains/cco/ont00001765> "awalker@gmail.com"
     ] .
 
 
@@ -142,22 +142,22 @@ This topic captures Alice Walker's BHS profile — the identity data she shares 
     rdfs:label "Alice Walker's BHS Address"@en ;
     <http://purl.obolibrary.org/obo/BFO_0000178> [  # has continuant part → Street
         rdf:type cco:ent00000011 ;
-        <https://purl.org/cco/ont00001765> "123 Sleepy Hollow"
+        <https://w3id.org/cco-domains/cco/ont00001765> "123 Sleepy Hollow"
     ] ;
     <http://purl.obolibrary.org/obo/BFO_0000178> [  # has continuant part → City
         rdf:type cco:ent00000012 ;
-        <https://purl.org/cco/ont00001765> "Paradise"
+        <https://w3id.org/cco-domains/cco/ont00001765> "Paradise"
     ] ;
     <http://purl.obolibrary.org/obo/BFO_0000178> [  # has continuant part → State
         rdf:type cco:ent00000013 ;
-        <https://purl.org/cco/ont00001765> "CA"
+        <https://w3id.org/cco-domains/cco/ont00001765> "CA"
     ] ;
     <http://purl.obolibrary.org/obo/BFO_0000178> [  # has continuant part → ZIP
         rdf:type cco:ent00000015 ;
-        <https://purl.org/cco/ont00001765> "95969"
+        <https://w3id.org/cco-domains/cco/ont00001765> "95969"
     ] ;
     <http://purl.obolibrary.org/obo/BFO_0000178> [  # has continuant part → Country
         rdf:type cco:ent00000014 ;
-        <https://purl.org/cco/ont00001765> "USA"
+        <https://w3id.org/cco-domains/cco/ont00001765> "USA"
     ] .
 ```

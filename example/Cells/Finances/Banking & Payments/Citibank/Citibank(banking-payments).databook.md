@@ -48,7 +48,7 @@ This topic captures Alice Walker's financial relationship with Citibank. Citiban
 @prefix : <http://www.example.org/mia#> .
 @prefix persona: <http://mee.foundation/ontologies/persona#> .
 @prefix o: <http://mee.foundation/ontologies/organization#> .
-@prefix cco: <https://purl.org/cco/> .
+@prefix cco: <https://w3id.org/cco-domains/cco/> .
 @prefix owl: <http://www.w3.org/2002/07/owl#> .
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
@@ -65,30 +65,30 @@ This topic captures Alice Walker's financial relationship with Citibank. Citiban
 :Alice_Debit_Card rdf:type owl:NamedIndividual ,
                            cco:ent00000051 ;  # Debit Card
     rdfs:label "Alice Walker's VISA Debit Card"@en ;
-    <https://purl.org/cco/ont00001879> [  # designated by → Card Number (PAN)
+    <https://w3id.org/cco-domains/cco/ont00001879> [  # designated by → Card Number (PAN)
         rdf:type cco:ent00000052 ;
-        <https://purl.org/cco/ont00001765> "4111-1111-1111-1111"
+        <https://w3id.org/cco-domains/cco/ont00001765> "4111-1111-1111-1111"
     ] ;
-    <https://purl.org/cco/ont00001879> [  # designated by → CVV
+    <https://w3id.org/cco-domains/cco/ont00001879> [  # designated by → CVV
         rdf:type cco:ent00000053 ;
-        <https://purl.org/cco/ont00001765> "123"
+        <https://w3id.org/cco-domains/cco/ont00001765> "123"
     ] ;
     cco:ent00000070 [  # has expiration date → Calendar Date Identifier
         rdf:type cco:ont00001340 ;
-        <https://purl.org/cco/ont00001765> "12/28"
+        <https://w3id.org/cco-domains/cco/ont00001765> "12/28"
     ] ;
     persona:accessesBankAccount :Alice_Checking_Account .
 
 :Alice_Checking_Account rdf:type owl:NamedIndividual ,
                                  persona:CheckingAccount ;
     rdfs:label "Alice Walker's Citibank Checking Account"@en ;
-    <https://purl.org/cco/ont00001879> [  # designated by → Checking Account Number
+    <https://w3id.org/cco-domains/cco/ont00001879> [  # designated by → Checking Account Number
         rdf:type cco:ent00000071 ;
-        <https://purl.org/cco/ont00001765> "9876543210"
+        <https://w3id.org/cco-domains/cco/ont00001765> "9876543210"
     ] ;
-    <https://purl.org/cco/ont00001879> [  # designated by → Routing Number
+    <https://w3id.org/cco-domains/cco/ont00001879> [  # designated by → Routing Number
         rdf:type cco:ent00000072 ;
-        <https://purl.org/cco/ont00001765> "021000089"
+        <https://w3id.org/cco-domains/cco/ont00001765> "021000089"
     ] .
 
 :Alice_Citibank_Online rdf:type owl:NamedIndividual ,
@@ -114,7 +114,7 @@ This topic captures Alice Walker's own self-claimed notes about Citibank as an i
 <!-- databook:graph: http://www.example.org/mia/topics/topic-27#graph -->
 @prefix : <http://www.example.org/mia#> .
 @prefix o: <http://mee.foundation/ontologies/organization#> .
-@prefix cco: <https://purl.org/cco/> .
+@prefix cco: <https://w3id.org/cco-domains/cco/> .
 @prefix owl: <http://www.w3.org/2002/07/owl#> .
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
@@ -123,8 +123,8 @@ This topic captures Alice Walker's own self-claimed notes about Citibank as an i
                    o:Organization ;
     rdfs:label "Citibank"@en ;
 
-    <https://purl.org/cco/ont00001917> [  # described by → Organization Note
+    <https://w3id.org/cco-domains/cco/ont00001917> [  # described by → Organization Note
         rdf:type cco:ent00000048 ;
-        <https://purl.org/cco/ont00001765> "My primary checking account is here — used for rent and bill-pay autopay. Opened 2019."
+        <https://w3id.org/cco-domains/cco/ont00001765> "My primary checking account is here — used for rent and bill-pay autopay. Opened 2019."
     ] .
 ```
