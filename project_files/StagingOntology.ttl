@@ -1,0 +1,699 @@
+@prefix : <https://w3id.org/cco-domains/domains/StagingOntology/> .
+@prefix dc: <http://purl.org/dc/elements/1.1/> .
+@prefix cco: <https://w3id.org/cco-domains/cco/> .
+@prefix obo: <http://purl.obolibrary.org/obo/> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix xml: <http://www.w3.org/XML/1998/namespace> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+@prefix dcterms: <http://purl.org/dc/terms/> .
+@prefix staging: <https://w3id.org/cco-domains/domains/StagingOntology/> .
+@base <https://w3id.org/cco-domains/domains/StagingOntology/> .
+
+<https://w3id.org/cco-domains/domains/StagingOntology> rdf:type owl:Ontology ;
+                                owl:versionIRI <https://w3id.org/cco-domains/domains/StagingOntology/2026-08-10> ;
+                                owl:imports obo:bfo.owl ,
+                                            cco:AgentOntology ,
+                                            cco:ArtifactOntology ,
+                                            cco:InformationEntityOntology ;
+                                dc:creator "Global Research, Inc., a 501(c)(3) nonprofit organization"@en ;
+                                dcterms:license <https://creativecommons.org/licenses/by/4.0/> ;
+                                rdfs:comment "Staging Ontology extends from the open source Common Core Ontologies (CCO). It holds domain terms in active use by adopters that are not yet either migrated to a  draft domain ontology or promoted to CCO.  The intent is for the entities to have stable IRIs (if possible) even after migration, to enable trial use of them, but there is no intent for Staging Ontology to be proposed as a standard domain ontology."@en ;
+                                rdfs:label "Staging Ontology"@en ;
+                                owl:priorVersion <https://w3id.org/cco-domains/domains/StagingOntology/2026-08-05> ;
+                                owl:versionInfo "Namespace migrated from purl.org/cco to w3id.org/cco-domains; CCO mirror updated to v2.1. Copyright © 2026 Global Research, Inc."@en .
+
+#################################################################
+#    Annotation properties
+#################################################################
+
+###  http://purl.org/dc/elements/1.1/creator
+dc:creator rdf:type owl:AnnotationProperty .
+
+
+###  http://purl.org/dc/elements/1.1/date
+dc:date rdf:type owl:AnnotationProperty .
+
+
+###  http://purl.org/dc/terms/created
+dcterms:created rdf:type owl:AnnotationProperty .
+
+
+###  http://purl.org/dc/terms/license
+dcterms:license rdf:type owl:AnnotationProperty .
+
+
+###  http://purl.org/dc/terms/modified
+
+
+###  http://purl.org/dc/terms/source
+dcterms:source rdf:type owl:AnnotationProperty .
+
+
+###  http://www.w3.org/2004/02/skos/core#altLabel
+skos:altLabel rdf:type owl:AnnotationProperty .
+
+
+###  http://www.w3.org/2004/02/skos/core#definition
+skos:definition rdf:type owl:AnnotationProperty .
+
+
+###  http://www.w3.org/2004/02/skos/core#exactMatch
+skos:exactMatch rdf:type owl:AnnotationProperty .
+
+
+###  http://www.w3.org/2004/02/skos/core#example
+skos:example rdf:type owl:AnnotationProperty .
+
+
+###  http://www.w3.org/2004/02/skos/core#scopeNote
+skos:scopeNote rdf:type owl:AnnotationProperty .
+
+
+###  https://w3id.org/cco-domains/cco/ent00000019
+cco:ent00000019 rdf:type owl:AnnotationProperty ;
+                rdfs:comment "Indicates the target ontology where this term should eventually be migrated."@en ;
+                rdfs:label "migration target"@en ;
+                rdfs:range rdfs:Literal ;
+                rdfs:domain owl:Class .
+
+
+###  https://w3id.org/cco-domains/cco/ent00000020
+cco:ent00000020 rdf:type owl:AnnotationProperty ;
+                rdfs:comment "Explains why this term is in staging rather than an approved domain ontology."@en ;
+                rdfs:label "staging reason"@en ;
+                rdfs:range rdfs:Literal ;
+                rdfs:domain owl:Class .
+
+
+###  https://w3id.org/cco-domains/cco/ent00000022
+cco:ent00000022 rdf:type owl:AnnotationProperty ;
+                rdfs:comment "Current status of proposal to migrate this term to permanent home."@en ;
+                rdfs:label "proposal status"@en ;
+                rdfs:range rdfs:Literal ;
+                rdfs:domain owl:Class .
+
+
+#################################################################
+#    Datatypes
+#################################################################
+
+###  http://www.w3.org/2001/XMLSchema#date
+xsd:date rdf:type rdfs:Datatype .
+
+
+#################################################################
+#    Object Properties
+#################################################################
+
+###  https://w3id.org/cco-domains/cco/ent00000045
+cco:ent00000045 rdf:type owl:ObjectProperty ;
+                rdfs:domain cco:ont00001017 ;
+                rdfs:range cco:ent00000026 ;
+                dc:creator "Global Research, Inc."@en ;
+                dcterms:created "2026-03-17"^^xsd:date ;
+                rdfs:isDefinedBy <https://w3id.org/cco-domains/domains/StagingOntology> ;
+                rdfs:label "holds user account"@en ;
+                skos:definition """An object property that relates a Person to a User Account 
+        that the Person holds at some computer system or online service provider."""@en ;
+                skos:example "Alice holds her LinkedIn account, her Mastodon account, and her GitHub account."@en ;
+                skos:scopeNote """Use this property to relate a Person (cco:ont00001262) to any subclass 
+        of User Account (cco:ent00000026), including Online Service Account (cco:ent00000033). 
+        A Person may hold multiple User Accounts simultaneously. This property is broad — 
+        application-level SHACL constraints may restrict cardinality or account types 
+        as needed."""@en ;
+                cco:ent00000019 "Cyber Ontology (IEEE P3195.1.1)"@en ;
+                cco:ent00000020 """No existing CCO object property relates Person to UserAccount. 
+        Staging here pending Cyber Ontology CCO 2.0 release."""@en ;
+                cco:ent00000022 "To be proposed to Cyber Ontology (IEEE P3195.1.1) 2026-Q3"@en .
+
+
+###  https://w3id.org/cco-domains/cco/ent00000069
+cco:ent00000069 rdf:type owl:ObjectProperty ;
+                rdfs:subPropertyOf cco:ont00001879 ;
+                rdfs:range cco:ont00001340 ;
+                dcterms:created "2026-07-13"^^xsd:date ;
+                rdfs:isDefinedBy <https://w3id.org/cco-domains/domains/StagingOntology> ;
+                rdfs:label "has issue date"@en ;
+                skos:definition "Relates a document, credential, or other issued thing to the Calendar Date Identifier designating the date on which it was issued."@en .
+
+
+###  https://w3id.org/cco-domains/cco/ent00000070
+cco:ent00000070 rdf:type owl:ObjectProperty ;
+                rdfs:subPropertyOf cco:ont00001879 ;
+                rdfs:range cco:ont00001340 ;
+                dcterms:created "2026-07-13"^^xsd:date ;
+                rdfs:isDefinedBy <https://w3id.org/cco-domains/domains/StagingOntology> ;
+                rdfs:label "has expiration date"@en ;
+                skos:definition "Relates a thing (document, credential, etc.)  with a validity period to the Calendar Date Identifier designating the date after which it is no longer valid."@en .
+
+
+###  https://w3id.org/cco-domains/cco/ent00000073
+cco:ent00000073 rdf:type owl:ObjectProperty ;
+                rdfs:domain cco:ont00001017 ;
+                rdfs:range cco:ent00000049 ;
+                rdfs:isDefinedBy <https://w3id.org/cco-domains/domains/StagingOntology> ;
+                rdfs:label "has payment card"@en ;
+                skos:definition "An object property that relates an Agent to a Payment Card that the Agent has and is authorized to use."@en ;
+                skos:example "Bob has VISA debit card issued by XYZ bank."@en ;
+                skos:scopeNote "Use this property to relate an Agent (cco:ont00001017), often a Person (cco:ont00001262), to any subclass of Payment Card (cco:ent00000049), including Credit Card and Debit Card. An Agent may hold multiple Payment Cards simultaneously. This property is broad — application-level SHACL constraints may restrict the domain to Person or limit cardinality as needed."@en ;
+                cco:ent00000019 "A future Financial domain ontology."@en ;
+                cco:ent00000020 "Promoted from Mee persona:hasPaymentCard. No existing CCO object property relates an Agent to a Payment Card."@en .
+
+
+###  https://w3id.org/cco-domains/cco/ont00001879
+cco:ont00001879 rdf:type owl:ObjectProperty .
+
+
+#################################################################
+#    Data properties
+#################################################################
+
+###  https://w3id.org/cco-domains/cco/ent00000017
+cco:ent00000017 rdf:type owl:DatatypeProperty ;
+                rdfs:domain obo:BFO_0000038 ;
+                rdfs:range xsd:date ;
+                dcterms:created "2026-07-09"^^xsd:date ;
+                dcterms:source <https://www.rfc-editor.org/rfc/rfc9553> ;
+                rdfs:isDefinedBy <https://w3id.org/cco-domains/domains/StagingOntology> ;
+                rdfs:label "has start date"@en ;
+                skos:definition "Relates a Temporal Interval to the date on which it begins."@en ;
+                cco:ent00000019 "Relocated from AddressOntology 2026-07-09; generic temporal property, not address-specific"@en .
+
+
+###  https://w3id.org/cco-domains/cco/ent00000018
+cco:ent00000018 rdf:type owl:DatatypeProperty ;
+                rdfs:domain obo:BFO_0000038 ;
+                rdfs:range xsd:date ;
+                dcterms:created "2026-07-09"^^xsd:date ;
+                dcterms:source <https://www.rfc-editor.org/rfc/rfc9553> ;
+                rdfs:isDefinedBy <https://w3id.org/cco-domains/domains/StagingOntology> ;
+                rdfs:label "has end date"@en ;
+                skos:definition "Relates a Temporal Interval to the date on which it ends. Absence of this property on an interval indicates an open-ended (ongoing) interval."@en ;
+                cco:ent00000019 "Relocated from AddressOntology 2026-07-09; generic temporal property, not address-specific"@en .
+
+
+###  https://w3id.org/cco-domains/cco/ent00000034
+cco:ent00000034 rdf:type owl:DatatypeProperty ;
+                rdfs:domain cco:ent00000033 ;
+                rdfs:range xsd:string ;
+                dcterms:source <https://www.rfc-editor.org/rfc/rfc9553> ;
+                rdfs:isDefinedBy <https://w3id.org/cco-domains/domains/StagingOntology> ;
+                rdfs:label "has service name"@en ;
+                skos:definition "The name of the online service provider at which the account is held."@en ;
+                skos:example "\"Mastodon\", \"LinkedIn\", \"GitHub\", \"Bluesky\""@en .
+
+
+###  https://w3id.org/cco-domains/cco/ent00000035
+cco:ent00000035 rdf:type owl:DatatypeProperty ;
+                rdfs:domain cco:ent00000033 ;
+                rdfs:range xsd:string ;
+                dcterms:source <https://www.rfc-editor.org/rfc/rfc9553> ;
+                rdfs:isDefinedBy <https://w3id.org/cco-domains/domains/StagingOntology> ;
+                rdfs:label "has user handle"@en ;
+                skos:definition "The username or handle by which the account holder is identified at the service provider."@en ;
+                skos:example "\"@alice@example2.com\", \"alice-walker\", \"alice\""@en .
+
+
+###  https://w3id.org/cco-domains/cco/ent00000036
+cco:ent00000036 rdf:type owl:DatatypeProperty ;
+                rdfs:domain cco:ent00000033 ;
+                rdfs:range xsd:anyURI ;
+                dcterms:source <https://www.rfc-editor.org/rfc/rfc9553> ;
+                rdfs:isDefinedBy <https://w3id.org/cco-domains/domains/StagingOntology> ;
+                rdfs:label "has service URI"@en ;
+                skos:definition "The URI that locates the account or profile at the service provider."@en ;
+                skos:example "\"https://example2.com/@alice\", \"xmpp:alice@example.com\""@en .
+
+
+#################################################################
+#    Classes
+#################################################################
+
+###  http://purl.obolibrary.org/obo/BFO_0000038
+obo:BFO_0000038 rdf:type owl:Class .
+
+
+###  https://w3id.org/cco-domains/cco/ent00000023
+cco:ent00000023 rdf:type owl:Class ;
+                rdfs:subClassOf cco:ent00000055 ;
+                owl:disjointWith cco:ent00000024 ;
+                dc:creator "Global Research, Inc."@en ;
+                dcterms:created "2026-02-18"^^xsd:date ;
+                rdfs:isDefinedBy <https://w3id.org/cco-domains/domains/StagingOntology> ;
+                rdfs:label "Telephone Number"@en ;
+                skos:altLabel "Phone Number"@en ;
+                skos:definition """A Code Identifier representing numeric sequence designating telecommunications 
+                       endpoint, formatted per international standards such as E.164."""@en ;
+                skos:exactMatch <https://schema.org/telephone> ;
+                skos:example "The string '+15551234567' in E.164 format designates a telephone number."@en ;
+                skos:scopeNote """TelephoneNumber designates a Telecommunication Endpoint (an artifact 
+                      defined in CCO ArtifactOntology). The number itself is information; 
+                      the endpoint is the physical/cyber infrastructure being designated. 
+                      TelephoneNumbers are not person-specific; they can designate endpoints 
+                      for persons, organizations, or locations. Format typically follows E.164 
+                      international standard (+[country code][subscriber number])."""@en ;
+                cco:ent00000019 "Communication/Contact Ontology (proposed IEEE P3195.1.x). Alternative: CCO InformationEntityOntology as subclass of CodeIdentifier."@en ;
+                cco:ent00000020 "No existing domain ontology covers telecommunications identifiers. CCO has Telecommunication Endpoint (artifact) in ArtifactOntology but lacks the identifier class. Awaiting Communication/Contact domain ontology formation."@en ;
+                cco:ent00000022 "Awaiting Communication/Contact working group formation 2026-Q2"@en .
+
+
+###  https://w3id.org/cco-domains/cco/ent00000024
+cco:ent00000024 rdf:type owl:Class ;
+                rdfs:subClassOf cco:ent00000055 ;
+                dc:creator "Global Research, Inc."@en ;
+                dcterms:created "2026-02-19"^^xsd:date ;
+                dcterms:source <https://datatracker.ietf.org/doc/html/rfc5322> ;
+                rdfs:isDefinedBy <https://w3id.org/cco-domains/domains/StagingOntology> ;
+                rdfs:label "Email Address"@en ;
+                skos:altLabel "Electronic Mail Address"@en ;
+                skos:definition """A Code Identifier designating electronic mailbox for receiving email messages, 
+                       formatted according to RFC 5322 as local-part@domain."""@en ;
+                skos:exactMatch <https://schema.org/email> ;
+                skos:example "The string 'john.doe@example.com' designates an email address."@en ;
+                skos:scopeNote """EmailAddress designates an Email Box (artifact defined in CCO ArtifactOntology). 
+                      The address itself is information; the mailbox is the artifact being designated. 
+                      EmailAddresses are not person-specific; they can designate mailboxes for persons, 
+                      organizations, departments, or automated systems. Format must conform to RFC 5322 
+                      (local part is case-sensitive, domain is case-insensitive). EmailAddress follows 
+                      encoding rules (structured format with @ separator, domain resolution) making it 
+                      a Code Identifier rather than arbitrary."""@en ;
+                cco:ent00000019 "Primary: Cyber Ontology (IEEE P3195.1.1) - EmailAddress fits with existing IP Address, URI, Email Message Header patterns. Awaiting Cyber Ontology working group acceptance."@en ;
+                cco:ent00000020 "Cyber Ontology already has Email Software Application and Email Message Header. EmailAddress would complete the cyber communication pattern. Proposed to Cyber WG for inclusion."@en ;
+                cco:ent00000022 "To be proposed to Cyber Ontology (IEEE P3195.1.1) 2026-Q2"@en .
+
+
+###  https://w3id.org/cco-domains/cco/ent00000025
+cco:ent00000025 rdf:type owl:Class ;
+                rdfs:subClassOf cco:ont00000798 ;
+                dc:creator "Global Research, Inc."@en ;
+                dcterms:created "2026-03-16"^^xsd:date ;
+                rdfs:isDefinedBy <https://w3id.org/cco-domains/domains/StagingOntology> ;
+                rdfs:label "Digital File"@en ;
+                skos:definition """An Information Bearing Artifact that consists of a one-dimensional 
+        array of bytes on a Digital Storage Device, and which is designed to be easily 
+        opened, read, changed, and closed by an Information Processing Artifact."""@en ;
+                skos:exactMatch <http://www.ontologyrepository.com/CommonCoreOntologies/DigitalFile> ;
+                cco:ent00000019 "Cyber Ontology (IEEE P3195.1.1) — bridge class pending CCO 2.0 migration"@en ;
+                cco:ent00000020 """CyberOntology v1.5 uses old ontologyrepository.com namespace. 
+        Re-declared here under CCO 2.0 namespace so UserAccount subtree is usable 
+        with CCO 2.0 imports. Delete when CyberOntology CCO 2.0 is published."""@en ;
+                cco:ent00000022 "Bridge — awaiting CyberOntology CCO 2.0 release"@en .
+
+
+###  https://w3id.org/cco-domains/cco/ent00000026
+cco:ent00000026 rdf:type owl:Class ;
+                rdfs:subClassOf cco:ent00000025 ;
+                dc:creator "Global Research, Inc."@en ;
+                dcterms:created "2026-03-16"^^xsd:date ;
+                rdfs:isDefinedBy <https://w3id.org/cco-domains/domains/StagingOntology> ;
+                rdfs:label "User Account"@en ;
+                skos:definition """A Digital File that stores information about an individual's 
+        username, password, and permission to access a computer system."""@en ;
+                skos:exactMatch <http://www.ontologyrepository.com/CommonCoreOntologies/UserAccount> ;
+                cco:ent00000019 "Cyber Ontology (IEEE P3195.1.1) — bridge class pending CCO 2.0 migration"@en ;
+                cco:ent00000020 """CyberOntology v1.5 uses old ontologyrepository.com namespace. 
+        Re-declared here under CCO 2.0 namespace. Delete when CyberOntology CCO 2.0 
+        is published."""@en ;
+                cco:ent00000022 "Bridge — awaiting CyberOntology CCO 2.0 release"@en .
+
+
+###  https://w3id.org/cco-domains/cco/ent00000027
+cco:ent00000027 rdf:type owl:Class ;
+                rdfs:subClassOf cco:ent00000026 ;
+                dc:creator "Global Research, Inc."@en ;
+                dcterms:created "2026-03-16"^^xsd:date ;
+                rdfs:isDefinedBy <https://w3id.org/cco-domains/domains/StagingOntology> ;
+                rdfs:label "Standard User Account"@en ;
+                skos:definition "A User Account that is not permitted to create, edit, view, or delete system files."@en ;
+                skos:exactMatch <http://www.ontologyrepository.com/CommonCoreOntologies/StandardUserAccount> ;
+                cco:ent00000019 "Cyber Ontology (IEEE P3195.1.1) — bridge class pending CCO 2.0 migration"@en ;
+                cco:ent00000020 "Bridge class from CyberOntology v1.5. Delete when CyberOntology CCO 2.0 is published."@en ;
+                cco:ent00000022 "Bridge — awaiting CyberOntology CCO 2.0 release"@en .
+
+
+###  https://w3id.org/cco-domains/cco/ent00000028
+cco:ent00000028 rdf:type owl:Class ;
+                rdfs:subClassOf cco:ent00000026 ;
+                dc:creator "Global Research, Inc."@en ;
+                dcterms:created "2026-03-16"^^xsd:date ;
+                rdfs:isDefinedBy <https://w3id.org/cco-domains/domains/StagingOntology> ;
+                rdfs:label "Service Account"@en ;
+                skos:definition "A User Account that is used to run applications and other processes."@en ;
+                skos:exactMatch <http://www.ontologyrepository.com/CommonCoreOntologies/ServiceAccount> ;
+                cco:ent00000019 "Cyber Ontology (IEEE P3195.1.1) — bridge class pending CCO 2.0 migration"@en ;
+                cco:ent00000020 "Bridge class from CyberOntology v1.5. Delete when CyberOntology CCO 2.0 is published."@en ;
+                cco:ent00000022 "Bridge — awaiting CyberOntology CCO 2.0 release"@en .
+
+
+###  https://w3id.org/cco-domains/cco/ent00000029
+cco:ent00000029 rdf:type owl:Class ;
+                rdfs:subClassOf cco:ent00000026 ;
+                dc:creator "Global Research, Inc."@en ;
+                dcterms:created "2026-03-16"^^xsd:date ;
+                rdfs:isDefinedBy <https://w3id.org/cco-domains/domains/StagingOntology> ;
+                rdfs:label "System Account"@en ;
+                skos:definition """A User Account that is created by an operating system during 
+        installation and that is used for operating system defined purposes."""@en ;
+                skos:exactMatch <http://www.ontologyrepository.com/CommonCoreOntologies/SystemAccount> ;
+                cco:ent00000019 "Cyber Ontology (IEEE P3195.1.1) — bridge class pending CCO 2.0 migration"@en ;
+                cco:ent00000020 "Bridge class from CyberOntology v1.5. Delete when CyberOntology CCO 2.0 is published."@en ;
+                cco:ent00000022 "Bridge — awaiting CyberOntology CCO 2.0 release"@en .
+
+
+###  https://w3id.org/cco-domains/cco/ent00000030
+cco:ent00000030 rdf:type owl:Class ;
+                rdfs:subClassOf cco:ent00000026 ;
+                dc:creator "Global Research, Inc."@en ;
+                dcterms:created "2026-03-16"^^xsd:date ;
+                rdfs:isDefinedBy <https://w3id.org/cco-domains/domains/StagingOntology> ;
+                rdfs:label "Superuser Account"@en ;
+                skos:definition """A User Account used for system administration that has all 
+        permissions to all files and programs."""@en ;
+                skos:exactMatch <http://www.ontologyrepository.com/CommonCoreOntologies/SuperuserAccount> ;
+                cco:ent00000019 "Cyber Ontology (IEEE P3195.1.1) — bridge class pending CCO 2.0 migration"@en ;
+                cco:ent00000020 "Bridge class from CyberOntology v1.5. Delete when CyberOntology CCO 2.0 is published."@en ;
+                cco:ent00000022 "Bridge — awaiting CyberOntology CCO 2.0 release"@en .
+
+
+###  https://w3id.org/cco-domains/cco/ent00000031
+cco:ent00000031 rdf:type owl:Class ;
+                rdfs:subClassOf cco:ont00000077 ;
+                dc:creator "Global Research, Inc."@en ;
+                dcterms:created "2026-03-16"^^xsd:date ;
+                rdfs:isDefinedBy <https://w3id.org/cco-domains/domains/StagingOntology> ;
+                rdfs:label "User Identifier"@en ;
+                skos:altLabel "UID"@en ;
+                skos:definition "A Code Identifier that identifies the account of a registered user of a computer system."@en ;
+                skos:exactMatch <http://www.ontologyrepository.com/CommonCoreOntologies/UserIdentifier> ;
+                cco:ent00000019 "Cyber Ontology (IEEE P3195.1.1) — bridge class pending CCO 2.0 migration"@en ;
+                cco:ent00000020 "Bridge class from CyberOntology v1.5. Delete when CyberOntology CCO 2.0 is published."@en ;
+                cco:ent00000022 "Bridge — awaiting CyberOntology CCO 2.0 release"@en .
+
+
+###  https://w3id.org/cco-domains/cco/ent00000032
+cco:ent00000032 rdf:type owl:Class ;
+                rdfs:subClassOf cco:ont00000077 ;
+                dc:creator "Global Research, Inc."@en ;
+                dcterms:created "2026-03-16"^^xsd:date ;
+                rdfs:isDefinedBy <https://w3id.org/cco-domains/domains/StagingOntology> ;
+                rdfs:label "User Group Identifier"@en ;
+                skos:altLabel "GID"@en ;
+                skos:definition """A Code Identifier that identifies a group of registered users of a 
+        computer system for the purposes of managing access to that system."""@en ;
+                skos:exactMatch <http://www.ontologyrepository.com/CommonCoreOntologies/UserGroupIdentifier> ;
+                cco:ent00000019 "Cyber Ontology (IEEE P3195.1.1) — bridge class pending CCO 2.0 migration"@en ;
+                cco:ent00000020 "Bridge class from CyberOntology v1.5. Delete when CyberOntology CCO 2.0 is published."@en ;
+                cco:ent00000022 "Bridge — awaiting CyberOntology CCO 2.0 release"@en .
+
+
+###  https://w3id.org/cco-domains/cco/ent00000033
+cco:ent00000033 rdf:type owl:Class ;
+                rdfs:subClassOf cco:ent00000026 ;
+                dc:creator "Global Research, Inc."@en ;
+                dcterms:created "2026-03-16"^^xsd:date ;
+                dcterms:source <https://www.rfc-editor.org/rfc/rfc9553> ;
+                rdfs:isDefinedBy <https://w3id.org/cco-domains/domains/StagingOntology> ;
+                rdfs:label "Online Service Account"@en ;
+                skos:definition """A User Account that represents a person's account at a named 
+        online service provider, characterized by a service name, user handle, and URI, 
+        consistent with the JSContact specification (RFC 9553 Section 2.6.3)."""@en ;
+                skos:example "A LinkedIn account with user handle 'alice-walker' and URI https://linkedin.com/in/alice-walker"@en ,
+                             "A Mastodon account at example2.com with user handle @alice@example2.com and URI https://example2.com/@alice"@en ,
+                             "An XMPP account identified by the URI xmpp:alice@example.com"@en ;
+                skos:scopeNote """OnlineServiceAccount is distinguished from the more general UserAccount 
+        by its association with a publicly named external service provider (e.g., Mastodon, 
+        LinkedIn, GitHub) and the RFC 9553 triple of service name, user handle, and URI. 
+        Not all three components need be present; the URI alone is sufficient to identify 
+        the account. Compare SocialNetworkingSite (the site artifact) vs OnlineServiceAccount 
+        (the account a person holds at that site)."""@en ;
+                cco:ent00000019 "Cyber Ontology (IEEE P3195.1.1)"@en ;
+                cco:ent00000020 """CyberOntology v1.5 has UserAccount but no subclass for 
+        named-service accounts with the RFC 9553 service/handle/URI pattern. 
+        RFC 9553 JSContact establishes this as a standard representation."""@en ;
+                cco:ent00000022 "To be proposed to Cyber Ontology (IEEE P3195.1.1) 2026-Q3"@en .
+
+
+###  https://w3id.org/cco-domains/cco/ent00000047
+cco:ent00000047 rdf:type owl:Class ;
+                rdfs:subClassOf cco:ont00000003 ;
+                dc:creator "Global Research, Inc."@en ;
+                dcterms:created "2026-03-17"^^xsd:date ;
+                dcterms:source <https://www.rfc-editor.org/rfc/rfc9553> ;
+                rdfs:isDefinedBy <https://w3id.org/cco-domains/domains/StagingOntology> ;
+                rdfs:label "Organization Name"@en ;
+                skos:definition "A Designative Name that cites an institutional entity."@en ;
+                cco:ent00000019 "Future Organization Ontology"@en ;
+                cco:ent00000020 "Placed in Staging per 2026-07 alignment decision; RFC 9553 JSContact requires this on Person contact records."@en ;
+                cco:ent00000022 "Active — used directly by Mee Foundation JSContactCard; promotion to PersonOntology pending"@en .
+
+
+###  https://w3id.org/cco-domains/cco/ent00000049
+cco:ent00000049 rdf:type owl:Class ;
+                rdfs:subClassOf cco:ont00000938 ;
+                dc:creator "Global Research, Inc."@en ;
+                dcterms:created "2026-03-17"^^xsd:date ;
+                rdfs:isDefinedBy <https://w3id.org/cco-domains/domains/StagingOntology> ;
+                rdfs:label "Payment Card"@en ;
+                skos:definition """A Financial Artifact Function that is a physical or virtual 
+        card used to authorize payment transactions, either by drawing on a line of 
+        credit or on funds held in a linked account."""@en ;
+                skos:exactMatch <https://schema.org/PaymentCard> ;
+                skos:example "A Visa credit card and a Chase debit card are both Payment Cards."@en ;
+                skos:scopeNote """PaymentCard is a superclass covering all card-based payment instruments. 
+        Subclasses distinguish credit-based (CreditCard) from account-based (DebitCard) 
+        instruments. A PaymentCard is identified by a CreditCardNumber, secured by a CVV, 
+        and has an ExpirationDateIdentifier. 
+        Data models: Schema.org (PaymentCard), MyDex (Dataset: Credit Card), 
+        Mee Foundation Requirements (Credit Card), Orphan-Ontology-Dev — 4+ sources."""@en ;
+                cco:ent00000019 "A future Financial domain ontology (IEEE P3195.1.x)"@en ;
+                cco:ent00000020 "No CCO mid-level payment card class exists. Staging pending financial domain ontology formation."@en ;
+                cco:ent00000022 "Proposed to Financial Domain Ontology WG when formed 2026-Q4"@en .
+
+
+###  https://w3id.org/cco-domains/cco/ent00000050
+cco:ent00000050 rdf:type owl:Class ;
+                rdfs:subClassOf cco:ent00000049 ;
+                dc:creator "Global Research, Inc."@en ;
+                dcterms:created "2026-03-17"^^xsd:date ;
+                rdfs:isDefinedBy <https://w3id.org/cco-domains/domains/StagingOntology> ;
+                rdfs:label "Credit Card"@en ;
+                skos:definition """A Payment Card that authorizes its holder to purchase goods or 
+        services on short-term credit extended by the card issuer."""@en ;
+                skos:exactMatch <http://www.ontologyrepository.com/CommonCoreOntologies/CreditCard> ,
+                                <https://schema.org/CreditCard> ;
+                skos:example "A Visa credit card allowing purchases up to a credit limit."@en ;
+                skos:scopeNote "CreditCard authorizes purchases on short-term credit extended by the issuer. Migrated from Orphan-Ontology-Dev CCO 1.x with corrected parent (PaymentCard not FinancialArtifactFunction directly). Data models: Schema.org (CreditCard), MyDex (Dataset: Credit Card), Mee Foundation Requirements (Credit Card), Orphan-Ontology-Dev — 4+ sources."@en ;
+                cco:ent00000019 "A future Financial domain ontology (IEEE P3195.1.x)"@en ;
+                cco:ent00000020 "Migrated from Orphan-Ontology-Dev CCO 1.x. Parent corrected from FinancialArtifactFunction to PaymentCard."@en ;
+                cco:ent00000022 "Proposed to Financial Domain Ontology WG when formed 2026-Q4"@en .
+
+
+###  https://w3id.org/cco-domains/cco/ent00000051
+cco:ent00000051 rdf:type owl:Class ;
+                rdfs:subClassOf cco:ent00000049 ;
+                dc:creator "Global Research, Inc."@en ;
+                dcterms:created "2026-03-17"^^xsd:date ;
+                rdfs:isDefinedBy <https://w3id.org/cco-domains/domains/StagingOntology> ;
+                rdfs:label "Debit Card"@en ;
+                skos:definition """A Payment Card that authorizes purchases by drawing directly 
+        on funds held in a linked bank account."""@en ;
+                skos:exactMatch <http://www.ontologyrepository.com/CommonCoreOntologies/DebitCard> ;
+                skos:example "A Chase debit card linked to a checking account."@en ;
+                skos:scopeNote """DebitCard parent has been corrected from BankAccount (Orphan-Ontology-Dev 
+        CCO 1.x) to PaymentCard. A DebitCard is not itself a BankAccount — it is an 
+        artifact function that provides access to a BankAccount."""@en ;
+                cco:ent00000019 "A future Financial domain ontology (IEEE P3195.1.x)"@en ;
+                cco:ent00000020 "Migrated from Orphan-Ontology-Dev CCO 1.x. Parent corrected from BankAccount to PaymentCard."@en ;
+                cco:ent00000022 "Proposed to Financial Domain Ontology WG when formed 2026-Q4"@en .
+
+
+###  https://w3id.org/cco-domains/cco/ent00000052
+cco:ent00000052 rdf:type owl:Class ;
+                rdfs:subClassOf cco:ont00000077 ;
+                dc:creator "Global Research, Inc."@en ;
+                dcterms:created "2026-03-17"^^xsd:date ;
+                rdfs:isDefinedBy <https://w3id.org/cco-domains/domains/StagingOntology> ;
+                rdfs:label "Credit Card Number"@en ;
+                skos:altLabel "PAN"@en ,
+                              "Primary Account Number"@en ;
+                skos:definition """A Code Identifier that designates a payment card account, 
+        formatted as a sequence of digits following ISO/IEC 7812."""@en ;
+                skos:example "The 16-digit number embossed on a Visa card designates the card account."@en ;
+                skos:scopeNote "CreditCardNumber (also PAN / Primary Account Number) is the sequence of digits per ISO/IEC 7812 that designates the card account. Data models: Mee Foundation Requirements (Credit Card Number), Orphan-Ontology-Dev — 2+ sources."@en ;
+                cco:ent00000019 "A future Financial domain ontology (IEEE P3195.1.x)"@en ;
+                cco:ent00000020 "Migrated from Orphan-Ontology-Dev CCO 1.x."@en ;
+                cco:ent00000022 "Proposed to Financial Domain Ontology WG when formed 2026-Q4"@en .
+
+
+###  https://w3id.org/cco-domains/cco/ent00000053
+cco:ent00000053 rdf:type owl:Class ;
+                rdfs:subClassOf cco:ont00000077 ;
+                dc:creator "Global Research, Inc."@en ;
+                dcterms:created "2026-03-17"^^xsd:date ;
+                rdfs:isDefinedBy <https://w3id.org/cco-domains/domains/StagingOntology> ;
+                rdfs:label "CVV"@en ;
+                skos:altLabel "CVC"@en ,
+                              "Card Security Code"@en ,
+                              "Card Verification Value"@en ;
+                skos:definition """A Code Identifier printed on a payment card that helps 
+        reduce online fraud by verifying that the card is physically present."""@en ;
+                skos:example "The 3-digit code on the back of a Visa card is a CVV."@en ;
+                skos:scopeNote "CVV (Card Verification Value) reduces online fraud. Also known as CVC, CVV2, CID. Data models: Mee Foundation Requirements (Credit Card CVV), Orphan-Ontology-Dev — 2+ sources."@en ;
+                cco:ent00000019 "A future Financial domain ontology (IEEE P3195.1.x)"@en ;
+                cco:ent00000020 "Migrated from Orphan-Ontology-Dev CCO 1.x."@en ;
+                cco:ent00000022 "Proposed to Financial Domain Ontology WG when formed 2026-Q4"@en .
+
+
+###  https://w3id.org/cco-domains/cco/ent00000054
+cco:ent00000054 rdf:type owl:Class ;
+                rdfs:subClassOf cco:ont00001340 ;
+                dc:creator "Global Research, Inc."@en ;
+                dcterms:created "2026-03-17"^^xsd:date ;
+                rdfs:isDefinedBy <https://w3id.org/cco-domains/domains/StagingOntology> ;
+                rdfs:label "Expiration Date Identifier"@en ;
+                skos:altLabel "Card Expiry Date"@en ;
+                skos:definition """A Calendar Date Identifier that designates the date after which 
+        a payment card is no longer valid for transactions."""@en ;
+                skos:example "The date '12/28' on a credit card indicates the card expires at the end of December 2028."@en ;
+                skos:scopeNote """Parent corrected from TimeOfDayIdentifier (Orphan-Ontology-Dev CCO 1.x) 
+        to CalendarDateIdentifier (CCO 2.0 ont00001340). An expiration date designates 
+        a calendar date, not a time of day. Also known as 'valid thru' date. 
+        Data models: Mee Foundation Requirements (Credit Card expiration date), 
+        Orphan-Ontology-Dev — 2+ sources."""@en ;
+                cco:ent00000019 "A future Financial domain ontology (IEEE P3195.1.x)"@en ;
+                cco:ent00000020 "Migrated from Orphan-Ontology-Dev CCO 1.x. Parent corrected from TimeOfDayIdentifier to CalendarDateIdentifier."@en ;
+                cco:ent00000022 "Proposed to Financial Domain Ontology WG when formed 2026-Q4"@en .
+
+
+###  https://w3id.org/cco-domains/cco/ent00000055
+cco:ent00000055 rdf:type owl:Class ;
+                rdfs:subClassOf cco:ont00000686 ;
+                dc:creator "Global Research, Inc."@en ;
+                dcterms:created "2026-07-09"^^xsd:date ;
+                rdfs:isDefinedBy <https://w3id.org/cco-domains/domains/StagingOntology> ;
+                rdfs:label "Telecommunication Network Identifier"@en ;
+                skos:definition """A Designative Information Content Entity that uniquely identifies 
+        a Telecommunication Network or some set of information inhering in such a network, 
+        often for the purpose of exchanging information with the identified entity."""@en ;
+                skos:exactMatch <http://www.ontologyrepository.com/CommonCoreOntologies/TelecommunicationNetworkIdentifier> ;
+                skos:scopeNote """Superclass of TelephoneNumber (ent00000023) and EmailAddress (ent00000024). 
+        Migrated from Orphan-Ontology-Dev to provide the correct parent class."""@en ;
+                cco:ent00000019 "Cyber Ontology (IEEE P3195.1.1)"@en ;
+                cco:ent00000020 "Migrated from Orphan-Ontology-Dev CCO 1.x."@en ;
+                cco:ent00000022 "To be proposed to Cyber Ontology (IEEE P3195.1.1) 2026-Q3"@en .
+
+
+###  https://w3id.org/cco-domains/cco/ent00000071
+cco:ent00000071 rdf:type owl:Class ;
+                rdfs:subClassOf cco:ont00000077 ;
+                dc:date "2026-07-14T18:42:19Z"^^xsd:dateTime ;
+                dcterms:created "2026-07-14"^^xsd:date ;
+                rdfs:isDefinedBy <https://w3id.org/cco-domains/domains/StagingOntology> ;
+                rdfs:label "Checking Account Number"@en ;
+                skos:altLabel "Bank Account Number"@en ;
+                skos:definition "A Code Identifier that designates a checking account within a financial institution's system of record."@en .
+
+
+###  https://w3id.org/cco-domains/cco/ent00000072
+cco:ent00000072 rdf:type owl:Class ;
+                rdfs:subClassOf cco:ont00000077 ;
+                dc:date "2026-07-14T18:43:14Z"^^xsd:dateTime ;
+                dcterms:created "2026-07-14"^^xsd:date ;
+                rdfs:isDefinedBy <https://w3id.org/cco-domains/domains/StagingOntology> ;
+                rdfs:label "Routing Number"@en ;
+                skos:altLabel "ABA Routing Transit Number"@en ;
+                skos:definition "A Code Identifier that designates a financial institution within a payment clearing network for routing payments."@en .
+
+
+###  https://w3id.org/cco-domains/cco/ont00000003
+cco:ont00000003 rdf:type owl:Class .
+
+
+###  https://w3id.org/cco-domains/cco/ont00000077
+cco:ont00000077 rdf:type owl:Class .
+
+
+###  https://w3id.org/cco-domains/cco/ont00000686
+cco:ont00000686 rdf:type owl:Class .
+
+
+###  https://w3id.org/cco-domains/cco/ont00000798
+cco:ont00000798 rdf:type owl:Class .
+
+
+###  https://w3id.org/cco-domains/cco/ont00000938
+cco:ont00000938 rdf:type owl:Class .
+
+
+###  https://w3id.org/cco-domains/cco/ont00001017
+cco:ont00001017 rdf:type owl:Class .
+
+
+###  https://w3id.org/cco-domains/cco/ont00001340
+cco:ont00001340 rdf:type owl:Class .
+
+
+#################################################################
+#    Annotations
+#################################################################
+
+staging:DigitalFile rdfs:seeAlso cco:ent00000025 ;
+                    owl:deprecated "true"^^xsd:boolean .
+
+
+staging:EmailAddress rdfs:seeAlso cco:ent00000024 ;
+                     owl:deprecated "true"^^xsd:boolean .
+
+
+staging:OnlineServiceAccount rdfs:seeAlso cco:ent00000033 ;
+                             owl:deprecated "true"^^xsd:boolean .
+
+
+staging:ServiceAccount rdfs:seeAlso cco:ent00000028 ;
+                       owl:deprecated "true"^^xsd:boolean .
+
+
+staging:StandardUserAccount rdfs:seeAlso cco:ent00000027 ;
+                            owl:deprecated "true"^^xsd:boolean .
+
+
+staging:SuperuserAccount rdfs:seeAlso cco:ent00000030 ;
+                         owl:deprecated "true"^^xsd:boolean .
+
+
+staging:SystemAccount rdfs:seeAlso cco:ent00000029 ;
+                      owl:deprecated "true"^^xsd:boolean .
+
+
+staging:TelephoneNumber rdfs:seeAlso cco:ent00000023 ;
+                        owl:deprecated "true"^^xsd:boolean .
+
+
+staging:UserAccount rdfs:seeAlso cco:ent00000026 ;
+                    owl:deprecated "true"^^xsd:boolean .
+
+
+staging:UserGroupIdentifier rdfs:seeAlso cco:ent00000032 ;
+                            owl:deprecated "true"^^xsd:boolean .
+
+
+staging:UserIdentifier rdfs:seeAlso cco:ent00000031 ;
+                       owl:deprecated "true"^^xsd:boolean .
+
+
+staging:hasServiceName rdfs:seeAlso cco:ent00000034 ;
+                       owl:deprecated "true"^^xsd:boolean .
+
+
+staging:hasServiceURI rdfs:seeAlso cco:ent00000036 ;
+                      owl:deprecated "true"^^xsd:boolean .
+
+
+staging:hasUserHandle rdfs:seeAlso cco:ent00000035 ;
+                      owl:deprecated "true"^^xsd:boolean .
+
+
+###  Generated by the OWL API (version 4.5.29.2024-05-13T12:11:03Z) https://github.com/owlcs/owlapi

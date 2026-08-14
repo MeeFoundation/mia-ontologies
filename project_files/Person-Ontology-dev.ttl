@@ -1,0 +1,381 @@
+@prefix : <http://www.ontologyrepository.com/CommonCoreOntologies/> .
+@prefix cco: <http://www.ontologyrepository.com/CommonCoreOntologies/> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix xml: <http://www.w3.org/XML/1998/namespace> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@base <http://www.ontologyrepository.com/CommonCoreOntologies/> .
+
+<http://www.ontologyrepository.com/CommonCoreOntologies/Domain/PersonOntology> rdf:type owl:Ontology ;
+                                                                                owl:versionIRI <http://www.ontologyrepository.com/CommonCoreOntologies/Domain/2023-09-30/PersonOntology> ;
+                                                                                owl:imports <http://www.ontologyrepository.com/CommonCoreOntologies/Mid/AllCoreOntology> ;
+                                                                                rdfs:comment "This ontology is being developed to be a conforming extension of P3195.1 Standard for Common Core Ontology. It enables individuals to make better use of (and share) their data by having it in a standard and logically consistent form.  It enables vendors to provide conformant data to individuals and receive conformant data from them, which they achieve by mapping their unique data models just once to this standard and transforming their disparate instance data into conformant data.  This standard enables individuals and other entities to populate this ontology with instance data and then run conforming queries and analytics on the data. The terms and definitions also provide a formal vocabulary for human understanding and communication."@en ;
+                                                                                rdfs:label "Person Ontology"@en ;
+                                                                                owl:versionInfo "Version 2023-09-30"@en .
+
+#################################################################
+#    Annotation properties
+#################################################################
+
+###  http://www.ontologyrepository.com/CommonCoreOntologies/alternative_label
+cco:alternative_label rdf:type owl:AnnotationProperty .
+
+
+###  http://www.ontologyrepository.com/CommonCoreOntologies/definition
+cco:definition rdf:type owl:AnnotationProperty .
+
+
+###  http://www.ontologyrepository.com/CommonCoreOntologies/definition_source
+cco:definition_source rdf:type owl:AnnotationProperty .
+
+
+###  http://www.ontologyrepository.com/CommonCoreOntologies/example_of_usage
+cco:example_of_usage rdf:type owl:AnnotationProperty .
+
+
+###  http://www.ontologyrepository.com/CommonCoreOntologies/is_curated_in_ontology
+cco:is_curated_in_ontology rdf:type owl:AnnotationProperty .
+
+
+#################################################################
+#    Object Properties
+#################################################################
+
+###  http://purl.obolibrary.org/obo/BFO_0000050
+<http://purl.obolibrary.org/obo/BFO_0000050> rdf:type owl:ObjectProperty .
+
+
+###  http://purl.obolibrary.org/obo/RO_0000057
+<http://purl.obolibrary.org/obo/RO_0000057> rdf:type owl:ObjectProperty .
+
+
+###  http://www.ontologyrepository.com/CommonCoreOntologies/designates
+cco:designates rdf:type owl:ObjectProperty .
+
+
+#################################################################
+#    Data properties
+#################################################################
+
+###  http://www.ontologyrepository.com/CommonCoreOntologies/has_value
+cco:has_value rdf:type owl:DatatypeProperty ;
+              rdfs:domain cco:InformationBearingEntity ;
+              rdfs:range xsd:string ;
+              cco:definition "A relationship between an Information Bearing Entity and a string representation." ;
+              cco:is_curated_in_ontology "http://www.ontologyrepository.com/CommonCoreOntologies/Domain/UserProfileOntology" ;
+              rdfs:label "has value" .
+
+
+#################################################################
+#    Classes
+#################################################################
+
+###  http://www.ontologyrepository.com/CommonCoreOntologies/ActOfFollowing
+cco:ActOfFollowing rdf:type owl:Class ;
+                   rdfs:subClassOf cco:ActOfAssociation ;
+                   cco:definition "Act of Association whereby a person subscribes to future communications from another person or organization." ;
+                   rdfs:label "Act of Following" .
+
+
+###  http://www.ontologyrepository.com/CommonCoreOntologies/ActOfLabor
+cco:ActOfLabor rdf:type owl:Class ;
+               rdfs:subClassOf cco:IntentionalAct ;
+               cco:definition "A Planned Act for performing work for an Employer." ;
+               rdfs:label "Act of Labor" .
+
+
+###  http://www.ontologyrepository.com/CommonCoreOntologies/AdditionalName
+cco:AdditionalName rdf:type owl:Class ;
+                   rdfs:subClassOf cco:ProperName ;
+                   cco:definition "A Proper name that is in addition to Family and Given name, such as middle name." ;
+                   rdfs:label "Additional Name" .
+
+
+###  http://www.ontologyrepository.com/CommonCoreOntologies/AlternateName
+cco:AlternateName rdf:type owl:Class ;
+                  rdfs:subClassOf cco:DesignativeName ;
+                  cco:definition "A Designative Name by which an entity is generally known, other than a Proper Name." ;
+                  rdfs:label "AlternateName" .
+
+
+###  http://www.ontologyrepository.com/CommonCoreOntologies/ArtifactDesignContentEntity
+cco:ArtifactDesignContentEntity rdf:type owl:Class .
+
+
+###  http://www.ontologyrepository.com/CommonCoreOntologies/BirthFamilyName
+cco:BirthFamilyName rdf:type owl:Class ;
+                    rdfs:subClassOf cco:Birthname ;
+                    cco:definition "Birth" ;
+                    rdfs:label "Birth Family Name" .
+
+
+###  http://www.ontologyrepository.com/CommonCoreOntologies/Birthdate
+cco:Birthdate rdf:type owl:Class ;
+              rdfs:subClassOf cco:DesignativeInformationContentEntity ;
+              cco:acronym "DOB" ;
+              cco:definition "A Designative Information Content Entity that desigantes the Dat a Birth occurs on." ;
+              rdfs:label "Birthdate" .
+
+
+###  http://www.ontologyrepository.com/CommonCoreOntologies/Birthname
+cco:Birthname rdf:type owl:Class ;
+              rdfs:subClassOf cco:ProperName ;
+              cco:definition "Proper Name given to child at birth, regardless of how official." ;
+              rdfs:label "Birth Name" .
+
+
+###  http://www.ontologyrepository.com/CommonCoreOntologies/CallSign
+cco:CallSign rdf:type owl:Class ;
+             rdfs:subClassOf cco:DesignativeName ;
+             cco:definition "A DesignativeName use in broadcast and radio communications that uniquely identifies a person, vehicle, or broadcast service within the range of the signal." ;
+             rdfs:label "CallSign" .
+
+
+###  http://www.ontologyrepository.com/CommonCoreOntologies/CodeIdentifier
+cco:CodeIdentifier rdf:type owl:Class .
+
+
+###  http://www.ontologyrepository.com/CommonCoreOntologies/CountryOfBirth
+cco:CountryOfBirth rdf:type owl:Class ;
+                   rdfs:subClassOf cco:Country ;
+                   cco:definition "The country a person was born in." ;
+                   rdfs:label "Country of Birth" .
+
+
+###  http://www.ontologyrepository.com/CommonCoreOntologies/DateIdentifier
+cco:DateIdentifier rdf:type owl:Class .
+
+
+###  http://www.ontologyrepository.com/CommonCoreOntologies/DesignativeInformationContentEntity
+cco:DesignativeInformationContentEntity rdf:type owl:Class .
+
+
+###  http://www.ontologyrepository.com/CommonCoreOntologies/Diagnosis
+cco:Diagnosis rdf:type owl:Class ;
+              rdfs:subClassOf cco:MeasurementInformationContentEntity ;
+              cco:definition "A Mesurement Information Content Entity of a person's health, which often cites standard lists such as ICD10 code." ;
+              rdfs:label "Diagnosis" .
+
+
+###  http://www.ontologyrepository.com/CommonCoreOntologies/EmailBox
+cco:EmailBox rdf:type owl:Class .
+
+
+###  http://www.ontologyrepository.com/CommonCoreOntologies/FamilyName
+cco:FamilyName rdf:type owl:Class ;
+               rdfs:subClassOf cco:ProperName ,
+                               [ rdf:type owl:Restriction ;
+                                 owl:onProperty <http://purl.obolibrary.org/obo/BFO_0000050> ;
+                                 owl:someValuesFrom cco:FullName
+                               ] ;
+               cco:definition "A portion of a Proper Name that uniquely identifies a Person's family, clan, or tribe."@en ;
+               rdfs:label "Family Name"@en .
+
+
+###  http://www.ontologyrepository.com/CommonCoreOntologies/FullName
+cco:FullName rdf:type owl:Class ;
+             rdfs:subClassOf cco:ProperName ,
+                             [ rdf:type owl:Restriction ;
+                               owl:onProperty cco:designates ;
+                               owl:someValuesFrom cco:Person
+                             ] ;
+             cco:definition "A Proper Name that designates a Person and is composed of all the names that when ordered correctly uniquely refer to that person."@en ;
+             rdfs:label "Full Name"@en .
+
+
+###  http://www.ontologyrepository.com/CommonCoreOntologies/GeopoliticalEntity
+cco:GeopoliticalEntity rdf:type owl:Class .
+
+
+###  http://www.ontologyrepository.com/CommonCoreOntologies/GivenName
+cco:GivenName rdf:type owl:Class ;
+              rdfs:subClassOf cco:ProperName ,
+                              [ rdf:type owl:Restriction ;
+                                owl:onProperty <http://purl.obolibrary.org/obo/BFO_0000050> ;
+                                owl:someValuesFrom cco:FullName
+                              ] ;
+              cco:definition "A Proper Name that uniquely identifies a Person within some family or clan."@en ;
+              rdfs:label "Given Name"@en .
+
+
+###  http://www.ontologyrepository.com/CommonCoreOntologies/HonorificSuffix
+cco:HonorificSuffix rdf:type owl:Class ;
+                    rdfs:subClassOf cco:ProperName ;
+                    cco:definition "Part of a Proper Name, placed at the end (after any suffix) to express a signiticant certificate or Acedemic Degree, such as M.D., PhD, CPA." ;
+                    rdfs:label "Honorific Suffix" .
+
+
+###  http://www.ontologyrepository.com/CommonCoreOntologies/Household
+cco:Household rdf:type owl:Class ;
+              rdfs:subClassOf cco:GroupOfPersons ;
+              cco:definition "Group of Persons residing in the same dwelling, with often some also part of a family." ;
+              rdfs:label "Household" .
+
+
+###  http://www.ontologyrepository.com/CommonCoreOntologies/InformationBearingEntity
+cco:InformationBearingEntity rdf:type owl:Class .
+
+
+###  http://www.ontologyrepository.com/CommonCoreOntologies/MaidenName
+cco:MaidenName rdf:type owl:Class ;
+               rdfs:subClassOf cco:FamilyName ;
+               cco:definition "The family name of a married women before she was first married (when a maiden)." ;
+               rdfs:label "Maiden Name" .
+
+
+###  http://www.ontologyrepository.com/CommonCoreOntologies/MatronymicName
+cco:MatronymicName rdf:type owl:Class ;
+                   rdfs:subClassOf cco:ProperName ;
+                   cco:definition "A part of a Proper Name based on the mother's given name." ;
+                   rdfs:label "Matronymic Name" .
+
+
+###  http://www.ontologyrepository.com/CommonCoreOntologies/NetWorth
+cco:NetWorth rdf:type owl:Class ;
+             rdfs:subClassOf cco:FinancialValue ;
+             cco:definition "Financial value of a person based on assets less liabilities." ;
+             rdfs:label "Net Worth" .
+
+
+###  http://www.ontologyrepository.com/CommonCoreOntologies/Passport
+cco:Passport rdf:type owl:Class ;
+             rdfs:subClassOf cco:RepresentationalInformationContentEntity ;
+             cco:definition "A Representational Information Content Entity providing an identity and key information about a Person." ;
+             rdfs:label "Passport" .
+
+
+###  http://www.ontologyrepository.com/CommonCoreOntologies/PatientRole
+cco:PatientRole rdf:type owl:Class ;
+                rdfs:subClassOf <http://purl.obolibrary.org/obo/BFO_0000023> ;
+                cco:definition "A Role that inheres in a Person who is under of care of a medical provider, with associated rights and obligations." ;
+                rdfs:label "Patient Role" .
+
+
+###  http://www.ontologyrepository.com/CommonCoreOntologies/PatronymicName
+cco:PatronymicName rdf:type owl:Class ;
+                   rdfs:subClassOf cco:ProperName ;
+                   cco:definition "A part of a Proper Name based on the father's givenname" ;
+                   rdfs:label "Patronymic Name" .
+
+
+###  http://www.ontologyrepository.com/CommonCoreOntologies/Person
+cco:Person rdf:type owl:Class .
+
+
+###  http://www.ontologyrepository.com/CommonCoreOntologies/PersonalReferenceRole
+cco:PersonalReferenceRole rdf:type owl:Class ;
+                          rdfs:subClassOf <http://purl.obolibrary.org/obo/BFO_0000023> ;
+                          cco:definition "A Role that inheres in a Person by virtue of that Person having agreed to provide an assessment of the character and traits of a given person." ;
+                          rdfs:label "Personal Reference Role" .
+
+
+###  http://www.ontologyrepository.com/CommonCoreOntologies/PlaceOfBirth
+cco:PlaceOfBirth rdf:type owl:Class ;
+                 rdfs:subClassOf cco:GeospatialLocation ;
+                 cco:definition "GeospatialLocaiton of a person's birth." ;
+                 rdfs:label "Place of Birth" .
+
+
+###  http://www.ontologyrepository.com/CommonCoreOntologies/PlaceOfDeath
+cco:PlaceOfDeath rdf:type owl:Class ;
+                 rdfs:subClassOf cco:GeospatialLocation ;
+                 cco:definition "GeospatialLocaiton of a person's death." ;
+                 rdfs:label "Place of Death" .
+
+
+###  http://www.ontologyrepository.com/CommonCoreOntologies/ProfilePicture
+cco:ProfilePicture rdf:type owl:Class ;
+                   rdfs:subClassOf cco:Image ;
+                   cco:definition "An image of a person for display as part of other information about the person." ;
+                   rdfs:label "Profile Picture" .
+
+
+###  http://www.ontologyrepository.com/CommonCoreOntologies/ProperName
+cco:ProperName rdf:type owl:Class .
+
+
+###  http://www.ontologyrepository.com/CommonCoreOntologies/Salary
+cco:Salary rdf:type owl:Class ;
+           rdfs:subClassOf cco:FinancialValue ;
+           cco:definition "Financial Value earned for performing work for a given employer, which is fixed per significatn period of time (usually annually)" ;
+           rdfs:label "Salary" .
+
+
+###  http://www.ontologyrepository.com/CommonCoreOntologies/Salutation
+cco:Salutation rdf:type owl:Class ;
+               rdfs:subClassOf cco:ProperName ;
+               cco:definition "A prefix of a Proper Name such as Mrs., Mr., Ms., or Dr." ;
+               rdfs:label "Salutation" .
+
+
+###  http://www.ontologyrepository.com/CommonCoreOntologies/Signature
+cco:Signature rdf:type owl:Class ;
+              rdfs:subClassOf cco:InformationBearingArtifact ;
+              cco:definition "An Information Bearing Artifact of the unique cursive writing by a person of any part of their name." ;
+              rdfs:label "Signature" .
+
+
+###  http://www.ontologyrepository.com/CommonCoreOntologies/SocialSecurityNumber
+cco:SocialSecurityNumber rdf:type owl:Class ;
+                         rdfs:subClassOf cco:CodeIdentifier ;
+                         cco:acronym "SSN" ;
+                         cco:definition "A Designative Information Content Entity that desigantes a person within the contex of the United States Social Security Administration." ;
+                         rdfs:label "Social Security Number" .
+
+
+###  http://www.ontologyrepository.com/CommonCoreOntologies/Suffix
+cco:Suffix rdf:type owl:Class ;
+           rdfs:subClassOf cco:ProperName ;
+           cco:definition "A part of a Proper Name, placed at the end, to indicate generational order when the names are the same, such as Jr., Sr., 3rd." ;
+           rdfs:label "Suffix" .
+
+
+###  http://www.ontologyrepository.com/CommonCoreOntologies/bodytemperature
+cco:bodytemperature rdf:type owl:Class ;
+                    rdfs:subClassOf cco:Temperature ;
+                    cco:definition "Temperature of a Person's body core." ;
+                    rdfs:label "Body Temperature" .
+
+
+###  http://www.ontologyrepository.com/CommonCoreOntologies/driverslicense
+cco:driverslicense rdf:type owl:Class ;
+                   rdfs:subClassOf cco:ActionPermission ;
+                   cco:definition "An Action Permission for a Person to drive an Automobile on public streets." ;
+                   rdfs:label "Drivers License" .
+
+
+###  http://www.ontologyrepository.com/CommonCoreOntologies/eyeglasses
+cco:eyeglasses rdf:type owl:Class ;
+               rdfs:subClassOf cco:MedicalArtifact ;
+               cco:definition "A Medical Artifact that improves vision for a Person." ;
+               rdfs:label "Eye Glasses" .
+
+
+###  http://www.ontologyrepository.com/CommonCoreOntologies/maritalstatus
+cco:maritalstatus rdf:type owl:Class ;
+                  rdfs:subClassOf cco:Married ;
+                  cco:definition "Status of being married (married), not married (single), no longer married (divorced), or sole survivor (widowed)." ;
+                  rdfs:label "Marital Status" .
+
+
+###  http://www.ontologyrepository.com/CommonCoreOntologies/mobilityassistivedevice
+cco:mobilityassistivedevice rdf:type owl:Class ;
+                            rdfs:subClassOf cco:MedicalArtifact ;
+                            cco:definition "A Medical Artifact that assists a disabled Person with mobility." ;
+                            rdfs:label "Mobility Assistive Device" .
+
+
+###  http://www.ontologyrepository.com/CommonCoreOntologies/Domain/OrphanClassesOntology-Dev#AnnualIncome
+<http://www.ontologyrepository.com/CommonCoreOntologies/Domain/OrphanClassesOntology-Dev#AnnualIncome> rdf:type owl:Class ;
+                                                                                                       rdfs:subClassOf cco:FinancialValue ;
+                                                                                                       cco:definition "Financial Value earned by a person from all sources in a year before any deductions." ;
+                                                                                                       rdfs:label "Annual Income" .
+
+
+###  http://www.ontologyrepository.com/CommonCoreOntologies/Domain/OrphanClassesOntology-Dev#EmployeeRole
+<http://www.ontologyrepository.com/CommonCoreOntologies/Domain/OrphanClassesOntology-Dev#EmployeeRole> rdf:type owl:Class ;
+                                                                                                       rdfs:subClassOf <http://purl.obolibrary.org/obo/BFO_0000023> .
+
+
+###  Generated by the OWL API (version 4.5.25.2023-02-15T19:15:49Z) https://github.com/owlcs/owlapi

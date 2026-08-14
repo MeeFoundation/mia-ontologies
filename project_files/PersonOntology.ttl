@@ -1,0 +1,383 @@
+@prefix : <https://w3id.org/cco-domains/domains/PersonOntology/> .
+@prefix dc: <http://purl.org/dc/elements/1.1/> .
+@prefix cco: <https://w3id.org/cco-domains/cco/> .
+@prefix obo: <http://purl.obolibrary.org/obo/> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix xml: <http://www.w3.org/XML/1998/namespace> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+@prefix dcterms: <http://purl.org/dc/terms/> .
+@base <https://w3id.org/cco-domains/domains/PersonOntology/> .
+
+<https://w3id.org/cco-domains/domains/PersonOntology> rdf:type owl:Ontology ;
+                                                       owl:versionIRI <https://w3id.org/cco-domains/domains/PersonOntology/2026-08-10> ;
+                                                       owl:imports obo:bfo.owl ,
+                                                                   cco:AgentOntology ,
+                                                                   cco:ArtifactOntology ,
+                                                                   cco:CurrencyUnitOntology ,
+                                                                   cco:EventOntology ,
+                                                                   cco:ExtendedRelationOntology ,
+                                                                   cco:FacilityOntology ,
+                                                                   cco:GeospatialOntology ,
+                                                                   cco:InformationEntityOntology ,
+                                                                   cco:QualityOntology ,
+                                                                   cco:TimeOntology ,
+                                                                   cco:UnitsOfMeasureOntology ;
+                                                       dc:creator "Global Research, Inc., a 501(c)(3) nonprofit organization"@en ;
+                                                       dcterms:license <https://creativecommons.org/licenses/by/4.0/> ;
+                                                       rdfs:comment "Person Ontology extends from the open source Common Core Ontologies (CCO) v2.1, posted by NCOR at https://github.com/CommonCoreOntology/CommonCoreOntologies."@en ;
+                                                       rdfs:label "Person Ontology"@en ;
+                                                       owl:priorVersion <https://w3id.org/cco-domains/domains/PersonOntology/2026-08-05> ;
+                                                       owl:versionInfo "Namespace migrated from purl.org/cco to w3id.org/cco-domains; CCO mirror updated to v2.1.    Copyright © 2026 Global Research, Inc."@en .
+
+#################################################################
+#    Annotation properties
+#################################################################
+
+###  http://purl.org/dc/elements/1.1/creator
+dc:creator rdf:type owl:AnnotationProperty .
+
+
+###  http://purl.org/dc/elements/1.1/date
+dc:date rdf:type owl:AnnotationProperty .
+
+
+###  http://purl.org/dc/terms/created
+dcterms:created rdf:type owl:AnnotationProperty .
+
+
+###  http://purl.org/dc/terms/license
+dcterms:license rdf:type owl:AnnotationProperty .
+
+
+###  http://purl.org/dc/terms/source
+dcterms:source rdf:type owl:AnnotationProperty .
+
+
+###  http://www.w3.org/2004/02/skos/core#altLabel
+skos:altLabel rdf:type owl:AnnotationProperty .
+
+
+###  http://www.w3.org/2004/02/skos/core#closeMatch
+skos:closeMatch rdf:type owl:AnnotationProperty .
+
+
+###  http://www.w3.org/2004/02/skos/core#definition
+skos:definition rdf:type owl:AnnotationProperty .
+
+
+###  http://www.w3.org/2004/02/skos/core#example
+skos:example rdf:type owl:AnnotationProperty .
+
+
+#################################################################
+#    Datatypes
+#################################################################
+
+###  http://www.w3.org/2001/XMLSchema#date
+xsd:date rdf:type rdfs:Datatype .
+
+
+#################################################################
+#    Object Properties
+#################################################################
+
+###  http://purl.obolibrary.org/obo/BFO_0000196
+obo:BFO_0000196 rdf:type owl:ObjectProperty .
+
+
+###  https://w3id.org/cco-domains/cco/ent00000038
+cco:ent00000038 rdf:type owl:ObjectProperty ;
+                rdfs:subPropertyOf obo:BFO_0000196 ;
+                rdfs:domain cco:ont00001262 ;
+                rdfs:range cco:ent00000037 ;
+                dcterms:created "2026-07-11"^^xsd:date ;
+                rdfs:isDefinedBy <https://w3id.org/cco-domains/domains/PersonOntology> ;
+                rdfs:label "has Eye Color" ;
+                skos:definition "Relates a Person to the Eye Color that inheres in their iris."@en .
+
+
+###  https://w3id.org/cco-domains/cco/ent00000061
+cco:ent00000061 rdf:type owl:ObjectProperty ;
+                rdfs:domain cco:ont00001262 ;
+                rdfs:range cco:ent00000046 ;
+                dcterms:created "2026-04-18"^^xsd:date ;
+                rdfs:isDefinedBy <https://w3id.org/cco-domains/domains/PersonOntology> ;
+                rdfs:label "has birthdate"@en ;
+                skos:altLabel "hasBirthdate"@en ;
+                skos:definition "Each instance of Person has an instance of Birthdate."@en .
+
+
+#################################################################
+#    Classes
+#################################################################
+
+###  https://w3id.org/cco-domains/cco/ent00000001
+cco:ent00000001 rdf:type owl:Class ;
+                rdfs:subClassOf cco:ont00000003 ;
+                dcterms:created "2026-04-23"^^xsd:date ;
+                rdfs:isDefinedBy <https://w3id.org/cco-domains/domains/PersonOntology> ;
+                rdfs:label "Full Name"@en ;
+                skos:definition "A Designative Name comprising all or most of a person's various names, e.g. Given Name, Alternate Name, Family Name, etc. but may include initials for some names, as presented by the individual, who may give different versions at different times."@en .
+
+
+###  https://w3id.org/cco-domains/cco/ent00000002
+cco:ent00000002 rdf:type owl:Class ;
+                rdfs:subClassOf cco:ont00000003 ;
+                dcterms:created "2026-04-23"^^xsd:date ;
+                rdfs:isDefinedBy <https://w3id.org/cco-domains/domains/PersonOntology> ;
+                rdfs:label "Given Name"@en ;
+                skos:altLabel "First Name"@en ;
+                skos:definition "A designative Name assigned to a person, usually at birth."@en .
+
+
+###  https://w3id.org/cco-domains/cco/ent00000003
+cco:ent00000003 rdf:type owl:Class ;
+                rdfs:subClassOf cco:ont00000003 ;
+                dcterms:created "2026-05-01"^^xsd:date ;
+                rdfs:isDefinedBy <https://w3id.org/cco-domains/domains/PersonOntology> ;
+                rdfs:label "Additional Name"@en ;
+                skos:altLabel "Middle Name"@en ;
+                skos:definition "A designative name that refers as an extra identifier and supplements a primary name."@en .
+
+
+###  https://w3id.org/cco-domains/cco/ent00000004
+cco:ent00000004 rdf:type owl:Class ;
+                rdfs:subClassOf cco:ont00000003 ;
+                dcterms:created "2026-04-28"^^xsd:date ;
+                rdfs:isDefinedBy <https://w3id.org/cco-domains/domains/PersonOntology> ;
+                rdfs:label "Family Name"@en ;
+                skos:altLabel "Last Name"@en ,
+                              "Surname"@en ;
+                skos:definition "A designative name often referred to as a \"last name\" in Western contexts or a \"surname\" in formal contexts."@en .
+
+
+###  https://w3id.org/cco-domains/cco/ent00000005
+cco:ent00000005 rdf:type owl:Class ;
+                rdfs:subClassOf cco:ont00000003 ;
+                dcterms:created "2026-05-01"^^xsd:date ;
+                rdfs:isDefinedBy <https://w3id.org/cco-domains/domains/PersonOntology> ;
+                rdfs:label "Suffix"@en ;
+                skos:altLabel "Name Suffix"@en ;
+                skos:definition "A designative name added after the person's full name to add more information (professional, generational or academic)."@en ;
+                skos:example "\"Sr.\". \"Ret.\". \"PhD\""@en .
+
+
+###  https://w3id.org/cco-domains/cco/ent00000006
+cco:ent00000006 rdf:type owl:Class ;
+                rdfs:subClassOf cco:ont00000003 ;
+                dcterms:created "2026-04-29"^^xsd:date ;
+                rdfs:isDefinedBy <https://w3id.org/cco-domains/domains/PersonOntology> ;
+                rdfs:label "Alternate Name"@en ;
+                skos:altLabel "Alias"@en ;
+                skos:definition "A designative name that is used as a secondary name instead of primary or legal name."@en .
+
+
+###  https://w3id.org/cco-domains/cco/ent00000008
+cco:ent00000008 rdf:type owl:Class ;
+                rdfs:subClassOf cco:ent00000062 ;
+                dcterms:created "2026-04-20"^^xsd:date ;
+                dcterms:source <https://www.ssa.gov/employer/ssnvshandbk/glossary.htm> ;
+                rdfs:isDefinedBy <https://w3id.org/cco-domains/domains/PersonOntology> ;
+                rdfs:label "Social Security Number"@en ;
+                skos:altLabel "SSN"@en ;
+                skos:definition "A Person Identifier issued by the U.S. Social Security Administration."@en ;
+                skos:example "123-45-6789 (dashes common but not required)"@en .
+
+
+###  https://w3id.org/cco-domains/cco/ent00000037
+cco:ent00000037 rdf:type owl:Class ;
+                rdfs:subClassOf cco:ont00000378 ;
+                dcterms:created "2026-07-11"^^xsd:date ;
+                rdfs:isDefinedBy <https://w3id.org/cco-domains/domains/PersonOntology> ;
+                rdfs:label "Eye Color"@en ;
+                skos:definition "A Color inhering in the iris of a person's eyes manifesting as a perceived color."@en .
+
+
+###  https://w3id.org/cco-domains/cco/ent00000039
+cco:ent00000039 rdf:type owl:Class ;
+                rdfs:subClassOf cco:ent00000037 ;
+                dcterms:created "2026-07-11"^^xsd:date ;
+                rdfs:isDefinedBy <https://w3id.org/cco-domains/domains/PersonOntology> ;
+                rdfs:label "Amber Eye Color"@en ;
+                skos:definition "An Eye Color that appears golden or copper."@en .
+
+
+###  https://w3id.org/cco-domains/cco/ent00000040
+cco:ent00000040 rdf:type owl:Class ;
+                rdfs:subClassOf cco:ent00000037 ;
+                dcterms:created "2026-07-11"^^xsd:date ;
+                rdfs:isDefinedBy <https://w3id.org/cco-domains/domains/PersonOntology> ;
+                rdfs:label "Blue Eye Color"@en ;
+                skos:closeMatch cco:ont00001189 ;
+                skos:definition "an Eye Color that appears light to medium blue."@en .
+
+
+###  https://w3id.org/cco-domains/cco/ent00000041
+cco:ent00000041 rdf:type owl:Class ;
+                rdfs:subClassOf cco:ent00000037 ;
+                dcterms:created "2026-07-11"^^xsd:date ;
+                rdfs:isDefinedBy <https://w3id.org/cco-domains/domains/PersonOntology> ;
+                rdfs:label "Brown Eye Color"@en ;
+                skos:closeMatch cco:ont00000872 ;
+                skos:definition "An Eye Color that appears brown."@en .
+
+
+###  https://w3id.org/cco-domains/cco/ent00000042
+cco:ent00000042 rdf:type owl:Class ;
+                rdfs:subClassOf cco:ent00000037 ;
+                dcterms:created "2026-07-11"^^xsd:date ;
+                rdfs:isDefinedBy <https://w3id.org/cco-domains/domains/PersonOntology> ;
+                rdfs:label "Grey Eye Color"@en ;
+                skos:closeMatch cco:ont00001349 ;
+                skos:definition "An Eye Color that appears grey."@en .
+
+
+###  https://w3id.org/cco-domains/cco/ent00000043
+cco:ent00000043 rdf:type owl:Class ;
+                rdfs:subClassOf cco:ent00000037 ;
+                dcterms:created "2026-07-11"^^xsd:date ;
+                rdfs:isDefinedBy <https://w3id.org/cco-domains/domains/PersonOntology> ;
+                rdfs:label "Green Eye Color"@en ;
+                skos:closeMatch cco:ont00000082 ;
+                skos:definition "An Eye Color that appears dark green."@en .
+
+
+###  https://w3id.org/cco-domains/cco/ent00000044
+cco:ent00000044 rdf:type owl:Class ;
+                rdfs:subClassOf cco:ent00000037 ;
+                dcterms:created "2026-07-11"^^xsd:date ;
+                rdfs:isDefinedBy <https://w3id.org/cco-domains/domains/PersonOntology> ;
+                rdfs:label "Hazel Eye Color"@en ;
+                skos:closeMatch cco:ont00000797 ;
+                skos:definition "An Eye Color that appears as a combination of green and brown."@en .
+
+
+###  https://w3id.org/cco-domains/cco/ent00000046
+cco:ent00000046 rdf:type owl:Class ;
+                rdfs:subClassOf cco:ont00001340 ;
+                dcterms:created "2026-04-14"^^xsd:date ;
+                rdfs:isDefinedBy <https://w3id.org/cco-domains/domains/PersonOntology> ;
+                rdfs:label "Birthdate"@en ;
+                skos:altLabel "DOB"@en ,
+                              "date of birth"@en ;
+                skos:definition "A Calendar Date Identifier designating when a Person was born."@en .
+
+
+###  https://w3id.org/cco-domains/cco/ent00000057
+cco:ent00000057 rdf:type owl:Class ;
+                rdfs:subClassOf cco:ont00000003 ;
+                dcterms:created "2026-05-01"^^xsd:date ;
+                rdfs:isDefinedBy <https://w3id.org/cco-domains/domains/PersonOntology> ;
+                rdfs:label "Title"@en ;
+                skos:altLabel "Honorific"@en ,
+                              "Name Prefix"@en ;
+                skos:definition "A designative name added before the person's given name to add more information (professional, marital status or religious)."@en ;
+                skos:example "\"Mr.\". \"Dr.\". \"Prof.\""@en .
+
+
+###  https://w3id.org/cco-domains/cco/ent00000058
+cco:ent00000058 rdf:type owl:Class ;
+                rdfs:subClassOf cco:ont00000003 ;
+                dcterms:created "2026-05-01"^^xsd:date ;
+                rdfs:isDefinedBy <https://w3id.org/cco-domains/domains/PersonOntology> ;
+                rdfs:label "Surname2"@en ;
+                skos:altLabel "Maternal Name"@en ,
+                              "Second Family Name"@en ,
+                              "Second Surname"@en ;
+                skos:definition "A designative name that represents the second family name, commonly a maternal surname."@en .
+
+
+###  https://w3id.org/cco-domains/cco/ent00000062
+cco:ent00000062 rdf:type owl:Class ;
+                rdfs:subClassOf cco:ont00000649 ;
+                dcterms:created "2026-04-20"^^xsd:date ;
+                rdfs:isDefinedBy <https://w3id.org/cco-domains/domains/PersonOntology> ;
+                rdfs:label "Person Identifier"@en ;
+                skos:altLabel "PersonIdentifier"@en ;
+                skos:definition "A non-Name Identifier for a person."@en .
+
+
+###  https://w3id.org/cco-domains/cco/ent00000063
+cco:ent00000063 rdf:type owl:Class ;
+                rdfs:subClassOf cco:ent00000037 ;
+                dcterms:created "2026-07-11"^^xsd:date ;
+                rdfs:isDefinedBy <https://w3id.org/cco-domains/domains/PersonOntology> ;
+                rdfs:label "Maroon Eye Color"@en ;
+                skos:closeMatch cco:ont00000913 ;
+                skos:definition "An Eye Color that appears maroon."@en .
+
+
+###  https://w3id.org/cco-domains/cco/ent00000064
+cco:ent00000064 rdf:type owl:Class ;
+                rdfs:subClassOf cco:ent00000037 ;
+                dcterms:created "2026-07-11"^^xsd:date ;
+                rdfs:isDefinedBy <https://w3id.org/cco-domains/domains/PersonOntology> ;
+                rdfs:label "Pink/Red Eye Color"@en ;
+                skos:closeMatch cco:ont00001277 ;
+                skos:definition "An Eye Color that appears pink or light red due to lack of pigment."@en .
+
+
+###  https://w3id.org/cco-domains/cco/ent00000065
+cco:ent00000065 rdf:type owl:Class ;
+                rdfs:subClassOf cco:ent00000062 ;
+                dcterms:created "2026-07-11"^^xsd:date ;
+                rdfs:isDefinedBy <https://w3id.org/cco-domains/domains/PersonOntology> ;
+                rdfs:label "Drivers License Number"@en ;
+                skos:definition "A Person Identifier issued to a person by a driver-licensing authority."@en .
+
+
+###  https://w3id.org/cco-domains/cco/ent00000066
+cco:ent00000066 rdf:type owl:Class ;
+                rdfs:subClassOf cco:ent00000062 ;
+                dcterms:created "2026-07-11"^^xsd:date ;
+                rdfs:isDefinedBy <https://w3id.org/cco-domains/domains/PersonOntology> ;
+                rdfs:label "Passport Number"@en ;
+                skos:definition "A Person Identifier issued to a person by a passport-issuing authority."@en .
+
+
+###  https://w3id.org/cco-domains/cco/ent00000067
+cco:ent00000067 rdf:type owl:Class ;
+                rdfs:subClassOf cco:ont00000686 ;
+                dcterms:created "2026-07-11"^^xsd:date ;
+                rdfs:isDefinedBy <https://w3id.org/cco-domains/domains/PersonOntology> ;
+                rdfs:label "Place of Birth"@en ;
+                skos:definition "A Designative Information Content Entity that cites the civil jurisdiction in which a person's birth was registered as taking place, as recorded on an identity document. The registering jurisdiction may differ from the geographic location of the birth."@en .
+
+
+###  https://w3id.org/cco-domains/cco/ent00000068
+cco:ent00000068 rdf:type owl:Class ;
+                rdfs:subClassOf cco:ont00000686 ;
+                dcterms:created "2026-07-11"^^xsd:date ;
+                rdfs:isDefinedBy <https://w3id.org/cco-domains/domains/PersonOntology> ;
+                rdfs:label "Issuing Jurisdiction"@en ;
+                skos:definition "A Designative Information Content Entity that cites the governmental jurisdiction that issued an identity document, as recorded on that document. Designates a governing authority (e.g., national, state, provincial, agency, county, municipal, utility, etc.), not a postal address component."@en .
+
+
+###  https://w3id.org/cco-domains/cco/ont00000003
+cco:ont00000003 rdf:type owl:Class .
+
+
+###  https://w3id.org/cco-domains/cco/ont00000378
+cco:ont00000378 rdf:type owl:Class .
+
+
+###  https://w3id.org/cco-domains/cco/ont00000649
+cco:ont00000649 rdf:type owl:Class .
+
+
+###  https://w3id.org/cco-domains/cco/ont00000686
+cco:ont00000686 rdf:type owl:Class .
+
+
+###  https://w3id.org/cco-domains/cco/ont00001262
+cco:ont00001262 rdf:type owl:Class .
+
+
+###  https://w3id.org/cco-domains/cco/ont00001340
+cco:ont00001340 rdf:type owl:Class .
+
+
+###  Generated by the OWL API (version 4.5.29.2024-05-13T12:11:03Z) https://github.com/owlcs/owlapi
