@@ -5,7 +5,7 @@ type: cell-databook
 version: 1.1.0
 created: 2026-07-10
 description: >
-  Cell DataBook of category "Med. App. Info" (cell:origin: cat:MedicalAppointmentInfo). May carry one or two required subject values. Since this cell has a single subject (Paula), her own topic is linked via otherTopics rather than memberTopics — the two memberTopics values belong to the two active members (Carol and Self), per CLAUDE.md Check 18.
+  Cell DataBook for folder "Med. App. Info" (cell:origin: cat:MedicalAppointmentInfo). It is a two-member cell with two memberTopics about :Carol_Walker and :Self and one otherTopic about :Paula_Walker.
 mia:
   origin: "cat:MedicalAppointmentInfo"
   creator: ":Self"

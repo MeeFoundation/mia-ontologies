@@ -5,7 +5,7 @@ type: cell-databook
 version: 1.1.0
 created: 2026-07-10
 description: >
-  Cell DataBook of category "California DMV" (cell:origin: cat:DriversLicense). May carry one or two required subject values.
+  Cell DataBook for folder "California DMV" (cell:origin: cat:DriversLicense). It is a one-member cell with one memberTopic about :Self.
 mia:
   origin: "cat:DriversLicense"
   creator: ":Self"

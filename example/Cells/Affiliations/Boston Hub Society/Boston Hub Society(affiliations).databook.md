@@ -5,7 +5,7 @@ type: cell-databook
 version: 1.1.0
 created: 2026-07-10
 description: >
-  Cell DataBook of category "Boston Hub Society" (cell:origin: cat:Affiliations). May carry one or two required subject values.
+  Cell DataBook for folder "Boston Hub Society" (cell:origin: cat:Affiliations). It is a multi-member cell with three memberTopics about :BHS_Group, :Self, and :Bob_Johnson.
 mia:
   origin: "cat:Affiliations"
   creator: ":Self"

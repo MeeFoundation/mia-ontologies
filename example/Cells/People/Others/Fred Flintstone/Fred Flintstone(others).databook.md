@@ -5,7 +5,7 @@ type: cell-databook
 version: 1.1.0
 created: 2026-08-03
 description: >
-  Cell DataBook of category "Fred Flintstone" (cell:origin: cat:Others). May carry one or two required subject values.
+  Cell DataBook for folder "Fred Flintstone" (cell:origin: cat:Others). It is a two-member cell with two memberTopics about :Fred_Flintstone and :Self.
 mia:
   origin: "cat:Others"
   creator: ":Self"

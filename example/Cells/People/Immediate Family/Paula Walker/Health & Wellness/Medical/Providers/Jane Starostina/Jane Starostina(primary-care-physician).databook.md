@@ -5,7 +5,7 @@ type: cell-databook
 version: 1.2.0
 created: 2026-07-10
 description: >
-  Cell DataBook of category "Jane Starostina" (cell:origin: cat:PrimaryCarePhysician). May carry one or two required subject values.
+  Cell DataBook for folder "Jane Starostina" (cell:origin: cat:PrimaryCarePhysician). It is a one-member cell with one memberTopic about :Jane_Starostina.
 mia:
   origin: "cat:PrimaryCarePhysician"
   creator: ":Self"

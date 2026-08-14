@@ -5,7 +5,7 @@ type: cell-databook
 version: 1.1.0
 created: 2026-07-10
 description: >
-  Cell DataBook of category "Citibank" (cell:origin: cat:BankingPayments). May carry one or two required subject values.
+  Cell DataBook for folder "Citibank" (cell:origin: cat:BankingPayments). It is a two-member cell with two memberTopics about :Self and :Citibank.
 mia:
   origin: "cat:BankingPayments"
   creator: ":Self"

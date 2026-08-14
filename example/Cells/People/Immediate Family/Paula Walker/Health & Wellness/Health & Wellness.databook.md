@@ -5,7 +5,7 @@ type: cell-databook
 version: 1.1.0
 created: 2026-07-10
 description: >
-  Cell DataBook of category "Health & Wellness" (cell:origin: cat:HealthWellness). May carry one or two required subject values.
+  Cell DataBook for folder "Health & Wellness" (cell:origin: cat:HealthWellness). It is a one-member cell with one memberTopic about :Paula_Walker.
 mia:
   origin: "cat:HealthWellness"
   creator: ":Self"

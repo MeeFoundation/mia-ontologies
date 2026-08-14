@@ -5,7 +5,7 @@ type: cell-databook
 version: 1.1.0
 created: 2026-07-10
 description: >
-  Cell DataBook of category "Paradise" (cell:origin: cat:Residence). May carry one or two required subject values.
+  Cell DataBook for folder "Paradise" (cell:origin: cat:Residence). It is a one-member cell with one memberTopic about :Self.
 mia:
   origin: "cat:Residence"
   creator: ":Self"

@@ -5,7 +5,7 @@ type: cell-databook
 version: 1.0.5
 created: 2026-07-10
 description: >
-  Cell DataBook of category "Medical" (cell:origin: cat:Medical). May carry one or two required subject values.
+  Cell DataBook for folder "Medical" (cell:origin: cat:Medical).
 mia:
   origin: "cat:Medical"
 ---

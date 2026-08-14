@@ -5,7 +5,7 @@ type: cell-databook
 version: 1.2.0
 created: 2026-07-10
 description: >
-  Cell DataBook of category "Social Security Administration" (cell:origin: cat:SSN). May carry one or two required subject values.
+  Cell DataBook for folder "Social Security Administration" (cell:origin: cat:SSN). It is a one-member cell with one memberTopic about :Self.
 mia:
   origin: "cat:SSN"
   creator: ":Self"

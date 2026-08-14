@@ -5,7 +5,7 @@ type: cell-databook
 version: 1.1.0
 created: 2026-07-10
 description: >
-  Cell DataBook of category "Paula Walker" (cell:origin: cat:Employee). May carry one or two required subject values. This is a cell:OneMember cell — Paula is the subject, not a member; her own topic is linked via otherTopics rather than memberTopics, per CLAUDE.md Check 18.
+  Cell DataBook for folder "Paula Walker" (cell:origin: cat:Employee). It is a one-member cell with one memberTopic about :Self and one otherTopic about :Paula_Walker.
 mia:
   origin: "cat:Employee"
   creator: ":Self"
@@ -35,7 +35,7 @@ mia:
 
 #### Overview
 
-This topic captures Alice's record of her colleague Paula Walker in their shared Acme employment topic. Alice self-claims this topic; it is paired with Paula's own Acme persona in `20-alice(acme)alice`.
+This topic captures Alice's record of her colleague Paula Walker in their shared Acme employment topic. Alice is the claimant.
 
 #### Topic Graph
 
@@ -58,7 +58,7 @@ This topic captures Alice's record of her colleague Paula Walker in their shared
 
 #### Overview
 
-This topic captures Alice Walker's employee identity at Acme. It records her work email address (alice@acme.com) and her Acme social network, which includes colleague Paula Walker. Alice's business card topic (`21-alice(business-card)alice`) derives professional contact details from this topic.
+This topic captures Alice Walker's employee identity at Acme. It records her work email address (alice@acme.com) and her Acme social network, which includes colleague Paula Walker.
 
 #### Topic Graph
 

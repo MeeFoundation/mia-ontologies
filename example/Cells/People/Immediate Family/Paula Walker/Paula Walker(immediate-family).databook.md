@@ -5,7 +5,7 @@ type: cell-databook
 version: 1.1.0
 created: 2026-07-10
 description: >
-  Cell DataBook of category "Paula Walker" (cell:origin: cat:ImmediateFamily). May carry one or two required subject values.
+  Cell DataBook for folder "Paula Walker" (cell:origin: cat:ImmediateFamily). It is a two-member cell with three memberTopics (two about :Paula_Walker and one about :Self).
 mia:
   origin: "cat:ImmediateFamily"
   creator: ":Self"

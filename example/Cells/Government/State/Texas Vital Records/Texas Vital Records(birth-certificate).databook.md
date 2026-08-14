@@ -5,7 +5,7 @@ type: cell-databook
 version: 1.1.0
 created: 2026-07-10
 description: >
-  Cell DataBook of category "Texas Vital Records" (cell:origin: cat:BirthCertificate). May carry one or two required subject values.
+  Cell DataBook for folder "Texas Vital Records" (cell:origin: cat:BirthCertificate). It is a one-member cell with one memberTopic about :Self.
 mia:
   origin: "cat:BirthCertificate"
   creator: ":Self"
