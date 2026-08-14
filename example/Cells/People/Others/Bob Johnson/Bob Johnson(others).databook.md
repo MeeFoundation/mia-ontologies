@@ -52,7 +52,7 @@ mia:
 
 #### Overview
 
-This topic captures Bob Johnson's self-claimed Bob-topic persona, transmitted from Bob's Mia to Alice's Mia over the PDN. It records Bob's name and his social network link to Alice.
+This topic captures Bob Johnson's self-claimed Bob-topic persona, transmitted from Bob's Mia to Alice's Mia over the PDN. It records Bob's name and his social network link to Alice. Bob is the claimant.
 
 #### Topic Graph
 
@@ -95,7 +95,7 @@ This topic captures Bob Johnson's self-claimed Bob-topic persona, transmitted fr
 
 #### Overview
 
-This topic captures Alice's record of Bob Johnson in their 1:1 relationship topic. Alice notes Bob's favorite drink.
+This topic captures Alice's record of Bob Johnson in their 1:1 relationship topic. Alice notes Bob's favorite drink. Alice is the claimant.
 
 #### Topic Graph
 
@@ -124,7 +124,7 @@ This topic captures Alice's record of Bob Johnson in their 1:1 relationship topi
 
 #### Overview
 
-This topic captures Bob's record of Alice in their 1:1 relationship topic, transmitted from Bob's Mia to Alice's Mia over the PDN. Bob notes Alice's favorite drink.
+This topic captures Bob's record of Alice in their 1:1 relationship topic, transmitted from Bob's Mia to Alice's Mia over the PDN. Bob notes Alice's favorite drink. Bob is the claimant.
 
 #### Topic Graph
 
@@ -149,7 +149,7 @@ This topic captures Bob's record of Alice in their 1:1 relationship topic, trans
 
 #### Overview
 
-This topic captures Alice Walker's self-claimed persona in her 1:1 relationship with Bob Johnson. It records the name Alice presents to Bob and her social network link to him.
+This topic captures Alice Walker's self-claimed persona in her 1:1 relationship with Bob Johnson. It records the name Alice presents to Bob and her social network link to him. Alice is the claimant.
 
 #### Topic Graph
 

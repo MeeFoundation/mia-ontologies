@@ -28,7 +28,7 @@ mia:
 
 #### Overview
 
-This topic captures Alice Walker's day-to-day physical possessions. Her wallet holds her driver's license and payment card. Her health insurance card is carried separately (not in the wallet). Her Social Security card is stored at home for safety.
+This topic captures Alice Walker's day-to-day physical possessions. Her wallet holds her driver's license and payment card. Her health insurance card is carried separately (not in the wallet). Her Social Security card is stored at home for safety. Alice is the claimant.
 
 #### Topic Graph
 

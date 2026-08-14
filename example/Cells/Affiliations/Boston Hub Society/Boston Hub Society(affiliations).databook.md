@@ -43,7 +43,7 @@ mia:
 
 #### Overview
 
-This topic captures the Boston Hub Society as a `g:Group` entity. It records the group's membership: Alice Walker (`:Self`) and Bob Johnson (`:Bob_Johnson`). Any permitted member may claim or update this topic.
+This topic captures the Boston Hub Society as a `g:Group` entity. It records the group's membership: Alice Walker (`:Self`) and Bob Johnson (`:Bob_Johnson`). The BHS Group is the claimant.
 
 #### Topic Graph
 
@@ -69,7 +69,7 @@ This topic captures the Boston Hub Society as a `g:Group` entity. It records the
 
 #### Overview
 
-This topic captures Bob Johnson's BHS profile as transmitted from Bob's Mia to Alice's Mia over the PDN. It records the name Bob presents to the Boston Hub Society group.
+This topic captures Bob Johnson's BHS profile as transmitted from Bob's Mia to Alice's Mia over the PDN. It records the name Bob presents to the Boston Hub Society group. Bob is the claimant.
 
 #### Topic Graph
 
@@ -103,7 +103,7 @@ This topic captures Bob Johnson's BHS profile as transmitted from Bob's Mia to A
 
 #### Overview
 
-This topic captures Alice Walker's BHS profile — the identity data she shares with the Boston Hub Society group. It includes her current Paradise, CA address, her phone number, and her Gmail address.
+This topic captures Alice Walker's BHS profile — the identity data she shares with the Boston Hub Society group. It includes her current Paradise, CA address, her phone number, and her Gmail address. Alice is the claimant.
 
 #### Topic Graph
 

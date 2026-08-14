@@ -28,7 +28,7 @@ mia:
 
 #### Overview
 
-This topic captures Alice's record of Dr. Jane Starostina, who is the primary care physician for Alice's mother, Paula Walker. Alice keeps this information so she and her sister Carol can coordinate Paula's medical appointments.
+This topic captures Alice's record of Dr. Jane Starostina, who is the primary care physician for Alice's mother, Paula Walker. Alice keeps this information so she and her sister Carol can coordinate Paula's medical appointments. Alice is the claimant.
 
 #### Topic Graph
 

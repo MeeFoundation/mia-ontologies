@@ -38,7 +38,7 @@ mia:
 
 #### Overview
 
-This topic captures Alice Walker's self-claimed persona in her 1:1 relationship with Fred Flintstone. It records the name Alice presents to Fred and her social network link to him.
+This topic captures Alice Walker's self-claimed persona in her 1:1 relationship with Fred Flintstone. It records the name Alice presents to Fred and her social network link to him. Alice is the claimant.
 
 #### Topic Graph
 
@@ -83,7 +83,7 @@ This topic captures Alice Walker's self-claimed persona in her 1:1 relationship 
 
 #### Overview
 
-This topic captures Fred Flintstone's self-claimed persona, transmitted from Fred's Mia to Alice's Mia over the PDN. It records Fred's name and his social network link to Alice.
+This topic captures Fred Flintstone's self-claimed persona, transmitted from Fred's Mia to Alice's Mia over the PDN. It records Fred's name and his social network link to Alice. Fred is the claimant.
 
 #### Topic Graph
 

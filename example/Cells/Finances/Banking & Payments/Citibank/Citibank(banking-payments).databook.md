@@ -38,7 +38,7 @@ mia:
 
 #### Overview
 
-This topic captures Alice Walker's financial relationship with Citibank. Citibank is a PDN Organization node which directly claims the information about Alice in this topic. The information in this topic has been transmitted from the Citibank PDN node to Alice's Mia. It includes a VISA debit card linked to a checking account, plus an online service account for online.citi.com.
+This topic captures Alice Walker's financial relationship with Citibank. Citibank is a PDN Organization node which directly claims the information about Alice in this topic. The information in this topic has been transmitted from the Citibank PDN node to Alice's Mia. It includes a VISA debit card linked to a checking account, plus an online service account for online.citi.com. Citibank is the claimant.
 
 #### Topic Graph
 
@@ -105,7 +105,7 @@ This topic captures Alice Walker's financial relationship with Citibank. Citiban
 
 #### Overview
 
-This topic captures Alice Walker's own self-claimed notes about Citibank as an institution — her own record of the organization, distinct from Citibank's own claimed record about her (topic 09). Together the two topics give this cell's `memberTopics` the two distinct subjects (`:Self`, `:Citibank`) required for a `cell:TwoMember` cell.
+This topic captures Alice Walker's own self-claimed notes about Citibank as an institution — her own record of the organization, distinct from Citibank's own claimed record about her (topic 09). Together the two topics give this cell's `memberTopics` the two distinct subjects (`:Self`, `:Citibank`) required for a `cell:TwoMember` cell. Alice is the claimant.
 
 #### Topic Graph
 

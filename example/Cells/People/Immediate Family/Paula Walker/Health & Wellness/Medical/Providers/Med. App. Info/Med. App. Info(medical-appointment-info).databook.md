@@ -46,7 +46,7 @@ mia:
 
 #### Overview
 
-This topic captures Alice's shared record of the claims needed to arrange a medical appointment on behalf of their mother, Paula Walker. Alice maintains this record on her own Mia and syncs it to Carol's Mia over the PDN so both sisters can coordinate Paula's care. Because each topic's named graph must be self-contained for p2p sync to work, the claims about Paula and about her primary care physician, Dr. Jane Starostina, are copied directly into this topic rather than merely linked — Alice already holds Dr. Jane's information in her own Mia, so it is Alice's Mia that copies it over. Validated by the `MedicalAppointment` per-template SHACL shapes.
+This topic captures Alice's shared record of the claims needed to arrange a medical appointment on behalf of their mother, Paula Walker. Alice maintains this record on her own Mia and syncs it to Carol's Mia over the PDN so both sisters can coordinate Paula's care. Because each topic's named graph must be self-contained for p2p sync to work, the claims about Paula and about her primary care physician, Dr. Jane Starostina, are copied directly into this topic rather than merely linked — Alice already holds Dr. Jane's information in her own Mia, so it is Alice's Mia that copies it over. Validated by the `MedicalAppointment` per-template SHACL shapes. Alice is the claimant.
 
 #### Topic Graph
 
@@ -124,7 +124,7 @@ This topic captures Alice's shared record of the claims needed to arrange a medi
 
 #### Overview
 
-This topic captures Carol Walker's own self-claimed persona and contact info, shared directly from her own Mia to Alice's over the PDN. This cell's two members are Alice and Carol (its `c:subject`, `:Paula_Walker`, is a third party the cell is *about*, not one of its members) — this topic and its counterpart (topic 30, Alice's own self-claimed contact info) together represent those two members, alongside topic 26 (Alice's claims about Paula's medical appointment).
+This topic captures Carol Walker's own self-claimed persona and contact info, shared directly from her own Mia to Alice's over the PDN. This cell's two members are Alice and Carol (its `c:subject`, `:Paula_Walker`, is a third party the cell is *about*, not one of its members) — this topic and its counterpart (topic 30, Alice's own self-claimed contact info) together represent those two members, alongside topic 26 (Alice's claims about Paula's medical appointment). Carol is the claimant.
 
 #### Topic Graph
 
@@ -168,7 +168,7 @@ This topic captures Carol Walker's own self-claimed persona and contact info, sh
 
 #### Overview
 
-This topic captures Alice Walker's own self-claimed contact info, kept in this cell so Carol can reach her while coordinating Paula's medical appointments. This cell's two members are Alice and Carol (its `c:subject`, `:Paula_Walker`, is a third party the cell is *about*, not one of its members) — this topic and its counterpart (topic 28, Carol's own self-claimed persona) together represent those two members, alongside topic 26 (Alice's claims about Paula's medical appointment).
+This topic captures Alice Walker's own self-claimed contact info, kept in this cell so Carol can reach her while coordinating Paula's medical appointments. This cell's two members are Alice and Carol (its `c:subject`, `:Paula_Walker`, is a third party the cell is *about*, not one of its members) — this topic and its counterpart (topic 28, Carol's own self-claimed persona) together represent those two members, alongside topic 26 (Alice's claims about Paula's medical appointment). Alice is the claimant.
 
 #### Topic Graph
 

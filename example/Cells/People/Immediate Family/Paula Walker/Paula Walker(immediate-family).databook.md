@@ -45,7 +45,7 @@ mia:
 
 #### Overview
 
-This topic captures Paula Walker's self-claimed family persona as transmitted from Paula's Mia to Alice's Mia over the PDN.
+This topic captures Paula Walker's self-claimed family persona as transmitted from Paula's Mia to Alice's Mia over the PDN. Paula is the claimant.
 
 #### Topic Graph
 
@@ -68,7 +68,7 @@ This topic captures Paula Walker's self-claimed family persona as transmitted fr
 
 #### Overview
 
-This topic captures Alice's record of her family member Paula Walker. Alice claims Paula's name in the family topic.
+This topic captures Alice's record of her family member Paula Walker. Alice claims Paula's name in the family topic. Alice is the claimant.
 
 #### Topic Graph
 
@@ -102,7 +102,7 @@ This topic captures Alice's record of her family member Paula Walker. Alice clai
 
 #### Overview
 
-This topic captures Alice Walker's family relationships. It records her maternal relationship with Paula Walker and her family social network, which includes Paula Walker and Carol Walker (Alice's sister) as members. Paula's own family topic (`topic-05`) is the peer record in this relationship; Carol's own claimed record about their mother appears separately in the "Med. App. Info" cell (topic 28).
+This topic captures Alice Walker's family relationships. It records her maternal relationship with Paula Walker and her family social network, which includes Paula Walker and Carol Walker (Alice's sister) as members. Paula's own family topic (`topic-05`) is the peer record in this relationship; Carol's own claimed record about their mother appears separately in the "Med. App. Info" cell (topic 28). Alice is the claimant.
 
 #### Topic Graph
 

@@ -28,7 +28,7 @@ mia:
 
 #### Overview
 
-This topic captures Paula Walker's physical body characteristics — properties that are intrinsic to her as a person and do not belong to any particular institutional or social topic — as recorded by Alice. Height is recorded as a CCO Height quality with a RatioMeasurementICE (68 inches). Eye color is modeled as Paula bearing a BlueEyeColor quality directly. Hair color is borne by her ScalpHair continuant part.
+This topic captures Paula Walker's physical body characteristics — properties that are intrinsic to her as a person and do not belong to any particular institutional or social topic — as recorded by Alice. Height is recorded as a CCO Height quality with a RatioMeasurementICE (68 inches). Eye color is modeled as Paula bearing a BlueEyeColor quality directly. Hair color is borne by her ScalpHair continuant part. Alice is the claimant.
 
 #### Topic Graph
 

@@ -118,8 +118,6 @@ http://www.example.org/mia/topics/topic-<NN>
 
 `<NN>` is the same zero-padded two-digit topic number used everywhere else for this topic — the diagram label, the `### Topic NN` body heading, and its `<a id="topic-NN">` anchor. `mia.memberTopics`/`mia.otherTopics` entries reference a topic by its bare local name (`topic-<NN>`) rather than the full IRI (see [Check 3](#integrity-checks)).
 
-**Exception — `cell:ThreePlusMember` topics**: A group topic (`memberCount: ThreePlusMember`) has no single claimant — any permitted member can write to it and changes replicate to all members. This has no effect on the id itself (still bare `topic-<NN>`); it only affects that topic's own `claimant` field, which is the literal `members` rather than an individual name. Example: `topic-01`'s `claimant: "members"` — about BHS Group, claimed by the group's members collectively.
-
 **`claimant` vocabulary** (a `mia.topics[]` entry's own field): takes the local IRI of a `p:Person`, `g:Group`, or `o:Organization` individual — NOT an `i:PDNidentifier`. Specifically: `:Self` (the Mia user's `p:Person`) for self-claimed topics; a named `p:Person` individual (e.g. `:Bob_Johnson`) when another Mia user claims the data; a named `g:Group` individual (e.g. `:BHS_Group`) for group topics; and a named `o:Organization` individual (e.g. `:Citibank`) only when the claiming organization is itself PDN-interoperable. In the example data **only Citibank is treated as PDN-interoperable**, so only the topic embedded in `Citibank(banking-payments).databook.md` (id `topic-09`) uses `claimant: ":Citibank"`. All other organization-related topics (Google, AT&T, SSA, etc.) use `claimant: ":Self"` because Alice self-enters that data — those organizations aren't PDN-interoperable. (This distinction is currently just a data-modeling convention in the example, not formally enforced by any property — `identity:hasPDNidentifier`, which would have modeled it, was removed as unused; see pdn-identity.ttl 1.3.0.)
 
 **"Other" claimants**: When the claimant is someone other than the current Mia user (`:Self`), the claimant is a named individual of one of:
@@ -135,7 +133,7 @@ http://www.example.org/mia/topics/topic-<NN>
 | `topic-07` | Paula Walker | Self (Alice) | Paula-Walker(immediate-family) |
 | `topic-08` | Self (Alice) | Bob Johnson | Bob-Johnson(others) |
 | `topic-03` | Bob Johnson | Bob Johnson | Boston-Hub-Society(affiliations) |
-| `topic-01` | BHS Group | members (group) | Boston-Hub-Society(affiliations) |
+| `topic-01` | BHS Group | BHS Group | Boston-Hub-Society(affiliations) |
 
 ### Key Architectural Patterns
 

@@ -30,7 +30,7 @@ mia:
 
 #### Overview
 
-This topic captures Alice Walker's professional business card in JSContactCard format. It records her full name, work email (alice@acme.com), work phone (+15108149999), employer (Acme), department (Engineering), job title (Software Engineer), and LinkedIn profile URL. Validated by the `JSContactCard` per-template SHACL shapes.
+This topic captures Alice Walker's professional business card in JSContactCard format. It records her full name, work email (alice@acme.com), work phone (+15108149999), employer (Acme), department (Engineering), job title (Software Engineer), and LinkedIn profile URL. Validated by the `JSContactCard` per-template SHACL shapes. Alice is the claimant.
 
 #### Topic Graph
 

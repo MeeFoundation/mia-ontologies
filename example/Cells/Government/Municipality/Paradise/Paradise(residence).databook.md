@@ -28,7 +28,7 @@ mia:
 
 #### Overview
 
-This topic captures Alice Walker's current residential address: 123 Sleepy Hollow, Paradise, CA 95969. The address designation has a start date of September 2025 and no end date, indicating it is her current residence. See `15-alice(boston)alice` for her previous address.
+This topic captures Alice Walker's current residential address: 123 Sleepy Hollow, Paradise, CA 95969. The address designation has a start date of September 2025 and no end date, indicating it is her current residence. See `15-alice(boston)alice` for her previous address. Alice is the claimant.
 
 #### Topic Graph
 

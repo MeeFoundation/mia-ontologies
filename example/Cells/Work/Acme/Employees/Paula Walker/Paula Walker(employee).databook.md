@@ -58,7 +58,7 @@ This topic captures Alice's record of her colleague Paula Walker in their shared
 
 #### Overview
 
-This topic captures Alice Walker's employee identity at Acme. It records her work email address (alice@acme.com) and her Acme social network, which includes colleague Paula Walker.
+This topic captures Alice Walker's employee identity at Acme. It records her work email address (alice@acme.com) and her Acme social network, which includes colleague Paula Walker. Alice is the claimant.
 
 #### Topic Graph
 
