@@ -11,13 +11,13 @@
 @base <http://mee.foundation/ontologies/persona> .
 
 <http://mee.foundation/ontologies/persona> rdf:type owl:Ontology ;
-    owl:versionIRI <http://mee.foundation/ontologies/persona/4.3.0> ;
+    owl:versionIRI <http://mee.foundation/ontologies/persona/4.4.0> ;
     owl:imports <https://w3id.org/cco-domains/domains/PersonOntology> ;
     owl:imports <https://w3id.org/cco-domains/domains/AddressOntology> ;
     owl:imports <https://w3id.org/cco-domains/domains/StagingOntology> ;
     owl:imports <http://mee.foundation/ontologies/persona-templates> ;
-    dc:date "2026-08-07"^^xsd:date ;
-    owl:versionInfo "Version 4.3.0 - broadened p:hasPhysicalCard to record general possession of a PhysicalCard regardless of whether it is also inside a wallet (continuant part of), removing the previous 'carried outside of a wallet' restriction; the two properties now record independent, complementary facts (possession vs. wallet containment) rather than mutually-exclusive ones. (4.2.0: updated doc comments referencing context files/context.ttl to topic files/topic.ttl following the ontology-wide context→topic rename. No change to any triples. 4.1.0: deprecated p:hasPaymentCard, p:CheckingAccountNumber, and p:RoutingNumber in favour of committed cco: terms (cco:ent00000073, cco:ent00000071, cco:ent00000072); usages migrated, declarations retained with owl:deprecated + rdfs:seeAlso aliases (block at end of file). p:CheckingAccount and the bank-account properties are intentionally left in place pending the account-entity decision. 4.0.6: removed the owl:imports of pdn-identity.ttl and resynced owl:versionIRI with owl:versionInfo.)"@en ;
+    dc:date "2026-08-21"^^xsd:date ;
+    owl:versionInfo "Version 4.4.0 - removed p:hasPaymentCard, p:CheckingAccountNumber, and p:RoutingNumber outright, along with their trailing owl:deprecated/rdfs:seeAlso alias block: confirmed no downstream databook references either the deprecated persona: terms or the alias triples themselves, so nothing was left to retain for continuity. Their committed cco: replacements (cco:ent00000073, cco:ent00000071, cco:ent00000072) are unaffected and remain in active use."@en ;
     rdfs:label "Persona Ontology"@en ;
     rdfs:comment """Persona Ontology for the Mee Identity Agent.
 
@@ -156,23 +156,9 @@ p:hasSocialNetwork rdf:type owl:ObjectProperty ;
 #    Banking-related
 #################################################################
 
-p:hasPaymentCard rdf:type owl:ObjectProperty ;
-    rdfs:domain p:Person ;
-    rdfs:range cco:ent00000049 ;    # Payment Card
-    rdfs:label "holds payment card"@en ;
-    rdfs:comment "Links a Person to a Payment Card (credit, debit, or other) it records."@en .
-
 p:CheckingAccount rdf:type owl:Class ;
     rdfs:label "Checking Account"@en ;
     rdfs:comment "A bank checking account held by a person, linked to a debit card."@en .
-
-p:CheckingAccountNumber rdf:type owl:Class ;
-    rdfs:label "Checking Account Number"@en ;
-    rdfs:comment "An identifier designating a bank checking account. Used via designated by (ont00001879)."@en .
-
-p:RoutingNumber rdf:type owl:Class ;
-    rdfs:label "Routing Number"@en ;
-    rdfs:comment "An ABA routing transit number identifying the financial institution. Used via designated by (ont00001879)."@en .
 
 p:hasBankAccount rdf:type owl:ObjectProperty ;
     rdfs:domain p:Person ;
@@ -295,22 +281,3 @@ cco:ent00000051
                             Designated by a CreditCardNumber (ent00000052), CVV (ent00000053),
                             and — via has expiration date (cco:ent00000070) — a Calendar Date
                             Identifier (cco:ont00001340)."""@en .
-
-
-#################################################################
-#    Deprecated IRI Aliases  (persona: → cco: migration, 2026-07-21)
-#
-#    The banking designators/predicate below are superseded by committed
-#    cco: terms (StagingOntology). Instance and shape usages have been
-#    migrated to the cco: terms; the persona: declarations above are retained
-#    for continuity and marked deprecated. Safe to remove once Paul confirms
-#    no downstream databooks reference them.
-#
-#    NOT deprecated here: p:CheckingAccount and the p:hasBankAccount /
-#    p:accessesBankAccount properties — the account entity has no clean
-#    BFO/CCO parent yet, so its migration is deferred to a later PR.
-#################################################################
-
-p:hasPaymentCard        owl:deprecated true ; rdfs:seeAlso cco:ent00000073 .
-p:CheckingAccountNumber owl:deprecated true ; rdfs:seeAlso cco:ent00000071 .
-p:RoutingNumber         owl:deprecated true ; rdfs:seeAlso cco:ent00000072 .
