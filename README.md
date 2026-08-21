@@ -86,6 +86,11 @@ The user is free to construct folders not included in the predefined categories.
     - **Insurance Firms** (`cat:Insurance`) — firms that protect you and your family from financial ruin if something bad happens. These include Life & Health Insurance firms that cover medical bills or provide money to your family if you pass away, and Property & Casualty Insurance firms that insure your car, home, or apartment against accidents and theft.
     - **Advisory Firms** (`cat:Advisory`) — firms and individuals who do not just hold your money, but tell you the best ways to use it. These include Financial Planners (Wealth Advisors), human experts who help you build a custom roadmap for taxes, retirement, and budgeting, and Estate Planners, specialized professionals who help you write wills and plan how to pass your money to your children. Also includes Accountants and Bookkeepers, who track your income and expenses and prepare your taxes.
 1. **Pets** (`cat:Pets`) — care instructions, veterinarians, medicines, food providers.
+    - **Health** (`cat:PetsHealth`) — a pet's medical care — veterinarians, medications, devices, diagnoses, and treatments.
+        - **Veterinarians** (`cat:PetsVeterinarians`) — veterinary practices and providers a pet sees for care.
+        - **Medications** (`cat:PetsMedications`) — a pet's prescriptions, medications, and dosing instructions.
+        - **Devices** (`cat:PetsDevices`) — medical devices and supplies used in a pet's care, e.g. syringes, nebulizers, and injection solutions.
+    - **Food** (`cat:PetsFood`) — a pet's diet, food providers, feeding instructions, and dietary restrictions.
 1. **Home** (`cat:Home`) — owning or renting a home, apartment, or other dwelling. Leases, deeds, utility accounts, real estate brokers.
 1. **Work** (`cat:Work`) — professional roles. Employment history, resume/CV.
 1. **Ownership** (`cat:Ownership`) — owned assets, property, vehicles, and other possessions.
@@ -107,7 +112,7 @@ The user is free to construct folders not included in the predefined categories.
         - **Drivers License** (`cat:DriversLicense`) — a driver's license issued by a state agency that issues and holds these records.
     - **Municipality** (`cat:Municipality`) — municipal government topic (e.g. local permits, library card).
         - **Residence** (`cat:Residence`) — a place a person has lived, current or past.
-1. **Companies** (`cat:Companies`) — a catch-all for your relationships with companies and organizations that provide services and/or products to you that are not included in more specific categories such `Cat:Finances`, `cat:HealthWellness`, `cat:Home`, `cat:Food`, etc.
+1. **Companies** (`cat:Companies`) — a catch-all for your relationships with companies and organizations that provide services and/or products to you that are not included in more specific categories such as `cat:Finances`, `cat:HealthWellness`, `cat:Home`, `cat:Food`, etc.
 
 ### Organizational Categories
 

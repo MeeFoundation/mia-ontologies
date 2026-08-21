@@ -9,8 +9,8 @@
 @base <http://mee.foundation/ontologies/category> .
 
 <http://mee.foundation/ontologies/category> rdf:type owl:Ontology ;
-    owl:versionIRI <http://mee.foundation/ontologies/category/1.39.0> ;
-    dc:date "2026-08-09"^^xsd:date ;
+    owl:versionIRI <http://mee.foundation/ontologies/category/1.41.0> ;
+    dc:date "2026-08-21"^^xsd:date ;
     owl:imports <http://mee.foundation/ontologies/cell> ;
     owl:imports <http://mee.foundation/ontologies/cell-templates> ;
     rdfs:label "Category Ontology"@en ;
@@ -386,6 +386,31 @@ cat:Pets rdf:type owl:Class ;
     rdfs:subClassOf cat:Person ;
     rdfs:label "Pets"@en ;
     rdfs:comment "Care instructions, veterinarians, medicines, food providers."@en .
+
+cat:PetsHealth rdf:type owl:Class ;
+    rdfs:subClassOf cat:Pets ;
+    rdfs:label "Health"@en ;
+    rdfs:comment "A pet's medical care — veterinarians, medications, devices, diagnoses, and treatments."@en .
+
+cat:PetsVeterinarians rdf:type owl:Class ;
+    rdfs:subClassOf cat:PetsHealth ;
+    rdfs:label "Veterinarians"@en ;
+    rdfs:comment "Veterinary practices and providers a pet sees for care."@en .
+
+cat:PetsMedications rdf:type owl:Class ;
+    rdfs:subClassOf cat:PetsHealth ;
+    rdfs:label "Medications"@en ;
+    rdfs:comment "A pet's prescriptions, medications, and dosing instructions."@en .
+
+cat:PetsDevices rdf:type owl:Class ;
+    rdfs:subClassOf cat:PetsHealth ;
+    rdfs:label "Devices"@en ;
+    rdfs:comment "Medical devices and supplies used in a pet's care, e.g. syringes, nebulizers, and injection solutions."@en .
+
+cat:PetsFood rdf:type owl:Class ;
+    rdfs:subClassOf cat:Pets ;
+    rdfs:label "Food"@en ;
+    rdfs:comment "A pet's diet, food providers, feeding instructions, and dietary restrictions."@en .
 
 cat:Home rdf:type owl:Class ;
     rdfs:subClassOf cat:Person ;
