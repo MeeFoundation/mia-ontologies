@@ -17,15 +17,13 @@
 
 #################################################################
 #  Cell
-#  cell:Cell (formerly cell:Parties) carries only what's common to
-#  every cell regardless of facet: origin (cell:folder was removed
-#  outright in cell.ttl 3.23.0 — a cell's folder is now purely the
-#  filesystem folder its cell-databook physically lives in, never a
-#  stored path, so there's nothing left to constrain here). Identity/
-#  topic links (cell:subject/cell:memberTopics/cell:otherTopics) live
-#  on :ACellShape and the per-member-count shapes below, since their
-#  domain narrowed from cell:Cell to cell:ACell in cell.ttl 3.10.0 —
-#  a cell not yet typed cell:ACell has none of them.
+#  cell:Cell carries only what's common to every cell regardless of
+#  facet: origin. A cell's folder is purely the filesystem folder its
+#  cell-databook physically lives in, never a stored path, so there's
+#  nothing to constrain here for that. Identity/topic links
+#  (cell:subject/cell:memberTopics/cell:otherTopics) live on
+#  :ACellShape and the per-member-count shapes below — a cell not yet
+#  typed cell:ACell has none of them.
 #################################################################
 
 :CellShape
@@ -33,9 +31,9 @@
     sh:targetClass cell:Cell ;
     sh:message "Cell validation."@en ;
 
-    # cell:origin — at most one value (0..1, cell.ttl 3.26.0), on any
-    # cell:Cell regardless of facet. Absent exactly when the cell is of
-    # the UserDefined category — identified precisely by its
+    # cell:origin — at most one value (0..1), on any cell:Cell
+    # regardless of facet. Absent exactly when the cell is of the
+    # UserDefined category — identified precisely by its
     # cell-databook's filename carrying the literal "(custom)"
     # disambiguator, not a vague "no canonical counterpart" judgment
     # call; SHACL can't see filenames, so this specific absence/filename
@@ -53,9 +51,9 @@
 
 #################################################################
 #  TCell
-#  cell:TCell is the template facet of a cell (cell.ttl 3.7.0) —
-#  reusable content reached via a cat:Category subclass's
-#  cat:templateCell (category.ttl).
+#  cell:TCell is the template facet of a cell — reusable content
+#  reached via a cat:Category subclass's cat:templateCell
+#  (category.ttl).
 #################################################################
 
 :TCellShape
@@ -80,18 +78,13 @@
 
 #################################################################
 #  ACell
-#  cell:ACell is the actual/instantiated facet of a cell (cell.ttl
-#  3.7.0) — real, member-classified content. creator and memberCount
-#  moved here from :CellShape when their domain narrowed from
-#  cell:Cell to cell:ACell; subject and topics (renamed from
-#  primary/secondary, themselves renamed from graph/sc-context)
-#  moved here the same way in cell.ttl 3.10.0/3.12.0. As of cell.ttl
-#  3.14.0/cell-shacl.ttl 3.12.0, cell:subject's and cell:topics's
-#  per-member-count cardinality is no longer enforced uniformly here —
-#  see :OneMemberShape/:TwoMemberShape/:ThreePlusMemberShape below.
-#  :ACellShape retains only cell:subject's structural sh:nodeKind
-#  check (applies regardless of member count) and cell:otherTopics's
-#  unbounded, uniform constraint.
+#  cell:ACell is the actual/instantiated facet of a cell — real,
+#  member-classified content. :ACellShape retains only cell:subject's
+#  structural sh:nodeKind check (applies regardless of member count)
+#  and cell:otherTopics's unbounded, uniform constraint; cell:subject's
+#  and cell:memberTopics's per-member-count cardinality is enforced by
+#  :OneMemberShape/:TwoMemberShape/:ThreePlusMemberShape below, not
+#  here.
 #################################################################
 
 :ACellShape
@@ -100,10 +93,9 @@
     sh:message "Actual Cell validation."@en ;
 
     # cell:subject — each value must be an IRI (not constrained to
-    # sh:class topic:SCTopicGraph — its range widened to xsd:anyURI in
-    # cell.ttl 3.12.0, since its values are the resource(s) the cell is
-    # about, e.g. a p:Person/o:Organization, not a topic
-    # container). Cardinality (exactly 1 vs 1..2) now varies by member
+    # sh:class topic:SCTopicGraph, since its values are the resource(s)
+    # the cell is about, e.g. a p:Person/o:Organization, not a topic
+    # container). Cardinality (exactly 1 vs 1..2) varies by member
     # count — see :OneMemberShape/:TwoMemberShape/:ThreePlusMemberShape
     # below, not here.
     sh:property [
@@ -116,8 +108,7 @@
     # required cell:memberTopics baseline, each a topic:SCTopicGraph.
     # Optional and unbounded uniformly across all member counts, unlike
     # cell:memberTopics (see :OneMemberShape/:TwoMemberShape/
-    # :ThreePlusMemberShape below). Split from cell:topics (cell.ttl up
-    # to 3.13.0).
+    # :ThreePlusMemberShape below).
     sh:property [
         sh:path cell:otherTopics ;
         sh:class topic:SCTopicGraph ;

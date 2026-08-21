@@ -304,8 +304,7 @@ cco:ent00000051
 #    cco: terms (StagingOntology). Instance and shape usages have been
 #    migrated to the cco: terms; the persona: declarations above are retained
 #    for continuity and marked deprecated. Safe to remove once Paul confirms
-#    no downstream databooks reference them. (Same lifecycle previously
-#    applied to the EyeColor terms.)
+#    no downstream databooks reference them.
 #
 #    NOT deprecated here: p:CheckingAccount and the p:hasBankAccount /
 #    p:accessesBankAccount properties — the account entity has no clean

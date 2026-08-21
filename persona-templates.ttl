@@ -82,8 +82,8 @@ persona:BirthCertificateDocument rdf:type owl:Class ;
                     in cell-templates-shacl.ttl, linked from cat:BirthCertificate's template cell
                     (cell-templates.ttl) via cell:templateShape — IRI
                     http://mee.foundation/ontologies/persona/shapes/birthcertificate — for
-                    validation. Formerly named persona:BirthCertificate; renamed to disambiguate from
-                    the unrelated cat:BirthCertificate category-classification class (category.ttl)."""@en .
+                    validation. Disambiguated from the unrelated cat:BirthCertificate
+                    category-classification class (category.ttl)."""@en .
 
 
 #################################################################
@@ -122,9 +122,9 @@ persona:DriversLicenseDocument rdf:type owl:Class ;
                     http://mee.foundation/ontologies/persona/shapes/driverslicense — for validation.
                     Note: p:PhysicalDriversLicense (in persona.ttl) models the physical card
                     object carried in a wallet; this class models the identity data the
-                    license claims. Formerly named persona:DriversLicense; renamed to disambiguate
-                    from the unrelated cat:DriversLicense category-classification class
-                    (category.ttl) and from p:PhysicalDriversLicense."""@en .
+                    license claims. Disambiguated from the unrelated cat:DriversLicense
+                    category-classification class (category.ttl) and from
+                    p:PhysicalDriversLicense."""@en .
 
 
 #################################################################
@@ -182,8 +182,8 @@ persona:PassportDocument rdf:type owl:Class ;
                     in cell-templates-shacl.ttl, linked from cat:Passport's template cell
                     (cell-templates.ttl) via cell:templateShape — IRI
                     http://mee.foundation/ontologies/persona/shapes/passport — for
-                    validation. Formerly named persona:Passport; renamed to disambiguate from
-                    the unrelated cat:Passport category-classification class (category.ttl)."""@en .
+                    validation. Disambiguated from the unrelated cat:Passport
+                    category-classification class (category.ttl)."""@en .
 
 
 #################################################################
@@ -386,9 +386,9 @@ persona:MedicalAppointmentRecord rdf:type owl:Class ;
                     cell-templates-shacl.ttl, linked from cat:MedicalAppointmentInfo's template
                     cell (cell-templates.ttl) via cell:templateShape — IRI
                     http://mee.foundation/ontologies/persona/shapes/medical-appointment — for
-                    validation. Formerly named persona:MedicalAppointment; renamed "Record" rather
-                    than "Document" since this class is explicitly not a p:IdentityDocument,
-                    matching its :MedicalAppointmentRecordShape's existing name."""@en .
+                    validation. Named "Record" rather than "Document" since this class
+                    is explicitly not a p:IdentityDocument, matching its
+                    :MedicalAppointmentRecordShape's existing name."""@en .
 
 persona:forPatient rdf:type owl:ObjectProperty ;
     rdfs:domain persona:MedicalAppointmentRecord ;
@@ -462,7 +462,6 @@ persona:preferredPharmacy rdf:type owl:DatatypeProperty ;
 #    and shape usages have been migrated to the cco: terms; the persona:
 #    declarations above are retained for continuity and marked deprecated.
 #    Safe to remove once Paul confirms no downstream databooks reference them.
-#    (Same lifecycle previously applied to the EyeColor terms.)
 #################################################################
 
 persona:DriversLicenseNumber owl:deprecated true ; rdfs:seeAlso cco:ent00000065 .

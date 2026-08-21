@@ -346,9 +346,7 @@
 
     # Each BFO has member part value must be EITHER a sub-group Social Network (e.g. Family,
     # Colleague, Other) OR an ordinary Person member (unified IRI for same person across
-    # topics) — not both at once. Was previously two separate mandatory sh:property shapes
-    # on the same path, which required every member to satisfy both sh:class constraints
-    # simultaneously (impossible for an ordinary Person member); merged into a single sh:or.
+    # topics) — not both at once.
     sh:property [
         sh:path <http://purl.obolibrary.org/obo/BFO_0000115> ;  # has member part
         sh:or (
