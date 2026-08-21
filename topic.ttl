@@ -1,7 +1,6 @@
 @prefix topic: <http://mee.foundation/ontologies/topic#> .
 @prefix cell: <http://mee.foundation/ontologies/cell#> .
 @prefix p: <http://mee.foundation/ontologies/persona#> .
-@prefix g: <http://mee.foundation/ontologies/group#> .
 @prefix o: <http://mee.foundation/ontologies/organization#> .
 @prefix owl: <http://www.w3.org/2002/07/owl#> .
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
@@ -11,8 +10,8 @@
 @base <http://mee.foundation/ontologies/topic> .
 
 <http://mee.foundation/ontologies/topic> rdf:type owl:Ontology ;
-    owl:versionIRI <http://mee.foundation/ontologies/topic/1.15.0> ;
-    dc:date "2026-08-02"^^xsd:date ;
+    owl:versionIRI <http://mee.foundation/ontologies/topic/1.16.0> ;
+    dc:date "2026-08-21"^^xsd:date ;
     owl:imports <http://mee.foundation/ontologies/cell> ;
     rdfs:label "Topic Ontology"@en ;
     rdfs:comment """Topic Ontology for the Mee Identity Agent"""@en .
@@ -25,21 +24,24 @@
 topic:claimant rdf:type owl:AnnotationProperty ;
     rdfs:label "claimed by"@en ;
     rdfs:comment """Annotates a topic DataBook with the identity making the claim —
-                    a named individual of p:Person, g:Group, or o:Organization (e.g. :Self,
-                    a p:Person, g:Group, or o:Organization instance). Applied to the topic
+                    a named individual of p:Person or o:Organization (e.g. :Self,
+                    a p:Person or o:Organization instance). Applied to the topic
                     DataBook's own IRI (its plain `id`) — the same IRI cell:topics
                     links to from the cell side — not to the `#graph`-suffixed
-                    `graph.named_graph` IRI, and not to the Person individual."""@en ;
+                    `graph.named_graph` IRI, and not to the Person individual.
+                    Narrowed from a three-way p:Person/g:Group/o:Organization union
+                    in topic.ttl 1.16.0, when the g:Group concept (group.ttl) was
+                    eliminated entirely."""@en ;
     rdfs:domain topic:SCTopicGraph ;
-    rdfs:range [ rdf:type owl:Class ; owl:unionOf ( p:Person g:Group o:Organization ) ] .
+    rdfs:range [ rdf:type owl:Class ; owl:unionOf ( p:Person o:Organization ) ] .
 
 topic:subject rdf:type owl:AnnotationProperty ;
     rdfs:label "subject"@en ;
     rdfs:comment """Annotates a topic DataBook with the resource it is about. Value
                     may be any resource IRI — a topic need not be about a person's
                     identity. In the example data, every subject value happens to be a
-                    named individual of p:Person, g:Group, or o:Organization (e.g.
-                    :Self, a p:Person, g:Group, or o:Organization instance), but that is
+                    named individual of p:Person or o:Organization (e.g.
+                    :Self, a p:Person or o:Organization instance), but that is
                     a convention of the example data, not an ontology requirement.
                     Applied to the topic DataBook's own IRI (its plain `id`) — the same
                     IRI cell:topics links to from the cell side — not to

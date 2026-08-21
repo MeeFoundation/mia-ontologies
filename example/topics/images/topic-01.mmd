@@ -1,18 +1,15 @@
 flowchart TD
     classDef person fill:#fffacd,stroke:#aaa,color:#333
-    classDef grp    fill:#d4edda,stroke:#aaa,color:#333
     classDef org    fill:#cce5ff,stroke:#aaa,color:#333
     classDef lit    fill:none,stroke:none,font-style:italic,color:#2a7a2a
     classDef meta   fill:#f5f5ff,stroke:#9999cc,color:#333
 
     subgraph ctx["Topic Graph"]
         direction LR
-        ctx_meta["claimant: :BHS_Group\nsubject: :BHS_Group"]:::meta
+        ctx_meta["claimant: :BHS\nsubject: :BHS"]:::meta
     end
 
-    n1f280731bedf[":BHS_Group\n(Group)"]:::grp
-    ne0c3ba92f1db[":Self\n(Person)"]:::person
-    ncea94215aa38[":Bob_Johnson"]
+    n0644db9ef116[":BHS\n(Organization)"]:::org
+    n23d5650e2787("An informal Boston-area professional networking society. Current members include Alice Walker and Bob Johnson."):::lit
 
-    n1f280731bedf -->|"hasMemberPart"| ne0c3ba92f1db
-    n1f280731bedf -->|"hasMemberPart"| ncea94215aa38
+    n0644db9ef116 -->|"ont00001917"| n23d5650e2787

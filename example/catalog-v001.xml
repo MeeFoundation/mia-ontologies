@@ -26,8 +26,6 @@
          uri="file:/Users/paul/Documents/Work/GitHub/mia-ontologies/cell-templates-shacl.ttl"/>
     <uri id="pdn-identity"             name="http://mee.foundation/ontologies/pdn-identity"
          uri="file:/Users/paul/Documents/Work/GitHub/mia-ontologies/pdn-identity.ttl"/>
-    <uri id="group"                    name="http://mee.foundation/ontologies/group"
-         uri="file:/Users/paul/Documents/Work/GitHub/mia-ontologies/group.ttl"/>
     <uri id="organization"             name="http://mee.foundation/ontologies/organization"
          uri="file:/Users/paul/Documents/Work/GitHub/mia-ontologies/organization.ttl"/>
 

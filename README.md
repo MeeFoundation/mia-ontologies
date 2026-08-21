@@ -1,8 +1,8 @@
 # Mia Ontologies
 
-This document describes the ontologies used by the Mee Identity Agent (Mia) software application. The application lets the user create *cells* – private, secure collaboration spaces which can be joined by other Mia users and/or nodes on the Personal Data Network (PDN) hosted by groups, or organizations. 
+This document describes the ontologies used by the Mee Identity Agent (Mia) software application. The application lets the user create *cells* – private, secure collaboration spaces which can be joined by other Mia users and/or nodes on the Personal Data Network (PDN) hosted by organizations. 
 
-The following **domain ontologies** model claims about people, organizations, groups, and other subjects — these claims live in `t:SCTopicGraph` instances. They import and profile existing ontologies — documenting which of their classes and properties Mia requires or uses — and extending them with Mia-specific classes and properties
+The following **domain ontologies** model claims about people, organizations, and other subjects — these claims live in `t:SCTopicGraph` instances. They import and profile existing ontologies — documenting which of their classes and properties Mia requires or uses — and extending them with Mia-specific classes and properties
 
 - **Persona ontology** — models a person: names, addresses, phone numbers, relationships, payment cards, and more. It is built on BFO (Basic Formal Ontology) and CCO (Common Core Ontologies) as the upper ontological foundation, and on domain ontologies that extend CCO:
   - **PersonOntology** — person, name types, parent-child relationships
@@ -10,7 +10,6 @@ The following **domain ontologies** model claims about people, organizations, gr
   - **StagingOntology** — staging area for terms pending promotion (phone numbers, email addresses, user accounts, etc.)
   - **AgentOntology** — agents and their properties (imported transitively via PersonOntology)
 - **Organization ontology** — models organizations (companies, government agencies, non-profits, etc.) 
-- **Group ontology** — a group made up of individuals and/or organizations.
 
 Also included are the Category, Cell and Topic **metadata ontologies**. *Categories* are used to organize *cells* into a tree structure of subject areas. *Cells* are data spaces that can be shared with other users and organizations. Cells contain content including files (including folder notes), folders, chat streams, as well as structure information blocks called *topics* that typically follow the Persona ontology.
 
@@ -21,7 +20,6 @@ Throughout this document we use these short-hands:
 - `t:` for the `topic:` namespace (`http://mee.foundation/ontologies/topic#`)
 - `p:` for the `persona:` namespace (`http://mee.foundation/ontologies/persona#`)
 - `o:` for the `organization:` namespace (`http://mee.foundation/ontologies/organization#`).
-- `g:` for the `group:` namespace (`http://mee.foundation/ontologies/group#`)
 
 See [**EXAMPLE.md**](EXAMPLE.md) for an illustration of the use of these ontologies by a hypothetical Mia user, Alice, along with diagram-generation and validation instructions for the example dataset.
 
@@ -180,7 +178,7 @@ The Cell class has two facets: `c:TCell`, the *template* facet, and `c:ACell`, t
 
 ### Cell
 
-A cell is a private, secure collaboration space created and managed by the Mia software application. It is a self-contained unit of content that can be shared with one or more other members. These other members are usually other users, but may also be groups or organizations that are compatible with the Personal Data Network.
+A cell is a private, secure collaboration space created and managed by the Mia software application. It is a self-contained unit of content that can be shared with one or more other members. These other members are usually other users, but may also be organizations that are compatible with the Personal Data Network.
 
 <p align="center"><img src="images/cell-ontology/cell.png" alt="Cell hierarchy"></p>
 
@@ -216,7 +214,7 @@ A cell needing both facets at once — e.g. every individual in `cell-templates.
 
 - **`c:shape`** — a `owl:ObjectProperty`, domain `c:ACell`, range `sh:NodeShape`. Optional; most actual cells carry no `c:shape` value. Links a `c:ACell` individual directly to the `sh:NodeShape`(s) validating that specific cell's own content, as opposed to `c:templateShape`, which describes what a topic filed under some other, template category should look like. Populated by copy-on-clone: when Lazy Instantiation clones a `c:TCell` into a new `c:ACell` — whatever `c:templateShape` value the `TCell` carried is copied into the clone's `c:shape` with the same validation expectation.
 
-- **`c:creator`** — required, exactly one value. Identifies who created this cell's content: a single `p:Person`, `g:Group`, or `o:Organization`. 
+- **`c:creator`** — required, exactly one value. Identifies who created this cell's content: a single `p:Person` or `o:Organization`. 
 
 - **`c:memberCount`** — the concrete `c:ACell` subtype this DataBook instantiates: `c:OneMember`, `c:TwoMember`, or `c:ThreePlusMember`. Value is the class itself (e.g. `mia.memberCount: "c:OneMember"`). See [Cell Members](#cell-members) above.
 
@@ -244,7 +242,7 @@ Each folder's own icon fill color reflects its cell's category type (see [Catego
 
 The blue text in the upper left of the cell displays the 1-2 subject(s) of the cell. If a `c:TwoMember` cell has a single subject this subject must be the subject of a topic graph in the `c:otherTopics`. And if `c:TwoMember` cell has two subjects they must be two distinct subjects of the 2..4 topic graphs pointed to by `c:memberTopics`. A TwoMember cell with two subjects is essentially about the connection/relationship between the two members.
 
-Within each cell, topic graphs shown as circles. White circles are topic graphs whose triples are claimed by the self (the user). Green circles are topic graphs whose triples are claimed by a person other than the self, by an organization (`o:Organization`), or by a group (`g:Group`), and synchronized with the user's Mia instance over the PDN. For example the BHS cell at the bottom has three topics: Self (the user)'s BHS profile, the BHS group's own profile and Bob Johnson's BHS member profile as claimed by Bob.
+Within each cell, topic graphs shown as circles. White circles are topic graphs whose triples are claimed by the self (the user). Green circles are topic graphs whose triples are claimed by a person other than the self, or by an organization (`o:Organization`), and synchronized with the user's Mia instance over the PDN. For example the BHS cell at the bottom has three topics: Self (the user)'s BHS profile, BHS's own organization profile, and Bob Johnson's BHS member profile as claimed by Bob.
 
 A class's template cell (`cell-templates.ttl`) may also carry validation metadata declared in the paired `cell-templates-shacl.ttl`. This metadata lives on the class-level template only.
 
@@ -256,7 +254,7 @@ The following properties are defined in `cell.ttl` and represented as `mia.` YAM
 |------------|-------------------|-------------|---------|
 | `mia.origin` | `c:origin` | 0..1 | The `cat:Category` subclass this cell was originally instantiated as, as a class value (e.g. `"cat:Others"`); absent otherwise. Fixed at creation, not re-derived from the folder's current name. A hint for a recipient's app when this cell is shared over PDN |
 | `mia.memberCount` | `c:memberCount` | 1 | The concrete `c:ACell` subclass this DataBook instantiates, as a class value (e.g. `"c:OneMember"`) |
-| `mia.creator` | `c:creator` | 1 | Who created this cell's content — a `p:Person`, `g:Group`, or `o:Organization` |
+| `mia.creator` | `c:creator` | 1 | Who created this cell's content — a `p:Person` or `o:Organization` |
 | `mia.subject` | `c:subject` | 1..2 | The resource(s) (e.g. `:Self`, `:Bob_Johnson`) the cell's content is about |
 | `mia.shape` | `c:shape` | 0..1 | Optional `sh:NodeShape` validating this specific cell's own content directly |
 
@@ -266,7 +264,7 @@ Each cell DataBook carries one or two `c:subject` values identifying who or what
 
 | Property | Value | Cardinality | Applies to | Meaning |
 |----------|-------|-------------|------------|---------|
-| `c:subject` | `xsd:anyURI` | 1 on `OneMember`/`ThreePlusMember`; 1..2 on `TwoMember` (required) | Any `c:ACell` | The resource(s) (typically a `p:Person`/`g:Group`/`o:Organization`) the cell's relationship is about — not a topic container |
+| `c:subject` | `xsd:anyURI` | 1 on `OneMember`/`ThreePlusMember`; 1..2 on `TwoMember` (required) | Any `c:ACell` | The resource(s) (typically a `p:Person`/`o:Organization`) the cell's relationship is about — not a topic container |
 | `c:memberTopics` | `t:SCTopicGraph` | 1 on `OneMember`; 2..4 on `TwoMember`; 3..N on `ThreePlusMember` (required) | Any `c:ACell` | The required baseline of self-vs-other classified topics backing this cell's content — at least one per member in the relationship (up to all four self-vs-other combinations for `TwoMember`) — distinguished by each linked topic's own `subject`/`claimant` combination rather than by separate properties or classes |
 | `c:otherTopics` | `t:SCTopicGraph` | 0..N (optional), uniformly regardless of member count | Any `c:ACell` | Any number of additional topics beyond the `c:memberTopics` baseline — e.g. extra notes or supplementary claims not tied to a specific self-vs-other combination |
 
@@ -277,10 +275,10 @@ Each cell DataBook carries one or two `c:subject` values identifying who or what
 **`cell.ttl`** — The Cell ontology, defining:
   - *Classes*: `c:Cell` (formerly `c:Parties`), splitting into two orthogonal facets, `c:TCell` (abstract, template facet) and `c:ACell` (abstract, actual/instantiated facet); `c:OneMember`, `c:MultiMember` (abstract), `c:TwoMember`, `c:ThreePlusMember` — all now subclasses of `c:ACell` rather than `c:Cell` directly (cell.ttl 3.7.0).
   - *Annotation properties*: `c:label` (default display name for a concrete `c:Cell` subtype, asserted on the class), `c:abstract` (marks a class as not directly instantiated in DataBooks), `c:subject` (domain `c:ACell`; range `xsd:anyURI` — one or two resource IRIs identifying who or what the cell is about; not an object property since its range is a datatype, mirroring `topic:subject`'s identical pattern).
-  - *Object properties*: `c:origin` (domain `c:Cell`, range `cat:Category` — added cell.ttl 3.20.0; the `cat:Category` subclass this cell was originally instantiated as, else nil; fixed at creation, not re-derived from the folder's current name; at most one value); `c:templateShape` (domain `c:TCell`); `c:memberCount`/`c:creator`/`c:memberTopics`/`c:otherTopics`/`c:shape` (domain `c:ACell` — a cell isn't typed `c:ACell`, and so carries none of these, until it has real content). `c:creator`'s range is a union of `p:Person`, `g:Group`, and `o:Organization` — the same union-range pattern used by `topic:claimant` (see [Topic Ontology File](#topic-ontology-file)). `c:memberCount`'s range is `c:ACell` itself: its value is the concrete subclass (`c:OneMember`/`c:TwoMember`/`c:ThreePlusMember`), not a string — class-value punning; `c:origin`'s range `cat:Category` uses this same punning — its value is the concrete leaf subclass (e.g. `cat:Others`), not a string. `c:templateShape`'s and `c:shape`'s ranges are both `sh:NodeShape` — see [Cell Ontology](#cell-ontology) above — but on different domains: `templateShape` describes what a topic filed under a *template* category should look like, while `shape` validates an *actual* cell's own content directly. `c:memberTopics`/`c:otherTopics`'s range is `t:SCTopicGraph` — the former is the required per-member baseline (split from the single `c:topics` property, cell.ttl 3.14.0), the latter any number of additional topics beyond it. `c:Cell` carries no property pointing back to a folder at all — a folder is now purely a file system concept with no RDF individual to point at (category.ttl 1.31.0 deleted `cat:Folder` and its subclasses outright); `c:origin`'s range is the classificatory `cat:Category`, not a tree position — it records what kind of thing a cell is, not where it lives, letting a recipient's app use it as a filing hint when a cell is shared over PDN.
-  These terms are referenced by name in the YAML front matter of each cell DataBook file. `cell.ttl` imports `topic.ttl` (for `c:memberTopics`/`c:otherTopics`'s range, `t:SCTopicGraph`); `topic.ttl` in turn imports `cell.ttl` back, solely to reuse `c:abstract` — a mutual import. `category.ttl` also imports `cell.ttl` (to reuse `c:abstract`, and by name in `c:origin`'s doc comments), but `cell.ttl` does not import `category.ttl` back — `c:origin`'s range `cat:Category` is referenced by name only, exactly like `cell.ttl` already does for `p:Person`/`g:Group`/`o:Organization` in `c:creator`'s range, without importing `persona.ttl`, `group.ttl`, or `organization.ttl` — the same choice `topic.ttl` makes for `topic:claimant`.
+  - *Object properties*: `c:origin` (domain `c:Cell`, range `cat:Category` — added cell.ttl 3.20.0; the `cat:Category` subclass this cell was originally instantiated as, else nil; fixed at creation, not re-derived from the folder's current name; at most one value); `c:templateShape` (domain `c:TCell`); `c:memberCount`/`c:creator`/`c:memberTopics`/`c:otherTopics`/`c:shape` (domain `c:ACell` — a cell isn't typed `c:ACell`, and so carries none of these, until it has real content). `c:creator`'s range is a union of `p:Person` and `o:Organization` — the same union-range pattern used by `topic:claimant` (see [Topic Ontology File](#topic-ontology-file)). `c:memberCount`'s range is `c:ACell` itself: its value is the concrete subclass (`c:OneMember`/`c:TwoMember`/`c:ThreePlusMember`), not a string — class-value punning; `c:origin`'s range `cat:Category` uses this same punning — its value is the concrete leaf subclass (e.g. `cat:Others`), not a string. `c:templateShape`'s and `c:shape`'s ranges are both `sh:NodeShape` — see [Cell Ontology](#cell-ontology) above — but on different domains: `templateShape` describes what a topic filed under a *template* category should look like, while `shape` validates an *actual* cell's own content directly. `c:memberTopics`/`c:otherTopics`'s range is `t:SCTopicGraph` — the former is the required per-member baseline (split from the single `c:topics` property, cell.ttl 3.14.0), the latter any number of additional topics beyond it. `c:Cell` carries no property pointing back to a folder at all — a folder is now purely a file system concept with no RDF individual to point at (category.ttl 1.31.0 deleted `cat:Folder` and its subclasses outright); `c:origin`'s range is the classificatory `cat:Category`, not a tree position — it records what kind of thing a cell is, not where it lives, letting a recipient's app use it as a filing hint when a cell is shared over PDN.
+  These terms are referenced by name in the YAML front matter of each cell DataBook file. `cell.ttl` imports `topic.ttl` (for `c:memberTopics`/`c:otherTopics`'s range, `t:SCTopicGraph`); `topic.ttl` in turn imports `cell.ttl` back, solely to reuse `c:abstract` — a mutual import. `category.ttl` also imports `cell.ttl` (to reuse `c:abstract`, and by name in `c:origin`'s doc comments), but `cell.ttl` does not import `category.ttl` back — `c:origin`'s range `cat:Category` is referenced by name only, exactly like `cell.ttl` already does for `p:Person`/`o:Organization` in `c:creator`'s range, without importing `persona.ttl` or `organization.ttl` — the same choice `topic.ttl` makes for `topic:claimant`.
 
-**`cell-shacl.ttl`** — SHACL shapes for cell DataBook instances, split across shapes matching `cell.ttl`'s facet split: `:CellShape` (target `c:Cell`) constrains `c:origin` to at most one value (0..1, added cell-shacl.ttl 3.15.0 — not constrained via `sh:class cat:Category`, since a legal value is the concrete leaf subclass itself, never `rdf:type cat:Category`, mirroring `c:memberCount`'s own identical unconstrained, class-value-punning treatment above; its earlier `c:folder` cardinality constraint was removed outright in cell-shacl.ttl 3.17.0, once `c:folder` itself was removed from `cell.ttl`); `:TCellShape` (target `c:TCell`) constrains `c:templateShape` to at most one value; `:ACellShape` (target `c:ACell`) constrains `c:creator` to exactly one value, which must be a `p:Person`, `g:Group`, or `o:Organization`, `c:memberCount` to exactly one value which must be the class `c:OneMember`, `c:TwoMember`, or `c:ThreePlusMember`, `c:subject` values to each be an IRI (`sh:nodeKind sh:IRI`, not `sh:class`, since its range is `xsd:anyURI` not `t:SCTopicGraph`), `c:otherTopics` values (if any) to each be a `t:SCTopicGraph`, and `c:shape` to at most one value. Cardinality for `c:subject` and `c:memberTopics` is no longer enforced uniformly on `:ACellShape` — instead three new shapes, `:OneMemberShape`/`:TwoMemberShape`/`:ThreePlusMemberShape` (targeting `c:OneMember`/`c:TwoMember`/`c:ThreePlusMember` directly, since `yaml-to-rdf.py` types every cell individual with its concrete member class), enforce `c:subject` as exactly 1/1..2/exactly 1 and `c:memberTopics` as exactly 1/2..4/at least 3 respectively — replacing the single `c:topics` property's old blanket "at least one, no upper bound" rule, which didn't vary by member count. `c:templateShape`/`c:shape` are deliberately not constrained to `sh:class sh:NodeShape`: the individuals they point at are only typed `sh:NodeShape` in `cell-templates-shacl.ttl`, which Tier 1 validation deliberately excludes from its merged-data run (see [Validation](EXAMPLE.md#validation)), so that constraint would spuriously fail there.
+**`cell-shacl.ttl`** — SHACL shapes for cell DataBook instances, split across shapes matching `cell.ttl`'s facet split: `:CellShape` (target `c:Cell`) constrains `c:origin` to at most one value (0..1, added cell-shacl.ttl 3.15.0 — not constrained via `sh:class cat:Category`, since a legal value is the concrete leaf subclass itself, never `rdf:type cat:Category`, mirroring `c:memberCount`'s own identical unconstrained, class-value-punning treatment above; its earlier `c:folder` cardinality constraint was removed outright in cell-shacl.ttl 3.17.0, once `c:folder` itself was removed from `cell.ttl`); `:TCellShape` (target `c:TCell`) constrains `c:templateShape` to at most one value; `:ACellShape` (target `c:ACell`) constrains `c:creator` to exactly one value, which must be a `p:Person` or `o:Organization`, `c:memberCount` to exactly one value which must be the class `c:OneMember`, `c:TwoMember`, or `c:ThreePlusMember`, `c:subject` values to each be an IRI (`sh:nodeKind sh:IRI`, not `sh:class`, since its range is `xsd:anyURI` not `t:SCTopicGraph`), `c:otherTopics` values (if any) to each be a `t:SCTopicGraph`, and `c:shape` to at most one value. Cardinality for `c:subject` and `c:memberTopics` is no longer enforced uniformly on `:ACellShape` — instead three new shapes, `:OneMemberShape`/`:TwoMemberShape`/`:ThreePlusMemberShape` (targeting `c:OneMember`/`c:TwoMember`/`c:ThreePlusMember` directly, since `yaml-to-rdf.py` types every cell individual with its concrete member class), enforce `c:subject` as exactly 1/1..2/exactly 1 and `c:memberTopics` as exactly 1/2..4/at least 3 respectively — replacing the single `c:topics` property's old blanket "at least one, no upper bound" rule, which didn't vary by member count. `c:templateShape`/`c:shape` are deliberately not constrained to `sh:class sh:NodeShape`: the individuals they point at are only typed `sh:NodeShape` in `cell-templates-shacl.ttl`, which Tier 1 validation deliberately excludes from its merged-data run (see [Validation](EXAMPLE.md#validation)), so that constraint would spuriously fail there.
 
 ### Cell Ontology Validation
 
@@ -304,16 +302,14 @@ A topic carries no field pointing back at the cell that references it — that l
 
 Two more properties apply to every topic linked from a cell, since every `c:memberTopics`/`c:otherTopics` value is classified as `t:SCTopicGraph`:
 
-**`t:subject`** — The resource the topic is about. Value is any resource IRI — the ontology does not require it to be a `p:Person`, `g:Group`, or `o:Organization`, though in this example every `subject` value happens to be one of those three:
+**`t:subject`** — The resource the topic is about. Value is any resource IRI — the ontology does not require it to be a `p:Person` or `o:Organization`, though in this example every `subject` value happens to be one of those two:
 - `:Self` — the topic is about the Mia user.
 - a named individual of `p:Person` — the topic is about another human Mia user.
-- a named individual of `g:Group` — the topic is about a group of Mia users.
 - a named individual of `o:Organization` — the topic is about an organization (legal corporation or government agency).
 
-**`t:claimant`** — Who is making the claim. Values are local IRIs of `p:Person`, `g:Group`, or `o:Organization` individuals:
+**`t:claimant`** — Who is making the claim. Values are local IRIs of `p:Person` or `o:Organization` individuals:
 - `:Self` — the Mia user that is entering the data, even if the underlying information originates from some other party such as a company, government agency, or another person.
 - a named individual of class `p:Person` — another Mia user is claiming the data directly.
-- a named individual of class `g:Group` — a group of Mia users is claiming the data.
 - a named individual of class `o:Organization` — an organization is claiming the data.
 
 The diagram below shows four kinds of topics related to a hypothetical Mia user, Alice, and her interactions with a Department of Motor Vehicles (DMV) agency. Across the top are two topics where the DMV itself is the subject, and at the bottom where Alice is the subject. At the left are topics where Alice has made the claims (e.g. Alice's Mia has written the claims into the topic) and at the right are topics where the DMV as the "other" has written the claims. 
@@ -327,10 +323,10 @@ The lower left shows a topic that Alice might share with other people or compani
 
 **`topic.ttl`** — the Topic ontology, defines:
   - *Classes*: `t:TopicGraph`, `t:SCTopicGraph` (Subject-Claimant topic graph; the concrete class every self-vs-other classified topic is typed as directly — it has no subclasses; carries the `t:subject`/`t:claimant` annotations — every topic reachable from a cell, via `c:memberTopics`/`c:otherTopics`, is a `t:SCTopicGraph`).
-  - *Annotation properties*: `t:template` (domain `t:TopicGraph`), `t:claimant` (range a union of `p:Person`, `g:Group`, `o:Organization`), `t:subject` (domain `t:SCTopicGraph`; range `xsd:anyURI` — any resource IRI, not necessarily a `p:Person`/`g:Group`/`o:Organization`).
+  - *Annotation properties*: `t:template` (domain `t:TopicGraph`), `t:claimant` (range a union of `p:Person`, `o:Organization`), `t:subject` (domain `t:SCTopicGraph`; range `xsd:anyURI` — any resource IRI, not necessarily a `p:Person`/`o:Organization`).
   These terms are referenced by name in each topic's `mia.topics[]` entry, inside its owning cell-databook file. `topic.ttl` imports `cell.ttl` to reuse `c:abstract` on `t:TopicGraph`/`t:SCTopicGraph`.
 
-**`topic-shacl.ttl`** — SHACL shapes for topic instances: `:SCTopicGraphShape` (target `t:SCTopicGraph`) constrains `t:claimant` to exactly one value, which must be a `p:Person`, `g:Group`, or `o:Organization`, and `t:subject` to exactly one value, which must be an IRI.
+**`topic-shacl.ttl`** — SHACL shapes for topic instances: `:SCTopicGraphShape` (target `t:SCTopicGraph`) constrains `t:claimant` to exactly one value, which must be a `p:Person` or `o:Organization`, and `t:subject` to exactly one value, which must be an IRI.
 
 ### Topic Ontology Validation
 
@@ -566,24 +562,6 @@ The Organization ontology models organizations — companies, government agencie
 ### Organization Ontology Validation
 
 `organization-shacl.ttl` targets `o:Organization` instances but currently has no property constraints of its own.
-
-## Group Ontology
-
-The Group ontology introduces the concept of a *shared* group (`g:Group`) whose members are individuals and/or organizations. The group entity *itself* as well as any attached properties are shared with all of its members.
-
-<p align="center"><img src="images/group-ontology/group.png" alt="Group model"></p>
-
-**Classes**
-
-* `g:Group` — a group of people and/or organizations on the Personal Data Network.
-
-### Group Ontology File
-
-- **`group.ttl`** — The Group ontology.
-
-### Group Ontology Validation
-
-`group-shacl.ttl` validates `g:Group` instances. Key constraint: all members (via BFO `has member part`) must be `p:Person` or `o:Organization` instances.
 
 ---
 

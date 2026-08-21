@@ -2,23 +2,23 @@
 id: http://www.example.org/mia/cells/cell-01
 title: "Boston Hub Society"
 type: cell-databook
-version: 1.1.0
+version: 1.2.0
 created: 2026-07-10
 description: >
-  Cell DataBook for folder "Boston Hub Society" (cell:origin: cat:Affiliations). It is a multi-member cell with three memberTopics about :BHS_Group, :Self, and :Bob_Johnson.
+  Cell DataBook for folder "Boston Hub Society" (cell:origin: cat:Affiliations). It is a multi-member cell with three memberTopics about :BHS, :Self, and :Bob_Johnson.
 mia:
   origin: "cat:Affiliations"
   creator: ":Self"
   memberCount: "cell:ThreePlusMember"
-  subject: ":BHS_Group"
+  subject: ":BHS"
   memberTopics:
     - "topic-01"
     - "topic-14"
     - "topic-03"
   topics:
     - id: "http://www.example.org/mia/topics/topic-01"
-      claimant: ":BHS_Group"
-      subject: ":BHS_Group"
+      claimant: ":BHS"
+      subject: ":BHS"
       shapes:
         - http://mee.foundation/ontologies/persona/shapes
         - http://mee.foundation/ontologies/topic/shapes
@@ -43,25 +43,28 @@ mia:
 
 #### Overview
 
-This topic captures the Boston Hub Society as a `g:Group` entity. It records the group's membership: Alice Walker (`:Self`) and Bob Johnson (`:Bob_Johnson`). The BHS Group is the claimant.
+This topic captures the Boston Hub Society as an `o:Organization`. In our example BHS is compatible with PDN and participates directly as a member of this cell, alongside Alice and Bob. BHS asserts a basic profile about itself here. BHS is the claimant.
 
 #### Topic Graph
 
 ```turtle
-<!-- databook:id: bhs-group-topic-graph -->
+<!-- databook:id: bhs-org-topic-graph -->
 <!-- databook:graph: http://www.example.org/mia/topics/topic-01#graph -->
 @prefix : <http://www.example.org/mia#> .
-@prefix g: <http://mee.foundation/ontologies/group#> .
+@prefix o: <http://mee.foundation/ontologies/organization#> .
+@prefix cco: <https://w3id.org/cco-domains/cco/> .
 @prefix owl: <http://www.w3.org/2002/07/owl#> .
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
 
-:BHS_Group rdf:type owl:NamedIndividual ,
-                    g:Group ;
+:BHS rdf:type owl:NamedIndividual ,
+             o:Organization ;
     rdfs:label "Boston Hub Society"@en ;
-    rdfs:comment "The Boston Hub Society group instance."@en ;
-    <http://purl.obolibrary.org/obo/BFO_0000115> :Self ;        # has member part → Alice
-    <http://purl.obolibrary.org/obo/BFO_0000115> :Bob_Johnson . # has member part → Bob
+
+    <https://w3id.org/cco-domains/cco/ont00001917> [  # described by → Organization Note
+        rdf:type cco:ent00000048 ;
+        <https://w3id.org/cco-domains/cco/ont00001765> "An informal Boston-area professional networking society. Current members include Alice Walker and Bob Johnson."
+    ] .
 ```
 
 <a id="topic-03"></a>
@@ -69,7 +72,7 @@ This topic captures the Boston Hub Society as a `g:Group` entity. It records the
 
 #### Overview
 
-This topic captures Bob Johnson's BHS profile as transmitted from Bob's Mia to Alice's Mia over the PDN. It records the name Bob presents to the Boston Hub Society group. Bob is the claimant.
+This topic captures Bob Johnson's BHS profile as transmitted from Bob's Mia to Alice's Mia over the PDN. It records the name Bob presents to the Boston Hub Society. Bob is the claimant.
 
 #### Topic Graph
 
@@ -103,7 +106,7 @@ This topic captures Bob Johnson's BHS profile as transmitted from Bob's Mia to A
 
 #### Overview
 
-This topic captures Alice Walker's BHS profile — the identity data she shares with the Boston Hub Society group. It includes her current Paradise, CA address, her phone number, and her Gmail address. Alice is the claimant.
+This topic captures Alice Walker's BHS profile — the identity data she shares with the Boston Hub Society. It includes her current Paradise, CA address, her phone number, and her Gmail address. Alice is the claimant.
 
 #### Topic Graph
 
@@ -117,7 +120,7 @@ This topic captures Alice Walker's BHS profile — the identity data she shares 
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
 
-:Self rdfs:comment "Alice Walker's persona for her BHS group (aka her BHS profile)."@en ;
+:Self rdfs:comment "Alice Walker's persona for her BHS profile."@en ;
 
     <https://w3id.org/cco-domains/cco/ont00001879> [  # designated by → AlternateName
         rdf:type cco:ent00000006 ;  # AlternateName

@@ -1,6 +1,6 @@
 # Mia Ontologies — Illustrative Example
 
-This file continues [README.md](README.md), which describes the Category, Cell, Topic, Persona, Organization, and Group ontologies. It provides an illustrative example — a hypothetical Mia user, Alice Walker — showing how those ontologies are used together, followed by diagram-generation instructions and the full validation pipeline for the example dataset.
+This file continues [README.md](README.md), which describes the Category, Cell, Topic, Persona, and Organization ontologies. It provides an illustrative example — a hypothetical Mia user, Alice Walker — showing how those ontologies are used together, followed by diagram-generation instructions and the full validation pipeline for the example dataset.
 
 ## Illustrative Example: Alice 
 
@@ -78,7 +78,7 @@ Here are a few lines from [topic 22](<example/Cells/Ownership/Ownership.databook
 
 ### Boston Hub Society
 
-Alice is a member of the Boston Hub Society, an informal professional social network. We envision a future state where the BHS not only has a website but is also compatible with the PDN network and can join cells as a `g:Group` member. In this future world, Alice maintains her BHS profile in [topic 14](<example/Cells/Affiliations/Boston Hub Society/Boston Hub Society(affiliations).databook.md#topic-14>), Bob another member is keeps his profile updated ([topic 3](<example/Cells/Affiliations/Boston Hub Society/Boston Hub Society(affiliations).databook.md#topic-03>)), and the BHS itself can share some members-only information in [topic 1](<example/Cells/Affiliations/Boston Hub Society/Boston Hub Society(affiliations).databook.md#topic-01>).
+Alice is a member of the Boston Hub Society, an informal professional networking society. In our example BHS is compatible with PDN and participates directly as an `o:Organization` member of this cell, alongside Alice and Bob. Alice maintains her BHS profile in [topic 14](<example/Cells/Affiliations/Boston Hub Society/Boston Hub Society(affiliations).databook.md#topic-14>), Bob another member keeps his profile updated ([topic 3](<example/Cells/Affiliations/Boston Hub Society/Boston Hub Society(affiliations).databook.md#topic-03>)), and BHS itself asserts a basic profile about itself in [topic 1](<example/Cells/Affiliations/Boston Hub Society/Boston Hub Society(affiliations).databook.md#topic-01>).
 
 <p align="center"><img src="example/images/affiliations.png" alt="Affiliations cells"></p>
 
@@ -106,7 +106,7 @@ A summary of every content-bearing cell-databook under `example/Cells/`, grouped
 | Current and Previous Homes | Boston | [Boston(residence).databook.md](<example/Cells/Government/Municipality/Boston/Boston(residence).databook.md>) {7} | Self | `cat:Residence` | 13 |
 | Current and Previous Homes | Paradise | [Paradise(residence).databook.md](<example/Cells/Government/Municipality/Paradise/Paradise(residence).databook.md>) {8} | Self | `cat:Residence` | 18 |
 | Possessions | Ownership | [Ownership.databook.md](<example/Cells/Ownership/Ownership.databook.md>) {11} | Self | `cat:Ownership` | 22 |
-| Boston Hub Society | Boston Hub Society | [Boston Hub Society(affiliations).databook.md](<example/Cells/Affiliations/Boston Hub Society/Boston Hub Society(affiliations).databook.md>) {1} | BHS Group | `cat:Affiliations` | 1, 3, 14 |
+| Boston Hub Society | Boston Hub Society | [Boston Hub Society(affiliations).databook.md](<example/Cells/Affiliations/Boston Hub Society/Boston Hub Society(affiliations).databook.md>) {1} | BHS | `cat:Affiliations` | 1, 3, 14 |
 
 ## Topics
 
@@ -138,11 +138,11 @@ The following table lists topics that are *about* Alice but claimed by others.
 | 8  | [Bob Johnson(others).databook.md](<example/Cells/People/Others/Bob Johnson/Bob Johnson(others).databook.md#topic-08>) {16}                         | `cat:Others`            | Alice as seen by Bob                 | [view](example/topics/images/topic-08.png)|
 | 9 | [Citibank(banking-payments).databook.md](<example/Cells/Finances/Banking & Payments/Citibank/Citibank(banking-payments).databook.md#topic-09>) {4}     | `cat:BankingPayments` | Debit card                           | [view](example/topics/images/topic-09.png) |
 
-The following table lists topics about other people (Paula and Bob) or groups (Boston Hub Society) in Alice's Mia. As above, each "Cell DataBook" link jumps to that topic's section inside its owning cell-databook file.
+The following table lists topics about other people (Paula and Bob) or organizations (Boston Hub Society) in Alice's Mia. As above, each "Cell DataBook" link jumps to that topic's section inside its owning cell-databook file.
 
 | #  | Cell DataBook                                                                                     | Origin | Key data                                                         | Diagram |
 |--- |:-------------------------------------------------------------------------------------------------|:-------------|:-----------------------------------------------------------------|:--------|
-| 1  | [Boston Hub Society(affiliations).databook.md](<example/Cells/Affiliations/Boston Hub Society/Boston Hub Society(affiliations).databook.md#topic-01>) {1}             | `cat:Affiliations` | BHS group instance with Alice and Bob as members                | [view](example/topics/images/topic-01.png) |
+| 1  | [Boston Hub Society(affiliations).databook.md](<example/Cells/Affiliations/Boston Hub Society/Boston Hub Society(affiliations).databook.md#topic-01>) {1}             | `cat:Affiliations` | BHS's own organization profile, claimed by BHS                | [view](example/topics/images/topic-01.png) |
 | 2  | [Bob Johnson(others).databook.md](<example/Cells/People/Others/Bob Johnson/Bob Johnson(others).databook.md#topic-02>) {16}                     | `cat:Others`       | Bob's self-claimed Bob persona                                 | [view](example/topics/images/topic-02.png)|
 | 3  | [Boston Hub Society(affiliations).databook.md](<example/Cells/Affiliations/Boston Hub Society/Boston Hub Society(affiliations).databook.md#topic-03>) {1}                     | `cat:Affiliations` | Bob's BHS member persona (name, email, phone, address)          | [view](example/topics/images/topic-03.png) |
 | 4  | [Bob Johnson(others).databook.md](<example/Cells/People/Others/Bob Johnson/Bob Johnson(others).databook.md#topic-04>) {16}                 | `cat:Others`       | Alice's notes about Bob; fav drink: oat milk cappuccino         | [view](example/topics/images/topic-04.png) |
@@ -233,7 +233,7 @@ riot --output=turtle \
   project_files/AddressOntology.ttl \
   project_files/StagingOntology.ttl \
   persona.ttl persona-templates.ttl topic.ttl cell.ttl category.ttl \
-  group.ttl organization.ttl \
+  organization.ttl \
   example/topics/self.ttl \
   /tmp/mia-data.ttl \
   /tmp/mia-yaml.ttl \
@@ -247,7 +247,6 @@ riot --output=turtle \
 grep -v 'owl:imports' persona-shacl.ttl > /tmp/mia-shapes.ttl
 grep -v 'owl:imports' topic-shacl.ttl >> /tmp/mia-shapes.ttl
 grep -v 'owl:imports' cell-shacl.ttl >> /tmp/mia-shapes.ttl
-grep -v 'owl:imports' group-shacl.ttl >> /tmp/mia-shapes.ttl
 grep -v 'owl:imports' organization-shacl.ttl >> /tmp/mia-shapes.ttl
 
 # Step 4 — validate
@@ -268,7 +267,7 @@ riot --output=turtle \
   project_files/AddressOntology.ttl \
   project_files/StagingOntology.ttl \
   persona.ttl persona-templates.ttl topic.ttl cell.ttl category.ttl cell-templates.ttl \
-  group.ttl organization.ttl \
+  organization.ttl \
   example/topics/self.ttl \
   2>/dev/null > /tmp/mia-base.ttl
 

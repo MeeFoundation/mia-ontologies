@@ -37,7 +37,6 @@ from databook_topics import extract_topic_block, find_topic_entry, split_frontma
 
 # ── Namespaces ─────────────────────────────────────────────────────────────────
 PERSONA = Namespace("http://mee.foundation/ontologies/persona#")
-GROUP   = Namespace("http://mee.foundation/ontologies/group#")
 ORG     = Namespace("http://mee.foundation/ontologies/organization#")
 
 DESIGNATED_BY  = URIRef("https://w3id.org/cco-domains/cco/ont00001879")
@@ -150,8 +149,7 @@ LABELS = {
     "http://purl.obolibrary.org/obo/BFO_0000176": "continuantPartOf",
     "http://purl.obolibrary.org/obo/BFO_0000178": "hasContinuantPart",
     "http://purl.obolibrary.org/obo/BFO_0000196": "bearerOf",
-    # group / org
-    str(GROUP.Group):                           "Group",
+    # org
     str(ORG.Organization):                      "Organization",
 }
 
@@ -218,8 +216,6 @@ def style_class(g: Graph, iri: URIRef) -> str:
     types = set(g.objects(iri, RDF.type))
     if PERSONA.Person in types or PERSON_CLASS in types:
         return "person"
-    if GROUP.Group in types:
-        return "grp"
     if ORG.Organization in types:
         return "org"
     return ""
@@ -289,7 +285,6 @@ def build_mermaid(g: Graph, frontmatter: dict | None = None, src_dir: Path | Non
         header.append(f"%% ContextCategory: {context_category_label}")
     header.append("flowchart TD")
     header.append("    classDef person fill:#fffacd,stroke:#aaa,color:#333")
-    header.append("    classDef grp    fill:#d4edda,stroke:#aaa,color:#333")
     header.append("    classDef org    fill:#cce5ff,stroke:#aaa,color:#333")
     header.append("    classDef lit    fill:none,stroke:none,font-style:italic,color:#2a7a2a")
     header.append("    classDef meta   fill:#f5f5ff,stroke:#9999cc,color:#333")

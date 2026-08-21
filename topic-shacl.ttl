@@ -6,12 +6,11 @@
 @prefix owl: <http://www.w3.org/2002/07/owl#> .
 @prefix topic: <http://mee.foundation/ontologies/topic#> .
 @prefix persona: <http://mee.foundation/ontologies/persona#> .
-@prefix g: <http://mee.foundation/ontologies/group#> .
 @prefix o: <http://mee.foundation/ontologies/organization#> .
 
 <http://mee.foundation/ontologies/topic/shapes> rdf:type owl:Ontology ;
     owl:imports <http://mee.foundation/ontologies/topic> ;
-    owl:versionInfo "Version 1.3.0 - renamed :SCtopicShape to :SCTopicGraphShape, sh:targetClass topic:SCtopic to topic:SCTopicGraph, following topic.ttl 1.15.0's renaming of topic:SCtopic to topic:SCTopicGraph (and topic:Topic to topic:TopicGraph). No change to any constraint, cardinality, or property path."@en ;
+    owl:versionInfo "Version 1.4.0 - :SCTopicGraphShape's topic:claimant constraint's sh:or narrowed to persona:Person/o:Organization (dropped g:Group), matching topic.ttl 1.16.0's elimination of the g:Group concept entirely; reworded the node shape's and property shape's sh:message accordingly. Only the Boston Hub Society topic ever used a g:Group claimant, and it was converted to an o:Organization (:BHS) alongside this change. (1.3.0 - renamed :SCtopicShape to :SCTopicGraphShape, sh:targetClass topic:SCtopic to topic:SCTopicGraph, following topic.ttl 1.15.0's renaming of topic:SCtopic to topic:SCTopicGraph (and topic:Topic to topic:TopicGraph). No change to any constraint, cardinality, or property path.)"@en ;
     rdfs:label "Topic Ontology SHACL Validation Shapes"@en ;
     rdfs:comment "SHACL validation shapes for topic.ttl's topic:SCTopicGraph DataBook instances."@en .
 
@@ -25,7 +24,7 @@
 :SCTopicGraphShape
     a sh:NodeShape ;
     sh:targetClass topic:SCTopicGraph ;
-    sh:message "SCTopicGraph validation: claimant must be exactly one Person, Group, or Organization; subject must be exactly one IRI."@en ;
+    sh:message "SCTopicGraph validation: claimant must be exactly one Person or Organization; subject must be exactly one IRI."@en ;
     sh:property [
         sh:path topic:subject ;
         sh:minCount 1 ;
@@ -37,6 +36,6 @@
         sh:path topic:claimant ;
         sh:minCount 1 ;
         sh:maxCount 1 ;
-        sh:or ( [ sh:class persona:Person ] [ sh:class g:Group ] [ sh:class o:Organization ] ) ;
-        sh:message "topic:claimant must have exactly one value, and it must be a persona:Person, g:Group, or o:Organization."@en
+        sh:or ( [ sh:class persona:Person ] [ sh:class o:Organization ] ) ;
+        sh:message "topic:claimant must have exactly one value, and it must be a persona:Person or o:Organization."@en
     ] .
