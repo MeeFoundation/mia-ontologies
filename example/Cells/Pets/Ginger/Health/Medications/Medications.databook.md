@@ -37,21 +37,13 @@ mia:
 
 #### Overview
 
-This topic captures Alice's own bare identity claim (just her given name) — the cell's one required `memberTopics` entry, satisfying `cell:OneMember`'s per-member baseline. Alice is both the claimant and the subject.
+This topic is the cell's one required `memberTopics` entry, satisfying `cell:OneMember`'s per-member baseline. Alice is both the claimant and the subject. Deliberately empty: the `memberTopics` requirement is about `t:subject`/`t:claimant` (asserted at the `mia.topics[]` YAML level, not in this Turtle body), not about carrying any particular content.
 
 #### Topic Graph
 
 ```turtle
 <!-- databook:id: alice-ginger-medications-member-topic-graph -->
 <!-- databook:graph: http://www.example.org/mia/topics/topic-33#graph -->
-@prefix : <http://www.example.org/mia#> .
-@prefix cco: <https://w3id.org/cco-domains/cco/> .
-@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
-
-:Self <https://w3id.org/cco-domains/cco/ont00001879> [  # designated by → GivenName
-    rdf:type cco:ent00000002 ;  # GivenName
-    <https://w3id.org/cco-domains/cco/ont00001765> "Alice"  # has text value
-] .
 ```
 
 <a id="topic-32"></a>

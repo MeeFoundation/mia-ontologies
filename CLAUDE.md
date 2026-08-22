@@ -74,7 +74,7 @@ Every topic below is now an embedded section (`mia.topics` entry + `### Topic NN
 | Topic 29 — `example/Cells/People/Others/Fred Flintstone/Fred Flintstone(others).databook.md` | Alice's 1:1 topic with Fred; social network with Fred as member — claimed by Alice |
 | Topic 31 — `example/Cells/People/Others/Fred Flintstone/Fred Flintstone(others).databook.md` | Fred's self-claimed Fred persona |
 | Topic 32 — `example/Cells/Pets/Ginger/Health/Medications/Medications.databook.md` | Alice's record of her cat Ginger's medications — amoxicillin/clavulanate course, ongoing glucosamine/chondroitin supplement — claimed by Alice; linked as an `otherTopic` (Ginger has no `p:Person` individual) |
-| Topic 33 — `example/Cells/Pets/Ginger/Health/Medications/Medications.databook.md` | Alice's bare given-name claim — the cell's required `memberTopics` entry, claimed by Alice |
+| Topic 33 — `example/Cells/Pets/Ginger/Health/Medications/Medications.databook.md` | Deliberately empty — the cell's required `memberTopics` entry, claimed by Alice |
 | `example/topics/self.ttl` | `:Self`'s sole type declaration (`rdf:type owl:NamedIndividual, persona:Person`); not `owl:imports`ed anywhere, merged in only for validation |
 
 ## Architecture
