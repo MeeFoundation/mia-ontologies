@@ -28,7 +28,7 @@ mia:
 
 #### Overview
 
-This topic captures Alice Walker's previous residential address: 456 Commonwealth Ave, Boston, MA 02215. The address designation spans January 2020 to August 2025. See `14-alice(paradise)alice` for her current address. Alice is the claimant.
+This topic captures Alice Walker's previous residential address: 456 Commonwealth Ave, Boston, MA 02215. The address designation spans January 2020 to August 2025. See topic 18 for her current address. Alice is the claimant.
 
 #### Topic Graph
 
