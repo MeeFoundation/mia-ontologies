@@ -480,7 +480,30 @@ The table below maps every JSContact (RFC 9553) property to its representation i
 
 ### Medication-Related Classes and Properties
 
-`p:Medication`'s fields were originally flat `xsd:string`/`xsd:date` properties; version 2.7.0 of `persona-templates.ttl` replaced most of them outright (no deprecation shim — they were experimental) with real, reused vocabulary, per this project's "invent as little as possible" design goal:
+This section describes the classes and properties, all defined in `persona-templates.ttl`, that model a single medication entry — what drug, how much, and how often — reusing external vocabulary wherever one fits rather than inventing flat strings.
+
+**Classes:**
+
+- `p:PetMedicationRecord` — subclass of `p:PersonaTemplate`; template label for a topic that carries a pet's list of medications, and also the class of the record individual itself (a pet has no `p:Person` individual of its own, so `p:hasMedication` links hang off this record rather than off a person).
+- `p:Medication` — a single medication entry: what drug, how much, and how often.
+- `p:DosageAmount` — how much of a `p:Medication` is given per dose; multi-typed as CCO's Information Bearing Entity (`cco:ont00000253`) and Ratio Measurement Information Content Entity (`cco:ont00001283`).
+- `p:MedicationAdministration` — how often, and over what period, a `p:Medication` is given; subclass of DrOn's "drug administration" process class (`DRON:00000031`).
+
+**Properties:**
+
+- `p:hasMedication` — links a `p:PetMedicationRecord` to one of its `p:Medication` entries (domain `p:PetMedicationRecord`, range `p:Medication`); repeatable.
+- `p:hasActiveIngredient` — links a `p:Medication` directly to a ChEBI chemical-substance class IRI (e.g. `CHEBI:2676` for amoxicillin); repeatable for combination drugs.
+- `p:hasDoseForm` — links a `p:Medication` to a DrOn dose-form class IRI (e.g. `DRON:00000022` "drug tablet"); omitted for a true measured quantity (e.g. a teaspoon of liquid) rather than a count of discrete units.
+- `p:hasDosageAmount` — links a `p:Medication` to its `p:DosageAmount` (domain `p:Medication`, range `p:DosageAmount`).
+- `p:hasAdministration` — links a `p:Medication` to its `p:MedicationAdministration` (domain `p:Medication`, range `p:MedicationAdministration`).
+- `p:medicationFrequencyPerDay` — free-text frequency, e.g. `"2"` or `"as needed"` (domain `p:MedicationAdministration`).
+- `p:medicationBrandName` — free-text marketed brand name, e.g. `"Clavamox"` (domain `p:Medication`) — kept as a plain string since DrOn embeds brand names only inside auto-generated RxNorm product-class labels, not as a reusable property.
+- `p:medicationManufacturer` — free-text manufacturer name, e.g. `"Zoetis"` (domain `p:Medication`) — kept as a plain string since DrOn has no manufacturer/labeler class.
+- `p:medicationDuration` — free-text alternative to a fixed end date, e.g. `"10 days"` (domain `p:Medication`), for courses with no fixed calendar end date.
+
+`p:DosageAmount` also carries exactly one of CCO's `cco:ont00001769` ("has decimal value") or `cco:ont00001773` ("has integer value"), and optionally `cco:ont00001863` ("uses measurement unit") pointing at a CCO Measurement Unit individual (e.g. "Teaspoon Measurement Unit", `cco:ont00001573`) — omitted for a count of discrete dose-form units. `p:MedicationAdministration` carries `p:medicationFrequencyPerDay` plus exactly one `BFO_0000199` ("occupies temporal region") link to a `BFO_0000038` temporal-interval individual carrying `cco:ent00000017`/`cco:ent00000018` ("has start/end date") — the same `AddressDesignation` temporal-interval pattern used for address history above; an absent end date means the medication is ongoing.
+
+The external ontologies reused above, and one deliberately not used:
 
 - **[DrOn](https://github.com/mcwdsi/dron) (the Drug Ontology)** — the only drug-domain ontology actually built on BFO, the same upper ontology CCO (and therefore this project) already uses. A small, hand-curated subset of its upper module — `p:hasDoseForm`'s target classes ("drug tablet", "drug capsule") and `p:MedicationAdministration`'s superclass ("drug administration") — is vendored at `project_files/dron-upper.ttl` and `owl:import`ed from `persona-templates.ttl`; DrOn's real per-product classes (auto-generated from RxNorm, hundreds of thousands of them, ~300MB) are not vendored, since nothing here needs them.
 - **[ChEBI](https://www.ebi.ac.uk/chebi/)** (Chemical Entities of Biological Interest) — `p:hasActiveIngredient`'s values are real ChEBI class IRIs (e.g. `CHEBI:2676` for amoxicillin), cited directly, not imported (ChEBI is far larger than DrOn) — the same move DrOn itself makes for chemical-substance identity rather than modeling chemistry on its own.
