@@ -5,12 +5,12 @@ type: cell-databook
 version: 1.0.0
 created: 2026-08-22
 description: >
-  Cell DataBook for folder "Ginger" (cell:origin: cat:Pets). A user-defined instance folder for Alice's specific cat, Ginger, nested under the generic Pets category — mirroring how e.g. "Bob Johnson" reuses its parent "Others" folder's own origin class rather than being Custom. It is a one-member cell with one memberTopic about :Self.
+  Cell DataBook for folder "Ginger" (cell:origin: cat:Pets). A user-defined instance folder for Alice's specific cat, Ginger, nested under the generic Pets category — mirroring how e.g. "Bob Johnson" reuses its parent "Others" folder's own origin class rather than being Custom. It is a one-member cell with one memberTopic about :Self and no otherTopics, so its subject is :Self (Ginger herself has no topic anywhere in this cell — her own record lives in the nested Medications cell instead).
 mia:
   origin: "cat:Pets"
   creator: ":Self"
   memberCount: "cell:OneMember"
-  subject: ":Ginger"
+  subject: ":Self"
   memberTopics: "topic-36"
   topics:
     - id: "http://www.example.org/mia/topics/topic-36"

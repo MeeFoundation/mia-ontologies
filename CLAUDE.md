@@ -64,7 +64,7 @@ Every topic below is now an embedded section (`mia.topics` entry + `### Topic NN
 | Topic 19 — `example/Cells/Government/Federal/Department of State/Department of State(passport).databook.md` | Alice's US passport — legal name, DOB, passport#, issue/expiry, place of birth, gender marker, photo |
 | Topic 17 — `example/Cells/People/Immediate Family/Paula Walker/Health & Wellness/Health & Wellness.databook.md` | Paula's physical characteristics — height, eye color, hair color — as recorded by Alice; linked as an `otherTopic` (Paula is the cell's subject, not its member) |
 | Topic 35 — `example/Cells/People/Immediate Family/Paula Walker/Health & Wellness/Health & Wellness.databook.md` | Alice's bare given-name claim — the cell's required `memberTopics` entry, claimed by Alice |
-| Topic 36 — `example/Cells/Pets/Ginger/Ginger.databook.md` | Alice's bare given-name claim — the `cat:Pets`-origin Ginger cell's required `memberTopics` entry, claimed by Alice |
+| Topic 36 — `example/Cells/Pets/Ginger/Ginger(pets).databook.md` | Alice's bare given-name claim — the `cat:Pets`-origin Ginger cell's required `memberTopics` entry, claimed by Alice |
 | Topic 25 — `example/Cells/People/Immediate Family/Paula Walker/Health & Wellness/Medical/Providers/Jane Starostina/Jane Starostina(primary-care-physician).databook.md` | Alice's record of Dr. Jane Starostina, Paula Walker's primary care physician — claimed by Alice; linked as an `otherTopic` (Jane is the cell's subject, not its member) |
 | Topic 34 — `example/Cells/People/Immediate Family/Paula Walker/Health & Wellness/Medical/Providers/Jane Starostina/Jane Starostina(primary-care-physician).databook.md` | Alice's bare given-name claim — the cell's required `memberTopics` entry, claimed by Alice |
 | Topic 26 — `example/Cells/People/Immediate Family/Paula Walker/Health & Wellness/Medical/Providers/Med. App. Info/Med. App. Info(medical-appointment-info).databook.md` | Alice and Carol's shared claims for Paula's medical appointment — medications, allergies, insurance, PCP reference — claimed by Alice |
@@ -710,6 +710,49 @@ print('All cells have :Self as a member.' if violations == 0 else f'{violations}
 ```
 
 If a violation is found, add a new minimal topic claimed by and about `:Self` (following the pattern in `Medications.databook.md` under `Pets/Ginger/`, `Jane-Starostina(primary-care-physician).databook.md`, or `Health & Wellness.databook.md` — a single `designated by` → `GivenName` triple is enough), assign it the next free `topic-<NN>`, put it in `memberTopics`, and move whatever was previously in that slot to `otherTopics` instead.
+
+**Check 22 — every `cell:subject` value must be backed by an actual topic in the cell**: Checks 17/18/21 all establish rules for *where* a subject's topic goes once a topic about that subject exists somewhere in the cell — none of them actually verify a topic about the subject exists at all. A `cell:subject` value with no corresponding `t:subject` anywhere among that cell's `memberTopics` ∪ `otherTopics` is a dangling reference: the cell asserts its relationship is about some resource, but nothing in the cell actually claims or describes anything about it. The invariant: **every value of `cell:subject` must equal the `t:subject` of at least one topic in `memberTopics` ∪ `otherTopics`** — no exceptions. Combined with Check 21 (`:Self` must always be a member), this fully determines what a `cell:OneMember` cell's `subject` may legally be: if the cell has at least one `otherTopics` entry, `subject` may be that other topic's subject (the normal case — `Jane-Starostina(primary-care-physician).databook.md`: `subject: ":Jane_Starostina"`, backed by `otherTopics` topic-25, whose own `subject` is `:Jane_Starostina`); if the cell has **no** `otherTopics` at all, its sole `memberTopics` entry (always `:Self`, per Check 21) is the *only* topic in the cell, so `subject` has no legal value other than `:Self` — there is no third option. Found by inspection: `Ginger(pets).databook.md` (cell-41) originally had `subject: ":Ginger"` with no `otherTopics` and only a bare `:Self` memberTopic (topic-36) — `:Ginger` had no backing topic anywhere in the cell, so it was corrected to `subject: ":Self"`. This is not itself an OWL/SHACL-expressible constraint (same reasoning as Checks 17/18/21), so it's checked here instead. Run:
+
+```python
+import re, yaml, glob
+
+TOPICS_BASE_RE = re.compile(r'^https?://www\.example\.org/mia/topics/')
+
+def frontmatter(path):
+    text = open(path, encoding='utf-8').read()
+    m = re.match(r'^---\n(.*?)\n---', text, re.DOTALL)
+    return yaml.safe_load(m.group(1)) if m else None
+
+def local_name(v):
+    return TOPICS_BASE_RE.sub('', v)
+
+violations = 0
+for f in glob.glob('example/Cells/**/*.databook.md', recursive=True):
+    if 'under-development' in f.split('/'):
+        continue
+    fm = frontmatter(f)
+    if not fm:
+        continue
+    mia = fm.get('mia', {}) or {}
+    member_count = mia.get('memberCount')
+    if not member_count:
+        continue
+    topic_subject = {local_name(t['id']): t.get('subject') for t in (mia.get('topics') or []) if isinstance(t, dict)}
+    pt = mia.get('memberTopics') or []
+    pt = pt if isinstance(pt, list) else [pt]
+    ot = mia.get('otherTopics') or []
+    ot = ot if isinstance(ot, list) else [ot]
+    all_topic_subjects = {topic_subject.get(local_name(t)) for t in pt + ot}
+    subj = mia.get('subject')
+    subj = subj if isinstance(subj, list) else [subj]
+    for s in subj:
+        if s not in all_topic_subjects:
+            violations += 1
+            print(f'VIOLATION {f}: cell:subject {s!r} has no matching topic (memberTopics/otherTopics subjects: {all_topic_subjects})')
+print("All cells' subject values are backed by a real topic." if violations == 0 else f'{violations} violation(s) found.')
+```
+
+If a violation is found, either add a topic about the dangling subject (as an `otherTopics` entry, if enough member topics already exist — see Check 18) or, if no such topic is warranted, change `cell:subject` to a value that actually has a backing topic — for a `cell:OneMember` cell with no `otherTopics`, that means `subject` must be `:Self`.
 
 If a diagram box's fill or text color doesn't match this script's output for the corresponding real folder, the diagram wins (per Check 10's own rule) — update `mia.origin`/`title:`/filename only if the *data* is actually wrong, otherwise redraw the box.
 
