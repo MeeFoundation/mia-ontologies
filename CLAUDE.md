@@ -62,7 +62,8 @@ Every topic below is now an embedded section (`mia.topics` entry + `### Topic NN
 | Topic 10 — `example/Cells/Work/Acme/Employees/Alice Walker/Alice Walker(employee).databook.md` | Alice's business card (JSContactCard) — name, email, phone, employer, job title |
 | Topic 15 — `example/Cells/Government/State/California DMV/California DMV(drivers-license).databook.md` | Alice's California driver's license — legal name, DOB, DL#, expiry, photo |
 | Topic 19 — `example/Cells/Government/Federal/Department of State/Department of State(passport).databook.md` | Alice's US passport — legal name, DOB, passport#, issue/expiry, place of birth, gender marker, photo |
-| Topic 17 — `example/Cells/People/Immediate Family/Paula Walker/Health & Wellness/Health & Wellness.databook.md` | Paula's physical characteristics — height, eye color, hair color — as recorded by Alice |
+| Topic 17 — `example/Cells/People/Immediate Family/Paula Walker/Health & Wellness/Health & Wellness.databook.md` | Paula's physical characteristics — height, eye color, hair color — as recorded by Alice; linked as an `otherTopic` (Paula is the cell's subject, not its member) |
+| Topic 35 — `example/Cells/People/Immediate Family/Paula Walker/Health & Wellness/Health & Wellness.databook.md` | Alice's bare given-name claim — the cell's required `memberTopics` entry, claimed by Alice |
 | Topic 25 — `example/Cells/People/Immediate Family/Paula Walker/Health & Wellness/Medical/Providers/Jane Starostina/Jane Starostina(primary-care-physician).databook.md` | Alice's record of Dr. Jane Starostina, Paula Walker's primary care physician — claimed by Alice; linked as an `otherTopic` (Jane is the cell's subject, not its member) |
 | Topic 34 — `example/Cells/People/Immediate Family/Paula Walker/Health & Wellness/Medical/Providers/Jane Starostina/Jane Starostina(primary-care-physician).databook.md` | Alice's bare given-name claim — the cell's required `memberTopics` entry, claimed by Alice |
 | Topic 26 — `example/Cells/People/Immediate Family/Paula Walker/Health & Wellness/Medical/Providers/Med. App. Info/Med. App. Info(medical-appointment-info).databook.md` | Alice and Carol's shared claims for Paula's medical appointment — medications, allergies, insurance, PCP reference — claimed by Alice |
@@ -309,7 +310,7 @@ Note: this check's `^id:\s*(\S+)` regex is anchored at true line-start with no l
 
 - **10e — Child arrows match folder nesting**: Every downward child arrow from cell box A to cell box B in a diagram must correspond to B's folder being a direct filesystem subfolder of A's folder (both folders containing their own cell-databook file) — child links are now derived purely from folder nesting, not any `child:` YAML field. Conversely, every direct-subfolder relationship between two category folders (each holding its own cell-databook) must be reflected by a visible child arrow in the diagram.
 
-- **10f — Cell box border style matches `mia.memberCount`**: Per the Key legend, a cell box is drawn with one of three border styles — a single border ("Single-Member Cell"), a double border ("Two-Member Cell"), or a bold/double border ("Multi-Member Cell") — corresponding to `cell:OneMember`, `cell:TwoMember`, and `cell:ThreePlusMember` respectively (these display strings are `cell:label` values, updated in cell.ttl 3.17.0 from "Cell"/"Two-Party Cell"/"Multi-Party Cell" to match the redrawn diagrams). The border style shown for a cell box must match the actual `mia.memberCount` value of the cell-databook co-located in that box's own folder. This is a visual check (no script) — e.g. `people2.png`'s "Dr. Jane" box is drawn with a single border ("Single-Member Cell"), which must match `Jane-Starostina(primary-care-physician).databook.md`'s `mia.memberCount: "cell:OneMember"`.
+- **10f — Cell box border style matches `mia.memberCount`**: Per the Key legend, a cell box is drawn with one of three border styles — a single border ("1 Member Cell"), a double border ("2 Member Cell"), or a bold/double border ("3+ Member Cell") — corresponding to `cell:OneMember`, `cell:TwoMember`, and `cell:ThreePlusMember` respectively (these display strings are `cell:label` values; updated in cell.ttl 3.17.0 from "Cell"/"Two-Party Cell"/"Multi-Party Cell" to "Single-Member Cell"/"Two-Member Cell"/"Multi-Member Cell", then again in cell.ttl 3.29.0 to their current "1 Member Cell"/"2 Member Cell"/"3+ Member Cell" wording, each time to match the redrawn diagrams). The border style shown for a cell box must match the actual `mia.memberCount` value of the cell-databook co-located in that box's own folder. This is a visual check (no script) — e.g. `people2.png`'s "Jane Starostina" box is drawn with a single border ("1 Member Cell"), which must match `Jane-Starostina(primary-care-physician).databook.md`'s `mia.memberCount: "cell:OneMember"`.
 
 - **10g — Blue "Subject" annotation matches `cell:subject`**: Per the Key legend's "Subject" entry, a cell box carries a blue "Subject" text annotation listing the name(s) of the resource(s) the cell's relationship is about, comma-separated when there are two. This text must list exactly the same value(s) — by name, not IRI — as the actual `mia.subject` value(s) of the cell-databook co-located in that box's own folder, no more and no fewer. This is a visual check (no script) — e.g. `finances.png`'s "Banking & Payments / Citibank" box's Subject annotation reads "Self, Citibank", matching `Citibank(banking-payments).databook.md`'s `mia.subject: [":Self", ":Citibank"]`.
 
@@ -524,7 +525,7 @@ print('All cells satisfy the distinct-subject-count rule.' if violations == 0 el
 
 If a violation is found, add a `memberTopics` entry whose `subject` is a member not yet represented (real content, not a placeholder — see the `cell:topics` → `partyTopics`/`otherTopics` split history, and the later `partyTopics`→`memberTopics` rename in cell.ttl 3.17.0, for worked examples), or reconsider whether the cell's `mia.memberCount` value is correct (e.g. a service-provider relationship with no true second member may belong as `cell:OneMember` instead of `cell:TwoMember`).
 
-**Check 18 — `cell:subject` cardinality governs whether a subject's topic sits in `memberTopics` or `otherTopics`**: Check 17 confirms *enough* distinct subjects appear somewhere among `memberTopics`, but not *which* list (`memberTopics` vs `otherTopics`) a given subject's topic belongs in — that placement depends on how many `cell:subject` values the cell itself carries (`:OneMemberShape` and `:ThreePlusMemberShape` require exactly 1; `:TwoMemberShape` allows 1 or 2). The additional invariant: **if a `cell:OneMember` or `cell:TwoMember` cell has a single `subject` value**, that subject is the entity the relationship is *about* — it is not automatically one of the cell's active members (whose own topics fill the required `memberTopics` baseline: exactly 1 for `OneMember`, 2..4 for `TwoMember`) — so a topic whose `t:subject` matches the cell's `subject` must be linked via `otherTopics`, not `memberTopics` (e.g. `Paula-Walker(employee).databook.md`: `memberCount: "cell:OneMember"`, `subject: ":Paula_Walker"`; `memberTopics` holds Self's own topic (the member), `otherTopics` holds Paula's — the subject's — topic; similarly `Med.-App.-Info(medical-appointment-info).databook.md`, a `cell:TwoMember` with `subject: ":Paula_Walker"`: `memberTopics` holds Carol's and Self's topics, `otherTopics` holds Paula's own topic). **Exception**: if there aren't enough *other* topics (whose subject differs from the cell's subject) to fill the required `memberTopics` minimum, the subject's own topic may fill the shortfall instead — e.g. `Jane-Starostina(primary-care-physician).databook.md` (`cell:OneMember`, `subject: ":Jane_Starostina"`) has only one topic total, about Jane herself, and no alternative exists, so it necessarily occupies the required `memberTopics` slot. **If a `TwoMember` cell has two `subject` values**, those two values are the cell's active members, and each must be the `t:subject` of at least one topic among that cell's `memberTopics` (already covered by Check 17's count, but here checked by actual value match, not just count). This is not itself an OWL/SHACL-expressible constraint (same reasoning as Check 17), so it's checked here instead. Run:
+**Check 18 — `cell:subject` cardinality governs whether a subject's topic sits in `memberTopics` or `otherTopics`**: Check 17 confirms *enough* distinct subjects appear somewhere among `memberTopics`, but not *which* list (`memberTopics` vs `otherTopics`) a given subject's topic belongs in — that placement depends on how many `cell:subject` values the cell itself carries (`:OneMemberShape` and `:ThreePlusMemberShape` require exactly 1; `:TwoMemberShape` allows 1 or 2). The additional invariant: **if a `cell:OneMember` or `cell:TwoMember` cell has a single `subject` value**, that subject is the entity the relationship is *about* — it is not automatically one of the cell's active members (whose own topics fill the required `memberTopics` baseline: exactly 1 for `OneMember`, 2..4 for `TwoMember`) — so a topic whose `t:subject` matches the cell's `subject` must be linked via `otherTopics`, not `memberTopics` (e.g. `Paula-Walker(employee).databook.md`: `memberCount: "cell:OneMember"`, `subject: ":Paula_Walker"`; `memberTopics` holds Self's own topic (the member), `otherTopics` holds Paula's — the subject's — topic; similarly `Med.-App.-Info(medical-appointment-info).databook.md`, a `cell:TwoMember` with `subject: ":Paula_Walker"`: `memberTopics` holds Carol's and Self's topics, `otherTopics` holds Paula's own topic). **No exception**: an earlier version of this check allowed the subject's own topic to fill the required `memberTopics` slot when no other topic existed (citing `Jane-Starostina(primary-care-physician).databook.md`, `Health & Wellness.databook.md`, and `Medications.databook.md` under `Pets/Ginger/` as examples) — this was wrong and has been corrected: per Check 21, every `cell:OneMember` cell in the user's own tree must have `:Self` as its member regardless of the cell's `subject`, so the fix in every one of those cases was to add a real `:Self`-subject topic, never to let the subject's own topic stand in for a missing member. **If a `TwoMember` cell has two `subject` values**, those two values are the cell's active members, and each must be the `t:subject` of at least one topic among that cell's `memberTopics` (already covered by Check 17's count, but here checked by actual value match, not just count). This is not itself an OWL/SHACL-expressible constraint (same reasoning as Check 17), so it's checked here instead. Run:
 
 ```python
 import re, yaml, glob
@@ -672,6 +673,44 @@ for path in sorted(glob.glob('example/Cells/**/*.databook.md', recursive=True)):
     text_color = 'green/Predefined' if title == label else 'black/UserDefined'
     print(f'{title:35s} origin={origin:28s} label={label:24s} fill={fill:24s} text={text_color}')
 ```
+
+**Check 21 — `:Self` must be a member of every cell in the user's own tree**: A cell-databook under `example/Cells/` — the user's own instance tree — can only ever have gotten there one of two ways: (1) the user created it themselves, in which case they (`:Self`) are trivially a member, or (2) someone else shared it with the user, in which case the share necessarily made `:Self` a member (a cell can't be "shared with" someone without them becoming a member of it). Either way, `:Self` must be one of the cell's active members — i.e. `:Self` must be the `t:subject` of at least one of that cell's `memberTopics` — for **every** cell in `example/Cells/`, regardless of `cell:memberCount` or what the cell's own `cell:subject` is. This is strictest for `cell:OneMember` cells, where there is only one `memberTopics` slot at all: that slot's subject must be `:Self`, full stop — never the cell's `subject` (see Check 18's now-corrected "no exception" note above), even when the cell's `subject` is a third party (e.g. `Jane_Starostina`, `Paula_Walker`, `Ginger`) and no other topic happens to exist yet. `cell:TwoMember`/`cell:ThreePlusMember` cells have more room, so `:Self` just needs to be one of the members alongside whichever other real members the cell has (already satisfied by every existing example, e.g. Bob Johnson, Fred Flintstone, Med. App. Info, Boston Hub Society). This is not itself an OWL/SHACL-expressible constraint (same reasoning as Checks 17/18 — it requires dereferencing each `memberTopics` value's own `subject`, not just counting or matching cardinalities), so it's checked here instead. Run:
+
+```python
+import re, yaml, glob
+
+TOPICS_BASE_RE = re.compile(r'^https?://www\.example\.org/mia/topics/')
+
+def frontmatter(path):
+    text = open(path, encoding='utf-8').read()
+    m = re.match(r'^---\n(.*?)\n---', text, re.DOTALL)
+    return yaml.safe_load(m.group(1)) if m else None
+
+def local_name(v):
+    return TOPICS_BASE_RE.sub('', v)
+
+violations = 0
+for f in glob.glob('example/Cells/**/*.databook.md', recursive=True):
+    if 'under-development' in f.split('/'):
+        continue
+    fm = frontmatter(f)
+    if not fm:
+        continue
+    mia = fm.get('mia', {}) or {}
+    member_count = mia.get('memberCount')
+    if not member_count:
+        continue
+    topic_subject = {local_name(t['id']): t.get('subject') for t in (mia.get('topics') or []) if isinstance(t, dict)}
+    pt = mia.get('memberTopics') or []
+    pt = pt if isinstance(pt, list) else [pt]
+    subs = [topic_subject.get(local_name(t)) for t in pt]
+    if not any(s == ':Self' for s in subs):
+        violations += 1
+        print(f'VIOLATION {member_count} memberTopics-subjects={subs} (no :Self) {f}')
+print('All cells have :Self as a member.' if violations == 0 else f'{violations} violation(s) found.')
+```
+
+If a violation is found, add a new minimal topic claimed by and about `:Self` (following the pattern in `Medications.databook.md` under `Pets/Ginger/`, `Jane-Starostina(primary-care-physician).databook.md`, or `Health & Wellness.databook.md` — a single `designated by` → `GivenName` triple is enough), assign it the next free `topic-<NN>`, put it in `memberTopics`, and move whatever was previously in that slot to `otherTopics` instead.
 
 If a diagram box's fill or text color doesn't match this script's output for the corresponding real folder, the diagram wins (per Check 10's own rule) — update `mia.origin`/`title:`/filename only if the *data* is actually wrong, otherwise redraw the box.
 
