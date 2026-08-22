@@ -76,6 +76,12 @@ Here are a few lines from [topic 22](<example/Cells/Ownership/Ownership.databook
 <p align="center"><img src="example/images/misc.png" alt="Miscellaneous cells"></p>
 
 
+### Ginger's Medications
+
+Alice also has a cat, Ginger. Under a *Pets* category folder (with a *Health* subfolder beneath it) she keeps a *Medications* cell recording Ginger's medications: a completed course of amoxicillin/clavulanate (brand name Clavamox, from Zoetis) and an ongoing daily glucosamine/chondroitin joint supplement ([topic 32](<example/Cells/Pets/Health/Medications/Medications.databook.md#topic-32>)). This is a *Single-Member* cell — Ginger isn't a Mia user and has no `p:Person` individual of her own, so her medication list is recorded directly as a `persona:PetMedicationRecord` rather than being shared with her.
+
+<p align="center"><img src="example/images/pets.png" alt="Pets cells"></p>
+
 ### Boston Hub Society
 
 Alice is a member of the Boston Hub Society, an informal professional networking society. In our example BHS is compatible with PDN and participates directly as an `o:Organization` member of this cell, alongside Alice and Bob. Alice maintains her BHS profile in [topic 14](<example/Cells/Affiliations/Boston Hub Society/Boston Hub Society(affiliations).databook.md#topic-14>), Bob another member keeps his profile updated ([topic 3](<example/Cells/Affiliations/Boston Hub Society/Boston Hub Society(affiliations).databook.md#topic-03>)), and BHS itself asserts a basic profile about itself in [topic 1](<example/Cells/Affiliations/Boston Hub Society/Boston Hub Society(affiliations).databook.md#topic-01>).
@@ -106,6 +112,7 @@ A summary of every content-bearing cell-databook under `example/Cells/`, grouped
 | Current and Previous Homes | Boston | [Boston(residence).databook.md](<example/Cells/Government/Municipality/Boston/Boston(residence).databook.md>) {7} | Self | `cat:Residence` | 13 |
 | Current and Previous Homes | Paradise | [Paradise(residence).databook.md](<example/Cells/Government/Municipality/Paradise/Paradise(residence).databook.md>) {8} | Self | `cat:Residence` | 18 |
 | Possessions | Ownership | [Ownership.databook.md](<example/Cells/Ownership/Ownership.databook.md>) {11} | Self | `cat:Ownership` | 22 |
+| Ginger's Medications | Medications | [Medications.databook.md](<example/Cells/Pets/Health/Medications/Medications.databook.md>) {40} | Ginger | `cat:PetsMedications` | 32 |
 | Boston Hub Society | Boston Hub Society | [Boston Hub Society(affiliations).databook.md](<example/Cells/Affiliations/Boston Hub Society/Boston Hub Society(affiliations).databook.md>) {1} | BHS | `cat:Affiliations` | 1, 3, 14 |
 
 ## Topics
@@ -155,6 +162,7 @@ The following table lists topics about other people (Paula and Bob) or organizat
 | 30 | [Med. App. Info(medical-appointment-info).databook.md](<example/Cells/People/Immediate Family/Paula Walker/Health & Wellness/Medical/Providers/Med. App. Info/Med. App. Info(medical-appointment-info).databook.md#topic-30>) {15} | `cat:MedicalAppointmentInfo`       | Alice's own self-claimed contact info — the other of this cell's two members, alongside Carol (topic 28)           | [view](example/topics/images/topic-30.png) |
 | 27 | [Citibank(banking-payments).databook.md](<example/Cells/Finances/Banking & Payments/Citibank/Citibank(banking-payments).databook.md#topic-27>) {4} | `cat:BankingPayments` | Alice's own self-claimed notes about Citibank as an institution, alongside Citibank's own claimed record about her (topic 09) | [view](example/topics/images/topic-27.png) |
 | 31 | [Fred Flintstone(others).databook.md](<example/Cells/People/Others/Fred Flintstone/Fred Flintstone(others).databook.md#topic-31>) {17}                     | `cat:Others`       | Fred's self-claimed Fred persona                                 | [view](example/topics/images/topic-31.png) |
+| 32 | [Medications.databook.md](<example/Cells/Pets/Health/Medications/Medications.databook.md#topic-32>) {40} | `cat:PetsMedications`       | Alice's record of her cat Ginger's medications — amoxicillin/clavulanate course, ongoing glucosamine/chondroitin supplement           | [view](example/topics/images/topic-32.png)|
 
 ## Diagrams
 
@@ -257,7 +265,7 @@ Expected output: `Conforms`
 
 ### Tier 2 — per-template validation (individual topics)
 
-Four of the five per-template shapes (BirthCertificate, DriversLicense, Passport, MedicalAppointment) live in `cell-templates-shacl.ttl`; JSContactCard's shape remains a standalone file in `shacl/` (it has no `cat:Category` class of its own — see [Persona Templates](README.md#persona-templates)). Each is run against only the relevant topic, isolated via `extract-topic.py` from its owning cell DataBook file and merged with the foundation ontologies. Isolation matters because a cell may hold more than one topic — the MedicalAppointment case below lives in a three-topic cell, so a whole-file `databook extract` there would wrongly pull in its two sibling topics' data too.
+Five of the six per-template shapes (BirthCertificate, DriversLicense, Passport, MedicalAppointment, PetMedications) live in `cell-templates-shacl.ttl`; JSContactCard's shape remains a standalone file in `shacl/` (it has no `cat:Category` class of its own — see [Persona Templates](README.md#persona-templates)). Each is run against only the relevant topic, isolated via `extract-topic.py` from its owning cell DataBook file and merged with the foundation ontologies. Isolation matters because a cell may hold more than one topic — the MedicalAppointment case below lives in a three-topic cell, so a whole-file `databook extract` there would wrongly pull in its two sibling topics' data too.
 
 ```bash
 # Shared base: foundation ontologies + application ontologies + self.ttl
@@ -299,6 +307,11 @@ shacl validate --shapes /tmp/shapes-cell-templates.ttl --data /tmp/data-passport
 python3 extract-topic.py "example/Cells/People/Immediate Family/Paula Walker/Health & Wellness/Medical/Providers/Med. App. Info/Med. App. Info(medical-appointment-info).databook.md" "topic-26" > /tmp/data-medical-appt-raw.ttl
 riot --output=turtle /tmp/mia-base.ttl /tmp/data-medical-appt-raw.ttl 2>/dev/null > /tmp/data-medical-appt.ttl
 shacl validate --shapes /tmp/shapes-cell-templates.ttl --data /tmp/data-medical-appt.ttl --text
+
+# PetMedications — topic-32
+python3 extract-topic.py "example/Cells/Pets/Health/Medications/Medications.databook.md" "topic-32" > /tmp/data-pet-medications-raw.ttl
+riot --output=turtle /tmp/mia-base.ttl /tmp/data-pet-medications-raw.ttl 2>/dev/null > /tmp/data-pet-medications.ttl
+shacl validate --shapes /tmp/shapes-cell-templates.ttl --data /tmp/data-pet-medications.ttl --text
 ```
 
 Expected output for each: `Conforms`

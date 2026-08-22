@@ -8,23 +8,24 @@
 @base <http://mee.foundation/ontologies/persona-templates> .
 
 <http://mee.foundation/ontologies/persona-templates> rdf:type owl:Ontology ;
-    dc:date "2026-08-06"^^xsd:date ;
-    owl:versionInfo "Version 2.5.0 - fixed stale doc-comment wording in persona:MedicalAppointmentRecord's rdfs:comment: 'parties' (as in 'the two parties coordinating that care', 'the coordinating parties' Mia instances') replaced with 'members', matching the cell:parties/cell:partyTopics -> cell:memberCount/cell:memberTopics rename in cell.ttl 3.17.0. No change to any class or property defined in this file. (2.4.0 - deprecated the government-ID and date designator classes (DriversLicenseNumber, PassportNumber, PlaceOfBirth, IssuingJurisdiction, IssuingCountry, IssueDate) in favour of committed cco: ent IRIs; usages migrated, declarations retained with owl:deprecated + rdfs:seeAlso aliases (see block at end of file). 2.3.0: fixed stale doc-comment references to cat:templateShapes (category.ttl): the property moved to cell.ttl as cell:templateShapes back in cell.ttl 3.6.0, and was renamed cell:templateShape (singular) in cell.ttl 3.9.0 — comments here still said cat:templateShapes and 'class-level cell:Cell template', neither ever updated. No change to any class or property defined in this file.)"@en ;
+    dc:date "2026-08-21"^^xsd:date ;
+    owl:versionInfo "Version 2.6.0 - added persona:PetMedicationRecord (template label for cat:PetsMedications' cell template) plus persona:Medication and its hasMedication/medicationChemicalName/medicationBrandName/medicationManufacturer/medicationDosageValue/medicationDosageUnit/medicationFrequencyPerDay/medicationStartDate/medicationEndDate/medicationDuration properties, following the same bare-class + hasX + flat-datatype-subproperties pattern as persona:Anniversary/persona:PersonalInfo. Scoped to pets only for now — persona:currentMedication and persona:MedicalAppointmentRecord are unchanged. (2.5.0 - fixed stale doc-comment wording in persona:MedicalAppointmentRecord's rdfs:comment: 'parties' (as in 'the two parties coordinating that care', 'the coordinating parties' Mia instances') replaced with 'members', matching the cell:parties/cell:partyTopics -> cell:memberCount/cell:memberTopics rename in cell.ttl 3.17.0. No change to any class or property defined in this file. (2.4.0 - deprecated the government-ID and date designator classes (DriversLicenseNumber, PassportNumber, PlaceOfBirth, IssuingJurisdiction, IssuingCountry, IssueDate) in favour of committed cco: ent IRIs; usages migrated, declarations retained with owl:deprecated + rdfs:seeAlso aliases (see block at end of file). 2.3.0: fixed stale doc-comment references to cat:templateShapes (category.ttl): the property moved to cell.ttl as cell:templateShapes back in cell.ttl 3.6.0, and was renamed cell:templateShape (singular) in cell.ttl 3.9.0 — comments here still said cat:templateShapes and 'class-level cell:Cell template', neither ever updated. No change to any class or property defined in this file.))"@en ;
     rdfs:label "Persona Templates Ontology"@en ;
     rdfs:comment """Template type classification used as values for the topic:template annotation property.
                     Each concrete template type (BirthCertificateDocument, JSContactCard, DriversLicenseDocument,
-                    PassportDocument, MedicalAppointmentRecord) identifies which per-template SHACL shapes to
-                    apply when validating a topic file. Four of the five (all but JSContactCard) have their
-                    shapes in cell-templates-shacl.ttl, linked from a class-level cell:TCell template
+                    PassportDocument, MedicalAppointmentRecord, PetMedicationRecord) identifies which per-template
+                    SHACL shapes to apply when validating a topic file. Five of the six (all but JSContactCard)
+                    have their shapes in cell-templates-shacl.ttl, linked from a class-level cell:TCell template
                     (cell-templates.ttl) via cell:templateShape (cell.ttl).
 
                     p:IdentityDocument models government-issued identity documents as artifact instances.
                     p:BirthCertificateDocument, p:DriversLicenseDocument, and p:PassportDocument are subclasses
                     of both p:PersonaTemplate (template label use) and p:IdentityDocument (artifact instance use).
                     p:JSContactCard is a template label only — not a government-issued identity document.
-                    p:MedicalAppointmentRecord is likewise a template label AND the class of the shareable
-                    claims record individual (following the same pattern as p:PassportDocument), but is not an
-                    IdentityDocument — hence "Record" rather than "Document" in its name.
+                    p:MedicalAppointmentRecord and p:PetMedicationRecord are likewise template labels AND the
+                    class of their own shareable claims record individual (following the same pattern as
+                    p:PassportDocument), but neither is an IdentityDocument — hence "Record" rather than
+                    "Document" in their names.
 
                     Class hierarchy:
                     p:PersonaTemplate → p:BirthCertificateDocument (also p:IdentityDocument)
@@ -32,6 +33,7 @@
                                       → p:PassportDocument        (also p:IdentityDocument)
                                       → p:JSContactCard
                                       → p:MedicalAppointmentRecord
+                                      → p:PetMedicationRecord
                     p:IdentityDocument → p:BirthCertificateDocument
                                        → p:DriversLicenseDocument
                                        → p:PassportDocument"""@en .
@@ -451,6 +453,93 @@ persona:preferredPharmacy rdf:type owl:DatatypeProperty ;
     rdfs:domain persona:MedicalAppointmentRecord ;
     rdfs:label "preferred pharmacy"@en ;
     rdfs:comment "The patient's preferred pharmacy, as a free-text name and/or address."@en ;
+    rdfs:range xsd:string .
+
+
+#################################################################
+#    PetMedicationRecord and Medication
+#################################################################
+
+persona:PetMedicationRecord rdf:type owl:Class ;
+    rdfs:subClassOf persona:PersonaTemplate ;
+    rdfs:label "Pet Medications"@en ;
+    rdfs:comment """Template type label for a topic that carries a pet's list of medications. Also the
+                    class of the record individual itself, following the same document-individual pattern
+                    as p:PassportDocument: the persona:hasMedication links below are properties of the
+                    PetMedicationRecord, not of the pet directly (a pet has no p:Person individual of its
+                    own — it is identified only via the cell's/topic's own subject metadata). Used as the
+                    value of topic:template on the topic file's ontology IRI. Selects the SHACL shape
+                    :PetMedicationRecordShape in cell-templates-shacl.ttl, linked from
+                    cat:PetsMedications' template cell (cell-templates.ttl) via cell:templateShape. Named
+                    "Record" rather than "Document" since this class is not a p:IdentityDocument, matching
+                    persona:MedicalAppointmentRecord's identical naming reasoning."""@en .
+
+persona:hasMedication rdf:type owl:ObjectProperty ;
+    rdfs:domain persona:PetMedicationRecord ;
+    rdfs:range persona:Medication ;
+    rdfs:label "has medication"@en ;
+    rdfs:comment "Links a PetMedicationRecord to one of the pet's medications. Repeat the property for multiple medications."@en .
+
+persona:Medication rdf:type owl:Class ;
+    rdfs:label "Medication"@en ;
+    rdfs:comment """A single medication entry: what drug, how much, and how often. This is the
+                    structured class persona:currentMedication's own rdfs:comment anticipated ("may be
+                    upgraded to a dedicated Medication class with dosage/frequency fields later if
+                    needed") — introduced here scoped to persona:PetMedicationRecord only;
+                    persona:currentMedication and persona:MedicalAppointmentRecord are unchanged."""@en .
+
+persona:medicationChemicalName rdf:type owl:DatatypeProperty ;
+    rdfs:domain persona:Medication ;
+    rdfs:label "medication chemical name"@en ;
+    rdfs:comment "The medication's generic/chemical name (e.g. 'Amoxicillin/Clavulanate')."@en ;
+    rdfs:range xsd:string .
+
+persona:medicationBrandName rdf:type owl:DatatypeProperty ;
+    rdfs:domain persona:Medication ;
+    rdfs:label "medication brand name"@en ;
+    rdfs:comment "The medication's marketed brand name, if any (e.g. 'Clavamox')."@en ;
+    rdfs:range xsd:string .
+
+persona:medicationManufacturer rdf:type owl:DatatypeProperty ;
+    rdfs:domain persona:Medication ;
+    rdfs:label "medication manufacturer"@en ;
+    rdfs:comment "The name of the medication's manufacturer, as a free-text string (e.g. 'Zoetis') — not a linked o:Organization, matching persona:insuranceProvider's identical flat-string treatment."@en ;
+    rdfs:range xsd:string .
+
+persona:medicationDosageValue rdf:type owl:DatatypeProperty ;
+    rdfs:domain persona:Medication ;
+    rdfs:label "medication dosage value"@en ;
+    rdfs:comment "How much of the medication is given per dose (e.g. '1', '1/2'). Kept as a string rather than xsd:decimal so fractional/informal amounts are representable; paired with persona:medicationDosageUnit."@en ;
+    rdfs:range xsd:string .
+
+persona:medicationDosageUnit rdf:type owl:DatatypeProperty ;
+    rdfs:domain persona:Medication ;
+    rdfs:label "medication dosage unit"@en ;
+    rdfs:comment "The unit persona:medicationDosageValue is measured in, as free text (e.g. 'tablet', 'teaspoon', 'mg') — deliberately not tied to a rigid unit-of-measure vocabulary, which has no accommodation for informal dosage forms like 'capsule' or 'spoonful'."@en ;
+    rdfs:range xsd:string .
+
+persona:medicationFrequencyPerDay rdf:type owl:DatatypeProperty ;
+    rdfs:domain persona:Medication ;
+    rdfs:label "medication frequency per day"@en ;
+    rdfs:comment "How often per day the medication is given, as free text (e.g. '2', 'as needed')."@en ;
+    rdfs:range xsd:string .
+
+persona:medicationStartDate rdf:type owl:DatatypeProperty ;
+    rdfs:domain persona:Medication ;
+    rdfs:label "medication start date"@en ;
+    rdfs:comment "The date the medication was first given."@en ;
+    rdfs:range xsd:date .
+
+persona:medicationEndDate rdf:type owl:DatatypeProperty ;
+    rdfs:domain persona:Medication ;
+    rdfs:label "medication end date"@en ;
+    rdfs:comment "The date the medication was or will be stopped. Absent means the medication is ongoing/current, mirroring the AddressDesignation/TemporalInterval open-ended convention (see cco:ent00000017/ent00000018 usage elsewhere)."@en ;
+    rdfs:range xsd:date .
+
+persona:medicationDuration rdf:type owl:DatatypeProperty ;
+    rdfs:domain persona:Medication ;
+    rdfs:label "medication duration"@en ;
+    rdfs:comment "A free-text alternative to a fixed persona:medicationEndDate for expressing how long the medication runs (e.g. '10 days'). Not constrained to be mutually exclusive with medicationEndDate."@en ;
     rdfs:range xsd:string .
 
 

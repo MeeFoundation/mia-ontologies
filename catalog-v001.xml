@@ -24,6 +24,8 @@
          uri="cell-templates-shacl.ttl"/>
     <uri id="cell-templates-shacl-medical-appointment" name="http://mee.foundation/ontologies/persona/shapes/medical-appointment"
          uri="cell-templates-shacl.ttl"/>
+    <uri id="cell-templates-shacl-pet-medications" name="http://mee.foundation/ontologies/persona/shapes/pet-medications"
+         uri="cell-templates-shacl.ttl"/>
     <uri id="pdn-identity"             name="http://mee.foundation/ontologies/pdn-identity"
          uri="pdn-identity.ttl"/>
     <uri id="organization"             name="http://mee.foundation/ontologies/organization"

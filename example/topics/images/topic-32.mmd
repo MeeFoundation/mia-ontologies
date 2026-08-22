@@ -1,0 +1,44 @@
+flowchart TD
+    classDef person fill:#fffacd,stroke:#aaa,color:#333
+    classDef org    fill:#cce5ff,stroke:#aaa,color:#333
+    classDef lit    fill:none,stroke:none,font-style:italic,color:#2a7a2a
+    classDef meta   fill:#f5f5ff,stroke:#9999cc,color:#333
+
+    subgraph ctx["Topic Graph"]
+        direction LR
+        ctx_meta["claimant: :Self\nsubject: :Ginger\ntemplate: persona:PetMedicationRecord"]:::meta
+    end
+
+    nd44f902e3f9e[":Ginger"]
+    n522e3529c773[":Ginger_Medication_Clavamox\n(Medication)"]
+    na91c05a40ca8("Amoxicillin/Clavulanate"):::lit
+    n3dfec799d850("Clavamox"):::lit
+    n7aa6ef22271b("Zoetis"):::lit
+    n2c674a2f436b("1"):::lit
+    n0812b8e862be("tablet"):::lit
+    nf7303db7e81e("2"):::lit
+    nf78cc15ad0e0("2026-08-10"):::lit
+    nb0d6e08b33f4("2026-08-20"):::lit
+    n97a2a6cd305a[":Ginger_Medication_Glucosamine\n(Medication)"]
+    n503fb034bcbe("Glucosamine/Chondroitin"):::lit
+    n3fd1d05b2896("1"):::lit
+    n70b974033fcb("teaspoon"):::lit
+    n14ff1f271350("1"):::lit
+    n8a9f181e50c1("2026-01-15"):::lit
+    n6dd6d267adfc[":Ginger_Medications\n(PetMedicationRecord)"]
+
+    n522e3529c773 -->|"medicationChemicalName"| na91c05a40ca8
+    n522e3529c773 -->|"medicationBrandName"| n3dfec799d850
+    n522e3529c773 -->|"medicationManufacturer"| n7aa6ef22271b
+    n522e3529c773 -->|"medicationDosageValue"| n2c674a2f436b
+    n522e3529c773 -->|"medicationDosageUnit"| n0812b8e862be
+    n522e3529c773 -->|"medicationFrequencyPerDay"| nf7303db7e81e
+    n522e3529c773 -->|"medicationStartDate"| nf78cc15ad0e0
+    n522e3529c773 -->|"medicationEndDate"| nb0d6e08b33f4
+    n97a2a6cd305a -->|"medicationChemicalName"| n503fb034bcbe
+    n97a2a6cd305a -->|"medicationDosageValue"| n3fd1d05b2896
+    n97a2a6cd305a -->|"medicationDosageUnit"| n70b974033fcb
+    n97a2a6cd305a -->|"medicationFrequencyPerDay"| n14ff1f271350
+    n97a2a6cd305a -->|"medicationStartDate"| n8a9f181e50c1
+    n6dd6d267adfc -->|"hasMedication"| n522e3529c773
+    n6dd6d267adfc -->|"hasMedication"| n97a2a6cd305a
