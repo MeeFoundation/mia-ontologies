@@ -1,0 +1,50 @@
+@prefix : <http://mee.foundation/ontologies/dron-upper-subset#> .
+@prefix dc: <http://purl.org/dc/elements/1.1/> .
+@prefix obo: <http://purl.obolibrary.org/obo/> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@base <http://mee.foundation/ontologies/dron-upper-subset> .
+
+<http://mee.foundation/ontologies/dron-upper-subset> rdf:type owl:Ontology ;
+    owl:versionIRI <http://mee.foundation/ontologies/dron-upper-subset/1.0.0> ;
+    dc:date "2026-08-22"^^xsd:date ;
+    owl:versionInfo "Version 1.0.0 - initial hand-curated subset of DrOn's upper module."@en ;
+    rdfs:label "DrOn Upper Module Subset"@en ;
+    rdfs:comment """A hand-curated subset of the Drug Ontology (DrOn, https://github.com/mcwdsi/dron,
+                    OBO Foundry PURL http://purl.obolibrary.org/obo/dron.owl), extracted from DrOn
+                    release v2026-06-04. This is NOT a full mirror of upstream DrOn — unlike this
+                    project's other project_files/ vendor files (PersonOntology.ttl etc., which are
+                    complete local mirrors of their upstream CCO domain ontologies), DrOn's full
+                    distribution (dron-lite.owl) is approximately 300MB and contains tens of thousands
+                    of RxNorm-derived per-product classes not relevant here. This file instead declares
+                    only the handful of DrOn's manually-curated, BFO-aligned "upper module" classes
+                    actually referenced by persona-templates.ttl's persona:Medication design, each
+                    declared with its real upstream IRI, rdfs:label, and definition (verified directly
+                    against the live DrOn ontology via OLS4, 2026-08-22), and each cited back to its
+                    real DrOn class IRI rather than a locally-minted equivalent — this file adds no new
+                    identifiers of its own, only re-declares existing external ones for local offline
+                    use. Deliberately omits the rdfs:subClassOf chain up to BFO (that chain is DrOn's
+                    concern, not something this file re-asserts) — see each class's rdfs:comment for
+                    its real DrOn parentage instead."""@en .
+
+obo:DRON_00000074 rdf:type owl:Class ;
+    rdfs:label "drug product"@en ;
+    rdfs:comment "DrOn DRON_00000074. A material entity that (1) contains at least one scattered molecular aggregate as part and (2) is intended, when administered to an organism, to produce some therapeutic and/or psychoactive effect. A BFO Material Entity."@en .
+
+obo:DRON_00000028 rdf:type owl:Class ;
+    rdfs:label "active ingredient"@en ;
+    rdfs:comment "DrOn DRON_00000028 (preferred term: \"active ingredient role\"). A role of a scattered molecular aggregate that is part of a drug product that is realized by (1) administration of the drug to an organism followed by (2) some change in the structure or functioning of some part of the organism. A BFO Role."@en .
+
+obo:DRON_00000022 rdf:type owl:Class ;
+    rdfs:label "drug tablet"@en ;
+    rdfs:comment "DrOn DRON_00000022. A solid object that is the bearer of a clinical drug role. A BFO Material Entity bearing a Role; subClassOf obo:DRON_00000074 (drug product) upstream."@en .
+
+obo:DRON_00000026 rdf:type owl:Class ;
+    rdfs:label "drug capsule"@en ;
+    rdfs:comment "DrOn DRON_00000026. An object that is the bearer of a drug role and is comprised of a solid shell of elliptical-cylindrical shape and another object contained in the shell that has a scattered molecular aggregate as a proper part. A BFO Material Entity bearing a Role; subClassOf obo:DRON_00000074 (drug product) upstream."@en .
+
+obo:DRON_00000031 rdf:type owl:Class ;
+    rdfs:label "drug administration"@en ;
+    rdfs:comment "DrOn DRON_00000031. A treatment that has as participants an extended organism and a drug product and that results in part of the drug product being located in the extended organism. A BFO Process."@en .

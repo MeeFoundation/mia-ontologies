@@ -11,13 +11,13 @@
 @base <http://mee.foundation/ontologies/persona> .
 
 <http://mee.foundation/ontologies/persona> rdf:type owl:Ontology ;
-    owl:versionIRI <http://mee.foundation/ontologies/persona/4.4.0> ;
+    owl:versionIRI <http://mee.foundation/ontologies/persona/4.5.0> ;
     owl:imports <https://w3id.org/cco-domains/domains/PersonOntology> ;
     owl:imports <https://w3id.org/cco-domains/domains/AddressOntology> ;
     owl:imports <https://w3id.org/cco-domains/domains/StagingOntology> ;
     owl:imports <http://mee.foundation/ontologies/persona-templates> ;
-    dc:date "2026-08-21"^^xsd:date ;
-    owl:versionInfo "Version 4.4.0 - removed p:hasPaymentCard, p:CheckingAccountNumber, and p:RoutingNumber outright, along with their trailing owl:deprecated/rdfs:seeAlso alias block: confirmed no downstream databook references either the deprecated persona: terms or the alias triples themselves, so nothing was left to retain for continuity. Their committed cco: replacements (cco:ent00000073, cco:ent00000071, cco:ent00000072) are unaffected and remain in active use."@en ;
+    dc:date "2026-08-22"^^xsd:date ;
+    owl:versionInfo "Version 4.5.0 - added p:usesDrOnClass and p:usesChEBIClass annotation properties, generalizing p:usesCCOClass's documentation pattern to two more reused ontology families (DrOn, ChEBI), introduced for persona-templates.ttl's persona:Medication redesign. (4.4.0 - removed p:hasPaymentCard, p:CheckingAccountNumber, and p:RoutingNumber outright, along with their trailing owl:deprecated/rdfs:seeAlso alias block: confirmed no downstream databook references either the deprecated persona: terms or the alias triples themselves, so nothing was left to retain for continuity. Their committed cco: replacements (cco:ent00000073, cco:ent00000071, cco:ent00000072) are unaffected and remain in active use.)"@en ;
     rdfs:label "Persona Ontology"@en ;
     rdfs:comment """Persona Ontology for the Mee Identity Agent.
 
@@ -119,6 +119,30 @@ p:usesCCOProperty rdf:type owl:AnnotationProperty ;
     rdfs:comment """Indicates an object or data property from CCO that this application uses.
                     Values are full IRIs like <https://w3id.org/cco-domains/cco/ont00001879>."""@en ;
     rdfs:domain owl:Ontology .
+
+p:usesDrOnClass rdf:type owl:AnnotationProperty ;
+    rdfs:label "uses DrOn class"@en ;
+    rdfs:comment """Indicates a class from the Drug Ontology (DrOn) that this application uses
+                    directly, cited by its real upstream IRI (e.g.
+                    <http://purl.obolibrary.org/obo/DRON_00000074>). Mirrors p:usesCCOClass's
+                    documentation role, generalized to a second reused ontology family. This
+                    project vendors only a small hand-curated subset of DrOn's upper module
+                    (project_files/dron-upper.ttl), not the full ~300MB upstream distribution — see
+                    that file's own rdfs:comment for why."""@en ;
+    rdfs:domain owl:Ontology ;
+    rdfs:range owl:Class .
+
+p:usesChEBIClass rdf:type owl:AnnotationProperty ;
+    rdfs:label "uses ChEBI class"@en ;
+    rdfs:comment """Indicates a class from ChEBI (Chemical Entities of Biological Interest) that
+                    this application uses directly, cited by its real upstream IRI (e.g.
+                    <http://purl.obolibrary.org/obo/CHEBI_2676>). Mirrors p:usesCCOClass's
+                    documentation role. ChEBI itself is not vendored or owl:imported anywhere in
+                    this project — it is far too large — its class IRIs are only ever cited as
+                    external values (the same way DrOn itself reuses ChEBI rather than modeling
+                    chemistry on its own)."""@en ;
+    rdfs:domain owl:Ontology ;
+    rdfs:range owl:Class .
 
 p:usagePattern rdf:type owl:AnnotationProperty ;
     rdfs:label "usage pattern"@en ;

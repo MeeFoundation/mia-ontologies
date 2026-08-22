@@ -442,8 +442,8 @@
 
 <http://mee.foundation/ontologies/persona/shapes/pet-medications> rdf:type owl:Ontology ;
     owl:imports <http://mee.foundation/ontologies/persona> ;
-    dc:date "2026-08-21"^^xsd:date ;
-    owl:versionInfo "Version 1.0.0 - initial PetMedicationRecordShape/MedicationShape, linked from cat:PetsMedications' template cell (cell-templates.ttl) via cell:templateShape."@en ;
+    dc:date "2026-08-22"^^xsd:date ;
+    owl:versionInfo "Version 1.1.0 - rewrote :MedicationShape for persona:Medication's reuse-based redesign (persona-templates.ttl 2.7.0): replaced the six removed medication* string/date properties' sh:property blocks with hasActiveIngredient/hasDoseForm/hasDosageAmount/hasAdministration; added :DosageAmountShape and :MedicationAdministrationShape for the two new sub-individual classes. (1.0.0 - initial PetMedicationRecordShape/MedicationShape, linked from cat:PetsMedications' template cell (cell-templates.ttl) via cell:templateShape.)"@en ;
     rdfs:label "Pet Medications Template SHACL Shapes"@en ;
     rdfs:comment """SHACL shapes for validating topic files carrying topic:template persona:PetMedicationRecord.
                     Apply in addition to persona-shacl.ttl when validating a pet-medications topic file.
@@ -473,48 +473,52 @@
 #################################################################
 #  Medication Shape
 #  Targets persona:Medication individuals.
-#  Required: ChemicalName (persona:medicationChemicalName, 1..1)
-#            DosageValue (persona:medicationDosageValue, 1..1)
-#            DosageUnit (persona:medicationDosageUnit, 1..1)
-#  Optional: BrandName (persona:medicationBrandName, 0..1)
+#  Required: ActiveIngredient (persona:hasActiveIngredient, 1..n, IRI — ChEBI class)
+#            DosageAmount (persona:hasDosageAmount, 1..1, persona:DosageAmount)
+#            Administration (persona:hasAdministration, 1..1, persona:MedicationAdministration)
+#  Optional: DoseForm (persona:hasDoseForm, 0..1, IRI — DrOn dose-form class)
+#            BrandName (persona:medicationBrandName, 0..1)
 #            Manufacturer (persona:medicationManufacturer, 0..1)
-#            FrequencyPerDay (persona:medicationFrequencyPerDay, 0..1)
-#            StartDate (persona:medicationStartDate, 0..1)
-#            EndDate (persona:medicationEndDate, 0..1)
 #            Duration (persona:medicationDuration, 0..1)
 #################################################################
 
 :MedicationShape
     a sh:NodeShape ;
     sh:targetClass persona:Medication ;
-    sh:message "Medication validation: chemical name and dosage are required."@en ;
+    sh:message "Medication validation: at least one active ingredient, a dosage amount, and an administration schedule are required."@en ;
 
-    # ── Required: chemical name, dosage value, dosage unit ──────────────────
+    # ── Required: active ingredient(s), dosage amount, administration ───────
     sh:property [
-        sh:path persona:medicationChemicalName ;
+        sh:path persona:hasActiveIngredient ;
         sh:minCount 1 ;
-        sh:maxCount 1 ;
-        sh:datatype xsd:string ;
-        sh:message "A Medication must record exactly one chemical name."@en
+        sh:nodeKind sh:IRI ;
+        sh:message "A Medication must link to at least one active ingredient (a ChEBI class IRI) via hasActiveIngredient."@en
     ] ;
 
     sh:property [
-        sh:path persona:medicationDosageValue ;
+        sh:path persona:hasDosageAmount ;
         sh:minCount 1 ;
         sh:maxCount 1 ;
-        sh:datatype xsd:string ;
-        sh:message "A Medication must record exactly one dosage value."@en
+        sh:class persona:DosageAmount ;
+        sh:message "A Medication must link to exactly one persona:DosageAmount via hasDosageAmount."@en
     ] ;
 
     sh:property [
-        sh:path persona:medicationDosageUnit ;
+        sh:path persona:hasAdministration ;
         sh:minCount 1 ;
         sh:maxCount 1 ;
-        sh:datatype xsd:string ;
-        sh:message "A Medication must record exactly one dosage unit."@en
+        sh:class persona:MedicationAdministration ;
+        sh:message "A Medication must link to exactly one persona:MedicationAdministration via hasAdministration."@en
     ] ;
 
     # ── Optional fields ──────────────────────────────────────────────────────
+    sh:property [
+        sh:path persona:hasDoseForm ;
+        sh:maxCount 1 ;
+        sh:nodeKind sh:IRI ;
+        sh:message "A Medication may link to at most one dose form (a DrOn dose-form class IRI) via hasDoseForm."@en
+    ] ;
+
     sh:property [
         sh:path persona:medicationBrandName ;
         sh:maxCount 1 ;
@@ -530,29 +534,73 @@
     ] ;
 
     sh:property [
-        sh:path persona:medicationFrequencyPerDay ;
-        sh:maxCount 1 ;
-        sh:datatype xsd:string ;
-        sh:message "A Medication may have at most one frequency-per-day value."@en
-    ] ;
-
-    sh:property [
-        sh:path persona:medicationStartDate ;
-        sh:maxCount 1 ;
-        sh:datatype xsd:date ;
-        sh:message "A Medication may have at most one start date."@en
-    ] ;
-
-    sh:property [
-        sh:path persona:medicationEndDate ;
-        sh:maxCount 1 ;
-        sh:datatype xsd:date ;
-        sh:message "A Medication may have at most one end date."@en
-    ] ;
-
-    sh:property [
         sh:path persona:medicationDuration ;
         sh:maxCount 1 ;
         sh:datatype xsd:string ;
         sh:message "A Medication may have at most one duration."@en
+    ] .
+
+
+#################################################################
+#  Dosage Amount Shape
+#  Targets persona:DosageAmount individuals.
+#  Required: exactly one of "has decimal value"/"has integer value" (cco:ont00001769/ont00001773)
+#  Optional: "uses measurement unit" (cco:ont00001863, 0..1, IRI — CCO Measurement Unit individual);
+#            omitted when the amount is a count of discrete dose-form units (e.g. tablets) rather
+#            than a true measured quantity — see persona:hasDoseForm.
+#################################################################
+
+:DosageAmountShape
+    a sh:NodeShape ;
+    sh:targetClass persona:DosageAmount ;
+    sh:message "Dosage Amount validation: exactly one of has-decimal-value/has-integer-value is required."@en ;
+
+    sh:xone (
+        [ sh:property [
+            sh:path <https://w3id.org/cco-domains/cco/ont00001769> ;  # has decimal value
+            sh:minCount 1 ;
+            sh:maxCount 1 ;
+            sh:datatype xsd:decimal
+        ] ]
+        [ sh:property [
+            sh:path <https://w3id.org/cco-domains/cco/ont00001773> ;  # has integer value
+            sh:minCount 1 ;
+            sh:maxCount 1 ;
+            sh:datatype xsd:integer
+        ] ]
+    ) ;
+
+    sh:property [
+        sh:path <https://w3id.org/cco-domains/cco/ont00001863> ;  # uses measurement unit
+        sh:maxCount 1 ;
+        sh:nodeKind sh:IRI ;
+        sh:message "A Dosage Amount may use at most one measurement unit."@en
+    ] .
+
+
+#################################################################
+#  Medication Administration Shape
+#  Targets persona:MedicationAdministration individuals.
+#  Optional: FrequencyPerDay (persona:medicationFrequencyPerDay, 0..1)
+#  Required: occupies temporal region (BFO_0000199, 1..1, BFO_0000038)
+#################################################################
+
+:MedicationAdministrationShape
+    a sh:NodeShape ;
+    sh:targetClass persona:MedicationAdministration ;
+    sh:message "Medication Administration validation: exactly one temporal interval (occupies temporal region) is required."@en ;
+
+    sh:property [
+        sh:path persona:medicationFrequencyPerDay ;
+        sh:maxCount 1 ;
+        sh:datatype xsd:string ;
+        sh:message "A Medication Administration may have at most one frequency-per-day value."@en
+    ] ;
+
+    sh:property [
+        sh:path <http://purl.obolibrary.org/obo/BFO_0000199> ;  # occupies temporal region
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:class <http://purl.obolibrary.org/obo/BFO_0000038> ;  # one-dimensional temporal region
+        sh:message "A Medication Administration must occupy exactly one temporal region."@en
     ] .

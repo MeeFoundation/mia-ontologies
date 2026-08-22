@@ -8,8 +8,18 @@
 @base <http://mee.foundation/ontologies/persona-templates> .
 
 <http://mee.foundation/ontologies/persona-templates> rdf:type owl:Ontology ;
-    dc:date "2026-08-21"^^xsd:date ;
-    owl:versionInfo "Version 2.6.0 - added persona:PetMedicationRecord (template label for cat:PetsMedications' cell template) plus persona:Medication and its hasMedication/medicationChemicalName/medicationBrandName/medicationManufacturer/medicationDosageValue/medicationDosageUnit/medicationFrequencyPerDay/medicationStartDate/medicationEndDate/medicationDuration properties, following the same bare-class + hasX + flat-datatype-subproperties pattern as persona:Anniversary/persona:PersonalInfo. Scoped to pets only for now — persona:currentMedication and persona:MedicalAppointmentRecord are unchanged. (2.5.0 - fixed stale doc-comment wording in persona:MedicalAppointmentRecord's rdfs:comment: 'parties' (as in 'the two parties coordinating that care', 'the coordinating parties' Mia instances') replaced with 'members', matching the cell:parties/cell:partyTopics -> cell:memberCount/cell:memberTopics rename in cell.ttl 3.17.0. No change to any class or property defined in this file. (2.4.0 - deprecated the government-ID and date designator classes (DriversLicenseNumber, PassportNumber, PlaceOfBirth, IssuingJurisdiction, IssuingCountry, IssueDate) in favour of committed cco: ent IRIs; usages migrated, declarations retained with owl:deprecated + rdfs:seeAlso aliases (see block at end of file). 2.3.0: fixed stale doc-comment references to cat:templateShapes (category.ttl): the property moved to cell.ttl as cell:templateShapes back in cell.ttl 3.6.0, and was renamed cell:templateShape (singular) in cell.ttl 3.9.0 — comments here still said cat:templateShapes and 'class-level cell:Cell template', neither ever updated. No change to any class or property defined in this file.))"@en ;
+    owl:imports <http://mee.foundation/ontologies/dron-upper-subset> ;
+    dc:date "2026-08-22"^^xsd:date ;
+    owl:versionInfo "Version 2.7.0 - replaced persona:Medication's first-pass flat-string fields (medicationChemicalName/medicationDosageValue/medicationDosageUnit/medicationFrequencyPerDay-on-Medication/medicationStartDate/medicationEndDate — removed outright, no deprecation shim) with reused external vocabulary: persona:hasActiveIngredient (ChEBI), persona:hasDoseForm (DrOn dose-form classes, project_files/dron-upper.ttl, newly owl:imported), persona:hasDosageAmount/persona:DosageAmount (CCO's Measurement-Unit/Information-Bearing-Entity machinery, project_files/UnitsOfMeasureOntology.ttl+InformationEntityOntology.ttl, transitively imported but never previously used), and persona:hasAdministration/persona:MedicationAdministration (DrOn's drug-administration process class plus the same BFO TemporalInterval pattern AddressDesignation already uses). medicationBrandName/medicationManufacturer/medicationDuration kept unchanged (documented as having no reuse target). (2.6.0 - added persona:PetMedicationRecord (template label for cat:PetsMedications' cell template) plus persona:Medication and its hasMedication/medicationChemicalName/medicationBrandName/medicationManufacturer/medicationDosageValue/medicationDosageUnit/medicationFrequencyPerDay/medicationStartDate/medicationEndDate/medicationDuration properties, following the same bare-class + hasX + flat-datatype-subproperties pattern as persona:Anniversary/persona:PersonalInfo. Scoped to pets only for now — persona:currentMedication and persona:MedicalAppointmentRecord are unchanged. (2.5.0 - fixed stale doc-comment wording in persona:MedicalAppointmentRecord's rdfs:comment: 'parties' (as in 'the two parties coordinating that care', 'the coordinating parties' Mia instances') replaced with 'members', matching the cell:parties/cell:partyTopics -> cell:memberCount/cell:memberTopics rename in cell.ttl 3.17.0. No change to any class or property defined in this file. (2.4.0 - deprecated the government-ID and date designator classes (DriversLicenseNumber, PassportNumber, PlaceOfBirth, IssuingJurisdiction, IssuingCountry, IssueDate) in favour of committed cco: ent IRIs; usages migrated, declarations retained with owl:deprecated + rdfs:seeAlso aliases (see block at end of file). 2.3.0: fixed stale doc-comment references to cat:templateShapes (category.ttl): the property moved to cell.ttl as cell:templateShapes back in cell.ttl 3.6.0, and was renamed cell:templateShape (singular) in cell.ttl 3.9.0 — comments here still said cat:templateShapes and 'class-level cell:Cell template', neither ever updated. No change to any class or property defined in this file.)))"@en ;
+    persona:usesDrOnClass <http://purl.obolibrary.org/obo/DRON_00000074> ,  # drug product
+                    <http://purl.obolibrary.org/obo/DRON_00000028> ,  # active ingredient (role)
+                    <http://purl.obolibrary.org/obo/DRON_00000022> ,  # drug tablet
+                    <http://purl.obolibrary.org/obo/DRON_00000026> ,  # drug capsule
+                    <http://purl.obolibrary.org/obo/DRON_00000031> ;  # drug administration
+    persona:usesChEBIClass <http://purl.obolibrary.org/obo/CHEBI_2676> ,   # amoxicillin
+                     <http://purl.obolibrary.org/obo/CHEBI_48947> ,  # clavulanic acid
+                     <http://purl.obolibrary.org/obo/CHEBI_5417> ,   # glucosamine
+                     <http://purl.obolibrary.org/obo/CHEBI_37397> ;  # chondroitin sulfate
     rdfs:label "Persona Templates Ontology"@en ;
     rdfs:comment """Template type classification used as values for the topic:template annotation property.
                     Each concrete template type (BirthCertificateDocument, JSContactCard, DriversLicenseDocument,
@@ -486,60 +496,141 @@ persona:Medication rdf:type owl:Class ;
                     structured class persona:currentMedication's own rdfs:comment anticipated ("may be
                     upgraded to a dedicated Medication class with dosage/frequency fields later if
                     needed") — introduced here scoped to persona:PetMedicationRecord only;
-                    persona:currentMedication and persona:MedicalAppointmentRecord are unchanged."""@en .
+                    persona:currentMedication and persona:MedicalAppointmentRecord are unchanged.
 
-persona:medicationChemicalName rdf:type owl:DatatypeProperty ;
+                    Version 2.7.0 replaced this class's first-pass flat-string fields
+                    (medicationChemicalName/medicationDosageValue/medicationDosageUnit/
+                    medicationFrequencyPerDay/medicationStartDate/medicationEndDate — all removed
+                    outright, no deprecation shim, since they were experimental and never externally
+                    depended upon) with reused external vocabulary, per this project's "invent as
+                    little as possible" design goal: persona:hasActiveIngredient (ChEBI chemical
+                    substance classes — the same reuse move DrOn itself makes rather than inventing
+                    its own chemistry), persona:hasDoseForm (DrOn dose-form classes, e.g. "drug
+                    tablet"), persona:hasDosageAmount (a persona:DosageAmount individual, reusing
+                    CCO's Measurement-Unit/Information-Bearing-Entity machinery), and
+                    persona:hasAdministration (a persona:MedicationAdministration individual, reusing
+                    DrOn's "drug administration" process class plus the same BFO TemporalInterval
+                    pattern AddressDesignation already uses for start/end dates). Only
+                    medicationBrandName, medicationManufacturer, and medicationDuration survive
+                    unchanged — DrOn has no manufacturer/labeler class and embeds brand names only
+                    inside its auto-generated RxNorm product-class labels, not as a separate reusable
+                    property, and nothing reused covers a free-text course duration; these three
+                    remain plain strings, the same flat-string treatment persona:insuranceProvider
+                    already uses for facts nothing else models."""@en .
+
+persona:hasActiveIngredient rdf:type owl:ObjectProperty ;
     rdfs:domain persona:Medication ;
-    rdfs:label "medication chemical name"@en ;
-    rdfs:comment "The medication's generic/chemical name (e.g. 'Amoxicillin/Clavulanate')."@en ;
+    rdfs:label "has active ingredient"@en ;
+    rdfs:comment """Links a Medication to one of its active ingredients, identified directly by a
+                    ChEBI (Chemical Entities of Biological Interest, https://www.ebi.ac.uk/chebi/)
+                    chemical-substance class IRI (e.g. obo:CHEBI_2676 for amoxicillin) — the value IS
+                    the ChEBI class itself, not an instance of it (the same class-value-punning style
+                    cell:origin/cell:memberCount already use in cell.ttl), cited rather than imported
+                    (ChEBI is far too large to vendor; DrOn itself reuses ChEBI class IRIs this same
+                    way rather than modeling chemistry on its own). Repeat the property for
+                    combination drugs with more than one active ingredient (e.g. amoxicillin AND
+                    clavulanic acid for Clavamox). This replaces the removed medicationChemicalName
+                    string. Mirrors DrOn's "active ingredient" role (obo:DRON_00000028,
+                    project_files/dron-upper.ttl) conceptually, but deliberately simplified to a
+                    direct link rather than DrOn's full role-based reification (an Active Ingredient
+                    Role borne by a scattered molecular aggregate) — not worth the extra individuals
+                    for a consumer-app medication list."""@en .
+
+persona:hasDoseForm rdf:type owl:ObjectProperty ;
+    rdfs:domain persona:Medication ;
+    rdfs:label "has dose form"@en ;
+    rdfs:comment """Links a Medication to the DrOn (project_files/dron-upper.ttl) dose-form class
+                    identifying what kind of discrete manufactured unit it comes in — e.g.
+                    obo:DRON_00000022 "drug tablet" or obo:DRON_00000026 "drug capsule". Like
+                    hasActiveIngredient, the value IS the class itself (class-value-punning, matching
+                    cell:memberCount's style). Omit this property entirely when the dose is a true
+                    measured quantity rather than a count of discrete units (e.g. a teaspoon of
+                    liquid) — see persona:hasDosageAmount/persona:DosageAmount for why "tablet" and
+                    "teaspoon" are handled by two different mechanisms: UCUM's own specification
+                    explicitly classifies "tablet" as a non-unit (a count of an arbitrary manufactured
+                    form, not a measured physical quantity), unlike teaspoon/milligram/milliliter,
+                    which are real measurement units."""@en .
+
+persona:DosageAmount rdf:type owl:Class ;
+    rdfs:subClassOf <https://w3id.org/cco-domains/cco/ont00000253> ,  # Information Bearing Entity
+                    <https://w3id.org/cco-domains/cco/ont00001283> ; # Ratio Measurement Information Content Entity
+    rdfs:label "Dosage Amount"@en ;
+    rdfs:comment """How much of a Medication is given per dose. Multi-typed as both CCO's
+                    Information Bearing Entity (cco:ont00000253) and Ratio Measurement Information
+                    Content Entity (cco:ont00001283) on one individual — a deliberate simplification
+                    of CCO's usual two-individual pattern (a concrete Information Bearing Entity that
+                    generically depends-bears an abstract Measurement Information Content Entity),
+                    made because no worked example of this pattern exists anywhere in this project's
+                    vendored CCO files to mirror more strictly, and a single reified "amount"
+                    individual is simpler for a consumer-app medication list. Carries exactly one of
+                    cco:ont00001769 ("has decimal value") or cco:ont00001773 ("has integer value") —
+                    the count/measurement itself — and, only when the amount is a true measured
+                    physical quantity (not a count of discrete dose-form units — see
+                    persona:hasDoseForm), cco:ont00001863 ("uses measurement unit") pointing at one of
+                    project_files/UnitsOfMeasureOntology.ttl's Measurement Unit individuals (e.g.
+                    "Teaspoon Measurement Unit", cco:ont00001573). This is CCO's own already-vendored,
+                    already-transitively-imported (via PersonOntology.ttl) quantity/unit machinery —
+                    never previously used anywhere in this project — reused here in place of pulling
+                    in UCUM or FHIR's Quantity datatype."""@en .
+
+persona:hasDosageAmount rdf:type owl:ObjectProperty ;
+    rdfs:domain persona:Medication ;
+    rdfs:range persona:DosageAmount ;
+    rdfs:label "has dosage amount"@en ;
+    rdfs:comment "Links a Medication to the persona:DosageAmount individual recording how much is given per dose. Replaces the removed medicationDosageValue/medicationDosageUnit string pair."@en .
+
+persona:MedicationAdministration rdf:type owl:Class ;
+    rdfs:subClassOf <http://purl.obolibrary.org/obo/DRON_00000031> ; # drug administration (project_files/dron-upper.ttl)
+    rdfs:label "Medication Administration"@en ;
+    rdfs:comment """How often, and over what period, a Medication is given — reusing DrOn's "drug
+                    administration" process class (obo:DRON_00000031, project_files/dron-upper.ttl)
+                    for the whole administration course (a mild abstraction from DrOn's literal
+                    single-dose definition to cover a repeating regimen, documented here rather than
+                    upstream in DrOn itself). Carries persona:medicationFrequencyPerDay (kept — no
+                    CCO/DrOn property models recurrence frequency; loosely patterned after FHIR's
+                    Timing.repeat.frequency for shape inspiration only, FHIR RDF itself is not
+                    imported anywhere in this project) and exactly one
+                    <http://purl.obolibrary.org/obo/BFO_0000199> ("occupies temporal region") link to
+                    a <http://purl.obolibrary.org/obo/BFO_0000038> (one-dimensional temporal region)
+                    individual carrying cco:ent00000017/cco:ent00000018 ("has start/end date") — the
+                    exact same TemporalInterval pattern AddressDesignation already uses for an
+                    address's occupancy period (example/Cells/Government/Municipality/Boston/...);
+                    an absent end date means the medication is ongoing/current, matching that same
+                    convention. Note: the existing Boston example's inline comment mislabels
+                    BFO_0000153 as "occupies temporal region" — per this project's own
+                    project_files/bfo-core.ttl, BFO_0000153 is actually "temporally projects onto";
+                    the real "occupies temporal region" is BFO_0000199, used correctly here. That
+                    pre-existing mislabel (also repeated in persona.ttl's own usesCCOProperty list) is
+                    a separate, out-of-scope issue, not fixed by this change."""@en .
+
+persona:medicationFrequencyPerDay rdf:type owl:DatatypeProperty ;
+    rdfs:domain persona:MedicationAdministration ;
+    rdfs:label "medication frequency per day"@en ;
+    rdfs:comment "How often per day the medication is given, as free text (e.g. '2', 'as needed'). Domain moved from persona:Medication to persona:MedicationAdministration in version 2.7.0, alongside the new start/end date TemporalInterval link."@en ;
     rdfs:range xsd:string .
+
+persona:hasAdministration rdf:type owl:ObjectProperty ;
+    rdfs:domain persona:Medication ;
+    rdfs:range persona:MedicationAdministration ;
+    rdfs:label "has administration"@en ;
+    rdfs:comment "Links a Medication to the persona:MedicationAdministration individual recording how often and over what period it is given. Replaces the removed medicationFrequencyPerDay-on-Medication/medicationStartDate/medicationEndDate."@en .
 
 persona:medicationBrandName rdf:type owl:DatatypeProperty ;
     rdfs:domain persona:Medication ;
     rdfs:label "medication brand name"@en ;
-    rdfs:comment "The medication's marketed brand name, if any (e.g. 'Clavamox')."@en ;
+    rdfs:comment "The medication's marketed brand name, if any (e.g. 'Clavamox'). Kept as a flat string in version 2.7.0's reuse pass — DrOn embeds brand names only inside its auto-generated RxNorm product-class rdfs:labels, never as a separate reusable property, so there is no external term to reuse here."@en ;
     rdfs:range xsd:string .
 
 persona:medicationManufacturer rdf:type owl:DatatypeProperty ;
     rdfs:domain persona:Medication ;
     rdfs:label "medication manufacturer"@en ;
-    rdfs:comment "The name of the medication's manufacturer, as a free-text string (e.g. 'Zoetis') — not a linked o:Organization, matching persona:insuranceProvider's identical flat-string treatment."@en ;
+    rdfs:comment "The name of the medication's manufacturer, as a free-text string (e.g. 'Zoetis') — not a linked o:Organization, matching persona:insuranceProvider's identical flat-string treatment. Kept as a flat string in version 2.7.0's reuse pass — DrOn has no manufacturer/labeler class at all (confirmed absent by direct search), so there is no external term to reuse here."@en ;
     rdfs:range xsd:string .
-
-persona:medicationDosageValue rdf:type owl:DatatypeProperty ;
-    rdfs:domain persona:Medication ;
-    rdfs:label "medication dosage value"@en ;
-    rdfs:comment "How much of the medication is given per dose (e.g. '1', '1/2'). Kept as a string rather than xsd:decimal so fractional/informal amounts are representable; paired with persona:medicationDosageUnit."@en ;
-    rdfs:range xsd:string .
-
-persona:medicationDosageUnit rdf:type owl:DatatypeProperty ;
-    rdfs:domain persona:Medication ;
-    rdfs:label "medication dosage unit"@en ;
-    rdfs:comment "The unit persona:medicationDosageValue is measured in, as free text (e.g. 'tablet', 'teaspoon', 'mg') — deliberately not tied to a rigid unit-of-measure vocabulary, which has no accommodation for informal dosage forms like 'capsule' or 'spoonful'."@en ;
-    rdfs:range xsd:string .
-
-persona:medicationFrequencyPerDay rdf:type owl:DatatypeProperty ;
-    rdfs:domain persona:Medication ;
-    rdfs:label "medication frequency per day"@en ;
-    rdfs:comment "How often per day the medication is given, as free text (e.g. '2', 'as needed')."@en ;
-    rdfs:range xsd:string .
-
-persona:medicationStartDate rdf:type owl:DatatypeProperty ;
-    rdfs:domain persona:Medication ;
-    rdfs:label "medication start date"@en ;
-    rdfs:comment "The date the medication was first given."@en ;
-    rdfs:range xsd:date .
-
-persona:medicationEndDate rdf:type owl:DatatypeProperty ;
-    rdfs:domain persona:Medication ;
-    rdfs:label "medication end date"@en ;
-    rdfs:comment "The date the medication was or will be stopped. Absent means the medication is ongoing/current, mirroring the AddressDesignation/TemporalInterval open-ended convention (see cco:ent00000017/ent00000018 usage elsewhere)."@en ;
-    rdfs:range xsd:date .
 
 persona:medicationDuration rdf:type owl:DatatypeProperty ;
     rdfs:domain persona:Medication ;
     rdfs:label "medication duration"@en ;
-    rdfs:comment "A free-text alternative to a fixed persona:medicationEndDate for expressing how long the medication runs (e.g. '10 days'). Not constrained to be mutually exclusive with medicationEndDate."@en ;
+    rdfs:comment "A free-text alternative to a fixed end date for expressing how long the medication runs (e.g. '10 days'), for courses with no fixed calendar end date. Not constrained to be mutually exclusive with persona:MedicationAdministration's end-date link. Kept as a flat string in version 2.7.0's reuse pass — nothing reused covers this narrow a fact."@en ;
     rdfs:range xsd:string .
 
 

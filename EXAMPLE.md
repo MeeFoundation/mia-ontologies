@@ -78,7 +78,7 @@ Here are a few lines from [topic 22](<example/Cells/Ownership/Ownership.databook
 
 ### Ginger's Medications
 
-Alice also has a cat, Ginger. Under a *Pets* category folder (with a *Health* subfolder beneath it) she keeps a *Medications* cell recording Ginger's medications: a completed course of amoxicillin/clavulanate (brand name Clavamox, from Zoetis) and an ongoing daily glucosamine/chondroitin joint supplement ([topic 32](<example/Cells/Pets/Health/Medications/Medications.databook.md#topic-32>)). This is a *Single-Member* cell — Ginger isn't a Mia user and has no `p:Person` individual of her own, so her medication list is recorded directly as a `persona:PetMedicationRecord` rather than being shared with her.
+Alice also has a cat, Ginger. Under a *Pets* category folder she has a *Ginger* folder for this specific pet — a user-defined instance folder reusing its parent's own `cat:Pets` origin, the same pattern "Bob Johnson" uses under "Others" — and within it a *Health* subfolder, and within that a *Medications* cell recording Ginger's medications: a completed course of amoxicillin/clavulanate (brand name Clavamox, from Zoetis) and an ongoing daily glucosamine/chondroitin joint supplement ([topic 32](<example/Cells/Pets/Ginger/Health/Medications/Medications.databook.md#topic-32>)). This is a *Single-Member* cell whose subject is Ginger, but since she isn't a Mia user and has no `p:Person` individual of her own, her medication list is linked as an `otherTopic` rather than the cell's required `memberTopic` — that slot instead holds a minimal topic about Alice herself, just her given name ([topic 33](<example/Cells/Pets/Ginger/Health/Medications/Medications.databook.md#topic-33>)).
 
 <p align="center"><img src="example/images/pets.png" alt="Pets cells"></p>
 
@@ -112,7 +112,7 @@ A summary of every content-bearing cell-databook under `example/Cells/`, grouped
 | Current and Previous Homes | Boston | [Boston(residence).databook.md](<example/Cells/Government/Municipality/Boston/Boston(residence).databook.md>) {7} | Self | `cat:Residence` | 13 |
 | Current and Previous Homes | Paradise | [Paradise(residence).databook.md](<example/Cells/Government/Municipality/Paradise/Paradise(residence).databook.md>) {8} | Self | `cat:Residence` | 18 |
 | Possessions | Ownership | [Ownership.databook.md](<example/Cells/Ownership/Ownership.databook.md>) {11} | Self | `cat:Ownership` | 22 |
-| Ginger's Medications | Medications | [Medications.databook.md](<example/Cells/Pets/Health/Medications/Medications.databook.md>) {40} | Ginger | `cat:PetsMedications` | 32 |
+| Ginger's Medications | Medications | [Medications.databook.md](<example/Cells/Pets/Ginger/Health/Medications/Medications.databook.md>) {40} | Ginger | `cat:PetsMedications` | 32, 33 |
 | Boston Hub Society | Boston Hub Society | [Boston Hub Society(affiliations).databook.md](<example/Cells/Affiliations/Boston Hub Society/Boston Hub Society(affiliations).databook.md>) {1} | BHS | `cat:Affiliations` | 1, 3, 14 |
 
 ## Topics
@@ -137,6 +137,7 @@ The topics in the table below are *about* Alice and claimed *by* Alice. The "Cel
 | 23 | [Social Security Administration(ssn).databook.md](<example/Cells/Government/Federal/Social Security Administration/Social Security Administration(ssn).databook.md#topic-23>) {6}                     | `cat:SSN`      | Social security number (SSN)                                     | [view](example/topics/images/topic-23.png) |
 | 24 | [Texas Vital Records(birth-certificate).databook.md](<example/Cells/Government/State/Texas Vital Records/Texas Vital Records(birth-certificate).databook.md#topic-24>) {10} | `cat:BirthCertificate`        | Legal names, maiden name                                         | [view](example/topics/images/topic-24.png) |
 | 29 | [Fred Flintstone(others).databook.md](<example/Cells/People/Others/Fred Flintstone/Fred Flintstone(others).databook.md#topic-29>) {17}                     | `cat:Others`       | Alice's 1:1 topic with Fred; social network with Fred as member  | [view](example/topics/images/topic-29.png) |
+| 33 | [Medications.databook.md](<example/Cells/Pets/Ginger/Health/Medications/Medications.databook.md#topic-33>) {40} | `cat:PetsMedications`     | Alice's bare given-name claim — the Ginger-Medications cell's required memberTopic          | [view](example/topics/images/topic-33.png) |
 
 The following table lists topics that are *about* Alice but claimed by others.
 
@@ -162,7 +163,7 @@ The following table lists topics about other people (Paula and Bob) or organizat
 | 30 | [Med. App. Info(medical-appointment-info).databook.md](<example/Cells/People/Immediate Family/Paula Walker/Health & Wellness/Medical/Providers/Med. App. Info/Med. App. Info(medical-appointment-info).databook.md#topic-30>) {15} | `cat:MedicalAppointmentInfo`       | Alice's own self-claimed contact info — the other of this cell's two members, alongside Carol (topic 28)           | [view](example/topics/images/topic-30.png) |
 | 27 | [Citibank(banking-payments).databook.md](<example/Cells/Finances/Banking & Payments/Citibank/Citibank(banking-payments).databook.md#topic-27>) {4} | `cat:BankingPayments` | Alice's own self-claimed notes about Citibank as an institution, alongside Citibank's own claimed record about her (topic 09) | [view](example/topics/images/topic-27.png) |
 | 31 | [Fred Flintstone(others).databook.md](<example/Cells/People/Others/Fred Flintstone/Fred Flintstone(others).databook.md#topic-31>) {17}                     | `cat:Others`       | Fred's self-claimed Fred persona                                 | [view](example/topics/images/topic-31.png) |
-| 32 | [Medications.databook.md](<example/Cells/Pets/Health/Medications/Medications.databook.md#topic-32>) {40} | `cat:PetsMedications`       | Alice's record of her cat Ginger's medications — amoxicillin/clavulanate course, ongoing glucosamine/chondroitin supplement           | [view](example/topics/images/topic-32.png)|
+| 32 | [Medications.databook.md](<example/Cells/Pets/Ginger/Health/Medications/Medications.databook.md#topic-32>) {40} | `cat:PetsMedications`       | Alice's record of her cat Ginger's medications — amoxicillin/clavulanate course, ongoing glucosamine/chondroitin supplement           | [view](example/topics/images/topic-32.png)|
 
 ## Diagrams
 
@@ -240,6 +241,9 @@ riot --output=turtle \
   project_files/PersonOntology.ttl \
   project_files/AddressOntology.ttl \
   project_files/StagingOntology.ttl \
+  project_files/UnitsOfMeasureOntology.ttl \
+  project_files/InformationEntityOntology.ttl \
+  project_files/dron-upper.ttl \
   persona.ttl persona-templates.ttl topic.ttl cell.ttl category.ttl \
   organization.ttl \
   example/topics/self.ttl \
@@ -274,6 +278,9 @@ riot --output=turtle \
   project_files/PersonOntology.ttl \
   project_files/AddressOntology.ttl \
   project_files/StagingOntology.ttl \
+  project_files/UnitsOfMeasureOntology.ttl \
+  project_files/InformationEntityOntology.ttl \
+  project_files/dron-upper.ttl \
   persona.ttl persona-templates.ttl topic.ttl cell.ttl category.ttl cell-templates.ttl \
   organization.ttl \
   example/topics/self.ttl \
@@ -309,7 +316,7 @@ riot --output=turtle /tmp/mia-base.ttl /tmp/data-medical-appt-raw.ttl 2>/dev/nul
 shacl validate --shapes /tmp/shapes-cell-templates.ttl --data /tmp/data-medical-appt.ttl --text
 
 # PetMedications — topic-32
-python3 extract-topic.py "example/Cells/Pets/Health/Medications/Medications.databook.md" "topic-32" > /tmp/data-pet-medications-raw.ttl
+python3 extract-topic.py "example/Cells/Pets/Ginger/Health/Medications/Medications.databook.md" "topic-32" > /tmp/data-pet-medications-raw.ttl
 riot --output=turtle /tmp/mia-base.ttl /tmp/data-pet-medications-raw.ttl 2>/dev/null > /tmp/data-pet-medications.ttl
 shacl validate --shapes /tmp/shapes-cell-templates.ttl --data /tmp/data-pet-medications.ttl --text
 ```
