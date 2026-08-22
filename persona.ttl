@@ -11,13 +11,13 @@
 @base <http://mee.foundation/ontologies/persona> .
 
 <http://mee.foundation/ontologies/persona> rdf:type owl:Ontology ;
-    owl:versionIRI <http://mee.foundation/ontologies/persona/4.5.0> ;
+    owl:versionIRI <http://mee.foundation/ontologies/persona/4.6.0> ;
     owl:imports <https://w3id.org/cco-domains/domains/PersonOntology> ;
     owl:imports <https://w3id.org/cco-domains/domains/AddressOntology> ;
     owl:imports <https://w3id.org/cco-domains/domains/StagingOntology> ;
     owl:imports <http://mee.foundation/ontologies/persona-templates> ;
     dc:date "2026-08-22"^^xsd:date ;
-    owl:versionInfo "Version 4.5.0 - added p:usesDrOnClass and p:usesChEBIClass annotation properties, generalizing p:usesCCOClass's documentation pattern to two more reused ontology families (DrOn, ChEBI), introduced for persona-templates.ttl's persona:Medication redesign. (4.4.0 - removed p:hasPaymentCard, p:CheckingAccountNumber, and p:RoutingNumber outright, along with their trailing owl:deprecated/rdfs:seeAlso alias block: confirmed no downstream databook references either the deprecated persona: terms or the alias triples themselves, so nothing was left to retain for continuity. Their committed cco: replacements (cco:ent00000073, cco:ent00000071, cco:ent00000072) are unaffected and remain in active use.)"@en ;
+    owl:versionInfo "Version 4.6.0 - fixed p:usesCCOProperty's list: it cited BFO_0000153 ('temporally projects onto') where it meant to document 'occupies temporal region' (the AddressDesignation temporal-interval pattern), which is actually BFO_0000199; corrected the cited IRI to BFO_0000199. (4.5.0 - added p:usesDrOnClass and p:usesChEBIClass annotation properties, generalizing p:usesCCOClass's documentation pattern to two more reused ontology families (DrOn, ChEBI), introduced for persona-templates.ttl's persona:Medication redesign. (4.4.0 - removed p:hasPaymentCard, p:CheckingAccountNumber, and p:RoutingNumber outright, along with their trailing owl:deprecated/rdfs:seeAlso alias block: confirmed no downstream databook references either the deprecated persona: terms or the alias triples themselves, so nothing was left to retain for continuity. Their committed cco: replacements (cco:ent00000073, cco:ent00000071, cco:ent00000072) are unaffected and remain in active use.))"@en ;
     rdfs:label "Persona Ontology"@en ;
     rdfs:comment """Persona Ontology for the Mee Identity Agent.
 
@@ -79,7 +79,7 @@
                             <http://purl.obolibrary.org/obo/BFO_0000178> ,  # has continuant part (Address → parts; Person → ScalpHair)
                             <https://w3id.org/cco-domains/cco/ont00001765> ,            # has text value
                             <http://purl.obolibrary.org/obo/BFO_0000196> ,  # bearer of
-                            <http://purl.obolibrary.org/obo/BFO_0000153> ,  # occupies temporal region
+                            <http://purl.obolibrary.org/obo/BFO_0000199> ,  # occupies temporal region
                             <http://purl.obolibrary.org/obo/BFO_0000057> ,  # has participant
                             <https://w3id.org/cco-domains/cco/ent00000045> ,            # holds user account
                             <https://w3id.org/cco-domains/cco/ent00000034> ,            # has service name

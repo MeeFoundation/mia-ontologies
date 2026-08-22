@@ -52,7 +52,7 @@ This topic captures Alice Walker's current residential address: 123 Sleepy Hollo
     rdfs:comment "Alice has lived at this Paradise address since September 2025. No end date indicates current residence."@en ;
     <http://purl.obolibrary.org/obo/BFO_0000057> :Self ;  # has participant
     <https://w3id.org/cco-domains/cco/ont00001879> :Address_Paradise ;                  # designated by
-    <http://purl.obolibrary.org/obo/BFO_0000153> :Interval_2025_Present .  # occupies temporal region
+    <http://purl.obolibrary.org/obo/BFO_0000199> :Interval_2025_Present .  # occupies temporal region
 
 :Interval_2025_Present rdf:type owl:NamedIndividual ,
                                 <http://purl.obolibrary.org/obo/BFO_0000038> ;  # TemporalInterval
