@@ -92,9 +92,9 @@ Alice also has a cat, Ginger. Under her *Pets* cell she has created a *Ginger* c
 
 <p align="center"><img src="example/images/pets.png" alt="Pets cells"></p>
 
-Let's imagine that Paula doesn't use the app and the invite link from Alice to [cell 40](<example/Cells/Pets/Ginger/Health/Medications/Medications.databook.md>) causes Paula to click on the link and download/install the app. The app receives the cell, but where to file it, since Paula has no cells. Paula's app examines the cell, looks at its category type "Medications" and makes a good (though not perfect) guess to create the following tree of empty cells: People / Others / Alice / Pets / Ginger / Health / Medications. 
+Let's imagine that Paula doesn't use the app and the invite link from Alice to [cell 40](<example/Cells/Pets/Ginger/Health/Medications/Medications.databook.md>) causes Paula to click on the link and download/install it. The app receives the cell, but where should to file it on Paul's side? Paula's app examines the cell, looks at its category type "Medications" and makes a good (though not perfect) guess to create the following tree of empty cells: People / Others / Alice / Pets / Ginger / Health and put it as a new child cell of the Health cell.
 
-Ideally it would have filled the new Alice cell under People / Immediate Family because Alice is Paula's daughter, but Paula's app didn't know that. Paula can sometime later create an Immediate Family cell under her People cell and move Alice (and all sub-cells) under it.
+Ideally it would have filled the new cell from Alice under People / Immediate Family because she is Paula's daughter, but Paula's app didn't know that, so it did the best it could. To perfect things, Paula can create an Immediate Family cell under her People cell and move Alice (and all sub-cells) under it.
 
 ### Boston Hub Society
 
