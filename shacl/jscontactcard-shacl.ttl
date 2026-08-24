@@ -10,8 +10,8 @@
 
 <http://mee.foundation/ontologies/persona/shapes/jscontactcard> rdf:type owl:Ontology ;
     owl:imports <http://mee.foundation/ontologies/persona> ;
-    dc:date "2026-06-18"^^xsd:date ;
-    owl:versionInfo "Version 1.0.1 - renamed this ontology's IRI from http://www.example.org/shapes/jscontactcard to http://mee.foundation/ontologies/persona/shapes/jscontactcard, matching persona-shacl.ttl 4.1.0's move off www.example.org."@en ;
+    owl:versionIRI <http://mee.foundation/ontologies/persona/shapes/jscontactcard/1.0.1> ;
+    dc:date "2026-08-23"^^xsd:date ;
     rdfs:label "JSContactCard Template SHACL Shapes"@en ;
     rdfs:comment """SHACL shapes for validating topic files carrying topic:template persona:JSContactCard.
                     Apply in addition to persona-shacl.ttl when validating a JSContact card topic file."""@en .

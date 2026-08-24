@@ -14,8 +14,8 @@
 
 <http://mee.foundation/ontologies/persona/shapes/birthcertificate> rdf:type owl:Ontology ;
     owl:imports <http://mee.foundation/ontologies/persona> ;
-    dc:date "2026-07-13"^^xsd:date ;
-    owl:versionInfo "Version 1.0.7 - file renamed from category-templates-shacl.ttl to cell-templates-shacl.ttl (this shape now lives alongside cat:BirthCertificate's cell:Cell template in cell-templates.ttl, formerly category-templates.ttl); IRI unchanged."@en ;
+    owl:versionIRI <http://mee.foundation/ontologies/persona/shapes/birthcertificate/1.0.7> ;
+    dc:date "2026-08-23"^^xsd:date ;
     rdfs:label "Birth Certificate Template SHACL Shapes"@en ;
     rdfs:comment """SHACL shapes for validating topic files carrying topic:template persona:BirthCertificateDocument.
                     Apply in addition to persona-shacl.ttl when validating a birth certificate topic file.
@@ -92,8 +92,8 @@
 
 <http://mee.foundation/ontologies/persona/shapes/driverslicense> rdf:type owl:Ontology ;
     owl:imports <http://mee.foundation/ontologies/persona> ;
-    dc:date "2026-07-21"^^xsd:date ;
-    owl:versionInfo "Version 1.1.0 - migrated designator targets to committed cco: terms: DriversLicenseNumber -> cco:ent00000065; IssuingJurisdiction -> cco:ent00000068; expiration reshaped to has-expiration-date predicate (cco:ent00000070) with Calendar Date Identifier (cco:ont00001340) value. (1.0.7: file renamed from category-templates-shacl.ttl to cell-templates-shacl.ttl; IRI unchanged.)"@en ;
+    owl:versionIRI <http://mee.foundation/ontologies/persona/shapes/driverslicense/1.1.0> ;
+    dc:date "2026-08-23"^^xsd:date ;
     rdfs:label "Driver's License Template SHACL Shapes"@en ;
     rdfs:comment """SHACL shapes for validating topic files carrying topic:template persona:DriversLicenseDocument.
                     Apply in addition to persona-shacl.ttl when validating a driver's license topic file.
@@ -213,8 +213,8 @@
 
 <http://mee.foundation/ontologies/persona/shapes/passport> rdf:type owl:Ontology ;
     owl:imports <http://mee.foundation/ontologies/persona> ;
-    dc:date "2026-07-21"^^xsd:date ;
-    owl:versionInfo "Version 1.1.0 - migrated designator targets to committed cco: terms: PassportNumber -> cco:ent00000066; IssuingCountry -> cco:ent00000068 (collapsed into Issuing Jurisdiction); PlaceOfBirth -> cco:ent00000067; issue/expiration reshaped to has-issue-date (cco:ent00000069) and has-expiration-date (cco:ent00000070) predicates with Calendar Date Identifier (cco:ont00001340) values. (1.0.7: file renamed from category-templates-shacl.ttl to cell-templates-shacl.ttl; IRI unchanged.)"@en ;
+    owl:versionIRI <http://mee.foundation/ontologies/persona/shapes/passport/1.1.0> ;
+    dc:date "2026-08-23"^^xsd:date ;
     rdfs:label "Passport Template SHACL Shapes"@en ;
     rdfs:comment """SHACL shapes for validating topic files carrying topic:template persona:PassportDocument.
                     Apply in addition to persona-shacl.ttl when validating a passport topic file.
@@ -351,8 +351,8 @@
 
 <http://mee.foundation/ontologies/persona/shapes/medical-appointment> rdf:type owl:Ontology ;
     owl:imports <http://mee.foundation/ontologies/persona> ;
-    dc:date "2026-07-13"^^xsd:date ;
-    owl:versionInfo "Version 1.0.5 - file renamed from category-templates-shacl.ttl to cell-templates-shacl.ttl (this shape now lives alongside cat:MedicalAppointmentInfo's cell:Cell template in cell-templates.ttl, formerly category-templates.ttl); IRI unchanged."@en ;
+    owl:versionIRI <http://mee.foundation/ontologies/persona/shapes/medical-appointment/1.0.5> ;
+    dc:date "2026-08-23"^^xsd:date ;
     rdfs:label "Medical Appointment Template SHACL Shapes"@en ;
     rdfs:comment """SHACL shapes for validating topic files carrying topic:template persona:MedicalAppointmentRecord.
                     Apply in addition to persona-shacl.ttl when validating a medical appointment topic file.
@@ -442,8 +442,8 @@
 
 <http://mee.foundation/ontologies/persona/shapes/pet-medications> rdf:type owl:Ontology ;
     owl:imports <http://mee.foundation/ontologies/persona> ;
-    dc:date "2026-08-22"^^xsd:date ;
-    owl:versionInfo "Version 1.1.0 - rewrote :MedicationShape for persona:Medication's reuse-based redesign (persona-templates.ttl 2.7.0): replaced the six removed medication* string/date properties' sh:property blocks with hasActiveIngredient/hasDoseForm/hasDosageAmount/hasAdministration; added :DosageAmountShape and :MedicationAdministrationShape for the two new sub-individual classes. (1.0.0 - initial PetMedicationRecordShape/MedicationShape, linked from cat:PetsMedications' template cell (cell-templates.ttl) via cell:templateShape.)"@en ;
+    owl:versionIRI <http://mee.foundation/ontologies/persona/shapes/pet-medications/1.1.0> ;
+    dc:date "2026-08-23"^^xsd:date ;
     rdfs:label "Pet Medications Template SHACL Shapes"@en ;
     rdfs:comment """SHACL shapes for validating topic files carrying topic:template persona:PetMedicationRecord.
                     Apply in addition to persona-shacl.ttl when validating a pet-medications topic file.

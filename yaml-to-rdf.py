@@ -114,18 +114,17 @@ def process_cell_databook(fm, triples):
 
     if mia.get("origin"):
         # cell:origin — domain cell:Cell, so asserted on every cell
-        # regardless of facet, including a bare placeholder with no real
-        # content yet (cell.ttl 3.20.0).
+        # regardless of facet (cell.ttl 3.20.0).
         emit_obj(triples, subj, CELL + "origin", resolve(mia["origin"]))
 
     member_count = mia.get("memberCount")
     if member_count:
-        # Only an actually-instantiated cell (real content, cell:memberCount
-        # set) is typed cell:ACell — a pure tree-position placeholder with
-        # nothing filed under it yet stays a bare cell:Cell (cell.ttl 3.10.0),
-        # and is therefore exempt from cell-shacl.ttl's :ACellShape and the
-        # per-member-count shapes, including their required
-        # cell:subject/cell:memberTopics.
+        # Every cell:Cell is always also typed cell:ACell (cell.ttl 3.31.0 /
+        # cell-shacl.ttl 3.22.0 — no more bare tree-position-only cell with
+        # no member content), so mia.memberCount is always present and this
+        # branch always fires; a category node with nothing substantive to
+        # say still carries a minimal stub cell:memberTopics entry rather
+        # than omitting member content.
         emit_type(triples, subj, CELL + "ACell")
         member_iri = resolve(member_count)
         emit_type(triples, subj, member_iri)

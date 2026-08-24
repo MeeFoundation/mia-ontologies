@@ -9,8 +9,8 @@
 @base <http://mee.foundation/ontologies/category> .
 
 <http://mee.foundation/ontologies/category> rdf:type owl:Ontology ;
-    owl:versionIRI <http://mee.foundation/ontologies/category/1.42.0> ;
-    dc:date "2026-08-21"^^xsd:date ;
+    owl:versionIRI <http://mee.foundation/ontologies/category/1.43.0> ;
+    dc:date "2026-08-23"^^xsd:date ;
     owl:imports <http://mee.foundation/ontologies/cell> ;
     owl:imports <http://mee.foundation/ontologies/cell-templates> ;
     rdfs:label "Category Ontology"@en ;
@@ -35,7 +35,7 @@ cat:templateCell rdf:type owl:AnnotationProperty ;
 cat:Category rdf:type owl:Class ;
     cell:abstract true ;
     rdfs:label "Category"@en ;
-    rdfs:comment """Category of information about a person or organization. This is the classificatory facet only — which kind of thing a category is (e.g. cat:Work, cat:Affiliations); the canonical tree IS this class hierarchy (rdfs:subClassOf), not a separate set of instances. There is no tree-position facet in this file: a user's own instance-tree position is purely a filesystem fact (which folder a cell-databook physically lives in), with cell:origin the sole RDF-level record of which cat:Category subclass, if any, a given cell's content matches."""@en .
+    rdfs:comment """Category of information about a person or organization. This is the classificatory facet only — which kind of thing a category is (e.g. cat:Work, cat:Affiliations); the canonical tree IS this class hierarchy (rdfs:subClassOf), not a separate set of instances. cat:Category carries no tree-position facet of its own — a cell's tree position is not a classification fact, and is defined instead in cell.ttl/README.md: a cell is the folder holding its one cell-databook file, folder and file together forming one node in the user's tree of cells. cell:origin is the sole RDF-level record of which cat:Category subclass, if any, a given cell's content matches — it records classification, not position."""@en .
 
 
 #################################################################
