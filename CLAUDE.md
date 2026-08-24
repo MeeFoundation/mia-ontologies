@@ -759,6 +759,31 @@ If a violation is found, either add a topic about the dangling subject (as an `o
 
 If a diagram box's fill or text color doesn't match this script's output for the corresponding real folder, the diagram wins (per Check 10's own rule) — update `mia.origin`/`title:`/filename only if the *data* is actually wrong, otherwise redraw the box.
 
+**Check 23 — `persona-templates.ttl` matches `images/persona-ontology/persona-templates.png`**: This diagram is a pure classification tree — every box label is a class's exact *local name* (with the `p:` prefix), not its `rdfs:label` display string (e.g. `p:PetMedicationRecord`, not "Pet Medications"), and it shows no property arrows at all. `persona-templates.ttl` defines many properties (`persona:hasIdentityDocument`, `persona:forPatient`, `persona:hasPrimaryCarePhysician`, `persona:hasMedication`, `persona:hasActiveIngredient`, `persona:hasDoseForm`, `persona:hasDosageAmount`, `persona:hasAdministration`, etc.) — none of these are missing from the diagram by omission; they're simply out of scope for it, unlike `cell.png`/`topic.png`/`category.png`, which do show property arrows. Two `ako` (a-kind-of) arrows each connect a bracket of boxes to a superclass box, arrow always pointing from subclass(es) to superclass regardless of whether that superclass is drawn above or below the bracket: `p:PersonaTemplate` (above, connects to all six boxes — `p:BirthCertificateDocument`, `p:DriversLicenseDocument`, `p:PassportDocument`, `p:JSContact`, `p:MedicalAppointmentRecord`, `p:PetMedicationRecord`) and `p:IdentityDocument` (below, connects to only the first three of those same six boxes). Like Checks 12–14, this check does not presume which side is authoritative when the two disagree — surface the discrepancy and ask. Verify:
+
+- **23a** — every box in the top bracket (pointing at `p:PersonaTemplate`) matches a class in `persona-templates.ttl` actually declared `rdfs:subClassOf persona:PersonaTemplate`, by exact local name.
+- **23b** — every box in the bottom bracket (pointing at `p:IdentityDocument`) matches a class actually declared `rdfs:subClassOf persona:IdentityDocument`, by exact local name — and every such class must already be in the top bracket too, since `persona-templates.ttl`'s three `IdentityDocument` subclasses (`p:BirthCertificateDocument`, `p:DriversLicenseDocument`, `p:PassportDocument`) are always also `PersonaTemplate` subclasses (see `persona-templates.ttl`'s own class-hierarchy doc comment).
+- **23c** — conversely, every class in `persona-templates.ttl` declared `rdfs:subClassOf persona:PersonaTemplate` or `rdfs:subClassOf persona:IdentityDocument` appears as a box in the diagram (catches a new template/identity-document class added to the ttl but never drawn).
+
+This is a visual check (no automated OCR), but the script below prints the ttl's actual current subclass structure for direct cross-reference against the diagram:
+
+```python
+import re
+
+text = open('persona-templates.ttl').read()
+blocks = re.split(r'\n\n+', text)
+for block in blocks:
+    m = re.search(r'persona:(\w+) rdf:type owl:Class', block)
+    if not m:
+        continue
+    cls = m.group(1)
+    subs = re.findall(r'rdfs:subClassOf persona:(\w+)', block)
+    if 'PersonaTemplate' in subs or 'IdentityDocument' in subs:
+        print(f'{cls:30} subClassOf {subs}')
+```
+
+**Resolved, 23-aug-2026**: the diagram's fourth box in the top bracket originally read `p:JSContact`, missing the "Card" suffix carried by the actual class `persona:JSContactCard`; the user redrew it as `p:JSContactCard`, now matching the local name verbatim like every other box. Re-checked against the script above — all six top-bracket boxes and all three bottom-bracket boxes match `persona-templates.ttl`'s actual `PersonaTemplate`/`IdentityDocument` subclass structure exactly, both directions (23a–23c).
+
 ## Keeping Files in Sync
 
 Whenever changes are made to any topic file, `persona.ttl`, or `topic.ttl`, `persona-shacl.ttl` must be updated to match:
