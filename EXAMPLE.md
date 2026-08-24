@@ -1,22 +1,22 @@
 # Mia Ontologies — Illustrative Example
 
-This file continues [README.md](README.md), which describes the Category, Cell, Topic, Persona, and Organization ontologies. It provides an illustrative example — a hypothetical Mia user, Alice Walker — showing how those ontologies are used together, followed by diagram-generation instructions and the full validation pipeline for the example dataset.
+This file continues [README.md](README.md), which describes the Category, Cell, Topic, Persona, and Organization ontologies. It provides an illustrative example — a hypothetical Mia user, Alice Walker — showing how those ontologies are used together, followed by diagram-generation instructions and the full validation pipeline for the example dataset. 
 
 ## Illustrative Example: Alice 
 
-This section describes the local Mia dataset for a hypothetical user, Alice Walker. Alice's cells — each a folder holding exactly one cell DataBook file — live in a tree of cells rooted at `example/Cells/`. 
+This section describes the local Mia dataset for a hypothetical user, Alice Walker. Alice's cells — each a folder holding exactly one cell DataBook file — live in a tree of cells rooted at `example/Cells/`. Every mention of "Self" in the following is a reference to the user, Alice.
 
 ### Bob and Fred
 
 Alice knows two people, Bob and Fred. She has created two *Two-Member* cells nested under *Others* sharing one with Bob and the other with Fred. 
 
-In her shared cell with Bob Alice has included some claims about herself ([topic 12](<example/Cells/People/Others/Bob Johnson/Bob Johnson(others).databook.md#topic-12>)) including her given name "Alice", her family name "Walker", etc. She has included ([topic 4](<example/Cells/People/Others/Bob Johnson/Bob Johnson(others).databook.md#topic-04>)) her claim that Bob's favorite drink is an oat milk cappuccino. Bob has claimed some contact information about himself ([topic 2](<example/Cells/People/Others/Bob Johnson/Bob Johnson(others).databook.md#topic-02>)), and he claims that her favorite drink is Pepsi ([topic 8](<example/Cells/People/Others/Bob Johnson/Bob Johnson(others).databook.md#topic-08>)).
+In her shared cell with Bob, [cell 16](<example/Cells/People/Others/Bob Johnson/Bob Johnson(others).databook.md>), Alice has included some claims about herself ([topic 12](<example/Cells/People/Others/Bob Johnson/Bob Johnson(others).databook.md#topic-12>)) including her given name "Alice", her family name "Walker", etc. She has included ([topic 4](<example/Cells/People/Others/Bob Johnson/Bob Johnson(others).databook.md#topic-04>)) her claim that Bob's favorite drink is an oat milk cappuccino. Bob has claimed some contact information about himself ([topic 2](<example/Cells/People/Others/Bob Johnson/Bob Johnson(others).databook.md#topic-02>)), and he claims that her favorite drink is Pepsi ([topic 8](<example/Cells/People/Others/Bob Johnson/Bob Johnson(others).databook.md#topic-08>)).
 
 <p align="center"><img src="example/images/people.png" alt="People cells"></p>
 
 ### Taking Care of Paula
 
-To capture Alice's family-related relationship with her mother, Paula Walker, Alice created a call named *Paula Walker*, nested under her *Immediate Family* cell. The subjects of this cell are Self (Alice), Paula. The cell (topics [7](<example/Cells/People/Immediate Family/Paula Walker/Paula Walker(immediate-family).databook.md#topic-07>), [5](<example/Cells/People/Immediate Family/Paula Walker/Paula Walker(immediate-family).databook.md#topic-05>), [21](<example/Cells/People/Immediate Family/Paula Walker/Paula Walker(immediate-family).databook.md#topic-21>)) capture her connection with Paula. 
+To capture Alice's family-related relationship with her mother, Paula Walker, Alice created a cell ([cell 12](<example/Cells/People/Immediate Family/Paula Walker/Paula Walker(immediate-family).databook.md>)) named *Paula Walker*, nested under her *Immediate Family* cell. The subjects of this cell are Self and Paula. The cell (topics [7](<example/Cells/People/Immediate Family/Paula Walker/Paula Walker(immediate-family).databook.md#topic-07>), [5](<example/Cells/People/Immediate Family/Paula Walker/Paula Walker(immediate-family).databook.md#topic-05>), [21](<example/Cells/People/Immediate Family/Paula Walker/Paula Walker(immediate-family).databook.md#topic-21>)) capture her connection with Paula. 
 
 Alice spends time taking care of her mother, so she has, by herself assembled some information about Paula in some non-shared cells. In the *Health & Wellness* cell Alice keeps a record of Paula's physical characteristics such as height, eye color, hair color in [topic 17](<example/Cells/People/Immediate Family/Paula Walker/Health & Wellness/Health & Wellness.databook.md#topic-17>). This is a *Single-Member* cell whose subject is Paula. Its required `memberTopics` slot holds a minimal topic about Alice herself ([topic 35](<example/Cells/People/Immediate Family/Paula Walker/Health & Wellness/Health & Wellness.databook.md#topic-35>)). [Topic 17](<example/Cells/People/Immediate Family/Paula Walker/Health & Wellness/Health & Wellness.databook.md#topic-17>) is linked as an `otherTopic`.  
 
