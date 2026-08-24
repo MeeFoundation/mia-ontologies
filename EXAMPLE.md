@@ -98,7 +98,7 @@ Ideally it would have filled the new cell from Alice under People / Immediate Fa
 
 ### Boston Hub Society
 
-Alice is a member of the Boston Hub Society, an informal professional networking society. In our example BHS has PDN support into their server, allowing it to participate directly as an `o:Organization` member of this cell, alongside Alice and Bob. Alice maintains her BHS profile in [topic 14](<example/Cells/Affiliations/Boston Hub Society/Boston Hub Society(affiliations).databook.md#topic-14>), Bob another member keeps his profile updated ([topic 3](<example/Cells/Affiliations/Boston Hub Society/Boston Hub Society(affiliations).databook.md#topic-03>)), and BHS itself asserts a basic profile about itself in [topic 1](<example/Cells/Affiliations/Boston Hub Society/Boston Hub Society(affiliations).databook.md#topic-01>).
+Alice is a member of the Boston Hub Society, an informal professional networking society. In our example BHS has PDN support into their server, allowing it to participate directly as an `o:Organization` member of this cell, alongside Alice and Bob. Alice maintains her BHS profile in [topic 14](<example/Cells/Affiliations/Boston Hub Society/Boston Hub Society(affiliations).databook.md#topic-14>), Bob another member keeps his profile updated ([topic 3](<example/Cells/Affiliations/Boston Hub Society/Boston Hub Society(affiliations).databook.md#topic-03>)), and BHS itself asserts a basic profile about itself in [topic 1](<example/Cells/Affiliations/Boston Hub Society/Boston Hub Society(affiliations).databook.md#topic-01>). The subject of the cell, is one of its members, BHS.
 
 <p align="center"><img src="example/images/affiliations.png" alt="Affiliations cells"></p>
 
