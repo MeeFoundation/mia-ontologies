@@ -10,7 +10,6 @@ mia:
   origin: "cat:Passport"
   creator: ":Self"
   memberCount: "cell:OneMember"
-  subject: ":Self"
   memberTopics: "topic-19"
   topics:
     - id: "http://www.example.org/mia/topics/topic-19"

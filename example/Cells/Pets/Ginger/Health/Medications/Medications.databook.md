@@ -10,7 +10,6 @@ mia:
   origin: "cat:PetsMedications"
   creator: ":Self"
   memberCount: "cell:TwoMember"
-  subject: ":Ginger"
   memberTopics:
     - "topic-33"
     - "topic-57"

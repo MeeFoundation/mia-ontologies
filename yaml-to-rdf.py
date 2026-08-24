@@ -139,8 +139,10 @@ def process_cell_databook(fm, triples):
     for topic_iri in as_list(mia.get("otherTopics")):
         emit_obj(triples, subj, CELL + "otherTopics", resolve(topic_iri))
 
-    for subject_iri in as_list(mia.get("subject")):
-        emit_obj(triples, subj, CELL + "subject", resolve(subject_iri))
+    # No cell:subject synthesis: who/what a cell is about is derivable
+    # directly from memberTopics/otherTopics (cell.ttl's cell:otherTopics
+    # comment) rather than an independently-asserted fact, so it is never
+    # stored as its own triple.
 
     if mia.get("shape"):
         emit_obj(triples, subj, CELL + "shape", resolve(mia["shape"]))

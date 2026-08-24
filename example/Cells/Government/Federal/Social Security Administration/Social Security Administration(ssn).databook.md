@@ -10,7 +10,6 @@ mia:
   origin: "cat:SSN"
   creator: ":Self"
   memberCount: "cell:OneMember"
-  subject: ":Self"
   memberTopics: "topic-23"
   topics:
     - id: "http://www.example.org/mia/topics/topic-23"

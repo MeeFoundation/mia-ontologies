@@ -10,9 +10,6 @@ mia:
   origin: "cat:BankingPayments"
   creator: ":Self"
   memberCount: "cell:TwoMember"
-  subject:
-    - ":Self"
-    - ":Citibank"
   memberTopics:
     - "topic-09"
     - "topic-27"

@@ -10,9 +10,6 @@ mia:
   origin: "cat:Others"
   creator: ":Self"
   memberCount: "cell:TwoMember"
-  subject:
-    - ":Fred_Flintstone"
-    - ":Self"
   memberTopics:
     - "topic-31"
     - "topic-29"

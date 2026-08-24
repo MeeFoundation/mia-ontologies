@@ -10,7 +10,6 @@ mia:
   origin: "cat:PrimaryCarePhysician"
   creator: ":Self"
   memberCount: "cell:OneMember"
-  subject: ":Jane_Starostina"
   memberTopics: "topic-34"
   otherTopics: "topic-25"
   topics:

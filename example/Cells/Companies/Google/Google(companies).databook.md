@@ -10,7 +10,6 @@ mia:
   origin: "cat:Companies"
   creator: ":Self"
   memberCount: "cell:OneMember"
-  subject: ":Self"
   memberTopics: "topic-16"
   topics:
     - id: "http://www.example.org/mia/topics/topic-16"

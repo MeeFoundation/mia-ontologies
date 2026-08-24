@@ -13,7 +13,6 @@ mia:
   origin: "cat:PetsHealth"
   creator: ":Self"
   memberCount: "cell:OneMember"
-  subject: ":Self"
   memberTopics: "topic-56"
   topics:
     - id: "http://www.example.org/mia/topics/topic-56"

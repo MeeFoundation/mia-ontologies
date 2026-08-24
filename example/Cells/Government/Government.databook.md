@@ -13,7 +13,6 @@ mia:
   origin: "cat:Government"
   creator: ":Self"
   memberCount: "cell:OneMember"
-  subject: ":Self"
   memberTopics: "topic-43"
   topics:
     - id: "http://www.example.org/mia/topics/topic-43"

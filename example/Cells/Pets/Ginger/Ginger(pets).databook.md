@@ -10,7 +10,6 @@ mia:
   origin: "cat:Pets"
   creator: ":Self"
   memberCount: "cell:OneMember"
-  subject: ":Ginger"
   memberTopics: "topic-36"
   otherTopics: "topic-37"
   topics:

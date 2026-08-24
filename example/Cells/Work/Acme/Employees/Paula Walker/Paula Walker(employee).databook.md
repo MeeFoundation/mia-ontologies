@@ -10,7 +10,6 @@ mia:
   origin: "cat:Employee"
   creator: ":Self"
   memberCount: "cell:OneMember"
-  subject: ":Paula_Walker"
   memberTopics: "topic-20"
   otherTopics: "topic-06"
   topics:

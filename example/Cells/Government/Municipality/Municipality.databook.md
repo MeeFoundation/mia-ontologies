@@ -13,7 +13,6 @@ mia:
   origin: "cat:Municipality"
   creator: ":Self"
   memberCount: "cell:OneMember"
-  subject: ":Self"
   memberTopics: "topic-45"
   topics:
     - id: "http://www.example.org/mia/topics/topic-45"

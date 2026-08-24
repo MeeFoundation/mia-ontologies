@@ -488,8 +488,9 @@ def main() -> None:
         ):
             g.parse(str(SELF_TTL), format="turtle")
         # Use this one topic's own claimant/subject/template for the "Topic
-        # Graph" metadata box — not the owning cell's aggregate
-        # mia.subject/mia.creator.
+        # Graph" metadata box — not the owning cell's aggregate mia.creator
+        # (the cell has no aggregate mia.subject of its own any more; a
+        # cell's subject is derived from its memberTopics/otherTopics).
         frontmatter = {"mia": {
             "claimant": match.get("claimant"),
             "subject": match.get("subject"),

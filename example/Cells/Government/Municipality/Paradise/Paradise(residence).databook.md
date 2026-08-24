@@ -10,7 +10,6 @@ mia:
   origin: "cat:Residence"
   creator: ":Self"
   memberCount: "cell:OneMember"
-  subject: ":Self"
   memberTopics: "topic-18"
   topics:
     - id: "http://www.example.org/mia/topics/topic-18"

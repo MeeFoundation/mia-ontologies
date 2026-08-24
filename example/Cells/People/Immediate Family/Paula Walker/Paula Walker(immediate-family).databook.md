@@ -10,9 +10,6 @@ mia:
   origin: "cat:ImmediateFamily"
   creator: ":Self"
   memberCount: "cell:TwoMember"
-  subject:
-    - ":Paula_Walker"
-    - ":Self"
   memberTopics:
     - "topic-05"
     - "topic-21"

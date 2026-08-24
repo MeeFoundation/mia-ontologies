@@ -10,7 +10,6 @@ mia:
   origin: "cat:Affiliations"
   creator: ":Self"
   memberCount: "cell:ThreePlusMember"
-  subject: ":BHS"
   memberTopics:
     - "topic-01"
     - "topic-14"

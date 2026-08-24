@@ -10,7 +10,6 @@ mia:
   origin: "cat:DriversLicense"
   creator: ":Self"
   memberCount: "cell:OneMember"
-  subject: ":Self"
   memberTopics: "topic-15"
   topics:
     - id: "http://www.example.org/mia/topics/topic-15"

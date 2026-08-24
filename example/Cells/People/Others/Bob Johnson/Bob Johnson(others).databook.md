@@ -10,9 +10,6 @@ mia:
   origin: "cat:Others"
   creator: ":Self"
   memberCount: "cell:TwoMember"
-  subject:
-    - ":Bob_Johnson"
-    - ":Self"
   memberTopics:
     - "topic-02"
     - "topic-12"

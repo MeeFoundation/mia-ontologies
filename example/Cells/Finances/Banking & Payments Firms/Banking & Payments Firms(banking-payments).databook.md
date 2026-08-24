@@ -13,7 +13,6 @@ mia:
   origin: "cat:BankingPayments"
   creator: ":Self"
   memberCount: "cell:OneMember"
-  subject: ":Self"
   memberTopics: "topic-42"
   topics:
     - id: "http://www.example.org/mia/topics/topic-42"

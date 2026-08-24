@@ -10,7 +10,6 @@ mia:
   origin: "cat:MedicalAppointmentInfo"
   creator: ":Self"
   memberCount: "cell:TwoMember"
-  subject: ":Paula_Walker"
   memberTopics:
     - "topic-28"
     - "topic-30"
@@ -124,7 +123,7 @@ This topic captures Alice's shared record of the claims needed to arrange a medi
 
 #### Overview
 
-This topic captures Carol Walker's own self-claimed persona and contact info, shared directly from her own Mia to Alice's over the PDN. This cell's two members are Alice and Carol (its `c:subject`, `:Paula_Walker`, is a third party the cell is *about*, not one of its members) — this topic and its counterpart (topic 30, Alice's own self-claimed contact info) together represent those two members, alongside topic 26 (Alice's claims about Paula's medical appointment). Carol is the claimant.
+This topic captures Carol Walker's own self-claimed persona and contact info, shared directly from her own Mia to Alice's over the PDN. This cell's two members are Alice and Carol (its derived subject, `:Paula_Walker` (from its sole `otherTopics` entry), is a third party the cell is *about*, not one of its members) — this topic and its counterpart (topic 30, Alice's own self-claimed contact info) together represent those two members, alongside topic 26 (Alice's claims about Paula's medical appointment). Carol is the claimant.
 
 #### Topic Graph
 
@@ -168,7 +167,7 @@ This topic captures Carol Walker's own self-claimed persona and contact info, sh
 
 #### Overview
 
-This topic captures Alice Walker's own self-claimed contact info, kept in this cell so Carol can reach her while coordinating Paula's medical appointments. This cell's two members are Alice and Carol (its `c:subject`, `:Paula_Walker`, is a third party the cell is *about*, not one of its members) — this topic and its counterpart (topic 28, Carol's own self-claimed persona) together represent those two members, alongside topic 26 (Alice's claims about Paula's medical appointment). Alice is the claimant.
+This topic captures Alice Walker's own self-claimed contact info, kept in this cell so Carol can reach her while coordinating Paula's medical appointments. This cell's two members are Alice and Carol (its derived subject, `:Paula_Walker` (from its sole `otherTopics` entry), is a third party the cell is *about*, not one of its members) — this topic and its counterpart (topic 28, Carol's own self-claimed persona) together represent those two members, alongside topic 26 (Alice's claims about Paula's medical appointment). Alice is the claimant.
 
 #### Topic Graph
 

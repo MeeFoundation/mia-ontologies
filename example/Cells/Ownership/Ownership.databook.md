@@ -10,7 +10,6 @@ mia:
   origin: "cat:Ownership"
   creator: ":Self"
   memberCount: "cell:OneMember"
-  subject: ":Self"
   memberTopics: "topic-22"
   topics:
     - id: "http://www.example.org/mia/topics/topic-22"

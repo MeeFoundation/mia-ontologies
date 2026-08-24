@@ -13,7 +13,6 @@ mia:
   origin: "cat:MedicalProviders"
   creator: ":Self"
   memberCount: "cell:OneMember"
-  subject: ":Self"
   memberTopics: "topic-50"
   topics:
     - id: "http://www.example.org/mia/topics/topic-50"

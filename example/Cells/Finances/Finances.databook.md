@@ -13,7 +13,6 @@ mia:
   origin: "cat:Finances"
   creator: ":Self"
   memberCount: "cell:OneMember"
-  subject: ":Self"
   memberTopics: "topic-41"
   topics:
     - id: "http://www.example.org/mia/topics/topic-41"

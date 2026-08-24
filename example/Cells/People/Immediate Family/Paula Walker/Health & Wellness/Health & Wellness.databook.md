@@ -10,7 +10,6 @@ mia:
   origin: "cat:HealthWellness"
   creator: ":Self"
   memberCount: "cell:OneMember"
-  subject: ":Paula_Walker"
   memberTopics: "topic-35"
   otherTopics: "topic-17"
   topics:
