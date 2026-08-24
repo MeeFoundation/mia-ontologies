@@ -10,7 +10,7 @@
 <http://mee.foundation/ontologies/persona-templates> rdf:type owl:Ontology ;
     owl:imports <http://mee.foundation/ontologies/dron-upper-subset> ;
     dc:date "2026-08-23"^^xsd:date ;
-    owl:versionInfo "Version 2.8.0 - removed the deprecated government-ID/date designator classes (DriversLicenseNumber, PassportNumber, PlaceOfBirth, IssuingJurisdiction, IssuingCountry, IssueDate) outright, confirmed no downstream databooks reference them; the owl:deprecated + rdfs:seeAlso alias block introduced in 2.4.0 for the cco: ent IRI migration is no longer needed. (2.7.1 - fixed persona:MedicationAdministration's rdfs:comment: removed its note about a pre-existing BFO_0000153/BFO_0000199 mislabel in the Boston example and persona.ttl's usesCCOProperty list, since that mislabel has now been fixed directly (persona.ttl 4.6.0; Boston/Paradise example data) rather than merely flagged here. (2.7.0 - replaced persona:Medication's first-pass flat-string fields (medicationChemicalName/medicationDosageValue/medicationDosageUnit/medicationFrequencyPerDay-on-Medication/medicationStartDate/medicationEndDate — removed outright, no deprecation shim) with reused external vocabulary: persona:hasActiveIngredient (ChEBI), persona:hasDoseForm (DrOn dose-form classes, project_files/dron-upper.ttl, newly owl:imported), persona:hasDosageAmount/persona:DosageAmount (CCO's Measurement-Unit/Information-Bearing-Entity machinery, project_files/UnitsOfMeasureOntology.ttl+InformationEntityOntology.ttl, transitively imported but never previously used), and persona:hasAdministration/persona:MedicationAdministration (DrOn's drug-administration process class plus the same BFO TemporalInterval pattern AddressDesignation already uses). medicationBrandName/medicationManufacturer/medicationDuration kept unchanged (documented as having no reuse target). (2.6.0 - added persona:PetMedicationRecord (template label for cat:PetsMedications' cell template) plus persona:Medication and its hasMedication/medicationChemicalName/medicationBrandName/medicationManufacturer/medicationDosageValue/medicationDosageUnit/medicationFrequencyPerDay/medicationStartDate/medicationEndDate/medicationDuration properties, following the same bare-class + hasX + flat-datatype-subproperties pattern as persona:Anniversary/persona:PersonalInfo. Scoped to pets only for now — persona:currentMedication and persona:MedicalAppointmentRecord are unchanged. (2.5.0 - fixed stale doc-comment wording in persona:MedicalAppointmentRecord's rdfs:comment: 'parties' (as in 'the two parties coordinating that care', 'the coordinating parties' Mia instances') replaced with 'members', matching the cell:parties/cell:partyTopics -> cell:memberCount/cell:memberTopics rename in cell.ttl 3.17.0. No change to any class or property defined in this file. (2.4.0 - deprecated the government-ID and date designator classes (DriversLicenseNumber, PassportNumber, PlaceOfBirth, IssuingJurisdiction, IssuingCountry, IssueDate) in favour of committed cco: ent IRIs; usages migrated, declarations retained with owl:deprecated + rdfs:seeAlso aliases (see block at end of file). 2.3.0: fixed stale doc-comment references to cat:templateShapes (category.ttl): the property moved to cell.ttl as cell:templateShapes back in cell.ttl 3.6.0, and was renamed cell:templateShape (singular) in cell.ttl 3.9.0 — comments here still said cat:templateShapes and 'class-level cell:Cell template', neither ever updated. No change to any class or property defined in this file.)))))"@en ;
+    owl:versionInfo "Version 2.8.0 - removed the deprecated government-ID/date designator classes (DriversLicenseNumber, PassportNumber, PlaceOfBirth, IssuingJurisdiction, IssuingCountry, IssueDate) outright, confirmed no downstream databooks reference them; the owl:deprecated + rdfs:seeAlso alias block for the cco: ent IRI migration is no longer needed."@en ;
     persona:usesDrOnClass <http://purl.obolibrary.org/obo/DRON_00000074> ,  # drug product
                     <http://purl.obolibrary.org/obo/DRON_00000028> ,  # active ingredient (role)
                     <http://purl.obolibrary.org/obo/DRON_00000022> ,  # drug tablet
@@ -601,7 +601,7 @@ persona:MedicationAdministration rdf:type owl:Class ;
 persona:medicationFrequencyPerDay rdf:type owl:DatatypeProperty ;
     rdfs:domain persona:MedicationAdministration ;
     rdfs:label "medication frequency per day"@en ;
-    rdfs:comment "How often per day the medication is given, as free text (e.g. '2', 'as needed'). Domain moved from persona:Medication to persona:MedicationAdministration in version 2.7.0, alongside the new start/end date TemporalInterval link."@en ;
+    rdfs:comment "How often per day the medication is given, as free text (e.g. '2', 'as needed')."@en ;
     rdfs:range xsd:string .
 
 persona:hasAdministration rdf:type owl:ObjectProperty ;
@@ -613,19 +613,19 @@ persona:hasAdministration rdf:type owl:ObjectProperty ;
 persona:medicationBrandName rdf:type owl:DatatypeProperty ;
     rdfs:domain persona:Medication ;
     rdfs:label "medication brand name"@en ;
-    rdfs:comment "The medication's marketed brand name, if any (e.g. 'Clavamox'). Kept as a flat string in version 2.7.0's reuse pass — DrOn embeds brand names only inside its auto-generated RxNorm product-class rdfs:labels, never as a separate reusable property, so there is no external term to reuse here."@en ;
+    rdfs:comment "The medication's marketed brand name, if any (e.g. 'Clavamox'). Kept as a flat string — DrOn embeds brand names only inside its auto-generated RxNorm product-class rdfs:labels, never as a separate reusable property, so there is no external term to reuse here."@en ;
     rdfs:range xsd:string .
 
 persona:medicationManufacturer rdf:type owl:DatatypeProperty ;
     rdfs:domain persona:Medication ;
     rdfs:label "medication manufacturer"@en ;
-    rdfs:comment "The name of the medication's manufacturer, as a free-text string (e.g. 'Zoetis') — not a linked o:Organization, matching persona:insuranceProvider's identical flat-string treatment. Kept as a flat string in version 2.7.0's reuse pass — DrOn has no manufacturer/labeler class at all (confirmed absent by direct search), so there is no external term to reuse here."@en ;
+    rdfs:comment "The name of the medication's manufacturer, as a free-text string (e.g. 'Zoetis') — not a linked o:Organization, matching persona:insuranceProvider's identical flat-string treatment. Kept as a flat string — DrOn has no manufacturer/labeler class at all (confirmed absent by direct search), so there is no external term to reuse here."@en ;
     rdfs:range xsd:string .
 
 persona:medicationDuration rdf:type owl:DatatypeProperty ;
     rdfs:domain persona:Medication ;
     rdfs:label "medication duration"@en ;
-    rdfs:comment "A free-text alternative to a fixed end date for expressing how long the medication runs (e.g. '10 days'), for courses with no fixed calendar end date. Not constrained to be mutually exclusive with persona:MedicationAdministration's end-date link. Kept as a flat string in version 2.7.0's reuse pass — nothing reused covers this narrow a fact."@en ;
+    rdfs:comment "A free-text alternative to a fixed end date for expressing how long the medication runs (e.g. '10 days'), for courses with no fixed calendar end date. Not constrained to be mutually exclusive with persona:MedicationAdministration's end-date link. Kept as a flat string — nothing reused covers this narrow a fact."@en ;
     rdfs:range xsd:string .
 
 
