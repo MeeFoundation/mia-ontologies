@@ -102,11 +102,11 @@ Alice is a member of the Boston Hub Society, an informal professional networking
 
 <p align="center"><img src="example/images/affiliations.png" alt="Affiliations cells"></p>
 
-## Categories and Cells
+## Cells
 
-A summary of every narratively-illustrated cell under `example/Cells/`, grouped by the narrative subsection above it describes. Purely scaffolding cells — organizational category nodes existing only to nest further cells beneath them, e.g. `Work.databook.md`, `People.databook.md` — are omitted here: each now carries a minimal required `memberTopics` stub about `:Self` (no bare cell is legal any more — see CLAUDE.md's Key Architectural Patterns), but that stub isn't part of Alice's story and has no diagram representation yet, so it's left out of this table and the Topics tables below pending a future diagram redraw.
+A summary of every narratively-illustrated cell under `example/Cells/`, grouped by the narrative subsection above it describes. 
 
-| Subsection | Cell Folder | Cell DataBook | Subject(s) | Cell Category | Topics |
+| Subsection | Name | Cell DataBook | Subject(s) | Cell Category | Topics |
 |---|---|---|---|---|---|
 | Bob and Fred | Bob Johnson | [Bob Johnson(others).databook.md](<example/Cells/People/Others/Bob Johnson/Bob Johnson(others).databook.md>) {16} | Self, Bob Johnson | `cat:Others` | 2, 4, 8, 12 |
 | Bob and Fred | Fred Flintstone | [Fred Flintstone(others).databook.md](<example/Cells/People/Others/Fred Flintstone/Fred Flintstone(others).databook.md>) {17} | Self, Fred Flintstone | `cat:Others` | 29, 31 |
