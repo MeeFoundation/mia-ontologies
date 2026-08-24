@@ -102,7 +102,7 @@ Alice is a member of the Boston Hub Society, an informal professional networking
 
 <p align="center"><img src="example/images/affiliations.png" alt="Affiliations cells"></p>
 
-## Cells
+## Cells Mentioned
 
 A summary of every narratively-illustrated cell under `example/Cells/`, grouped by the narrative subsection above it describes. 
 
