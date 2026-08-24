@@ -2,21 +2,29 @@
 id: http://www.example.org/mia/cells/cell-40
 title: "Medications"
 type: cell-databook
-version: 1.2.0
+version: 1.3.0
 created: 2026-08-21
 description: >
-  Cell DataBook for folder "Medications" (cell:origin: cat:PetsMedications). It is a one-member cell with one memberTopic about :Self and one otherTopic about :Ginger, Alice's cat (the cell's subject).
+  Cell DataBook for folder "Medications" (cell:origin: cat:PetsMedications). It is a two-member cell, shared by Alice with Paula, with two memberTopics (about :Self and :Paula_Walker) and one otherTopic about :Ginger, Alice's cat (the cell's subject).
 mia:
   origin: "cat:PetsMedications"
   creator: ":Self"
-  memberCount: "cell:OneMember"
+  memberCount: "cell:TwoMember"
   subject: ":Ginger"
-  memberTopics: "topic-33"
+  memberTopics:
+    - "topic-33"
+    - "topic-57"
   otherTopics: "topic-32"
   topics:
     - id: "http://www.example.org/mia/topics/topic-33"
       claimant: ":Self"
       subject: ":Self"
+      shapes:
+        - http://mee.foundation/ontologies/persona/shapes
+        - http://mee.foundation/ontologies/topic/shapes
+    - id: "http://www.example.org/mia/topics/topic-57"
+      claimant: ":Paula_Walker"
+      subject: ":Paula_Walker"
       shapes:
         - http://mee.foundation/ontologies/persona/shapes
         - http://mee.foundation/ontologies/topic/shapes
@@ -37,7 +45,7 @@ mia:
 
 #### Overview
 
-This topic is the cell's one required `memberTopics` entry, satisfying `cell:OneMember`'s per-member baseline. Alice is both the claimant and the subject. Deliberately empty: the `memberTopics` requirement is about `t:subject`/`t:claimant` (asserted at the `mia.topics[]` YAML level, not in this Turtle body), not about carrying any particular content.
+This topic is one of the cell's two `memberTopics` entries, satisfying `cell:TwoMember`'s per-member baseline alongside topic 57 (Paula's own claim, below). Alice is both the claimant and the subject. Deliberately empty: the `memberTopics` requirement is about `t:subject`/`t:claimant` (asserted at the `mia.topics[]` YAML level, not in this Turtle body), not about carrying any particular content.
 
 #### Topic Graph
 
@@ -46,12 +54,38 @@ This topic is the cell's one required `memberTopics` entry, satisfying `cell:One
 <!-- databook:graph: http://www.example.org/mia/topics/topic-33#graph -->
 ```
 
+<a id="topic-57"></a>
+### Topic 57
+
+#### Overview
+
+This cell was created by Alice and later shared with Paula, making the cell a `cell:TwoMember` cell. This topic is Paula's own bare identity claim (just her given name) — the cell's second `memberTopics` entry, satisfying `cell:TwoMember`'s per-member baseline alongside topic 33 (Alice's own claim, above). Paula is both the claimant and the subject.
+
+#### Topic Graph
+
+```turtle
+<!-- databook:id: paula-ginger-medications-member-topic-graph -->
+<!-- databook:graph: http://www.example.org/mia/topics/topic-57#graph -->
+@prefix : <http://www.example.org/mia#> .
+@prefix persona: <http://mee.foundation/ontologies/persona#> .
+@prefix cco: <https://w3id.org/cco-domains/cco/> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+
+:Paula_Walker rdf:type owl:NamedIndividual ,
+               persona:Person ;
+    cco:ont00001879 [  # designated by → GivenName
+        rdf:type cco:ent00000002 ;  # GivenName
+        cco:ont00001765 "Paula"  # has text value
+    ] .
+```
+
 <a id="topic-32"></a>
 ### Topic 32
 
 #### Overview
 
-This topic captures Alice's record of her cat Ginger's medications — an amoxicillin/clavulanate course prescribed after a minor infection, and an ongoing daily joint supplement. Validated by the `PetMedications` per-template SHACL shapes. Alice is the claimant; Ginger is the cell's `subject` but, since she has no `p:Person` individual of her own, her topic is linked as an `otherTopic` rather than the required `memberTopics` entry (topic 33, above, fills that slot instead). Each medication's active ingredient(s) are cited by real ChEBI class IRIs, its tablet/liquid dosage form and amount by DrOn/CCO terms, and its schedule by a DrOn drug-administration individual carrying a BFO temporal interval — see `persona:Medication`'s `rdfs:comment` (persona-templates.ttl) for the full reuse rationale.
+This topic captures Alice's record of her cat Ginger's medications — an amoxicillin/clavulanate course prescribed after a minor infection, and an ongoing daily joint supplement. Validated by the `PetMedications` per-template SHACL shapes. Alice is the claimant; Ginger is the cell's `subject` but, since she has no `p:Person` individual of her own, her topic is linked as an `otherTopic` rather than one of the required `memberTopics` entries (topics 33 and 57, above, fill those slots instead). Each medication's active ingredient(s) are cited by real ChEBI class IRIs, its tablet/liquid dosage form and amount by DrOn/CCO terms, and its schedule by a DrOn drug-administration individual carrying a BFO temporal interval — see `persona:Medication`'s `rdfs:comment` (persona-templates.ttl) for the full reuse rationale.
 
 #### Topic Graph
 

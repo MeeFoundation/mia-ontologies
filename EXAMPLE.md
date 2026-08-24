@@ -88,10 +88,13 @@ Here are a few lines from [topic 22](<example/Cells/Ownership/Ownership.databook
 
 ### Ginger's Medications
 
-Alice also has a cat, Ginger. Under her *Pets* cell she has created a *Ginger* cell for this specific pet — reusing its parent's own `cat:Pets` origin — and, nested inside it, a *Health* cell, and nested inside that a *Medications* cell recording Ginger's medications: a completed course of amoxicillin/clavulanate (brand name Clavamox, from Zoetis) and an ongoing daily glucosamine/chondroitin joint supplement ([topic 32](<example/Cells/Pets/Ginger/Health/Medications/Medications.databook.md#topic-32>)). 
-
+Alice also has a cat, Ginger. Under her *Pets* cell she has created a *Ginger* cell for this specific pet — reusing its parent's own `cat:Pets` origin — and, nested inside it, a *Health* cell, and nested inside that a *Medications* cell recording Ginger's medications: a completed course of amoxicillin/clavulanate (brand name Clavamox, from Zoetis) and an ongoing daily glucosamine/chondroitin joint supplement ([topic 32](<example/Cells/Pets/Ginger/Health/Medications/Medications.databook.md#topic-32>)). Alice shared this cell with Paula, who also helps look after Ginger, making it a `cell:TwoMember` cell with Alice's and Paula's own bare identity claims ([topic 33](<example/Cells/Pets/Ginger/Health/Medications/Medications.databook.md#topic-33>) and [topic 57](<example/Cells/Pets/Ginger/Health/Medications/Medications.databook.md#topic-57>)) as its two `memberTopics`.
 
 <p align="center"><img src="example/images/pets.png" alt="Pets cells"></p>
+
+Let's imagine that Paula doesn't use the app and the invite link from Alice to [cell 40](<example/Cells/Pets/Ginger/Health/Medications/Medications.databook.md>) causes Paula to click on the link and download/install the app. The app receives the cell, but where to file it, since Paula has no cells. Paula's app examines the cell, looks at its category type "Medications" and makes a good (though not perfect) guess to create the following tree of empty cells: People / Others / Alice / Pets / Ginger / Health / Medications. 
+
+Ideally it would have filled the new Alice cell under People / Immediate Family because Alice is Paula's daughter, but Paula's app didn't know that. Paula can sometime later create an Immediate Family cell under her People cell and move Alice (and all sub-cells) under it.
 
 ### Boston Hub Society
 
@@ -124,7 +127,7 @@ A summary of every narratively-illustrated cell under `example/Cells/`, grouped 
 | Current and Previous Homes | Paradise | [Paradise(residence).databook.md](<example/Cells/Government/Municipality/Paradise/Paradise(residence).databook.md>) {8} | Self | `cat:Residence` | 18 |
 | Possessions | Ownership | [Ownership.databook.md](<example/Cells/Ownership/Ownership.databook.md>) {11} | Self | `cat:Ownership` | 22 |
 | Ginger's Medications | Ginger | [Ginger(pets).databook.md](<example/Cells/Pets/Ginger/Ginger(pets).databook.md>) {41} | Ginger | `cat:Pets` | 36, 37 |
-| Ginger's Medications | Medications | [Medications.databook.md](<example/Cells/Pets/Ginger/Health/Medications/Medications.databook.md>) {40} | Ginger | `cat:PetsMedications` | 32, 33 |
+| Ginger's Medications | Medications | [Medications.databook.md](<example/Cells/Pets/Ginger/Health/Medications/Medications.databook.md>) {40} | Ginger | `cat:PetsMedications` | 32, 33, 57 |
 | Boston Hub Society | Boston Hub Society | [Boston Hub Society(affiliations).databook.md](<example/Cells/Affiliations/Boston Hub Society/Boston Hub Society(affiliations).databook.md>) {1} | BHS | `cat:Affiliations` | 1, 3, 14 |
 
 ## Topics
@@ -180,6 +183,7 @@ The following table lists topics about other people (Paula and Bob) or organizat
 | 31 | [Fred Flintstone(others).databook.md](<example/Cells/People/Others/Fred Flintstone/Fred Flintstone(others).databook.md#topic-31>) {17}                     | `cat:Others`       | Fred's self-claimed Fred persona                                 | [view](example/topics/images/topic-31.png) |
 | 32 | [Medications.databook.md](<example/Cells/Pets/Ginger/Health/Medications/Medications.databook.md#topic-32>) {40} | `cat:PetsMedications`       | Alice's record of her cat Ginger's medications — amoxicillin/clavulanate course, ongoing glucosamine/chondroitin supplement           | [view](example/topics/images/topic-32.png)|
 | 37 | [Ginger(pets).databook.md](<example/Cells/Pets/Ginger/Ginger(pets).databook.md#topic-37>) {41} | `cat:Pets`       | Alice's basic claim identifying Ginger — backs the Ginger cell's `subject: ":Ginger"` with a real topic           | [view](example/topics/images/topic-37.png)|
+| 57 | [Medications.databook.md](<example/Cells/Pets/Ginger/Health/Medications/Medications.databook.md#topic-57>) {40} | `cat:PetsMedications`       | Paula's own self-claimed given-name claim — the cell's second `memberTopics` entry after Alice shared it with her, making it a `cell:TwoMember` cell           | [view](example/topics/images/topic-57.png)|
 
 ## Diagrams
 
