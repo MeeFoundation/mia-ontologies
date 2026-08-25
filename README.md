@@ -165,7 +165,7 @@ The cell ontology defines the concept of a cell (`c:Cell`).
 
 A cell is a secure **container of information**.  A cell can remain private to the user or shared with other users and/or organizations. 
 
-The app contains two pre-defined, non-user-editable tree structures of **categories**. The nodes in these category trees are *template* cells which may contain some starter content. They may also define a schema for the structured information that an actual cell can contain. Most cells are instantiated from a template cell, although the user may also create category-less cells if desired.
+The app contains two pre-defined, non-user-editable tree structures of **categories**. One is focused on helping organize a person's personal life (Family, Home, Pets, etc.) and the other their work life (Employer, Employees, etc.). Each category has a *template cell* which may contain some starter content (or may be empty) and may have a schema for the structured fields and values that a cell of this category might contain. Most cells are instantiated from a template cell, although the user may also create category-less cells if desired.
 
 A cell has a **name**. Often this name is just a copy of the name of the category. For example if the category was "People", the cell might be called "People". However, the user can override this string with their own name. Unlike the rest of a cell's content, the name is never shared — when a cell is shared with other members, each person is free to call their own copy whatever they like.
 
