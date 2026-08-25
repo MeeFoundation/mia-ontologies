@@ -163,9 +163,9 @@ The cell ontology defines the concept of a cell (`c:Cell`).
 
 ### Introduction to Cells
 
-A cell is a secure **container of information** stored on the user's devices, or for organizations, on PDN node hosts. Each cell is created and managed by the Mia software application. A cell can remain private to the user or shared with one or more users and/or with organizations that are compatible with the Personal Data Network.
+A cell is a secure **container of information**.  A cell can remain private to the user or shared with other users and/or organizations. 
 
-The app contains two pre-defined tree structures of **categories**. These categories are "template" cells which may contain some starter content. They may also have a specific schema for the structured information that the cell can contain. Most cells are instantiated from a "template" cell from the category tree, although the user is allowed to create category-less cells if desired.
+The app contains two pre-defined, non-user-editable tree structures of **categories**. The nodes in these category trees are *template* cells which may contain some starter content. They may also define a schema for the structured information that an actual cell can contain. Most cells are instantiated from a template cell, although the user may also create category-less cells if desired.
 
 A cell has a **name**. Often this name is just a copy of the name of the category. For example if the category was "People", the cell might be called "People". However, the user can override this string with their own name.
 
@@ -175,19 +175,23 @@ A cell has a **`c:creator`**, which is the identity of the user who created it.
 
 A cell can be **shared**. The creator of a cell can invite people (or organizations compatible with the Mee Personal Data Network protocols) to join the cell. When they do, they get a complete copy of the cell that is "alive" — any changes made to its contents are continuously shared with all members.
 
-A cell is a container, so it can be empty, or it can contain various kinds of information. The app displays different kinds of information in a cell in different tabs in the UI:
+A cell may be empty, or it may contain various kinds of information. The app displays the information in a cell in a set of tabs:
 
 * **Info** tab:
   * Structured information organized into one or more **topics**.
-  * Some topics are about members of the cell. A cell when created has one member (the creator).
-  * A cell may also have one "other" topic which can be about anything else (e.g. medications for a cat that the cell members are taking care of).
-  * Each topic has a *subject* and a *claimant*. The subject is typically a person, organization, or group, but it could be any other entity the Persona ontology can describe. The claimant is the person, group, or organization that is asserting the values of the claims in the topic.
+  * Some topics are about a member of the cell. When created a cell starts off with one member, the creator.
+  * A cell may also have one other topic which can be about anything else (e.g. medications for a cat that the cell members are taking care of).
+  * Each topic has a *subject* and a *claimant*. The subject is typically a person, or organization, but it could be any other entity the Persona ontology can describe. The claimant is the person or organization that is asserting the values of the claims in the topic.
 * **Notes** tab:
   * A Markdown document about the cell. It may be blank. It may be linked to any number of other Markdown files that are also in the cell.
 * **Files** tab:
   * An arbitrary number of files and sub-folders.
 * **Chat** tab:
   * A chat stream shared with all members.
+
+**Storage**
+
+Cells are stored on the user's device(s) or, for organizations, on Personal Data Network (PDN) nodes hosted by them. No cell is ever stored by any cloud provider, or any third party of any kind, including The Mee Foundation.
 
 **Number of Members**
 
