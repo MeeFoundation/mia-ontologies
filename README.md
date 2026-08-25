@@ -159,9 +159,9 @@ Cells for most `cat:Category` subclasses are not pre-created ahead of time. A ce
 
 ## Cell Ontology
 
-The cell ontology defines the concept of a cell (`c:Cell`) — a self-contained unit of information that can be kept private or shared with others.
+The cell ontology defines the concept of a cell (`c:Cell`) — a container of information that can be kept private or shared with others.
 
-The Cell class has two facets: `c:TCell`, the *template* facet, and `c:ACell`, the *actual* (instantiated) facet. A cell always carries the `c:ACell` facet once it has real content; `c:TCell` is added on top of that when the cell also serves as a reusable template — a bare `c:TCell` with no `c:ACell` doesn't occur in practice.
+The Cell class has two facets: `c:TCell`, the *template* facet, and `c:ACell`, the *actual* (instantiated) facet. A cell always carries the `c:ACell` facet; `c:TCell` is added on top of that when the cell also serves as a reusable template — a bare `c:TCell` with no `c:ACell` doesn't occur in practice.
 
 ### Cell
 
