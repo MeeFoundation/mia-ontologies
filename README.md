@@ -163,25 +163,15 @@ The cell ontology defines the concept of a cell (`c:Cell`).
 
 ### Introduction to Cells
 
-A cell is a secure **container of information**.  A cell can remain private to the user or shared with other users and/or organizations. 
+A cell is a secure **container of information** that can remain private to the user or be shared with other users and/or organizations.
 
-The app contains two pre-defined, non-user-editable tree structures of **categories**. One is focused on helping organize a person's personal life (Family, Home, Pets, etc.) and the other their work life (Employer, Employees, etc.). Each category has a *template cell* which may contain some starter content (or may be empty) and may have a schema for the structured fields and values that a cell of this category might contain. Most cells are instantiated from a template cell, although the user may also create category-less cells if desired.
-
-A cell has a **name**. Often this name is just a copy of the name of the category. For example if the category was "People", the cell might be called "People". However, the user can override this string with their own name. Unlike the rest of a cell's content, the name is never shared — when a cell is shared with other members, each person is free to call their own copy whatever they like.
-
-A cell has a **`c:origin`**. The origin is just the category (e.g. "People") whose associated template cell was cloned to create the cell.
-
-A cell has a **`c:creator`**, which is the identity of the user who created it.
-
-A cell can be **shared**. The creator of a cell can invite people (or organizations compatible with the Mee Personal Data Network protocols) to join the cell. When they do, they get a complete copy of the cell that is "alive" — any changes made to its contents are continuously shared with all members, with the sole exception of the cell's own name (see above).
-
-A cell may be empty, or it may contain various kinds of information. The app displays the information in a cell in a set of tabs:
+A cell may be empty or hold various kinds of information, organized into a set of tabs:
 
 * **Info** tab:
   * Structured information organized into one or more **topics**.
   * Some topics are about a member of the cell. When created a cell starts off with one member, the creator.
   * A cell may also have one other topic which can be about anything else (e.g. medications for a cat that the cell members are taking care of).
-  * Each topic has a *subject* and a *claimant*. The subject is typically a person, or organization, but it could be any other entity the Persona ontology can describe. The claimant is the person or organization that is asserting the values of the claims in the topic.
+  * Each topic has a *subject* and a *claimant*. The subject is typically a person or organization, but it could be any other entity the Persona ontology can describe. The claimant is the person or organization that is asserting the values of the claims in the topic.
 * **Notes** tab:
   * A Markdown document about the cell. It may be blank. It may be linked to any number of other Markdown files that are also in the cell.
 * **Files** tab:
@@ -189,17 +179,27 @@ A cell may be empty, or it may contain various kinds of information. The app dis
 * **Chat** tab:
   * A chat stream shared with all members.
 
-**Storage**
+The app contains two pre-defined, non-user-editable tree structures of **categories**. One is focused on helping organize a person's personal life (Family, Home, Pets, etc.) and the other their work life (Employer, Employees, etc.). Each category has a *template cell* which may contain some starter content (or may be empty) and may have a schema for the structured fields and values that a cell of this category might contain. Most cells are instantiated from a template cell, although the user may also create category-less cells if desired.
 
-Cells are stored on the user's device(s) or, for organizations, on Personal Data Network (PDN) nodes hosted by them. No cell is ever stored by any cloud provider, or any third party of any kind, including The Mee Foundation.
+A cell has a **name**. Often this name is just a copy of the name of the category. For example if the category was "People", the cell might be called "People". However, the user can give the cell a name of their own choosing. Unlike the rest of a cell's content, the name is never shared — when a cell is shared with other members, each person is free to call their own copy whatever they like.
 
-**Number of Members**
+A cell has a **`c:origin`**. The origin identifies the category (e.g. "People") the cell represents. For categories with a template cell, this is usually the category whose template was cloned to create the cell; a cell can also be assigned an origin directly, with no template involved.
 
-A cell can have just one member (the user) or several. We don't currently know how big a cell can scale, but the number is almost surely less (possibly a lot less) than 100.
+A cell has a **`c:creator`**, which is the identity of the user who created it.
 
-**Write Permissions**
+A cell can be **shared**. The creator of a cell can invite people (or organizations compatible with the Mee Personal Data Network protocols) to join the cell. When they do, they get a complete copy of the cell that is "alive" — any changes made to its contents are continuously shared with all members, with the sole exception of the cell's own name (see above).
 
-Notes, files, and chat are all read/write/editable by anyone in the cell. The permissions on who can write/edit which info fields vary.
+#### Storage
+
+Cells are stored on the user's device(s) or, for organizations, on Personal Data Network (PDN) nodes hosted by that organization. No cell is ever stored by any cloud provider, or any third party of any kind, including The Mee Foundation.
+
+#### Number of Members
+
+A cell can have just one member (the user) or several. We don't yet know how many members a cell can support, but the number is almost surely well under 100.
+
+#### Write Permissions
+
+Notes, files, and chat are all freely readable and editable by anyone in the cell. The permissions on who can write/edit which info fields vary.
 
 ### Cell Details
 
