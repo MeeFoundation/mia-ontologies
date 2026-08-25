@@ -161,7 +161,7 @@ Cells for most `cat:Category` subclasses are not pre-created ahead of time. A ce
 
 The cell ontology defines the concept of a cell (`c:Cell`). 
 
-### Introduction
+### Introduction to Cells
 
 A cell is a secure **container of information** stored on the user's devices, or for organizations, on PDN node hosts. Each cell is created and managed by the Mia software application. A cell can remain private to the user or shared with one or more users and/or with organizations that are compatible with the Personal Data Network.
 
