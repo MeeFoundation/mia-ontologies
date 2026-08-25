@@ -74,17 +74,17 @@ This topic captures Alice Walker's US passport identity data. Alice self-enters 
 
     <https://w3id.org/cco-domains/cco/ont00001879> [  # designated by → Birthdate
         rdf:type cco:ent00000046 ;  # Birthdate
-        <https://w3id.org/cco-domains/cco/ont00001765> "1985-07-04"
+        <https://w3id.org/cco-domains/cco/ont00001765> "1985-07-04"^^xsd:date
     ] ;
 
     cco:ent00000069 [  # has issue date → Calendar Date Identifier
         rdf:type cco:ont00001340 ;
-        <https://w3id.org/cco-domains/cco/ont00001765> "2021-07-04"
+        <https://w3id.org/cco-domains/cco/ont00001765> "2021-07-04"^^xsd:date
     ] ;
 
     cco:ent00000070 [  # has expiration date → Calendar Date Identifier
         rdf:type cco:ont00001340 ;
-        <https://w3id.org/cco-domains/cco/ont00001765> "2031-07-04"
+        <https://w3id.org/cco-domains/cco/ont00001765> "2031-07-04"^^xsd:date
     ] ;
 
     # ── Passport number (two-relation form: Person designated-by, document is-carrier-of) ──
