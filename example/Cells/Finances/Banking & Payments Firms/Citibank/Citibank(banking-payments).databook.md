@@ -93,7 +93,7 @@ This topic captures Alice Walker's financial relationship with Citibank. Citiban
     rdfs:label "Alice Walker's Citibank Online Account"@en ;
     cco:ent00000034 "Citibank" ;                   # has service name
     cco:ent00000035 "awalker@gmail.com" ;           # has user handle (username)
-    cco:ent00000036 "https://online.citi.com" ;    # has service URI
+    cco:ent00000036 <https://online.citi.com> ;    # has service URI
     persona:hasPassword "C1t1b@nk#2024!" .         # has password
 ```
 
