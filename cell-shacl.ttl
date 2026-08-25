@@ -11,7 +11,7 @@
 @prefix dc: <http://purl.org/dc/elements/1.1/> .
 
 <http://mee.foundation/ontologies/cell/shapes> rdf:type owl:Ontology ;
-    owl:versionIRI <http://mee.foundation/ontologies/cell/shapes/3.23.0> ;
+    owl:versionIRI <http://mee.foundation/ontologies/cell/shapes/3.24.0> ;
     dc:date "2026-08-24"^^xsd:date ;
     rdfs:label "Cell Ontology SHACL Validation Shapes"@en ;
     rdfs:comment "SHACL validation shapes for cell:Cell DataBook instances (the content facet of a cell) in the Cell Ontology."@en .
@@ -20,13 +20,13 @@
 #################################################################
 #  Cell
 #  cell:Cell carries only what's common to every cell regardless of
-#  facet: origin. A cell's folder is purely the filesystem folder its
+#  kind: origin. A cell's folder is purely the filesystem folder its
 #  cell-databook physically lives in, never a stored path, so there's
 #  nothing to constrain here for that. Topic links
-#  (cell:memberTopics/cell:otherTopics) live on
-#  :ACellShape and the per-member-count shapes below — since every
-#  cell:Cell is always also typed cell:ACell (no bare tree-position-only
-#  cell), those shapes fire on every cell without exception.
+#  (cell:memberTopics/cell:otherTopics) live on :ACellShape and the
+#  per-member-count shapes below — since cell:TCell and cell:ACell are
+#  disjoint (cell.ttl), those shapes fire only on the ACell branch, not
+#  on template cells.
 #################################################################
 
 :CellShape
@@ -35,7 +35,7 @@
     sh:message "Cell validation."@en ;
 
     # cell:origin — at most one value (0..1), on any cell:Cell
-    # regardless of facet. Absent exactly when the cell is of the
+    # regardless of kind. Absent exactly when the cell is of the
     # UserDefined category — identified precisely by its
     # cell-databook's filename carrying the literal "(custom)"
     # disambiguator, not a vague "no canonical counterpart" judgment
@@ -51,16 +51,19 @@
         sh:message "A cell may have at most one cell:origin value: the cat:Category subclass its content is filed under, if any."@en
     ] ;
 
-    # rdf:type cell:ACell — required on every cell:Cell individual, no
-    # exceptions: there is no legal bare tree-position-only cell with no
-    # member content. A category node with nothing substantive to say
-    # still carries a minimal stub cell:memberTopics entry (see
-    # CLAUDE.md's Check 21) rather than skipping ACell typing altogether.
-    sh:property [
-        sh:path rdf:type ;
-        sh:hasValue cell:ACell ;
-        sh:message "Every cell:Cell individual must also be typed cell:ACell — no bare tree-position-only cell with no member content is legal."@en
-    ] .
+    # rdf:type — exactly one of cell:TCell/cell:ACell, never both and
+    # never neither, mirroring cell.ttl's owl:disjointWith cell:TCell
+    # cell:ACell. A reusable class-level template (cell-templates.ttl)
+    # is typed cell:TCell only; every cell in a user's own tree is typed
+    # cell:ACell only — there is no legal bare tree-position-only cell
+    # with no member content in the ACell branch (a category node with
+    # nothing substantive to say still carries a minimal stub
+    # cell:memberTopics entry, see CLAUDE.md's Check 21) and no cell
+    # legally carries both kinds at once.
+    sh:xone (
+        [ sh:property [ sh:path rdf:type ; sh:hasValue cell:TCell ] ]
+        [ sh:property [ sh:path rdf:type ; sh:hasValue cell:ACell ] ]
+    ) .
 
 
 #################################################################

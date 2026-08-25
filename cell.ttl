@@ -12,11 +12,11 @@
 @base <http://mee.foundation/ontologies/cell> .
 
 <http://mee.foundation/ontologies/cell> rdf:type owl:Ontology ;
-    owl:versionIRI <http://mee.foundation/ontologies/cell/3.32.0> ;
+    owl:versionIRI <http://mee.foundation/ontologies/cell/3.33.0> ;
     dc:date "2026-08-24"^^xsd:date ;
     owl:imports <http://mee.foundation/ontologies/topic> ;
     rdfs:label "Cell Ontology"@en ;
-    rdfs:comment """Cell Ontology for the Mee Identity Agent. A cell is the atomic unit of the user's tree: a filesystem folder holding exactly one cell-databook file, folder and file together forming one tree node. Defines cell:Cell — the self-contained content facet of a cell, carried by that cell-databook file's own triples. cell:Cell stores no property recording the cell's own tree position: that position is simply whichever folder the cell-databook currently lives in, not a fact this RDF individual needs to carry. cell:Cell splits further into two orthogonal sub-facets: cell:TCell (template) and cell:ACell (actual/instantiated), which a single cell individual may carry either or both of."""@en .
+    rdfs:comment """Cell Ontology for the Mee Identity Agent. A cell is the atomic unit of the user's tree: a filesystem folder holding exactly one cell-databook file, folder and file together forming one tree node. Defines cell:Cell — the self-contained content facet of a cell, carried by that cell-databook file's own triples. cell:Cell stores no property recording the cell's own tree position: that position is simply whichever folder the cell-databook currently lives in, not a fact this RDF individual needs to carry. cell:Cell splits into two disjoint kinds: cell:TCell (a reusable, class-level template) and cell:ACell (an actual cell instantiated in a user's own tree) — a cell is always exactly one of the two, never both."""@en .
 
 
 #################################################################
@@ -76,42 +76,49 @@ cell:label rdf:type owl:AnnotationProperty ;
 cell:Cell rdf:type owl:Class ;
     cell:abstract true ;
     rdfs:label "Cell"@en ;
-    rdfs:comment "Superclass of every cell individual, carrying only what's common regardless of facet: inherent classification (cell:origin). cell:Cell — the RDF content facet of a cell — stores no property recording its own tree position: a cell's position is simply whichever folder it (folder + this cell-databook) currently occupies, and moving that folder is a pure filesystem operation requiring no triple to change, which is what keeps a cell robust under PDN sync. cell:origin does not violate this: its range is the abstract classificatory cat:Category, not a tree position, so it records what kind of thing the cell is, never where it currently lives. Member composition (cell:memberCount, cell:OneMember/cell:MultiMember), creator metadata (cell:creator), topic links (cell:memberTopics, cell:otherTopics), and validation (cell:shape) live on the cell:ACell facet, not directly here."@en .
+    rdfs:comment "Superclass of every cell individual, carrying only what's common regardless of kind: inherent classification (cell:origin). cell:Cell — the RDF content facet of a cell — stores no property recording its own tree position: a cell's position is simply whichever folder it (folder + this cell-databook) currently occupies, and moving that folder is a pure filesystem operation requiring no triple to change, which is what keeps a cell robust under PDN sync. cell:origin does not violate this: its range is the abstract classificatory cat:Category, not a tree position, so it records what kind of thing the cell is, never where it currently lives. Member composition (cell:memberCount, cell:OneMember/cell:MultiMember), creator metadata (cell:creator), topic links (cell:memberTopics, cell:otherTopics), and validation (cell:shape) live on the cell:ACell kind, not directly here."@en .
 
 
 #################################################################
-#    Cell Facets: Template (TCell) and Actual (ACell)
+#    Cell Kinds: Template (TCell) and Actual (ACell)
 #
-#    A cell:Cell splits into two orthogonal facets:
+#    A cell:Cell splits into two disjoint kinds — a cell is always
+#    exactly one, never both:
 #
-#    cell:TCell — the template facet. Carries cell:templateShape,
-#    reachable from a cat:Category subclass via cat:templateCell
-#    (category.ttl). Describes what a topic filed under that
-#    category is expected to look like once instantiated.
+#    cell:TCell — a reusable, class-level template. Carries
+#    cell:templateShape, reachable from a cat:Category subclass via
+#    cat:templateCell (category.ttl). Describes what a topic filed
+#    under that category is expected to look like once instantiated.
+#    Every cell:TCell individual lives in cell-templates.ttl, never in
+#    a user's own tree.
 #
-#    cell:ACell — the actual/instantiated facet. Carries cell:memberCount
-#    (and, by extension, cell:OneMember/cell:MultiMember), cell:creator,
-#    cell:memberTopics (required, one or more linked topic:SCTopicGraph
-#    containers per member in the relationship — cardinality varies by
-#    member count) and cell:otherTopics (at most one additional
-#    topic:SCTopicGraph container beyond that baseline), and cell:shape — the
+#    cell:ACell — an actual cell instantiated in a user's own tree.
+#    Carries cell:memberCount (and, by extension, cell:OneMember/
+#    cell:MultiMember), cell:creator, cell:memberTopics (required, one
+#    or more linked topic:SCTopicGraph containers per member in the
+#    relationship — cardinality varies by member count) and
+#    cell:otherTopics (at most one additional topic:SCTopicGraph
+#    container beyond that baseline), and cell:shape — the
 #    sh:NodeShape(s) validating this specific cell's own content
 #    directly, as opposed to content a future topic filed under a
 #    template category should conform to.
 #
-#    A cell individual may carry either facet alone, or both at once:
-#    every individual in cell-templates.ttl is both a reusable
-#    template (cell:TCell, carrying cell:templateShape) and a real
-#    piece of member-classified content (cell:OneMember, a cell:ACell
-#    subclass, carrying cell:memberCount) — it is simply multi-typed with
-#    both.
+#    cell:TCell and cell:ACell are owl:disjointWith one another: an
+#    individual reached via cat:templateCell (e.g. every individual in
+#    cell-templates.ttl) is typed cell:TCell only, carrying
+#    cell:templateShape and nothing from cell:ACell's side — it is
+#    reusable template content, not itself a piece of member-classified
+#    content. When Lazy Instantiation clones that template into a new
+#    cell for a user's tree, the clone is a wholly separate individual,
+#    typed cell:ACell (plus a concrete member class) instead.
 #################################################################
 
 cell:TCell rdf:type owl:Class ;
     cell:abstract true ;
     rdfs:subClassOf cell:Cell ;
+    owl:disjointWith cell:ACell ;
     rdfs:label "Template Cell"@en ;
-    rdfs:comment "The template facet of a cell:Cell. A cell:TCell individual is reachable from a cat:Category subclass via that class's cat:templateCell value (category.ttl) — it's what Mia clones into a new cell when a category of that class is first instantiated into a user's tree (Lazy Instantiation). Carries cell:templateShape, linking to the sh:NodeShape(s) describing the content a topic filed under that category is expected to conform to. Most cell:TCell individuals carry no cell:templateShape value — that's the default, not an omission."@en .
+    rdfs:comment "A reusable, class-level cell template — one of the two disjoint kinds of cell:Cell, the other being cell:ACell. A cell:TCell individual is reachable from a cat:Category subclass via that class's cat:templateCell value (category.ttl) — it's what Mia clones into a new cell when a category of that class is first instantiated into a user's tree (Lazy Instantiation). Carries cell:templateShape, linking to the sh:NodeShape(s) describing the content a topic filed under that category is expected to conform to. Most cell:TCell individuals carry no cell:templateShape value — that's the default, not an omission. Disjoint with cell:ACell: a cell:TCell individual is never also typed cell:ACell or any of its subclasses — see cell-templates.ttl, where every template individual is typed solely cell:Cell, cell:TCell."@en .
 
 cell:templateShape rdf:type owl:ObjectProperty ;
     rdfs:domain cell:TCell ;
@@ -123,7 +130,7 @@ cell:ACell rdf:type owl:Class ;
     cell:abstract true ;
     rdfs:subClassOf cell:Cell ;
     rdfs:label "Actual Cell"@en ;
-    rdfs:comment "The actual/instantiated facet of a cell:Cell — real, member-classified content, as opposed to reusable template content (cell:TCell). Carries cell:memberCount (and is further specialized by member count into cell:OneMember and cell:MultiMember — see Cell Member Composition below), cell:creator (required, exactly one value), cell:memberTopics (required, one or more topic:SCTopicGraph containers backing the cell's content — one per member in the relationship, cardinality enforced per member count), cell:otherTopics (at most one additional topic:SCTopicGraph container beyond that baseline), and cell:shape. Who or what the cell's relationship is about is not a stored fact — it is derivable directly from cell:memberTopics/cell:otherTopics: the sole cell:otherTopics topic's own subject if one is linked, else the full set of distinct subjects among cell:memberTopics (see cell:otherTopics's own comment). Every concrete member-count class (cell:OneMember, cell:TwoMember, cell:ThreePlusMember) is a subclass of cell:ACell, not cell:Cell directly — so an ordinary instantiated cell is typed through its member class alone, and only a cell that is also a template (see cell-templates.ttl) needs cell:TCell added explicitly. Every cell:Cell individual is always also typed cell:ACell — there is no bare tree-position-only cell:Cell with no member content: even a purely organizational category cell with nothing substantive to say carries a minimal stub cell:memberTopics entry (claimed by and about cell:creator's own :Self) rather than omitting member content altogether."@en .
+    rdfs:comment "An actual cell instantiated in a user's own tree — real, member-classified content, as opposed to a reusable class-level template (cell:TCell). Carries cell:memberCount (and is further specialized by member count into cell:OneMember and cell:MultiMember — see Cell Member Composition below), cell:creator (required, exactly one value), cell:memberTopics (required, one or more topic:SCTopicGraph containers backing the cell's content — one per member in the relationship, cardinality enforced per member count), cell:otherTopics (at most one additional topic:SCTopicGraph container beyond that baseline), and cell:shape. Who or what the cell's relationship is about is not a stored fact — it is derivable directly from cell:memberTopics/cell:otherTopics: the sole cell:otherTopics topic's own subject if one is linked, else the full set of distinct subjects among cell:memberTopics (see cell:otherTopics's own comment). Every concrete member-count class (cell:OneMember, cell:TwoMember, cell:ThreePlusMember) is a subclass of cell:ACell, not cell:Cell directly. Disjoint with cell:TCell (see cell:TCell's own comment): every cell:Cell individual in a user's own tree is typed cell:ACell, never cell:TCell, which is reserved for the reusable templates in cell-templates.ttl. Even a purely organizational cell with nothing substantive to say carries a minimal stub cell:memberTopics entry (claimed by and about cell:creator's own :Self) rather than omitting member content altogether."@en .
 
 cell:shape rdf:type owl:ObjectProperty ;
     rdfs:domain cell:ACell ;
