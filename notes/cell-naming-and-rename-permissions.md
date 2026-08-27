@@ -33,3 +33,13 @@ A cell's own name (its folder name / `title:` / databook filename root) is part 
 Mia adopts the **egalitarian** model: any member of a cell can rename it, matching **Slack**'s and **Notion**'s default behavior, rather than restricting the action to the cell's creator the way **Microsoft Teams**, **Discord**, and **GitHub** do by default. This keeps renaming consistent with how every other cell-content operation already works in Mia, rather than introducing a privilege tier that exists nowhere else in the model.
 
 See README.md's "Cell Naming, Renaming, and Sharing" section for the documented behavior this decision produced.
+
+## Follow-on: the `c:TwoMember` exception
+
+Applying the egalitarian, single-shared-name model uniformly to every cell — including a two-member cell — turned out to contradict a piece of behavior the model already had: on first receipt of a `c:TwoMember` cell, the recipient's app deliberately does *not* adopt the creator's own name; it auto-generates a name from the recipient's own side instead, precisely because the creator's name is "naturally centered on their own perspective" and would be a poor fit for the recipient. If renames still propagated to everyone after that first-receipt divergence, the very next rename on either side would silently overwrite the other member's perspective-fit name, defeating the reason the divergence exists at all.
+
+The two-member case is different in kind from the group case this note otherwise covers: a `c:ThreePlusMember` cell is a genuine shared group identity, like a Slack channel, with no single "other side" to name from — the egalitarian shared-name model fits it cleanly, same as Slack/Notion/Trello. A `c:TwoMember` cell, by contrast, is an asymmetric dyad — each member's name for it naturally reflects their own view of the *other* party, and there's no one name that correctly fits both perspectives simultaneously. That's the same reasoning the model already applied, just once, at first receipt; the fix generalizes it.
+
+**Decision:** for `c:TwoMember` cells only, the name is not shared/synced content at all — each member is independently responsible for the name on their own side, in both directions, for the life of the cell. The creator's own name is whatever they set it to; the recipient's starts from the existing first-receipt auto-generated name; either may be freely renamed afterward, but a rename never propagates to the other member's copy. `c:OneMember` and `c:ThreePlusMember` cells are unaffected and keep the egalitarian shared-name model described above.
+
+See README.md's "Cell Naming, Renaming, and Sharing" section (the "Exception: `c:TwoMember` cells" paragraph) for the documented behavior this decision produced.
