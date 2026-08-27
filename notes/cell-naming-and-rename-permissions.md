@@ -2,7 +2,7 @@
 
 ## Overview
 
-When Mia's cell-sharing docs were changed to make a cell's own name (its folder name / `title:` / databook filename root) part of the cell's synced, shared content — rather than a purely local, per-member choice — a follow-on question surfaced: once a name is shared and propagated to every member, *who* is allowed to trigger a rename? Other collaboration systems that share a single canonical name across members split roughly into two camps: **egalitarian** (any member can rename) and **privileged** (only a creator/owner/admin role can). This note captures the comparison used to decide which camp Mia's cell model belongs in.
+A cell's own name (its folder name / `title:` / databook filename root) is part of the cell's synced, shared content, not a purely local, per-member choice. That raises a natural question: since the name is shared and propagated to every member, *who* is allowed to trigger a rename? Other collaboration systems that share a single canonical name across members split roughly into two camps: **egalitarian** (any member can rename) and **privileged** (only a creator/owner/admin role can). This note captures the comparison used to decide which camp Mia's cell model belongs in.
 
 ---
 
@@ -23,7 +23,7 @@ When Mia's cell-sharing docs were changed to make a cell's own name (its folder 
 
 ## Observations
 
-- Mia's cell, after making its own name part of the synced content, sits with the **single-shared-name** group (Slack, Notion, Trello, Teams, Discord, GitHub) — not the **local-alias** group (Dropbox, Google Drive shortcuts, local-sync tools). This is a deliberate departure from Mia's own prior design, which was closer to Dropbox's model (rename affects only your own view).
+- Mia's cell sits with the **single-shared-name** group (Slack, Notion, Trello, Teams, Discord, GitHub) — not the **local-alias** group (Dropbox, Google Drive shortcuts, local-sync tools).
 - Within the single-shared-name group, the *who can rename* axis splits cleanly: Slack, Notion, Trello, and WhatsApp/Signal default to **egalitarian** (any member/editor); Teams, Discord, and GitHub default to **privileged** (owner/admin-role only).
 - The privileged systems are guarding against a specific cost: once a rename is shared, it ripples to every other member's view. Restricting who can trigger that ripple limits how disruptive one member's unilateral action can be to everyone else.
 - Mia's cell model, however, has no privileged creator/admin tier for any other content action — README's Write Permissions section already makes notes, files, and chat freely editable by anyone in the cell. Introducing a creator-only restriction *just* for renaming would be a new asymmetry with no precedent elsewhere in the model.
