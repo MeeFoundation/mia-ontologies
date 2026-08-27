@@ -12,8 +12,8 @@
 @base <http://mee.foundation/ontologies/cell> .
 
 <http://mee.foundation/ontologies/cell> rdf:type owl:Ontology ;
-    owl:versionIRI <http://mee.foundation/ontologies/cell/3.33.0> ;
-    dc:date "2026-08-24"^^xsd:date ;
+    owl:versionIRI <http://mee.foundation/ontologies/cell/3.34.0> ;
+    dc:date "2026-08-26"^^xsd:date ;
     owl:imports <http://mee.foundation/ontologies/topic> ;
     rdfs:label "Cell Ontology"@en ;
     rdfs:comment """Cell Ontology for the Mee Identity Agent. A cell is the atomic unit of the user's tree: a filesystem folder holding exactly one cell-databook file, folder and file together forming one tree node. Defines cell:Cell — the self-contained content facet of a cell, carried by that cell-databook file's own triples. cell:Cell stores no property recording the cell's own tree position: that position is simply whichever folder the cell-databook currently lives in, not a fact this RDF individual needs to carry. cell:Cell splits into two disjoint kinds: cell:TCell (a reusable, class-level template) and cell:ACell (an actual cell instantiated in a user's own tree) — a cell is always exactly one of the two, never both."""@en .
@@ -273,6 +273,22 @@ cell:otherTopics rdf:type owl:ObjectProperty ;
 #    PKM tools handle non-Markdown files natively, so there is no need
 #    for a second, notes-only hierarchy kept separate from arbitrary
 #    files.
+#
+#    A folder note's Markdown content may link to any other note
+#    anywhere in the user's own tree of cells, not just within its own
+#    cell's folder — the same vault-wide linking a PKM tool like
+#    Obsidian supports. When a cell is shared, the note's own text
+#    (including any links it contains) travels with it like any other
+#    cell content, but a link's target does not: if that target lies
+#    outside this cell's own boundary (i.e. it isn't part of this
+#    cell's own Files-tab content or its own folder note), the
+#    recipient's tree may not contain that other cell at all, or may
+#    organize it completely differently, so the link simply won't
+#    resolve on their side. This is an accepted limitation of
+#    cross-cell linking, not a defect — nothing in this ontology
+#    tracks link targets or attempts to keep them resolvable across a
+#    share, consistent with the "no ontology property" treatment of
+#    the folder note itself above.
 #################################################################
 
 cell:origin rdf:type owl:ObjectProperty ;
