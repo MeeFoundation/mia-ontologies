@@ -2,7 +2,7 @@
 
 ## Overview
 
-Mia is a strict superset of Apple Contacts in every dimension. This means importing from Apple Contacts into Mia is straightforward, but exporting from Mia back to Apple Contacts requires explicit design decisions. Round-tripping losslessly is achievable but requires an anchor strategy (see below).
+Cellula is a strict superset of Apple Contacts in every dimension. This means importing from Apple Contacts into the app is straightforward, but exporting from the app back to Apple Contacts requires explicit design decisions. Round-tripping losslessly is achievable but requires an anchor strategy (see below).
 
 There are two levels to address:
 
@@ -12,15 +12,15 @@ There are two levels to address:
 
 Apple Contacts' core design assumption is **one card per person**, with all topics flattened into it. vCard accommodates multiple topics by allowing optional labels on repeatable fields — a person can have two email addresses, one labeled `work` and one labeled `home`. This is vCard's mechanism for expressing topic.
 
-Mia follows the same design assumption. When exporting a person to Apple Contacts, **all N Mia topics for that person are merged into a single vCard**. Each field value carries the label from the topic it came from (e.g. a phone number from a work topic gets the `work` label). If two different work topics both contribute a phone number, the vCard will have two `work` phone numbers — this is correct and consistent with how vCard works.
+The app follows the same design assumption. When exporting a person to Apple Contacts, **all N of that person's topics are merged into a single vCard**. Each field value carries the label from the topic it came from (e.g. a phone number from a work topic gets the `work` label). If two different work topics both contribute a phone number, the vCard will have two `work` phone numbers — this is correct and consistent with how vCard works.
 
-**Import (Apple Contacts → Mia):** each contact record becomes a topic DataBook. All standard vCard fields have direct counterparts in the persona ontology: names, phone numbers, email addresses, postal addresses, organization, job title, birthday, anniversary, photo, notes, social profiles, URLs, related names.
+**Import (Apple Contacts → the app):** each contact record becomes a topic DataBook. All standard vCard fields have direct counterparts in the persona ontology: names, phone numbers, email addresses, postal addresses, organization, job title, birthday, anniversary, photo, notes, social profiles, URLs, related names.
 
-**Export (Mia → Apple Contacts):** merge all topics for the person into a single vCard. Map each field's Mia topic (work, personal, family, etc.) to the corresponding vCard label. Multiple values under the same label are permitted and expected.
+**Export (the app → Apple Contacts):** merge all topics for the person into a single vCard. Map each field's topic (work, personal, family, etc.) to the corresponding vCard label. Multiple values under the same label are permitted and expected.
 
 ### vCard label constraints
 
-**Number of values:** the vCard spec (RFC 6350) imposes no maximum on repeatable properties — `TEL`, `EMAIL`, `ADR` etc. can appear as many times as needed. Apple Contacts also imposes no hard cap in its data model. A person with phone numbers across many Mia topics will export cleanly regardless of count.
+**Number of values:** the vCard spec (RFC 6350) imposes no maximum on repeatable properties — `TEL`, `EMAIL`, `ADR` etc. can appear as many times as needed. Apple Contacts also imposes no hard cap in its data model. A person with phone numbers across many topics will export cleanly regardless of count.
 
 **Label string length:** vCard's `TYPE` parameter supports predefined types (`work`, `home`, `cell`, etc.) and custom types, stored with an `X-` prefix in vCard 3.0 (e.g. `TYPE=X-Acme-Corp`) or as free strings in vCard 4.0. The vCard spec sets no maximum length for `TYPE` values. However, Apple Contacts has an undocumented practical limit on how much of a custom label it displays in the UI — long labels (e.g. `"Boston Hub Society"`, `"California DMV"`) may be truncated visually even though the full string is preserved in the underlying vCard data. Round-trip fidelity of the data is unaffected; this is purely a display concern.
 
@@ -30,13 +30,13 @@ This display truncation limit is not publicly documented by Apple and likely var
 
 ## Level 2: Groups ↔ c:UserDefined Categories
 
-Apple Contacts groups are **flat** (one level only) and untyped. Mia's category tree is hierarchical and typed (`c:TwoMember`, `c:MultiMember`, `c:UserDefined`, etc.).
+Apple Contacts groups are **flat** (one level only) and untyped. The app's category tree is hierarchical and typed (`c:TwoMember`, `c:MultiMember`, `c:UserDefined`, etc.).
 
-**Import (Apple Contacts → Mia):** each Apple group becomes a leaf-level `c:TwoMember` or `c:UserDefined` category. No hierarchy is lost since Apple groups have none.
+**Import (Apple Contacts → the app):** each Apple group becomes a leaf-level `c:TwoMember` or `c:UserDefined` category. No hierarchy is lost since Apple groups have none.
 
-**Export (Mia → Apple Contacts):** the hierarchy must be flattened. Two options:
+**Export (the app → Apple Contacts):** the hierarchy must be flattened. Two options:
 
-1. **Path encoding**: encode the hierarchy in the Apple group name using a separator, e.g. Mia category `People > Family` becomes Apple group `"People/Family"`. Survives the round-trip — on re-import, parse the separator to restore the tree.
+1. **Path encoding**: encode the hierarchy in the Apple group name using a separator, e.g. category `People > Family` becomes Apple group `"People/Family"`. Survives the round-trip — on re-import, parse the separator to restore the tree.
 2. **Leaf-only sync**: export only leaf-level categories and discard the hierarchy. Simpler but lossy — the hierarchy cannot be restored on re-import.
 
 Path encoding is recommended if lossless round-tripping is required.
@@ -45,10 +45,10 @@ Path encoding is recommended if lossless round-tripping is required.
 
 ## Anchor Strategy (Key to Losslessness)
 
-vCard supports custom extension fields (`X-` prefix). Storing Mia IRIs in these fields lets Mia re-identify records on re-import without duplication or drift:
+vCard supports custom extension fields (`X-` prefix). Storing app IRIs in these fields lets the app re-identify records on re-import without duplication or drift:
 
-- `X-MIA-PERSON-IRI` on a contact record — points to the Mia `p:Person` individual IRI
-- `X-MIA-CATEGORY-IRI` on a group — points to the Mia category DataBook IRI
+- `X-CELLULA-PERSON-IRI` on a contact record — points to the `p:Person` individual IRI
+- `X-CELLULA-CATEGORY-IRI` on a group — points to the category DataBook IRI
 
 These fields are ignored by Apple Contacts and other vCard consumers but survive export/import cycles, making true lossless round-tripping achievable.
 
@@ -58,7 +58,7 @@ These fields are ignored by Apple Contacts and other vCard consumers but survive
 
 | Dimension | Import | Export | Lossless? |
 |-----------|--------|--------|-----------|
-| Contact fields | Direct field mapping | Merge all topics into one vCard | Yes, with `X-MIA-PERSON-IRI` anchor |
+| Contact fields | Direct field mapping | Merge all topics into one vCard | Yes, with `X-CELLULA-PERSON-IRI` anchor |
 | Multiple topics per person | Each → separate DataBook | Flatten to single vCard; multiple values per label are correct | Yes |
 | Group hierarchy | Flat → leaf categories | Encode as path in group name | Yes, with path encoding |
-| Mia-specific metadata | Stored in topic DataBook | Store IRI in `X-MIA-*` vCard field | Yes, with anchor fields |
+| App-specific metadata | Stored in topic DataBook | Store IRI in `X-CELLULA-*` vCard field | Yes, with anchor fields |

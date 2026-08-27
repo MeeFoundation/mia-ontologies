@@ -9,8 +9,8 @@
 
 <http://mee.foundation/ontologies/persona-templates> rdf:type owl:Ontology ;
     owl:imports <http://mee.foundation/ontologies/dron-upper-subset> ;
-    dc:date "2026-08-23"^^xsd:date ;
-    owl:versionInfo "Version 2.8.0 - removed the deprecated government-ID/date designator classes (DriversLicenseNumber, PassportNumber, PlaceOfBirth, IssuingJurisdiction, IssuingCountry, IssueDate) outright, confirmed no downstream databooks reference them; the owl:deprecated + rdfs:seeAlso alias block for the cco: ent IRI migration is no longer needed."@en ;
+    dc:date "2026-08-27"^^xsd:date ;
+    owl:versionInfo "Version 2.9.0 - reworded a comment to say 'the app' rather than naming the app directly."@en ;
     persona:usesDrOnClass <http://purl.obolibrary.org/obo/DRON_00000074> ,  # drug product
                     <http://purl.obolibrary.org/obo/DRON_00000028> ,  # active ingredient (role)
                     <http://purl.obolibrary.org/obo/DRON_00000022> ,  # drug tablet
@@ -392,7 +392,7 @@ persona:MedicalAppointmentRecord rdf:type owl:Class ;
                     individual directly. Any referenced third party (e.g. the patient, their
                     primary care physician) must have their relevant claims copied into this
                     topic, since each topic's named graph must be self-contained for p2p
-                    sync between the coordinating members' Mia instances. Used as the value
+                    sync between the coordinating members' own instances of the app. Used as the value
                     of topic:template on the topic file's
                     ontology IRI. Selects the SHACL shape :MedicalAppointmentRecordShape in
                     cell-templates-shacl.ttl, linked from cat:MedicalAppointmentInfo's template

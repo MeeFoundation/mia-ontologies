@@ -35,7 +35,7 @@ mia:
 
 #### Overview
 
-This topic captures Alice Walker's financial relationship with Citibank. Citibank is a PDN Organization node which directly claims the information about Alice in this topic. The information in this topic has been transmitted from the Citibank PDN node to Alice's Mia. It includes a VISA debit card linked to a checking account, plus an online service account for online.citi.com. Citibank is the claimant.
+This topic captures Alice Walker's financial relationship with Citibank. Citibank is a PDN Organization node which directly claims the information about Alice in this topic. The information in this topic has been transmitted from the Citibank PDN node to Alice's own instance of the app. It includes a VISA debit card linked to a checking account, plus an online service account for online.citi.com. Citibank is the claimant.
 
 #### Topic Graph
 

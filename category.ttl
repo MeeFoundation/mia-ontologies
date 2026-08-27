@@ -9,8 +9,8 @@
 @base <http://mee.foundation/ontologies/category> .
 
 <http://mee.foundation/ontologies/category> rdf:type owl:Ontology ;
-    owl:versionIRI <http://mee.foundation/ontologies/category/1.44.0> ;
-    dc:date "2026-08-24"^^xsd:date ;
+    owl:versionIRI <http://mee.foundation/ontologies/category/1.45.0> ;
+    dc:date "2026-08-27"^^xsd:date ;
     owl:imports <http://mee.foundation/ontologies/cell> ;
     owl:imports <http://mee.foundation/ontologies/cell-templates> ;
     rdfs:label "Category Ontology"@en ;
@@ -25,7 +25,7 @@ cat:templateCell rdf:type owl:AnnotationProperty ;
     rdfs:domain owl:Class ;
     rdfs:range cell:TCell ;
     rdfs:label "templateCell"@en ;
-    rdfs:comment "Links a cat:Category subclass (e.g. cat:Passport) directly to the cell:TCell individual that serves as its canonical template content — the one Mia clones into a new cell when a folder representing that class is first instantiated into a user's tree (see README's Lazy Instantiation). Declared as an owl:AnnotationProperty rather than an owl:ObjectProperty, mirroring cell:abstract's and cell:label's precedent (cell.ttl) for asserting metadata directly on a class IRI: an annotation assertion carries no OWL DL reasoning weight, so a reasoner (HermiT/Pellet) entails nothing extra from it either way, unlike an object property whose punned use here would be legal but far less precedented in this codebase. Most cat:Category subclasses have no cat:templateCell value at all — this is the expected default, not an omission: Lazy Instantiation simply creates an empty (or no) user cell when the instantiated class has no template. Individuals are declared in the companion file cell-templates.ttl (which category.ttl owl:imports), one per templated class — each typed solely cell:TCell (the template facet this property's range names; cell:TCell and cell:ACell are disjoint, so a template individual is never also typed cell:ACell or cell:OneMember) — also carrying cell:templateShape (cell.ttl) to the SHACL shape(s) in cell-templates-shacl.ttl that describe its expected content."@en .
+    rdfs:comment "Links a cat:Category subclass (e.g. cat:Passport) directly to the cell:TCell individual that serves as its canonical template content — the one the app clones into a new cell when a folder representing that class is first instantiated into a user's tree (see APP-BEHAVIOR.md's Lazy Instantiation). Declared as an owl:AnnotationProperty rather than an owl:ObjectProperty, mirroring cell:abstract's and cell:label's precedent (cell.ttl) for asserting metadata directly on a class IRI: an annotation assertion carries no OWL DL reasoning weight, so a reasoner (HermiT/Pellet) entails nothing extra from it either way, unlike an object property whose punned use here would be legal but far less precedented in this codebase. Most cat:Category subclasses have no cat:templateCell value at all — this is the expected default, not an omission: Lazy Instantiation simply creates an empty (or no) user cell when the instantiated class has no template. Individuals are declared in the companion file cell-templates.ttl (which category.ttl owl:imports), one per templated class — each typed solely cell:TCell (the template facet this property's range names; cell:TCell and cell:ACell are disjoint, so a template individual is never also typed cell:ACell or cell:OneMember) — also carrying cell:templateShape (cell.ttl) to the SHACL shape(s) in cell-templates-shacl.ttl that describe its expected content."@en .
 
 
 #################################################################

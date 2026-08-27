@@ -42,7 +42,7 @@ mia:
 
 #### Overview
 
-This topic captures Paula Walker's self-claimed family persona as transmitted from Paula's Mia to Alice's Mia over the PDN. Paula is the claimant.
+This topic captures Paula Walker's self-claimed family persona as transmitted from Paula's own instance of the app to Alice's over the PDN. Paula is the claimant.
 
 #### Topic Graph
 

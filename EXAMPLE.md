@@ -1,10 +1,10 @@
-# Mia Ontologies — Illustrative Example
+# Cellula Ontologies — Illustrative Example
 
-This file continues [README.md](README.md), which describes the Category, Cell, Topic, Persona, and Organization ontologies. It provides an illustrative example — a hypothetical Mia user, Alice Walker — showing how those ontologies are used together, followed by diagram-generation instructions and the full validation pipeline for the example dataset. 
+This file continues [README.md](README.md), which describes the Category, Cell, Topic, Persona, and Organization ontologies, and is continued by [APP-BEHAVIOR.md](APP-BEHAVIOR.md), which documents how the app behaves on top of this data. It provides an illustrative example — a hypothetical user, Alice Walker — showing how those ontologies are used together, followed by diagram-generation instructions and the full validation pipeline for the example dataset. 
 
 ## Illustrative Example: Alice 
 
-This section describes the local Mia dataset for a hypothetical user, Alice Walker. Alice's cells — each a folder holding exactly one cell DataBook file — live in a tree of cells rooted at `example/Cells/`. Every mention of "Self" in the following is a reference to the user, Alice.
+This section describes the local dataset for a hypothetical user, Alice Walker. Alice's cells — each a folder holding exactly one cell DataBook file — live in a tree of cells rooted at `example/Cells/`. Every mention of "Self" in the following is a reference to the user, Alice.
 
 ### Bob and Fred
 
@@ -22,7 +22,7 @@ Alice spends time taking care of her mother, so she has, by herself assembled so
 
 Under *Medical* > *Providers* > *Primary Care Physician*, Alice keeps a record of Dr. Jane Starostina, Paula's primary care physician ([topic 25](<example/Cells/People/Immediate Family/Paula Walker/Health & Wellness/Medical/Providers/Jane Starostina/Jane Starostina(primary-care-physician).databook.md#topic-25>)). This is a *Single-Member* cell whose subject is Jane.
 
-Alice's sister Carol is involved in taking care of their mother. The sisters need to arrange medical appointments, etc. To do so, they need to share and synchronize medical information about Paula, including her list of medications, medical history, health insurance policy, contact information and so on. To work on this as a team, Alice creates a two-member *Med. App. Info* cell and shares it with Carol. They both use it to share information about Paula's upcoming medical appointment ([topic 26](<example/Cells/People/Immediate Family/Paula Walker/Health & Wellness/Medical/Providers/Med. App. Info/Med. App. Info(medical-appointment-info).databook.md#topic-26>)). This topic includes the name of Paula's doctor (primary care physician) which Mia copies from the Dr. Jane Starostina cell ([topic 25](<example/Cells/People/Immediate Family/Paula Walker/Health & Wellness/Medical/Providers/Jane Starostina/Jane Starostina(primary-care-physician).databook.md#topic-25>)). 
+Alice's sister Carol is involved in taking care of their mother. The sisters need to arrange medical appointments, etc. To do so, they need to share and synchronize medical information about Paula, including her list of medications, medical history, health insurance policy, contact information and so on. To work on this as a team, Alice creates a two-member *Med. App. Info* cell and shares it with Carol. They both use it to share information about Paula's upcoming medical appointment ([topic 26](<example/Cells/People/Immediate Family/Paula Walker/Health & Wellness/Medical/Providers/Med. App. Info/Med. App. Info(medical-appointment-info).databook.md#topic-26>)). This topic includes the name of Paula's doctor (primary care physician) which the app copies from the Dr. Jane Starostina cell ([topic 25](<example/Cells/People/Immediate Family/Paula Walker/Health & Wellness/Medical/Providers/Jane Starostina/Jane Starostina(primary-care-physician).databook.md#topic-25>)). 
 
 <p align="center"><img src="example/images/people2.png" alt="People cells, continued — Immediate Family, Paula Walker, and her Health & Wellness, Medical, and Providers cells"></p>
 
@@ -92,9 +92,7 @@ Alice also has a cat, Ginger. Under her *Pets* cell she has created a *Ginger* c
 
 <p align="center"><img src="example/images/pets.png" alt="Pets cells"></p>
 
-Let's imagine that Paula doesn't use the app and the invite link from Alice to [cell 40](<example/Cells/Pets/Ginger/Health/Medications/Medications.databook.md>) causes Paula to click on the link and download/install it. The app receives the cell, but where should to file it on Paul's side? Paula's app examines the cell, looks at its category type "Medications" and makes a good (though not perfect) guess to create the following tree of empty cells: People > Others > Alice > Pets > Ginger > Health and put it as a new child cell of the Health cell.
-
-Ideally it would have filed the cell shared by Alice's app under People > Immediate Family because she is Paula's daughter, but Paula's app didn't know that, so it did the best it could. To perfect things, Paula can create an Immediate Family cell under her People cell and move Alice (and sub-cells) under it.
+When Alice shares this cell with Paula, the app must decide where to file it in Paula's own tree — see APP-BEHAVIOR.md's [Auto-Filing on Receipt](APP-BEHAVIOR.md#auto-filing-on-receipt) for how that filing heuristic works, using this very cell as its worked example.
 
 ### Boston Hub Society
 
@@ -163,7 +161,7 @@ The following table lists topics that are *about* Alice but claimed by others.
 | 8  | [Bob Johnson(others).databook.md](<example/Cells/People/Others/Bob Johnson/Bob Johnson(others).databook.md#topic-08>) {16}                         | `cat:Others`            | Alice as seen by Bob                 | [view](example/topics/images/topic-08.png)|
 | 9 | [Citibank(banking-payments).databook.md](<example/Cells/Finances/Banking & Payments Firms/Citibank/Citibank(banking-payments).databook.md#topic-09>) {4}     | `cat:BankingPayments` | Debit card                           | [view](example/topics/images/topic-09.png) |
 
-The following table lists topics about other people (Paula and Bob) or organizations (Boston Hub Society) in Alice's Mia. As above, each "Cell DataBook" link jumps to that topic's section inside its owning cell-databook file.
+The following table lists topics about other people (Paula and Bob) or organizations (Boston Hub Society) in Alice's own tree. As above, each "Cell DataBook" link jumps to that topic's section inside its owning cell-databook file.
 
 | #  | Cell DataBook                                                                                     | Category | Key data                                                         | Diagram |
 |--- |:-------------------------------------------------------------------------------------------------|:-------------|:-----------------------------------------------------------------|:--------|

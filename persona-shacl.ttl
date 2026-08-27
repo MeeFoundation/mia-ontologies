@@ -11,13 +11,13 @@
 @prefix dc: <http://purl.org/dc/elements/1.1/> .
 
 <http://mee.foundation/ontologies/persona/shapes> rdf:type owl:Ontology ;
-    owl:versionIRI <http://mee.foundation/ontologies/persona/shapes/4.5.0> ;
-    dc:date "2026-08-23"^^xsd:date ;
-    rdfs:label "Mee Identity Agent (MIA)'s SHACL Validation Shapes"@en ;
-    rdfs:comment """SHACL validation shapes for the Mee Identity Agent.
+    owl:versionIRI <http://mee.foundation/ontologies/persona/shapes/4.6.0> ;
+    dc:date "2026-08-27"^^xsd:date ;
+    rdfs:label "Cellula's SHACL Validation Shapes"@en ;
+    rdfs:comment """SHACL validation shapes for Cellula, an identity agent application from Mee.
 
                     Architecture: named-graph topics — each topic file contains exactly one
-                    persona:Person individual. The Mia user's individual uses the IRI :Self across
+                    persona:Person individual. The user's individual uses the IRI :Self across
                     all of their topic files; other people use locally-assigned named IRIs.
                     PersonShape targets all persona:Person individuals across all topic files.
 

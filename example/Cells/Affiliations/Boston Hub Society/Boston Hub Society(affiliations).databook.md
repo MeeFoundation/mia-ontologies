@@ -71,7 +71,7 @@ This topic captures the Boston Hub Society as an `o:Organization`. In our exampl
 
 #### Overview
 
-This topic captures Bob Johnson's BHS profile as transmitted from Bob's Mia to Alice's Mia over the PDN. It records the name Bob presents to the Boston Hub Society. Bob is the claimant.
+This topic captures Bob Johnson's BHS profile as transmitted from Bob's own instance of the app to Alice's over the PDN. It records the name Bob presents to the Boston Hub Society. Bob is the claimant.
 
 #### Topic Graph
 

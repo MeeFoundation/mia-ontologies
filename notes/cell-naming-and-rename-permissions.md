@@ -2,7 +2,7 @@
 
 ## Overview
 
-A cell's own name (its folder name / `title:` / databook filename root) is part of the cell's synced, shared content, not a purely local, per-member choice. That raises a natural question: since the name is shared and propagated to every member, *who* is allowed to trigger a rename? Other collaboration systems that share a single canonical name across members split roughly into two camps: **egalitarian** (any member can rename) and **privileged** (only a creator/owner/admin role can). This note captures the comparison used to decide which camp Mia's cell model belongs in.
+A cell's own name (its folder name / `title:` / databook filename root) is part of the cell's synced, shared content, not a purely local, per-member choice. That raises a natural question: since the name is shared and propagated to every member, *who* is allowed to trigger a rename? Other collaboration systems that share a single canonical name across members split roughly into two camps: **egalitarian** (any member can rename) and **privileged** (only a creator/owner/admin role can). This note captures the comparison used to decide which camp the app's cell model belongs in.
 
 ---
 
@@ -23,16 +23,16 @@ A cell's own name (its folder name / `title:` / databook filename root) is part 
 
 ## Observations
 
-- Mia's cell sits with the **single-shared-name** group (Slack, Notion, Trello, Teams, Discord, GitHub) — not the **local-alias** group (Dropbox, Google Drive shortcuts, local-sync tools).
+- The app's cell sits with the **single-shared-name** group (Slack, Notion, Trello, Teams, Discord, GitHub) — not the **local-alias** group (Dropbox, Google Drive shortcuts, local-sync tools).
 - Within the single-shared-name group, the *who can rename* axis splits cleanly: Slack, Notion, Trello, and WhatsApp/Signal default to **egalitarian** (any member/editor); Teams, Discord, and GitHub default to **privileged** (owner/admin-role only).
 - The privileged systems are guarding against a specific cost: once a rename is shared, it ripples to every other member's view. Restricting who can trigger that ripple limits how disruptive one member's unilateral action can be to everyone else.
-- Mia's cell model, however, has no privileged creator/admin tier for any other content action — README's Write Permissions section already makes notes, files, and chat freely editable by anyone in the cell. Introducing a creator-only restriction *just* for renaming would be a new asymmetry with no precedent elsewhere in the model.
+- The app's cell model, however, has no privileged creator/admin tier for any other content action — APP-BEHAVIOR.md's Write Permissions section already makes notes, files, and chat freely editable by anyone in the cell. Introducing a creator-only restriction *just* for renaming would be a new asymmetry with no precedent elsewhere in the model.
 
 ## Decision
 
-Mia adopts the **egalitarian** model: any member of a cell can rename it, matching **Slack**'s and **Notion**'s default behavior, rather than restricting the action to the cell's creator the way **Microsoft Teams**, **Discord**, and **GitHub** do by default. This keeps renaming consistent with how every other cell-content operation already works in Mia, rather than introducing a privilege tier that exists nowhere else in the model.
+The app adopts the **egalitarian** model: any member of a cell can rename it, matching **Slack**'s and **Notion**'s default behavior, rather than restricting the action to the cell's creator the way **Microsoft Teams**, **Discord**, and **GitHub** do by default. This keeps renaming consistent with how every other cell-content operation already works in the app, rather than introducing a privilege tier that exists nowhere else in the model.
 
-See README.md's "Cell Naming, Renaming, and Sharing" section for the documented behavior this decision produced.
+See APP-BEHAVIOR.md's "Naming, Renaming, and Sharing" section (under Cell Management) for the documented behavior this decision produced.
 
 ## Follow-on: the `c:TwoMember` exception
 
@@ -42,4 +42,4 @@ The two-member case is different in kind from the group case this note otherwise
 
 **Decision:** for `c:TwoMember` cells only, the name is not shared/synced content at all — each member is independently responsible for the name on their own side, in both directions, for the life of the cell. The creator's own name is whatever they set it to; the recipient's starts from the existing first-receipt auto-generated name; either may be freely renamed afterward, but a rename never propagates to the other member's copy. `c:OneMember` and `c:ThreePlusMember` cells are unaffected and keep the egalitarian shared-name model described above.
 
-See README.md's "Cell Naming, Renaming, and Sharing" section (the "Exception: `c:TwoMember` cells" paragraph) for the documented behavior this decision produced.
+See APP-BEHAVIOR.md's "Naming, Renaming, and Sharing" section (under Cell Management; the "Exception: `c:TwoMember` cells" paragraph) for the documented behavior this decision produced.
