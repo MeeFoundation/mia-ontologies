@@ -9,7 +9,7 @@
 @base <http://mee.foundation/ontologies/category> .
 
 <http://mee.foundation/ontologies/category> rdf:type owl:Ontology ;
-    owl:versionIRI <http://mee.foundation/ontologies/category/1.45.0> ;
+    owl:versionIRI <http://mee.foundation/ontologies/category/1.50.0> ;
     dc:date "2026-08-27"^^xsd:date ;
     owl:imports <http://mee.foundation/ontologies/cell> ;
     owl:imports <http://mee.foundation/ontologies/cell-templates> ;
@@ -105,7 +105,7 @@ cat:Others rdf:type owl:Class ;
 cat:Work rdf:type owl:Class ;
     rdfs:subClassOf cat:Person ;
     rdfs:label "Work"@en ;
-    rdfs:comment "Professional roles. Employment history, resume/CV."@en .
+    rdfs:comment "Professional roles. Employment history, resume/CV, job level, job function, industry."@en .
 
 
 #################################################################
@@ -164,7 +164,7 @@ cat:Advisory rdf:type owl:Class ;
 cat:HealthWellness rdf:type owl:Class ;
     rdfs:subClassOf cat:Person ;
     rdfs:label "Health & Wellness"@en ;
-    rdfs:comment "Personal health and wellness information. Medical history, allergies, medications, vaccinations, prescriptions, eyeglasses."@en .
+    rdfs:comment "Personal health and wellness information. Medical history, allergies, medications, vaccinations, prescriptions, eyeglasses, ethnicity, gender, age."@en .
 
 cat:Medical rdf:type owl:Class ;
     rdfs:subClassOf cat:HealthWellness ;
@@ -181,21 +181,21 @@ cat:MedicalInsurance rdf:type owl:Class ;
     rdfs:label "Insurance"@en ;
     rdfs:comment "Medical health insurance policies, providers, and coverage."@en .
 
-cat:MedicalProviders rdf:type owl:Class ;
+cat:MedicalProvider rdf:type owl:Class ;
     rdfs:subClassOf cat:Medical ;
-    rdfs:label "Providers"@en ;
+    rdfs:label "Provider"@en ;
     rdfs:comment "Medical providers and practices you see for care."@en .
 
 cat:PrimaryCarePhysician rdf:type owl:Class ;
-    rdfs:subClassOf cat:MedicalProviders ;
+    rdfs:subClassOf cat:MedicalProvider ;
     rdfs:label "Primary Care Physician"@en ;
-    rdfs:comment "Your primary care doctor, the physician you generally see first for checkups, referrals, and everyday health concerns."@en .
+    rdfs:comment "Your primary care doctor, the physician you generally see first for checkups, referrals, and everyday health concerns, including name, contact information, and the name of the provider they are associated with."@en .
 
-cat:MedicalAppointmentInfo rdf:type owl:Class ;
-    rdfs:subClassOf cat:MedicalProviders ;
-    rdfs:label "Medical Appointment Info"@en ;
-    rdfs:comment "A medical appointment you're helping arrange on behalf of someone else."@en ;
-    cat:templateCell ctpl:MedicalAppointmentInfoTemplateCell .
+cat:MedicalAppointment rdf:type owl:Class ;
+    rdfs:subClassOf cat:MedicalProvider ;
+    rdfs:label "Medical Appointment"@en ;
+    rdfs:comment "A medical appointment and associated information required by the provider to arrange this appointment."@en ;
+    cat:templateCell ctpl:MedicalAppointmentTemplateCell .
 
 cat:Dental rdf:type owl:Class ;
     rdfs:subClassOf cat:HealthWellness ;
@@ -212,10 +212,20 @@ cat:DentalInsurance rdf:type owl:Class ;
     rdfs:label "Insurance"@en ;
     rdfs:comment "Dental insurance policies, providers, and coverage."@en .
 
-cat:DentalProviders rdf:type owl:Class ;
+cat:DentalProvider rdf:type owl:Class ;
     rdfs:subClassOf cat:Dental ;
-    rdfs:label "Providers"@en ;
+    rdfs:label "Provider"@en ;
     rdfs:comment "Dental providers and practices you see for care."@en .
+
+cat:Dentist rdf:type owl:Class ;
+    rdfs:subClassOf cat:DentalProvider ;
+    rdfs:label "Dentist"@en ;
+    rdfs:comment "A dentist you see for care, including name, contact information, and the name of the provider they are associated with."@en .
+
+cat:DentalAppointment rdf:type owl:Class ;
+    rdfs:subClassOf cat:DentalProvider ;
+    rdfs:label "Dental Appointment"@en ;
+    rdfs:comment "A dental appointment and associated information required by the provider to arrange this appointment."@en .
 
 cat:Vision rdf:type owl:Class ;
     rdfs:subClassOf cat:HealthWellness ;
@@ -232,20 +242,35 @@ cat:VisionInsurance rdf:type owl:Class ;
     rdfs:label "Insurance"@en ;
     rdfs:comment "Vision insurance policies, providers, and coverage."@en .
 
-cat:VisionProviders rdf:type owl:Class ;
+cat:VisionProvider rdf:type owl:Class ;
     rdfs:subClassOf cat:Vision ;
-    rdfs:label "Providers"@en ;
+    rdfs:label "Provider"@en ;
     rdfs:comment "Vision care providers and practices you see for care."@en .
+
+cat:EyeDoctor rdf:type owl:Class ;
+    rdfs:subClassOf cat:VisionProvider ;
+    rdfs:label "Eye Doctor"@en ;
+    rdfs:comment "An eye doctor you see for care, including name, contact information, and the name of the provider they are associated with."@en .
+
+cat:VisionAppointment rdf:type owl:Class ;
+    rdfs:subClassOf cat:VisionProvider ;
+    rdfs:label "Vision Appointment"@en ;
+    rdfs:comment "A vision appointment and associated information required by the provider to arrange this appointment."@en .
 
 cat:Fitness rdf:type owl:Class ;
     rdfs:subClassOf cat:HealthWellness ;
     rdfs:label "Fitness"@en ;
     rdfs:comment "General fitness and preventive physical health — exercise, gyms, trainers, and other non-clinical wellbeing information."@en .
 
-cat:FitnessProviders rdf:type owl:Class ;
+cat:FitnessProvider rdf:type owl:Class ;
     rdfs:subClassOf cat:Fitness ;
-    rdfs:label "Providers"@en ;
+    rdfs:label "Provider"@en ;
     rdfs:comment "Fitness providers and practices you see for care, e.g. gyms, trainers, and coaches."@en .
+
+cat:PersonalTrainer rdf:type owl:Class ;
+    rdfs:subClassOf cat:FitnessProvider ;
+    rdfs:label "Personal Trainer"@en ;
+    rdfs:comment "A personal trainer you see for care, including name, contact information, and the name of the provider they are associated with."@en .
 
 cat:Nutrition rdf:type owl:Class ;
     rdfs:subClassOf cat:HealthWellness ;
@@ -257,9 +282,9 @@ cat:NutritionHistory rdf:type owl:Class ;
     rdfs:label "History"@en ;
     rdfs:comment "Past nutritional consultations, diet plans, and dietary conditions."@en .
 
-cat:NutritionProviders rdf:type owl:Class ;
+cat:NutritionProvider rdf:type owl:Class ;
     rdfs:subClassOf cat:Nutrition ;
-    rdfs:label "Providers"@en ;
+    rdfs:label "Provider"@en ;
     rdfs:comment "Nutritionists and dietitians you see for care."@en .
 
 cat:MentalHealth rdf:type owl:Class ;
@@ -277,10 +302,15 @@ cat:MentalHealthInsurance rdf:type owl:Class ;
     rdfs:label "Insurance"@en ;
     rdfs:comment "Mental health insurance policies, providers, and coverage."@en .
 
-cat:MentalHealthProviders rdf:type owl:Class ;
+cat:MentalHealthProvider rdf:type owl:Class ;
     rdfs:subClassOf cat:MentalHealth ;
-    rdfs:label "Providers"@en ;
+    rdfs:label "Provider"@en ;
     rdfs:comment "Mental health providers and practices you see for care, e.g. therapists, counselors, and psychiatrists."@en .
+
+cat:Therapist rdf:type owl:Class ;
+    rdfs:subClassOf cat:MentalHealthProvider ;
+    rdfs:label "Therapist"@en ;
+    rdfs:comment "A therapist you see for care, including name, contact information, and the name of the provider they are associated with."@en .
 
 cat:PhysicalTherapy rdf:type owl:Class ;
     rdfs:subClassOf cat:HealthWellness ;
@@ -292,10 +322,19 @@ cat:PhysicalTherapyHistory rdf:type owl:Class ;
     rdfs:label "History"@en ;
     rdfs:comment "Past physical therapy treatments, injuries, and rehabilitation plans."@en .
 
-cat:PhysicalTherapyProviders rdf:type owl:Class ;
+cat:PhysicalTherapyProvider rdf:type owl:Class ;
     rdfs:subClassOf cat:PhysicalTherapy ;
-    rdfs:label "Providers"@en ;
+    rdfs:label "Provider"@en ;
     rdfs:comment "Physical therapy providers and practices you see for care."@en .
+
+#################################################################
+#    cat:Personality
+#################################################################
+
+cat:Personality rdf:type owl:Class ;
+    rdfs:subClassOf cat:Person ;
+    rdfs:label "Personality"@en ;
+    rdfs:comment "Self-assessments of personality, temperament, or social style — e.g. Myers-Briggs (MBTI) type, Big Five, DISC, Enneagram, or similar self-assessment instruments."@en .
 
 #################################################################
 #    cat:Events and subclasses
@@ -369,16 +408,16 @@ cat:Information rdf:type owl:Class ;
     rdfs:comment "Information about anything; articles, web links, documents, images. Includes topics that interest and inspire you (e.g. drawing, painting, dancing, religion, gaming, music). See cat:SportsEntertainment for sports and entertainment, and cat:Affiliations for formal memberships tied to a hobby or interest."@en .
 
 #################################################################
-#    cat:Ownership and subclasses
+#    cat:Things and subclasses
 #################################################################
 
-cat:Ownership rdf:type owl:Class ;
+cat:Things rdf:type owl:Class ;
     rdfs:subClassOf cat:Person ;
-    rdfs:label "Ownership"@en ;
+    rdfs:label "Things"@en ;
     rdfs:comment "Owned assets, property, vehicles, and other possessions."@en .
 
 cat:Vehicles rdf:type owl:Class ;
-    rdfs:subClassOf cat:Ownership ;
+    rdfs:subClassOf cat:Things ;
     rdfs:label "Vehicles"@en ;
     rdfs:comment "Related to owning and maintaining a vehicle. Vehicle insurance, repairs, mechanics, garages."@en .
 

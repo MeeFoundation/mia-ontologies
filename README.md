@@ -45,39 +45,46 @@ As we've mentioned, the user is free to create cells not included in the predefi
 
 `cat:Person` categories organize a person's mostly non-employment-related information:
 
-1. **People** (`cat:People`) — people in your social or professional life. Use this category for people not otherwise tied to a specific domain — a bookkeeper you know belongs under Finances (Advisory Firms), and your primary care physician belongs under Health & Wellness (Medical > Providers > Primary Care Physician), rather than here.
+1. **People** (`cat:People`) — people in your social or professional life. Use this category for people not otherwise tied to a specific domain — a bookkeeper you know belongs under Finances (Advisory Firms), and your primary care physician belongs under Health & Wellness (Medical > Provider > Primary Care Physician), rather than here.
     - **Immediate Family** (`cat:ImmediateFamily`) — your closest living relatives, which generally include parents, siblings, spouses/partners, and children.
     - **Extended Family** (`cat:ExtendedFamily`) — relatives outside the immediate nuclear group, such as grandparents, aunts, uncles, cousins, nieces and nephews.
     - **In-Laws / Step-Family** (`cat:InLawsStepFamily`) — relatives gained through marriage or legal guardianship, including a spouse's parents and siblings, or children from a previous relationship.
     - **Others** (`cat:Others`) — people you know socially or professionally who are not part of your family — acquaintances, friends, neighbors, or other connections.
 1. **Affiliations** (`cat:Affiliations`) — a catch-all for clubs, charities, faith groups, and other group affiliations that are not covered by a more specific category (e.g. `cat:SportsEntertainment`, `cat:Food`, etc.) 
-1. **Health & Wellness** (`cat:HealthWellness`) — personal health and wellness information. Medical history, allergies, medications, vaccinations, prescriptions, eyeglasses.
+1. **Health & Wellness** (`cat:HealthWellness`) — personal health and wellness information. Medical history, allergies, medications, vaccinations, prescriptions, eyeglasses, ethnicity, gender, age.
     - **Medical** (`cat:Medical`) — medical (as opposed to dental or vision) care — diagnoses, treatments, providers, and insurance.
         - **History** (`cat:MedicalHistory`) — past diagnoses, conditions, surgeries, and treatments.
         - **Insurance** (`cat:MedicalInsurance`) — medical health insurance policies, providers, and coverage.
-        - **Providers** (`cat:MedicalProviders`) — medical providers and practices you see for care.
-            - **Primary Care Physician** (`cat:PrimaryCarePhysician`) — your primary care doctor, the physician you generally see first for checkups, referrals, and everyday health concerns.
-            - **Medical Appointment Info** (`cat:MedicalAppointmentInfo`) — a medical appointment you're helping arrange on behalf of someone else.
+        - **Provider** (`cat:MedicalProvider`) — medical providers and practices you see for care.
+            - **Primary Care Physician** (`cat:PrimaryCarePhysician`) — your primary care doctor, the physician you generally see first for checkups, referrals, and everyday health concerns, including name, contact information, and the name of the provider they are associated with.
+            - **Medical Appointment** (`cat:MedicalAppointment`) — a medical appointment and associated information required by the provider to arrange this appointment.
     - **Dental** (`cat:Dental`) — dental care — diagnoses, treatments, providers, and insurance.
         - **History** (`cat:DentalHistory`) — past dental treatments, procedures, and conditions.
         - **Insurance** (`cat:DentalInsurance`) — dental insurance policies, providers, and coverage.
-        - **Providers** (`cat:DentalProviders`) — dental providers and practices you see for care.
+        - **Provider** (`cat:DentalProvider`) — dental providers and practices you see for care.
+            - **Dentist** (`cat:Dentist`) — a dentist you see for care, including name, contact information, and the name of the provider they are associated with.
+            - **Dental Appointment** (`cat:DentalAppointment`) — a dental appointment and associated information required by the provider to arrange this appointment.
     - **Vision** (`cat:Vision`) — vision and eye care — diagnoses, treatments, providers, and insurance.
         - **History** (`cat:VisionHistory`) — past eye-care prescriptions, treatments, and conditions.
         - **Insurance** (`cat:VisionInsurance`) — vision insurance policies, providers, and coverage.
-        - **Providers** (`cat:VisionProviders`) — vision care providers and practices you see for care.
+        - **Provider** (`cat:VisionProvider`) — vision care providers and practices you see for care.
+            - **Eye Doctor** (`cat:EyeDoctor`) — an eye doctor you see for care, including name, contact information, and the name of the provider they are associated with.
+            - **Vision Appointment** (`cat:VisionAppointment`) — a vision appointment and associated information required by the provider to arrange this appointment.
     - **Fitness** (`cat:Fitness`) — general fitness and preventive physical health — exercise, gyms, trainers, and other non-clinical wellbeing information.
-        - **Providers** (`cat:FitnessProviders`) — fitness providers and practices you see for care, e.g. gyms, trainers, and coaches.
+        - **Provider** (`cat:FitnessProvider`) — fitness providers and practices you see for care, e.g. gyms, trainers, and coaches.
+            - **Personal Trainer** (`cat:PersonalTrainer`) — a personal trainer you see for care, including name, contact information, and the name of the provider they are associated with.
     - **Nutrition** (`cat:Nutrition`) — nutritionists and dietitians.
         - **History** (`cat:NutritionHistory`) — past nutritional consultations, diet plans, and dietary conditions.
-        - **Providers** (`cat:NutritionProviders`) — nutritionists and dietitians you see for care.
+        - **Provider** (`cat:NutritionProvider`) — nutritionists and dietitians you see for care.
     - **Mental Health** (`cat:MentalHealth`) — mental and behavioral health care.
         - **History** (`cat:MentalHealthHistory`) — past diagnoses, treatments, and mental health conditions.
         - **Insurance** (`cat:MentalHealthInsurance`) — mental health insurance policies, providers, and coverage.
-        - **Providers** (`cat:MentalHealthProviders`) — mental health providers and practices you see for care, e.g. therapists, counselors, and psychiatrists.
+        - **Provider** (`cat:MentalHealthProvider`) — mental health providers and practices you see for care, e.g. therapists, counselors, and psychiatrists.
+            - **Therapist** (`cat:Therapist`) — a therapist you see for care, including name, contact information, and the name of the provider they are associated with.
     - **Physical Therapy** (`cat:PhysicalTherapy`) — physical therapy and rehabilitative care.
         - **History** (`cat:PhysicalTherapyHistory`) — past physical therapy treatments, injuries, and rehabilitation plans.
-        - **Providers** (`cat:PhysicalTherapyProviders`) — physical therapy providers and practices you see for care.
+        - **Provider** (`cat:PhysicalTherapyProvider`) — physical therapy providers and practices you see for care.
+1. **Personality** (`cat:Personality`) — self-assessments of personality, temperament, or social style — e.g. Myers-Briggs (MBTI) type, Big Five, DISC, Enneagram, or similar self-assessment instruments.
 1. **Finances** (`cat:Finances`) — information about personal finances, bookkeeping, budgets, payment cards, bank accounts, brokerage accounts, insurance policies, financial advisors, etc.
     - **Bookkeeping** (`cat:Bookkeeping`) — budgeting, expense tracking, income, debts, IOUs, and savings goals.
     - **Banking & Payments Firms** (`cat:BankingPayments`) — firms that help you store, access, and move your cash for daily living. These include Retail Banks & Credit Unions, which provide checking accounts, savings accounts, and debit cards. These also include Payment Processors like Visa, Mastercard, or PayPal that let you buy things online and in stores, and Remittance Firms like Western Union or Wise used to send money to family or friends, especially overseas.
@@ -92,8 +99,8 @@ As we've mentioned, the user is free to create cells not included in the predefi
         - **Devices** (`cat:PetsDevices`) — medical devices and supplies used in a pet's care, e.g. syringes, nebulizers, and injection solutions.
     - **Food** (`cat:PetsFood`) — a pet's diet, food providers, feeding instructions, and dietary restrictions.
 1. **Home** (`cat:Home`) — owning or renting a home, apartment, or other dwelling. Leases, deeds, utility accounts, real estate brokers.
-1. **Work** (`cat:Work`) — professional roles. Employment history, resume/CV.
-1. **Ownership** (`cat:Ownership`) — owned assets, property, vehicles, and other possessions.
+1. **Work** (`cat:Work`) — professional roles. Employment history, resume/CV, job level, job function, industry.
+1. **Things** (`cat:Things`) — owned assets, property, vehicles, and other possessions.
     - **Vehicles** (`cat:Vehicles`) — related to owning and maintaining a vehicle. Vehicle insurance, repairs, mechanics, garages. 
 1. **Travel** (`cat:Travel`) — travel plans, trips, and related information. Loyalty programs, airlines, bus lines, trains.
 1. **Food** (`cat:Food`) — food preferences, dietary restrictions, favorite restaurants, recipes, shopping lists, and other food-related interests
@@ -167,8 +174,8 @@ A cell may be empty or hold various kinds of information, organized into a set o
   * Some topics are about a member of the cell. When created a cell starts off with one member, the creator.
   * A cell may also have one other topic which can be about anything else (e.g. medications for a cat that the cell members are taking care of).
   * Each topic has a *subject* and a *claimant*. The subject is typically a person or organization, but it could be any other entity the Persona ontology can describe. The claimant is the person or organization that is asserting the values of the claims in the topic.
-* **Notes** tab:
-  * A Markdown document about the cell. It may be blank. It may be linked to any number of other Markdown notes anywhere in the user's own tree of cells, not just within the same cell.
+* **Note** tab:
+  * Exactly one Markdown document about the cell — a cell may never have more than one. It may be blank. It may be linked to any number of other Markdown notes anywhere in the user's own tree of cells, not just within the same cell.
 * **Files** tab:
   * An arbitrary number of files and sub-folders.
 * **Chat** tab:
@@ -194,11 +201,11 @@ A cell is an atomic unit of information that the app manages for the user. This 
 
 <p align="center"><img src="images/cell-ontology/cell.png" alt="Cell hierarchy"></p>
 
-A cell's **files content** — everything shown in the app's **Files tab** for that cell — is every file and plain subfolder found under its own folder, to any depth, except (1) a nested folder that is itself a cell. Such a nested folder is a **descendant cell**: a separate node in the tree of cells, never counted as part of its ancestor's content even though it physically sits inside the ancestor's folder, and (2) Markdown folder notes (and other notes); these are displayed in the **Notes tab** for that cell (not the Files tab).
+A cell's **files content** — everything shown in the app's **Files tab** for that cell — is every file and plain subfolder found under its own folder, to any depth, except (1) a nested folder that is itself a cell. Such a nested folder is a **descendant cell**: a separate node in the tree of cells, never counted as part of its ancestor's content even though it physically sits inside the ancestor's folder, and (2) the cell's own Markdown folder note — exactly one per cell; it is displayed in the **Note tab** for that cell (not the Files tab).
 
 #### Cell Properties
 
-- **`c:origin`** — The `cat:Category` subclass this cell was originally instantiated as, else nil. For one of the four templated classes (`cat:Passport`, `cat:BirthCertificate`, `cat:DriversLicense`, `cat:MedicalAppointmentInfo`), this is literally the class whose `c:TCell` template was cloned into this cell via [Lazy Instantiation](APP-BEHAVIOR.md#lazy-instantiation) (APP-BEHAVIOR.md); for any other cell, it's simply the category the cell was created to represent, asserted directly with no template involved. Either way the value is fixed at that point — it is not re-derived from the folder's current name, so it needs no update if the folder is later renamed or moved elsewhere in the tree. When a cell is shared with another member, the recipient's app can look at this value (if not nil) and use it as a hint as to which folder in the recipient's own tree it should be filed under. Domain `c:Cell`, range `cat:Category` (referenced by name, no `owl:imports`), at most one value (0..1) — see [Cell Ontology File](#cell-ontology-file) below.
+- **`c:origin`** — The `cat:Category` subclass this cell was originally instantiated as, else nil. For one of the four templated classes (`cat:Passport`, `cat:BirthCertificate`, `cat:DriversLicense`, `cat:MedicalAppointment`), this is literally the class whose `c:TCell` template was cloned into this cell via [Lazy Instantiation](APP-BEHAVIOR.md#lazy-instantiation) (APP-BEHAVIOR.md); for any other cell, it's simply the category the cell was created to represent, asserted directly with no template involved. Either way the value is fixed at that point — it is not re-derived from the folder's current name, so it needs no update if the folder is later renamed or moved elsewhere in the tree. When a cell is shared with another member, the recipient's app can look at this value (if not nil) and use it as a hint as to which folder in the recipient's own tree it should be filed under. Domain `c:Cell`, range `cat:Category` (referenced by name, no `owl:imports`), at most one value (0..1) — see [Cell Ontology File](#cell-ontology-file) below.
 
 - **`c:chat`** — optional path to chat stream. Aspirational: shown in `images/cell-ontology/cell.png`'s diagram and described here for intended semantics, but not yet defined as an actual property in `cell.ttl` (see `CLAUDE.md`'s Check 12 for this open discrepancy).
 
@@ -523,6 +530,21 @@ The external ontologies reused above, and one deliberately not used:
 - **FHIR RDF was deliberately not used** — despite HL7 FHIR's `Quantity`/`Dosage` datatypes being a natural-looking fit on paper, FHIR RDF is not BFO-aligned (HL7's own documentation concedes the mismatch and describes FHIR RDF as record/transaction-oriented, "should not be directly interpreted as stating facts"), is ~6MB/1000+ classes, and validates natively via ShEx rather than SHACL — a poor fit for this project's architecture. Only its general shape (value+unit, frequency+period) served as informal inspiration for `p:DosageAmount`/`p:MedicationAdministration`'s design, with no RDF-level dependency.
 - `p:usesDrOnClass`/`p:usesChEBIClass` (annotation properties, `persona.ttl`, mirroring `p:usesCCOClass`) document exactly which DrOn/ChEBI classes are actually referenced, asserted on `persona-templates.ttl`'s own ontology header.
 
+### Personality-Related Classes and Properties
+
+This section describes the class and properties, defined in `persona-templates.ttl`, that model a self-assessed personality result from a named framework (MBTI, Big Five, DISC, Enneagram, etc.).
+
+**Classes:**
+
+- `p:PersonalityAssessment` — a self-assessment of personality, temperament, or social style from a named framework.
+
+**Properties:**
+
+- `p:hasPersonalityAssessment` — links a `p:Person` to one of its `p:PersonalityAssessment` individuals; repeatable (a person may record results from more than one framework).
+- `p:personalityFramework` — the named framework or instrument (e.g. `"MBTI"`, `"Big Five"`, `"DISC"`, `"Enneagram"`) (domain `p:PersonalityAssessment`).
+- `p:personalityResult` — the self-assessed result or type code within that framework, e.g. `"INFJ"` (domain `p:PersonalityAssessment`).
+- `p:personalityAssessmentDate` — the date the self-assessment was taken or last confirmed (domain `p:PersonalityAssessment`).
+
 ### Modeling Details
 
 This section describes a few details related to modeling names and addresses.
@@ -535,7 +557,7 @@ This section describes a few details related to modeling names and addresses.
 
 `p:PersonaTemplate` is an abstract classification class that serves as the common superclass for all reusable, topic-type-specific template labels. These labels are defined in `persona-templates.ttl`. A topic declares its template as the `template` field of its `mia.topics[]` entry (inside its owning cell DataBook's front matter) rather than by typing its `p:Person` individual. 
 
-Five of the six per-template SHACL shapes (`p:BirthCertificateDocument`, `p:DriversLicenseDocument`, `p:PassportDocument`, `p:MedicalAppointmentRecord`, `p:PetMedicationRecord`) live in `cell-templates-shacl.ttl`, each directly linked from its class-level `c:TCell` template (in `cell-templates.ttl`) via `c:templateShape` (`cell.ttl`) — so the shape is reachable by RDF traversal from the corresponding `cat:Category` class (`cat:BirthCertificate`, `cat:DriversLicense`, `cat:Passport`, `cat:MedicalAppointmentInfo`, `cat:PetsMedications`) via `cat:templateCell` — see [Lazy Instantiation](APP-BEHAVIOR.md#lazy-instantiation) in APP-BEHAVIOR.md; `p:JSContactCard`'s shape remains a standalone file in `shacl/`, since it's reused across many unrelated tree positions with no single `cat:Category` class of its own to attach to.
+Five of the six per-template SHACL shapes (`p:BirthCertificateDocument`, `p:DriversLicenseDocument`, `p:PassportDocument`, `p:MedicalAppointmentRecord`, `p:PetMedicationRecord`) live in `cell-templates-shacl.ttl`, each directly linked from its class-level `c:TCell` template (in `cell-templates.ttl`) via `c:templateShape` (`cell.ttl`) — so the shape is reachable by RDF traversal from the corresponding `cat:Category` class (`cat:BirthCertificate`, `cat:DriversLicense`, `cat:Passport`, `cat:MedicalAppointment`, `cat:PetsMedications`) via `cat:templateCell` — see [Lazy Instantiation](APP-BEHAVIOR.md#lazy-instantiation) in APP-BEHAVIOR.md; `p:JSContactCard`'s shape remains a standalone file in `shacl/`, since it's reused across many unrelated tree positions with no single `cat:Category` class of its own to attach to.
 
 <p align="center"><img src="images/persona-ontology/persona-templates.png" alt="persona templates model"></p>
 
@@ -562,7 +584,7 @@ The six currently defined subclasses of `p:PersonaTemplate` are:
   - **Required**: `FullName` **or** (`GivenName` + `FamilyName`); exactly one `Birthdate` (`cco:ent00000046`); exactly one Passport Number (`cco:ent00000066`); exactly one expiration date (`cco:ent00000070` → Calendar Date Identifier `cco:ont00001340`).
   - **Optional**: `AdditionalName`; issue date (`cco:ent00000069`); Issuing Jurisdiction (`cco:ent00000068`, collapsed from the former IssuingCountry); Place of Birth (`cco:ent00000067`); `p:GenderMarker`; `p:hasPhoto`.
 
-- `p:MedicalAppointmentRecord` — label for topics that carry the claims needed to arrange a medical appointment on behalf of someone else, shared between the members coordinating that care. Not a subclass of `p:IdentityDocument`. Declared as `template: "persona:MedicalAppointmentRecord"` in the topic's `mia.topics[]` entry. SHACL shape `:MedicalAppointmentRecordShape` (in `cell-templates-shacl.ttl`, alongside `cat:MedicalAppointmentInfo`'s template cell in `cell-templates.ttl`) targets the `p:MedicalAppointmentRecord` record individual directly — the claims below are properties of the record, not of the patient's `p:Person`:
+- `p:MedicalAppointmentRecord` — label for topics that carry the claims needed to arrange a medical appointment on behalf of someone else, shared between the members coordinating that care. Not a subclass of `p:IdentityDocument`. Declared as `template: "persona:MedicalAppointmentRecord"` in the topic's `mia.topics[]` entry. SHACL shape `:MedicalAppointmentRecordShape` (in `cell-templates-shacl.ttl`, alongside `cat:MedicalAppointment`'s template cell in `cell-templates.ttl`) targets the `p:MedicalAppointmentRecord` record individual directly — the claims below are properties of the record, not of the patient's `p:Person`:
   - **Required**: exactly one `p:forPatient` link; exactly one `p:insuranceProvider`; exactly one `p:insurancePolicyNumber`.
   - **Optional**: `p:hasPrimaryCarePhysician`; `p:medicalHistoryNote`; `p:insuranceGroupNumber`; `p:preferredPharmacy`; repeatable `p:currentMedication` and `p:allergy`.
 
@@ -577,10 +599,10 @@ The six currently defined subclasses of `p:PersonaTemplate` are:
 ### Persona Ontology Files
 
 - **`persona.ttl`** — The Persona ontology. Imports the domain ontologies above and documents which classes and properties the app uses (required vs. optional). Defines `p:Person` (Mee-specific subclass of CCO `Person`), app-specific extension properties (`p:hasSocialNetwork`, `p:hasBankAccount`, etc.), and the core data model classes (physical card classes, banking classes, and others).
-- **`persona-templates.ttl`** — Defines `p:PersonaTemplate` (abstract classification superclass) and the six concrete subtypes `p:BirthCertificateDocument`, `p:JSContactCard`, `p:DriversLicenseDocument`, `p:PassportDocument`, `p:MedicalAppointmentRecord`, and `p:PetMedicationRecord`. These are used as values of a topic's `mia.topics[].template` field — they classify the topic, not the `p:Person` individual inside it. Also defines `p:IdentityDocument` (superclass for government-issued identity document artifacts) and `p:hasIdentityDocument` (links a `p:Person` to a `p:IdentityDocument` individual they hold); `p:BirthCertificateDocument`, `p:DriversLicenseDocument`, and `p:PassportDocument` are subclasses of both `p:PersonaTemplate` and `p:IdentityDocument`. Also defines related designator classes (`p:DriversLicenseNumber`, `p:IssuingJurisdiction`, `p:PassportNumber`, `p:IssuingCountry`, `p:PlaceOfBirth`, `p:GenderMarker`, `p:IssueDate`, `p:Credential`, `p:WebURL`, `p:OrganizationUnit`, `p:JobTitle`), complex information classes (`p:Anniversary`, `p:PersonalInfo`), annotation properties for JSContact channel labels (`p:contactContext`, `p:phoneFeature`, `p:serviceLabel`), `p:hasPhoto`, the `p:MedicalAppointmentRecord` claim properties (`p:forPatient`, `p:hasPrimaryCarePhysician`, `p:currentMedication`, `p:allergy`, `p:medicalHistoryNote`, `p:insuranceProvider`, `p:insurancePolicyNumber`, `p:insuranceGroupNumber`, `p:preferredPharmacy`), and the `p:PetMedicationRecord`/`p:Medication` classes and properties (`p:hasMedication`, `p:Medication`, `p:hasActiveIngredient`, `p:hasDoseForm`, `p:DosageAmount`, `p:hasDosageAmount`, `p:MedicationAdministration`, `p:hasAdministration`, `p:medicationFrequencyPerDay`, `p:medicationBrandName`, `p:medicationManufacturer`, `p:medicationDuration` — see [Medication-Related Classes and Properties](#medication-related-classes-and-properties)). `owl:imports` `dron-upper.ttl` (below) in addition to being imported by `persona.ttl`, so all topics inherit these classes transitively.
+- **`persona-templates.ttl`** — Defines `p:PersonaTemplate` (abstract classification superclass) and the six concrete subtypes `p:BirthCertificateDocument`, `p:JSContactCard`, `p:DriversLicenseDocument`, `p:PassportDocument`, `p:MedicalAppointmentRecord`, and `p:PetMedicationRecord`. These are used as values of a topic's `mia.topics[].template` field — they classify the topic, not the `p:Person` individual inside it. Also defines `p:IdentityDocument` (superclass for government-issued identity document artifacts) and `p:hasIdentityDocument` (links a `p:Person` to a `p:IdentityDocument` individual they hold); `p:BirthCertificateDocument`, `p:DriversLicenseDocument`, and `p:PassportDocument` are subclasses of both `p:PersonaTemplate` and `p:IdentityDocument`. Also defines related designator classes (`p:DriversLicenseNumber`, `p:IssuingJurisdiction`, `p:PassportNumber`, `p:IssuingCountry`, `p:PlaceOfBirth`, `p:GenderMarker`, `p:IssueDate`, `p:Credential`, `p:WebURL`, `p:OrganizationUnit`, `p:JobTitle`), complex information classes (`p:Anniversary`, `p:PersonalInfo`, `p:PersonalityAssessment` — see [Personality-Related Classes and Properties](#personality-related-classes-and-properties)), annotation properties for JSContact channel labels (`p:contactContext`, `p:phoneFeature`, `p:serviceLabel`), `p:hasPhoto`, the `p:MedicalAppointmentRecord` claim properties (`p:forPatient`, `p:hasPrimaryCarePhysician`, `p:currentMedication`, `p:allergy`, `p:medicalHistoryNote`, `p:insuranceProvider`, `p:insurancePolicyNumber`, `p:insuranceGroupNumber`, `p:preferredPharmacy`), and the `p:PetMedicationRecord`/`p:Medication` classes and properties (`p:hasMedication`, `p:Medication`, `p:hasActiveIngredient`, `p:hasDoseForm`, `p:DosageAmount`, `p:hasDosageAmount`, `p:MedicationAdministration`, `p:hasAdministration`, `p:medicationFrequencyPerDay`, `p:medicationBrandName`, `p:medicationManufacturer`, `p:medicationDuration` — see [Medication-Related Classes and Properties](#medication-related-classes-and-properties)). `owl:imports` `dron-upper.ttl` (below) in addition to being imported by `persona.ttl`, so all topics inherit these classes transitively.
 - **`project_files/dron-upper.ttl`** — A hand-curated subset of [DrOn](https://github.com/mcwdsi/dron) (the Drug Ontology)'s upper module — five classes ("drug product", "active ingredient", "drug tablet", "drug capsule", "drug administration"), cited by their real upstream IRIs with real upstream labels/definitions, not a full mirror (DrOn's full distribution is ~300MB of RxNorm-derived per-product classes not relevant here). `owl:import`ed by `persona-templates.ttl`. The first non-CCO/non-`mee.foundation` external ontology this project has ever vendored.
 
-- **`cell-templates.ttl`** — Class-level `c:Cell` templates for `cat:Category` subclasses. Holds one template cell individual per templated class: `cat:Passport`, `cat:BirthCertificate`, `cat:DriversLicense`, `cat:MedicalAppointmentInfo`, `cat:PetsMedications`. Each is pointed at by its class's own `cat:templateCell` value, which is asserted in `category.ttl` itself, alongside the class's declaration (not here) — the sole route to a template individual now, since category.ttl 1.31.0 deleted `cat:Folder` and its subclasses outright. Each individual is what the app clones into a new cell when a cell matching that class is first created in a user's tree (Lazy Instantiation). Each is typed solely `c:TCell` — `c:TCell` and `c:ACell` are disjoint, so a template cell carries no member composition of its own, just `c:templateShape` pointing to its SHACL shape in `cell-templates-shacl.ttl`. Imports `cell.ttl` directly (not `category.ttl` — no mutual import here).
+- **`cell-templates.ttl`** — Class-level `c:Cell` templates for `cat:Category` subclasses. Holds one template cell individual per templated class: `cat:Passport`, `cat:BirthCertificate`, `cat:DriversLicense`, `cat:MedicalAppointment`, `cat:PetsMedications`. Each is pointed at by its class's own `cat:templateCell` value, which is asserted in `category.ttl` itself, alongside the class's declaration (not here) — the sole route to a template individual now, since category.ttl 1.31.0 deleted `cat:Folder` and its subclasses outright. Each individual is what the app clones into a new cell when a cell matching that class is first created in a user's tree (Lazy Instantiation). Each is typed solely `c:TCell` — `c:TCell` and `c:ACell` are disjoint, so a template cell carries no member composition of its own, just `c:templateShape` pointing to its SHACL shape in `cell-templates-shacl.ttl`. Imports `cell.ttl` directly (not `category.ttl` — no mutual import here).
 
 - **`cell-templates-shacl.ttl`** — SHACL shapes for birth certificate, driver's license, passport, medical appointment, and pet medication topics, each directly linked from its `cell-templates.ttl` template cell via `c:templateShape` (not merely co-located by naming convention):
   - `:BirthCertificateDocumentShape` (`t:template p:BirthCertificateDocument`) targets `p:BirthCertificateDocument` document individuals directly — all identity claims (names) are properties of the document individual, not the `p:Person`. Enforces: FullName OR (GivenName + FamilyName) required; optional AdditionalName, AlternateName, Nickname, Legal Name.

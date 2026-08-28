@@ -1,13 +1,13 @@
 ---
 id: http://www.example.org/mia/cells/cell-15
-title: "Med. App. Info"
+title: "Medical Appointment"
 type: cell-databook
 version: 1.1.0
 created: 2026-07-10
 description: >
-  Cell DataBook for folder "Med. App. Info" (cell:origin: cat:MedicalAppointmentInfo). It is a two-member cell with two memberTopics about :Carol_Walker and :Self and one otherTopic about :Paula_Walker.
+  Cell DataBook for folder "Medical Appointment" (cell:origin: cat:MedicalAppointment). It is a two-member cell with two memberTopics about :Carol_Walker and :Self and one otherTopic about :Paula_Walker.
 mia:
-  origin: "cat:MedicalAppointmentInfo"
+  origin: "cat:MedicalAppointment"
   creator: ":Self"
   memberCount: "cell:TwoMember"
   memberTopics:

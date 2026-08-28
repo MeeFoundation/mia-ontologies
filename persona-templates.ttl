@@ -10,7 +10,7 @@
 <http://mee.foundation/ontologies/persona-templates> rdf:type owl:Ontology ;
     owl:imports <http://mee.foundation/ontologies/dron-upper-subset> ;
     dc:date "2026-08-27"^^xsd:date ;
-    owl:versionInfo "Version 2.9.0 - reworded a comment to say 'the app' rather than naming the app directly."@en ;
+    owl:versionInfo "Version 2.11.0 - added persona:PersonalityAssessment class and properties for personality self-assessments (MBTI, Big Five, DISC, Enneagram, etc.)."@en ;
     persona:usesDrOnClass <http://purl.obolibrary.org/obo/DRON_00000074> ,  # drug product
                     <http://purl.obolibrary.org/obo/DRON_00000028> ,  # active ingredient (role)
                     <http://purl.obolibrary.org/obo/DRON_00000022> ,  # drug tablet
@@ -376,6 +376,38 @@ persona:hasPhoto rdf:type owl:DatatypeProperty ;
     rdfs:range xsd:anyURI .
 
 
+#  8. PersonalityAssessment Class and Properties
+#     A named individual of type p:PersonalityAssessment is attached to a
+#     Person via persona:hasPersonalityAssessment.
+
+persona:PersonalityAssessment rdf:type owl:Class ;
+    rdfs:label "Personality Assessment"@en ;
+    rdfs:comment "A self-assessment of personality, temperament, or social style from a named framework (e.g. Myers-Briggs, Big Five, DISC, Enneagram)."@en .
+
+persona:hasPersonalityAssessment rdf:type owl:ObjectProperty ;
+    rdfs:label "has personality assessment"@en ;
+    rdfs:comment "Links a p:Person to one of its PersonalityAssessment individuals."@en ;
+    rdfs:range persona:PersonalityAssessment .
+
+persona:personalityFramework rdf:type owl:DatatypeProperty ;
+    rdfs:label "personality framework"@en ;
+    rdfs:comment "The named framework or instrument the result comes from — e.g. 'MBTI', 'Big Five', 'DISC', 'Enneagram', 'Social Style', or another named framework."@en ;
+    rdfs:domain persona:PersonalityAssessment ;
+    rdfs:range xsd:string .
+
+persona:personalityResult rdf:type owl:DatatypeProperty ;
+    rdfs:label "personality result"@en ;
+    rdfs:comment "The self-assessed result or type code within that framework — e.g. 'INFJ' (MBTI), 'Type 4' (Enneagram), 'Dominance' (DISC), or a Big Five score summary."@en ;
+    rdfs:domain persona:PersonalityAssessment ;
+    rdfs:range xsd:string .
+
+persona:personalityAssessmentDate rdf:type owl:DatatypeProperty ;
+    rdfs:label "personality assessment date"@en ;
+    rdfs:comment "The date the self-assessment was taken or last confirmed."@en ;
+    rdfs:domain persona:PersonalityAssessment ;
+    rdfs:range xsd:date .
+
+
 #################################################################
 #    MedicalAppointmentRecord Template and related properties
 #################################################################
@@ -395,7 +427,7 @@ persona:MedicalAppointmentRecord rdf:type owl:Class ;
                     sync between the coordinating members' own instances of the app. Used as the value
                     of topic:template on the topic file's
                     ontology IRI. Selects the SHACL shape :MedicalAppointmentRecordShape in
-                    cell-templates-shacl.ttl, linked from cat:MedicalAppointmentInfo's template
+                    cell-templates-shacl.ttl, linked from cat:MedicalAppointment's template
                     cell (cell-templates.ttl) via cell:templateShape — IRI
                     http://mee.foundation/ontologies/persona/shapes/medical-appointment — for
                     validation. Named "Record" rather than "Document" since this class

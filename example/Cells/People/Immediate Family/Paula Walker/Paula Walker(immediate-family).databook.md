@@ -99,7 +99,7 @@ This topic captures Alice's record of her family member Paula Walker. Alice clai
 
 #### Overview
 
-This topic captures Alice Walker's family relationships. It records her maternal relationship with Paula Walker and her family social network, which includes Paula Walker and Carol Walker (Alice's sister) as members. Paula's own family topic (`topic-05`) is the peer record in this relationship; Carol's own claimed record about their mother appears separately in the "Med. App. Info" cell (topic 28). Alice is the claimant.
+This topic captures Alice Walker's family relationships. It records her maternal relationship with Paula Walker and her family social network, which includes Paula Walker and Carol Walker (Alice's sister) as members. Paula's own family topic (`topic-05`) is the peer record in this relationship; Carol's own claimed record about their mother appears separately in the "Medical Appointment" cell (topic 28). Alice is the claimant.
 
 #### Topic Graph
 

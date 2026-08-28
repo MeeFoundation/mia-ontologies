@@ -1,13 +1,13 @@
 ---
 id: http://www.example.org/mia/cells/cell-11
-title: "Ownership"
+title: "Things"
 type: cell-databook
 version: 1.1.0
 created: 2026-07-10
 description: >
-  Cell DataBook for folder "Ownership" (cell:origin: cat:Ownership). It is a one-member cell with one memberTopic about :Self.
+  Cell DataBook for folder "Things" (cell:origin: cat:Things). It is a one-member cell with one memberTopic about :Self.
 mia:
-  origin: "cat:Ownership"
+  origin: "cat:Things"
   creator: ":Self"
   memberCount: "cell:OneMember"
   memberTopics: "topic-22"
