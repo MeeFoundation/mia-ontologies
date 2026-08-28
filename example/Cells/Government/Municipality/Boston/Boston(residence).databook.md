@@ -42,7 +42,6 @@ This graph captures Alice Walker's previous residential address: 456 Commonwealt
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 
-:Self <https://w3id.org/cco-domains/cco/ont00001879> :Address_Boston .  # designated by → Boston address
 
 
 :Boston_Residence rdf:type owl:NamedIndividual ,
@@ -50,7 +49,7 @@ This graph captures Alice Walker's previous residential address: 456 Commonwealt
     rdfs:label "Alice's Boston Residence (2020-2025)"@en ;
     rdfs:comment "Alice lived at this Boston address from 2020 to 2025."@en ;
     <http://purl.obolibrary.org/obo/BFO_0000057> :Self ;  # has participant
-    <https://w3id.org/cco-domains/cco/ont00001879> :Address_Boston ;                  # designated by
+    <https://w3id.org/cco-domains/domains/AddressOntology#ent00000324> :Address_Boston ;  # has address
     <http://purl.obolibrary.org/obo/BFO_0000199> :Interval_2020_2025 .   # occupies temporal region
 
 :Interval_2020_2025 rdf:type owl:NamedIndividual ,

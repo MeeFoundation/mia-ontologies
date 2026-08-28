@@ -126,7 +126,7 @@ This graph captures Alice Walker's BHS profile — the identity data she shares 
         <https://w3id.org/cco-domains/cco/ont00001765> "Alice Walker"
     ] ;
 
-    <https://w3id.org/cco-domains/cco/ont00001879> :Address_BHS ;  # designated by → current address
+    <https://w3id.org/cco-domains/domains/AddressOntology#ent00000324> :Address_BHS ;  # has address → current address
 
     <https://w3id.org/cco-domains/cco/ont00001879> [  # designated by → Phone
         rdf:type cco:ent00000023 ;
@@ -162,4 +162,11 @@ This graph captures Alice Walker's BHS profile — the identity data she shares 
         rdf:type cco:ent00000014 ;
         <https://w3id.org/cco-domains/cco/ont00001765> "USA"
     ] .
+
+:BHS_AddressDesignation rdf:type owl:NamedIndividual ,
+                                  cco:ent00000016 ;  # AddressDesignation
+    rdfs:label "Alice Walker's BHS address designation"@en ;
+    <http://purl.obolibrary.org/obo/BFO_0000057> :Self ;
+    <https://w3id.org/cco-domains/domains/AddressOntology#ent00000324> :Address_BHS .
+
 ```
