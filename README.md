@@ -172,7 +172,7 @@ A regular cell may be empty or hold various kinds of information, organized into
 * **Members** tab:
   * Structured information (fields and values) about the members of the cell.
 * **Note** tab:
-  * Exactly one Markdown document about the cell. It may be blank. It may be linked to any number of other Markdown notes anywhere in the user's own tree of cells.
+  * Exactly one Markdown document about the cell. It may be blank. It may be linked to any number of other Markdown notes anywhere in the user's own tree of cells. Clicking a link to a note that doesn't exist yet creates a new, origin-less cell for it — see APP-BEHAVIOR.md's [Wikilink-Triggered Cell Creation](APP-BEHAVIOR.md#wikilink-triggered-cell-creation).
 * **Files** tab:
   * An arbitrary number of files and sub-folders.
 * **Chat** tab:
