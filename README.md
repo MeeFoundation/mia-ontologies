@@ -172,7 +172,7 @@ A regular cell may be empty or hold various kinds of information, organized into
 * **Members** tab:
   * Structured information (fields and values) about the members of the cell.
 * **Note** tab:
-  * Exactly one Markdown document about the cell. It may be blank. It may be linked to any number of other Markdown notes anywhere in the user's own tree of cells. Clicking a link to a note that doesn't exist yet creates a new, origin-less cell for it — see APP-BEHAVIOR.md's [Wikilink-Triggered Cell Creation](APP-BEHAVIOR.md#wikilink-triggered-cell-creation).
+  * Exactly one Markdown document about the cell. It may be blank. It may be linked to any number of other Markdown notes anywhere in the user's own tree of cells.
 * **Files** tab:
   * An arbitrary number of files and sub-folders.
 * **Chat** tab:
@@ -203,7 +203,7 @@ A cell is an atomic unit of information that the app manages for the user. This 
 
 <p align="center"><img src="images/cell-ontology/cell.png" alt="Cell hierarchy"></p>
 
-A cell's **files content** — everything shown in the app's **Files tab** for that cell — is every file and plain subfolder found under its own folder, to any depth, except (1) a nested folder that is itself a cell. Such a nested folder is a **descendant cell**: a separate node in the tree of cells, never counted as part of its ancestor's content even though it physically sits inside the ancestor's folder, and (2) the cell's own Markdown folder note — exactly one per cell; it is displayed in the **Note tab** for that cell (not the Files tab).
+A cell's **files content** — everything shown in the app's **Files tab** for that cell — is every file and plain subfolder found under its own folder, to any depth, except (1) a nested folder that is itself a cell. Such a nested folder is a **descendant cell**: a separate node in the tree of cells, never counted as part of its ancestor's content even though it physically sits inside the ancestor's folder, and (2) the cell's own Markdown folder note — exactly one per cell; it is displayed in the **Note tab** for that cell (not the Files tab). Clicking a link in that note to a note that doesn't exist yet creates a new, origin-less cell for it — see [Wikilink-Triggered Cell Creation](APP-BEHAVIOR.md#wikilink-triggered-cell-creation) in APP-BEHAVIOR.md.
 
 #### Cell Properties
 
