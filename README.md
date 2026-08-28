@@ -11,7 +11,7 @@ The following **domain ontologies** model claims about people, organizations, an
   - **AgentOntology** — agents and their properties (imported transitively via PersonOntology)
 - **Organization ontology** — models organizations (companies, government agencies, non-profits, etc.) 
 
-Also included are the Category, Cell and Graph **metadata ontologies**. A *cell* is the atomic unit of information. A cell is implemented as a filesystem folder holding exactly one cell DataBook file and potentially other (non-cell) files and folders. The parent folder and databook file together forming one atomic tree node. Cells nest inside cells, forming a tree. Cells have different types, called *Categories* described in the category ontology. A cell contains various kinds of content including markdown notes, chat streams, and other file attachments. It also contains structured information blocks (called *graphs*) whose schemas differ based on the cell's category. 
+Also included are the Category, Cell and Graph **metadata ontologies**. A *cell* is the atomic unit of information. A cell is implemented as a filesystem folder holding exactly one cell DataBook file and potentially other (non-cell) attachments. The parent folder and databook file together forming one atomic tree node. Cells nest inside cells, forming a tree. Cells have different types, called *Categories* described in the category ontology. A cell contains various kinds of content including markdown notes, chat streams, and other file attachments. It also contains structured information blocks (called *graphs*) whose schemas differ based on the cell's category. 
 
 Throughout this document we use these short-hands:
 
@@ -172,9 +172,9 @@ A regular cell may be empty or hold various kinds of information, organized into
 * **Members** tab:
   * Structured information (fields and values) about the members of the cell.
 * **Note** tab:
-  * Exactly one Markdown document about the cell. It may be blank. It may be linked to any number of other Markdown notes anywhere in the user's own tree of cells.
-* **Files** tab:
-  * An arbitrary number of files and sub-folders.
+  * A Markdown document about the cell. It may be blank. It may be linked to any number of other Markdown notes anywhere in the user's own tree of cells.
+* **Attachments** tab (📎):
+  * A flat set of file attachments — no sub-folders, like email attachments.
 * **Chat** tab:
   * A chat stream shared with all members.
 
@@ -203,13 +203,21 @@ A cell is an atomic unit of information that the app manages for the user. This 
 
 <p align="center"><img src="images/cell-ontology/cell.png" alt="Cell hierarchy"></p>
 
-A cell's **files content** — everything shown in the app's **Files tab** for that cell — is every file and plain subfolder found under its own folder, to any depth, except (1) a nested folder that is itself a cell. Such a nested folder is a **descendant cell**: a separate node in the tree of cells, never counted as part of its ancestor's content even though it physically sits inside the ancestor's folder, and (2) the cell's own Markdown folder note — exactly one per cell; it is displayed in the **Note tab** for that cell (not the Files tab). Clicking a link in that note to a note that doesn't exist yet creates a new, origin-less cell for it — see [Wikilink-Triggered Cell Creation](APP-BEHAVIOR.md#wikilink-triggered-cell-creation) in APP-BEHAVIOR.md.
+A cell's own Markdown folder note is displayed in the **Note tab** (not the Attachments tab); clicking a link in it to a note that doesn't exist yet creates a new, origin-less cell for it — see [Wikilink-Triggered Cell Creation](APP-BEHAVIOR.md#wikilink-triggered-cell-creation) in APP-BEHAVIOR.md. See [Cell Details](#cell-details) below for what counts as a cell's attachments, shown in the app's **Attachments tab**.
 
 #### Cell Properties
 
 - **`c:origin`** — The `cat:Category` subclass this cell was originally instantiated as, else nil. For one of the four templated classes (`cat:Passport`, `cat:BirthCertificate`, `cat:DriversLicense`, `cat:MedicalAppointment`), this is literally the class whose `c:TemplateCell` template was cloned into this cell via [Lazy Instantiation](APP-BEHAVIOR.md#lazy-instantiation) (APP-BEHAVIOR.md); for any other cell, it's simply the category the cell was created to represent, asserted directly with no template involved. Either way the value is fixed at that point — it is not re-derived from the folder's current name, so it needs no update if the folder is later renamed or moved elsewhere in the tree. When a cell is shared with another member, the recipient's app can look at this value (if not nil) and use it as a hint as to which folder in the recipient's own tree it should be filed under. Domain `c:Cell`, range `cat:Category` (referenced by name, no `owl:imports`), at most one value (0..1) — see [Cell Ontology File](#cell-ontology-file) below.
 
-- **`c:chat`** — optional path to chat stream. Aspirational: shown in `images/cell-ontology/cell.png`'s diagram and described here for intended semantics, but not yet defined as an actual property in `cell.ttl` (see `CLAUDE.md`'s Check 12 for this open discrepancy).
+#### Documentation-only Properties
+
+Three more concepts appear off `Cell` in `images/cell-ontology/cell.png`'s diagram, described here for their intended semantics, but documentation only — none is an actual property declared in `cell.ttl`, and none is ever reified as a triple in any real graph (see `CLAUDE.md`'s Check 12 for this open, accepted discrepancy):
+
+- **`c:note`** — a cell's single Markdown folder note, shown in the app's **Note tab**, 1..1. See [Introduction to Cells](#introduction-to-cells) above for the folder-note convention (linking, sharing, PKM-vault compatibility) and [Wikilink-Triggered Cell Creation](APP-BEHAVIOR.md#wikilink-triggered-cell-creation) in APP-BEHAVIOR.md.
+
+- **`c:attachment`** — a cell's flat set of file attachments, shown in the app's **Attachments tab** (📎), 0..N. Attachments are the plain files found directly inside a cell's own folder, excluding (1) any subfolder — always either a **descendant cell** (a nested folder that is itself a cell, holding its own cell DataBook: a separate node in the tree of cells, never counted as part of its ancestor's content even though it physically sits inside the ancestor's folder) or a bare pass-through directory with no DataBook of its own (a folder without a matching cell DataBook is simply a regular file system folder, not a cell — even if it contains nested cells of its own — existing only to reach a descendant cell nested deeper still; see CLAUDE.md's Check 11) — and (2) the cell's own Markdown folder note — exactly one per cell; it is displayed in the **Note tab** for that cell (not the Attachments tab). Attachments are flat, like email attachments: no subfolder is ever counted as one, on disk or in the model.
+
+- **`c:chat`** — chat stream.
 
 ### TemplateCell (Template Cell)
 
