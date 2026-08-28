@@ -174,7 +174,7 @@ A regular cell may be empty or hold various kinds of information, organized into
 * **Note** tab:
   * A Markdown document about the cell. It may be blank. It may be linked to any number of other Markdown notes anywhere in the user's own tree of cells.
 * **Attachments** tab (📎):
-  * A flat set of file attachments — no sub-folders, like email attachments.
+  * A flat set of file attachments. Analogous to email attachments.
 * **Chat** tab:
   * A chat stream shared with all members.
 
