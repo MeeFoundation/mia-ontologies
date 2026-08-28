@@ -262,7 +262,7 @@ A `c:TopicCell` is a subclass of `c:MemberCell` for a member cell that adds the 
 
 - **`c:topic`** — one or more values, required once a cell is typed `c:TopicCell` at all (no upper bound). Link to one or more additional subject-claimant graphs beyond those referenced by `c:members`. Domain `c:TopicCell`.
 
-#### Representative Cells
+### Representative Cells
 
 The diagram below shows six representative cells.
 
