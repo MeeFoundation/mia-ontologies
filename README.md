@@ -17,7 +17,7 @@ Throughout this document we use these short-hands:
 
 - `cat:` for the `category:` namespace (`http://mee.foundation/ontologies/category#`)
 - `c:` for the `cell:` namespace (`http://mee.foundation/ontologies/cell#`)
-- `t:` for the `graph:` namespace (`http://mee.foundation/ontologies/graph#`)
+- `g:` for the `graph:` namespace (`http://mee.foundation/ontologies/graph#`)
 - `p:` for the `persona:` namespace (`http://mee.foundation/ontologies/persona#`)
 - `o:` for the `organization:` namespace (`http://mee.foundation/ontologies/organization#`).
 
@@ -178,7 +178,7 @@ A regular cell may be empty or hold various kinds of information, organized into
 * **Chat** tab:
   * A chat stream shared with all members.
 
-A special kind of cell called **Topic Cell** adds one more tab:
+A **Topic Cell** adds one more tab:
 
 * **Topic** tab:
   * Structured information about topic that is the focus of the cell. This topic could be person who is not a member of the cell, or information about a project that the members of the cell are working on (e.g. organizing a medical appointment for someone who is not a member of the cell)
