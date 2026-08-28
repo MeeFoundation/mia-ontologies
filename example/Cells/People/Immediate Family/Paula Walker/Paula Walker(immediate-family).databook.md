@@ -5,50 +5,50 @@ type: cell-databook
 version: 1.1.0
 created: 2026-07-10
 description: >
-  Cell DataBook for folder "Paula Walker" (cell:origin: cat:ImmediateFamily). It is a two-member cell with three memberTopics (two about :Paula_Walker and one about :Self).
+  Cell DataBook for folder "Paula Walker" (cell:origin: cat:ImmediateFamily). It is a two-member cell with three members (two about :Paula_Walker and one about :Self).
 mia:
   origin: "cat:ImmediateFamily"
   creator: ":Self"
   memberCount: "cell:TwoMember"
-  memberTopics:
-    - "topic-05"
-    - "topic-21"
-    - "topic-07"
-  topics:
-    - id: "http://www.example.org/mia/topics/topic-05"
+  members:
+    - "graph-05"
+    - "graph-21"
+    - "graph-07"
+  graphs:
+    - id: "http://www.example.org/mia/graphs/graph-05"
       claimant: ":Paula_Walker"
       subject: ":Paula_Walker"
       shapes:
         - http://mee.foundation/ontologies/persona/shapes
-        - http://mee.foundation/ontologies/topic/shapes
-    - id: "http://www.example.org/mia/topics/topic-07"
+        - http://mee.foundation/ontologies/graph/shapes
+    - id: "http://www.example.org/mia/graphs/graph-07"
       claimant: ":Self"
       subject: ":Paula_Walker"
       shapes:
         - http://mee.foundation/ontologies/persona/shapes
-        - http://mee.foundation/ontologies/topic/shapes
-    - id: "http://www.example.org/mia/topics/topic-21"
+        - http://mee.foundation/ontologies/graph/shapes
+    - id: "http://www.example.org/mia/graphs/graph-21"
       claimant: ":Self"
       subject: ":Self"
       shapes:
         - http://mee.foundation/ontologies/persona/shapes
-        - http://mee.foundation/ontologies/topic/shapes
+        - http://mee.foundation/ontologies/graph/shapes
 ---
 
-## Topics
+## Graphs
 
-<a id="topic-05"></a>
-### Topic 05
+<a id="graph-05"></a>
+### Graph 05
 
 #### Overview
 
-This topic captures Paula Walker's self-claimed family persona as transmitted from Paula's own instance of the app to Alice's over the PDN. Paula is the claimant.
+This graph captures Paula Walker's self-claimed family persona as transmitted from Paula's own instance of the app to Alice's over the PDN. Paula is the claimant.
 
-#### Topic Graph
+#### Graph
 
 ```turtle
-<!-- databook:id: paula-family-paula-topic-graph -->
-<!-- databook:graph: http://www.example.org/mia/topics/topic-05#graph -->
+<!-- databook:id: paula-family-paula-graph -->
+<!-- databook:graph: http://www.example.org/mia/graphs/graph-05#graph -->
 @prefix : <http://www.example.org/mia#> .
 @prefix persona: <http://mee.foundation/ontologies/persona#> .
 @prefix owl: <http://www.w3.org/2002/07/owl#> .
@@ -60,18 +60,18 @@ This topic captures Paula Walker's self-claimed family persona as transmitted fr
     rdfs:label "Paula Walker (Family) self-claimed"@en .
 ```
 
-<a id="topic-07"></a>
-### Topic 07
+<a id="graph-07"></a>
+### Graph 07
 
 #### Overview
 
-This topic captures Alice's record of her family member Paula Walker. Alice claims Paula's name in the family topic. Alice is the claimant.
+This graph captures Alice's record of her family member Paula Walker. Alice claims Paula's name in the family graph. Alice is the claimant.
 
-#### Topic Graph
+#### Graph
 
 ```turtle
-<!-- databook:id: paula-family-alice-topic-graph -->
-<!-- databook:graph: http://www.example.org/mia/topics/topic-07#graph -->
+<!-- databook:id: paula-family-alice-graph -->
+<!-- databook:graph: http://www.example.org/mia/graphs/graph-07#graph -->
 @prefix : <http://www.example.org/mia#> .
 @prefix persona: <http://mee.foundation/ontologies/persona#> .
 @prefix cco: <https://w3id.org/cco-domains/cco/> .
@@ -94,18 +94,18 @@ This topic captures Alice's record of her family member Paula Walker. Alice clai
     ] .
 ```
 
-<a id="topic-21"></a>
-### Topic 21
+<a id="graph-21"></a>
+### Graph 21
 
 #### Overview
 
-This topic captures Alice Walker's family relationships. It records her maternal relationship with Paula Walker and her family social network, which includes Paula Walker and Carol Walker (Alice's sister) as members. Paula's own family topic (`topic-05`) is the peer record in this relationship; Carol's own claimed record about their mother appears separately in the "Medical Appointment" cell (topic 28). Alice is the claimant.
+This graph captures Alice Walker's family relationships. It records her maternal relationship with Paula Walker and her family social network, which includes Paula Walker and Carol Walker (Alice's sister) as members. Paula's own family graph (`graph-05`) is the peer record in this relationship; Carol's own claimed record about their mother appears separately in the "Medical Appointment" cell (graph 28). Alice is the claimant.
 
-#### Topic Graph
+#### Graph
 
 ```turtle
-<!-- databook:id: alice-family-topic-graph -->
-<!-- databook:graph: http://www.example.org/mia/topics/topic-21#graph -->
+<!-- databook:id: alice-family-graph -->
+<!-- databook:graph: http://www.example.org/mia/graphs/graph-21#graph -->
 @prefix : <http://www.example.org/mia#> .
 @prefix persona: <http://mee.foundation/ontologies/persona#> .
 @prefix cco: <https://w3id.org/cco-domains/cco/> .

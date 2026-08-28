@@ -5,35 +5,35 @@ type: cell-databook
 version: 1.1.0
 created: 2026-07-10
 description: >
-  Cell DataBook for folder "Google" (cell:origin: cat:Companies). It is a one-member cell with one memberTopic about :Self.
+  Cell DataBook for folder "Google" (cell:origin: cat:Companies). It is a one-member cell with one member entry about :Self.
 mia:
   origin: "cat:Companies"
   creator: ":Self"
   memberCount: "cell:OneMember"
-  memberTopics: "topic-16"
-  topics:
-    - id: "http://www.example.org/mia/topics/topic-16"
+  members: "graph-16"
+  graphs:
+    - id: "http://www.example.org/mia/graphs/graph-16"
       claimant: ":Self"
       subject: ":Self"
       shapes:
         - http://mee.foundation/ontologies/persona/shapes
-        - http://mee.foundation/ontologies/topic/shapes
+        - http://mee.foundation/ontologies/graph/shapes
 ---
 
-## Topics
+## Graphs
 
-<a id="topic-16"></a>
-### Topic 16
+<a id="graph-16"></a>
+### Graph 16
 
 #### Overview
 
-This topic captures Alice Walker's Google account topic. Alice self-enters her Gmail address (awalker@gmail.com). Google is not a PDN node, so Alice records this data herself rather than receiving it from Google. Alice is the claimant.
+This graph captures Alice Walker's Google account graph. Alice self-enters her Gmail address (awalker@gmail.com). Google is not a PDN node, so Alice records this data herself rather than receiving it from Google. Alice is the claimant.
 
-#### Topic Graph
+#### Graph
 
 ```turtle
-<!-- databook:id: alice-google-topic-graph -->
-<!-- databook:graph: http://www.example.org/mia/topics/topic-16#graph -->
+<!-- databook:id: alice-google-graph -->
+<!-- databook:graph: http://www.example.org/mia/graphs/graph-16#graph -->
 @prefix : <http://www.example.org/mia#> .
 @prefix persona: <http://mee.foundation/ontologies/persona#> .
 @prefix cco: <https://w3id.org/cco-domains/cco/> .

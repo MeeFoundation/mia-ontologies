@@ -11,22 +11,22 @@
 @base <http://mee.foundation/ontologies/persona> .
 
 <http://mee.foundation/ontologies/persona> rdf:type owl:Ontology ;
-    owl:versionIRI <http://mee.foundation/ontologies/persona/4.6.0> ;
+    owl:versionIRI <http://mee.foundation/ontologies/persona/4.7.0> ;
     owl:imports <https://w3id.org/cco-domains/domains/PersonOntology> ;
     owl:imports <https://w3id.org/cco-domains/domains/AddressOntology> ;
     owl:imports <https://w3id.org/cco-domains/domains/StagingOntology> ;
     owl:imports <http://mee.foundation/ontologies/persona-templates> ;
-    dc:date "2026-08-22"^^xsd:date ;
-    owl:versionInfo "Version 4.6.0 - fixed p:usesCCOProperty's list: it cited BFO_0000153 ('temporally projects onto') where it meant to document 'occupies temporal region' (the AddressDesignation temporal-interval pattern), which is actually BFO_0000199; corrected the cited IRI to BFO_0000199."@en ;
+    dc:date "2026-08-27"^^xsd:date ;
+    owl:versionInfo "Version 4.7.0 - updated topic.ttl references to graph.ttl following that ontology's rename, and renamed 'Mee Identity Agent' to 'Cellula App' throughout."@en ;
     rdfs:label "Persona Ontology"@en ;
-    rdfs:comment """Persona Ontology for the Mee Identity Agent.
+    rdfs:comment """Persona Ontology for the Cellula App.
 
                     This application ontology extends PersonOntology, AddressOntology,
-                    and StagingOntology for the Mee identity agent
+                    and StagingOntology for the Cellula App
 
                     ARCHITECTURE:
                     This application ontology serves as:
-                    1. Aggregation point (imports 3 domain ontologies + topic.ttl)
+                    1. Aggregation point (imports 3 domain ontologies + graph.ttl)
                     2. Documentation (annotations show which classes Persona uses)
                     3. Extension point (Persona-specific terms: future: accounts, service providers)
 
@@ -156,10 +156,10 @@ p:usagePattern rdf:type owl:AnnotationProperty ;
 p:Person rdf:type owl:Class ;
     rdfs:subClassOf <https://w3id.org/cco-domains/cco/ont00001262> ;  # CCO Person
     rdfs:label "Person"@en ;
-    rdfs:comment """A Mee-specific extension of CCO Person. Each topic file (named graph)
+    rdfs:comment """A Mee-specific extension of CCO Person. Each graph file (named graph)
                     contains exactly one persona:Person individual representing the subject
-                    of that topic. The same IRI is used for the same real-world person
-                    across all topic files — each file is a named-graph slice of that
+                    of that graph. The same IRI is used for the same real-world person
+                    across all graph files — each file is a named-graph slice of that
                     person's identity data."""@en .
 
 

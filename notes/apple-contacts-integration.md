@@ -8,19 +8,19 @@ There are two levels to address:
 
 ---
 
-## Level 1: Contacts ↔ Topics
+## Level 1: Contacts ↔ Graphs
 
-Apple Contacts' core design assumption is **one card per person**, with all topics flattened into it. vCard accommodates multiple topics by allowing optional labels on repeatable fields — a person can have two email addresses, one labeled `work` and one labeled `home`. This is vCard's mechanism for expressing topic.
+Apple Contacts' core design assumption is **one card per person**, with all graphs flattened into it. vCard accommodates multiple graphs by allowing optional labels on repeatable fields — a person can have two email addresses, one labeled `work` and one labeled `home`. This is vCard's mechanism for expressing graph.
 
-The app follows the same design assumption. When exporting a person to Apple Contacts, **all N of that person's topics are merged into a single vCard**. Each field value carries the label from the topic it came from (e.g. a phone number from a work topic gets the `work` label). If two different work topics both contribute a phone number, the vCard will have two `work` phone numbers — this is correct and consistent with how vCard works.
+The app follows the same design assumption. When exporting a person to Apple Contacts, **all N of that person's graphs are merged into a single vCard**. Each field value carries the label from the graph it came from (e.g. a phone number from a work graph gets the `work` label). If two different work graphs both contribute a phone number, the vCard will have two `work` phone numbers — this is correct and consistent with how vCard works.
 
-**Import (Apple Contacts → the app):** each contact record becomes a topic DataBook. All standard vCard fields have direct counterparts in the persona ontology: names, phone numbers, email addresses, postal addresses, organization, job title, birthday, anniversary, photo, notes, social profiles, URLs, related names.
+**Import (Apple Contacts → the app):** each contact record becomes a graph DataBook. All standard vCard fields have direct counterparts in the persona ontology: names, phone numbers, email addresses, postal addresses, organization, job title, birthday, anniversary, photo, notes, social profiles, URLs, related names.
 
-**Export (the app → Apple Contacts):** merge all topics for the person into a single vCard. Map each field's topic (work, personal, family, etc.) to the corresponding vCard label. Multiple values under the same label are permitted and expected.
+**Export (the app → Apple Contacts):** merge all graphs for the person into a single vCard. Map each field's graph (work, personal, family, etc.) to the corresponding vCard label. Multiple values under the same label are permitted and expected.
 
 ### vCard label constraints
 
-**Number of values:** the vCard spec (RFC 6350) imposes no maximum on repeatable properties — `TEL`, `EMAIL`, `ADR` etc. can appear as many times as needed. Apple Contacts also imposes no hard cap in its data model. A person with phone numbers across many topics will export cleanly regardless of count.
+**Number of values:** the vCard spec (RFC 6350) imposes no maximum on repeatable properties — `TEL`, `EMAIL`, `ADR` etc. can appear as many times as needed. Apple Contacts also imposes no hard cap in its data model. A person with phone numbers across many graphs will export cleanly regardless of count.
 
 **Label string length:** vCard's `TYPE` parameter supports predefined types (`work`, `home`, `cell`, etc.) and custom types, stored with an `X-` prefix in vCard 3.0 (e.g. `TYPE=X-Acme-Corp`) or as free strings in vCard 4.0. The vCard spec sets no maximum length for `TYPE` values. However, Apple Contacts has an undocumented practical limit on how much of a custom label it displays in the UI — long labels (e.g. `"Boston Hub Society"`, `"California DMV"`) may be truncated visually even though the full string is preserved in the underlying vCard data. Round-trip fidelity of the data is unaffected; this is purely a display concern.
 
@@ -58,7 +58,7 @@ These fields are ignored by Apple Contacts and other vCard consumers but survive
 
 | Dimension | Import | Export | Lossless? |
 |-----------|--------|--------|-----------|
-| Contact fields | Direct field mapping | Merge all topics into one vCard | Yes, with `X-CELLULA-PERSON-IRI` anchor |
-| Multiple topics per person | Each → separate DataBook | Flatten to single vCard; multiple values per label are correct | Yes |
+| Contact fields | Direct field mapping | Merge all graphs into one vCard | Yes, with `X-CELLULA-PERSON-IRI` anchor |
+| Multiple graphs per person | Each → separate DataBook | Flatten to single vCard; multiple values per label are correct | Yes |
 | Group hierarchy | Flat → leaf categories | Encode as path in group name | Yes, with path encoding |
-| App-specific metadata | Stored in topic DataBook | Store IRI in `X-CELLULA-*` vCard field | Yes, with anchor fields |
+| App-specific metadata | Stored in graph DataBook | Store IRI in `X-CELLULA-*` vCard field | Yes, with anchor fields |

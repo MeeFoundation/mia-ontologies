@@ -5,42 +5,42 @@ type: cell-databook
 version: 1.1.0
 created: 2026-07-10
 description: >
-  Cell DataBook for folder "Paula Walker" (cell:origin: cat:Employee). It is a one-member cell with one memberTopic about :Self and one otherTopic about :Paula_Walker.
+  Cell DataBook for folder "Paula Walker" (cell:origin: cat:Employee). It is a one-member cell with one member entry about :Self and one graph about :Paula_Walker.
 mia:
   origin: "cat:Employee"
   creator: ":Self"
   memberCount: "cell:OneMember"
-  memberTopics: "topic-20"
-  otherTopics: "topic-06"
-  topics:
-    - id: "http://www.example.org/mia/topics/topic-06"
+  members: "graph-20"
+  topic: "graph-06"
+  graphs:
+    - id: "http://www.example.org/mia/graphs/graph-06"
       claimant: ":Self"
       subject: ":Paula_Walker"
       shapes:
         - http://mee.foundation/ontologies/persona/shapes
-        - http://mee.foundation/ontologies/topic/shapes
-    - id: "http://www.example.org/mia/topics/topic-20"
+        - http://mee.foundation/ontologies/graph/shapes
+    - id: "http://www.example.org/mia/graphs/graph-20"
       claimant: ":Self"
       subject: ":Self"
       shapes:
         - http://mee.foundation/ontologies/persona/shapes
-        - http://mee.foundation/ontologies/topic/shapes
+        - http://mee.foundation/ontologies/graph/shapes
 ---
 
-## Topics
+## Graphs
 
-<a id="topic-06"></a>
-### Topic 06
+<a id="graph-06"></a>
+### Graph 06
 
 #### Overview
 
-This topic captures Alice's record of her colleague Paula Walker in their shared Acme employment topic. Alice is the claimant.
+This graph captures Alice's record of her colleague Paula Walker in their shared Acme employment graph. Alice is the claimant.
 
-#### Topic Graph
+#### Graph
 
 ```turtle
-<!-- databook:id: paula-acme-topic-graph -->
-<!-- databook:graph: http://www.example.org/mia/topics/topic-06#graph -->
+<!-- databook:id: paula-acme-graph -->
+<!-- databook:graph: http://www.example.org/mia/graphs/graph-06#graph -->
 @prefix : <http://www.example.org/mia#> .
 @prefix persona: <http://mee.foundation/ontologies/persona#> .
 @prefix owl: <http://www.w3.org/2002/07/owl#> .
@@ -52,18 +52,18 @@ This topic captures Alice's record of her colleague Paula Walker in their shared
     rdfs:label "Paula Walker (Acme)"@en .
 ```
 
-<a id="topic-20"></a>
-### Topic 20
+<a id="graph-20"></a>
+### Graph 20
 
 #### Overview
 
-This topic captures Alice Walker's employee identity at Acme. It records her work email address (alice@acme.com) and her Acme social network, which includes colleague Paula Walker. Alice is the claimant.
+This graph captures Alice Walker's employee identity at Acme. It records her work email address (alice@acme.com) and her Acme social network, which includes colleague Paula Walker. Alice is the claimant.
 
-#### Topic Graph
+#### Graph
 
 ```turtle
-<!-- databook:id: alice-acme-topic-graph -->
-<!-- databook:graph: http://www.example.org/mia/topics/topic-20#graph -->
+<!-- databook:id: alice-acme-graph -->
+<!-- databook:graph: http://www.example.org/mia/graphs/graph-20#graph -->
 @prefix : <http://www.example.org/mia#> .
 @prefix persona: <http://mee.foundation/ontologies/persona#> .
 @prefix cco: <https://w3id.org/cco-domains/cco/> .

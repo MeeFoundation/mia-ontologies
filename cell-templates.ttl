@@ -9,49 +9,54 @@
 @base <http://mee.foundation/ontologies/cell-templates> .
 
 <http://mee.foundation/ontologies/cell-templates> rdf:type owl:Ontology ;
-    owl:versionIRI <http://mee.foundation/ontologies/cell-templates/1.13.0> ;
+    owl:versionIRI <http://mee.foundation/ontologies/cell-templates/1.16.0> ;
     dc:date "2026-08-27"^^xsd:date ;
     owl:imports <http://mee.foundation/ontologies/cell> ;
-    owl:versionInfo "Version 1.13.0 - renamed MedicalAppointmentInfoTemplateCell to MedicalAppointmentTemplateCell, following cat:MedicalAppointmentInfo's rename to cat:MedicalAppointment."@en ;
+    owl:versionInfo "Version 1.16.0 - added the required cell:isTopicCell to every template cell: true on ctpl:MedicalAppointmentTemplateCell and ctpl:PetMedicationsTemplateCell, false on the other three."@en ;
     rdfs:label "Cell Templates"@en ;
-    rdfs:comment """Class-level cell:Cell templates for cat:Category subclasses (category.ttl). Each individual here is what a cat:Category subclass's cat:templateCell value (asserted in category.ttl) points directly at — what the app clones into a new cell when a folder representing that class is first instantiated into a user's tree (Lazy Instantiation). Each is typed solely cell:TCell — cell:TCell and cell:ACell are disjoint (cell.ttl), so a template cell is reusable class-level content, never itself an instantiated member of any relationship. Each also carries cell:templateShape to the SHACL shape(s), in the paired cell-templates-shacl.ttl, describing the content expected of a topic file filed under that category."""@en .
+    rdfs:comment """Class-level cell:Cell templates for cat:Category subclasses (category.ttl). Each individual here is what a cat:Category subclass's cat:templateCell value (asserted in category.ttl) points directly at — what the app clones into a new cell when a folder representing that class is first instantiated into a user's tree (Lazy Instantiation). Each is typed solely cell:TemplateCell — cell:TemplateCell and cell:MemberCell are disjoint (cell.ttl), so a template cell is reusable class-level content, never itself an instantiated member of any relationship. Each also carries cell:templateShape to the SHACL shape(s), in the paired cell-templates-shacl.ttl, describing the content expected of a topic file filed under that category, and cell:isTopicCell (required, exactly one value) — true on ctpl:MedicalAppointmentTemplateCell and ctpl:PetMedicationsTemplateCell, the two templates whose real cells always end up carrying a cell:topic value, false on the other three, flagging whether Lazy Instantiation's clone is expected to be typed cell:TopicCell."""@en .
 
 #################################################################
 #  cat:Passport
 #################################################################
 
-ctpl:PassportTemplateCell rdf:type cell:Cell, cell:TCell ;
+ctpl:PassportTemplateCell rdf:type cell:Cell, cell:TemplateCell ;
     rdfs:label "Passport Template Cell"@en ;
-    cell:templateShape pshapes:PassportDocumentShape .
+    cell:templateShape pshapes:PassportDocumentShape ;
+    cell:isTopicCell false .
 
 #################################################################
 #  cat:BirthCertificate
 #################################################################
 
-ctpl:BirthCertificateTemplateCell rdf:type cell:Cell, cell:TCell ;
+ctpl:BirthCertificateTemplateCell rdf:type cell:Cell, cell:TemplateCell ;
     rdfs:label "Birth Certificate Template Cell"@en ;
-    cell:templateShape pshapes:BirthCertificateDocumentShape .
+    cell:templateShape pshapes:BirthCertificateDocumentShape ;
+    cell:isTopicCell false .
 
 #################################################################
 #  cat:DriversLicense
 #################################################################
 
-ctpl:DriversLicenseTemplateCell rdf:type cell:Cell, cell:TCell ;
+ctpl:DriversLicenseTemplateCell rdf:type cell:Cell, cell:TemplateCell ;
     rdfs:label "Drivers License Template Cell"@en ;
-    cell:templateShape pshapes:DriversLicenseDocumentShape .
+    cell:templateShape pshapes:DriversLicenseDocumentShape ;
+    cell:isTopicCell false .
 
 #################################################################
 #  cat:MedicalAppointment
 #################################################################
 
-ctpl:MedicalAppointmentTemplateCell rdf:type cell:Cell, cell:TCell ;
+ctpl:MedicalAppointmentTemplateCell rdf:type cell:Cell, cell:TemplateCell ;
     rdfs:label "Medical Appointment Template Cell"@en ;
-    cell:templateShape pshapes:MedicalAppointmentRecordShape .
+    cell:templateShape pshapes:MedicalAppointmentRecordShape ;
+    cell:isTopicCell true .
 
 #################################################################
 #  cat:PetsMedications
 #################################################################
 
-ctpl:PetMedicationsTemplateCell rdf:type cell:Cell, cell:TCell ;
+ctpl:PetMedicationsTemplateCell rdf:type cell:Cell, cell:TemplateCell ;
     rdfs:label "Pet Medications Template Cell"@en ;
-    cell:templateShape pshapes:PetMedicationRecordShape .
+    cell:templateShape pshapes:PetMedicationRecordShape ;
+    cell:isTopicCell true .

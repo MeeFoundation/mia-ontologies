@@ -5,35 +5,35 @@ type: cell-databook
 version: 1.2.0
 created: 2026-07-10
 description: >
-  Cell DataBook for folder "Social Security Administration" (cell:origin: cat:SSN). It is a one-member cell with one memberTopic about :Self.
+  Cell DataBook for folder "Social Security Administration" (cell:origin: cat:SSN). It is a one-member cell with one member entry about :Self.
 mia:
   origin: "cat:SSN"
   creator: ":Self"
   memberCount: "cell:OneMember"
-  memberTopics: "topic-23"
-  topics:
-    - id: "http://www.example.org/mia/topics/topic-23"
+  members: "graph-23"
+  graphs:
+    - id: "http://www.example.org/mia/graphs/graph-23"
       claimant: ":Self"
       subject: ":Self"
       shapes:
         - http://mee.foundation/ontologies/persona/shapes
-        - http://mee.foundation/ontologies/topic/shapes
+        - http://mee.foundation/ontologies/graph/shapes
 ---
 
-## Topics
+## Graphs
 
-<a id="topic-23"></a>
-### Topic 23
+<a id="graph-23"></a>
+### Graph 23
 
 #### Overview
 
-This topic captures Alice Walker's Social Security Administration record. Alice self-enters her SSN (123-45-6788) from her physical Social Security card. The SSA is not a PDN node, so this data is self-claimed rather than received from the SSA directly. Alice is the claimant.
+This graph captures Alice Walker's Social Security Administration record. Alice self-enters her SSN (123-45-6788) from her physical Social Security card. The SSA is not a PDN node, so this data is self-claimed rather than received from the SSA directly. Alice is the claimant.
 
-#### Topic Graph
+#### Graph
 
 ```turtle
-<!-- databook:id: alice-ssa-topic-graph -->
-<!-- databook:graph: http://www.example.org/mia/topics/topic-23#graph -->
+<!-- databook:id: alice-ssa-graph -->
+<!-- databook:graph: http://www.example.org/mia/graphs/graph-23#graph -->
 @prefix : <http://www.example.org/mia#> .
 @prefix persona: <http://mee.foundation/ontologies/persona#> .
 @prefix cco: <https://w3id.org/cco-domains/cco/> .

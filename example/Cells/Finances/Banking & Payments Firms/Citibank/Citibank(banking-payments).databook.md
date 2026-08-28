@@ -5,43 +5,43 @@ type: cell-databook
 version: 1.1.0
 created: 2026-07-10
 description: >
-  Cell DataBook for folder "Citibank" (cell:origin: cat:BankingPayments). It is a two-member cell with two memberTopics about :Self and :Citibank.
+  Cell DataBook for folder "Citibank" (cell:origin: cat:BankingPayments). It is a two-member cell with two members about :Self and :Citibank.
 mia:
   origin: "cat:BankingPayments"
   creator: ":Self"
   memberCount: "cell:TwoMember"
-  memberTopics:
-    - "topic-09"
-    - "topic-27"
-  topics:
-    - id: "http://www.example.org/mia/topics/topic-09"
+  members:
+    - "graph-09"
+    - "graph-27"
+  graphs:
+    - id: "http://www.example.org/mia/graphs/graph-09"
       claimant: ":Citibank"
       subject: ":Self"
       shapes:
         - http://mee.foundation/ontologies/persona/shapes
-        - http://mee.foundation/ontologies/topic/shapes
-    - id: "http://www.example.org/mia/topics/topic-27"
+        - http://mee.foundation/ontologies/graph/shapes
+    - id: "http://www.example.org/mia/graphs/graph-27"
       claimant: ":Self"
       subject: ":Citibank"
       shapes:
         - http://mee.foundation/ontologies/persona/shapes
-        - http://mee.foundation/ontologies/topic/shapes
+        - http://mee.foundation/ontologies/graph/shapes
 ---
 
-## Topics
+## Graphs
 
-<a id="topic-09"></a>
-### Topic 09
+<a id="graph-09"></a>
+### Graph 09
 
 #### Overview
 
-This topic captures Alice Walker's financial relationship with Citibank. Citibank is a PDN Organization node which directly claims the information about Alice in this topic. The information in this topic has been transmitted from the Citibank PDN node to Alice's own instance of the app. It includes a VISA debit card linked to a checking account, plus an online service account for online.citi.com. Citibank is the claimant.
+This graph captures Alice Walker's financial relationship with Citibank. Citibank is a PDN Organization node which directly claims the information about Alice in this graph. The information in this graph has been transmitted from the Citibank PDN node to Alice's own instance of the app. It includes a VISA debit card linked to a checking account, plus an online service account for online.citi.com. Citibank is the claimant.
 
-#### Topic Graph
+#### Graph
 
 ```turtle
-<!-- databook:id: citibank-topic-graph -->
-<!-- databook:graph: http://www.example.org/mia/topics/topic-09#graph -->
+<!-- databook:id: citibank-graph -->
+<!-- databook:graph: http://www.example.org/mia/graphs/graph-09#graph -->
 @prefix : <http://www.example.org/mia#> .
 @prefix persona: <http://mee.foundation/ontologies/persona#> .
 @prefix o: <http://mee.foundation/ontologies/organization#> .
@@ -97,18 +97,18 @@ This topic captures Alice Walker's financial relationship with Citibank. Citiban
     persona:hasPassword "C1t1b@nk#2024!" .         # has password
 ```
 
-<a id="topic-27"></a>
-### Topic 27
+<a id="graph-27"></a>
+### Graph 27
 
 #### Overview
 
-This topic captures Alice Walker's own self-claimed notes about Citibank as an institution — her own record of the organization, distinct from Citibank's own claimed record about her (topic 09). Together the two topics give this cell's `memberTopics` the two distinct subjects (`:Self`, `:Citibank`) required for a `cell:TwoMember` cell. Alice is the claimant.
+This graph captures Alice Walker's own self-claimed notes about Citibank as an institution — her own record of the organization, distinct from Citibank's own claimed record about her (graph 09). Together the two graphs give this cell's `members` the two distinct subjects (`:Self`, `:Citibank`) required for a `cell:TwoMember` cell. Alice is the claimant.
 
-#### Topic Graph
+#### Graph
 
 ```turtle
-<!-- databook:id: alice-citibank-org-topic-graph -->
-<!-- databook:graph: http://www.example.org/mia/topics/topic-27#graph -->
+<!-- databook:id: alice-citibank-org-graph -->
+<!-- databook:graph: http://www.example.org/mia/graphs/graph-27#graph -->
 @prefix : <http://www.example.org/mia#> .
 @prefix o: <http://mee.foundation/ontologies/organization#> .
 @prefix cco: <https://w3id.org/cco-domains/cco/> .

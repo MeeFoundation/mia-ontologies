@@ -5,35 +5,35 @@ type: cell-databook
 version: 1.1.0
 created: 2026-07-10
 description: >
-  Cell DataBook for folder "Paradise" (cell:origin: cat:Residence). It is a one-member cell with one memberTopic about :Self.
+  Cell DataBook for folder "Paradise" (cell:origin: cat:Residence). It is a one-member cell with one member entry about :Self.
 mia:
   origin: "cat:Residence"
   creator: ":Self"
   memberCount: "cell:OneMember"
-  memberTopics: "topic-18"
-  topics:
-    - id: "http://www.example.org/mia/topics/topic-18"
+  members: "graph-18"
+  graphs:
+    - id: "http://www.example.org/mia/graphs/graph-18"
       claimant: ":Self"
       subject: ":Self"
       shapes:
         - http://mee.foundation/ontologies/persona/shapes
-        - http://mee.foundation/ontologies/topic/shapes
+        - http://mee.foundation/ontologies/graph/shapes
 ---
 
-## Topics
+## Graphs
 
-<a id="topic-18"></a>
-### Topic 18
+<a id="graph-18"></a>
+### Graph 18
 
 #### Overview
 
-This topic captures Alice Walker's current residential address: 123 Sleepy Hollow, Paradise, CA 95969. The address designation has a start date of September 2025 and no end date, indicating it is her current residence. See `15-alice(boston)alice` for her previous address. Alice is the claimant.
+This graph captures Alice Walker's current residential address: 123 Sleepy Hollow, Paradise, CA 95969. The address designation has a start date of September 2025 and no end date, indicating it is her current residence. See `15-alice(boston)alice` for her previous address. Alice is the claimant.
 
-#### Topic Graph
+#### Graph
 
 ```turtle
-<!-- databook:id: alice-paradise-topic-graph -->
-<!-- databook:graph: http://www.example.org/mia/topics/topic-18#graph -->
+<!-- databook:id: alice-paradise-graph -->
+<!-- databook:graph: http://www.example.org/mia/graphs/graph-18#graph -->
 @prefix : <http://www.example.org/mia#> .
 @prefix persona: <http://mee.foundation/ontologies/persona#> .
 @prefix cco: <https://w3id.org/cco-domains/cco/> .

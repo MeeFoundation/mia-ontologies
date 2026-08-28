@@ -5,35 +5,35 @@ type: cell-databook
 version: 1.2.0
 created: 2026-07-10
 description: >
-  Cell DataBook for folder "ATT" (cell:origin: cat:Companies). It is a one-member cell with one memberTopic about :Self.
+  Cell DataBook for folder "ATT" (cell:origin: cat:Companies). It is a one-member cell with one member entry about :Self.
 mia:
   origin: "cat:Companies"
   creator: ":Self"
   memberCount: "cell:OneMember"
-  memberTopics: "topic-11"
-  topics:
-    - id: "http://www.example.org/mia/topics/topic-11"
+  members: "graph-11"
+  graphs:
+    - id: "http://www.example.org/mia/graphs/graph-11"
       claimant: ":Self"
       subject: ":Self"
       shapes:
         - http://mee.foundation/ontologies/persona/shapes
-        - http://mee.foundation/ontologies/topic/shapes
+        - http://mee.foundation/ontologies/graph/shapes
 ---
 
-## Topics
+## Graphs
 
-<a id="topic-11"></a>
-### Topic 11
+<a id="graph-11"></a>
+### Graph 11
 
 #### Overview
 
-This topic captures Alice Walker's AT&T account topic. Alice self-enters her mobile phone number (+15108149999, E.164 format). AT&T is not a PDN node, so Alice records this data herself rather than receiving it from AT&T. Alice is the claimant.
+This graph captures Alice Walker's AT&T account graph. Alice self-enters her mobile phone number (+15108149999, E.164 format). AT&T is not a PDN node, so Alice records this data herself rather than receiving it from AT&T. Alice is the claimant.
 
-#### Topic Graph
+#### Graph
 
 ```turtle
-<!-- databook:id: alice-att-topic-graph -->
-<!-- databook:graph: http://www.example.org/mia/topics/topic-11#graph -->
+<!-- databook:id: alice-att-graph -->
+<!-- databook:graph: http://www.example.org/mia/graphs/graph-11#graph -->
 @prefix : <http://www.example.org/mia#> .
 @prefix persona: <http://mee.foundation/ontologies/persona#> .
 @prefix cco: <https://w3id.org/cco-domains/cco/> .

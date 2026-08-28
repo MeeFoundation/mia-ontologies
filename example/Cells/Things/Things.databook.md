@@ -5,35 +5,35 @@ type: cell-databook
 version: 1.1.0
 created: 2026-07-10
 description: >
-  Cell DataBook for folder "Things" (cell:origin: cat:Things). It is a one-member cell with one memberTopic about :Self.
+  Cell DataBook for folder "Things" (cell:origin: cat:Things). It is a one-member cell with one member entry about :Self.
 mia:
   origin: "cat:Things"
   creator: ":Self"
   memberCount: "cell:OneMember"
-  memberTopics: "topic-22"
-  topics:
-    - id: "http://www.example.org/mia/topics/topic-22"
+  members: "graph-22"
+  graphs:
+    - id: "http://www.example.org/mia/graphs/graph-22"
       claimant: ":Self"
       subject: ":Self"
       shapes:
         - http://mee.foundation/ontologies/persona/shapes
-        - http://mee.foundation/ontologies/topic/shapes
+        - http://mee.foundation/ontologies/graph/shapes
 ---
 
-## Topics
+## Graphs
 
-<a id="topic-22"></a>
-### Topic 22
+<a id="graph-22"></a>
+### Graph 22
 
 #### Overview
 
-This topic captures Alice Walker's day-to-day physical possessions. Her wallet holds her driver's license and payment card. Her health insurance card is carried separately (not in the wallet). Her Social Security card is stored at home for safety. Alice is the claimant.
+This graph captures Alice Walker's day-to-day physical possessions. Her wallet holds her driver's license and payment card. Her health insurance card is carried separately (not in the wallet). Her Social Security card is stored at home for safety. Alice is the claimant.
 
-#### Topic Graph
+#### Graph
 
 ```turtle
-<!-- databook:id: alice-possessions-topic-graph -->
-<!-- databook:graph: http://www.example.org/mia/topics/topic-22#graph -->
+<!-- databook:id: alice-possessions-graph -->
+<!-- databook:graph: http://www.example.org/mia/graphs/graph-22#graph -->
 @prefix : <http://www.example.org/mia#> .
 @prefix persona: <http://mee.foundation/ontologies/persona#> .
 @prefix owl: <http://www.w3.org/2002/07/owl#> .

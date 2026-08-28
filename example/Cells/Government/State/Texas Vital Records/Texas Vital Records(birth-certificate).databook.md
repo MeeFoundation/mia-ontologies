@@ -5,38 +5,38 @@ type: cell-databook
 version: 1.1.0
 created: 2026-07-10
 description: >
-  Cell DataBook for folder "Texas Vital Records" (cell:origin: cat:BirthCertificate). It is a one-member cell with one memberTopic about :Self.
+  Cell DataBook for folder "Texas Vital Records" (cell:origin: cat:BirthCertificate). It is a one-member cell with one member entry about :Self.
 mia:
   origin: "cat:BirthCertificate"
   creator: ":Self"
   memberCount: "cell:OneMember"
-  memberTopics: "topic-24"
-  topics:
-    - id: "http://www.example.org/mia/topics/topic-24"
+  members: "graph-24"
+  graphs:
+    - id: "http://www.example.org/mia/graphs/graph-24"
       claimant: ":Self"
       subject: ":Self"
       template: "persona:BirthCertificateDocument"
       shapes:
         - http://mee.foundation/ontologies/persona/shapes
-        - http://mee.foundation/ontologies/topic/shapes
+        - http://mee.foundation/ontologies/graph/shapes
         - http://mee.foundation/ontologies/persona/shapes/birthcertificate
   shape: "pshapes:BirthCertificateDocumentShape"
 ---
 
-## Topics
+## Graphs
 
-<a id="topic-24"></a>
-### Topic 24
+<a id="graph-24"></a>
+### Graph 24
 
 #### Overview
 
-This topic captures Alice Walker's Texas birth certificate identity data. Alice self-enters her legal name (Margery Alice Walker) and maiden name (Margery Alice Arnold) from her physical birth certificate. Validated by the `BirthCertificate` per-template SHACL shapes. Alice is the claimant.
+This graph captures Alice Walker's Texas birth certificate identity data. Alice self-enters her legal name (Margery Alice Walker) and maiden name (Margery Alice Arnold) from her physical birth certificate. Validated by the `BirthCertificate` per-template SHACL shapes. Alice is the claimant.
 
-#### Topic Graph
+#### Graph
 
 ```turtle
-<!-- databook:id: alice-tx-birth-cert-topic-graph -->
-<!-- databook:graph: http://www.example.org/mia/topics/topic-24#graph -->
+<!-- databook:id: alice-tx-birth-cert-graph -->
+<!-- databook:graph: http://www.example.org/mia/graphs/graph-24#graph -->
 @prefix : <http://www.example.org/mia#> .
 @prefix persona: <http://mee.foundation/ontologies/persona#> .
 @prefix cco: <https://w3id.org/cco-domains/cco/> .

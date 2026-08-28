@@ -5,50 +5,50 @@ type: cell-databook
 version: 1.2.0
 created: 2026-07-10
 description: >
-  Cell DataBook for folder "Boston Hub Society" (cell:origin: cat:Affiliations). It is a multi-member cell with three memberTopics about :BHS, :Self, and :Bob_Johnson.
+  Cell DataBook for folder "Boston Hub Society" (cell:origin: cat:Affiliations). It is a multi-member cell with three members about :BHS, :Self, and :Bob_Johnson.
 mia:
   origin: "cat:Affiliations"
   creator: ":Self"
   memberCount: "cell:ThreePlusMember"
-  memberTopics:
-    - "topic-01"
-    - "topic-14"
-    - "topic-03"
-  topics:
-    - id: "http://www.example.org/mia/topics/topic-01"
+  members:
+    - "graph-01"
+    - "graph-14"
+    - "graph-03"
+  graphs:
+    - id: "http://www.example.org/mia/graphs/graph-01"
       claimant: ":BHS"
       subject: ":BHS"
       shapes:
         - http://mee.foundation/ontologies/persona/shapes
-        - http://mee.foundation/ontologies/topic/shapes
-    - id: "http://www.example.org/mia/topics/topic-03"
+        - http://mee.foundation/ontologies/graph/shapes
+    - id: "http://www.example.org/mia/graphs/graph-03"
       claimant: ":Bob_Johnson"
       subject: ":Bob_Johnson"
       shapes:
         - http://mee.foundation/ontologies/persona/shapes
-        - http://mee.foundation/ontologies/topic/shapes
-    - id: "http://www.example.org/mia/topics/topic-14"
+        - http://mee.foundation/ontologies/graph/shapes
+    - id: "http://www.example.org/mia/graphs/graph-14"
       claimant: ":Self"
       subject: ":Self"
       shapes:
         - http://mee.foundation/ontologies/persona/shapes
-        - http://mee.foundation/ontologies/topic/shapes
+        - http://mee.foundation/ontologies/graph/shapes
 ---
 
-## Topics
+## Graphs
 
-<a id="topic-01"></a>
-### Topic 01
+<a id="graph-01"></a>
+### Graph 01
 
 #### Overview
 
-This topic captures the Boston Hub Society as an `o:Organization`. In our example BHS is compatible with PDN and participates directly as a member of this cell, alongside Alice and Bob. BHS asserts a basic profile about itself here. BHS is the claimant.
+This graph captures the Boston Hub Society as an `o:Organization`. In our example BHS is compatible with PDN and participates directly as a member of this cell, alongside Alice and Bob. BHS asserts a basic profile about itself here. BHS is the claimant.
 
-#### Topic Graph
+#### Graph
 
 ```turtle
-<!-- databook:id: bhs-org-topic-graph -->
-<!-- databook:graph: http://www.example.org/mia/topics/topic-01#graph -->
+<!-- databook:id: bhs-org-graph -->
+<!-- databook:graph: http://www.example.org/mia/graphs/graph-01#graph -->
 @prefix : <http://www.example.org/mia#> .
 @prefix o: <http://mee.foundation/ontologies/organization#> .
 @prefix cco: <https://w3id.org/cco-domains/cco/> .
@@ -66,18 +66,18 @@ This topic captures the Boston Hub Society as an `o:Organization`. In our exampl
     ] .
 ```
 
-<a id="topic-03"></a>
-### Topic 03
+<a id="graph-03"></a>
+### Graph 03
 
 #### Overview
 
-This topic captures Bob Johnson's BHS profile as transmitted from Bob's own instance of the app to Alice's over the PDN. It records the name Bob presents to the Boston Hub Society. Bob is the claimant.
+This graph captures Bob Johnson's BHS profile as transmitted from Bob's own instance of the app to Alice's over the PDN. It records the name Bob presents to the Boston Hub Society. Bob is the claimant.
 
-#### Topic Graph
+#### Graph
 
 ```turtle
-<!-- databook:id: bob-bhs-topic-graph -->
-<!-- databook:graph: http://www.example.org/mia/topics/topic-03#graph -->
+<!-- databook:id: bob-bhs-graph -->
+<!-- databook:graph: http://www.example.org/mia/graphs/graph-03#graph -->
 @prefix : <http://www.example.org/mia#> .
 @prefix persona: <http://mee.foundation/ontologies/persona#> .
 @prefix cco: <https://w3id.org/cco-domains/cco/> .
@@ -100,18 +100,18 @@ This topic captures Bob Johnson's BHS profile as transmitted from Bob's own inst
     ] .
 ```
 
-<a id="topic-14"></a>
-### Topic 14
+<a id="graph-14"></a>
+### Graph 14
 
 #### Overview
 
-This topic captures Alice Walker's BHS profile — the identity data she shares with the Boston Hub Society. It includes her current Paradise, CA address, her phone number, and her Gmail address. Alice is the claimant.
+This graph captures Alice Walker's BHS profile — the identity data she shares with the Boston Hub Society. It includes her current Paradise, CA address, her phone number, and her Gmail address. Alice is the claimant.
 
-#### Topic Graph
+#### Graph
 
 ```turtle
-<!-- databook:id: alice-bhs-topic-graph -->
-<!-- databook:graph: http://www.example.org/mia/topics/topic-14#graph -->
+<!-- databook:id: alice-bhs-graph -->
+<!-- databook:graph: http://www.example.org/mia/graphs/graph-14#graph -->
 @prefix : <http://www.example.org/mia#> .
 @prefix persona: <http://mee.foundation/ontologies/persona#> .
 @prefix cco: <https://w3id.org/cco-domains/cco/> .

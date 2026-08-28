@@ -1,15 +1,15 @@
 #!/usr/bin/env python3
 """
-draw.py  —  Generate a Mermaid (.mmd) and PNG diagram for a single topic's
-RDF content, whether that topic is embedded in a cell-databook (post-merge)
+draw.py  —  Generate a Mermaid (.mmd) and PNG diagram for a single graph's
+RDF content, whether that graph is embedded in a cell-databook (post-merge)
 or (for legacy/under-development .ttl files) stands alone.
 
-Usage:   python draw.py <cell_file.databook.md> <topic-id-or-local-name>
-         python draw.py <topic_file.ttl>
-Output:  <topic-id-local-name>.mmd and .png, always written to
-         example/topics/images/ regardless of where the source cell file
-         lives — topic diagrams keep their pre-merge names/location even
-         though the topic's own file no longer exists (must be run from the
+Usage:   python draw.py <cell_file.databook.md> <graph-id-or-local-name>
+         python draw.py <graph_file.ttl>
+Output:  <graph-id-local-name>.mmd and .png, always written to
+         example/graphs/images/ regardless of where the source cell file
+         lives — graph diagrams keep their pre-merge names/location even
+         though the graph's own file no longer exists (must be run from the
          repo root for this relative path to resolve).
 
 Requires: pip install rdflib pyyaml
@@ -33,7 +33,7 @@ from pathlib import Path
 from rdflib import BNode, Graph, Literal, Namespace, URIRef
 from rdflib.namespace import OWL, RDF, RDFS
 
-from databook_topics import extract_topic_block, find_topic_entry, split_frontmatter
+from databook_graphs import extract_graph_block, find_graph_entry, split_frontmatter
 
 # ── Namespaces ─────────────────────────────────────────────────────────────────
 PERSONA = Namespace("http://mee.foundation/ontologies/persona#")
@@ -166,7 +166,7 @@ SKIP_PROPS = {
 SKIP_TYPES = {OWL.NamedIndividual, OWL.Thing, OWL.Ontology}
 MIA_NS = "http://www.example.org/mia#"
 SELF_IRI = URIRef(MIA_NS + "Self")
-SELF_TTL = Path("example/topics/self.ttl")
+SELF_TTL = Path("example/graphs/self.ttl")
 
 
 def lbl(iri: URIRef) -> str:
@@ -187,12 +187,12 @@ def esc(s: str) -> str:
 
 # ── DataBook loading ───────────────────────────────────────────────────────────
 
-def load_databook(path: Path, topic_id: str | None = None):
-    """Parse a cell-databook's frontmatter, and (when topic_id is given)
-    isolate just that one embedded topic's turtle fence — a merged cell
-    file's body may contain several fences, one per mia.topics entry, so
+def load_databook(path: Path, graph_id: str | None = None):
+    """Parse a cell-databook's frontmatter, and (when graph_id is given)
+    isolate just that one embedded graph's turtle fence — a merged cell
+    file's body may contain several fences, one per mia.graphs entry, so
     concatenating all of them (the old, pre-merge behavior) would wrongly
-    combine sibling topics' RDF into one graph."""
+    combine sibling graphs' RDF into one graph."""
     content = path.read_text()
     try:
         fm_text, _, body = split_frontmatter(content)
@@ -201,10 +201,10 @@ def load_databook(path: Path, topic_id: str | None = None):
         frontmatter, body = {}, ""
 
     g = Graph()
-    if topic_id is not None:
-        turtle_lines = extract_topic_block(body, f"{topic_id}#graph")
+    if graph_id is not None:
+        turtle_lines = extract_graph_block(body, f"{graph_id}#graph")
         if turtle_lines is None:
-            sys.exit(f"No topic graph found for {topic_id!r} in {path}")
+            sys.exit(f"No graph found for {graph_id!r} in {path}")
         g.parse(data="\n".join(turtle_lines), format="turtle")
 
     return g, frontmatter
@@ -240,7 +240,7 @@ def expand_bnode(g: Graph, bn: BNode):
 
 
 def _dyad_label(dyad_iri: str, src_dir: Path | None) -> str:
-    """Return display label for a dyad IRI: stem, with topic number appended if findable."""
+    """Return display label for a dyad IRI: stem, with graph number appended if findable."""
     stem = dyad_iri.rstrip("/").split("/")[-1]
     if src_dir is not None:
         matches = list(src_dir.glob(f"[0-9][0-9]-{stem}.databook.md"))
@@ -269,7 +269,7 @@ def _meta_subgraph(mia: dict, src_dir: Path | None = None) -> list[str]:
         return []
     label = "\\n".join(esc(p) for p in props)
     return [
-        '    subgraph ctx["Topic Graph"]',
+        '    subgraph ctx["Graph"]',
         "        direction LR",
         f'        ctx_meta["{label}"]:::meta',
         "    end",
@@ -452,8 +452,8 @@ def generate_png(mmd_path: Path, png_path: Path) -> None:
 def main() -> None:
     if len(sys.argv) < 2:
         sys.exit(
-            "Usage: python draw.py <cell_file.databook.md> <topic-id-or-local-name>\n"
-            "       python draw.py <topic_file.ttl>"
+            "Usage: python draw.py <cell_file.databook.md> <graph-id-or-local-name>\n"
+            "       python draw.py <graph_file.ttl>"
         )
     src = Path(sys.argv[1])
     if not src.exists():
@@ -462,41 +462,41 @@ def main() -> None:
     if src.name.endswith(".databook.md"):
         if len(sys.argv) < 3:
             sys.exit(
-                "A cell-databook file requires a 2nd argument: the topic's id "
+                "A cell-databook file requires a 2nd argument: the graph's id "
                 "(or just its local name, the string after the final '/')."
             )
-        topic_arg = sys.argv[2]
-        _, cell_fm = load_databook(src)  # frontmatter only — no topic_id yet
-        topics = (cell_fm.get("mia") or {}).get("topics") or []
-        match = find_topic_entry(topics, topic_arg)
+        graph_arg = sys.argv[2]
+        _, cell_fm = load_databook(src)  # frontmatter only — no graph_id yet
+        graphs = (cell_fm.get("mia") or {}).get("graphs") or []
+        match = find_graph_entry(graphs, graph_arg)
         if not match:
-            sys.exit(f"No mia.topics entry with id/local-name {topic_arg!r} in {src}")
-        topic_id = match["id"]
-        stem = topic_id.rsplit("/", 1)[-1]  # unchanged filename-stem convention
-        g, _ = load_databook(src, topic_id)
+            sys.exit(f"No mia.graphs entry with id/local-name {graph_arg!r} in {src}")
+        graph_id = match["id"]
+        stem = graph_id.rsplit("/", 1)[-1]  # unchanged filename-stem convention
+        g, _ = load_databook(src, graph_id)
         # :Self's bare rdf:type owl:NamedIndividual/persona:Person declaration
-        # lives only in example/topics/self.ttl, not repeated per-topic (see
+        # lives only in example/graphs/self.ttl, not repeated per-graph (see
         # CLAUDE.md's ":Self" IRI convention) — without merging it in here,
         # build_mermaid's `individuals` set (built from an in-graph
         # owl:NamedIndividual typing) never includes :Self, so every one of
         # its designator triples (names, emails, phones, etc.) is silently
-        # skipped whenever a topic's content hangs off :Self, which is most
-        # topics. Only merge when :Self is actually referenced, so a topic
+        # skipped whenever a graph's content hangs off :Self, which is most
+        # graphs. Only merge when :Self is actually referenced, so a graph
         # that never mentions :Self doesn't gain a stray unconnected node.
         if SELF_TTL.exists() and (
             any(g.triples((SELF_IRI, None, None))) or any(g.triples((None, None, SELF_IRI)))
         ):
             g.parse(str(SELF_TTL), format="turtle")
-        # Use this one topic's own claimant/subject/template for the "Topic
-        # Graph" metadata box — not the owning cell's aggregate mia.creator
+        # Use this one graph's own claimant/subject/template for the "Graph"
+        # metadata box — not the owning cell's aggregate mia.creator
         # (the cell has no aggregate mia.subject of its own any more; a
-        # cell's subject is derived from its memberTopics/otherTopics).
+        # cell's subject is derived from its members/topic).
         frontmatter = {"mia": {
             "claimant": match.get("claimant"),
             "subject": match.get("subject"),
             "template": match.get("template"),
         }}
-        out_dir = Path("example/topics/images")  # fixed — topic PNGs never move
+        out_dir = Path("example/graphs/images")  # fixed — graph PNGs never move
     else:
         g = Graph()
         g.parse(str(src), format="turtle")

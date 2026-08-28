@@ -5,29 +5,29 @@ type: cell-databook
 version: 1.3.0
 created: 2026-08-21
 description: >
-  Cell DataBook for folder "Medications" (cell:origin: cat:PetsMedications). It is a two-member cell, shared by Alice with Paula, with two memberTopics (about :Self and :Paula_Walker) and one otherTopic about :Ginger, Alice's cat (the cell's subject).
+  Cell DataBook for folder "Medications" (cell:origin: cat:PetsMedications). It is a two-member cell, shared by Alice with Paula, with two members (about :Self and :Paula_Walker) and one graph about :Ginger, Alice's cat (the cell's subject).
 mia:
   origin: "cat:PetsMedications"
   creator: ":Self"
   memberCount: "cell:TwoMember"
-  memberTopics:
-    - "topic-33"
-    - "topic-57"
-  otherTopics: "topic-32"
-  topics:
-    - id: "http://www.example.org/mia/topics/topic-33"
+  members:
+    - "graph-33"
+    - "graph-57"
+  topic: "graph-32"
+  graphs:
+    - id: "http://www.example.org/mia/graphs/graph-33"
       claimant: ":Self"
       subject: ":Self"
       shapes:
         - http://mee.foundation/ontologies/persona/shapes
-        - http://mee.foundation/ontologies/topic/shapes
-    - id: "http://www.example.org/mia/topics/topic-57"
+        - http://mee.foundation/ontologies/graph/shapes
+    - id: "http://www.example.org/mia/graphs/graph-57"
       claimant: ":Paula_Walker"
       subject: ":Paula_Walker"
       shapes:
         - http://mee.foundation/ontologies/persona/shapes
-        - http://mee.foundation/ontologies/topic/shapes
-    - id: "http://www.example.org/mia/topics/topic-32"
+        - http://mee.foundation/ontologies/graph/shapes
+    - id: "http://www.example.org/mia/graphs/graph-32"
       claimant: ":Self"
       subject: ":Ginger"
       template: "persona:PetMedicationRecord"
@@ -37,34 +37,34 @@ mia:
   shape: "pshapes:PetMedicationRecordShape"
 ---
 
-## Topics
+## Graphs
 
-<a id="topic-33"></a>
-### Topic 33
+<a id="graph-33"></a>
+### Graph 33
 
 #### Overview
 
-This topic is one of the cell's two `memberTopics` entries, satisfying `cell:TwoMember`'s per-member baseline alongside topic 57 (Paula's own claim, below). Alice is both the claimant and the subject. Deliberately empty: the `memberTopics` requirement is about `t:subject`/`t:claimant` (asserted at the `mia.topics[]` YAML level, not in this Turtle body), not about carrying any particular content.
+This graph is one of the cell's two `members` entries, satisfying `cell:TwoMember`'s per-member baseline alongside graph 57 (Paula's own claim, below). Alice is both the claimant and the subject. Deliberately empty: the `members` requirement is about `g:subject`/`g:claimant` (asserted at the `mia.graphs[]` YAML level, not in this Turtle body), not about carrying any particular content.
 
-#### Topic Graph
+#### Graph
 
 ```turtle
-<!-- databook:id: alice-ginger-medications-member-topic-graph -->
-<!-- databook:graph: http://www.example.org/mia/topics/topic-33#graph -->
+<!-- databook:id: alice-ginger-medications-member-graph -->
+<!-- databook:graph: http://www.example.org/mia/graphs/graph-33#graph -->
 ```
 
-<a id="topic-57"></a>
-### Topic 57
+<a id="graph-57"></a>
+### Graph 57
 
 #### Overview
 
-This cell was created by Alice and later shared with Paula, making the cell a `cell:TwoMember` cell. This topic is Paula's own bare identity claim (just her given name) — the cell's second `memberTopics` entry, satisfying `cell:TwoMember`'s per-member baseline alongside topic 33 (Alice's own claim, above). Paula is both the claimant and the subject.
+This cell was created by Alice and later shared with Paula, making the cell a `cell:TwoMember` cell. This graph is Paula's own bare identity claim (just her given name) — the cell's second `members` entry, satisfying `cell:TwoMember`'s per-member baseline alongside graph 33 (Alice's own claim, above). Paula is both the claimant and the subject.
 
-#### Topic Graph
+#### Graph
 
 ```turtle
-<!-- databook:id: paula-ginger-medications-member-topic-graph -->
-<!-- databook:graph: http://www.example.org/mia/topics/topic-57#graph -->
+<!-- databook:id: paula-ginger-medications-member-graph -->
+<!-- databook:graph: http://www.example.org/mia/graphs/graph-57#graph -->
 @prefix : <http://www.example.org/mia#> .
 @prefix persona: <http://mee.foundation/ontologies/persona#> .
 @prefix cco: <https://w3id.org/cco-domains/cco/> .
@@ -79,18 +79,18 @@ This cell was created by Alice and later shared with Paula, making the cell a `c
     ] .
 ```
 
-<a id="topic-32"></a>
-### Topic 32
+<a id="graph-32"></a>
+### Graph 32
 
 #### Overview
 
-This topic captures Alice's record of her cat Ginger's medications — an amoxicillin/clavulanate course prescribed after a minor infection, and an ongoing daily joint supplement. Validated by the `PetMedications` per-template SHACL shapes. Alice is the claimant; Ginger is the cell's `subject` but, since she has no `p:Person` individual of her own, her topic is linked as an `otherTopic` rather than one of the required `memberTopics` entries (topics 33 and 57, above, fill those slots instead). Each medication's active ingredient(s) are cited by real ChEBI class IRIs, its tablet/liquid dosage form and amount by DrOn/CCO terms, and its schedule by a DrOn drug-administration individual carrying a BFO temporal interval — see `persona:Medication`'s `rdfs:comment` (persona-templates.ttl) for the full reuse rationale.
+This graph captures Alice's record of her cat Ginger's medications — an amoxicillin/clavulanate course prescribed after a minor infection, and an ongoing daily joint supplement. Validated by the `PetMedications` per-template SHACL shapes. Alice is the claimant; Ginger is the cell's `subject` but, since she has no `p:Person` individual of her own, her graph is linked via `cell:topic` rather than as one of the required `members` entries (graphs 33 and 57, above, fill those slots instead). Each medication's active ingredient(s) are cited by real ChEBI class IRIs, its tablet/liquid dosage form and amount by DrOn/CCO terms, and its schedule by a DrOn drug-administration individual carrying a BFO temporal interval — see `persona:Medication`'s `rdfs:comment` (persona-templates.ttl) for the full reuse rationale.
 
-#### Topic Graph
+#### Graph
 
 ```turtle
-<!-- databook:id: ginger-medications-topic-graph -->
-<!-- databook:graph: http://www.example.org/mia/topics/topic-32#graph -->
+<!-- databook:id: ginger-medications-graph -->
+<!-- databook:graph: http://www.example.org/mia/graphs/graph-32#graph -->
 @prefix : <http://www.example.org/mia#> .
 @prefix persona: <http://mee.foundation/ontologies/persona#> .
 @prefix cco: <https://w3id.org/cco-domains/cco/> .

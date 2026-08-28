@@ -5,14 +5,14 @@
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
 @prefix owl: <http://www.w3.org/2002/07/owl#> .
 @prefix cell: <http://mee.foundation/ontologies/cell#> .
-@prefix topic: <http://mee.foundation/ontologies/topic#> .
+@prefix g: <http://mee.foundation/ontologies/graph#> .
 @prefix p: <http://mee.foundation/ontologies/persona#> .
 @prefix o: <http://mee.foundation/ontologies/organization#> .
 @prefix dc: <http://purl.org/dc/elements/1.1/> .
 
 <http://mee.foundation/ontologies/cell/shapes> rdf:type owl:Ontology ;
-    owl:versionIRI <http://mee.foundation/ontologies/cell/shapes/3.24.0> ;
-    dc:date "2026-08-24"^^xsd:date ;
+    owl:versionIRI <http://mee.foundation/ontologies/cell/shapes/3.27.0> ;
+    dc:date "2026-08-27"^^xsd:date ;
     rdfs:label "Cell Ontology SHACL Validation Shapes"@en ;
     rdfs:comment "SHACL validation shapes for cell:Cell DataBook instances (the content facet of a cell) in the Cell Ontology."@en .
 
@@ -22,11 +22,11 @@
 #  cell:Cell carries only what's common to every cell regardless of
 #  kind: origin. A cell's folder is purely the filesystem folder its
 #  cell-databook physically lives in, never a stored path, so there's
-#  nothing to constrain here for that. Topic links
-#  (cell:memberTopics/cell:otherTopics) live on :ACellShape and the
-#  per-member-count shapes below — since cell:TCell and cell:ACell are
-#  disjoint (cell.ttl), those shapes fire only on the ACell branch, not
-#  on template cells.
+#  nothing to constrain here for that. Graph links (cell:members/
+#  cell:topic) live on :MemberCellShape/:TopicCellShape and the
+#  per-member-count shapes below — since cell:TemplateCell and
+#  cell:MemberCell are disjoint (cell.ttl), those shapes fire only on
+#  the MemberCell branch, not on template cells.
 #################################################################
 
 :CellShape
@@ -51,31 +51,32 @@
         sh:message "A cell may have at most one cell:origin value: the cat:Category subclass its content is filed under, if any."@en
     ] ;
 
-    # rdf:type — exactly one of cell:TCell/cell:ACell, never both and
-    # never neither, mirroring cell.ttl's owl:disjointWith cell:TCell
-    # cell:ACell. A reusable class-level template (cell-templates.ttl)
-    # is typed cell:TCell only; every cell in a user's own tree is typed
-    # cell:ACell only — there is no legal bare tree-position-only cell
-    # with no member content in the ACell branch (a category node with
-    # nothing substantive to say still carries a minimal stub
-    # cell:memberTopics entry, see CLAUDE.md's Check 21) and no cell
-    # legally carries both kinds at once.
+    # rdf:type — exactly one of cell:TemplateCell/cell:MemberCell, never
+    # both and never neither, mirroring cell.ttl's owl:disjointWith
+    # cell:TemplateCell cell:MemberCell. A reusable class-level template
+    # (cell-templates.ttl) is typed cell:TemplateCell only; every cell
+    # in a user's own tree is typed cell:MemberCell only — there is no
+    # legal bare tree-position-only cell with no member content in the
+    # MemberCell branch (a category node with nothing substantive to
+    # say still carries a minimal stub cell:members entry, see
+    # CLAUDE.md's Check 21) and no cell legally carries both kinds at
+    # once.
     sh:xone (
-        [ sh:property [ sh:path rdf:type ; sh:hasValue cell:TCell ] ]
-        [ sh:property [ sh:path rdf:type ; sh:hasValue cell:ACell ] ]
+        [ sh:property [ sh:path rdf:type ; sh:hasValue cell:TemplateCell ] ]
+        [ sh:property [ sh:path rdf:type ; sh:hasValue cell:MemberCell ] ]
     ) .
 
 
 #################################################################
-#  TCell
-#  cell:TCell is the template facet of a cell — reusable content
+#  TemplateCell
+#  cell:TemplateCell is the template facet of a cell — reusable content
 #  reached via a cat:Category subclass's cat:templateCell
 #  (category.ttl).
 #################################################################
 
-:TCellShape
+:TemplateCellShape
     a sh:NodeShape ;
-    sh:targetClass cell:TCell ;
+    sh:targetClass cell:TemplateCell ;
     sh:message "Template Cell validation."@en ;
 
     # cell:templateShape — at most one value. Not constrained to sh:class
@@ -89,38 +90,39 @@
     sh:property [
         sh:path cell:templateShape ;
         sh:maxCount 1 ;
-        sh:message "A cell:TCell may have at most one cell:templateShape value."@en
+        sh:message "A cell:TemplateCell may have at most one cell:templateShape value."@en
+    ] ;
+
+    # cell:isTopicCell — required, exactly one value, must be a boolean.
+    # Every cell:TemplateCell individual must declare it explicitly, one
+    # way or the other.
+    sh:property [
+        sh:path cell:isTopicCell ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:datatype xsd:boolean ;
+        sh:message "A cell:TemplateCell must have exactly one cell:isTopicCell value, and it must be a boolean."@en
     ] .
 
 
 #################################################################
-#  ACell
-#  cell:ACell is the actual/instantiated facet of a cell — real,
-#  member-classified content. :ACellShape retains only
-#  cell:otherTopics's cap of at most one value (uniform regardless of
-#  member count); cell:memberTopics's per-member-count cardinality is
-#  enforced by :OneMemberShape/:TwoMemberShape/:ThreePlusMemberShape
-#  below, not here. There is no cell:subject to constrain — a cell's
-#  subject is derived from cell:memberTopics/cell:otherTopics rather
-#  than asserted (see cell.ttl's cell:otherTopics comment).
+#  MemberCell
+#  cell:MemberCell is the actual/instantiated facet of a cell — real,
+#  member-classified content. :MemberCellShape constrains
+#  cell:creator/cell:memberCount/cell:shape; cell:members's
+#  per-member-count cardinality is enforced by :OneMemberShape/
+#  :TwoMemberShape/:ThreePlusMemberShape below, and cell:topic's
+#  requirement of at least one value, no upper bound (uniform
+#  regardless of member count, on the cell:TopicCell subclass only) is
+#  enforced by :TopicCellShape, not here. There is no cell:subject to
+#  constrain — a cell's subject is derived from cell:members/
+#  cell:topic rather than asserted (see cell.ttl's cell:topic comment).
 #################################################################
 
-:ACellShape
+:MemberCellShape
     a sh:NodeShape ;
-    sh:targetClass cell:ACell ;
-    sh:message "Actual Cell validation."@en ;
-
-    # cell:otherTopics — at most one additional topic beyond the
-    # required cell:memberTopics baseline, uniformly across all member
-    # counts. Capped at one (rather than unbounded) so that, together
-    # with cell:memberTopics, a cell's subject can always be derived
-    # unambiguously — see cell.ttl's cell:otherTopics comment.
-    sh:property [
-        sh:path cell:otherTopics ;
-        sh:class topic:SCTopicGraph ;
-        sh:maxCount 1 ;
-        sh:message "A cell:ACell may have at most one cell:otherTopics value, and it must be a topic:SCTopicGraph."@en
-    ] ;
+    sh:targetClass cell:MemberCell ;
+    sh:message "Member Cell validation."@en ;
 
     # cell:creator — exactly one value, required, must be a Person or Organization
     sh:property [
@@ -128,19 +130,19 @@
         sh:minCount 1 ;
         sh:maxCount 1 ;
         sh:or ( [ sh:class p:Person ] [ sh:class o:Organization ] ) ;
-        sh:message "A cell:ACell must have exactly one cell:creator, a single p:Person or o:Organization."@en
+        sh:message "A cell:MemberCell must have exactly one cell:creator, a single p:Person or o:Organization."@en
     ] ;
 
     # cell:memberCount — exactly one value, must be the class
     # cell:OneMember, cell:TwoMember, or cell:ThreePlusMember itself
-    # (class-value punning, not a string). Required: every cell:ACell
+    # (class-value punning, not a string). Required: every cell:MemberCell
     # instance is typed as one of these three by definition.
     sh:property [
         sh:path cell:memberCount ;
         sh:minCount 1 ;
         sh:maxCount 1 ;
         sh:in ( cell:OneMember cell:TwoMember cell:ThreePlusMember ) ;
-        sh:message "A cell:ACell's cell:memberCount is required and must be the class cell:OneMember, cell:TwoMember, or cell:ThreePlusMember."@en
+        sh:message "A cell:MemberCell's cell:memberCount is required and must be the class cell:OneMember, cell:TwoMember, or cell:ThreePlusMember."@en
     ] ;
 
     # cell:shape — at most one value. Not constrained to sh:class sh:NodeShape
@@ -151,20 +153,51 @@
     sh:property [
         sh:path cell:shape ;
         sh:maxCount 1 ;
-        sh:message "A cell:ACell may have at most one cell:shape value."@en
+        sh:message "A cell:MemberCell may have at most one cell:shape value."@en
+    ] .
+
+
+#################################################################
+#  TopicCell
+#  cell:TopicCell is the subclass of cell:MemberCell for a member cell
+#  that actually carries at least one cell:topic value (CLAUDE.md's
+#  TopicCell integrity check). :TopicCellShape requires cell:topic at
+#  least once, no upper bound (uniform regardless of member count) —
+#  cell:members's per-member-count cardinality is enforced by
+#  :OneMemberShape/:TwoMemberShape/:ThreePlusMemberShape below, and
+#  applies to every cell:MemberCell regardless of whether it is also a
+#  cell:TopicCell.
+#################################################################
+
+:TopicCellShape
+    a sh:NodeShape ;
+    sh:targetClass cell:TopicCell ;
+    sh:message "Topic Cell validation."@en ;
+
+    # cell:topic — one or more values, required. A cell is typed
+    # cell:TopicCell precisely because it carries at least one
+    # cell:topic value (cell.ttl's cell:TopicCell comment), so this
+    # shape requires it — one or more additional graphs beyond the
+    # required cell:members baseline, no upper bound.
+    sh:property [
+        sh:path cell:topic ;
+        sh:class g:SCGraph ;
+        sh:minCount 1 ;
+        sh:message "A cell:TopicCell must have at least one cell:topic value, and each must be a g:SCGraph."@en
     ] .
 
 
 #################################################################
 #  Per-Member-Count Shapes
-#  cell:memberTopics scales with how many total members a cell:ACell
+#  cell:members scales with how many total members a cell:MemberCell
 #  individual represents (cell.ttl's Cell Member Composition). Since
-#  yaml-to-rdf.py types every cell:ACell instance with its concrete
+#  yaml-to-rdf.py types every cell:MemberCell instance with its concrete
 #  member class (cell:OneMember/cell:TwoMember/cell:ThreePlusMember)
 #  in addition to asserting cell:memberCount, these three shapes can
-#  target those classes directly via sh:targetClass. cell:otherTopics
-#  is deliberately absent here — it stays uniform, capped at one, and
-#  optional regardless of member count (see :ACellShape above).
+#  target those classes directly via sh:targetClass. cell:topic
+#  is deliberately absent here — it stays uniform, required at least
+#  once with no upper bound only on the cell:TopicCell subclass,
+#  regardless of member count (see :TopicCellShape above).
 #################################################################
 
 :OneMemberShape
@@ -173,11 +206,11 @@
     sh:message "OneMember Cell validation."@en ;
 
     sh:property [
-        sh:path cell:memberTopics ;
+        sh:path cell:members ;
         sh:minCount 1 ;
         sh:maxCount 1 ;
-        sh:class topic:SCTopicGraph ;
-        sh:message "A cell:OneMember's cell:memberTopics is required, exactly one value, and it must be a topic:SCTopicGraph."@en
+        sh:class g:SCGraph ;
+        sh:message "A cell:OneMember's cell:members is required, exactly one value, and it must be a g:SCGraph."@en
     ] .
 
 :TwoMemberShape
@@ -186,11 +219,11 @@
     sh:message "TwoMember Cell validation."@en ;
 
     sh:property [
-        sh:path cell:memberTopics ;
+        sh:path cell:members ;
         sh:minCount 2 ;
         sh:maxCount 4 ;
-        sh:class topic:SCTopicGraph ;
-        sh:message "A cell:TwoMember's cell:memberTopics is required, two to four values (one per self-vs-other combination), and each must be a topic:SCTopicGraph."@en
+        sh:class g:SCGraph ;
+        sh:message "A cell:TwoMember's cell:members is required, two to four values (one per self-vs-other combination), and each must be a g:SCGraph."@en
     ] .
 
 :ThreePlusMemberShape
@@ -199,8 +232,8 @@
     sh:message "ThreePlusMember Cell validation."@en ;
 
     sh:property [
-        sh:path cell:memberTopics ;
+        sh:path cell:members ;
         sh:minCount 3 ;
-        sh:class topic:SCTopicGraph ;
-        sh:message "A cell:ThreePlusMember's cell:memberTopics is required, at least three values (one per member), and each must be a topic:SCTopicGraph."@en
+        sh:class g:SCGraph ;
+        sh:message "A cell:ThreePlusMember's cell:members is required, at least three values (one per member), and each must be a g:SCGraph."@en
     ] .

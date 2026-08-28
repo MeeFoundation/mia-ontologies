@@ -1,16 +1,16 @@
 #!/usr/bin/env python3
 """
-databook_topics.py — shared helpers for locating a single embedded topic's
-content inside a (possibly multi-topic) cell-databook file, used by both
-draw.py and extract-topic.py.
+databook_graphs.py — shared helpers for locating a single embedded graph's
+content inside a (possibly multi-graph) cell-databook file, used by both
+draw.py and extract-graph.py.
 
-Since topic-databooks were merged into their owning cell-databooks, a cell
-file's body may contain several ```turtle fences — one per embedded topic
-(see the `mia.topics` list in that cell's frontmatter). Each fence still
-carries its own `<!-- databook:graph: {topic_id}#graph -->` marker, computed
-from the topic's own `id` per the unchanged `{id}#graph` named-graph
+Since graph-databooks were merged into their owning cell-databooks, a cell
+file's body may contain several ```turtle fences — one per embedded graph
+(see the `mia.graphs` list in that cell's frontmatter). Each fence still
+carries its own `<!-- databook:graph: {graph_id}#graph -->` marker, computed
+from the graph's own `id` per the unchanged `{id}#graph` named-graph
 convention (CLAUDE.md's "DataBook IRI convention") — so isolating one
-topic's fence only requires knowing that topic's `id`, no new marker scheme.
+graph's fence only requires knowing that graph's `id`, no new marker scheme.
 """
 import re
 
@@ -25,12 +25,12 @@ def split_frontmatter(text):
     return m.group(2), m.group(3), m.group(4)
 
 
-def extract_topic_block(body_text, target_graph):
+def extract_graph_block(body_text, target_graph):
     """Return the turtle lines (databook: comment lines stripped) for the
     single ```turtle fence in body_text whose <!-- databook:graph: X -->
     marker equals target_graph, or None if no fence matches. A merged
     cell-databook body may contain multiple ```turtle fences, one per
-    embedded topic."""
+    embedded graph."""
     in_fence = False
     current_graph = None
     current_lines = []
@@ -55,12 +55,12 @@ def extract_topic_block(body_text, target_graph):
     return None
 
 
-def find_topic_entry(topics, topic_arg):
-    """Match topic_arg against a mia.topics list's id or id-local-name."""
-    for t in topics or []:
-        if not isinstance(t, dict):
+def find_graph_entry(graphs, graph_arg):
+    """Match graph_arg against a mia.graphs list's id or id-local-name."""
+    for g in graphs or []:
+        if not isinstance(g, dict):
             continue
-        tid = t.get("id", "")
-        if tid == topic_arg or tid.rsplit("/", 1)[-1] == topic_arg:
-            return t
+        gid = g.get("id", "")
+        if gid == graph_arg or gid.rsplit("/", 1)[-1] == graph_arg:
+            return g
     return None

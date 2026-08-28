@@ -5,37 +5,37 @@ type: cell-databook
 version: 1.1.0
 created: 2026-07-10
 description: >
-  Cell DataBook for folder "Alice Walker" (cell:origin: cat:Employee). It is a one-member cell with one memberTopic about :Self.
+  Cell DataBook for folder "Alice Walker" (cell:origin: cat:Employee). It is a one-member cell with one member entry about :Self.
 mia:
   origin: "cat:Employee"
   creator: ":Self"
   memberCount: "cell:OneMember"
-  memberTopics: "topic-10"
-  topics:
-    - id: "http://www.example.org/mia/topics/topic-10"
+  members: "graph-10"
+  graphs:
+    - id: "http://www.example.org/mia/graphs/graph-10"
       claimant: ":Self"
       subject: ":Self"
       template: "persona:JSContactCard"
       shapes:
         - http://mee.foundation/ontologies/persona/shapes
-        - http://mee.foundation/ontologies/topic/shapes
+        - http://mee.foundation/ontologies/graph/shapes
         - http://mee.foundation/ontologies/persona/shapes/jscontactcard
 ---
 
-## Topics
+## Graphs
 
-<a id="topic-10"></a>
-### Topic 10
+<a id="graph-10"></a>
+### Graph 10
 
 #### Overview
 
-This topic captures Alice Walker's professional business card in JSContactCard format. It records her full name, work email (alice@acme.com), work phone (+15108149999), employer (Acme), department (Engineering), job title (Software Engineer), and LinkedIn profile URL. Validated by the `JSContactCard` per-template SHACL shapes. Alice is the claimant.
+This graph captures Alice Walker's professional business card in JSContactCard format. It records her full name, work email (alice@acme.com), work phone (+15108149999), employer (Acme), department (Engineering), job title (Software Engineer), and LinkedIn profile URL. Validated by the `JSContactCard` per-template SHACL shapes. Alice is the claimant.
 
-#### Topic Graph
+#### Graph
 
 ```turtle
-<!-- databook:id: alice-business-card-topic-graph -->
-<!-- databook:graph: http://www.example.org/mia/topics/topic-10#graph -->
+<!-- databook:id: alice-business-card-graph -->
+<!-- databook:graph: http://www.example.org/mia/graphs/graph-10#graph -->
 @prefix : <http://www.example.org/mia#> .
 @prefix persona: <http://mee.foundation/ontologies/persona#> .
 @prefix cco: <https://w3id.org/cco-domains/cco/> .
@@ -43,7 +43,7 @@ This topic captures Alice Walker's professional business card in JSContactCard f
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
 
-:Self rdfs:comment "Alice Walker's JSContact card persona — professional contact details taking details from her Acme topic."@en ;
+:Self rdfs:comment "Alice Walker's JSContact card persona — professional contact details taking details from her Acme graph."@en ;
 
     # ── Name components ──────────────────────────────────────────────────────
 

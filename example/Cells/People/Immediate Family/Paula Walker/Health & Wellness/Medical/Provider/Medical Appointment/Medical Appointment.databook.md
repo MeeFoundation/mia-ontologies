@@ -5,53 +5,53 @@ type: cell-databook
 version: 1.1.0
 created: 2026-07-10
 description: >
-  Cell DataBook for folder "Medical Appointment" (cell:origin: cat:MedicalAppointment). It is a two-member cell with two memberTopics about :Carol_Walker and :Self and one otherTopic about :Paula_Walker.
+  Cell DataBook for folder "Medical Appointment" (cell:origin: cat:MedicalAppointment). It is a two-member cell with two members about :Carol_Walker and :Self and one graph about :Paula_Walker.
 mia:
   origin: "cat:MedicalAppointment"
   creator: ":Self"
   memberCount: "cell:TwoMember"
-  memberTopics:
-    - "topic-28"
-    - "topic-30"
-  otherTopics:
-    - "topic-26"
-  topics:
-    - id: "http://www.example.org/mia/topics/topic-26"
+  members:
+    - "graph-28"
+    - "graph-30"
+  topic:
+    - "graph-26"
+  graphs:
+    - id: "http://www.example.org/mia/graphs/graph-26"
       claimant: ":Self"
       subject: ":Paula_Walker"
       template: "persona:MedicalAppointmentRecord"
       shapes:
         - http://mee.foundation/ontologies/persona/shapes
         - http://mee.foundation/ontologies/persona/shapes/medical-appointment
-    - id: "http://www.example.org/mia/topics/topic-28"
+    - id: "http://www.example.org/mia/graphs/graph-28"
       claimant: ":Carol_Walker"
       subject: ":Carol_Walker"
       shapes:
         - http://mee.foundation/ontologies/persona/shapes
-        - http://mee.foundation/ontologies/topic/shapes
-    - id: "http://www.example.org/mia/topics/topic-30"
+        - http://mee.foundation/ontologies/graph/shapes
+    - id: "http://www.example.org/mia/graphs/graph-30"
       claimant: ":Self"
       subject: ":Self"
       shapes:
         - http://mee.foundation/ontologies/persona/shapes
-        - http://mee.foundation/ontologies/topic/shapes
+        - http://mee.foundation/ontologies/graph/shapes
   shape: "pshapes:MedicalAppointmentRecordShape"
 ---
 
-## Topics
+## Graphs
 
-<a id="topic-26"></a>
-### Topic 26
+<a id="graph-26"></a>
+### Graph 26
 
 #### Overview
 
-This topic captures Alice's shared record of the claims needed to arrange a medical appointment on behalf of their mother, Paula Walker. Alice maintains this record on her own instance of the app and syncs it to Carol's over the PDN so both sisters can coordinate Paula's care. Because each topic's named graph must be self-contained for p2p sync to work, the claims about Paula and about her primary care physician, Dr. Jane Starostina, are copied directly into this topic rather than merely linked — Alice already holds Dr. Jane's information in her own instance, so it is Alice's own app that copies it over. Validated by the `MedicalAppointment` per-template SHACL shapes. Alice is the claimant.
+This graph captures Alice's shared record of the claims needed to arrange a medical appointment on behalf of their mother, Paula Walker. Alice maintains this record on her own instance of the app and syncs it to Carol's over the PDN so both sisters can coordinate Paula's care. Because each graph's named graph must be self-contained for p2p sync to work, the claims about Paula and about her primary care physician, Dr. Jane Starostina, are copied directly into this graph rather than merely linked — Alice already holds Dr. Jane's information in her own instance, so it is Alice's own app that copies it over. Validated by the `MedicalAppointment` per-template SHACL shapes. Alice is the claimant.
 
-#### Topic Graph
+#### Graph
 
 ```turtle
-<!-- databook:id: alice-paula-medical-appointment-topic-graph -->
-<!-- databook:graph: http://www.example.org/mia/topics/topic-26#graph -->
+<!-- databook:id: alice-paula-medical-appointment-graph -->
+<!-- databook:graph: http://www.example.org/mia/graphs/graph-26#graph -->
 @prefix : <http://www.example.org/mia#> .
 @prefix persona: <http://mee.foundation/ontologies/persona#> .
 @prefix cco: <https://w3id.org/cco-domains/cco/> .
@@ -118,18 +118,18 @@ This topic captures Alice's shared record of the claims needed to arrange a medi
     persona:preferredPharmacy "CVS Pharmacy, 123 Main St, Paradise, CA" .
 ```
 
-<a id="topic-28"></a>
-### Topic 28
+<a id="graph-28"></a>
+### Graph 28
 
 #### Overview
 
-This topic captures Carol Walker's own self-claimed persona and contact info, shared directly from her own instance of the app to Alice's over the PDN. This cell's two members are Alice and Carol (its derived subject, `:Paula_Walker` (from its sole `otherTopics` entry), is a third party the cell is *about*, not one of its members) — this topic and its counterpart (topic 30, Alice's own self-claimed contact info) together represent those two members, alongside topic 26 (Alice's claims about Paula's medical appointment). Carol is the claimant.
+This graph captures Carol Walker's own self-claimed persona and contact info, shared directly from her own instance of the app to Alice's over the PDN. This cell's two members are Alice and Carol (its derived subject, `:Paula_Walker` (from its sole `graph` entry), is a third party the cell is *about*, not one of its members) — this graph and its counterpart (graph 30, Alice's own self-claimed contact info) together represent those two members, alongside graph 26 (Alice's claims about Paula's medical appointment). Carol is the claimant.
 
-#### Topic Graph
+#### Graph
 
 ```turtle
-<!-- databook:id: carol-self-topic-graph -->
-<!-- databook:graph: http://www.example.org/mia/topics/topic-28#graph -->
+<!-- databook:id: carol-self-graph -->
+<!-- databook:graph: http://www.example.org/mia/graphs/graph-28#graph -->
 @prefix : <http://www.example.org/mia#> .
 @prefix persona: <http://mee.foundation/ontologies/persona#> .
 @prefix cco: <https://w3id.org/cco-domains/cco/> .
@@ -162,18 +162,18 @@ This topic captures Carol Walker's own self-claimed persona and contact info, sh
     ] .
 ```
 
-<a id="topic-30"></a>
-### Topic 30
+<a id="graph-30"></a>
+### Graph 30
 
 #### Overview
 
-This topic captures Alice Walker's own self-claimed contact info, kept in this cell so Carol can reach her while coordinating Paula's medical appointments. This cell's two members are Alice and Carol (its derived subject, `:Paula_Walker` (from its sole `otherTopics` entry), is a third party the cell is *about*, not one of its members) — this topic and its counterpart (topic 28, Carol's own self-claimed persona) together represent those two members, alongside topic 26 (Alice's claims about Paula's medical appointment). Alice is the claimant.
+This graph captures Alice Walker's own self-claimed contact info, kept in this cell so Carol can reach her while coordinating Paula's medical appointments. This cell's two members are Alice and Carol (its derived subject, `:Paula_Walker` (from its sole `graph` entry), is a third party the cell is *about*, not one of its members) — this graph and its counterpart (graph 28, Carol's own self-claimed persona) together represent those two members, alongside graph 26 (Alice's claims about Paula's medical appointment). Alice is the claimant.
 
-#### Topic Graph
+#### Graph
 
 ```turtle
-<!-- databook:id: alice-self-topic-graph -->
-<!-- databook:graph: http://www.example.org/mia/topics/topic-30#graph -->
+<!-- databook:id: alice-self-graph -->
+<!-- databook:graph: http://www.example.org/mia/graphs/graph-30#graph -->
 @prefix : <http://www.example.org/mia#> .
 @prefix cco: <https://w3id.org/cco-domains/cco/> .
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .

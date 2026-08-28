@@ -5,38 +5,38 @@ type: cell-databook
 version: 1.1.0
 created: 2026-07-10
 description: >
-  Cell DataBook for folder "California DMV" (cell:origin: cat:DriversLicense). It is a one-member cell with one memberTopic about :Self.
+  Cell DataBook for folder "California DMV" (cell:origin: cat:DriversLicense). It is a one-member cell with one member entry about :Self.
 mia:
   origin: "cat:DriversLicense"
   creator: ":Self"
   memberCount: "cell:OneMember"
-  memberTopics: "topic-15"
-  topics:
-    - id: "http://www.example.org/mia/topics/topic-15"
+  members: "graph-15"
+  graphs:
+    - id: "http://www.example.org/mia/graphs/graph-15"
       claimant: ":Self"
       subject: ":Self"
       template: "persona:DriversLicenseDocument"
       shapes:
         - http://mee.foundation/ontologies/persona/shapes
-        - http://mee.foundation/ontologies/topic/shapes
+        - http://mee.foundation/ontologies/graph/shapes
         - http://mee.foundation/ontologies/persona/shapes/driverslicense
   shape: "pshapes:DriversLicenseDocumentShape"
 ---
 
-## Topics
+## Graphs
 
-<a id="topic-15"></a>
-### Topic 15
+<a id="graph-15"></a>
+### Graph 15
 
 #### Overview
 
-This topic captures Alice Walker's California driver's license identity data. Alice self-enters her legal name (Margery Alice Walker), date of birth (1985-07-04), California license number (A1234567), expiration date (2031-07-04), issuing jurisdiction (CA), and a photo. Validated by the `DriversLicense` per-template SHACL shapes. Alice is the claimant.
+This graph captures Alice Walker's California driver's license identity data. Alice self-enters her legal name (Margery Alice Walker), date of birth (1985-07-04), California license number (A1234567), expiration date (2031-07-04), issuing jurisdiction (CA), and a photo. Validated by the `DriversLicense` per-template SHACL shapes. Alice is the claimant.
 
-#### Topic Graph
+#### Graph
 
 ```turtle
-<!-- databook:id: alice-driverslicense-topic-graph -->
-<!-- databook:graph: http://www.example.org/mia/topics/topic-15#graph -->
+<!-- databook:id: alice-driverslicense-graph -->
+<!-- databook:graph: http://www.example.org/mia/graphs/graph-15#graph -->
 @prefix : <http://www.example.org/mia#> .
 @prefix persona: <http://mee.foundation/ontologies/persona#> .
 @prefix cco: <https://w3id.org/cco-domains/cco/> .

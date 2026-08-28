@@ -5,56 +5,56 @@ type: cell-databook
 version: 1.1.0
 created: 2026-08-22
 description: >
-  Cell DataBook for folder "Ginger" (cell:origin: cat:Pets). A user-defined instance folder for Alice's specific cat, Ginger, nested under the generic Pets category — mirroring how e.g. "Bob Johnson" reuses its parent "Others" folder's own origin class rather than being Custom. It is a one-member cell with one memberTopic about :Self and one otherTopic about :Ginger (the cell's subject).
+  Cell DataBook for folder "Ginger" (cell:origin: cat:Pets). A user-defined instance folder for Alice's specific cat, Ginger, nested under the generic Pets category — mirroring how e.g. "Bob Johnson" reuses its parent "Others" folder's own origin class rather than being Custom. It is a one-member cell with one member entry about :Self and one graph about :Ginger (the cell's subject).
 mia:
   origin: "cat:Pets"
   creator: ":Self"
   memberCount: "cell:OneMember"
-  memberTopics: "topic-36"
-  otherTopics: "topic-37"
-  topics:
-    - id: "http://www.example.org/mia/topics/topic-36"
+  members: "graph-36"
+  topic: "graph-37"
+  graphs:
+    - id: "http://www.example.org/mia/graphs/graph-36"
       claimant: ":Self"
       subject: ":Self"
       shapes:
         - http://mee.foundation/ontologies/persona/shapes
-        - http://mee.foundation/ontologies/topic/shapes
-    - id: "http://www.example.org/mia/topics/topic-37"
+        - http://mee.foundation/ontologies/graph/shapes
+    - id: "http://www.example.org/mia/graphs/graph-37"
       claimant: ":Self"
       subject: ":Ginger"
       shapes:
         - http://mee.foundation/ontologies/persona/shapes
-        - http://mee.foundation/ontologies/topic/shapes
+        - http://mee.foundation/ontologies/graph/shapes
 ---
 
-## Topics
+## Graphs
 
-<a id="topic-36"></a>
-### Topic 36
+<a id="graph-36"></a>
+### Graph 36
 
 #### Overview
 
-This topic is the cell's one required `memberTopics` entry — a `cell:OneMember` cell in the user's own category-cell tree always has `:Self` as its one member (see Check 21), regardless of what the cell's `subject` is — here, Ginger herself. Alice is both the claimant and the subject. Deliberately empty: the `memberTopics` requirement is about `t:subject`/`t:claimant` (asserted at the `mia.topics[]` YAML level, not in this Turtle body), not about carrying any particular content — there is no rule requiring a member's topic to assert anything at all about them.
+This graph is the cell's one required `members` entry — a `cell:OneMember` cell in the user's own category-cell tree always has `:Self` as its one member (see Check 21), regardless of what the cell's `subject` is — here, Ginger herself. Alice is both the claimant and the subject. Deliberately empty: the `members` requirement is about `g:subject`/`g:claimant` (asserted at the `mia.graphs[]` YAML level, not in this Turtle body), not about carrying any particular content — there is no rule requiring a member's graph to assert anything at all about them.
 
-#### Topic Graph
+#### Graph
 
 ```turtle
-<!-- databook:id: alice-ginger-member-topic-graph -->
-<!-- databook:graph: http://www.example.org/mia/topics/topic-36#graph -->
+<!-- databook:id: alice-ginger-member-graph -->
+<!-- databook:graph: http://www.example.org/mia/graphs/graph-36#graph -->
 ```
 
-<a id="topic-37"></a>
-### Topic 37
+<a id="graph-37"></a>
+### Graph 37
 
 #### Overview
 
-This topic captures Alice's basic claim about Ginger herself — just enough to back the cell's `subject: ":Ginger"` with a real topic (see Check 22). Ginger's actual medications live in the nested Medications cell instead; this is a minimal, standalone identification.
+This graph captures Alice's basic claim about Ginger herself — just enough to back the cell's `subject: ":Ginger"` with a real graph (see Check 22). Ginger's actual medications live in the nested Medications cell instead; this is a minimal, standalone identification.
 
-#### Topic Graph
+#### Graph
 
 ```turtle
-<!-- databook:id: alice-ginger-subject-topic-graph -->
-<!-- databook:graph: http://www.example.org/mia/topics/topic-37#graph -->
+<!-- databook:id: alice-ginger-subject-graph -->
+<!-- databook:graph: http://www.example.org/mia/graphs/graph-37#graph -->
 @prefix : <http://www.example.org/mia#> .
 @prefix owl: <http://www.w3.org/2002/07/owl#> .
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .

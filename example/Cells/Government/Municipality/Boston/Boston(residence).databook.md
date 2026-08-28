@@ -5,35 +5,35 @@ type: cell-databook
 version: 1.1.0
 created: 2026-07-10
 description: >
-  Cell DataBook for folder "Boston" (cell:origin: cat:Residence). It is a one-member cell with one memberTopic about :Self.
+  Cell DataBook for folder "Boston" (cell:origin: cat:Residence). It is a one-member cell with one member entry about :Self.
 mia:
   origin: "cat:Residence"
   creator: ":Self"
   memberCount: "cell:OneMember"
-  memberTopics: "topic-13"
-  topics:
-    - id: "http://www.example.org/mia/topics/topic-13"
+  members: "graph-13"
+  graphs:
+    - id: "http://www.example.org/mia/graphs/graph-13"
       claimant: ":Self"
       subject: ":Self"
       shapes:
         - http://mee.foundation/ontologies/persona/shapes
-        - http://mee.foundation/ontologies/topic/shapes
+        - http://mee.foundation/ontologies/graph/shapes
 ---
 
-## Topics
+## Graphs
 
-<a id="topic-13"></a>
-### Topic 13
+<a id="graph-13"></a>
+### Graph 13
 
 #### Overview
 
-This topic captures Alice Walker's previous residential address: 456 Commonwealth Ave, Boston, MA 02215. The address designation spans January 2020 to August 2025. See topic 18 for her current address. Alice is the claimant.
+This graph captures Alice Walker's previous residential address: 456 Commonwealth Ave, Boston, MA 02215. The address designation spans January 2020 to August 2025. See graph 18 for her current address. Alice is the claimant.
 
-#### Topic Graph
+#### Graph
 
 ```turtle
-<!-- databook:id: alice-boston-topic-graph -->
-<!-- databook:graph: http://www.example.org/mia/topics/topic-13#graph -->
+<!-- databook:id: alice-boston-graph -->
+<!-- databook:graph: http://www.example.org/mia/graphs/graph-13#graph -->
 @prefix : <http://www.example.org/mia#> .
 @prefix persona: <http://mee.foundation/ontologies/persona#> .
 @prefix cco: <https://w3id.org/cco-domains/cco/> .

@@ -5,57 +5,57 @@ type: cell-databook
 version: 1.1.0
 created: 2026-07-10
 description: >
-  Cell DataBook for folder "Bob Johnson" (cell:origin: cat:Others). It is a two-member cell with four memberTopics (two about :Bob_Johnson and two about :Self).
+  Cell DataBook for folder "Bob Johnson" (cell:origin: cat:Others). It is a two-member cell with four members (two about :Bob_Johnson and two about :Self).
 mia:
   origin: "cat:Others"
   creator: ":Self"
   memberCount: "cell:TwoMember"
-  memberTopics:
-    - "topic-02"
-    - "topic-12"
-    - "topic-04"
-    - "topic-08"
-  topics:
-    - id: "http://www.example.org/mia/topics/topic-02"
+  members:
+    - "graph-02"
+    - "graph-12"
+    - "graph-04"
+    - "graph-08"
+  graphs:
+    - id: "http://www.example.org/mia/graphs/graph-02"
       claimant: ":Bob_Johnson"
       subject: ":Bob_Johnson"
       shapes:
         - http://mee.foundation/ontologies/persona/shapes
-        - http://mee.foundation/ontologies/topic/shapes
-    - id: "http://www.example.org/mia/topics/topic-04"
+        - http://mee.foundation/ontologies/graph/shapes
+    - id: "http://www.example.org/mia/graphs/graph-04"
       claimant: ":Self"
       subject: ":Bob_Johnson"
       shapes:
         - http://mee.foundation/ontologies/persona/shapes
-        - http://mee.foundation/ontologies/topic/shapes
-    - id: "http://www.example.org/mia/topics/topic-08"
+        - http://mee.foundation/ontologies/graph/shapes
+    - id: "http://www.example.org/mia/graphs/graph-08"
       claimant: ":Bob_Johnson"
       subject: ":Self"
       shapes:
         - http://mee.foundation/ontologies/persona/shapes
-        - http://mee.foundation/ontologies/topic/shapes
-    - id: "http://www.example.org/mia/topics/topic-12"
+        - http://mee.foundation/ontologies/graph/shapes
+    - id: "http://www.example.org/mia/graphs/graph-12"
       claimant: ":Self"
       subject: ":Self"
       shapes:
         - http://mee.foundation/ontologies/persona/shapes
-        - http://mee.foundation/ontologies/topic/shapes
+        - http://mee.foundation/ontologies/graph/shapes
 ---
 
-## Topics
+## Graphs
 
-<a id="topic-02"></a>
-### Topic 02
+<a id="graph-02"></a>
+### Graph 02
 
 #### Overview
 
-This topic captures Bob Johnson's self-claimed Bob-topic persona, transmitted from Bob's own instance of the app to Alice's over the PDN. It records Bob's name and his social network link to Alice. Bob is the claimant.
+This graph captures Bob Johnson's self-claimed Bob-graph persona, transmitted from Bob's own instance of the app to Alice's over the PDN. It records Bob's name and his social network link to Alice. Bob is the claimant.
 
-#### Topic Graph
+#### Graph
 
 ```turtle
-<!-- databook:id: bob-bob-bob-topic-graph -->
-<!-- databook:graph: http://www.example.org/mia/topics/topic-02#graph -->
+<!-- databook:id: bob-bob-bob-graph -->
+<!-- databook:graph: http://www.example.org/mia/graphs/graph-02#graph -->
 @prefix : <http://www.example.org/mia#> .
 @prefix persona: <http://mee.foundation/ontologies/persona#> .
 @prefix cco: <https://w3id.org/cco-domains/cco/> .
@@ -66,7 +66,7 @@ This topic captures Bob Johnson's self-claimed Bob-topic persona, transmitted fr
 :Bob_Johnson rdf:type owl:NamedIndividual ,
               persona:Person ;
     rdfs:label "Bob Johnson (Bob)"@en ;
-    rdfs:comment "Bob Johnson's self-claimed persona in the 1:1 Bob topic."@en ;
+    rdfs:comment "Bob Johnson's self-claimed persona in the 1:1 Bob graph."@en ;
 
     <https://w3id.org/cco-domains/cco/ont00001879> [  # designated by → GivenName
         rdf:type cco:ent00000002 ;  # GivenName
@@ -87,18 +87,18 @@ This topic captures Bob Johnson's self-claimed Bob-topic persona, transmitted fr
     <http://purl.obolibrary.org/obo/BFO_0000115> :Self .  # has member part → Alice
 ```
 
-<a id="topic-04"></a>
-### Topic 04
+<a id="graph-04"></a>
+### Graph 04
 
 #### Overview
 
-This topic captures Alice's record of Bob Johnson in their 1:1 relationship topic. Alice notes Bob's favorite drink. Alice is the claimant.
+This graph captures Alice's record of Bob Johnson in their 1:1 relationship graph. Alice notes Bob's favorite drink. Alice is the claimant.
 
-#### Topic Graph
+#### Graph
 
 ```turtle
-<!-- databook:id: bob-bob-alice-topic-graph -->
-<!-- databook:graph: http://www.example.org/mia/topics/topic-04#graph -->
+<!-- databook:id: bob-bob-alice-graph -->
+<!-- databook:graph: http://www.example.org/mia/graphs/graph-04#graph -->
 @prefix : <http://www.example.org/mia#> .
 @prefix persona: <http://mee.foundation/ontologies/persona#> .
 @prefix cco: <https://w3id.org/cco-domains/cco/> .
@@ -116,18 +116,18 @@ This topic captures Alice's record of Bob Johnson in their 1:1 relationship topi
     ] .
 ```
 
-<a id="topic-08"></a>
-### Topic 08
+<a id="graph-08"></a>
+### Graph 08
 
 #### Overview
 
-This topic captures Bob's record of Alice in their 1:1 relationship topic, transmitted from Bob's own instance of the app to Alice's over the PDN. Bob notes Alice's favorite drink. Bob is the claimant.
+This graph captures Bob's record of Alice in their 1:1 relationship graph, transmitted from Bob's own instance of the app to Alice's over the PDN. Bob notes Alice's favorite drink. Bob is the claimant.
 
-#### Topic Graph
+#### Graph
 
 ```turtle
-<!-- databook:id: alice-bob-bob-topic-graph -->
-<!-- databook:graph: http://www.example.org/mia/topics/topic-08#graph -->
+<!-- databook:id: alice-bob-bob-graph -->
+<!-- databook:graph: http://www.example.org/mia/graphs/graph-08#graph -->
 @prefix : <http://www.example.org/mia#> .
 @prefix persona: <http://mee.foundation/ontologies/persona#> .
 @prefix cco: <https://w3id.org/cco-domains/cco/> .
@@ -141,18 +141,18 @@ This topic captures Bob's record of Alice in their 1:1 relationship topic, trans
     ] .
 ```
 
-<a id="topic-12"></a>
-### Topic 12
+<a id="graph-12"></a>
+### Graph 12
 
 #### Overview
 
-This topic captures Alice Walker's self-claimed persona in her 1:1 relationship with Bob Johnson. It records the name Alice presents to Bob and her social network link to him. Alice is the claimant.
+This graph captures Alice Walker's self-claimed persona in her 1:1 relationship with Bob Johnson. It records the name Alice presents to Bob and her social network link to him. Alice is the claimant.
 
-#### Topic Graph
+#### Graph
 
 ```turtle
-<!-- databook:id: alice-bob-alice-topic-graph -->
-<!-- databook:graph: http://www.example.org/mia/topics/topic-12#graph -->
+<!-- databook:id: alice-bob-alice-graph -->
+<!-- databook:graph: http://www.example.org/mia/graphs/graph-12#graph -->
 @prefix : <http://www.example.org/mia#> .
 @prefix persona: <http://mee.foundation/ontologies/persona#> .
 @prefix cco: <https://w3id.org/cco-domains/cco/> .

@@ -5,38 +5,38 @@ type: cell-databook
 version: 1.2.0
 created: 2026-07-10
 description: >
-  Cell DataBook for folder "Department of State" (cell:origin: cat:Passport). It is a one-member cell with one memberTopic about :Self.
+  Cell DataBook for folder "Department of State" (cell:origin: cat:Passport). It is a one-member cell with one member entry about :Self.
 mia:
   origin: "cat:Passport"
   creator: ":Self"
   memberCount: "cell:OneMember"
-  memberTopics: "topic-19"
-  topics:
-    - id: "http://www.example.org/mia/topics/topic-19"
+  members: "graph-19"
+  graphs:
+    - id: "http://www.example.org/mia/graphs/graph-19"
       claimant: ":Self"
       subject: ":Self"
       template: "persona:PassportDocument"
       shapes:
         - http://mee.foundation/ontologies/persona/shapes
-        - http://mee.foundation/ontologies/topic/shapes
+        - http://mee.foundation/ontologies/graph/shapes
         - http://mee.foundation/ontologies/persona/shapes/passport
   shape: "pshapes:PassportDocumentShape"
 ---
 
-## Topics
+## Graphs
 
-<a id="topic-19"></a>
-### Topic 19
+<a id="graph-19"></a>
+### Graph 19
 
 #### Overview
 
-This topic captures Alice Walker's US passport identity data. Alice self-enters her legal name (Margery Alice Walker), date of birth (1985-07-04), US passport number (123456789), issue date (2021-07-04), expiration date (2031-07-04), place of birth (Austin, Texas, USA), gender marker (F), and a photo. Validated by the `Passport` per-template SHACL shapes. Alice is the claimant.
+This graph captures Alice Walker's US passport identity data. Alice self-enters her legal name (Margery Alice Walker), date of birth (1985-07-04), US passport number (123456789), issue date (2021-07-04), expiration date (2031-07-04), place of birth (Austin, Texas, USA), gender marker (F), and a photo. Validated by the `Passport` per-template SHACL shapes. Alice is the claimant.
 
-#### Topic Graph
+#### Graph
 
 ```turtle
-<!-- databook:id: alice-passport-topic-graph -->
-<!-- databook:graph: http://www.example.org/mia/topics/topic-19#graph -->
+<!-- databook:id: alice-passport-graph -->
+<!-- databook:graph: http://www.example.org/mia/graphs/graph-19#graph -->
 @prefix : <http://www.example.org/mia#> .
 @prefix persona: <http://mee.foundation/ontologies/persona#> .
 @prefix cco: <https://w3id.org/cco-domains/cco/> .

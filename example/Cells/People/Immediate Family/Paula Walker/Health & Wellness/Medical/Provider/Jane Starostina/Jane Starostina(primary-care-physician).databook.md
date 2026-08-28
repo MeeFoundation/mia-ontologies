@@ -5,42 +5,42 @@ type: cell-databook
 version: 1.3.0
 created: 2026-07-10
 description: >
-  Cell DataBook for folder "Jane Starostina" (cell:origin: cat:PrimaryCarePhysician). It is a one-member cell with one memberTopic about :Self and one otherTopic about :Jane_Starostina (the cell's subject).
+  Cell DataBook for folder "Jane Starostina" (cell:origin: cat:PrimaryCarePhysician). It is a one-member cell with one member entry about :Self and one graph about :Jane_Starostina (the cell's subject).
 mia:
   origin: "cat:PrimaryCarePhysician"
   creator: ":Self"
   memberCount: "cell:OneMember"
-  memberTopics: "topic-34"
-  otherTopics: "topic-25"
-  topics:
-    - id: "http://www.example.org/mia/topics/topic-34"
+  members: "graph-34"
+  topic: "graph-25"
+  graphs:
+    - id: "http://www.example.org/mia/graphs/graph-34"
       claimant: ":Self"
       subject: ":Self"
       shapes:
         - http://mee.foundation/ontologies/persona/shapes
-        - http://mee.foundation/ontologies/topic/shapes
-    - id: "http://www.example.org/mia/topics/topic-25"
+        - http://mee.foundation/ontologies/graph/shapes
+    - id: "http://www.example.org/mia/graphs/graph-25"
       claimant: ":Self"
       subject: ":Jane_Starostina"
       shapes:
         - http://mee.foundation/ontologies/persona/shapes
-        - http://mee.foundation/ontologies/topic/shapes
+        - http://mee.foundation/ontologies/graph/shapes
 ---
 
-## Topics
+## Graphs
 
-<a id="topic-34"></a>
-### Topic 34
+<a id="graph-34"></a>
+### Graph 34
 
 #### Overview
 
-This topic captures Alice's own bare identity claim (just her given name) — the cell's one required `memberTopics` entry, satisfying `cell:OneMember`'s per-member baseline. Alice is both the claimant and the subject.
+This graph captures Alice's own bare identity claim (just her given name) — the cell's one required `members` entry, satisfying `cell:OneMember`'s per-member baseline. Alice is both the claimant and the subject.
 
-#### Topic Graph
+#### Graph
 
 ```turtle
-<!-- databook:id: alice-jane-starostina-member-topic-graph -->
-<!-- databook:graph: http://www.example.org/mia/topics/topic-34#graph -->
+<!-- databook:id: alice-jane-starostina-member-graph -->
+<!-- databook:graph: http://www.example.org/mia/graphs/graph-34#graph -->
 @prefix : <http://www.example.org/mia#> .
 @prefix cco: <https://w3id.org/cco-domains/cco/> .
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
@@ -51,18 +51,18 @@ This topic captures Alice's own bare identity claim (just her given name) — th
 ] .
 ```
 
-<a id="topic-25"></a>
-### Topic 25
+<a id="graph-25"></a>
+### Graph 25
 
 #### Overview
 
-This topic captures Alice's record of Dr. Jane Starostina, who is the primary care physician for Alice's mother, Paula Walker. Alice keeps this information so she and her sister Carol can coordinate Paula's medical appointments. Alice is the claimant; Jane is the cell's `subject` but, since this cell now has a real memberTopic (topic 34, above) about Alice herself, Jane's topic is linked as an `otherTopic` rather than the required `memberTopics` entry.
+This graph captures Alice's record of Dr. Jane Starostina, who is the primary care physician for Alice's mother, Paula Walker. Alice keeps this information so she and her sister Carol can coordinate Paula's medical appointments. Alice is the claimant; Jane is the cell's `subject` but, since this cell now has a real member entry (graph 34, above) about Alice herself, Jane's graph is linked via `cell:topic` rather than as one of the required `members` entries.
 
-#### Topic Graph
+#### Graph
 
 ```turtle
-<!-- databook:id: jane-starostina-alice-topic-graph -->
-<!-- databook:graph: http://www.example.org/mia/topics/topic-25#graph -->
+<!-- databook:id: jane-starostina-alice-graph -->
+<!-- databook:graph: http://www.example.org/mia/graphs/graph-25#graph -->
 @prefix : <http://www.example.org/mia#> .
 @prefix persona: <http://mee.foundation/ontologies/persona#> .
 @prefix cco: <https://w3id.org/cco-domains/cco/> .

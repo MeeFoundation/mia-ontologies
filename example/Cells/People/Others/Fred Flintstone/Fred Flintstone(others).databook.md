@@ -5,43 +5,43 @@ type: cell-databook
 version: 1.1.0
 created: 2026-08-03
 description: >
-  Cell DataBook for folder "Fred Flintstone" (cell:origin: cat:Others). It is a two-member cell with two memberTopics about :Fred_Flintstone and :Self.
+  Cell DataBook for folder "Fred Flintstone" (cell:origin: cat:Others). It is a two-member cell with two members about :Fred_Flintstone and :Self.
 mia:
   origin: "cat:Others"
   creator: ":Self"
   memberCount: "cell:TwoMember"
-  memberTopics:
-    - "topic-31"
-    - "topic-29"
-  topics:
-    - id: "http://www.example.org/mia/topics/topic-29"
+  members:
+    - "graph-31"
+    - "graph-29"
+  graphs:
+    - id: "http://www.example.org/mia/graphs/graph-29"
       claimant: ":Self"
       subject: ":Self"
       shapes:
         - http://mee.foundation/ontologies/persona/shapes
-        - http://mee.foundation/ontologies/topic/shapes
-    - id: "http://www.example.org/mia/topics/topic-31"
+        - http://mee.foundation/ontologies/graph/shapes
+    - id: "http://www.example.org/mia/graphs/graph-31"
       claimant: ":Fred_Flintstone"
       subject: ":Fred_Flintstone"
       shapes:
         - http://mee.foundation/ontologies/persona/shapes
-        - http://mee.foundation/ontologies/topic/shapes
+        - http://mee.foundation/ontologies/graph/shapes
 ---
 
-## Topics
+## Graphs
 
-<a id="topic-29"></a>
-### Topic 29
+<a id="graph-29"></a>
+### Graph 29
 
 #### Overview
 
-This topic captures Alice Walker's self-claimed persona in her 1:1 relationship with Fred Flintstone. It records the name Alice presents to Fred and her social network link to him. Alice is the claimant.
+This graph captures Alice Walker's self-claimed persona in her 1:1 relationship with Fred Flintstone. It records the name Alice presents to Fred and her social network link to him. Alice is the claimant.
 
-#### Topic Graph
+#### Graph
 
 ```turtle
-<!-- databook:id: alice-fred-alice-topic-graph -->
-<!-- databook:graph: http://www.example.org/mia/topics/topic-29#graph -->
+<!-- databook:id: alice-fred-alice-graph -->
+<!-- databook:graph: http://www.example.org/mia/graphs/graph-29#graph -->
 @prefix : <http://www.example.org/mia#> .
 @prefix persona: <http://mee.foundation/ontologies/persona#> .
 @prefix cco: <https://w3id.org/cco-domains/cco/> .
@@ -75,18 +75,18 @@ This topic captures Alice Walker's self-claimed persona in her 1:1 relationship 
     <http://purl.obolibrary.org/obo/BFO_0000115> :Fred_Flintstone .  # has member part
 ```
 
-<a id="topic-31"></a>
-### Topic 31
+<a id="graph-31"></a>
+### Graph 31
 
 #### Overview
 
-This topic captures Fred Flintstone's self-claimed persona, transmitted from Fred's own instance of the app to Alice's over the PDN. It records Fred's name and his social network link to Alice. Fred is the claimant.
+This graph captures Fred Flintstone's self-claimed persona, transmitted from Fred's own instance of the app to Alice's over the PDN. It records Fred's name and his social network link to Alice. Fred is the claimant.
 
-#### Topic Graph
+#### Graph
 
 ```turtle
-<!-- databook:id: fred-fred-fred-topic-graph -->
-<!-- databook:graph: http://www.example.org/mia/topics/topic-31#graph -->
+<!-- databook:id: fred-fred-fred-graph -->
+<!-- databook:graph: http://www.example.org/mia/graphs/graph-31#graph -->
 @prefix : <http://www.example.org/mia#> .
 @prefix persona: <http://mee.foundation/ontologies/persona#> .
 @prefix cco: <https://w3id.org/cco-domains/cco/> .
