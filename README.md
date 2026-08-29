@@ -611,7 +611,7 @@ The Pets ontology (`other/pets.ttl`) is the first of a growing family of `other/
 
 Throughout this section, `pets:` is short for the `pets:` namespace (`http://mee.foundation/ontologies/pets#`).
 
-### Pet Identity-Related Classes and Properties
+### Pet-Related Classes and Properties
 
 This section describes the classes and properties, defined in `other/pets.ttl`, that identify a pet — its name, what kind of animal it is, and, optionally, its birth date and current body weight.
 
