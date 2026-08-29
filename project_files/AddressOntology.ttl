@@ -1,6 +1,6 @@
-@prefix : <https://w3id.org/cco-domains/domains/AddressOntology/> .
+@prefix : <https://purl.org/cco/InformationEntityOntology#> .
 @prefix dc: <http://purl.org/dc/elements/1.1/> .
-@prefix cco: <https://w3id.org/cco-domains/cco/> .
+@prefix cco: <https://purl.org/cco/> .
 @prefix obo: <http://purl.obolibrary.org/obo/> .
 @prefix owl: <http://www.w3.org/2002/07/owl#> .
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
@@ -9,279 +9,27 @@
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
 @prefix skos: <http://www.w3.org/2004/02/skos/core#> .
 @prefix dcterms: <http://purl.org/dc/terms/> .
-@base <https://w3id.org/cco-domains/domains/AddressOntology/> .
+@base <https://purl.org/cco/InformationEntityOntology> .
+
+<https://purl.org/cco/InformationEntityOntology> rdf:type owl:Ontology ;
+                                                  owl:versionIRI <https://purl.org/cco/address/2026-03-22> ;
+                                                  owl:imports obo:bfo.owl ,
+                                                              cco:GeospatialOntology ,
+                                                              <https://purl.org/cco/InformationEntityOntology> ;
+                                                  dc:creator "Global Research, Inc., a 501(c)(3) nonprofit organization"@en ;
+                                                  dc:date "2026-03-22"^^xsd:date ;
+                                                  dcterms:license <https://opensource.org/licenses/BSD-3-Clause> ;
+                                                  dcterms:source "https://www.upu.int/en/Postal-Solutions/Programmes-Services/Addressing-Solutions"^^xsd:anyURI ;
+                                                  rdfs:comment """Deprecated 2026-03-22. Superseded by https://purl.org/cco/address 
+                    (AddressOntology). All ent IRIs from this ontology are preserved 
+                    unchanged in the successor."""@en ,
+                                                               """Supersedes PostalAddressOntology (https://purl.org/cco/postal-address).
+                    All ent IRIs from that ontology are preserved unchanged.
+                    The PURL https://purl.org/cco/postal-address is deprecated and
+                    redirects to https://purl.org/cco/address."""@en ;
+                                                  rdfs:label "Address Ontology"@en ;
+                                                  rdfs:seeAlso cco:address ;
+                                                  owl:deprecated "true"^^xsd:boolean ;
+                                                  owl:priorVersion <https://purl.org/cco/postal-address/2026-03-16> ;
+                                                  owl:versionInfo "Version 2026-03-22 - Supersedes PostalAddressOntology. Added Address (ent00000310) as superclass of PostalAddress; added EmergencyAddress (ent00000311). All prior ent IRIs preserved. Copyright © 2026 Global Research, Inc."@en .
 
-<https://w3id.org/cco-domains/domains/AddressOntology> rdf:type owl:Ontology ;
-                                                        owl:versionIRI <https://w3id.org/cco-domains/domains/AddressOntology/2026-08-10> ;
-                                                        owl:imports obo:bfo.owl ,
-                                                                    cco:GeospatialOntology ,
-                                                                    cco:InformationEntityOntology ;
-                                                        dc:creator "Global Research, Inc., a 501(c)(3) nonprofit organization"@en ;
-                                                        dcterms:license <https://creativecommons.org/licenses/by/4.0/> ;
-                                                        dcterms:source "https://www.upu.int/en/Postal-Solutions/Programmes-Services/Addressing-Solutions"^^xsd:anyURI ;
-                                                        rdfs:comment "Address Ontology extends from the open source Common Core Ontologies (CCO) v2.1, posted by NCOR at https://github.com/CommonCoreOntology/CommonCoreOntologies."@en ;
-                                                        rdfs:label "Address Ontology"@en ;
-                                                        owl:priorVersion <https://w3id.org/cco-domains/domains/AddressOntology/2026-08-05> ;
-                                                        owl:versionInfo "Namespace migrated from purl.org/cco to w3id.org/cco-domains; CCO mirror updated to v2.1.    Copyright © 2026 Global Research, Inc."@en .
-
-#################################################################
-#    Annotation properties
-#################################################################
-
-###  http://purl.org/dc/elements/1.1/creator
-dc:creator rdf:type owl:AnnotationProperty .
-
-
-###  http://purl.org/dc/elements/1.1/date
-dc:date rdf:type owl:AnnotationProperty .
-
-
-###  http://purl.org/dc/terms/created
-dcterms:created rdf:type owl:AnnotationProperty .
-
-
-###  http://purl.org/dc/terms/source
-dcterms:source rdf:type owl:AnnotationProperty .
-
-
-###  http://www.w3.org/2004/02/skos/core#altLabel
-skos:altLabel rdf:type owl:AnnotationProperty .
-
-
-###  http://www.w3.org/2004/02/skos/core#definition
-skos:definition rdf:type owl:AnnotationProperty .
-
-
-###  http://www.w3.org/2004/02/skos/core#exactMatch
-skos:exactMatch rdf:type owl:AnnotationProperty .
-
-
-###  http://www.w3.org/2004/02/skos/core#example
-skos:example rdf:type owl:AnnotationProperty .
-
-
-#################################################################
-#    Datatypes
-#################################################################
-
-###  http://www.w3.org/2001/XMLSchema#date
-xsd:date rdf:type rdfs:Datatype .
-
-
-#################################################################
-#    Object Properties
-#################################################################
-
-###  https://w3id.org/cco-domains/cco/ent00000316
-cco:ent00000316 rdf:type owl:ObjectProperty ;
-                owl:inverseOf cco:ent00000317 ;
-                rdfs:domain cco:ent00000310 ;
-                rdfs:range cco:ent00000312 ;
-                dcterms:created "2026-06-15"^^xsd:date ;
-                rdfs:isDefinedBy <https://w3id.org/cco-domains/domains/AddressOntology> ;
-                rdfs:label "has address component"@en ;
-                skos:altLabel "hasAddressComponent"@en ;
-                skos:definition "An object property that connects an Address instance to an AddressComponent instance that is a part of that address."@en .
-
-
-###  https://w3id.org/cco-domains/cco/ent00000317
-cco:ent00000317 rdf:type owl:ObjectProperty ;
-                rdfs:domain cco:ent00000312 ;
-                rdfs:range cco:ent00000310 ;
-                dcterms:created "2026-06-15"^^xsd:date ;
-                rdfs:isDefinedBy <https://w3id.org/cco-domains/domains/AddressOntology> ;
-                rdfs:label "is address component of"@en ;
-                skos:altLabel "isAddressComponentOf"@en ;
-                skos:definition "An object property that connects an Address instance to an AddressComponent instance that is an inverse of ent00000316."@en .
-
-
-#################################################################
-#    Data properties
-#################################################################
-
-###  https://w3id.org/cco-domains/cco/ent00000318
-cco:ent00000318 rdf:type owl:DatatypeProperty ;
-                rdfs:domain cco:ent00000011 ;
-                rdfs:range xsd:string ;
-                dcterms:created "2026-06-15"^^xsd:date ;
-                rdfs:isDefinedBy <https://w3id.org/cco-domains/domains/AddressOntology> ;
-                rdfs:label "has street address value"@en ;
-                skos:altLabel "hasStreetAddressValue"@en ;
-                skos:definition "A datatype property that associates a Street Address instance with its string value."@en .
-
-
-###  https://w3id.org/cco-domains/cco/ent00000319
-cco:ent00000319 rdf:type owl:DatatypeProperty ;
-                rdfs:domain cco:ent00000012 ;
-                rdfs:range xsd:string ;
-                dcterms:created "2026-06-15"^^xsd:date ;
-                rdfs:isDefinedBy <https://w3id.org/cco-domains/domains/AddressOntology> ;
-                rdfs:label "has city value"@en ;
-                skos:altLabel "hasCityValue"@en ;
-                skos:definition "A datatype property that associates a City instance with its string value."@en .
-
-
-###  https://w3id.org/cco-domains/cco/ent00000320
-cco:ent00000320 rdf:type owl:DatatypeProperty ;
-                rdfs:domain cco:ent00000013 ;
-                rdfs:range xsd:string ;
-                dcterms:created "2026-06-15"^^xsd:date ;
-                rdfs:isDefinedBy <https://w3id.org/cco-domains/domains/AddressOntology> ;
-                rdfs:label "has state value"@en ;
-                skos:altLabel "hasStateValue"@en ;
-                skos:definition "A datatype property that associates a State instance with its string value."@en .
-
-
-###  https://w3id.org/cco-domains/cco/ent00000321
-cco:ent00000321 rdf:type owl:DatatypeProperty ;
-                rdfs:domain cco:ent00000015 ;
-                rdfs:range xsd:string ;
-                dcterms:created "2026-06-15"^^xsd:date ;
-                rdfs:isDefinedBy <https://w3id.org/cco-domains/domains/AddressOntology> ;
-                rdfs:label "has postal code value"@en ;
-                skos:altLabel "hasPostalCodeValue"@en ;
-                skos:definition "A datatype property that associates a Postal Code instance with its string value."@en .
-
-
-###  https://w3id.org/cco-domains/cco/ent00000322
-cco:ent00000322 rdf:type owl:DatatypeProperty ;
-                rdfs:domain cco:ent00000059 ;
-                rdfs:range xsd:string ;
-                dcterms:created "2026-07-06"^^xsd:date ;
-                rdfs:isDefinedBy <https://w3id.org/cco-domains/domains/AddressOntology> ;
-                rdfs:label "has country code value"@en ;
-                skos:altLabel "hasCountryCodeValue"@en ;
-                skos:definition "A datatype property that associates a Country Code instance with its string value."@en .
-
-
-###  https://w3id.org/cco-domains/cco/ent00000323
-cco:ent00000323 rdf:type owl:DatatypeProperty ;
-                rdfs:domain cco:ent00000014 ;
-                rdfs:range xsd:string ;
-                dcterms:created "2026-07-07"^^xsd:date ;
-                rdfs:isDefinedBy <https://w3id.org/cco-domains/domains/AddressOntology> ;
-                rdfs:label "has country name value"@en ;
-                skos:altLabel "hasCountryNameValue"@en ;
-                skos:definition "A datatype property that associates a Country Name instance with its string value."@en .
-
-
-#################################################################
-#    Classes
-#################################################################
-
-###  https://w3id.org/cco-domains/cco/ent00000009
-cco:ent00000009 rdf:type owl:Class ;
-                rdfs:subClassOf cco:ent00000310 ;
-                dcterms:created "2026-06-15"^^xsd:date ;
-                rdfs:isDefinedBy <https://w3id.org/cco-domains/domains/AddressOntology> ;
-                rdfs:label "Postal Address"@en ;
-                skos:altLabel "Mailing Address"@en ;
-                skos:definition "An address that designates a place where physical mail or packages can be sent via the postal service."@en ;
-                skos:exactMatch <https://schema.org/PostalAddress> .
-
-
-###  https://w3id.org/cco-domains/cco/ent00000010
-cco:ent00000010 rdf:type owl:Class ;
-                rdfs:subClassOf cco:ent00000009 ;
-                dcterms:created "2026-06-15"^^xsd:date ;
-                rdfs:isDefinedBy <https://w3id.org/cco-domains/domains/AddressOntology> ;
-                rdfs:label "US Postal Address"@en ;
-                skos:altLabel "United States Postal Address"@en ;
-                skos:definition "A postal address that complies with USPS addressing requirements and includes the delivery location line, city, dual-letter state identifier, and ZIP code."@en ;
-                skos:example "210 Pennsylvania Ave NW, Washington, DC 20500"@en .
-
-
-###  https://w3id.org/cco-domains/cco/ent00000011
-cco:ent00000011 rdf:type owl:Class ;
-                rdfs:subClassOf cco:ent00000312 ;
-                dcterms:created "2026-06-15"^^xsd:date ;
-                rdfs:isDefinedBy <https://w3id.org/cco-domains/domains/AddressOntology> ;
-                rdfs:label "Street Address"@en ;
-                skos:altLabel "Delivery Address Line"@en ;
-                skos:definition "An Address Component that cites the street name plus facility number, unit number, and any other details."@en .
-
-
-###  https://w3id.org/cco-domains/cco/ent00000012
-cco:ent00000012 rdf:type owl:Class ;
-                rdfs:subClassOf cco:ent00000312 ;
-                dcterms:created "2026-06-15"^^xsd:date ;
-                rdfs:isDefinedBy <https://w3id.org/cco-domains/domains/AddressOntology> ;
-                rdfs:label "City"@en ;
-                skos:altLabel "Locality"@en ;
-                skos:definition "An Address Component that cites the city or town name."@en .
-
-
-###  https://w3id.org/cco-domains/cco/ent00000013
-cco:ent00000013 rdf:type owl:Class ;
-                rdfs:subClassOf cco:ent00000312 ;
-                dcterms:created "2026-06-15"^^xsd:date ;
-                rdfs:isDefinedBy <https://w3id.org/cco-domains/domains/AddressOntology> ;
-                rdfs:label "State"@en ;
-                skos:altLabel "Administrative Area"@en ;
-                skos:definition "An Address Component that cites the state name."@en .
-
-
-###  https://w3id.org/cco-domains/cco/ent00000014
-cco:ent00000014 rdf:type owl:Class ;
-                rdfs:subClassOf cco:ent00000312 ;
-                dcterms:created "2026-07-06"^^xsd:date ;
-                rdfs:isDefinedBy <https://w3id.org/cco-domains/domains/AddressOntology> ;
-                rdfs:label "Country Name"@en ;
-                rdfs:seeAlso <https://schema.org/addressCountry> ;
-                skos:definition "An Address Component that cites the country name."@en .
-
-
-###  https://w3id.org/cco-domains/cco/ent00000015
-cco:ent00000015 rdf:type owl:Class ;
-                rdfs:subClassOf cco:ent00000312 ;
-                dcterms:created "2026-06-15"^^xsd:date ;
-                rdfs:isDefinedBy <https://w3id.org/cco-domains/domains/AddressOntology> ;
-                rdfs:label "Postal Code"@en ;
-                skos:altLabel "ZIP Code"@en ;
-                skos:definition "An Address Component that cites a geographic area defined by a postal authority."@en .
-
-
-###  https://w3id.org/cco-domains/cco/ent00000016
-cco:ent00000016 rdf:type owl:Class ;
-                rdfs:subClassOf obo:BFO_0000015 ;
-                dcterms:created "2026-07-07"^^xsd:date ;
-                rdfs:isDefinedBy <https://w3id.org/cco-domains/domains/AddressOntology> ;
-                rdfs:label "Address Designation"@en ;
-                skos:definition "A Process in which a Person is associated with a Postal Address during a temporal interval."@en .
-
-
-###  https://w3id.org/cco-domains/cco/ent00000059
-cco:ent00000059 rdf:type owl:Class ;
-                rdfs:subClassOf cco:ent00000312 ;
-                dcterms:created "2026-07-06"^^xsd:date ;
-                rdfs:comment "Value is an ISO 3166-1 alpha-2 code, e.g. 'US', 'PK'. Alpha-3 forms exist in ISO 3166-1 but are not the selected form of this address component."@en ;
-                rdfs:label "Country Code"@en ;
-                rdfs:seeAlso <https://schema.org/addressCountry> ;
-                skos:definition "An Address Component that cites the ISO 3166-1 alpha-2 code of a country."@en .
-
-
-###  https://w3id.org/cco-domains/cco/ent00000310
-cco:ent00000310 rdf:type owl:Class ;
-                rdfs:subClassOf cco:ont00000958 ;
-                dcterms:created "2026-06-15"^^xsd:date ;
-                rdfs:isDefinedBy <https://w3id.org/cco-domains/domains/AddressOntology> ;
-                rdfs:label "Address"@en ;
-                skos:altLabel "Geospatial Address"@en ,
-                              "Location Address"@en ;
-                skos:definition "An Information Content Entity (ICE) that identifies a physical location of a person, facility or an organization for the purpose of communication or service."@en .
-
-
-###  https://w3id.org/cco-domains/cco/ent00000312
-cco:ent00000312 rdf:type owl:Class ;
-                rdfs:subClassOf cco:ont00000958 ;
-                dcterms:created "2026-06-15"^^xsd:date ;
-                rdfs:isDefinedBy <https://w3id.org/cco-domains/domains/AddressOntology> ;
-                rdfs:label "Address Component"@en ;
-                skos:definition "An Information Content Entity (ICE) that is a part of an address and provides a specific piece of information needed to locate or identify the address target."@en .
-
-
-###  https://w3id.org/cco-domains/cco/ont00000958
-cco:ont00000958 rdf:type owl:Class .
-
-
-###  Generated by the OWL API (version 4.5.29.2024-05-13T12:11:03Z) https://github.com/owlcs/owlapi
