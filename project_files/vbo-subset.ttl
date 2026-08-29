@@ -1,0 +1,47 @@
+@prefix : <http://mee.foundation/ontologies/vbo-subset#> .
+@prefix dc: <http://purl.org/dc/elements/1.1/> .
+@prefix obo: <http://purl.obolibrary.org/obo/> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@base <http://mee.foundation/ontologies/vbo-subset> .
+
+<http://mee.foundation/ontologies/vbo-subset> rdf:type owl:Ontology ;
+    owl:versionIRI <http://mee.foundation/ontologies/vbo-subset/1.0.0> ;
+    dc:date "2026-08-29"^^xsd:date ;
+    owl:versionInfo "Version 1.0.0 - initial hand-curated subset of VBO covering a few common cat and dog breeds."@en ;
+    rdfs:label "VBO Common Pet Breed Subset"@en ;
+    rdfs:comment """A hand-curated subset of VBO (the Vertebrate Breed Ontology,
+                    https://github.com/monarch-initiative/vertebrate-breed-ontology, OBO Foundry PURL
+                    http://purl.obolibrary.org/obo/vbo.owl), extracted from the live VBO ontology (verified
+                    via OLS4, 2026-08-29). This is NOT a full mirror of upstream VBO — VBO's full
+                    distribution covers over 19,500 livestock and companion-animal breed concepts across 49
+                    species, far more than needed here. This file instead declares only the handful of
+                    breed classes actually referenced by other/pets.ttl's pets:hasBreed design, each
+                    declared with its real upstream IRI, rdfs:label, and definition, and each cited back to
+                    its real VBO class IRI rather than a locally-minted equivalent — this file adds no new
+                    identifiers of its own, only re-declares existing external ones for local offline use.
+                    Deliberately omits the rdfs:subClassOf chain up to VBO's own breed/species hierarchy
+                    (that chain is VBO's concern, not something this file re-asserts). Includes VBO's own
+                    "Mixed Breed" classes per species — the standard way to assert a pet's breed is
+                    known/assumed to be a non-purebred mixture, as an alternative to omitting pets:hasBreed
+                    entirely when breed is simply unrecorded. Unlike NCBITaxon, VBO is licensed CC-BY 4.0 —
+                    this comment block, and the class-level rdfs:comments below, serve as attribution to the
+                    Monarch Initiative's Vertebrate Breed Ontology."""@en .
+
+obo:VBO_0100221 rdf:type owl:Class ;
+    rdfs:label "Siamese (Cat)"@en ;
+    rdfs:comment "VBO:0100221. A cat breed. Source: Monarch Initiative Vertebrate Breed Ontology (CC-BY 4.0)."@en .
+
+obo:VBO_0100262 rdf:type owl:Class ;
+    rdfs:label "Mixed Breed (Cat)"@en ;
+    rdfs:comment "VBO:0100262. A cat that is known or appears to be a mixture of two or more recognized breeds. Source: Monarch Initiative Vertebrate Breed Ontology (CC-BY 4.0)."@en .
+
+obo:VBO_0200800 rdf:type owl:Class ;
+    rdfs:label "Labrador Retriever (Dog)"@en ;
+    rdfs:comment "VBO:0200800. A dog breed. Source: Monarch Initiative Vertebrate Breed Ontology (CC-BY 4.0)."@en .
+
+obo:VBO_0200902 rdf:type owl:Class ;
+    rdfs:label "Mixed Breed (Dog)"@en ;
+    rdfs:comment "VBO:0200902. A dog that is known or appears to be a mixture of two or more recognized breeds. Source: Monarch Initiative Vertebrate Breed Ontology (CC-BY 4.0)."@en .

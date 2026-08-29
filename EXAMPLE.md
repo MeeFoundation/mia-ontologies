@@ -88,7 +88,7 @@ Here are a few lines from [graph 22](<example/Cells/Things/Things.databook.md#gr
 
 ### Caring for Ginger
 
-Alice also has a cat, Ginger. Under her *Pets* cell she has created a *Ginger* cell for this specific pet — reusing its parent's own `cat:Pets` origin — and, nested inside it, two sibling cells: a *Medical* cell recording Ginger's medical care directly (reusing its parent's own `cat:PetsMedical` origin, since `cat:PetsMedications` is no longer a category of its own, and the cell no longer needs a separate organizational scaffold cell wrapping it either, now that the merge removed the reason for one) — a completed course of amoxicillin/clavulanate (brand name Clavamox, from Zoetis) and an ongoing daily glucosamine/chondroitin joint supplement ([graph 32](<example/Cells/Pets/Ginger/Medical/Medical.databook.md#graph-32>)) — and a *Care & Feeding* cell (`cat:PetsCareAndFeeding`) recording her day-to-day care instructions: her feeding schedule and where she sleeps ([graph 60](<example/Cells/Pets/Ginger/Care & Feeding/Care & Feeding.databook.md#graph-60>)). Alice shared both cells with Paula, who also helps look after Ginger, making each a `cell:TwoMember` cell with Alice's and Paula's own bare identity claims as their two `members` ([graph 33](<example/Cells/Pets/Ginger/Medical/Medical.databook.md#graph-33>) and [graph 57](<example/Cells/Pets/Ginger/Medical/Medical.databook.md#graph-57>) for Medical; [graph 58](<example/Cells/Pets/Ginger/Care & Feeding/Care & Feeding.databook.md#graph-58>) and [graph 59](<example/Cells/Pets/Ginger/Care & Feeding/Care & Feeding.databook.md#graph-59>) for Care & Feeding).
+Alice also has a cat, Ginger. Under her *Pets* cell she has created a *Ginger* cell for this specific pet — reusing its parent's own `cat:Pets` origin, and now, thanks to `cat:Pets`'s own template cell, identifying Ginger's species (*Felis catus*, an NCBITaxon class IRI) and breed (VBO's own "Mixed Breed (Cat)" class) as a real `pets:Pet` individual rather than a bare label ([graph 37](<example/Cells/Pets/Ginger/Ginger(pets).databook.md#graph-37>)) — and, nested inside it, two sibling cells: a *Medical* cell recording Ginger's medical care directly (reusing its parent's own `cat:PetsMedical` origin, since `cat:PetsMedications` is no longer a category of its own, and the cell no longer needs a separate organizational scaffold cell wrapping it either, now that the merge removed the reason for one) — a completed course of amoxicillin/clavulanate (brand name Clavamox, from Zoetis) and an ongoing daily glucosamine/chondroitin joint supplement ([graph 32](<example/Cells/Pets/Ginger/Medical/Medical.databook.md#graph-32>)) — and a *Care & Feeding* cell (`cat:PetsCareAndFeeding`) recording her day-to-day care instructions: her feeding schedule and where she sleeps ([graph 60](<example/Cells/Pets/Ginger/Care & Feeding/Care & Feeding.databook.md#graph-60>)). Alice shared both cells with Paula, who also helps look after Ginger, making each a `cell:TwoMember` cell with Alice's and Paula's own bare identity claims as their two `members` ([graph 33](<example/Cells/Pets/Ginger/Medical/Medical.databook.md#graph-33>) and [graph 57](<example/Cells/Pets/Ginger/Medical/Medical.databook.md#graph-57>) for Medical; [graph 58](<example/Cells/Pets/Ginger/Care & Feeding/Care & Feeding.databook.md#graph-58>) and [graph 59](<example/Cells/Pets/Ginger/Care & Feeding/Care & Feeding.databook.md#graph-59>) for Care & Feeding).
 
 <p align="center"><img src="example/images/pets.png" alt="Pets cells"></p>
 
@@ -182,7 +182,7 @@ The following table lists graphs about other people (Paula and Bob) or organizat
 | 27 | [Citibank(banking-payments).databook.md](<example/Cells/Finances/Banking & Payments Firms/Citibank/Citibank(banking-payments).databook.md#graph-27>) {4} | `cat:BankingPayments` | Alice's own self-claimed notes about Citibank as an institution, alongside Citibank's own claimed record about her (graph 09) | [view](example/graphs/images/graph-27.png) |
 | 31 | [Fred Flintstone(others).databook.md](<example/Cells/People/Others/Fred Flintstone/Fred Flintstone(others).databook.md#graph-31>) {17}                     | `cat:Others`       | Fred's self-claimed Fred persona                                 | [view](example/graphs/images/graph-31.png) |
 | 32 | [Medical.databook.md](<example/Cells/Pets/Ginger/Medical/Medical.databook.md#graph-32>) {40} | `cat:PetsMedical`       | Alice's record of her cat Ginger's medications — amoxicillin/clavulanate course, ongoing glucosamine/chondroitin supplement           | [view](example/graphs/images/graph-32.png)|
-| 37 | [Ginger(pets).databook.md](<example/Cells/Pets/Ginger/Ginger(pets).databook.md#graph-37>) {41} | `cat:Pets`       | Alice's basic claim identifying Ginger — backs the Ginger cell's `subject: ":Ginger"` with a real graph           | [view](example/graphs/images/graph-37.png)|
+| 37 | [Ginger(pets).databook.md](<example/Cells/Pets/Ginger/Ginger(pets).databook.md#graph-37>) {41} | `cat:Pets`       | Alice's basic claim identifying Ginger — species (Felis catus, NCBITaxon) and breed (Mixed Breed (Cat), VBO) — backs the Ginger cell's `subject: ":Ginger"` with a real graph, typed `pets:Pet`           | [view](example/graphs/images/graph-37.png)|
 | 57 | [Medical.databook.md](<example/Cells/Pets/Ginger/Medical/Medical.databook.md#graph-57>) {40} | `cat:PetsMedical`       | Paula's own self-claimed given-name claim — the cell's second `members` entry after Alice shared it with her, making it a `cell:TwoMember` cell           | [view](example/graphs/images/graph-57.png)|
 | 59 | [Care & Feeding.databook.md](<example/Cells/Pets/Ginger/Care & Feeding/Care & Feeding.databook.md#graph-59>) {42} | `cat:PetsCareAndFeeding`       | Paula's own self-claimed given-name claim — the cell's second `members` entry after Alice shared it with her, making it a `cell:TwoMember` cell           | [view](example/graphs/images/graph-59.png)|
 | 60 | [Care & Feeding.databook.md](<example/Cells/Pets/Ginger/Care & Feeding/Care & Feeding.databook.md#graph-60>) {42} | `cat:PetsCareAndFeeding`       | Alice's day-to-day care and feeding instructions for Ginger — feeding schedule, food, and where she sleeps           | [view](example/graphs/images/graph-60.png)|
@@ -255,9 +255,11 @@ python3 yaml-to-rdf.py . > /tmp/mia-yaml.ttl
 
 # Step 2 — merge data with all ontology files, foundation ontologies, and self.ttl
 # (cell-templates.ttl is deliberately excluded here, unlike Tier 2's base merge
-# below: its 4 template individuals are generic, reusable content with no real
+# below: its template individuals are generic, reusable content with no real
 # person bound to them, so they can't sensibly carry cell-shacl.ttl's required
-# c:members/c:creator — they're validated only via cell-templates-shacl.ttl, in Tier 2)
+# c:members/c:creator — they're validated only via cell-templates-shacl.ttl/
+# other/pets-shacl.ttl, in Tier 2. other/pets.ttl is included below — it's a
+# full peer application ontology, same as persona-templates.ttl/graph.ttl/etc.)
 riot --output=turtle \
   project_files/bfo-core.ttl \
   project_files/PersonOntology.ttl \
@@ -266,18 +268,20 @@ riot --output=turtle \
   project_files/UnitsOfMeasureOntology.ttl \
   project_files/InformationEntityOntology.ttl \
   project_files/dron-upper.ttl \
-  persona.ttl persona-templates.ttl graph.ttl cell.ttl category.ttl \
+  project_files/ncbitaxon-subset.ttl \
+  project_files/vbo-subset.ttl \
+  persona.ttl persona-templates.ttl graph.ttl cell.ttl category.ttl other/pets.ttl \
   organization.ttl \
   example/graphs/self.ttl \
   /tmp/mia-data.ttl \
   /tmp/mia-yaml.ttl \
   2>/dev/null > /tmp/mia-merged.ttl
 
-# Step 3 — collect shapes (shacl/jscontactcard-shacl.ttl and cell-templates-shacl.ttl
-# excluded — see Tier 2; both target document classes and would fire incorrectly on all
-# individuals when applied to merged data. pdn-identity-shacl.ttl is also excluded: its
-# ontology, pdn-identity.ttl, isn't part of the Step 2 merge — nothing here ever
-# references an identity: term, see persona.ttl 4.0.6)
+# Step 3 — collect shapes (shacl/jscontactcard-shacl.ttl, cell-templates-shacl.ttl, and
+# other/pets-shacl.ttl excluded — see Tier 2; all three target document classes and would
+# fire incorrectly on all individuals when applied to merged data. pdn-identity-shacl.ttl
+# is also excluded: its ontology, pdn-identity.ttl, isn't part of the Step 2 merge —
+# nothing here ever references an identity: term, see persona.ttl 4.0.6)
 grep -v 'owl:imports' persona-shacl.ttl > /tmp/mia-shapes.ttl
 grep -v 'owl:imports' graph-shacl.ttl >> /tmp/mia-shapes.ttl
 grep -v 'owl:imports' cell-shacl.ttl >> /tmp/mia-shapes.ttl
@@ -291,7 +295,7 @@ Expected output: `Conforms`
 
 ### Tier 2 — per-template validation (individual graphs)
 
-Five of the six per-template shapes (BirthCertificate, DriversLicense, Passport, MedicalAppointment, PetMedications) live in `cell-templates-shacl.ttl`; JSContactCard's shape remains a standalone file in `shacl/` (it has no `cat:Category` class of its own — see [Persona Templates](README.md#persona-templates)). Each is run against only the relevant graph, isolated via `extract-graph.py` from its owning cell DataBook file and merged with the foundation ontologies. Isolation matters because a cell may hold more than one graph — the MedicalAppointment case below lives in a three-graph cell, so a whole-file `databook extract` there would wrongly pull in its two sibling graphs' data too.
+Four of the seven per-template shapes (BirthCertificate, DriversLicense, Passport, MedicalAppointment) live in `cell-templates-shacl.ttl`; two (Pet, PetMedicationRecord) live in `other/pets-shacl.ttl`; JSContactCard's shape remains a standalone file in `shacl/` (it has no `cat:Category` class of its own — see [Persona Templates](README.md#persona-templates)). Each is run against only the relevant graph, isolated via `extract-graph.py` from its owning cell DataBook file and merged with the foundation ontologies. Isolation matters because a cell may hold more than one graph — the MedicalAppointment case below lives in a three-graph cell, so a whole-file `databook extract` there would wrongly pull in its two sibling graphs' data too.
 
 ```bash
 # Shared base: foundation ontologies + application ontologies + self.ttl
@@ -303,7 +307,9 @@ riot --output=turtle \
   project_files/UnitsOfMeasureOntology.ttl \
   project_files/InformationEntityOntology.ttl \
   project_files/dron-upper.ttl \
-  persona.ttl persona-templates.ttl graph.ttl cell.ttl category.ttl cell-templates.ttl \
+  project_files/ncbitaxon-subset.ttl \
+  project_files/vbo-subset.ttl \
+  persona.ttl persona-templates.ttl graph.ttl cell.ttl category.ttl cell-templates.ttl other/pets.ttl \
   organization.ttl \
   example/graphs/self.ttl \
   2>/dev/null > /tmp/mia-base.ttl
@@ -340,7 +346,13 @@ shacl validate --shapes /tmp/shapes-cell-templates.ttl --data /tmp/data-medical-
 # PetMedications — graph-32
 python3 extract-graph.py "example/Cells/Pets/Ginger/Medical/Medical.databook.md" "graph-32" > /tmp/data-pet-medications-raw.ttl
 riot --output=turtle /tmp/mia-base.ttl /tmp/data-pet-medications-raw.ttl 2>/dev/null > /tmp/data-pet-medications.ttl
-shacl validate --shapes /tmp/shapes-cell-templates.ttl --data /tmp/data-pet-medications.ttl --text
+grep -v 'owl:imports' other/pets-shacl.ttl > /tmp/shapes-pets.ttl
+shacl validate --shapes /tmp/shapes-pets.ttl --data /tmp/data-pet-medications.ttl --text
+
+# PetProfile — graph-37
+python3 extract-graph.py "example/Cells/Pets/Ginger/Ginger(pets).databook.md" "graph-37" > /tmp/data-pet-profile-raw.ttl
+riot --output=turtle /tmp/mia-base.ttl /tmp/data-pet-profile-raw.ttl 2>/dev/null > /tmp/data-pet-profile.ttl
+shacl validate --shapes /tmp/shapes-pets.ttl --data /tmp/data-pet-profile.ttl --text
 ```
 
 Expected output for each: `Conforms`

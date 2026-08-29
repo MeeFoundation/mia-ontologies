@@ -82,7 +82,7 @@ This cell was created by Alice and later shared with Paula, making the cell a `c
 
 #### Overview
 
-This graph captures Alice's day-to-day care and feeding instructions for her cat Ginger — what to feed her and when, and where she sleeps — so that Paula (or anyone else looking after Ginger) knows how to care for her. Alice is the claimant; Ginger is the cell's `subject` but, since she has no `p:Person` individual of her own, her graph is linked via `cell:topic` rather than as one of the required `members` entries (graphs 58 and 59, above, fill those slots instead). No formal persona template governs this content (unlike her sibling Medical cell's `persona:PetMedicationRecord`) — `cat:PetsCareAndFeeding` has no `cat:templateCell` of its own — so it is asserted directly as a plain comment, the same way Ginger's own basic identifying claim (graph 37) is.
+This graph captures Alice's day-to-day care and feeding instructions for her cat Ginger — what to feed her and when, and where she sleeps — so that Paula (or anyone else looking after Ginger) knows how to care for her. Alice is the claimant; Ginger is the cell's `subject` but, since she has no `p:Person` individual of her own, her graph is linked via `cell:topic` rather than as one of the required `members` entries (graphs 58 and 59, above, fill those slots instead). No formal template governs this content (unlike her sibling Medical cell's `pets:PetMedicationRecord`, or her own basic identifying claim in graph 37, now governed by `pets:Pet`) — `cat:PetsCareAndFeeding` has no `cat:templateCell` of its own — so it is asserted directly as a plain comment.
 
 #### Graph
 

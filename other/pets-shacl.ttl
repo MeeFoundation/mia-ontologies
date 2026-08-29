@@ -1,0 +1,200 @@
+@prefix : <http://mee.foundation/ontologies/pets/shapes#> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix cco: <https://w3id.org/cco-domains/cco/> .
+@prefix pets: <http://mee.foundation/ontologies/pets#> .
+@prefix dc: <http://purl.org/dc/elements/1.1/> .
+
+<http://mee.foundation/ontologies/pets/shapes> rdf:type owl:Ontology ;
+    owl:imports <http://mee.foundation/ontologies/pets> ;
+    owl:versionIRI <http://mee.foundation/ontologies/pets/shapes/1.0.0> ;
+    dc:date "2026-08-29"^^xsd:date ;
+    rdfs:label "Pets Template SHACL Shapes"@en ;
+    rdfs:comment """SHACL shapes for validating graph files carrying g:template pets:Pet or
+                    pets:PetMedicationRecord. Apply in addition to persona-shacl.ttl when validating a pet
+                    identity or pet-medications graph file. Targets pets:Pet/pets:PetMedicationRecord
+                    individuals directly — a pet has no persona:Person individual of its own."""@en .
+
+
+#################################################################
+#  Pet Shape
+#  Targets pets:Pet individuals.
+#  Required: hasSpecies (pets:hasSpecies, 1..1, IRI — NCBITaxon class)
+#  Optional: hasBreed (pets:hasBreed, 0..1, IRI — VBO class)
+#################################################################
+
+:PetShape
+    a sh:NodeShape ;
+    sh:targetClass pets:Pet ;
+    sh:message "A Pet must record exactly one species via hasSpecies; breed is optional."@en ;
+
+    sh:property [
+        sh:path pets:hasSpecies ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:nodeKind sh:IRI ;
+        sh:message "A Pet must link to exactly one species (an NCBITaxon class IRI) via hasSpecies."@en
+    ] ;
+
+    sh:property [
+        sh:path pets:hasBreed ;
+        sh:maxCount 1 ;
+        sh:nodeKind sh:IRI ;
+        sh:message "A Pet may link to at most one breed (a VBO class IRI) via hasBreed."@en
+    ] .
+
+
+#################################################################
+#  Pet Medication Record Shape
+#  Targets pets:PetMedicationRecord individuals.
+#  Required: hasMedication (pets:hasMedication, 1..n)
+#################################################################
+
+:PetMedicationRecordShape
+    a sh:NodeShape ;
+    sh:targetClass pets:PetMedicationRecord ;
+    sh:message "A Pet Medications record must link to at least one medication via hasMedication."@en ;
+
+    sh:property [
+        sh:path pets:hasMedication ;
+        sh:minCount 1 ;
+        sh:class pets:Medication ;
+        sh:message "A Pet Medications record must link to at least one pets:Medication via hasMedication."@en
+    ] .
+
+
+#################################################################
+#  Medication Shape
+#  Targets pets:Medication individuals.
+#  Required: ActiveIngredient (pets:hasActiveIngredient, 1..n, IRI — ChEBI class)
+#            DosageAmount (pets:hasDosageAmount, 1..1, pets:DosageAmount)
+#            Administration (pets:hasAdministration, 1..1, pets:MedicationAdministration)
+#  Optional: DoseForm (pets:hasDoseForm, 0..1, IRI — DrOn dose-form class)
+#            BrandName (pets:medicationBrandName, 0..1)
+#            Manufacturer (pets:medicationManufacturer, 0..1)
+#            Duration (pets:medicationDuration, 0..1)
+#################################################################
+
+:MedicationShape
+    a sh:NodeShape ;
+    sh:targetClass pets:Medication ;
+    sh:message "Medication validation: at least one active ingredient, a dosage amount, and an administration schedule are required."@en ;
+
+    sh:property [
+        sh:path pets:hasActiveIngredient ;
+        sh:minCount 1 ;
+        sh:nodeKind sh:IRI ;
+        sh:message "A Medication must link to at least one active ingredient (a ChEBI class IRI) via hasActiveIngredient."@en
+    ] ;
+
+    sh:property [
+        sh:path pets:hasDosageAmount ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:class pets:DosageAmount ;
+        sh:message "A Medication must link to exactly one pets:DosageAmount via hasDosageAmount."@en
+    ] ;
+
+    sh:property [
+        sh:path pets:hasAdministration ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:class pets:MedicationAdministration ;
+        sh:message "A Medication must link to exactly one pets:MedicationAdministration via hasAdministration."@en
+    ] ;
+
+    sh:property [
+        sh:path pets:hasDoseForm ;
+        sh:maxCount 1 ;
+        sh:nodeKind sh:IRI ;
+        sh:message "A Medication may link to at most one dose form (a DrOn dose-form class IRI) via hasDoseForm."@en
+    ] ;
+
+    sh:property [
+        sh:path pets:medicationBrandName ;
+        sh:maxCount 1 ;
+        sh:datatype xsd:string ;
+        sh:message "A Medication may have at most one brand name."@en
+    ] ;
+
+    sh:property [
+        sh:path pets:medicationManufacturer ;
+        sh:maxCount 1 ;
+        sh:datatype xsd:string ;
+        sh:message "A Medication may have at most one manufacturer."@en
+    ] ;
+
+    sh:property [
+        sh:path pets:medicationDuration ;
+        sh:maxCount 1 ;
+        sh:datatype xsd:string ;
+        sh:message "A Medication may have at most one duration."@en
+    ] .
+
+
+#################################################################
+#  Dosage Amount Shape
+#  Targets pets:DosageAmount individuals.
+#  Required: exactly one of "has decimal value"/"has integer value" (cco:ont00001769/ont00001773)
+#  Optional: "uses measurement unit" (cco:ont00001863, 0..1, IRI — CCO Measurement Unit individual);
+#            omitted when the amount is a count of discrete dose-form units (e.g. tablets) rather
+#            than a true measured quantity — see pets:hasDoseForm.
+#################################################################
+
+:DosageAmountShape
+    a sh:NodeShape ;
+    sh:targetClass pets:DosageAmount ;
+    sh:message "Dosage Amount validation: exactly one of has-decimal-value/has-integer-value is required."@en ;
+
+    sh:xone (
+        [ sh:property [
+            sh:path <https://w3id.org/cco-domains/cco/ont00001769> ;  # has decimal value
+            sh:minCount 1 ;
+            sh:maxCount 1 ;
+            sh:datatype xsd:decimal
+        ] ]
+        [ sh:property [
+            sh:path <https://w3id.org/cco-domains/cco/ont00001773> ;  # has integer value
+            sh:minCount 1 ;
+            sh:maxCount 1 ;
+            sh:datatype xsd:integer
+        ] ]
+    ) ;
+
+    sh:property [
+        sh:path <https://w3id.org/cco-domains/cco/ont00001863> ;  # uses measurement unit
+        sh:maxCount 1 ;
+        sh:nodeKind sh:IRI ;
+        sh:message "A Dosage Amount may use at most one measurement unit."@en
+    ] .
+
+
+#################################################################
+#  Medication Administration Shape
+#  Targets pets:MedicationAdministration individuals.
+#  Optional: FrequencyPerDay (pets:medicationFrequencyPerDay, 0..1)
+#  Required: occupies temporal region (BFO_0000199, 1..1, BFO_0000038)
+#################################################################
+
+:MedicationAdministrationShape
+    a sh:NodeShape ;
+    sh:targetClass pets:MedicationAdministration ;
+    sh:message "Medication Administration validation: exactly one temporal interval (occupies temporal region) is required."@en ;
+
+    sh:property [
+        sh:path pets:medicationFrequencyPerDay ;
+        sh:maxCount 1 ;
+        sh:datatype xsd:string ;
+        sh:message "A Medication Administration may have at most one frequency-per-day value."@en
+    ] ;
+
+    sh:property [
+        sh:path <http://purl.obolibrary.org/obo/BFO_0000199> ;  # occupies temporal region
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:class <http://purl.obolibrary.org/obo/BFO_0000038> ;  # one-dimensional temporal region
+        sh:message "A Medication Administration must occupy exactly one temporal region."@en
+    ] .

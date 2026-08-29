@@ -24,11 +24,18 @@
          uri="cell-templates-shacl.ttl"/>
     <uri id="cell-templates-shacl-medical-appointment" name="http://mee.foundation/ontologies/persona/shapes/medical-appointment"
          uri="cell-templates-shacl.ttl"/>
-    <uri id="cell-templates-shacl-pet-medications" name="http://mee.foundation/ontologies/persona/shapes/pet-medications"
-         uri="cell-templates-shacl.ttl"/>
+    <!-- ── Other ontologies (peer domain ontologies for what a person merely *has*) ── -->
+    <uri id="pets"                     name="http://mee.foundation/ontologies/pets"
+         uri="other/pets.ttl"/>
+    <uri id="pets-shacl"               name="http://mee.foundation/ontologies/pets/shapes"
+         uri="other/pets-shacl.ttl"/>
     <!-- First non-CCO/non-mee.foundation external ontology this project vendors -->
     <uri id="dron-upper-subset"        name="http://mee.foundation/ontologies/dron-upper-subset"
          uri="project_files/dron-upper.ttl"/>
+    <uri id="ncbitaxon-subset"         name="http://mee.foundation/ontologies/ncbitaxon-subset"
+         uri="project_files/ncbitaxon-subset.ttl"/>
+    <uri id="vbo-subset"               name="http://mee.foundation/ontologies/vbo-subset"
+         uri="project_files/vbo-subset.ttl"/>
     <uri id="pdn-identity"             name="http://mee.foundation/ontologies/pdn-identity"
          uri="pdn-identity.ttl"/>
     <uri id="organization"             name="http://mee.foundation/ontologies/organization"

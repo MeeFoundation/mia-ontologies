@@ -2,10 +2,10 @@
 id: http://www.example.org/mia/cells/cell-41
 title: "Ginger"
 type: cell-databook
-version: 1.1.0
+version: 1.2.0
 created: 2026-08-22
 description: >
-  Cell DataBook for folder "Ginger" (cell:origin: cat:Pets). A user-defined instance folder for Alice's specific cat, Ginger, nested under the generic Pets category — mirroring how e.g. "Bob Johnson" reuses its parent "Others" folder's own origin class rather than being Custom. It is a one-member cell with one member entry about :Self and one graph about :Ginger (the cell's subject).
+  Cell DataBook for folder "Ginger" (cell:origin: cat:Pets). A user-defined instance folder for Alice's specific cat, Ginger, nested under the generic Pets category — mirroring how e.g. "Bob Johnson" reuses its parent "Others" folder's own origin class rather than being Custom. It is a one-member cell with one member entry about :Self and one graph about :Ginger (the cell's subject), typed pets:Pet and carrying her species and breed.
 mia:
   origin: "cat:Pets"
   creator: ":Self"
@@ -22,9 +22,10 @@ mia:
     - id: "http://www.example.org/mia/graphs/graph-37"
       claimant: ":Self"
       subject: ":Ginger"
+      template: "pets:Pet"
       shapes:
         - http://mee.foundation/ontologies/persona/shapes
-        - http://mee.foundation/ontologies/graph/shapes
+        - http://mee.foundation/ontologies/pets/shapes
 ---
 
 ## Graphs
@@ -48,7 +49,7 @@ This graph is the cell's one required `members` entry — a `cell:OneMember` cel
 
 #### Overview
 
-This graph captures Alice's basic claim about Ginger herself — just enough to back the cell's `subject: ":Ginger"` with a real graph (see Check 22). Ginger's actual medical care and her day-to-day care & feeding instructions live in the nested Medical and Care & Feeding cells instead; this is a minimal, standalone identification.
+This graph captures Alice's basic claim about Ginger herself — just enough to back the cell's `subject: ":Ginger"` with a real graph (see Check 22) — and, validated by `pets:Pet`'s SHACL shape (`other/pets-shacl.ttl`'s `:PetShape`), identifies what kind of pet she is: her species (a real NCBITaxon class IRI) and her breed (a real VBO class IRI — here, VBO's own "Mixed Breed (Cat)" class, since Ginger isn't a purebred). `:Self persona:hasPet :Ginger` closes the loop from the Person side. Ginger's actual medical care and her day-to-day care & feeding instructions live in the nested Medical and Care & Feeding cells instead; this is a minimal, standalone identification.
 
 #### Graph
 
@@ -56,10 +57,18 @@ This graph captures Alice's basic claim about Ginger herself — just enough to 
 <!-- databook:id: alice-ginger-subject-graph -->
 <!-- databook:graph: http://www.example.org/mia/graphs/graph-37#graph -->
 @prefix : <http://www.example.org/mia#> .
+@prefix persona: <http://mee.foundation/ontologies/persona#> .
+@prefix pets: <http://mee.foundation/ontologies/pets#> .
 @prefix owl: <http://www.w3.org/2002/07/owl#> .
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
 
-:Ginger rdf:type owl:NamedIndividual ;
-    rdfs:label "Ginger (Alice's cat)"@en .
+:Ginger rdf:type owl:NamedIndividual ,
+               pets:Pet ;
+    rdfs:label "Ginger (Alice's cat)"@en ;
+
+    pets:hasSpecies <http://purl.obolibrary.org/obo/NCBITaxon_9685> ;  # Felis catus (domestic cat)
+    pets:hasBreed <http://purl.obolibrary.org/obo/VBO_0100262> .  # Mixed Breed (Cat)
+
+:Self persona:hasPet :Ginger .
 ```

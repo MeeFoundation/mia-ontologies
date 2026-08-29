@@ -1,6 +1,7 @@
 @prefix cell: <http://mee.foundation/ontologies/cell#> .
 @prefix ctpl: <http://mee.foundation/ontologies/cell-templates#> .
 @prefix pshapes: <http://mee.foundation/ontologies/persona/shapes#> .
+@prefix petshapes: <http://mee.foundation/ontologies/pets/shapes#> .
 @prefix owl: <http://www.w3.org/2002/07/owl#> .
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
@@ -9,12 +10,12 @@
 @base <http://mee.foundation/ontologies/cell-templates> .
 
 <http://mee.foundation/ontologies/cell-templates> rdf:type owl:Ontology ;
-    owl:versionIRI <http://mee.foundation/ontologies/cell-templates/1.16.0> ;
-    dc:date "2026-08-27"^^xsd:date ;
+    owl:versionIRI <http://mee.foundation/ontologies/cell-templates/1.17.0> ;
+    dc:date "2026-08-29"^^xsd:date ;
     owl:imports <http://mee.foundation/ontologies/cell> ;
-    owl:versionInfo "Version 1.16.0 - added the required cell:isTopicCell to every template cell: true on ctpl:MedicalAppointmentTemplateCell and ctpl:PetMedicationsTemplateCell, false on the other three."@en ;
+    owl:versionInfo "Version 1.17.0 - added ctpl:PetProfileTemplateCell (cat:Pets); PetMedicationsTemplateCell's cell:templateShape now points at other/pets-shacl.ttl's petshapes:PetMedicationRecordShape (moved out of cell-templates-shacl.ttl)."@en ;
     rdfs:label "Cell Templates"@en ;
-    rdfs:comment """Class-level cell:Cell templates for cat:Category subclasses (category.ttl). Each individual here is what a cat:Category subclass's cat:templateCell value (asserted in category.ttl) points directly at — what the app clones into a new cell when a folder representing that class is first instantiated into a user's tree (Lazy Instantiation). Each is typed solely cell:TemplateCell — cell:TemplateCell and cell:MemberCell are disjoint (cell.ttl), so a template cell is reusable class-level content, never itself an instantiated member of any relationship. Each also carries cell:templateShape to the SHACL shape(s), in the paired cell-templates-shacl.ttl, describing the content expected of a topic file filed under that category, and cell:isTopicCell (required, exactly one value) — true on ctpl:MedicalAppointmentTemplateCell and ctpl:PetMedicationsTemplateCell, the two templates whose real cells always end up carrying a cell:topic value, false on the other three, flagging whether Lazy Instantiation's clone is expected to be typed cell:TopicCell."""@en .
+    rdfs:comment """Class-level cell:Cell templates for cat:Category subclasses (category.ttl). Each individual here is what a cat:Category subclass's cat:templateCell value (asserted in category.ttl) points directly at — what the app clones into a new cell when a folder representing that class is first instantiated into a user's tree (Lazy Instantiation). Each is typed solely cell:TemplateCell — cell:TemplateCell and cell:MemberCell are disjoint (cell.ttl), so a template cell is reusable class-level content, never itself an instantiated member of any relationship. Each also carries cell:templateShape to the SHACL shape(s) — in the paired cell-templates-shacl.ttl for a persona:PersonaTemplate-typed template, or in other/pets-shacl.ttl for a pets:-typed one — describing the content expected of a topic file filed under that category, and cell:isTopicCell (required, exactly one value) — true on ctpl:MedicalAppointmentTemplateCell, ctpl:PetMedicationsTemplateCell, and ctpl:PetProfileTemplateCell, the templates whose real cells always end up carrying a cell:topic value, false on the other three, flagging whether Lazy Instantiation's clone is expected to be typed cell:TopicCell."""@en .
 
 #################################################################
 #  cat:Passport
@@ -58,5 +59,14 @@ ctpl:MedicalAppointmentTemplateCell rdf:type cell:Cell, cell:TemplateCell ;
 
 ctpl:PetMedicationsTemplateCell rdf:type cell:Cell, cell:TemplateCell ;
     rdfs:label "Pet Medications Template Cell"@en ;
-    cell:templateShape pshapes:PetMedicationRecordShape ;
+    cell:templateShape petshapes:PetMedicationRecordShape ;
+    cell:isTopicCell true .
+
+#################################################################
+#  cat:Pets
+#################################################################
+
+ctpl:PetProfileTemplateCell rdf:type cell:Cell, cell:TemplateCell ;
+    rdfs:label "Pet Profile Template Cell"@en ;
+    cell:templateShape petshapes:PetShape ;
     cell:isTopicCell true .

@@ -8,11 +8,12 @@
 @prefix cco: <https://w3id.org/cco-domains/cco/> .
 @prefix mia: <http://www.example.org/mia#> .
 @prefix persona: <http://mee.foundation/ontologies/persona#> .
+@prefix pets: <http://mee.foundation/ontologies/pets#> .
 @prefix dc: <http://purl.org/dc/elements/1.1/> .
 
 <http://mee.foundation/ontologies/persona/shapes> rdf:type owl:Ontology ;
-    owl:versionIRI <http://mee.foundation/ontologies/persona/shapes/4.7.0> ;
-    dc:date "2026-08-27"^^xsd:date ;
+    owl:versionIRI <http://mee.foundation/ontologies/persona/shapes/4.8.0> ;
+    dc:date "2026-08-29"^^xsd:date ;
     rdfs:label "Cellula's SHACL Validation Shapes"@en ;
     rdfs:comment """SHACL validation shapes for Cellula, an identity agent application from Mee.
 
@@ -100,6 +101,13 @@
         sh:path persona:hasSocialNetwork ;
         sh:class cco:ont00001183 ;  # Social Network
         sh:message "hasSocialNetwork values must be of type Social Network."@en
+    ] ;
+
+    # Optional: pets (0..many); what a pet *is* is validated by other/pets-shacl.ttl's :PetShape
+    sh:property [
+        sh:path persona:hasPet ;
+        sh:class pets:Pet ;
+        sh:message "hasPet values must be of type pets:Pet."@en
     ] ;
 
     # Optional: payment cards (0..many)

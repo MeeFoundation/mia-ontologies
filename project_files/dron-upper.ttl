@@ -8,9 +8,9 @@
 @base <http://mee.foundation/ontologies/dron-upper-subset> .
 
 <http://mee.foundation/ontologies/dron-upper-subset> rdf:type owl:Ontology ;
-    owl:versionIRI <http://mee.foundation/ontologies/dron-upper-subset/1.0.0> ;
-    dc:date "2026-08-22"^^xsd:date ;
-    owl:versionInfo "Version 1.0.0 - initial hand-curated subset of DrOn's upper module."@en ;
+    owl:versionIRI <http://mee.foundation/ontologies/dron-upper-subset/1.0.1> ;
+    dc:date "2026-08-29"^^xsd:date ;
+    owl:versionInfo "Version 1.0.1 - updated cross-reference to other/pets.ttl's pets:Medication design (moved out of persona-templates.ttl)."@en ;
     rdfs:label "DrOn Upper Module Subset"@en ;
     rdfs:comment """A hand-curated subset of the Drug Ontology (DrOn, https://github.com/mcwdsi/dron,
                     OBO Foundry PURL http://purl.obolibrary.org/obo/dron.owl), extracted from DrOn
@@ -20,7 +20,7 @@
                     distribution (dron-lite.owl) is approximately 300MB and contains tens of thousands
                     of RxNorm-derived per-product classes not relevant here. This file instead declares
                     only the handful of DrOn's manually-curated, BFO-aligned "upper module" classes
-                    actually referenced by persona-templates.ttl's persona:Medication design, each
+                    actually referenced by other/pets.ttl's pets:Medication design, each
                     declared with its real upstream IRI, rdfs:label, and definition (verified directly
                     against the live DrOn ontology via OLS4, 2026-08-22), and each cited back to its
                     real DrOn class IRI rather than a locally-minted equivalent — this file adds no new

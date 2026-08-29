@@ -1,0 +1,237 @@
+@prefix pets: <http://mee.foundation/ontologies/pets#> .
+@prefix persona: <http://mee.foundation/ontologies/persona#> .
+@prefix cco: <https://w3id.org/cco-domains/cco/> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix dc: <http://purl.org/dc/elements/1.1/> .
+@base <http://mee.foundation/ontologies/pets> .
+
+<http://mee.foundation/ontologies/pets> rdf:type owl:Ontology ;
+    owl:imports <http://mee.foundation/ontologies/dron-upper-subset> ,
+                <http://mee.foundation/ontologies/ncbitaxon-subset> ,
+                <http://mee.foundation/ontologies/vbo-subset> ;
+    owl:versionIRI <http://mee.foundation/ontologies/pets/1.0.0> ;
+    dc:date "2026-08-29"^^xsd:date ;
+    owl:versionInfo "Version 1.0.0 - initial pets ontology: pet identity (hasSpecies/hasBreed) and the PetMedicationRecord/Medication classes moved here from persona-templates.ttl."@en ;
+    persona:usesDrOnClass <http://purl.obolibrary.org/obo/DRON_00000074> ,  # drug product
+                    <http://purl.obolibrary.org/obo/DRON_00000028> ,  # active ingredient (role)
+                    <http://purl.obolibrary.org/obo/DRON_00000022> ,  # drug tablet
+                    <http://purl.obolibrary.org/obo/DRON_00000026> ,  # drug capsule
+                    <http://purl.obolibrary.org/obo/DRON_00000031> ;  # drug administration
+    persona:usesChEBIClass <http://purl.obolibrary.org/obo/CHEBI_2676> ,   # amoxicillin
+                     <http://purl.obolibrary.org/obo/CHEBI_48947> ,  # clavulanic acid
+                     <http://purl.obolibrary.org/obo/CHEBI_5417> ,   # glucosamine
+                     <http://purl.obolibrary.org/obo/CHEBI_37397> ;  # chondroitin sulfate
+    rdfs:label "Pets Ontology"@en ;
+    rdfs:comment """The first of this project's other/ peer ontologies — small, mostly-vendored ontologies
+                    for domains a person merely *has* (a pet, eventually e.g. a vehicle) rather than *is*.
+                    persona.ttl/persona-templates.ttl model a person's own identity; the details of what a
+                    pet (or, later, a vehicle) actually is belong here instead, each in its own other/*.ttl
+                    file, so that persona.ttl/persona-templates.ttl stay scoped to a person's identity data.
+                    persona.ttl holds only the thin link property (persona:hasPet, domain persona:Person,
+                    range pets:Pet) connecting a person to this file's classes, referenced by name with no
+                    owl:imports in either direction — the same "referenced by name" pattern cell.ttl already
+                    uses for cell:origin's range (cat:Category) and cell:creator's range
+                    (persona:Person/o:Organization).
+
+                    pets:Pet and pets:PetMedicationRecord are both rdfs:subClassOf persona:PersonaTemplate,
+                    also referenced by name with no owl:imports of persona.ttl/persona-templates.ttl — this
+                    keeps graph.ttl's g:template property's range (persona:PersonaTemplate) as the one
+                    shared "this classifies a graph" root that every domain's template classes plug into,
+                    exactly like cat:Category is the one shared classification root every cat: leaf plugs
+                    into.
+
+                    Vendors a hand-curated subset of NCBITaxon (project_files/ncbitaxon-subset.ttl, species)
+                    and VBO (project_files/vbo-subset.ttl, breed) for pets:hasSpecies/pets:hasBreed, and
+                    (moved from persona-templates.ttl) DrOn (project_files/dron-upper.ttl) and cited ChEBI
+                    class IRIs for pets:Medication's active-ingredient/dose-form design — see
+                    pets:Medication's own rdfs:comment."""@en .
+
+
+#################################################################
+#    Pet — pet identity (species/breed) template
+#################################################################
+
+pets:Pet rdf:type owl:Class ;
+    rdfs:subClassOf persona:PersonaTemplate ;
+    rdfs:label "Pet"@en ;
+    rdfs:comment """Template type label for a graph whose purpose is to identify a pet — what kind of
+                    animal it is (species, and, when known/purebred, breed). Also the actual rdf:type of
+                    the pet individual itself, following the same document-individual pattern as
+                    persona:PassportDocument: pets:hasSpecies/pets:hasBreed are properties of the pet
+                    individual directly (a pet has no persona:Person individual of its own). Used as the
+                    value of g:template on the graph file's ontology IRI. Selects the SHACL shape
+                    :PetShape in other/pets-shacl.ttl, linked from cat:Pets's template cell
+                    (cell-templates.ttl) via cell:templateShape."""@en .
+
+pets:hasSpecies rdf:type owl:ObjectProperty ;
+    rdfs:domain pets:Pet ;
+    rdfs:label "has species"@en ;
+    rdfs:comment """Links a Pet to its species, identified directly by an NCBI Taxonomy
+                    (project_files/ncbitaxon-subset.ttl) class IRI (e.g. obo:NCBITaxon_9685 for Felis
+                    catus, the domestic cat) — the value IS the NCBITaxon class itself, not an instance of
+                    it (the same class-value-punning style cell:origin/cell:memberCount already use in
+                    cell.ttl), cited rather than importing the full ~2.7-million-class NCBITaxon
+                    distribution wholesale — only a small hand-picked subset is vendored locally. Required,
+                    exactly one value: every pet has exactly one species."""@en .
+
+pets:hasBreed rdf:type owl:ObjectProperty ;
+    rdfs:domain pets:Pet ;
+    rdfs:label "has breed"@en ;
+    rdfs:comment """Links a Pet to its breed, identified directly by a VBO (Vertebrate Breed Ontology,
+                    project_files/vbo-subset.ttl) class IRI (e.g. obo:VBO_0100221 "Siamese (Cat)") — the
+                    value IS the VBO class itself, same class-value-punning style as pets:hasSpecies.
+                    Optional, at most one value: assert a real VBO "Mixed Breed (‹Species›)" class (e.g.
+                    obo:VBO_0100262 "Mixed Breed (Cat)") when the pet is known or assumed to be a
+                    non-purebred mixture; omit this property entirely when breed is simply not recorded
+                    at all — VBO's own per-species "Mixed Breed" classes cover the "known unknown" case, so
+                    no locally-invented placeholder value is needed."""@en .
+
+
+#################################################################
+#    PetMedicationRecord and Medication
+#################################################################
+
+pets:PetMedicationRecord rdf:type owl:Class ;
+    rdfs:subClassOf persona:PersonaTemplate ;
+    rdfs:label "Pet Medications"@en ;
+    rdfs:comment """Template type label for a graph that carries a pet's list of medications. Also the
+                    class of the record individual itself, following the same document-individual pattern
+                    as persona:PassportDocument: the pets:hasMedication links below are properties of the
+                    PetMedicationRecord, not of the pet directly (a pet has no persona:Person individual of
+                    its own — it is identified only via the cell's/graph's own subject metadata, or, for a
+                    pet with its own identity graph, via pets:Pet). Used as the value of g:template on the
+                    graph file's ontology IRI. Selects the SHACL shape :PetMedicationRecordShape in
+                    other/pets-shacl.ttl, linked from cat:PetsMedical's template cell (cell-templates.ttl)
+                    via cell:templateShape. Named "Record" rather than "Document" since this class is not a
+                    persona:IdentityDocument, matching persona:MedicalAppointmentRecord's identical naming
+                    reasoning."""@en .
+
+pets:hasMedication rdf:type owl:ObjectProperty ;
+    rdfs:domain pets:PetMedicationRecord ;
+    rdfs:range pets:Medication ;
+    rdfs:label "has medication"@en ;
+    rdfs:comment "Links a PetMedicationRecord to one of the pet's medications. Repeat the property for multiple medications."@en .
+
+pets:Medication rdf:type owl:Class ;
+    rdfs:label "Medication"@en ;
+    rdfs:comment """A single medication entry: what drug, how much, and how often. Reuses external
+                    vocabulary rather than inventing free-text fields, per this project's "invent as
+                    little as possible" design goal: pets:hasActiveIngredient (ChEBI chemical substance
+                    classes — the same reuse move DrOn itself makes rather than inventing its own
+                    chemistry), pets:hasDoseForm (DrOn dose-form classes, e.g. "drug tablet"),
+                    pets:hasDosageAmount (a pets:DosageAmount individual, reusing CCO's
+                    Measurement-Unit/Information-Bearing-Entity machinery), and pets:hasAdministration (a
+                    pets:MedicationAdministration individual, reusing DrOn's "drug administration" process
+                    class plus the same BFO TemporalInterval pattern AddressDesignation already uses for
+                    start/end dates). Only medicationBrandName, medicationManufacturer, and
+                    medicationDuration stay plain strings — DrOn has no manufacturer/labeler class and
+                    embeds brand names only inside its auto-generated RxNorm product-class labels, not as
+                    a separate reusable property, and nothing reused covers a free-text course
+                    duration."""@en .
+
+pets:hasActiveIngredient rdf:type owl:ObjectProperty ;
+    rdfs:domain pets:Medication ;
+    rdfs:label "has active ingredient"@en ;
+    rdfs:comment """Links a Medication to one of its active ingredients, identified directly by a
+                    ChEBI (Chemical Entities of Biological Interest, https://www.ebi.ac.uk/chebi/)
+                    chemical-substance class IRI (e.g. obo:CHEBI_2676 for amoxicillin) — the value IS
+                    the ChEBI class itself, not an instance of it (the same class-value-punning style
+                    cell:origin/cell:memberCount already use in cell.ttl), cited rather than imported
+                    (ChEBI is far too large to vendor; DrOn itself reuses ChEBI class IRIs this same
+                    way rather than modeling chemistry on its own). Repeat the property for
+                    combination drugs with more than one active ingredient (e.g. amoxicillin AND
+                    clavulanic acid for Clavamox). Mirrors DrOn's "active ingredient" role
+                    (obo:DRON_00000028, project_files/dron-upper.ttl) conceptually, but deliberately
+                    simplified to a direct link rather than DrOn's full role-based reification (an Active
+                    Ingredient Role borne by a scattered molecular aggregate) — not worth the extra
+                    individuals for a consumer-app medication list."""@en .
+
+pets:hasDoseForm rdf:type owl:ObjectProperty ;
+    rdfs:domain pets:Medication ;
+    rdfs:label "has dose form"@en ;
+    rdfs:comment """Links a Medication to the DrOn (project_files/dron-upper.ttl) dose-form class
+                    identifying what kind of discrete manufactured unit it comes in — e.g.
+                    obo:DRON_00000022 "drug tablet" or obo:DRON_00000026 "drug capsule". Like
+                    hasActiveIngredient, the value IS the class itself (class-value-punning, matching
+                    cell:memberCount's style). Omit this property entirely when the dose is a true
+                    measured quantity rather than a count of discrete units (e.g. a teaspoon of
+                    liquid) — see pets:hasDosageAmount/pets:DosageAmount for why "tablet" and
+                    "teaspoon" are handled by two different mechanisms: UCUM's own specification
+                    explicitly classifies "tablet" as a non-unit (a count of an arbitrary manufactured
+                    form, not a measured physical quantity), unlike teaspoon/milligram/milliliter,
+                    which are real measurement units."""@en .
+
+pets:DosageAmount rdf:type owl:Class ;
+    rdfs:subClassOf <https://w3id.org/cco-domains/cco/ont00000253> ,  # Information Bearing Entity
+                    <https://w3id.org/cco-domains/cco/ont00001283> ; # Ratio Measurement Information Content Entity
+    rdfs:label "Dosage Amount"@en ;
+    rdfs:comment """How much of a Medication is given per dose. Multi-typed as both CCO's
+                    Information Bearing Entity (cco:ont00000253) and Ratio Measurement Information
+                    Content Entity (cco:ont00001283) on one individual — a deliberate simplification
+                    of CCO's usual two-individual pattern (a concrete Information Bearing Entity that
+                    generically depends-bears an abstract Measurement Information Content Entity), made
+                    because a single reified "amount" individual is simpler for a consumer-app medication
+                    list. Carries exactly one of cco:ont00001769 ("has decimal value") or cco:ont00001773
+                    ("has integer value") — the count/measurement itself — and, only when the amount is a
+                    true measured physical quantity (not a count of discrete dose-form units — see
+                    pets:hasDoseForm), cco:ont00001863 ("uses measurement unit") pointing at one of
+                    project_files/UnitsOfMeasureOntology.ttl's Measurement Unit individuals (e.g.
+                    "Teaspoon Measurement Unit", cco:ont00001573). This is CCO's own quantity/unit
+                    machinery, reused here in place of pulling in UCUM or FHIR's Quantity datatype."""@en .
+
+pets:hasDosageAmount rdf:type owl:ObjectProperty ;
+    rdfs:domain pets:Medication ;
+    rdfs:range pets:DosageAmount ;
+    rdfs:label "has dosage amount"@en ;
+    rdfs:comment "Links a Medication to the pets:DosageAmount individual recording how much is given per dose."@en .
+
+pets:MedicationAdministration rdf:type owl:Class ;
+    rdfs:subClassOf <http://purl.obolibrary.org/obo/DRON_00000031> ; # drug administration (project_files/dron-upper.ttl)
+    rdfs:label "Medication Administration"@en ;
+    rdfs:comment """How often, and over what period, a Medication is given — reusing DrOn's "drug
+                    administration" process class (obo:DRON_00000031, project_files/dron-upper.ttl)
+                    for the whole administration course (a mild abstraction from DrOn's literal
+                    single-dose definition to cover a repeating regimen, documented here rather than
+                    upstream in DrOn itself). Carries pets:medicationFrequencyPerDay (kept — no
+                    CCO/DrOn property models recurrence frequency; loosely patterned after FHIR's
+                    Timing.repeat.frequency for shape inspiration only, FHIR RDF itself is not
+                    imported anywhere in this project) and exactly one
+                    <http://purl.obolibrary.org/obo/BFO_0000199> ("occupies temporal region") link to
+                    a <http://purl.obolibrary.org/obo/BFO_0000038> (one-dimensional temporal region)
+                    individual carrying cco:ent00000017/cco:ent00000018 ("has start/end date") — the
+                    exact same TemporalInterval pattern AddressDesignation already uses for an
+                    address's occupancy period; an absent end date means the medication is
+                    ongoing/current, matching that same convention."""@en .
+
+pets:medicationFrequencyPerDay rdf:type owl:DatatypeProperty ;
+    rdfs:domain pets:MedicationAdministration ;
+    rdfs:label "medication frequency per day"@en ;
+    rdfs:comment "How often per day the medication is given, as free text (e.g. '2', 'as needed')."@en ;
+    rdfs:range xsd:string .
+
+pets:hasAdministration rdf:type owl:ObjectProperty ;
+    rdfs:domain pets:Medication ;
+    rdfs:range pets:MedicationAdministration ;
+    rdfs:label "has administration"@en ;
+    rdfs:comment "Links a Medication to the pets:MedicationAdministration individual recording how often and over what period it is given."@en .
+
+pets:medicationBrandName rdf:type owl:DatatypeProperty ;
+    rdfs:domain pets:Medication ;
+    rdfs:label "medication brand name"@en ;
+    rdfs:comment "The medication's marketed brand name, if any (e.g. 'Clavamox'). Kept as a flat string — DrOn embeds brand names only inside its auto-generated RxNorm product-class rdfs:labels, never as a separate reusable property, so there is no external term to reuse here."@en ;
+    rdfs:range xsd:string .
+
+pets:medicationManufacturer rdf:type owl:DatatypeProperty ;
+    rdfs:domain pets:Medication ;
+    rdfs:label "medication manufacturer"@en ;
+    rdfs:comment "The name of the medication's manufacturer, as a free-text string (e.g. 'Zoetis') — not a linked o:Organization, matching persona:insuranceProvider's identical flat-string treatment. Kept as a flat string — DrOn has no manufacturer/labeler class at all, so there is no external term to reuse here."@en ;
+    rdfs:range xsd:string .
+
+pets:medicationDuration rdf:type owl:DatatypeProperty ;
+    rdfs:domain pets:Medication ;
+    rdfs:label "medication duration"@en ;
+    rdfs:comment "A free-text alternative to a fixed end date for expressing how long the medication runs (e.g. '10 days'), for courses with no fixed calendar end date. Not constrained to be mutually exclusive with pets:MedicationAdministration's end-date link. Kept as a flat string — nothing reused covers this narrow a fact."@en ;
+    rdfs:range xsd:string .

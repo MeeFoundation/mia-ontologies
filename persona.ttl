@@ -8,6 +8,7 @@
 @prefix skos: <http://www.w3.org/2004/02/skos/core#> .
 @prefix dc: <http://purl.org/dc/elements/1.1/> .
 @prefix dcterms: <http://purl.org/dc/terms/> .
+@prefix pets: <http://mee.foundation/ontologies/pets#> .
 @base <http://mee.foundation/ontologies/persona> .
 
 <http://mee.foundation/ontologies/persona> rdf:type owl:Ontology ;
@@ -17,7 +18,7 @@
     owl:imports <https://w3id.org/cco-domains/domains/StagingOntology> ;
     owl:imports <http://mee.foundation/ontologies/persona-templates> ;
     dc:date "2026-08-27"^^xsd:date ;
-    owl:versionInfo "Version 4.7.0 - updated topic.ttl references to graph.ttl following that ontology's rename, and renamed 'Mee Identity Agent' to 'Cellula App' throughout."@en ;
+    owl:versionInfo "Version 4.8.0 - added p:hasPet (domain p:Person, range pets:Pet, referenced by name), the link into the new other/pets.ttl peer ontology."@en ;
     rdfs:label "Persona Ontology"@en ;
     rdfs:comment """Persona Ontology for the Cellula App.
 
@@ -175,6 +176,19 @@ p:hasSocialNetwork rdf:type owl:ObjectProperty ;
                     with whom the person has relationships in that topic. The Person is
                     not a member of the network; the network contains only the people they
                     relate to."""@en .
+
+p:hasPet rdf:type owl:ObjectProperty ;
+    rdfs:domain p:Person ;
+    rdfs:range pets:Pet ;    # other/pets.ttl, referenced by name — no owl:imports either direction
+    rdfs:label "has pet"@en ;
+    rdfs:comment """Links a Person to a Pet. What a pet *is* (species, breed, medications) is modeled
+                    in the peer other/pets.ttl ontology, not here — this project keeps persona.ttl
+                    scoped to a person's own identity, holding only the thin "has" link for anything
+                    a person merely owns or is otherwise associated with (a pet today; potentially a
+                    vehicle or similar in the future, each in its own other/*.ttl file). pets:Pet is
+                    referenced by name only, the same "referenced by name, no owl:imports" pattern
+                    cell.ttl already uses for cell:origin's range (cat:Category) and cell:creator's
+                    range (p:Person/o:Organization)."""@en .
 
 #################################################################
 #    Banking-related
