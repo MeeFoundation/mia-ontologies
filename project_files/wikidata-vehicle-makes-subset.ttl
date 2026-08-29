@@ -1,0 +1,187 @@
+@prefix : <http://mee.foundation/ontologies/wikidata-vehicle-makes-subset#> .
+@prefix vehicles: <http://mee.foundation/ontologies/vehicles#> .
+@prefix wd: <http://www.wikidata.org/entity/> .
+@prefix dc: <http://purl.org/dc/elements/1.1/> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@base <http://mee.foundation/ontologies/wikidata-vehicle-makes-subset> .
+
+<http://mee.foundation/ontologies/wikidata-vehicle-makes-subset> rdf:type owl:Ontology ;
+    owl:versionIRI <http://mee.foundation/ontologies/wikidata-vehicle-makes-subset/1.0.0> ;
+    dc:date "2026-08-29"^^xsd:date ;
+    owl:versionInfo "Version 1.0.0 - initial hand-curated set of 35 major consumer vehicle manufacturers (car, motorcycle, and bus) verified against live Wikidata."@en ;
+    rdfs:label "Wikidata Vehicle Makes Subset"@en ;
+    rdfs:comment """A hand-curated subset of Wikidata (https://www.wikidata.org) — 35 major consumer vehicle
+                    manufacturers across car, motorcycle, and bus makers, the piece other/vehicles.ttl's
+                    vehicles:hasMake needs, analogous to project_files/ncbitaxon-subset.ttl's role for
+                    pets:hasSpecies. This is NOT a full extraction of every manufacturer Wikidata knows about
+                    (unlike project_files/vbo-subset.ttl's real full extraction of VBO's pet-relevant breed
+                    tree) — Wikidata has no bounded "vehicle manufacturer" scope the way VBO's pet breeds did,
+                    so, like project_files/dron-upper.ttl/ncbitaxon-subset.ttl, this stays a hand-picked list
+                    rather than an exhaustive one. Each individual reuses its real Wikidata Q-ID directly as
+                    its own IRI (e.g. wd:Q53268 for Toyota) rather than a locally-minted equivalent — the same
+                    "cite the real upstream identifier" principle NCBITaxon/VBO/DrOn/ChEBI IRIs are cited by
+                    throughout this project — verified live against https://query.wikidata.org/sparql and
+                    https://www.wikidata.org/w/api.php (2026-08-29). Deliberately typed as
+                    owl:NamedIndividual, vehicles:Make rather than owl:Class: unlike NCBITaxon (species) or
+                    VBO (breeds), which model their own terms as OWL classes — enabling
+                    pets:hasSpecies/pets:hasBreed's class-value-punning — Wikidata models a manufacturer as
+                    an instance of a class (e.g. "automobile manufacturer", wd:Q786820), not as a class in
+                    its own right, so vehicles:hasMake links to a real individual instead, a deliberate,
+                    documented adaptation of the pattern rather than a slip. Wikidata's own content
+                    is released under CC0 (public domain dedication), so no attribution obligation applies —
+                    even lighter than project_files/vbo-subset.ttl's CC-BY 4.0 terms."""@en .
+
+#################################################################
+#  Car manufacturers
+#################################################################
+
+wd:Q53268 rdf:type owl:NamedIndividual, vehicles:Make ;
+    rdfs:label "Toyota"@en ;
+    rdfs:comment "Wikidata Q53268. Japanese car manufacturer."@en .
+
+wd:Q246 rdf:type owl:NamedIndividual, vehicles:Make ;
+    rdfs:label "Volkswagen"@en ;
+    rdfs:comment "Wikidata Q246. German car manufacturer."@en .
+
+wd:Q26678 rdf:type owl:NamedIndividual, vehicles:Make ;
+    rdfs:label "BMW Group"@en ;
+    rdfs:comment "Wikidata Q26678. German car manufacturer."@en .
+
+wd:Q23317 rdf:type owl:NamedIndividual, vehicles:Make ;
+    rdfs:label "Audi AG"@en ;
+    rdfs:comment "Wikidata Q23317. German car manufacturer."@en .
+
+wd:Q44294 rdf:type owl:NamedIndividual, vehicles:Make ;
+    rdfs:label "Ford Motor Company"@en ;
+    rdfs:comment "Wikidata Q44294. American car manufacturer."@en .
+
+wd:Q6686 rdf:type owl:NamedIndividual, vehicles:Make ;
+    rdfs:label "Renault"@en ;
+    rdfs:comment "Wikidata Q6686. French car manufacturer."@en .
+
+wd:Q9584 rdf:type owl:NamedIndividual, vehicles:Make ;
+    rdfs:label "Honda"@en ;
+    rdfs:comment "Wikidata Q9584. Japanese car and motorcycle manufacturer."@en .
+
+wd:Q27586 rdf:type owl:NamedIndividual, vehicles:Make ;
+    rdfs:label "Ferrari"@en ;
+    rdfs:comment "Wikidata Q27586. Italian car manufacturer."@en .
+
+wd:Q40993 rdf:type owl:NamedIndividual, vehicles:Make ;
+    rdfs:label "Porsche"@en ;
+    rdfs:comment "Wikidata Q40993. German car manufacturer."@en .
+
+wd:Q20165 rdf:type owl:NamedIndividual, vehicles:Make ;
+    rdfs:label "Nissan"@en ;
+    rdfs:comment "Wikidata Q20165. Japanese car manufacturer."@en .
+
+wd:Q81965 rdf:type owl:NamedIndividual, vehicles:Make ;
+    rdfs:label "General Motors"@en ;
+    rdfs:comment "Wikidata Q81965. American car manufacturer."@en .
+
+wd:Q40966 rdf:type owl:NamedIndividual, vehicles:Make ;
+    rdfs:label "Opel"@en ;
+    rdfs:comment "Wikidata Q40966. German car manufacturer."@en .
+
+wd:Q27597 rdf:type owl:NamedIndividual, vehicles:Make ;
+    rdfs:label "Fiat"@en ;
+    rdfs:comment "Wikidata Q27597. Italian car manufacturer."@en .
+
+wd:Q29570 rdf:type owl:NamedIndividual, vehicles:Make ;
+    rdfs:label "Chevrolet"@en ;
+    rdfs:comment "Wikidata Q29570. American car manufacturer."@en .
+
+wd:Q35886 rdf:type owl:NamedIndividual, vehicles:Make ;
+    rdfs:label "Lamborghini"@en ;
+    rdfs:comment "Wikidata Q35886. Italian car manufacturer."@en .
+
+wd:Q181642 rdf:type owl:NamedIndividual, vehicles:Make ;
+    rdfs:label "Suzuki Motor Corporation"@en ;
+    rdfs:comment "Wikidata Q181642. Japanese car and motorcycle manufacturer."@en .
+
+wd:Q35996 rdf:type owl:NamedIndividual, vehicles:Make ;
+    rdfs:label "Mazda"@en ;
+    rdfs:comment "Wikidata Q35996. Japanese car manufacturer."@en .
+
+wd:Q29637 rdf:type owl:NamedIndividual, vehicles:Make ;
+    rdfs:label "Škoda Auto"@en ;
+    rdfs:comment "Wikidata Q29637. Czech car manufacturer."@en .
+
+wd:Q35349 rdf:type owl:NamedIndividual, vehicles:Make ;
+    rdfs:label "Kia"@en ;
+    rdfs:comment "Wikidata Q35349. South Korean car manufacturer."@en .
+
+wd:Q6746 rdf:type owl:NamedIndividual, vehicles:Make ;
+    rdfs:label "Citroën"@en ;
+    rdfs:comment "Wikidata Q6746. French car manufacturer."@en .
+
+wd:Q26921 rdf:type owl:NamedIndividual, vehicles:Make ;
+    rdfs:label "Alfa Romeo"@en ;
+    rdfs:comment "Wikidata Q26921. Italian car manufacturer."@en .
+
+wd:Q55931 rdf:type owl:NamedIndividual, vehicles:Make ;
+    rdfs:label "Hyundai Motor Company"@en ;
+    rdfs:comment "Wikidata Q55931. South Korean car manufacturer."@en .
+
+wd:Q27530 rdf:type owl:NamedIndividual, vehicles:Make ;
+    rdfs:label "Mercedes-Benz Group"@en ;
+    rdfs:comment "Wikidata Q27530. German car and bus manufacturer."@en .
+
+wd:Q163810 rdf:type owl:NamedIndividual, vehicles:Make ;
+    rdfs:label "AB Volvo"@en ;
+    rdfs:comment "Wikidata Q163810. Swedish car, truck, and bus manufacturer."@en .
+
+wd:Q188514 rdf:type owl:NamedIndividual, vehicles:Make ;
+    rdfs:label "Tata Motors Ltd"@en ;
+    rdfs:comment "Wikidata Q188514. Indian car and bus manufacturer."@en .
+
+wd:Q30055 rdf:type owl:NamedIndividual, vehicles:Make ;
+    rdfs:label "Jaguar Cars"@en ;
+    rdfs:comment "Wikidata Q30055. British car manufacturer."@en .
+
+wd:Q27074 rdf:type owl:NamedIndividual, vehicles:Make ;
+    rdfs:label "Aston Martin Lagonda"@en ;
+    rdfs:comment "Wikidata Q27074. British car manufacturer."@en .
+
+#################################################################
+#  Motorcycle manufacturers
+#################################################################
+
+wd:Q192814 rdf:type owl:NamedIndividual, vehicles:Make ;
+    rdfs:label "Harley-Davidson"@en ;
+    rdfs:comment "Wikidata Q192814. American motorcycle manufacturer."@en .
+
+wd:Q158888 rdf:type owl:NamedIndividual, vehicles:Make ;
+    rdfs:label "Yamaha Motor Company"@en ;
+    rdfs:comment "Wikidata Q158888. Japanese motorcycle manufacturer."@en .
+
+wd:Q841263 rdf:type owl:NamedIndividual, vehicles:Make ;
+    rdfs:label "Piaggio"@en ;
+    rdfs:comment "Wikidata Q841263. Italian scooter and motorized-bicycle manufacturer (maker of Vespa)."@en .
+
+wd:Q271812 rdf:type owl:NamedIndividual, vehicles:Make ;
+    rdfs:label "Ducati"@en ;
+    rdfs:comment "Wikidata Q271812. Italian motorcycle manufacturer."@en .
+
+wd:Q249033 rdf:type owl:NamedIndividual, vehicles:Make ;
+    rdfs:label "Kawasaki Motors"@en ;
+    rdfs:comment "Wikidata Q249033. Japanese motorcycle manufacturer, a division of Kawasaki Heavy Industries."@en .
+
+wd:Q1140383 rdf:type owl:NamedIndividual, vehicles:Make ;
+    rdfs:label "Triumph Motorcycles Ltd"@en ;
+    rdfs:comment "Wikidata Q1140383. British motorcycle manufacturer."@en .
+
+#################################################################
+#  Bus manufacturers
+#################################################################
+
+wd:Q1126054 rdf:type owl:NamedIndividual, vehicles:Make ;
+    rdfs:label "NFI Group"@en ;
+    rdfs:comment "Wikidata Q1126054. Canadian manufacturer of transit buses and motorcoaches (New Flyer)."@en .
+
+wd:Q4928875 rdf:type owl:NamedIndividual, vehicles:Make ;
+    rdfs:label "Blue Bird Corporation"@en ;
+    rdfs:comment "Wikidata Q4928875. American school bus manufacturer."@en .

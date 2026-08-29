@@ -12,9 +12,9 @@
     owl:imports <http://mee.foundation/ontologies/dron-upper-subset> ,
                 <http://mee.foundation/ontologies/ncbitaxon-subset> ,
                 <http://mee.foundation/ontologies/vbo-subset> ;
-    owl:versionIRI <http://mee.foundation/ontologies/pets/1.2.0> ;
+    owl:versionIRI <http://mee.foundation/ontologies/pets/1.3.0> ;
     dc:date "2026-08-29"^^xsd:date ;
-    owl:versionInfo "Version 1.2.0 - added pets:name (required), pets:birthDate (optional, xsd:date or xsd:gYear), and pets:BodyWeight/pets:hasBodyWeight (optional, mirrors pets:DosageAmount's CCO reification pattern)."@en ;
+    owl:versionInfo "Version 1.3.0 - added pets:sex (optional, \"Male\"/\"Female\") and pets:isSpayedOrNeutered (optional, xsd:boolean)."@en ;
     persona:usesDrOnClass <http://purl.obolibrary.org/obo/DRON_00000074> ,  # drug product
                     <http://purl.obolibrary.org/obo/DRON_00000028> ,  # active ingredient (role)
                     <http://purl.obolibrary.org/obo/DRON_00000022> ,  # drug tablet
@@ -64,13 +64,14 @@ pets:Pet rdf:type owl:Class ;
     rdfs:label "Pet"@en ;
     rdfs:comment """Template type label for a graph whose purpose is to identify a pet — its name, what
                     kind of animal it is (species, and, when known/purebred, breed), and, optionally, its
-                    birth date and current body weight. Also the actual rdf:type of the pet individual
-                    itself, following the same document-individual pattern as persona:PassportDocument:
-                    pets:name/pets:hasSpecies/pets:hasBreed/pets:birthDate/pets:hasBodyWeight are properties
-                    of the pet individual directly (a pet has no persona:Person individual of its own). Used
-                    as the value of g:template on the graph file's ontology IRI. Selects the SHACL shape
-                    :PetShape in other/pets-shacl.ttl, linked from cat:Pets's template cell
-                    (cell-templates.ttl) via cell:templateShape."""@en .
+                    birth date, current body weight, sex, and spay/neuter status. Also the actual rdf:type
+                    of the pet individual itself, following the same document-individual pattern as
+                    persona:PassportDocument: pets:name/pets:hasSpecies/pets:hasBreed/pets:birthDate/
+                    pets:hasBodyWeight/pets:sex/pets:isSpayedOrNeutered are properties of the pet individual
+                    directly (a pet has no persona:Person individual of its own). Used as the value of
+                    g:template on the graph file's ontology IRI. Selects the SHACL shape :PetShape in
+                    other/pets-shacl.ttl, linked from cat:Pets's template cell (cell-templates.ttl) via
+                    cell:templateShape."""@en .
 
 pets:hasSpecies rdf:type owl:ObjectProperty ;
     rdfs:domain pets:Pet ;
@@ -140,6 +141,26 @@ pets:hasBodyWeight rdf:type owl:ObjectProperty ;
     rdfs:range pets:BodyWeight ;
     rdfs:label "has body weight"@en ;
     rdfs:comment "Links a Pet to its pets:BodyWeight individual. Optional, at most one value: omit entirely when no current weight is on hand."@en .
+
+pets:sex rdf:type owl:DatatypeProperty ;
+    rdfs:domain pets:Pet ;
+    rdfs:range xsd:string ;
+    rdfs:label "sex"@en ;
+    rdfs:comment """The pet's biological sex. Constrained by other/pets-shacl.ttl's :PetShape to exactly
+                    "Male" or "Female" via sh:in — a two-value controlled vocabulary kept as a plain
+                    SHACL-enumerated string rather than a vendored external class, the same small-enumeration
+                    reasoning other/vehicles.ttl's vehicles:fuelType/vehicles:driveWheelConfiguration use.
+                    Optional, at most one value: omit entirely when not known."""@en .
+
+pets:isSpayedOrNeutered rdf:type owl:DatatypeProperty ;
+    rdfs:domain pets:Pet ;
+    rdfs:range xsd:boolean ;
+    rdfs:label "is spayed or neutered"@en ;
+    rdfs:comment """Whether the pet has been surgically sterilized — spayed (female) or neutered (male) —
+                    as a single yes/no fact. A boolean is the right-sized choice rather than two
+                    sex-specific properties: the underlying fact (sterilized or not) is the same regardless
+                    of which sex-specific term applies, and pets:sex already records the sex separately.
+                    Optional, at most one value: omit entirely when not known."""@en .
 
 
 #################################################################

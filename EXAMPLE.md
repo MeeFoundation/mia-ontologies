@@ -66,7 +66,7 @@ Alice used to live in Boston until late 2025, but now lives in Paradise, CA. Inf
 
 ### Possessions 
 
-Alice, like everyone, owns (or borrows, or rents) zillions of things. A tiny few of them are described in [graph 22](<example/Cells/Things/Things.databook.md#graph-22>). We focused on a few identity documents. Alice has a plastic driver's license card, a health insurance cards, social security number cards. She also has a wallet. She keeps some of these in her wallet and some separately. Presumably Alice has a vehicle of some kind, and so many other things, so this example is extremely limited at the moment. 
+Alice, like everyone, owns (or borrows, or rents) zillions of things. A tiny few of them are described in [graph 22](<example/Cells/Things/Things.databook.md#graph-22>). We focused on a few identity documents. Alice has a plastic driver's license card, a health insurance cards, social security number cards. She also has a wallet. She keeps some of these in her wallet and some separately. Alice also has a vehicle — see [Vehicles](#vehicles) below — but so many other things besides, so this example is still limited at the moment.
 
 Here are a few lines from [graph 22](<example/Cells/Things/Things.databook.md#graph-22>):
 ```turtle 
@@ -83,8 +83,31 @@ Here are a few lines from [graph 22](<example/Cells/Things/Things.databook.md#gr
     BFO_0000176 :Alice_Wallet .                            # in the wallet
 ```
 
-<p align="center"><img src="example/images/misc.png" alt="Miscellaneous cells"></p>
+<p align="center"><img src="example/images/things.png" alt="Things cells"></p>
 
+#### Vehicles
+
+Under her *Things* cell, Alice has created a *Vehicles* cell — a purely organizational category node, like *Pets* — and, nested inside it, a cell for her car, named *RAV4* after the car itself (reusing its parent's own `cat:Vehicles` origin, the same "child folder reuses its parent's origin" pattern the *Ginger* cell already uses under *Pets*). Thanks to `cat:Vehicles`'s own template cell, the *RAV4* cell identifies the car's vehicle type, make and model (real Wikidata individuals — Toyota and the Toyota RAV4), model year, VIN, color, body type, fuel type, drive wheel configuration, current odometer reading, and engine specification as a real `vehicles:Vehicle` individual rather than a bare label ([graph 63](<example/Cells/Things/Vehicles/RAV4/RAV4(vehicles).databook.md#graph-63>)).
+
+Here is a snippet from [graph 63](<example/Cells/Things/Vehicles/RAV4/RAV4(vehicles).databook.md#graph-63>):
+
+```turtle
+:Alice_RAV4 rdf:type owl:NamedIndividual ,
+                     vehicles:Vehicle ;
+    rdfs:label "Alice Walker's RAV4"@en ;
+
+    vehicles:hasVehicleType vehicles:Car ;
+    vehicles:hasMake wd:Q53268 ;   # Toyota
+    vehicles:hasModel wd:Q819982 ;  # Toyota RAV4
+    vehicles:modelYear "2022"^^xsd:gYear ;
+    vehicles:vehicleIdentificationNumber "JT3RWRFV1NU012345" ;
+    vehicles:color "Silver" ;
+    vehicles:bodyType "SUV" ;
+    vehicles:fuelType "Gasoline" ;
+    vehicles:driveWheelConfiguration "AWD" ;
+    vehicles:hasOdometerReading :Alice_RAV4_Odometer ;
+    vehicles:hasEngineSpecification :Alice_RAV4_Engine .
+```
 
 ### Caring for Ginger
 
@@ -124,6 +147,7 @@ A summary of every narratively-illustrated cell under `example/Cells/`, grouped 
 | Current and Previous Homes | Boston | [Boston(residence).databook.md](<example/Cells/Government/Municipality/Boston/Boston(residence).databook.md>) {7} | Self | `cat:Residence` | 13 |
 | Current and Previous Homes | Paradise | [Paradise(residence).databook.md](<example/Cells/Government/Municipality/Paradise/Paradise(residence).databook.md>) {8} | Self | `cat:Residence` | 18 |
 | Possessions | Things | [Things.databook.md](<example/Cells/Things/Things.databook.md>) {11} | Self | `cat:Things` | 22 |
+| Vehicles | RAV4 | [RAV4(vehicles).databook.md](<example/Cells/Things/Vehicles/RAV4/RAV4(vehicles).databook.md>) {44} | Alice's RAV4 | `cat:Vehicles` | 62, 63 |
 | Caring for Ginger | Ginger | [Ginger(pets).databook.md](<example/Cells/Pets/Ginger/Ginger(pets).databook.md>) {41} | Ginger | `cat:Pets` | 36, 37 |
 | Caring for Ginger | Medical | [Medical.databook.md](<example/Cells/Pets/Ginger/Medical/Medical.databook.md>) {40} | Ginger | `cat:PetsMedical` | 32, 33, 57 |
 | Caring for Ginger | Care & Feeding | [Care & Feeding.databook.md](<example/Cells/Pets/Ginger/Care & Feeding/Care & Feeding.databook.md>) {42} | Ginger | `cat:PetsCareAndFeeding` | 58, 59, 60 |
@@ -155,6 +179,7 @@ The graphs in the table below are *about* Alice and claimed *by* Alice. The "Cel
 | 35 | [Health & Wellness.databook.md](<example/Cells/People/Immediate Family/Paula Walker/Health & Wellness/Health & Wellness.databook.md#graph-35>) {13} | `cat:HealthWellness`     | Alice's bare given-name claim — the Health & Wellness cell's required member entry          | [view](example/graphs/images/graph-35.png) |
 | 36 | [Ginger(pets).databook.md](<example/Cells/Pets/Ginger/Ginger(pets).databook.md#graph-36>) {41} | `cat:Pets`     | Deliberately empty — the Ginger cell's required member entry; the `members` requirement is about `g:subject`/`g:claimant`, not about carrying content          | [view](example/graphs/images/graph-36.png) |
 | 58 | [Care & Feeding.databook.md](<example/Cells/Pets/Ginger/Care & Feeding/Care & Feeding.databook.md#graph-58>) {42} | `cat:PetsCareAndFeeding`     | Deliberately empty — the Ginger-Care & Feeding cell's required member entry          | [view](example/graphs/images/graph-58.png) |
+| 62 | [RAV4(vehicles).databook.md](<example/Cells/Things/Vehicles/RAV4/RAV4(vehicles).databook.md#graph-62>) {44} | `cat:Vehicles`     | Deliberately empty — the RAV4 cell's required member entry; the `members` requirement is about `g:subject`/`g:claimant`, not about carrying content          | [view](example/graphs/images/graph-62.png) |
 
 The following table lists graphs that are *about* Alice but claimed by others.
 
@@ -186,6 +211,7 @@ The following table lists graphs about other people (Paula and Bob) or organizat
 | 57 | [Medical.databook.md](<example/Cells/Pets/Ginger/Medical/Medical.databook.md#graph-57>) {40} | `cat:PetsMedical`       | Paula's own self-claimed given-name claim — the cell's second `members` entry after Alice shared it with her, making it a `cell:TwoMember` cell           | [view](example/graphs/images/graph-57.png)|
 | 59 | [Care & Feeding.databook.md](<example/Cells/Pets/Ginger/Care & Feeding/Care & Feeding.databook.md#graph-59>) {42} | `cat:PetsCareAndFeeding`       | Paula's own self-claimed given-name claim — the cell's second `members` entry after Alice shared it with her, making it a `cell:TwoMember` cell           | [view](example/graphs/images/graph-59.png)|
 | 60 | [Care & Feeding.databook.md](<example/Cells/Pets/Ginger/Care & Feeding/Care & Feeding.databook.md#graph-60>) {42} | `cat:PetsCareAndFeeding`       | Alice's day-to-day care and feeding instructions for Ginger — feeding schedule, food, and where she sleeps           | [view](example/graphs/images/graph-60.png)|
+| 63 | [RAV4(vehicles).databook.md](<example/Cells/Things/Vehicles/RAV4/RAV4(vehicles).databook.md#graph-63>) {44} | `cat:Vehicles`       | Alice's basic claim identifying her car — vehicle type (Car), make and model (Toyota RAV4, real Wikidata individuals), model year, VIN, color, body type, fuel type, drive wheel configuration, odometer reading, and engine specification — backs the RAV4 cell's `subject: ":Alice_RAV4"` with a real graph, typed `vehicles:Vehicle`           | [view](example/graphs/images/graph-63.png)|
 
 ## Diagrams
 
@@ -258,8 +284,9 @@ python3 yaml-to-rdf.py . > /tmp/mia-yaml.ttl
 # below: its template individuals are generic, reusable content with no real
 # person bound to them, so they can't sensibly carry cell-shacl.ttl's required
 # c:members/c:creator — they're validated only via cell-templates-shacl.ttl/
-# other/pets-shacl.ttl, in Tier 2. other/pets.ttl is included below — it's a
-# full peer application ontology, same as persona-templates.ttl/graph.ttl/etc.)
+# other/pets-shacl.ttl/other/vehicles-shacl.ttl, in Tier 2. other/pets.ttl and
+# other/vehicles.ttl are included below — each is a full peer application
+# ontology, same as persona-templates.ttl/graph.ttl/etc.)
 riot --output=turtle \
   project_files/bfo-core.ttl \
   project_files/PersonOntology.ttl \
@@ -270,18 +297,21 @@ riot --output=turtle \
   project_files/dron-upper.ttl \
   project_files/ncbitaxon-subset.ttl \
   project_files/vbo-subset.ttl \
-  persona.ttl persona-templates.ttl graph.ttl cell.ttl category.ttl other/pets.ttl \
+  project_files/wikidata-vehicle-makes-subset.ttl \
+  project_files/wikidata-vehicle-models-subset.ttl \
+  persona.ttl persona-templates.ttl graph.ttl cell.ttl category.ttl other/pets.ttl other/vehicles.ttl \
   organization.ttl \
   example/graphs/self.ttl \
   /tmp/mia-data.ttl \
   /tmp/mia-yaml.ttl \
   2>/dev/null > /tmp/mia-merged.ttl
 
-# Step 3 — collect shapes (shacl/jscontactcard-shacl.ttl, cell-templates-shacl.ttl, and
-# other/pets-shacl.ttl excluded — see Tier 2; all three target document classes and would
-# fire incorrectly on all individuals when applied to merged data. pdn-identity-shacl.ttl
-# is also excluded: its ontology, pdn-identity.ttl, isn't part of the Step 2 merge —
-# nothing here ever references an identity: term, see persona.ttl 4.0.6)
+# Step 3 — collect shapes (shacl/jscontactcard-shacl.ttl, cell-templates-shacl.ttl,
+# other/pets-shacl.ttl, and other/vehicles-shacl.ttl excluded — see Tier 2; all four
+# target document classes and would fire incorrectly on all individuals when applied
+# to merged data. pdn-identity-shacl.ttl is also excluded: its ontology,
+# pdn-identity.ttl, isn't part of the Step 2 merge — nothing here ever references
+# an identity: term, see persona.ttl 4.0.6)
 grep -v 'owl:imports' persona-shacl.ttl > /tmp/mia-shapes.ttl
 grep -v 'owl:imports' graph-shacl.ttl >> /tmp/mia-shapes.ttl
 grep -v 'owl:imports' cell-shacl.ttl >> /tmp/mia-shapes.ttl
@@ -295,7 +325,7 @@ Expected output: `Conforms`
 
 ### Tier 2 — per-template validation (individual graphs)
 
-Four of the seven per-template shapes (BirthCertificate, DriversLicense, Passport, MedicalAppointment) live in `cell-templates-shacl.ttl`; two (Pet, PetMedicationRecord) live in `other/pets-shacl.ttl`; JSContactCard's shape remains a standalone file in `shacl/` (it has no `cat:Category` class of its own — see [Persona Templates](README.md#persona-templates)). Each is run against only the relevant graph, isolated via `extract-graph.py` from its owning cell DataBook file and merged with the foundation ontologies. Isolation matters because a cell may hold more than one graph — the MedicalAppointment case below lives in a three-graph cell, so a whole-file `databook extract` there would wrongly pull in its two sibling graphs' data too.
+Four of the eight per-template shapes (BirthCertificate, DriversLicense, Passport, MedicalAppointment) live in `cell-templates-shacl.ttl`; two (Pet, PetMedicationRecord) live in `other/pets-shacl.ttl`; one (Vehicle) lives in `other/vehicles-shacl.ttl`; JSContactCard's shape remains a standalone file in `shacl/` (it has no `cat:Category` class of its own — see [Persona Templates](README.md#persona-templates)). Each is run against only the relevant graph, isolated via `extract-graph.py` from its owning cell DataBook file and merged with the foundation ontologies. Isolation matters because a cell may hold more than one graph — the MedicalAppointment case below lives in a three-graph cell, so a whole-file `databook extract` there would wrongly pull in its two sibling graphs' data too.
 
 ```bash
 # Shared base: foundation ontologies + application ontologies + self.ttl
@@ -309,7 +339,9 @@ riot --output=turtle \
   project_files/dron-upper.ttl \
   project_files/ncbitaxon-subset.ttl \
   project_files/vbo-subset.ttl \
-  persona.ttl persona-templates.ttl graph.ttl cell.ttl category.ttl cell-templates.ttl other/pets.ttl \
+  project_files/wikidata-vehicle-makes-subset.ttl \
+  project_files/wikidata-vehicle-models-subset.ttl \
+  persona.ttl persona-templates.ttl graph.ttl cell.ttl category.ttl cell-templates.ttl other/pets.ttl other/vehicles.ttl \
   organization.ttl \
   example/graphs/self.ttl \
   2>/dev/null > /tmp/mia-base.ttl
@@ -353,6 +385,12 @@ shacl validate --shapes /tmp/shapes-pets.ttl --data /tmp/data-pet-medications.tt
 python3 extract-graph.py "example/Cells/Pets/Ginger/Ginger(pets).databook.md" "graph-37" > /tmp/data-pet-profile-raw.ttl
 riot --output=turtle /tmp/mia-base.ttl /tmp/data-pet-profile-raw.ttl 2>/dev/null > /tmp/data-pet-profile.ttl
 shacl validate --shapes /tmp/shapes-pets.ttl --data /tmp/data-pet-profile.ttl --text
+
+# VehicleProfile — graph-63
+python3 extract-graph.py "example/Cells/Things/Vehicles/RAV4/RAV4(vehicles).databook.md" "graph-63" > /tmp/data-vehicle-profile-raw.ttl
+riot --output=turtle /tmp/mia-base.ttl /tmp/data-vehicle-profile-raw.ttl 2>/dev/null > /tmp/data-vehicle-profile.ttl
+grep -v 'owl:imports' other/vehicles-shacl.ttl > /tmp/shapes-vehicles.ttl
+shacl validate --shapes /tmp/shapes-vehicles.ttl --data /tmp/data-vehicle-profile.ttl --text
 ```
 
 Expected output for each: `Conforms`

@@ -9,16 +9,17 @@
 @prefix dc: <http://purl.org/dc/elements/1.1/> .
 @prefix dcterms: <http://purl.org/dc/terms/> .
 @prefix pets: <http://mee.foundation/ontologies/pets#> .
+@prefix vehicles: <http://mee.foundation/ontologies/vehicles#> .
 @base <http://mee.foundation/ontologies/persona> .
 
 <http://mee.foundation/ontologies/persona> rdf:type owl:Ontology ;
-    owl:versionIRI <http://mee.foundation/ontologies/persona/4.7.0> ;
+    owl:versionIRI <http://mee.foundation/ontologies/persona/4.9.0> ;
     owl:imports <https://w3id.org/cco-domains/domains/PersonOntology> ;
     owl:imports <https://w3id.org/cco-domains/domains/AddressOntology> ;
     owl:imports <https://w3id.org/cco-domains/domains/StagingOntology> ;
     owl:imports <http://mee.foundation/ontologies/persona-templates> ;
-    dc:date "2026-08-27"^^xsd:date ;
-    owl:versionInfo "Version 4.8.0 - added p:hasPet (domain p:Person, range pets:Pet, referenced by name), the link into the new other/pets.ttl peer ontology."@en ;
+    dc:date "2026-08-29"^^xsd:date ;
+    owl:versionInfo "Version 4.9.0 - added p:hasVehicle (domain p:Person, range vehicles:Vehicle, referenced by name), the link into the new other/vehicles.ttl peer ontology."@en ;
     rdfs:label "Persona Ontology"@en ;
     rdfs:comment """Persona Ontology for the Cellula App.
 
@@ -184,11 +185,20 @@ p:hasPet rdf:type owl:ObjectProperty ;
     rdfs:comment """Links a Person to a Pet. What a pet *is* (species, breed, medications) is modeled
                     in the peer other/pets.ttl ontology, not here — this project keeps persona.ttl
                     scoped to a person's own identity, holding only the thin "has" link for anything
-                    a person merely owns or is otherwise associated with (a pet today; potentially a
-                    vehicle or similar in the future, each in its own other/*.ttl file). pets:Pet is
-                    referenced by name only, the same "referenced by name, no owl:imports" pattern
+                    a person merely owns or is otherwise associated with (a pet, a vehicle, each in its
+                    own other/*.ttl file — see p:hasVehicle below for the identical pattern). pets:Pet
+                    is referenced by name only, the same "referenced by name, no owl:imports" pattern
                     cell.ttl already uses for cell:origin's range (cat:Category) and cell:creator's
                     range (p:Person/o:Organization)."""@en .
+
+p:hasVehicle rdf:type owl:ObjectProperty ;
+    rdfs:domain p:Person ;
+    rdfs:range vehicles:Vehicle ;    # other/vehicles.ttl, referenced by name — no owl:imports either direction
+    rdfs:label "has vehicle"@en ;
+    rdfs:comment """Links a Person to a Vehicle. What a vehicle *is* (type, make, model, specifications)
+                    is modeled in the peer other/vehicles.ttl ontology, not here — the exact same "thin
+                    has-link" pattern p:hasPet already establishes for other/pets.ttl. vehicles:Vehicle
+                    is referenced by name only, no owl:imports either direction."""@en .
 
 #################################################################
 #    Banking-related

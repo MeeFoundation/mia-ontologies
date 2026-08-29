@@ -2,10 +2,10 @@
 id: http://www.example.org/mia/cells/cell-41
 title: "Ginger"
 type: cell-databook
-version: 1.3.0
+version: 1.4.0
 created: 2026-08-22
 description: >
-  Cell DataBook for folder "Ginger" (cell:origin: cat:Pets). A user-defined instance folder for Alice's specific cat, Ginger, nested under the generic Pets category — mirroring how e.g. "Bob Johnson" reuses its parent "Others" folder's own origin class rather than being Custom. It is a one-member cell with one member entry about :Self and one graph about :Ginger (the cell's subject), typed pets:Pet and carrying her name, species, breed, birth date, and current body weight.
+  Cell DataBook for folder "Ginger" (cell:origin: cat:Pets). A user-defined instance folder for Alice's specific cat, Ginger, nested under the generic Pets category — mirroring how e.g. "Bob Johnson" reuses its parent "Others" folder's own origin class rather than being Custom. It is a one-member cell with one member entry about :Self and one graph about :Ginger (the cell's subject), typed pets:Pet and carrying her name, species, breed, birth date, current body weight, sex, and spay/neuter status.
 mia:
   origin: "cat:Pets"
   creator: ":Self"
@@ -49,7 +49,7 @@ This graph is the cell's one required `members` entry — a `cell:OneMember` cel
 
 #### Overview
 
-This graph captures Alice's basic claim about Ginger herself — just enough to back the cell's `subject: ":Ginger"` with a real graph (see Check 22) — and, validated by `pets:Pet`'s SHACL shape (`other/pets-shacl.ttl`'s `:PetShape`), identifies her name, what kind of pet she is (species — a real NCBITaxon class IRI — and breed — a real VBO class IRI, here VBO's own "Mixed Breed (Cat)" class, since Ginger isn't a purebred), her birth date (a real `xsd:date`; `pets:birthDate` also accepts a bare `xsd:gYear` when only the approximate year is known, e.g. for an adopted/rescue pet), and her current body weight (a `pets:BodyWeight` individual reusing CCO's decimal-value/measurement-unit pattern, the same reification style `pets:DosageAmount` already uses). `:Self persona:hasPet :Ginger` closes the loop from the Person side. Ginger's actual medical care and her day-to-day care & feeding instructions live in the nested Medical and Care & Feeding cells instead; this is a minimal, standalone identification.
+This graph captures Alice's basic claim about Ginger herself — just enough to back the cell's `subject: ":Ginger"` with a real graph (see Check 22) — and, validated by `pets:Pet`'s SHACL shape (`other/pets-shacl.ttl`'s `:PetShape`), identifies her name, what kind of pet she is (species — a real NCBITaxon class IRI — and breed — a real VBO class IRI, here VBO's own "Mixed Breed (Cat)" class, since Ginger isn't a purebred), her birth date (a real `xsd:date`; `pets:birthDate` also accepts a bare `xsd:gYear` when only the approximate year is known, e.g. for an adopted/rescue pet), her current body weight (a `pets:BodyWeight` individual reusing CCO's decimal-value/measurement-unit pattern, the same reification style `pets:DosageAmount` already uses), her sex, and her spay/neuter status. `:Self persona:hasPet :Ginger` closes the loop from the Person side. Ginger's actual medical care and her day-to-day care & feeding instructions live in the nested Medical and Care & Feeding cells instead; this is a minimal, standalone identification.
 
 #### Graph
 
@@ -73,7 +73,9 @@ This graph captures Alice's basic claim about Ginger herself — just enough to 
     pets:hasSpecies <http://purl.obolibrary.org/obo/NCBITaxon_9685> ;  # Felis catus (domestic cat)
     pets:hasBreed <http://purl.obolibrary.org/obo/VBO_0100262> ;  # Mixed Breed (Cat)
     pets:birthDate "2020-06-15"^^xsd:date ;
-    pets:hasBodyWeight :Ginger_Weight .
+    pets:hasBodyWeight :Ginger_Weight ;
+    pets:sex "Female" ;
+    pets:isSpayedOrNeutered true .
 
 :Ginger_Weight rdf:type owl:NamedIndividual ,
                pets:BodyWeight ;

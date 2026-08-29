@@ -1,0 +1,45 @@
+flowchart TD
+    classDef person fill:#fffacd,stroke:#aaa,color:#333
+    classDef org    fill:#cce5ff,stroke:#aaa,color:#333
+    classDef lit    fill:none,stroke:none,font-style:italic,color:#2a7a2a
+    classDef meta   fill:#f5f5ff,stroke:#9999cc,color:#333
+
+    subgraph ctx["Graph"]
+        direction LR
+        ctx_meta["claimant: :Self\nsubject: :Alice_RAV4\ntemplate: vehicles:Vehicle"]:::meta
+    end
+
+    n8ad3223cb728[":Alice_RAV4\n(Vehicle)"]
+    n5151f8ace1b9("Car"):::lit
+    nc506e267d308("Q53268"):::lit
+    n2422aa05e60f("Q819982"):::lit
+    n6e2efd74e77c("2022"):::lit
+    n564f91f57f6e("JT3RWRFV1NU012345"):::lit
+    naf1db1cc4dbb("Silver"):::lit
+    n51e4df12f033("SUV"):::lit
+    n0e188f7b4e71("Gasoline"):::lit
+    n3d51c7202e37("AWD"):::lit
+    n3371c03a9845[":Alice_RAV4_Odometer\n(OdometerReading)"]
+    n0099578652e9[":Alice_RAV4_Engine\n(EngineSpecification)"]
+    n93437e3f18bc("Internal Combustion"):::lit
+    n75adf5c5acc8("2.5"):::lit
+    n0b76ae168416("32150.0"):::lit
+    n1d1c2cd084bd("ont00001433"):::lit
+    ne0c3ba92f1db[":Self\n(Person)"]:::person
+
+    n8ad3223cb728 -->|"hasVehicleType"| n5151f8ace1b9
+    n8ad3223cb728 -->|"hasMake"| nc506e267d308
+    n8ad3223cb728 -->|"hasModel"| n2422aa05e60f
+    n8ad3223cb728 -->|"modelYear"| n6e2efd74e77c
+    n8ad3223cb728 -->|"vehicleIdentificationNumber"| n564f91f57f6e
+    n8ad3223cb728 -->|"color"| naf1db1cc4dbb
+    n8ad3223cb728 -->|"bodyType"| n51e4df12f033
+    n8ad3223cb728 -->|"fuelType"| n0e188f7b4e71
+    n8ad3223cb728 -->|"driveWheelConfiguration"| n3d51c7202e37
+    n8ad3223cb728 -->|"hasOdometerReading"| n3371c03a9845
+    n8ad3223cb728 -->|"hasEngineSpecification"| n0099578652e9
+    n0099578652e9 -->|"engineType"| n93437e3f18bc
+    n0099578652e9 -->|"engineDisplacementLiters"| n75adf5c5acc8
+    n3371c03a9845 -->|"hasDecimalValue"| n0b76ae168416
+    n3371c03a9845 -->|"usesMeasurementUnit"| n1d1c2cd084bd
+    ne0c3ba92f1db -->|"hasVehicle"| n8ad3223cb728

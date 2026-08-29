@@ -29,6 +29,10 @@
          uri="file:/Users/paul/Documents/Work/GitHub/mia-ontologies/other/pets.ttl"/>
     <uri id="pets-shacl"               name="http://mee.foundation/ontologies/pets/shapes"
          uri="file:/Users/paul/Documents/Work/GitHub/mia-ontologies/other/pets-shacl.ttl"/>
+    <uri id="vehicles"                 name="http://mee.foundation/ontologies/vehicles"
+         uri="file:/Users/paul/Documents/Work/GitHub/mia-ontologies/other/vehicles.ttl"/>
+    <uri id="vehicles-shacl"           name="http://mee.foundation/ontologies/vehicles/shapes"
+         uri="file:/Users/paul/Documents/Work/GitHub/mia-ontologies/other/vehicles-shacl.ttl"/>
     <!-- First non-CCO/non-mee.foundation external ontology this project vendors -->
     <uri id="dron-upper-subset"        name="http://mee.foundation/ontologies/dron-upper-subset"
          uri="file:/Users/paul/Documents/Work/GitHub/mia-ontologies/project_files/dron-upper.ttl"/>
@@ -36,6 +40,10 @@
          uri="file:/Users/paul/Documents/Work/GitHub/mia-ontologies/project_files/ncbitaxon-subset.ttl"/>
     <uri id="vbo-subset"               name="http://mee.foundation/ontologies/vbo-subset"
          uri="file:/Users/paul/Documents/Work/GitHub/mia-ontologies/project_files/vbo-subset.ttl"/>
+    <uri id="wikidata-vehicle-makes-subset"    name="http://mee.foundation/ontologies/wikidata-vehicle-makes-subset"
+         uri="file:/Users/paul/Documents/Work/GitHub/mia-ontologies/project_files/wikidata-vehicle-makes-subset.ttl"/>
+    <uri id="wikidata-vehicle-models-subset"   name="http://mee.foundation/ontologies/wikidata-vehicle-models-subset"
+         uri="file:/Users/paul/Documents/Work/GitHub/mia-ontologies/project_files/wikidata-vehicle-models-subset.ttl"/>
     <uri id="pdn-identity"             name="http://mee.foundation/ontologies/pdn-identity"
          uri="file:/Users/paul/Documents/Work/GitHub/mia-ontologies/pdn-identity.ttl"/>
     <uri id="organization"             name="http://mee.foundation/ontologies/organization"

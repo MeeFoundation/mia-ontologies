@@ -1,0 +1,158 @@
+@prefix : <http://mee.foundation/ontologies/wikidata-vehicle-models-subset#> .
+@prefix vehicles: <http://mee.foundation/ontologies/vehicles#> .
+@prefix wd: <http://www.wikidata.org/entity/> .
+@prefix dc: <http://purl.org/dc/elements/1.1/> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@base <http://mee.foundation/ontologies/wikidata-vehicle-models-subset> .
+
+<http://mee.foundation/ontologies/wikidata-vehicle-models-subset> rdf:type owl:Ontology ;
+    owl:versionIRI <http://mee.foundation/ontologies/wikidata-vehicle-models-subset/1.0.0> ;
+    dc:date "2026-08-29"^^xsd:date ;
+    owl:versionInfo "Version 1.0.0 - initial set of 21 current/recent flagship models (18 car, 1 motorcycle, 1 bus, 1 scooter) across the manufacturers in project_files/wikidata-vehicle-makes-subset.ttl, verified against live Wikidata."@en ;
+    owl:imports <http://mee.foundation/ontologies/wikidata-vehicle-makes-subset> ;
+    rdfs:label "Wikidata Vehicle Models Subset"@en ;
+    rdfs:comment """A hand-curated subset of Wikidata (https://www.wikidata.org) — a small number of
+                    current/recent flagship models per manufacturer vendored in
+                    project_files/wikidata-vehicle-makes-subset.ttl, the piece other/vehicles.ttl's
+                    vehicles:hasModel needs, analogous to project_files/vbo-subset.ttl's role for
+                    pets:hasBreed. Unlike vbo-subset.ttl's real full extraction of VBO's entire pet-relevant
+                    breed tree, this is NOT exhaustive — full historical model lineups across every
+                    manufacturer's entire production history would run to many thousands of entries, so, like
+                    the makes file it depends on, this stays a small hand-picked illustrative set (one or two
+                    well-known current/recent models per make, not a full lineup), verified live against
+                    https://query.wikidata.org/sparql (2026-08-29) rather than every model Wikidata records
+                    for these manufacturers. Each individual reuses its real Wikidata Q-ID directly as its own
+                    IRI, typed owl:NamedIndividual, vehicles:Model — the same deliberate class-vs-individual
+                    adaptation documented in wikidata-vehicle-makes-subset.ttl's own header (Wikidata's own
+                    "car model" class, wd:Q3231690, is instantiated by these entities, not subclassed).
+                    Each individual also carries vehicles:modelMake linking it back to its manufacturer
+                    individual in wikidata-vehicle-makes-subset.ttl — the cross-vendor-file link, the same
+                    role project_files/vbo-subset.ttl's breed-group-node-to-NCBITaxon-species subClassOf link
+                    plays for pets:hasBreed, adapted here to an object-property link between two individuals
+                    rather than a class-hierarchy subClassOf assertion, since neither side is a class.
+                    Wikidata's own content is released under CC0 (public domain dedication), so no
+                    attribution obligation applies."""@en .
+
+#################################################################
+#  Car models
+#################################################################
+
+wd:Q819982 rdf:type owl:NamedIndividual, vehicles:Model ;
+    rdfs:label "Toyota RAV4"@en ;
+    rdfs:comment "Wikidata Q819982. Compact SUV."@en ;
+    vehicles:modelMake wd:Q53268 .
+
+wd:Q6902966 rdf:type owl:NamedIndividual, vehicles:Model ;
+    rdfs:label "Toyota Yaris"@en ;
+    rdfs:comment "Wikidata Q6902966. Subcompact car."@en ;
+    vehicles:modelMake wd:Q53268 .
+
+wd:Q859639 rdf:type owl:NamedIndividual, vehicles:Model ;
+    rdfs:label "Ford Transit"@en ;
+    rdfs:comment "Wikidata Q859639. Van."@en ;
+    vehicles:modelMake wd:Q44294 .
+
+wd:Q668293 rdf:type owl:NamedIndividual, vehicles:Model ;
+    rdfs:label "Ford Kuga"@en ;
+    rdfs:comment "Wikidata Q668293. Compact SUV."@en ;
+    vehicles:modelMake wd:Q44294 .
+
+wd:Q911323 rdf:type owl:NamedIndividual, vehicles:Model ;
+    rdfs:label "Nissan Leaf"@en ;
+    rdfs:comment "Wikidata Q911323. Battery-electric compact hatchback."@en ;
+    vehicles:modelMake wd:Q20165 .
+
+wd:Q499109 rdf:type owl:NamedIndividual, vehicles:Model ;
+    rdfs:label "Nissan GT-R"@en ;
+    rdfs:comment "Wikidata Q499109. Sports car."@en ;
+    vehicles:modelMake wd:Q20165 .
+
+wd:Q482430 rdf:type owl:NamedIndividual, vehicles:Model ;
+    rdfs:label "Hyundai Tucson"@en ;
+    rdfs:comment "Wikidata Q482430. Compact SUV."@en ;
+    vehicles:modelMake wd:Q55931 .
+
+wd:Q489852 rdf:type owl:NamedIndividual, vehicles:Model ;
+    rdfs:label "Hyundai Santa Fe"@en ;
+    rdfs:comment "Wikidata Q489852. Mid-size SUV."@en ;
+    vehicles:modelMake wd:Q55931 .
+
+wd:Q145527 rdf:type owl:NamedIndividual, vehicles:Model ;
+    rdfs:label "Kia Sportage"@en ;
+    rdfs:comment "Wikidata Q145527. Compact SUV."@en ;
+    vehicles:modelMake wd:Q35349 .
+
+wd:Q489836 rdf:type owl:NamedIndividual, vehicles:Model ;
+    rdfs:label "Kia Sorento"@en ;
+    rdfs:comment "Wikidata Q489836. Mid-size SUV."@en ;
+    vehicles:modelMake wd:Q35349 .
+
+wd:Q276396 rdf:type owl:NamedIndividual, vehicles:Model ;
+    rdfs:label "Ferrari 458"@en ;
+    rdfs:comment "Wikidata Q276396. Sports car."@en ;
+    vehicles:modelMake wd:Q27586 .
+
+wd:Q239793 rdf:type owl:NamedIndividual, vehicles:Model ;
+    rdfs:label "Ferrari F430"@en ;
+    rdfs:comment "Wikidata Q239793. Sports car."@en ;
+    vehicles:modelMake wd:Q27586 .
+
+wd:Q247971 rdf:type owl:NamedIndividual, vehicles:Model ;
+    rdfs:label "Porsche Cayman"@en ;
+    rdfs:comment "Wikidata Q247971. Sports car."@en ;
+    vehicles:modelMake wd:Q40993 .
+
+wd:Q962317 rdf:type owl:NamedIndividual, vehicles:Model ;
+    rdfs:label "Porsche 918 Spyder"@en ;
+    rdfs:comment "Wikidata Q962317. Plug-in hybrid sports car."@en ;
+    vehicles:modelMake wd:Q40993 .
+
+wd:Q911466 rdf:type owl:NamedIndividual, vehicles:Model ;
+    rdfs:label "Mazda3"@en ;
+    rdfs:comment "Wikidata Q911466. Compact car."@en ;
+    vehicles:modelMake wd:Q35996 .
+
+wd:Q861634 rdf:type owl:NamedIndividual, vehicles:Model ;
+    rdfs:label "Mazda RX-7"@en ;
+    rdfs:comment "Wikidata Q861634. Sports car."@en ;
+    vehicles:modelMake wd:Q35996 .
+
+wd:Q1135125 rdf:type owl:NamedIndividual, vehicles:Model ;
+    rdfs:label "Honda Fit"@en ;
+    rdfs:comment "Wikidata Q1135125. Subcompact hatchback."@en ;
+    vehicles:modelMake wd:Q9584 .
+
+wd:Q255461 rdf:type owl:NamedIndividual, vehicles:Model ;
+    rdfs:label "Honda CR-V"@en ;
+    rdfs:comment "Wikidata Q255461. Compact SUV."@en ;
+    vehicles:modelMake wd:Q9584 .
+
+#################################################################
+#  Motorcycle model
+#################################################################
+
+wd:Q1207631 rdf:type owl:NamedIndividual, vehicles:Model ;
+    rdfs:label "Harley-Davidson Sportster"@en ;
+    rdfs:comment "Wikidata Q1207631. Line of cruiser motorcycles."@en ;
+    vehicles:modelMake wd:Q192814 .
+
+#################################################################
+#  Bus model
+#################################################################
+
+wd:Q59618126 rdf:type owl:NamedIndividual, vehicles:Model ;
+    rdfs:label "New Flyer Xcelsior"@en ;
+    rdfs:comment "Wikidata Q59618126. Transit bus."@en ;
+    vehicles:modelMake wd:Q1126054 .
+
+#################################################################
+#  Scooter/moped model (MotorizedBicycle)
+#################################################################
+
+wd:Q3901847 rdf:type owl:NamedIndividual, vehicles:Model ;
+    rdfs:label "Piaggio Liberty"@en ;
+    rdfs:comment "Wikidata Q3901847. Scooter produced by Piaggio since 1997."@en ;
+    vehicles:modelMake wd:Q841263 .

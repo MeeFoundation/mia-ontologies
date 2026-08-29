@@ -1,0 +1,239 @@
+@prefix vehicles: <http://mee.foundation/ontologies/vehicles#> .
+@prefix persona: <http://mee.foundation/ontologies/persona#> .
+@prefix cell: <http://mee.foundation/ontologies/cell#> .
+@prefix cco: <https://w3id.org/cco-domains/cco/> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix dc: <http://purl.org/dc/elements/1.1/> .
+@base <http://mee.foundation/ontologies/vehicles> .
+
+<http://mee.foundation/ontologies/vehicles> rdf:type owl:Ontology ;
+    owl:imports <http://mee.foundation/ontologies/wikidata-vehicle-makes-subset> ,
+                <http://mee.foundation/ontologies/wikidata-vehicle-models-subset> ;
+    owl:versionIRI <http://mee.foundation/ontologies/vehicles/1.0.0> ;
+    dc:date "2026-08-29"^^xsd:date ;
+    owl:versionInfo "Version 1.0.0 - initial vehicles ontology: vehicles:Vehicle identity/specification properties (vehicle type, make, model, model year, VIN, color, body type, fuel type, drive wheel configuration, odometer reading, engine specification), vendoring Wikidata makes/models."@en ;
+    rdfs:label "Vehicles Ontology"@en ;
+    rdfs:comment """The second of this project's other/ peer ontologies (after other/pets.ttl) — small,
+                    mostly-vendored ontologies for domains a person merely *has* (a pet, a vehicle) rather
+                    than *is*. persona.ttl/persona-templates.ttl model a person's own identity; the details
+                    of what a vehicle actually is belong here instead, so that persona.ttl/persona-templates.ttl
+                    stay scoped to a person's identity data. persona.ttl holds only the thin link property
+                    (persona:hasVehicle, domain persona:Person, range vehicles:Vehicle) connecting a person to
+                    this file's classes, referenced by name with no owl:imports in either direction — the same
+                    "referenced by name" pattern cell.ttl already uses for cell:origin's range (cat:Category)
+                    and cell:creator's range (persona:Person/o:Organization), and other/pets.ttl already uses
+                    for persona:hasPet.
+
+                    vehicles:Vehicle is rdfs:subClassOf persona:PersonaTemplate, also referenced by name with
+                    no owl:imports of persona.ttl/persona-templates.ttl — this keeps graph.ttl's g:template
+                    property's range (persona:PersonaTemplate) as the one shared "this classifies a graph"
+                    root that every domain's template classes plug into, exactly like cat:Category is the one
+                    shared classification root every cat: leaf plugs into.
+
+                    Unlike other/pets.ttl (which never vendors an upstream class for "Pet" itself — only
+                    pets:hasSpecies/pets:hasBreed's controlled vocabularies are vendored), vehicles:Vehicle and
+                    its four vehicle-kind classes (vehicles:Car, vehicles:BusOrCoach, vehicles:Motorcycle,
+                    vehicles:MotorizedBicycle) are likewise invented locally — named after schema.org's own
+                    Vehicle/Car/BusOrCoach/Motorcycle/MotorizedBicycle vocabulary (https://schema.org/Vehicle)
+                    for familiarity, but not formally grounded in it (no owl:imports or subClassOf of
+                    schema.org terms): only the make/model controlled vocabulary is vendored, via
+                    project_files/wikidata-vehicle-makes-subset.ttl and
+                    project_files/wikidata-vehicle-models-subset.ttl — a hand-curated set of 35 major
+                    consumer manufacturers and 21 current/recent flagship models, each individual reusing its
+                    real Wikidata Q-ID directly (Wikidata's own scale, like NCBITaxon's, rules out ever
+                    vendoring more than a hand-picked illustrative set — see those two files' own
+                    rdfs:comment for exactly how each was built and why individuals rather than classes are
+                    used, unlike pets:hasSpecies/pets:hasBreed's class-value-punning)."""@en .
+
+
+#################################################################
+#    Vehicle type classification (Car/BusOrCoach/Motorcycle/MotorizedBicycle)
+#################################################################
+
+vehicles:VehicleType rdf:type owl:Class ;
+    cell:abstract true ;
+    rdfs:label "Vehicle Type"@en ;
+    rdfs:comment """Abstract parent of the four concrete vehicle-kind classes below. A vehicles:Vehicle's
+                    vehicles:hasVehicleType value IS one of these four concrete subclasses directly — the
+                    same class-value-punning style cell:origin/cell:memberCount (cell.ttl) and
+                    pets:hasSpecies/pets:hasBreed (other/pets.ttl) already use — rather than a separate
+                    individual or a plain string, so no instances of vehicles:VehicleType or its subclasses
+                    are ever asserted."""@en .
+
+vehicles:Car rdf:type owl:Class ;
+    rdfs:subClassOf vehicles:VehicleType ;
+    rdfs:label "Car"@en ;
+    rdfs:comment "A passenger automobile. Carries no properties of its own — used solely as a vehicles:hasVehicleType value (class-value-punning)."@en .
+
+vehicles:BusOrCoach rdf:type owl:Class ;
+    rdfs:subClassOf vehicles:VehicleType ;
+    rdfs:label "Bus or Coach"@en ;
+    rdfs:comment "A bus or coach. Carries no properties of its own — used solely as a vehicles:hasVehicleType value (class-value-punning)."@en .
+
+vehicles:Motorcycle rdf:type owl:Class ;
+    rdfs:subClassOf vehicles:VehicleType ;
+    rdfs:label "Motorcycle"@en ;
+    rdfs:comment "A motorcycle. Carries no properties of its own — used solely as a vehicles:hasVehicleType value (class-value-punning)."@en .
+
+vehicles:MotorizedBicycle rdf:type owl:Class ;
+    rdfs:subClassOf vehicles:VehicleType ;
+    rdfs:label "Motorized Bicycle"@en ;
+    rdfs:comment "A motorized bicycle, moped, or scooter. Carries no properties of its own — used solely as a vehicles:hasVehicleType value (class-value-punning)."@en .
+
+vehicles:hasVehicleType rdf:type owl:ObjectProperty ;
+    rdfs:domain vehicles:Vehicle ;
+    rdfs:range vehicles:VehicleType ;
+    rdfs:label "has vehicle type"@en ;
+    rdfs:comment "Links a Vehicle to its kind — the value IS one of vehicles:Car/BusOrCoach/Motorcycle/MotorizedBicycle directly (class-value-punning), not an instance of it. Required, exactly one value: every vehicle is exactly one kind."@en .
+
+
+#################################################################
+#    Vehicle — vehicle identity and specification template
+#################################################################
+
+vehicles:Vehicle rdf:type owl:Class ;
+    rdfs:subClassOf persona:PersonaTemplate ;
+    rdfs:label "Vehicle"@en ;
+    rdfs:comment """Template type label for a graph whose purpose is to identify a vehicle — its kind, make,
+                    model, and model year, plus optional specification details (VIN, color, body type, fuel
+                    type, drive wheel configuration, odometer reading, and engine specification). Also the
+                    actual rdf:type of the vehicle individual itself, following the same document-individual
+                    pattern as persona:PassportDocument and pets:Pet: the properties below are properties of
+                    the vehicle individual directly (a vehicle has no persona:Person individual of its own).
+                    Used as the value of g:template on the graph file's ontology IRI. Selects the SHACL shape
+                    :VehicleShape in other/vehicles-shacl.ttl, linked from cat:Vehicles's template cell
+                    (cell-templates.ttl) via cell:templateShape."""@en .
+
+vehicles:hasMake rdf:type owl:ObjectProperty ;
+    rdfs:domain vehicles:Vehicle ;
+    rdfs:range vehicles:Make ;
+    rdfs:label "has make"@en ;
+    rdfs:comment "Links a Vehicle to its manufacturer, a vehicles:Make individual from project_files/wikidata-vehicle-makes-subset.ttl (e.g. wd:Q53268 for Toyota) — a real Wikidata individual, not a locally-minted one. Required, exactly one value: every vehicle has exactly one make."@en .
+
+vehicles:hasModel rdf:type owl:ObjectProperty ;
+    rdfs:domain vehicles:Vehicle ;
+    rdfs:range vehicles:Model ;
+    rdfs:label "has model"@en ;
+    rdfs:comment "Links a Vehicle to its model, a vehicles:Model individual from project_files/wikidata-vehicle-models-subset.ttl (e.g. wd:Q819982 for the Toyota RAV4) — a real Wikidata individual, linked back to its own manufacturer via vehicles:modelMake. Required, exactly one value: every vehicle has exactly one model."@en .
+
+vehicles:Make rdf:type owl:Class ;
+    rdfs:label "Make"@en ;
+    rdfs:comment "The type of every individual vendored in project_files/wikidata-vehicle-makes-subset.ttl — a real-world vehicle manufacturer, each a genuine Wikidata individual (not a class: unlike NCBITaxon species/VBO breeds, Wikidata does not model a manufacturer as a class in its own right)."@en .
+
+vehicles:Model rdf:type owl:Class ;
+    rdfs:label "Model"@en ;
+    rdfs:comment "The type of every individual vendored in project_files/wikidata-vehicle-models-subset.ttl — a real-world vehicle model, each a genuine Wikidata individual (not a class, for the same reason as vehicles:Make)."@en .
+
+vehicles:modelMake rdf:type owl:ObjectProperty ;
+    rdfs:domain vehicles:Model ;
+    rdfs:range vehicles:Make ;
+    rdfs:label "model make"@en ;
+    rdfs:comment "Links a vehicles:Model individual back to the vehicles:Make individual that manufactures it — asserted once per model in project_files/wikidata-vehicle-models-subset.ttl itself, the cross-vendor-file link mirroring the role project_files/vbo-subset.ttl's breed-group-node-to-NCBITaxon-species rdfs:subClassOf link plays for pets:hasBreed, adapted to an object-property link between two individuals since neither vehicles:Make nor vehicles:Model values are classes."@en .
+
+vehicles:modelYear rdf:type owl:DatatypeProperty ;
+    rdfs:domain vehicles:Vehicle ;
+    rdfs:range xsd:gYear ;
+    rdfs:label "model year"@en ;
+    rdfs:comment "The vehicle's model year (e.g. \"2022\"). Required, exactly one value."@en .
+
+vehicles:vehicleIdentificationNumber rdf:type owl:DatatypeProperty ;
+    rdfs:domain vehicles:Vehicle ;
+    rdfs:range xsd:string ;
+    rdfs:label "vehicle identification number"@en ;
+    rdfs:comment """The vehicle's VIN, as a flat string. CCO's InformationEntityOntology.ttl mentions a VIN
+                    only informally, as a skos:example on cco:ont00001916 ("designates") — "a vehicle
+                    identification number designates some vehicle" — not as a reusable designator class the
+                    way persona:DriversLicenseNumber/persona:PassportNumber reuse CCO's
+                    designated-by/has-text-value machinery, so there is no clean external term to reuse here;
+                    kept as a flat string, consistent with pets:medicationBrandName and similar plain-string
+                    properties elsewhere in this project when nothing reused fits. Optional, at most one
+                    value: omit entirely when not known."""@en .
+
+vehicles:color rdf:type owl:DatatypeProperty ;
+    rdfs:domain vehicles:Vehicle ;
+    rdfs:range xsd:string ;
+    rdfs:label "color"@en ;
+    rdfs:comment "The vehicle's exterior color, as a free-text string (e.g. \"Silver\"). Optional, at most one value."@en .
+
+vehicles:bodyType rdf:type owl:DatatypeProperty ;
+    rdfs:domain vehicles:Vehicle ;
+    rdfs:range xsd:string ;
+    rdfs:label "body type"@en ;
+    rdfs:comment "The vehicle's body style (e.g. \"SUV\", \"Sedan\", \"Hatchback\"), as free text — mirroring schema.org's own bodyType property, which is likewise left as Text rather than a fixed enumeration, since no single standard body-type vocabulary is universal across markets. Optional, at most one value."@en .
+
+vehicles:fuelType rdf:type owl:DatatypeProperty ;
+    rdfs:domain vehicles:Vehicle ;
+    rdfs:range xsd:string ;
+    rdfs:label "fuel type"@en ;
+    rdfs:comment "The type of fuel the vehicle's engine uses. Constrained by other/vehicles-shacl.ttl's :VehicleShape to a small controlled vocabulary (Gasoline, Diesel, Electric, Hybrid, PlugInHybrid, Hydrogen) via sh:in, rather than a vendored external class list — six values is too small to justify vendoring a separate file for. Optional, at most one value."@en .
+
+vehicles:driveWheelConfiguration rdf:type owl:DatatypeProperty ;
+    rdfs:domain vehicles:Vehicle ;
+    rdfs:range xsd:string ;
+    rdfs:label "drive wheel configuration"@en ;
+    rdfs:comment "Which wheels receive power from the engine. Constrained by other/vehicles-shacl.ttl's :VehicleShape to a small controlled vocabulary (FWD, RWD, AWD, 4WD) via sh:in — the same small-enumeration-via-SHACL reasoning as vehicles:fuelType, rather than vendoring schema.org's own DriveWheelConfigurationValue class IRIs for just four values. Optional, at most one value."@en .
+
+
+#################################################################
+#    Odometer Reading
+#################################################################
+
+vehicles:OdometerReading rdf:type owl:Class ;
+    rdfs:subClassOf <https://w3id.org/cco-domains/cco/ont00000253> ,  # Information Bearing Entity
+                    <https://w3id.org/cco-domains/cco/ont00001283> ; # Ratio Measurement Information Content Entity
+    rdfs:label "Odometer Reading"@en ;
+    rdfs:comment """A vehicle's current odometer reading. Multi-typed as both CCO's Information Bearing
+                    Entity (cco:ont00000253) and Ratio Measurement Information Content Entity
+                    (cco:ont00001283) on one individual — the exact same deliberate simplification
+                    pets:BodyWeight/pets:DosageAmount already use (a single reified "amount" individual
+                    rather than CCO's usual two-individual generic-dependence pattern). Carries exactly one
+                    cco:ont00001769 ("has decimal value") and exactly one cco:ont00001863 ("uses measurement
+                    unit") pointing at one of project_files/UnitsOfMeasureOntology.ttl's Measurement Unit
+                    individuals — e.g. cco:ont00001433 "Mile Measurement Unit" or cco:ont00001598 "Kilometer
+                    Measurement Unit". The unit is required here, mirroring pets:BodyWeight rather than
+                    pets:DosageAmount's optional unit: mileage is always in either miles or kilometers, never
+                    a unitless count, so a bare number alone would be ambiguous."""@en .
+
+vehicles:hasOdometerReading rdf:type owl:ObjectProperty ;
+    rdfs:domain vehicles:Vehicle ;
+    rdfs:range vehicles:OdometerReading ;
+    rdfs:label "has odometer reading"@en ;
+    rdfs:comment "Links a Vehicle to its vehicles:OdometerReading individual. Optional, at most one value: omit entirely when no current reading is on hand."@en .
+
+
+#################################################################
+#    Engine Specification
+#################################################################
+
+vehicles:EngineSpecification rdf:type owl:Class ;
+    rdfs:label "Engine Specification"@en ;
+    rdfs:comment """A vehicle's engine details: what kind of engine (vehicles:engineType, free text — e.g.
+                    "Internal Combustion", "Electric Motor", "Hybrid" — no external vocab reused, mirroring
+                    pets:medicationFrequencyPerDay's identical reasoning) and its displacement in liters
+                    (vehicles:engineDisplacementLiters). Deliberately lighter-weight than
+                    vehicles:OdometerReading/pets:BodyWeight's CCO Measurement-Unit reification: engine
+                    displacement is near-universally expressed in liters in consumer contexts, so there is no
+                    real unit-ambiguity to guard against the way there is for mileage (miles vs kilometers) or
+                    weight (pounds vs kilograms) — a unit-suffixed property name is the right-sized choice
+                    here instead."""@en .
+
+vehicles:engineType rdf:type owl:DatatypeProperty ;
+    rdfs:domain vehicles:EngineSpecification ;
+    rdfs:range xsd:string ;
+    rdfs:label "engine type"@en ;
+    rdfs:comment "The kind of engine, as free text (e.g. \"Internal Combustion\", \"Electric Motor\", \"Hybrid\"). Optional, at most one value."@en .
+
+vehicles:engineDisplacementLiters rdf:type owl:DatatypeProperty ;
+    rdfs:domain vehicles:EngineSpecification ;
+    rdfs:range xsd:decimal ;
+    rdfs:label "engine displacement (liters)"@en ;
+    rdfs:comment "The engine's displacement in liters (e.g. \"2.5\"). Optional, at most one value."@en .
+
+vehicles:hasEngineSpecification rdf:type owl:ObjectProperty ;
+    rdfs:domain vehicles:Vehicle ;
+    rdfs:range vehicles:EngineSpecification ;
+    rdfs:label "has engine specification"@en ;
+    rdfs:comment "Links a Vehicle to its vehicles:EngineSpecification individual. Optional, at most one value: omit entirely when no engine detail is on hand."@en .

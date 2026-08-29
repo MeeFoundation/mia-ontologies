@@ -9,7 +9,7 @@
 @base <http://mee.foundation/ontologies/category> .
 
 <http://mee.foundation/ontologies/category> rdf:type owl:Ontology ;
-    owl:versionIRI <http://mee.foundation/ontologies/category/1.54.0> ;
+    owl:versionIRI <http://mee.foundation/ontologies/category/1.55.0> ;
     dc:date "2026-08-29"^^xsd:date ;
     owl:imports <http://mee.foundation/ontologies/cell> ;
     owl:imports <http://mee.foundation/ontologies/cell-templates> ;
@@ -419,7 +419,8 @@ cat:Things rdf:type owl:Class ;
 cat:Vehicles rdf:type owl:Class ;
     rdfs:subClassOf cat:Things ;
     rdfs:label "Vehicles"@en ;
-    rdfs:comment "Related to owning and maintaining a vehicle. Vehicle insurance, repairs, mechanics, garages."@en .
+    rdfs:comment "Related to owning and maintaining a vehicle. Vehicle insurance, repairs, mechanics, garages."@en ;
+    cat:templateCell ctpl:VehicleProfileTemplateCell .
 
 cat:Pets rdf:type owl:Class ;
     rdfs:subClassOf cat:Person ;

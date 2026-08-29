@@ -10,7 +10,7 @@
 
 <http://mee.foundation/ontologies/pets/shapes> rdf:type owl:Ontology ;
     owl:imports <http://mee.foundation/ontologies/pets> ;
-    owl:versionIRI <http://mee.foundation/ontologies/pets/shapes/1.1.0> ;
+    owl:versionIRI <http://mee.foundation/ontologies/pets/shapes/1.2.0> ;
     dc:date "2026-08-29"^^xsd:date ;
     rdfs:label "Pets Template SHACL Shapes"@en ;
     rdfs:comment """SHACL shapes for validating graph files carrying g:template pets:Pet or
@@ -27,6 +27,8 @@
 #  Optional: hasBreed (pets:hasBreed, 0..1, IRI — VBO class)
 #            birthDate (pets:birthDate, 0..1, xsd:date OR xsd:gYear)
 #            hasBodyWeight (pets:hasBodyWeight, 0..1, pets:BodyWeight)
+#            sex (pets:sex, 0..1, "Male" or "Female")
+#            isSpayedOrNeutered (pets:isSpayedOrNeutered, 0..1, xsd:boolean)
 #################################################################
 
 :PetShape
@@ -76,6 +78,20 @@
         sh:maxCount 1 ;
         sh:class pets:BodyWeight ;
         sh:message "A Pet may link to at most one pets:BodyWeight via hasBodyWeight."@en
+    ] ;
+
+    sh:property [
+        sh:path pets:sex ;
+        sh:maxCount 1 ;
+        sh:in ( "Male" "Female" ) ;
+        sh:message "A Pet's sex, if present, must be exactly one of \"Male\" or \"Female\"."@en
+    ] ;
+
+    sh:property [
+        sh:path pets:isSpayedOrNeutered ;
+        sh:maxCount 1 ;
+        sh:datatype xsd:boolean ;
+        sh:message "A Pet may record at most one spayed/neutered status, as a boolean."@en
     ] .
 
 

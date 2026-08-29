@@ -1,0 +1,102 @@
+---
+id: http://www.example.org/mia/cells/cell-44
+title: "RAV4"
+type: cell-databook
+version: 1.0.0
+created: 2026-08-29
+description: >
+  Cell DataBook for folder "RAV4" (cell:origin: cat:Vehicles). A user-defined instance folder for
+  Alice's car, nested under the generic Vehicles category — mirroring how "Ginger" reuses its parent
+  "Pets" folder's own origin class rather than being Custom. It is a one-member cell with one member
+  entry about :Self and one graph about :Alice_RAV4 (the cell's subject), typed vehicles:Vehicle and
+  carrying its vehicle type, make, model, model year, VIN, color, body type, fuel type, drive wheel
+  configuration, odometer reading, and engine specification.
+mia:
+  origin: "cat:Vehicles"
+  creator: ":Self"
+  memberCount: "cell:OneMember"
+  members: "graph-62"
+  topic: "graph-63"
+  graphs:
+    - id: "http://www.example.org/mia/graphs/graph-62"
+      claimant: ":Self"
+      subject: ":Self"
+      shapes:
+        - http://mee.foundation/ontologies/persona/shapes
+        - http://mee.foundation/ontologies/graph/shapes
+    - id: "http://www.example.org/mia/graphs/graph-63"
+      claimant: ":Self"
+      subject: ":Alice_RAV4"
+      template: "vehicles:Vehicle"
+      shapes:
+        - http://mee.foundation/ontologies/persona/shapes
+        - http://mee.foundation/ontologies/vehicles/shapes
+---
+
+## Graphs
+
+<a id="graph-62"></a>
+### Graph 62
+
+#### Overview
+
+This graph is the cell's one required `members` entry — a `cell:OneMember` cell in the user's own category-cell tree always has `:Self` as its one member (see Check 21), regardless of what the cell's `subject` is — here, the RAV4 itself. Alice is both the claimant and the subject. Deliberately empty: the `members` requirement is about `g:subject`/`g:claimant` (asserted at the `mia.graphs[]` YAML level, not in this Turtle body), not about carrying any particular content — there is no rule requiring a member's graph to assert anything at all about them.
+
+#### Graph
+
+```turtle
+<!-- databook:id: alice-rav4-member-graph -->
+<!-- databook:graph: http://www.example.org/mia/graphs/graph-62#graph -->
+```
+
+<a id="graph-63"></a>
+### Graph 63
+
+#### Overview
+
+This graph captures Alice's basic claim about her car itself — just enough to back the cell's `subject: ":Alice_RAV4"` with a real graph (see Check 22) — and, validated by `vehicles:Vehicle`'s SHACL shape (`other/vehicles-shacl.ttl`'s `:VehicleShape`), identifies its vehicle type (`vehicles:Car`, class-value-punned), make and model (both real Wikidata individuals vendored in `project_files/wikidata-vehicle-makes-subset.ttl`/`project_files/wikidata-vehicle-models-subset.ttl`), model year, VIN, color, body type, fuel type, drive wheel configuration, current odometer reading (a `vehicles:OdometerReading` individual reusing CCO's decimal-value/measurement-unit pattern, the same reification style `pets:BodyWeight`/`pets:DosageAmount` already use), and engine specification. `:Self persona:hasVehicle :Alice_RAV4` closes the loop from the Person side.
+
+#### Graph
+
+```turtle
+<!-- databook:id: alice-rav4-subject-graph -->
+<!-- databook:graph: http://www.example.org/mia/graphs/graph-63#graph -->
+@prefix : <http://www.example.org/mia#> .
+@prefix persona: <http://mee.foundation/ontologies/persona#> .
+@prefix vehicles: <http://mee.foundation/ontologies/vehicles#> .
+@prefix wd: <http://www.wikidata.org/entity/> .
+@prefix cco: <https://w3id.org/cco-domains/cco/> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:Alice_RAV4 rdf:type owl:NamedIndividual ,
+                     vehicles:Vehicle ;
+    rdfs:label "Alice Walker's RAV4"@en ;
+
+    vehicles:hasVehicleType vehicles:Car ;
+    vehicles:hasMake wd:Q53268 ;   # Toyota
+    vehicles:hasModel wd:Q819982 ;  # Toyota RAV4
+    vehicles:modelYear "2022"^^xsd:gYear ;
+    vehicles:vehicleIdentificationNumber "JT3RWRFV1NU012345" ;
+    vehicles:color "Silver" ;
+    vehicles:bodyType "SUV" ;
+    vehicles:fuelType "Gasoline" ;
+    vehicles:driveWheelConfiguration "AWD" ;
+    vehicles:hasOdometerReading :Alice_RAV4_Odometer ;
+    vehicles:hasEngineSpecification :Alice_RAV4_Engine .
+
+:Alice_RAV4_Odometer rdf:type owl:NamedIndividual ,
+                     vehicles:OdometerReading ;
+    rdfs:comment "Alice's RAV4's odometer reading as of its most recent service."@en ;
+    cco:ont00001769 "32150.0"^^xsd:decimal ;   # has decimal value
+    cco:ont00001863 cco:ont00001433 .          # uses measurement unit → Mile Measurement Unit
+
+:Alice_RAV4_Engine rdf:type owl:NamedIndividual ,
+                     vehicles:EngineSpecification ;
+    vehicles:engineType "Internal Combustion" ;
+    vehicles:engineDisplacementLiters "2.5"^^xsd:decimal .
+
+:Self persona:hasVehicle :Alice_RAV4 .
+```

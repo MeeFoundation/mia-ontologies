@@ -1,0 +1,182 @@
+@prefix : <http://mee.foundation/ontologies/vehicles/shapes#> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix cco: <https://w3id.org/cco-domains/cco/> .
+@prefix vehicles: <http://mee.foundation/ontologies/vehicles#> .
+@prefix dc: <http://purl.org/dc/elements/1.1/> .
+
+<http://mee.foundation/ontologies/vehicles/shapes> rdf:type owl:Ontology ;
+    owl:imports <http://mee.foundation/ontologies/vehicles> ;
+    owl:versionIRI <http://mee.foundation/ontologies/vehicles/shapes/1.0.0> ;
+    dc:date "2026-08-29"^^xsd:date ;
+    rdfs:label "Vehicles Template SHACL Shapes"@en ;
+    rdfs:comment """SHACL shapes for validating graph files carrying g:template vehicles:Vehicle. Apply in
+                    addition to persona-shacl.ttl when validating a vehicle identity graph file. Targets
+                    vehicles:Vehicle individuals directly — a vehicle has no persona:Person individual of its
+                    own."""@en .
+
+
+#################################################################
+#  Vehicle Shape
+#  Targets vehicles:Vehicle individuals.
+#  Required: hasVehicleType (vehicles:hasVehicleType, 1..1, vehicles:VehicleType)
+#            hasMake (vehicles:hasMake, 1..1, IRI — vehicles:Make individual)
+#            hasModel (vehicles:hasModel, 1..1, IRI — vehicles:Model individual)
+#            modelYear (vehicles:modelYear, 1..1, xsd:gYear)
+#  Optional: vehicleIdentificationNumber (0..1, xsd:string)
+#            color (0..1, xsd:string)
+#            bodyType (0..1, xsd:string)
+#            fuelType (0..1, xsd:string, sh:in controlled vocabulary)
+#            driveWheelConfiguration (0..1, xsd:string, sh:in controlled vocabulary)
+#            hasOdometerReading (0..1, vehicles:OdometerReading)
+#            hasEngineSpecification (0..1, vehicles:EngineSpecification)
+#################################################################
+
+:VehicleShape
+    a sh:NodeShape ;
+    sh:targetClass vehicles:Vehicle ;
+    sh:message "A Vehicle must record exactly one vehicle type, make, model, and model year; VIN, color, body type, fuel type, drive wheel configuration, odometer reading, and engine specification are optional."@en ;
+
+    # vehicles:hasVehicleType's value is the class itself (class-value punning,
+    # the same style cell:memberCount's shape uses), so sh:in enumerating the
+    # four concrete classes is the right constraint — not sh:class, which would
+    # instead require an *instance* of vehicles:VehicleType.
+    sh:property [
+        sh:path vehicles:hasVehicleType ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:in ( vehicles:Car vehicles:BusOrCoach vehicles:Motorcycle vehicles:MotorizedBicycle ) ;
+        sh:message "A Vehicle must link to exactly one vehicle type (Car, BusOrCoach, Motorcycle, or MotorizedBicycle) via hasVehicleType."@en
+    ] ;
+
+    sh:property [
+        sh:path vehicles:hasMake ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:nodeKind sh:IRI ;
+        sh:message "A Vehicle must link to exactly one make (a vehicles:Make individual) via hasMake."@en
+    ] ;
+
+    sh:property [
+        sh:path vehicles:hasModel ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:nodeKind sh:IRI ;
+        sh:message "A Vehicle must link to exactly one model (a vehicles:Model individual) via hasModel."@en
+    ] ;
+
+    sh:property [
+        sh:path vehicles:modelYear ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:datatype xsd:gYear ;
+        sh:message "A Vehicle must record exactly one model year via modelYear."@en
+    ] ;
+
+    sh:property [
+        sh:path vehicles:vehicleIdentificationNumber ;
+        sh:maxCount 1 ;
+        sh:datatype xsd:string ;
+        sh:message "A Vehicle may record at most one VIN."@en
+    ] ;
+
+    sh:property [
+        sh:path vehicles:color ;
+        sh:maxCount 1 ;
+        sh:datatype xsd:string ;
+        sh:message "A Vehicle may record at most one color."@en
+    ] ;
+
+    sh:property [
+        sh:path vehicles:bodyType ;
+        sh:maxCount 1 ;
+        sh:datatype xsd:string ;
+        sh:message "A Vehicle may record at most one body type."@en
+    ] ;
+
+    sh:property [
+        sh:path vehicles:fuelType ;
+        sh:maxCount 1 ;
+        sh:in ( "Gasoline" "Diesel" "Electric" "Hybrid" "PlugInHybrid" "Hydrogen" ) ;
+        sh:message "A Vehicle's fuel type, if present, must be exactly one of Gasoline, Diesel, Electric, Hybrid, PlugInHybrid, or Hydrogen."@en
+    ] ;
+
+    sh:property [
+        sh:path vehicles:driveWheelConfiguration ;
+        sh:maxCount 1 ;
+        sh:in ( "FWD" "RWD" "AWD" "4WD" ) ;
+        sh:message "A Vehicle's drive wheel configuration, if present, must be exactly one of FWD, RWD, AWD, or 4WD."@en
+    ] ;
+
+    sh:property [
+        sh:path vehicles:hasOdometerReading ;
+        sh:maxCount 1 ;
+        sh:class vehicles:OdometerReading ;
+        sh:message "A Vehicle may link to at most one vehicles:OdometerReading via hasOdometerReading."@en
+    ] ;
+
+    sh:property [
+        sh:path vehicles:hasEngineSpecification ;
+        sh:maxCount 1 ;
+        sh:class vehicles:EngineSpecification ;
+        sh:message "A Vehicle may link to at most one vehicles:EngineSpecification via hasEngineSpecification."@en
+    ] .
+
+
+#################################################################
+#  Odometer Reading Shape
+#  Targets vehicles:OdometerReading individuals.
+#  Required: decimal value (cco:ont00001769, 1..1, xsd:decimal)
+#            measurement unit (cco:ont00001863, 1..1, IRI — CCO Measurement Unit individual)
+#################################################################
+
+:OdometerReadingShape
+    a sh:NodeShape ;
+    sh:targetClass vehicles:OdometerReading ;
+    sh:message "Odometer Reading validation: exactly one decimal value and exactly one measurement unit are required."@en ;
+
+    sh:property [
+        sh:path <https://w3id.org/cco-domains/cco/ont00001769> ;  # has decimal value
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:datatype xsd:decimal ;
+        sh:message "An Odometer Reading must record exactly one decimal value."@en
+    ] ;
+
+    sh:property [
+        sh:path <https://w3id.org/cco-domains/cco/ont00001863> ;  # uses measurement unit
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:nodeKind sh:IRI ;
+        sh:message "An Odometer Reading must use exactly one measurement unit."@en
+    ] .
+
+
+#################################################################
+#  Engine Specification Shape
+#  Targets vehicles:EngineSpecification individuals.
+#  Optional: engineType (vehicles:engineType, 0..1, xsd:string)
+#            engineDisplacementLiters (vehicles:engineDisplacementLiters, 0..1, xsd:decimal)
+#################################################################
+
+:EngineSpecificationShape
+    a sh:NodeShape ;
+    sh:targetClass vehicles:EngineSpecification ;
+    sh:message "Engine Specification validation: engine type and displacement are both optional, at most one value each."@en ;
+
+    sh:property [
+        sh:path vehicles:engineType ;
+        sh:maxCount 1 ;
+        sh:datatype xsd:string ;
+        sh:message "An Engine Specification may record at most one engine type."@en
+    ] ;
+
+    sh:property [
+        sh:path vehicles:engineDisplacementLiters ;
+        sh:maxCount 1 ;
+        sh:datatype xsd:decimal ;
+        sh:message "An Engine Specification may record at most one displacement in liters."@en
+    ] .
