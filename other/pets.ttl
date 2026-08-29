@@ -12,9 +12,9 @@
     owl:imports <http://mee.foundation/ontologies/dron-upper-subset> ,
                 <http://mee.foundation/ontologies/ncbitaxon-subset> ,
                 <http://mee.foundation/ontologies/vbo-subset> ;
-    owl:versionIRI <http://mee.foundation/ontologies/pets/1.1.0> ;
+    owl:versionIRI <http://mee.foundation/ontologies/pets/1.2.0> ;
     dc:date "2026-08-29"^^xsd:date ;
-    owl:versionInfo "Version 1.1.0 - updated cross-reference describing project_files/vbo-subset.ttl now as a real filtered extraction (2,822 classes across 9 companion-pet species) rather than a hand-picked stub; project_files/ncbitaxon-subset.ttl expanded to 33 species."@en ;
+    owl:versionInfo "Version 1.2.0 - added pets:name (required), pets:birthDate (optional, xsd:date or xsd:gYear), and pets:BodyWeight/pets:hasBodyWeight (optional, mirrors pets:DosageAmount's CCO reification pattern)."@en ;
     persona:usesDrOnClass <http://purl.obolibrary.org/obo/DRON_00000074> ,  # drug product
                     <http://purl.obolibrary.org/obo/DRON_00000028> ,  # active ingredient (role)
                     <http://purl.obolibrary.org/obo/DRON_00000022> ,  # drug tablet
@@ -62,12 +62,13 @@
 pets:Pet rdf:type owl:Class ;
     rdfs:subClassOf persona:PersonaTemplate ;
     rdfs:label "Pet"@en ;
-    rdfs:comment """Template type label for a graph whose purpose is to identify a pet — what kind of
-                    animal it is (species, and, when known/purebred, breed). Also the actual rdf:type of
-                    the pet individual itself, following the same document-individual pattern as
-                    persona:PassportDocument: pets:hasSpecies/pets:hasBreed are properties of the pet
-                    individual directly (a pet has no persona:Person individual of its own). Used as the
-                    value of g:template on the graph file's ontology IRI. Selects the SHACL shape
+    rdfs:comment """Template type label for a graph whose purpose is to identify a pet — its name, what
+                    kind of animal it is (species, and, when known/purebred, breed), and, optionally, its
+                    birth date and current body weight. Also the actual rdf:type of the pet individual
+                    itself, following the same document-individual pattern as persona:PassportDocument:
+                    pets:name/pets:hasSpecies/pets:hasBreed/pets:birthDate/pets:hasBodyWeight are properties
+                    of the pet individual directly (a pet has no persona:Person individual of its own). Used
+                    as the value of g:template on the graph file's ontology IRI. Selects the SHACL shape
                     :PetShape in other/pets-shacl.ttl, linked from cat:Pets's template cell
                     (cell-templates.ttl) via cell:templateShape."""@en .
 
@@ -93,6 +94,52 @@ pets:hasBreed rdf:type owl:ObjectProperty ;
                     non-purebred mixture; omit this property entirely when breed is simply not recorded
                     at all — VBO's own per-species "Mixed Breed" classes cover the "known unknown" case, so
                     no locally-invented placeholder value is needed."""@en .
+
+pets:name rdf:type owl:DatatypeProperty ;
+    rdfs:domain pets:Pet ;
+    rdfs:range xsd:string ;
+    rdfs:label "name"@en ;
+    rdfs:comment """The pet's own name, e.g. "Ginger". A plain direct string property, not the CCO
+                    designated-by/Designative-Name machinery persona-templates.ttl uses for a persona:Person's
+                    name (FullName/GivenName/FamilyName/AlternateName as distinct sibling designators) — a
+                    pet has none of that structure, just one simple name, so a direct property is the
+                    right-sized choice here, consistent with pets:medicationBrandName and similar plain-string
+                    properties elsewhere in this file. Required, exactly one value."""@en .
+
+pets:birthDate rdf:type owl:DatatypeProperty ;
+    rdfs:domain pets:Pet ;
+    rdfs:label "birth date"@en ;
+    rdfs:comment """The pet's date of birth. Deliberately left unconstrained at the rdfs:range level (no
+                    single fixed datatype) — the real constraint lives in other/pets-shacl.ttl's :PetShape,
+                    which accepts either a full xsd:date (e.g. "2019-04-12") when the exact date is known, or
+                    a bare xsd:gYear (e.g. "2019") when only the approximate year is known — the same
+                    dual-precision reasoning persona:anniversaryDate already documents (xsd:date for fully
+                    known dates, xsd:gMonthDay for day/month only), adapted here to year-only rather than
+                    day/month-only since an approximate pet birth date (common for adopted/rescue animals) is
+                    much more often "roughly this year" than "this exact day of an unknown year." Optional,
+                    at most one value: omit entirely when not known at all, even approximately."""@en .
+
+pets:BodyWeight rdf:type owl:Class ;
+    rdfs:subClassOf <https://w3id.org/cco-domains/cco/ont00000253> ,  # Information Bearing Entity
+                    <https://w3id.org/cco-domains/cco/ont00001283> ; # Ratio Measurement Information Content Entity
+    rdfs:label "Body Weight"@en ;
+    rdfs:comment """A pet's body weight as of a single current measurement (not a weigh-in history).
+                    Multi-typed as both CCO's Information Bearing Entity (cco:ont00000253) and Ratio
+                    Measurement Information Content Entity (cco:ont00001283) on one individual — the exact
+                    same deliberate simplification pets:DosageAmount already uses (a single reified "amount"
+                    individual rather than CCO's usual two-individual generic-dependence pattern). Carries
+                    exactly one cco:ont00001769 ("has decimal value") and exactly one cco:ont00001863 ("uses
+                    measurement unit") pointing at one of project_files/UnitsOfMeasureOntology.ttl's
+                    Measurement Unit individuals — e.g. cco:ont00001477 "Kilogram Measurement Unit" or
+                    cco:ont00001728 "Pound Measurement Unit". Unlike pets:DosageAmount (where the unit is
+                    optional, since a discrete dose-form count like "1 tablet" carries no true unit), the
+                    unit is required here — a bare number alone is meaningless for a weight."""@en .
+
+pets:hasBodyWeight rdf:type owl:ObjectProperty ;
+    rdfs:domain pets:Pet ;
+    rdfs:range pets:BodyWeight ;
+    rdfs:label "has body weight"@en ;
+    rdfs:comment "Links a Pet to its pets:BodyWeight individual. Optional, at most one value: omit entirely when no current weight is on hand."@en .
 
 
 #################################################################

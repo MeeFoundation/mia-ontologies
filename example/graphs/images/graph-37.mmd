@@ -10,10 +10,20 @@ flowchart TD
     end
 
     nd44f902e3f9e[":Ginger\n(Pet)"]
+    n3ca0c7faebe5("Ginger"):::lit
     n956f63fdbc96("NCBITaxon_9685"):::lit
     n9e505e1dc69a("VBO_0100262"):::lit
+    ne20592b7b4fa("2020-06-15"):::lit
+    nd98aabc76a0e[":Ginger_Weight\n(BodyWeight)"]
+    nd93284aad1dc("9.5"):::lit
+    nfacd527fabed("ont00001728"):::lit
     ne0c3ba92f1db[":Self\n(Person)"]:::person
 
+    nd44f902e3f9e -->|"name"| n3ca0c7faebe5
     nd44f902e3f9e -->|"hasSpecies"| n956f63fdbc96
     nd44f902e3f9e -->|"hasBreed"| n9e505e1dc69a
+    nd44f902e3f9e -->|"birthDate"| ne20592b7b4fa
+    nd44f902e3f9e -->|"hasBodyWeight"| nd98aabc76a0e
+    nd98aabc76a0e -->|"hasDecimalValue"| nd93284aad1dc
+    nd98aabc76a0e -->|"usesMeasurementUnit"| nfacd527fabed
     ne0c3ba92f1db -->|"hasPet"| nd44f902e3f9e

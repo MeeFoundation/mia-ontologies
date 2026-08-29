@@ -10,7 +10,7 @@
 
 <http://mee.foundation/ontologies/pets/shapes> rdf:type owl:Ontology ;
     owl:imports <http://mee.foundation/ontologies/pets> ;
-    owl:versionIRI <http://mee.foundation/ontologies/pets/shapes/1.0.0> ;
+    owl:versionIRI <http://mee.foundation/ontologies/pets/shapes/1.1.0> ;
     dc:date "2026-08-29"^^xsd:date ;
     rdfs:label "Pets Template SHACL Shapes"@en ;
     rdfs:comment """SHACL shapes for validating graph files carrying g:template pets:Pet or
@@ -22,14 +22,25 @@
 #################################################################
 #  Pet Shape
 #  Targets pets:Pet individuals.
-#  Required: hasSpecies (pets:hasSpecies, 1..1, IRI — NCBITaxon class)
+#  Required: name (pets:name, 1..1, xsd:string)
+#            hasSpecies (pets:hasSpecies, 1..1, IRI — NCBITaxon class)
 #  Optional: hasBreed (pets:hasBreed, 0..1, IRI — VBO class)
+#            birthDate (pets:birthDate, 0..1, xsd:date OR xsd:gYear)
+#            hasBodyWeight (pets:hasBodyWeight, 0..1, pets:BodyWeight)
 #################################################################
 
 :PetShape
     a sh:NodeShape ;
     sh:targetClass pets:Pet ;
-    sh:message "A Pet must record exactly one species via hasSpecies; breed is optional."@en ;
+    sh:message "A Pet must record a name and exactly one species via hasSpecies; breed, birth date, and body weight are optional."@en ;
+
+    sh:property [
+        sh:path pets:name ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:datatype xsd:string ;
+        sh:message "A Pet must record exactly one name via pets:name."@en
+    ] ;
 
     sh:property [
         sh:path pets:hasSpecies ;
@@ -44,6 +55,56 @@
         sh:maxCount 1 ;
         sh:nodeKind sh:IRI ;
         sh:message "A Pet may link to at most one breed (a VBO class IRI) via hasBreed."@en
+    ] ;
+
+    sh:property [
+        sh:path pets:birthDate ;
+        sh:maxCount 1 ;
+        sh:message "A Pet may record at most one birth date, either a full date or an approximate year."@en
+    ] ;
+
+    # If a birthDate value is present (at most one, per the maxCount above), it must be either a full
+    # xsd:date (exact) or a bare xsd:gYear (approximate) — each branch vacuously passes when no value
+    # is present at all, so this only ever fires when a value exists and its datatype is neither.
+    sh:or (
+        [ sh:property [ sh:path pets:birthDate ; sh:datatype xsd:date ] ]
+        [ sh:property [ sh:path pets:birthDate ; sh:datatype xsd:gYear ] ]
+    ) ;
+
+    sh:property [
+        sh:path pets:hasBodyWeight ;
+        sh:maxCount 1 ;
+        sh:class pets:BodyWeight ;
+        sh:message "A Pet may link to at most one pets:BodyWeight via hasBodyWeight."@en
+    ] .
+
+
+#################################################################
+#  Body Weight Shape
+#  Targets pets:BodyWeight individuals.
+#  Required: decimal value (cco:ont00001769, 1..1, xsd:decimal)
+#            measurement unit (cco:ont00001863, 1..1, IRI — CCO Measurement Unit individual)
+#################################################################
+
+:BodyWeightShape
+    a sh:NodeShape ;
+    sh:targetClass pets:BodyWeight ;
+    sh:message "Body Weight validation: exactly one decimal value and exactly one measurement unit are required."@en ;
+
+    sh:property [
+        sh:path <https://w3id.org/cco-domains/cco/ont00001769> ;  # has decimal value
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:datatype xsd:decimal ;
+        sh:message "A Body Weight must record exactly one decimal value."@en
+    ] ;
+
+    sh:property [
+        sh:path <https://w3id.org/cco-domains/cco/ont00001863> ;  # uses measurement unit
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:nodeKind sh:IRI ;
+        sh:message "A Body Weight must use exactly one measurement unit."@en
     ] .
 
 
