@@ -8,25 +8,32 @@
 @base <http://mee.foundation/ontologies/ncbitaxon-subset> .
 
 <http://mee.foundation/ontologies/ncbitaxon-subset> rdf:type owl:Ontology ;
-    owl:versionIRI <http://mee.foundation/ontologies/ncbitaxon-subset/1.0.0> ;
+    owl:versionIRI <http://mee.foundation/ontologies/ncbitaxon-subset/1.1.0> ;
     dc:date "2026-08-29"^^xsd:date ;
-    owl:versionInfo "Version 1.0.0 - initial hand-curated subset of NCBI Taxonomy covering common pet species."@en ;
+    owl:versionInfo "Version 1.1.0 - expanded from 6 to 33 common pet species (birds, reptiles/amphibians, small mammals, aquarium fish), each verified via OLS4; 5 of the additions are also the exact NCBITaxon species each corresponding VBO breed-group node in project_files/vbo-subset.ttl subclasses (guinea pig, golden hamster, zebrafish, zebra finch, Japanese rice fish)."@en ;
     rdfs:label "NCBI Taxonomy Common Pet Species Subset"@en ;
     rdfs:comment """A hand-curated subset of NCBI Taxonomy (NCBITaxon, https://www.ncbi.nlm.nih.gov/taxonomy,
                     OBO Foundry PURL http://purl.obolibrary.org/obo/ncbitaxon.owl). This is NOT a full mirror
                     of upstream NCBITaxon — unlike this project's other project_files/ vendor files
                     (PersonOntology.ttl etc., which are complete local mirrors of their upstream CCO domain
                     ontologies), NCBITaxon's full distribution contains approximately 2.7 million classes (all
-                    of life), dwarfing even DrOn's ~300MB "too large to vendor" case (project_files/dron-upper.ttl).
-                    This file instead declares only the handful of common-pet-species classes actually
-                    referenced by other/pets.ttl's pets:hasSpecies design, each declared with its real
-                    upstream IRI, rdfs:label, and definition (verified directly against the live NCBITaxon
-                    ontology via OLS4, 2026-08-29), and each cited back to its real NCBITaxon class IRI
-                    rather than a locally-minted equivalent — this file adds no new identifiers of its own,
-                    only re-declares existing external ones for local offline use. Deliberately omits the
+                    of life), dwarfing even DrOn's ~300MB "too large to vendor" case (project_files/dron-upper.ttl)
+                    — unlike project_files/vbo-subset.ttl, whose real full size (~20MB, ~19,961 classes) turned
+                    out small enough to extract in full for its own pet-relevant scope, NCBITaxon's true scale
+                    rules that out entirely, so this file stays a hand-picked list. Covers common companion
+                    pets across mammals, birds, reptiles/amphibians, and aquarium fish, each declared with its
+                    real upstream IRI, rdfs:label, and definition (verified directly against the live NCBITaxon
+                    ontology via OLS4, 2026-08-29), and each cited back to its real NCBITaxon class IRI rather
+                    than a locally-minted equivalent — this file adds no new identifiers of its own, only
+                    re-declares existing external ones for local offline use. Deliberately omits the
                     rdfs:subClassOf chain up through the taxonomic tree (that chain is NCBITaxon's concern,
-                    not something this file re-asserts). NCBITaxon content is CC0/public domain (a work of
-                    the US National Institutes of Health), so no attribution obligation applies."""@en .
+                    not something this file re-asserts) — a flat species list is all pets:hasSpecies needs,
+                    unlike project_files/vbo-subset.ttl's breed tree. NCBITaxon content is CC0/public domain (a
+                    work of the US National Institutes of Health), so no attribution obligation applies."""@en .
+
+#################################################################
+#  Common companion mammals
+#################################################################
 
 obo:NCBITaxon_9685 rdf:type owl:Class ;
     rdfs:label "Felis catus"@en ;
@@ -36,18 +43,138 @@ obo:NCBITaxon_9615 rdf:type owl:Class ;
     rdfs:label "Canis lupus familiaris"@en ;
     rdfs:comment "NCBITaxon 9615. The domestic dog. Common name: dog."@en .
 
+obo:NCBITaxon_9986 rdf:type owl:Class ;
+    rdfs:label "Oryctolagus cuniculus"@en ;
+    rdfs:comment "NCBITaxon 9986. The domestic rabbit. Common name: rabbit."@en .
+
+obo:NCBITaxon_10141 rdf:type owl:Class ;
+    rdfs:label "Cavia porcellus"@en ;
+    rdfs:comment "NCBITaxon 10141. Common name: guinea pig, domestic guinea pig. Also the NCBITaxon species VBO's 'Guinea pig breed' (obo:VBO_0400026) subclasses."@en .
+
+obo:NCBITaxon_10036 rdf:type owl:Class ;
+    rdfs:label "Mesocricetus auratus"@en ;
+    rdfs:comment "NCBITaxon 10036. Common name: golden hamster, Syrian hamster. Also the NCBITaxon species VBO's 'Golden hamster breed' (obo:VBO_0400040) subclasses."@en .
+
+obo:NCBITaxon_10047 rdf:type owl:Class ;
+    rdfs:label "Meriones unguiculatus"@en ;
+    rdfs:comment "NCBITaxon 10047. Common name: Mongolian gerbil, Mongolian jird."@en .
+
+obo:NCBITaxon_34839 rdf:type owl:Class ;
+    rdfs:label "Chinchilla lanigera"@en ;
+    rdfs:comment "NCBITaxon 34839. Common name: long-tailed chinchilla, chinchilla."@en .
+
+obo:NCBITaxon_9669 rdf:type owl:Class ;
+    rdfs:label "Mustela putorius furo"@en ;
+    rdfs:comment "NCBITaxon 9669. Common name: domestic ferret, ferret."@en .
+
+obo:NCBITaxon_9368 rdf:type owl:Class ;
+    rdfs:label "Atelerix albiventris"@en ;
+    rdfs:comment "NCBITaxon 9368. Common name: African pygmy hedgehog, four-toed hedgehog."@en .
+
+obo:NCBITaxon_10116 rdf:type owl:Class ;
+    rdfs:label "Rattus norvegicus"@en ;
+    rdfs:comment "NCBITaxon 10116. Common name: Norway rat, brown rat, fancy rat (domesticated/pet lineage)."@en .
+
+obo:NCBITaxon_10090 rdf:type owl:Class ;
+    rdfs:label "Mus musculus"@en ;
+    rdfs:comment "NCBITaxon 10090. Common name: house mouse, fancy mouse (domesticated/pet lineage)."@en .
+
+#################################################################
+#  Common pet birds
+#################################################################
+
+obo:NCBITaxon_13146 rdf:type owl:Class ;
+    rdfs:label "Melopsittacus undulatus"@en ;
+    rdfs:comment "NCBITaxon 13146. Common name: budgerigar, parakeet."@en .
+
+obo:NCBITaxon_13180 rdf:type owl:Class ;
+    rdfs:label "Nymphicus hollandicus"@en ;
+    rdfs:comment "NCBITaxon 13180. Common name: cockatiel."@en .
+
+obo:NCBITaxon_9135 rdf:type owl:Class ;
+    rdfs:label "Serinus canaria"@en ;
+    rdfs:comment "NCBITaxon 9135. Common name: canary, Atlantic canary, common canary."@en .
+
+obo:NCBITaxon_60468 rdf:type owl:Class ;
+    rdfs:label "Agapornis roseicollis"@en ;
+    rdfs:comment "NCBITaxon 60468. Common name: rosy-faced lovebird, peach-faced lovebird."@en .
+
+obo:NCBITaxon_57247 rdf:type owl:Class ;
+    rdfs:label "Psittacus erithacus"@en ;
+    rdfs:comment "NCBITaxon 57247. Common name: African grey parrot, grey parrot."@en .
+
+obo:NCBITaxon_59729 rdf:type owl:Class ;
+    rdfs:label "Taeniopygia guttata"@en ;
+    rdfs:comment "NCBITaxon 59729. Common name: zebra finch. Also the NCBITaxon species VBO's 'Zebra finch breed' (obo:VBO_0400039) subclasses."@en .
+
+#################################################################
+#  Common pet reptiles and amphibians
+#################################################################
+
+obo:NCBITaxon_31138 rdf:type owl:Class ;
+    rdfs:label "Trachemys scripta elegans"@en ;
+    rdfs:comment "NCBITaxon 31138. Common name: red-eared slider."@en .
+
+obo:NCBITaxon_481883 rdf:type owl:Class ;
+    rdfs:label "Eublepharis macularius"@en ;
+    rdfs:comment "NCBITaxon 481883. Common name: leopard gecko."@en .
+
+obo:NCBITaxon_103695 rdf:type owl:Class ;
+    rdfs:label "Pogona vitticeps"@en ;
+    rdfs:comment "NCBITaxon 103695. Common name: central bearded dragon, bearded dragon."@en .
+
+obo:NCBITaxon_51751 rdf:type owl:Class ;
+    rdfs:label "Python regius"@en ;
+    rdfs:comment "NCBITaxon 51751. Common name: ball python, royal python."@en .
+
+obo:NCBITaxon_94885 rdf:type owl:Class ;
+    rdfs:label "Pantherophis guttatus"@en ;
+    rdfs:comment "NCBITaxon 94885. Common name: corn snake."@en .
+
+obo:NCBITaxon_8517 rdf:type owl:Class ;
+    rdfs:label "Iguana iguana"@en ;
+    rdfs:comment "NCBITaxon 8517. Common name: green iguana, common iguana."@en .
+
+obo:NCBITaxon_30344 rdf:type owl:Class ;
+    rdfs:label "Pelodryas caerulea"@en ;
+    rdfs:comment "NCBITaxon 30344. Common name: green tree frog, White's tree frog (Litoria caerulea is a related synonym reflecting a former taxonomic classification)."@en .
+
+obo:NCBITaxon_8296 rdf:type owl:Class ;
+    rdfs:label "Ambystoma mexicanum"@en ;
+    rdfs:comment "NCBITaxon 8296. Common name: axolotl."@en .
+
+#################################################################
+#  Common aquarium fish
+#################################################################
+
 obo:NCBITaxon_7957 rdf:type owl:Class ;
     rdfs:label "Carassius auratus"@en ;
-    rdfs:comment "NCBITaxon 7957. Common name: goldfish."@en .
+    rdfs:comment "NCBITaxon 7957. Common name: goldfish. Also the NCBITaxon species VBO's 'Goldfish breed' (obo:VBO_0400045) subclasses."@en .
 
 obo:NCBITaxon_158456 rdf:type owl:Class ;
     rdfs:label "Betta splendens"@en ;
     rdfs:comment "NCBITaxon 158456. Common name: Siamese fighting fish, betta."@en .
 
-obo:NCBITaxon_9986 rdf:type owl:Class ;
-    rdfs:label "Oryctolagus cuniculus"@en ;
-    rdfs:comment "NCBITaxon 9986. The domestic rabbit. Common name: rabbit."@en .
+obo:NCBITaxon_7955 rdf:type owl:Class ;
+    rdfs:label "Danio rerio"@en ;
+    rdfs:comment "NCBITaxon 7955. Common name: zebrafish, zebra fish. Also the NCBITaxon species VBO's 'Zebrafish breed' (obo:VBO_0400043) subclasses."@en .
 
-obo:NCBITaxon_13146 rdf:type owl:Class ;
-    rdfs:label "Melopsittacus undulatus"@en ;
-    rdfs:comment "NCBITaxon 13146. Common name: budgerigar, parakeet."@en .
+obo:NCBITaxon_8090 rdf:type owl:Class ;
+    rdfs:label "Oryzias latipes"@en ;
+    rdfs:comment "NCBITaxon 8090. Common name: Japanese medaka, Japanese rice fish, medaka. Also the NCBITaxon species VBO's 'Japanese rice fish breed' (obo:VBO_0400046) subclasses."@en .
+
+obo:NCBITaxon_8081 rdf:type owl:Class ;
+    rdfs:label "Poecilia reticulata"@en ;
+    rdfs:comment "NCBITaxon 8081. Common name: guppy."@en .
+
+obo:NCBITaxon_42492 rdf:type owl:Class ;
+    rdfs:label "Paracheirodon innesi"@en ;
+    rdfs:comment "NCBITaxon 42492. Common name: neon tetra."@en .
+
+obo:NCBITaxon_74131 rdf:type owl:Class ;
+    rdfs:label "Pterophyllum scalare"@en ;
+    rdfs:comment "NCBITaxon 74131. Common name: freshwater angelfish."@en .
+
+obo:NCBITaxon_1221224 rdf:type owl:Class ;
+    rdfs:label "Cyprinus rubrofuscus"@en ;
+    rdfs:comment "NCBITaxon 1221224. Common name: koi (ornamental carp lineage)."@en .

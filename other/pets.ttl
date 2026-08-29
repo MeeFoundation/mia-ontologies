@@ -12,9 +12,9 @@
     owl:imports <http://mee.foundation/ontologies/dron-upper-subset> ,
                 <http://mee.foundation/ontologies/ncbitaxon-subset> ,
                 <http://mee.foundation/ontologies/vbo-subset> ;
-    owl:versionIRI <http://mee.foundation/ontologies/pets/1.0.0> ;
+    owl:versionIRI <http://mee.foundation/ontologies/pets/1.1.0> ;
     dc:date "2026-08-29"^^xsd:date ;
-    owl:versionInfo "Version 1.0.0 - initial pets ontology: pet identity (hasSpecies/hasBreed) and the PetMedicationRecord/Medication classes moved here from persona-templates.ttl."@en ;
+    owl:versionInfo "Version 1.1.0 - updated cross-reference describing project_files/vbo-subset.ttl now as a real filtered extraction (2,822 classes across 9 companion-pet species) rather than a hand-picked stub; project_files/ncbitaxon-subset.ttl expanded to 33 species."@en ;
     persona:usesDrOnClass <http://purl.obolibrary.org/obo/DRON_00000074> ,  # drug product
                     <http://purl.obolibrary.org/obo/DRON_00000028> ,  # active ingredient (role)
                     <http://purl.obolibrary.org/obo/DRON_00000022> ,  # drug tablet
@@ -43,11 +43,16 @@
                     exactly like cat:Category is the one shared classification root every cat: leaf plugs
                     into.
 
-                    Vendors a hand-curated subset of NCBITaxon (project_files/ncbitaxon-subset.ttl, species)
-                    and VBO (project_files/vbo-subset.ttl, breed) for pets:hasSpecies/pets:hasBreed, and
-                    (moved from persona-templates.ttl) DrOn (project_files/dron-upper.ttl) and cited ChEBI
-                    class IRIs for pets:Medication's active-ingredient/dose-form design — see
-                    pets:Medication's own rdfs:comment."""@en .
+                    Vendors a hand-curated subset of NCBITaxon (project_files/ncbitaxon-subset.ttl, 33
+                    common pet species — NCBITaxon's true ~2.7-million-class scale rules out ever vendoring
+                    more than a hand-picked list) and a real, programmatically-filtered extraction of VBO
+                    (project_files/vbo-subset.ttl, 2,822 real breed classes across the 9 companion-pet
+                    species this project names, preserving VBO's own species→breed→sub-breed subClassOf
+                    tree — VBO's real full release turned out small enough, once its ~78%-livestock content
+                    is excluded, to extract in full rather than hand-pick a few illustrative breeds) for
+                    pets:hasSpecies/pets:hasBreed, and (moved from persona-templates.ttl) DrOn
+                    (project_files/dron-upper.ttl) and cited ChEBI class IRIs for pets:Medication's
+                    active-ingredient/dose-form design — see pets:Medication's own rdfs:comment."""@en .
 
 
 #################################################################
