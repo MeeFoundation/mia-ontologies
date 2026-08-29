@@ -86,13 +86,13 @@ Here are a few lines from [graph 22](<example/Cells/Things/Things.databook.md#gr
 <p align="center"><img src="example/images/misc.png" alt="Miscellaneous cells"></p>
 
 
-### Ginger's Medications
+### Caring for Ginger
 
-Alice also has a cat, Ginger. Under her *Pets* cell she has created a *Ginger* cell for this specific pet — reusing its parent's own `cat:Pets` origin — and, nested inside it, a *Health* cell, and nested inside that a *Medications* cell recording Ginger's medications: a completed course of amoxicillin/clavulanate (brand name Clavamox, from Zoetis) and an ongoing daily glucosamine/chondroitin joint supplement ([graph 32](<example/Cells/Pets/Ginger/Health/Medications/Medications.databook.md#graph-32>)). Alice shared this cell with Paula, who also helps look after Ginger, making it a `cell:TwoMember` cell with Alice's and Paula's own bare identity claims ([graph 33](<example/Cells/Pets/Ginger/Health/Medications/Medications.databook.md#graph-33>) and [graph 57](<example/Cells/Pets/Ginger/Health/Medications/Medications.databook.md#graph-57>)) as its two `members`.
+Alice also has a cat, Ginger. Under her *Pets* cell she has created a *Ginger* cell for this specific pet — reusing its parent's own `cat:Pets` origin — and, nested inside it, two sibling cells: a *Medical* cell recording Ginger's medical care directly (reusing its parent's own `cat:PetsMedical` origin, since `cat:PetsMedications` is no longer a category of its own, and the cell no longer needs a separate organizational scaffold cell wrapping it either, now that the merge removed the reason for one) — a completed course of amoxicillin/clavulanate (brand name Clavamox, from Zoetis) and an ongoing daily glucosamine/chondroitin joint supplement ([graph 32](<example/Cells/Pets/Ginger/Medical/Medical.databook.md#graph-32>)) — and a *Care & Feeding* cell (`cat:PetsCareAndFeeding`) recording her day-to-day care instructions: her feeding schedule and where she sleeps ([graph 60](<example/Cells/Pets/Ginger/Care & Feeding/Care & Feeding.databook.md#graph-60>)). Alice shared both cells with Paula, who also helps look after Ginger, making each a `cell:TwoMember` cell with Alice's and Paula's own bare identity claims as their two `members` ([graph 33](<example/Cells/Pets/Ginger/Medical/Medical.databook.md#graph-33>) and [graph 57](<example/Cells/Pets/Ginger/Medical/Medical.databook.md#graph-57>) for Medical; [graph 58](<example/Cells/Pets/Ginger/Care & Feeding/Care & Feeding.databook.md#graph-58>) and [graph 59](<example/Cells/Pets/Ginger/Care & Feeding/Care & Feeding.databook.md#graph-59>) for Care & Feeding).
 
 <p align="center"><img src="example/images/pets.png" alt="Pets cells"></p>
 
-When Alice shares this cell with Paula, the app must decide where to file it in Paula's own tree — see APP-BEHAVIOR.md's [Auto-Filing on Receipt](APP-BEHAVIOR.md#auto-filing-on-receipt) for how that filing heuristic works, using this very cell as its worked example.
+When Alice shares her Medical cell with Paula, the app must decide where to file it in Paula's own tree — see APP-BEHAVIOR.md's [Auto-Filing on Receipt](APP-BEHAVIOR.md#auto-filing-on-receipt) for how that filing heuristic works, using this very cell as its worked example.
 
 ### Boston Hub Society
 
@@ -124,8 +124,9 @@ A summary of every narratively-illustrated cell under `example/Cells/`, grouped 
 | Current and Previous Homes | Boston | [Boston(residence).databook.md](<example/Cells/Government/Municipality/Boston/Boston(residence).databook.md>) {7} | Self | `cat:Residence` | 13 |
 | Current and Previous Homes | Paradise | [Paradise(residence).databook.md](<example/Cells/Government/Municipality/Paradise/Paradise(residence).databook.md>) {8} | Self | `cat:Residence` | 18 |
 | Possessions | Things | [Things.databook.md](<example/Cells/Things/Things.databook.md>) {11} | Self | `cat:Things` | 22 |
-| Ginger's Medications | Ginger | [Ginger(pets).databook.md](<example/Cells/Pets/Ginger/Ginger(pets).databook.md>) {41} | Ginger | `cat:Pets` | 36, 37 |
-| Ginger's Medications | Medications | [Medications.databook.md](<example/Cells/Pets/Ginger/Health/Medications/Medications.databook.md>) {40} | Ginger | `cat:PetsMedications` | 32, 33, 57 |
+| Caring for Ginger | Ginger | [Ginger(pets).databook.md](<example/Cells/Pets/Ginger/Ginger(pets).databook.md>) {41} | Ginger | `cat:Pets` | 36, 37 |
+| Caring for Ginger | Medical | [Medical.databook.md](<example/Cells/Pets/Ginger/Medical/Medical.databook.md>) {40} | Ginger | `cat:PetsMedical` | 32, 33, 57 |
+| Caring for Ginger | Care & Feeding | [Care & Feeding.databook.md](<example/Cells/Pets/Ginger/Care & Feeding/Care & Feeding.databook.md>) {42} | Ginger | `cat:PetsCareAndFeeding` | 58, 59, 60 |
 | Boston Hub Society | Boston Hub Society | [Boston Hub Society(affiliations).databook.md](<example/Cells/Affiliations/Boston Hub Society/Boston Hub Society(affiliations).databook.md>) {1} | BHS | `cat:Affiliations` | 1, 3, 14 |
 
 ## Graphs
@@ -149,10 +150,11 @@ The graphs in the table below are *about* Alice and claimed *by* Alice. The "Cel
 | 23 | [Social Security Administration(ssn).databook.md](<example/Cells/Government/Federal/Social Security Administration/Social Security Administration(ssn).databook.md#graph-23>) {6}                     | `cat:SSN`      | Social security number (SSN)                                     | [view](example/graphs/images/graph-23.png) |
 | 24 | [Texas Vital Records(birth-certificate).databook.md](<example/Cells/Government/State/Texas Vital Records/Texas Vital Records(birth-certificate).databook.md#graph-24>) {10} | `cat:BirthCertificate`        | Legal names, maiden name                                         | [view](example/graphs/images/graph-24.png) |
 | 29 | [Fred Flintstone(others).databook.md](<example/Cells/People/Others/Fred Flintstone/Fred Flintstone(others).databook.md#graph-29>) {17}                     | `cat:Others`       | Alice's 1:1 graph with Fred; social network with Fred as member  | [view](example/graphs/images/graph-29.png) |
-| 33 | [Medications.databook.md](<example/Cells/Pets/Ginger/Health/Medications/Medications.databook.md#graph-33>) {40} | `cat:PetsMedications`     | Deliberately empty — the Ginger-Medications cell's required member entry          | [view](example/graphs/images/graph-33.png) |
+| 33 | [Medical.databook.md](<example/Cells/Pets/Ginger/Medical/Medical.databook.md#graph-33>) {40} | `cat:PetsMedical`     | Deliberately empty — the Ginger-Medical cell's required member entry          | [view](example/graphs/images/graph-33.png) |
 | 34 | [Jane Starostina(primary-care-physician).databook.md](<example/Cells/People/Immediate Family/Paula Walker/Health & Wellness/Medical/Provider/Jane Starostina/Jane Starostina(primary-care-physician).databook.md#graph-34>) {14} | `cat:PrimaryCarePhysician`     | Alice's bare given-name claim — the Jane-Starostina cell's required member entry          | [view](example/graphs/images/graph-34.png) |
 | 35 | [Health & Wellness.databook.md](<example/Cells/People/Immediate Family/Paula Walker/Health & Wellness/Health & Wellness.databook.md#graph-35>) {13} | `cat:HealthWellness`     | Alice's bare given-name claim — the Health & Wellness cell's required member entry          | [view](example/graphs/images/graph-35.png) |
 | 36 | [Ginger(pets).databook.md](<example/Cells/Pets/Ginger/Ginger(pets).databook.md#graph-36>) {41} | `cat:Pets`     | Deliberately empty — the Ginger cell's required member entry; the `members` requirement is about `g:subject`/`g:claimant`, not about carrying content          | [view](example/graphs/images/graph-36.png) |
+| 58 | [Care & Feeding.databook.md](<example/Cells/Pets/Ginger/Care & Feeding/Care & Feeding.databook.md#graph-58>) {42} | `cat:PetsCareAndFeeding`     | Deliberately empty — the Ginger-Care & Feeding cell's required member entry          | [view](example/graphs/images/graph-58.png) |
 
 The following table lists graphs that are *about* Alice but claimed by others.
 
@@ -179,9 +181,11 @@ The following table lists graphs about other people (Paula and Bob) or organizat
 | 30 | [Medical Appointment.databook.md](<example/Cells/People/Immediate Family/Paula Walker/Health & Wellness/Medical/Provider/Medical Appointment/Medical Appointment.databook.md#graph-30>) {15} | `cat:MedicalAppointment`       | Alice's own self-claimed contact info — the other of this cell's two members, alongside Carol (graph 28)           | [view](example/graphs/images/graph-30.png) |
 | 27 | [Citibank(banking-payments).databook.md](<example/Cells/Finances/Banking & Payments Firms/Citibank/Citibank(banking-payments).databook.md#graph-27>) {4} | `cat:BankingPayments` | Alice's own self-claimed notes about Citibank as an institution, alongside Citibank's own claimed record about her (graph 09) | [view](example/graphs/images/graph-27.png) |
 | 31 | [Fred Flintstone(others).databook.md](<example/Cells/People/Others/Fred Flintstone/Fred Flintstone(others).databook.md#graph-31>) {17}                     | `cat:Others`       | Fred's self-claimed Fred persona                                 | [view](example/graphs/images/graph-31.png) |
-| 32 | [Medications.databook.md](<example/Cells/Pets/Ginger/Health/Medications/Medications.databook.md#graph-32>) {40} | `cat:PetsMedications`       | Alice's record of her cat Ginger's medications — amoxicillin/clavulanate course, ongoing glucosamine/chondroitin supplement           | [view](example/graphs/images/graph-32.png)|
+| 32 | [Medical.databook.md](<example/Cells/Pets/Ginger/Medical/Medical.databook.md#graph-32>) {40} | `cat:PetsMedical`       | Alice's record of her cat Ginger's medications — amoxicillin/clavulanate course, ongoing glucosamine/chondroitin supplement           | [view](example/graphs/images/graph-32.png)|
 | 37 | [Ginger(pets).databook.md](<example/Cells/Pets/Ginger/Ginger(pets).databook.md#graph-37>) {41} | `cat:Pets`       | Alice's basic claim identifying Ginger — backs the Ginger cell's `subject: ":Ginger"` with a real graph           | [view](example/graphs/images/graph-37.png)|
-| 57 | [Medications.databook.md](<example/Cells/Pets/Ginger/Health/Medications/Medications.databook.md#graph-57>) {40} | `cat:PetsMedications`       | Paula's own self-claimed given-name claim — the cell's second `members` entry after Alice shared it with her, making it a `cell:TwoMember` cell           | [view](example/graphs/images/graph-57.png)|
+| 57 | [Medical.databook.md](<example/Cells/Pets/Ginger/Medical/Medical.databook.md#graph-57>) {40} | `cat:PetsMedical`       | Paula's own self-claimed given-name claim — the cell's second `members` entry after Alice shared it with her, making it a `cell:TwoMember` cell           | [view](example/graphs/images/graph-57.png)|
+| 59 | [Care & Feeding.databook.md](<example/Cells/Pets/Ginger/Care & Feeding/Care & Feeding.databook.md#graph-59>) {42} | `cat:PetsCareAndFeeding`       | Paula's own self-claimed given-name claim — the cell's second `members` entry after Alice shared it with her, making it a `cell:TwoMember` cell           | [view](example/graphs/images/graph-59.png)|
+| 60 | [Care & Feeding.databook.md](<example/Cells/Pets/Ginger/Care & Feeding/Care & Feeding.databook.md#graph-60>) {42} | `cat:PetsCareAndFeeding`       | Alice's day-to-day care and feeding instructions for Ginger — feeding schedule, food, and where she sleeps           | [view](example/graphs/images/graph-60.png)|
 
 ## Diagrams
 
@@ -334,7 +338,7 @@ riot --output=turtle /tmp/mia-base.ttl /tmp/data-medical-appt-raw.ttl 2>/dev/nul
 shacl validate --shapes /tmp/shapes-cell-templates.ttl --data /tmp/data-medical-appt.ttl --text
 
 # PetMedications — graph-32
-python3 extract-graph.py "example/Cells/Pets/Ginger/Health/Medications/Medications.databook.md" "graph-32" > /tmp/data-pet-medications-raw.ttl
+python3 extract-graph.py "example/Cells/Pets/Ginger/Medical/Medical.databook.md" "graph-32" > /tmp/data-pet-medications-raw.ttl
 riot --output=turtle /tmp/mia-base.ttl /tmp/data-pet-medications-raw.ttl 2>/dev/null > /tmp/data-pet-medications.ttl
 shacl validate --shapes /tmp/shapes-cell-templates.ttl --data /tmp/data-pet-medications.ttl --text
 ```

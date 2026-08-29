@@ -1,13 +1,13 @@
 ---
 id: http://www.example.org/mia/cells/cell-40
-title: "Medications"
+title: "Medical"
 type: cell-databook
-version: 1.3.0
+version: 2.0.0
 created: 2026-08-21
 description: >
-  Cell DataBook for folder "Medications" (cell:origin: cat:PetsMedications). It is a two-member cell, shared by Alice with Paula, with two members (about :Self and :Paula_Walker) and one graph about :Ginger, Alice's cat (the cell's subject).
+  Cell DataBook for folder "Medical" (cell:origin: cat:PetsMedical). Formerly two nested cells — an organizational "Medical" scaffold (cell-38, retired) wrapping a "Medications" content cell (this cell, cell-40) — now flattened into one, since cat:PetsMedications was merged into cat:PetsMedical and the extra nesting no longer served a purpose. It is a two-member cell, shared by Alice with Paula, with two members (about :Self and :Paula_Walker) and one graph about :Ginger, Alice's cat (the cell's subject).
 mia:
-  origin: "cat:PetsMedications"
+  origin: "cat:PetsMedical"
   creator: ":Self"
   memberCount: "cell:TwoMember"
   members:

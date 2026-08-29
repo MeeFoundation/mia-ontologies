@@ -9,8 +9,8 @@
 
 <http://mee.foundation/ontologies/persona-templates> rdf:type owl:Ontology ;
     owl:imports <http://mee.foundation/ontologies/dron-upper-subset> ;
-    dc:date "2026-08-27"^^xsd:date ;
-    owl:versionInfo "Version 2.11.0 - added persona:PersonalityAssessment class and properties for personality self-assessments (MBTI, Big Five, DISC, Enneagram, etc.)."@en ;
+    dc:date "2026-08-29"^^xsd:date ;
+    owl:versionInfo "Version 2.11.1 - updated cross-reference to cat:PetsMedical (renamed from cat:PetsHealth, merging cat:PetsMedications into it)."@en ;
     persona:usesDrOnClass <http://purl.obolibrary.org/obo/DRON_00000074> ,  # drug product
                     <http://purl.obolibrary.org/obo/DRON_00000028> ,  # active ingredient (role)
                     <http://purl.obolibrary.org/obo/DRON_00000022> ,  # drug tablet
@@ -512,7 +512,7 @@ persona:PetMedicationRecord rdf:type owl:Class ;
                     own — it is identified only via the cell's/graph's own subject metadata). Used as the
                     value of g:template on the graph file's ontology IRI. Selects the SHACL shape
                     :PetMedicationRecordShape in cell-templates-shacl.ttl, linked from
-                    cat:PetsMedications' template cell (cell-templates.ttl) via cell:templateShape. Named
+                    cat:PetsMedical's template cell (cell-templates.ttl) via cell:templateShape. Named
                     "Record" rather than "Document" since this class is not a p:IdentityDocument, matching
                     persona:MedicalAppointmentRecord's identical naming reasoning."""@en .
 

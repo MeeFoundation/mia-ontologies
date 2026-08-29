@@ -53,7 +53,7 @@ ctpl:MedicalAppointmentTemplateCell rdf:type cell:Cell, cell:TemplateCell ;
     cell:isTopicCell true .
 
 #################################################################
-#  cat:PetsMedications
+#  cat:PetsMedical
 #################################################################
 
 ctpl:PetMedicationsTemplateCell rdf:type cell:Cell, cell:TemplateCell ;

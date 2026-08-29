@@ -48,7 +48,7 @@ This graph is the cell's one required `members` entry — a `cell:OneMember` cel
 
 #### Overview
 
-This graph captures Alice's basic claim about Ginger herself — just enough to back the cell's `subject: ":Ginger"` with a real graph (see Check 22). Ginger's actual medications live in the nested Medications cell instead; this is a minimal, standalone identification.
+This graph captures Alice's basic claim about Ginger herself — just enough to back the cell's `subject: ":Ginger"` with a real graph (see Check 22). Ginger's actual medical care and her day-to-day care & feeding instructions live in the nested Medical and Care & Feeding cells instead; this is a minimal, standalone identification.
 
 #### Graph
 

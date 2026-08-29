@@ -1,0 +1,100 @@
+---
+id: http://www.example.org/mia/cells/cell-42
+title: "Care & Feeding"
+type: cell-databook
+version: 1.0.0
+created: 2026-08-29
+description: >
+  Cell DataBook for folder "Care & Feeding" (cell:origin: cat:PetsCareAndFeeding). It is a two-member cell, shared by Alice with Paula, with two members (about :Self and :Paula_Walker) and one graph about :Ginger, Alice's cat (the cell's subject) — the day-to-day instructions for looking after Ginger, alongside her Medical cell's sibling record of her medical care.
+mia:
+  origin: "cat:PetsCareAndFeeding"
+  creator: ":Self"
+  memberCount: "cell:TwoMember"
+  members:
+    - "graph-58"
+    - "graph-59"
+  topic: "graph-60"
+  graphs:
+    - id: "http://www.example.org/mia/graphs/graph-58"
+      claimant: ":Self"
+      subject: ":Self"
+      shapes:
+        - http://mee.foundation/ontologies/persona/shapes
+        - http://mee.foundation/ontologies/graph/shapes
+    - id: "http://www.example.org/mia/graphs/graph-59"
+      claimant: ":Paula_Walker"
+      subject: ":Paula_Walker"
+      shapes:
+        - http://mee.foundation/ontologies/persona/shapes
+        - http://mee.foundation/ontologies/graph/shapes
+    - id: "http://www.example.org/mia/graphs/graph-60"
+      claimant: ":Self"
+      subject: ":Ginger"
+      shapes:
+        - http://mee.foundation/ontologies/persona/shapes
+        - http://mee.foundation/ontologies/graph/shapes
+---
+
+## Graphs
+
+<a id="graph-58"></a>
+### Graph 58
+
+#### Overview
+
+This graph is one of the cell's two `members` entries, satisfying `cell:TwoMember`'s per-member baseline alongside graph 59 (Paula's own claim, below). Alice is both the claimant and the subject. Deliberately empty: the `members` requirement is about `g:subject`/`g:claimant` (asserted at the `mia.graphs[]` YAML level, not in this Turtle body), not about carrying any particular content.
+
+#### Graph
+
+```turtle
+<!-- databook:id: alice-ginger-care-feeding-member-graph -->
+<!-- databook:graph: http://www.example.org/mia/graphs/graph-58#graph -->
+```
+
+<a id="graph-59"></a>
+### Graph 59
+
+#### Overview
+
+This cell was created by Alice and later shared with Paula, making the cell a `cell:TwoMember` cell. This graph is Paula's own bare identity claim (just her given name) — the cell's second `members` entry, satisfying `cell:TwoMember`'s per-member baseline alongside graph 58 (Alice's own claim, above). Paula is both the claimant and the subject.
+
+#### Graph
+
+```turtle
+<!-- databook:id: paula-ginger-care-feeding-member-graph -->
+<!-- databook:graph: http://www.example.org/mia/graphs/graph-59#graph -->
+@prefix : <http://www.example.org/mia#> .
+@prefix persona: <http://mee.foundation/ontologies/persona#> .
+@prefix cco: <https://w3id.org/cco-domains/cco/> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+
+:Paula_Walker rdf:type owl:NamedIndividual ,
+               persona:Person ;
+    cco:ont00001879 [  # designated by → GivenName
+        rdf:type cco:ent00000002 ;  # GivenName
+        cco:ont00001765 "Paula"  # has text value
+    ] .
+```
+
+<a id="graph-60"></a>
+### Graph 60
+
+#### Overview
+
+This graph captures Alice's day-to-day care and feeding instructions for her cat Ginger — what to feed her and when, and where she sleeps — so that Paula (or anyone else looking after Ginger) knows how to care for her. Alice is the claimant; Ginger is the cell's `subject` but, since she has no `p:Person` individual of her own, her graph is linked via `cell:topic` rather than as one of the required `members` entries (graphs 58 and 59, above, fill those slots instead). No formal persona template governs this content (unlike her sibling Medical cell's `persona:PetMedicationRecord`) — `cat:PetsCareAndFeeding` has no `cat:templateCell` of its own — so it is asserted directly as a plain comment, the same way Ginger's own basic identifying claim (graph 37) is.
+
+#### Graph
+
+```turtle
+<!-- databook:id: ginger-care-feeding-graph -->
+<!-- databook:graph: http://www.example.org/mia/graphs/graph-60#graph -->
+@prefix : <http://www.example.org/mia#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+
+:Ginger_CareAndFeeding rdf:type owl:NamedIndividual ;
+    rdfs:label "Ginger's Care & Feeding Instructions"@en ;
+    rdfs:comment "Fed twice daily, 7am and 6pm: half a cup of dry food (Purina Pro Plan) plus a spoonful of wet food. Fresh water bowl refilled daily. Sleeps in a cat bed in Alice's bedroom. Litter box is in the laundry room and is scooped daily."@en .
+```
