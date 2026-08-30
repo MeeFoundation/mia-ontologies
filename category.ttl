@@ -9,8 +9,8 @@
 @base <http://mee.foundation/ontologies/category> .
 
 <http://mee.foundation/ontologies/category> rdf:type owl:Ontology ;
-    owl:versionIRI <http://mee.foundation/ontologies/category/1.55.0> ;
-    dc:date "2026-08-29"^^xsd:date ;
+    owl:versionIRI <http://mee.foundation/ontologies/category/1.56.0> ;
+    dc:date "2026-08-30"^^xsd:date ;
     owl:imports <http://mee.foundation/ontologies/cell> ;
     owl:imports <http://mee.foundation/ontologies/cell-templates> ;
     rdfs:label "Category Ontology"@en ;
@@ -480,6 +480,15 @@ cat:Travel rdf:type owl:Class ;
     rdfs:subClassOf cat:Person ;
     rdfs:label "Travel"@en ;
     rdfs:comment "Travel plans, trips, and related information. Loyalty programs, airlines, bus lines, trains."@en .
+
+#################################################################
+#    cat:Trips
+#################################################################
+
+cat:Trips rdf:type owl:Class ;
+    rdfs:subClassOf cat:Travel ;
+    rdfs:label "Trips"@en ;
+    rdfs:comment "An individual trip being planned or taken — its own itinerary, dates, and destination-specific details, as distinct from cat:Travel's broader loyalty-program/airline/general travel information."@en .
 
 #################################################################
 #    cat:Food

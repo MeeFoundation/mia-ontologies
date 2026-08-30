@@ -7,12 +7,13 @@
 @prefix g: <http://mee.foundation/ontologies/graph#> .
 @prefix persona: <http://mee.foundation/ontologies/persona#> .
 @prefix o: <http://mee.foundation/ontologies/organization#> .
+@prefix agent: <http://mee.foundation/ontologies/agent#> .
 @prefix dc: <http://purl.org/dc/elements/1.1/> .
 
 <http://mee.foundation/ontologies/graph/shapes> rdf:type owl:Ontology ;
     owl:imports <http://mee.foundation/ontologies/graph> ;
-    owl:versionIRI <http://mee.foundation/ontologies/graph/shapes/1.5.0> ;
-    dc:date "2026-08-27"^^xsd:date ;
+    owl:versionIRI <http://mee.foundation/ontologies/graph/shapes/1.6.0> ;
+    dc:date "2026-08-30"^^xsd:date ;
     rdfs:label "Graph Ontology SHACL Validation Shapes"@en ;
     rdfs:comment "SHACL validation shapes for graph.ttl's g:SCGraph DataBook instances."@en .
 
@@ -26,7 +27,7 @@
 :SCGraphShape
     a sh:NodeShape ;
     sh:targetClass g:SCGraph ;
-    sh:message "SCGraph validation: claimant must be exactly one Person or Organization; subject must be exactly one IRI."@en ;
+    sh:message "SCGraph validation: claimant must be exactly one Person, Organization, or Agent; subject must be exactly one IRI."@en ;
     sh:property [
         sh:path g:subject ;
         sh:minCount 1 ;
@@ -38,6 +39,6 @@
         sh:path g:claimant ;
         sh:minCount 1 ;
         sh:maxCount 1 ;
-        sh:or ( [ sh:class persona:Person ] [ sh:class o:Organization ] ) ;
-        sh:message "g:claimant must have exactly one value, and it must be a persona:Person or o:Organization."@en
+        sh:or ( [ sh:class persona:Person ] [ sh:class o:Organization ] [ sh:class agent:Agent ] ) ;
+        sh:message "g:claimant must have exactly one value, and it must be a persona:Person, o:Organization, or agent:Agent."@en
     ] .

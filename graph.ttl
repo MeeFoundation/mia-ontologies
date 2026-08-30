@@ -2,6 +2,7 @@
 @prefix cell: <http://mee.foundation/ontologies/cell#> .
 @prefix p: <http://mee.foundation/ontologies/persona#> .
 @prefix o: <http://mee.foundation/ontologies/organization#> .
+@prefix agent: <http://mee.foundation/ontologies/agent#> .
 @prefix owl: <http://www.w3.org/2002/07/owl#> .
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
@@ -10,8 +11,8 @@
 @base <http://mee.foundation/ontologies/graph> .
 
 <http://mee.foundation/ontologies/graph> rdf:type owl:Ontology ;
-    owl:versionIRI <http://mee.foundation/ontologies/graph/1.18.0> ;
-    dc:date "2026-08-27"^^xsd:date ;
+    owl:versionIRI <http://mee.foundation/ontologies/graph/1.19.0> ;
+    dc:date "2026-08-30"^^xsd:date ;
     owl:imports <http://mee.foundation/ontologies/cell> ;
     rdfs:label "Graph Ontology"@en ;
     rdfs:comment """Graph Ontology for the Cellula App"""@en .
@@ -24,14 +25,16 @@
 g:claimant rdf:type owl:AnnotationProperty ;
     rdfs:label "claimed by"@en ;
     rdfs:comment """Annotates a graph DataBook with the identity making the claim —
-                    a named individual of p:Person or o:Organization (e.g. :Self,
-                    a p:Person or o:Organization instance). Applied to the graph
-                    DataBook's own IRI (its plain `id`) — the same IRI
+                    a named individual of p:Person, o:Organization, or agent:Agent
+                    (e.g. :Self, a p:Person or o:Organization instance; or an invited
+                    agent:Agent, self-claiming its own cell:members entry and claiming
+                    whatever cell:topic content it contributes — see agent.ttl). Applied
+                    to the graph DataBook's own IRI (its plain `id`) — the same IRI
                     cell:members/cell:topic link to from the cell side —
                     not to the `#graph`-suffixed `graph.named_graph` IRI, and not
-                    to the Person individual."""@en ;
+                    to the Person/Organization/Agent individual."""@en ;
     rdfs:domain g:SCGraph ;
-    rdfs:range [ rdf:type owl:Class ; owl:unionOf ( p:Person o:Organization ) ] .
+    rdfs:range [ rdf:type owl:Class ; owl:unionOf ( p:Person o:Organization agent:Agent ) ] .
 
 g:subject rdf:type owl:AnnotationProperty ;
     rdfs:label "subject"@en ;

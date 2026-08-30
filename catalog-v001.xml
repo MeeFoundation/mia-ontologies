@@ -48,6 +48,12 @@
          uri="pdn-identity.ttl"/>
     <uri id="organization"             name="http://mee.foundation/ontologies/organization"
          uri="organization.ttl"/>
+    <uri id="organization-shacl"       name="http://mee.foundation/ontologies/organization/shapes"
+         uri="organization-shacl.ttl"/>
+    <uri id="agent"                    name="http://mee.foundation/ontologies/agent"
+         uri="agent.ttl"/>
+    <uri id="agent-shacl"              name="http://mee.foundation/ontologies/agent/shapes"
+         uri="agent-shacl.ttl"/>
 
     <!-- ── Selfness files (now DataBook — loaded via triplestore, not owl:imports) ── -->
 

@@ -1,0 +1,58 @@
+@prefix agent: <http://mee.foundation/ontologies/agent#> .
+@prefix p: <http://mee.foundation/ontologies/persona#> .
+@prefix o: <http://mee.foundation/ontologies/organization#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix dc: <http://purl.org/dc/elements/1.1/> .
+@base <http://mee.foundation/ontologies/agent> .
+
+<http://mee.foundation/ontologies/agent> rdf:type owl:Ontology ;
+    owl:versionIRI <http://mee.foundation/ontologies/agent/1.0.0> ;
+    dc:date "2026-08-30"^^xsd:date ;
+    owl:versionInfo "Version 1.0.0 - initial release, defining agent:Agent and agent:actsFor."@en ;
+    rdfs:label "Agent Ontology"@en ;
+    rdfs:comment """Agent Ontology for the Cellula App.
+                    Describes AI agents (e.g. an LLM-based assistant like ChatGPT) that a
+                    person or organization invites to collaborate inside a shared cell —
+                    a third kind of first-class, member-capable participant, peer to
+                    persona.ttl (models Person) and organization.ttl (models
+                    Organization). An agent:Agent is never a cell:creator (cell.ttl) —
+                    only ever a cell:members participant and a g:claimant (graph.ttl) of
+                    the content it contributes — and always acts on behalf of exactly one
+                    principal, referenced by name without owl:imports, mirroring
+                    cell:creator's/g:claimant's own union-range pattern for
+                    p:Person/o:Organization."""@en .
+
+
+#################################################################
+#    Agent
+#################################################################
+
+agent:Agent rdf:type owl:Class ;
+    rdfs:label "Agent"@en ;
+    rdfs:comment """An AI agent (e.g. an LLM-based assistant such as ChatGPT) that a
+                    p:Person or o:Organization has invited to collaborate inside a shared
+                    cell. Unlike p:Person/o:Organization, an agent:Agent is never a
+                    cell:creator — a cell is always created by a real relationship party
+                    — but it can be a genuine cell:members participant (see cell.ttl's
+                    cell:members comment) and a g:claimant (graph.ttl) of the graphs it
+                    contributes, including a cell:topic graph about whatever the cell's
+                    relationship concerns (e.g. a trip being planned). Always carries
+                    exactly one agent:actsFor value identifying which member it is a
+                    delegate/collaborator for."""@en .
+
+agent:actsFor rdf:type owl:ObjectProperty ;
+    rdfs:domain agent:Agent ;
+    rdfs:range [ rdf:type owl:Class ; owl:unionOf ( p:Person o:Organization ) ] ;
+    rdfs:label "acts for"@en ;
+    rdfs:comment """Identifies the member (a p:Person or o:Organization) this agent is a
+                    delegate/collaborator for — e.g. Alice's own travel agent carries
+                    agent:actsFor :Self. Required, exactly one value: an agent:Agent is
+                    always invited into a cell by, and acts on behalf of, exactly one
+                    principal, never independently — a second member who wants their own
+                    agent invites a separate agent:Agent individual of their own, with
+                    its own agent:actsFor value. Mirrors the union-range pattern used by
+                    cell:creator (cell.ttl) and g:claimant (graph.ttl), referencing
+                    p:Person/o:Organization by name without owl:imports."""@en .

@@ -123,6 +123,14 @@ Alice is a member of the Boston Hub Society, an informal professional networking
 
 <p align="center"><img src="example/images/affiliations.png" alt="Affiliations cells"></p>
 
+### Planning a Trip with an Agent
+
+Alice is planning a trip with her spouse Dave, and invites her own AI travel agent to help. Under a *Travel* cell (a purely organizational category node, like *Things*) she has created a *Trips* cell (also purely organizational, reusing its parent's own `cat:Travel` origin) and, nested inside it, a cell for this specific trip — *Kyoto Trip 2027* (reusing its immediate parent *Trips*'s own `cat:Trips` origin, the same "child folder reuses its parent's origin" pattern the *Ginger* and *RAV4* cells already use). Alice's travel agent (`agent:Agent`) joins this cell as a real member alongside Alice and Dave — not as an invisible tool — giving it its own self-claimed `c:members` graph (see [graph 67](<example/Cells/Travel/Trips/Kyoto Trip 2027/Kyoto Trip 2027(trips).databook.md#graph-67>)) carrying `agent:actsFor :Self`. Three distinct members (Self, Dave, and the agent) make this a `cell:ThreePlusMember` cell.
+
+The trip itself is backed by two `c:topic` graphs sharing one subject, `:Kyoto_Trip_2027`, but claimed from two different sides: Alice's own basic claim identifying the trip ([graph 69](<example/Cells/Travel/Trips/Kyoto Trip 2027/Kyoto Trip 2027(trips).databook.md#graph-69>)) and her agent's own evolving, collaboratively-drafted itinerary ([graph 70](<example/Cells/Travel/Trips/Kyoto Trip 2027/Kyoto Trip 2027(trips).databook.md#graph-70>)) — the same "one topic, two claimants" pattern the Medical Appointment cell's two "Med. Appt mt." squares already illustrate (see [Representative Cells](README.md#representative-cells)). The agent's own graph is revised in place turn by turn as Alice chats back and forth with it, rather than replaced by a new graph each time (see APP-BEHAVIOR.md's [Agent Collaboration](APP-BEHAVIOR.md#agent-collaboration)).
+
+<p align="center"><img src="example/images/travel.png" alt="Travel cells"></p>
+
 ## Cells Mentioned
 
 A summary of every narratively-illustrated cell under `example/Cells/`, grouped by the narrative subsection above it describes. 
@@ -152,6 +160,7 @@ A summary of every narratively-illustrated cell under `example/Cells/`, grouped 
 | Caring for Ginger | Medical | [Medical.databook.md](<example/Cells/Pets/Ginger/Medical/Medical.databook.md>) {40} | Ginger | `cat:PetsMedical` | 32, 33, 57 |
 | Caring for Ginger | Care & Feeding | [Care & Feeding.databook.md](<example/Cells/Pets/Ginger/Care & Feeding/Care & Feeding.databook.md>) {42} | Ginger | `cat:PetsCareAndFeeding` | 58, 59, 60 |
 | Boston Hub Society | Boston Hub Society | [Boston Hub Society(affiliations).databook.md](<example/Cells/Affiliations/Boston Hub Society/Boston Hub Society(affiliations).databook.md>) {1} | BHS | `cat:Affiliations` | 1, 3, 14 |
+| Planning a Trip with an Agent | Kyoto Trip 2027 | [Kyoto Trip 2027(trips).databook.md](<example/Cells/Travel/Trips/Kyoto Trip 2027/Kyoto Trip 2027(trips).databook.md>) {47} | Self, Dave, Alice's Travel Agent | `cat:Trips` | 66, 67, 68, 69, 70 |
 
 ## Graphs
 
@@ -180,6 +189,7 @@ The graphs in the table below are *about* Alice and claimed *by* Alice. The "Cel
 | 36 | [Ginger(pets).databook.md](<example/Cells/Pets/Ginger/Ginger(pets).databook.md#graph-36>) {41} | `cat:Pets`     | Deliberately empty — the Ginger cell's required member entry; the `members` requirement is about `g:subject`/`g:claimant`, not about carrying content          | [view](example/graphs/images/graph-36.png) |
 | 58 | [Care & Feeding.databook.md](<example/Cells/Pets/Ginger/Care & Feeding/Care & Feeding.databook.md#graph-58>) {42} | `cat:PetsCareAndFeeding`     | Deliberately empty — the Ginger-Care & Feeding cell's required member entry          | [view](example/graphs/images/graph-58.png) |
 | 62 | [RAV4(vehicles).databook.md](<example/Cells/Things/Vehicles/RAV4/RAV4(vehicles).databook.md#graph-62>) {44} | `cat:Vehicles`     | Deliberately empty — the RAV4 cell's required member entry; the `members` requirement is about `g:subject`/`g:claimant`, not about carrying content          | [view](example/graphs/images/graph-62.png) |
+| 66 | [Kyoto Trip 2027(trips).databook.md](<example/Cells/Travel/Trips/Kyoto Trip 2027/Kyoto Trip 2027(trips).databook.md#graph-66>) {47} | `cat:Trips` | Alice's bare given-name claim, extended with her social network link to Dave — one of the Kyoto Trip cell's three required member entries | [view](example/graphs/images/graph-66.png) |
 
 The following table lists graphs that are *about* Alice but claimed by others.
 
@@ -212,6 +222,10 @@ The following table lists graphs about other people (Paula and Bob) or organizat
 | 59 | [Care & Feeding.databook.md](<example/Cells/Pets/Ginger/Care & Feeding/Care & Feeding.databook.md#graph-59>) {42} | `cat:PetsCareAndFeeding`       | Paula's own self-claimed given-name claim — the cell's second `members` entry after Alice shared it with her, making it a `cell:TwoMember` cell           | [view](example/graphs/images/graph-59.png)|
 | 60 | [Care & Feeding.databook.md](<example/Cells/Pets/Ginger/Care & Feeding/Care & Feeding.databook.md#graph-60>) {42} | `cat:PetsCareAndFeeding`       | Alice's day-to-day care and feeding instructions for Ginger — feeding schedule, food, and where she sleeps           | [view](example/graphs/images/graph-60.png)|
 | 63 | [RAV4(vehicles).databook.md](<example/Cells/Things/Vehicles/RAV4/RAV4(vehicles).databook.md#graph-63>) {44} | `cat:Vehicles`       | Alice's basic claim identifying her car — vehicle type (Car), make and model (Toyota RAV4, real Wikidata individuals), model year, VIN, color, body type, fuel type, drive wheel configuration, odometer reading, and engine specification — backs the RAV4 cell's `subject: ":Alice_RAV4"` with a real graph, typed `vehicles:Vehicle`           | [view](example/graphs/images/graph-63.png)|
+| 67 | [Kyoto Trip 2027(trips).databook.md](<example/Cells/Travel/Trips/Kyoto Trip 2027/Kyoto Trip 2027(trips).databook.md#graph-67>) {47} | `cat:Trips` | Alice's travel agent's own self-claimed member graph — typed `agent:Agent`, carrying `agent:actsFor :Self` | [view](example/graphs/images/graph-67.png)|
+| 68 | [Kyoto Trip 2027(trips).databook.md](<example/Cells/Travel/Trips/Kyoto Trip 2027/Kyoto Trip 2027(trips).databook.md#graph-68>) {47} | `cat:Trips` | Dave's own self-claimed bare given-name persona — the Kyoto Trip cell's third required member entry, making it `cell:ThreePlusMember` | [view](example/graphs/images/graph-68.png)|
+| 69 | [Kyoto Trip 2027(trips).databook.md](<example/Cells/Travel/Trips/Kyoto Trip 2027/Kyoto Trip 2027(trips).databook.md#graph-69>) {47} | `cat:Trips` | Alice's basic claim identifying the trip itself — backs the Kyoto Trip cell's derived subject `:Kyoto_Trip_2027` with a real graph, distinct from her agent's own contribution (graph 70) | [view](example/graphs/images/graph-69.png)|
+| 70 | [Kyoto Trip 2027(trips).databook.md](<example/Cells/Travel/Trips/Kyoto Trip 2027/Kyoto Trip 2027(trips).databook.md#graph-70>) {47} | `cat:Trips` | Alice's travel agent's own evolving, collaboratively-drafted itinerary for the trip — a single graph revised in place turn by turn, not replaced each time | [view](example/graphs/images/graph-70.png)|
 
 ## Diagrams
 
@@ -300,7 +314,7 @@ riot --output=turtle \
   project_files/wikidata-vehicle-makes-subset.ttl \
   project_files/wikidata-vehicle-models-subset.ttl \
   persona.ttl persona-templates.ttl graph.ttl cell.ttl category.ttl other/pets.ttl other/vehicles.ttl \
-  organization.ttl \
+  organization.ttl agent.ttl \
   example/graphs/self.ttl \
   /tmp/mia-data.ttl \
   /tmp/mia-yaml.ttl \
@@ -316,6 +330,7 @@ grep -v 'owl:imports' persona-shacl.ttl > /tmp/mia-shapes.ttl
 grep -v 'owl:imports' graph-shacl.ttl >> /tmp/mia-shapes.ttl
 grep -v 'owl:imports' cell-shacl.ttl >> /tmp/mia-shapes.ttl
 grep -v 'owl:imports' organization-shacl.ttl >> /tmp/mia-shapes.ttl
+grep -v 'owl:imports' agent-shacl.ttl >> /tmp/mia-shapes.ttl
 
 # Step 4 — validate
 shacl validate --shapes /tmp/mia-shapes.ttl --data /tmp/mia-merged.ttl --text
@@ -342,7 +357,7 @@ riot --output=turtle \
   project_files/wikidata-vehicle-makes-subset.ttl \
   project_files/wikidata-vehicle-models-subset.ttl \
   persona.ttl persona-templates.ttl graph.ttl cell.ttl category.ttl cell-templates.ttl other/pets.ttl other/vehicles.ttl \
-  organization.ttl \
+  organization.ttl agent.ttl \
   example/graphs/self.ttl \
   2>/dev/null > /tmp/mia-base.ttl
 

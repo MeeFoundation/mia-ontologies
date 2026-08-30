@@ -10,6 +10,7 @@ The following **domain ontologies** model claims about people, organizations, an
   - **StagingOntology** — staging area for terms pending promotion (phone numbers, email addresses, user accounts, etc.)
   - **AgentOntology** — agents and their properties (imported transitively via PersonOntology)
 - **Organization ontology** — models organizations (companies, government agencies, non-profits, etc.) 
+- **Agent ontology** — models AI agents (e.g. an LLM-based assistant such as ChatGPT) that a person or organization invites to collaborate inside a shared cell — a third kind of first-class, member-capable participant, peer to the Persona and Organization ontologies. See [Agent Ontology](#agent-ontology).
 - **Other domain ontologies** (`other/`) — a growing family of small, independent peer ontologies for domains a person merely *has* (a pet, a vehicle) rather than *is*. The Persona ontology stays mostly about a person's own identity: `persona.ttl` holds only a thin `hasX` link property into each of these domains (e.g. `p:hasPet`, domain `p:Person`, range that domain's own class, referenced by name with no `owl:imports` in either direction), never the domain's own modeling. Each `other/*.ttl` file instead holds the actual "what is a pet / vehicle / etc." vocabulary — mostly vendored from real external ontologies rather than invented locally, the same way `persona.ttl` itself imports and profiles existing domain ontologies. This content can only ever reach a cell through its `c:topic` (never its `c:members`, which are always real relationship participants — see [Topic Cell](#topic-cell)):
   - **Pets ontology** (`other/pets.ttl`) — models what a pet *is*: name, species, breed, birth date, body weight, sex, spay/neuter status, and medications. See [Pets Ontology](#pets-ontology).
   - **Vehicles ontology** (`other/vehicles.ttl`) — models what a vehicle *is*: vehicle type, make, model, model year, VIN, color, body type, fuel type, drive wheel configuration, odometer reading, and engine specification. See [Vehicles Ontology](#vehicles-ontology).
@@ -23,6 +24,7 @@ Throughout this document we use these short-hands:
 - `g:` for the `graph:` namespace (`http://mee.foundation/ontologies/graph#`)
 - `p:` for the `persona:` namespace (`http://mee.foundation/ontologies/persona#`)
 - `o:` for the `organization:` namespace (`http://mee.foundation/ontologies/organization#`)
+- `agent:` for the `agent:` namespace (`http://mee.foundation/ontologies/agent#`) — see [Agent Ontology](#agent-ontology)
 - `pets:` for the `other/pets.ttl` namespace (`http://mee.foundation/ontologies/pets#`) — see [Pets Ontology](#pets-ontology)
 - `vehicles:` for the `other/vehicles.ttl` namespace (`http://mee.foundation/ontologies/vehicles#`) — see [Vehicles Ontology](#vehicles-ontology)
 
@@ -107,6 +109,7 @@ As we've mentioned, the user is free to create cells not included in the predefi
 1. **Things** (`cat:Things`) — owned assets, property, vehicles, and other possessions.
     - **Vehicles** (`cat:Vehicles`) — related to owning and maintaining a vehicle. Vehicle insurance, repairs, mechanics, garages. 
 1. **Travel** (`cat:Travel`) — travel plans, trips, and related information. Loyalty programs, airlines, bus lines, trains.
+    - **Trips** (`cat:Trips`) — an individual trip being planned or taken — its own itinerary, dates, and destination-specific details, as distinct from `cat:Travel`'s broader loyalty-program/airline/general travel information.
 1. **Food** (`cat:Food`) — food preferences, dietary restrictions, favorite restaurants, recipes, shopping lists, and other food-related interests
 1. **Sports & Entertainment** (`cat:SportsEntertainment`) — sports events (watching or participating) and entertainment (movies, plays, jazz clubs). Favorite teams/groups, venues, streaming services, ticketing. See `cat:Information` for other interests.
 1. **Education** (`cat:Education`) — educational history and ongoing learning — schools, degrees, certifications, transcripts, and enrolled courses.
@@ -245,7 +248,7 @@ Reusable class-level templates (`cell-templates.ttl`) are the exception: each is
 
 - **Subject** — not a stored property; who or what a cell's relationship is about is derived from its graph links instead. If the cell has any `c:topic` values (i.e. it's also typed `c:TopicCell`), the full set of distinct `g:subject` values among them is the answer; otherwise the answer is the full set of distinct `g:subject` values found among the cell's `c:members` (its active members). See [Members](#members) below for the worked-out cases.
 
-- **`c:members`** — one or more values, required; It's a link to the required baseline of subject-claimant graphs (`g:SCGraph`) that hold the structured content of the cell related to the members with which the cell has been shared. Its cardinality varies by member count — see [Members](#members). Each SCGraph has a *subject* and a *claimant*. The subject is always a real relationship participant — a `p:Person` or `o:Organization` (the same union `c:creator`'s own range uses), never an entity from one of the `other/` domain ontologies (see [Topic Cell](#topic-cell) below for that distinction). The claimant is the person, group or organization that is asserting the values of the claims in the container. See [Graph Ontology](#graph-ontology) for details.
+- **`c:members`** — one or more values, required; It's a link to the required baseline of subject-claimant graphs (`g:SCGraph`) that hold the structured content of the cell related to the members with which the cell has been shared. Its cardinality varies by member count — see [Members](#members). Each SCGraph has a *subject* and a *claimant*. The subject is always a real relationship participant — a `p:Person`, `o:Organization`, or `agent:Agent` (the same union `g:claimant`'s own range uses; broader than `c:creator`'s own range, which stays `p:Person`/`o:Organization` only, since an agent can join a cell as a member but never creates one) — never an entity from one of the `other/` domain ontologies (see [Topic Cell](#topic-cell) below for that distinction). The claimant is the person, group, organization, or agent that is asserting the values of the claims in the container. When the member who created a cell invites their own AI agent to collaborate, that agent gets its own self-claimed `c:members` entry alongside the human members — see [Agent Ontology](#agent-ontology). See [Graph Ontology](#graph-ontology) for details.
 
 - **`c:shape`** — a `owl:ObjectProperty`, domain `c:MemberCell`, range `sh:NodeShape`. Optional; most actual cells carry no `c:shape` value. Links a `c:MemberCell` individual directly to the `sh:NodeShape`(s) validating that specific cell's own content, as opposed to `c:templateShape`, which describes what a graph filed under some other, template category should look like. Populated by copy-on-clone: when Lazy Instantiation clones a `c:TemplateCell` into a new `c:MemberCell` — whatever `c:templateShape` value the `TemplateCell` carried is copied into the clone's `c:shape` with the same validation expectation.
 
@@ -268,7 +271,7 @@ The `c:members` and `c:topic` are lists of `g:SCGraphs`. See the [Graph Ontology
 
 ### Topic Cell
 
-A `c:TopicCell` is a subclass of `c:MemberCell` for a member cell that adds the concept of a *topic* focus for the cell carried by one or more `c:topic` values — additional `g:SCGraph` containers beyond the cell's `c:members` baseline. This focus is typically about a third party who is not a member of the cell — a non-member `p:Person`/`o:Organization`, representable by the Persona Ontology, exactly like a `c:members` value would be — but, unlike `c:members`, it may equally be about an entity from one of the `other/` domain ontologies instead (e.g. a pet, via [Pets Ontology](#pets-ontology)'s `pets:Pet`). This asymmetry is fundamental, not incidental: a `c:members` value is always a real relationship participant (`p:Person`/`o:Organization` — see `c:members`'s own definition above), so `other/*.ttl` domain-ontology content can only ever reach a cell through `c:topic`, never `c:members`.
+A `c:TopicCell` is a subclass of `c:MemberCell` for a member cell that adds the concept of a *topic* focus for the cell carried by one or more `c:topic` values — additional `g:SCGraph` containers beyond the cell's `c:members` baseline. This focus is typically about a third party who is not a member of the cell — a non-member `p:Person`/`o:Organization`, representable by the Persona Ontology, exactly like a `c:members` value would be — but, unlike `c:members`, it may equally be about an entity from one of the `other/` domain ontologies instead (e.g. a pet, via [Pets Ontology](#pets-ontology)'s `pets:Pet`), or about whatever the cell's relationship concerns more broadly (e.g. a trip being planned, with no dedicated domain ontology of its own — see [Agent Ontology](#agent-ontology)'s worked example). This asymmetry is fundamental, not incidental: a `c:members` value is always a real relationship participant (`p:Person`/`o:Organization`/`agent:Agent` — see `c:members`'s own definition above), so `other/*.ttl` domain-ontology content — and any other non-relationship-participant topic — can only ever reach a cell through `c:topic`, never `c:members`.
 
 #### Properties
 
@@ -284,7 +287,9 @@ Each cell's fill color and cell name text color follow a display convention root
 
 Regular cells contain one of more circle that represent structured information about the cell members. A Topic Cell also contains a square "topic" that contains structured information about a non-member person, organization or any other topic.
 
-Both square topics and circular members, the fill color marks who claimed that graph: green fill for a graph claimed by someone other than the self (another person or an `o:Organization`); a dashed/outlined (unfilled) shape for a graph claimed by the self (the user). For example the `Bob Johnson` cell has four circles — two claimed by Bob, two claimed by Self. The `BHS` cell, a Topic Cell, has three circles (Self, Bob, and BHS's own member graphs) plus one square (BHS's organization profile, linked via `c:topic`). The `Medical Appointment` cell shows that `c:topic` isn't capped at one value: it has two squares (one claimed by each side) alongside its two member circles.
+Both square topics and circular members, the fill color marks who claimed that graph: green fill for a graph claimed by someone other than the self (another person or an `o:Organization`); gray fill for a graph claimed by a delegate — an invited `agent:Agent` (see [Agent Ontology](#agent-ontology)); a dashed/outlined (unfilled) shape for a graph claimed by the self (the user). For example the `Bob Johnson` cell has four circles — two claimed by Bob, two claimed by Self. The `BHS` cell, a Topic Cell, has three circles (Self, Bob, and BHS's own member graphs) plus one square (BHS's organization profile, linked via `c:topic`). The `Medical Appointment` cell shows that `c:topic` isn't capped at one value: it has two squares (one claimed by each side) alongside its two member circles. The `Kyoto Trip 2027` cell (see EXAMPLE.md's [Planning a Trip with an Agent](EXAMPLE.md#planning-a-trip-with-an-agent)) shows the gray/delegate fill in practice: one of its three member circles is Alice's own invited travel agent, and one of its two topic squares — both about the same trip — is claimed by that agent rather than by Alice.
+
+Cell box border style no longer varies by member count — every cell box uses one uniform style regardless of `c:memberCount`; a cell's actual member count is recorded only in its own `mia.memberCount` field, not in any diagram-visible border distinction.
 
 A class's template cell (`cell-templates.ttl`) may also carry validation metadata declared in the paired `cell-templates-shacl.ttl`. This metadata lives on the class-level template only.
 
@@ -351,10 +356,11 @@ Two more properties apply to every graph linked from a cell, since every `c:memb
 - a named individual of `p:Person` — the graph is about another user.
 - a named individual of `o:Organization` — the graph is about an organization (legal corporation or government agency).
 
-**`g:claimant`** — Who is making the claim. Values are local IRIs of `p:Person` or `o:Organization` individuals:
+**`g:claimant`** — Who is making the claim. Values are local IRIs of `p:Person`, `o:Organization`, or `agent:Agent` individuals:
 - `:Self` — the user that is entering the data, even if the underlying information originates from some other party such as a company, government agency, or another person.
 - a named individual of class `p:Person` — another user is claiming the data directly.
 - a named individual of class `o:Organization` — an organization is claiming the data.
+- a named individual of class `agent:Agent` — an invited AI agent is claiming the data, e.g. its own `c:members` self-claim or a `c:topic` graph it drafted (see [Agent Ontology](#agent-ontology)).
 
 The diagram below shows four kinds of graphs related to a hypothetical user, Alice, and her interactions with a Department of Motor Vehicles (DMV) agency. Across the top are two graphs where the DMV itself is the subject, and at the bottom where Alice is the subject. At the left are graphs where Alice has made the claims (e.g. Alice's own app instance has written the claims into the graph) and at the right are graphs where the DMV as the "other" has written the claims. 
 
@@ -367,10 +373,10 @@ The lower left shows a graph that Alice might share with other people or compani
 
 **`graph.ttl`** — the Graph ontology, defines:
   - *Classes*: `g:Graph`, `g:SCGraph` (Subject-Claimant graph; the concrete class every self-vs-other classified graph is typed as directly — it has no subclasses; carries the `g:subject`/`g:claimant` annotations — every graph reachable from a cell, via `c:members`/`c:topic`, is a `g:SCGraph`).
-  - *Annotation properties*: `g:template` (domain `g:Graph`), `g:claimant` (range a union of `p:Person`, `o:Organization`), `g:subject` (domain `g:SCGraph`; range `xsd:anyURI` — any resource IRI, not necessarily a `p:Person`/`o:Organization`).
+  - *Annotation properties*: `g:template` (domain `g:Graph`), `g:claimant` (range a union of `p:Person`, `o:Organization`, `agent:Agent`), `g:subject` (domain `g:SCGraph`; range `xsd:anyURI` — any resource IRI, not necessarily a `p:Person`/`o:Organization`).
   These terms are referenced by name in each graph's `mia.graphs[]` entry, inside its owning cell-databook file. `graph.ttl` imports `cell.ttl` to reuse `c:abstract` on `g:Graph`/`g:SCGraph`.
 
-**`graph-shacl.ttl`** — SHACL shapes for graph instances: `:SCGraphShape` (target `g:SCGraph`) constrains `g:claimant` to exactly one value, which must be a `p:Person` or `o:Organization`, and `g:subject` to exactly one value, which must be an IRI.
+**`graph-shacl.ttl`** — SHACL shapes for graph instances: `:SCGraphShape` (target `g:SCGraph`) constrains `g:claimant` to exactly one value, which must be a `p:Person`, `o:Organization`, or `agent:Agent`, and `g:subject` to exactly one value, which must be an IRI.
 
 ### Graph Ontology Validation
 
@@ -757,6 +763,30 @@ The Organization ontology models organizations — companies, government agencie
 ### Organization Ontology Validation
 
 `organization-shacl.ttl` targets `o:Organization` instances but currently has no property constraints of its own.
+
+## Agent Ontology
+
+The Agent ontology models AI agents (e.g. an LLM-based assistant such as ChatGPT) that a `p:Person` or `o:Organization` invites to collaborate inside a shared cell — a third kind of first-class, member-capable participant, peer to the Persona and Organization ontologies (*(todo)*: a class diagram at `images/agent-ontology/agent.png`, mirroring [`organization.png`](images/organization-ontology/organization.png)'s format, is a natural follow-up).
+
+An `agent:Agent` is never a `c:creator` (see [Cell Ontology](#cell-ontology)) — a cell is always created by a real relationship party — but it can be a genuine `c:members` participant, and a `g:claimant` (see [Graph Ontology](#graph-ontology)) of the graphs it contributes, including a `c:topic` graph about whatever the cell's relationship concerns. Each member of a shared cell can independently bring their own agent: when the cell's creator invites their agent in, it becomes a real member, distinct from any agent a different member separately invites.
+
+**Classes**
+
+* `agent:Agent` — an AI agent invited to collaborate inside a shared cell.
+
+**Properties**
+
+- **`agent:actsFor`** — required, exactly one value. Identifies the member (a `p:Person` or `o:Organization`) this agent is a delegate/collaborator for — e.g. Alice's own travel agent carries `agent:actsFor :Self`. An `owl:ObjectProperty`, domain `agent:Agent`, range the union `p:Person`/`o:Organization` — the same union-range pattern used by `c:creator` and `g:claimant`.
+
+**Worked example: planning a trip with an agent.** Alice creates a `cat:Trips` cell — e.g. "Kyoto Trip 2027," nested under a `cat:Travel` scaffold cell — and invites her own AI agent to help plan it. The agent becomes a real `c:members` participant alongside Alice herself, each with a self-claimed membership graph, making the cell `c:TwoMember` (two distinct members: `:Self` and the agent); a second member's own agent joining later would raise it to `c:ThreePlusMember`, the same way any additional human member would. The agent's substantive contribution — the trip's evolving itinerary — lives in a single `c:topic` graph, claimed by the agent, whose subject is the trip itself rather than a person. Because the agent is a literal cell member, it needs no special-case permission logic: it gets exactly the same read/write access to the cell's note, files, and chat that any human member has (see APP-BEHAVIOR.md's [Permissions](APP-BEHAVIOR.md#permissions)). See EXAMPLE.md's [Planning a Trip](EXAMPLE.md#planning-a-trip) for the full worked cell and graphs.
+
+### Agent Ontology File
+
+- **`agent.ttl`** — The Agent ontology, defining `agent:Agent` and `agent:actsFor`. Referenced by name from `cell.ttl` (`c:members`'s comment) and `graph.ttl` (`g:claimant`'s range) with no `owl:imports` either direction — the same convention `cell.ttl`/`graph.ttl` already use for `p:Person`/`o:Organization` (`persona.ttl`/`organization.ttl`).
+
+### Agent Ontology Validation
+
+`agent-shacl.ttl`'s `:AgentShape` (target `agent:Agent`) constrains `agent:actsFor` to exactly one value, which must be a `p:Person` or `o:Organization`.
 
 ---
 
