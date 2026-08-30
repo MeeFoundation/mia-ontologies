@@ -30,9 +30,9 @@ This display truncation limit is not publicly documented by Apple and likely var
 
 ## Level 2: Groups ↔ c:UserDefined Categories
 
-Apple Contacts groups are **flat** (one level only) and untyped. The app's category tree is hierarchical and typed (`c:TwoMember`, `c:MultiMember`, `c:UserDefined`, etc.).
+Apple Contacts groups are **flat** (one level only) and untyped. The app's category tree is hierarchical and typed (two-member cells, cells with more members, `c:UserDefined`, etc.).
 
-**Import (Apple Contacts → the app):** each Apple group becomes a leaf-level `c:TwoMember` or `c:UserDefined` category. No hierarchy is lost since Apple groups have none.
+**Import (Apple Contacts → the app):** each Apple group becomes a leaf-level two-member or `c:UserDefined` category. No hierarchy is lost since Apple groups have none.
 
 **Export (the app → Apple Contacts):** the hierarchy must be flattened. Two options:
 
