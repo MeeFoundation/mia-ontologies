@@ -108,7 +108,7 @@ This graph is another of the cell's three required `members` entries — Alice's
 
 :Alice_Travel_Agent rdf:type owl:NamedIndividual ,
                agent:Agent ;
-    rdfs:label "Alice's Travel Agent"@en ;
+    rdfs:label "Alice's Travel Agent (ChatGPT)"@en ;
     agent:actsFor :Self .
 ```
 
