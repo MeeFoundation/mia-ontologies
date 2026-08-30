@@ -9,7 +9,6 @@ description: >
 mia:
   origin: "cat:Others"
   creator: ":Self"
-  memberCount: "cell:TwoMember"
   members:
     - "graph-31"
     - "graph-29"

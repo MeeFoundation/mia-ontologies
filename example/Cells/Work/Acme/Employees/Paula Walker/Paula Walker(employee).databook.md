@@ -9,7 +9,6 @@ description: >
 mia:
   origin: "cat:Employee"
   creator: ":Self"
-  memberCount: "cell:OneMember"
   members: "graph-20"
   topic: "graph-06"
   graphs:

@@ -9,7 +9,6 @@ description: >
 mia:
   origin: "cat:Affiliations"
   creator: ":Self"
-  memberCount: "cell:ThreePlusMember"
   members:
     - "graph-01"
     - "graph-14"

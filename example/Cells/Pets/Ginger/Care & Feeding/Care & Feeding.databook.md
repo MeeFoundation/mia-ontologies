@@ -9,7 +9,6 @@ description: >
 mia:
   origin: "cat:PetsCareAndFeeding"
   creator: ":Self"
-  memberCount: "cell:TwoMember"
   members:
     - "graph-58"
     - "graph-59"
@@ -42,7 +41,7 @@ mia:
 
 #### Overview
 
-This graph is one of the cell's two `members` entries, satisfying `cell:TwoMember`'s per-member baseline alongside graph 59 (Paula's own claim, below). Alice is both the claimant and the subject. Deliberately empty: the `members` requirement is about `g:subject`/`g:claimant` (asserted at the `mia.graphs[]` YAML level, not in this Turtle body), not about carrying any particular content.
+This graph is one of the cell's two `members` entries, satisfying the two-member baseline alongside graph 59 (Paula's own claim, below). Alice is both the claimant and the subject. Deliberately empty: the `members` requirement is about `g:subject`/`g:claimant` (asserted at the `mia.graphs[]` YAML level, not in this Turtle body), not about carrying any particular content.
 
 #### Graph
 
@@ -56,7 +55,7 @@ This graph is one of the cell's two `members` entries, satisfying `cell:TwoMembe
 
 #### Overview
 
-This cell was created by Alice and later shared with Paula, making the cell a `cell:TwoMember` cell. This graph is Paula's own bare identity claim (just her given name) — the cell's second `members` entry, satisfying `cell:TwoMember`'s per-member baseline alongside graph 58 (Alice's own claim, above). Paula is both the claimant and the subject.
+This cell was created by Alice and later shared with Paula, making the cell a two-member cell. This graph is Paula's own bare identity claim (just her given name) — the cell's second `members` entry, satisfying the two-member baseline alongside graph 58 (Alice's own claim, above). Paula is both the claimant and the subject.
 
 #### Graph
 

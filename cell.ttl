@@ -13,7 +13,7 @@
 @base <http://mee.foundation/ontologies/cell> .
 
 <http://mee.foundation/ontologies/cell> rdf:type owl:Ontology ;
-    owl:versionIRI <http://mee.foundation/ontologies/cell/3.42.0> ;
+    owl:versionIRI <http://mee.foundation/ontologies/cell/3.43.0> ;
     dc:date "2026-08-30"^^xsd:date ;
     owl:imports <http://mee.foundation/ontologies/graph> ;
     rdfs:label "Cell Ontology"@en ;
@@ -29,13 +29,6 @@ cell:abstract rdf:type owl:AnnotationProperty ;
     rdfs:range xsd:boolean ;
     rdfs:label "abstract"@en ;
     rdfs:comment "True if this class is not directly instantiated in DataBooks — it exists only to organize the class hierarchy."@en .
-
-cell:label rdf:type owl:AnnotationProperty ;
-    rdfs:domain cell:Cell ;
-    rdfs:range xsd:string ;
-    rdfs:label "label"@en ;
-    rdfs:comment "Default display name for a concrete cell:Cell subtype (e.g. \"2 Member Cell\"), asserted directly on the class rather than an instance."@en .
-
 
 #################################################################
 #    Cell
@@ -77,7 +70,7 @@ cell:label rdf:type owl:AnnotationProperty ;
 cell:Cell rdf:type owl:Class ;
     cell:abstract true ;
     rdfs:label "Cell"@en ;
-    rdfs:comment "Superclass of every cell individual, carrying only what's common regardless of kind: inherent classification (cell:origin). cell:Cell — the RDF content facet of a cell — stores no property recording its own tree position: a cell's position is simply whichever folder it (folder + this cell-databook) currently occupies, and moving that folder is a pure filesystem operation requiring no triple to change, which is what keeps a cell robust under PDN sync. cell:origin does not violate this: its range is the abstract classificatory cat:Category, not a tree position, so it records what kind of thing the cell is, never where it currently lives. Member composition (cell:memberCount, cell:OneMember/cell:MultiMember), creator metadata (cell:creator), graph links (cell:members, cell:topic), and validation (cell:shape) live on the cell:MemberCell kind (and, for cell:topic, its cell:TopicCell subclass), not directly here."@en .
+    rdfs:comment "Superclass of every cell individual, carrying only what's common regardless of kind: inherent classification (cell:origin). cell:Cell — the RDF content facet of a cell — stores no property recording its own tree position: a cell's position is simply whichever folder it (folder + this cell-databook) currently occupies, and moving that folder is a pure filesystem operation requiring no triple to change, which is what keeps a cell robust under PDN sync. cell:origin does not violate this: its range is the abstract classificatory cat:Category, not a tree position, so it records what kind of thing the cell is, never where it currently lives. Creator metadata (cell:creator), graph links (cell:members, cell:topic), and validation (cell:shape) live on the cell:MemberCell kind (and, for cell:topic, its cell:TopicCell subclass), not directly here."@en .
 
 
 #################################################################
@@ -94,13 +87,12 @@ cell:Cell rdf:type owl:Class ;
 #    never in a user's own tree.
 #
 #    cell:MemberCell — an actual cell instantiated in a user's own
-#    tree. Carries cell:memberCount (and, by extension, cell:OneMember/
-#    cell:MultiMember), cell:creator, cell:shape — the sh:NodeShape(s)
+#    tree. Carries cell:creator, cell:shape — the sh:NodeShape(s)
 #    validating this specific cell's own content directly, as opposed
 #    to content a future graph filed under a template category should
 #    conform to — and cell:members, its required baseline of linked
 #    g:SCGraph containers, one per member in the relationship
-#    (cardinality varies by member count). A cell:MemberCell that also
+#    (no fixed upper bound). A cell:MemberCell that also
 #    carries one or more cell:topic values — additional
 #    g:SCGraph containers beyond that baseline — is additionally typed
 #    cell:TopicCell (see below), the only class cell:topic's domain
@@ -113,9 +105,8 @@ cell:Cell rdf:type owl:Class ;
 #    side — it is reusable template content, not itself a piece of
 #    member-classified content. When Lazy Instantiation clones that
 #    template into a new cell for a user's tree, the clone is a wholly
-#    separate individual, typed cell:MemberCell (plus a concrete member
-#    class, and cell:TopicCell once/if it later gains a cell:topic
-#    value) instead.
+#    separate individual, typed cell:MemberCell (and cell:TopicCell
+#    once/if it later gains a cell:topic value) instead.
 #################################################################
 
 cell:TemplateCell rdf:type owl:Class ;
@@ -135,13 +126,12 @@ cell:isTopicCell rdf:type owl:DatatypeProperty ;
     rdfs:domain cell:TemplateCell ;
     rdfs:range xsd:boolean ;
     rdfs:label "isTopicCell"@en ;
-    rdfs:comment "A boolean flag on a cell:TemplateCell individual telling Lazy Instantiation whether the cell it clones into a user's tree is expected to be typed cell:TopicCell — i.e. to carry a cell:topic value once real content is filed under it — as opposed to staying a bare concrete member-count cell (cell:OneMember/cell:TwoMember/cell:ThreePlusMember) with no cell:topic. Required, exactly one value — every cell:TemplateCell individual must declare it explicitly, one way or the other, rather than leaving it to an absent-means-false default. E.g. ctpl:MedicalAppointmentTemplateCell and ctpl:PetMedicationsTemplateCell (cell-templates.ttl) carry cell:isTopicCell true, since a real Medical Appointment or Medications cell always ends up about a third party (Paula, Ginger) beyond its own cell:members baseline; ctpl:PassportTemplateCell/ctpl:BirthCertificateTemplateCell/ctpl:DriversLicenseTemplateCell carry cell:isTopicCell false, since a real cell cloned from any of them never gains a cell:topic value. Does not itself assert cell:TopicCell on the template individual — cell:TemplateCell and cell:MemberCell (and its cell:TopicCell subclass) are disjoint; this flag only describes what the eventual clone should be typed as, once instantiated."@en .
+    rdfs:comment "A boolean flag on a cell:TemplateCell individual telling Lazy Instantiation whether the cell it clones into a user's tree is expected to be typed cell:TopicCell — i.e. to carry a cell:topic value once real content is filed under it — as opposed to staying a bare cell:MemberCell with no cell:topic. Required, exactly one value — every cell:TemplateCell individual must declare it explicitly, one way or the other, rather than leaving it to an absent-means-false default. E.g. ctpl:MedicalAppointmentTemplateCell and ctpl:PetMedicationsTemplateCell (cell-templates.ttl) carry cell:isTopicCell true, since a real Medical Appointment or Medications cell always ends up about a third party (Paula, Ginger) beyond its own cell:members baseline; ctpl:PassportTemplateCell/ctpl:BirthCertificateTemplateCell/ctpl:DriversLicenseTemplateCell carry cell:isTopicCell false, since a real cell cloned from any of them never gains a cell:topic value. Does not itself assert cell:TopicCell on the template individual — cell:TemplateCell and cell:MemberCell (and its cell:TopicCell subclass) are disjoint; this flag only describes what the eventual clone should be typed as, once instantiated."@en .
 
 cell:MemberCell rdf:type owl:Class ;
-    cell:abstract true ;
     rdfs:subClassOf cell:Cell ;
     rdfs:label "Member Cell"@en ;
-    rdfs:comment "An actual cell instantiated in a user's own tree — real, member-classified content, as opposed to a reusable class-level template (cell:TemplateCell). Carries cell:memberCount (and is further specialized by member count into cell:OneMember and cell:MultiMember — see Cell Member Composition below), cell:creator (required, exactly one value), cell:members (required, one or more g:SCGraph containers backing the cell's content — one per member in the relationship, cardinality enforced per member count), and cell:shape. A cell:MemberCell that also carries one or more cell:topic values is additionally typed cell:TopicCell, the only class cell:topic (one or more additional g:SCGraph containers beyond the cell:members baseline) has domain over. Who or what the cell's relationship is about is not a stored fact — it is derivable directly from cell:members/cell:topic: the full set of distinct subjects among cell:topic if any are linked, else the full set of distinct subjects among cell:members (see cell:topic's own comment). Every concrete member-count class (cell:OneMember, cell:TwoMember, cell:ThreePlusMember) is a subclass of cell:MemberCell, not cell:Cell directly. Disjoint with cell:TemplateCell (see cell:TemplateCell's own comment): every cell:Cell individual in a user's own tree is typed cell:MemberCell, never cell:TemplateCell, which is reserved for the reusable templates in cell-templates.ttl. Even a purely organizational cell with nothing substantive to say carries a minimal stub cell:members entry (claimed by and about cell:creator's own :Self) rather than omitting member content altogether — such a cell has no third party to link via cell:topic, so it stays a bare cell:MemberCell, not also cell:TopicCell."@en .
+    rdfs:comment "An actual cell instantiated in a user's own tree — real, member-classified content, as opposed to a reusable class-level template (cell:TemplateCell). Carries cell:creator (required, exactly one value), cell:members (required, one or more g:SCGraph containers backing the cell's content — one per member in the relationship, no fixed upper bound), and cell:shape. A cell:MemberCell that also carries one or more cell:topic values is additionally typed cell:TopicCell, the only class cell:topic (one or more additional g:SCGraph containers beyond the cell:members baseline) has domain over. Who or what the cell's relationship is about is not a stored fact — it is derivable directly from cell:members/cell:topic: the full set of distinct subjects among cell:topic if any are linked, else the full set of distinct subjects among cell:members (see cell:topic's own comment). Every real cell:Cell individual in a user's own tree is typed directly cell:MemberCell — its member count is never itself stored as a class, simply counted from cell:members/cell:topic when needed. Disjoint with cell:TemplateCell (see cell:TemplateCell's own comment): every cell:Cell individual in a user's own tree is typed cell:MemberCell, never cell:TemplateCell, which is reserved for the reusable templates in cell-templates.ttl. Even a purely organizational cell with nothing substantive to say carries a minimal stub cell:members entry (claimed by and about cell:creator's own :Self) rather than omitting member content altogether — such a cell has no third party to link via cell:topic, so it stays a bare cell:MemberCell, not also cell:TopicCell."@en .
 
 cell:shape rdf:type owl:ObjectProperty ;
     rdfs:domain cell:MemberCell ;
@@ -154,49 +144,6 @@ cell:creator rdf:type owl:ObjectProperty ;
     rdfs:range [ rdf:type owl:Class ; owl:unionOf ( p:Person o:Organization ) ] ;
     rdfs:label "creator"@en ;
     rdfs:comment "Identifies who created a cell's content — a named individual of p:Person or o:Organization. Required, exactly one value, since every actual cell's content is authored by someone. Mirrors the union-range pattern used by g:claimant (graph.ttl), referencing those classes by name without owl:imports. Only actual/instantiated cells (cell:MemberCell) have a creator."@en .
-
-cell:memberCount rdf:type owl:ObjectProperty ;
-    rdfs:domain cell:MemberCell ;
-    rdfs:range cell:MemberCell ;
-    rdfs:label "memberCount"@en ;
-    rdfs:comment "Links a cell:MemberCell individual to the concrete cell:MemberCell subclass it instantiates: cell:OneMember, cell:TwoMember, or cell:ThreePlusMember. Value is the class itself (e.g. cell:OneMember), not a string — the same class-value-punning pattern cell:origin uses for its own range, cat:Category. Exactly one value required, matching that individual's own rdf:type. Only actual/instantiated cells (cell:MemberCell) carry member composition."@en .
-
-
-#################################################################
-#    Cell Member Composition
-#
-#    An actual (cell:MemberCell) cell varies by how many total members
-#    (the user plus zero or more others) are involved in the
-#    relationship it represents: cell:OneMember (the user alone), or
-#    cell:MultiMember (the user plus one or more others, further split
-#    into cell:TwoMember and cell:ThreePlusMember). Both are subclasses
-#    of cell:MemberCell, not cell:Cell directly.
-#################################################################
-
-cell:MultiMember rdf:type owl:Class ;
-    cell:abstract true ;
-    rdfs:subClassOf cell:MemberCell ;
-    rdfs:label "MultiMember"@en ;
-    rdfs:comment "Abstract superclass of the two cell types involving more than one total member: cell:TwoMember (exactly one other member) and cell:ThreePlusMember (two or more other members, e.g. a group)."@en .
-
-cell:TwoMember rdf:type owl:Class ;
-    rdfs:subClassOf cell:MultiMember ;
-    rdfs:label "TwoMember"@en ;
-    cell:label "2 Member Cell" ;
-    rdfs:comment "A cell representing a 1:1 relationship with a specific person, organization, or other member."@en .
-
-cell:ThreePlusMember rdf:type owl:Class ;
-    rdfs:subClassOf cell:MultiMember ;
-    rdfs:label "ThreePlusMember"@en ;
-    cell:label "3+ Member Cell" ;
-    rdfs:comment "A cell representing a shared relationship with two or more other members — e.g. several people and/or organizations."@en .
-
-cell:OneMember rdf:type owl:Class ;
-    rdfs:subClassOf cell:MemberCell ;
-    rdfs:label "OneMember"@en ;
-    cell:label "1 Member Cell" ;
-    rdfs:comment "A cell with no external member — plain content with no connection or group semantics."@en .
-
 
 #################################################################
 #    Topic Cell
@@ -211,9 +158,7 @@ cell:OneMember rdf:type owl:Class ;
 #    graph). Most cells have no cell:topic value at all —
 #    cell:TopicCell is the minority subclass, not the default. Not
 #    itself abstract: a real cell:MemberCell with a cell:topic value
-#    is directly instantiated as a cell:TopicCell too, alongside its
-#    concrete member-count class (cell:OneMember/cell:TwoMember/
-#    cell:ThreePlusMember).
+#    is directly instantiated as a cell:TopicCell too.
 #################################################################
 
 cell:TopicCell rdf:type owl:Class ;
@@ -233,14 +178,12 @@ cell:TopicCell rdf:type owl:Class ;
 #    cell:MemberCell, never gaining cell:TopicCell.
 #
 #    cell:members is the required baseline — at least one
-#    g:SCGraph per member in the relationship (cardinality
-#    enforced per member count by cell-shacl.ttl's per-member-class
-#    shapes, not expressible as a single OWL cardinality restriction
-#    here); cell:topic is one or more additional graphs beyond that
-#    baseline (required, at least one, once a cell is typed
-#    cell:TopicCell at all — no upper bound), present on the minority
-#    of cells that actually link a graph about a third party beyond
-#    their own members.
+#    g:SCGraph per member in the relationship, no fixed upper bound
+#    (enforced by cell-shacl.ttl's :MemberCellShape); cell:topic is
+#    one or more additional graphs beyond that baseline (required, at
+#    least one, once a cell is typed cell:TopicCell at all — no upper
+#    bound), present on the minority of cells that actually link a
+#    graph about a third party beyond their own members.
 #
 #    Together these two properties are also how a consumer derives
 #    who or what a cell's relationship is about, now that there is no
@@ -248,9 +191,9 @@ cell:TopicCell rdf:type owl:Class ;
 #    values (i.e. it's typed cell:TopicCell), the full set of distinct
 #    g:subject values among them is the answer; otherwise the
 #    answer is the full set of distinct g:subject values found
-#    among cell:members (for a cell:OneMember cell this is trivially
-#    :Self; for cell:TwoMember/cell:ThreePlusMember with no
-#    cell:topic, it is every one of that cell's active members). See
+#    among cell:members (for a single-member cell this is trivially
+#    :Self; for a cell with more members and no cell:topic, it is
+#    every one of that cell's active members). See
 #    README.md's Cell Ontology section for the full rule and worked
 #    examples.
 #################################################################
@@ -259,13 +202,13 @@ cell:members rdf:type owl:ObjectProperty ;
     rdfs:domain cell:MemberCell ;
     rdfs:range g:SCGraph ;
     rdfs:label "members"@en ;
-    rdfs:comment "Links an actual (instantiated) cell to its required baseline of Subject-Claimant classified graph DataBooks (g:SCGraph, which has no subclasses) — at least one per member in the relationship. Cardinality is enforced per member count by cell-shacl.ttl's per-member-class shapes: exactly 1 for cell:OneMember; 2..4 for cell:TwoMember (matching the four self-vs-other combinations — self-by-self, other-by-self, other-by-other, self-by-other); 3..N for cell:ThreePlusMember (at least one per member, no upper bound). Which of the four self-vs-other cases a given value represents comes from that graph's own subject/claimant combination, not from which property linked it or from a distinct rdf:type. Unlike cell:topic, cell:members carries no bearing on whether a cell is typed cell:TopicCell — that turns solely on cell:topic's presence (see cell:TopicCell's own comment). Every cell:members graph's subject is a real relationship participant — a p:Person, o:Organization, or agent:Agent (e.g. a cell:ThreePlusMember Affiliations cell's members can include the affiliated o:Organization itself, not just p:Person individuals; an invited agent:Agent, once a member creator invites their own AI agent into the cell, gets its own self-claimed cell:members entry alongside the human members, which also raises the cell's own distinct-member count — see CLAUDE.md's Check 17) — so cell:members content never reaches into an other/*.ttl domain ontology (e.g. pets:Pet); only cell:topic can (see cell:topic's own comment). Unlike cell:members, cell:creator's own range stays the narrower p:Person/o:Organization union — an agent:Agent can join a cell as a member but never creates one. Together with cell:topic, this is also the sole basis for deriving who or what the cell's relationship is about — see cell:topic's own comment for the rule."@en .
+    rdfs:comment "Links an actual (instantiated) cell to its required baseline of Subject-Claimant classified graph DataBooks (g:SCGraph, which has no subclasses) — at least one per member in the relationship, no fixed upper bound (enforced by cell-shacl.ttl's :MemberCellShape) — a cell is not expected to ever have more than a couple dozen members, but nothing here caps it. Which self-vs-other case a given value represents comes from that graph's own subject/claimant combination, not from which property linked it or from a distinct rdf:type. Unlike cell:topic, cell:members carries no bearing on whether a cell is typed cell:TopicCell — that turns solely on cell:topic's presence (see cell:TopicCell's own comment). Every cell:members graph's subject is a real relationship participant — a p:Person, o:Organization, or agent:Agent (e.g. a large Affiliations cell's members can include the affiliated o:Organization itself, not just p:Person individuals; an invited agent:Agent, once a member creator invites their own AI agent into the cell, gets its own self-claimed cell:members entry alongside the human members) — so cell:members content never reaches into an other/*.ttl domain ontology (e.g. pets:Pet); only cell:topic can (see cell:topic's own comment). Unlike cell:members, cell:creator's own range stays the narrower p:Person/o:Organization union — an agent:Agent can join a cell as a member but never creates one. Together with cell:topic, this is also the sole basis for deriving who or what the cell's relationship is about — see cell:topic's own comment for the rule."@en .
 
 cell:topic rdf:type owl:ObjectProperty ;
     rdfs:domain cell:TopicCell ;
     rdfs:range g:SCGraph ;
     rdfs:label "topic"@en ;
-    rdfs:comment "Links a cell:TopicCell individual to one or more additional Subject-Claimant classified graph DataBooks (g:SCGraph) beyond the required cell:members baseline — typically a third party (or parties) the cell's relationship concerns but who aren't among its members. Required, at least one value, no upper bound — enforced by cell-shacl.ttl's :TopicCellShape (sh:class g:SCGraph, sh:minCount 1) — a cell is typed cell:TopicCell precisely because it carries at least one such value, not the other way around. Unlike cell:members, whose subject is always a real relationship participant (a p:Person, o:Organization, or agent:Agent — see cell:members's own comment), a cell:topic's subject can be a non-member p:Person or o:Organization (e.g. a family member's primary care physician, still no other/*.ttl ontology involved) or an individual from one of the other/*.ttl domain ontologies for something a person merely has rather than is (e.g. pets:Pet, other/pets.ttl) — other/*.ttl content can only ever reach a cell this way, never via cell:members. When any cell:topic values are present, the full set of distinct g:subject values among them is who or what the cell is about, distinct from the cell's active members; when absent (the common case — most cells are never typed cell:TopicCell), the cell's subject is simply the full set of distinct g:subject values among cell:members — i.e. its active members themselves (e.g. a cell:TwoMember cell with no cell:topic is understood as being about the connection between its two members). There is no independently-asserted cell:subject property — a cell's subject is always computed this way, never stored."@en .
+    rdfs:comment "Links a cell:TopicCell individual to one or more additional Subject-Claimant classified graph DataBooks (g:SCGraph) beyond the required cell:members baseline — typically a third party (or parties) the cell's relationship concerns but who aren't among its members. Required, at least one value, no upper bound — enforced by cell-shacl.ttl's :TopicCellShape (sh:class g:SCGraph, sh:minCount 1) — a cell is typed cell:TopicCell precisely because it carries at least one such value, not the other way around. Unlike cell:members, whose subject is always a real relationship participant (a p:Person, o:Organization, or agent:Agent — see cell:members's own comment), a cell:topic's subject can be a non-member p:Person or o:Organization (e.g. a family member's primary care physician, still no other/*.ttl ontology involved) or an individual from one of the other/*.ttl domain ontologies for something a person merely has rather than is (e.g. pets:Pet, other/pets.ttl) — other/*.ttl content can only ever reach a cell this way, never via cell:members. When any cell:topic values are present, the full set of distinct g:subject values among them is who or what the cell is about, distinct from the cell's active members; when absent (the common case — most cells are never typed cell:TopicCell), the cell's subject is simply the full set of distinct g:subject values among cell:members — i.e. its active members themselves (e.g. a two-member cell with no cell:topic is understood as being about the connection between its two members). There is no independently-asserted cell:subject property — a cell's subject is always computed this way, never stored."@en .
 
 
 #################################################################
@@ -348,4 +291,4 @@ cell:origin rdf:type owl:ObjectProperty ;
     rdfs:domain cell:Cell ;
     rdfs:range cat:Category ;
     rdfs:label "origin"@en ;
-    rdfs:comment "The cat:Category subclass this cell was originally instantiated as — the concrete leaf class itself (e.g. cat:Others, cat:BankingPayments), not a string, mirroring cell:memberCount's use of class-value punning as an object property's range. For one of the four templated classes (cat:Passport/cat:BirthCertificate/cat:DriversLicense/cat:MedicalAppointment), this is literally the class whose cell:TemplateCell template was cloned into this cell (Lazy Instantiation, via category.ttl's cat:templateCell); for any other cell, it is simply the category the cell was created to represent, asserted directly with no template involved. At most one value (0..1), on any cell:Cell regardless of facet, matching cell.png's origin arrow off Cell. Absent exactly when the cell is of the UserDefined category — a category folder the user created without picking any existing cat:Category class, identified precisely by its cell-databook's filename carrying the literal (custom) disambiguator in place of an origin-derived <catType> (e.g. Friends(custom).databook.md), not by a vague 'no canonical counterpart' judgment call. This is a different fact from whether the folder's own name matches its origin's rdfs:label verbatim — see the green ('Predefined')/purple ('UserDefined') folder-name-text convention documented in APP-BEHAVIOR.md and CLAUDE.md's Check 15/10j, which only applies when an origin IS present; a UserDefined (no-origin) cell's name is trivially always 'UserDefined' text too, since there is no label to possibly match. This value is fixed at the point the cell was created — it is not re-derived from the folder's current name, so it needs no update if the folder is later moved or renamed, keeping a cell:Cell robust under PDN sync exactly as its own class comment already promises (no stored tree-position property). Purpose: when a cell is shared with another PDN member, the recipient's app can use this value, if present, as a hint for which folder in the recipient's own tree the incoming cell should be filed under — a snapshot of the sender's original classification, robust to either side's tree being organized differently. A folder's own filesystem position has no RDF representation at all — UserDefined is a filename/display convention only, never an OWL class. Range cat:Category is referenced by name without owl:imports, mirroring cell:creator's identical pattern for p:Person/o:Organization (persona.ttl/organization.ttl) — category.ttl already imports cell.ttl, so importing it back here would create a mutual import for no reason cell:origin actually needs."@en .
+    rdfs:comment "The cat:Category subclass this cell was originally instantiated as — the concrete leaf class itself (e.g. cat:Others, cat:BankingPayments), not a string, using class-value punning for an object property's range, the same pattern other/vehicles.ttl's vehicles:hasVehicleType uses. For one of the four templated classes (cat:Passport/cat:BirthCertificate/cat:DriversLicense/cat:MedicalAppointment), this is literally the class whose cell:TemplateCell template was cloned into this cell (Lazy Instantiation, via category.ttl's cat:templateCell); for any other cell, it is simply the category the cell was created to represent, asserted directly with no template involved. At most one value (0..1), on any cell:Cell regardless of facet, matching cell.png's origin arrow off Cell. Absent exactly when the cell is of the UserDefined category — a category folder the user created without picking any existing cat:Category class, identified precisely by its cell-databook's filename carrying the literal (custom) disambiguator in place of an origin-derived <catType> (e.g. Friends(custom).databook.md), not by a vague 'no canonical counterpart' judgment call. This is a different fact from whether the folder's own name matches its origin's rdfs:label verbatim — see the green ('Predefined')/purple ('UserDefined') folder-name-text convention documented in APP-BEHAVIOR.md and CLAUDE.md's Check 15/10j, which only applies when an origin IS present; a UserDefined (no-origin) cell's name is trivially always 'UserDefined' text too, since there is no label to possibly match. This value is fixed at the point the cell was created — it is not re-derived from the folder's current name, so it needs no update if the folder is later moved or renamed, keeping a cell:Cell robust under PDN sync exactly as its own class comment already promises (no stored tree-position property). Purpose: when a cell is shared with another PDN member, the recipient's app can use this value, if present, as a hint for which folder in the recipient's own tree the incoming cell should be filed under — a snapshot of the sender's original classification, robust to either side's tree being organized differently. A folder's own filesystem position has no RDF representation at all — UserDefined is a filename/display convention only, never an OWL class. Range cat:Category is referenced by name without owl:imports, mirroring cell:creator's identical pattern for p:Person/o:Organization (persona.ttl/organization.ttl) — category.ttl already imports cell.ttl, so importing it back here would create a mutual import for no reason cell:origin actually needs."@en .

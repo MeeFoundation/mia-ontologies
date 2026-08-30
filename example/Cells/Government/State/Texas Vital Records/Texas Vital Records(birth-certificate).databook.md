@@ -9,7 +9,6 @@ description: >
 mia:
   origin: "cat:BirthCertificate"
   creator: ":Self"
-  memberCount: "cell:OneMember"
   members: "graph-24"
   graphs:
     - id: "http://www.example.org/mia/graphs/graph-24"

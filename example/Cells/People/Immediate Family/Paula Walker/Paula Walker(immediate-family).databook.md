@@ -9,7 +9,6 @@ description: >
 mia:
   origin: "cat:ImmediateFamily"
   creator: ":Self"
-  memberCount: "cell:TwoMember"
   members:
     - "graph-05"
     - "graph-21"

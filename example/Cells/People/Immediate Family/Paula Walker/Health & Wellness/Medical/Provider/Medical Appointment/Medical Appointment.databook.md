@@ -9,7 +9,6 @@ description: >
 mia:
   origin: "cat:MedicalAppointment"
   creator: ":Self"
-  memberCount: "cell:TwoMember"
   members:
     - "graph-28"
     - "graph-30"

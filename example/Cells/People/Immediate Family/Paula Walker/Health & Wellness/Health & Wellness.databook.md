@@ -9,7 +9,6 @@ description: >
 mia:
   origin: "cat:HealthWellness"
   creator: ":Self"
-  memberCount: "cell:OneMember"
   members: "graph-35"
   topic: "graph-17"
   graphs:
@@ -34,7 +33,7 @@ mia:
 
 #### Overview
 
-This graph captures Alice's own bare identity claim (just her given name) — the cell's one required `members` entry. A `cell:OneMember` cell in the user's own category-cell tree always has `:Self` as its one member (the user either created the cell themselves or received it via sharing — either way `:Self` participates), regardless of what the cell's `subject` is. Alice is both the claimant and the subject.
+This graph captures Alice's own bare identity claim (just her given name) — the cell's one required `members` entry. A cell with a single `members` entry in the user's own category-cell tree always has `:Self` as that member (the user either created the cell themselves or received it via sharing — either way `:Self` participates), regardless of what the cell's `subject` is. Alice is both the claimant and the subject.
 
 #### Graph
 

@@ -9,7 +9,6 @@ description: >
 mia:
   origin: "cat:Things"
   creator: ":Self"
-  memberCount: "cell:OneMember"
   members: "graph-22"
   graphs:
     - id: "http://www.example.org/mia/graphs/graph-22"

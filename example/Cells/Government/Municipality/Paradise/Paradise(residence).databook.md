@@ -9,7 +9,6 @@ description: >
 mia:
   origin: "cat:Residence"
   creator: ":Self"
-  memberCount: "cell:OneMember"
   members: "graph-18"
   graphs:
     - id: "http://www.example.org/mia/graphs/graph-18"

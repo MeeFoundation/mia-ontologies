@@ -9,7 +9,6 @@ description: >
 mia:
   origin: "cat:SSN"
   creator: ":Self"
-  memberCount: "cell:OneMember"
   members: "graph-23"
   graphs:
     - id: "http://www.example.org/mia/graphs/graph-23"

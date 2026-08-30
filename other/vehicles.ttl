@@ -12,9 +12,9 @@
 <http://mee.foundation/ontologies/vehicles> rdf:type owl:Ontology ;
     owl:imports <http://mee.foundation/ontologies/wikidata-vehicle-makes-subset> ,
                 <http://mee.foundation/ontologies/wikidata-vehicle-models-subset> ;
-    owl:versionIRI <http://mee.foundation/ontologies/vehicles/1.0.0> ;
-    dc:date "2026-08-29"^^xsd:date ;
-    owl:versionInfo "Version 1.0.0 - initial vehicles ontology: vehicles:Vehicle identity/specification properties (vehicle type, make, model, model year, VIN, color, body type, fuel type, drive wheel configuration, odometer reading, engine specification), vendoring Wikidata makes/models."@en ;
+    owl:versionIRI <http://mee.foundation/ontologies/vehicles/1.1.0> ;
+    dc:date "2026-08-30"^^xsd:date ;
+    owl:versionInfo "Version 1.1.0 - reworded cell:memberCount precedent reference to cell:origin."@en ;
     rdfs:label "Vehicles Ontology"@en ;
     rdfs:comment """The second of this project's other/ peer ontologies (after other/pets.ttl) — small,
                     mostly-vendored ontologies for domains a person merely *has* (a pet, a vehicle) rather
@@ -58,7 +58,7 @@ vehicles:VehicleType rdf:type owl:Class ;
     rdfs:label "Vehicle Type"@en ;
     rdfs:comment """Abstract parent of the four concrete vehicle-kind classes below. A vehicles:Vehicle's
                     vehicles:hasVehicleType value IS one of these four concrete subclasses directly — the
-                    same class-value-punning style cell:origin/cell:memberCount (cell.ttl) and
+                    same class-value-punning style cell:origin (cell.ttl) and
                     pets:hasSpecies/pets:hasBreed (other/pets.ttl) already use — rather than a separate
                     individual or a plain string, so no instances of vehicles:VehicleType or its subclasses
                     are ever asserted."""@en .

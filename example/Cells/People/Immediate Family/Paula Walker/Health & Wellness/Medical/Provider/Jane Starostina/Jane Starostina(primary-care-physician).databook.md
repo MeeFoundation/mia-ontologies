@@ -9,7 +9,6 @@ description: >
 mia:
   origin: "cat:PrimaryCarePhysician"
   creator: ":Self"
-  memberCount: "cell:OneMember"
   members: "graph-34"
   topic: "graph-25"
   graphs:
@@ -34,7 +33,7 @@ mia:
 
 #### Overview
 
-This graph captures Alice's own bare identity claim (just her given name) — the cell's one required `members` entry, satisfying `cell:OneMember`'s per-member baseline. Alice is both the claimant and the subject.
+This graph captures Alice's own bare identity claim (just her given name) — the cell's one required `members` entry, satisfying the single-member baseline. Alice is both the claimant and the subject.
 
 #### Graph
 

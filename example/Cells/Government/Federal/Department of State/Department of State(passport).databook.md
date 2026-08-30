@@ -9,7 +9,6 @@ description: >
 mia:
   origin: "cat:Passport"
   creator: ":Self"
-  memberCount: "cell:OneMember"
   members: "graph-19"
   graphs:
     - id: "http://www.example.org/mia/graphs/graph-19"

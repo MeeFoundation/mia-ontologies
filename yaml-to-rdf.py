@@ -70,8 +70,8 @@ def resolve(val):
     spell it out in full, since those double as the graph's actual named-graph
     identity), so repeating it on every members/topic list entry is
     pure baggage. A graph id local name always matches "graph-<NN>", which no
-    other resolve()-able value (":Self", "cat:Affiliations", "cell:OneMember",
-    ...) ever does, so that's what distinguishes the two bare forms below.
+    other resolve()-able value (":Self", "cat:Affiliations", ...) ever does,
+    so that's what distinguishes the two bare forms below.
     """
     if val.startswith("http://") or val.startswith("https://"):
         return val
@@ -117,18 +117,13 @@ def process_cell_databook(fm, triples):
         # regardless of facet (cell.ttl 3.20.0).
         emit_obj(triples, subj, CELL + "origin", resolve(mia["origin"]))
 
-    member_count = mia.get("memberCount")
-    if member_count:
-        # Every cell:Cell is always also typed cell:MemberCell — no bare
-        # tree-position-only cell with no member content — so
-        # mia.memberCount is always present and this branch always fires;
-        # a category node with nothing substantive to say still carries a
-        # minimal stub cell:members entry rather than omitting member
-        # content.
-        emit_type(triples, subj, CELL + "MemberCell")
-        member_iri = resolve(member_count)
-        emit_type(triples, subj, member_iri)
-        emit_obj(triples, subj, CELL + "memberCount", member_iri)
+    # Every real cell-databook is always also typed cell:MemberCell — no bare
+    # tree-position-only cell with no member content; a category node with
+    # nothing substantive to say still carries a minimal stub cell:members
+    # entry rather than omitting member content. Member count itself is
+    # never stored — it's simply the number of distinct subjects among
+    # mia.members/mia.topic, derivable by counting whenever needed.
+    emit_type(triples, subj, CELL + "MemberCell")
 
     if mia.get("creator"):
         emit_obj(triples, subj, CELL + "creator", resolve(mia["creator"]))

@@ -17,7 +17,6 @@ description: >
 mia:
   origin: "cat:Trips"
   creator: ":Self"
-  memberCount: "cell:ThreePlusMember"
   members:
     - "graph-66"
     - "graph-67"
@@ -117,7 +116,7 @@ This graph is another of the cell's three required `members` entries — Alice's
 
 #### Overview
 
-This graph is the cell's third required `members` entry — Dave's own self-claimed bare given-name persona, transmitted from Dave's own instance of the app to Alice's over the PDN once she invited him to this cell, the same "self-claimed member" pattern Bob Johnson's own graphs use. This third distinct `members` subject (alongside `:Self` and `:Alice_Travel_Agent`) is what makes the cell `cell:ThreePlusMember` rather than `cell:TwoMember` (see Check 17).
+This graph is the cell's third required `members` entry — Dave's own self-claimed bare given-name persona, transmitted from Dave's own instance of the app to Alice's over the PDN once she invited him to this cell, the same "self-claimed member" pattern Bob Johnson's own graphs use. This third distinct `members` subject (alongside `:Self` and `:Alice_Travel_Agent`) is what makes the cell a three-member cell rather than a two-member cell.
 
 #### Graph
 
