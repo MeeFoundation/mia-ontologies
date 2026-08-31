@@ -313,6 +313,7 @@ riot --output=turtle \
   project_files/vbo-subset.ttl \
   project_files/wikidata-vehicle-makes-subset.ttl \
   project_files/wikidata-vehicle-models-subset.ttl \
+  project_files/prov-upper.ttl \
   persona.ttl persona-templates.ttl graph.ttl cell.ttl category.ttl other/pets.ttl other/vehicles.ttl \
   organization.ttl agent.ttl \
   example/graphs/self.ttl \
@@ -356,6 +357,7 @@ riot --output=turtle \
   project_files/vbo-subset.ttl \
   project_files/wikidata-vehicle-makes-subset.ttl \
   project_files/wikidata-vehicle-models-subset.ttl \
+  project_files/prov-upper.ttl \
   persona.ttl persona-templates.ttl graph.ttl cell.ttl category.ttl cell-templates.ttl other/pets.ttl other/vehicles.ttl \
   organization.ttl agent.ttl \
   example/graphs/self.ttl \

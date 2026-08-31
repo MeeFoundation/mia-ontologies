@@ -1,0 +1,62 @@
+@prefix : <http://mee.foundation/ontologies/prov-upper-subset#> .
+@prefix dc: <http://purl.org/dc/elements/1.1/> .
+@prefix prov: <http://www.w3.org/ns/prov#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@base <http://mee.foundation/ontologies/prov-upper-subset> .
+
+<http://mee.foundation/ontologies/prov-upper-subset> rdf:type owl:Ontology ;
+    owl:versionIRI <http://mee.foundation/ontologies/prov-upper-subset/1.0.0> ;
+    dc:date "2026-08-31"^^xsd:date ;
+    owl:versionInfo "Version 1.0.0 - initial release: prov:Agent, prov:SoftwareAgent, prov:Person, prov:Organization, prov:actedOnBehalfOf."@en ;
+    rdfs:label "PROV-O Upper Subset"@en ;
+    rdfs:comment """A hand-curated subset of the W3C PROV Ontology (PROV-O,
+                    https://www.w3.org/TR/prov-o/, namespace http://www.w3.org/ns/prov#),
+                    published under the W3C Document License (unlike DrOn/NCBITaxon's
+                    CC0/public-domain status — see dron-upper.ttl/ncbitaxon-subset.ttl —
+                    or VBO's CC-BY 4.0 — see vbo-subset.ttl). This is NOT a full mirror of
+                    upstream PROV-O: the full vocabulary also defines prov:Entity,
+                    prov:Activity, and the relations connecting them (prov:wasGeneratedBy,
+                    prov:used, prov:wasAssociatedWith, prov:wasAttributedTo, etc.), none of
+                    which is referenced anywhere in this project yet, so none is declared
+                    here. This file instead declares only the handful of classes and the one
+                    property actually referenced by agent.ttl's own PROV-O alignment
+                    (agent:Agent rdfs:subClassOf prov:SoftwareAgent; agent:actsFor
+                    rdfs:subPropertyOf prov:actedOnBehalfOf), each declared with its real
+                    upstream IRI, rdfs:label, and definition (adapted from the PROV-O
+                    Recommendation, 2013-04-30), and cited back to its real PROV-O class IRI
+                    rather than a locally-minted equivalent — this file adds no new
+                    identifiers of its own, only re-declares existing external ones for local
+                    offline use. prov:Person and prov:Organization are included for
+                    reference/labeling parity with prov:SoftwareAgent's own prov:Agent
+                    parent, and for a future alignment of p:Person/o:Organization should that
+                    ever be undertaken — but no such alignment exists yet: persona.ttl and
+                    organization.ttl are untouched by this file, a deliberate scope choice
+                    (see agent.ttl's own versionInfo history)."""@en .
+
+prov:Agent rdf:type owl:Class ;
+    rdfs:label "Agent"@en ;
+    rdfs:comment "PROV-O prov:Agent. Something that bears some form of responsibility for an activity taking place, for the existence of an entity, or for another agent's activity."@en .
+
+prov:SoftwareAgent rdf:type owl:Class ;
+    rdfs:subClassOf prov:Agent ;
+    rdfs:label "Software Agent"@en ;
+    rdfs:comment "PROV-O prov:SoftwareAgent. A software agent is running software — e.g. an LLM-based assistant. A subclass of prov:Agent."@en .
+
+prov:Person rdf:type owl:Class ;
+    rdfs:subClassOf prov:Agent ;
+    rdfs:label "Person"@en ;
+    rdfs:comment "PROV-O prov:Person. An agent that is a person. A subclass of prov:Agent. Included here for reference parity only — not currently asserted as a superclass of p:Person (persona.ttl); see this file's own header comment."@en .
+
+prov:Organization rdf:type owl:Class ;
+    rdfs:subClassOf prov:Agent ;
+    rdfs:label "Organization"@en ;
+    rdfs:comment "PROV-O prov:Organization. A social or legal institution such as a company, society, etc. A subclass of prov:Agent. Included here for reference parity only — not currently asserted as a superclass of o:Organization (organization.ttl); see this file's own header comment."@en .
+
+prov:actedOnBehalfOf rdf:type owl:ObjectProperty ;
+    rdfs:domain prov:Agent ;
+    rdfs:range prov:Agent ;
+    rdfs:label "acted on behalf of"@en ;
+    rdfs:comment "PROV-O prov:actedOnBehalfOf. Delegation: one agent acting on behalf of another, which retains responsibility for the activity while the delegate carries it out. agent:actsFor (agent.ttl) is a narrower rdfs:subPropertyOf this relation."@en .

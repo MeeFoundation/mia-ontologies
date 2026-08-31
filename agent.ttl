@@ -1,6 +1,7 @@
 @prefix agent: <http://mee.foundation/ontologies/agent#> .
 @prefix p: <http://mee.foundation/ontologies/persona#> .
 @prefix o: <http://mee.foundation/ontologies/organization#> .
+@prefix prov: <http://www.w3.org/ns/prov#> .
 @prefix owl: <http://www.w3.org/2002/07/owl#> .
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
@@ -9,9 +10,10 @@
 @base <http://mee.foundation/ontologies/agent> .
 
 <http://mee.foundation/ontologies/agent> rdf:type owl:Ontology ;
-    owl:versionIRI <http://mee.foundation/ontologies/agent/1.0.0> ;
-    dc:date "2026-08-30"^^xsd:date ;
-    owl:versionInfo "Version 1.0.0 - initial release, defining agent:Agent and agent:actsFor."@en ;
+    owl:versionIRI <http://mee.foundation/ontologies/agent/1.1.0> ;
+    dc:date "2026-08-31"^^xsd:date ;
+    owl:versionInfo "Version 1.1.0 - aligned agent:Agent/agent:actsFor with W3C PROV-O (prov:SoftwareAgent/prov:actedOnBehalfOf)."@en ;
+    owl:imports <http://mee.foundation/ontologies/prov-upper-subset> ;
     rdfs:label "Agent Ontology"@en ;
     rdfs:comment """Agent Ontology for the Cellula App.
                     Describes AI agents (e.g. an LLM-based assistant like ChatGPT) that a
@@ -21,9 +23,16 @@
                     Organization). An agent:Agent is never a cell:creator (cell.ttl) —
                     only ever a cell:members participant and a g:claimant (graph.ttl) of
                     the content it contributes — and always acts on behalf of exactly one
-                    principal, referenced by name without owl:imports, mirroring
-                    cell:creator's/g:claimant's own union-range pattern for
-                    p:Person/o:Organization."""@en .
+                    principal. p:Person/o:Organization (persona.ttl/organization.ttl) are
+                    referenced by name without owl:imports, mirroring cell:creator's/
+                    g:claimant's own union-range pattern for them — but this file does
+                    owl:import project_files/prov-upper.ttl (via
+                    http://mee.foundation/ontologies/prov-upper-subset), a hand-curated
+                    subset of the W3C PROV Ontology (PROV-O) — this file's first import of
+                    any kind: agent:Agent is a real-world instance of PROV-O's
+                    prov:SoftwareAgent, and agent:actsFor is a narrower case of PROV-O's
+                    prov:actedOnBehalfOf delegation relation — see each term's own comment
+                    below for the exact alignment triples."""@en .
 
 
 #################################################################
@@ -31,6 +40,7 @@
 #################################################################
 
 agent:Agent rdf:type owl:Class ;
+    rdfs:subClassOf prov:SoftwareAgent ;
     rdfs:label "Agent"@en ;
     rdfs:comment """An AI agent (e.g. an LLM-based assistant such as ChatGPT) that a
                     p:Person or o:Organization has invited to collaborate inside a shared
@@ -41,9 +51,15 @@ agent:Agent rdf:type owl:Class ;
                     contributes, including a cell:topic graph about whatever the cell's
                     relationship concerns (e.g. a trip being planned). Always carries
                     exactly one agent:actsFor value identifying which member it is a
-                    delegate/collaborator for."""@en .
+                    delegate/collaborator for. rdfs:subClassOf prov:SoftwareAgent
+                    (project_files/prov-upper.ttl) — every agent:Agent individual (an
+                    LLM-based assistant) is, in PROV-O terms, real software running on
+                    someone's behalf; subClassOf rather than owl:equivalentClass since
+                    prov:SoftwareAgent's own membership is broader than "invited to
+                    collaborate inside a shared cell.\""""@en .
 
 agent:actsFor rdf:type owl:ObjectProperty ;
+    rdfs:subPropertyOf prov:actedOnBehalfOf ;
     rdfs:domain agent:Agent ;
     rdfs:range [ rdf:type owl:Class ; owl:unionOf ( p:Person o:Organization ) ] ;
     rdfs:label "acts for"@en ;
@@ -55,4 +71,9 @@ agent:actsFor rdf:type owl:ObjectProperty ;
                     agent invites a separate agent:Agent individual of their own, with
                     its own agent:actsFor value. Mirrors the union-range pattern used by
                     cell:creator (cell.ttl) and g:claimant (graph.ttl), referencing
-                    p:Person/o:Organization by name without owl:imports."""@en .
+                    p:Person/o:Organization by name without owl:imports. rdfs:subPropertyOf
+                    prov:actedOnBehalfOf (project_files/prov-upper.ttl) — PROV-O's own
+                    delegation relation, narrowed here to agent:Agent's own domain and to
+                    p:Person/o:Organization's own range rather than PROV-O's broader
+                    prov:Agent on both sides; a legal RDFS narrowing, not
+                    owl:equivalentProperty."""@en .

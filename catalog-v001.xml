@@ -44,6 +44,8 @@
          uri="project_files/wikidata-vehicle-makes-subset.ttl"/>
     <uri id="wikidata-vehicle-models-subset"   name="http://mee.foundation/ontologies/wikidata-vehicle-models-subset"
          uri="project_files/wikidata-vehicle-models-subset.ttl"/>
+    <uri id="prov-upper-subset"        name="http://mee.foundation/ontologies/prov-upper-subset"
+         uri="project_files/prov-upper.ttl"/>
     <uri id="pdn-identity"             name="http://mee.foundation/ontologies/pdn-identity"
          uri="pdn-identity.ttl"/>
     <uri id="organization"             name="http://mee.foundation/ontologies/organization"
