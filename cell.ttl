@@ -248,7 +248,7 @@ cell:topic rdf:type owl:ObjectProperty ;
 #    as arrows off Cell for documentation purposes only — none of the
 #    three is an actual property declared here, and none is ever
 #    reified as a triple in any real graph (see CLAUDE.md's Check 12
-#    and README.md's Cell Details section).
+#    and README.md's Documentation-only Properties section).
 #
 #    Cell ownership boundary: a subfolder is a separate, descendant
 #    cell of its own — excluded from its ancestor's Attachments-tab

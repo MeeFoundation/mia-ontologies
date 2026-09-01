@@ -34,34 +34,43 @@ A cell can have just one member (the user) or several. We don't yet know how man
 
 ### Permissions
 
-Cell-level capabilities are governed by role — the creator, any other human member, an invited `agent:Agent` member, or an `o:Organization` member:
+Cell-level capabilities are governed by role — the creator, any other human member, an invited `agent:Agent` member, or an `o:Organization` member — plus an optional, per-invite **comment-only guest** tier for a human or agent member given restricted access instead of the default full read/write:
 
-| Capability | Creator | Human | Agent | Organization |
-|---|---|---|---|---|
-| Create cell | yes | yes | no | yes |
-| Invite guest | yes | yes | no | no |
-| Uninvite guest | yes | yes | n/a | n/a |
-| Graph claims CRUD | yes | yes | yes | yes |
-| Delete cell locally | yes | yes | yes | yes |
-| Delete cell globally | no | no | no | no |
-| Out-of-cell comms | yes | yes | no | no |
-| Add attachments | yes | yes | yes | yes |
-| Edit own attachments | yes | yes | yes | yes |
-| Delete own attachments | yes | yes | yes | yes |
+| Capability | Creator | Human | Guest (comment-only) | Agent | Organization |
+|---|---|---|---|---|---|
+| Create cell | yes | yes | no | no | yes |
+| Invite guest | yes | yes | no | no | no |
+| Uninvite guest | yes | yes | n/a | n/a | n/a |
+| Rename cell | yes | yes | no | yes | yes |
+| Graph claims CRUD | yes | yes | yes | yes | yes |
+| Delete cell locally | yes | yes | yes | yes | yes |
+| Delete cell globally | no | no | no | no | no |
+| Out-of-cell comms | yes | yes | no | no | no |
+| Add attachments | yes | yes | no | yes | yes |
+| Edit own attachments | yes | yes | n/a | yes | yes |
+| Delete own attachments | yes | yes | n/a | yes | yes |
+| Edit note directly | yes | yes | no | yes | yes |
+| Add note comment / suggested edit | yes | yes | yes | yes | yes |
+| Accept or reject suggested edit | yes | yes | no | yes | yes |
 
 - **Creator** — the creator of the cell (human or organization). They immediately become its first member.
 - **Human** — a member who is not the creator.
+- **Guest (comment-only)** — a human or agent member invited with restricted access instead of the default full read/write, chosen per invitee at invite time. May read the cell's content and add comments/suggested edits to the note, but cannot directly edit the note, rename the cell, add/edit/delete attachments, invite/uninvite other guests, or use out-of-cell comms. This is opt-in only — a cell with no comment-only guests behaves exactly as before, every member on equal footing (see [Naming, Renaming, and Sharing](#naming-renaming-and-sharing) below).
 - **Organization** — an organization member who is not the creator.
 - **Invite guest** — permission to invite a person, agent (of themselves), or an organization to a cell of which they are already a member.
 - **Uninvite guest** — permission to remove a cell member whom this member originally invited.
+- **Rename cell** — see [Naming, Renaming, and Sharing](#naming-renaming-and-sharing) below for the full rule, including the bare two-member-cell exception where the name is independent per member rather than shared.
 - **Graph claims CRUD** — create/read/update/delete claims as claimant, scoped to the graphs that member or agent itself claims (see [Agent Collaboration](#agent-collaboration) and [Integrations](#integrations) for how this applies to an invited agent).
 - **Delete cell locally** — removes the cell from this member's own tree only, not from any other member's copy.
 - **Delete cell globally** — no role can do this; consistent with [Cell Storage](#cell-storage) above, no cell is ever held centrally, so there's no single shared copy to delete for everyone.
 - **Out-of-cell comms** — permission to communicate out-of-band of the cell's chat (e.g. sending an email) with other cell members, using contact information discovered in the cell.
+- **Edit note directly** — commit a change straight to the note's text, with no review step.
+- **Add note comment / suggested edit** — attach a margin comment, or propose an inline text change shown in the proposing member's own color and tagged with their name, without altering the committed text.
+- **Accept or reject suggested edit** — fold a comment-only guest's proposed inline change into the committed note text, or discard it.
 
 ### Naming, Renaming, and Sharing
 
-For a single-member cell or a cell with three or more members — or a two-member cell that is also typed `c:TopicCell` — any member of the cell — not just its creator — can rename it, and the new name propagates to every member. The app's cell model has no creator/admin-only privilege tier for this or any other content action, matching [Permissions](#permissions) above, where the note, files, and chat are already freely editable by anyone in the cell. This mirrors how **Slack** and **Notion** handle renaming by default: any member/editor can rename a channel or page, and the new name propagates to everyone. It's a deliberate contrast with **Microsoft Teams** (channel owners only, by default), **Discord**, and **GitHub**, which restrict renaming to a privileged admin/Manage-Channels/owner role — a distinction the app's cell model doesn't have to begin with. A bare two-member cell — one that is *not* also `c:TopicCell` — does *not* follow this rule — see the exception below.
+For a single-member cell or a cell with three or more members — or a two-member cell that is also typed `c:TopicCell` — any member of the cell — not just its creator — can rename it, and the new name propagates to every member. By default, the app's cell model has no creator/admin-only privilege tier for this or any other content action, matching [Permissions](#permissions) above, where the note, files, and chat are freely editable by every full-access member — the one opt-in exception being a comment-only guest (see [Permissions](#permissions) above), who may suggest but not directly commit a change, including a rename. This mirrors how **Slack** and **Notion** handle renaming by default: any member/editor can rename a channel or page, and the new name propagates to everyone. It's a deliberate contrast with **Microsoft Teams** (channel owners only, by default), **Discord**, and **GitHub**, which restrict renaming to a privileged admin/Manage-Channels/owner role — a distinction the app's cell model doesn't have to begin with. A bare two-member cell — one that is *not* also `c:TopicCell` — does *not* follow this rule — see the exception below.
 
 A cell's name must be unique among its sibling cells — the cells directly nested under the same parent. When a user renames a cell — e.g. to give it a name of its own choosing, different from its origin category's label, the same convention followed by other PKM tools — to a name that already belongs to one of its siblings, the app doesn't prompt or reject the input: it silently appends the next available integer suffix (`"1"`, `"2"`, ...) to make the name unique. The same rule applies when creating a brand-new cell whose default name (e.g. copied verbatim from its origin category's own label) would otherwise collide with an existing sibling.
 
@@ -107,13 +116,28 @@ A property constrained only by `sh:nodeKind sh:IRI`, with no `sh:in` list — e.
 
 Where one such field's legal values depend on another field already filled in, the app narrows the query accordingly rather than presenting two independent pickers. `vehicles:hasModel`'s dropdown is filtered to only the `vehicles:Model` individuals whose `vehicles:modelMake` points back at the already-selected `vehicles:hasMake` value — a cascading, make-then-model picker. Alice's RAV4 cell illustrates this: choosing "Toyota" narrows the model dropdown to Toyota's own vendored models before "Toyota RAV4" can be selected (see EXAMPLE.md's ["Vehicles"](EXAMPLE.md#vehicles) for the underlying cell and [graph 63](<example/Cells/Things/Vehicles/RAV4/RAV4(vehicles).databook.md#graph-63>)).
 
+### Note
+
+The Note tab is a Markdown editor for the cell's one folder note, providing the functionality typical of Markdown editors:
+
+- Freeform Markdown syntax editing — headers, bold/italic/strikethrough, inline code and fenced code blocks, blockquotes
+- Bulleted, numbered, and nested lists, plus checklist/to-do items
+- Tables
+- Links — ordinary URLs and `[[wikilinks]]` to other cells' notes, with autocomplete as the user types (see [Filesystem Persistence](#filesystem-persistence) above for how a wikilink actually resolves to a target cell's id)
+- Inline image/embed preview
+- Live preview of rendered Markdown, kept in sync with the raw source
+- Find and replace
+- Undo/redo
+- Continuous autosave — there is no explicit save step
+- Comments and suggested edits — any member can attach a margin comment to the note; a member holding the comment-only guest tier (see [Permissions](#permissions) above) can also propose an inline text change, shown in their own color and tagged with their name, which a full-access member then accepts or rejects into the committed note. Both are stored as legal, plain-Markdown markup (e.g. raw inline HTML such as `<ins>`/`<del>`, which CommonMark already permits to pass through untouched) rather than a proprietary format, so the note stays a portable `.md` file — a comment-unaware viewer just renders the underlying text
+
 ### Chat
 
 Chat is one feature with two visibility modes, not two separate concepts. By default, every message posts to the cell's one shared group stream, visible to every member. Any message can additionally be *directed* at a specific named member — human or agent — while staying in the shared stream (e.g. Alice @-mentions her agent; every member sees both her prompt and the agent's reply). Separately, a true private 1:1 thread between a member and their own agent is also supported, whose transcript is not visible to other members — only the *resulting* committed changes (note edits, topic-graph revisions, new attachments) surface into the shared cell.
 
 ## Agent Collaboration
 
-A member may invite their own AI agent (`agent:Agent`, see README.md's [Agent Ontology](README.md#agent-ontology)) into a shared cell — e.g. inviting ChatGPT to help plan a trip in a `cat:Trips` cell. An invited agent becomes a real cell member: it gets its own self-claimed `c:members` entry alongside the human members, which raises the cell's own distinct-member count (e.g. Alice + her own agent = two distinct members, a two-member cell; a third member joining too — human or agent — would raise it to three members, the same derivation applying regardless of count — see [Number of Members](#number-of-members) above). Because the agent is a literal member, it needs no special-case permission logic — [Permissions](#permissions) above already covers it: an invited agent gets exactly the same read/write access to the cell's note, files, and [chat](#chat) that any human member has. Each principal's own device hosts and runs their own agent independently (their own credentials, their own bridge to the underlying LLM service) — the same way each peer already independently manages their own tree position for a shared cell (see [Cell Storage](#cell-storage) above).
+A member may invite their own AI agent (`agent:Agent`, see README.md's [Agent Ontology](README.md#agent-ontology)) into a shared cell — e.g. inviting ChatGPT to help plan a trip in a `cat:Trips` cell. An invited agent becomes a real cell member: it gets its own self-claimed `c:members` entry alongside the human members, which raises the cell's own distinct-member count (e.g. Alice + her own agent = two distinct members, a two-member cell; a third member joining too — human or agent — would raise it to three members, the same derivation applying regardless of count — see [Number of Members](#number-of-members) above). Because the agent is a literal member, it needs no special-case permission logic — [Permissions](#permissions) above already covers it: by default, an invited agent gets exactly the same read/write access to the cell's note, files, and [chat](#chat) that any human member has, unless it too is invited under the comment-only guest tier instead (see [Permissions](#permissions) above). Each principal's own device hosts and runs their own agent independently (their own credentials, their own bridge to the underlying LLM service) — the same way each peer already independently manages their own tree position for a shared cell (see [Cell Storage](#cell-storage) above).
 
 ### The Iterative Prompt/Response Loop
 
