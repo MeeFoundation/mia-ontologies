@@ -9,7 +9,8 @@ description: >
 mia:
   category: "cat:Employee"
   creator: ":Self"
-  members: "graph-10"
+  owner: ":Self"
+  member: "graph-10"
   graphs:
     - id: "http://www.example.org/mia/graphs/graph-10"
       claimant: ":Self"

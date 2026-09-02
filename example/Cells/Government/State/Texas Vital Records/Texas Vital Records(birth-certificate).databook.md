@@ -9,7 +9,8 @@ description: >
 mia:
   category: "cat:BirthCertificate"
   creator: ":Self"
-  members: "graph-24"
+  owner: ":Self"
+  member: "graph-24"
   graphs:
     - id: "http://www.example.org/mia/graphs/graph-24"
       claimant: ":Self"

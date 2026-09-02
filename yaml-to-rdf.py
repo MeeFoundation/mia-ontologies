@@ -31,7 +31,7 @@ that a standalone graph-databook file's frontmatter used to supply.
 
 A graph's `claimant`/`subject` are typed on its plain `mia.graphs[].id`, not
 that id + "#graph" — matching graph.ttl's g:subject/g:claimant doc
-comments, and the IRI cell:members/cell:topic actually reference.
+comments, and the IRI cell:member/cell:topic actually reference.
 
 Usage:   python3 yaml-to-rdf.py [repo-root] > yaml-data.ttl
 Output:  Turtle triples on stdout — merge with `riot` alongside data extracted
@@ -63,12 +63,12 @@ def resolve(val):
     """Resolve a YAML-string value (curie, bare graph local name, or bare
     MIA local name) to a full IRI.
 
-    mia.members/topic entries are written as bare graph
+    mia.member/topic entries are written as bare graph
     id local names (e.g. "graph-22") rather than the full
     http://www.example.org/mia/graphs/... IRI — the base is constant across
     every graph id in the dataset (mia.graphs[].id and the #graph names still
     spell it out in full, since those double as the graph's actual named-graph
-    identity), so repeating it on every members/topic list entry is
+    identity), so repeating it on every member/topic list entry is
     pure baggage. A graph id local name always matches "graph-<NN>", which no
     other resolve()-able value (":Self", "cat:Affiliations", ...) ever does,
     so that's what distinguishes the two bare forms below.
@@ -119,17 +119,22 @@ def process_cell_databook(fm, triples):
 
     # Every real cell-databook is always also typed cell:MemberCell — no bare
     # tree-position-only cell with no member content; a category node with
-    # nothing substantive to say still carries a minimal stub cell:members
+    # nothing substantive to say still carries a minimal stub cell:member
     # entry rather than omitting member content. Member count itself is
     # never stored — it's simply the number of distinct subjects among
-    # mia.members/mia.topic, derivable by counting whenever needed.
+    # mia.member/mia.topic, derivable by counting whenever needed.
     emit_type(triples, subj, CELL + "MemberCell")
 
     if mia.get("creator"):
         emit_obj(triples, subj, CELL + "creator", resolve(mia["creator"]))
 
-    for graph_iri in as_list(mia.get("members")):
-        emit_obj(triples, subj, CELL + "members", resolve(graph_iri))
+    # cell:owner — one or more p:Person/o:Organization IRIs, resolved the
+    # same way as cell:creator (never a bare graph-local-name).
+    for owner_iri in as_list(mia.get("owner")):
+        emit_obj(triples, subj, CELL + "owner", resolve(owner_iri))
+
+    for graph_iri in as_list(mia.get("member")):
+        emit_obj(triples, subj, CELL + "member", resolve(graph_iri))
 
     topic = as_list(mia.get("topic"))
     if topic:

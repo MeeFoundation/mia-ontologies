@@ -9,7 +9,8 @@ description: >
 mia:
   category: "cat:Residence"
   creator: ":Self"
-  members: "graph-13"
+  owner: ":Self"
+  member: "graph-13"
   graphs:
     - id: "http://www.example.org/mia/graphs/graph-13"
       claimant: ":Self"

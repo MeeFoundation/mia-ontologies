@@ -9,7 +9,8 @@ description: >
 mia:
   category: "cat:Passport"
   creator: ":Self"
-  members: "graph-19"
+  owner: ":Self"
+  member: "graph-19"
   graphs:
     - id: "http://www.example.org/mia/graphs/graph-19"
       claimant: ":Self"

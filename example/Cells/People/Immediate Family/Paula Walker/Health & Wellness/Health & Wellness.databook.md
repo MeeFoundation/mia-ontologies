@@ -9,7 +9,8 @@ description: >
 mia:
   category: "cat:HealthWellness"
   creator: ":Self"
-  members: "graph-35"
+  owner: ":Self"
+  member: "graph-35"
   topic: "graph-17"
   graphs:
     - id: "http://www.example.org/mia/graphs/graph-35"
@@ -33,7 +34,7 @@ mia:
 
 #### Overview
 
-This graph captures Alice's own bare identity claim (just her given name) — the cell's one required `members` entry. A cell with a single `members` entry in the user's own category-cell tree always has `:Self` as that member (the user either created the cell themselves or received it via sharing — either way `:Self` participates), regardless of what the cell's `subject` is. Alice is both the claimant and the subject.
+This graph captures Alice's own bare identity claim (just her given name) — the cell's one required `member` entry. A cell with a single `member` entry in the user's own category-cell tree always has `:Self` as that member (the user either created the cell themselves or received it via sharing — either way `:Self` participates), regardless of what the cell's `subject` is. Alice is both the claimant and the subject.
 
 #### Graph
 
@@ -55,7 +56,7 @@ This graph captures Alice's own bare identity claim (just her given name) — th
 
 #### Overview
 
-This graph captures Paula Walker's physical body characteristics — properties that are intrinsic to her as a person and do not belong to any particular institutional or social graph — as recorded by Alice. Height is recorded as a CCO Height quality with a RatioMeasurementICE (68 inches). Eye color is modeled as Paula bearing a BlueEyeColor quality directly. Hair color is borne by her ScalpHair continuant part. Alice is the claimant; Paula is the cell's `subject` but, since this cell now has a real member entry (graph 35, above) about Alice herself, Paula's graph is linked via `cell:topic` rather than as one of the required `members` entries.
+This graph captures Paula Walker's physical body characteristics — properties that are intrinsic to her as a person and do not belong to any particular institutional or social graph — as recorded by Alice. Height is recorded as a CCO Height quality with a RatioMeasurementICE (68 inches). Eye color is modeled as Paula bearing a BlueEyeColor quality directly. Hair color is borne by her ScalpHair continuant part. Alice is the claimant; Paula is the cell's `subject` but, since this cell now has a real member entry (graph 35, above) about Alice herself, Paula's graph is linked via `cell:topic` rather than as one of the required `member` entries.
 
 #### Graph
 

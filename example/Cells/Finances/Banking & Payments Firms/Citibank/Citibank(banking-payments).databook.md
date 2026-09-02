@@ -9,7 +9,8 @@ description: >
 mia:
   category: "cat:BankingPayments"
   creator: ":Self"
-  members:
+  owner: ":Self"
+  member:
     - "graph-09"
     - "graph-27"
   graphs:
@@ -101,7 +102,7 @@ This graph captures Alice Walker's financial relationship with Citibank. Citiban
 
 #### Overview
 
-This graph captures Alice Walker's own self-claimed notes about Citibank as an institution — her own record of the organization, distinct from Citibank's own claimed record about her (graph 09). Together the two graphs give this cell's `members` the two distinct subjects (`:Self`, `:Citibank`) required for a two-member cell. Alice is the claimant.
+This graph captures Alice Walker's own self-claimed notes about Citibank as an institution — her own record of the organization, distinct from Citibank's own claimed record about her (graph 09). Together the two graphs give this cell's `member` the two distinct subjects (`:Self`, `:Citibank`) required for a two-member cell. Alice is the claimant.
 
 #### Graph
 

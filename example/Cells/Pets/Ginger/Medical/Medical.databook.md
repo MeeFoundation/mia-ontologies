@@ -9,7 +9,8 @@ description: >
 mia:
   category: "cat:PetsMedical"
   creator: ":Self"
-  members:
+  owner: ":Self"
+  member:
     - "graph-33"
     - "graph-57"
   topic: "graph-32"
@@ -42,7 +43,7 @@ mia:
 
 #### Overview
 
-This graph is one of the cell's two `members` entries, satisfying the two-member baseline alongside graph 57 (Paula's own claim, below). Alice is both the claimant and the subject. Deliberately empty: the `members` requirement is about `g:subject`/`g:claimant` (asserted at the `mia.graphs[]` YAML level, not in this Turtle body), not about carrying any particular content.
+This graph is one of the cell's two `member` entries, satisfying the two-member baseline alongside graph 57 (Paula's own claim, below). Alice is both the claimant and the subject. Deliberately empty: the `member` requirement is about `g:subject`/`g:claimant` (asserted at the `mia.graphs[]` YAML level, not in this Turtle body), not about carrying any particular content.
 
 #### Graph
 
@@ -56,7 +57,7 @@ This graph is one of the cell's two `members` entries, satisfying the two-member
 
 #### Overview
 
-This cell was created by Alice and later shared with Paula, making the cell a two-member cell. This graph is Paula's own bare identity claim (just her given name) — the cell's second `members` entry, satisfying the two-member baseline alongside graph 33 (Alice's own claim, above). Paula is both the claimant and the subject.
+This cell was created by Alice and later shared with Paula, making the cell a two-member cell. This graph is Paula's own bare identity claim (just her given name) — the cell's second `member` entry, satisfying the two-member baseline alongside graph 33 (Alice's own claim, above). Paula is both the claimant and the subject.
 
 #### Graph
 
@@ -82,7 +83,7 @@ This cell was created by Alice and later shared with Paula, making the cell a tw
 
 #### Overview
 
-This graph captures Alice's record of her cat Ginger's medications — an amoxicillin/clavulanate course prescribed after a minor infection, and an ongoing daily joint supplement. Validated by the `PetMedications` per-template SHACL shapes (`other/pets-shacl.ttl`). Alice is the claimant; Ginger is the cell's `subject` but, since she has no `p:Person` individual of her own, her graph is linked via `cell:topic` rather than as one of the required `members` entries (graphs 33 and 57, above, fill those slots instead). Each medication's active ingredient(s) are cited by real ChEBI class IRIs, its tablet/liquid dosage form and amount by DrOn/CCO terms, and its schedule by a DrOn drug-administration individual carrying a BFO temporal interval — see `pets:Medication`'s `rdfs:comment` (`other/pets.ttl`) for the full reuse rationale.
+This graph captures Alice's record of her cat Ginger's medications — an amoxicillin/clavulanate course prescribed after a minor infection, and an ongoing daily joint supplement. Validated by the `PetMedications` per-template SHACL shapes (`other/pets-shacl.ttl`). Alice is the claimant; Ginger is the cell's `subject` but, since she has no `p:Person` individual of her own, her graph is linked via `cell:topic` rather than as one of the required `member` entries (graphs 33 and 57, above, fill those slots instead). Each medication's active ingredient(s) are cited by real ChEBI class IRIs, its tablet/liquid dosage form and amount by DrOn/CCO terms, and its schedule by a DrOn drug-administration individual carrying a BFO temporal interval — see `pets:Medication`'s `rdfs:comment` (`other/pets.ttl`) for the full reuse rationale.
 
 #### Graph
 

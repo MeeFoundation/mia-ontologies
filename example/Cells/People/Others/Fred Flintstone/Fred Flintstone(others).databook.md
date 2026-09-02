@@ -9,7 +9,8 @@ description: >
 mia:
   category: "cat:Others"
   creator: ":Self"
-  members:
+  owner: ":Self"
+  member:
     - "graph-31"
     - "graph-29"
   graphs:

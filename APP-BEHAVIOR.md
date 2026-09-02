@@ -34,43 +34,46 @@ A cell can have just one member (the user) or several. We don't yet know how man
 
 ### Permissions
 
-Cell-level capabilities are governed by role — the creator, any other human member, an invited `a:Agent` member, or an `o:Organization` member — plus an optional, per-invite **comment-only guest** tier for a human or agent member given restricted access instead of the default full read/write:
+Cell-level capabilities are governed by two independent axes: **ownership** (`c:owner`, cell.ttl — owner vs. regular member) and **identity type** (human, agent, or organization). A cell's creator (`c:creator`) is always its initial, and until any promotion its sole, owner; any current owner may promote any other current regular member of `p:Person`/`o:Organization` identity — never an `a:Agent`, which can never hold the owner role, mirroring `c:creator`'s own exclusion of agents — to owner, at which point that member's capabilities change as shown below; there is no mechanism to demote an owner back to regular-member status once promoted. Below, **Owner** covers any member (human or organization) currently holding that role, while **Human**/**Organization** cover a member of that identity type who is not (currently) an owner; an invited **Agent** is always a non-owner. A single-member cell has only its creator, who is trivially its sole owner — the owner/regular-member distinction only becomes observable once a cell gains a second member. There is no separate comment-only guest tier — every member, of any identity type, has exactly the same read/write access as any other member of the same ownership status; only ownership (not an invite-time choice) determines whether a member can edit the note directly or can only comment on it.
 
-| Capability | Creator | Human | Guest (comment-only) | Agent | Organization |
-|---|---|---|---|---|---|
-| Create cell | yes | yes | no | no | yes |
-| Invite guest | yes | yes | no | no | no |
-| Uninvite guest | yes | yes | n/a | n/a | n/a |
-| Rename cell | yes | yes | no | yes | yes |
-| Graph claims CRUD | yes | yes | yes | yes | yes |
-| Delete cell locally | yes | yes | yes | yes | yes |
-| Delete cell globally | no | no | no | no | no |
-| Out-of-cell comms | yes | yes | no | no | no |
-| Add attachments | yes | yes | no | yes | yes |
-| Edit own attachments | yes | yes | n/a | yes | yes |
-| Delete own attachments | yes | yes | n/a | yes | yes |
-| Edit note directly | yes | yes | no | yes | yes |
-| Add note comment / suggested edit | yes | yes | yes | yes | yes |
-| Accept or reject suggested edit | yes | yes | no | yes | yes |
+| Capability | Owner | Human | Agent | Organization |
+|---|---|---|---|---|
+| Create cell | yes | yes | no | yes |
+| Invite member | yes | yes | no | no |
+| Uninvite member | yes | yes | n/a | n/a |
+| Rename cell | yes | yes | yes | yes |
+| Graph claims CRUD | yes | yes | yes | yes |
+| Delete cell locally | yes | yes | yes | yes |
+| Delete cell globally | no | no | no | no |
+| Out-of-cell comms | yes | yes | no | no |
+| Add attachments | yes | yes | yes | yes |
+| Edit own attachments | yes | yes | yes | yes |
+| Delete own attachments | yes | yes | yes | yes |
+| Delete another member's claim or attachment | yes | no | no | no |
+| Promote member to owner | yes | no | no | no |
+| Edit note directly | yes | no | no | no |
+| Add note comment / suggested edit | yes | yes | yes | yes |
+| Accept or reject suggested edit | yes | no | no | no |
 
-- **Creator** — the creator of the cell (human or organization). They immediately become its first member.
-- **Human** — a member who is not the creator.
-- **Guest (comment-only)** — a human or agent member invited with restricted access instead of the default full read/write, chosen per invitee at invite time. May read the cell's content and add comments/suggested edits to the note, but cannot directly edit the note, rename the cell, add/edit/delete attachments, invite/uninvite other guests, or use out-of-cell comms. This is opt-in only — a cell with no comment-only guests behaves exactly as before, every member on equal footing (see [Naming, Renaming, and Sharing](#naming-renaming-and-sharing) below).
-- **Organization** — an organization member who is not the creator.
-- **Invite guest** — permission to invite a person, agent (of themselves), or an organization to a cell of which they are already a member.
-- **Uninvite guest** — permission to remove a cell member whom this member originally invited.
-- **Rename cell** — see [Naming, Renaming, and Sharing](#naming-renaming-and-sharing) below for the full rule, including the bare two-member-cell exception where the name is independent per member rather than shared.
+- **Owner** — a member (`p:Person` or `o:Organization`, never an `a:Agent`) currently holding the owner role via `c:owner`. The creator immediately becomes the cell's first (and initially sole) owner.
+- **Human** — a human member (`p:Person`) who is not currently an owner.
+- **Organization** — an organization member (`o:Organization`) who is not currently an owner.
+- **Invite member** — permission to invite a person, agent (of themselves), or an organization to a cell of which they are already a member.
+- **Uninvite member** — permission to remove a cell member whom this member originally invited.
+- **Rename cell** — see [Naming, Renaming, and Sharing](#naming-renaming-and-sharing) below for the full rule, including the bare two-member-cell exception where the name is independent per member rather than shared. Renaming is never gated by ownership.
 - **Graph claims CRUD** — create/read/update/delete claims as claimant, scoped to the graphs that member or agent itself claims (see [Agent Collaboration](#agent-collaboration) and [Integrations](#integrations) for how this applies to an invited agent).
 - **Delete cell locally** — removes the cell from this member's own tree only, not from any other member's copy.
 - **Delete cell globally** — no role can do this; consistent with [Cell Storage](#cell-storage) above, no cell is ever held centrally, so there's no single shared copy to delete for everyone.
 - **Out-of-cell comms** — permission to communicate out-of-band of the cell's chat (e.g. sending an email) with other cell members, using contact information discovered in the cell.
-- **Edit note directly** — commit a change straight to the note's text, with no review step.
+- **Delete another member's claim or attachment** — permission to delete a graph claim or attachment that a different member created or claims, not just one's own (contrast Graph claims CRUD/Delete own attachments above, both scoped to a member's own content) — restricted to owners.
+- **Promote member to owner** — permission to add a current regular member (a `p:Person` or `o:Organization`, never an `a:Agent`) to `c:owner` — restricted to owners; there is no corresponding capability to demote an owner.
+- **Edit note directly** — commit a change straight to the note's text, with no review step — restricted to owners; a non-owner member of any identity type can only add a comment or suggested edit instead (see below).
 - **Add note comment / suggested edit** — attach a margin comment, or propose an inline text change shown in the proposing member's own color and tagged with their name, without altering the committed text.
-- **Accept or reject suggested edit** — fold a comment-only guest's proposed inline change into the committed note text, or discard it.
+- **Accept or reject suggested edit** — fold a proposed inline change into the committed note text, or discard it — restricted to owners.
 
 ### Naming, Renaming, and Sharing
 
-For a single-member cell or a cell with three or more members — or a two-member cell that is also typed `c:TopicCell` — any member of the cell — not just its creator — can rename it, and the new name propagates to every member. By default, the app's cell model has no creator/admin-only privilege tier for this or any other content action, matching [Permissions](#permissions) above, where the note, files, and chat are freely editable by every full-access member — the one opt-in exception being a comment-only guest (see [Permissions](#permissions) above), who may suggest but not directly commit a change, including a rename. This mirrors how **Slack** and **Notion** handle renaming by default: any member/editor can rename a channel or page, and the new name propagates to everyone. It's a deliberate contrast with **Microsoft Teams** (channel owners only, by default), **Discord**, and **GitHub**, which restrict renaming to a privileged admin/Manage-Channels/owner role — a distinction the app's cell model doesn't have to begin with. A bare two-member cell — one that is *not* also `c:TopicCell` — does *not* follow this rule — see the exception below.
+For a single-member cell or a cell with three or more members — or a two-member cell that is also typed `c:TopicCell` — any member of the cell — not just its creator or another owner — can rename it, and the new name propagates to every member: renaming is never gated by ownership, unlike direct note edits and other-member claim/attachment deletion (see [Permissions](#permissions) above). Files and chat likewise stay freely editable by every member regardless of ownership status. This mirrors how **Slack** and **Notion** handle renaming by default: any member/editor can rename a channel or page, and the new name propagates to everyone. It's a deliberate contrast with **Microsoft Teams** (channel owners only, by default), **Discord**, and **GitHub**, which restrict renaming to a privileged admin/Manage-Channels/owner role — a distinction the app's cell model doesn't have to begin with. A bare two-member cell — one that is *not* also `c:TopicCell` — does *not* follow this rule — see the exception below.
 
 A cell's name must be unique among its sibling cells — the cells directly nested under the same parent. When a user renames a cell — e.g. to give it a name of its own choosing, different from its category's label, the same convention followed by other PKM tools — to a name that already belongs to one of its siblings, the app doesn't prompt or reject the input: it silently appends the next available integer suffix (`"1"`, `"2"`, ...) to make the name unique. The same rule applies when creating a brand-new cell whose default name (e.g. copied verbatim from its category's own label) would otherwise collide with an existing sibling.
 
@@ -80,9 +83,9 @@ This same uniqueness rule applies on **receipt** of a shared cell — for two-me
 
 For a bare two-member cell, the creator's name for their own copy is simply whatever they set it to — chosen and renamed exactly as for any other cell, subject only to the sibling-uniqueness rule above, but never propagated to the recipient's copy.
 
-At **first-time receipt** of a bare two-member cell — the recipient self-evidently did not create it, they're joining one already created — the app does not just adopt the creator's name as shared content. Instead, once, at that first receipt, it analyzes the `c:members` graph(s) belonging to the cell's creator/sender member and auto-generates a name for the cell from that analysis. (The sender's own choice of name for their copy is naturally centered on their own perspective, so blindly reusing it verbatim on the recipient's side would be a poor fit; analyzing the sender's own member graphs lets the recipient's app derive a name that makes sense from its own side instead.) This auto-generated name is subject to the same sibling-uniqueness suffixing described above.
+At **first-time receipt** of a bare two-member cell — the recipient self-evidently did not create it, they're joining one already created — the app does not just adopt the creator's name as shared content. Instead, once, at that first receipt, it analyzes the `c:member` graph(s) belonging to the cell's creator/sender member and auto-generates a name for the cell from that analysis. (The sender's own choice of name for their copy is naturally centered on their own perspective, so blindly reusing it verbatim on the recipient's side would be a poor fit; analyzing the sender's own member graphs lets the recipient's app derive a name that makes sense from its own side instead.) This auto-generated name is subject to the same sibling-uniqueness suffixing described above.
 
-For example, Alice creates a bare two-member cell about her relationship with Bob and names it "Bob" on her own side, then shares it with Bob. On first receipt, Bob's app doesn't just copy "Bob" — that's Alice's name for *him*, not a name that makes sense in Bob's own tree. Instead it scans the cell's `c:members` graph(s) belonging to Alice, finds a graph about Alice herself, extracts her given name, and names the cell "Alice" on Bob's side instead.
+For example, Alice creates a bare two-member cell about her relationship with Bob and names it "Bob" on her own side, then shares it with Bob. On first receipt, Bob's app doesn't just copy "Bob" — that's Alice's name for *him*, not a name that makes sense in Bob's own tree. Instead it scans the cell's `c:member` graph(s) belonging to Alice, finds a graph about Alice herself, extracts her given name, and names the cell "Alice" on Bob's side instead.
 
 From that point on, both the creator's and the recipient's names for their own copies may be freely renamed at any time, exactly like a single-member cell's name — but such a rename stays purely local to the renaming member's own tree and is never propagated to the other member's copy, in either direction. This is what keeps the first-receipt divergence meaningful: if a later rename on either side rippled to the other, it would silently overwrite a name chosen to fit that member's own perspective, defeating the reason the divergence exists in the first place.
 
@@ -108,7 +111,7 @@ Ideally it would have filed the cell shared by Alice's app under People > Immedi
 
 ### Form Fields from SHACL Shapes
 
-When the app renders an editable form for a cell's `c:topic`/`c:members` content, it derives each input field directly from the applicable SHACL shape — found live by matching the cell's own `c:category` value against `cell-templates.ttl`'s `c:TemplateCell` individuals and reading that template's `c:templateShape` (see [Lazy Instantiation](#lazy-instantiation)), rather than hand-coding one form per template class. Each `sh:property` constraint on that shape becomes one form field: `sh:datatype`/`sh:class`/`sh:nodeKind` determines the field's input type, and `sh:minCount`/`sh:maxCount` determine whether it's required and whether it repeats.
+When the app renders an editable form for a cell's `c:topic`/`c:member` content, it derives each input field directly from the applicable SHACL shape — found live by matching the cell's own `c:category` value against `cell-templates.ttl`'s `c:TemplateCell` individuals and reading that template's `c:templateShape` (see [Lazy Instantiation](#lazy-instantiation)), rather than hand-coding one form per template class. Each `sh:property` constraint on that shape becomes one form field: `sh:datatype`/`sh:class`/`sh:nodeKind` determines the field's input type, and `sh:minCount`/`sh:maxCount` determine whether it's required and whether it repeats.
 
 A property whose `sh:property` constraint carries an `sh:in` list renders as a closed dropdown populated directly from that list, with no further query needed — the shape itself is authoritative for what's selectable. This covers both a literal-value enumeration (e.g. `v:fuelType`, `v:driveWheelConfiguration`) and a class-value-punned one (e.g. `v:hasVehicleType`, whose `sh:in` list is the four concrete classes `v:Car`/`v:BusOrCoach`/`v:Motorcycle`/`v:MotorizedBicycle` rather than a set of literals).
 
@@ -129,7 +132,7 @@ The Note tab is a Markdown editor for the cell's one folder note, providing the 
 - Find and replace
 - Undo/redo
 - Continuous autosave — there is no explicit save step
-- Comments and suggested edits — any member can attach a margin comment to the note; a member holding the comment-only guest tier (see [Permissions](#permissions) above) can also propose an inline text change, shown in their own color and tagged with their name, which a full-access member then accepts or rejects into the committed note. Both are stored as legal, plain-Markdown markup (e.g. raw inline HTML such as `<ins>`/`<del>`, which CommonMark already permits to pass through untouched) rather than a proprietary format, so the note stays a portable `.md` file — a comment-unaware viewer just renders the underlying text
+- Comments and suggested edits — any member can attach a margin comment to the note; a non-owner member (see [Permissions](#permissions) above) can also propose an inline text change, shown in their own color and tagged with their name, which an owner then accepts or rejects into the committed note. Both are stored as legal, plain-Markdown markup (e.g. raw inline HTML such as `<ins>`/`<del>`, which CommonMark already permits to pass through untouched) rather than a proprietary format, so the note stays a portable `.md` file — a comment-unaware viewer just renders the underlying text
 
 ### Chat
 
@@ -137,7 +140,7 @@ Chat is one feature with two visibility modes, not two separate concepts. By def
 
 ## Agent Collaboration
 
-A member may invite their own AI agent (`a:Agent`, see README.md's [Agent Ontology](README.md#agent-ontology)) into a shared cell — e.g. inviting ChatGPT to help plan a trip in a `cat:Trips` cell. An invited agent becomes a real cell member: it gets its own self-claimed `c:members` entry alongside the human members, which raises the cell's own distinct-member count (e.g. Alice + her own agent = two distinct members, a two-member cell; a third member joining too — human or agent — would raise it to three members, the same derivation applying regardless of count — see [Number of Members](#number-of-members) above). Because the agent is a literal member, it needs no special-case permission logic — [Permissions](#permissions) above already covers it: by default, an invited agent gets exactly the same read/write access to the cell's note, files, and [chat](#chat) that any human member has, unless it too is invited under the comment-only guest tier instead (see [Permissions](#permissions) above). Each principal's own device hosts and runs their own agent independently (their own credentials, their own bridge to the underlying LLM service) — the same way each peer already independently manages their own tree position for a shared cell (see [Cell Storage](#cell-storage) above).
+A member may invite their own AI agent (`a:Agent`, see README.md's [Agent Ontology](README.md#agent-ontology)) into a shared cell — e.g. inviting ChatGPT to help plan a trip in a `cat:Trips` cell. An invited agent becomes a real cell member: it gets its own self-claimed `c:member` entry alongside the human members, which raises the cell's own distinct-member count (e.g. Alice + her own agent = two distinct members, a two-member cell; a third member joining too — human or agent — would raise it to three members, the same derivation applying regardless of count — see [Number of Members](#number-of-members) above). Because the agent is a literal member, it needs no special-case permission logic — [Permissions](#permissions) above already covers it: by default, an invited agent gets exactly the same read/write access to the cell's note, files, and [chat](#chat) that any non-owner human member has (see [Permissions](#permissions) above) — and, unlike a human or organization member, an agent can never be promoted to owner, so it stays at that baseline permanently. Each principal's own device hosts and runs their own agent independently (their own credentials, their own bridge to the underlying LLM service) — the same way each peer already independently manages their own tree position for a shared cell (see [Cell Storage](#cell-storage) above).
 
 ### The Iterative Prompt/Response Loop
 
@@ -165,7 +168,7 @@ This module lets a member invite OpenAI's ChatGPT into a cell as a real `a:Agent
 2. **Reads all of the cell's data.** Unlike its write access (below), read access is unrestricted: the note's current text, every member's and every topic's SCGraph content, and attachment metadata are all available to it as context for each turn — this is the raw material the [Iterative Prompt/Response Loop](#the-iterative-promptresponse-loop) assembles on its behalf.
 3. **Writes edits to the note.** Because it's a real cell member, it has the same free note-editing rights [Permissions](#permissions) already grants any member — no agent-specific carve-out is needed.
 4. **Creates, reads, updates, and deletes its own claims, as claimant** — but only within the two SCGraphs it actually claims:
-    - **Its own `cell:members` entry** — the self-claimed graph proving its membership (e.g. [graph 67](<example/Cells/Travel/Trips/Kyoto Trip 2027/Kyoto Trip 2027(trips).databook.md#graph-67>)'s `a:actsFor` claim) — content *about itself*.
-    - **Its own `cell:topic` entry (or entries)** — content about whatever the cell's relationship concerns (e.g. [graph 70](<example/Cells/Travel/Trips/Kyoto Trip 2027/Kyoto Trip 2027(trips).databook.md#graph-70>)'s evolving itinerary) — content about *the cell's topic*, distinct from any other member's or party's own topic claims about that same subject.
+    - **Its own `c:member` entry** — the self-claimed graph proving its membership (e.g. [graph 67](<example/Cells/Travel/Trips/Kyoto Trip 2027/Kyoto Trip 2027(trips).databook.md#graph-67>)'s `a:actsFor` claim) — content *about itself*.
+    - **Its own `c:topic` entry (or entries)** — content about whatever the cell's relationship concerns (e.g. [graph 70](<example/Cells/Travel/Trips/Kyoto Trip 2027/Kyoto Trip 2027(trips).databook.md#graph-70>)'s evolving itinerary) — content about *the cell's topic*, distinct from any other member's or party's own topic claims about that same subject.
 
-   It never writes to a graph claimed by someone else — not another member's `cell:members` entry, not a topic graph another party claims — read access is unrestricted, but write access is always scoped to the module's own claimant identity. In the steady state this means revising its topic graph in place turn by turn (see [The Iterative Prompt/Response Loop](#the-iterative-promptresponse-loop)); "create" and "delete" cover the initial contribution and retracting a claim that's no longer accurate (e.g. a cancelled leg of an itinerary), respectively.
+   It never writes to a graph claimed by someone else — not another member's `c:member` entry, not a topic graph another party claims — read access is unrestricted, but write access is always scoped to the module's own claimant identity. In the steady state this means revising its topic graph in place turn by turn (see [The Iterative Prompt/Response Loop](#the-iterative-promptresponse-loop)); "create" and "delete" cover the initial contribution and retracting a claim that's no longer accurate (e.g. a cancelled leg of an itinerary), respectively.

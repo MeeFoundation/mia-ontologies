@@ -11,8 +11,8 @@
 @base <http://mee.foundation/ontologies/graph> .
 
 <http://mee.foundation/ontologies/graph> rdf:type owl:Ontology ;
-    owl:versionIRI <http://mee.foundation/ontologies/graph/1.19.0> ;
-    dc:date "2026-08-30"^^xsd:date ;
+    owl:versionIRI <http://mee.foundation/ontologies/graph/1.20.0> ;
+    dc:date "2026-09-02"^^xsd:date ;
     owl:imports <http://mee.foundation/ontologies/cell> ;
     rdfs:label "Graph Ontology"@en ;
     rdfs:comment """Graph Ontology for the Cellula App"""@en .
@@ -27,10 +27,10 @@ g:claimant rdf:type owl:AnnotationProperty ;
     rdfs:comment """Annotates a graph DataBook with the identity making the claim —
                     a named individual of p:Person, o:Organization, or agent:Agent
                     (e.g. :Self, a p:Person or o:Organization instance; or an invited
-                    agent:Agent, self-claiming its own cell:members entry and claiming
+                    agent:Agent, self-claiming its own cell:member entry and claiming
                     whatever cell:topic content it contributes — see agent.ttl). Applied
                     to the graph DataBook's own IRI (its plain `id`) — the same IRI
-                    cell:members/cell:topic link to from the cell side —
+                    cell:member/cell:topic link to from the cell side —
                     not to the `#graph`-suffixed `graph.named_graph` IRI, and not
                     to the Person/Organization/Agent individual."""@en ;
     rdfs:domain g:SCGraph ;
@@ -45,7 +45,7 @@ g:subject rdf:type owl:AnnotationProperty ;
                     :Self, a p:Person or o:Organization instance), but that is
                     a convention of the example data, not an ontology requirement.
                     Applied to the graph DataBook's own IRI (its plain `id`) — the same
-                    IRI cell:members/cell:topic link to from the cell
+                    IRI cell:member/cell:topic link to from the cell
                     side — not to the `#graph`-suffixed `graph.named_graph` IRI,
                     and not to the subject resource itself."""@en ;
     rdfs:domain g:SCGraph ;
@@ -77,4 +77,4 @@ g:Graph rdf:type owl:Class ;
 g:SCGraph rdf:type owl:Class ;
     rdfs:subClassOf g:Graph ;
     rdfs:label "SCGraph"@en ;
-    rdfs:comment "Subject-Claimant graph: the concrete class every self-vs-other classified graph DataBook is typed as directly — it has no subclasses; the four self-vs-other cases (self-by-self, other-by-self, other-by-other, self-by-other) are determined directly from the combination of subject and claimant. Carries the subject and claimant annotations — every graph reachable from a cell, via cell:members/cell:topic, is a g:SCGraph and so always carries them."@en .
+    rdfs:comment "Subject-Claimant graph: the concrete class every self-vs-other classified graph DataBook is typed as directly — it has no subclasses; the four self-vs-other cases (self-by-self, other-by-self, other-by-other, self-by-other) are determined directly from the combination of subject and claimant. Carries the subject and claimant annotations — every graph reachable from a cell, via cell:member/cell:topic, is a g:SCGraph and so always carries them."@en .

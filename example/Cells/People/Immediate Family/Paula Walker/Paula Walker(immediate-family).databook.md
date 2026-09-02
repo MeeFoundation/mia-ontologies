@@ -9,7 +9,8 @@ description: >
 mia:
   category: "cat:ImmediateFamily"
   creator: ":Self"
-  members:
+  owner: ":Self"
+  member:
     - "graph-05"
     - "graph-21"
     - "graph-07"

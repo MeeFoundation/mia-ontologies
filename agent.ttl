@@ -10,9 +10,9 @@
 @base <http://mee.foundation/ontologies/agent> .
 
 <http://mee.foundation/ontologies/agent> rdf:type owl:Ontology ;
-    owl:versionIRI <http://mee.foundation/ontologies/agent/1.1.0> ;
-    dc:date "2026-08-31"^^xsd:date ;
-    owl:versionInfo "Version 1.1.0 - aligned agent:Agent/agent:actsFor with W3C PROV-O (prov:SoftwareAgent/prov:actedOnBehalfOf)."@en ;
+    owl:versionIRI <http://mee.foundation/ontologies/agent/1.2.0> ;
+    dc:date "2026-09-02"^^xsd:date ;
+    owl:versionInfo "Version 1.2.0 - renamed cell:members references to cell:member; noted agent:Agent can never be promoted to cell:owner."@en ;
     owl:imports <http://mee.foundation/ontologies/prov-upper-subset> ;
     rdfs:label "Agent Ontology"@en ;
     rdfs:comment """Agent Ontology for the Cellula App.
@@ -20,9 +20,10 @@
                     person or organization invites to collaborate inside a shared cell —
                     a third kind of first-class, member-capable participant, peer to
                     persona.ttl (models Person) and organization.ttl (models
-                    Organization). An agent:Agent is never a cell:creator (cell.ttl) —
-                    only ever a cell:members participant and a g:claimant (graph.ttl) of
-                    the content it contributes — and always acts on behalf of exactly one
+                    Organization). An agent:Agent is never a cell:creator (cell.ttl) — and
+                    can never be promoted to cell:owner either — only ever a cell:member
+                    participant and a g:claimant (graph.ttl) of the content it
+                    contributes — and always acts on behalf of exactly one
                     principal. p:Person/o:Organization (persona.ttl/organization.ttl) are
                     referenced by name without owl:imports, mirroring cell:creator's/
                     g:claimant's own union-range pattern for them — but this file does
@@ -45,9 +46,10 @@ agent:Agent rdf:type owl:Class ;
     rdfs:comment """An AI agent (e.g. an LLM-based assistant such as ChatGPT) that a
                     p:Person or o:Organization has invited to collaborate inside a shared
                     cell. Unlike p:Person/o:Organization, an agent:Agent is never a
-                    cell:creator — a cell is always created by a real relationship party
-                    — but it can be a genuine cell:members participant (see cell.ttl's
-                    cell:members comment) and a g:claimant (graph.ttl) of the graphs it
+                    cell:creator, and can never be promoted to cell:owner either — a cell
+                    is always created by, and only ever owned by, a real relationship
+                    party — but it can be a genuine cell:member participant (see
+                    cell.ttl's cell:member comment) and a g:claimant (graph.ttl) of the graphs it
                     contributes, including a cell:topic graph about whatever the cell's
                     relationship concerns (e.g. a trip being planned). Always carries
                     exactly one agent:actsFor value identifying which member it is a

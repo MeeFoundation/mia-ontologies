@@ -9,7 +9,8 @@ description: >
 mia:
   category: "cat:SSN"
   creator: ":Self"
-  members: "graph-23"
+  owner: ":Self"
+  member: "graph-23"
   graphs:
     - id: "http://www.example.org/mia/graphs/graph-23"
       claimant: ":Self"

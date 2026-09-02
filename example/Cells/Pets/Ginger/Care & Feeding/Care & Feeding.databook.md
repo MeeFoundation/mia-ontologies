@@ -9,7 +9,8 @@ description: >
 mia:
   category: "cat:PetsCareAndFeeding"
   creator: ":Self"
-  members:
+  owner: ":Self"
+  member:
     - "graph-58"
     - "graph-59"
   topic: "graph-60"
@@ -41,7 +42,7 @@ mia:
 
 #### Overview
 
-This graph is one of the cell's two `members` entries, satisfying the two-member baseline alongside graph 59 (Paula's own claim, below). Alice is both the claimant and the subject. Deliberately empty: the `members` requirement is about `g:subject`/`g:claimant` (asserted at the `mia.graphs[]` YAML level, not in this Turtle body), not about carrying any particular content.
+This graph is one of the cell's two `member` entries, satisfying the two-member baseline alongside graph 59 (Paula's own claim, below). Alice is both the claimant and the subject. Deliberately empty: the `member` requirement is about `g:subject`/`g:claimant` (asserted at the `mia.graphs[]` YAML level, not in this Turtle body), not about carrying any particular content.
 
 #### Graph
 
@@ -55,7 +56,7 @@ This graph is one of the cell's two `members` entries, satisfying the two-member
 
 #### Overview
 
-This cell was created by Alice and later shared with Paula, making the cell a two-member cell. This graph is Paula's own bare identity claim (just her given name) — the cell's second `members` entry, satisfying the two-member baseline alongside graph 58 (Alice's own claim, above). Paula is both the claimant and the subject.
+This cell was created by Alice and later shared with Paula, making the cell a two-member cell. This graph is Paula's own bare identity claim (just her given name) — the cell's second `member` entry, satisfying the two-member baseline alongside graph 58 (Alice's own claim, above). Paula is both the claimant and the subject.
 
 #### Graph
 
@@ -81,7 +82,7 @@ This cell was created by Alice and later shared with Paula, making the cell a tw
 
 #### Overview
 
-This graph captures Alice's day-to-day care and feeding instructions for her cat Ginger — what to feed her and when, and where she sleeps — so that Paula (or anyone else looking after Ginger) knows how to care for her. Alice is the claimant; Ginger is the cell's `subject` but, since she has no `p:Person` individual of her own, her graph is linked via `cell:topic` rather than as one of the required `members` entries (graphs 58 and 59, above, fill those slots instead). No formal template governs this content (unlike her sibling Medical cell's `pets:PetMedicationRecord`, or her own basic identifying claim in graph 37, now governed by `pets:Pet`) — no `cell:TemplateCell` points its `cell:category` at `cat:PetsCareAndFeeding` — so it is asserted directly as a plain comment.
+This graph captures Alice's day-to-day care and feeding instructions for her cat Ginger — what to feed her and when, and where she sleeps — so that Paula (or anyone else looking after Ginger) knows how to care for her. Alice is the claimant; Ginger is the cell's `subject` but, since she has no `p:Person` individual of her own, her graph is linked via `cell:topic` rather than as one of the required `member` entries (graphs 58 and 59, above, fill those slots instead). No formal template governs this content (unlike her sibling Medical cell's `pets:PetMedicationRecord`, or her own basic identifying claim in graph 37, now governed by `pets:Pet`) — no `cell:TemplateCell` points its `cell:category` at `cat:PetsCareAndFeeding` — so it is asserted directly as a plain comment.
 
 #### Graph
 

@@ -9,7 +9,8 @@ description: >
 mia:
   category: "cat:Others"
   creator: ":Self"
-  members:
+  owner: ":Self"
+  member:
     - "graph-02"
     - "graph-12"
     - "graph-04"

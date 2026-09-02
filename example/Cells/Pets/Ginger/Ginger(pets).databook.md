@@ -9,7 +9,8 @@ description: >
 mia:
   category: "cat:Pets"
   creator: ":Self"
-  members: "graph-36"
+  owner: ":Self"
+  member: "graph-36"
   topic: "graph-37"
   graphs:
     - id: "http://www.example.org/mia/graphs/graph-36"
@@ -34,7 +35,7 @@ mia:
 
 #### Overview
 
-This graph is the cell's one required `members` entry — a cell with a single `members` entry in the user's own category-cell tree always has `:Self` as that member (see Check 21), regardless of what the cell's `subject` is — here, Ginger herself. Alice is both the claimant and the subject. Deliberately empty: the `members` requirement is about `g:subject`/`g:claimant` (asserted at the `mia.graphs[]` YAML level, not in this Turtle body), not about carrying any particular content — there is no rule requiring a member's graph to assert anything at all about them.
+This graph is the cell's one required `member` entry — a cell with a single `member` entry in the user's own category-cell tree always has `:Self` as that member (see Check 21), regardless of what the cell's `subject` is — here, Ginger herself. Alice is both the claimant and the subject. Deliberately empty: the `member` requirement is about `g:subject`/`g:claimant` (asserted at the `mia.graphs[]` YAML level, not in this Turtle body), not about carrying any particular content — there is no rule requiring a member's graph to assert anything at all about them.
 
 #### Graph
 

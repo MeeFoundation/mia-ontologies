@@ -9,7 +9,8 @@ description: >
 mia:
   category: "cat:MedicalAppointment"
   creator: ":Self"
-  members:
+  owner: ":Self"
+  member:
     - "graph-28"
     - "graph-30"
   topic:

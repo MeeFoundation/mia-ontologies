@@ -9,7 +9,8 @@ description: >
 mia:
   category: "cat:PrimaryCarePhysician"
   creator: ":Self"
-  members: "graph-34"
+  owner: ":Self"
+  member: "graph-34"
   topic: "graph-25"
   graphs:
     - id: "http://www.example.org/mia/graphs/graph-34"
@@ -33,7 +34,7 @@ mia:
 
 #### Overview
 
-This graph captures Alice's own bare identity claim (just her given name) — the cell's one required `members` entry, satisfying the single-member baseline. Alice is both the claimant and the subject.
+This graph captures Alice's own bare identity claim (just her given name) — the cell's one required `member` entry, satisfying the single-member baseline. Alice is both the claimant and the subject.
 
 #### Graph
 
@@ -55,7 +56,7 @@ This graph captures Alice's own bare identity claim (just her given name) — th
 
 #### Overview
 
-This graph captures Alice's record of Dr. Jane Starostina, who is the primary care physician for Alice's mother, Paula Walker. Alice keeps this information so she and her sister Carol can coordinate Paula's medical appointments. Alice is the claimant; Jane is the cell's `subject` but, since this cell now has a real member entry (graph 34, above) about Alice herself, Jane's graph is linked via `cell:topic` rather than as one of the required `members` entries.
+This graph captures Alice's record of Dr. Jane Starostina, who is the primary care physician for Alice's mother, Paula Walker. Alice keeps this information so she and her sister Carol can coordinate Paula's medical appointments. Alice is the claimant; Jane is the cell's `subject` but, since this cell now has a real member entry (graph 34, above) about Alice herself, Jane's graph is linked via `cell:topic` rather than as one of the required `member` entries.
 
 #### Graph
 

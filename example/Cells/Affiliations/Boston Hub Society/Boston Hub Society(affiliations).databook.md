@@ -9,7 +9,8 @@ description: >
 mia:
   category: "cat:Affiliations"
   creator: ":Self"
-  members:
+  owner: ":Self"
+  member:
     - "graph-01"
     - "graph-14"
     - "graph-03"

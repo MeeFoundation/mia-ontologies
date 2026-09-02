@@ -9,7 +9,8 @@ description: >
 mia:
   category: "cat:Things"
   creator: ":Self"
-  members: "graph-22"
+  owner: ":Self"
+  member: "graph-22"
   graphs:
     - id: "http://www.example.org/mia/graphs/graph-22"
       claimant: ":Self"
