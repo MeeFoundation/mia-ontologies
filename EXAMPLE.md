@@ -111,7 +111,7 @@ Here is a snippet from [graph 63](<example/Cells/Things/Vehicles/RAV4/RAV4(vehic
 
 ### Caring for Ginger
 
-Alice also has a cat, Ginger. Under her *Pets* cell she has created a *Ginger* cell for this specific pet — reusing its parent's own `cat:Pets` category, and now, thanks to `cat:Pets`'s own template cell, identifying Ginger's name, species (*Felis catus*, an NCBITaxon class IRI), breed (VBO's own "Mixed Breed (Cat)" class), birth date, and current body weight as a real `pets:Pet` individual rather than a bare label ([graph 37](<example/Cells/Pets/Ginger/Ginger(pets).databook.md#graph-37>)) — and, nested inside it, two sibling cells: a *Medical* cell recording Ginger's medical care directly (reusing its parent's own `cat:PetsMedical` category, since `cat:PetsMedications` is no longer a category of its own, and the cell no longer needs a separate organizational scaffold cell wrapping it either, now that the merge removed the reason for one) — a completed course of amoxicillin/clavulanate (brand name Clavamox, from Zoetis) and an ongoing daily glucosamine/chondroitin joint supplement ([graph 32](<example/Cells/Pets/Ginger/Medical/Medical.databook.md#graph-32>)) — and a *Care & Feeding* cell (`cat:PetsCareAndFeeding`) recording her day-to-day care instructions: her feeding schedule and where she sleeps ([graph 60](<example/Cells/Pets/Ginger/Care & Feeding/Care & Feeding.databook.md#graph-60>)). Alice shared both cells with Paula, who also helps look after Ginger, making each a two-member cell with Alice's and Paula's own bare identity claims as their two `members` ([graph 33](<example/Cells/Pets/Ginger/Medical/Medical.databook.md#graph-33>) and [graph 57](<example/Cells/Pets/Ginger/Medical/Medical.databook.md#graph-57>) for Medical; [graph 58](<example/Cells/Pets/Ginger/Care & Feeding/Care & Feeding.databook.md#graph-58>) and [graph 59](<example/Cells/Pets/Ginger/Care & Feeding/Care & Feeding.databook.md#graph-59>) for Care & Feeding).
+Alice also has a cat, Ginger. Under her *Pets* cell she has created a *Ginger* cell for this specific pet — reusing its parent's own `cat:Pets` category, and now, thanks to `cat:Pets`'s own template cell, identifying Ginger's name, species (*Felis catus*, an NCBITaxon class IRI), breed (VBO's own "Mixed Breed (Cat)" class), birth date, and current body weight as a real `pets:Pet` individual rather than a bare label ([graph 37](<example/Cells/Pets/Ginger/Ginger(pets).databook.md#graph-37>)) — and, nested inside it, two sibling cells: a *Medical* cell recording Ginger's medical care directly (reusing its parent's own `cat:PetsMedical` category) — a completed course of amoxicillin/clavulanate (brand name Clavamox, from Zoetis) and an ongoing daily glucosamine/chondroitin joint supplement ([graph 32](<example/Cells/Pets/Ginger/Medical/Medical.databook.md#graph-32>)) — and a *Care & Feeding* cell (`cat:PetsCareAndFeeding`) recording her day-to-day care instructions: her feeding schedule and where she sleeps ([graph 60](<example/Cells/Pets/Ginger/Care & Feeding/Care & Feeding.databook.md#graph-60>)). Alice shared both cells with Paula, who also helps look after Ginger, making each a two-member cell with Alice's and Paula's own bare identity claims as their two `members` ([graph 33](<example/Cells/Pets/Ginger/Medical/Medical.databook.md#graph-33>) and [graph 57](<example/Cells/Pets/Ginger/Medical/Medical.databook.md#graph-57>) for Medical; [graph 58](<example/Cells/Pets/Ginger/Care & Feeding/Care & Feeding.databook.md#graph-58>) and [graph 59](<example/Cells/Pets/Ginger/Care & Feeding/Care & Feeding.databook.md#graph-59>) for Care & Feeding).
 
 <p align="center"><img src="example/images/pets.png" alt="Pets cells"></p>
 
@@ -236,7 +236,7 @@ python3 draw.py "example/Cells/Finances/Banking & Payments Firms/Citibank/Citiba
 python3 draw.py "example/Cells/Government/Municipality/Paradise/Paradise(residence).databook.md" "graph-18"
 ```
 
-Both output files are always written to `example/graphs/images/` (must be run from the repo root), keyed by the graph's own id local-name — the same location and naming graph diagrams used before the graph/cell merge, even though the graph's own file no longer exists.
+Both output files are always written to `example/graphs/images/` (must be run from the repo root), keyed by the graph's own id local-name.
 
 **Dependencies** (one-time setup):
 ```bash
@@ -248,7 +248,7 @@ Each diagram shows the `p:Person` individual (yellow), supporting named individu
 
 ## Validation
 
-Validation requires [Apache Jena](https://jena.apache.org/) (`riot`, `shacl`), the [DataBook CLI](https://github.com/kurtcagle/databook) (`databook`; install: `git clone https://github.com/kurtcagle/databook.git && cd databook && npm install && npm install -g .`) — the CLI's reference implementation moved here from `w3c-cg/holon`, which retired its two previously-vendored copies in favor of this single upstream source — `pyyaml` for `yaml-to-rdf.py` (`pip install pyyaml`), and `extract-graph.py` (no extra dependencies) for isolating one embedded graph's Turtle from a cell DataBook that may hold several — needed since `databook extract` has no notion of "pick one graph out of many" and Tier 2 validates one graph at a time. SHACL shapes remain plain Turtle (`.ttl`).
+Validation requires [Apache Jena](https://jena.apache.org/) (`riot`, `shacl`), the [DataBook CLI](https://github.com/kurtcagle/databook) (`databook`; install: `git clone https://github.com/kurtcagle/databook.git && cd databook && npm install && npm install -g .`), `pyyaml` for `yaml-to-rdf.py` (`pip install pyyaml`), and `extract-graph.py` (no extra dependencies) for isolating one embedded graph's Turtle from a cell DataBook that may hold several — needed since `databook extract` has no notion of "pick one graph out of many" and Tier 2 validates one graph at a time. SHACL shapes remain plain Turtle (`.ttl`).
 
 ### Quick check — DataBook syntax
 
@@ -279,12 +279,10 @@ while IFS= read -r -d '' f; do
 done >> /tmp/mia-data.ttl
 
 # Step 1b — synthesize c:/graph: triples from each cell DataBook's own YAML
-# frontmatter (mia.* fields, including its mia.graphs list — since
-# graph-databooks were merged into their owning cell-databooks, a graph's
-# claimant/subject now live there rather than in a separate graph-databook
-# file). There is no cat: synthesis at all any more — category.ttl 1.31.0
-# deleted cat:Folder and its subclasses outright, so a folder's tree position
-# is purely a filesystem fact with no RDF individual to synthesize; the only
+# frontmatter (mia.* fields, including its mia.graphs list — a graph's
+# claimant/subject live there, not in a separate graph-databook file).
+# There is no cat: synthesis at all — a folder's tree position is purely a
+# filesystem fact with no RDF individual to synthesize; the only
 # surviving classification fact, c:category, is read directly from each cell
 # DataBook's own explicit mia.category field. databook extract only pulls
 # fenced Turtle blocks, which cell DataBooks don't carry — without this
@@ -326,7 +324,7 @@ riot --output=turtle \
 # target document classes and would fire incorrectly on all individuals when applied
 # to merged data. pdn-identity-shacl.ttl is also excluded: its ontology,
 # pdn-identity.ttl, isn't part of the Step 2 merge — nothing here ever references
-# an identity: term, see persona.ttl 4.0.6)
+# an identity: term)
 grep -v 'owl:imports' persona-shacl.ttl > /tmp/mia-shapes.ttl
 grep -v 'owl:imports' graph-shacl.ttl >> /tmp/mia-shapes.ttl
 grep -v 'owl:imports' cell-shacl.ttl >> /tmp/mia-shapes.ttl
