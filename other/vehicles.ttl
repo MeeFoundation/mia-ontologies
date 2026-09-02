@@ -12,9 +12,9 @@
 <http://mee.foundation/ontologies/vehicles> rdf:type owl:Ontology ;
     owl:imports <http://mee.foundation/ontologies/wikidata-vehicle-makes-subset> ,
                 <http://mee.foundation/ontologies/wikidata-vehicle-models-subset> ;
-    owl:versionIRI <http://mee.foundation/ontologies/vehicles/1.1.0> ;
-    dc:date "2026-08-30"^^xsd:date ;
-    owl:versionInfo "Version 1.1.0 - reworded cell:memberCount precedent reference to cell:origin."@en ;
+    owl:versionIRI <http://mee.foundation/ontologies/vehicles/1.1.1> ;
+    dc:date "2026-09-01"^^xsd:date ;
+    owl:versionInfo "Version 1.1.1 - updated cell:origin reference to cell:category, following cell.ttl's property rename."@en ;
     rdfs:label "Vehicles Ontology"@en ;
     rdfs:comment """The second of this project's other/ peer ontologies (after other/pets.ttl) — small,
                     mostly-vendored ontologies for domains a person merely *has* (a pet, a vehicle) rather
@@ -23,7 +23,7 @@
                     stay scoped to a person's identity data. persona.ttl holds only the thin link property
                     (persona:hasVehicle, domain persona:Person, range vehicles:Vehicle) connecting a person to
                     this file's classes, referenced by name with no owl:imports in either direction — the same
-                    "referenced by name" pattern cell.ttl already uses for cell:origin's range (cat:Category)
+                    "referenced by name" pattern cell.ttl already uses for cell:category's range (skos:Concept)
                     and cell:creator's range (persona:Person/o:Organization), and other/pets.ttl already uses
                     for persona:hasPet.
 
@@ -58,10 +58,12 @@ vehicles:VehicleType rdf:type owl:Class ;
     rdfs:label "Vehicle Type"@en ;
     rdfs:comment """Abstract parent of the four concrete vehicle-kind classes below. A vehicles:Vehicle's
                     vehicles:hasVehicleType value IS one of these four concrete subclasses directly — the
-                    same class-value-punning style cell:origin (cell.ttl) and
+                    same class-value-punning style
                     pets:hasSpecies/pets:hasBreed (other/pets.ttl) already use — rather than a separate
                     individual or a plain string, so no instances of vehicles:VehicleType or its subclasses
-                    are ever asserted."""@en .
+                    are ever asserted. (cell:category, cell.ttl, once used this same style too, but no
+                    longer — category.ttl's tree is now a SKOS concept scheme, so cell:category's value is
+                    a genuine skos:Concept individual, not a punned class.)"""@en .
 
 vehicles:Car rdf:type owl:Class ;
     rdfs:subClassOf vehicles:VehicleType ;

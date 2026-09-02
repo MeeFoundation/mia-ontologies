@@ -5,9 +5,9 @@ type: cell-databook
 version: 1.2.0
 created: 2026-07-10
 description: >
-  Cell DataBook for folder "Department of State" (cell:origin: cat:Passport). It is a one-member cell with one member entry about :Self.
+  Cell DataBook for folder "Department of State" (cell:category: cat:Passport). It is a one-member cell with one member entry about :Self.
 mia:
-  origin: "cat:Passport"
+  category: "cat:Passport"
   creator: ":Self"
   members: "graph-19"
   graphs:
@@ -19,7 +19,6 @@ mia:
         - http://mee.foundation/ontologies/persona/shapes
         - http://mee.foundation/ontologies/graph/shapes
         - http://mee.foundation/ontologies/persona/shapes/passport
-  shape: "pshapes:PassportDocumentShape"
 ---
 
 ## Graphs

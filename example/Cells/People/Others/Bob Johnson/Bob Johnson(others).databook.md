@@ -5,9 +5,9 @@ type: cell-databook
 version: 1.1.0
 created: 2026-07-10
 description: >
-  Cell DataBook for folder "Bob Johnson" (cell:origin: cat:Others). It is a two-member cell with four members (two about :Bob_Johnson and two about :Self).
+  Cell DataBook for folder "Bob Johnson" (cell:category: cat:Others). It is a two-member cell with four members (two about :Bob_Johnson and two about :Self).
 mia:
-  origin: "cat:Others"
+  category: "cat:Others"
   creator: ":Self"
   members:
     - "graph-02"

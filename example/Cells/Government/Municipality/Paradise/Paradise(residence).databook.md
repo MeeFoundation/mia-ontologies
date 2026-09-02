@@ -5,9 +5,9 @@ type: cell-databook
 version: 1.1.0
 created: 2026-07-10
 description: >
-  Cell DataBook for folder "Paradise" (cell:origin: cat:Residence). It is a one-member cell with one member entry about :Self.
+  Cell DataBook for folder "Paradise" (cell:category: cat:Residence). It is a one-member cell with one member entry about :Self.
 mia:
-  origin: "cat:Residence"
+  category: "cat:Residence"
   creator: ":Self"
   members: "graph-18"
   graphs:

@@ -1,6 +1,5 @@
 @prefix cat: <http://mee.foundation/ontologies/category#> .
-@prefix cell: <http://mee.foundation/ontologies/cell#> .
-@prefix ctpl: <http://mee.foundation/ontologies/cell-templates#> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
 @prefix owl: <http://www.w3.org/2002/07/owl#> .
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
@@ -9,102 +8,96 @@
 @base <http://mee.foundation/ontologies/category> .
 
 <http://mee.foundation/ontologies/category> rdf:type owl:Ontology ;
-    owl:versionIRI <http://mee.foundation/ontologies/category/1.57.0> ;
-    dc:date "2026-08-30"^^xsd:date ;
-    owl:imports <http://mee.foundation/ontologies/cell> ;
-    owl:imports <http://mee.foundation/ontologies/cell-templates> ;
+    owl:versionIRI <http://mee.foundation/ontologies/category/2.0.0> ;
+    dc:date "2026-09-01"^^xsd:date ;
     rdfs:label "Category Ontology"@en ;
     rdfs:comment """Category Ontology for the Cellula App."""@en .
 
 
 #################################################################
-#    Annotation Properties for Category Classification
+#    Category Scheme
 #################################################################
 
-cat:templateCell rdf:type owl:AnnotationProperty ;
-    rdfs:domain owl:Class ;
-    rdfs:range cell:TemplateCell ;
-    rdfs:label "templateCell"@en ;
-    rdfs:comment "Links a cat:Category subclass (e.g. cat:Passport) directly to the cell:TemplateCell individual that serves as its canonical template content — the one the app clones into a new cell when a folder representing that class is first instantiated into a user's tree (see APP-BEHAVIOR.md's Lazy Instantiation). Declared as an owl:AnnotationProperty rather than an owl:ObjectProperty, mirroring cell:abstract's precedent (cell.ttl) for asserting metadata directly on a class IRI: an annotation assertion carries no OWL DL reasoning weight, so a reasoner (HermiT/Pellet) entails nothing extra from it either way, unlike an object property whose punned use here would be legal but far less precedented in this codebase. Most cat:Category subclasses have no cat:templateCell value at all — this is the expected default, not an omission: Lazy Instantiation simply creates an empty (or no) user cell when the instantiated class has no template. Individuals are declared in the companion file cell-templates.ttl (which category.ttl owl:imports), one per templated class — each typed solely cell:TemplateCell (the template facet this property's range names; cell:TemplateCell and cell:MemberCell are disjoint, so a template individual is never also typed cell:MemberCell) — also carrying cell:templateShape (cell.ttl) to the SHACL shape(s) in cell-templates-shacl.ttl that describe its expected content."@en .
-
-
-#################################################################
-#    Category
-#################################################################
-
-cat:Category rdf:type owl:Class ;
-    cell:abstract true ;
-    rdfs:label "Category"@en ;
-    rdfs:comment """Category of information about a person or organization. This is the classificatory facet only — which kind of thing a category is (e.g. cat:Work, cat:Affiliations); the canonical tree IS this class hierarchy (rdfs:subClassOf), not a separate set of instances. cat:Category carries no tree-position facet of its own — a cell's tree position is not a classification fact, and is defined instead in cell.ttl/README.md: a cell is the folder holding its one cell-databook file, folder and file together forming one node in the user's tree of cells. cell:origin is the sole RDF-level record of which cat:Category subclass, if any, a given cell's content matches — it records classification, not position."""@en .
+cat:CategoryScheme rdf:type skos:ConceptScheme ;
+    rdfs:label "Category Scheme"@en ;
+    rdfs:comment """The SKOS concept scheme holding every category of information a user tracks about a person or organization. Every cat: concept in this file carries skos:inScheme cat:CategoryScheme — this is what identifies a concept as one of this app's own category concepts; there is no dedicated OWL class for that purpose any more (skos:Concept is the sole rdf:type every concept carries). Rooted at two top concepts, cat:Person and cat:Organization (skos:hasTopConcept), with every other concept reachable from one of the two by following skos:broader (asserted child → parent, at most one step at a time — the same direction rdfs:subClassOf used to be asserted in). skos:broader is a topical/thesaurus relation, not OWL subsumption: cat:Pets skos:broader cat:Person does not mean a pet is a kind of person, only that Pets is a narrower topic within the Person-rooted branch of information a user tracks about themselves — the same is true of every other skos:broader edge in this scheme. cell:category (cell.ttl) is the sole RDF-level record of which concept in this scheme, if any, a given cell's content matches — it records classification, not tree position (see cell.ttl/README.md for a cell's actual tree position, which is purely a filesystem fact)."""@en ;
+    skos:hasTopConcept cat:Person, cat:Organization .
 
 
 #################################################################
-#    Category subclasses: Personal and Organizational
+#    Category concepts: Personal and Organizational roots
 #################################################################
 
-cat:Person rdf:type owl:Class ;
-    cell:abstract true ;
-    rdfs:subClassOf cat:Category ;
-    rdfs:label "Person"@en ;
-    rdfs:comment "Superclass of all built-in topic categories that involve interactions with people or person-centric topics (e.g. People, Work, Government)."@en .
+cat:Person rdf:type skos:Concept ;
+    skos:prefLabel "Person"@en ;
+    skos:inScheme cat:CategoryScheme ;
+    skos:topConceptOf cat:CategoryScheme ;
+    rdfs:comment "Root topic for all built-in categories of information about a person — people or person-centric topics (e.g. People, Work, Government)."@en .
 
-cat:Organization rdf:type owl:Class ;
-    cell:abstract true ;
-    rdfs:subClassOf cat:Category ;
-    rdfs:label "Organization"@en ;
-    rdfs:comment "Superclass of all built-in topic categories that involve interactions with organizations (e.g. Companies, BankingPayments(org))."@en .
-
-#################################################################
-#    Personal subclasses
-#################################################################
+cat:Organization rdf:type skos:Concept ;
+    skos:prefLabel "Organization"@en ;
+    skos:inScheme cat:CategoryScheme ;
+    skos:topConceptOf cat:CategoryScheme ;
+    rdfs:comment "Root topic for all built-in categories of information about an organization — organizations and organization-centric topics (e.g. Companies, BankingPayments(org))."@en .
 
 #################################################################
-#    cat:Affiliations and subclasses
+#    Personal concepts
+#################################################################
+
+#################################################################
+#    cat:Affiliations and narrower concepts
 #################################################################
 
 
-cat:Affiliations rdf:type owl:Class ;
-    rdfs:subClassOf cat:Person ;
-    rdfs:label "Affiliations"@en ;
+cat:Affiliations rdf:type skos:Concept ;
+    skos:prefLabel "Affiliations"@en ;
+    skos:broader cat:Person ;
+    skos:inScheme cat:CategoryScheme ;
     rdfs:comment "A catch-all for clubs, charities, faith groups, and other group affiliations not covered by a more specific category (e.g. cat:SportsEntertainment, cat:Food, etc.)."@en .
 
 
 #################################################################
-#    cat:People and subclasses
+#    cat:People and narrower concepts
 #################################################################
 
-cat:People rdf:type owl:Class ;
-    rdfs:subClassOf cat:Person ;
-    rdfs:label "People"@en ;
+cat:People rdf:type skos:Concept ;
+    skos:prefLabel "People"@en ;
+    skos:broader cat:Person ;
+    skos:inScheme cat:CategoryScheme ;
     rdfs:comment "People in your social or professional life. Use this category for people not otherwise tied to a specific domain — a bookkeeper you know belongs under Finances (Advisory Firms), and your primary care physician belongs under Health & Wellness (Medical > Providers > Primary Care Physician), rather than here."@en .
 
-cat:ImmediateFamily rdf:type owl:Class ;
-    rdfs:subClassOf cat:People ;
-    rdfs:label "Immediate Family"@en ;
+cat:ImmediateFamily rdf:type skos:Concept ;
+    skos:prefLabel "Immediate Family"@en ;
+    skos:broader cat:People ;
+    skos:inScheme cat:CategoryScheme ;
     rdfs:comment "Your closest living relatives, which generally include parents, siblings, spouses/partners, and children."@en .
 
-cat:ExtendedFamily rdf:type owl:Class ;
-    rdfs:subClassOf cat:People ;
-    rdfs:label "Extended Family"@en ;
+cat:ExtendedFamily rdf:type skos:Concept ;
+    skos:prefLabel "Extended Family"@en ;
+    skos:broader cat:People ;
+    skos:inScheme cat:CategoryScheme ;
     rdfs:comment "Relatives outside the immediate nuclear group, such as grandparents, aunts, uncles, cousins, nieces and nephews."@en .
 
-cat:InLawsStepFamily rdf:type owl:Class ;
-    rdfs:subClassOf cat:People ;
-    rdfs:label "In-Laws / Step-Family"@en ;
+cat:InLawsStepFamily rdf:type skos:Concept ;
+    skos:prefLabel "In-Laws / Step-Family"@en ;
+    skos:broader cat:People ;
+    skos:inScheme cat:CategoryScheme ;
     rdfs:comment "Relatives gained through marriage or legal guardianship, including a spouse's parents and siblings, or children from a previous relationship."@en .
 
-cat:Others rdf:type owl:Class ;
-    rdfs:subClassOf cat:People ;
-    rdfs:label "Others"@en ;
+cat:Others rdf:type skos:Concept ;
+    skos:prefLabel "Others"@en ;
+    skos:broader cat:People ;
+    skos:inScheme cat:CategoryScheme ;
     rdfs:comment "People you know socially or professionally who are not part of your family — acquaintances, friends, neighbors, or other connections."@en .
 
 #################################################################
-#    cat:Work and subclasses
+#    cat:Work and narrower concepts
 #################################################################
 
-cat:Work rdf:type owl:Class ;
-    rdfs:subClassOf cat:Person ;
-    rdfs:label "Work"@en ;
+cat:Work rdf:type skos:Concept ;
+    skos:prefLabel "Work"@en ;
+    skos:broader cat:Person ;
+    skos:inScheme cat:CategoryScheme ;
     rdfs:comment "Professional roles. Employment history, resume/CV, job level, job function, industry."@en .
 
 
@@ -112,9 +105,10 @@ cat:Work rdf:type owl:Class ;
 #    cat:Companies
 #################################################################
 
-cat:Companies rdf:type owl:Class ;
-    rdfs:subClassOf cat:Person ;
-    rdfs:label "Companies"@en ;
+cat:Companies rdf:type skos:Concept ;
+    skos:prefLabel "Companies"@en ;
+    skos:broader cat:Person ;
+    skos:inScheme cat:CategoryScheme ;
     rdfs:comment "A catch-all for your relationships with companies and organizations that provide services and/or products to you that are not included in more specific categories such as cat:Finances, cat:HealthWellness, cat:Home, cat:Food, etc."@en .
 
 
@@ -122,541 +116,629 @@ cat:Companies rdf:type owl:Class ;
 #    cat:Finances
 #################################################################
 
-cat:Finances rdf:type owl:Class ;
-    rdfs:subClassOf cat:Person ;
-    rdfs:label "Finances"@en ;
+cat:Finances rdf:type skos:Concept ;
+    skos:prefLabel "Finances"@en ;
+    skos:broader cat:Person ;
+    skos:inScheme cat:CategoryScheme ;
     rdfs:comment "Information about personal finances, bookkeeping, budgets, payment cards, bank accounts, brokerage accounts, insurance policies, financial advisors, etc."@en .
 
-cat:Bookkeeping rdf:type owl:Class ;
-    rdfs:subClassOf cat:Finances ;
-    rdfs:label "Bookkeeping"@en ;
+cat:Bookkeeping rdf:type skos:Concept ;
+    skos:prefLabel "Bookkeeping"@en ;
+    skos:broader cat:Finances ;
+    skos:inScheme cat:CategoryScheme ;
     rdfs:comment "Budgeting, expense tracking, income, debts, IOUs, and savings goals."@en .
 
-cat:BankingPayments rdf:type owl:Class ;
-    rdfs:subClassOf cat:Finances ;
-    rdfs:label "Banking & Payments Firms"@en ;
+cat:BankingPayments rdf:type skos:Concept ;
+    skos:prefLabel "Banking & Payments Firms"@en ;
+    skos:broader cat:Finances ;
+    skos:inScheme cat:CategoryScheme ;
     rdfs:comment "Firms that help you store, access, and move your cash for daily living. These include Retail Banks & Credit Unions, which provide checking accounts, savings accounts, and debit cards. These also include Payment Processors like Visa, Mastercard, or PayPal that let you buy things online and in stores, and Remittance Firms like Western Union or Wise used to send money to family or friends, especially overseas."@en .
 
-cat:Investing rdf:type owl:Class ;
-    rdfs:subClassOf cat:Finances ;
-    rdfs:label "Investment Firms"@en ;
+cat:Investing rdf:type skos:Concept ;
+    skos:prefLabel "Investment Firms"@en ;
+    skos:broader cat:Finances ;
+    skos:inScheme cat:CategoryScheme ;
     rdfs:comment "Firms that help you buy assets so your money can grow over time for goals like buying a house or retiring. These include Brokerage Firms like Charles Schwab or Robinhood where you buy and sell stocks, bonds, and ETFs; Robo-Advisors, computer-run investing platforms like Betterment or Wealthfront that manage your portfolio for a low fee; and Mutual Fund Companies like Vanguard or Fidelity that pool your money with other investors to buy a large bundle of stocks."@en .
 
-cat:LendingCredit rdf:type owl:Class ;
-    rdfs:subClassOf cat:Finances ;
-    rdfs:label "Lending & Credit Firms"@en ;
+cat:LendingCredit rdf:type skos:Concept ;
+    skos:prefLabel "Lending & Credit Firms"@en ;
+    skos:broader cat:Finances ;
+    skos:inScheme cat:CategoryScheme ;
     rdfs:comment "Firms that lend you money when you need to buy something expensive that you cannot pay for all at once. These include Mortgage Lenders, banks or specialized companies that give you loans specifically to buy a home; Consumer Finance Companies, that give out personal loans, auto loans, or student loans; and Credit Card Issuers, banks that give you a plastic card to borrow money on the spot for daily purchases."@en .
 
-cat:Insurance rdf:type owl:Class ;
-    rdfs:subClassOf cat:Finances ;
-    rdfs:label "Insurance Firms"@en ;
+cat:Insurance rdf:type skos:Concept ;
+    skos:prefLabel "Insurance Firms"@en ;
+    skos:broader cat:Finances ;
+    skos:inScheme cat:CategoryScheme ;
     rdfs:comment "Firms that protect you and your family from financial ruin if something bad happens. These include Life & Health Insurance firms that cover medical bills or provide money to your family if you pass away, and Property & Casualty Insurance firms that insure your car, home, or apartment against accidents and theft."@en .
 
-cat:Advisory rdf:type owl:Class ;
-    rdfs:subClassOf cat:Finances ;
-    rdfs:label "Advisory Firms"@en ;
+cat:Advisory rdf:type skos:Concept ;
+    skos:prefLabel "Advisory Firms"@en ;
+    skos:broader cat:Finances ;
+    skos:inScheme cat:CategoryScheme ;
     rdfs:comment "Firms and individuals who do not just hold your money, but tell you the best ways to use it. These include Financial Planners (Wealth Advisors), human experts who help you build a custom roadmap for taxes, retirement, and budgeting, and Estate Planners, specialized professionals who help you write wills and plan how to pass your money to your children. Also includes Accountants and Bookkeepers, who track your income and expenses and prepare your taxes."@en .
 
 #################################################################
 #    cat:HealthWellness
 #################################################################
 
-cat:HealthWellness rdf:type owl:Class ;
-    rdfs:subClassOf cat:Person ;
-    rdfs:label "Health & Wellness"@en ;
+cat:HealthWellness rdf:type skos:Concept ;
+    skos:prefLabel "Health & Wellness"@en ;
+    skos:broader cat:Person ;
+    skos:inScheme cat:CategoryScheme ;
     rdfs:comment "Personal health and wellness information. Medical history, allergies, medications, vaccinations, prescriptions, eyeglasses, ethnicity, gender, age."@en .
 
-cat:Medical rdf:type owl:Class ;
-    rdfs:subClassOf cat:HealthWellness ;
-    rdfs:label "Medical"@en ;
+cat:Medical rdf:type skos:Concept ;
+    skos:prefLabel "Medical"@en ;
+    skos:broader cat:HealthWellness ;
+    skos:inScheme cat:CategoryScheme ;
     rdfs:comment "Medical (as opposed to dental or vision) care — diagnoses, treatments, providers, and insurance."@en .
 
-cat:MedicalHistory rdf:type owl:Class ;
-    rdfs:subClassOf cat:Medical ;
-    rdfs:label "History"@en ;
+cat:MedicalHistory rdf:type skos:Concept ;
+    skos:prefLabel "History"@en ;
+    skos:broader cat:Medical ;
+    skos:inScheme cat:CategoryScheme ;
     rdfs:comment "Past diagnoses, conditions, surgeries, and treatments."@en .
 
-cat:MedicalInsurance rdf:type owl:Class ;
-    rdfs:subClassOf cat:Medical ;
-    rdfs:label "Insurance"@en ;
+cat:MedicalInsurance rdf:type skos:Concept ;
+    skos:prefLabel "Insurance"@en ;
+    skos:broader cat:Medical ;
+    skos:inScheme cat:CategoryScheme ;
     rdfs:comment "Medical health insurance policies, providers, and coverage."@en .
 
-cat:MedicalProvider rdf:type owl:Class ;
-    rdfs:subClassOf cat:Medical ;
-    rdfs:label "Provider"@en ;
+cat:MedicalProvider rdf:type skos:Concept ;
+    skos:prefLabel "Provider"@en ;
+    skos:broader cat:Medical ;
+    skos:inScheme cat:CategoryScheme ;
     rdfs:comment "Medical providers and practices you see for care."@en .
 
-cat:PrimaryCarePhysician rdf:type owl:Class ;
-    rdfs:subClassOf cat:MedicalProvider ;
-    rdfs:label "Primary Care Physician"@en ;
+cat:PrimaryCarePhysician rdf:type skos:Concept ;
+    skos:prefLabel "Primary Care Physician"@en ;
+    skos:broader cat:MedicalProvider ;
+    skos:inScheme cat:CategoryScheme ;
     rdfs:comment "Your primary care doctor, the physician you generally see first for checkups, referrals, and everyday health concerns, including name, contact information, and the name of the provider they are associated with."@en .
 
-cat:MedicalAppointment rdf:type owl:Class ;
-    rdfs:subClassOf cat:MedicalProvider ;
-    rdfs:label "Medical Appointment"@en ;
-    rdfs:comment "A medical appointment and associated information required by the provider to arrange this appointment."@en ;
-    cat:templateCell ctpl:MedicalAppointmentTemplateCell .
+cat:MedicalAppointment rdf:type skos:Concept ;
+    skos:prefLabel "Medical Appointment"@en ;
+    skos:broader cat:MedicalProvider ;
+    skos:inScheme cat:CategoryScheme ;
+    rdfs:comment "A medical appointment and associated information required by the provider to arrange this appointment."@en .
 
-cat:Dental rdf:type owl:Class ;
-    rdfs:subClassOf cat:HealthWellness ;
-    rdfs:label "Dental"@en ;
+cat:Dental rdf:type skos:Concept ;
+    skos:prefLabel "Dental"@en ;
+    skos:broader cat:HealthWellness ;
+    skos:inScheme cat:CategoryScheme ;
     rdfs:comment "Dental care — diagnoses, treatments, providers, and insurance."@en .
 
-cat:DentalHistory rdf:type owl:Class ;
-    rdfs:subClassOf cat:Dental ;
-    rdfs:label "History"@en ;
+cat:DentalHistory rdf:type skos:Concept ;
+    skos:prefLabel "History"@en ;
+    skos:broader cat:Dental ;
+    skos:inScheme cat:CategoryScheme ;
     rdfs:comment "Past dental treatments, procedures, and conditions."@en .
 
-cat:DentalInsurance rdf:type owl:Class ;
-    rdfs:subClassOf cat:Dental ;
-    rdfs:label "Insurance"@en ;
+cat:DentalInsurance rdf:type skos:Concept ;
+    skos:prefLabel "Insurance"@en ;
+    skos:broader cat:Dental ;
+    skos:inScheme cat:CategoryScheme ;
     rdfs:comment "Dental insurance policies, providers, and coverage."@en .
 
-cat:DentalProvider rdf:type owl:Class ;
-    rdfs:subClassOf cat:Dental ;
-    rdfs:label "Provider"@en ;
+cat:DentalProvider rdf:type skos:Concept ;
+    skos:prefLabel "Provider"@en ;
+    skos:broader cat:Dental ;
+    skos:inScheme cat:CategoryScheme ;
     rdfs:comment "Dental providers and practices you see for care."@en .
 
-cat:Dentist rdf:type owl:Class ;
-    rdfs:subClassOf cat:DentalProvider ;
-    rdfs:label "Dentist"@en ;
+cat:Dentist rdf:type skos:Concept ;
+    skos:prefLabel "Dentist"@en ;
+    skos:broader cat:DentalProvider ;
+    skos:inScheme cat:CategoryScheme ;
     rdfs:comment "A dentist you see for care, including name, contact information, and the name of the provider they are associated with."@en .
 
-cat:DentalAppointment rdf:type owl:Class ;
-    rdfs:subClassOf cat:DentalProvider ;
-    rdfs:label "Dental Appointment"@en ;
+cat:DentalAppointment rdf:type skos:Concept ;
+    skos:prefLabel "Dental Appointment"@en ;
+    skos:broader cat:DentalProvider ;
+    skos:inScheme cat:CategoryScheme ;
     rdfs:comment "A dental appointment and associated information required by the provider to arrange this appointment."@en .
 
-cat:Vision rdf:type owl:Class ;
-    rdfs:subClassOf cat:HealthWellness ;
-    rdfs:label "Vision"@en ;
+cat:Vision rdf:type skos:Concept ;
+    skos:prefLabel "Vision"@en ;
+    skos:broader cat:HealthWellness ;
+    skos:inScheme cat:CategoryScheme ;
     rdfs:comment "Vision and eye care — diagnoses, treatments, providers, and insurance."@en .
 
-cat:VisionHistory rdf:type owl:Class ;
-    rdfs:subClassOf cat:Vision ;
-    rdfs:label "History"@en ;
+cat:VisionHistory rdf:type skos:Concept ;
+    skos:prefLabel "History"@en ;
+    skos:broader cat:Vision ;
+    skos:inScheme cat:CategoryScheme ;
     rdfs:comment "Past eye-care prescriptions, treatments, and conditions."@en .
 
-cat:VisionInsurance rdf:type owl:Class ;
-    rdfs:subClassOf cat:Vision ;
-    rdfs:label "Insurance"@en ;
+cat:VisionInsurance rdf:type skos:Concept ;
+    skos:prefLabel "Insurance"@en ;
+    skos:broader cat:Vision ;
+    skos:inScheme cat:CategoryScheme ;
     rdfs:comment "Vision insurance policies, providers, and coverage."@en .
 
-cat:VisionProvider rdf:type owl:Class ;
-    rdfs:subClassOf cat:Vision ;
-    rdfs:label "Provider"@en ;
+cat:VisionProvider rdf:type skos:Concept ;
+    skos:prefLabel "Provider"@en ;
+    skos:broader cat:Vision ;
+    skos:inScheme cat:CategoryScheme ;
     rdfs:comment "Vision care providers and practices you see for care."@en .
 
-cat:EyeDoctor rdf:type owl:Class ;
-    rdfs:subClassOf cat:VisionProvider ;
-    rdfs:label "Eye Doctor"@en ;
+cat:EyeDoctor rdf:type skos:Concept ;
+    skos:prefLabel "Eye Doctor"@en ;
+    skos:broader cat:VisionProvider ;
+    skos:inScheme cat:CategoryScheme ;
     rdfs:comment "An eye doctor you see for care, including name, contact information, and the name of the provider they are associated with."@en .
 
-cat:VisionAppointment rdf:type owl:Class ;
-    rdfs:subClassOf cat:VisionProvider ;
-    rdfs:label "Vision Appointment"@en ;
+cat:VisionAppointment rdf:type skos:Concept ;
+    skos:prefLabel "Vision Appointment"@en ;
+    skos:broader cat:VisionProvider ;
+    skos:inScheme cat:CategoryScheme ;
     rdfs:comment "A vision appointment and associated information required by the provider to arrange this appointment."@en .
 
-cat:Fitness rdf:type owl:Class ;
-    rdfs:subClassOf cat:HealthWellness ;
-    rdfs:label "Fitness"@en ;
+cat:Fitness rdf:type skos:Concept ;
+    skos:prefLabel "Fitness"@en ;
+    skos:broader cat:HealthWellness ;
+    skos:inScheme cat:CategoryScheme ;
     rdfs:comment "General fitness and preventive physical health — exercise, gyms, trainers, and other non-clinical wellbeing information."@en .
 
-cat:FitnessProvider rdf:type owl:Class ;
-    rdfs:subClassOf cat:Fitness ;
-    rdfs:label "Provider"@en ;
+cat:FitnessProvider rdf:type skos:Concept ;
+    skos:prefLabel "Provider"@en ;
+    skos:broader cat:Fitness ;
+    skos:inScheme cat:CategoryScheme ;
     rdfs:comment "Fitness providers and practices you see for care, e.g. gyms, trainers, and coaches."@en .
 
-cat:PersonalTrainer rdf:type owl:Class ;
-    rdfs:subClassOf cat:FitnessProvider ;
-    rdfs:label "Personal Trainer"@en ;
+cat:PersonalTrainer rdf:type skos:Concept ;
+    skos:prefLabel "Personal Trainer"@en ;
+    skos:broader cat:FitnessProvider ;
+    skos:inScheme cat:CategoryScheme ;
     rdfs:comment "A personal trainer you see for care, including name, contact information, and the name of the provider they are associated with."@en .
 
-cat:Nutrition rdf:type owl:Class ;
-    rdfs:subClassOf cat:HealthWellness ;
-    rdfs:label "Nutrition"@en ;
+cat:Nutrition rdf:type skos:Concept ;
+    skos:prefLabel "Nutrition"@en ;
+    skos:broader cat:HealthWellness ;
+    skos:inScheme cat:CategoryScheme ;
     rdfs:comment "Nutritionists and dietitians."@en .
 
-cat:NutritionHistory rdf:type owl:Class ;
-    rdfs:subClassOf cat:Nutrition ;
-    rdfs:label "History"@en ;
+cat:NutritionHistory rdf:type skos:Concept ;
+    skos:prefLabel "History"@en ;
+    skos:broader cat:Nutrition ;
+    skos:inScheme cat:CategoryScheme ;
     rdfs:comment "Past nutritional consultations, diet plans, and dietary conditions."@en .
 
-cat:NutritionProvider rdf:type owl:Class ;
-    rdfs:subClassOf cat:Nutrition ;
-    rdfs:label "Provider"@en ;
+cat:NutritionProvider rdf:type skos:Concept ;
+    skos:prefLabel "Provider"@en ;
+    skos:broader cat:Nutrition ;
+    skos:inScheme cat:CategoryScheme ;
     rdfs:comment "Nutritionists and dietitians you see for care."@en .
 
-cat:MentalHealth rdf:type owl:Class ;
-    rdfs:subClassOf cat:HealthWellness ;
-    rdfs:label "Mental Health"@en ;
+cat:MentalHealth rdf:type skos:Concept ;
+    skos:prefLabel "Mental Health"@en ;
+    skos:broader cat:HealthWellness ;
+    skos:inScheme cat:CategoryScheme ;
     rdfs:comment "Mental and behavioral health care."@en .
 
-cat:MentalHealthHistory rdf:type owl:Class ;
-    rdfs:subClassOf cat:MentalHealth ;
-    rdfs:label "History"@en ;
+cat:MentalHealthHistory rdf:type skos:Concept ;
+    skos:prefLabel "History"@en ;
+    skos:broader cat:MentalHealth ;
+    skos:inScheme cat:CategoryScheme ;
     rdfs:comment "Past diagnoses, treatments, and mental health conditions."@en .
 
-cat:MentalHealthInsurance rdf:type owl:Class ;
-    rdfs:subClassOf cat:MentalHealth ;
-    rdfs:label "Insurance"@en ;
+cat:MentalHealthInsurance rdf:type skos:Concept ;
+    skos:prefLabel "Insurance"@en ;
+    skos:broader cat:MentalHealth ;
+    skos:inScheme cat:CategoryScheme ;
     rdfs:comment "Mental health insurance policies, providers, and coverage."@en .
 
-cat:MentalHealthProvider rdf:type owl:Class ;
-    rdfs:subClassOf cat:MentalHealth ;
-    rdfs:label "Provider"@en ;
+cat:MentalHealthProvider rdf:type skos:Concept ;
+    skos:prefLabel "Provider"@en ;
+    skos:broader cat:MentalHealth ;
+    skos:inScheme cat:CategoryScheme ;
     rdfs:comment "Mental health providers and practices you see for care, e.g. therapists, counselors, and psychiatrists."@en .
 
-cat:Therapist rdf:type owl:Class ;
-    rdfs:subClassOf cat:MentalHealthProvider ;
-    rdfs:label "Therapist"@en ;
+cat:Therapist rdf:type skos:Concept ;
+    skos:prefLabel "Therapist"@en ;
+    skos:broader cat:MentalHealthProvider ;
+    skos:inScheme cat:CategoryScheme ;
     rdfs:comment "A therapist you see for care, including name, contact information, and the name of the provider they are associated with."@en .
 
-cat:PhysicalTherapy rdf:type owl:Class ;
-    rdfs:subClassOf cat:HealthWellness ;
-    rdfs:label "Physical Therapy"@en ;
+cat:PhysicalTherapy rdf:type skos:Concept ;
+    skos:prefLabel "Physical Therapy"@en ;
+    skos:broader cat:HealthWellness ;
+    skos:inScheme cat:CategoryScheme ;
     rdfs:comment "Physical therapy and rehabilitative care."@en .
 
-cat:PhysicalTherapyHistory rdf:type owl:Class ;
-    rdfs:subClassOf cat:PhysicalTherapy ;
-    rdfs:label "History"@en ;
+cat:PhysicalTherapyHistory rdf:type skos:Concept ;
+    skos:prefLabel "History"@en ;
+    skos:broader cat:PhysicalTherapy ;
+    skos:inScheme cat:CategoryScheme ;
     rdfs:comment "Past physical therapy treatments, injuries, and rehabilitation plans."@en .
 
-cat:PhysicalTherapyProvider rdf:type owl:Class ;
-    rdfs:subClassOf cat:PhysicalTherapy ;
-    rdfs:label "Provider"@en ;
+cat:PhysicalTherapyProvider rdf:type skos:Concept ;
+    skos:prefLabel "Provider"@en ;
+    skos:broader cat:PhysicalTherapy ;
+    skos:inScheme cat:CategoryScheme ;
     rdfs:comment "Physical therapy providers and practices you see for care."@en .
 
 #################################################################
 #    cat:Personality
 #################################################################
 
-cat:Personality rdf:type owl:Class ;
-    rdfs:subClassOf cat:Person ;
-    rdfs:label "Personality"@en ;
+cat:Personality rdf:type skos:Concept ;
+    skos:prefLabel "Personality"@en ;
+    skos:broader cat:Person ;
+    skos:inScheme cat:CategoryScheme ;
     rdfs:comment "Self-assessments of personality, temperament, or social style — e.g. Myers-Briggs (MBTI) type, Big Five, DISC, Enneagram, or similar self-assessment instruments."@en .
 
 #################################################################
-#    cat:Events and subclasses
+#    cat:Events and narrower concepts
 #################################################################
 
-cat:Events rdf:type owl:Class ;
-    rdfs:subClassOf cat:Person ;
-    rdfs:label "Events"@en ;
+cat:Events rdf:type skos:Concept ;
+    skos:prefLabel "Events"@en ;
+    skos:broader cat:Person ;
+    skos:inScheme cat:CategoryScheme ;
     rdfs:comment "Participation in or relationship to a specific event or gathering."@en .
 
 
 #################################################################
-#    cat:Government Topics and subclasses
+#    cat:Government topics and narrower concepts
 #################################################################
 
-cat:Government rdf:type owl:Class ;
-    rdfs:subClassOf cat:Person ;
-    rdfs:label "Government"@en ;
+cat:Government rdf:type skos:Concept ;
+    skos:prefLabel "Government"@en ;
+    skos:broader cat:Person ;
+    skos:inScheme cat:CategoryScheme ;
     rdfs:comment "Government-issued credentials, tax records, and civic relationships."@en .
 
-cat:Federal rdf:type owl:Class ;
-    rdfs:subClassOf cat:Government ;
-    rdfs:label "Federal"@en ;
+cat:Federal rdf:type skos:Concept ;
+    skos:prefLabel "Federal"@en ;
+    skos:broader cat:Government ;
+    skos:inScheme cat:CategoryScheme ;
     rdfs:comment "Federal government topic (e.g. passport, federal tax records)."@en .
 
-cat:SSN rdf:type owl:Class ;
-    rdfs:subClassOf cat:Federal ;
-    rdfs:label "SSN"@en ;
+cat:SSN rdf:type skos:Concept ;
+    skos:prefLabel "SSN"@en ;
+    skos:broader cat:Federal ;
+    skos:inScheme cat:CategoryScheme ;
     rdfs:comment "A social security number issued by the federal Social Security Administration."@en .
 
-cat:Passport rdf:type owl:Class ;
-    rdfs:subClassOf cat:Federal ;
-    rdfs:label "Passport"@en ;
-    rdfs:comment "A passport issued by the Department of State."@en ;
-    cat:templateCell ctpl:PassportTemplateCell .
+cat:Passport rdf:type skos:Concept ;
+    skos:prefLabel "Passport"@en ;
+    skos:broader cat:Federal ;
+    skos:inScheme cat:CategoryScheme ;
+    rdfs:comment "A passport issued by the Department of State."@en .
 
-cat:State rdf:type owl:Class ;
-    rdfs:subClassOf cat:Government ;
-    rdfs:label "State"@en ;
+cat:State rdf:type skos:Concept ;
+    skos:prefLabel "State"@en ;
+    skos:broader cat:Government ;
+    skos:inScheme cat:CategoryScheme ;
     rdfs:comment "State government topic (e.g. driver's license, state tax records)."@en .
 
-cat:BirthCertificate rdf:type owl:Class ;
-    rdfs:subClassOf cat:State ;
-    rdfs:label "Birth Certificate"@en ;
-    rdfs:comment "A birth certificate issued by a state agency that issues and holds these records."@en ;
-    cat:templateCell ctpl:BirthCertificateTemplateCell .
+cat:BirthCertificate rdf:type skos:Concept ;
+    skos:prefLabel "Birth Certificate"@en ;
+    skos:broader cat:State ;
+    skos:inScheme cat:CategoryScheme ;
+    rdfs:comment "A birth certificate issued by a state agency that issues and holds these records."@en .
 
-cat:DriversLicense rdf:type owl:Class ;
-    rdfs:subClassOf cat:State ;
-    rdfs:label "Drivers License"@en ;
-    rdfs:comment "A driver's license issued by a state agency that issues and holds these records."@en ;
-    cat:templateCell ctpl:DriversLicenseTemplateCell .
+cat:DriversLicense rdf:type skos:Concept ;
+    skos:prefLabel "Drivers License"@en ;
+    skos:broader cat:State ;
+    skos:inScheme cat:CategoryScheme ;
+    rdfs:comment "A driver's license issued by a state agency that issues and holds these records."@en .
 
-cat:Municipality rdf:type owl:Class ;
-    rdfs:subClassOf cat:Government ;
-    rdfs:label "Municipality"@en ;
+cat:Municipality rdf:type skos:Concept ;
+    skos:prefLabel "Municipality"@en ;
+    skos:broader cat:Government ;
+    skos:inScheme cat:CategoryScheme ;
     rdfs:comment "Municipal government topic (e.g. local permits, library card)."@en .
 
-cat:Residence rdf:type owl:Class ;
-    rdfs:subClassOf cat:Municipality ;
-    rdfs:label "Residence"@en ;
+cat:Residence rdf:type skos:Concept ;
+    skos:prefLabel "Residence"@en ;
+    skos:broader cat:Municipality ;
+    skos:inScheme cat:CategoryScheme ;
     rdfs:comment "A place a person has lived, current or past."@en .
 
 #################################################################
-#    cat:Information and subclasses
+#    cat:Information and narrower concepts
 #################################################################
 
-cat:Information rdf:type owl:Class ;
-    rdfs:subClassOf cat:Person ;
-    rdfs:label "Information"@en ;
+cat:Information rdf:type skos:Concept ;
+    skos:prefLabel "Information"@en ;
+    skos:broader cat:Person ;
+    skos:inScheme cat:CategoryScheme ;
     rdfs:comment "Information about anything; articles, web links, documents, images. Includes topics that interest and inspire you (e.g. drawing, painting, dancing, religion, gaming, music). See cat:SportsEntertainment for sports and entertainment, and cat:Affiliations for formal memberships tied to a hobby or interest."@en .
 
 #################################################################
-#    cat:Things and subclasses
+#    cat:Things and narrower concepts
 #################################################################
 
-cat:Things rdf:type owl:Class ;
-    rdfs:subClassOf cat:Person ;
-    rdfs:label "Things"@en ;
+cat:Things rdf:type skos:Concept ;
+    skos:prefLabel "Things"@en ;
+    skos:broader cat:Person ;
+    skos:inScheme cat:CategoryScheme ;
     rdfs:comment "Owned assets, property, vehicles, and other possessions."@en .
 
-cat:Vehicles rdf:type owl:Class ;
-    rdfs:subClassOf cat:Things ;
-    rdfs:label "Vehicles"@en ;
-    rdfs:comment "Related to owning and maintaining a vehicle. Vehicle insurance, repairs, mechanics, garages."@en ;
-    cat:templateCell ctpl:VehicleProfileTemplateCell .
+cat:Vehicles rdf:type skos:Concept ;
+    skos:prefLabel "Vehicles"@en ;
+    skos:broader cat:Things ;
+    skos:inScheme cat:CategoryScheme ;
+    rdfs:comment "Related to owning and maintaining a vehicle. Vehicle insurance, repairs, mechanics, garages."@en .
 
-cat:Pets rdf:type owl:Class ;
-    rdfs:subClassOf cat:Person ;
-    rdfs:label "Pets"@en ;
-    rdfs:comment "Care instructions, veterinarians, medicines, food providers."@en ;
-    cat:templateCell ctpl:PetProfileTemplateCell .
+cat:Pets rdf:type skos:Concept ;
+    skos:prefLabel "Pets"@en ;
+    skos:broader cat:Person ;
+    skos:inScheme cat:CategoryScheme ;
+    rdfs:comment "Care instructions, veterinarians, medicines, food providers."@en .
 
-cat:PetsMedical rdf:type owl:Class ;
-    rdfs:subClassOf cat:Pets ;
-    rdfs:label "Medical"@en ;
-    rdfs:comment "A pet's medical care — veterinarians, prescriptions, medications and dosing instructions, devices, diagnoses, and treatments."@en ;
-    cat:templateCell ctpl:PetMedicationsTemplateCell .
+cat:PetsMedical rdf:type skos:Concept ;
+    skos:prefLabel "Medical"@en ;
+    skos:broader cat:Pets ;
+    skos:inScheme cat:CategoryScheme ;
+    rdfs:comment "A pet's medical care — veterinarians, prescriptions, medications and dosing instructions, devices, diagnoses, and treatments."@en .
 
-cat:PetsVeterinarians rdf:type owl:Class ;
-    rdfs:subClassOf cat:PetsMedical ;
-    rdfs:label "Veterinarians"@en ;
+cat:PetsVeterinarians rdf:type skos:Concept ;
+    skos:prefLabel "Veterinarians"@en ;
+    skos:broader cat:PetsMedical ;
+    skos:inScheme cat:CategoryScheme ;
     rdfs:comment "Veterinary practices and providers a pet sees for care."@en .
 
-cat:PetsDevices rdf:type owl:Class ;
-    rdfs:subClassOf cat:PetsMedical ;
-    rdfs:label "Devices"@en ;
+cat:PetsDevices rdf:type skos:Concept ;
+    skos:prefLabel "Devices"@en ;
+    skos:broader cat:PetsMedical ;
+    skos:inScheme cat:CategoryScheme ;
     rdfs:comment "Medical devices and supplies used in a pet's care, e.g. syringes, nebulizers, and injection solutions."@en .
 
-cat:PetsCareAndFeeding rdf:type owl:Class ;
-    rdfs:subClassOf cat:Pets ;
-    rdfs:label "Care & Feeding"@en ;
+cat:PetsCareAndFeeding rdf:type skos:Concept ;
+    skos:prefLabel "Care & Feeding"@en ;
+    skos:broader cat:Pets ;
+    skos:inScheme cat:CategoryScheme ;
     rdfs:comment "Day-to-day instructions for someone else to take care of a pet — a pet's diet, food providers, feeding instructions and schedule, dietary restrictions, where they sleep, and other routine care."@en .
 
-cat:Home rdf:type owl:Class ;
-    rdfs:subClassOf cat:Person ;
-    rdfs:label "Home"@en ;
+cat:Home rdf:type skos:Concept ;
+    skos:prefLabel "Home"@en ;
+    skos:broader cat:Person ;
+    skos:inScheme cat:CategoryScheme ;
     rdfs:comment "Owning or renting a home, apartment, or other dwelling. Leases, deeds, utility accounts, real estate brokers."@en .
 
 #################################################################
-#    cat:Project and subclasses
+#    cat:Projects and narrower concepts
 #################################################################
 
-cat:Projects rdf:type owl:Class ;
-    rdfs:subClassOf cat:Person ;
-    rdfs:label "Projects"@en ;
+cat:Projects rdf:type skos:Concept ;
+    skos:prefLabel "Projects"@en ;
+    skos:broader cat:Person ;
+    skos:inScheme cat:CategoryScheme ;
     rdfs:comment "Involvement in a specific project or initiative."@en .
 
 #################################################################
 #    cat:Legal
 #################################################################
 
-cat:Legal rdf:type owl:Class ;
-    rdfs:subClassOf cat:Person ;
-    rdfs:label "Legal"@en ;
+cat:Legal rdf:type skos:Concept ;
+    skos:prefLabel "Legal"@en ;
+    skos:broader cat:Person ;
+    skos:inScheme cat:CategoryScheme ;
     rdfs:comment "Legal matters, contracts, agreements, trusts, wills, and professional legal relationships. Includes durable power of attorney and healthcare proxy agreements."@en .
 
 #################################################################
 #    cat:Travel
 #################################################################
 
-cat:Travel rdf:type owl:Class ;
-    rdfs:subClassOf cat:Person ;
-    rdfs:label "Travel"@en ;
+cat:Travel rdf:type skos:Concept ;
+    skos:prefLabel "Travel"@en ;
+    skos:broader cat:Person ;
+    skos:inScheme cat:CategoryScheme ;
     rdfs:comment "Travel plans, trips, and related information. Loyalty programs, airlines, bus lines, trains."@en .
 
 #################################################################
 #    cat:Trips
 #################################################################
 
-cat:Trips rdf:type owl:Class ;
-    rdfs:subClassOf cat:Travel ;
-    rdfs:label "Trips"@en ;
+cat:Trips rdf:type skos:Concept ;
+    skos:prefLabel "Trips"@en ;
+    skos:broader cat:Travel ;
+    skos:inScheme cat:CategoryScheme ;
     rdfs:comment "An individual trip being planned or taken — its own itinerary, dates, and destination-specific details, as distinct from cat:Travel's broader loyalty-program/airline/general travel information."@en .
 
 #################################################################
 #    cat:Food
 #################################################################
 
-cat:Food rdf:type owl:Class ;
-    rdfs:subClassOf cat:Person ;
-    rdfs:label "Food"@en ;
+cat:Food rdf:type skos:Concept ;
+    skos:prefLabel "Food"@en ;
+    skos:broader cat:Person ;
+    skos:inScheme cat:CategoryScheme ;
     rdfs:comment "Food preferences, dietary restrictions, favorite restaurants, recipes, shopping lists, and other food-related interests."@en .
 
 #################################################################
 #    cat:Education
 #################################################################
 
-cat:Education rdf:type owl:Class ;
-    rdfs:subClassOf cat:Person ;
-    rdfs:label "Education"@en ;
+cat:Education rdf:type skos:Concept ;
+    skos:prefLabel "Education"@en ;
+    skos:broader cat:Person ;
+    skos:inScheme cat:CategoryScheme ;
     rdfs:comment "Educational history and ongoing learning — schools, degrees, certifications, transcripts, and enrolled courses."@en .
 
 #################################################################
 #    cat:SportsEntertainment
 #################################################################
 
-cat:SportsEntertainment rdf:type owl:Class ;
-    rdfs:subClassOf cat:Person ;
-    rdfs:label "Sports & Entertainment"@en ;
+cat:SportsEntertainment rdf:type skos:Concept ;
+    skos:prefLabel "Sports & Entertainment"@en ;
+    skos:broader cat:Person ;
+    skos:inScheme cat:CategoryScheme ;
     rdfs:comment "Sports events (watching or participating) and entertainment (movies, plays, jazz clubs). Favorite teams/groups, venues, streaming services, ticketing. See cat:Information for other interests."@en .
 
 #################################################################
-#    Organizational subclasses
+#    Organizational concepts
 #################################################################
 
-cat:Customers rdf:type owl:Class ;
-    rdfs:subClassOf cat:Organization ;
-    rdfs:label "Customers"@en ;
+cat:Customers rdf:type skos:Concept ;
+    skos:prefLabel "Customers"@en ;
+    skos:broader cat:Organization ;
+    skos:inScheme cat:CategoryScheme ;
     rdfs:comment "Customer organizations. Rename to 'Clients', etc."@en .
 
-cat:Marketing rdf:type owl:Class ;
-    rdfs:subClassOf cat:Organization ;
-    rdfs:label "Marketing"@en ;
+cat:Marketing rdf:type skos:Concept ;
+    skos:prefLabel "Marketing"@en ;
+    skos:broader cat:Organization ;
+    skos:inScheme cat:CategoryScheme ;
     rdfs:comment "Marketing activities, campaigns, and related organizations."@en .
 
-cat:Prospects rdf:type owl:Class ;
-    rdfs:subClassOf cat:Marketing ;
-    rdfs:label "Prospects"@en ;
+cat:Prospects rdf:type skos:Concept ;
+    skos:prefLabel "Prospects"@en ;
+    skos:broader cat:Marketing ;
+    skos:inScheme cat:CategoryScheme ;
     rdfs:comment "Customer prospects. Rename to 'Client prospects', etc."@en .
 
-cat:Partners rdf:type owl:Class ;
-    rdfs:subClassOf cat:Organization ;
-    rdfs:label "Partners"@en ;
+cat:Partners rdf:type skos:Concept ;
+    skos:prefLabel "Partners"@en ;
+    skos:broader cat:Organization ;
+    skos:inScheme cat:CategoryScheme ;
     rdfs:comment "Firms that provide goods and services."@en .
 
-cat:People\(org\) rdf:type owl:Class ;
-    rdfs:subClassOf cat:Organization ;
-    rdfs:label "People (org)"@en ;
+cat:People\(org\) rdf:type skos:Concept ;
+    skos:prefLabel "People (org)"@en ;
+    skos:broader cat:Organization ;
+    skos:inScheme cat:CategoryScheme ;
     rdfs:comment "People the organization interacts with in a working capacity."@en .
 
-cat:Employees rdf:type owl:Class ;
-    rdfs:subClassOf cat:People\(org\) ;
-    rdfs:label "Employees"@en ;
+cat:Employees rdf:type skos:Concept ;
+    skos:prefLabel "Employees"@en ;
+    skos:broader cat:People\(org\) ;
+    skos:inScheme cat:CategoryScheme ;
     rdfs:comment "Related to employees."@en .
 
-cat:Employee rdf:type owl:Class ;
-    rdfs:subClassOf cat:Employees ;
-    rdfs:label "Employee"@en ;
+cat:Employee rdf:type skos:Concept ;
+    skos:prefLabel "Employee"@en ;
+    skos:broader cat:Employees ;
+    skos:inScheme cat:CategoryScheme ;
     rdfs:comment "Detailed information about a specific employee."@en .
 
-cat:Consultants rdf:type owl:Class ;
-    rdfs:subClassOf cat:People\(org\) ;
-    rdfs:label "Consultants"@en ;
+cat:Consultants rdf:type skos:Concept ;
+    skos:prefLabel "Consultants"@en ;
+    skos:broader cat:People\(org\) ;
+    skos:inScheme cat:CategoryScheme ;
     rdfs:comment "Engaged consultants."@en .
 
-cat:Others\(org\) rdf:type owl:Class ;
-    rdfs:subClassOf cat:People\(org\) ;
-    rdfs:label "Others (org)"@en ;
+cat:Others\(org\) rdf:type skos:Concept ;
+    skos:prefLabel "Others (org)"@en ;
+    skos:broader cat:People\(org\) ;
+    skos:inScheme cat:CategoryScheme ;
     rdfs:comment "People associated with the organization who don't fit Employees, Consultants, or Colleagues."@en .
 
-cat:Colleagues rdf:type owl:Class ;
-    rdfs:subClassOf cat:People\(org\) ;
-    rdfs:label "Colleagues"@en ;
+cat:Colleagues rdf:type skos:Concept ;
+    skos:prefLabel "Colleagues"@en ;
+    skos:broader cat:People\(org\) ;
+    skos:inScheme cat:CategoryScheme ;
     rdfs:comment "Coworkers and peers within the organization not tracked as formal Employee records."@en .
 
-cat:Advisors rdf:type owl:Class ;
-    rdfs:subClassOf cat:People\(org\) ;
-    rdfs:label "Advisors"@en ;
+cat:Advisors rdf:type skos:Concept ;
+    skos:prefLabel "Advisors"@en ;
+    skos:broader cat:People\(org\) ;
+    skos:inScheme cat:CategoryScheme ;
     rdfs:comment "Individuals who advise the organization in a non-employee capacity."@en .
 
-cat:BoardOfDirectors rdf:type owl:Class ;
-    rdfs:subClassOf cat:People\(org\) ;
-    rdfs:label "Board of Directors"@en ;
+cat:BoardOfDirectors rdf:type skos:Concept ;
+    skos:prefLabel "Board of Directors"@en ;
+    skos:broader cat:People\(org\) ;
+    skos:inScheme cat:CategoryScheme ;
     rdfs:comment "The organization's board members."@en .
 
-cat:DirectReports rdf:type owl:Class ;
-    rdfs:subClassOf cat:People\(org\) ;
-    rdfs:label "Direct Reports"@en ;
+cat:DirectReports rdf:type skos:Concept ;
+    skos:prefLabel "Direct Reports"@en ;
+    skos:broader cat:People\(org\) ;
+    skos:inScheme cat:CategoryScheme ;
     rdfs:comment "Employees who report directly to a specific manager or role within the organization."@en .
 
-cat:Managers rdf:type owl:Class ;
-    rdfs:subClassOf cat:People\(org\) ;
-    rdfs:label "Manager(s)"@en ;
+cat:Managers rdf:type skos:Concept ;
+    skos:prefLabel "Manager(s)"@en ;
+    skos:broader cat:People\(org\) ;
+    skos:inScheme cat:CategoryScheme ;
     rdfs:comment "The manager or managers a specific employee or role reports to within the organization."@en .
 
-cat:KB rdf:type owl:Class ;
-    rdfs:subClassOf cat:Organization ;
-    rdfs:label "KB"@en ;
+cat:KB rdf:type skos:Concept ;
+    skos:prefLabel "KB"@en ;
+    skos:broader cat:Organization ;
+    skos:inScheme cat:CategoryScheme ;
     rdfs:comment "Corporate knowledge bases."@en .
 
-cat:Projects\(org\) rdf:type owl:Class ;
-    rdfs:subClassOf cat:Organization ;
-    rdfs:label "Projects (org)"@en ;
+cat:Projects\(org\) rdf:type skos:Concept ;
+    skos:prefLabel "Projects (org)"@en ;
+    skos:broader cat:Organization ;
+    skos:inScheme cat:CategoryScheme ;
     rdfs:comment "Projects related to R&D, manufacturing, sales, marketing, operations, HR, etc."@en .
 
-cat:Meetings rdf:type owl:Class ;
-    rdfs:subClassOf cat:Organization ;
-    rdfs:label "Meetings"@en ;
+cat:Meetings rdf:type skos:Concept ;
+    skos:prefLabel "Meetings"@en ;
+    skos:broader cat:Organization ;
+    skos:inScheme cat:CategoryScheme ;
     rdfs:comment "Face-to-face or online meetings, whether internal or with clients/customers. See also Events (org) for external, travel-to or larger-scale gatherings."@en .
 
-cat:Events\(org\) rdf:type owl:Class ;
-    rdfs:subClassOf cat:Organization ;
-    rdfs:label "Events (org)"@en ;
+cat:Events\(org\) rdf:type skos:Concept ;
+    skos:prefLabel "Events (org)"@en ;
+    skos:broader cat:Organization ;
+    skos:inScheme cat:CategoryScheme ;
     rdfs:comment "External events that people travel to, or larger-scale gatherings — conferences, webinars, town halls, and similar events. See also Meetings for ordinary internal or client/customer meetings."@en .
 
-cat:Conferences rdf:type owl:Class ;
-    rdfs:subClassOf cat:Events\(org\) ;
-    rdfs:label "Conferences"@en ;
+cat:Conferences rdf:type skos:Concept ;
+    skos:prefLabel "Conferences"@en ;
+    skos:broader cat:Events\(org\) ;
+    skos:inScheme cat:CategoryScheme ;
     rdfs:comment "A conference or professional gathering."@en .
 
-cat:Suppliers rdf:type owl:Class ;
-    rdfs:subClassOf cat:Organization ;
-    rdfs:label "Suppliers"@en ;
+cat:Suppliers rdf:type skos:Concept ;
+    skos:prefLabel "Suppliers"@en ;
+    skos:broader cat:Organization ;
+    skos:inScheme cat:CategoryScheme ;
     rdfs:comment "Companies that supply goods or services to this organization."@en .
 
-cat:Legal\(org\) rdf:type owl:Class ;
-    rdfs:subClassOf cat:Organization ;
-    rdfs:label "Legal (org)"@en ;
+cat:Legal\(org\) rdf:type skos:Concept ;
+    skos:prefLabel "Legal (org)"@en ;
+    skos:broader cat:Organization ;
+    skos:inScheme cat:CategoryScheme ;
     rdfs:comment "Contracts and agreements."@en .
 
-cat:Government\(org\) rdf:type owl:Class ;
-    rdfs:subClassOf cat:Organization ;
-    rdfs:label "Government (org)"@en ;
+cat:Government\(org\) rdf:type skos:Concept ;
+    skos:prefLabel "Government (org)"@en ;
+    skos:broader cat:Organization ;
+    skos:inScheme cat:CategoryScheme ;
     rdfs:comment "Interactions with government organizations."@en .
 
-cat:Finances\(org\) rdf:type owl:Class ;
-    rdfs:subClassOf cat:Organization ;
-    rdfs:label "Finances (org)"@en ;
+cat:Finances\(org\) rdf:type skos:Concept ;
+    skos:prefLabel "Finances (org)"@en ;
+    skos:broader cat:Organization ;
+    skos:inScheme cat:CategoryScheme ;
     rdfs:comment "Corporate finance-related matters."@en .
 
-cat:BankingPayments\(org\) rdf:type owl:Class ;
-    rdfs:subClassOf cat:Finances\(org\) ;
-    rdfs:label "Banking & Payments (org)"@en ;
+cat:BankingPayments\(org\) rdf:type skos:Concept ;
+    skos:prefLabel "Banking & Payments (org)"@en ;
+    skos:broader cat:Finances\(org\) ;
+    skos:inScheme cat:CategoryScheme ;
     rdfs:comment "Firms that help organizations store, access, and move their cash. These include Retail Banks & Credit Unions, which provide checking accounts, savings accounts, and debit cards. These also include Payment Processors like Visa, Mastercard, or PayPal."@en .
 
-cat:Investing\(org\) rdf:type owl:Class ;
-    rdfs:subClassOf cat:Finances\(org\) ;
-    rdfs:label "Investing (org)"@en ;
+cat:Investing\(org\) rdf:type skos:Concept ;
+    skos:prefLabel "Investing (org)"@en ;
+    skos:broader cat:Finances\(org\) ;
+    skos:inScheme cat:CategoryScheme ;
     rdfs:comment "These include Investment firms, Private Equity firms, Venture Capitalists, Brokerage Firms like Charles Schwab and Mutual Fund companies like Vanguard or Fidelity."@en .
 
-cat:LendingCredit\(org\) rdf:type owl:Class ;
-    rdfs:subClassOf cat:Finances\(org\) ;
-    rdfs:label "Lending & Credit (org)"@en ;
+cat:LendingCredit\(org\) rdf:type skos:Concept ;
+    skos:prefLabel "Lending & Credit (org)"@en ;
+    skos:broader cat:Finances\(org\) ;
+    skos:inScheme cat:CategoryScheme ;
     rdfs:comment "Banks or specialized companies that give loans for specific purposes and Credit Card Issuers that give employees a card for travel and related expenses."@en .
 
-cat:Insurance\(org\) rdf:type owl:Class ;
-    rdfs:subClassOf cat:Finances\(org\) ;
-    rdfs:label "Insurance (org)"@en ;
+cat:Insurance\(org\) rdf:type skos:Concept ;
+    skos:prefLabel "Insurance (org)"@en ;
+    skos:broader cat:Finances\(org\) ;
+    skos:inScheme cat:CategoryScheme ;
     rdfs:comment "Firms that protect organizations from risks."@en .
 
-cat:Advisory\(org\) rdf:type owl:Class ;
-    rdfs:subClassOf cat:Finances\(org\) ;
-    rdfs:label "Advisory (org)"@en ;
+cat:Advisory\(org\) rdf:type skos:Concept ;
+    skos:prefLabel "Advisory (org)"@en ;
+    skos:broader cat:Finances\(org\) ;
+    skos:inScheme cat:CategoryScheme ;
     rdfs:comment "Financial Planners, outsourced CFO consultants, Accountants and Bookkeepers and Tax preparers."@en .

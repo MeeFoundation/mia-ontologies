@@ -5,14 +5,14 @@ type: cell-databook
 version: 1.0.0
 created: 2026-08-29
 description: >
-  Cell DataBook for folder "RAV4" (cell:origin: cat:Vehicles). A user-defined instance folder for
+  Cell DataBook for folder "RAV4" (cell:category: cat:Vehicles). A user-defined instance folder for
   Alice's car, nested under the generic Vehicles category — mirroring how "Ginger" reuses its parent
   "Pets" folder's own origin class rather than being Custom. It is a one-member cell with one member
   entry about :Self and one graph about :Alice_RAV4 (the cell's subject), typed vehicles:Vehicle and
   carrying its vehicle type, make, model, model year, VIN, color, body type, fuel type, drive wheel
   configuration, odometer reading, and engine specification.
 mia:
-  origin: "cat:Vehicles"
+  category: "cat:Vehicles"
   creator: ":Self"
   members: "graph-62"
   topic: "graph-63"

@@ -5,9 +5,9 @@ type: cell-databook
 version: 1.1.0
 created: 2026-07-10
 description: >
-  Cell DataBook for folder "Paula Walker" (cell:origin: cat:ImmediateFamily). It is a two-member cell with three members (two about :Paula_Walker and one about :Self).
+  Cell DataBook for folder "Paula Walker" (cell:category: cat:ImmediateFamily). It is a two-member cell with three members (two about :Paula_Walker and one about :Self).
 mia:
-  origin: "cat:ImmediateFamily"
+  category: "cat:ImmediateFamily"
   creator: ":Self"
   members:
     - "graph-05"

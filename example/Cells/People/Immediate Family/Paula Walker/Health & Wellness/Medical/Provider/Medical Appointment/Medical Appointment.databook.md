@@ -5,9 +5,9 @@ type: cell-databook
 version: 1.1.0
 created: 2026-07-10
 description: >
-  Cell DataBook for folder "Medical Appointment" (cell:origin: cat:MedicalAppointment). It is a two-member cell with two members about :Carol_Walker and :Self and one graph about :Paula_Walker.
+  Cell DataBook for folder "Medical Appointment" (cell:category: cat:MedicalAppointment). It is a two-member cell with two members about :Carol_Walker and :Self and one graph about :Paula_Walker.
 mia:
-  origin: "cat:MedicalAppointment"
+  category: "cat:MedicalAppointment"
   creator: ":Self"
   members:
     - "graph-28"
@@ -34,7 +34,6 @@ mia:
       shapes:
         - http://mee.foundation/ontologies/persona/shapes
         - http://mee.foundation/ontologies/graph/shapes
-  shape: "pshapes:MedicalAppointmentRecordShape"
 ---
 
 ## Graphs

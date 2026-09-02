@@ -5,9 +5,9 @@ type: cell-databook
 version: 1.2.0
 created: 2026-07-10
 description: >
-  Cell DataBook for folder "Health & Wellness" (cell:origin: cat:HealthWellness). It is a one-member cell with one member entry about :Self and one graph about :Paula_Walker (the cell's subject).
+  Cell DataBook for folder "Health & Wellness" (cell:category: cat:HealthWellness). It is a one-member cell with one member entry about :Self and one graph about :Paula_Walker (the cell's subject).
 mia:
-  origin: "cat:HealthWellness"
+  category: "cat:HealthWellness"
   creator: ":Self"
   members: "graph-35"
   topic: "graph-17"

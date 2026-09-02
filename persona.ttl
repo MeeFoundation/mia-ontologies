@@ -188,7 +188,7 @@ p:hasPet rdf:type owl:ObjectProperty ;
                     a person merely owns or is otherwise associated with (a pet, a vehicle, each in its
                     own other/*.ttl file — see p:hasVehicle below for the identical pattern). pets:Pet
                     is referenced by name only, the same "referenced by name, no owl:imports" pattern
-                    cell.ttl already uses for cell:origin's range (cat:Category) and cell:creator's
+                    cell.ttl already uses for cell:category's range (skos:Concept) and cell:creator's
                     range (p:Person/o:Organization)."""@en .
 
 p:hasVehicle rdf:type owl:ObjectProperty ;

@@ -5,9 +5,9 @@ type: cell-databook
 version: 1.1.0
 created: 2026-07-10
 description: >
-  Cell DataBook for folder "Things" (cell:origin: cat:Things). It is a one-member cell with one member entry about :Self.
+  Cell DataBook for folder "Things" (cell:category: cat:Things). It is a one-member cell with one member entry about :Self.
 mia:
-  origin: "cat:Things"
+  category: "cat:Things"
   creator: ":Self"
   members: "graph-22"
   graphs:

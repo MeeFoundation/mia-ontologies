@@ -5,9 +5,9 @@ type: cell-databook
 version: 1.0.0
 created: 2026-08-29
 description: >
-  Cell DataBook for folder "Care & Feeding" (cell:origin: cat:PetsCareAndFeeding). It is a two-member cell, shared by Alice with Paula, with two members (about :Self and :Paula_Walker) and one graph about :Ginger, Alice's cat (the cell's subject) — the day-to-day instructions for looking after Ginger, alongside her Medical cell's sibling record of her medical care.
+  Cell DataBook for folder "Care & Feeding" (cell:category: cat:PetsCareAndFeeding). It is a two-member cell, shared by Alice with Paula, with two members (about :Self and :Paula_Walker) and one graph about :Ginger, Alice's cat (the cell's subject) — the day-to-day instructions for looking after Ginger, alongside her Medical cell's sibling record of her medical care.
 mia:
-  origin: "cat:PetsCareAndFeeding"
+  category: "cat:PetsCareAndFeeding"
   creator: ":Self"
   members:
     - "graph-58"
@@ -81,7 +81,7 @@ This cell was created by Alice and later shared with Paula, making the cell a tw
 
 #### Overview
 
-This graph captures Alice's day-to-day care and feeding instructions for her cat Ginger — what to feed her and when, and where she sleeps — so that Paula (or anyone else looking after Ginger) knows how to care for her. Alice is the claimant; Ginger is the cell's `subject` but, since she has no `p:Person` individual of her own, her graph is linked via `cell:topic` rather than as one of the required `members` entries (graphs 58 and 59, above, fill those slots instead). No formal template governs this content (unlike her sibling Medical cell's `pets:PetMedicationRecord`, or her own basic identifying claim in graph 37, now governed by `pets:Pet`) — `cat:PetsCareAndFeeding` has no `cat:templateCell` of its own — so it is asserted directly as a plain comment.
+This graph captures Alice's day-to-day care and feeding instructions for her cat Ginger — what to feed her and when, and where she sleeps — so that Paula (or anyone else looking after Ginger) knows how to care for her. Alice is the claimant; Ginger is the cell's `subject` but, since she has no `p:Person` individual of her own, her graph is linked via `cell:topic` rather than as one of the required `members` entries (graphs 58 and 59, above, fill those slots instead). No formal template governs this content (unlike her sibling Medical cell's `pets:PetMedicationRecord`, or her own basic identifying claim in graph 37, now governed by `pets:Pet`) — no `cell:TemplateCell` points its `cell:category` at `cat:PetsCareAndFeeding` — so it is asserted directly as a plain comment.
 
 #### Graph
 

@@ -5,9 +5,9 @@ type: cell-databook
 version: 1.1.0
 created: 2026-07-10
 description: >
-  Cell DataBook for folder "California DMV" (cell:origin: cat:DriversLicense). It is a one-member cell with one member entry about :Self.
+  Cell DataBook for folder "California DMV" (cell:category: cat:DriversLicense). It is a one-member cell with one member entry about :Self.
 mia:
-  origin: "cat:DriversLicense"
+  category: "cat:DriversLicense"
   creator: ":Self"
   members: "graph-15"
   graphs:
@@ -19,7 +19,6 @@ mia:
         - http://mee.foundation/ontologies/persona/shapes
         - http://mee.foundation/ontologies/graph/shapes
         - http://mee.foundation/ontologies/persona/shapes/driverslicense
-  shape: "pshapes:DriversLicenseDocumentShape"
 ---
 
 ## Graphs

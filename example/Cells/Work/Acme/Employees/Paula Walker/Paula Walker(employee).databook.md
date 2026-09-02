@@ -5,9 +5,9 @@ type: cell-databook
 version: 1.1.0
 created: 2026-07-10
 description: >
-  Cell DataBook for folder "Paula Walker" (cell:origin: cat:Employee). It is a one-member cell with one member entry about :Self and one graph about :Paula_Walker.
+  Cell DataBook for folder "Paula Walker" (cell:category: cat:Employee). It is a one-member cell with one member entry about :Self and one graph about :Paula_Walker.
 mia:
-  origin: "cat:Employee"
+  category: "cat:Employee"
   creator: ":Self"
   members: "graph-20"
   topic: "graph-06"

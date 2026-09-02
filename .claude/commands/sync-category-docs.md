@@ -8,8 +8,8 @@ Reconcile `category.ttl`'s `rdfs:comment` text for every leaf category under `ca
 
 ## Scope
 
-- Covers every `cat:X` class declared `rdfs:subClassOf cat:Person` or (transitively) one of its subclasses, and likewise for `cat:Organization` — i.e. every class listed as a bullet/sub-bullet in the two README sections.
-- Does **not** touch `cat:Category`, `cat:Person`, or `cat:Organization` themselves (the abstract root/superclasses) — only their leaf/branch subclasses.
+- Covers every `cat:X` concept reachable from `cat:Person` by following `skos:broader` (asserted child → parent) one or more steps, and likewise for `cat:Organization` — i.e. every concept listed as a bullet/sub-bullet in the two README sections. `category.ttl` has no `cat:Category` class to check against — every concept is a plain `skos:Concept` individual, scoped to `cat:CategoryScheme` via `skos:inScheme`.
+- Does **not** touch `cat:Person` or `cat:Organization` themselves (the two top concepts, `skos:hasTopConcept` of `cat:CategoryScheme`) — only the narrower concepts reachable from them.
 - Does **not** add or remove categories, or rename anything — this command only reconciles description *text*. Renames and additions/removals are separate, explicit requests.
 
 ## Method

@@ -1,5 +1,6 @@
 @prefix cell: <http://mee.foundation/ontologies/cell#> .
 @prefix ctpl: <http://mee.foundation/ontologies/cell-templates#> .
+@prefix cat: <http://mee.foundation/ontologies/category#> .
 @prefix pshapes: <http://mee.foundation/ontologies/persona/shapes#> .
 @prefix petshapes: <http://mee.foundation/ontologies/pets/shapes#> .
 @prefix vehicleshapes: <http://mee.foundation/ontologies/vehicles/shapes#> .
@@ -11,12 +12,12 @@
 @base <http://mee.foundation/ontologies/cell-templates> .
 
 <http://mee.foundation/ontologies/cell-templates> rdf:type owl:Ontology ;
-    owl:versionIRI <http://mee.foundation/ontologies/cell-templates/1.18.0> ;
-    dc:date "2026-08-29"^^xsd:date ;
+    owl:versionIRI <http://mee.foundation/ontologies/cell-templates/2.0.0> ;
+    dc:date "2026-09-01"^^xsd:date ;
     owl:imports <http://mee.foundation/ontologies/cell> ;
-    owl:versionInfo "Version 1.18.0 - added ctpl:VehicleProfileTemplateCell (cat:Vehicles)."@en ;
+    owl:versionInfo "Version 2.0.0 - added cell:category linking each template cell to its category concept (category.ttl), replacing category.ttl's removed cat:templateCell annotation property."@en ;
     rdfs:label "Cell Templates"@en ;
-    rdfs:comment """Class-level cell:Cell templates for cat:Category subclasses (category.ttl). Each individual here is what a cat:Category subclass's cat:templateCell value (asserted in category.ttl) points directly at — what the app clones into a new cell when a folder representing that class is first instantiated into a user's tree (Lazy Instantiation). Each is typed solely cell:TemplateCell — cell:TemplateCell and cell:MemberCell are disjoint (cell.ttl), so a template cell is reusable class-level content, never itself an instantiated member of any relationship. Each also carries cell:templateShape to the SHACL shape(s) — in the paired cell-templates-shacl.ttl for a persona:PersonaTemplate-typed template, or in other/pets-shacl.ttl for a pets:-typed one — describing the content expected of a topic file filed under that category, and cell:isTopicCell (required, exactly one value) — true on ctpl:MedicalAppointmentTemplateCell, ctpl:PetMedicationsTemplateCell, ctpl:PetProfileTemplateCell, and ctpl:VehicleProfileTemplateCell, the templates whose real cells always end up carrying a cell:topic value, false on the other three, flagging whether Lazy Instantiation's clone is expected to be typed cell:TopicCell."""@en .
+    rdfs:comment """Class-level cell:Cell templates for category concepts (category.ttl's cat:CategoryScheme). Each individual here is what the app clones into a new cell when a folder representing its own cell:category concept is first instantiated into a user's tree (Lazy Instantiation) — finding the template for a given category is a reverse lookup (?tc cell:category cat:X), since category.ttl carries no forward pointer of its own. Each is typed solely cell:TemplateCell — cell:TemplateCell and cell:MemberCell are disjoint (cell.ttl), so a template cell is reusable class-level content, never itself an instantiated member of any relationship. Each also carries cell:templateShape to the SHACL shape(s) — in the paired cell-templates-shacl.ttl for a persona:PersonaTemplate-typed template, or in other/pets-shacl.ttl for a pets:-typed one — describing the content expected of a topic file filed under that category, and cell:isTopicCell (required, exactly one value) — true on ctpl:MedicalAppointmentTemplateCell, ctpl:PetMedicationsTemplateCell, ctpl:PetProfileTemplateCell, and ctpl:VehicleProfileTemplateCell, the templates whose real cells always end up carrying a cell:topic value, false on the other three, flagging whether Lazy Instantiation's clone is expected to be typed cell:TopicCell."""@en .
 
 #################################################################
 #  cat:Passport
@@ -24,6 +25,7 @@
 
 ctpl:PassportTemplateCell rdf:type cell:Cell, cell:TemplateCell ;
     rdfs:label "Passport Template Cell"@en ;
+    cell:category cat:Passport ;
     cell:templateShape pshapes:PassportDocumentShape ;
     cell:isTopicCell false .
 
@@ -33,6 +35,7 @@ ctpl:PassportTemplateCell rdf:type cell:Cell, cell:TemplateCell ;
 
 ctpl:BirthCertificateTemplateCell rdf:type cell:Cell, cell:TemplateCell ;
     rdfs:label "Birth Certificate Template Cell"@en ;
+    cell:category cat:BirthCertificate ;
     cell:templateShape pshapes:BirthCertificateDocumentShape ;
     cell:isTopicCell false .
 
@@ -42,6 +45,7 @@ ctpl:BirthCertificateTemplateCell rdf:type cell:Cell, cell:TemplateCell ;
 
 ctpl:DriversLicenseTemplateCell rdf:type cell:Cell, cell:TemplateCell ;
     rdfs:label "Drivers License Template Cell"@en ;
+    cell:category cat:DriversLicense ;
     cell:templateShape pshapes:DriversLicenseDocumentShape ;
     cell:isTopicCell false .
 
@@ -51,6 +55,7 @@ ctpl:DriversLicenseTemplateCell rdf:type cell:Cell, cell:TemplateCell ;
 
 ctpl:MedicalAppointmentTemplateCell rdf:type cell:Cell, cell:TemplateCell ;
     rdfs:label "Medical Appointment Template Cell"@en ;
+    cell:category cat:MedicalAppointment ;
     cell:templateShape pshapes:MedicalAppointmentRecordShape ;
     cell:isTopicCell true .
 
@@ -60,6 +65,7 @@ ctpl:MedicalAppointmentTemplateCell rdf:type cell:Cell, cell:TemplateCell ;
 
 ctpl:PetMedicationsTemplateCell rdf:type cell:Cell, cell:TemplateCell ;
     rdfs:label "Pet Medications Template Cell"@en ;
+    cell:category cat:PetsMedical ;
     cell:templateShape petshapes:PetMedicationRecordShape ;
     cell:isTopicCell true .
 
@@ -69,6 +75,7 @@ ctpl:PetMedicationsTemplateCell rdf:type cell:Cell, cell:TemplateCell ;
 
 ctpl:PetProfileTemplateCell rdf:type cell:Cell, cell:TemplateCell ;
     rdfs:label "Pet Profile Template Cell"@en ;
+    cell:category cat:Pets ;
     cell:templateShape petshapes:PetShape ;
     cell:isTopicCell true .
 
@@ -78,5 +85,6 @@ ctpl:PetProfileTemplateCell rdf:type cell:Cell, cell:TemplateCell ;
 
 ctpl:VehicleProfileTemplateCell rdf:type cell:Cell, cell:TemplateCell ;
     rdfs:label "Vehicle Profile Template Cell"@en ;
+    cell:category cat:Vehicles ;
     cell:templateShape vehicleshapes:VehicleShape ;
     cell:isTopicCell true .

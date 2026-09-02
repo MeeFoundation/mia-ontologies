@@ -18,7 +18,7 @@ outright, along with cat:child/cat:cell/cat:category/cat:catType/cat:label.
 A folder's tree position is now purely a filesystem fact (which cell-databook
 file physically lives in it), with no RDF individual representing the folder
 at all. The only remaining RDF-level record of a cell's classification is
-cell:origin (cell.ttl 3.20.0), read directly from the explicit `mia.origin`
+cell:category (cell.ttl 3.20.0), read directly from the explicit `mia.category`
 YAML field below — never derived from filename-parsing.
 
 Since graph-databooks were merged into their owning cell-databooks (each
@@ -112,10 +112,10 @@ def process_cell_databook(fm, triples):
 
     emit_type(triples, subj, CELL + "Cell")
 
-    if mia.get("origin"):
-        # cell:origin — domain cell:Cell, so asserted on every cell
-        # regardless of facet (cell.ttl 3.20.0).
-        emit_obj(triples, subj, CELL + "origin", resolve(mia["origin"]))
+    if mia.get("category"):
+        # cell:category — domain cell:Cell, so asserted on every cell
+        # regardless of facet (cell.ttl 3.45.0, renamed from cell:origin).
+        emit_obj(triples, subj, CELL + "category", resolve(mia["category"]))
 
     # Every real cell-databook is always also typed cell:MemberCell — no bare
     # tree-position-only cell with no member content; a category node with
@@ -145,8 +145,10 @@ def process_cell_databook(fm, triples):
     # than an independently-asserted fact, so it is never stored as its
     # own triple.
 
-    if mia.get("shape"):
-        emit_obj(triples, subj, CELL + "shape", resolve(mia["shape"]))
+    # No cell:shape synthesis either (cell.ttl 3.45.0 removed the
+    # property): a cell:MemberCell's validation shape is derivable from
+    # its own cell:category value via a reverse lookup on cell-templates.ttl
+    # rather than stored per-instance.
 
     for graph in as_list(mia.get("graphs")):
         process_embedded_graph(graph, triples)

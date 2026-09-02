@@ -5,12 +5,12 @@ type: cell-databook
 version: 1.1.0
 created: 2026-07-10
 description: >
-  Cell DataBook for folder "Companies" (cell:origin: cat:Companies). It is a
+  Cell DataBook for folder "Companies" (cell:category: cat:Companies). It is a
   one-member cell with one member entry about :Self — a minimal stub,
   since "Companies" is a purely organizational category node with no
   content or relationship of its own beyond Alice's required membership.
 mia:
-  origin: "cat:Companies"
+  category: "cat:Companies"
   creator: ":Self"
   members: "graph-40"
   graphs:
@@ -29,7 +29,7 @@ mia:
 
 #### Overview
 
-This graph is the cell's one required `members` entry — a cell with a single `members` entry in the user's own category-cell tree always has `:Self` as that member (see Check 21), regardless of what the cell's `subject` is — here, Alice herself. The "Companies" cell is a purely organizational category node (`cell:origin: cat:Companies`) with no relationship or subject of its own beyond Alice's required membership, so this stub carries no further claims. Alice is both the claimant and the subject. Deliberately empty: the `members` requirement is about `g:subject`/`g:claimant` (asserted at the `mia.graphs[]` YAML level, not in this Turtle body), not about carrying any particular content — there is no rule requiring a member's graph to assert anything at all about them.
+This graph is the cell's one required `members` entry — a cell with a single `members` entry in the user's own category-cell tree always has `:Self` as that member (see Check 21), regardless of what the cell's `subject` is — here, Alice herself. The "Companies" cell is a purely organizational category node (`cell:category: cat:Companies`) with no relationship or subject of its own beyond Alice's required membership, so this stub carries no further claims. Alice is both the claimant and the subject. Deliberately empty: the `members` requirement is about `g:subject`/`g:claimant` (asserted at the `mia.graphs[]` YAML level, not in this Turtle body), not about carrying any particular content — there is no rule requiring a member's graph to assert anything at all about them.
 
 #### Graph
 

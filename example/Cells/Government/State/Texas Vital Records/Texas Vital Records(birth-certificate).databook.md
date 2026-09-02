@@ -5,9 +5,9 @@ type: cell-databook
 version: 1.1.0
 created: 2026-07-10
 description: >
-  Cell DataBook for folder "Texas Vital Records" (cell:origin: cat:BirthCertificate). It is a one-member cell with one member entry about :Self.
+  Cell DataBook for folder "Texas Vital Records" (cell:category: cat:BirthCertificate). It is a one-member cell with one member entry about :Self.
 mia:
-  origin: "cat:BirthCertificate"
+  category: "cat:BirthCertificate"
   creator: ":Self"
   members: "graph-24"
   graphs:
@@ -19,7 +19,6 @@ mia:
         - http://mee.foundation/ontologies/persona/shapes
         - http://mee.foundation/ontologies/graph/shapes
         - http://mee.foundation/ontologies/persona/shapes/birthcertificate
-  shape: "pshapes:BirthCertificateDocumentShape"
 ---
 
 ## Graphs

@@ -5,9 +5,9 @@ type: cell-databook
 version: 1.1.0
 created: 2026-07-10
 description: >
-  Cell DataBook for folder "Citibank" (cell:origin: cat:BankingPayments). It is a two-member cell with two members about :Self and :Citibank.
+  Cell DataBook for folder "Citibank" (cell:category: cat:BankingPayments). It is a two-member cell with two members about :Self and :Citibank.
 mia:
-  origin: "cat:BankingPayments"
+  category: "cat:BankingPayments"
   creator: ":Self"
   members:
     - "graph-09"

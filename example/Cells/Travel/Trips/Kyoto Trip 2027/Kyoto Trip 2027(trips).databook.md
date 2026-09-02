@@ -5,7 +5,7 @@ type: cell-databook
 version: 1.0.0
 created: 2026-08-30
 description: >
-  Cell DataBook for folder "Kyoto Trip 2027" (cell:origin: cat:Trips, reusing its parent "Trips"
+  Cell DataBook for folder "Kyoto Trip 2027" (cell:category: cat:Trips, reusing its parent "Trips"
   cell's own origin), nested under "Travel" > "Trips". A user-defined instance folder for a
   specific trip Alice is planning with her spouse Dave. A three-member cell demonstrating
   agent:Agent as a real cell member: Alice's own AI travel agent joins alongside Alice and Dave,
@@ -15,7 +15,7 @@ description: >
   (graph-70) — mirroring how a cell:topic may be claimed from more than one side (see the Medical
   Appointment cell's two "Med. Appt mt." squares in README.md's Representative Cells diagram).
 mia:
-  origin: "cat:Trips"
+  category: "cat:Trips"
   creator: ":Self"
   members:
     - "graph-66"

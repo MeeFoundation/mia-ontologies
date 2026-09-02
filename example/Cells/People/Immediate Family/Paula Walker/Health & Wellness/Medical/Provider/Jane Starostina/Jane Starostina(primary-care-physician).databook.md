@@ -5,9 +5,9 @@ type: cell-databook
 version: 1.3.0
 created: 2026-07-10
 description: >
-  Cell DataBook for folder "Jane Starostina" (cell:origin: cat:PrimaryCarePhysician). It is a one-member cell with one member entry about :Self and one graph about :Jane_Starostina (the cell's subject).
+  Cell DataBook for folder "Jane Starostina" (cell:category: cat:PrimaryCarePhysician). It is a one-member cell with one member entry about :Self and one graph about :Jane_Starostina (the cell's subject).
 mia:
-  origin: "cat:PrimaryCarePhysician"
+  category: "cat:PrimaryCarePhysician"
   creator: ":Self"
   members: "graph-34"
   topic: "graph-25"

@@ -12,9 +12,9 @@
     owl:imports <http://mee.foundation/ontologies/dron-upper-subset> ,
                 <http://mee.foundation/ontologies/ncbitaxon-subset> ,
                 <http://mee.foundation/ontologies/vbo-subset> ;
-    owl:versionIRI <http://mee.foundation/ontologies/pets/1.4.0> ;
-    dc:date "2026-08-30"^^xsd:date ;
-    owl:versionInfo "Version 1.4.0 - reworded cell:memberCount precedent references to cell:origin."@en ;
+    owl:versionIRI <http://mee.foundation/ontologies/pets/1.4.1> ;
+    dc:date "2026-09-01"^^xsd:date ;
+    owl:versionInfo "Version 1.4.1 - updated cell:origin references to cell:category, following cell.ttl's property rename."@en ;
     persona:usesDrOnClass <http://purl.obolibrary.org/obo/DRON_00000074> ,  # drug product
                     <http://purl.obolibrary.org/obo/DRON_00000028> ,  # active ingredient (role)
                     <http://purl.obolibrary.org/obo/DRON_00000022> ,  # drug tablet
@@ -33,7 +33,7 @@
                     persona.ttl holds only the thin link property (persona:hasPet, domain persona:Person,
                     range pets:Pet) connecting a person to this file's classes, referenced by name with no
                     owl:imports in either direction — the same "referenced by name" pattern cell.ttl already
-                    uses for cell:origin's range (cat:Category) and cell:creator's range
+                    uses for cell:category's range (skos:Concept) and cell:creator's range
                     (persona:Person/o:Organization).
 
                     pets:Pet and pets:PetMedicationRecord are both rdfs:subClassOf persona:PersonaTemplate,
@@ -79,8 +79,8 @@ pets:hasSpecies rdf:type owl:ObjectProperty ;
     rdfs:comment """Links a Pet to its species, identified directly by an NCBI Taxonomy
                     (project_files/ncbitaxon-subset.ttl) class IRI (e.g. obo:NCBITaxon_9685 for Felis
                     catus, the domestic cat) — the value IS the NCBITaxon class itself, not an instance of
-                    it (the same class-value-punning style cell:origin already uses in
-                    cell.ttl), cited rather than importing the full ~2.7-million-class NCBITaxon
+                    it (the same class-value-punning style vehicles:hasVehicleType uses,
+                    other/vehicles.ttl), cited rather than importing the full ~2.7-million-class NCBITaxon
                     distribution wholesale — only a small hand-picked subset is vendored locally. Required,
                     exactly one value: every pet has exactly one species."""@en .
 
@@ -212,7 +212,7 @@ pets:hasActiveIngredient rdf:type owl:ObjectProperty ;
                     ChEBI (Chemical Entities of Biological Interest, https://www.ebi.ac.uk/chebi/)
                     chemical-substance class IRI (e.g. obo:CHEBI_2676 for amoxicillin) — the value IS
                     the ChEBI class itself, not an instance of it (the same class-value-punning style
-                    cell:origin already uses in cell.ttl), cited rather than imported
+                    vehicles:hasVehicleType already uses, other/vehicles.ttl), cited rather than imported
                     (ChEBI is far too large to vendor; DrOn itself reuses ChEBI class IRIs this same
                     way rather than modeling chemistry on its own). Repeat the property for
                     combination drugs with more than one active ingredient (e.g. amoxicillin AND
@@ -229,7 +229,7 @@ pets:hasDoseForm rdf:type owl:ObjectProperty ;
                     identifying what kind of discrete manufactured unit it comes in — e.g.
                     obo:DRON_00000022 "drug tablet" or obo:DRON_00000026 "drug capsule". Like
                     hasActiveIngredient, the value IS the class itself (class-value-punning, matching
-                    cell:origin's style). Omit this property entirely when the dose is a true
+                    vehicles:hasVehicleType's style, other/vehicles.ttl). Omit this property entirely when the dose is a true
                     measured quantity rather than a count of discrete units (e.g. a teaspoon of
                     liquid) — see pets:hasDosageAmount/pets:DosageAmount for why "tablet" and
                     "teaspoon" are handled by two different mechanisms: UCUM's own specification
