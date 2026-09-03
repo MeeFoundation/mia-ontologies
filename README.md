@@ -183,7 +183,7 @@ A regular cell may be empty or hold various kinds of information, organized into
 A **Topic Cell** adds a **Topic** tab:
   * Structured information about a single topic that is the focus of the cell. This topic could be person who is not a member of the cell, or information about a project that the members of the cell are working on (e.g. organizing a medical appointment for someone who is not a member of the cell)
 
-The app contains two pre-defined, non-user-editable taxonomies of **categories**. One is focused on helping organize the information in a person's personal life (Family, Home, Pets, etc.) and the other their work life (Employer, Employees, etc.). For some of these categoires, the app includes a *template cell* which may contain some starter content (or may be empty) and/or may have a schema for the structured fields and values that a cell of this category might contain.  
+The app contains two pre-defined, non-user-editable taxonomies of **categories**. One is focused on helping organize the information in a person's personal life (Family, Home, Pets, etc.) and the other their work life (Employer, Employees, etc.). For some of these categories, the app includes a *template cell* which may contain some starter content (or may be empty) and/or may have a schema for the structured fields and values that a cell of this category might contain.  
 
 A cell has a **name**. Often this name is just a copy of the name of the category. For example if the category was "People", the cell might be called "People". However, the user can give the cell a name of their own choosing. 
 
@@ -192,6 +192,8 @@ A cell usually has a **category**. A category is a string, which identifies whic
 A cell has a **creator**, which is the identity of the user who created it. This creator is automatically considered to be a cell **owner**. Any owner can invite/promote other members to be/become owners. A cell owner has an elevated set of permissions for managing cell contents.
 
 A cell can be **shared**. The creator of a cell can invite people (or organizations compatible with the Mee PDN protocols, or agents) to join the cell. When they do, they gain access to the cell. Cells are alive; any changes made to its contents by any member is visible to all members. Cells are self-contained and may be nested inside of other cells by any app user. The organization of these multi-cellular structures is personal to the app user and not shared. The structures will be similar between users to the extent that they are leveraging the app's built-in tree of categories.
+
+Cells have unique identifiers. This allows links to other cells to be included in a cell's note. If a user has a note containing a link, they must also have access to the cell to which the link points for them to be able to traverse the link. 
 
 ### Diving Deeper
 
