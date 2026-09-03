@@ -256,7 +256,7 @@ A `c:TopicCell` is a subclass of `c:MemberCell` that adds the concept of a *topi
 
 #### Properties
 
-- **`c:topic`** — one or more `c:SCGraph` values all of which share the same subject (the topic at hand) and each of which is asserted by a different claimant. The minimum number of `c:SCGraph`s is one, and the maximum for an N member cell is N. The maximum obtains when every cell member creates its own `c:SCGraph` whose subject is the topic and whose claimant is themselves. Domain `c:TopicCell`.
+- **`c:topic`** — one or more `g:SCGraph` values all of which share the same subject (the topic at hand) and each of which is asserted by a different claimant. The minimum number of `g:SCGraph`s is one, and the maximum for an N member cell is N. The maximum obtains when every cell member creates its own `g:SCGraph` whose subject is the topic and whose claimant is themselves. Domain `c:TopicCell`.
 
 ### Representative Cells
 
