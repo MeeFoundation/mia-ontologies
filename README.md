@@ -180,20 +180,18 @@ A regular cell may be empty or hold various kinds of information, organized into
 * **Chat** tab:
   * A chat stream shared with all members.
 
-A **Topic Cell** adds one more tab:
+A **Topic Cell** adds a **Topic** tab:
+  * Structured information about a single topic that is the focus of the cell. This topic could be person who is not a member of the cell, or information about a project that the members of the cell are working on (e.g. organizing a medical appointment for someone who is not a member of the cell)
 
-* **Topic** tab:
-  * Structured information about topic that is the focus of the cell. This topic could be person who is not a member of the cell, or information about a project that the members of the cell are working on (e.g. organizing a medical appointment for someone who is not a member of the cell)
-
-The app contains two pre-defined, non-user-editable tree structures of **categories**. One is focused on helping organize a person's personal life (Family, Home, Pets, etc.) and the other their work life (Employer, Employees, etc.). Each category has a *template cell* which may contain some starter content (or may be empty) and may have a schema for the structured fields and values that a cell of this category might contain. Most cells are instantiated from a template cell, although the user may also create category-less cells if desired.
+The app contains two pre-defined, non-user-editable taxonomies of **categories**. One is focused on helping organize the information in a person's personal life (Family, Home, Pets, etc.) and the other their work life (Employer, Employees, etc.). For some of these categoires, the app includes a *template cell* which may contain some starter content (or may be empty) and/or may have a schema for the structured fields and values that a cell of this category might contain.  
 
 A cell has a **name**. Often this name is just a copy of the name of the category. For example if the category was "People", the cell might be called "People". However, the user can give the cell a name of their own choosing. 
 
-A cell has a **category**. The category identifies which kind of thing (e.g. "People") the cell represents. For categories with a template cell, this is usually the category whose template was cloned to create the cell; a cell can also be assigned a category directly, with no template involved.
+A cell usually has a **category**. A category is a string, which identifies which kind of personal information (e.g. "People", "Pets", "Things") the cell holds. For some categories we have a pre-defined template cell that may provide some starter content. 
 
-A cell has a **creator**, which is the identity of the user who created it.
+A cell has a **creator**, which is the identity of the user who created it. This creator is automatically considered to be a cell **owner**. Any owner can invite/promote other members to be/become owners. A cell owner has an elevated set of permissions for managing cell contents.
 
-A cell can be **shared**. The creator of a cell can invite people (or organizations compatible with the Mee PDN protocols) to join the cell. When they do, they get a complete copy of the cell that is "alive" — any changes made to its contents, are continuously shared with all members. The one thing that stays independent per member is where each of them files the cell in their own tree. 
+A cell can be **shared**. The creator of a cell can invite people (or organizations compatible with the Mee PDN protocols, or agents) to join the cell. When they do, they gain access to the cell. Cells are alive; any changes made to its contents by any member is visible to all members. Cells are self-contained and may be nested inside of other cells by any app user. Hwo cells  multi-cellular structures are personal to the app user
 
 ### Diving Deeper
 
