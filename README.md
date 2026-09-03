@@ -100,6 +100,7 @@ As we've mentioned, the user is free to create cells not included in the predefi
         - **Devices** (`cat:PetsDevices`) — medical devices and supplies used in a pet's care, e.g. syringes, nebulizers, and injection solutions.
     - **Care & Feeding** (`cat:PetsCareAndFeeding`) — day-to-day instructions for someone else to take care of a pet — a pet's diet, food providers, feeding instructions and schedule, dietary restrictions, where they sleep, and other routine care.
 1. **Home** (`cat:Home`) — owning or renting a home, apartment, or other dwelling. Leases, deeds, utility accounts, real estate brokers.
+    - **Previous** (`cat:Previous`) — a previous home or residence, no longer current.
 1. **Work** (`cat:Work`) — professional roles. Employment history, resume/CV, job level, job function, industry.
 1. **Things** (`cat:Things`) — owned assets, property, vehicles, and other possessions.
     - **Vehicles** (`cat:Vehicles`) — related to owning and maintaining a vehicle. Vehicle insurance, repairs, mechanics, garages. 

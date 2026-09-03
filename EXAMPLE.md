@@ -60,9 +60,9 @@ Alice has a social security number (SSN) issued to her by the Social Security Ad
 
 ### Current and Previous Homes
 
-Alice used to live in Boston until late 2025, but now lives in Paradise, CA. Information about these two residences are in graphs [13](<example/Cells/Government/Municipality/Boston/Boston(residence).databook.md#graph-13>) and [18](<example/Cells/Government/Municipality/Paradise/Paradise(residence).databook.md#graph-18>). 
+Alice used to live in Boston until late 2025, but now lives in Paradise, CA. Information about these two residences are in graphs [13](<example/Cells/Home/Previous/Boston/Boston(residence).databook.md#graph-13>) and [18](<example/Cells/Home/Paradise/Paradise(residence).databook.md#graph-18>). 
 
-<p align="center"><img src="example/images/gov-municipality.png" alt="Government — Municipality cells"></p>
+<p align="center"><img src="example/images/home.png" alt="Home cells"></p>
 
 ### Possessions 
 
@@ -156,8 +156,8 @@ A summary of every narratively-illustrated cell under `example/Cells/`, grouped 
 | Birth Certificate and Driver's License | California DMV | [California DMV(drivers-license).databook.md](<example/Cells/Government/State/California DMV/California DMV(drivers-license).databook.md>) {9} | Self | `cat:DriversLicense` | 15 |
 | Passport and Social Security Number | Department of State | [Department of State(passport).databook.md](<example/Cells/Government/Federal/Department of State/Department of State(passport).databook.md>) {5} | Self | `cat:Passport` | 19 |
 | Passport and Social Security Number | Social Security Administration | [Social Security Administration(ssn).databook.md](<example/Cells/Government/Federal/Social Security Administration/Social Security Administration(ssn).databook.md>) {6} | Self | `cat:SSN` | 23 |
-| Current and Previous Homes | Boston | [Boston(residence).databook.md](<example/Cells/Government/Municipality/Boston/Boston(residence).databook.md>) {7} | Self | `cat:Residence` | 13 |
-| Current and Previous Homes | Paradise | [Paradise(residence).databook.md](<example/Cells/Government/Municipality/Paradise/Paradise(residence).databook.md>) {8} | Self | `cat:Residence` | 18 |
+| Current and Previous Homes | Boston | [Boston(residence).databook.md](<example/Cells/Home/Previous/Boston/Boston(residence).databook.md>) {7} | Self | `cat:Residence` | 13 |
+| Current and Previous Homes | Paradise | [Paradise(residence).databook.md](<example/Cells/Home/Paradise/Paradise(residence).databook.md>) {8} | Self | `cat:Residence` | 18 |
 | Possessions | Things | [Things.databook.md](<example/Cells/Things/Things.databook.md>) {11} | Self | `cat:Things` | 22 |
 | Vehicles | RAV4 | [RAV4(vehicles).databook.md](<example/Cells/Things/Vehicles/RAV4/RAV4(vehicles).databook.md>) {44} | Alice's RAV4 | `cat:Vehicles` | 62, 63 |
 | Caring for Ginger | Ginger | [Ginger(pets).databook.md](<example/Cells/Pets/Ginger/Ginger(pets).databook.md>) {41} | Ginger | `cat:Pets` | 36, 37 |
@@ -175,11 +175,11 @@ The graphs in the table below are *about* Alice and claimed *by* Alice. The "Cel
 | 10 | [Alice Walker(employee).databook.md](<example/Cells/Work/Acme/Employees/Alice Walker/Alice Walker(employee).databook.md#graph-10>) {18} | `cat:Employee`     | Business card — given name, family name, email, phone, employer  | [view](example/graphs/images/graph-10.png) |
 | 11 | [ATT(companies).databook.md](<example/Cells/Companies/ATT/ATT(companies).databook.md#graph-11>) {2}                     | `cat:Companies`    | Phone number                                                     | [view](example/graphs/images/graph-11.png) |
 | 12 | [Bob Johnson(others).databook.md](<example/Cells/People/Others/Bob Johnson/Bob Johnson(others).databook.md#graph-12>) {16}                     | `cat:Others`       | Alice's 1:1 graph with Bob; social network with Bob as member  | [view](example/graphs/images/graph-12.png)|
-| 13 | [Boston(residence).databook.md](<example/Cells/Government/Municipality/Boston/Boston(residence).databook.md#graph-13>) {7}               | `cat:Residence` | Previous address — Boston, MA (2020–2025) with temporal interval | [view](example/graphs/images/graph-13.png) |
+| 13 | [Boston(residence).databook.md](<example/Cells/Home/Previous/Boston/Boston(residence).databook.md#graph-13>) {7}               | `cat:Residence` | Previous address — Boston, MA (2020–2025) with temporal interval | [view](example/graphs/images/graph-13.png) |
 | 14  | [Boston Hub Society(affiliations).databook.md](<example/Cells/Affiliations/Boston Hub Society/Boston Hub Society(affiliations).databook.md#graph-14>) {1}                     | `cat:Affiliations` | BHS profile: email, phone and current address                    | [view](example/graphs/images/graph-14.png)|
 | 15 | [California DMV(drivers-license).databook.md](<example/Cells/Government/State/California DMV/California DMV(drivers-license).databook.md#graph-15>) {9} | `cat:DriversLicense`      | California driver's license — legal name, DOB, DL#, expiry, photo | [view](example/graphs/images/graph-15.png) |
 | 16 | [Google(companies).databook.md](<example/Cells/Companies/Google/Google(companies).databook.md#graph-16>) {3}               | `cat:Companies`    | Gmail address                                                    | [view](example/graphs/images/graph-16.png) |
-| 18 | [Paradise(residence).databook.md](<example/Cells/Government/Municipality/Paradise/Paradise(residence).databook.md#graph-18>) {8}           | `cat:Residence` | Current address — Paradise, CA (2025–present)                    | [view](example/graphs/images/graph-18.png) |
+| 18 | [Paradise(residence).databook.md](<example/Cells/Home/Paradise/Paradise(residence).databook.md#graph-18>) {8}           | `cat:Residence` | Current address — Paradise, CA (2025–present)                    | [view](example/graphs/images/graph-18.png) |
 | 19 | [Department of State(passport).databook.md](<example/Cells/Government/Federal/Department of State/Department of State(passport).databook.md#graph-19>) {5}             | `cat:Passport`    | US passport — legal name, DOB, passport#, issue/expiry, place of birth, gender marker, photo | [view](example/graphs/images/graph-19.png) |
 | 20 | [Paula Walker(employee).databook.md](<example/Cells/Work/Acme/Employees/Paula Walker/Paula Walker(employee).databook.md#graph-20>) {19}                   | `cat:Employee`     | Acme employee graph; company email; works with Paula           | [view](example/graphs/images/graph-20.png)|
 | 21 | [Paula Walker(immediate-family).databook.md](<example/Cells/People/Immediate Family/Paula Walker/Paula Walker(immediate-family).databook.md#graph-21>) {12}   | `cat:ImmediateFamily`       | Alice as a family member                       | [view](example/graphs/images/graph-21.png) |
@@ -237,7 +237,7 @@ The following table lists graphs about other people (Paula and Bob) or organizat
 
 ```bash
 python3 draw.py "example/Cells/Finances/Banking & Payments Firms/Citibank/Citibank(banking-payments).databook.md" "graph-09"
-python3 draw.py "example/Cells/Government/Municipality/Paradise/Paradise(residence).databook.md" "graph-18"
+python3 draw.py "example/Cells/Home/Paradise/Paradise(residence).databook.md" "graph-18"
 ```
 
 Both output files are always written to `example/graphs/images/` (must be run from the repo root), keyed by the graph's own id local-name.

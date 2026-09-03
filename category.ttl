@@ -8,8 +8,8 @@
 @base <http://mee.foundation/ontologies/category> .
 
 <http://mee.foundation/ontologies/category> rdf:type owl:Ontology ;
-    owl:versionIRI <http://mee.foundation/ontologies/category/2.0.0> ;
-    dc:date "2026-09-01"^^xsd:date ;
+    owl:versionIRI <http://mee.foundation/ontologies/category/2.0.1> ;
+    dc:date "2026-09-03"^^xsd:date ;
     rdfs:label "Category Ontology"@en ;
     rdfs:comment """Category Ontology for the Cellula App."""@en .
 
@@ -500,6 +500,12 @@ cat:Home rdf:type skos:Concept ;
     skos:broader cat:Person ;
     skos:inScheme cat:CategoryScheme ;
     rdfs:comment "Owning or renting a home, apartment, or other dwelling. Leases, deeds, utility accounts, real estate brokers."@en .
+
+cat:Previous rdf:type skos:Concept ;
+    skos:prefLabel "Previous"@en ;
+    skos:broader cat:Home ;
+    skos:inScheme cat:CategoryScheme ;
+    rdfs:comment "A previous home or residence, no longer current."@en .
 
 #################################################################
 #    cat:Projects and narrower concepts
