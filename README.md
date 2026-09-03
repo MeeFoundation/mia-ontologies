@@ -167,9 +167,7 @@ As we've mentioned, the user is free to create cells not included in the predefi
 
 ### Introduction to Cells
 
-A cell is a secure **container of information** that can remain private to the user or be shared with other users and/or organizations.
-
-A **regular cell** hold various kinds of information, organized into a set of tabs:
+A cell is a secure **container of information** that can remain private to the user or be shared with other users and/or organizations. A **regular cell** holds various kinds of information, organized into a set of tabs:
 
 * **Members** tab:
   * Structured information (fields and values) about the member(s) of the cell. If the cell hasn't been shared it has only one member. 
