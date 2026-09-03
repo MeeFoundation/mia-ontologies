@@ -268,6 +268,12 @@ A `c:TopicCell` is a subclass of `c:MemberCell` for a member cell that adds the 
 
 - **`c:topic`** — one or more values, required once a cell is typed `c:TopicCell` at all (no upper bound). Link to one or more additional subject-claimant graphs beyond those referenced by `c:member`. Domain `c:TopicCell`.
 
+### Graph Cardinality
+
+For an N-member `c:MemberCell`, there are N subjects (one per member). However, there could be between N and N² `g:SCGraph`s. Only N if each member simply self-asserts information about themselves and no other member makes claims about any other member. N² because any member can make claims about any other member. N² is the upper bound. In practice, most of the time the number will be closer to N.
+
+A `c:TopicCell` adds more `g:SCGraph`s, because it includes a `c:topic` graph list. This list could contain an additional N `g:SCGraph`s (one for each member's claims about that topic).
+
 ### Representative Cells
 
 The diagram below shows six representative cells.
