@@ -169,18 +169,18 @@ As we've mentioned, the user is free to create cells not included in the predefi
 
 A cell is a secure **container of information** that can remain private to the user or be shared with other users and/or organizations.
 
-A regular cell may be empty or hold various kinds of information, organized into a set of tabs:
+A **regular cell** hold various kinds of information, organized into a set of tabs:
 
 * **Members** tab:
-  * Structured information (fields and values) about the members of the cell.
+  * Structured information (fields and values) about the member(s) of the cell. If the cell hasn't been shared it has only one member. 
 * **Note** tab:
-  * A Markdown document about the cell. It may be blank. It may be linked to any number of other Markdown notes anywhere in the user's own tree of cells.
+  * A Markdown document about the cell. It may contain links to other cells. 
 * **Attachments** tab (📎):
-  * A flat set of file attachments. Analogous to email attachments.
+  * An optional set of file attachments. Analogous to email attachments.
 * **Chat** tab:
   * A chat stream shared with all members.
 
-A **Topic Cell** adds a **Topic** tab:
+A **topic cell** adds a **Topic** tab:
   * Structured information about a single topic that is the focus of the cell. This topic could be person who is not a member of the cell, or information about a project that the members of the cell are working on (e.g. organizing a medical appointment for someone who is not a member of the cell)
 
 The app contains two pre-defined, non-user-editable taxonomies of **categories**. One is focused on helping organize the information in a person's personal life (Family, Home, Pets, etc.) and the other their work life (Employer, Employees, etc.). For some of these categories, the app includes a *template cell* which may contain some starter content (or may be empty) and/or may have a schema for the structured fields and values that a cell of this category might contain.  
