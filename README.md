@@ -252,7 +252,7 @@ Reusable class-level templates (`cell-templates.ttl`) are the exception: each is
 
 ### Topic Cell
 
-A `c:TopicCell` is a subclass of `c:MemberCell` that adds the concept of a *topic* for the cell. This topic is carried by `c:topic` property. This topic is often about a third party who is not a member of the cell — a non-member `p:Person`/`o:Organization`, representable by the Persona Ontology, but it may equally be about an entity from one of the `other/` domain ontologies instead (e.g. a pet, via [Pets Ontology](#pets-ontology)'s `pets:Pet`). 
+A `c:TopicCell` is a subclass of `c:MemberCell` that adds the concept of a *topic* for the cell. This topic is carried by `c:topic` property. This topic is often about a third party who is not a member of the cell, such as a non-member `p:Person`/`o:Organization` that is representable by the Persona or Organization Ontologies, but it may also be about some entity described by one of the `other/` domain ontologies (e.g. a pet, via [Pets Ontology](#pets-ontology)'s `pets:Pet`). 
 
 #### Properties
 
