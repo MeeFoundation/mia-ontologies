@@ -42,13 +42,25 @@ mia:
 
 #### Overview
 
-This graph is one of the cell's two `member` entries, satisfying the two-member baseline alongside graph 59 (Paula's own claim, below). Alice is both the claimant and the subject. Deliberately empty: the `member` requirement is about `g:subject`/`g:claimant` (asserted at the `mia.graphs[]` YAML level, not in this Turtle body), not about carrying any particular content.
+This graph is one of the cell's two `member` entries, satisfying the two-member baseline alongside graph 59 (Paula's own claim, below). Alice is both the claimant and the subject — her own bare given-name claim, mirroring graph 59's identical pattern for Paula.
 
 #### Graph
 
 ```turtle
 <!-- databook:id: alice-ginger-care-feeding-member-graph -->
 <!-- databook:graph: http://www.example.org/mia/graphs/graph-58#graph -->
+@prefix : <http://www.example.org/mia#> .
+@prefix persona: <http://mee.foundation/ontologies/persona#> .
+@prefix cco: <https://w3id.org/cco-domains/cco/> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+
+:Self rdf:type owl:NamedIndividual ,
+               persona:Person ;
+    cco:ont00001879 [  # designated by → GivenName
+        rdf:type cco:ent00000002 ;  # GivenName
+        cco:ont00001765 "Alice"  # has text value
+    ] .
 ```
 
 <a id="graph-59"></a>
