@@ -8,10 +8,10 @@
 @base <http://mee.foundation/ontologies/persona-templates> .
 
 <http://mee.foundation/ontologies/persona-templates> rdf:type owl:Ontology ;
-    dc:date "2026-08-29"^^xsd:date ;
-    owl:versionInfo "Version 3.0.0 - removed PetMedicationRecord/Medication and the DrOn/ChEBI reuse it brought in; moved to the new other/pets.ttl peer ontology (persona:hasPet, in persona.ttl, is now the only pet-related term persona keeps)."@en ;
+    dc:date "2026-09-03"^^xsd:date ;
+    owl:versionInfo "Version 3.1.0 - updated g:template references to cell:template, following graph.ttl's absorption into cell.ttl."@en ;
     rdfs:label "Persona Templates Ontology"@en ;
-    rdfs:comment """Template type classification used as values for the g:template annotation property.
+    rdfs:comment """Template type classification used as values for the cell:template annotation property.
                     Each concrete template type (BirthCertificateDocument, JSContactCard, DriversLicenseDocument,
                     PassportDocument, MedicalAppointmentRecord) identifies which per-template
                     SHACL shapes to apply when validating a graph file. Four of the five (all but JSContactCard)
@@ -47,7 +47,7 @@
 
 persona:PersonaTemplate rdf:type owl:Class ;
     rdfs:label "Persona Template"@en ;
-    rdfs:comment """Abstract superclass for template type labels used as values for g:template.
+    rdfs:comment """Abstract superclass for template type labels used as values for cell:template.
                     Concrete subtypes (BirthCertificateDocument, JSContactCard, DriversLicenseDocument)
                     identify which SHACL shapes file applies to a given graph file."""@en .
 
@@ -62,7 +62,7 @@ persona:IdentityDocument rdf:type owl:Class ;
     rdfs:comment """A government-issued document that formally identifies a person,
                     such as a birth certificate, driver's license, or passport.
                     Subclasses (p:BirthCertificateDocument, p:DriversLicenseDocument, p:PassportDocument)
-                    are also p:PersonaTemplate subclasses used as g:template annotation values.
+                    are also p:PersonaTemplate subclasses used as cell:template annotation values.
                     Instances are linked from persona:Person via persona:hasIdentityDocument."""@en .
 
 persona:hasIdentityDocument rdf:type owl:ObjectProperty ;
@@ -81,7 +81,7 @@ persona:BirthCertificateDocument rdf:type owl:Class ;
     rdfs:subClassOf persona:IdentityDocument ;
     rdfs:label "Birth Certificate"@en ;
     rdfs:comment """Template type label for a graph whose purpose is to carry a person's legal
-                    birth certificate name record. Used as the value of g:template on the
+                    birth certificate name record. Used as the value of cell:template on the
                     graph file's ontology IRI. Selects the SHACL shape :BirthCertificateDocumentShape
                     in cell-templates-shacl.ttl, linked from cat:BirthCertificate's template cell
                     (cell-templates.ttl) via cell:templateShape — IRI
@@ -119,7 +119,7 @@ persona:DriversLicenseDocument rdf:type owl:Class ;
     rdfs:comment """Template type label for a graph whose purpose is to carry the identity
                     claims on a state-issued driver's license: legal name, date of birth,
                     driver's license number, and expiration date. Residential address is optional.
-                    Used as the value of g:template on the graph file's ontology IRI.
+                    Used as the value of cell:template on the graph file's ontology IRI.
                     Selects the SHACL shape :DriversLicenseDocumentShape in cell-templates-shacl.ttl,
                     linked from cat:DriversLicense's template cell (cell-templates.ttl) via
                     cell:templateShape — IRI
@@ -181,7 +181,7 @@ persona:PassportDocument rdf:type owl:Class ;
     rdfs:comment """Template type label for a graph whose purpose is to carry the identity
                     claims on a government-issued passport: legal name, date of birth, passport
                     number, issue date, expiration date, issuing country, place of birth, and
-                    gender marker. Photo is optional. Used as the value of g:template on
+                    gender marker. Photo is optional. Used as the value of cell:template on
                     the graph file's ontology IRI. Selects the SHACL shape :PassportDocumentShape
                     in cell-templates-shacl.ttl, linked from cat:Passport's template cell
                     (cell-templates.ttl) via cell:templateShape — IRI
@@ -200,7 +200,7 @@ persona:JSContactCard rdf:type owl:Class ;
     rdfs:comment """Template type label for a graph whose purpose is to carry professional
                     contact details in the JSContact (RFC 9553) format. OrganizationName and
                     at least one contact channel (email or phone) are required. Used as the
-                    value of g:template on the graph file's ontology IRI.
+                    value of cell:template on the graph file's ontology IRI.
                     Selects shacl/jscontactcard-shacl.ttl for validation."""@en .
 
 
@@ -417,7 +417,7 @@ persona:MedicalAppointmentRecord rdf:type owl:Class ;
                     primary care physician) must have their relevant claims copied into this
                     graph, since each graph's named graph must be self-contained for p2p
                     sync between the coordinating members' own instances of the app. Used as the value
-                    of g:template on the graph file's
+                    of cell:template on the graph file's
                     ontology IRI. Selects the SHACL shape :MedicalAppointmentRecordShape in
                     cell-templates-shacl.ttl, linked from cat:MedicalAppointment's template
                     cell (cell-templates.ttl) via cell:templateShape — IRI

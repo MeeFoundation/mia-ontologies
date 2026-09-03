@@ -12,9 +12,9 @@
 <http://mee.foundation/ontologies/vehicles> rdf:type owl:Ontology ;
     owl:imports <http://mee.foundation/ontologies/wikidata-vehicle-makes-subset> ,
                 <http://mee.foundation/ontologies/wikidata-vehicle-models-subset> ;
-    owl:versionIRI <http://mee.foundation/ontologies/vehicles/1.1.1> ;
-    dc:date "2026-09-01"^^xsd:date ;
-    owl:versionInfo "Version 1.1.1 - updated cell:origin reference to cell:category, following cell.ttl's property rename."@en ;
+    owl:versionIRI <http://mee.foundation/ontologies/vehicles/1.2.0> ;
+    dc:date "2026-09-03"^^xsd:date ;
+    owl:versionInfo "Version 1.2.0 - updated g:template references to cell:template, following graph.ttl's absorption into cell.ttl."@en ;
     rdfs:label "Vehicles Ontology"@en ;
     rdfs:comment """The second of this project's other/ peer ontologies (after other/pets.ttl) — small,
                     mostly-vendored ontologies for domains a person merely *has* (a pet, a vehicle) rather
@@ -28,7 +28,7 @@
                     for persona:hasPet.
 
                     vehicles:Vehicle is rdfs:subClassOf persona:PersonaTemplate, also referenced by name with
-                    no owl:imports of persona.ttl/persona-templates.ttl — this keeps graph.ttl's g:template
+                    no owl:imports of persona.ttl/persona-templates.ttl — this keeps cell.ttl's cell:template
                     property's range (persona:PersonaTemplate) as the one shared "this classifies a graph"
                     root that every domain's template classes plug into, exactly like cat:Category is the one
                     shared classification root every cat: leaf plugs into.
@@ -105,7 +105,7 @@ vehicles:Vehicle rdf:type owl:Class ;
                     actual rdf:type of the vehicle individual itself, following the same document-individual
                     pattern as persona:PassportDocument and pets:Pet: the properties below are properties of
                     the vehicle individual directly (a vehicle has no persona:Person individual of its own).
-                    Used as the value of g:template on the graph file's ontology IRI. Selects the SHACL shape
+                    Used as the value of cell:template on the graph file's ontology IRI. Selects the SHACL shape
                     :VehicleShape in other/vehicles-shacl.ttl, linked from cat:Vehicles's template cell
                     (cell-templates.ttl) via cell:templateShape."""@en .
 

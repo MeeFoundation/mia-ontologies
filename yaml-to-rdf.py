@@ -1,16 +1,16 @@
 #!/usr/bin/env python3
 """
-yaml-to-rdf.py  —  Synthesize cell:/g: triples from the `mia.` YAML
+yaml-to-rdf.py  —  Synthesize cell: triples from the `mia.` YAML
 frontmatter of cell-databooks.
 
 Why this exists: `databook extract` only pulls fenced Turtle blocks out of a
 DataBook — but cell-databook files carry most of their content as `mia.`
 YAML frontmatter, not Turtle. Without this script, cell:Cell individuals
-(and g:SCGraph's subject/claimant) never appear in the graph SHACL
-validates, so cell-shacl.ttl and graph-shacl.ttl's :SCGraphShape never
-fire against real instance data. This script closes that gap by mapping
-each `mia.` field to its corresponding ontology property, matching the
-mapping tables documented in README.md's Cell/Graph Ontology sections.
+(and cell:SCGraph's subject/claimant) never appear in the graph SHACL
+validates, so cell-shacl.ttl's :SCGraphShape never fires against real
+instance data. This script closes that gap by mapping each `mia.` field to
+its corresponding ontology property, matching the mapping tables
+documented in README.md's Cell Ontology section.
 
 There is no category-side synthesis here at all — category.ttl 1.31.0
 deleted cat:Folder and its subclasses cat:CategoryDefined/cat:UserDefined
@@ -30,7 +30,7 @@ below also iterates `mia.graphs` and emits the same three triples per entry
 that a standalone graph-databook file's frontmatter used to supply.
 
 A graph's `claimant`/`subject` are typed on its plain `mia.graphs[].id`, not
-that id + "#graph" — matching graph.ttl's g:subject/g:claimant doc
+that id + "#graph" — matching cell.ttl's cell:subject/cell:claimant doc
 comments, and the IRI cell:member/cell:topic actually reference.
 
 Usage:   python3 yaml-to-rdf.py [repo-root] > yaml-data.ttl
@@ -43,7 +43,6 @@ Requires: pip install pyyaml
 import os, re, sys, yaml, glob
 
 CELL = "http://mee.foundation/ontologies/cell#"
-GRAPH = "http://mee.foundation/ontologies/graph#"
 PSHAPES = "http://mee.foundation/ontologies/persona/shapes#"
 MIA_NS = "http://www.example.org/mia#"
 GRAPHS_BASE = "http://www.example.org/mia/graphs/"
@@ -51,7 +50,6 @@ GRAPHS_BASE = "http://www.example.org/mia/graphs/"
 PREFIXES = {
     "cat": "http://mee.foundation/ontologies/category#",
     "cell": CELL,
-    "g": GRAPH,
     "pshapes": PSHAPES,
 }
 
@@ -160,7 +158,7 @@ def process_cell_databook(fm, triples):
 
 
 def process_embedded_graph(graph, triples):
-    """Emit g:SCGraph/claimant/subject for one mia.graphs[] entry —
+    """Emit cell:SCGraph/claimant/subject for one mia.graphs[] entry —
     replaces the old process_topic_databook, which read the same three
     fields from a separate graph-databook file's own frontmatter."""
     claimant = graph.get("claimant")
@@ -168,9 +166,9 @@ def process_embedded_graph(graph, triples):
     if not (claimant and subject):
         return  # no subject/claimant — not an SCGraph, skip
     subj = graph["id"]
-    emit_type(triples, subj, GRAPH + "SCGraph")
-    emit_obj(triples, subj, GRAPH + "claimant", resolve(claimant))
-    emit_obj(triples, subj, GRAPH + "subject", resolve(subject))
+    emit_type(triples, subj, CELL + "SCGraph")
+    emit_obj(triples, subj, CELL + "claimant", resolve(claimant))
+    emit_obj(triples, subj, CELL + "subject", resolve(subject))
 
 
 def main(root):

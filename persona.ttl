@@ -13,13 +13,13 @@
 @base <http://mee.foundation/ontologies/persona> .
 
 <http://mee.foundation/ontologies/persona> rdf:type owl:Ontology ;
-    owl:versionIRI <http://mee.foundation/ontologies/persona/4.9.0> ;
+    owl:versionIRI <http://mee.foundation/ontologies/persona/4.10.0> ;
     owl:imports <https://w3id.org/cco-domains/domains/PersonOntology> ;
     owl:imports <https://w3id.org/cco-domains/domains/AddressOntology> ;
     owl:imports <https://w3id.org/cco-domains/domains/StagingOntology> ;
     owl:imports <http://mee.foundation/ontologies/persona-templates> ;
-    dc:date "2026-08-29"^^xsd:date ;
-    owl:versionInfo "Version 4.9.0 - added p:hasVehicle (domain p:Person, range vehicles:Vehicle, referenced by name), the link into the new other/vehicles.ttl peer ontology."@en ;
+    dc:date "2026-09-03"^^xsd:date ;
+    owl:versionInfo "Version 4.10.0 - corrected stale 'imports ... + graph.ttl' architecture comment (persona.ttl never imported graph.ttl); graph.ttl itself has since been absorbed into cell.ttl."@en ;
     rdfs:label "Persona Ontology"@en ;
     rdfs:comment """Persona Ontology for the Cellula App.
 
@@ -28,7 +28,7 @@
 
                     ARCHITECTURE:
                     This application ontology serves as:
-                    1. Aggregation point (imports 3 domain ontologies + graph.ttl)
+                    1. Aggregation point (imports 3 domain ontologies + persona-templates.ttl)
                     2. Documentation (annotations show which classes Persona uses)
                     3. Extension point (Persona-specific terms: future: accounts, service providers)
 

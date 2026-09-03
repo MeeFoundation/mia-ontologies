@@ -12,9 +12,9 @@
     owl:imports <http://mee.foundation/ontologies/dron-upper-subset> ,
                 <http://mee.foundation/ontologies/ncbitaxon-subset> ,
                 <http://mee.foundation/ontologies/vbo-subset> ;
-    owl:versionIRI <http://mee.foundation/ontologies/pets/1.4.1> ;
-    dc:date "2026-09-01"^^xsd:date ;
-    owl:versionInfo "Version 1.4.1 - updated cell:origin references to cell:category, following cell.ttl's property rename."@en ;
+    owl:versionIRI <http://mee.foundation/ontologies/pets/1.5.0> ;
+    dc:date "2026-09-03"^^xsd:date ;
+    owl:versionInfo "Version 1.5.0 - updated g:template references to cell:template, following graph.ttl's absorption into cell.ttl."@en ;
     persona:usesDrOnClass <http://purl.obolibrary.org/obo/DRON_00000074> ,  # drug product
                     <http://purl.obolibrary.org/obo/DRON_00000028> ,  # active ingredient (role)
                     <http://purl.obolibrary.org/obo/DRON_00000022> ,  # drug tablet
@@ -38,7 +38,7 @@
 
                     pets:Pet and pets:PetMedicationRecord are both rdfs:subClassOf persona:PersonaTemplate,
                     also referenced by name with no owl:imports of persona.ttl/persona-templates.ttl — this
-                    keeps graph.ttl's g:template property's range (persona:PersonaTemplate) as the one
+                    keeps cell.ttl's cell:template property's range (persona:PersonaTemplate) as the one
                     shared "this classifies a graph" root that every domain's template classes plug into,
                     exactly like cat:Category is the one shared classification root every cat: leaf plugs
                     into.
@@ -69,7 +69,7 @@ pets:Pet rdf:type owl:Class ;
                     persona:PassportDocument: pets:name/pets:hasSpecies/pets:hasBreed/pets:birthDate/
                     pets:hasBodyWeight/pets:sex/pets:isSpayedOrNeutered are properties of the pet individual
                     directly (a pet has no persona:Person individual of its own). Used as the value of
-                    g:template on the graph file's ontology IRI. Selects the SHACL shape :PetShape in
+                    cell:template on the graph file's ontology IRI. Selects the SHACL shape :PetShape in
                     other/pets-shacl.ttl, linked from cat:Pets's template cell (cell-templates.ttl) via
                     cell:templateShape."""@en .
 
@@ -175,7 +175,7 @@ pets:PetMedicationRecord rdf:type owl:Class ;
                     as persona:PassportDocument: the pets:hasMedication links below are properties of the
                     PetMedicationRecord, not of the pet directly (a pet has no persona:Person individual of
                     its own — it is identified only via the cell's/graph's own subject metadata, or, for a
-                    pet with its own identity graph, via pets:Pet). Used as the value of g:template on the
+                    pet with its own identity graph, via pets:Pet). Used as the value of cell:template on the
                     graph file's ontology IRI. Selects the SHACL shape :PetMedicationRecordShape in
                     other/pets-shacl.ttl, linked from cat:PetsMedical's template cell (cell-templates.ttl)
                     via cell:templateShape. Named "Record" rather than "Document" since this class is not a

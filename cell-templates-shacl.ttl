@@ -17,7 +17,7 @@
     owl:versionIRI <http://mee.foundation/ontologies/persona/shapes/birthcertificate/1.0.7> ;
     dc:date "2026-08-23"^^xsd:date ;
     rdfs:label "Birth Certificate Template SHACL Shapes"@en ;
-    rdfs:comment """SHACL shapes for validating graph files carrying g:template persona:BirthCertificateDocument.
+    rdfs:comment """SHACL shapes for validating graph files carrying cell:template persona:BirthCertificateDocument.
                     Apply in addition to persona-shacl.ttl when validating a birth certificate graph file.
                     Targets persona:BirthCertificateDocument document individuals directly — identity claims
                     (names, designators) are properties of the document, not the Person."""@en .
@@ -95,7 +95,7 @@
     owl:versionIRI <http://mee.foundation/ontologies/persona/shapes/driverslicense/1.1.0> ;
     dc:date "2026-08-23"^^xsd:date ;
     rdfs:label "Driver's License Template SHACL Shapes"@en ;
-    rdfs:comment """SHACL shapes for validating graph files carrying g:template persona:DriversLicenseDocument.
+    rdfs:comment """SHACL shapes for validating graph files carrying cell:template persona:DriversLicenseDocument.
                     Apply in addition to persona-shacl.ttl when validating a driver's license graph file.
                     Targets persona:DriversLicenseDocument document individuals directly — identity claims
                     (names, dates, license number) are properties of the document, not the Person."""@en .
@@ -216,7 +216,7 @@
     owl:versionIRI <http://mee.foundation/ontologies/persona/shapes/passport/1.1.0> ;
     dc:date "2026-08-23"^^xsd:date ;
     rdfs:label "Passport Template SHACL Shapes"@en ;
-    rdfs:comment """SHACL shapes for validating graph files carrying g:template persona:PassportDocument.
+    rdfs:comment """SHACL shapes for validating graph files carrying cell:template persona:PassportDocument.
                     Apply in addition to persona-shacl.ttl when validating a passport graph file.
                     Targets persona:PassportDocument document individuals directly — identity claims
                     (names, dates, passport number) are properties of the document, not the Person."""@en .
@@ -354,7 +354,7 @@
     owl:versionIRI <http://mee.foundation/ontologies/persona/shapes/medical-appointment/1.0.5> ;
     dc:date "2026-08-23"^^xsd:date ;
     rdfs:label "Medical Appointment Template SHACL Shapes"@en ;
-    rdfs:comment """SHACL shapes for validating graph files carrying g:template persona:MedicalAppointmentRecord.
+    rdfs:comment """SHACL shapes for validating graph files carrying cell:template persona:MedicalAppointmentRecord.
                     Apply in addition to persona-shacl.ttl when validating a medical appointment graph file.
                     Targets persona:MedicalAppointmentRecord individuals directly — the claims needed to arrange
                     the appointment are properties of the record, not of the patient's Person individual."""@en .

@@ -190,9 +190,9 @@ The graphs in the table below are *about* Alice and claimed *by* Alice. The "Cel
 | 33 | [Medical.databook.md](<example/Cells/Pets/Ginger/Medical/Medical.databook.md#graph-33>) {40} | `cat:PetsMedical`     | Deliberately empty — the Ginger-Medical cell's required member entry          | [view](example/graphs/images/graph-33.png) |
 | 34 | [Jane Starostina(primary-care-physician).databook.md](<example/Cells/People/Immediate Family/Paula Walker/Health & Wellness/Medical/Provider/Jane Starostina/Jane Starostina(primary-care-physician).databook.md#graph-34>) {14} | `cat:PrimaryCarePhysician`     | Alice's bare given-name claim — the Jane-Starostina cell's required member entry          | [view](example/graphs/images/graph-34.png) |
 | 35 | [Health & Wellness.databook.md](<example/Cells/People/Immediate Family/Paula Walker/Health & Wellness/Health & Wellness.databook.md#graph-35>) {13} | `cat:HealthWellness`     | Alice's bare given-name claim — the Health & Wellness cell's required member entry          | [view](example/graphs/images/graph-35.png) |
-| 36 | [Ginger(pets).databook.md](<example/Cells/Pets/Ginger/Ginger(pets).databook.md#graph-36>) {41} | `cat:Pets`     | Deliberately empty — the Ginger cell's required member entry; the `member` requirement is about `g:subject`/`g:claimant`, not about carrying content          | [view](example/graphs/images/graph-36.png) |
+| 36 | [Ginger(pets).databook.md](<example/Cells/Pets/Ginger/Ginger(pets).databook.md#graph-36>) {41} | `cat:Pets`     | Deliberately empty — the Ginger cell's required member entry; the `member` requirement is about `c:subject`/`c:claimant`, not about carrying content          | [view](example/graphs/images/graph-36.png) |
 | 58 | [Care & Feeding.databook.md](<example/Cells/Pets/Ginger/Care & Feeding/Care & Feeding.databook.md#graph-58>) {42} | `cat:PetsCareAndFeeding`     | Alice's bare given-name claim — the Ginger-Care & Feeding cell's required member entry          | [view](example/graphs/images/graph-58.png) |
-| 62 | [RAV4(vehicles).databook.md](<example/Cells/Things/Vehicles/RAV4/RAV4(vehicles).databook.md#graph-62>) {44} | `cat:Vehicles`     | Deliberately empty — the RAV4 cell's required member entry; the `member` requirement is about `g:subject`/`g:claimant`, not about carrying content          | [view](example/graphs/images/graph-62.png) |
+| 62 | [RAV4(vehicles).databook.md](<example/Cells/Things/Vehicles/RAV4/RAV4(vehicles).databook.md#graph-62>) {44} | `cat:Vehicles`     | Deliberately empty — the RAV4 cell's required member entry; the `member` requirement is about `c:subject`/`c:claimant`, not about carrying content          | [view](example/graphs/images/graph-62.png) |
 | 66 | [Kyoto Trip 2027(trips).databook.md](<example/Cells/Travel/Trips/Kyoto Trip 2027/Kyoto Trip 2027(trips).databook.md#graph-66>) {47} | `cat:Trips` | Alice's bare given-name claim, extended with her social network link to Dave — one of the Kyoto Trip cell's three required member entries | [view](example/graphs/images/graph-66.png) |
 
 The following table lists graphs that are *about* Alice but claimed by others.
@@ -282,7 +282,7 @@ while IFS= read -r -d '' f; do
   databook extract "$f" 2>/dev/null
 done >> /tmp/mia-data.ttl
 
-# Step 1b — synthesize c:/graph: triples from each cell DataBook's own YAML
+# Step 1b — synthesize c: triples from each cell DataBook's own YAML
 # frontmatter (mia.* fields, including its mia.graphs list — a graph's
 # claimant/subject live there, not in a separate graph-databook file).
 # There is no cat: synthesis at all — a folder's tree position is purely a
@@ -290,9 +290,9 @@ done >> /tmp/mia-data.ttl
 # surviving classification fact, c:category, is read directly from each cell
 # DataBook's own explicit mia.category field. databook extract only pulls
 # fenced Turtle blocks, which cell DataBooks don't carry — without this
-# step, c:Cell individuals and g:SCGraph's subject/claimant never
-# reach the merged graph, and cell-shacl.ttl/graph-shacl.ttl's
-# :SCGraphShape never fire against real instance data. See yaml-to-rdf.py.
+# step, c:Cell individuals and c:SCGraph's subject/claimant never
+# reach the merged graph, and cell-shacl.ttl's
+# :SCGraphShape never fires against real instance data. See yaml-to-rdf.py.
 python3 yaml-to-rdf.py . > /tmp/mia-yaml.ttl
 
 # Step 2 — merge data with all ontology files, foundation ontologies, and self.ttl
@@ -302,7 +302,7 @@ python3 yaml-to-rdf.py . > /tmp/mia-yaml.ttl
 # c:member/c:creator/c:owner — they're validated only via cell-templates-shacl.ttl/
 # other/pets-shacl.ttl/other/vehicles-shacl.ttl, in Tier 2. other/pets.ttl and
 # other/vehicles.ttl are included below — each is a full peer application
-# ontology, same as persona-templates.ttl/graph.ttl/etc.)
+# ontology, same as persona-templates.ttl/cell.ttl/etc.)
 riot --output=turtle \
   project_files/bfo-core.ttl \
   project_files/PersonOntology.ttl \
@@ -316,7 +316,7 @@ riot --output=turtle \
   project_files/wikidata-vehicle-makes-subset.ttl \
   project_files/wikidata-vehicle-models-subset.ttl \
   project_files/prov-upper.ttl \
-  persona.ttl persona-templates.ttl graph.ttl cell.ttl category.ttl other/pets.ttl other/vehicles.ttl \
+  persona.ttl persona-templates.ttl cell.ttl category.ttl other/pets.ttl other/vehicles.ttl \
   organization.ttl agent.ttl \
   example/graphs/self.ttl \
   /tmp/mia-data.ttl \
@@ -330,7 +330,6 @@ riot --output=turtle \
 # pdn-identity.ttl, isn't part of the Step 2 merge — nothing here ever references
 # an identity: term)
 grep -v 'owl:imports' persona-shacl.ttl > /tmp/mia-shapes.ttl
-grep -v 'owl:imports' graph-shacl.ttl >> /tmp/mia-shapes.ttl
 grep -v 'owl:imports' cell-shacl.ttl >> /tmp/mia-shapes.ttl
 grep -v 'owl:imports' organization-shacl.ttl >> /tmp/mia-shapes.ttl
 grep -v 'owl:imports' agent-shacl.ttl >> /tmp/mia-shapes.ttl
@@ -360,7 +359,7 @@ riot --output=turtle \
   project_files/wikidata-vehicle-makes-subset.ttl \
   project_files/wikidata-vehicle-models-subset.ttl \
   project_files/prov-upper.ttl \
-  persona.ttl persona-templates.ttl graph.ttl cell.ttl category.ttl cell-templates.ttl other/pets.ttl other/vehicles.ttl \
+  persona.ttl persona-templates.ttl cell.ttl category.ttl cell-templates.ttl other/pets.ttl other/vehicles.ttl \
   organization.ttl agent.ttl \
   example/graphs/self.ttl \
   2>/dev/null > /tmp/mia-base.ttl
