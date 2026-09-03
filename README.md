@@ -191,7 +191,7 @@ A cell usually has a **category**. A category is a string, which identifies whic
 
 A cell has a **creator**, which is the identity of the user who created it. This creator is automatically considered to be a cell **owner**. Any owner can invite/promote other members to be/become owners. A cell owner has an elevated set of permissions for managing cell contents.
 
-A cell can be **shared**. The creator of a cell can invite people (or organizations compatible with the Mee PDN protocols, or agents) to join the cell. When they do, they gain access to the cell. Cells are alive; any changes made to its contents by any member is visible to all members. Cells are self-contained and may be nested inside of other cells by any app user. Hwo cells  multi-cellular structures are personal to the app user
+A cell can be **shared**. The creator of a cell can invite people (or organizations compatible with the Mee PDN protocols, or agents) to join the cell. When they do, they gain access to the cell. Cells are alive; any changes made to its contents by any member is visible to all members. Cells are self-contained and may be nested inside of other cells by any app user. The organization of these multi-cellular structures is personal to the app user and not shared. The structures will be similar between users to the extent that they are leveraging the app's built-in tree of categories.
 
 ### Diving Deeper
 
