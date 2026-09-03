@@ -222,7 +222,7 @@ Three more concepts appear off `Cell` in `images/cell-ontology/cell.png`'s diagr
 
 - **`c:chat`** — chat stream.
 
-### TemplateCell (Template Cell)
+### TemplateCell
 
 A `c:TemplateCell` individual, identified by its own `c:category` value naming a category concept, serves as a **cell template** — a reusable, typically empty shape that the application clones into a new cell whenever that concept is first instantiated into a user's tree (see [Lazy Instantiation](APP-BEHAVIOR.md#lazy-instantiation) in APP-BEHAVIOR.md); finding the template for a given concept is a reverse lookup (which `c:TemplateCell` carries this `c:category` value?), since `category.ttl` carries no forward pointer of its own. Such a cell is typed `c:TemplateCell` only. An ordinary, already-instantiated cell is typed `c:MemberCell` instead, carrying real member composition, creator, and content. `c:TemplateCell` and `c:MemberCell` are disjoint: a template cell is never also typed `c:MemberCell` or `c:TopicCell` — see [Cell Ontology File](#cell-ontology-file) below.
 
@@ -234,7 +234,7 @@ Every real `c:TemplateCell` carries a `c:category` value naming the concept it's
 
 - **`c:isTopicCell`** — a boolean flag telling Lazy Instantiation whether the cell it clones from this template is expected to end up typed `c:TopicCell` — i.e. to carry a `c:topic` value once real content is filed under it — as opposed to staying a bare concrete member-count cell with no `c:topic`. An `owl:DatatypeProperty`, domain `c:TemplateCell`, range `xsd:boolean`, required, exactly one value — every template cell must declare it explicitly: `ctpl:MedicalAppointmentTemplateCell` and `ctpl:PetMedicationsTemplateCell` carry `true`, since a real Medical Appointment or Medications cell always ends up about a third party (Paula, Ginger) beyond its own `c:member` baseline; the other three templates carry `false`.
 
-### MemberCell (Member Cell)
+### MemberCell
 
 A `c:MemberCell` is a cell instantiated in a user's own tree — one of the two disjoint kinds of an abstract `c:Cell`, the other being `c:TemplateCell`. It carries `c:creator`, `c:owner`, and `c:member`. Every cell in a user's own tree is typed `c:MemberCell`, never `c:TemplateCell` — there is no bare tree-position-only cell with no member content; a purely organizational cell with nothing substantive to say still carries a minimal stub `c:member` entry (claimed by and about `:Self`, who is then also that cell's sole `c:owner`) rather than omitting member content altogether.
 
@@ -242,37 +242,21 @@ Reusable class-level templates (`cell-templates.ttl`) are the exception: each is
 
 #### Properties
 
-- **Subject** — not a stored property; who or what a cell's relationship is about is derived from its graph links instead. If the cell has any `c:topic` values (i.e. it's also typed `c:TopicCell`), the full set of distinct `g:subject` values among them is the answer; otherwise the answer is the full set of distinct `g:subject` values found among the cell's `c:member` (its active members). See [Members](#members) below for the worked-out cases.
-
-- **`c:member`** — one or more values, required, no fixed upper bound; It's a link to the required baseline of subject-claimant graphs (`g:SCGraph`) that hold the structured content of the cell related to the members with which the cell has been shared — see [Members](#members). Each SCGraph has a *subject* and a *claimant*. The subject is always a real relationship participant — a `p:Person`, `o:Organization`, or `a:Agent` (the same union `g:claimant`'s own range uses; broader than `c:creator`'s/`c:owner`'s own range, which stays `p:Person`/`o:Organization` only, since an agent can join a cell as a member but never creates one and can never be promoted to owner) — never an entity from one of the `other/` domain ontologies (see [Topic Cell](#topic-cell) below for that distinction). The claimant is the person, group, organization, or agent that is asserting the values of the claims in the container. When the member who created a cell invites their own AI agent to collaborate, that agent gets its own self-claimed `c:member` entry alongside the human members — see [Agent Ontology](#agent-ontology). See [Graph Ontology](#graph-ontology) for details.
+- **`c:member`** — one or more values, required, no fixed upper bound. It's a list of `g:SCGraphs` (see the [Graph Ontology](#graph-ontology) for details). For an N-member `c:MemberCell`, there are N subjects (one per member) and between N and N² `g:SCGraph`s. The floor of N `g:SCGraph`s obtains if each member self-asserts information about themselves but make no claims about any other member. The ceiling of N² obtains when every member makes claims about every other member. In practice, we expect the number to be on average only slightly above N.
 
 - **`c:creator`** — required, exactly one value. Identifies who created this cell's content: a single `p:Person` or `o:Organization`.
 
 - **`c:owner`** — one or more values, required, no fixed upper bound. Identifies which of the cell's members hold the owner role, as opposed to the regular (non-owner) member role every other member defaults to. Always includes `c:creator`'s own value — the creator is always the cell's initial (and, until any promotion, sole) owner — and any current owner may promote any other current regular member (a `p:Person` or `o:Organization`, never an `a:Agent` — the same narrower union `c:creator`'s own range uses) to owner; there is no demotion mechanism. An owner has full read/write access to the cell's note and may delete any member's claim or attachment, not only their own; see [Permissions](APP-BEHAVIOR.md#permissions) in APP-BEHAVIOR.md for the full app-level rule.
 
-There is no `c:shape` property on `c:MemberCell` — a `c:MemberCell`'s applicable validation shape is never stored, only derived: reverse-lookup the `c:TemplateCell` sharing this cell's own `c:category` value and read that individual's `c:templateShape` directly (the same reasoning already applied to Subject, above — never stored, only derived).
-
-#### Members
-
-A cell's member count is never stored — it's simply the number of distinct subjects among its `c:member` (and `c:topic`, if any), counted at read time when needed. The app does not cap this at any particular number, though a cell is not expected to ever have more than a couple dozen members.
-
-Every `c:MemberCell` carries one or more `c:member` links (the required baseline of graph containers backing its content, one or more per member, no fixed upper bound); a `c:MemberCell` that also carries one or more `c:topic` links (graphs beyond that baseline) is additionally typed `c:TopicCell` — see [TopicCell](#topiccell-topic-cell) below. `c:member` is required, one or more values, no fixed upper bound; `c:topic` is optional, and when present is also one or more values with no fixed upper bound (present only on `c:TopicCell`).
-
-The `c:member` and `c:topic` are lists of `g:SCGraphs`. See the [Graph Ontology](#graph-ontology) for details.
+ Note: A `c:MemberCell`'s applicable validation shape is derived: reverse-lookup the `c:TemplateCell` sharing this cell's own `c:category` value and read that individual's `c:templateShape` directly.
 
 ### Topic Cell
 
-A `c:TopicCell` is a subclass of `c:MemberCell` for a member cell that adds the concept of a *topic* focus for the cell carried by one or more `c:topic` values — additional `g:SCGraph` containers beyond the cell's `c:member` baseline. This focus is typically about a third party who is not a member of the cell — a non-member `p:Person`/`o:Organization`, representable by the Persona Ontology, exactly like a `c:member` value would be — but, unlike `c:member`, it may equally be about an entity from one of the `other/` domain ontologies instead (e.g. a pet, via [Pets Ontology](#pets-ontology)'s `pets:Pet`), or about whatever the cell's relationship concerns more broadly (e.g. a trip being planned, with no dedicated domain ontology of its own — see [Agent Ontology](#agent-ontology)'s worked example). This asymmetry is fundamental, not incidental: a `c:member` value is always a real relationship participant (`p:Person`/`o:Organization`/`a:Agent` — see `c:member`'s own definition above), so `other/*.ttl` domain-ontology content — and any other non-relationship-participant topic — can only ever reach a cell through `c:topic`, never `c:member`.
+A `c:TopicCell` is a subclass of `c:MemberCell` that adds the concept of a *topic* for the cell. This topic is carried by `c:topic` property. This topic is often about a third party who is not a member of the cell — a non-member `p:Person`/`o:Organization`, representable by the Persona Ontology, but it may equally be about an entity from one of the `other/` domain ontologies instead (e.g. a pet, via [Pets Ontology](#pets-ontology)'s `pets:Pet`). 
 
 #### Properties
 
-- **`c:topic`** — one or more values, required once a cell is typed `c:TopicCell` at all (no upper bound). Link to one or more additional subject-claimant graphs beyond those referenced by `c:member`. Domain `c:TopicCell`.
-
-### Graph Cardinality
-
-For an N-member `c:MemberCell`, there are N subjects (one per member). However, there could be between N and N² `g:SCGraph`s. Only N if each member simply self-asserts information about themselves and no other member makes claims about any other member. N² because any member can make claims about any other member. N² is the upper bound. In practice, most of the time the number will be closer to N.
-
-A `c:TopicCell` adds more `g:SCGraph`s, because it includes a `c:topic` graph list. This list could contain an additional N `g:SCGraph`s (one for each member's claims about that topic).
+- **`c:topic`** — one or more `c:SCGraph` values all of which share the same subject (the topic at hand) and each of which is asserted by a different claimant. The minimum number of `c:SCGraph`s is one, and the maximum for an N member cell is N. The maximum obtains when every cell member creates its own `c:SCGraph` whose subject is the topic and whose claimant is themselves. Domain `c:TopicCell`.
 
 ### Representative Cells
 
