@@ -748,6 +748,43 @@ print('All cells satisfy the owner subset invariants.' if violations == 0 else f
 
 If a violation is found: for (a), add the missing creator value to `mia.owner`. For (b), either add a `mia.member` graph whose subject matches the owner value, or remove that value from `mia.owner` if it doesn't actually belong.
 
+**Check 24 — All of a cell's `topic` graphs must share one common subject**: Check 18's derivation rule takes "the full set of distinct `g:subject` values among [`topic` entries]" as the cell's subject precisely because a `cell:TopicCell`'s `topic` graphs are always different claims *about the same thing* — a person, pet, vehicle, or trip — described from possibly multiple parties' viewpoints, never a bucket of unrelated subjects glued into one set. So in practice this "set" must always collapse to a single value: for every cell-databook under `example/Cells/` (excluding `under-development/`) whose `mia.topic` holds two or more entries, every one of those entries' `g:subject` values must be identical (e.g. `Kyoto Trip 2027(trips).databook.md`'s two topic graphs — `graph-69`, Alice's own basic claim, and `graph-70`, her travel agent's drafted itinerary — both resolve to subject `:Kyoto_Trip_2027`: different claimants, same subject). A cell with zero or one `topic` entries trivially satisfies this. This is not itself an OWL/SHACL-expressible constraint (same reasoning as Checks 18/21/23 — it requires dereferencing each `topic` value's own `subject`, not just counting or matching cardinalities), so it's checked here instead. Run:
+
+```python
+import re, yaml, glob
+
+GRAPHS_BASE_RE = re.compile(r'^https?://www\.example\.org/mia/graphs/')
+
+def frontmatter(path):
+    text = open(path, encoding='utf-8').read()
+    m = re.match(r'^---\n(.*?)\n---', text, re.DOTALL)
+    return yaml.safe_load(m.group(1)) if m else None
+
+def local_name(v):
+    return GRAPHS_BASE_RE.sub('', v)
+
+violations = 0
+for f in glob.glob('example/Cells/**/*.databook.md', recursive=True):
+    if 'under-development' in f.split('/'):
+        continue
+    fm = frontmatter(f)
+    if not fm:
+        continue
+    mia = fm.get('mia', {}) or {}
+    ot = mia.get('topic') or []
+    ot = ot if isinstance(ot, list) else [ot]
+    if len(ot) < 2:
+        continue
+    graph_subject = {local_name(t['id']): t.get('subject') for t in (mia.get('graphs') or []) if isinstance(t, dict)}
+    subs = {graph_subject.get(local_name(t)) for t in ot}
+    if len(subs) > 1:
+        violations += 1
+        print(f'VIOLATION {f}: topic subjects {sorted(s for s in subs if s)} are not all equal')
+print('All cells with 2+ topic entries share one subject.' if violations == 0 else f'{violations} violation(s) found.')
+```
+
+If a violation is found: reconsider whether all of the offending `topic` graphs really belong under this one cell — a `topic` graph whose subject doesn't match the others likely belongs in a different (or new) cell instead.
+
 ## Keeping Files in Sync
 
 Whenever changes are made to any graph file, `persona.ttl`, or `graph.ttl`, `persona-shacl.ttl` must be updated to match:
