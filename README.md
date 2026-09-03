@@ -193,7 +193,7 @@ A cell has a **creator**, which is the identity of the user who created it. This
 
 A cell can be **shared**. The creator of a cell can invite people (or organizations compatible with the Mee PDN protocols, or agents) to join the cell. When they do, they gain access to the cell. Cells are alive; any changes made to its contents by any member is visible to all members. Cells are self-contained and may be nested inside of other cells by any app user. The organization of these multi-cellular structures is personal to the app user and not shared. The structures will be similar between users to the extent that they are leveraging the app's built-in tree of categories.
 
-Cells have globally unique identifiers. This allows the note of a "source" cell to include a link to a "target" cell. The user can follow this link if they have access to the target cell.
+Cells can be **linked**. Cells have globally unique identifiers. This allows the note of a "source" cell to include a link to a "target" cell. The user can follow a link in a (source) cell, if they also have access to the target cell.
 
 ### Diving Deeper
 
