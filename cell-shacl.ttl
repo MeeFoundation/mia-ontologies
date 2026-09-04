@@ -13,8 +13,8 @@
 @prefix dc: <http://purl.org/dc/elements/1.1/> .
 
 <http://mee.foundation/ontologies/cell/shapes> rdf:type owl:Ontology ;
-    owl:versionIRI <http://mee.foundation/ontologies/cell/shapes/3.31.0> ;
-    dc:date "2026-09-03"^^xsd:date ;
+    owl:versionIRI <http://mee.foundation/ontologies/cell/shapes/3.32.0> ;
+    dc:date "2026-09-04"^^xsd:date ;
     rdfs:label "Cell Ontology SHACL Validation Shapes"@en ;
     rdfs:comment "SHACL validation shapes for cell:Cell DataBook instances (the content facet of a cell) and cell:SCGraph DataBook instances (the graph DataBooks a cell links to) in the Cell Ontology."@en .
 
@@ -183,8 +183,10 @@
 #  cell:TopicCell is the subclass of cell:MemberCell for a member cell
 #  that actually carries at least one cell:topic value (CLAUDE.md's
 #  TopicCell integrity check). :TopicCellShape requires cell:topic at
-#  least once, no upper bound, applying to every cell:MemberCell
-#  regardless of whether it is also a cell:TopicCell.
+#  least once — the only SHACL-expressible constraint. Its real upper
+#  bound (one value per cell member, each with a distinct claimant) is
+#  a cross-property invariant SHACL can't check here; see CLAUDE.md's
+#  Check 25.
 #################################################################
 
 :TopicCellShape
@@ -196,7 +198,8 @@
     # cell:TopicCell precisely because it carries at least one
     # cell:topic value (cell.ttl's cell:TopicCell comment), so this
     # shape requires it — one or more additional graphs beyond the
-    # required cell:member baseline, no upper bound.
+    # required cell:member baseline. SHACL enforces only sh:minCount 1
+    # here; the real cap (one per cell member) is CLAUDE.md's Check 25.
     sh:property [
         sh:path cell:topic ;
         sh:class cell:SCGraph ;
