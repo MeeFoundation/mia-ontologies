@@ -16,16 +16,10 @@ mia:
     - id: "http://www.example.org/mia/graphs/graph-36"
       claimant: ":Self"
       subject: ":Self"
-      shapes:
-        - http://mee.foundation/ontologies/persona/shapes
-        - http://mee.foundation/ontologies/graph/shapes
     - id: "http://www.example.org/mia/graphs/graph-37"
       claimant: ":Self"
       subject: ":Ginger"
       template: "pets:Pet"
-      shapes:
-        - http://mee.foundation/ontologies/persona/shapes
-        - http://mee.foundation/ontologies/pets/shapes
 ---
 
 ## Graphs

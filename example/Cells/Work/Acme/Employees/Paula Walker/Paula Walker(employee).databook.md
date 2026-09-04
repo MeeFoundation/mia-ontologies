@@ -16,15 +16,9 @@ mia:
     - id: "http://www.example.org/mia/graphs/graph-06"
       claimant: ":Self"
       subject: ":Paula_Walker"
-      shapes:
-        - http://mee.foundation/ontologies/persona/shapes
-        - http://mee.foundation/ontologies/graph/shapes
     - id: "http://www.example.org/mia/graphs/graph-20"
       claimant: ":Self"
       subject: ":Self"
-      shapes:
-        - http://mee.foundation/ontologies/persona/shapes
-        - http://mee.foundation/ontologies/graph/shapes
 ---
 
 ## Graphs

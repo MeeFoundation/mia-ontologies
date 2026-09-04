@@ -17,15 +17,9 @@ mia:
     - id: "http://www.example.org/mia/graphs/graph-29"
       claimant: ":Self"
       subject: ":Self"
-      shapes:
-        - http://mee.foundation/ontologies/persona/shapes
-        - http://mee.foundation/ontologies/graph/shapes
     - id: "http://www.example.org/mia/graphs/graph-31"
       claimant: ":Fred_Flintstone"
       subject: ":Fred_Flintstone"
-      shapes:
-        - http://mee.foundation/ontologies/persona/shapes
-        - http://mee.foundation/ontologies/graph/shapes
 ---
 
 ## Graphs

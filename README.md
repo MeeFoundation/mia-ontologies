@@ -307,7 +307,7 @@ Cell box border style does not vary by member count — every cell box uses one 
 
 A class's template cell (`cell-templates.ttl`) may also carry validation metadata declared in the paired `cell-templates-shacl.ttl`. This metadata lives on the class-level template only.
 
-#### Properties
+#### DataBook YAML Properties
 
 The following properties are defined in `cell.ttl` and represented as `mia.` YAML fields in cell DataBooks:
 

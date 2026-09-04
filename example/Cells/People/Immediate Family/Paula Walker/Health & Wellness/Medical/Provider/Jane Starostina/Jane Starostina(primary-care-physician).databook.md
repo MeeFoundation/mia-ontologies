@@ -16,15 +16,9 @@ mia:
     - id: "http://www.example.org/mia/graphs/graph-34"
       claimant: ":Self"
       subject: ":Self"
-      shapes:
-        - http://mee.foundation/ontologies/persona/shapes
-        - http://mee.foundation/ontologies/graph/shapes
     - id: "http://www.example.org/mia/graphs/graph-25"
       claimant: ":Self"
       subject: ":Jane_Starostina"
-      shapes:
-        - http://mee.foundation/ontologies/persona/shapes
-        - http://mee.foundation/ontologies/graph/shapes
 ---
 
 ## Graphs

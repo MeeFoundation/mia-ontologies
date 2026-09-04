@@ -20,21 +20,12 @@ mia:
       claimant: ":Self"
       subject: ":Paula_Walker"
       template: "persona:MedicalAppointmentRecord"
-      shapes:
-        - http://mee.foundation/ontologies/persona/shapes
-        - http://mee.foundation/ontologies/persona/shapes/medical-appointment
     - id: "http://www.example.org/mia/graphs/graph-28"
       claimant: ":Carol_Walker"
       subject: ":Carol_Walker"
-      shapes:
-        - http://mee.foundation/ontologies/persona/shapes
-        - http://mee.foundation/ontologies/graph/shapes
     - id: "http://www.example.org/mia/graphs/graph-30"
       claimant: ":Self"
       subject: ":Self"
-      shapes:
-        - http://mee.foundation/ontologies/persona/shapes
-        - http://mee.foundation/ontologies/graph/shapes
 ---
 
 ## Graphs

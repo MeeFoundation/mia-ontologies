@@ -18,21 +18,12 @@ mia:
     - id: "http://www.example.org/mia/graphs/graph-58"
       claimant: ":Self"
       subject: ":Self"
-      shapes:
-        - http://mee.foundation/ontologies/persona/shapes
-        - http://mee.foundation/ontologies/graph/shapes
     - id: "http://www.example.org/mia/graphs/graph-59"
       claimant: ":Paula_Walker"
       subject: ":Paula_Walker"
-      shapes:
-        - http://mee.foundation/ontologies/persona/shapes
-        - http://mee.foundation/ontologies/graph/shapes
     - id: "http://www.example.org/mia/graphs/graph-60"
       claimant: ":Self"
       subject: ":Ginger"
-      shapes:
-        - http://mee.foundation/ontologies/persona/shapes
-        - http://mee.foundation/ontologies/graph/shapes
 ---
 
 ## Graphs

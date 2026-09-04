@@ -18,22 +18,13 @@ mia:
     - id: "http://www.example.org/mia/graphs/graph-33"
       claimant: ":Self"
       subject: ":Self"
-      shapes:
-        - http://mee.foundation/ontologies/persona/shapes
-        - http://mee.foundation/ontologies/graph/shapes
     - id: "http://www.example.org/mia/graphs/graph-57"
       claimant: ":Paula_Walker"
       subject: ":Paula_Walker"
-      shapes:
-        - http://mee.foundation/ontologies/persona/shapes
-        - http://mee.foundation/ontologies/graph/shapes
     - id: "http://www.example.org/mia/graphs/graph-32"
       claimant: ":Self"
       subject: ":Ginger"
       template: "pets:PetMedicationRecord"
-      shapes:
-        - http://mee.foundation/ontologies/persona/shapes
-        - http://mee.foundation/ontologies/pets/shapes
 ---
 
 ## Graphs

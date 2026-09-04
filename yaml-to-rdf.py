@@ -43,14 +43,15 @@ Requires: pip install pyyaml
 import os, re, sys, yaml, glob
 
 CELL = "http://mee.foundation/ontologies/cell#"
-PSHAPES = "http://mee.foundation/ontologies/persona/shapes#"
 MIA_NS = "http://www.example.org/mia#"
 GRAPHS_BASE = "http://www.example.org/mia/graphs/"
 
 PREFIXES = {
     "cat": "http://mee.foundation/ontologies/category#",
     "cell": CELL,
-    "pshapes": PSHAPES,
+    "persona": "http://mee.foundation/ontologies/persona#",
+    "pets": "http://mee.foundation/ontologies/pets#",
+    "vehicles": "http://mee.foundation/ontologies/vehicles#",
 }
 
 
@@ -158,8 +159,8 @@ def process_cell_databook(fm, triples):
 
 
 def process_embedded_graph(graph, triples):
-    """Emit cell:SCGraph/claimant/subject for one mia.graphs[] entry —
-    replaces the old process_topic_databook, which read the same three
+    """Emit cell:SCGraph/claimant/subject/template for one mia.graphs[]
+    entry — replaces the old process_topic_databook, which read the same
     fields from a separate graph-databook file's own frontmatter."""
     claimant = graph.get("claimant")
     subject = graph.get("subject")
@@ -169,6 +170,13 @@ def process_embedded_graph(graph, triples):
     emit_type(triples, subj, CELL + "SCGraph")
     emit_obj(triples, subj, CELL + "claimant", resolve(claimant))
     emit_obj(triples, subj, CELL + "subject", resolve(subject))
+
+    # cell:template — domain cell:Graph, 0..1, present only on graphs that
+    # contain an instance of a persona:PersonaTemplate subclass (cell.ttl's
+    # graph.png diagram).
+    template = graph.get("template")
+    if template:
+        emit_obj(triples, subj, CELL + "template", resolve(template))
 
 
 def main(root):

@@ -284,13 +284,13 @@ done >> /tmp/mia-data.ttl
 
 # Step 1b — synthesize c: triples from each cell DataBook's own YAML
 # frontmatter (mia.* fields, including its mia.graphs list — a graph's
-# claimant/subject live there, not in a separate graph-databook file).
+# claimant/subject/template live there, not in a separate graph-databook file).
 # There is no cat: synthesis at all — a folder's tree position is purely a
 # filesystem fact with no RDF individual to synthesize; the only
 # surviving classification fact, c:category, is read directly from each cell
 # DataBook's own explicit mia.category field. databook extract only pulls
 # fenced Turtle blocks, which cell DataBooks don't carry — without this
-# step, c:Cell individuals and c:SCGraph's subject/claimant never
+# step, c:Cell individuals and c:SCGraph's subject/claimant/template never
 # reach the merged graph, and cell-shacl.ttl's
 # :SCGraphShape never fires against real instance data. See yaml-to-rdf.py.
 python3 yaml-to-rdf.py . > /tmp/mia-yaml.ttl

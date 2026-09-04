@@ -18,9 +18,6 @@ mia:
     - id: "http://www.example.org/mia/graphs/graph-53"
       claimant: ":Self"
       subject: ":Self"
-      shapes:
-        - http://mee.foundation/ontologies/persona/shapes
-        - http://mee.foundation/ontologies/graph/shapes
 ---
 
 ## Graphs

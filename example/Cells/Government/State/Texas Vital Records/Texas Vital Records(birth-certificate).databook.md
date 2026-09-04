@@ -16,10 +16,6 @@ mia:
       claimant: ":Self"
       subject: ":Self"
       template: "persona:BirthCertificateDocument"
-      shapes:
-        - http://mee.foundation/ontologies/persona/shapes
-        - http://mee.foundation/ontologies/graph/shapes
-        - http://mee.foundation/ontologies/persona/shapes/birthcertificate
 ---
 
 ## Graphs

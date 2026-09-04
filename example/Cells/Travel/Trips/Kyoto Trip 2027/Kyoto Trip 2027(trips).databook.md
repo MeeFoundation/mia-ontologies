@@ -29,34 +29,18 @@ mia:
     - id: "http://www.example.org/mia/graphs/graph-66"
       claimant: ":Self"
       subject: ":Self"
-      shapes:
-        - http://mee.foundation/ontologies/persona/shapes
-        - http://mee.foundation/ontologies/graph/shapes
     - id: "http://www.example.org/mia/graphs/graph-67"
       claimant: ":Alice_Travel_Agent"
       subject: ":Alice_Travel_Agent"
-      shapes:
-        - http://mee.foundation/ontologies/persona/shapes
-        - http://mee.foundation/ontologies/graph/shapes
-        - http://mee.foundation/ontologies/agent/shapes
     - id: "http://www.example.org/mia/graphs/graph-68"
       claimant: ":Dave"
       subject: ":Dave"
-      shapes:
-        - http://mee.foundation/ontologies/persona/shapes
-        - http://mee.foundation/ontologies/graph/shapes
     - id: "http://www.example.org/mia/graphs/graph-69"
       claimant: ":Self"
       subject: ":Kyoto_Trip_2027"
-      shapes:
-        - http://mee.foundation/ontologies/persona/shapes
-        - http://mee.foundation/ontologies/graph/shapes
     - id: "http://www.example.org/mia/graphs/graph-70"
       claimant: ":Alice_Travel_Agent"
       subject: ":Kyoto_Trip_2027"
-      shapes:
-        - http://mee.foundation/ontologies/persona/shapes
-        - http://mee.foundation/ontologies/graph/shapes
 ---
 
 ## Graphs

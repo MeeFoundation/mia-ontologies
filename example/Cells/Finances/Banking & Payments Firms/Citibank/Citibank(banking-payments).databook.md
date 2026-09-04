@@ -17,15 +17,9 @@ mia:
     - id: "http://www.example.org/mia/graphs/graph-09"
       claimant: ":Citibank"
       subject: ":Self"
-      shapes:
-        - http://mee.foundation/ontologies/persona/shapes
-        - http://mee.foundation/ontologies/graph/shapes
     - id: "http://www.example.org/mia/graphs/graph-27"
       claimant: ":Self"
       subject: ":Citibank"
-      shapes:
-        - http://mee.foundation/ontologies/persona/shapes
-        - http://mee.foundation/ontologies/graph/shapes
 ---
 
 ## Graphs
