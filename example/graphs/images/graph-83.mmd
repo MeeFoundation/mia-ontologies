@@ -1,0 +1,31 @@
+flowchart TD
+    classDef person fill:#fffacd,stroke:#aaa,color:#333
+    classDef org    fill:#cce5ff,stroke:#aaa,color:#333
+    classDef lit    fill:none,stroke:none,font-style:italic,color:#2a7a2a
+    classDef meta   fill:#f5f5ff,stroke:#9999cc,color:#333
+
+    subgraph ctx["Graph"]
+        direction LR
+        ctx_meta["claimant: :Self\nsubject: :Self\ntemplate: persona:Residence"]:::meta
+    end
+
+    ndbcf44a48000[":Address_Paradise\n(PostalAddress)"]
+    n279b6f942fea("123 Sleepy Hollow"):::lit
+    n44dd0452e007("Paradise"):::lit
+    n71835cf058bd("CA"):::lit
+    n7de6bd0240c5("95969"):::lit
+    ne3f58d806a63("USA"):::lit
+    naf26563dc3c8[":Interval_2025_Present\n(TemporalInterval)"]
+    nd5dae2a8dede("2025-09-01"):::lit
+    n0eecd6ebe039[":Paradise_Residence\n(Residence)"]
+    ne0c3ba92f1db[":Self\n(Person)"]:::person
+
+    ndbcf44a48000 -->|"hasContinuantPart"| n279b6f942fea
+    ndbcf44a48000 -->|"hasContinuantPart"| n44dd0452e007
+    ndbcf44a48000 -->|"hasContinuantPart"| n71835cf058bd
+    ndbcf44a48000 -->|"hasContinuantPart"| n7de6bd0240c5
+    ndbcf44a48000 -->|"hasContinuantPart"| ne3f58d806a63
+    naf26563dc3c8 -->|"hasStartDate"| nd5dae2a8dede
+    n0eecd6ebe039 -->|"hasParticipant"| ne0c3ba92f1db
+    n0eecd6ebe039 -->|"ent00000324"| ndbcf44a48000
+    n0eecd6ebe039 -->|"BFO_0000199"| naf26563dc3c8

@@ -2,19 +2,26 @@
 id: http://www.example.org/mia/cells/cell-08
 title: "Paradise"
 type: cell-databook
-version: 1.1.0
+version: 2.0.0
 created: 2026-07-10
 description: >
-  Cell DataBook for folder "Paradise" (cell:category: cat:Residence). It is a one-member cell with one member entry about :Self.
+  Cell DataBook for folder "Paradise" (cell:category: cat:Home). It is a one-member cell with one
+  member entry about :Self and one topic graph about :Self (the cell's subject), typed
+  persona:Residence, carrying Alice's current Paradise address.
 mia:
-  category: "cat:Residence"
+  category: "cat:Home"
   creator: ":Self"
   owner: ":Self"
   member: "graph-18"
+  topic: "graph-83"
   graphs:
     - id: "http://www.example.org/mia/graphs/graph-18"
       claimant: ":Self"
       subject: ":Self"
+    - id: "http://www.example.org/mia/graphs/graph-83"
+      claimant: ":Self"
+      subject: ":Self"
+      template: "persona:Residence"
 ---
 
 ## Graphs
@@ -24,13 +31,40 @@ mia:
 
 #### Overview
 
-This graph captures Alice Walker's current residential address: 123 Sleepy Hollow, Paradise, CA 95969. The address designation has a start date of September 2025 and no end date, indicating it is her current residence. See `15-alice(boston)alice` for her previous address. Alice is the claimant.
+This graph is the cell's one required `member` entry — a cell with a single `member` entry in the user's own category-cell tree always has `:Self` as that member (see Check 21). Alice is both the claimant and the subject. It carries her given name, satisfying the `JSContactCardPersonShape` every templated cell's `member` content is now expected to conform to (`cell:memberGraphShape`) — no longer the address content, which now lives in this cell's `cell:topic` graph instead (graph 83).
+
+#### Graph
+
+```turtle
+<!-- databook:id: alice-paradise-member-graph -->
+<!-- databook:graph: http://www.example.org/mia/graphs/graph-18#graph -->
+@prefix : <http://www.example.org/mia#> .
+@prefix cco: <https://w3id.org/cco-domains/cco/> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix persona: <http://mee.foundation/ontologies/persona#> .
+
+:Self rdf:type owl:NamedIndividual ,
+               persona:Person .
+
+:Self <https://w3id.org/cco-domains/cco/ont00001879> [  # designated by → GivenName (JSContactCardPersonShape)
+        rdf:type cco:ent00000002 ;
+        <https://w3id.org/cco-domains/cco/ont00001765> "Alice"
+    ] .
+```
+
+<a id="graph-83"></a>
+### Graph 83
+
+#### Overview
+
+This graph captures Alice Walker's current residential address: 123 Sleepy Hollow, Paradise, CA 95969 — moved here, as this cell's `cell:topic` content, from the cell's former `member` graph-18. The address designation has a start date of September 2025 and no end date, indicating it is her current residence. See graph 82 for her previous address. Validated by the `ResidenceShape` per-template SHACL shape. Alice is the claimant.
 
 #### Graph
 
 ```turtle
 <!-- databook:id: alice-paradise-graph -->
-<!-- databook:graph: http://www.example.org/mia/graphs/graph-18#graph -->
+<!-- databook:graph: http://www.example.org/mia/graphs/graph-83#graph -->
 @prefix : <http://www.example.org/mia#> .
 @prefix persona: <http://mee.foundation/ontologies/persona#> .
 @prefix cco: <https://w3id.org/cco-domains/cco/> .
@@ -39,9 +73,11 @@ This graph captures Alice Walker's current residential address: 123 Sleepy Hollo
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 
-
+:Self rdf:type owl:NamedIndividual ,
+               persona:Person .
 
 :Paradise_Residence rdf:type owl:NamedIndividual ,
+                            persona:Residence ,
                             cco:ent00000016 ;  # AddressDesignation
     rdfs:label "Alice's Paradise Residence (2025-present)"@en ;
     rdfs:comment "Alice has lived at this Paradise address since September 2025. No end date indicates current residence."@en ;

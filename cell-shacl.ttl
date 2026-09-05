@@ -13,7 +13,7 @@
 @prefix dc: <http://purl.org/dc/elements/1.1/> .
 
 <http://mee.foundation/ontologies/cell/shapes> rdf:type owl:Ontology ;
-    owl:versionIRI <http://mee.foundation/ontologies/cell/shapes/3.32.0> ;
+    owl:versionIRI <http://mee.foundation/ontologies/cell/shapes/3.33.0> ;
     dc:date "2026-09-04"^^xsd:date ;
     rdfs:label "Cell Ontology SHACL Validation Shapes"@en ;
     rdfs:comment "SHACL validation shapes for cell:Cell DataBook instances (the content facet of a cell) and cell:SCGraph DataBook instances (the graph DataBooks a cell links to) in the Cell Ontology."@en .
@@ -90,18 +90,23 @@
     sh:targetClass cell:TemplateCell ;
     sh:message "Template Cell validation."@en ;
 
-    # cell:templateShape — at most one value. Not constrained to sh:class
-    # sh:NodeShape here: the individuals it points at (e.g.
+    # cell:memberGraphShape/cell:topicGraphShape — zero or more values each,
+    # no maxCount (routing which is populated depends on whether the
+    # template's content is filed as a cell:member or cell:topic graph — see
+    # cell.ttl's own comments). Neither is constrained to sh:class
+    # sh:NodeShape here: the individuals they point at (e.g.
     # pshapes:PassportDocumentShape) are only typed sh:NodeShape in
     # cell-templates-shacl.ttl, which is deliberately excluded from Tier 1's
     # merged-data validation (see EXAMPLE.md's Validation section) — asserting
-    # sh:class here would spuriously fail against that merged graph. Most
-    # template cells carry no cell:templateShape value at all — that's the
-    # default.
+    # sh:class here would spuriously fail against that merged graph.
     sh:property [
-        sh:path cell:templateShape ;
-        sh:maxCount 1 ;
-        sh:message "A cell:TemplateCell may have at most one cell:templateShape value."@en
+        sh:path cell:memberGraphShape ;
+        sh:message "cell:memberGraphShape links a cell:TemplateCell to zero or more sh:NodeShape values."@en
+    ] ;
+
+    sh:property [
+        sh:path cell:topicGraphShape ;
+        sh:message "cell:topicGraphShape links a cell:TemplateCell to zero or more sh:NodeShape values."@en
     ] ;
 
     # cell:isTopicCell — required, exactly one value, must be a boolean.

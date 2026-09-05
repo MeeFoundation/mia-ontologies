@@ -13,13 +13,13 @@
 @base <http://mee.foundation/ontologies/persona> .
 
 <http://mee.foundation/ontologies/persona> rdf:type owl:Ontology ;
-    owl:versionIRI <http://mee.foundation/ontologies/persona/4.10.0> ;
+    owl:versionIRI <http://mee.foundation/ontologies/persona/4.11.0> ;
     owl:imports <https://w3id.org/cco-domains/domains/PersonOntology> ;
     owl:imports <https://w3id.org/cco-domains/domains/AddressOntology> ;
     owl:imports <https://w3id.org/cco-domains/domains/StagingOntology> ;
     owl:imports <http://mee.foundation/ontologies/persona-templates> ;
-    dc:date "2026-09-03"^^xsd:date ;
-    owl:versionInfo "Version 4.10.0 - corrected stale 'imports ... + graph.ttl' architecture comment (persona.ttl never imported graph.ttl); graph.ttl itself has since been absorbed into cell.ttl."@en ;
+    dc:date "2026-09-04"^^xsd:date ;
+    owl:versionInfo "Version 4.11.0 - p:CheckingAccount is now also rdfs:subClassOf persona:PersonaTemplate, a template label for cat:BankingPayments's topic content alongside the new persona:DebitCard (persona-templates.ttl)."@en ;
     rdfs:label "Persona Ontology"@en ;
     rdfs:comment """Persona Ontology for the Cellula App.
 
@@ -205,8 +205,16 @@ p:hasVehicle rdf:type owl:ObjectProperty ;
 #################################################################
 
 p:CheckingAccount rdf:type owl:Class ;
+    rdfs:subClassOf p:PersonaTemplate ;
     rdfs:label "Checking Account"@en ;
-    rdfs:comment "A bank checking account held by a person, linked to a debit card."@en .
+    rdfs:comment """A bank checking account held by a person, linked to a debit card. Also a
+                    template type label for a graph whose purpose is to carry this account's own
+                    details (designated by → cco:ent00000071 Checking Account Number,
+                    cco:ent00000072 Routing Number) — the same dual role p:PassportDocument/
+                    p:MedicalAppointmentRecord already play as both a real content class and a
+                    cell:template value. Selects the existing SHACL shape :CheckingAccountShape
+                    (persona-shacl.ttl), linked from cat:BankingPayments's template cell
+                    (cell-templates.ttl) via cell:topicGraphShape."""@en .
 
 p:hasBankAccount rdf:type owl:ObjectProperty ;
     rdfs:domain p:Person ;

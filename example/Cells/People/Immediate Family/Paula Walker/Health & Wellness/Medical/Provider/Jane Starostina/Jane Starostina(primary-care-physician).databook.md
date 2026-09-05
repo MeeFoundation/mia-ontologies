@@ -37,7 +37,12 @@ This graph captures Alice's own bare identity claim (just her given name) — th
 <!-- databook:graph: http://www.example.org/mia/graphs/graph-34#graph -->
 @prefix : <http://www.example.org/mia#> .
 @prefix cco: <https://w3id.org/cco-domains/cco/> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix persona: <http://mee.foundation/ontologies/persona#> .
+
+:Self rdf:type owl:NamedIndividual ,
+               persona:Person .
 
 :Self <https://w3id.org/cco-domains/cco/ont00001879> [  # designated by → GivenName
     rdf:type cco:ent00000002 ;  # GivenName

@@ -43,6 +43,9 @@ This graph captures Alice Walker's self-claimed persona in her 1:1 relationship 
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
 
+:Self rdf:type owl:NamedIndividual ,
+               persona:Person .
+
 :Self rdfs:comment "Alice Walker's persona for her 1:1 relationship with Fred."@en ;
 
     <https://w3id.org/cco-domains/cco/ont00001879> [  # designated by → AlternateName
@@ -87,6 +90,9 @@ This graph captures Fred Flintstone's self-claimed persona, transmitted from Fre
 @prefix owl: <http://www.w3.org/2002/07/owl#> .
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+
+:Self rdf:type owl:NamedIndividual ,
+               persona:Person .
 
 :Fred_Flintstone rdf:type owl:NamedIndividual ,
               persona:Person ;

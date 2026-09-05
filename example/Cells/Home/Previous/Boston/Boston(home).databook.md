@@ -2,19 +2,26 @@
 id: http://www.example.org/mia/cells/cell-07
 title: "Boston"
 type: cell-databook
-version: 1.1.0
+version: 2.0.0
 created: 2026-07-10
 description: >
-  Cell DataBook for folder "Boston" (cell:category: cat:Residence). It is a one-member cell with one member entry about :Self.
+  Cell DataBook for folder "Boston" (cell:category: cat:Home). It is a one-member cell with one
+  member entry about :Self and one topic graph about :Self (the cell's subject), typed
+  persona:Residence, carrying Alice's previous Boston address.
 mia:
-  category: "cat:Residence"
+  category: "cat:Home"
   creator: ":Self"
   owner: ":Self"
   member: "graph-13"
+  topic: "graph-82"
   graphs:
     - id: "http://www.example.org/mia/graphs/graph-13"
       claimant: ":Self"
       subject: ":Self"
+    - id: "http://www.example.org/mia/graphs/graph-82"
+      claimant: ":Self"
+      subject: ":Self"
+      template: "persona:Residence"
 ---
 
 ## Graphs
@@ -24,13 +31,40 @@ mia:
 
 #### Overview
 
-This graph captures Alice Walker's previous residential address: 456 Commonwealth Ave, Boston, MA 02215. The address designation spans January 2020 to August 2025. See graph 18 for her current address. Alice is the claimant.
+This graph is the cell's one required `member` entry — a cell with a single `member` entry in the user's own category-cell tree always has `:Self` as that member (see Check 21). Alice is both the claimant and the subject. It carries her given name, satisfying the `JSContactCardPersonShape` every templated cell's `member` content is now expected to conform to (`cell:memberGraphShape`) — no longer the address content, which now lives in this cell's `cell:topic` graph instead (graph 82).
+
+#### Graph
+
+```turtle
+<!-- databook:id: alice-boston-member-graph -->
+<!-- databook:graph: http://www.example.org/mia/graphs/graph-13#graph -->
+@prefix : <http://www.example.org/mia#> .
+@prefix cco: <https://w3id.org/cco-domains/cco/> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix persona: <http://mee.foundation/ontologies/persona#> .
+
+:Self rdf:type owl:NamedIndividual ,
+               persona:Person .
+
+:Self <https://w3id.org/cco-domains/cco/ont00001879> [  # designated by → GivenName (JSContactCardPersonShape)
+        rdf:type cco:ent00000002 ;
+        <https://w3id.org/cco-domains/cco/ont00001765> "Alice"
+    ] .
+```
+
+<a id="graph-82"></a>
+### Graph 82
+
+#### Overview
+
+This graph captures Alice Walker's previous residential address: 456 Commonwealth Ave, Boston, MA 02215 — moved here, as this cell's `cell:topic` content, from the cell's former `member` graph-13. The address designation spans January 2020 to August 2025. See graph 83 for her current address. Validated by the `ResidenceShape` per-template SHACL shape. Alice is the claimant.
 
 #### Graph
 
 ```turtle
 <!-- databook:id: alice-boston-graph -->
-<!-- databook:graph: http://www.example.org/mia/graphs/graph-13#graph -->
+<!-- databook:graph: http://www.example.org/mia/graphs/graph-82#graph -->
 @prefix : <http://www.example.org/mia#> .
 @prefix persona: <http://mee.foundation/ontologies/persona#> .
 @prefix cco: <https://w3id.org/cco-domains/cco/> .
@@ -39,9 +73,11 @@ This graph captures Alice Walker's previous residential address: 456 Commonwealt
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 
-
+:Self rdf:type owl:NamedIndividual ,
+               persona:Person .
 
 :Boston_Residence rdf:type owl:NamedIndividual ,
+                           persona:Residence ,
                            cco:ent00000016 ;  # AddressDesignation
     rdfs:label "Alice's Boston Residence (2020-2025)"@en ;
     rdfs:comment "Alice lived at this Boston address from 2020 to 2025."@en ;

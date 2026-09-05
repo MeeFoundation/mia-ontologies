@@ -1,0 +1,31 @@
+flowchart TD
+    classDef person fill:#fffacd,stroke:#aaa,color:#333
+    classDef org    fill:#cce5ff,stroke:#aaa,color:#333
+    classDef lit    fill:none,stroke:none,font-style:italic,color:#2a7a2a
+    classDef meta   fill:#f5f5ff,stroke:#9999cc,color:#333
+
+    subgraph ctx["Graph"]
+        direction LR
+        ctx_meta["claimant: :Self\nsubject: :Self\ntemplate: persona:Residence"]:::meta
+    end
+
+    nc67f0317dd3d[":Address_Boston\n(PostalAddress)"]
+    n9beaef638b4d("456 Commonwealth Ave"):::lit
+    n918f1b6f9e99("Boston"):::lit
+    n0ad0e9986ddb("MA"):::lit
+    n80c4ec56c76a("02215"):::lit
+    n596b411b2d6f[":Boston_Residence\n(Residence)"]
+    ne0c3ba92f1db[":Self\n(Person)"]:::person
+    n712165170b98[":Interval_2020_2025\n(TemporalInterval)"]
+    na357c4eb4a16("2020-01-01"):::lit
+    nbf2895943c37("2025-08-31"):::lit
+
+    nc67f0317dd3d -->|"hasContinuantPart"| n9beaef638b4d
+    nc67f0317dd3d -->|"hasContinuantPart"| n918f1b6f9e99
+    nc67f0317dd3d -->|"hasContinuantPart"| n0ad0e9986ddb
+    nc67f0317dd3d -->|"hasContinuantPart"| n80c4ec56c76a
+    n596b411b2d6f -->|"hasParticipant"| ne0c3ba92f1db
+    n596b411b2d6f -->|"ent00000324"| nc67f0317dd3d
+    n596b411b2d6f -->|"BFO_0000199"| n712165170b98
+    n712165170b98 -->|"hasStartDate"| na357c4eb4a16
+    n712165170b98 -->|"hasEndDate"| nbf2895943c37

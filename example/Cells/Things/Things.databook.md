@@ -38,6 +38,9 @@ This graph captures Alice Walker's day-to-day physical possessions. Her wallet h
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 
+:Self rdf:type owl:NamedIndividual ,
+               persona:Person .
+
 :Self persona:hasWallet :Alice_Wallet ;
     persona:hasPhysicalCard :Alice_HealthInsuranceCard ;   # not in wallet — carried separately
     persona:hasPhysicalCard :Alice_SSNCard ;               # not in wallet — stored at home for safety

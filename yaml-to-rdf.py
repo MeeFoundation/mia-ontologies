@@ -171,11 +171,13 @@ def process_embedded_graph(graph, triples):
     emit_obj(triples, subj, CELL + "claimant", resolve(claimant))
     emit_obj(triples, subj, CELL + "subject", resolve(subject))
 
-    # cell:template — domain cell:Graph, 0..1, present only on graphs that
-    # contain an instance of a persona:PersonaTemplate subclass (cell.ttl's
-    # graph.png diagram).
-    template = graph.get("template")
-    if template:
+    # cell:template — domain cell:Graph, 0..N, present only on graphs that
+    # contain instance(s) of a persona:PersonaTemplate subclass (cell.ttl's
+    # graph.png diagram). A graph may hold more than one template's worth of
+    # content at once (e.g. a single graph combining ServiceAccount, DebitCard,
+    # and CheckingAccount instances), so this accepts either a bare string or
+    # a YAML list.
+    for template in as_list(graph.get("template")):
         emit_obj(triples, subj, CELL + "template", resolve(template))
 
 

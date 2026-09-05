@@ -39,6 +39,9 @@ This graph captures Alice Walker's professional business card in JSContactCard f
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
 
+:Self rdf:type owl:NamedIndividual ,
+               persona:Person .
+
 :Self rdfs:comment "Alice Walker's JSContact card persona — professional contact details taking details from her Acme graph."@en ;
 
     # ── Name components ──────────────────────────────────────────────────────

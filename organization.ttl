@@ -8,10 +8,10 @@
 @base <http://mee.foundation/ontologies/organization> .
 
 <http://mee.foundation/ontologies/organization> rdf:type owl:Ontology ;
-    owl:versionIRI <http://mee.foundation/ontologies/organization/1.4.0> ;
+    owl:versionIRI <http://mee.foundation/ontologies/organization/1.5.0> ;
     owl:imports <https://w3id.org/cco-domains/cco/AgentOntology> ;
-    dc:date "2026-09-03"^^xsd:date ;
-    owl:versionInfo "Version 1.4.0 - updated graph.ttl reference to cell.ttl, following graph.ttl's absorption into cell.ttl."@en ;
+    dc:date "2026-09-04"^^xsd:date ;
+    owl:versionInfo "Version 1.5.0 - added o:hasWebsite (an Organization's own public website URL)."@en ;
     rdfs:label "Organization Ontology"@en ;
     rdfs:comment """Organization Ontology for the Cellula App.
                     Describes organizations that participate in the Personal Data Network.
@@ -27,3 +27,9 @@ o:Organization rdf:type owl:Class ;
     rdfs:label "Organization"@en ;
     rdfs:comment """An organization (company, government agency, non-profit, etc.)
                     that participates in the Personal Data Network."""@en .
+
+o:hasWebsite rdf:type owl:DatatypeProperty ;
+    rdfs:domain o:Organization ;
+    rdfs:range xsd:anyURI ;
+    rdfs:label "has website"@en ;
+    rdfs:comment "The organization's own public website URL."@en .

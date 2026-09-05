@@ -37,7 +37,12 @@ This graph captures Alice's own bare identity claim (just her given name) — th
 <!-- databook:graph: http://www.example.org/mia/graphs/graph-35#graph -->
 @prefix : <http://www.example.org/mia#> .
 @prefix cco: <https://w3id.org/cco-domains/cco/> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix persona: <http://mee.foundation/ontologies/persona#> .
+
+:Self rdf:type owl:NamedIndividual ,
+               persona:Person .
 
 :Self <https://w3id.org/cco-domains/cco/ont00001879> [  # designated by → GivenName
     rdf:type cco:ent00000002 ;  # GivenName
@@ -64,6 +69,9 @@ This graph captures Paula Walker's physical body characteristics — properties 
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:Paula_Walker rdf:type owl:NamedIndividual ,
+               persona:Person .
 
 :Paula_Walker rdfs:comment "Paula Walker's physical body characteristics."@en ;
 

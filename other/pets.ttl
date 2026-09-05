@@ -12,9 +12,9 @@
     owl:imports <http://mee.foundation/ontologies/dron-upper-subset> ,
                 <http://mee.foundation/ontologies/ncbitaxon-subset> ,
                 <http://mee.foundation/ontologies/vbo-subset> ;
-    owl:versionIRI <http://mee.foundation/ontologies/pets/1.5.0> ;
-    dc:date "2026-09-03"^^xsd:date ;
-    owl:versionInfo "Version 1.5.0 - updated g:template references to cell:template, following graph.ttl's absorption into cell.ttl."@en ;
+    owl:versionIRI <http://mee.foundation/ontologies/pets/1.6.0> ;
+    dc:date "2026-09-04"^^xsd:date ;
+    owl:versionInfo "Version 1.6.0 - updated cell:templateShape references to cell:topicGraphShape, following cell.ttl's split of that property."@en ;
     persona:usesDrOnClass <http://purl.obolibrary.org/obo/DRON_00000074> ,  # drug product
                     <http://purl.obolibrary.org/obo/DRON_00000028> ,  # active ingredient (role)
                     <http://purl.obolibrary.org/obo/DRON_00000022> ,  # drug tablet
@@ -71,7 +71,7 @@ pets:Pet rdf:type owl:Class ;
                     directly (a pet has no persona:Person individual of its own). Used as the value of
                     cell:template on the graph file's ontology IRI. Selects the SHACL shape :PetShape in
                     other/pets-shacl.ttl, linked from cat:Pets's template cell (cell-templates.ttl) via
-                    cell:templateShape."""@en .
+                    cell:topicGraphShape."""@en .
 
 pets:hasSpecies rdf:type owl:ObjectProperty ;
     rdfs:domain pets:Pet ;
@@ -178,7 +178,7 @@ pets:PetMedicationRecord rdf:type owl:Class ;
                     pet with its own identity graph, via pets:Pet). Used as the value of cell:template on the
                     graph file's ontology IRI. Selects the SHACL shape :PetMedicationRecordShape in
                     other/pets-shacl.ttl, linked from cat:PetsMedical's template cell (cell-templates.ttl)
-                    via cell:templateShape. Named "Record" rather than "Document" since this class is not a
+                    via cell:topicGraphShape. Named "Record" rather than "Document" since this class is not a
                     persona:IdentityDocument, matching persona:MedicalAppointmentRecord's identical naming
                     reasoning."""@en .
 

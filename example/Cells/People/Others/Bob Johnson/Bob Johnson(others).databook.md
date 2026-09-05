@@ -51,6 +51,9 @@ This graph captures Bob Johnson's self-claimed Bob-graph persona, transmitted fr
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
 
+:Self rdf:type owl:NamedIndividual ,
+               persona:Person .
+
 :Bob_Johnson rdf:type owl:NamedIndividual ,
               persona:Person ;
     rdfs:label "Bob Johnson (Bob)"@en ;
@@ -80,7 +83,7 @@ This graph captures Bob Johnson's self-claimed Bob-graph persona, transmitted fr
 
 #### Overview
 
-This graph captures Alice's record of Bob Johnson in their 1:1 relationship graph. Alice notes Bob's favorite drink. Alice is the claimant.
+This graph captures Alice's record of Bob Johnson in their 1:1 relationship graph. Alice notes Bob's favorite drink and given name, the latter required by the `JSContactCardPersonShape` every templated cell's `member` content is now expected to conform to (`cell:memberGraphShape`). Alice is the claimant.
 
 #### Graph
 
@@ -98,6 +101,11 @@ This graph captures Alice's record of Bob Johnson in their 1:1 relationship grap
               persona:Person ;
     rdfs:label "Bob Johnson (Bob-colleague-of-alice)"@en ;
 
+    <https://w3id.org/cco-domains/cco/ont00001879> [  # designated by → GivenName (JSContactCardPersonShape)
+        rdf:type cco:ent00000002 ;
+        <https://w3id.org/cco-domains/cco/ont00001765> "Bob"
+    ] ;
+
     <https://w3id.org/cco-domains/cco/ont00001917> [  # described by → Person Note
         rdf:type cco:ent00000048 ;
         <https://w3id.org/cco-domains/cco/ont00001765> "Fav drink: oat milk cappuccino"
@@ -109,7 +117,7 @@ This graph captures Alice's record of Bob Johnson in their 1:1 relationship grap
 
 #### Overview
 
-This graph captures Bob's record of Alice in their 1:1 relationship graph, transmitted from Bob's own instance of the app to Alice's over the PDN. Bob notes Alice's favorite drink. Bob is the claimant.
+This graph captures Bob's record of Alice in their 1:1 relationship graph, transmitted from Bob's own instance of the app to Alice's over the PDN. Bob notes Alice's favorite drink and given name, the latter required by the `JSContactCardPersonShape` every templated cell's `member` content is now expected to conform to (`cell:memberGraphShape`). Bob is the claimant.
 
 #### Graph
 
@@ -123,7 +131,15 @@ This graph captures Bob's record of Alice in their 1:1 relationship graph, trans
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
 
-:Self <https://w3id.org/cco-domains/cco/ont00001917> [  # described by → Person Note
+:Self rdf:type owl:NamedIndividual ,
+               persona:Person .
+
+:Self <https://w3id.org/cco-domains/cco/ont00001879> [  # designated by → GivenName (JSContactCardPersonShape)
+        rdf:type cco:ent00000002 ;
+        <https://w3id.org/cco-domains/cco/ont00001765> "Alice"
+    ] ;
+
+    <https://w3id.org/cco-domains/cco/ont00001917> [  # described by → Person Note
         rdf:type cco:ent00000048 ;
         <https://w3id.org/cco-domains/cco/ont00001765> "Favorite drink: pepsi"
     ] .
@@ -147,6 +163,9 @@ This graph captures Alice Walker's self-claimed persona in her 1:1 relationship 
 @prefix owl: <http://www.w3.org/2002/07/owl#> .
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+
+:Self rdf:type owl:NamedIndividual ,
+               persona:Person .
 
 :Self rdfs:comment "Alice Walker's persona for her 1:1 relationship with Bob."@en ;
 

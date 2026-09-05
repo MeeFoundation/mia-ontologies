@@ -110,6 +110,9 @@ This graph captures Alice Walker's BHS profile — the identity data she shares 
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
 
+:Self rdf:type owl:NamedIndividual ,
+               persona:Person .
+
 :Self rdfs:comment "Alice Walker's persona for her BHS profile."@en ;
 
     <https://w3id.org/cco-domains/cco/ont00001879> [  # designated by → AlternateName

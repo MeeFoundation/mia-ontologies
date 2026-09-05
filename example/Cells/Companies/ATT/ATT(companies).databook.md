@@ -2,19 +2,27 @@
 id: http://www.example.org/mia/cells/cell-02
 title: "ATT"
 type: cell-databook
-version: 1.2.0
+version: 2.0.0
 created: 2026-07-10
 description: >
-  Cell DataBook for folder "ATT" (cell:category: cat:Companies). It is a one-member cell with one member entry about :Self.
+  Cell DataBook for folder "ATT" (cell:category: cat:Companies). It is a one-member cell with one
+  member entry about :Self and one graph about :Alice_ATT_Account (the cell's subject), typed
+  persona:ServiceAccount and cco:ent00000033 (Online Service Account), carrying the service name,
+  account username, and password for Alice's AT&T account.
 mia:
   category: "cat:Companies"
   creator: ":Self"
   owner: ":Self"
   member: "graph-11"
+  topic: "graph-74"
   graphs:
     - id: "http://www.example.org/mia/graphs/graph-11"
       claimant: ":Self"
       subject: ":Self"
+    - id: "http://www.example.org/mia/graphs/graph-74"
+      claimant: ":Self"
+      subject: ":Alice_ATT_Account"
+      template: "persona:ServiceAccount"
 ---
 
 ## Graphs
@@ -24,23 +32,73 @@ mia:
 
 #### Overview
 
-This graph captures Alice Walker's AT&T account graph. Alice self-enters her mobile phone number (+15108149999, E.164 format). AT&T is not a PDN node, so Alice records this data herself rather than receiving it from AT&T. Alice is the claimant.
+This graph is the cell's one required `member` entry — a cell with a single `member` entry in the user's own category-cell tree always has `:Self` as that member (see Check 21), regardless of what the cell's `subject` is — here, Alice's AT&T account itself. Alice is both the claimant and the subject. It carries her given name, plus a minimal organization name and email, so `:Self` satisfies the `JSContactCardPersonShape` every templated cell's `member` content is now expected to conform to (`cell:memberGraphShape`) — no longer deliberately empty now that this requirement applies.
 
 #### Graph
 
 ```turtle
-<!-- databook:id: alice-att-graph -->
+<!-- databook:id: alice-att-member-graph -->
 <!-- databook:graph: http://www.example.org/mia/graphs/graph-11#graph -->
+@prefix : <http://www.example.org/mia#> .
+@prefix cco: <https://w3id.org/cco-domains/cco/> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix persona: <http://mee.foundation/ontologies/persona#> .
+
+:Self rdf:type owl:NamedIndividual ,
+               persona:Person .
+
+:Self <https://w3id.org/cco-domains/cco/ont00001879> [  # designated by → GivenName (JSContactCardPersonShape)
+        rdf:type cco:ent00000002 ;
+        <https://w3id.org/cco-domains/cco/ont00001765> "Alice"
+    ] ,
+    [  # designated by → OrganizationName (JSContactCardPersonShape)
+        rdf:type cco:ent00000047 ;
+        <https://w3id.org/cco-domains/cco/ont00001765> "Acme"
+    ] ,
+    [  # designated by → EmailAddress (JSContactCardPersonShape)
+        rdf:type cco:ent00000024 ;
+        <https://w3id.org/cco-domains/cco/ont00001765> "alice@acme.com"
+    ] .
+```
+
+<a id="graph-74"></a>
+### Graph 74
+
+#### Overview
+
+This graph captures Alice's basic claim about her AT&T account itself — just enough to back the cell's `subject: ":Alice_ATT_Account"` with a real graph (see Check 22) — and, validated by `persona:ServiceAccount`'s SHACL shape (`cell-templates-shacl.ttl`'s `:ServiceAccountShape`), identifies the service (AT&T), her account username (her mobile phone number, in E.164 format — the same Phone designator this cell's original single graph used to carry on `:Self` directly, moved here since it's really a fact about the account, not about Alice as a person — AT&T accounts are logged into by phone number rather than a separate handle), her account's service URI, and her account password. `:Self` is also, separately, still designated by that same phone number directly (the `:Self`-level fact this cell's `member` graph doesn't itself carry). `:Self` carries `cco:ent00000045` (has/holds user account) to `:Alice_ATT_Account`, closing the loop from the Person side.
+
+#### Graph
+
+```turtle
+<!-- databook:id: alice-att-subject-graph -->
+<!-- databook:graph: http://www.example.org/mia/graphs/graph-74#graph -->
 @prefix : <http://www.example.org/mia#> .
 @prefix persona: <http://mee.foundation/ontologies/persona#> .
 @prefix cco: <https://w3id.org/cco-domains/cco/> .
 @prefix owl: <http://www.w3.org/2002/07/owl#> .
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:Self rdf:type owl:NamedIndividual ,
+               persona:Person .
 
 :Self <https://w3id.org/cco-domains/cco/ont00001879> [  # designated by → Phone
         rdf:type cco:ent00000023 ;
         <https://w3id.org/cco-domains/cco/ont00001765> "+15108149999" ;
         rdfs:comment "E.164 format (international standard)"@en
     ] .
+
+:Alice_ATT_Account rdf:type owl:NamedIndividual ,
+                     persona:ServiceAccount ,
+                     cco:ent00000033 ;
+    rdfs:label "Alice Walker's AT&T account"@en ;
+    cco:ent00000034 "AT&T" ;                            # has service name
+    cco:ent00000035 "+15108149999" ;                    # has user handle (username — AT&T logs in by phone number)
+    cco:ent00000036 "https://www.att.com/my/"^^xsd:anyURI ;  # has service URI
+    persona:hasPassword "Alice#ATT2026!" .              # has password
+
+:Self <https://w3id.org/cco-domains/cco/ent00000045> :Alice_ATT_Account .  # holds user account
 ```

@@ -1,18 +1,24 @@
 ---
 id: http://www.example.org/mia/cells/cell-05
-title: "Department of State"
+title: "Passport"
 type: cell-databook
-version: 1.2.0
+version: 2.0.0
 created: 2026-07-10
 description: >
-  Cell DataBook for folder "Department of State" (cell:category: cat:Passport). It is a one-member cell with one member entry about :Self.
+  Cell DataBook for folder "Passport" (cell:category: cat:Passport). It is a one-member cell with
+  one member entry about :Self and one topic graph about :Self (the cell's subject), typed
+  persona:PassportDocument, carrying Alice's US passport identity data.
 mia:
   category: "cat:Passport"
   creator: ":Self"
   owner: ":Self"
   member: "graph-19"
+  topic: "graph-81"
   graphs:
     - id: "http://www.example.org/mia/graphs/graph-19"
+      claimant: ":Self"
+      subject: ":Self"
+    - id: "http://www.example.org/mia/graphs/graph-81"
       claimant: ":Self"
       subject: ":Self"
       template: "persona:PassportDocument"
@@ -25,13 +31,40 @@ mia:
 
 #### Overview
 
-This graph captures Alice Walker's US passport identity data. Alice self-enters her legal name (Margery Alice Walker), date of birth (1985-07-04), US passport number (123456789), issue date (2021-07-04), expiration date (2031-07-04), place of birth (Austin, Texas, USA), gender marker (F), and a photo. Validated by the `Passport` per-template SHACL shapes. Alice is the claimant.
+This graph is the cell's one required `member` entry — a cell with a single `member` entry in the user's own category-cell tree always has `:Self` as that member (see Check 21). Alice is both the claimant and the subject. It carries her given name, satisfying the `JSContactCardPersonShape` every templated cell's `member` content is now expected to conform to (`cell:memberGraphShape`) — no longer the passport document content, which now lives in this cell's `cell:topic` graph instead (graph 81).
+
+#### Graph
+
+```turtle
+<!-- databook:id: alice-passport-member-graph -->
+<!-- databook:graph: http://www.example.org/mia/graphs/graph-19#graph -->
+@prefix : <http://www.example.org/mia#> .
+@prefix cco: <https://w3id.org/cco-domains/cco/> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix persona: <http://mee.foundation/ontologies/persona#> .
+
+:Self rdf:type owl:NamedIndividual ,
+               persona:Person .
+
+:Self <https://w3id.org/cco-domains/cco/ont00001879> [  # designated by → GivenName (JSContactCardPersonShape)
+        rdf:type cco:ent00000002 ;
+        <https://w3id.org/cco-domains/cco/ont00001765> "Alice"
+    ] .
+```
+
+<a id="graph-81"></a>
+### Graph 81
+
+#### Overview
+
+This graph captures Alice Walker's US passport identity data — moved here, as this cell's `cell:topic` content, from the cell's former `member` graph-19. Alice self-enters her legal name (Margery Alice Walker), date of birth (1985-07-04), US passport number (123456789), issue date (2021-07-04), expiration date (2031-07-04), place of birth (Austin, Texas, USA), gender marker (F), and a photo. Validated by the `PassportDocumentShape` per-template SHACL shape. Alice is the claimant.
 
 #### Graph
 
 ```turtle
 <!-- databook:id: alice-passport-graph -->
-<!-- databook:graph: http://www.example.org/mia/graphs/graph-19#graph -->
+<!-- databook:graph: http://www.example.org/mia/graphs/graph-81#graph -->
 @prefix : <http://www.example.org/mia#> .
 @prefix persona: <http://mee.foundation/ontologies/persona#> .
 @prefix cco: <https://w3id.org/cco-domains/cco/> .
@@ -39,6 +72,9 @@ This graph captures Alice Walker's US passport identity data. Alice self-enters 
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:Self rdf:type owl:NamedIndividual ,
+               persona:Person .
 
 :Self persona:hasIdentityDocument :Alice_US_Passport ;
     <https://w3id.org/cco-domains/cco/ont00001879> :Alice_Passport_Number .  # Person designated by → Passport Number

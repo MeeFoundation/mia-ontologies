@@ -1,0 +1,25 @@
+flowchart TD
+    classDef person fill:#fffacd,stroke:#aaa,color:#333
+    classDef org    fill:#cce5ff,stroke:#aaa,color:#333
+    classDef lit    fill:none,stroke:none,font-style:italic,color:#2a7a2a
+    classDef meta   fill:#f5f5ff,stroke:#9999cc,color:#333
+
+    subgraph ctx["Graph"]
+        direction LR
+        ctx_meta["claimant: :Self\nsubject: :Alice_Google_Account\ntemplate: persona:ServiceAccount"]:::meta
+    end
+
+    nb70624797640[":Alice_Google_Account\n(ServiceAccount)"]
+    n0f068188a8fa("Google"):::lit
+    nba6e63e440e9("awalker@gmail.com"):::lit
+    n04ffdd1fe842("https://myaccount.google.com"):::lit
+    n669f5e81cce4("Alice#Google2026!"):::lit
+    ne0c3ba92f1db[":Self\n(Person)"]:::person
+    nbc10014459fc("awalker@gmail.com"):::lit
+
+    nb70624797640 -->|"serviceName"| n0f068188a8fa
+    nb70624797640 -->|"userHandle"| nba6e63e440e9
+    nb70624797640 -->|"serviceURI"| n04ffdd1fe842
+    nb70624797640 -->|"hasPassword"| n669f5e81cce4
+    ne0c3ba92f1db -->|"EmailAddress"| nbc10014459fc
+    ne0c3ba92f1db -->|"holdsUserAccount"| nb70624797640

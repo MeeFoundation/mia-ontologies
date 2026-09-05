@@ -1,16 +1,19 @@
 flowchart TD
     classDef person fill:#fffacd,stroke:#aaa,color:#333
-    classDef grp    fill:#d4edda,stroke:#aaa,color:#333
     classDef org    fill:#cce5ff,stroke:#aaa,color:#333
     classDef lit    fill:none,stroke:none,font-style:italic,color:#2a7a2a
     classDef meta   fill:#f5f5ff,stroke:#9999cc,color:#333
 
-    subgraph ctx["Topic Graph"]
+    subgraph ctx["Graph"]
         direction LR
         ctx_meta["claimant: :Self\nsubject: :Self"]:::meta
     end
 
     ne0c3ba92f1db[":Self\n(Person)"]:::person
-    n879f664e975f("awalker@gmail.com"):::lit
+    n0356a11d7b3e("Alice"):::lit
+    n37c71833aaa2("Acme"):::lit
+    n150ebec9f3cb("alice@acme.com"):::lit
 
-    ne0c3ba92f1db -->|"EmailAddress"| n879f664e975f
+    ne0c3ba92f1db -->|"GivenName"| n0356a11d7b3e
+    ne0c3ba92f1db -->|"OrganizationName"| n37c71833aaa2
+    ne0c3ba92f1db -->|"EmailAddress"| n150ebec9f3cb

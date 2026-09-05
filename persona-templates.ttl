@@ -8,15 +8,16 @@
 @base <http://mee.foundation/ontologies/persona-templates> .
 
 <http://mee.foundation/ontologies/persona-templates> rdf:type owl:Ontology ;
-    dc:date "2026-09-03"^^xsd:date ;
-    owl:versionInfo "Version 3.1.0 - updated g:template references to cell:template, following graph.ttl's absorption into cell.ttl."@en ;
+    dc:date "2026-09-04"^^xsd:date ;
+    owl:versionInfo "Version 3.6.0 - added persona:Itinerary (template label for cat:Trips's topic content); unlike ServiceAccount/DebitCard/Residence, not multi-typed alongside any existing CCO/domain class, since none models trip-planning data yet."@en ;
     rdfs:label "Persona Templates Ontology"@en ;
     rdfs:comment """Template type classification used as values for the cell:template annotation property.
                     Each concrete template type (BirthCertificateDocument, JSContactCard, DriversLicenseDocument,
-                    PassportDocument, MedicalAppointmentRecord) identifies which per-template
-                    SHACL shapes to apply when validating a graph file. Four of the five (all but JSContactCard)
+                    PassportDocument, MedicalAppointmentRecord, ServiceAccount) identifies which per-template
+                    SHACL shapes to apply when validating a graph file. Five of the six (all but JSContactCard)
                     have their shapes in cell-templates-shacl.ttl, linked from a class-level cell:TemplateCell template
-                    (cell-templates.ttl) via cell:templateShape (cell.ttl). Other domains' own template types —
+                    (cell-templates.ttl) via cell:memberGraphShape (BirthCertificateDocument, DriversLicenseDocument,
+                    PassportDocument) or cell:topicGraphShape (MedicalAppointmentRecord, ServiceAccount) (cell.ttl). Other domains' own template types —
                     e.g. pets:Pet, pets:PetMedicationRecord (other/pets.ttl) — are declared in their own
                     other/*.ttl peer ontology instead, rdfs:subClassOf persona:PersonaTemplate referenced by
                     name only (no owl:imports either direction), so this file stays scoped to a person's own
@@ -29,6 +30,12 @@
                     p:MedicalAppointmentRecord is likewise a template label AND the class of its own shareable
                     claims record individual (following the same pattern as p:PassportDocument), but is not an
                     IdentityDocument — hence "Record" rather than "Document" in its name.
+                    p:ServiceAccount is likewise a template label only, not an IdentityDocument — an online
+                    service-account credential is not a government-issued document. Unlike every other subtype,
+                    it carries no claim properties of its own beyond persona:hasPassword: the individual it
+                    labels is always multi-typed cco:ent00000033 (Online Service Account, StagingOntology) as
+                    well, so its service name/username/service URI reuse that class's own existing properties
+                    (cco:ent00000034/ent00000035/ent00000036) directly, with no domain change to any of them.
 
                     Class hierarchy:
                     p:PersonaTemplate → p:BirthCertificateDocument (also p:IdentityDocument)
@@ -36,6 +43,7 @@
                                       → p:PassportDocument        (also p:IdentityDocument)
                                       → p:JSContactCard
                                       → p:MedicalAppointmentRecord
+                                      → p:ServiceAccount
                     p:IdentityDocument → p:BirthCertificateDocument
                                        → p:DriversLicenseDocument
                                        → p:PassportDocument"""@en .
@@ -84,7 +92,7 @@ persona:BirthCertificateDocument rdf:type owl:Class ;
                     birth certificate name record. Used as the value of cell:template on the
                     graph file's ontology IRI. Selects the SHACL shape :BirthCertificateDocumentShape
                     in cell-templates-shacl.ttl, linked from cat:BirthCertificate's template cell
-                    (cell-templates.ttl) via cell:templateShape — IRI
+                    (cell-templates.ttl) via cell:memberGraphShape — IRI
                     http://mee.foundation/ontologies/persona/shapes/birthcertificate — for
                     validation. Disambiguated from the unrelated cat:BirthCertificate
                     category-classification class (category.ttl)."""@en .
@@ -122,7 +130,7 @@ persona:DriversLicenseDocument rdf:type owl:Class ;
                     Used as the value of cell:template on the graph file's ontology IRI.
                     Selects the SHACL shape :DriversLicenseDocumentShape in cell-templates-shacl.ttl,
                     linked from cat:DriversLicense's template cell (cell-templates.ttl) via
-                    cell:templateShape — IRI
+                    cell:memberGraphShape — IRI
                     http://mee.foundation/ontologies/persona/shapes/driverslicense — for validation.
                     Note: p:PhysicalDriversLicense (in persona.ttl) models the physical card
                     object carried in a wallet; this class models the identity data the
@@ -184,7 +192,7 @@ persona:PassportDocument rdf:type owl:Class ;
                     gender marker. Photo is optional. Used as the value of cell:template on
                     the graph file's ontology IRI. Selects the SHACL shape :PassportDocumentShape
                     in cell-templates-shacl.ttl, linked from cat:Passport's template cell
-                    (cell-templates.ttl) via cell:templateShape — IRI
+                    (cell-templates.ttl) via cell:memberGraphShape — IRI
                     http://mee.foundation/ontologies/persona/shapes/passport — for
                     validation. Disambiguated from the unrelated cat:Passport
                     category-classification class (category.ttl)."""@en .
@@ -420,7 +428,7 @@ persona:MedicalAppointmentRecord rdf:type owl:Class ;
                     of cell:template on the graph file's
                     ontology IRI. Selects the SHACL shape :MedicalAppointmentRecordShape in
                     cell-templates-shacl.ttl, linked from cat:MedicalAppointment's template
-                    cell (cell-templates.ttl) via cell:templateShape — IRI
+                    cell (cell-templates.ttl) via cell:topicGraphShape — IRI
                     http://mee.foundation/ontologies/persona/shapes/medical-appointment — for
                     validation. Named "Record" rather than "Document" since this class
                     is explicitly not a p:IdentityDocument, matching its
@@ -490,5 +498,90 @@ persona:preferredPharmacy rdf:type owl:DatatypeProperty ;
     rdfs:range xsd:string .
 
 
+#################################################################
+#    ServiceAccount Template
+#################################################################
+
+persona:ServiceAccount rdf:type owl:Class ;
+    rdfs:subClassOf persona:PersonaTemplate ;
+    rdfs:label "Service Account"@en ;
+    rdfs:comment """Template type label for a graph whose purpose is to carry the login
+                    credentials for one of a person's online service accounts (e.g. a Google
+                    account, a company's web portal). The individual carrying this type is
+                    always also typed cco:ent00000033 (Online Service Account, StagingOntology)
+                    — the two types combine on one individual, the same multi-typing pattern
+                    persona:Person/p:JSContactCard already use — so its service name, username,
+                    and service URI use cco:ent00000033's own existing properties directly
+                    (cco:ent00000034 has service name, cco:ent00000035 has user handle,
+                    cco:ent00000036 has service URI), with no domain change to any of them;
+                    only the password credential (persona:hasPassword) is a Persona-native
+                    property. Used as the value of cell:template on the graph file's ontology
+                    IRI. Selects the SHACL shape :ServiceAccountShape in cell-templates-shacl.ttl,
+                    linked from cat:Companies's template cell (cell-templates.ttl) via
+                    cell:topicGraphShape. Not a p:IdentityDocument — a service account
+                    credential is not a government-issued identity document."""@en .
+
+
+#################################################################
+#    Itinerary Template
+#################################################################
+
+persona:Itinerary rdf:type owl:Class ;
+    rdfs:subClassOf persona:PersonaTemplate ;
+    rdfs:label "Itinerary"@en ;
+    rdfs:comment """Template type label for a graph whose purpose is to carry one of a person's
+                    trip itineraries — a specific journey being planned or taken, as distinct
+                    from cat:Travel's broader loyalty-program/airline information. Unlike
+                    persona:ServiceAccount/persona:DebitCard/persona:Residence, it is not
+                    multi-typed alongside any existing CCO/domain class, since no domain
+                    ontology models trip-planning data yet — it carries no structured properties
+                    of its own beyond a human-readable rdfs:label and/or rdfs:comment describing
+                    the trip (destination, dates, itinerary notes, etc. as free text). Used as
+                    the value of cell:template on the graph file's ontology IRI. Selects the
+                    SHACL shape :ItineraryShape in cell-templates-shacl.ttl, linked from
+                    cat:Trips's template cell (cell-templates.ttl) via cell:topicGraphShape. Not a
+                    p:IdentityDocument."""@en .
+
+
+#################################################################
+#    DebitCard Template
+#################################################################
+
+persona:DebitCard rdf:type owl:Class ;
+    rdfs:subClassOf persona:PersonaTemplate ;
+    rdfs:label "Debit Card"@en ;
+    rdfs:comment """Template type label for a graph whose purpose is to carry one of a person's
+                    debit cards. The individual carrying this type is always also typed
+                    cco:ent00000051 (Debit Card, StagingOntology) — the same multi-typing
+                    pattern persona:ServiceAccount uses alongside cco:ent00000033 — so its card
+                    number, CVV, and expiration date reuse that class's own existing designator
+                    pattern directly (see persona-shacl.ttl's :DebitCardShape), and
+                    persona:accessesBankAccount links it to the persona:CheckingAccount it draws
+                    funds from. Used as the value of cell:template on the graph file's ontology
+                    IRI. Selects the existing SHACL shape :DebitCardShape (persona-shacl.ttl,
+                    already targeting cco:ent00000051 directly), linked from
+                    cat:BankingPayments's template cell (cell-templates.ttl) via
+                    cell:topicGraphShape. Not a p:IdentityDocument."""@en .
+
+
+#################################################################
+#    Residence Template
+#################################################################
+
+persona:Residence rdf:type owl:Class ;
+    rdfs:subClassOf persona:PersonaTemplate ;
+    rdfs:label "Residence"@en ;
+    rdfs:comment """Template type label for a graph whose purpose is to carry one of a person's
+                    residences — a place they have lived, current or past. The individual
+                    carrying this type is always also typed cco:ent00000016 (AddressDesignation),
+                    the same multi-typing pattern persona:ServiceAccount uses alongside
+                    cco:ent00000033 — so its address (has address, AddressOntology#ent00000324),
+                    resident (has participant, BFO_0000057), and date range (occupies temporal
+                    region, BFO_0000199 → BFO_0000038 TemporalInterval) reuse that class's own
+                    existing property pattern directly, with no domain change to any of them.
+                    Used as the value of cell:template on the graph file's ontology IRI. Selects
+                    the SHACL shape :ResidenceShape in cell-templates-shacl.ttl, linked from
+                    cat:Home's template cell (cell-templates.ttl) via cell:topicGraphShape.
+                    Not a p:IdentityDocument."""@en .
 
 

@@ -34,13 +34,34 @@ mia:
 
 #### Overview
 
-This graph is the cell's one required `member` entry — a cell with a single `member` entry in the user's own category-cell tree always has `:Self` as that member (see Check 21), regardless of what the cell's `subject` is — here, the RAV4 itself. Alice is both the claimant and the subject. Deliberately empty: the `member` requirement is about `g:subject`/`g:claimant` (asserted at the `mia.graphs[]` YAML level, not in this Turtle body), not about carrying any particular content — there is no rule requiring a member's graph to assert anything at all about them.
+This graph is the cell's one required `member` entry — a cell with a single `member` entry in the user's own category-cell tree always has `:Self` as that member (see Check 21), regardless of what the cell's `subject` is — here, the RAV4 itself. Alice is both the claimant and the subject. It carries her given name, plus a minimal organization name and email, so `:Self` satisfies the `JSContactCardPersonShape` every templated cell's `member` content is now expected to conform to (`cell:memberGraphShape`) — no longer deliberately empty now that this requirement applies.
 
 #### Graph
 
 ```turtle
 <!-- databook:id: alice-rav4-member-graph -->
 <!-- databook:graph: http://www.example.org/mia/graphs/graph-62#graph -->
+@prefix : <http://www.example.org/mia#> .
+@prefix cco: <https://w3id.org/cco-domains/cco/> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix persona: <http://mee.foundation/ontologies/persona#> .
+
+:Self rdf:type owl:NamedIndividual ,
+               persona:Person .
+
+:Self <https://w3id.org/cco-domains/cco/ont00001879> [  # designated by → GivenName (JSContactCardPersonShape)
+        rdf:type cco:ent00000002 ;
+        <https://w3id.org/cco-domains/cco/ont00001765> "Alice"
+    ] ,
+    [  # designated by → OrganizationName (JSContactCardPersonShape)
+        rdf:type cco:ent00000047 ;
+        <https://w3id.org/cco-domains/cco/ont00001765> "Acme"
+    ] ,
+    [  # designated by → EmailAddress (JSContactCardPersonShape)
+        rdf:type cco:ent00000024 ;
+        <https://w3id.org/cco-domains/cco/ont00001765> "alice@acme.com"
+    ] .
 ```
 
 <a id="graph-63"></a>
@@ -64,6 +85,9 @@ This graph captures Alice's basic claim about her car itself — just enough to 
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:Self rdf:type owl:NamedIndividual ,
+               persona:Person .
 
 :Alice_RAV4 rdf:type owl:NamedIndividual ,
                      vehicles:Vehicle ;

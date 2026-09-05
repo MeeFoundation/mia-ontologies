@@ -8,8 +8,8 @@
 @base <http://mee.foundation/ontologies/category> .
 
 <http://mee.foundation/ontologies/category> rdf:type owl:Ontology ;
-    owl:versionIRI <http://mee.foundation/ontologies/category/2.0.1> ;
-    dc:date "2026-09-03"^^xsd:date ;
+    owl:versionIRI <http://mee.foundation/ontologies/category/2.1.0> ;
+    dc:date "2026-09-04"^^xsd:date ;
     rdfs:label "Category Ontology"@en ;
     rdfs:comment """Category Ontology for the Cellula App."""@en .
 
@@ -426,18 +426,6 @@ cat:DriversLicense rdf:type skos:Concept ;
     skos:broader cat:State ;
     skos:inScheme cat:CategoryScheme ;
     rdfs:comment "A driver's license issued by a state agency that issues and holds these records."@en .
-
-cat:Municipality rdf:type skos:Concept ;
-    skos:prefLabel "Municipality"@en ;
-    skos:broader cat:Government ;
-    skos:inScheme cat:CategoryScheme ;
-    rdfs:comment "Municipal government topic (e.g. local permits, library card)."@en .
-
-cat:Residence rdf:type skos:Concept ;
-    skos:prefLabel "Residence"@en ;
-    skos:broader cat:Municipality ;
-    skos:inScheme cat:CategoryScheme ;
-    rdfs:comment "A place a person has lived, current or past."@en .
 
 #################################################################
 #    cat:Information and narrower concepts

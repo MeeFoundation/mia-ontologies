@@ -165,8 +165,6 @@ SKIP_PROPS = {
 
 SKIP_TYPES = {OWL.NamedIndividual, OWL.Thing, OWL.Ontology}
 MIA_NS = "http://www.example.org/mia#"
-SELF_IRI = URIRef(MIA_NS + "Self")
-SELF_TTL = Path("example/graphs/self.ttl")
 
 
 def lbl(iri: URIRef) -> str:
@@ -475,18 +473,10 @@ def main() -> None:
         stem = graph_id.rsplit("/", 1)[-1]  # unchanged filename-stem convention
         g, _ = load_databook(src, graph_id)
         # :Self's bare rdf:type owl:NamedIndividual/persona:Person declaration
-        # lives only in example/graphs/self.ttl, not repeated per-graph (see
-        # CLAUDE.md's ":Self" IRI convention) — without merging it in here,
-        # build_mermaid's `individuals` set (built from an in-graph
-        # owl:NamedIndividual typing) never includes :Self, so every one of
-        # its designator triples (names, emails, phones, etc.) is silently
-        # skipped whenever a graph's content hangs off :Self, which is most
-        # graphs. Only merge when :Self is actually referenced, so a graph
-        # that never mentions :Self doesn't gain a stray unconnected node.
-        if SELF_TTL.exists() and (
-            any(g.triples((SELF_IRI, None, None))) or any(g.triples((None, None, SELF_IRI)))
-        ):
-            g.parse(str(SELF_TTL), format="turtle")
+        # is now asserted directly in every graph that references :Self (no
+        # more separate example/graphs/self.ttl to merge in) — build_mermaid's
+        # `individuals` set (built from an in-graph owl:NamedIndividual typing)
+        # picks it up from the graph's own content like any other individual.
         # Use this one graph's own claimant/subject/template for the "Graph"
         # metadata box — not the owning cell's aggregate mia.creator
         # (the cell has no aggregate mia.subject of its own any more; a

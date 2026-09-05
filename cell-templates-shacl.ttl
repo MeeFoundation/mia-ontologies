@@ -436,6 +436,154 @@
     # currentMedication, allergy — no sh:maxCount constraint; repeatable.
 
 
+#################################################################
+#  ServiceAccount
+#################################################################
+
+<http://mee.foundation/ontologies/persona/shapes/serviceaccount> rdf:type owl:Ontology ;
+    owl:imports <http://mee.foundation/ontologies/persona> ;
+    owl:versionIRI <http://mee.foundation/ontologies/persona/shapes/serviceaccount/1.0.0> ;
+    dc:date "2026-09-04"^^xsd:date ;
+    rdfs:label "Service Account Template SHACL Shapes"@en ;
+    rdfs:comment """SHACL shapes for validating graph files carrying cell:template persona:ServiceAccount.
+                    Apply in addition to persona-shacl.ttl when validating a service account graph file.
+                    Targets persona:ServiceAccount individuals directly — also typed cco:ent00000033
+                    (Online Service Account), so its own existing service-name/user-handle/service-URI
+                    properties are constrained here without any change to their domain."""@en .
+
+
+#################################################################
+#  Service Account Shape
+#  Targets persona:ServiceAccount individuals (also typed cco:ent00000033).
+#  Required: username (cco:ent00000035 has user handle, 1..1)
+#            password (persona:hasPassword, 1..1)
+#  Optional: service name (cco:ent00000034 has service name, 0..1)
+#            service URI (cco:ent00000036 has service URI, 0..1)
+#################################################################
+
+:ServiceAccountShape
+    a sh:NodeShape ;
+    sh:targetClass persona:ServiceAccount ;
+    sh:message "Service Account validation: username and password are required."@en ;
+
+    sh:property [
+        sh:path <https://w3id.org/cco-domains/cco/ent00000035> ;  # has user handle
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:datatype xsd:string ;
+        sh:message "A ServiceAccount must record exactly one username (user handle)."@en
+    ] ;
+
+    sh:property [
+        sh:path persona:hasPassword ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:datatype xsd:string ;
+        sh:message "A ServiceAccount must record exactly one password."@en
+    ] ;
+
+    # ── Optional fields ──────────────────────────────────────────────────────
+    sh:property [
+        sh:path <https://w3id.org/cco-domains/cco/ent00000034> ;  # has service name
+        sh:maxCount 1 ;
+        sh:datatype xsd:string ;
+        sh:message "A ServiceAccount may record at most one service name."@en
+    ] ;
+
+    sh:property [
+        sh:path <https://w3id.org/cco-domains/cco/ent00000036> ;  # has service URI
+        sh:maxCount 1 ;
+        sh:datatype xsd:anyURI ;
+        sh:message "A ServiceAccount may record at most one service URI."@en
+    ] .
+
+
+#################################################################
+#  Residence
+#################################################################
+
+<http://mee.foundation/ontologies/persona/shapes/residence> rdf:type owl:Ontology ;
+    owl:imports <http://mee.foundation/ontologies/persona> ;
+    owl:versionIRI <http://mee.foundation/ontologies/persona/shapes/residence/1.0.0> ;
+    dc:date "2026-09-04"^^xsd:date ;
+    rdfs:label "Residence Template SHACL Shapes"@en ;
+    rdfs:comment """SHACL shapes for validating graph files carrying cell:template persona:Residence.
+                    Apply in addition to persona-shacl.ttl when validating a residence graph file.
+                    Targets persona:Residence individuals directly — also typed cco:ent00000016
+                    (AddressDesignation), so its own existing address/participant/temporal-region
+                    properties are constrained here without any change to their domain."""@en .
+
+
+#################################################################
+#  Residence Shape
+#  Targets persona:Residence individuals (also typed cco:ent00000016).
+#  Required: address (AddressOntology#ent00000324 has address, 1..1)
+#            occupies temporal region (BFO_0000199, 1..1)
+#  Optional: has participant (BFO_0000057, 0..1) — the resident, usually :Self
+#################################################################
+
+:ResidenceShape
+    a sh:NodeShape ;
+    sh:targetClass persona:Residence ;
+    sh:message "A Residence must have exactly one address and occupy exactly one temporal region."@en ;
+
+    sh:property [
+        sh:path <https://w3id.org/cco-domains/domains/AddressOntology#ent00000324> ;  # has address
+        sh:class cco:ent00000010 ;  # USPostalAddress
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:message "A Residence must have exactly one address."@en
+    ] ;
+
+    sh:property [
+        sh:path <http://purl.obolibrary.org/obo/BFO_0000199> ;  # occupies temporal region
+        sh:class <http://purl.obolibrary.org/obo/BFO_0000038> ;  # TemporalInterval
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:message "A Residence must occupy exactly one temporal region (TemporalInterval)."@en
+    ] ;
+
+    # ── Optional fields ──────────────────────────────────────────────────────
+    sh:property [
+        sh:path <http://purl.obolibrary.org/obo/BFO_0000057> ;  # has participant
+        sh:class persona:Person ;
+        sh:maxCount 1 ;
+        sh:message "A Residence may have at most one participant (the resident)."@en
+    ] .
+
+
+#################################################################
+#  Itinerary
+#################################################################
+
+<http://mee.foundation/ontologies/persona/shapes/itinerary> rdf:type owl:Ontology ;
+    owl:imports <http://mee.foundation/ontologies/persona> ;
+    owl:versionIRI <http://mee.foundation/ontologies/persona/shapes/itinerary/1.0.0> ;
+    dc:date "2026-09-04"^^xsd:date ;
+    rdfs:label "Itinerary Template SHACL Shapes"@en ;
+    rdfs:comment """SHACL shapes for validating graph files carrying cell:template persona:Itinerary.
+                    Apply in addition to persona-shacl.ttl when validating a trip itinerary graph
+                    file. Targets persona:Itinerary individuals directly — no existing CCO/domain
+                    class to multi-type alongside, so this shape requires only a human-readable
+                    description rather than any structured trip-planning fields."""@en .
+
+
+#################################################################
+#  Itinerary Shape
+#  Targets persona:Itinerary individuals.
+#  Required: at least one of rdfs:label or rdfs:comment (free-text description)
+#################################################################
+
+:ItineraryShape
+    a sh:NodeShape ;
+    sh:targetClass persona:Itinerary ;
+    sh:message "An Itinerary must have at least a human-readable label or description."@en ;
+    sh:or (
+        [ sh:property [ sh:path rdfs:label ; sh:minCount 1 ] ]
+        [ sh:property [ sh:path rdfs:comment ; sh:minCount 1 ] ]
+    ) .
+
+
 # Pets shapes (cat:Pets, cat:PetsMedical) live in other/pets-shacl.ttl, not here — pets:Pet and
 # pets:PetMedicationRecord/pets:Medication are declared in the peer other/pets.ttl ontology, not
 # persona-templates.ttl, so their shapes stay paired with that file instead of this one.

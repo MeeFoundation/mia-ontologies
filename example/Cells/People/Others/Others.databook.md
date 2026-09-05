@@ -6,9 +6,11 @@ version: 1.1.0
 created: 2026-07-10
 description: >
   Cell DataBook for folder "Others" (cell:category: cat:Others). It is a
-  one-member cell with one member entry about :Self — a minimal stub,
-  since "Others" is a purely organizational category node with no
-  content or relationship of its own beyond Alice's required membership.
+  one-member cell with one member entry about :Self — a purely
+  organizational category node with no relationship of its own beyond
+  Alice's required membership, though that member entry now carries a
+  minimal JSContactCard-style business-card claim (given name,
+  organization name, email), per cat:Others's own cell:TemplateCell.
 mia:
   category: "cat:Others"
   creator: ":Self"
@@ -27,11 +29,32 @@ mia:
 
 #### Overview
 
-This graph is the cell's one required `member` entry — a cell with a single `member` entry in the user's own category-cell tree always has `:Self` as that member (see Check 21), regardless of what the cell's `subject` is — here, Alice herself. The "Others" cell is a purely organizational category node (`cell:category: cat:Others`) with no relationship or subject of its own beyond Alice's required membership, so this stub carries no further claims. Alice is both the claimant and the subject. Deliberately empty: the `member` requirement is about `g:subject`/`g:claimant` (asserted at the `mia.graphs[]` YAML level, not in this Turtle body), not about carrying any particular content — there is no rule requiring a member's graph to assert anything at all about them.
+This graph is the cell's one required `member` entry — a cell with a single `member` entry in the user's own category-cell tree always has `:Self` as that member (see Check 21), regardless of what the cell's `subject` is — here, Alice herself. The "Others" cell is a purely organizational category node (`cell:category: cat:Others`) with no relationship or subject of its own beyond Alice's required membership. Alice is both the claimant and the subject. It carries her given name (required by `JSContactCardPersonShape`, `cell:memberGraphShape`), plus an optional organization name and email — no longer deliberately empty now that this requirement applies.
 
 #### Graph
 
 ```turtle
 <!-- databook:id: alice-others-member-graph -->
 <!-- databook:graph: http://www.example.org/mia/graphs/graph-51#graph -->
+@prefix : <http://www.example.org/mia#> .
+@prefix cco: <https://w3id.org/cco-domains/cco/> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix persona: <http://mee.foundation/ontologies/persona#> .
+
+:Self rdf:type owl:NamedIndividual ,
+               persona:Person .
+
+:Self <https://w3id.org/cco-domains/cco/ont00001879> [  # designated by → GivenName (JSContactCardPersonShape)
+        rdf:type cco:ent00000002 ;
+        <https://w3id.org/cco-domains/cco/ont00001765> "Alice"
+    ] ,
+    [  # designated by → OrganizationName (JSContactCardPersonShape)
+        rdf:type cco:ent00000047 ;
+        <https://w3id.org/cco-domains/cco/ont00001765> "Acme"
+    ] ,
+    [  # designated by → EmailAddress (JSContactCardPersonShape)
+        rdf:type cco:ent00000024 ;
+        <https://w3id.org/cco-domains/cco/ont00001765> "alice@acme.com"
+    ] .
 ```

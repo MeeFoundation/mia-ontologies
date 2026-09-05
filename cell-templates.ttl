@@ -12,12 +12,12 @@
 @base <http://mee.foundation/ontologies/cell-templates> .
 
 <http://mee.foundation/ontologies/cell-templates> rdf:type owl:Ontology ;
-    owl:versionIRI <http://mee.foundation/ontologies/cell-templates/2.0.0> ;
-    dc:date "2026-09-01"^^xsd:date ;
+    owl:versionIRI <http://mee.foundation/ontologies/cell-templates/2.11.0> ;
+    dc:date "2026-09-04"^^xsd:date ;
     owl:imports <http://mee.foundation/ontologies/cell> ;
-    owl:versionInfo "Version 2.0.0 - added cell:category linking each template cell to its category concept (category.ttl), replacing category.ttl's removed cat:templateCell annotation property."@en ;
+    owl:versionInfo "Version 2.11.0 - added ctpl:TripsTemplateCell (cat:Trips), isTopicCell true, cell:topicGraphShape pshapes:ItineraryShape — a specific trip, backed by the new persona:Itinerary template label (no existing CCO/domain class to multi-type alongside)."@en ;
     rdfs:label "Cell Templates"@en ;
-    rdfs:comment """Class-level cell:Cell templates for category concepts (category.ttl's cat:CategoryScheme). Each individual here is what the app clones into a new cell when a folder representing its own cell:category concept is first instantiated into a user's tree (Lazy Instantiation) — finding the template for a given category is a reverse lookup (?tc cell:category cat:X), since category.ttl carries no forward pointer of its own. Each is typed solely cell:TemplateCell — cell:TemplateCell and cell:MemberCell are disjoint (cell.ttl), so a template cell is reusable class-level content, never itself an instantiated member of any relationship. Each also carries cell:templateShape to the SHACL shape(s) — in the paired cell-templates-shacl.ttl for a persona:PersonaTemplate-typed template, or in other/pets-shacl.ttl for a pets:-typed one — describing the content expected of a topic file filed under that category, and cell:isTopicCell (required, exactly one value) — true on ctpl:MedicalAppointmentTemplateCell, ctpl:PetMedicationsTemplateCell, ctpl:PetProfileTemplateCell, and ctpl:VehicleProfileTemplateCell, the templates whose real cells always end up carrying a cell:topic value, false on the other three, flagging whether Lazy Instantiation's clone is expected to be typed cell:TopicCell."""@en .
+    rdfs:comment """Class-level cell:Cell templates for category concepts (category.ttl's cat:CategoryScheme). Each individual here is what the app clones into a new cell when a folder representing its own cell:category concept is first instantiated into a user's tree (Lazy Instantiation) — finding the template for a given category is a reverse lookup (?tc cell:category cat:X), since category.ttl carries no forward pointer of its own. Each is typed solely cell:TemplateCell — cell:TemplateCell and cell:MemberCell are disjoint (cell.ttl), so a template cell carries no member composition of its own, just the SHACL shape(s) it points to. Three patterns: (1) cell:memberGraphShape carries each template's own document shape, for the three templates whose content is filed as a cell:member graph (Passport, BirthCertificate, DriversLicense; in cell-templates-shacl.ttl); (2) cell:topicGraphShape carries the category's own record shape, for the five whose content is filed as a cell:topic graph instead (MedicalAppointment, PetMedications, PetProfile, VehicleProfile, Companies; in cell-templates-shacl.ttl/other/pets-shacl.ttl/other/vehicles-shacl.ttl) — and those same five also carry cell:memberGraphShape pshapes:JSContactCardPersonShape, so their otherwise-bare cell:member stub graph(s) are expected to also present a minimal JSContactCard-style business-card view of that member (targeting persona:Person directly, per shacl/jscontactcard-shacl.ttl — see cell.ttl's own cell:memberGraphShape comment); (3) cell:memberGraphShape carries pshapes:JSContactCardPersonShape alone, with no cell:topicGraphShape at all, for ctpl:PeopleTemplateCell (cat:People) and its four direct skos:broader children — ctpl:ImmediateFamilyTemplateCell (cat:ImmediateFamily), ctpl:ExtendedFamilyTemplateCell (cat:ExtendedFamily), ctpl:InLawsStepFamilyTemplateCell (cat:InLawsStepFamily), ctpl:OthersTemplateCell (cat:Others) — each a purely organizational category with no document type and no topic content of its own, whose only real expectation is that its member(s) present that same minimal business-card view. Also carries cell:isTopicCell (required, exactly one value) — true on the five templates in pattern (2), whose real cells always end up carrying a cell:topic value, false on the other eight (patterns (1) and (3)), flagging whether Lazy Instantiation's clone is expected to be typed cell:TopicCell."""@en .
 
 #################################################################
 #  cat:Passport
@@ -26,7 +26,61 @@
 ctpl:PassportTemplateCell rdf:type cell:Cell, cell:TemplateCell ;
     rdfs:label "Passport Template Cell"@en ;
     cell:category cat:Passport ;
-    cell:templateShape pshapes:PassportDocumentShape ;
+    cell:memberGraphShape pshapes:JSContactCardPersonShape ;
+    cell:topicGraphShape pshapes:PassportDocumentShape ;
+    cell:isTopicCell true .
+
+#################################################################
+#  cat:SSN
+#################################################################
+
+ctpl:SSNTemplateCell rdf:type cell:Cell, cell:TemplateCell ;
+    rdfs:label "SSN Template Cell"@en ;
+    cell:category cat:SSN ;
+    cell:memberGraphShape pshapes:JSContactCardPersonShape ;
+    cell:topicGraphShape pshapes:SSNShape ;
+    cell:isTopicCell true .
+
+#################################################################
+#  cat:Home
+#################################################################
+
+ctpl:HomeTemplateCell rdf:type cell:Cell, cell:TemplateCell ;
+    rdfs:label "Home Template Cell"@en ;
+    cell:category cat:Home ;
+    cell:memberGraphShape pshapes:JSContactCardPersonShape ;
+    cell:topicGraphShape pshapes:ResidenceShape ;
+    cell:isTopicCell true .
+
+#################################################################
+#  cat:Trips
+#################################################################
+
+ctpl:TripsTemplateCell rdf:type cell:Cell, cell:TemplateCell ;
+    rdfs:label "Trips Template Cell"@en ;
+    cell:category cat:Trips ;
+    cell:memberGraphShape pshapes:JSContactCardPersonShape ;
+    cell:topicGraphShape pshapes:ItineraryShape ;
+    cell:isTopicCell true .
+
+#################################################################
+#  No category (Custom / UserDefined cells)
+#################################################################
+
+ctpl:UserDefinedTemplateCell rdf:type cell:Cell, cell:TemplateCell ;
+    rdfs:label "User-Defined (No Category) Template Cell"@en ;
+    rdfs:comment """The one cell:TemplateCell with no cell:category value at all — for a cell the
+                    user creates without picking any existing category concept (the Custom/
+                    UserDefined case, identified by its cell-databook filename's (custom)
+                    disambiguator; see the Cell DataBook Filename Convention). Since it has no
+                    cell:category, it isn't reachable by the usual ?tc cell:category cat:X
+                    reverse lookup every other template cell uses — it's found instead as the
+                    unique cell:TemplateCell carrying no cell:category value, and Lazy
+                    Instantiation falls back to cloning it whenever a new cell is created with no
+                    category selected. Carries only cell:memberGraphShape
+                    pshapes:JSContactCardPersonShape — a Custom cell has no document type and no
+                    topic content of its own, only ever a business-card view of its member(s)."""@en ;
+    cell:memberGraphShape pshapes:JSContactCardPersonShape ;
     cell:isTopicCell false .
 
 #################################################################
@@ -36,8 +90,9 @@ ctpl:PassportTemplateCell rdf:type cell:Cell, cell:TemplateCell ;
 ctpl:BirthCertificateTemplateCell rdf:type cell:Cell, cell:TemplateCell ;
     rdfs:label "Birth Certificate Template Cell"@en ;
     cell:category cat:BirthCertificate ;
-    cell:templateShape pshapes:BirthCertificateDocumentShape ;
-    cell:isTopicCell false .
+    cell:memberGraphShape pshapes:JSContactCardPersonShape ;
+    cell:topicGraphShape pshapes:BirthCertificateDocumentShape ;
+    cell:isTopicCell true .
 
 #################################################################
 #  cat:DriversLicense
@@ -46,8 +101,9 @@ ctpl:BirthCertificateTemplateCell rdf:type cell:Cell, cell:TemplateCell ;
 ctpl:DriversLicenseTemplateCell rdf:type cell:Cell, cell:TemplateCell ;
     rdfs:label "Drivers License Template Cell"@en ;
     cell:category cat:DriversLicense ;
-    cell:templateShape pshapes:DriversLicenseDocumentShape ;
-    cell:isTopicCell false .
+    cell:memberGraphShape pshapes:JSContactCardPersonShape ;
+    cell:topicGraphShape pshapes:DriversLicenseDocumentShape ;
+    cell:isTopicCell true .
 
 #################################################################
 #  cat:MedicalAppointment
@@ -56,7 +112,8 @@ ctpl:DriversLicenseTemplateCell rdf:type cell:Cell, cell:TemplateCell ;
 ctpl:MedicalAppointmentTemplateCell rdf:type cell:Cell, cell:TemplateCell ;
     rdfs:label "Medical Appointment Template Cell"@en ;
     cell:category cat:MedicalAppointment ;
-    cell:templateShape pshapes:MedicalAppointmentRecordShape ;
+    cell:memberGraphShape pshapes:JSContactCardPersonShape ;
+    cell:topicGraphShape pshapes:MedicalAppointmentRecordShape ;
     cell:isTopicCell true .
 
 #################################################################
@@ -66,7 +123,8 @@ ctpl:MedicalAppointmentTemplateCell rdf:type cell:Cell, cell:TemplateCell ;
 ctpl:PetMedicationsTemplateCell rdf:type cell:Cell, cell:TemplateCell ;
     rdfs:label "Pet Medications Template Cell"@en ;
     cell:category cat:PetsMedical ;
-    cell:templateShape petshapes:PetMedicationRecordShape ;
+    cell:memberGraphShape pshapes:JSContactCardPersonShape ;
+    cell:topicGraphShape petshapes:PetMedicationRecordShape ;
     cell:isTopicCell true .
 
 #################################################################
@@ -76,7 +134,8 @@ ctpl:PetMedicationsTemplateCell rdf:type cell:Cell, cell:TemplateCell ;
 ctpl:PetProfileTemplateCell rdf:type cell:Cell, cell:TemplateCell ;
     rdfs:label "Pet Profile Template Cell"@en ;
     cell:category cat:Pets ;
-    cell:templateShape petshapes:PetShape ;
+    cell:memberGraphShape pshapes:JSContactCardPersonShape ;
+    cell:topicGraphShape petshapes:PetShape ;
     cell:isTopicCell true .
 
 #################################################################
@@ -86,5 +145,78 @@ ctpl:PetProfileTemplateCell rdf:type cell:Cell, cell:TemplateCell ;
 ctpl:VehicleProfileTemplateCell rdf:type cell:Cell, cell:TemplateCell ;
     rdfs:label "Vehicle Profile Template Cell"@en ;
     cell:category cat:Vehicles ;
-    cell:templateShape vehicleshapes:VehicleShape ;
+    cell:memberGraphShape pshapes:JSContactCardPersonShape ;
+    cell:topicGraphShape vehicleshapes:VehicleShape ;
+    cell:isTopicCell true .
+
+#################################################################
+#  cat:People
+#################################################################
+
+ctpl:PeopleTemplateCell rdf:type cell:Cell, cell:TemplateCell ;
+    rdfs:label "People Template Cell"@en ;
+    cell:category cat:People ;
+    cell:memberGraphShape pshapes:JSContactCardPersonShape ;
+    cell:isTopicCell false .
+
+#################################################################
+#  cat:ImmediateFamily
+#################################################################
+
+ctpl:ImmediateFamilyTemplateCell rdf:type cell:Cell, cell:TemplateCell ;
+    rdfs:label "Immediate Family Template Cell"@en ;
+    cell:category cat:ImmediateFamily ;
+    cell:memberGraphShape pshapes:JSContactCardPersonShape ;
+    cell:isTopicCell false .
+
+#################################################################
+#  cat:ExtendedFamily
+#################################################################
+
+ctpl:ExtendedFamilyTemplateCell rdf:type cell:Cell, cell:TemplateCell ;
+    rdfs:label "Extended Family Template Cell"@en ;
+    cell:category cat:ExtendedFamily ;
+    cell:memberGraphShape pshapes:JSContactCardPersonShape ;
+    cell:isTopicCell false .
+
+#################################################################
+#  cat:InLawsStepFamily
+#################################################################
+
+ctpl:InLawsStepFamilyTemplateCell rdf:type cell:Cell, cell:TemplateCell ;
+    rdfs:label "In-Laws / Step-Family Template Cell"@en ;
+    cell:category cat:InLawsStepFamily ;
+    cell:memberGraphShape pshapes:JSContactCardPersonShape ;
+    cell:isTopicCell false .
+
+#################################################################
+#  cat:Others
+#################################################################
+
+ctpl:OthersTemplateCell rdf:type cell:Cell, cell:TemplateCell ;
+    rdfs:label "Others Template Cell"@en ;
+    cell:category cat:Others ;
+    cell:memberGraphShape pshapes:JSContactCardPersonShape ;
+    cell:isTopicCell false .
+
+#################################################################
+#  cat:Companies
+#################################################################
+
+ctpl:CompaniesTemplateCell rdf:type cell:Cell, cell:TemplateCell ;
+    rdfs:label "Companies Template Cell"@en ;
+    cell:category cat:Companies ;
+    cell:memberGraphShape pshapes:JSContactCardPersonShape ;
+    cell:topicGraphShape pshapes:ServiceAccountShape ;
+    cell:isTopicCell true .
+
+#################################################################
+#  cat:BankingPayments
+#################################################################
+
+ctpl:BankingPaymentsTemplateCell rdf:type cell:Cell, cell:TemplateCell ;
+    rdfs:label "Banking & Payments Firms Template Cell"@en ;
+    cell:category cat:BankingPayments ;
+    cell:memberGraphShape pshapes:JSContactCardPersonShape ;
+    cell:topicGraphShape pshapes:ServiceAccountShape , pshapes:DebitCardShape , pshapes:CheckingAccountShape ;
     cell:isTopicCell true .

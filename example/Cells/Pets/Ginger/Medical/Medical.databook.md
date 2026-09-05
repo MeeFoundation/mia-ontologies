@@ -34,13 +34,34 @@ mia:
 
 #### Overview
 
-This graph is one of the cell's two `member` entries, satisfying the two-member baseline alongside graph 57 (Paula's own claim, below). Alice is both the claimant and the subject. Deliberately empty: the `member` requirement is about `g:subject`/`g:claimant` (asserted at the `mia.graphs[]` YAML level, not in this Turtle body), not about carrying any particular content.
+This graph is one of the cell's two `member` entries, satisfying the two-member baseline alongside graph 57 (Paula's own claim, below). Alice is both the claimant and the subject. It carries her given name, plus a minimal organization name and email, so `:Self` satisfies the `JSContactCardPersonShape` every templated cell's `member` content is now expected to conform to (`cell:memberGraphShape`) — no longer deliberately empty now that this requirement applies.
 
 #### Graph
 
 ```turtle
 <!-- databook:id: alice-ginger-medications-member-graph -->
 <!-- databook:graph: http://www.example.org/mia/graphs/graph-33#graph -->
+@prefix : <http://www.example.org/mia#> .
+@prefix cco: <https://w3id.org/cco-domains/cco/> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix persona: <http://mee.foundation/ontologies/persona#> .
+
+:Self rdf:type owl:NamedIndividual ,
+               persona:Person .
+
+:Self <https://w3id.org/cco-domains/cco/ont00001879> [  # designated by → GivenName (JSContactCardPersonShape)
+        rdf:type cco:ent00000002 ;
+        <https://w3id.org/cco-domains/cco/ont00001765> "Alice"
+    ] ,
+    [  # designated by → OrganizationName (JSContactCardPersonShape)
+        rdf:type cco:ent00000047 ;
+        <https://w3id.org/cco-domains/cco/ont00001765> "Acme"
+    ] ,
+    [  # designated by → EmailAddress (JSContactCardPersonShape)
+        rdf:type cco:ent00000024 ;
+        <https://w3id.org/cco-domains/cco/ont00001765> "alice@acme.com"
+    ] .
 ```
 
 <a id="graph-57"></a>
@@ -48,7 +69,7 @@ This graph is one of the cell's two `member` entries, satisfying the two-member 
 
 #### Overview
 
-This cell was created by Alice and later shared with Paula, making the cell a two-member cell. This graph is Paula's own bare identity claim (just her given name) — the cell's second `member` entry, satisfying the two-member baseline alongside graph 33 (Alice's own claim, above). Paula is both the claimant and the subject.
+This cell was created by Alice and later shared with Paula, making the cell a two-member cell. This graph is Paula's own identity claim — her given name is what actually satisfies the `JSContactCardPersonShape` every templated cell's `member` content is now expected to conform to (`cell:memberGraphShape`); the organization name and phone below are optional extra detail, not a requirement — the cell's second `member` entry, satisfying the two-member baseline alongside graph 33 (Alice's own claim, above). Paula is both the claimant and the subject.
 
 #### Graph
 
@@ -66,6 +87,16 @@ This cell was created by Alice and later shared with Paula, making the cell a tw
     cco:ont00001879 [  # designated by → GivenName
         rdf:type cco:ent00000002 ;  # GivenName
         cco:ont00001765 "Paula"  # has text value
+    ] ;
+
+    cco:ont00001879 [  # designated by → OrganizationName (JSContactCardPersonShape)
+        rdf:type cco:ent00000047 ;
+        cco:ont00001765 "Retired"
+    ] ;
+
+    cco:ont00001879 [  # designated by → Phone (JSContactCardPersonShape)
+        rdf:type cco:ent00000023 ;
+        cco:ont00001765 "+19165550172"
     ] .
 ```
 

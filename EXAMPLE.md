@@ -36,31 +36,31 @@ Under *Employees* she has added her own *Alice Walker* cell holding her Business
 
 ### Service Providers
 
-Alice has relationships with two companies, Google and ATT. The former provides her Gmail address, and the latter is her cell phone provider.
+Alice has relationships with two companies, Google and ATT (her cell phone provider). Both are `cat:Companies` `c:TopicCell`s: each `c:member` entry is the usual bare business-card stub, and each `c:topic` graph carries that company's service account itself — service name, username, service URI, and password — typed `persona:ServiceAccount`. Google's username is her Gmail address; ATT's is her mobile phone number, since AT&T accounts are logged into by phone number rather than a separate handle.
 
 <p align="center"><img src="example/images/companies.png" alt="Companies cells"></p>
 
 ### Checking Account and Debit Card
 
-Alice has a checking account (and associated debit care) at Citibank. In our example Citibank is compatible with PDN and participates directly as a member of this Self<>Citibank cell. Citibank directly write the data about Alice's checking account into [graph 9](<example/Cells/Finances/Banking & Payments Firms/Citibank/Citibank(banking-payments).databook.md#graph-09>). It is colored green because the claimant is Citibank, not Alice. Alice self-asserts her username and password. Citibank asserts some information about itself in [graph 27](<example/Cells/Finances/Banking & Payments Firms/Citibank/Citibank(banking-payments).databook.md#graph-27>).
+Alice has a checking account (and associated debit card) at Citibank. In our example Citibank is compatible with PDN and participates directly, claiming this cell's own topic content — a debit card, a checking account, and Citibank's own record of Alice's online service account — in [graph 76](<example/Cells/Finances/Banking & Payments Firms/Citibank/Citibank(banking-payments).databook.md#graph-76>). It is colored green because the claimant is Citibank, not Alice. Alice separately self-asserts her own username and password for that same online account in [graph 75](<example/Cells/Finances/Banking & Payments Firms/Citibank/Citibank(banking-payments).databook.md#graph-75>), and asserts her own notes about Citibank as an institution in [graph 27](<example/Cells/Finances/Banking & Payments Firms/Citibank/Citibank(banking-payments).databook.md#graph-27>). Alice's own required given-name member entry is [graph 77](<example/Cells/Finances/Banking & Payments Firms/Citibank/Citibank(banking-payments).databook.md#graph-77>).
 
 <p align="center"><img src="example/images/finances.png" alt="Financial cells"></p>
 
 ### Birth Certificate and Driver's License
 
-Alice was born in Texas and their vital records department issued a birth certificate about Alice. Alice has manually entered the information from her birth certificate ([graph 24](<example/Cells/Government/State/Texas Vital Records/Texas Vital Records(birth-certificate).databook.md#graph-24>)) and has included a scan of her paper birth certificate as content in the *Texas Vital Records* cell's Attachments tab (not shown). She recently moved to Paradise, California, and was issued a license by the California DMV. Alice manually entered the information from her plastic license card ([graph 15](<example/Cells/Government/State/California DMV/California DMV(drivers-license).databook.md#graph-15>)) and included a scan of it as content in the *California DMV* cell's Attachments tab (not shown).
+Alice was born in Texas and their vital records department issued a birth certificate about Alice. Alice has manually entered the information from her birth certificate into the *Birth Certificate* cell's topic graph ([graph 78](<example/Cells/Government/State/Birth Certificate/Birth Certificate.databook.md#graph-78>)) and has included a scan of her paper birth certificate as content in that cell's Attachments tab (not shown). She recently moved to Paradise, California, and was issued a license by the California DMV. Alice manually entered the information from her plastic license card into the *Drivers License* cell's topic graph ([graph 79](<example/Cells/Government/State/Drivers License/Drivers License.databook.md#graph-79>)) and included a scan of it as content in that cell's Attachments tab (not shown). Each cell's required `member` entry ([graph 24](<example/Cells/Government/State/Birth Certificate/Birth Certificate.databook.md#graph-24>), [graph 15](<example/Cells/Government/State/Drivers License/Drivers License.databook.md#graph-15>)) is just her bare given name.
 
 <p align="center"><img src="example/images/gov-state.png" alt="Government — State cells"></p>
 
 ### Passport and Social Security Number
 
-Alice has a social security number (SSN) issued to her by the Social Security Administration. Similarly, she has a Passport issued to her by the US Department of State.
+Alice has a social security number (SSN) issued to her by the Social Security Administration, recorded in the *SSN* cell's topic graph ([graph 80](<example/Cells/Government/Federal/SSN/SSN.databook.md#graph-80>)). Similarly, she has a Passport issued to her by the US Department of State, recorded in the *Passport* cell's topic graph ([graph 81](<example/Cells/Government/Federal/Passport/Passport.databook.md#graph-81>)). Each cell's required `member` entry ([graph 23](<example/Cells/Government/Federal/SSN/SSN.databook.md#graph-23>), [graph 19](<example/Cells/Government/Federal/Passport/Passport.databook.md#graph-19>)) is just her bare given name.
 
 <p align="center"><img src="example/images/gov-federal.png" alt="Government — Federal cells"></p>
 
 ### Current and Previous Homes
 
-Alice used to live in Boston until late 2025, but now lives in Paradise, CA. Information about these two residences are in graphs [13](<example/Cells/Home/Previous/Boston/Boston(residence).databook.md#graph-13>) and [18](<example/Cells/Home/Paradise/Paradise(residence).databook.md#graph-18>). 
+Alice used to live in Boston until late 2025, but now lives in Paradise, CA. Both cells are `cat:Home` `TopicCell`s: each `c:member` entry ([graph 13](<example/Cells/Home/Previous/Boston/Boston(home).databook.md#graph-13>), [graph 18](<example/Cells/Home/Paradise/Paradise(home).databook.md#graph-18>)) is the usual bare given-name stub, and each `c:topic` graph carries the actual `persona:Residence` — Boston's in [graph 82](<example/Cells/Home/Previous/Boston/Boston(home).databook.md#graph-82>), Paradise's in [graph 83](<example/Cells/Home/Paradise/Paradise(home).databook.md#graph-83>).
 
 <p align="center"><img src="example/images/home.png" alt="Home cells"></p>
 
@@ -149,15 +149,15 @@ A summary of every narratively-illustrated cell under `example/Cells/`, grouped 
 | Taking Care of Paula | Medical Appointment | [Medical Appointment.databook.md](<example/Cells/People/Immediate Family/Paula Walker/Health & Wellness/Medical/Provider/Medical Appointment/Medical Appointment.databook.md>) {15} | Paula Walker | `cat:MedicalAppointment` | 26, 28, 30 |
 | Working for Acme | Alice Walker | [Alice Walker(employee).databook.md](<example/Cells/Work/Acme/Employees/Alice Walker/Alice Walker(employee).databook.md>) {18} | Self | `cat:Employee` | 10 |
 | Working for Acme | Paula Walker | [Paula Walker(employee).databook.md](<example/Cells/Work/Acme/Employees/Paula Walker/Paula Walker(employee).databook.md>) {19} | Paula Walker | `cat:Employee` | 6, 20 |
-| Service Providers | Google | [Google(companies).databook.md](<example/Cells/Companies/Google/Google(companies).databook.md>) {3} | Self | `cat:Companies` | 16 |
-| Service Providers | ATT | [ATT(companies).databook.md](<example/Cells/Companies/ATT/ATT(companies).databook.md>) {2} | Self | `cat:Companies` | 11 |
+| Service Providers | Google | [Google(companies).databook.md](<example/Cells/Companies/Google/Google(companies).databook.md>) {3} | Alice's Google Account | `cat:Companies` | 16, 73 |
+| Service Providers | ATT | [ATT(companies).databook.md](<example/Cells/Companies/ATT/ATT(companies).databook.md>) {2} | Alice's AT&T Account | `cat:Companies` | 11, 74 |
 | Checking Account and Debit Card | Citibank | [Citibank(banking-payments).databook.md](<example/Cells/Finances/Banking & Payments Firms/Citibank/Citibank(banking-payments).databook.md>) {4} | Self, Citibank | `cat:BankingPayments` | 9, 27 |
-| Birth Certificate and Driver's License | Texas Vital Records | [Texas Vital Records(birth-certificate).databook.md](<example/Cells/Government/State/Texas Vital Records/Texas Vital Records(birth-certificate).databook.md>) {10} | Self | `cat:BirthCertificate` | 24 |
-| Birth Certificate and Driver's License | California DMV | [California DMV(drivers-license).databook.md](<example/Cells/Government/State/California DMV/California DMV(drivers-license).databook.md>) {9} | Self | `cat:DriversLicense` | 15 |
-| Passport and Social Security Number | Department of State | [Department of State(passport).databook.md](<example/Cells/Government/Federal/Department of State/Department of State(passport).databook.md>) {5} | Self | `cat:Passport` | 19 |
-| Passport and Social Security Number | Social Security Administration | [Social Security Administration(ssn).databook.md](<example/Cells/Government/Federal/Social Security Administration/Social Security Administration(ssn).databook.md>) {6} | Self | `cat:SSN` | 23 |
-| Current and Previous Homes | Boston | [Boston(residence).databook.md](<example/Cells/Home/Previous/Boston/Boston(residence).databook.md>) {7} | Self | `cat:Residence` | 13 |
-| Current and Previous Homes | Paradise | [Paradise(residence).databook.md](<example/Cells/Home/Paradise/Paradise(residence).databook.md>) {8} | Self | `cat:Residence` | 18 |
+| Birth Certificate and Driver's License | Birth Certificate | [Birth Certificate.databook.md](<example/Cells/Government/State/Birth Certificate/Birth Certificate.databook.md>) {10} | Self | `cat:BirthCertificate` | 24, 78 |
+| Birth Certificate and Driver's License | Drivers License | [Drivers License.databook.md](<example/Cells/Government/State/Drivers License/Drivers License.databook.md>) {9} | Self | `cat:DriversLicense` | 15, 79 |
+| Passport and Social Security Number | Passport | [Passport.databook.md](<example/Cells/Government/Federal/Passport/Passport.databook.md>) {5} | Self | `cat:Passport` | 19, 81 |
+| Passport and Social Security Number | SSN | [SSN.databook.md](<example/Cells/Government/Federal/SSN/SSN.databook.md>) {6} | Self | `cat:SSN` | 23, 80 |
+| Current and Previous Homes | Boston | [Boston(home).databook.md](<example/Cells/Home/Previous/Boston/Boston(home).databook.md>) {7} | Self | `cat:Home` | 13, 82 |
+| Current and Previous Homes | Paradise | [Paradise(home).databook.md](<example/Cells/Home/Paradise/Paradise(home).databook.md>) {8} | Self | `cat:Home` | 18, 83 |
 | Possessions | Things | [Things.databook.md](<example/Cells/Things/Things.databook.md>) {11} | Self | `cat:Things` | 22 |
 | Vehicles | RAV4 | [RAV4(vehicles).databook.md](<example/Cells/Things/Vehicles/RAV4/RAV4(vehicles).databook.md>) {44} | Alice's RAV4 | `cat:Vehicles` | 62, 63 |
 | Caring for Ginger | Ginger | [Ginger(pets).databook.md](<example/Cells/Pets/Ginger/Ginger(pets).databook.md>) {41} | Ginger | `cat:Pets` | 36, 37 |
@@ -173,26 +173,35 @@ The graphs in the table below are *about* Alice and claimed *by* Alice. The "Cel
 | #  | Cell DataBook                                                                          | Category | Key data                                                         | Diagram |
 |--- |:--------------------------------------------------------------------------------------|:-------------|:-----------------------------------------------------------------|:--------|
 | 10 | [Alice Walker(employee).databook.md](<example/Cells/Work/Acme/Employees/Alice Walker/Alice Walker(employee).databook.md#graph-10>) {18} | `cat:Employee`     | Business card — given name, family name, email, phone, employer  | [view](example/graphs/images/graph-10.png) |
-| 11 | [ATT(companies).databook.md](<example/Cells/Companies/ATT/ATT(companies).databook.md#graph-11>) {2}                     | `cat:Companies`    | Phone number                                                     | [view](example/graphs/images/graph-11.png) |
+| 11 | [ATT(companies).databook.md](<example/Cells/Companies/ATT/ATT(companies).databook.md#graph-11>) {2}                     | `cat:Companies`    | The ATT cell's required member entry — carries her given name (required by `JSContactCardPersonShape`, `cell:memberGraphShape`, since this template is `isTopicCell: true`), plus an optional organization name and email          | [view](example/graphs/images/graph-11.png) |
 | 12 | [Bob Johnson(others).databook.md](<example/Cells/People/Others/Bob Johnson/Bob Johnson(others).databook.md#graph-12>) {16}                     | `cat:Others`       | Alice's 1:1 graph with Bob; social network with Bob as member  | [view](example/graphs/images/graph-12.png)|
-| 13 | [Boston(residence).databook.md](<example/Cells/Home/Previous/Boston/Boston(residence).databook.md#graph-13>) {7}               | `cat:Residence` | Previous address — Boston, MA (2020–2025) with temporal interval | [view](example/graphs/images/graph-13.png) |
+| 13 | [Boston(home).databook.md](<example/Cells/Home/Previous/Boston/Boston(home).databook.md#graph-13>) {7}               | `cat:Home` | The Boston cell's required member entry — carries her given name (required by `JSContactCardPersonShape`, `cell:memberGraphShape`, since this template is `isTopicCell: true`)          | [view](example/graphs/images/graph-13.png) |
 | 14  | [Boston Hub Society(affiliations).databook.md](<example/Cells/Affiliations/Boston Hub Society/Boston Hub Society(affiliations).databook.md#graph-14>) {1}                     | `cat:Affiliations` | BHS profile: email, phone and current address                    | [view](example/graphs/images/graph-14.png)|
-| 15 | [California DMV(drivers-license).databook.md](<example/Cells/Government/State/California DMV/California DMV(drivers-license).databook.md#graph-15>) {9} | `cat:DriversLicense`      | California driver's license — legal name, DOB, DL#, expiry, photo | [view](example/graphs/images/graph-15.png) |
-| 16 | [Google(companies).databook.md](<example/Cells/Companies/Google/Google(companies).databook.md#graph-16>) {3}               | `cat:Companies`    | Gmail address                                                    | [view](example/graphs/images/graph-16.png) |
-| 18 | [Paradise(residence).databook.md](<example/Cells/Home/Paradise/Paradise(residence).databook.md#graph-18>) {8}           | `cat:Residence` | Current address — Paradise, CA (2025–present)                    | [view](example/graphs/images/graph-18.png) |
-| 19 | [Department of State(passport).databook.md](<example/Cells/Government/Federal/Department of State/Department of State(passport).databook.md#graph-19>) {5}             | `cat:Passport`    | US passport — legal name, DOB, passport#, issue/expiry, place of birth, gender marker, photo | [view](example/graphs/images/graph-19.png) |
+| 15 | [Drivers License.databook.md](<example/Cells/Government/State/Drivers License/Drivers License.databook.md#graph-15>) {9} | `cat:DriversLicense`      | The Drivers License cell's required member entry — carries her given name (required by `JSContactCardPersonShape`, `cell:memberGraphShape`, since this template is `isTopicCell: true`) | [view](example/graphs/images/graph-15.png) |
+| 16 | [Google(companies).databook.md](<example/Cells/Companies/Google/Google(companies).databook.md#graph-16>) {3}               | `cat:Companies`    | The Google cell's required member entry — carries her given name (required by `JSContactCardPersonShape`, `cell:memberGraphShape`, since this template is `isTopicCell: true`), plus an optional organization name and email          | [view](example/graphs/images/graph-16.png) |
+| 18 | [Paradise(home).databook.md](<example/Cells/Home/Paradise/Paradise(home).databook.md#graph-18>) {8}           | `cat:Home` | The Paradise cell's required member entry — carries her given name (required by `JSContactCardPersonShape`, `cell:memberGraphShape`, since this template is `isTopicCell: true`) | [view](example/graphs/images/graph-18.png) |
+| 19 | [Passport.databook.md](<example/Cells/Government/Federal/Passport/Passport.databook.md#graph-19>) {5}             | `cat:Passport`    | The Passport cell's required member entry — carries her given name (required by `JSContactCardPersonShape`, `cell:memberGraphShape`, since this template is `isTopicCell: true`) | [view](example/graphs/images/graph-19.png) |
 | 20 | [Paula Walker(employee).databook.md](<example/Cells/Work/Acme/Employees/Paula Walker/Paula Walker(employee).databook.md#graph-20>) {19}                   | `cat:Employee`     | Acme employee graph; company email; works with Paula           | [view](example/graphs/images/graph-20.png)|
 | 21 | [Paula Walker(immediate-family).databook.md](<example/Cells/People/Immediate Family/Paula Walker/Paula Walker(immediate-family).databook.md#graph-21>) {12}   | `cat:ImmediateFamily`       | Alice as a family member                       | [view](example/graphs/images/graph-21.png) |
 | 22 | [Things.databook.md](<example/Cells/Things/Things.databook.md#graph-22>) {11}     | `cat:Things`  | Wallet (driver's license + payment card); health ins., SSN card  | [view](example/graphs/images/graph-22.png) |
-| 23 | [Social Security Administration(ssn).databook.md](<example/Cells/Government/Federal/Social Security Administration/Social Security Administration(ssn).databook.md#graph-23>) {6}                     | `cat:SSN`      | Social security number (SSN)                                     | [view](example/graphs/images/graph-23.png) |
-| 24 | [Texas Vital Records(birth-certificate).databook.md](<example/Cells/Government/State/Texas Vital Records/Texas Vital Records(birth-certificate).databook.md#graph-24>) {10} | `cat:BirthCertificate`        | Legal names, maiden name                                         | [view](example/graphs/images/graph-24.png) |
+| 23 | [SSN.databook.md](<example/Cells/Government/Federal/SSN/SSN.databook.md#graph-23>) {6}                     | `cat:SSN`      | The SSN cell's required member entry — carries her given name (required by `JSContactCardPersonShape`, `cell:memberGraphShape`, since this template is `isTopicCell: true`) | [view](example/graphs/images/graph-23.png) |
+| 24 | [Birth Certificate.databook.md](<example/Cells/Government/State/Birth Certificate/Birth Certificate.databook.md#graph-24>) {10} | `cat:BirthCertificate`        | The Birth Certificate cell's required member entry — carries her given name (required by `JSContactCardPersonShape`, `cell:memberGraphShape`, since this template is `isTopicCell: true`) | [view](example/graphs/images/graph-24.png) |
+| 78 | [Birth Certificate.databook.md](<example/Cells/Government/State/Birth Certificate/Birth Certificate.databook.md#graph-78>) {10} | `cat:BirthCertificate` | Alice's Texas birth certificate — legal names, maiden name; typed `persona:BirthCertificateDocument` | [view](example/graphs/images/graph-78.png) |
+| 79 | [Drivers License.databook.md](<example/Cells/Government/State/Drivers License/Drivers License.databook.md#graph-79>) {9} | `cat:DriversLicense` | California driver's license — legal name, DOB, DL#, expiry, photo; typed `persona:DriversLicenseDocument` | [view](example/graphs/images/graph-79.png) |
+| 80 | [SSN.databook.md](<example/Cells/Government/Federal/SSN/SSN.databook.md#graph-80>) {6} | `cat:SSN` | Social security number (SSN) | [view](example/graphs/images/graph-80.png) |
+| 81 | [Passport.databook.md](<example/Cells/Government/Federal/Passport/Passport.databook.md#graph-81>) {5} | `cat:Passport` | US passport — legal name, DOB, passport#, issue/expiry, place of birth, gender marker, photo; typed `persona:PassportDocument` | [view](example/graphs/images/graph-81.png) |
+| 82 | [Boston(home).databook.md](<example/Cells/Home/Previous/Boston/Boston(home).databook.md#graph-82>) {7} | `cat:Home` | Previous address — Boston, MA (2020–2025) with temporal interval; typed `persona:Residence` | [view](example/graphs/images/graph-82.png) |
+| 83 | [Paradise(home).databook.md](<example/Cells/Home/Paradise/Paradise(home).databook.md#graph-83>) {8} | `cat:Home` | Current address — Paradise, CA (2025–present); typed `persona:Residence` | [view](example/graphs/images/graph-83.png) |
 | 29 | [Fred Flintstone(others).databook.md](<example/Cells/People/Others/Fred Flintstone/Fred Flintstone(others).databook.md#graph-29>) {17}                     | `cat:Others`       | Alice's 1:1 graph with Fred; social network with Fred as member  | [view](example/graphs/images/graph-29.png) |
-| 33 | [Medical.databook.md](<example/Cells/Pets/Ginger/Medical/Medical.databook.md#graph-33>) {40} | `cat:PetsMedical`     | Deliberately empty — the Ginger-Medical cell's required member entry          | [view](example/graphs/images/graph-33.png) |
+| 33 | [Medical.databook.md](<example/Cells/Pets/Ginger/Medical/Medical.databook.md#graph-33>) {40} | `cat:PetsMedical`     | The Ginger-Medical cell's required member entry — carries her given name (required by `JSContactCardPersonShape`, `cell:memberGraphShape`, since this template is `isTopicCell: true`), plus an optional organization name and email          | [view](example/graphs/images/graph-33.png) |
 | 34 | [Jane Starostina(primary-care-physician).databook.md](<example/Cells/People/Immediate Family/Paula Walker/Health & Wellness/Medical/Provider/Jane Starostina/Jane Starostina(primary-care-physician).databook.md#graph-34>) {14} | `cat:PrimaryCarePhysician`     | Alice's bare given-name claim — the Jane-Starostina cell's required member entry          | [view](example/graphs/images/graph-34.png) |
 | 35 | [Health & Wellness.databook.md](<example/Cells/People/Immediate Family/Paula Walker/Health & Wellness/Health & Wellness.databook.md#graph-35>) {13} | `cat:HealthWellness`     | Alice's bare given-name claim — the Health & Wellness cell's required member entry          | [view](example/graphs/images/graph-35.png) |
-| 36 | [Ginger(pets).databook.md](<example/Cells/Pets/Ginger/Ginger(pets).databook.md#graph-36>) {41} | `cat:Pets`     | Deliberately empty — the Ginger cell's required member entry; the `member` requirement is about `c:subject`/`c:claimant`, not about carrying content          | [view](example/graphs/images/graph-36.png) |
+| 36 | [Ginger(pets).databook.md](<example/Cells/Pets/Ginger/Ginger(pets).databook.md#graph-36>) {41} | `cat:Pets`     | The Ginger cell's required member entry — carries her given name (required by `JSContactCardPersonShape`, `cell:memberGraphShape`, since this template is `isTopicCell: true`), plus an optional organization name and email          | [view](example/graphs/images/graph-36.png) |
+| 47 | [People.databook.md](<example/Cells/People/People.databook.md#graph-47>) {29} | `cat:People`     | The People cell's required member entry — carries her given name (required by `JSContactCardPersonShape`, `cell:memberGraphShape`), plus an optional organization name and email          | *(todo)* |
+| 48 | [Immediate Family.databook.md](<example/Cells/People/Immediate Family/Immediate Family.databook.md#graph-48>) {30} | `cat:ImmediateFamily`     | The Immediate Family cell's required member entry — carries her given name (required by `JSContactCardPersonShape`, `cell:memberGraphShape`), plus an optional organization name and email          | *(todo)* |
+| 51 | [Others.databook.md](<example/Cells/People/Others/Others.databook.md#graph-51>) {33} | `cat:Others`     | The Others cell's required member entry — carries her given name (required by `JSContactCardPersonShape`, `cell:memberGraphShape`), plus an optional organization name and email          | *(todo)* |
 | 58 | [Care & Feeding.databook.md](<example/Cells/Pets/Ginger/Care & Feeding/Care & Feeding.databook.md#graph-58>) {42} | `cat:PetsCareAndFeeding`     | Alice's bare given-name claim — the Ginger-Care & Feeding cell's required member entry          | [view](example/graphs/images/graph-58.png) |
-| 62 | [RAV4(vehicles).databook.md](<example/Cells/Things/Vehicles/RAV4/RAV4(vehicles).databook.md#graph-62>) {44} | `cat:Vehicles`     | Deliberately empty — the RAV4 cell's required member entry; the `member` requirement is about `c:subject`/`c:claimant`, not about carrying content          | [view](example/graphs/images/graph-62.png) |
+| 62 | [RAV4(vehicles).databook.md](<example/Cells/Things/Vehicles/RAV4/RAV4(vehicles).databook.md#graph-62>) {44} | `cat:Vehicles`     | The RAV4 cell's required member entry — carries her given name (required by `JSContactCardPersonShape`, `cell:memberGraphShape`, since this template is `isTopicCell: true`), plus an optional organization name and email          | [view](example/graphs/images/graph-62.png) |
 | 66 | [Kyoto Trip 2027(trips).databook.md](<example/Cells/Travel/Trips/Kyoto Trip 2027/Kyoto Trip 2027(trips).databook.md#graph-66>) {47} | `cat:Trips` | Alice's bare given-name claim, extended with her social network link to Dave — one of the Kyoto Trip cell's three required member entries | [view](example/graphs/images/graph-66.png) |
 
 The following table lists graphs that are *about* Alice but claimed by others.
@@ -222,7 +231,7 @@ The following table lists graphs about other people (Paula and Bob) or organizat
 | 31 | [Fred Flintstone(others).databook.md](<example/Cells/People/Others/Fred Flintstone/Fred Flintstone(others).databook.md#graph-31>) {17}                     | `cat:Others`       | Fred's self-claimed Fred persona                                 | [view](example/graphs/images/graph-31.png) |
 | 32 | [Medical.databook.md](<example/Cells/Pets/Ginger/Medical/Medical.databook.md#graph-32>) {40} | `cat:PetsMedical`       | Alice's record of her cat Ginger's medications — amoxicillin/clavulanate course, ongoing glucosamine/chondroitin supplement           | [view](example/graphs/images/graph-32.png)|
 | 37 | [Ginger(pets).databook.md](<example/Cells/Pets/Ginger/Ginger(pets).databook.md#graph-37>) {41} | `cat:Pets`       | Alice's basic claim identifying Ginger — name, species (Felis catus, NCBITaxon), breed (Mixed Breed (Cat), VBO), birth date, and current body weight — backs the Ginger cell's `subject: ":Ginger"` with a real graph, typed `pets:Pet`           | [view](example/graphs/images/graph-37.png)|
-| 57 | [Medical.databook.md](<example/Cells/Pets/Ginger/Medical/Medical.databook.md#graph-57>) {40} | `cat:PetsMedical`       | Paula's own self-claimed given-name claim — the cell's second `member` entry after Alice shared it with her, making it a two-member cell           | [view](example/graphs/images/graph-57.png)|
+| 57 | [Medical.databook.md](<example/Cells/Pets/Ginger/Medical/Medical.databook.md#graph-57>) {40} | `cat:PetsMedical`       | Paula's own self-claimed given-name claim (required by `JSContactCardPersonShape`) — the cell's second `member` entry after Alice shared it with her, making it a two-member cell — plus an optional organization name and phone           | [view](example/graphs/images/graph-57.png)|
 | 59 | [Care & Feeding.databook.md](<example/Cells/Pets/Ginger/Care & Feeding/Care & Feeding.databook.md#graph-59>) {42} | `cat:PetsCareAndFeeding`       | Paula's own self-claimed given-name claim — the cell's second `member` entry after Alice shared it with her, making it a two-member cell           | [view](example/graphs/images/graph-59.png)|
 | 60 | [Care & Feeding.databook.md](<example/Cells/Pets/Ginger/Care & Feeding/Care & Feeding.databook.md#graph-60>) {42} | `cat:PetsCareAndFeeding`       | Alice's day-to-day care and feeding instructions for Ginger — feeding schedule, food, and where she sleeps           | [view](example/graphs/images/graph-60.png)|
 | 63 | [RAV4(vehicles).databook.md](<example/Cells/Things/Vehicles/RAV4/RAV4(vehicles).databook.md#graph-63>) {44} | `cat:Vehicles`       | Alice's basic claim identifying her car — vehicle type (Car), make and model (Toyota RAV4, real Wikidata individuals), model year, VIN, color, body type, fuel type, drive wheel configuration, odometer reading, and engine specification — backs the RAV4 cell's `subject: ":Alice_RAV4"` with a real graph, typed `v:Vehicle`           | [view](example/graphs/images/graph-63.png)|
@@ -230,6 +239,8 @@ The following table lists graphs about other people (Paula and Bob) or organizat
 | 68 | [Kyoto Trip 2027(trips).databook.md](<example/Cells/Travel/Trips/Kyoto Trip 2027/Kyoto Trip 2027(trips).databook.md#graph-68>) {47} | `cat:Trips` | Dave's own self-claimed bare given-name persona — the Kyoto Trip cell's third required member entry, making it a three-member cell | [view](example/graphs/images/graph-68.png)|
 | 69 | [Kyoto Trip 2027(trips).databook.md](<example/Cells/Travel/Trips/Kyoto Trip 2027/Kyoto Trip 2027(trips).databook.md#graph-69>) {47} | `cat:Trips` | Alice's basic claim identifying the trip itself — backs the Kyoto Trip cell's derived subject `:Kyoto_Trip_2027` with a real graph, distinct from her agent's own contribution (graph 70) | [view](example/graphs/images/graph-69.png)|
 | 70 | [Kyoto Trip 2027(trips).databook.md](<example/Cells/Travel/Trips/Kyoto Trip 2027/Kyoto Trip 2027(trips).databook.md#graph-70>) {47} | `cat:Trips` | Alice's travel agent's own evolving, collaboratively-drafted itinerary for the trip — a single graph revised in place turn by turn, not replaced each time | [view](example/graphs/images/graph-70.png)|
+| 73 | [Google(companies).databook.md](<example/Cells/Companies/Google/Google(companies).databook.md#graph-73>) {3} | `cat:Companies` | Alice's basic claim about her Google account itself — service name, username (her Gmail address), and password — backs the Google cell's derived subject `:Alice_Google_Account` with a real graph, typed `persona:ServiceAccount` | [view](example/graphs/images/graph-73.png)|
+| 74 | [ATT(companies).databook.md](<example/Cells/Companies/ATT/ATT(companies).databook.md#graph-74>) {2} | `cat:Companies` | Alice's basic claim about her AT&T account itself — service name, username (her mobile phone number), service URI, and password — backs the ATT cell's derived subject `:Alice_ATT_Account` with a real graph, typed `persona:ServiceAccount` | [view](example/graphs/images/graph-74.png)|
 
 ## Diagrams
 
@@ -237,7 +248,7 @@ The following table lists graphs about other people (Paula and Bob) or organizat
 
 ```bash
 python3 draw.py "example/Cells/Finances/Banking & Payments Firms/Citibank/Citibank(banking-payments).databook.md" "graph-09"
-python3 draw.py "example/Cells/Home/Paradise/Paradise(residence).databook.md" "graph-18"
+python3 draw.py "example/Cells/Home/Paradise/Paradise(home).databook.md" "graph-18"
 ```
 
 Both output files are always written to `example/graphs/images/` (must be run from the repo root), keyed by the graph's own id local-name.
@@ -295,14 +306,17 @@ done >> /tmp/mia-data.ttl
 # :SCGraphShape never fires against real instance data. See yaml-to-rdf.py.
 python3 yaml-to-rdf.py . > /tmp/mia-yaml.ttl
 
-# Step 2 — merge data with all ontology files, foundation ontologies, and self.ttl
+# Step 2 — merge data with all ontology files and foundation ontologies
 # (cell-templates.ttl is deliberately excluded here, unlike Tier 2's base merge
 # below: its template individuals are generic, reusable content with no real
 # person bound to them, so they can't sensibly carry cell-shacl.ttl's required
 # c:member/c:creator/c:owner — they're validated only via cell-templates-shacl.ttl/
 # other/pets-shacl.ttl/other/vehicles-shacl.ttl, in Tier 2. other/pets.ttl and
 # other/vehicles.ttl are included below — each is a full peer application
-# ontology, same as persona-templates.ttl/cell.ttl/etc.)
+# ontology, same as persona-templates.ttl/cell.ttl/etc. There is no separate
+# self.ttl to merge any more — :Self's own rdf:type is asserted directly in
+# every graph that references :Self, the same self-containment rule every
+# other named individual's own graphs already follow.)
 riot --output=turtle \
   project_files/bfo-core.ttl \
   project_files/PersonOntology.ttl \
@@ -318,7 +332,6 @@ riot --output=turtle \
   project_files/prov-upper.ttl \
   persona.ttl persona-templates.ttl cell.ttl category.ttl other/pets.ttl other/vehicles.ttl \
   organization.ttl agent.ttl \
-  example/graphs/self.ttl \
   /tmp/mia-data.ttl \
   /tmp/mia-yaml.ttl \
   2>/dev/null > /tmp/mia-merged.ttl
@@ -342,10 +355,12 @@ Expected output: `Conforms`
 
 ### Tier 2 — per-template validation (individual graphs)
 
-Four of the eight per-template shapes (BirthCertificate, DriversLicense, Passport, MedicalAppointment) live in `cell-templates-shacl.ttl`; two (Pet, PetMedicationRecord) live in `other/pets-shacl.ttl`; one (Vehicle) lives in `other/vehicles-shacl.ttl`; JSContactCard's shape remains a standalone file in `shacl/` (it has no category concept of its own — see [Persona Templates](README.md#persona-templates)). Each is run against only the relevant graph, isolated via `extract-graph.py` from its owning cell DataBook file and merged with the foundation ontologies. Isolation matters because a cell may hold more than one graph — the MedicalAppointment case below lives in a three-graph cell, so a whole-file `databook extract` there would wrongly pull in its two sibling graphs' data too.
+Seven of the per-template shapes (BirthCertificate, DriversLicense, Passport, MedicalAppointment, ServiceAccount, Residence, Itinerary) live in `cell-templates-shacl.ttl`; two (Pet, PetMedicationRecord) live in `other/pets-shacl.ttl`; one (Vehicle) lives in `other/vehicles-shacl.ttl`; JSContactCard's shape remains a standalone file in `shacl/` (it has no category concept of its own — see [Persona Templates](README.md#persona-templates)); three more (DebitCard, CheckingAccount, SSN) reuse existing shapes directly from `persona-shacl.ttl` rather than adding a new one, since each already had a Tier-1-level shape targeting the same (or a multi-typed) individual before its `persona:PersonaTemplate` label existed. Each is run against only the relevant graph, isolated via `extract-graph.py` from its owning cell DataBook file and merged with the foundation ontologies. Isolation matters because a cell may hold more than one graph — the MedicalAppointment case below lives in a three-graph cell, so a whole-file `databook extract` there would wrongly pull in its two sibling graphs' data too.
 
 ```bash
-# Shared base: foundation ontologies + application ontologies + self.ttl
+# Shared base: foundation ontologies + application ontologies
+# (no separate self.ttl any more — :Self's own rdf:type is asserted directly
+# in every graph that references :Self)
 riot --output=turtle \
   project_files/bfo-core.ttl \
   project_files/PersonOntology.ttl \
@@ -361,11 +376,10 @@ riot --output=turtle \
   project_files/prov-upper.ttl \
   persona.ttl persona-templates.ttl cell.ttl category.ttl cell-templates.ttl other/pets.ttl other/vehicles.ttl \
   organization.ttl agent.ttl \
-  example/graphs/self.ttl \
   2>/dev/null > /tmp/mia-base.ttl
 
-# BirthCertificate — graph-24
-python3 extract-graph.py "example/Cells/Government/State/Texas Vital Records/Texas Vital Records(birth-certificate).databook.md" "graph-24" > /tmp/data-birth-cert-raw.ttl
+# BirthCertificate — graph-78 (topic graph; cat:BirthCertificate is now pattern-(2), isTopicCell true)
+python3 extract-graph.py "example/Cells/Government/State/Birth Certificate/Birth Certificate.databook.md" "graph-78" > /tmp/data-birth-cert-raw.ttl
 riot --output=turtle /tmp/mia-base.ttl /tmp/data-birth-cert-raw.ttl 2>/dev/null > /tmp/data-birth-cert.ttl
 grep -v 'owl:imports' cell-templates-shacl.ttl > /tmp/shapes-cell-templates.ttl
 shacl validate --shapes /tmp/shapes-cell-templates.ttl --data /tmp/data-birth-cert.ttl --text
@@ -376,15 +390,49 @@ riot --output=turtle /tmp/mia-base.ttl /tmp/data-jscontact-raw.ttl 2>/dev/null >
 grep -v 'owl:imports' shacl/jscontactcard-shacl.ttl > /tmp/shapes-jscontact.ttl
 shacl validate --shapes /tmp/shapes-jscontact.ttl --data /tmp/data-jscontact.ttl --text
 
-# DriversLicense — graph-15
-python3 extract-graph.py "example/Cells/Government/State/California DMV/California DMV(drivers-license).databook.md" "graph-15" > /tmp/data-dl-raw.ttl
+# BirthCertificate's own cell:memberGraphShape pshapes:JSContactCardPersonShape —
+# applies to its one cell:member graph, not to graph-78 above (the cell:topic
+# graph, validated by BirthCertificateDocumentShape instead).
+python3 extract-graph.py "example/Cells/Government/State/Birth Certificate/Birth Certificate.databook.md" "graph-24" > /tmp/data-birth-cert-member-raw.ttl
+riot --output=turtle /tmp/mia-base.ttl /tmp/data-birth-cert-member-raw.ttl 2>/dev/null > /tmp/data-birth-cert-member.ttl
+shacl validate --shapes /tmp/shapes-jscontact.ttl --data /tmp/data-birth-cert-member.ttl --text
+
+# DriversLicense — graph-79 (topic graph; cat:DriversLicense is now pattern-(2), isTopicCell true)
+python3 extract-graph.py "example/Cells/Government/State/Drivers License/Drivers License.databook.md" "graph-79" > /tmp/data-dl-raw.ttl
 riot --output=turtle /tmp/mia-base.ttl /tmp/data-dl-raw.ttl 2>/dev/null > /tmp/data-dl.ttl
 shacl validate --shapes /tmp/shapes-cell-templates.ttl --data /tmp/data-dl.ttl --text
 
-# Passport — graph-19
-python3 extract-graph.py "example/Cells/Government/Federal/Department of State/Department of State(passport).databook.md" "graph-19" > /tmp/data-passport-raw.ttl
+# DriversLicense's own cell:memberGraphShape pshapes:JSContactCardPersonShape —
+# applies to its one cell:member graph, not to graph-79 above (the cell:topic
+# graph, validated by DriversLicenseDocumentShape instead).
+python3 extract-graph.py "example/Cells/Government/State/Drivers License/Drivers License.databook.md" "graph-15" > /tmp/data-dl-member-raw.ttl
+riot --output=turtle /tmp/mia-base.ttl /tmp/data-dl-member-raw.ttl 2>/dev/null > /tmp/data-dl-member.ttl
+shacl validate --shapes /tmp/shapes-jscontact.ttl --data /tmp/data-dl-member.ttl --text
+
+# Passport — graph-81 (topic graph; cat:Passport is now pattern-(2), isTopicCell true)
+python3 extract-graph.py "example/Cells/Government/Federal/Passport/Passport.databook.md" "graph-81" > /tmp/data-passport-raw.ttl
 riot --output=turtle /tmp/mia-base.ttl /tmp/data-passport-raw.ttl 2>/dev/null > /tmp/data-passport.ttl
 shacl validate --shapes /tmp/shapes-cell-templates.ttl --data /tmp/data-passport.ttl --text
+
+# Passport's own cell:memberGraphShape pshapes:JSContactCardPersonShape —
+# applies to its one cell:member graph, not to graph-81 above (the cell:topic
+# graph, validated by PassportDocumentShape instead).
+python3 extract-graph.py "example/Cells/Government/Federal/Passport/Passport.databook.md" "graph-19" > /tmp/data-passport-member-raw.ttl
+riot --output=turtle /tmp/mia-base.ttl /tmp/data-passport-member-raw.ttl 2>/dev/null > /tmp/data-passport-member.ttl
+shacl validate --shapes /tmp/shapes-jscontact.ttl --data /tmp/data-passport-member.ttl --text
+
+# SSN — graph-80 (topic graph; cat:SSN's topicGraphShape reuses persona-shacl.ttl's own :SSNShape directly)
+python3 extract-graph.py "example/Cells/Government/Federal/SSN/SSN.databook.md" "graph-80" > /tmp/data-ssn-raw.ttl
+riot --output=turtle /tmp/mia-base.ttl /tmp/data-ssn-raw.ttl 2>/dev/null > /tmp/data-ssn.ttl
+grep -v 'owl:imports' persona-shacl.ttl > /tmp/shapes-persona.ttl
+shacl validate --shapes /tmp/shapes-persona.ttl --data /tmp/data-ssn.ttl --text
+
+# SSN's own cell:memberGraphShape pshapes:JSContactCardPersonShape —
+# applies to its one cell:member graph, not to graph-80 above (the cell:topic
+# graph, validated directly by persona-shacl.ttl's :SSNShape instead).
+python3 extract-graph.py "example/Cells/Government/Federal/SSN/SSN.databook.md" "graph-23" > /tmp/data-ssn-member-raw.ttl
+riot --output=turtle /tmp/mia-base.ttl /tmp/data-ssn-member-raw.ttl 2>/dev/null > /tmp/data-ssn-member.ttl
+shacl validate --shapes /tmp/shapes-jscontact.ttl --data /tmp/data-ssn-member.ttl --text
 
 # MedicalAppointment — graph-26
 # (this cell has THREE embedded graphs — extract-graph.py isolates just this one,
@@ -393,22 +441,203 @@ python3 extract-graph.py "example/Cells/People/Immediate Family/Paula Walker/Hea
 riot --output=turtle /tmp/mia-base.ttl /tmp/data-medical-appt-raw.ttl 2>/dev/null > /tmp/data-medical-appt.ttl
 shacl validate --shapes /tmp/shapes-cell-templates.ttl --data /tmp/data-medical-appt.ttl --text
 
+# MedicalAppointment's own cell:memberGraphShape pshapes:JSContactCardPersonShape —
+# applies to its two cell:member graphs (Carol's own persona, Alice's own contact
+# info), not to graph-26 above (the cell:topic graph, validated by
+# MedicalAppointmentRecordShape instead). Reuses /tmp/shapes-jscontact.ttl, already
+# built above for the JSContactCard entry.
+python3 extract-graph.py "example/Cells/People/Immediate Family/Paula Walker/Health & Wellness/Medical/Provider/Medical Appointment/Medical Appointment.databook.md" "graph-28" > /tmp/data-medical-appt-member-carol-raw.ttl
+riot --output=turtle /tmp/mia-base.ttl /tmp/data-medical-appt-member-carol-raw.ttl 2>/dev/null > /tmp/data-medical-appt-member-carol.ttl
+shacl validate --shapes /tmp/shapes-jscontact.ttl --data /tmp/data-medical-appt-member-carol.ttl --text
+
+python3 extract-graph.py "example/Cells/People/Immediate Family/Paula Walker/Health & Wellness/Medical/Provider/Medical Appointment/Medical Appointment.databook.md" "graph-30" > /tmp/data-medical-appt-member-self-raw.ttl
+riot --output=turtle /tmp/mia-base.ttl /tmp/data-medical-appt-member-self-raw.ttl 2>/dev/null > /tmp/data-medical-appt-member-self.ttl
+shacl validate --shapes /tmp/shapes-jscontact.ttl --data /tmp/data-medical-appt-member-self.ttl --text
+
 # PetMedications — graph-32
 python3 extract-graph.py "example/Cells/Pets/Ginger/Medical/Medical.databook.md" "graph-32" > /tmp/data-pet-medications-raw.ttl
 riot --output=turtle /tmp/mia-base.ttl /tmp/data-pet-medications-raw.ttl 2>/dev/null > /tmp/data-pet-medications.ttl
 grep -v 'owl:imports' other/pets-shacl.ttl > /tmp/shapes-pets.ttl
 shacl validate --shapes /tmp/shapes-pets.ttl --data /tmp/data-pet-medications.ttl --text
 
+# PetMedications' own cell:memberGraphShape pshapes:JSContactCardPersonShape —
+# applies to its two cell:member graphs (Alice's own stub, Paula's own stub),
+# not to graph-32 above (the cell:topic graph, validated by
+# PetMedicationRecordShape instead).
+python3 extract-graph.py "example/Cells/Pets/Ginger/Medical/Medical.databook.md" "graph-33" > /tmp/data-pet-medications-member-self-raw.ttl
+riot --output=turtle /tmp/mia-base.ttl /tmp/data-pet-medications-member-self-raw.ttl 2>/dev/null > /tmp/data-pet-medications-member-self.ttl
+shacl validate --shapes /tmp/shapes-jscontact.ttl --data /tmp/data-pet-medications-member-self.ttl --text
+
+python3 extract-graph.py "example/Cells/Pets/Ginger/Medical/Medical.databook.md" "graph-57" > /tmp/data-pet-medications-member-paula-raw.ttl
+riot --output=turtle /tmp/mia-base.ttl /tmp/data-pet-medications-member-paula-raw.ttl 2>/dev/null > /tmp/data-pet-medications-member-paula.ttl
+shacl validate --shapes /tmp/shapes-jscontact.ttl --data /tmp/data-pet-medications-member-paula.ttl --text
+
 # PetProfile — graph-37
 python3 extract-graph.py "example/Cells/Pets/Ginger/Ginger(pets).databook.md" "graph-37" > /tmp/data-pet-profile-raw.ttl
 riot --output=turtle /tmp/mia-base.ttl /tmp/data-pet-profile-raw.ttl 2>/dev/null > /tmp/data-pet-profile.ttl
 shacl validate --shapes /tmp/shapes-pets.ttl --data /tmp/data-pet-profile.ttl --text
+
+# PetProfile's own cell:memberGraphShape pshapes:JSContactCardPersonShape —
+# applies to its one cell:member graph, not to graph-37 above (the cell:topic
+# graph, validated by PetShape instead).
+python3 extract-graph.py "example/Cells/Pets/Ginger/Ginger(pets).databook.md" "graph-36" > /tmp/data-pet-profile-member-raw.ttl
+riot --output=turtle /tmp/mia-base.ttl /tmp/data-pet-profile-member-raw.ttl 2>/dev/null > /tmp/data-pet-profile-member.ttl
+shacl validate --shapes /tmp/shapes-jscontact.ttl --data /tmp/data-pet-profile-member.ttl --text
 
 # VehicleProfile — graph-63
 python3 extract-graph.py "example/Cells/Things/Vehicles/RAV4/RAV4(vehicles).databook.md" "graph-63" > /tmp/data-vehicle-profile-raw.ttl
 riot --output=turtle /tmp/mia-base.ttl /tmp/data-vehicle-profile-raw.ttl 2>/dev/null > /tmp/data-vehicle-profile.ttl
 grep -v 'owl:imports' other/vehicles-shacl.ttl > /tmp/shapes-vehicles.ttl
 shacl validate --shapes /tmp/shapes-vehicles.ttl --data /tmp/data-vehicle-profile.ttl --text
+
+# VehicleProfile's own cell:memberGraphShape pshapes:JSContactCardPersonShape —
+# applies to its one cell:member graph, not to graph-63 above (the cell:topic
+# graph, validated by VehicleShape instead).
+python3 extract-graph.py "example/Cells/Things/Vehicles/RAV4/RAV4(vehicles).databook.md" "graph-62" > /tmp/data-vehicle-profile-member-raw.ttl
+riot --output=turtle /tmp/mia-base.ttl /tmp/data-vehicle-profile-member-raw.ttl 2>/dev/null > /tmp/data-vehicle-profile-member.ttl
+shacl validate --shapes /tmp/shapes-jscontact.ttl --data /tmp/data-vehicle-profile-member.ttl --text
+
+# ServiceAccount — graph-73
+python3 extract-graph.py "example/Cells/Companies/Google/Google(companies).databook.md" "graph-73" > /tmp/data-service-account-raw.ttl
+riot --output=turtle /tmp/mia-base.ttl /tmp/data-service-account-raw.ttl 2>/dev/null > /tmp/data-service-account.ttl
+shacl validate --shapes /tmp/shapes-cell-templates.ttl --data /tmp/data-service-account.ttl --text
+
+# ServiceAccount's own cell:memberGraphShape pshapes:JSContactCardPersonShape —
+# applies to its one cell:member graph, not to graph-73 above (the cell:topic
+# graph, validated by ServiceAccountShape instead).
+python3 extract-graph.py "example/Cells/Companies/Google/Google(companies).databook.md" "graph-16" > /tmp/data-service-account-member-raw.ttl
+riot --output=turtle /tmp/mia-base.ttl /tmp/data-service-account-member-raw.ttl 2>/dev/null > /tmp/data-service-account-member.ttl
+shacl validate --shapes /tmp/shapes-jscontact.ttl --data /tmp/data-service-account-member.ttl --text
+
+# ServiceAccount — graph-74 (ATT's own cell, the same cat:Companies template as Google above)
+python3 extract-graph.py "example/Cells/Companies/ATT/ATT(companies).databook.md" "graph-74" > /tmp/data-att-service-account-raw.ttl
+riot --output=turtle /tmp/mia-base.ttl /tmp/data-att-service-account-raw.ttl 2>/dev/null > /tmp/data-att-service-account.ttl
+shacl validate --shapes /tmp/shapes-cell-templates.ttl --data /tmp/data-att-service-account.ttl --text
+
+python3 extract-graph.py "example/Cells/Companies/ATT/ATT(companies).databook.md" "graph-11" > /tmp/data-att-service-account-member-raw.ttl
+riot --output=turtle /tmp/mia-base.ttl /tmp/data-att-service-account-member-raw.ttl 2>/dev/null > /tmp/data-att-service-account-member.ttl
+shacl validate --shapes /tmp/shapes-jscontact.ttl --data /tmp/data-att-service-account-member.ttl --text
+
+# Residence — graph-82 (Boston, cat:Home)
+python3 extract-graph.py "example/Cells/Home/Previous/Boston/Boston(home).databook.md" "graph-82" > /tmp/data-boston-residence-raw.ttl
+riot --output=turtle /tmp/mia-base.ttl /tmp/data-boston-residence-raw.ttl 2>/dev/null > /tmp/data-boston-residence.ttl
+shacl validate --shapes /tmp/shapes-cell-templates.ttl --data /tmp/data-boston-residence.ttl --text
+
+# Boston's own cell:memberGraphShape pshapes:JSContactCardPersonShape —
+# applies to its one cell:member graph, not to graph-82 above (the cell:topic
+# graph, validated by ResidenceShape instead).
+python3 extract-graph.py "example/Cells/Home/Previous/Boston/Boston(home).databook.md" "graph-13" > /tmp/data-boston-member-raw.ttl
+riot --output=turtle /tmp/mia-base.ttl /tmp/data-boston-member-raw.ttl 2>/dev/null > /tmp/data-boston-member.ttl
+shacl validate --shapes /tmp/shapes-jscontact.ttl --data /tmp/data-boston-member.ttl --text
+
+# Residence — graph-83 (Paradise, cat:Home)
+python3 extract-graph.py "example/Cells/Home/Paradise/Paradise(home).databook.md" "graph-83" > /tmp/data-paradise-residence-raw.ttl
+riot --output=turtle /tmp/mia-base.ttl /tmp/data-paradise-residence-raw.ttl 2>/dev/null > /tmp/data-paradise-residence.ttl
+shacl validate --shapes /tmp/shapes-cell-templates.ttl --data /tmp/data-paradise-residence.ttl --text
+
+# Paradise's own cell:memberGraphShape pshapes:JSContactCardPersonShape —
+# applies to its one cell:member graph, not to graph-83 above (the cell:topic
+# graph, validated by ResidenceShape instead).
+python3 extract-graph.py "example/Cells/Home/Paradise/Paradise(home).databook.md" "graph-18" > /tmp/data-paradise-member-raw.ttl
+riot --output=turtle /tmp/mia-base.ttl /tmp/data-paradise-member-raw.ttl 2>/dev/null > /tmp/data-paradise-member.ttl
+shacl validate --shapes /tmp/shapes-jscontact.ttl --data /tmp/data-paradise-member.ttl --text
+
+# Itinerary — graph-69 (Kyoto Trip 2027, cat:Trips)
+python3 extract-graph.py "example/Cells/Travel/Trips/Kyoto Trip 2027/Kyoto Trip 2027(trips).databook.md" "graph-69" > /tmp/data-kyoto-69-raw.ttl
+riot --output=turtle /tmp/mia-base.ttl /tmp/data-kyoto-69-raw.ttl 2>/dev/null > /tmp/data-kyoto-69.ttl
+shacl validate --shapes /tmp/shapes-cell-templates.ttl --data /tmp/data-kyoto-69.ttl --text
+
+# Itinerary — graph-70 (Kyoto Trip 2027's other topic, same cell:template persona:Itinerary)
+python3 extract-graph.py "example/Cells/Travel/Trips/Kyoto Trip 2027/Kyoto Trip 2027(trips).databook.md" "graph-70" > /tmp/data-kyoto-70-raw.ttl
+riot --output=turtle /tmp/mia-base.ttl /tmp/data-kyoto-70-raw.ttl 2>/dev/null > /tmp/data-kyoto-70.ttl
+shacl validate --shapes /tmp/shapes-cell-templates.ttl --data /tmp/data-kyoto-70.ttl --text
+
+# Kyoto Trip 2027's own cell:memberGraphShape pshapes:JSContactCardPersonShape —
+# applies to its three cell:member graphs, not to graphs 69/70 above (its two
+# cell:topic graphs, validated by ItineraryShape instead).
+python3 extract-graph.py "example/Cells/Travel/Trips/Kyoto Trip 2027/Kyoto Trip 2027(trips).databook.md" "graph-66" > /tmp/data-kyoto-66-raw.ttl
+riot --output=turtle /tmp/mia-base.ttl /tmp/data-kyoto-66-raw.ttl 2>/dev/null > /tmp/data-kyoto-66.ttl
+shacl validate --shapes /tmp/shapes-jscontact.ttl --data /tmp/data-kyoto-66.ttl --text
+
+python3 extract-graph.py "example/Cells/Travel/Trips/Kyoto Trip 2027/Kyoto Trip 2027(trips).databook.md" "graph-67" > /tmp/data-kyoto-67-raw.ttl
+riot --output=turtle /tmp/mia-base.ttl /tmp/data-kyoto-67-raw.ttl 2>/dev/null > /tmp/data-kyoto-67.ttl
+shacl validate --shapes /tmp/shapes-jscontact.ttl --data /tmp/data-kyoto-67.ttl --text
+
+python3 extract-graph.py "example/Cells/Travel/Trips/Kyoto Trip 2027/Kyoto Trip 2027(trips).databook.md" "graph-68" > /tmp/data-kyoto-68-raw.ttl
+riot --output=turtle /tmp/mia-base.ttl /tmp/data-kyoto-68-raw.ttl 2>/dev/null > /tmp/data-kyoto-68.ttl
+shacl validate --shapes /tmp/shapes-jscontact.ttl --data /tmp/data-kyoto-68.ttl --text
+
+# Trips — graph-65 (Trips scaffold cell's own member)
+# ctpl:TripsTemplateCell (cat:Trips) — same memberGraphShape pshapes:JSContactCardPersonShape.
+python3 extract-graph.py "example/Cells/Travel/Trips/Trips.databook.md" "graph-65" > /tmp/data-trips-member-raw.ttl
+riot --output=turtle /tmp/mia-base.ttl /tmp/data-trips-member-raw.ttl 2>/dev/null > /tmp/data-trips-member.ttl
+shacl validate --shapes /tmp/shapes-jscontact.ttl --data /tmp/data-trips-member.ttl --text
+
+# People — graph-47
+# ctpl:PeopleTemplateCell (cat:People) carries only cell:memberGraphShape
+# pshapes:JSContactCardPersonShape — no cell:topicGraphShape at all, since
+# "People" has no category-specific document type and no topic content of its
+# own. Reuses /tmp/shapes-jscontact.ttl, already built above.
+python3 extract-graph.py "example/Cells/People/People.databook.md" "graph-47" > /tmp/data-people-member-raw.ttl
+riot --output=turtle /tmp/mia-base.ttl /tmp/data-people-member-raw.ttl 2>/dev/null > /tmp/data-people-member.ttl
+shacl validate --shapes /tmp/shapes-jscontact.ttl --data /tmp/data-people-member.ttl --text
+
+# ImmediateFamily — graph-48 (Immediate Family scaffold cell's own member)
+# ctpl:ImmediateFamilyTemplateCell (cat:ImmediateFamily) follows the same
+# memberGraphShape-only pattern as ctpl:PeopleTemplateCell.
+python3 extract-graph.py "example/Cells/People/Immediate Family/Immediate Family.databook.md" "graph-48" > /tmp/data-immediate-family-member-raw.ttl
+riot --output=turtle /tmp/mia-base.ttl /tmp/data-immediate-family-member-raw.ttl 2>/dev/null > /tmp/data-immediate-family-member.ttl
+shacl validate --shapes /tmp/shapes-jscontact.ttl --data /tmp/data-immediate-family-member.ttl --text
+
+# ImmediateFamily — Paula Walker's own cell, all three cell:member graphs
+python3 extract-graph.py "example/Cells/People/Immediate Family/Paula Walker/Paula Walker(immediate-family).databook.md" "graph-05" > /tmp/data-paula-family-05-raw.ttl
+riot --output=turtle /tmp/mia-base.ttl /tmp/data-paula-family-05-raw.ttl 2>/dev/null > /tmp/data-paula-family-05.ttl
+shacl validate --shapes /tmp/shapes-jscontact.ttl --data /tmp/data-paula-family-05.ttl --text
+
+python3 extract-graph.py "example/Cells/People/Immediate Family/Paula Walker/Paula Walker(immediate-family).databook.md" "graph-07" > /tmp/data-paula-family-07-raw.ttl
+riot --output=turtle /tmp/mia-base.ttl /tmp/data-paula-family-07-raw.ttl 2>/dev/null > /tmp/data-paula-family-07.ttl
+shacl validate --shapes /tmp/shapes-jscontact.ttl --data /tmp/data-paula-family-07.ttl --text
+
+python3 extract-graph.py "example/Cells/People/Immediate Family/Paula Walker/Paula Walker(immediate-family).databook.md" "graph-21" > /tmp/data-paula-family-21-raw.ttl
+riot --output=turtle /tmp/mia-base.ttl /tmp/data-paula-family-21-raw.ttl 2>/dev/null > /tmp/data-paula-family-21.ttl
+shacl validate --shapes /tmp/shapes-jscontact.ttl --data /tmp/data-paula-family-21.ttl --text
+
+# Others — graph-51 (Others scaffold cell's own member)
+# ctpl:OthersTemplateCell (cat:Others) follows the same memberGraphShape-only
+# pattern as ctpl:PeopleTemplateCell.
+python3 extract-graph.py "example/Cells/People/Others/Others.databook.md" "graph-51" > /tmp/data-others-member-raw.ttl
+riot --output=turtle /tmp/mia-base.ttl /tmp/data-others-member-raw.ttl 2>/dev/null > /tmp/data-others-member.ttl
+shacl validate --shapes /tmp/shapes-jscontact.ttl --data /tmp/data-others-member.ttl --text
+
+# Others — Bob Johnson's own cell, all four cell:member graphs
+python3 extract-graph.py "example/Cells/People/Others/Bob Johnson/Bob Johnson(others).databook.md" "graph-02" > /tmp/data-bob-02-raw.ttl
+riot --output=turtle /tmp/mia-base.ttl /tmp/data-bob-02-raw.ttl 2>/dev/null > /tmp/data-bob-02.ttl
+shacl validate --shapes /tmp/shapes-jscontact.ttl --data /tmp/data-bob-02.ttl --text
+
+python3 extract-graph.py "example/Cells/People/Others/Bob Johnson/Bob Johnson(others).databook.md" "graph-04" > /tmp/data-bob-04-raw.ttl
+riot --output=turtle /tmp/mia-base.ttl /tmp/data-bob-04-raw.ttl 2>/dev/null > /tmp/data-bob-04.ttl
+shacl validate --shapes /tmp/shapes-jscontact.ttl --data /tmp/data-bob-04.ttl --text
+
+python3 extract-graph.py "example/Cells/People/Others/Bob Johnson/Bob Johnson(others).databook.md" "graph-08" > /tmp/data-bob-08-raw.ttl
+riot --output=turtle /tmp/mia-base.ttl /tmp/data-bob-08-raw.ttl 2>/dev/null > /tmp/data-bob-08.ttl
+shacl validate --shapes /tmp/shapes-jscontact.ttl --data /tmp/data-bob-08.ttl --text
+
+python3 extract-graph.py "example/Cells/People/Others/Bob Johnson/Bob Johnson(others).databook.md" "graph-12" > /tmp/data-bob-12-raw.ttl
+riot --output=turtle /tmp/mia-base.ttl /tmp/data-bob-12-raw.ttl 2>/dev/null > /tmp/data-bob-12.ttl
+shacl validate --shapes /tmp/shapes-jscontact.ttl --data /tmp/data-bob-12.ttl --text
+
+# Others — Fred Flintstone's own cell, both cell:member graphs
+python3 extract-graph.py "example/Cells/People/Others/Fred Flintstone/Fred Flintstone(others).databook.md" "graph-29" > /tmp/data-fred-29-raw.ttl
+riot --output=turtle /tmp/mia-base.ttl /tmp/data-fred-29-raw.ttl 2>/dev/null > /tmp/data-fred-29.ttl
+shacl validate --shapes /tmp/shapes-jscontact.ttl --data /tmp/data-fred-29.ttl --text
+
+python3 extract-graph.py "example/Cells/People/Others/Fred Flintstone/Fred Flintstone(others).databook.md" "graph-31" > /tmp/data-fred-31-raw.ttl
+riot --output=turtle /tmp/mia-base.ttl /tmp/data-fred-31-raw.ttl 2>/dev/null > /tmp/data-fred-31.ttl
+shacl validate --shapes /tmp/shapes-jscontact.ttl --data /tmp/data-fred-31.ttl --text
+
+# cat:ExtendedFamily/cat:InLawsStepFamily have no cells in the example tree —
+# ctpl:ExtendedFamilyTemplateCell/ctpl:InLawsStepFamilyTemplateCell exist at the
+# ontology level (cell-templates.ttl) but have no Tier 2 entry to run here.
 ```
 
 Expected output for each: `Conforms`

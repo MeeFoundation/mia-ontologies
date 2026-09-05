@@ -113,7 +113,7 @@ This graph captures Alice's shared record of the claims needed to arrange a medi
 
 #### Overview
 
-This graph captures Carol Walker's own self-claimed persona and contact info, shared directly from her own instance of the app to Alice's over the PDN. This cell's two members are Alice and Carol (its derived subject, `:Paula_Walker` (from its sole `graph` entry), is a third party the cell is *about*, not one of its members) — this graph and its counterpart (graph 30, Alice's own self-claimed contact info) together represent those two members, alongside graph 26 (Alice's claims about Paula's medical appointment). Carol is the claimant.
+This graph captures Carol Walker's own self-claimed persona and contact info, shared directly from her own instance of the app to Alice's over the PDN — her given name already satisfies the `JSContactCardPersonShape` every templated cell's `member` content is now expected to conform to (`cell:memberGraphShape`); the organization name below is optional extra detail, not what the shape actually requires. This cell's two members are Alice and Carol (its derived subject, `:Paula_Walker` (from its sole `graph` entry), is a third party the cell is *about*, not one of its members) — this graph and its counterpart (graph 30, Alice's own self-claimed contact info) together represent those two members, alongside graph 26 (Alice's claims about Paula's medical appointment). Carol is the claimant.
 
 #### Graph
 
@@ -146,6 +146,11 @@ This graph captures Carol Walker's own self-claimed persona and contact info, sh
         <https://w3id.org/cco-domains/cco/ont00001765> "+19165550198"
     ] ;
 
+    <https://w3id.org/cco-domains/cco/ont00001879> [  # designated by → OrganizationName (JSContactCardPersonShape)
+        rdf:type cco:ent00000047 ;
+        <https://w3id.org/cco-domains/cco/ont00001765> "Self-Employed"
+    ] ;
+
     <https://w3id.org/cco-domains/cco/ont00001917> [  # described by → Person Note
         rdf:type cco:ent00000048 ;
         <https://w3id.org/cco-domains/cco/ont00001765> "Usually available weekday evenings and weekends for Mom's appointments."
@@ -157,7 +162,7 @@ This graph captures Carol Walker's own self-claimed persona and contact info, sh
 
 #### Overview
 
-This graph captures Alice Walker's own self-claimed contact info, kept in this cell so Carol can reach her while coordinating Paula's medical appointments. This cell's two members are Alice and Carol (its derived subject, `:Paula_Walker` (from its sole `graph` entry), is a third party the cell is *about*, not one of its members) — this graph and its counterpart (graph 28, Carol's own self-claimed persona) together represent those two members, alongside graph 26 (Alice's claims about Paula's medical appointment). Alice is the claimant.
+This graph captures Alice Walker's own self-claimed contact info, kept in this cell so Carol can reach her while coordinating Paula's medical appointments, plus her given name, which is what actually satisfies the `JSContactCardPersonShape` every templated cell's `member` content is now expected to conform to (`cell:memberGraphShape`) — the organization name below is optional extra detail, not a requirement. This cell's two members are Alice and Carol (its derived subject, `:Paula_Walker` (from its sole `graph` entry), is a third party the cell is *about*, not one of its members) — this graph and its counterpart (graph 28, Carol's own self-claimed persona) together represent those two members, alongside graph 26 (Alice's claims about Paula's medical appointment). Alice is the claimant.
 
 #### Graph
 
@@ -166,12 +171,27 @@ This graph captures Alice Walker's own self-claimed contact info, kept in this c
 <!-- databook:graph: http://www.example.org/mia/graphs/graph-30#graph -->
 @prefix : <http://www.example.org/mia#> .
 @prefix cco: <https://w3id.org/cco-domains/cco/> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix persona: <http://mee.foundation/ontologies/persona#> .
 
-:Self <https://w3id.org/cco-domains/cco/ont00001879> [  # designated by → Phone
+:Self rdf:type owl:NamedIndividual ,
+               persona:Person .
+
+:Self <https://w3id.org/cco-domains/cco/ont00001879> [  # designated by → GivenName (JSContactCardPersonShape)
+        rdf:type cco:ent00000002 ;
+        <https://w3id.org/cco-domains/cco/ont00001765> "Alice"
+    ] ;
+
+    <https://w3id.org/cco-domains/cco/ont00001879> [  # designated by → Phone
         rdf:type cco:ent00000023 ;
         <https://w3id.org/cco-domains/cco/ont00001765> "+15108149999"
+    ] ;
+
+    <https://w3id.org/cco-domains/cco/ont00001879> [  # designated by → OrganizationName (JSContactCardPersonShape)
+        rdf:type cco:ent00000047 ;
+        <https://w3id.org/cco-domains/cco/ont00001765> "Acme"
     ] ;
 
     <https://w3id.org/cco-domains/cco/ont00001917> [  # described by → Person Note

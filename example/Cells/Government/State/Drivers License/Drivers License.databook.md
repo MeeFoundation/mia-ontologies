@@ -1,18 +1,25 @@
 ---
 id: http://www.example.org/mia/cells/cell-09
-title: "California DMV"
+title: "Drivers License"
 type: cell-databook
-version: 1.1.0
+version: 2.0.0
 created: 2026-07-10
 description: >
-  Cell DataBook for folder "California DMV" (cell:category: cat:DriversLicense). It is a one-member cell with one member entry about :Self.
+  Cell DataBook for folder "Drivers License" (cell:category: cat:DriversLicense). It is a
+  one-member cell with one member entry about :Self and one topic graph about :Self (the cell's
+  subject), typed persona:DriversLicenseDocument, carrying Alice's California driver's license
+  identity data.
 mia:
   category: "cat:DriversLicense"
   creator: ":Self"
   owner: ":Self"
   member: "graph-15"
+  topic: "graph-79"
   graphs:
     - id: "http://www.example.org/mia/graphs/graph-15"
+      claimant: ":Self"
+      subject: ":Self"
+    - id: "http://www.example.org/mia/graphs/graph-79"
       claimant: ":Self"
       subject: ":Self"
       template: "persona:DriversLicenseDocument"
@@ -25,13 +32,40 @@ mia:
 
 #### Overview
 
-This graph captures Alice Walker's California driver's license identity data. Alice self-enters her legal name (Margery Alice Walker), date of birth (1985-07-04), California license number (A1234567), expiration date (2031-07-04), issuing jurisdiction (CA), and a photo. Validated by the `DriversLicense` per-template SHACL shapes. Alice is the claimant.
+This graph is the cell's one required `member` entry — a cell with a single `member` entry in the user's own category-cell tree always has `:Self` as that member (see Check 21). Alice is both the claimant and the subject. It carries her given name, satisfying the `JSContactCardPersonShape` every templated cell's `member` content is now expected to conform to (`cell:memberGraphShape`) — no longer the driver's license document content, which now lives in this cell's `cell:topic` graph instead (graph 79).
+
+#### Graph
+
+```turtle
+<!-- databook:id: alice-drivers-license-member-graph -->
+<!-- databook:graph: http://www.example.org/mia/graphs/graph-15#graph -->
+@prefix : <http://www.example.org/mia#> .
+@prefix cco: <https://w3id.org/cco-domains/cco/> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix persona: <http://mee.foundation/ontologies/persona#> .
+
+:Self rdf:type owl:NamedIndividual ,
+               persona:Person .
+
+:Self <https://w3id.org/cco-domains/cco/ont00001879> [  # designated by → GivenName (JSContactCardPersonShape)
+        rdf:type cco:ent00000002 ;
+        <https://w3id.org/cco-domains/cco/ont00001765> "Alice"
+    ] .
+```
+
+<a id="graph-79"></a>
+### Graph 79
+
+#### Overview
+
+This graph captures Alice Walker's California driver's license identity data — moved here, as this cell's `cell:topic` content, from the cell's former `member` graph-15. Alice self-enters her legal name (Margery Alice Walker), date of birth (1985-07-04), California license number (A1234567), expiration date (2031-07-04), issuing jurisdiction (CA), and a photo. Validated by the `DriversLicenseDocumentShape` per-template SHACL shape. Alice is the claimant.
 
 #### Graph
 
 ```turtle
 <!-- databook:id: alice-driverslicense-graph -->
-<!-- databook:graph: http://www.example.org/mia/graphs/graph-15#graph -->
+<!-- databook:graph: http://www.example.org/mia/graphs/graph-79#graph -->
 @prefix : <http://www.example.org/mia#> .
 @prefix persona: <http://mee.foundation/ontologies/persona#> .
 @prefix cco: <https://w3id.org/cco-domains/cco/> .
@@ -39,6 +73,9 @@ This graph captures Alice Walker's California driver's license identity data. Al
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:Self rdf:type owl:NamedIndividual ,
+               persona:Person .
 
 :Self persona:hasIdentityDocument :Alice_CA_DriversLicense ;
     <https://w3id.org/cco-domains/cco/ont00001879> :Alice_DL_Number .  # Person designated by → Drivers License Number

@@ -1,33 +1,15 @@
 flowchart TD
     classDef person fill:#fffacd,stroke:#aaa,color:#333
-    classDef grp    fill:#d4edda,stroke:#aaa,color:#333
     classDef org    fill:#cce5ff,stroke:#aaa,color:#333
     classDef lit    fill:none,stroke:none,font-style:italic,color:#2a7a2a
     classDef meta   fill:#f5f5ff,stroke:#9999cc,color:#333
 
-    subgraph ctx["Topic Graph"]
+    subgraph ctx["Graph"]
         direction LR
         ctx_meta["claimant: :Self\nsubject: :Self"]:::meta
     end
 
-    nc67f0317dd3d[":Address_Boston\n(PostalAddress)"]
-    nf0a1c84f6cd1("456 Commonwealth Ave"):::lit
-    n9f0d560f6acd("Boston"):::lit
-    n6948bf26ac59("MA"):::lit
-    n8558f0e7541f("02215"):::lit
-    n596b411b2d6f[":Boston_Residence\n(AddressDesignation)"]
     ne0c3ba92f1db[":Self\n(Person)"]:::person
-    n712165170b98[":Interval_2020_2025\n(TemporalInterval)"]
-    n9dc9a14921d5("2020-01-01"):::lit
-    n6c16da9fd750("2025-08-31"):::lit
+    ne56fbcabd86f("Alice"):::lit
 
-    nc67f0317dd3d -->|"hasContinuantPart"| nf0a1c84f6cd1
-    nc67f0317dd3d -->|"hasContinuantPart"| n9f0d560f6acd
-    nc67f0317dd3d -->|"hasContinuantPart"| n6948bf26ac59
-    nc67f0317dd3d -->|"hasContinuantPart"| n8558f0e7541f
-    n596b411b2d6f -->|"hasParticipant"| ne0c3ba92f1db
-    n596b411b2d6f -->|"designated by"| nc67f0317dd3d
-    n596b411b2d6f -->|"occupiesTemporalRegion"| n712165170b98
-    n712165170b98 -->|"hasStartDate"| n9dc9a14921d5
-    n712165170b98 -->|"hasEndDate"| n6c16da9fd750
-    ne0c3ba92f1db -->|"designated by"| nc67f0317dd3d
+    ne0c3ba92f1db -->|"GivenName"| ne56fbcabd86f

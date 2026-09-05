@@ -38,9 +38,11 @@ mia:
     - id: "http://www.example.org/mia/graphs/graph-69"
       claimant: ":Self"
       subject: ":Kyoto_Trip_2027"
+      template: "persona:Itinerary"
     - id: "http://www.example.org/mia/graphs/graph-70"
       claimant: ":Alice_Travel_Agent"
       subject: ":Kyoto_Trip_2027"
+      template: "persona:Itinerary"
 ---
 
 ## Graphs
@@ -63,6 +65,20 @@ This graph is one of the cell's three required `member` entries — Alice's own 
 @prefix owl: <http://www.w3.org/2002/07/owl#> .
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+
+:Self rdf:type owl:NamedIndividual ,
+               persona:Person ;
+    <https://w3id.org/cco-domains/cco/ont00001879> [  # designated by → GivenName (JSContactCardPersonShape)
+        rdf:type cco:ent00000002 ;
+        <https://w3id.org/cco-domains/cco/ont00001765> "Alice"
+    ] .
+
+:Dave rdf:type owl:NamedIndividual ,
+               persona:Person ;
+    <https://w3id.org/cco-domains/cco/ont00001879> [  # designated by → GivenName
+        rdf:type cco:ent00000002 ;
+        <https://w3id.org/cco-domains/cco/ont00001765> "Dave"
+    ] .
 
 :Self persona:hasSocialNetwork :Alice_Dave_Network .
 
@@ -89,6 +105,15 @@ This graph is another of the cell's three required `member` entries — Alice's 
 @prefix owl: <http://www.w3.org/2002/07/owl#> .
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix persona: <http://mee.foundation/ontologies/persona#> .
+@prefix cco: <https://w3id.org/cco-domains/cco/> .
+
+:Self rdf:type owl:NamedIndividual ,
+               persona:Person ;
+    <https://w3id.org/cco-domains/cco/ont00001879> [  # designated by → GivenName (JSContactCardPersonShape)
+        rdf:type cco:ent00000002 ;
+        <https://w3id.org/cco-domains/cco/ont00001765> "Alice"
+    ] .
 
 :Alice_Travel_Agent rdf:type owl:NamedIndividual ,
                agent:Agent ;
@@ -137,11 +162,13 @@ This graph is one of the cell's two `topic` entries — Alice's own basic claim 
 <!-- databook:id: alice-kyoto-trip-topic-graph -->
 <!-- databook:graph: http://www.example.org/mia/graphs/graph-69#graph -->
 @prefix : <http://www.example.org/mia#> .
+@prefix persona: <http://mee.foundation/ontologies/persona#> .
 @prefix owl: <http://www.w3.org/2002/07/owl#> .
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
 
-:Kyoto_Trip_2027 rdf:type owl:NamedIndividual ;
+:Kyoto_Trip_2027 rdf:type owl:NamedIndividual ,
+                          persona:Itinerary ;
     rdfs:label "Kyoto Trip, Spring 2027"@en .
 ```
 
@@ -150,7 +177,7 @@ This graph is one of the cell's two `topic` entries — Alice's own basic claim 
 
 #### Overview
 
-This graph is the cell's other `topic` entry — Alice's travel agent's own evolving understanding of the trip, claimed by the agent rather than by Alice, Dave, or a third `p:Person`/`o:Organization`. This is the agent's single evolving graph — revised in place turn by turn as Alice and her agent go back and forth (see APP-BEHAVIOR.md's Agent Collaboration section), rather than a new graph per conversation turn. There is no dedicated "Trip" domain ontology yet, so this graph stays a minimal label/comment pair — enough to identify the trip as a real resource IRI, per `g:subject`'s open range.
+This graph is the cell's other `topic` entry — Alice's travel agent's own evolving understanding of the trip, claimed by the agent rather than by Alice, Dave, or a third `p:Person`/`o:Organization`. This is the agent's single evolving graph — revised in place turn by turn as Alice and her agent go back and forth (see APP-BEHAVIOR.md's Agent Collaboration section), rather than a new graph per conversation turn. Typed `persona:Itinerary` (no existing CCO/domain class to multi-type alongside — there is no dedicated trip-planning domain ontology yet), validated by the `ItineraryShape` per-template SHACL shape, which requires only a human-readable label or description rather than any structured trip-planning fields.
 
 #### Graph
 
@@ -158,9 +185,12 @@ This graph is the cell's other `topic` entry — Alice's travel agent's own evol
 <!-- databook:id: alice-travel-agent-kyoto-trip-topic-graph -->
 <!-- databook:graph: http://www.example.org/mia/graphs/graph-70#graph -->
 @prefix : <http://www.example.org/mia#> .
+@prefix persona: <http://mee.foundation/ontologies/persona#> .
 @prefix owl: <http://www.w3.org/2002/07/owl#> .
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
 
-:Kyoto_Trip_2027 rdfs:comment "Draft itinerary, collaboratively refined turn by turn with Alice's own travel agent: cherry blossom season in Kyoto and Nara, proposed late-March dates, and a shortlist of ryokan lodging near Higashiyama."@en .
+:Kyoto_Trip_2027 rdf:type owl:NamedIndividual ,
+                          persona:Itinerary ;
+    rdfs:comment "Draft itinerary, collaboratively refined turn by turn with Alice's own travel agent: cherry blossom season in Kyoto and Nara, proposed late-March dates, and a shortlist of ryokan lodging near Higashiyama."@en .
 ```

@@ -1,0 +1,105 @@
+---
+id: http://www.example.org/mia/cells/cell-10
+title: "Birth Certificate"
+type: cell-databook
+version: 2.0.0
+created: 2026-07-10
+description: >
+  Cell DataBook for folder "Birth Certificate" (cell:category: cat:BirthCertificate). It is a
+  one-member cell with one member entry about :Self and one topic graph about :Self (the cell's
+  subject), typed persona:BirthCertificateDocument, carrying Alice's Texas birth certificate
+  identity data.
+mia:
+  category: "cat:BirthCertificate"
+  creator: ":Self"
+  owner: ":Self"
+  member: "graph-24"
+  topic: "graph-78"
+  graphs:
+    - id: "http://www.example.org/mia/graphs/graph-24"
+      claimant: ":Self"
+      subject: ":Self"
+    - id: "http://www.example.org/mia/graphs/graph-78"
+      claimant: ":Self"
+      subject: ":Self"
+      template: "persona:BirthCertificateDocument"
+---
+
+## Graphs
+
+<a id="graph-24"></a>
+### Graph 24
+
+#### Overview
+
+This graph is the cell's one required `member` entry — a cell with a single `member` entry in the user's own category-cell tree always has `:Self` as that member (see Check 21). Alice is both the claimant and the subject. It carries her given name, satisfying the `JSContactCardPersonShape` every templated cell's `member` content is now expected to conform to (`cell:memberGraphShape`) — no longer the birth certificate document content, which now lives in this cell's `cell:topic` graph instead (graph 78).
+
+#### Graph
+
+```turtle
+<!-- databook:id: alice-birth-certificate-member-graph -->
+<!-- databook:graph: http://www.example.org/mia/graphs/graph-24#graph -->
+@prefix : <http://www.example.org/mia#> .
+@prefix cco: <https://w3id.org/cco-domains/cco/> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix persona: <http://mee.foundation/ontologies/persona#> .
+
+:Self rdf:type owl:NamedIndividual ,
+               persona:Person .
+
+:Self <https://w3id.org/cco-domains/cco/ont00001879> [  # designated by → GivenName (JSContactCardPersonShape)
+        rdf:type cco:ent00000002 ;
+        <https://w3id.org/cco-domains/cco/ont00001765> "Alice"
+    ] .
+```
+
+<a id="graph-78"></a>
+### Graph 78
+
+#### Overview
+
+This graph captures Alice Walker's Texas birth certificate identity data — moved here, as this cell's `cell:topic` content, from the cell's former `member` graph-24. Alice self-enters her legal name (Margery Alice Walker) and maiden name (Margery Alice Arnold) from her physical birth certificate. Validated by the `BirthCertificateDocumentShape` per-template SHACL shape. Alice is the claimant.
+
+#### Graph
+
+```turtle
+<!-- databook:id: alice-tx-birth-cert-graph -->
+<!-- databook:graph: http://www.example.org/mia/graphs/graph-78#graph -->
+@prefix : <http://www.example.org/mia#> .
+@prefix persona: <http://mee.foundation/ontologies/persona#> .
+@prefix cco: <https://w3id.org/cco-domains/cco/> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+
+:Self rdf:type owl:NamedIndividual ,
+               persona:Person .
+
+:Self persona:hasIdentityDocument :Alice_TX_Birth_Certificate .
+
+:Alice_TX_Birth_Certificate rdf:type owl:NamedIndividual ,
+                                      persona:BirthCertificateDocument ;
+    rdfs:label "Alice Walker's Texas Birth Certificate"@en ;
+
+    <https://w3id.org/cco-domains/cco/ont00001879> [  # designated by → GivenName (legal first name)
+        rdf:type cco:ent00000002 ;  # GivenName
+        <https://w3id.org/cco-domains/cco/ont00001765> "Margery"  # has text value
+    ] ;
+
+    <https://w3id.org/cco-domains/cco/ont00001879> [  # designated by → AdditionalName (middle name)
+        rdf:type cco:ent00000003 ;  # AdditionalName
+        <https://w3id.org/cco-domains/cco/ont00001765> "Alice"  # has text value
+    ] ;
+
+    <https://w3id.org/cco-domains/cco/ont00001879> [  # designated by → FamilyName
+        rdf:type cco:ent00000004 ;  # FamilyName
+        <https://w3id.org/cco-domains/cco/ont00001765> "Walker"  # has text value
+    ] ;
+
+    <https://w3id.org/cco-domains/cco/ont00001879> [  # designated by → AlternateName (maiden name)
+        rdf:type cco:ent00000006 ;  # AlternateName
+        <https://w3id.org/cco-domains/cco/ont00001765> "Margery Alice Arnold" ;  # has text value
+        rdfs:comment "Maiden name (former legal name before marriage)"@en
+    ] .
+```

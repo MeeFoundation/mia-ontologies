@@ -1,0 +1,19 @@
+flowchart TD
+    classDef person fill:#fffacd,stroke:#aaa,color:#333
+    classDef org    fill:#cce5ff,stroke:#aaa,color:#333
+    classDef lit    fill:none,stroke:none,font-style:italic,color:#2a7a2a
+    classDef meta   fill:#f5f5ff,stroke:#9999cc,color:#333
+
+    subgraph ctx["Graph"]
+        direction LR
+        ctx_meta["claimant: :Self\nsubject: :Self\ntemplate: persona:ServiceAccount"]:::meta
+    end
+
+    nd168547b019a[":Alice_Citibank_Online\n(ServiceAccount)"]
+    n6ca0a0131dbe("awalker@gmail.com"):::lit
+    n1db9350539ae("C1t1b@nk#2024!"):::lit
+    ne0c3ba92f1db[":Self\n(Person)"]:::person
+
+    nd168547b019a -->|"userHandle"| n6ca0a0131dbe
+    nd168547b019a -->|"hasPassword"| n1db9350539ae
+    ne0c3ba92f1db -->|"holdsUserAccount"| nd168547b019a

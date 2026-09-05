@@ -10,8 +10,8 @@
 
 <http://mee.foundation/ontologies/persona/shapes/jscontactcard> rdf:type owl:Ontology ;
     owl:imports <http://mee.foundation/ontologies/persona> ;
-    owl:versionIRI <http://mee.foundation/ontologies/persona/shapes/jscontactcard/1.0.1> ;
-    dc:date "2026-08-23"^^xsd:date ;
+    owl:versionIRI <http://mee.foundation/ontologies/persona/shapes/jscontactcard/1.1.0> ;
+    dc:date "2026-09-04"^^xsd:date ;
     rdfs:label "JSContactCard Template SHACL Shapes"@en ;
     rdfs:comment """SHACL shapes for validating graph files carrying cell:template persona:JSContactCard.
                     Apply in addition to persona-shacl.ttl when validating a JSContact card graph file."""@en .
@@ -19,15 +19,16 @@
 
 #################################################################
 #  JSContactCard Person
-#  Required: OrganizationName (1..1); at least one of Email or TelephoneNumber
-#  Optional: all name components, OrganizationUnit, JobTitle, addresses,
-#             online services, anniversaries, personalInfo, photo
+#  Required: GivenName (1..1)
+#  Optional: OrganizationName, all other name components, OrganizationUnit,
+#             JobTitle, contact channels (Email/Phone), addresses, online
+#             services, anniversaries, personalInfo, photo
 #################################################################
 
 :JSContactCardPersonShape
     a sh:NodeShape ;
     sh:targetClass persona:Person ;
-    sh:message "JSContactCard Person validation: OrganizationName required, at least one email or phone required, max 1 per name/org component."@en ;
+    sh:message "JSContactCard Person validation: GivenName required, max 1 per name/org component."@en ;
 
     # ── Name components (max 1 each) ────────────────────────────────────────
     sh:property [
@@ -39,8 +40,9 @@
     sh:property [
         sh:path <https://w3id.org/cco-domains/cco/ont00001879> ;
         sh:qualifiedValueShape [ sh:class cco:ent00000002 ] ;
+        sh:qualifiedMinCount 1 ;
         sh:qualifiedMaxCount 1 ;
-        sh:message "A JSContactCard Person may have at most one GivenName."@en
+        sh:message "A JSContactCard Person must have exactly one GivenName."@en
     ] ;
     sh:property [
         sh:path <https://w3id.org/cco-domains/cco/ont00001879> ;
@@ -99,13 +101,12 @@
         sh:message "A JSContactCard Person may have at most one Birthdate."@en
     ] ;
 
-    # ── Organization fields (OrganizationName required; others max 1) ────────
+    # ── Organization fields (all optional, max 1 each) ──────────────────────
     sh:property [
         sh:path <https://w3id.org/cco-domains/cco/ont00001879> ;
         sh:qualifiedValueShape [ sh:class cco:ent00000047 ] ;
-        sh:qualifiedMinCount 1 ;
         sh:qualifiedMaxCount 1 ;
-        sh:message "A JSContactCard Person must have exactly one OrganizationName."@en
+        sh:message "A JSContactCard Person may have at most one OrganizationName."@en
     ] ;
     sh:property [
         sh:path <https://w3id.org/cco-domains/cco/ont00001879> ;
@@ -118,14 +119,8 @@
         sh:qualifiedValueShape [ sh:class persona:JobTitle ] ;
         sh:qualifiedMaxCount 1 ;
         sh:message "A JSContactCard Person may have at most one JobTitle."@en
-    ] ;
-
-    # ── Contact channel (at least one required) ─────────────────────────────
-    sh:or (
-        [ sh:property [ sh:path <https://w3id.org/cco-domains/cco/ont00001879> ; sh:qualifiedValueShape [ sh:class cco:ent00000024 ] ; sh:qualifiedMinCount 1 ] ]
-        [ sh:property [ sh:path <https://w3id.org/cco-domains/cco/ont00001879> ; sh:qualifiedValueShape [ sh:class cco:ent00000023 ] ; sh:qualifiedMinCount 1 ] ]
-    ) .
-    # ── Multi-valued channels (no upper bound) ──────────────────────────────
+    ] .
+    # ── Contact channels (fully optional, no lower or upper bound) ──────────
     # EmailAddress (ent00000024), TelephoneNumber (ent00000023),
     # USPostalAddress (ent00000010), OnlineServiceAccount (ont00000033),
     # WebURL (persona:WebURL), Anniversary (via persona:hasAnniversary),

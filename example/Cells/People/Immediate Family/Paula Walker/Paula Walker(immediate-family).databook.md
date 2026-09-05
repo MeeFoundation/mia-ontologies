@@ -33,7 +33,7 @@ mia:
 
 #### Overview
 
-This graph captures Paula Walker's self-claimed family persona as transmitted from Paula's own instance of the app to Alice's over the PDN. Paula is the claimant.
+This graph captures Paula Walker's self-claimed family persona as transmitted from Paula's own instance of the app to Alice's over the PDN, plus her given name, required by the `JSContactCardPersonShape` every templated cell's `member` content is now expected to conform to (`cell:memberGraphShape`). Paula is the claimant.
 
 #### Graph
 
@@ -42,13 +42,19 @@ This graph captures Paula Walker's self-claimed family persona as transmitted fr
 <!-- databook:graph: http://www.example.org/mia/graphs/graph-05#graph -->
 @prefix : <http://www.example.org/mia#> .
 @prefix persona: <http://mee.foundation/ontologies/persona#> .
+@prefix cco: <https://w3id.org/cco-domains/cco/> .
 @prefix owl: <http://www.w3.org/2002/07/owl#> .
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
 
 :Paula_Walker rdf:type owl:NamedIndividual ,
                persona:Person ;
-    rdfs:label "Paula Walker (Family) self-claimed"@en .
+    rdfs:label "Paula Walker (Family) self-claimed"@en ;
+
+    <https://w3id.org/cco-domains/cco/ont00001879> [  # designated by → GivenName (JSContactCardPersonShape)
+        rdf:type cco:ent00000002 ;
+        <https://w3id.org/cco-domains/cco/ont00001765> "Paula"
+    ] .
 ```
 
 <a id="graph-07"></a>
@@ -90,7 +96,7 @@ This graph captures Alice's record of her family member Paula Walker. Alice clai
 
 #### Overview
 
-This graph captures Alice Walker's family relationships. It records her maternal relationship with Paula Walker and her family social network, which includes Paula Walker and Carol Walker (Alice's sister) as members. Paula's own family graph (`graph-05`) is the peer record in this relationship; Carol's own claimed record about their mother appears separately in the "Medical Appointment" cell (graph 28). Alice is the claimant.
+This graph captures Alice Walker's family relationships. It records her maternal relationship with Paula Walker and her family social network, which includes Paula Walker and Carol Walker (Alice's sister) as members, plus her own given name, required by the `JSContactCardPersonShape` every templated cell's `member` content is now expected to conform to (`cell:memberGraphShape`). Paula's own family graph (`graph-05`) is the peer record in this relationship; Carol's own claimed record about their mother appears separately in the "Medical Appointment" cell (graph 28). Alice is the claimant.
 
 #### Graph
 
@@ -104,7 +110,15 @@ This graph captures Alice Walker's family relationships. It records her maternal
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
 
+:Self rdf:type owl:NamedIndividual ,
+               persona:Person .
+
 :Self rdfs:comment "Alice Walker's persona for her family relationships."@en ;
+
+    <https://w3id.org/cco-domains/cco/ont00001879> [  # designated by → GivenName (JSContactCardPersonShape)
+        rdf:type cco:ent00000002 ;
+        <https://w3id.org/cco-domains/cco/ont00001765> "Alice"
+    ] ;
 
     <https://w3id.org/cco-domains/cco/ont00001879> [  # designated by → AlternateName
         rdf:type cco:ent00000006 ;  # AlternateName

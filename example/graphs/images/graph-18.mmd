@@ -1,33 +1,15 @@
 flowchart TD
     classDef person fill:#fffacd,stroke:#aaa,color:#333
-    classDef grp    fill:#d4edda,stroke:#aaa,color:#333
     classDef org    fill:#cce5ff,stroke:#aaa,color:#333
     classDef lit    fill:none,stroke:none,font-style:italic,color:#2a7a2a
     classDef meta   fill:#f5f5ff,stroke:#9999cc,color:#333
 
-    subgraph ctx["Topic Graph"]
+    subgraph ctx["Graph"]
         direction LR
         ctx_meta["claimant: :Self\nsubject: :Self"]:::meta
     end
 
-    ndbcf44a48000[":Address_Paradise\n(PostalAddress)"]
-    n9fb7c56efd42("123 Sleepy Hollow"):::lit
-    nc3c833ec2b12("Paradise"):::lit
-    n3f94fa45c8de("CA"):::lit
-    n341443052c02("95969"):::lit
-    n2a9957433d92("USA"):::lit
-    naf26563dc3c8[":Interval_2025_Present\n(TemporalInterval)"]
-    n8987ca649e35("2025-09-01"):::lit
-    n0eecd6ebe039[":Paradise_Residence\n(AddressDesignation)"]
     ne0c3ba92f1db[":Self\n(Person)"]:::person
+    n6210340cd160("Alice"):::lit
 
-    ndbcf44a48000 -->|"hasContinuantPart"| n9fb7c56efd42
-    ndbcf44a48000 -->|"hasContinuantPart"| nc3c833ec2b12
-    ndbcf44a48000 -->|"hasContinuantPart"| n3f94fa45c8de
-    ndbcf44a48000 -->|"hasContinuantPart"| n341443052c02
-    ndbcf44a48000 -->|"hasContinuantPart"| n2a9957433d92
-    naf26563dc3c8 -->|"hasStartDate"| n8987ca649e35
-    n0eecd6ebe039 -->|"hasParticipant"| ne0c3ba92f1db
-    n0eecd6ebe039 -->|"designated by"| ndbcf44a48000
-    n0eecd6ebe039 -->|"occupiesTemporalRegion"| naf26563dc3c8
-    ne0c3ba92f1db -->|"designated by"| ndbcf44a48000
+    ne0c3ba92f1db -->|"GivenName"| n6210340cd160

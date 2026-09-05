@@ -1,0 +1,23 @@
+flowchart TD
+    classDef person fill:#fffacd,stroke:#aaa,color:#333
+    classDef org    fill:#cce5ff,stroke:#aaa,color:#333
+    classDef lit    fill:none,stroke:none,font-style:italic,color:#2a7a2a
+    classDef meta   fill:#f5f5ff,stroke:#9999cc,color:#333
+
+    subgraph ctx["Graph"]
+        direction LR
+        ctx_meta["claimant: :Self\nsubject: :Self\ntemplate: persona:BirthCertificateDocument"]:::meta
+    end
+
+    n0b5b9e968f7f[":Alice_TX_Birth_Certificate\n(BirthCertificateDocument)"]
+    n1052faeb0396("Margery"):::lit
+    n4bbd3d75a70d("Alice"):::lit
+    n3f2e20583c8e("Walker"):::lit
+    n5735d23baa80("Margery Alice Arnold"):::lit
+    ne0c3ba92f1db[":Self\n(Person)"]:::person
+
+    n0b5b9e968f7f -->|"GivenName"| n1052faeb0396
+    n0b5b9e968f7f -->|"AdditionalName"| n4bbd3d75a70d
+    n0b5b9e968f7f -->|"FamilyName"| n3f2e20583c8e
+    n0b5b9e968f7f -->|"AlternateName"| n5735d23baa80
+    ne0c3ba92f1db -->|"hasIdentityDocument"| n0b5b9e968f7f
