@@ -337,9 +337,33 @@ Note: this check's `^id:\s*(\S+)` regex is anchored at true line-start with no l
 
 - **10b — Every cell DataBook has a diagram box**: Every cell's cell-databook in `example/Cells/` (except the top-level `example/Cells/` folder's own cell-databook, `Cells(person).databook.md`, which is the invisible root) must appear as a visible box in at least one of the 12 diagrams. If a DataBook has no corresponding box, either add it to the appropriate diagram or delete that cell's DataBook.
 
-- **10c — Solid graph circles match DataBook links**: Every solid (filled) graph circle attached to a cell box indicates a real graph link. The cell-databook co-located in that box's own folder must carry a corresponding `member` or `topic` value pointing to the graph DataBook IRI. A dashed (empty) circle indicates an unfilled slot — the cell DataBook must NOT have a link for that slot.
+- **10c — A cell box's graph shapes match its DataBook's `member`/`topic` links exactly, both in count and in type**: Shape, not fill, is what distinguishes `cell:member` from `cell:topic` — a circle for a `member` graph, a square for a `topic` graph (fill/outline color is a separate, independent fact showing who claimed that graph — see Check 15's legend). For every cell box: (1) the total number of shapes attached to it (circles plus squares together) must equal the total number of that cell-databook's own `mia.member` + `mia.topic` entries — no more, no fewer; (2) every circle's own numbered label must correspond to a `mia.member` entry, and every square's own numbered label must correspond to a `mia.topic` entry — never the reverse. This is a visual check (no automated image parsing), but the script below prints every cell's own member/topic graph numbers, split by field, for direct cross-reference against whichever diagram box is being checked — e.g. `pets.png`'s "Ginger" box shows one circle (`Self [36]`) and one square (`Ginger [37]`), matching `Ginger(pets).databook.md`'s own one member (graph-36) and one topic (graph-37); its "Medical" box shows two circles (`Self [33]`, `Paula [57]`) and one square (`Ginger [32]`), matching `Medical.databook.md`'s two members (graph-33, graph-57) and one topic (graph-32). Run:
 
-- **10d — Numbered graph circles have matching embedded graphs**: Every numbered graph circle (e.g. `[10]`, `[17]`) shown in a diagram must correspond to a `mia.member`/`mia.topic` entry (equivalently, a `### Graph NN` body section) in some cell-databook under `example/Cells/` whose id contains that number (e.g. `(10)`, `(17)`).
+```python
+import re, glob, yaml
+
+def frontmatter(path):
+    text = open(path, encoding='utf-8').read()
+    m = re.match(r'^---\n(.*?)\n---', text, re.DOTALL)
+    return yaml.safe_load(m.group(1)) if m else None
+
+def local_names(entries):
+    entries = entries if isinstance(entries, list) else ([entries] if entries else [])
+    return [e['id'].rsplit('/', 1)[-1] for e in entries]
+
+for path in sorted(glob.glob('example/Cells/**/*.databook.md', recursive=True)):
+    if 'under-development' in path.split('/'):
+        continue
+    fm = frontmatter(path)
+    if not fm or fm.get('type') != 'cell-databook':
+        continue
+    mia = fm.get('mia', {}) or {}
+    members = local_names(mia.get('member'))
+    topics = local_names(mia.get('topic'))
+    print(f"{fm.get('title')!r:30} member(circle)={members}  topic(square)={topics}")
+```
+
+- **10d — Numbered graph circles/squares have matching embedded graphs**: Every numbered graph circle or square (e.g. `[10]`, `[17]`) shown in a diagram must correspond to a `mia.member`/`mia.topic` entry (equivalently, a `### Graph NN` body section) in some cell-databook under `example/Cells/` whose id contains that number (e.g. `(10)`, `(17)`).
 
 - **10e — Child arrows match folder nesting**: Every downward child arrow from cell box A to cell box B in a diagram must correspond to B's folder being a direct filesystem subfolder of A's folder (i.e. B is a descendant cell of A) — child links are derived purely from folder nesting, not any `child:` YAML field. Conversely, every direct-subfolder relationship between two cells must be reflected by a visible child arrow in the diagram.
 
