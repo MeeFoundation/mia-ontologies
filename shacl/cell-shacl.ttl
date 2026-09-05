@@ -41,7 +41,7 @@
     # cell-databook's filename carrying the literal "(custom)"
     # disambiguator, not a vague "no canonical counterpart" judgment
     # call; SHACL can't see filenames, so this specific absence/filename
-    # pairing is checked in CLAUDE.md's Check 20/10j, not here. Now
+    # pairing is checked in integrity.md's Check 20/10j, not here. Now
     # constrained via sh:class skos:Concept — category.ttl's tree is a
     # SKOS concept scheme, not an OWL class hierarchy, so a legal value
     # really is rdf:type skos:Concept, no class-value punning involved
@@ -69,7 +69,7 @@
     # legal bare tree-position-only cell with no member content in the
     # MemberCell branch (a category node with nothing substantive to
     # say still carries a minimal stub cell:member entry, see
-    # CLAUDE.md's Check 21) and no cell legally carries both kinds at
+    # integrity.md's Check 21) and no cell legally carries both kinds at
     # once.
     sh:xone (
         [ sh:property [ sh:path rdf:type ; sh:hasValue cell:TemplateCell ] ]
@@ -204,7 +204,7 @@
     # cell:topic value (cell.ttl's cell:TopicCell comment), so this
     # shape requires it — one or more additional graphs beyond the
     # required cell:member baseline. SHACL enforces only sh:minCount 1
-    # here; the real cap (one per cell member) is CLAUDE.md's Check 25.
+    # here; the real cap (one per cell member) is integrity.md's Check 25.
     sh:property [
         sh:path cell:topic ;
         sh:class cell:SCGraph ;
