@@ -15,6 +15,7 @@ mia:
     - id: "http://www.example.org/mia/graphs/graph-22"
       claimant: ":Self"
       subject: ":Self"
+      template: "persona:JSContactCard"
 ---
 
 ## Graphs
@@ -33,6 +34,7 @@ This graph captures Alice Walker's day-to-day physical possessions. Her wallet h
 <!-- databook:graph: http://www.example.org/mia/graphs/graph-22#graph -->
 @prefix : <http://www.example.org/mia#> .
 @prefix persona: <http://mee.foundation/ontologies/persona#> .
+@prefix cco: <https://w3id.org/cco-domains/cco/> .
 @prefix owl: <http://www.w3.org/2002/07/owl#> .
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
@@ -41,7 +43,12 @@ This graph captures Alice Walker's day-to-day physical possessions. Her wallet h
 :Self rdf:type owl:NamedIndividual ,
                persona:Person .
 
-:Self persona:hasWallet :Alice_Wallet ;
+:Self <https://w3id.org/cco-domains/cco/ont00001879> [  # designated by → GivenName (JSContactCardPersonShape)
+        rdf:type cco:ent00000002 ;
+        <https://w3id.org/cco-domains/cco/ont00001765> "Alice"
+    ] ;
+
+    persona:hasWallet :Alice_Wallet ;
     persona:hasPhysicalCard :Alice_HealthInsuranceCard ;   # not in wallet — carried separately
     persona:hasPhysicalCard :Alice_SSNCard ;               # not in wallet — stored at home for safety
     persona:hasPhysicalCard :Alice_DriversLicense ;        # in wallet

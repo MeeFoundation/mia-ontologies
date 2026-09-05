@@ -263,7 +263,7 @@ Each diagram shows the `p:Person` individual (yellow), supporting named individu
 
 ## Validation
 
-Validation requires [Apache Jena](https://jena.apache.org/) (`riot`, `shacl`), the [DataBook CLI](https://github.com/kurtcagle/databook) (`databook`; install: `git clone https://github.com/kurtcagle/databook.git && cd databook && npm install && npm install -g .`), `pyyaml` for `yaml-to-rdf.py` (`pip install pyyaml`), and `extract-graph.py` (no extra dependencies) for isolating one embedded graph's Turtle from a cell DataBook that may hold several — needed since `databook extract` has no notion of "pick one graph out of many" and Tier 2 validates one graph at a time. SHACL shapes remain plain Turtle (`.ttl`).
+Validation requires [Apache Jena](https://jena.apache.org/) (`riot`, `shacl`), the [DataBook CLI](https://github.com/kurtcagle/databook) (`databook`; install: `git clone https://github.com/kurtcagle/databook.git && cd databook && npm install && npm install -g .`), `pyyaml` and `rdflib` for `yaml-to-rdf.py`/`extract-graph.py`/`validate-tier2.py` (`pip install pyyaml rdflib`). `extract-graph.py` isolates one embedded graph's Turtle from a cell DataBook that may hold several — needed since `databook extract` has no notion of "pick one graph out of many," and Tier 2 validates one graph at a time. SHACL shapes remain plain Turtle (`.ttl`).
 
 ### Quick check — DataBook syntax
 
@@ -355,289 +355,27 @@ Expected output: `Conforms`
 
 ### Tier 2 — per-template validation (individual graphs)
 
-Seven of the per-template shapes (BirthCertificate, DriversLicense, Passport, MedicalAppointment, ServiceAccount, Residence, Itinerary) live in `cell-templates-shacl.ttl`; two (Pet, PetMedicationRecord) live in `other/pets-shacl.ttl`; one (Vehicle) lives in `other/vehicles-shacl.ttl`; JSContactCard's shape remains a standalone file in `shacl/` (it has no category concept of its own — see [Persona Templates](README.md#persona-templates)); three more (DebitCard, CheckingAccount, SSN) reuse existing shapes directly from `persona-shacl.ttl` rather than adding a new one, since each already had a Tier-1-level shape targeting the same (or a multi-typed) individual before its `persona:PersonaTemplate` label existed. Each is run against only the relevant graph, isolated via `extract-graph.py` from its owning cell DataBook file and merged with the foundation ontologies. Isolation matters because a cell may hold more than one graph — the MedicalAppointment case below lives in a three-graph cell, so a whole-file `databook extract` there would wrongly pull in its two sibling graphs' data too.
+Tier 2 is driven entirely by data already present in each cell-databook's own `mia.graphs[]` entries — no hand-maintained per-graph command list to keep in sync. `validate-tier2.py` implements two rules:
+
+1. **Each cell-databook is validated in isolation from every other cell.** The script processes one cell-databook file at a time; no two cells' extracted graph data are ever merged into the same `shacl validate` call. (The shared foundation/application ontologies it merges in are schema, not another cell's instance data.)
+2. **A graph's own `template:` YAML value is the sole indicator of what to validate it against** — resolved via a template-CURIE → shape lookup table built purely from each shape's own `sh:targetClass` (two documented, named exceptions: `persona:JSContactCard` and `persona:DebitCard`, both label-only classes whose shape targets a different underlying class — see `shacl/jscontactcard-shacl.ttl` and `persona-shacl.ttl`). A graph with no `template:` value needs no Tier 2 validation and is skipped outright.
+
+Every resolved shape is additionally scoped at runtime so it can't fire on an individual outside the one graph being checked: every *other* shape co-located in the same physical shapes file is deactivated for that call, and — for the one class broad enough to risk an incidental same-type individual within a single isolated graph, `persona:Person` (targeted by `JSContactCardPersonShape`) — the shape is re-targeted (`sh:targetNode`) at only the *substantive* `persona:Person` individual(s) actually present in the graph (one carrying real content, not just the bare `rdf:type` triple the self-containment convention re-asserts on every referenced individual). Every other template's shape already targets a narrow, specific document/account class with no such risk, so it keeps its own original targeting.
 
 ```bash
-# Shared base: foundation ontologies + application ontologies
-# (no separate self.ttl any more — :Self's own rdf:type is asserted directly
-# in every graph that references :Self)
-riot --output=turtle \
-  project_files/bfo-core.ttl \
-  project_files/PersonOntology.ttl \
-  project_files/AddressOntology.ttl \
-  project_files/StagingOntology.ttl \
-  project_files/UnitsOfMeasureOntology.ttl \
-  project_files/InformationEntityOntology.ttl \
-  project_files/dron-upper.ttl \
-  project_files/ncbitaxon-subset.ttl \
-  project_files/vbo-subset.ttl \
-  project_files/wikidata-vehicle-makes-subset.ttl \
-  project_files/wikidata-vehicle-models-subset.ttl \
-  project_files/prov-upper.ttl \
-  persona.ttl persona-templates.ttl cell.ttl category.ttl cell-templates.ttl other/pets.ttl other/vehicles.ttl \
-  organization.ttl agent.ttl \
-  2>/dev/null > /tmp/mia-base.ttl
-
-# BirthCertificate — graph-78 (topic graph; cat:BirthCertificate is now pattern-(2), isTopicCell true)
-python3 extract-graph.py "example/Cells/Government/State/Birth Certificate/Birth Certificate.databook.md" "graph-78" > /tmp/data-birth-cert-raw.ttl
-riot --output=turtle /tmp/mia-base.ttl /tmp/data-birth-cert-raw.ttl 2>/dev/null > /tmp/data-birth-cert.ttl
-grep -v 'owl:imports' cell-templates-shacl.ttl > /tmp/shapes-cell-templates.ttl
-shacl validate --shapes /tmp/shapes-cell-templates.ttl --data /tmp/data-birth-cert.ttl --text
-
-# JSContactCard — graph-10
-python3 extract-graph.py "example/Cells/Work/Acme/Employees/Alice Walker/Alice Walker(employee).databook.md" "graph-10" > /tmp/data-jscontact-raw.ttl
-riot --output=turtle /tmp/mia-base.ttl /tmp/data-jscontact-raw.ttl 2>/dev/null > /tmp/data-jscontact.ttl
-grep -v 'owl:imports' shacl/jscontactcard-shacl.ttl > /tmp/shapes-jscontact.ttl
-shacl validate --shapes /tmp/shapes-jscontact.ttl --data /tmp/data-jscontact.ttl --text
-
-# BirthCertificate's own cell:memberGraphShape pshapes:JSContactCardPersonShape —
-# applies to its one cell:member graph, not to graph-78 above (the cell:topic
-# graph, validated by BirthCertificateDocumentShape instead).
-python3 extract-graph.py "example/Cells/Government/State/Birth Certificate/Birth Certificate.databook.md" "graph-24" > /tmp/data-birth-cert-member-raw.ttl
-riot --output=turtle /tmp/mia-base.ttl /tmp/data-birth-cert-member-raw.ttl 2>/dev/null > /tmp/data-birth-cert-member.ttl
-shacl validate --shapes /tmp/shapes-jscontact.ttl --data /tmp/data-birth-cert-member.ttl --text
-
-# DriversLicense — graph-79 (topic graph; cat:DriversLicense is now pattern-(2), isTopicCell true)
-python3 extract-graph.py "example/Cells/Government/State/Drivers License/Drivers License.databook.md" "graph-79" > /tmp/data-dl-raw.ttl
-riot --output=turtle /tmp/mia-base.ttl /tmp/data-dl-raw.ttl 2>/dev/null > /tmp/data-dl.ttl
-shacl validate --shapes /tmp/shapes-cell-templates.ttl --data /tmp/data-dl.ttl --text
-
-# DriversLicense's own cell:memberGraphShape pshapes:JSContactCardPersonShape —
-# applies to its one cell:member graph, not to graph-79 above (the cell:topic
-# graph, validated by DriversLicenseDocumentShape instead).
-python3 extract-graph.py "example/Cells/Government/State/Drivers License/Drivers License.databook.md" "graph-15" > /tmp/data-dl-member-raw.ttl
-riot --output=turtle /tmp/mia-base.ttl /tmp/data-dl-member-raw.ttl 2>/dev/null > /tmp/data-dl-member.ttl
-shacl validate --shapes /tmp/shapes-jscontact.ttl --data /tmp/data-dl-member.ttl --text
-
-# Passport — graph-81 (topic graph; cat:Passport is now pattern-(2), isTopicCell true)
-python3 extract-graph.py "example/Cells/Government/Federal/Passport/Passport.databook.md" "graph-81" > /tmp/data-passport-raw.ttl
-riot --output=turtle /tmp/mia-base.ttl /tmp/data-passport-raw.ttl 2>/dev/null > /tmp/data-passport.ttl
-shacl validate --shapes /tmp/shapes-cell-templates.ttl --data /tmp/data-passport.ttl --text
-
-# Passport's own cell:memberGraphShape pshapes:JSContactCardPersonShape —
-# applies to its one cell:member graph, not to graph-81 above (the cell:topic
-# graph, validated by PassportDocumentShape instead).
-python3 extract-graph.py "example/Cells/Government/Federal/Passport/Passport.databook.md" "graph-19" > /tmp/data-passport-member-raw.ttl
-riot --output=turtle /tmp/mia-base.ttl /tmp/data-passport-member-raw.ttl 2>/dev/null > /tmp/data-passport-member.ttl
-shacl validate --shapes /tmp/shapes-jscontact.ttl --data /tmp/data-passport-member.ttl --text
-
-# SSN — graph-80 (topic graph; cat:SSN's topicGraphShape reuses persona-shacl.ttl's own :SSNShape directly)
-python3 extract-graph.py "example/Cells/Government/Federal/SSN/SSN.databook.md" "graph-80" > /tmp/data-ssn-raw.ttl
-riot --output=turtle /tmp/mia-base.ttl /tmp/data-ssn-raw.ttl 2>/dev/null > /tmp/data-ssn.ttl
-grep -v 'owl:imports' persona-shacl.ttl > /tmp/shapes-persona.ttl
-shacl validate --shapes /tmp/shapes-persona.ttl --data /tmp/data-ssn.ttl --text
-
-# SSN's own cell:memberGraphShape pshapes:JSContactCardPersonShape —
-# applies to its one cell:member graph, not to graph-80 above (the cell:topic
-# graph, validated directly by persona-shacl.ttl's :SSNShape instead).
-python3 extract-graph.py "example/Cells/Government/Federal/SSN/SSN.databook.md" "graph-23" > /tmp/data-ssn-member-raw.ttl
-riot --output=turtle /tmp/mia-base.ttl /tmp/data-ssn-member-raw.ttl 2>/dev/null > /tmp/data-ssn-member.ttl
-shacl validate --shapes /tmp/shapes-jscontact.ttl --data /tmp/data-ssn-member.ttl --text
-
-# MedicalAppointment — graph-26
-# (this cell has THREE embedded graphs — extract-graph.py isolates just this one,
-# unlike the other four, which happen to be alone in a single-graph cell)
-python3 extract-graph.py "example/Cells/People/Immediate Family/Paula Walker/Health & Wellness/Medical/Provider/Medical Appointment/Medical Appointment.databook.md" "graph-26" > /tmp/data-medical-appt-raw.ttl
-riot --output=turtle /tmp/mia-base.ttl /tmp/data-medical-appt-raw.ttl 2>/dev/null > /tmp/data-medical-appt.ttl
-shacl validate --shapes /tmp/shapes-cell-templates.ttl --data /tmp/data-medical-appt.ttl --text
-
-# MedicalAppointment's own cell:memberGraphShape pshapes:JSContactCardPersonShape —
-# applies to its two cell:member graphs (Carol's own persona, Alice's own contact
-# info), not to graph-26 above (the cell:topic graph, validated by
-# MedicalAppointmentRecordShape instead). Reuses /tmp/shapes-jscontact.ttl, already
-# built above for the JSContactCard entry.
-python3 extract-graph.py "example/Cells/People/Immediate Family/Paula Walker/Health & Wellness/Medical/Provider/Medical Appointment/Medical Appointment.databook.md" "graph-28" > /tmp/data-medical-appt-member-carol-raw.ttl
-riot --output=turtle /tmp/mia-base.ttl /tmp/data-medical-appt-member-carol-raw.ttl 2>/dev/null > /tmp/data-medical-appt-member-carol.ttl
-shacl validate --shapes /tmp/shapes-jscontact.ttl --data /tmp/data-medical-appt-member-carol.ttl --text
-
-python3 extract-graph.py "example/Cells/People/Immediate Family/Paula Walker/Health & Wellness/Medical/Provider/Medical Appointment/Medical Appointment.databook.md" "graph-30" > /tmp/data-medical-appt-member-self-raw.ttl
-riot --output=turtle /tmp/mia-base.ttl /tmp/data-medical-appt-member-self-raw.ttl 2>/dev/null > /tmp/data-medical-appt-member-self.ttl
-shacl validate --shapes /tmp/shapes-jscontact.ttl --data /tmp/data-medical-appt-member-self.ttl --text
-
-# PetMedications — graph-32
-python3 extract-graph.py "example/Cells/Pets/Ginger/Medical/Medical.databook.md" "graph-32" > /tmp/data-pet-medications-raw.ttl
-riot --output=turtle /tmp/mia-base.ttl /tmp/data-pet-medications-raw.ttl 2>/dev/null > /tmp/data-pet-medications.ttl
-grep -v 'owl:imports' other/pets-shacl.ttl > /tmp/shapes-pets.ttl
-shacl validate --shapes /tmp/shapes-pets.ttl --data /tmp/data-pet-medications.ttl --text
-
-# PetMedications' own cell:memberGraphShape pshapes:JSContactCardPersonShape —
-# applies to its two cell:member graphs (Alice's own stub, Paula's own stub),
-# not to graph-32 above (the cell:topic graph, validated by
-# PetMedicationRecordShape instead).
-python3 extract-graph.py "example/Cells/Pets/Ginger/Medical/Medical.databook.md" "graph-33" > /tmp/data-pet-medications-member-self-raw.ttl
-riot --output=turtle /tmp/mia-base.ttl /tmp/data-pet-medications-member-self-raw.ttl 2>/dev/null > /tmp/data-pet-medications-member-self.ttl
-shacl validate --shapes /tmp/shapes-jscontact.ttl --data /tmp/data-pet-medications-member-self.ttl --text
-
-python3 extract-graph.py "example/Cells/Pets/Ginger/Medical/Medical.databook.md" "graph-57" > /tmp/data-pet-medications-member-paula-raw.ttl
-riot --output=turtle /tmp/mia-base.ttl /tmp/data-pet-medications-member-paula-raw.ttl 2>/dev/null > /tmp/data-pet-medications-member-paula.ttl
-shacl validate --shapes /tmp/shapes-jscontact.ttl --data /tmp/data-pet-medications-member-paula.ttl --text
-
-# PetProfile — graph-37
-python3 extract-graph.py "example/Cells/Pets/Ginger/Ginger(pets).databook.md" "graph-37" > /tmp/data-pet-profile-raw.ttl
-riot --output=turtle /tmp/mia-base.ttl /tmp/data-pet-profile-raw.ttl 2>/dev/null > /tmp/data-pet-profile.ttl
-shacl validate --shapes /tmp/shapes-pets.ttl --data /tmp/data-pet-profile.ttl --text
-
-# PetProfile's own cell:memberGraphShape pshapes:JSContactCardPersonShape —
-# applies to its one cell:member graph, not to graph-37 above (the cell:topic
-# graph, validated by PetShape instead).
-python3 extract-graph.py "example/Cells/Pets/Ginger/Ginger(pets).databook.md" "graph-36" > /tmp/data-pet-profile-member-raw.ttl
-riot --output=turtle /tmp/mia-base.ttl /tmp/data-pet-profile-member-raw.ttl 2>/dev/null > /tmp/data-pet-profile-member.ttl
-shacl validate --shapes /tmp/shapes-jscontact.ttl --data /tmp/data-pet-profile-member.ttl --text
-
-# VehicleProfile — graph-63
-python3 extract-graph.py "example/Cells/Things/Vehicles/RAV4/RAV4(vehicles).databook.md" "graph-63" > /tmp/data-vehicle-profile-raw.ttl
-riot --output=turtle /tmp/mia-base.ttl /tmp/data-vehicle-profile-raw.ttl 2>/dev/null > /tmp/data-vehicle-profile.ttl
-grep -v 'owl:imports' other/vehicles-shacl.ttl > /tmp/shapes-vehicles.ttl
-shacl validate --shapes /tmp/shapes-vehicles.ttl --data /tmp/data-vehicle-profile.ttl --text
-
-# VehicleProfile's own cell:memberGraphShape pshapes:JSContactCardPersonShape —
-# applies to its one cell:member graph, not to graph-63 above (the cell:topic
-# graph, validated by VehicleShape instead).
-python3 extract-graph.py "example/Cells/Things/Vehicles/RAV4/RAV4(vehicles).databook.md" "graph-62" > /tmp/data-vehicle-profile-member-raw.ttl
-riot --output=turtle /tmp/mia-base.ttl /tmp/data-vehicle-profile-member-raw.ttl 2>/dev/null > /tmp/data-vehicle-profile-member.ttl
-shacl validate --shapes /tmp/shapes-jscontact.ttl --data /tmp/data-vehicle-profile-member.ttl --text
-
-# ServiceAccount — graph-73
-python3 extract-graph.py "example/Cells/Companies/Google/Google(companies).databook.md" "graph-73" > /tmp/data-service-account-raw.ttl
-riot --output=turtle /tmp/mia-base.ttl /tmp/data-service-account-raw.ttl 2>/dev/null > /tmp/data-service-account.ttl
-shacl validate --shapes /tmp/shapes-cell-templates.ttl --data /tmp/data-service-account.ttl --text
-
-# ServiceAccount's own cell:memberGraphShape pshapes:JSContactCardPersonShape —
-# applies to its one cell:member graph, not to graph-73 above (the cell:topic
-# graph, validated by ServiceAccountShape instead).
-python3 extract-graph.py "example/Cells/Companies/Google/Google(companies).databook.md" "graph-16" > /tmp/data-service-account-member-raw.ttl
-riot --output=turtle /tmp/mia-base.ttl /tmp/data-service-account-member-raw.ttl 2>/dev/null > /tmp/data-service-account-member.ttl
-shacl validate --shapes /tmp/shapes-jscontact.ttl --data /tmp/data-service-account-member.ttl --text
-
-# ServiceAccount — graph-74 (ATT's own cell, the same cat:Companies template as Google above)
-python3 extract-graph.py "example/Cells/Companies/ATT/ATT(companies).databook.md" "graph-74" > /tmp/data-att-service-account-raw.ttl
-riot --output=turtle /tmp/mia-base.ttl /tmp/data-att-service-account-raw.ttl 2>/dev/null > /tmp/data-att-service-account.ttl
-shacl validate --shapes /tmp/shapes-cell-templates.ttl --data /tmp/data-att-service-account.ttl --text
-
-python3 extract-graph.py "example/Cells/Companies/ATT/ATT(companies).databook.md" "graph-11" > /tmp/data-att-service-account-member-raw.ttl
-riot --output=turtle /tmp/mia-base.ttl /tmp/data-att-service-account-member-raw.ttl 2>/dev/null > /tmp/data-att-service-account-member.ttl
-shacl validate --shapes /tmp/shapes-jscontact.ttl --data /tmp/data-att-service-account-member.ttl --text
-
-# Residence — graph-82 (Boston, cat:Home)
-python3 extract-graph.py "example/Cells/Home/Previous/Boston/Boston(home).databook.md" "graph-82" > /tmp/data-boston-residence-raw.ttl
-riot --output=turtle /tmp/mia-base.ttl /tmp/data-boston-residence-raw.ttl 2>/dev/null > /tmp/data-boston-residence.ttl
-shacl validate --shapes /tmp/shapes-cell-templates.ttl --data /tmp/data-boston-residence.ttl --text
-
-# Boston's own cell:memberGraphShape pshapes:JSContactCardPersonShape —
-# applies to its one cell:member graph, not to graph-82 above (the cell:topic
-# graph, validated by ResidenceShape instead).
-python3 extract-graph.py "example/Cells/Home/Previous/Boston/Boston(home).databook.md" "graph-13" > /tmp/data-boston-member-raw.ttl
-riot --output=turtle /tmp/mia-base.ttl /tmp/data-boston-member-raw.ttl 2>/dev/null > /tmp/data-boston-member.ttl
-shacl validate --shapes /tmp/shapes-jscontact.ttl --data /tmp/data-boston-member.ttl --text
-
-# Residence — graph-83 (Paradise, cat:Home)
-python3 extract-graph.py "example/Cells/Home/Paradise/Paradise(home).databook.md" "graph-83" > /tmp/data-paradise-residence-raw.ttl
-riot --output=turtle /tmp/mia-base.ttl /tmp/data-paradise-residence-raw.ttl 2>/dev/null > /tmp/data-paradise-residence.ttl
-shacl validate --shapes /tmp/shapes-cell-templates.ttl --data /tmp/data-paradise-residence.ttl --text
-
-# Paradise's own cell:memberGraphShape pshapes:JSContactCardPersonShape —
-# applies to its one cell:member graph, not to graph-83 above (the cell:topic
-# graph, validated by ResidenceShape instead).
-python3 extract-graph.py "example/Cells/Home/Paradise/Paradise(home).databook.md" "graph-18" > /tmp/data-paradise-member-raw.ttl
-riot --output=turtle /tmp/mia-base.ttl /tmp/data-paradise-member-raw.ttl 2>/dev/null > /tmp/data-paradise-member.ttl
-shacl validate --shapes /tmp/shapes-jscontact.ttl --data /tmp/data-paradise-member.ttl --text
-
-# Itinerary — graph-69 (Kyoto Trip 2027, cat:Trips)
-python3 extract-graph.py "example/Cells/Travel/Trips/Kyoto Trip 2027/Kyoto Trip 2027(trips).databook.md" "graph-69" > /tmp/data-kyoto-69-raw.ttl
-riot --output=turtle /tmp/mia-base.ttl /tmp/data-kyoto-69-raw.ttl 2>/dev/null > /tmp/data-kyoto-69.ttl
-shacl validate --shapes /tmp/shapes-cell-templates.ttl --data /tmp/data-kyoto-69.ttl --text
-
-# Itinerary — graph-70 (Kyoto Trip 2027's other topic, same cell:template persona:Itinerary)
-python3 extract-graph.py "example/Cells/Travel/Trips/Kyoto Trip 2027/Kyoto Trip 2027(trips).databook.md" "graph-70" > /tmp/data-kyoto-70-raw.ttl
-riot --output=turtle /tmp/mia-base.ttl /tmp/data-kyoto-70-raw.ttl 2>/dev/null > /tmp/data-kyoto-70.ttl
-shacl validate --shapes /tmp/shapes-cell-templates.ttl --data /tmp/data-kyoto-70.ttl --text
-
-# Kyoto Trip 2027's own cell:memberGraphShape pshapes:JSContactCardPersonShape —
-# applies to its three cell:member graphs, not to graphs 69/70 above (its two
-# cell:topic graphs, validated by ItineraryShape instead).
-python3 extract-graph.py "example/Cells/Travel/Trips/Kyoto Trip 2027/Kyoto Trip 2027(trips).databook.md" "graph-66" > /tmp/data-kyoto-66-raw.ttl
-riot --output=turtle /tmp/mia-base.ttl /tmp/data-kyoto-66-raw.ttl 2>/dev/null > /tmp/data-kyoto-66.ttl
-shacl validate --shapes /tmp/shapes-jscontact.ttl --data /tmp/data-kyoto-66.ttl --text
-
-python3 extract-graph.py "example/Cells/Travel/Trips/Kyoto Trip 2027/Kyoto Trip 2027(trips).databook.md" "graph-67" > /tmp/data-kyoto-67-raw.ttl
-riot --output=turtle /tmp/mia-base.ttl /tmp/data-kyoto-67-raw.ttl 2>/dev/null > /tmp/data-kyoto-67.ttl
-shacl validate --shapes /tmp/shapes-jscontact.ttl --data /tmp/data-kyoto-67.ttl --text
-
-python3 extract-graph.py "example/Cells/Travel/Trips/Kyoto Trip 2027/Kyoto Trip 2027(trips).databook.md" "graph-68" > /tmp/data-kyoto-68-raw.ttl
-riot --output=turtle /tmp/mia-base.ttl /tmp/data-kyoto-68-raw.ttl 2>/dev/null > /tmp/data-kyoto-68.ttl
-shacl validate --shapes /tmp/shapes-jscontact.ttl --data /tmp/data-kyoto-68.ttl --text
-
-# Trips — graph-65 (Trips scaffold cell's own member)
-# ctpl:TripsTemplateCell (cat:Trips) — same memberGraphShape pshapes:JSContactCardPersonShape.
-python3 extract-graph.py "example/Cells/Travel/Trips/Trips.databook.md" "graph-65" > /tmp/data-trips-member-raw.ttl
-riot --output=turtle /tmp/mia-base.ttl /tmp/data-trips-member-raw.ttl 2>/dev/null > /tmp/data-trips-member.ttl
-shacl validate --shapes /tmp/shapes-jscontact.ttl --data /tmp/data-trips-member.ttl --text
-
-# People — graph-47
-# ctpl:PeopleTemplateCell (cat:People) carries only cell:memberGraphShape
-# pshapes:JSContactCardPersonShape — no cell:topicGraphShape at all, since
-# "People" has no category-specific document type and no topic content of its
-# own. Reuses /tmp/shapes-jscontact.ttl, already built above.
-python3 extract-graph.py "example/Cells/People/People.databook.md" "graph-47" > /tmp/data-people-member-raw.ttl
-riot --output=turtle /tmp/mia-base.ttl /tmp/data-people-member-raw.ttl 2>/dev/null > /tmp/data-people-member.ttl
-shacl validate --shapes /tmp/shapes-jscontact.ttl --data /tmp/data-people-member.ttl --text
-
-# ImmediateFamily — graph-48 (Immediate Family scaffold cell's own member)
-# ctpl:ImmediateFamilyTemplateCell (cat:ImmediateFamily) follows the same
-# memberGraphShape-only pattern as ctpl:PeopleTemplateCell.
-python3 extract-graph.py "example/Cells/People/Immediate Family/Immediate Family.databook.md" "graph-48" > /tmp/data-immediate-family-member-raw.ttl
-riot --output=turtle /tmp/mia-base.ttl /tmp/data-immediate-family-member-raw.ttl 2>/dev/null > /tmp/data-immediate-family-member.ttl
-shacl validate --shapes /tmp/shapes-jscontact.ttl --data /tmp/data-immediate-family-member.ttl --text
-
-# ImmediateFamily — Paula Walker's own cell, all three cell:member graphs
-python3 extract-graph.py "example/Cells/People/Immediate Family/Paula Walker/Paula Walker(immediate-family).databook.md" "graph-05" > /tmp/data-paula-family-05-raw.ttl
-riot --output=turtle /tmp/mia-base.ttl /tmp/data-paula-family-05-raw.ttl 2>/dev/null > /tmp/data-paula-family-05.ttl
-shacl validate --shapes /tmp/shapes-jscontact.ttl --data /tmp/data-paula-family-05.ttl --text
-
-python3 extract-graph.py "example/Cells/People/Immediate Family/Paula Walker/Paula Walker(immediate-family).databook.md" "graph-07" > /tmp/data-paula-family-07-raw.ttl
-riot --output=turtle /tmp/mia-base.ttl /tmp/data-paula-family-07-raw.ttl 2>/dev/null > /tmp/data-paula-family-07.ttl
-shacl validate --shapes /tmp/shapes-jscontact.ttl --data /tmp/data-paula-family-07.ttl --text
-
-python3 extract-graph.py "example/Cells/People/Immediate Family/Paula Walker/Paula Walker(immediate-family).databook.md" "graph-21" > /tmp/data-paula-family-21-raw.ttl
-riot --output=turtle /tmp/mia-base.ttl /tmp/data-paula-family-21-raw.ttl 2>/dev/null > /tmp/data-paula-family-21.ttl
-shacl validate --shapes /tmp/shapes-jscontact.ttl --data /tmp/data-paula-family-21.ttl --text
-
-# Others — graph-51 (Others scaffold cell's own member)
-# ctpl:OthersTemplateCell (cat:Others) follows the same memberGraphShape-only
-# pattern as ctpl:PeopleTemplateCell.
-python3 extract-graph.py "example/Cells/People/Others/Others.databook.md" "graph-51" > /tmp/data-others-member-raw.ttl
-riot --output=turtle /tmp/mia-base.ttl /tmp/data-others-member-raw.ttl 2>/dev/null > /tmp/data-others-member.ttl
-shacl validate --shapes /tmp/shapes-jscontact.ttl --data /tmp/data-others-member.ttl --text
-
-# Others — Bob Johnson's own cell, all four cell:member graphs
-python3 extract-graph.py "example/Cells/People/Others/Bob Johnson/Bob Johnson(others).databook.md" "graph-02" > /tmp/data-bob-02-raw.ttl
-riot --output=turtle /tmp/mia-base.ttl /tmp/data-bob-02-raw.ttl 2>/dev/null > /tmp/data-bob-02.ttl
-shacl validate --shapes /tmp/shapes-jscontact.ttl --data /tmp/data-bob-02.ttl --text
-
-python3 extract-graph.py "example/Cells/People/Others/Bob Johnson/Bob Johnson(others).databook.md" "graph-04" > /tmp/data-bob-04-raw.ttl
-riot --output=turtle /tmp/mia-base.ttl /tmp/data-bob-04-raw.ttl 2>/dev/null > /tmp/data-bob-04.ttl
-shacl validate --shapes /tmp/shapes-jscontact.ttl --data /tmp/data-bob-04.ttl --text
-
-python3 extract-graph.py "example/Cells/People/Others/Bob Johnson/Bob Johnson(others).databook.md" "graph-08" > /tmp/data-bob-08-raw.ttl
-riot --output=turtle /tmp/mia-base.ttl /tmp/data-bob-08-raw.ttl 2>/dev/null > /tmp/data-bob-08.ttl
-shacl validate --shapes /tmp/shapes-jscontact.ttl --data /tmp/data-bob-08.ttl --text
-
-python3 extract-graph.py "example/Cells/People/Others/Bob Johnson/Bob Johnson(others).databook.md" "graph-12" > /tmp/data-bob-12-raw.ttl
-riot --output=turtle /tmp/mia-base.ttl /tmp/data-bob-12-raw.ttl 2>/dev/null > /tmp/data-bob-12.ttl
-shacl validate --shapes /tmp/shapes-jscontact.ttl --data /tmp/data-bob-12.ttl --text
-
-# Others — Fred Flintstone's own cell, both cell:member graphs
-python3 extract-graph.py "example/Cells/People/Others/Fred Flintstone/Fred Flintstone(others).databook.md" "graph-29" > /tmp/data-fred-29-raw.ttl
-riot --output=turtle /tmp/mia-base.ttl /tmp/data-fred-29-raw.ttl 2>/dev/null > /tmp/data-fred-29.ttl
-shacl validate --shapes /tmp/shapes-jscontact.ttl --data /tmp/data-fred-29.ttl --text
-
-python3 extract-graph.py "example/Cells/People/Others/Fred Flintstone/Fred Flintstone(others).databook.md" "graph-31" > /tmp/data-fred-31-raw.ttl
-riot --output=turtle /tmp/mia-base.ttl /tmp/data-fred-31-raw.ttl 2>/dev/null > /tmp/data-fred-31.ttl
-shacl validate --shapes /tmp/shapes-jscontact.ttl --data /tmp/data-fred-31.ttl --text
-
-# cat:ExtendedFamily/cat:InLawsStepFamily have no cells in the example tree —
-# ctpl:ExtendedFamilyTemplateCell/ctpl:InLawsStepFamilyTemplateCell exist at the
-# ontology level (cell-templates.ttl) but have no Tier 2 entry to run here.
+python3 validate-tier2.py
 ```
 
-Expected output for each: `Conforms`
+Sample output (abridged):
+
+```
+SKIP     example/Cells/Affiliations/Boston Hub Society/Boston Hub Society(affiliations).databook.md graph-01 (no template)
+OK       example/Cells/Companies/Google/Google(companies).databook.md graph-16 [persona:JSContactCard]
+OK       example/Cells/Companies/Google/Google(companies).databook.md graph-73 [persona:ServiceAccount]
+OK       example/Cells/Government/Federal/Passport/Passport.databook.md graph-81 [persona:PassportDocument]
+...
+
+Checked: 48   Skipped (no template): 34   Violations: 0   Unresolved: 0
+```
+
+The script exits non-zero if any checked graph reports a violation (or a `template:` value has no entry in its `TEMPLATE_TO_SHAPE` table), so it doubles as a CI-style gate.

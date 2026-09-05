@@ -17,9 +17,11 @@ mia:
     - id: "http://www.example.org/mia/graphs/graph-29"
       claimant: ":Self"
       subject: ":Self"
+      template: "persona:JSContactCard"
     - id: "http://www.example.org/mia/graphs/graph-31"
       claimant: ":Fred_Flintstone"
       subject: ":Fred_Flintstone"
+      template: "persona:JSContactCard"
 ---
 
 ## Graphs
@@ -90,9 +92,6 @@ This graph captures Fred Flintstone's self-claimed persona, transmitted from Fre
 @prefix owl: <http://www.w3.org/2002/07/owl#> .
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
-
-:Self rdf:type owl:NamedIndividual ,
-               persona:Person .
 
 :Fred_Flintstone rdf:type owl:NamedIndividual ,
               persona:Person ;

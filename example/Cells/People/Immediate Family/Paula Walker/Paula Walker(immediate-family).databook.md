@@ -18,12 +18,15 @@ mia:
     - id: "http://www.example.org/mia/graphs/graph-05"
       claimant: ":Paula_Walker"
       subject: ":Paula_Walker"
+      template: "persona:JSContactCard"
     - id: "http://www.example.org/mia/graphs/graph-07"
       claimant: ":Self"
       subject: ":Paula_Walker"
+      template: "persona:JSContactCard"
     - id: "http://www.example.org/mia/graphs/graph-21"
       claimant: ":Self"
       subject: ":Self"
+      template: "persona:JSContactCard"
 ---
 
 ## Graphs

@@ -18,12 +18,15 @@ mia:
     - id: "http://www.example.org/mia/graphs/graph-01"
       claimant: ":BHS"
       subject: ":BHS"
+      template: "persona:JSContactCard"
     - id: "http://www.example.org/mia/graphs/graph-03"
       claimant: ":Bob_Johnson"
       subject: ":Bob_Johnson"
+      template: "persona:JSContactCard"
     - id: "http://www.example.org/mia/graphs/graph-14"
       claimant: ":Self"
       subject: ":Self"
+      template: "persona:JSContactCard"
 ---
 
 ## Graphs
@@ -114,6 +117,11 @@ This graph captures Alice Walker's BHS profile — the identity data she shares 
                persona:Person .
 
 :Self rdfs:comment "Alice Walker's persona for her BHS profile."@en ;
+
+    <https://w3id.org/cco-domains/cco/ont00001879> [  # designated by → GivenName (JSContactCardPersonShape)
+        rdf:type cco:ent00000002 ;
+        <https://w3id.org/cco-domains/cco/ont00001765> "Alice"
+    ] ;
 
     <https://w3id.org/cco-domains/cco/ont00001879> [  # designated by → AlternateName
         rdf:type cco:ent00000006 ;  # AlternateName

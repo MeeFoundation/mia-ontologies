@@ -11,10 +11,61 @@ carries its own `<!-- databook:graph: {graph_id}#graph -->` marker, computed
 from the graph's own `id` per the unchanged `{id}#graph` named-graph
 convention (CLAUDE.md's "DataBook IRI convention") — so isolating one
 graph's fence only requires knowing that graph's `id`, no new marker scheme.
+
+Also carries `resolve()`/`as_list()` — shared by `yaml-to-rdf.py` and
+`validate-tier2.py`, both of which need to turn a `mia.*` YAML value (a
+CURIE, a bare `:X` local name, or a bare `graph-<NN>` local name) into the
+same full IRI.
 """
 import re
 
 FRONTMATTER_RE = re.compile(r"^(---\n)(.*?\n)(---\n?)(.*)$", re.DOTALL)
+
+MIA_NS = "http://www.example.org/mia#"
+GRAPHS_BASE = "http://www.example.org/mia/graphs/"
+
+PREFIXES = {
+    "cat": "http://mee.foundation/ontologies/category#",
+    "cell": "http://mee.foundation/ontologies/cell#",
+    "persona": "http://mee.foundation/ontologies/persona#",
+    "pets": "http://mee.foundation/ontologies/pets#",
+    "vehicles": "http://mee.foundation/ontologies/vehicles#",
+}
+
+GRAPH_LOCAL_RE = re.compile(r"^graph-\d+$")
+
+
+def resolve(val):
+    """Resolve a YAML-string value (curie, bare graph local name, or bare
+    MIA local name) to a full IRI.
+
+    mia.member/topic entries are written as bare graph
+    id local names (e.g. "graph-22") rather than the full
+    http://www.example.org/mia/graphs/... IRI — the base is constant across
+    every graph id in the dataset (mia.graphs[].id and the #graph names still
+    spell it out in full, since those double as the graph's actual named-graph
+    identity), so repeating it on every member/topic list entry is
+    pure baggage. A graph id local name always matches "graph-<NN>", which no
+    other resolve()-able value (":Self", "cat:Affiliations", ...) ever does,
+    so that's what distinguishes the two bare forms below.
+    """
+    if val.startswith("http://") or val.startswith("https://"):
+        return val
+    if val.startswith(":"):
+        return MIA_NS + val[1:]
+    if GRAPH_LOCAL_RE.match(val):
+        return GRAPHS_BASE + val
+    if ":" in val:
+        prefix, local = val.split(":", 1)
+        if prefix in PREFIXES:
+            return PREFIXES[prefix] + local
+    return MIA_NS + val
+
+
+def as_list(v):
+    if v is None:
+        return []
+    return v if isinstance(v, list) else [v]
 
 
 def split_frontmatter(text):

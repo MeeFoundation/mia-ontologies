@@ -24,9 +24,11 @@ mia:
     - id: "http://www.example.org/mia/graphs/graph-27"
       claimant: ":Self"
       subject: ":Citibank"
+      template: "persona:JSContactCard"
     - id: "http://www.example.org/mia/graphs/graph-77"
       claimant: ":Self"
       subject: ":Self"
+      template: "persona:JSContactCard"
     - id: "http://www.example.org/mia/graphs/graph-75"
       claimant: ":Self"
       subject: ":Self"
@@ -157,6 +159,7 @@ This graph captures Alice Walker's financial relationship with Citibank. Citiban
 @prefix owl: <http://www.w3.org/2002/07/owl#> .
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 
 :Self rdf:type owl:NamedIndividual ,
                persona:Person .
@@ -206,6 +209,6 @@ This graph captures Alice Walker's financial relationship with Citibank. Citiban
     rdfs:label "Alice Walker's Citibank Online Account"@en ;
     cco:ent00000034 "Citibank" ;                   # has service name
     cco:ent00000035 "awalker@gmail.com" ;           # has user handle (username)
-    cco:ent00000036 <https://online.citi.com> ;    # has service URI
+    cco:ent00000036 "https://online.citi.com"^^xsd:anyURI ;  # has service URI
     persona:hasPassword "C1t1b@nk#2024!" .         # has password
 ```

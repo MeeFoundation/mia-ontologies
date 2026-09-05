@@ -19,6 +19,7 @@ mia:
     - id: "http://www.example.org/mia/graphs/graph-11"
       claimant: ":Self"
       subject: ":Self"
+      template: "persona:JSContactCard"
     - id: "http://www.example.org/mia/graphs/graph-74"
       claimant: ":Self"
       subject: ":Alice_ATT_Account"

@@ -14,39 +14,7 @@
     rdfs:comment """Template type classification used as values for the cell:template annotation property.
                     Each concrete template type (BirthCertificateDocument, JSContactCard, DriversLicenseDocument,
                     PassportDocument, MedicalAppointmentRecord, ServiceAccount) identifies which per-template
-                    SHACL shapes to apply when validating a graph file. Five of the six (all but JSContactCard)
-                    have their shapes in cell-templates-shacl.ttl, linked from a class-level cell:TemplateCell template
-                    (cell-templates.ttl) via cell:memberGraphShape (BirthCertificateDocument, DriversLicenseDocument,
-                    PassportDocument) or cell:topicGraphShape (MedicalAppointmentRecord, ServiceAccount) (cell.ttl). Other domains' own template types —
-                    e.g. pets:Pet, pets:PetMedicationRecord (other/pets.ttl) — are declared in their own
-                    other/*.ttl peer ontology instead, rdfs:subClassOf persona:PersonaTemplate referenced by
-                    name only (no owl:imports either direction), so this file stays scoped to a person's own
-                    identity documents rather than accumulating unrelated domains.
-
-                    p:IdentityDocument models government-issued identity documents as artifact instances.
-                    p:BirthCertificateDocument, p:DriversLicenseDocument, and p:PassportDocument are subclasses
-                    of both p:PersonaTemplate (template label use) and p:IdentityDocument (artifact instance use).
-                    p:JSContactCard is a template label only — not a government-issued identity document.
-                    p:MedicalAppointmentRecord is likewise a template label AND the class of its own shareable
-                    claims record individual (following the same pattern as p:PassportDocument), but is not an
-                    IdentityDocument — hence "Record" rather than "Document" in its name.
-                    p:ServiceAccount is likewise a template label only, not an IdentityDocument — an online
-                    service-account credential is not a government-issued document. Unlike every other subtype,
-                    it carries no claim properties of its own beyond persona:hasPassword: the individual it
-                    labels is always multi-typed cco:ent00000033 (Online Service Account, StagingOntology) as
-                    well, so its service name/username/service URI reuse that class's own existing properties
-                    (cco:ent00000034/ent00000035/ent00000036) directly, with no domain change to any of them.
-
-                    Class hierarchy:
-                    p:PersonaTemplate → p:BirthCertificateDocument (also p:IdentityDocument)
-                                      → p:DriversLicenseDocument  (also p:IdentityDocument)
-                                      → p:PassportDocument        (also p:IdentityDocument)
-                                      → p:JSContactCard
-                                      → p:MedicalAppointmentRecord
-                                      → p:ServiceAccount
-                    p:IdentityDocument → p:BirthCertificateDocument
-                                       → p:DriversLicenseDocument
-                                       → p:PassportDocument"""@en .
+                    SHACL shapes to apply when validating a graph file."""@en .
 
 
 #################################################################

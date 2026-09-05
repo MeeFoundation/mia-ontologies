@@ -42,59 +42,15 @@ Requires: pip install pyyaml
 
 import os, re, sys, yaml, glob
 
+from databook_graphs import resolve, as_list
+
 CELL = "http://mee.foundation/ontologies/cell#"
-MIA_NS = "http://www.example.org/mia#"
-GRAPHS_BASE = "http://www.example.org/mia/graphs/"
-
-PREFIXES = {
-    "cat": "http://mee.foundation/ontologies/category#",
-    "cell": CELL,
-    "persona": "http://mee.foundation/ontologies/persona#",
-    "pets": "http://mee.foundation/ontologies/pets#",
-    "vehicles": "http://mee.foundation/ontologies/vehicles#",
-}
-
-
-GRAPH_LOCAL_RE = re.compile(r"^graph-\d+$")
-
-
-def resolve(val):
-    """Resolve a YAML-string value (curie, bare graph local name, or bare
-    MIA local name) to a full IRI.
-
-    mia.member/topic entries are written as bare graph
-    id local names (e.g. "graph-22") rather than the full
-    http://www.example.org/mia/graphs/... IRI — the base is constant across
-    every graph id in the dataset (mia.graphs[].id and the #graph names still
-    spell it out in full, since those double as the graph's actual named-graph
-    identity), so repeating it on every member/topic list entry is
-    pure baggage. A graph id local name always matches "graph-<NN>", which no
-    other resolve()-able value (":Self", "cat:Affiliations", ...) ever does,
-    so that's what distinguishes the two bare forms below.
-    """
-    if val.startswith("http://") or val.startswith("https://"):
-        return val
-    if val.startswith(":"):
-        return MIA_NS + val[1:]
-    if GRAPH_LOCAL_RE.match(val):
-        return GRAPHS_BASE + val
-    if ":" in val:
-        prefix, local = val.split(":", 1)
-        if prefix in PREFIXES:
-            return PREFIXES[prefix] + local
-    return MIA_NS + val
 
 
 def frontmatter(path):
     text = open(path, encoding="utf-8").read()
     m = re.match(r"^---\n(.*?)\n---", text, re.DOTALL)
     return yaml.safe_load(m.group(1)) if m else None
-
-
-def as_list(v):
-    if v is None:
-        return []
-    return v if isinstance(v, list) else [v]
 
 
 def emit_type(triples, subj, type_iri):

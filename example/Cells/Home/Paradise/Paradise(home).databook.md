@@ -18,6 +18,7 @@ mia:
     - id: "http://www.example.org/mia/graphs/graph-18"
       claimant: ":Self"
       subject: ":Self"
+      template: "persona:JSContactCard"
     - id: "http://www.example.org/mia/graphs/graph-83"
       claimant: ":Self"
       subject: ":Self"

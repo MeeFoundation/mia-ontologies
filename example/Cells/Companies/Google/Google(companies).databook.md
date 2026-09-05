@@ -19,6 +19,7 @@ mia:
     - id: "http://www.example.org/mia/graphs/graph-16"
       claimant: ":Self"
       subject: ":Self"
+      template: "persona:JSContactCard"
     - id: "http://www.example.org/mia/graphs/graph-73"
       claimant: ":Self"
       subject: ":Alice_Google_Account"
@@ -84,11 +85,6 @@ This graph captures Alice's basic claim about her Google account itself — just
 
 :Self rdf:type owl:NamedIndividual ,
                persona:Person .
-
-:Self <https://w3id.org/cco-domains/cco/ont00001879> [  # designated by → Email
-        rdf:type cco:ent00000024 ;
-        <https://w3id.org/cco-domains/cco/ont00001765> "awalker@gmail.com"
-    ] .
 
 :Alice_Google_Account rdf:type owl:NamedIndividual ,
                      persona:ServiceAccount ,
