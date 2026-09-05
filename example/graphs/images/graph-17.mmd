@@ -1,20 +1,28 @@
 flowchart TD
     classDef person fill:#fffacd,stroke:#aaa,color:#333
-    classDef grp    fill:#d4edda,stroke:#aaa,color:#333
     classDef org    fill:#cce5ff,stroke:#aaa,color:#333
     classDef lit    fill:none,stroke:none,font-style:italic,color:#2a7a2a
     classDef meta   fill:#f5f5ff,stroke:#9999cc,color:#333
 
-    subgraph ctx["Topic Graph"]
+    subgraph ctx["Graph"]
         direction LR
-        ctx_meta["claimant: :Self\nsubject: :Paula_Walker"]:::meta
+        ctx_meta["claimant: :Self\nsubject: :Sophia_Walker\ntemplate: pshapes:HealthWellnessShape"]:::meta
     end
 
-    nc36fed847485[":Paula_Height\n(Height)"]
-    n1f7e6a8b4a05[":Paula_Height_Measurement\n(RatioMeasurementICE)"]
-    n2e775ee70f4a("Inch"):::lit
-    n5e7c1b310699("68"):::lit
+    nc2b33ffe0c84[":Sophia_Height\n(Height)"]
+    n82d3b4cd3934[":Sophia_Height_Measurement\n(RatioMeasurementICE)"]
+    n92798e8f15b9("Inch"):::lit
+    nfda21726ea9a("52"):::lit
+    n2862909bb09a[":Sophia_Walker\n(Person)"]:::person
+    n5f39c384e95e{"BlueEyeColor"}
+    n832ef9734204{"ScalpHair"}
+    na8a423e9923a("Brown"):::lit
 
-    n1f7e6a8b4a05 -->|"isRatioMeasurementOf"| nc36fed847485
-    n1f7e6a8b4a05 -->|"usesMeasurementUnit"| n2e775ee70f4a
-    n1f7e6a8b4a05 -->|"hasDecimalValue"| n5e7c1b310699
+    n82d3b4cd3934 -->|"isRatioMeasurementOf"| nc2b33ffe0c84
+    n82d3b4cd3934 -->|"usesMeasurementUnit"| n92798e8f15b9
+    n82d3b4cd3934 -->|"hasDecimalValue"| nfda21726ea9a
+    n2862909bb09a -->|"bearerOf"| nc2b33ffe0c84
+    n2862909bb09a -->|"bearerOf"| n82d3b4cd3934
+    n2862909bb09a -->|"bearerOf"| n5f39c384e95e
+    n2862909bb09a -->|"hasContinuantPart"| n832ef9734204
+    n832ef9734204 -->|"HairColor"| na8a423e9923a

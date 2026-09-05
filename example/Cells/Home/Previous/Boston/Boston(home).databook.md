@@ -7,7 +7,7 @@ created: 2026-07-10
 description: >
   Cell DataBook for folder "Boston" (cell:category: cat:Home). It is a one-member cell with one
   member entry about :Self and one topic graph about :Self (the cell's subject), typed
-  persona:Residence, carrying Alice's previous Boston address.
+  residences:Residence, carrying Alice's previous Boston address.
 mia:
   category: "cat:Home"
   creator: ":Self"
@@ -16,12 +16,12 @@ mia:
     id: "http://www.example.org/mia/graphs/graph-13"
     claimant: ":Self"
     subject: ":Self"
-    template: "persona:JSContactCard"
+    template: "pshapes:JSContactCardPersonShape"
   topic:
     id: "http://www.example.org/mia/graphs/graph-82"
     claimant: ":Self"
     subject: ":Self"
-    template: "persona:Residence"
+    template: "residenceshapes:ResidenceShape"
 ---
 
 ## Graphs
@@ -72,12 +72,13 @@ This graph captures Alice Walker's previous residential address: 456 Commonwealt
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix residences: <http://mee.foundation/ontologies/residences#> .
 
 :Self rdf:type owl:NamedIndividual ,
                persona:Person .
 
 :Boston_Residence rdf:type owl:NamedIndividual ,
-                           persona:Residence ,
+                           residences:Residence ,
                            cco:ent00000016 ;  # AddressDesignation
     rdfs:label "Alice's Boston Residence (2020-2025)"@en ;
     rdfs:comment "Alice lived at this Boston address from 2020 to 2025."@en ;

@@ -4,33 +4,47 @@
     <!-- ── Application ontologies ───────────────────────────────────────── -->
     <uri id="persona"                  name="http://mee.foundation/ontologies/persona"
          uri="persona.ttl"/>
-    <uri id="persona-templates"        name="http://mee.foundation/ontologies/persona-templates"
-         uri="persona-templates.ttl"/>
     <uri id="jscontactcard-shacl"      name="http://mee.foundation/ontologies/persona/shapes/jscontactcard"
          uri="shacl/jscontactcard-shacl.ttl"/>
     <uri id="cell"                 name="http://mee.foundation/ontologies/cell"
          uri="cell.ttl"/>
     <uri id="category"             name="http://mee.foundation/ontologies/category"
          uri="category.ttl"/>
-    <uri id="cell-templates"        name="http://mee.foundation/ontologies/cell-templates"
-         uri="cell-templates.ttl"/>
-    <uri id="cell-templates-shacl-passport" name="http://mee.foundation/ontologies/persona/shapes/passport"
-         uri="cell-templates-shacl.ttl"/>
-    <uri id="cell-templates-shacl-birthcertificate" name="http://mee.foundation/ontologies/persona/shapes/birthcertificate"
-         uri="cell-templates-shacl.ttl"/>
-    <uri id="cell-templates-shacl-driverslicense" name="http://mee.foundation/ontologies/persona/shapes/driverslicense"
-         uri="cell-templates-shacl.ttl"/>
-    <uri id="cell-templates-shacl-medical-appointment" name="http://mee.foundation/ontologies/persona/shapes/medical-appointment"
-         uri="cell-templates-shacl.ttl"/>
+    <uri id="cat-templates"        name="http://mee.foundation/ontologies/cell-templates"
+         uri="cat-templates.ttl"/>
     <!-- ── Other ontologies (peer domain ontologies for what a person merely *has*) ── -->
     <uri id="pets"                     name="http://mee.foundation/ontologies/pets"
          uri="other/pets.ttl"/>
     <uri id="pets-shacl"               name="http://mee.foundation/ontologies/pets/shapes"
-         uri="other/pets-shacl.ttl"/>
+         uri="other/shacl/pets-shacl.ttl"/>
     <uri id="vehicles"                 name="http://mee.foundation/ontologies/vehicles"
          uri="other/vehicles.ttl"/>
     <uri id="vehicles-shacl"           name="http://mee.foundation/ontologies/vehicles/shapes"
-         uri="other/vehicles-shacl.ttl"/>
+         uri="other/shacl/vehicles-shacl.ttl"/>
+    <uri id="identity-documents"       name="http://mee.foundation/ontologies/identity-documents"
+         uri="other/identity-documents.ttl"/>
+    <uri id="identity-documents-shacl" name="http://mee.foundation/ontologies/identity-documents/shapes"
+         uri="other/shacl/identity-documents-shacl.ttl"/>
+    <uri id="medical-appointments"       name="http://mee.foundation/ontologies/medical-appointments"
+         uri="other/medical-appointments.ttl"/>
+    <uri id="medical-appointments-shacl" name="http://mee.foundation/ontologies/medical-appointments/shapes"
+         uri="other/shacl/medical-appointments-shacl.ttl"/>
+    <uri id="service-accounts"           name="http://mee.foundation/ontologies/service-accounts"
+         uri="other/service-accounts.ttl"/>
+    <uri id="service-accounts-shacl"     name="http://mee.foundation/ontologies/service-accounts/shapes"
+         uri="other/shacl/service-accounts-shacl.ttl"/>
+    <uri id="banking"                    name="http://mee.foundation/ontologies/banking"
+         uri="other/banking.ttl"/>
+    <uri id="banking-shacl"              name="http://mee.foundation/ontologies/banking/shapes"
+         uri="other/shacl/banking-shacl.ttl"/>
+    <uri id="residences"                 name="http://mee.foundation/ontologies/residences"
+         uri="other/residences.ttl"/>
+    <uri id="residences-shacl"           name="http://mee.foundation/ontologies/residences/shapes"
+         uri="other/shacl/residences-shacl.ttl"/>
+    <uri id="itineraries"                name="http://mee.foundation/ontologies/itineraries"
+         uri="other/itineraries.ttl"/>
+    <uri id="itineraries-shacl"          name="http://mee.foundation/ontologies/itineraries/shapes"
+         uri="other/shacl/itineraries-shacl.ttl"/>
     <!-- First non-CCO/non-mee.foundation external ontology this project vendors -->
     <uri id="dron-upper-subset"        name="http://mee.foundation/ontologies/dron-upper-subset"
          uri="project_files/dron-upper.ttl"/>
@@ -49,11 +63,11 @@
     <uri id="organization"             name="http://mee.foundation/ontologies/organization"
          uri="organization.ttl"/>
     <uri id="organization-shacl"       name="http://mee.foundation/ontologies/organization/shapes"
-         uri="organization-shacl.ttl"/>
+         uri="shacl/organization-shacl.ttl"/>
     <uri id="agent"                    name="http://mee.foundation/ontologies/agent"
          uri="agent.ttl"/>
     <uri id="agent-shacl"              name="http://mee.foundation/ontologies/agent/shapes"
-         uri="agent-shacl.ttl"/>
+         uri="shacl/agent-shacl.ttl"/>
 
     <!-- ── Selfness files (now DataBook — loaded via triplestore, not owl:imports) ── -->
 

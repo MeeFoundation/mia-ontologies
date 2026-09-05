@@ -1,0 +1,118 @@
+@prefix medicalappointments: <http://mee.foundation/ontologies/medical-appointments#> .
+@prefix persona: <http://mee.foundation/ontologies/persona#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix dc: <http://purl.org/dc/elements/1.1/> .
+@base <http://mee.foundation/ontologies/medical-appointments> .
+
+<http://mee.foundation/ontologies/medical-appointments> rdf:type owl:Ontology ;
+    owl:versionIRI <http://mee.foundation/ontologies/medical-appointments/1.0.0> ;
+    dc:date "2026-09-05"^^xsd:date ;
+    owl:versionInfo "Version 1.0.0 - initial extraction of medicalappointments:MedicalAppointmentRecord and its claim properties out of persona-extensions.ttl into their own other/ peer ontology."@en ;
+    rdfs:label "Medical Appointments Ontology"@en ;
+    rdfs:comment """A small other/ peer ontology (see other/pets.ttl's own rdfs:comment for the
+                    general pattern) for a domain a person merely *has* — a coordinated medical
+                    appointment for someone else — rather than *is*, kept out of persona.ttl the same
+                    way pet/vehicle/identity-document domain-modeling already are. Unlike
+                    other/pets.ttl/other/vehicles.ttl/other/identity-documents.ttl, persona.ttl holds
+                    no thin hasX-link property pointing at medicalappointments:MedicalAppointmentRecord —
+                    a record here is shared between the two members coordinating that care (e.g. a
+                    family member and a professional caregiver) rather than possessed by one
+                    persona:Person, so there is no single "holder" for a link to name.
+
+                    medicalappointments:MedicalAppointmentRecord is an independent template type label
+                    class, asserted via rdf:type directly on the graph's own content individual and
+                    targeted directly by its own SHACL shape (other/shacl/medical-appointments-shacl.ttl)
+                    — independent of cell.ttl's cell:template property, whose own range is
+                    sh:NodeShape (the validating shape, not the content's own class)."""@en .
+
+
+#################################################################
+#    MedicalAppointmentRecord and related properties
+#################################################################
+
+medicalappointments:MedicalAppointmentRecord rdf:type owl:Class ;
+    rdfs:label "Medical Appointment"@en ;
+    rdfs:comment """Label for a graph whose purpose is to carry the claims
+                    needed to arrange a medical appointment on behalf of someone else (e.g. a
+                    family member), shared between the two members coordinating that care.
+                    Also the class of the shareable claims record individual itself, following
+                    the same document-individual pattern as identitydocuments:Passport: the claims below
+                    are properties of the MedicalAppointmentRecord, not of the patient's persona:Person
+                    individual directly. Any referenced third party (e.g. the patient, their
+                    primary care physician) must have their relevant claims copied into this
+                    graph, since each graph's named graph must be self-contained for p2p
+                    sync between the coordinating members' own instances of the app. Asserted
+                    via rdf:type directly on the graph file's own record
+                    individual, validated by the SHACL shape :MedicalAppointmentRecordShape in
+                    other/shacl/medical-appointments-shacl.ttl, linked from cat:MedicalAppointment's own
+                    class-level cell (cat-templates.ttl) via cell:topicGraphShape — IRI
+                    http://mee.foundation/ontologies/medical-appointments/shapes/medical-appointment — for
+                    validation. Named "Record" rather than "Document" since this class
+                    is explicitly not an identitydocuments:IdentityDocument, matching its
+                    :MedicalAppointmentRecordShape's existing name."""@en .
+
+medicalappointments:forPatient rdf:type owl:ObjectProperty ;
+    rdfs:domain medicalappointments:MedicalAppointmentRecord ;
+    rdfs:range persona:Person ;
+    rdfs:label "for patient"@en ;
+    rdfs:comment """Links a MedicalAppointmentRecord to the Person the appointment is for.
+                    The linked Person individual must carry copied identity claims (e.g. name),
+                    not merely a bare reference — see medicalappointments:MedicalAppointmentRecord."""@en .
+
+medicalappointments:hasPrimaryCarePhysician rdf:type owl:ObjectProperty ;
+    rdfs:domain medicalappointments:MedicalAppointmentRecord ;
+    rdfs:range persona:Person ;
+    rdfs:label "has primary care physician"@en ;
+    rdfs:comment """Links a MedicalAppointmentRecord to the patient's primary care physician.
+                    The linked Person individual must carry copied identity claims, not merely
+                    a bare reference — see medicalappointments:MedicalAppointmentRecord."""@en .
+
+medicalappointments:currentMedication rdf:type owl:DatatypeProperty ;
+    rdfs:domain medicalappointments:MedicalAppointmentRecord ;
+    rdfs:label "current medication"@en ;
+    rdfs:comment """A medication the patient is currently taking, as a single free-text string
+                    (e.g. 'Lisinopril 10mg daily'). Repeat the property for multiple
+                    medications. Kept as a flat string rather than a structured sub-object for
+                    now; may be upgraded to a dedicated Medication class with dosage/frequency
+                    fields later if needed."""@en ;
+    rdfs:range xsd:string .
+
+medicalappointments:allergy rdf:type owl:DatatypeProperty ;
+    rdfs:domain medicalappointments:MedicalAppointmentRecord ;
+    rdfs:label "allergy"@en ;
+    rdfs:comment """An allergy the patient has, as a single free-text string (e.g.
+                    'Penicillin'). Repeat the property for multiple allergies."""@en ;
+    rdfs:range xsd:string .
+
+medicalappointments:medicalHistoryNote rdf:type owl:DatatypeProperty ;
+    rdfs:domain medicalappointments:MedicalAppointmentRecord ;
+    rdfs:label "medical history note"@en ;
+    rdfs:comment "A free-text summary of relevant medical history or ongoing conditions."@en ;
+    rdfs:range xsd:string .
+
+medicalappointments:insuranceProvider rdf:type owl:DatatypeProperty ;
+    rdfs:domain medicalappointments:MedicalAppointmentRecord ;
+    rdfs:label "insurance provider"@en ;
+    rdfs:comment "The name of the patient's health insurance provider (e.g. 'Medicare')."@en ;
+    rdfs:range xsd:string .
+
+medicalappointments:insurancePolicyNumber rdf:type owl:DatatypeProperty ;
+    rdfs:domain medicalappointments:MedicalAppointmentRecord ;
+    rdfs:label "insurance policy number"@en ;
+    rdfs:comment "The patient's health insurance policy number."@en ;
+    rdfs:range xsd:string .
+
+medicalappointments:insuranceGroupNumber rdf:type owl:DatatypeProperty ;
+    rdfs:domain medicalappointments:MedicalAppointmentRecord ;
+    rdfs:label "insurance group number"@en ;
+    rdfs:comment "The patient's health insurance group number, if applicable."@en ;
+    rdfs:range xsd:string .
+
+medicalappointments:preferredPharmacy rdf:type owl:DatatypeProperty ;
+    rdfs:domain medicalappointments:MedicalAppointmentRecord ;
+    rdfs:label "preferred pharmacy"@en ;
+    rdfs:comment "The patient's preferred pharmacy, as a free-text name and/or address."@en ;
+    rdfs:range xsd:string .

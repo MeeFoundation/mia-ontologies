@@ -16,11 +16,12 @@ mia:
     id: "http://www.example.org/mia/graphs/graph-23"
     claimant: ":Self"
     subject: ":Self"
-    template: "persona:JSContactCard"
+    template: "pshapes:JSContactCardPersonShape"
   topic:
     id: "http://www.example.org/mia/graphs/graph-80"
     claimant: ":Self"
     subject: ":Self"
+    template: "pshapes:SSNShape"
 ---
 
 ## Graphs
@@ -57,7 +58,7 @@ This graph is the cell's one required `member` entry — a cell with a single `m
 
 #### Overview
 
-This graph captures Alice Walker's Social Security Administration record — moved here, as this cell's `cell:topic` content, from the cell's former `member` graph-23. Alice self-enters her SSN (123-45-6788) from her physical Social Security card. The SSA is not a PDN node, so this data is self-claimed rather than received from the SSA directly. Validated by `persona-shacl.ttl`'s `:SSNShape` (reused directly as this cell's `cell:topicGraphShape`, since the SSN designator has no separate document class of its own). Alice is the claimant.
+This graph captures Alice Walker's Social Security Administration record — moved here, as this cell's `cell:topic` content, from the cell's former `member` graph-23. Alice self-enters her SSN (123-45-6788) from her physical Social Security card. The SSA is not a PDN node, so this data is self-claimed rather than received from the SSA directly. Validated by `shacl/persona-shacl.ttl`'s `:SSNShape` (reused directly as this cell's `cell:topicGraphShape`, since the SSN designator has no separate document class of its own). Alice is the claimant.
 
 #### Graph
 

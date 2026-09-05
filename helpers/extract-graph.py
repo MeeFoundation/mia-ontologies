@@ -4,15 +4,14 @@ extract-graph.py — print one graph's fenced turtle block from a
 cell-databook file that may contain several (one per embedded graph),
 matched by its known `<!-- databook:graph: {graph_id}#graph -->` marker.
 
-Why this exists: `databook extract` is a generic fenced-Turtle-block
-extractor with no notion of "pick one graph out of several." That's fine
-for Tier 1 validation, which wants every graph in a cell merged together
-anyway — but Tier 2 validates one graph's data in isolation against a
-per-template SHACL shape, and a cell with more than one embedded graph
-(e.g. the Med. App. Info cell, which has three) would have its sibling
-graphs' triples wrongly pulled in by a whole-file `databook extract`.
+Why this exists: a cell with more than one embedded graph (e.g. the Medical
+Appointment cell, which has three) would have its sibling graphs' triples
+wrongly pulled in by a whole-file extraction — but validation's template pass
+checks one graph's data in isolation against a per-template SHACL shape. This
+is the single-graph counterpart to extract-all.py's whole-tree extraction;
+both share the same fence parser, databook_graphs.iter_graph_blocks().
 
-Usage: python3 extract-graph.py <cell_file.databook.md> <graph-id-or-local-name>
+Usage: python3 helpers/extract-graph.py <cell_file.databook.md> <graph-id-or-local-name>
 Output: the matched graph's raw Turtle content on stdout.
 """
 import sys
@@ -24,7 +23,7 @@ from databook_graphs import as_list, extract_graph_block, find_graph_entry, spli
 
 def main():
     if len(sys.argv) != 3:
-        sys.exit("Usage: extract-graph.py <cell_file.databook.md> <graph-id-or-local-name>")
+        sys.exit("Usage: helpers/extract-graph.py <cell_file.databook.md> <graph-id-or-local-name>")
     path, graph_arg = sys.argv[1], sys.argv[2]
     text = open(path, encoding="utf-8").read()
     fm_text, _, body = split_frontmatter(text)

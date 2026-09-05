@@ -14,19 +14,19 @@ mia:
     - id: "http://www.example.org/mia/graphs/graph-02"
       claimant: ":Bob_Johnson"
       subject: ":Bob_Johnson"
-      template: "persona:JSContactCard"
+      template: "pshapes:JSContactCardPersonShape"
     - id: "http://www.example.org/mia/graphs/graph-12"
       claimant: ":Self"
       subject: ":Self"
-      template: "persona:JSContactCard"
+      template: "pshapes:JSContactCardPersonShape"
     - id: "http://www.example.org/mia/graphs/graph-04"
       claimant: ":Self"
       subject: ":Bob_Johnson"
-      template: "persona:JSContactCard"
+      template: "pshapes:JSContactCardPersonShape"
     - id: "http://www.example.org/mia/graphs/graph-08"
       claimant: ":Bob_Johnson"
       subject: ":Self"
-      template: "persona:JSContactCard"
+      template: "pshapes:JSContactCardPersonShape"
 ---
 
 ## Graphs

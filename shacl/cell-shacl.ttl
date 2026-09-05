@@ -13,8 +13,8 @@
 @prefix dc: <http://purl.org/dc/elements/1.1/> .
 
 <http://mee.foundation/ontologies/cell/shapes> rdf:type owl:Ontology ;
-    owl:versionIRI <http://mee.foundation/ontologies/cell/shapes/3.33.0> ;
-    dc:date "2026-09-04"^^xsd:date ;
+    owl:versionIRI <http://mee.foundation/ontologies/cell/shapes/3.34.0> ;
+    dc:date "2026-09-05"^^xsd:date ;
     rdfs:label "Cell Ontology SHACL Validation Shapes"@en ;
     rdfs:comment "SHACL validation shapes for cell:Cell DataBook instances (the content facet of a cell) and cell:SCGraph DataBook instances (the graph DataBooks a cell links to) in the Cell Ontology."@en .
 
@@ -64,7 +64,7 @@
     # rdf:type — exactly one of cell:TemplateCell/cell:MemberCell, never
     # both and never neither, mirroring cell.ttl's owl:disjointWith
     # cell:TemplateCell cell:MemberCell. A reusable class-level template
-    # (cell-templates.ttl) is typed cell:TemplateCell only; every cell
+    # (cat-templates.ttl) is typed cell:TemplateCell only; every cell
     # in a user's own tree is typed cell:MemberCell only — there is no
     # legal bare tree-position-only cell with no member content in the
     # MemberCell branch (a category node with nothing substantive to
@@ -95,10 +95,10 @@
     # template's content is filed as a cell:member or cell:topic graph — see
     # cell.ttl's own comments). Neither is constrained to sh:class
     # sh:NodeShape here: the individuals they point at (e.g.
-    # pshapes:PassportDocumentShape) are only typed sh:NodeShape in
-    # cell-templates-shacl.ttl, which is deliberately excluded from Tier 1's
-    # merged-data validation (see EXAMPLE.md's Validation section) — asserting
-    # sh:class here would spuriously fail against that merged graph.
+    # idocshapes:PassportShape) are only typed sh:NodeShape in
+    # the per-template other/shacl/*.ttl files, which the cell pass
+    # deliberately excludes from its shapes (see EXAMPLE.md's Validation
+    # section) — asserting sh:class here would spuriously fail there.
     sh:property [
         sh:path cell:memberGraphShape ;
         sh:message "cell:memberGraphShape links a cell:TemplateCell to zero or more sh:NodeShape values."@en
@@ -141,7 +141,7 @@
 #  cell:subject instead). There is likewise no
 #  cell:shape to constrain — a MemberCell's validation shape is derived
 #  from its own cell:category value (reverse-lookup the cell:TemplateCell
-#  with the same cell:category, cell-templates.ttl) rather than stored on
+#  with the same cell:category, cat-templates.ttl) rather than stored on
 #  the MemberCell itself.
 #################################################################
 
@@ -220,6 +220,16 @@
 #  from a cell (via cell:member/cell:topic above), so its shape lives
 #  here alongside the cell shapes rather than in a separate file.
 #################################################################
+
+# cell:template (domain cell:Graph, range sh:NodeShape) is deliberately left
+# unconstrained by any shape here, for the identical reason :TemplateCellShape's
+# own comment above already gives for not constraining cell:memberGraphShape/
+# cell:topicGraphShape to sh:class sh:NodeShape: the individuals a cell:template
+# value points at (e.g. idocshapes:PassportShape) are only typed
+# sh:NodeShape in files (shacl/persona-shacl.ttl,
+# shacl/jscontactcard-shacl.ttl, and every other/shacl/*-shacl.ttl file)
+# that the cell pass's own shapes deliberately exclude — asserting
+# sh:class here would spuriously fail there.
 
 :SCGraphShape
     a sh:NodeShape ;

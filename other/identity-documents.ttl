@@ -1,0 +1,114 @@
+@prefix identitydocuments: <http://mee.foundation/ontologies/identity-documents#> .
+@prefix persona: <http://mee.foundation/ontologies/persona#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix dc: <http://purl.org/dc/elements/1.1/> .
+@base <http://mee.foundation/ontologies/identity-documents> .
+
+<http://mee.foundation/ontologies/identity-documents> rdf:type owl:Ontology ;
+    owl:versionIRI <http://mee.foundation/ontologies/identity-documents/1.2.0> ;
+    dc:date "2026-09-05"^^xsd:date ;
+    owl:versionInfo "Version 1.2.0 - BirthCertificateDocument/DriversLicenseDocument/PassportDocument renamed to BirthCertificate/DriversLicense/Passport; their SHACL shapes renamed to match."@en ;
+    rdfs:label "Identity Documents Ontology"@en ;
+    rdfs:comment """The third of this project's other/ peer ontologies (after other/pets.ttl and
+                    other/vehicles.ttl) — government-issued identity document classes for what a
+                    person merely *has* (a document) rather than *is*, kept out of
+                    persona.ttl the same way pet and vehicle domain-modeling already are.
+                    persona:Person links to an identitydocuments:IdentityDocument instance via
+                    persona:hasIdentityDocument (persona.ttl), the same thin hasX-link
+                    pattern persona:hasPet/persona:hasVehicle already establish for
+                    other/pets.ttl/other/vehicles.ttl, referenced by name with no owl:imports in
+                    either direction."""@en .
+
+
+#################################################################
+#    IdentityDocument — government-issued document artifact class
+#################################################################
+
+identitydocuments:IdentityDocument rdf:type owl:Class ;
+    rdfs:label "Identity Document"@en ;
+    rdfs:comment """A government-issued document that formally identifies a person,
+                    such as a birth certificate, driver's license, or passport.
+                    Subclasses (idoc:BirthCertificate, idoc:DriversLicense, idoc:Passport)
+                    are each also the sh:targetClass of its own SHACL shape. Instances are
+                    linked from persona:Person via persona:hasIdentityDocument
+                    (persona.ttl)."""@en .
+
+
+#################################################################
+#    BirthCertificate
+#################################################################
+
+identitydocuments:BirthCertificate rdf:type owl:Class ;
+    rdfs:subClassOf identitydocuments:IdentityDocument ;
+    rdfs:label "Birth Certificate"@en ;
+    rdfs:comment """Label for a graph whose purpose is to carry a person's legal
+                    birth certificate name record. Asserted via rdf:type directly on the graph
+                    file's own document individual, validated by the SHACL shape :BirthCertificateShape
+                    in other/shacl/identity-documents-shacl.ttl, linked from cat:BirthCertificate's own
+                    class-level cell (cat-templates.ttl) via cell:topicGraphShape — IRI
+                    http://mee.foundation/ontologies/identity-documents/shapes/birthcertificate — for
+                    validation. Shares a local name with the unrelated cat:BirthCertificate concept
+                    (category.ttl), which classifies a cell rather than describing a document — the
+                    two are told apart by namespace alone."""@en .
+
+
+#################################################################
+#    DriversLicense
+#################################################################
+
+identitydocuments:DriversLicense rdf:type owl:Class ;
+    rdfs:subClassOf identitydocuments:IdentityDocument ;
+    rdfs:label "Driver's License"@en ;
+    rdfs:comment """Label for a graph whose purpose is to carry the identity
+                    claims on a state-issued driver's license: legal name, date of birth,
+                    driver's license number, and expiration date. Residential address is optional.
+                    Asserted via rdf:type directly on the graph file's own document individual,
+                    validated by the SHACL shape :DriversLicenseShape in other/shacl/identity-documents-shacl.ttl,
+                    linked from cat:DriversLicense's own class-level cell (cat-templates.ttl) via
+                    cell:topicGraphShape — IRI
+                    http://mee.foundation/ontologies/identity-documents/shapes/driverslicense — for validation.
+                    Note: p:PhysicalDriversLicense (in persona.ttl) models the physical card
+                    object carried in a wallet; this class models the identity data the
+                    license claims. Shares a local name with the unrelated cat:DriversLicense
+                    concept (category.ttl), which classifies a cell rather than describing a
+                    document — the two are told apart by namespace alone."""@en .
+
+
+#################################################################
+#    Passport
+#################################################################
+
+identitydocuments:Passport rdf:type owl:Class ;
+    rdfs:subClassOf identitydocuments:IdentityDocument ;
+    rdfs:label "Passport"@en ;
+    rdfs:comment """Label for a graph whose purpose is to carry the identity
+                    claims on a government-issued passport: legal name, date of birth, passport
+                    number, issue date, expiration date, issuing country, place of birth, and
+                    gender marker. Photo is optional. Asserted via rdf:type directly on
+                    the graph file's own document individual, validated by the SHACL shape :PassportShape
+                    in other/shacl/identity-documents-shacl.ttl, linked from cat:Passport's own
+                    class-level cell (cat-templates.ttl) via cell:topicGraphShape — IRI
+                    http://mee.foundation/ontologies/identity-documents/shapes/passport — for
+                    validation. Shares a local name with the unrelated cat:Passport concept
+                    (category.ttl), which classifies a cell rather than describing a document — the
+                    two are told apart by namespace alone."""@en .
+
+
+#################################################################
+#    GenderMarker — identity-document-specific designator
+#################################################################
+
+identitydocuments:GenderMarker rdf:type owl:Class ;
+    rdfs:subClassOf <https://w3id.org/cco-domains/cco/ont00000003> ;  # Designative Name
+    rdfs:label "Gender Marker"@en ;
+    rdfs:comment """A Designative Name recording the gender marker as it appears on a
+                    government-issued identity document. Controlled vocabulary: 'M', 'F', 'X'.
+                    Used on an identitydocuments:Passport via designated by
+                    (ont00001879). The one identity-document designator this project defines
+                    itself: CCO's own cco:ent00000065-69 already cover a driver's license number,
+                    passport number, place of birth, issuing jurisdiction, and issue date, and are
+                    reused directly by the shapes in other/shacl/identity-documents-shacl.ttl — but
+                    no CCO class covers a gender marker, so this one is minted here."""@en .

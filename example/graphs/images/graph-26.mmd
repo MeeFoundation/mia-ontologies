@@ -1,42 +1,41 @@
 flowchart TD
     classDef person fill:#fffacd,stroke:#aaa,color:#333
-    classDef grp    fill:#d4edda,stroke:#aaa,color:#333
     classDef org    fill:#cce5ff,stroke:#aaa,color:#333
     classDef lit    fill:none,stroke:none,font-style:italic,color:#2a7a2a
     classDef meta   fill:#f5f5ff,stroke:#9999cc,color:#333
 
-    subgraph ctx["Topic Graph"]
+    subgraph ctx["Graph"]
         direction LR
-        ctx_meta["claimant: :Self\nsubject: :Paula_Walker\ntemplate: persona:MedicalAppointmentRecord"]:::meta
+        ctx_meta["claimant: :Self\nsubject: :Sophia_Walker\ntemplate: mashapes:MedicalAppointmentRecordShape"]:::meta
     end
 
-    nb56a5989f29e[":Jane_Kolpakova\n(Person)"]:::person
-    n95cfbaca1339("Jane"):::lit
-    n1b3779ccfa03("Kolpakova"):::lit
-    nf659c998053a("Paula Walker's primary care physician"):::lit
-    n9c0041903ee1[":Paula_Medical_Appointment\n(MedicalAppointmentRecord)"]
-    nf4296ab13de4[":Paula_Walker\n(Person)"]:::person
-    nd3d68245abd1("Lisinopril 10mg daily"):::lit
-    n75726e1c0322("Metformin 500mg twice daily"):::lit
-    n7461808b07a8("Penicillin"):::lit
-    n798c153b9d63("Type 2 diabetes; hypertension."):::lit
-    nb048c127c644("Medicare"):::lit
-    nd767c2e2c89d("1EG4-TE5-MK72"):::lit
-    nfb1be0ec8e6d("CVS Pharmacy, 123 Main St, Paradise, CA"):::lit
-    nb37f2c863cca("Paula"):::lit
-    nd093b177ee22("Walker"):::lit
+    ncb7388e459f8[":Jane_Starostina\n(Person)"]:::person
+    n3634f578b720("Jane"):::lit
+    n8b8a8d2e353c("Starostina"):::lit
+    nde308694bc44("Sophia Walker's primary care physician"):::lit
+    na4b527a367fe[":Sophia_Medical_Appointment\n(MedicalAppointmentRecord)"]
+    n2862909bb09a[":Sophia_Walker\n(Person)"]:::person
+    ned787b716bf4("Albuterol inhaler, 2 puffs as needed"):::lit
+    ndcf9463eef26("Cetirizine 5mg daily"):::lit
+    n901ea8658d8c("Penicillin"):::lit
+    nc6054eadf5bb("Mild persistent asthma; seasonal allergies."):::lit
+    n8334609721f0("Acme Health Plan (BlueShield of California)"):::lit
+    n37a056879e45("XZC-884210773"):::lit
+    nd86d8f4bf8bd("CVS Pharmacy, 123 Main St, Paradise, CA"):::lit
+    ndec41448034a("Sophia"):::lit
+    n80ca25725fc4("Walker"):::lit
 
-    nb56a5989f29e -->|"GivenName"| n95cfbaca1339
-    nb56a5989f29e -->|"FamilyName"| n1b3779ccfa03
-    nb56a5989f29e -->|"ont00001917"| nf659c998053a
-    n9c0041903ee1 -->|"forPatient"| nf4296ab13de4
-    n9c0041903ee1 -->|"hasPrimaryCarePhysician"| nb56a5989f29e
-    n9c0041903ee1 -->|"currentMedication"| nd3d68245abd1
-    n9c0041903ee1 -->|"currentMedication"| n75726e1c0322
-    n9c0041903ee1 -->|"allergy"| n7461808b07a8
-    n9c0041903ee1 -->|"medicalHistoryNote"| n798c153b9d63
-    n9c0041903ee1 -->|"insuranceProvider"| nb048c127c644
-    n9c0041903ee1 -->|"insurancePolicyNumber"| nd767c2e2c89d
-    n9c0041903ee1 -->|"preferredPharmacy"| nfb1be0ec8e6d
-    nf4296ab13de4 -->|"GivenName"| nb37f2c863cca
-    nf4296ab13de4 -->|"FamilyName"| nd093b177ee22
+    ncb7388e459f8 -->|"GivenName"| n3634f578b720
+    ncb7388e459f8 -->|"FamilyName"| n8b8a8d2e353c
+    ncb7388e459f8 -->|"ont00001917"| nde308694bc44
+    na4b527a367fe -->|"forPatient"| n2862909bb09a
+    na4b527a367fe -->|"hasPrimaryCarePhysician"| ncb7388e459f8
+    na4b527a367fe -->|"currentMedication"| ned787b716bf4
+    na4b527a367fe -->|"currentMedication"| ndcf9463eef26
+    na4b527a367fe -->|"allergy"| n901ea8658d8c
+    na4b527a367fe -->|"medicalHistoryNote"| nc6054eadf5bb
+    na4b527a367fe -->|"insuranceProvider"| n8334609721f0
+    na4b527a367fe -->|"insurancePolicyNumber"| n37a056879e45
+    na4b527a367fe -->|"preferredPharmacy"| nd86d8f4bf8bd
+    n2862909bb09a -->|"GivenName"| ndec41448034a
+    n2862909bb09a -->|"FamilyName"| n80ca25725fc4

@@ -1,0 +1,60 @@
+@prefix : <http://mee.foundation/ontologies/residences/shapes#> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix cco: <https://w3id.org/cco-domains/cco/> .
+@prefix residences: <http://mee.foundation/ontologies/residences#> .
+@prefix persona: <http://mee.foundation/ontologies/persona#> .
+@prefix dc: <http://purl.org/dc/elements/1.1/> .
+
+<http://mee.foundation/ontologies/residences/shapes> rdf:type owl:Ontology ;
+    owl:imports <http://mee.foundation/ontologies/residences> ;
+    owl:versionIRI <http://mee.foundation/ontologies/residences/shapes/1.0.0> ;
+    dc:date "2026-09-05"^^xsd:date ;
+    rdfs:label "Residences Template SHACL Shapes"@en ;
+    rdfs:comment """SHACL shapes for validating graph files carrying cell:template residenceshapes:ResidenceShape.
+                    Apply in addition to shacl/persona-shacl.ttl when validating a residence graph file.
+                    Targets residences:Residence individuals directly — also typed cco:ent00000016
+                    (AddressDesignation), so its own existing address/participant/temporal-region
+                    properties are constrained here without any change to their domain. Paired with
+                    other/residences.ttl, the ontology it validates."""@en .
+
+
+#################################################################
+#  Residence Shape
+#  Targets residences:Residence individuals (also typed cco:ent00000016).
+#  Required: address (AddressOntology#ent00000324 has address, 1..1)
+#            occupies temporal region (BFO_0000199, 1..1)
+#  Optional: has participant (BFO_0000057, 0..1) — the resident, usually :Self
+#################################################################
+
+:ResidenceShape
+    a sh:NodeShape ;
+    sh:targetClass residences:Residence ;
+    sh:message "A Residence must have exactly one address and occupy exactly one temporal region."@en ;
+
+    sh:property [
+        sh:path <https://w3id.org/cco-domains/domains/AddressOntology#ent00000324> ;  # has address
+        sh:class cco:ent00000010 ;  # USPostalAddress
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:message "A Residence must have exactly one address."@en
+    ] ;
+
+    sh:property [
+        sh:path <http://purl.obolibrary.org/obo/BFO_0000199> ;  # occupies temporal region
+        sh:class <http://purl.obolibrary.org/obo/BFO_0000038> ;  # TemporalInterval
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:message "A Residence must occupy exactly one temporal region (TemporalInterval)."@en
+    ] ;
+
+    # ── Optional fields ──────────────────────────────────────────────────────
+    sh:property [
+        sh:path <http://purl.obolibrary.org/obo/BFO_0000057> ;  # has participant
+        sh:class persona:Person ;
+        sh:maxCount 1 ;
+        sh:message "A Residence may have at most one participant (the resident)."@en
+    ] .

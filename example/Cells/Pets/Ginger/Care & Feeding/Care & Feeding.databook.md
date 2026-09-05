@@ -14,11 +14,11 @@ mia:
     - id: "http://www.example.org/mia/graphs/graph-58"
       claimant: ":Self"
       subject: ":Self"
-      template: "persona:JSContactCard"
+      template: "pshapes:JSContactCardPersonShape"
     - id: "http://www.example.org/mia/graphs/graph-59"
       claimant: ":Paula_Walker"
       subject: ":Paula_Walker"
-      template: "persona:JSContactCard"
+      template: "pshapes:JSContactCardPersonShape"
   topic:
     id: "http://www.example.org/mia/graphs/graph-60"
     claimant: ":Self"

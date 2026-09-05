@@ -1,0 +1,81 @@
+@prefix banking: <http://mee.foundation/ontologies/banking#> .
+@prefix persona: <http://mee.foundation/ontologies/persona#> .
+@prefix cco: <https://w3id.org/cco-domains/cco/> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix dc: <http://purl.org/dc/elements/1.1/> .
+@base <http://mee.foundation/ontologies/banking> .
+
+<http://mee.foundation/ontologies/banking> rdf:type owl:Ontology ;
+    owl:versionIRI <http://mee.foundation/ontologies/banking/1.0.0> ;
+    dc:date "2026-09-05"^^xsd:date ;
+    owl:versionInfo "Version 1.0.0 - initial extraction of banking:DebitCard out of persona-extensions.ttl, and banking:CheckingAccount/banking:accessesBankAccount out of persona.ttl, into their own other/ peer ontology."@en ;
+    rdfs:label "Banking Ontology"@en ;
+    rdfs:comment """A small other/ peer ontology (see other/pets.ttl's own rdfs:comment for the
+                    general pattern) for a domain a person merely *has* — a debit card and the
+                    checking account it draws from — rather than *is*, kept out of persona.ttl the
+                    same way pet/vehicle/identity-document domain-modeling already are. persona.ttl
+                    holds only the thin link property (persona:hasBankAccount, domain persona:Person,
+                    range banking:CheckingAccount) connecting a person to this file's classes,
+                    referenced by name with no owl:imports in either direction — the same "referenced
+                    by name" pattern persona:hasPet/persona:hasVehicle/persona:hasIdentityDocument
+                    already establish for other/pets.ttl/other/vehicles.ttl/other/identity-documents.ttl.
+                    banking:accessesBankAccount links banking:DebitCard
+                    (via the CCO class it multi-types with) to banking:CheckingAccount directly — internal
+                    plumbing between two classes both now defined in this same file, not a
+                    persona:Person-level fact, so it belongs here rather than in persona.ttl.
+
+                    banking:DebitCard and banking:CheckingAccount are each independent template type
+                    label classes, asserted via rdf:type directly on the graph's own content individual
+                    and targeted directly by their own SHACL shape (other/shacl/banking-shacl.ttl) —
+                    independent of cell.ttl's cell:template property, whose own range is sh:NodeShape
+                    (the validating shape, not the content's own class). Both are linked from
+                    cat:BankingPayments's own class-level cell (cat-templates.ttl) via
+                    cell:topicGraphShape, alongside serviceaccounts:ServiceAccount
+                    (other/service-accounts.ttl) — a single Citibank-claimed topic graph holds all
+                    three templates' content together."""@en .
+
+
+#################################################################
+#    DebitCard
+#################################################################
+
+banking:DebitCard rdf:type owl:Class ;
+    rdfs:label "Debit Card"@en ;
+    rdfs:comment """Label for a graph whose purpose is to carry one of a person's
+                    debit cards. The individual carrying this type is always also typed
+                    cco:ent00000051 (Debit Card, StagingOntology) — the same multi-typing
+                    pattern serviceaccounts:ServiceAccount uses alongside cco:ent00000033 — so its card
+                    number, CVV, and expiration date reuse that class's own existing designator
+                    pattern directly (see other/shacl/banking-shacl.ttl's :DebitCardShape), and
+                    banking:accessesBankAccount links it to the banking:CheckingAccount it draws
+                    funds from. Asserted via rdf:type directly on the graph file's own
+                    individual, validated by the SHACL shape :DebitCardShape (other/shacl/banking-shacl.ttl,
+                    targeting cco:ent00000051 directly), linked from
+                    cat:BankingPayments's own class-level cell (cat-templates.ttl) via
+                    cell:topicGraphShape. Not an identitydocuments:IdentityDocument."""@en .
+
+
+#################################################################
+#    CheckingAccount
+#################################################################
+
+banking:CheckingAccount rdf:type owl:Class ;
+    rdfs:label "Checking Account"@en ;
+    rdfs:comment """A bank checking account held by a person, linked to a debit card. Also a
+                    template type label for a graph whose purpose is to carry this account's own
+                    details (designated by → cco:ent00000071 Checking Account Number,
+                    cco:ent00000072 Routing Number) — asserted via rdf:type directly on the
+                    graph file's own individual, the same pattern identitydocuments:Passport/
+                    medicalappointments:MedicalAppointmentRecord already follow. Validated by the existing
+                    SHACL shape :CheckingAccountShape (other/shacl/banking-shacl.ttl), whose own CURIE — not this class — is what the graph's
+                    cell:template value names; linked from cat:BankingPayments's template cell
+                    (cat-templates.ttl) via cell:topicGraphShape."""@en .
+
+banking:accessesBankAccount rdf:type owl:ObjectProperty ;
+    rdfs:domain cco:ent00000051 ;  # Debit Card
+    rdfs:range banking:CheckingAccount ;
+    rdfs:label "accesses bank account"@en ;
+    rdfs:comment "Links a DebitCard to the CheckingAccount it draws funds from."@en .

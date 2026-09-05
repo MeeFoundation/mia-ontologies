@@ -1,0 +1,314 @@
+@prefix : <http://mee.foundation/ontologies/identity-documents/shapes#> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix cco: <https://w3id.org/cco-domains/cco/> .
+@prefix identitydocuments: <http://mee.foundation/ontologies/identity-documents#> .
+@prefix persona: <http://mee.foundation/ontologies/persona#> .
+@prefix dc: <http://purl.org/dc/elements/1.1/> .
+
+<http://mee.foundation/ontologies/identity-documents/shapes> rdf:type owl:Ontology ;
+    owl:imports <http://mee.foundation/ontologies/identity-documents> ;
+    owl:versionIRI <http://mee.foundation/ontologies/identity-documents/shapes/1.2.0> ;
+    dc:date "2026-09-05"^^xsd:date ;
+    rdfs:label "Identity Documents Template SHACL Shapes"@en ;
+    rdfs:comment """SHACL shapes for validating graph files carrying cell:template idocshapes:BirthCertificateShape,
+                    idocshapes:DriversLicenseShape, or idocshapes:PassportShape. Apply in
+                    addition to shacl/persona-shacl.ttl when validating one of these graph files.
+                    Targets identitydocuments:BirthCertificate/DriversLicense/Passport
+                    document individuals directly — identity claims (names, dates, designators) are
+                    properties of the document, not the Person."""@en .
+
+
+#################################################################
+#  Birth Certificate Shape
+#  Targets identitydocuments:BirthCertificate document individuals.
+#  All identity claims are properties of the document individual.
+#  Required: FullName (1..1) OR (GivenName (1..1) AND FamilyName (1..1))
+#  Optional: AdditionalName (ent00000003), AlternateName (ent00000006),
+#            Nickname, Legal Name
+#################################################################
+
+:BirthCertificateShape
+    a sh:NodeShape ;
+    sh:targetClass identitydocuments:BirthCertificate ;
+    sh:message "Birth certificate document must record either FullName OR (GivenName + FamilyName)."@en ;
+
+    # Name requirement: EITHER FullName OR (GivenName AND FamilyName)
+    sh:or (
+        [
+            sh:property [
+                sh:path <https://w3id.org/cco-domains/cco/ont00001879> ;  # designated by
+                sh:qualifiedValueShape [ sh:class cco:ent00000001 ] ;
+                sh:qualifiedMinCount 1 ;
+                sh:message "Birth certificate must record at least one FullName, OR provide GivenName + FamilyName."@en
+            ]
+        ]
+        [
+            sh:and (
+                [
+                    sh:property [
+                        sh:path <https://w3id.org/cco-domains/cco/ont00001879> ;  # designated by
+                        sh:qualifiedValueShape [ sh:class cco:ent00000002 ] ;
+                        sh:qualifiedMinCount 1 ;
+                        sh:message "If no FullName is recorded, birth certificate must include at least one GivenName."@en
+                    ]
+                ]
+                [
+                    sh:property [
+                        sh:path <https://w3id.org/cco-domains/cco/ont00001879> ;  # designated by
+                        sh:qualifiedValueShape [ sh:class cco:ent00000004 ] ;
+                        sh:qualifiedMinCount 1 ;
+                        sh:message "If no FullName is recorded, birth certificate must include at least one FamilyName."@en
+                    ]
+                ]
+            )
+        ]
+    ) ;
+
+    # Optional name components
+    sh:property [
+        sh:path <https://w3id.org/cco-domains/cco/ont00001879> ;  # designated by
+        sh:qualifiedValueShape [
+            sh:or (
+                [ sh:class cco:ent00000003 ]
+                [ sh:class cco:ent00000005 ]
+                [ sh:class cco:ent00000006 ]
+                [ sh:class <https://w3id.org/cco-domains/cco/ont00000990> ]  # Nickname
+                [ sh:class <https://w3id.org/cco-domains/cco/ont00001331> ]  # Legal Name
+            )
+        ] ;
+        sh:qualifiedMaxCount 50 ;
+        sh:message "Optional name designators are allowed (up to 50 total across these types)."@en
+    ] .
+
+
+#################################################################
+#  Drivers License Shape
+#  Targets identitydocuments:DriversLicense individuals.
+#  All identity claims are properties of the document individual.
+#  Required: FullName (1..1) OR (GivenName (1..1) AND FamilyName (1..1))
+#            DateOfBirth (ent00000046, 1..1)
+#            DriversLicenseNumber (cco:ent00000065, 1..1)
+#            ExpirationDate (has expiration date cco:ent00000070 → Calendar Date Identifier, 1..1)
+#  Optional: AdditionalName (ent00000003, 0..1), PostalAddress (ent00000010, 0..1)
+#            IssuingJurisdiction (cco:ent00000068, 0..1)
+#            Photo (persona:hasPhoto, 0..1)
+#################################################################
+
+:DriversLicenseShape
+    a sh:NodeShape ;
+    sh:targetClass identitydocuments:DriversLicense ;
+    sh:message "Driver's license document validation: name, date of birth, license number, and expiration date are required."@en ;
+
+    # ── Name: FullName OR (GivenName + FamilyName) ───────────────────────────
+    sh:or (
+        [
+            sh:property [
+                sh:path <https://w3id.org/cco-domains/cco/ont00001879> ;
+                sh:qualifiedValueShape [ sh:class cco:ent00000001 ] ;
+                sh:qualifiedMinCount 1 ;
+                sh:message "A DriversLicense must record a FullName, OR provide GivenName + FamilyName."@en
+            ]
+        ]
+        [
+            sh:and (
+                [
+                    sh:property [
+                        sh:path <https://w3id.org/cco-domains/cco/ont00001879> ;
+                        sh:qualifiedValueShape [ sh:class cco:ent00000002 ] ;
+                        sh:qualifiedMinCount 1 ;
+                        sh:message "If no FullName is recorded, a DriversLicense must include at least one GivenName."@en
+                    ]
+                ]
+                [
+                    sh:property [
+                        sh:path <https://w3id.org/cco-domains/cco/ont00001879> ;
+                        sh:qualifiedValueShape [ sh:class cco:ent00000004 ] ;
+                        sh:qualifiedMinCount 1 ;
+                        sh:message "If no FullName is recorded, a DriversLicense must include at least one FamilyName."@en
+                    ]
+                ]
+            )
+        ]
+    ) ;
+
+    # ── Required: DateOfBirth, LicenseNumber, ExpirationDate ─────────────────
+    sh:property [
+        sh:path <https://w3id.org/cco-domains/cco/ont00001879> ;
+        sh:qualifiedValueShape [ sh:class cco:ent00000046 ] ;  # Birthdate
+        sh:qualifiedMinCount 1 ;
+        sh:qualifiedMaxCount 1 ;
+        sh:message "A DriversLicense must record exactly one DateOfBirth."@en
+    ] ;
+
+    sh:property [
+        # Two-relation form: the document is-carrier-of the number node (Person is designated-by it).
+        sh:path <http://purl.obolibrary.org/obo/BFO_0000101> ;  # is carrier of
+        sh:qualifiedValueShape [ sh:class cco:ent00000065 ] ;  # Drivers License Number
+        sh:qualifiedMinCount 1 ;
+        sh:qualifiedMaxCount 1 ;
+        sh:message "A DriversLicense must carry exactly one DriversLicenseNumber (via is-carrier-of)."@en
+    ] ;
+
+    sh:property [
+        sh:path cco:ent00000070 ;  # has expiration date → Calendar Date Identifier
+        sh:qualifiedValueShape [ sh:class cco:ont00001340 ] ;  # Calendar Date Identifier
+        sh:qualifiedMinCount 1 ;
+        sh:qualifiedMaxCount 1 ;
+        sh:message "A DriversLicense must record exactly one expiration date."@en
+    ] ;
+
+    # ── Optional fields ──────────────────────────────────────────────────────
+    sh:property [
+        sh:path <https://w3id.org/cco-domains/cco/ont00001879> ;
+        sh:qualifiedValueShape [ sh:class cco:ent00000003 ] ;  # AdditionalName
+        sh:qualifiedMaxCount 1 ;
+        sh:message "A DriversLicense may record at most one AdditionalName."@en
+    ] ;
+
+    sh:property [
+        sh:path <https://w3id.org/cco-domains/cco/ont00001879> ;
+        sh:qualifiedValueShape [ sh:class cco:ent00000010 ] ;  # USPostalAddress
+        sh:qualifiedMaxCount 1 ;
+        sh:message "A DriversLicense may record at most one residential address."@en
+    ] ;
+
+    sh:property [
+        sh:path <https://w3id.org/cco-domains/cco/ont00001879> ;
+        sh:qualifiedValueShape [ sh:class cco:ent00000068 ] ;  # Issuing Jurisdiction
+        sh:qualifiedMaxCount 1 ;
+        sh:message "A DriversLicense may record at most one IssuingJurisdiction."@en
+    ] ;
+
+    sh:property [
+        sh:path persona:hasPhoto ;
+        sh:maxCount 1 ;
+        sh:datatype xsd:anyURI ;
+        sh:message "A DriversLicense may record at most one photo."@en
+    ] .
+
+
+#################################################################
+#  Passport Shape
+#  Targets identitydocuments:Passport individuals.
+#  All identity claims are properties of the document individual.
+#  Required: FullName (1..1) OR (GivenName (1..1) AND FamilyName (1..1))
+#            DateOfBirth (ent00000046, 1..1)
+#            PassportNumber (cco:ent00000066, 1..1)
+#            ExpirationDate (has expiration date cco:ent00000070 → Calendar Date Identifier, 1..1)
+#  Optional: AdditionalName (ent00000003, 0..1)
+#            IssueDate (has issue date cco:ent00000069 → Calendar Date Identifier, 0..1)
+#            IssuingCountry (cco:ent00000068 Issuing Jurisdiction, 0..1)
+#            PlaceOfBirth (cco:ent00000067, 0..1)
+#            GenderMarker (identitydocuments:GenderMarker, 0..1)
+#            Photo (persona:hasPhoto, 0..1)
+#################################################################
+
+:PassportShape
+    a sh:NodeShape ;
+    sh:targetClass identitydocuments:Passport ;
+    sh:message "Passport document validation: name, date of birth, passport number, and expiration date are required."@en ;
+
+    # ── Name: FullName OR (GivenName + FamilyName) ───────────────────────────
+    sh:or (
+        [
+            sh:property [
+                sh:path <https://w3id.org/cco-domains/cco/ont00001879> ;
+                sh:qualifiedValueShape [ sh:class cco:ent00000001 ] ;
+                sh:qualifiedMinCount 1 ;
+                sh:message "A Passport must record a FullName, OR provide GivenName + FamilyName."@en
+            ]
+        ]
+        [
+            sh:and (
+                [
+                    sh:property [
+                        sh:path <https://w3id.org/cco-domains/cco/ont00001879> ;
+                        sh:qualifiedValueShape [ sh:class cco:ent00000002 ] ;
+                        sh:qualifiedMinCount 1 ;
+                        sh:message "If no FullName is recorded, a Passport must include at least one GivenName."@en
+                    ]
+                ]
+                [
+                    sh:property [
+                        sh:path <https://w3id.org/cco-domains/cco/ont00001879> ;
+                        sh:qualifiedValueShape [ sh:class cco:ent00000004 ] ;
+                        sh:qualifiedMinCount 1 ;
+                        sh:message "If no FullName is recorded, a Passport must include at least one FamilyName."@en
+                    ]
+                ]
+            )
+        ]
+    ) ;
+
+    # ── Required: DateOfBirth, PassportNumber, ExpirationDate ────────────────
+    sh:property [
+        sh:path <https://w3id.org/cco-domains/cco/ont00001879> ;
+        sh:qualifiedValueShape [ sh:class cco:ent00000046 ] ;  # Birthdate
+        sh:qualifiedMinCount 1 ;
+        sh:qualifiedMaxCount 1 ;
+        sh:message "A Passport must record exactly one DateOfBirth."@en
+    ] ;
+
+    sh:property [
+        # Two-relation form: the document is-carrier-of the number node (Person is designated-by it).
+        sh:path <http://purl.obolibrary.org/obo/BFO_0000101> ;  # is carrier of
+        sh:qualifiedValueShape [ sh:class cco:ent00000066 ] ;  # Passport Number
+        sh:qualifiedMinCount 1 ;
+        sh:qualifiedMaxCount 1 ;
+        sh:message "A Passport must carry exactly one PassportNumber (via is-carrier-of)."@en
+    ] ;
+
+    sh:property [
+        sh:path cco:ent00000070 ;  # has expiration date → Calendar Date Identifier
+        sh:qualifiedValueShape [ sh:class cco:ont00001340 ] ;  # Calendar Date Identifier
+        sh:qualifiedMinCount 1 ;
+        sh:qualifiedMaxCount 1 ;
+        sh:message "A Passport must record exactly one expiration date."@en
+    ] ;
+
+    # ── Optional fields ──────────────────────────────────────────────────────
+    sh:property [
+        sh:path <https://w3id.org/cco-domains/cco/ont00001879> ;
+        sh:qualifiedValueShape [ sh:class cco:ent00000003 ] ;  # AdditionalName
+        sh:qualifiedMaxCount 1 ;
+        sh:message "A Passport may record at most one AdditionalName."@en
+    ] ;
+
+    sh:property [
+        sh:path cco:ent00000069 ;  # has issue date → Calendar Date Identifier
+        sh:qualifiedValueShape [ sh:class cco:ont00001340 ] ;  # Calendar Date Identifier
+        sh:qualifiedMaxCount 1 ;
+        sh:message "A Passport may record at most one issue date."@en
+    ] ;
+
+    sh:property [
+        sh:path <https://w3id.org/cco-domains/cco/ont00001879> ;
+        sh:qualifiedValueShape [ sh:class cco:ent00000068 ] ;  # Issuing Jurisdiction (collapsed from IssuingCountry)
+        sh:qualifiedMaxCount 1 ;
+        sh:message "A Passport may record at most one IssuingCountry."@en
+    ] ;
+
+    sh:property [
+        sh:path <https://w3id.org/cco-domains/cco/ont00001879> ;
+        sh:qualifiedValueShape [ sh:class cco:ent00000067 ] ;  # Place of Birth
+        sh:qualifiedMaxCount 1 ;
+        sh:message "A Passport may record at most one PlaceOfBirth."@en
+    ] ;
+
+    sh:property [
+        sh:path <https://w3id.org/cco-domains/cco/ont00001879> ;
+        sh:qualifiedValueShape [ sh:class identitydocuments:GenderMarker ] ;
+        sh:qualifiedMaxCount 1 ;
+        sh:message "A Passport may record at most one GenderMarker."@en
+    ] ;
+
+    sh:property [
+        sh:path persona:hasPhoto ;
+        sh:maxCount 1 ;
+        sh:datatype xsd:anyURI ;
+        sh:message "A Passport may record at most one photo."@en
+    ] .

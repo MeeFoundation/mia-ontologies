@@ -10,10 +10,12 @@ description: >
   specific trip Alice is planning with her spouse Dave. A three-member cell demonstrating
   agent:Agent as a real cell member: Alice's own AI travel agent joins alongside Alice and Dave,
   each with a self-claimed member entry (graph-66, graph-67, graph-68). The trip itself is backed
-  by two topic graphs sharing one subject (:Kyoto_Trip_2027) but two different claimants — Alice's
-  own basic claim (graph-69) and her agent's own evolving, collaboratively-drafted itinerary
-  (graph-70) — mirroring how a cell:topic may be claimed from more than one side (see the Medical
-  Appointment cell's two "Med. Appt mt." squares in README.md's Representative Cells diagram).
+  by three topic graphs sharing one subject (:Kyoto_Trip_2027), one per member, each with a
+  distinct claimant — Alice's own basic claim (graph-69), her agent's own evolving,
+  collaboratively-drafted itinerary (graph-70), and Dave's own contribution (graph-91) — reaching
+  cell:topic's real upper bound (one value per member, see Check 25) and mirroring how a
+  cell:topic may be claimed from more than one side (see the Medical Appointment cell's two
+  "Med. Appt mt." squares in README.md's Representative Cells diagram).
 mia:
   category: "cat:Trips"
   creator: ":Self"
@@ -22,24 +24,28 @@ mia:
     - id: "http://www.example.org/mia/graphs/graph-66"
       claimant: ":Self"
       subject: ":Self"
-      template: "persona:JSContactCard"
+      template: "pshapes:JSContactCardPersonShape"
     - id: "http://www.example.org/mia/graphs/graph-67"
       claimant: ":Alice_Travel_Agent"
       subject: ":Alice_Travel_Agent"
-      template: "persona:JSContactCard"
+      template: "pshapes:JSContactCardPersonShape"
     - id: "http://www.example.org/mia/graphs/graph-68"
       claimant: ":Dave"
       subject: ":Dave"
-      template: "persona:JSContactCard"
+      template: "pshapes:JSContactCardPersonShape"
   topic:
     - id: "http://www.example.org/mia/graphs/graph-69"
       claimant: ":Self"
       subject: ":Kyoto_Trip_2027"
-      template: "persona:Itinerary"
+      template: "itineraryshapes:ItineraryShape"
     - id: "http://www.example.org/mia/graphs/graph-70"
       claimant: ":Alice_Travel_Agent"
       subject: ":Kyoto_Trip_2027"
-      template: "persona:Itinerary"
+      template: "itineraryshapes:ItineraryShape"
+    - id: "http://www.example.org/mia/graphs/graph-91"
+      claimant: ":Dave"
+      subject: ":Kyoto_Trip_2027"
+      template: "itineraryshapes:ItineraryShape"
 ---
 
 ## Graphs
@@ -163,9 +169,10 @@ This graph is one of the cell's two `topic` entries — Alice's own basic claim 
 @prefix owl: <http://www.w3.org/2002/07/owl#> .
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix itineraries: <http://mee.foundation/ontologies/itineraries#> .
 
 :Kyoto_Trip_2027 rdf:type owl:NamedIndividual ,
-                          persona:Itinerary ;
+                          itineraries:Itinerary ;
     rdfs:label "Kyoto Trip, Spring 2027"@en .
 ```
 
@@ -174,7 +181,7 @@ This graph is one of the cell's two `topic` entries — Alice's own basic claim 
 
 #### Overview
 
-This graph is the cell's other `topic` entry — Alice's travel agent's own evolving understanding of the trip, claimed by the agent rather than by Alice, Dave, or a third `p:Person`/`o:Organization`. This is the agent's single evolving graph — revised in place turn by turn as Alice and her agent go back and forth (see APP-BEHAVIOR.md's Agent Collaboration section), rather than a new graph per conversation turn. Typed `persona:Itinerary` (no existing CCO/domain class to multi-type alongside — there is no dedicated trip-planning domain ontology yet), validated by the `ItineraryShape` per-template SHACL shape, which requires only a human-readable label or description rather than any structured trip-planning fields.
+This graph is one of the cell's three `topic` entries — Alice's travel agent's own evolving understanding of the trip, claimed by the agent rather than by Alice, Dave, or a third `p:Person`/`o:Organization`. This is the agent's single evolving graph — revised in place turn by turn as Alice and her agent go back and forth (see APP-BEHAVIOR.md's Agent Collaboration section), rather than a new graph per conversation turn. Typed `itineraries:Itinerary` (no existing CCO/domain class to multi-type alongside — there is no dedicated trip-planning domain ontology yet), validated by the `ItineraryShape` per-template SHACL shape, which requires only a human-readable label or description rather than any structured trip-planning fields.
 
 #### Graph
 
@@ -186,8 +193,33 @@ This graph is the cell's other `topic` entry — Alice's travel agent's own evol
 @prefix owl: <http://www.w3.org/2002/07/owl#> .
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix itineraries: <http://mee.foundation/ontologies/itineraries#> .
 
 :Kyoto_Trip_2027 rdf:type owl:NamedIndividual ,
-                          persona:Itinerary ;
+                          itineraries:Itinerary ;
     rdfs:comment "Draft itinerary, collaboratively refined turn by turn with Alice's own travel agent: cherry blossom season in Kyoto and Nara, proposed late-March dates, and a shortlist of ryokan lodging near Higashiyama."@en .
+```
+
+<a id="graph-91"></a>
+### Graph 91
+
+#### Overview
+
+This graph is the cell's third `topic` entry — Dave's own contribution to the trip, claimed by him directly rather than routed through Alice or her travel agent. With this graph, the cell reaches `cell:topic`'s real upper bound: one topic value per member, each with a distinct claimant (Self, the agent, and now Dave — see Check 25), the same subject `:Kyoto_Trip_2027` claimed from all three sides at once.
+
+#### Graph
+
+```turtle
+<!-- databook:id: dave-kyoto-trip-topic-graph -->
+<!-- databook:graph: http://www.example.org/mia/graphs/graph-91#graph -->
+@prefix : <http://www.example.org/mia#> .
+@prefix persona: <http://mee.foundation/ontologies/persona#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix itineraries: <http://mee.foundation/ontologies/itineraries#> .
+
+:Kyoto_Trip_2027 rdf:type owl:NamedIndividual ,
+                          itineraries:Itinerary ;
+    rdfs:comment "Dave's own requests for the trip: a day trip to Fushimi Inari Taisha, and at least one dinner reservation at a kaiseki restaurant in Gion."@en .
 ```

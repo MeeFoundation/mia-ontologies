@@ -1,0 +1,50 @@
+@prefix residences: <http://mee.foundation/ontologies/residences#> .
+@prefix persona: <http://mee.foundation/ontologies/persona#> .
+@prefix cco: <https://w3id.org/cco-domains/cco/> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix dc: <http://purl.org/dc/elements/1.1/> .
+@base <http://mee.foundation/ontologies/residences> .
+
+<http://mee.foundation/ontologies/residences> rdf:type owl:Ontology ;
+    owl:versionIRI <http://mee.foundation/ontologies/residences/1.0.0> ;
+    dc:date "2026-09-05"^^xsd:date ;
+    owl:versionInfo "Version 1.0.0 - initial extraction of residences:Residence out of persona-extensions.ttl into its own other/ peer ontology."@en ;
+    rdfs:label "Residences Ontology"@en ;
+    rdfs:comment """A small other/ peer ontology (see other/pets.ttl's own rdfs:comment for the
+                    general pattern) for a domain a person merely *has* — a place they have lived,
+                    current or past — rather than *is*, kept out of persona.ttl the same way
+                    pet/vehicle/identity-document domain-modeling already are. persona.ttl carries no
+                    thin hasX-link property of its own pointing at residences:Residence — a residence
+                    is always the sole cell:topic of its own Home-category cell (see cat:Home's
+                    template cell, cat-templates.ttl), so no explicit Person-level link is needed
+                    beyond the existing has-participant/AddressDesignation machinery it multi-types
+                    alongside.
+
+                    residences:Residence is an independent template type label class, asserted via
+                    rdf:type directly on the graph's own content individual and targeted directly by
+                    its own SHACL shape (other/shacl/residences-shacl.ttl) — independent of cell.ttl's
+                    cell:template property, whose own range is sh:NodeShape (the validating shape, not
+                    the content's own class)."""@en .
+
+
+#################################################################
+#    Residence
+#################################################################
+
+residences:Residence rdf:type owl:Class ;
+    rdfs:label "Residence"@en ;
+    rdfs:comment """Label for a graph whose purpose is to carry one of a person's
+                    residences — a place they have lived, current or past. The individual
+                    carrying this type is always also typed cco:ent00000016 (AddressDesignation),
+                    the same multi-typing pattern serviceaccounts:ServiceAccount uses alongside
+                    cco:ent00000033 — so its address (has address, AddressOntology#ent00000324),
+                    resident (has participant, BFO_0000057), and date range (occupies temporal
+                    region, BFO_0000199 → BFO_0000038 TemporalInterval) reuse that class's own
+                    existing property pattern directly, with no domain change to any of them.
+                    Asserted via rdf:type directly on the graph file's own individual, validated by
+                    the SHACL shape :ResidenceShape in other/shacl/residences-shacl.ttl, linked from
+                    cat:Home's own class-level cell (cat-templates.ttl) via cell:topicGraphShape.
+                    Not an identitydocuments:IdentityDocument."""@en .

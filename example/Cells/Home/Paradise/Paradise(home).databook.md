@@ -7,7 +7,7 @@ created: 2026-07-10
 description: >
   Cell DataBook for folder "Paradise" (cell:category: cat:Home). It is a one-member cell with one
   member entry about :Self and one topic graph about :Self (the cell's subject), typed
-  persona:Residence, carrying Alice's current Paradise address.
+  residences:Residence, carrying Alice's current Paradise address.
 mia:
   category: "cat:Home"
   creator: ":Self"
@@ -16,12 +16,12 @@ mia:
     id: "http://www.example.org/mia/graphs/graph-18"
     claimant: ":Self"
     subject: ":Self"
-    template: "persona:JSContactCard"
+    template: "pshapes:JSContactCardPersonShape"
   topic:
     id: "http://www.example.org/mia/graphs/graph-83"
     claimant: ":Self"
     subject: ":Self"
-    template: "persona:Residence"
+    template: "residenceshapes:ResidenceShape"
 ---
 
 ## Graphs
@@ -72,12 +72,13 @@ This graph captures Alice Walker's current residential address: 123 Sleepy Hollo
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix residences: <http://mee.foundation/ontologies/residences#> .
 
 :Self rdf:type owl:NamedIndividual ,
                persona:Person .
 
 :Paradise_Residence rdf:type owl:NamedIndividual ,
-                            persona:Residence ,
+                            residences:Residence ,
                             cco:ent00000016 ;  # AddressDesignation
     rdfs:label "Alice's Paradise Residence (2025-present)"@en ;
     rdfs:comment "Alice has lived at this Paradise address since September 2025. No end date indicates current residence."@en ;

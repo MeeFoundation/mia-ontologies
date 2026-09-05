@@ -10,7 +10,7 @@
 <http://mee.foundation/ontologies/dron-upper-subset> rdf:type owl:Ontology ;
     owl:versionIRI <http://mee.foundation/ontologies/dron-upper-subset/1.0.1> ;
     dc:date "2026-08-29"^^xsd:date ;
-    owl:versionInfo "Version 1.0.1 - updated cross-reference to other/pets.ttl's pets:Medication design (moved out of persona-templates.ttl)."@en ;
+    owl:versionInfo "Version 1.0.1 - updated cross-reference to other/pets.ttl's pets:Medication design (moved out of persona-extensions.ttl)."@en ;
     rdfs:label "DrOn Upper Module Subset"@en ;
     rdfs:comment """A hand-curated subset of the Drug Ontology (DrOn, https://github.com/mcwdsi/dron,
                     OBO Foundry PURL http://purl.obolibrary.org/obo/dron.owl), extracted from DrOn

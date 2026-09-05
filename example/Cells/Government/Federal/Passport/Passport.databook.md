@@ -7,7 +7,7 @@ created: 2026-07-10
 description: >
   Cell DataBook for folder "Passport" (cell:category: cat:Passport). It is a one-member cell with
   one member entry about :Self and one topic graph about :Self (the cell's subject), typed
-  persona:PassportDocument, carrying Alice's US passport identity data.
+  identitydocuments:Passport, carrying Alice's US passport identity data.
 mia:
   category: "cat:Passport"
   creator: ":Self"
@@ -16,12 +16,12 @@ mia:
     id: "http://www.example.org/mia/graphs/graph-19"
     claimant: ":Self"
     subject: ":Self"
-    template: "persona:JSContactCard"
+    template: "pshapes:JSContactCardPersonShape"
   topic:
     id: "http://www.example.org/mia/graphs/graph-81"
     claimant: ":Self"
     subject: ":Self"
-    template: "persona:PassportDocument"
+    template: "idocshapes:PassportShape"
 ---
 
 ## Graphs
@@ -58,7 +58,7 @@ This graph is the cell's one required `member` entry — a cell with a single `m
 
 #### Overview
 
-This graph captures Alice Walker's US passport identity data — moved here, as this cell's `cell:topic` content, from the cell's former `member` graph-19. Alice self-enters her legal name (Margery Alice Walker), date of birth (1985-07-04), US passport number (123456789), issue date (2021-07-04), expiration date (2031-07-04), place of birth (Austin, Texas, USA), gender marker (F), and a photo. Validated by the `PassportDocumentShape` per-template SHACL shape. Alice is the claimant.
+This graph captures Alice Walker's US passport identity data — moved here, as this cell's `cell:topic` content, from the cell's former `member` graph-19. Alice self-enters her legal name (Margery Alice Walker), date of birth (1985-07-04), US passport number (123456789), issue date (2021-07-04), expiration date (2031-07-04), place of birth (Austin, Texas, USA), gender marker (F), and a photo. Validated by the `PassportShape` per-template SHACL shape (`other/shacl/identity-documents-shacl.ttl`). Alice is the claimant.
 
 #### Graph
 
@@ -67,6 +67,7 @@ This graph captures Alice Walker's US passport identity data — moved here, as 
 <!-- databook:graph: http://www.example.org/mia/graphs/graph-81#graph -->
 @prefix : <http://www.example.org/mia#> .
 @prefix persona: <http://mee.foundation/ontologies/persona#> .
+@prefix identitydocuments: <http://mee.foundation/ontologies/identity-documents#> .
 @prefix cco: <https://w3id.org/cco-domains/cco/> .
 @prefix owl: <http://www.w3.org/2002/07/owl#> .
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
@@ -80,7 +81,7 @@ This graph captures Alice Walker's US passport identity data — moved here, as 
     <https://w3id.org/cco-domains/cco/ont00001879> :Alice_Passport_Number .  # Person designated by → Passport Number
 
 :Alice_US_Passport rdf:type owl:NamedIndividual ,
-                             persona:PassportDocument ;
+                             identitydocuments:Passport ;
     rdfs:label "Alice Walker's US Passport"@en ;
     rdfs:comment "Alice Walker's US passport identity data."@en ;
 
@@ -139,7 +140,7 @@ This graph captures Alice Walker's US passport identity data — moved here, as 
     # ── Gender marker ────────────────────────────────────────────────────────
 
     <https://w3id.org/cco-domains/cco/ont00001879> [  # designated by → GenderMarker
-        rdf:type persona:GenderMarker ;
+        rdf:type identitydocuments:GenderMarker ;
         <https://w3id.org/cco-domains/cco/ont00001765> "F"
     ] ;
 

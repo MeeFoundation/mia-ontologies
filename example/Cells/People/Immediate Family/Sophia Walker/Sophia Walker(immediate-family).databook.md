@@ -1,28 +1,29 @@
 ---
 id: http://www.example.org/mia/cells/cell-12
-title: "Paula Walker"
+title: "Sophia Walker"
 type: cell-databook
-version: 1.1.0
+version: 2.0.0
 created: 2026-07-10
 description: >
-  Cell DataBook for folder "Paula Walker" (cell:category: cat:ImmediateFamily). It is a two-member cell with three members (two about :Paula_Walker and one about :Self).
+  Cell DataBook for folder "Sophia Walker" (cell:category: cat:ImmediateFamily). It is a two-member cell — Alice (:Self) and her husband Dave — that is also a cell:TopicCell, with one topic about :Sophia_Walker, Alice's daughter. Sophia has no instance of the app, so she is the cell's subject rather than one of its members: Alice added the topic manually and chose the Contact Info template (pshapes:JSContactCardPersonShape) for it, even though cat:ImmediateFamily's own template cell carries cell:isTopicCell false.
 mia:
   category: "cat:ImmediateFamily"
   creator: ":Self"
   owner: ":Self"
   member:
-    - id: "http://www.example.org/mia/graphs/graph-05"
-      claimant: ":Paula_Walker"
-      subject: ":Paula_Walker"
-      template: "persona:JSContactCard"
     - id: "http://www.example.org/mia/graphs/graph-21"
       claimant: ":Self"
       subject: ":Self"
-      template: "persona:JSContactCard"
+      template: "pshapes:JSContactCardPersonShape"
+    - id: "http://www.example.org/mia/graphs/graph-05"
+      claimant: ":Dave"
+      subject: ":Dave"
+      template: "pshapes:JSContactCardPersonShape"
+  topic:
     - id: "http://www.example.org/mia/graphs/graph-07"
       claimant: ":Self"
-      subject: ":Paula_Walker"
-      template: "persona:JSContactCard"
+      subject: ":Sophia_Walker"
+      template: "pshapes:JSContactCardPersonShape"
 ---
 
 ## Graphs
@@ -32,12 +33,12 @@ mia:
 
 #### Overview
 
-This graph captures Paula Walker's self-claimed family persona as transmitted from Paula's own instance of the app to Alice's over the PDN, plus her given name, required by the `JSContactCardPersonShape` every templated cell's `member` content is now expected to conform to (`cell:memberGraphShape`). Paula is the claimant.
+This graph captures Dave's self-claimed family persona as transmitted from Dave's own instance of the app to Alice's over the PDN, plus his given name, required by the `JSContactCardPersonShape` every templated cell's `member` content is now expected to conform to (`cell:memberGraphShape`). Dave is the claimant — this is the cell's second `member` entry, alongside Alice's own (graph 21), making it a two-member cell.
 
 #### Graph
 
 ```turtle
-<!-- databook:id: paula-family-paula-graph -->
+<!-- databook:id: dave-family-dave-graph -->
 <!-- databook:graph: http://www.example.org/mia/graphs/graph-05#graph -->
 @prefix : <http://www.example.org/mia#> .
 @prefix persona: <http://mee.foundation/ontologies/persona#> .
@@ -46,13 +47,13 @@ This graph captures Paula Walker's self-claimed family persona as transmitted fr
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
 
-:Paula_Walker rdf:type owl:NamedIndividual ,
+:Dave rdf:type owl:NamedIndividual ,
                persona:Person ;
-    rdfs:label "Paula Walker (Family) self-claimed"@en ;
+    rdfs:label "Dave (Family) self-claimed"@en ;
 
     <https://w3id.org/cco-domains/cco/ont00001879> [  # designated by → GivenName (JSContactCardPersonShape)
         rdf:type cco:ent00000002 ;
-        <https://w3id.org/cco-domains/cco/ont00001765> "Paula"
+        <https://w3id.org/cco-domains/cco/ont00001765> "Dave"
     ] .
 ```
 
@@ -61,12 +62,12 @@ This graph captures Paula Walker's self-claimed family persona as transmitted fr
 
 #### Overview
 
-This graph captures Alice's record of her family member Paula Walker. Alice claims Paula's name in the family graph. Alice is the claimant.
+This graph captures Alice's Contact Info record of her daughter Sophia Walker. Sophia has no instance of the app, so she cannot join this cell as a member: Alice added this graph manually as the cell's `cell:topic` and chose the Contact Info template (`pshapes:JSContactCardPersonShape`) for it, which is what makes an otherwise ordinary `cat:ImmediateFamily` cell a `cell:TopicCell`. Sophia is therefore the cell's derived subject rather than one of its two members. Alice is the claimant.
 
 #### Graph
 
 ```turtle
-<!-- databook:id: paula-family-alice-graph -->
+<!-- databook:id: sophia-family-alice-graph -->
 <!-- databook:graph: http://www.example.org/mia/graphs/graph-07#graph -->
 @prefix : <http://www.example.org/mia#> .
 @prefix persona: <http://mee.foundation/ontologies/persona#> .
@@ -75,13 +76,13 @@ This graph captures Alice's record of her family member Paula Walker. Alice clai
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
 
-:Paula_Walker rdf:type owl:NamedIndividual ,
+:Sophia_Walker rdf:type owl:NamedIndividual ,
                persona:Person ;
-    rdfs:label "Paula Walker (Family)"@en ;
+    rdfs:label "Sophia Walker (Family)"@en ;
 
     <https://w3id.org/cco-domains/cco/ont00001879> [  # designated by → GivenName
         rdf:type cco:ent00000002 ;  # GivenName
-        <https://w3id.org/cco-domains/cco/ont00001765> "Paula"  # has text value
+        <https://w3id.org/cco-domains/cco/ont00001765> "Sophia"  # has text value
     ] ;
 
     <https://w3id.org/cco-domains/cco/ont00001879> [  # designated by → FamilyName
@@ -95,7 +96,7 @@ This graph captures Alice's record of her family member Paula Walker. Alice clai
 
 #### Overview
 
-This graph captures Alice Walker's family relationships. It records her maternal relationship with Paula Walker and her family social network, which includes Paula Walker and Carol Walker (Alice's sister) as members, plus her own given name, required by the `JSContactCardPersonShape` every templated cell's `member` content is now expected to conform to (`cell:memberGraphShape`). Paula's own family graph (`graph-05`) is the peer record in this relationship; Carol's own claimed record about their mother appears separately in the "Medical Appointment" cell (graph 28). Alice is the claimant.
+This graph captures Alice Walker's family relationships. It records that Sophia Walker is her daughter and her family social network, which includes Sophia Walker and Dave (Alice's husband) as members, plus her own given name, required by the `JSContactCardPersonShape` every templated cell's `member` content is now expected to conform to (`cell:memberGraphShape`). Dave's own family graph (`graph-05`) is the peer record in this relationship; his own claimed record about their daughter appears separately in the "Medical Appointment" cell (graph 28). Alice is the claimant.
 
 #### Graph
 
@@ -112,6 +113,12 @@ This graph captures Alice Walker's family relationships. It records her maternal
 :Self rdf:type owl:NamedIndividual ,
                persona:Person .
 
+:Sophia_Walker rdf:type owl:NamedIndividual ,
+               persona:Person .
+
+:Dave rdf:type owl:NamedIndividual ,
+               persona:Person .
+
 :Self rdfs:comment "Alice Walker's persona for her family relationships."@en ;
 
     <https://w3id.org/cco-domains/cco/ont00001879> [  # designated by → GivenName (JSContactCardPersonShape)
@@ -124,7 +131,7 @@ This graph captures Alice Walker's family relationships. It records her maternal
         <https://w3id.org/cco-domains/cco/ont00001765> "Alice Walker"
     ] ;
 
-    cco:ont00001780 :Paula_Walker ;  # has mother
+    cco:ont00001987 :Sophia_Walker ;  # has daughter
 
     persona:hasSocialNetwork :Alice_Family_Network .
 
@@ -132,6 +139,6 @@ This graph captures Alice Walker's family relationships. It records her maternal
 :Alice_Family_Network rdf:type owl:NamedIndividual ,
                                cco:ont00001183 ;  # Social Network
     rdfs:label "Alice Walker's family connections"@en ;
-    <http://purl.obolibrary.org/obo/BFO_0000115> :Paula_Walker ,  # has member part
-                                                  :Carol_Walker .  # has member part (Alice's sister)
+    <http://purl.obolibrary.org/obo/BFO_0000115> :Sophia_Walker ,  # has member part
+                                                  :Dave .  # has member part (Alice's husband)
 ```

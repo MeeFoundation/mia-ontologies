@@ -10,11 +10,11 @@
 
 <http://mee.foundation/ontologies/persona/shapes/jscontactcard> rdf:type owl:Ontology ;
     owl:imports <http://mee.foundation/ontologies/persona> ;
-    owl:versionIRI <http://mee.foundation/ontologies/persona/shapes/jscontactcard/1.1.0> ;
-    dc:date "2026-09-04"^^xsd:date ;
+    owl:versionIRI <http://mee.foundation/ontologies/persona/shapes/jscontactcard/1.1.1> ;
+    dc:date "2026-09-05"^^xsd:date ;
     rdfs:label "JSContactCard Template SHACL Shapes"@en ;
-    rdfs:comment """SHACL shapes for validating graph files carrying cell:template persona:JSContactCard.
-                    Apply in addition to persona-shacl.ttl when validating a JSContact card graph file."""@en .
+    rdfs:comment """SHACL shapes for validating graph files carrying cell:template pshapes:JSContactCardPersonShape.
+                    Apply in addition to shacl/persona-shacl.ttl when validating a JSContact card graph file."""@en .
 
 
 #################################################################

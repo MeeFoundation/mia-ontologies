@@ -1,13 +1,15 @@
 flowchart TD
     classDef person fill:#fffacd,stroke:#aaa,color:#333
-    classDef grp    fill:#d4edda,stroke:#aaa,color:#333
     classDef org    fill:#cce5ff,stroke:#aaa,color:#333
     classDef lit    fill:none,stroke:none,font-style:italic,color:#2a7a2a
     classDef meta   fill:#f5f5ff,stroke:#9999cc,color:#333
 
-    subgraph ctx["Topic Graph"]
+    subgraph ctx["Graph"]
         direction LR
-        ctx_meta["claimant: :Paula_Walker\nsubject: :Paula_Walker"]:::meta
+        ctx_meta["claimant: :Dave\nsubject: :Dave\ntemplate: pshapes:JSContactCardPersonShape"]:::meta
     end
 
-    nf4296ab13de4[":Paula_Walker\n(Person)"]:::person
+    n1c28f5f47932[":Dave\n(Person)"]:::person
+    n0d1e3c30a2bd("Dave"):::lit
+
+    n1c28f5f47932 -->|"GivenName"| n0d1e3c30a2bd

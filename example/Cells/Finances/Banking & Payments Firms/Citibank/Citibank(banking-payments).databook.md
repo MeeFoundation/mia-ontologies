@@ -18,23 +18,23 @@ mia:
     - id: "http://www.example.org/mia/graphs/graph-27"
       claimant: ":Self"
       subject: ":Citibank"
-      template: "persona:JSContactCard"
+      template: "pshapes:JSContactCardPersonShape"
     - id: "http://www.example.org/mia/graphs/graph-77"
       claimant: ":Self"
       subject: ":Self"
-      template: "persona:JSContactCard"
+      template: "pshapes:JSContactCardPersonShape"
   topic:
     - id: "http://www.example.org/mia/graphs/graph-75"
       claimant: ":Self"
       subject: ":Self"
-      template: "persona:ServiceAccount"
+      template: "sashapes:ServiceAccountShape"
     - id: "http://www.example.org/mia/graphs/graph-76"
       claimant: ":Citibank"
       subject: ":Self"
       template:
-        - "persona:ServiceAccount"
-        - "persona:DebitCard"
-        - "persona:CheckingAccount"
+        - "sashapes:ServiceAccountShape"
+        - "bankingshapes:DebitCardShape"
+        - "bankingshapes:CheckingAccountShape"
 ---
 
 ## Graphs
@@ -122,15 +122,16 @@ This graph is Alice's own self-asserted claim about her Citibank online service 
 @prefix cco: <https://w3id.org/cco-domains/cco/> .
 @prefix owl: <http://www.w3.org/2002/07/owl#> .
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix serviceaccounts: <http://mee.foundation/ontologies/service-accounts#> .
 
 :Self rdf:type owl:NamedIndividual ,
                persona:Person .
 
 :Alice_Citibank_Online rdf:type owl:NamedIndividual ,
-                     persona:ServiceAccount ,
+                     serviceaccounts:ServiceAccount ,
                      cco:ent00000033 ;  # Online Service Account
     cco:ent00000035 "awalker@gmail.com" ;           # has user handle (username), self-known
-    persona:hasPassword "C1t1b@nk#2024!" .          # has password, self-known
+    serviceaccounts:hasPassword "C1t1b@nk#2024!" .          # has password, self-known
 
 :Self <https://w3id.org/cco-domains/cco/ent00000045> :Alice_Citibank_Online .  # holds user account
 ```
@@ -155,6 +156,8 @@ This graph captures Alice Walker's financial relationship with Citibank. Citiban
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix serviceaccounts: <http://mee.foundation/ontologies/service-accounts#> .
+@prefix banking: <http://mee.foundation/ontologies/banking#> .
 
 :Self rdf:type owl:NamedIndividual ,
                persona:Person .
@@ -169,7 +172,7 @@ This graph captures Alice Walker's financial relationship with Citibank. Citiban
     cco:ent00000045 :Alice_Citibank_Online .  # holds user account
 
 :Alice_Debit_Card rdf:type owl:NamedIndividual ,
-                           persona:DebitCard ,
+                           banking:DebitCard ,
                            cco:ent00000051 ;  # Debit Card
     rdfs:label "Alice Walker's VISA Debit Card"@en ;
     <https://w3id.org/cco-domains/cco/ont00001879> [  # designated by → Card Number (PAN)
@@ -184,10 +187,10 @@ This graph captures Alice Walker's financial relationship with Citibank. Citiban
         rdf:type cco:ont00001340 ;
         <https://w3id.org/cco-domains/cco/ont00001765> "12/28"
     ] ;
-    persona:accessesBankAccount :Alice_Checking_Account .
+    banking:accessesBankAccount :Alice_Checking_Account .
 
 :Alice_Checking_Account rdf:type owl:NamedIndividual ,
-                                 persona:CheckingAccount ;
+                                 banking:CheckingAccount ;
     rdfs:label "Alice Walker's Citibank Checking Account"@en ;
     <https://w3id.org/cco-domains/cco/ont00001879> [  # designated by → Checking Account Number
         rdf:type cco:ent00000071 ;
@@ -199,11 +202,11 @@ This graph captures Alice Walker's financial relationship with Citibank. Citiban
     ] .
 
 :Alice_Citibank_Online rdf:type owl:NamedIndividual ,
-                                persona:ServiceAccount ,
+                                serviceaccounts:ServiceAccount ,
                                 cco:ent00000033 ;  # Online Service Account
     rdfs:label "Alice Walker's Citibank Online Account"@en ;
     cco:ent00000034 "Citibank" ;                   # has service name
     cco:ent00000035 "awalker@gmail.com" ;           # has user handle (username)
     cco:ent00000036 "https://online.citi.com"^^xsd:anyURI ;  # has service URI
-    persona:hasPassword "C1t1b@nk#2024!" .         # has password
+    serviceaccounts:hasPassword "C1t1b@nk#2024!" .         # has password
 ```

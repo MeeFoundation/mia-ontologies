@@ -2,28 +2,28 @@
 id: http://www.example.org/mia/cells/cell-15
 title: "Medical Appointment"
 type: cell-databook
-version: 1.1.0
+version: 2.0.0
 created: 2026-07-10
 description: >
-  Cell DataBook for folder "Medical Appointment" (cell:category: cat:MedicalAppointment). It is a two-member cell with two members about :Carol_Walker and :Self and one graph about :Paula_Walker.
+  Cell DataBook for folder "Medical Appointment" (cell:category: cat:MedicalAppointment). It is a two-member cell with two members about :Dave and :Self and one topic about :Sophia_Walker, Alice and Dave's daughter.
 mia:
   category: "cat:MedicalAppointment"
   creator: ":Self"
   owner: ":Self"
   member:
     - id: "http://www.example.org/mia/graphs/graph-28"
-      claimant: ":Carol_Walker"
-      subject: ":Carol_Walker"
-      template: "persona:JSContactCard"
+      claimant: ":Dave"
+      subject: ":Dave"
+      template: "pshapes:JSContactCardPersonShape"
     - id: "http://www.example.org/mia/graphs/graph-30"
       claimant: ":Self"
       subject: ":Self"
-      template: "persona:JSContactCard"
+      template: "pshapes:JSContactCardPersonShape"
   topic:
     id: "http://www.example.org/mia/graphs/graph-26"
     claimant: ":Self"
-    subject: ":Paula_Walker"
-    template: "persona:MedicalAppointmentRecord"
+    subject: ":Sophia_Walker"
+    template: "mashapes:MedicalAppointmentRecordShape"
 ---
 
 ## Graphs
@@ -33,12 +33,12 @@ mia:
 
 #### Overview
 
-This graph captures Alice's shared record of the claims needed to arrange a medical appointment on behalf of their mother, Paula Walker. Alice maintains this record on her own instance of the app and syncs it to Carol's over the PDN so both sisters can coordinate Paula's care. Because each graph's named graph must be self-contained for p2p sync to work, the claims about Paula and about her primary care physician, Dr. Jane Starostina, are copied directly into this graph rather than merely linked — Alice already holds Dr. Jane's information in her own instance, so it is Alice's own app that copies it over. Validated by the `MedicalAppointment` per-template SHACL shapes. Alice is the claimant.
+This graph captures Alice's shared record of the claims needed to arrange a medical appointment on behalf of their daughter, Sophia Walker. Alice maintains this record on her own instance of the app and syncs it to Dave's over the PDN so both parents can coordinate Sophia's care. Because each graph's named graph must be self-contained for p2p sync to work, the claims about Sophia and about her primary care physician, Dr. Jane Starostina, are copied directly into this graph rather than merely linked — Alice already holds Dr. Jane's information in her own instance, so it is Alice's own app that copies it over. Validated by the `MedicalAppointment` per-template SHACL shapes. Alice is the claimant.
 
 #### Graph
 
 ```turtle
-<!-- databook:id: alice-paula-medical-appointment-graph -->
+<!-- databook:id: alice-sophia-medical-appointment-graph -->
 <!-- databook:graph: http://www.example.org/mia/graphs/graph-26#graph -->
 @prefix : <http://www.example.org/mia#> .
 @prefix persona: <http://mee.foundation/ontologies/persona#> .
@@ -47,16 +47,17 @@ This graph captures Alice's shared record of the claims needed to arrange a medi
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix medicalappointments: <http://mee.foundation/ontologies/medical-appointments#> .
 
 # ── Copied third-party individuals (self-containment for p2p sync) ──────────
 
-:Paula_Walker rdf:type owl:NamedIndividual ,
+:Sophia_Walker rdf:type owl:NamedIndividual ,
                persona:Person ;
-    rdfs:label "Paula Walker"@en ;
+    rdfs:label "Sophia Walker"@en ;
 
     <https://w3id.org/cco-domains/cco/ont00001879> [  # designated by → GivenName
         rdf:type cco:ent00000002 ;  # GivenName
-        <https://w3id.org/cco-domains/cco/ont00001765> "Paula"
+        <https://w3id.org/cco-domains/cco/ont00001765> "Sophia"
     ] ;
 
     <https://w3id.org/cco-domains/cco/ont00001879> [  # designated by → FamilyName
@@ -80,30 +81,30 @@ This graph captures Alice's shared record of the claims needed to arrange a medi
 
     <https://w3id.org/cco-domains/cco/ont00001917> [  # described by → Person Note
         rdf:type cco:ent00000048 ;
-        <https://w3id.org/cco-domains/cco/ont00001765> "Paula Walker's primary care physician"
+        <https://w3id.org/cco-domains/cco/ont00001765> "Sophia Walker's primary care physician"
     ] .
 
 # ── The shared Medical Appointment claims record ─────────────────────────────
 
-:Paula_Medical_Appointment rdf:type owl:NamedIndividual ,
-               persona:MedicalAppointmentRecord ;
-    rdfs:label "Paula Walker's Medical Appointment Claims"@en ;
-    rdfs:comment "Claims Alice and Carol share to arrange and manage medical appointments for Paula."@en ;
+:Sophia_Medical_Appointment rdf:type owl:NamedIndividual ,
+               medicalappointments:MedicalAppointmentRecord ;
+    rdfs:label "Sophia Walker's Medical Appointment Claims"@en ;
+    rdfs:comment "Claims Alice and Dave share to arrange and manage medical appointments for Sophia."@en ;
 
-    persona:forPatient :Paula_Walker ;
-    persona:hasPrimaryCarePhysician :Jane_Starostina ;
+    medicalappointments:forPatient :Sophia_Walker ;
+    medicalappointments:hasPrimaryCarePhysician :Jane_Starostina ;
 
-    persona:currentMedication "Lisinopril 10mg daily" ,
-                               "Metformin 500mg twice daily" ;
+    medicalappointments:currentMedication "Albuterol inhaler, 2 puffs as needed" ,
+                               "Cetirizine 5mg daily" ;
 
-    persona:allergy "Penicillin" ;
+    medicalappointments:allergy "Penicillin" ;
 
-    persona:medicalHistoryNote "Type 2 diabetes; hypertension." ;
+    medicalappointments:medicalHistoryNote "Mild persistent asthma; seasonal allergies." ;
 
-    persona:insuranceProvider "Medicare" ;
-    persona:insurancePolicyNumber "1EG4-TE5-MK72" ;
+    medicalappointments:insuranceProvider "Acme Health Plan (BlueShield of California)" ;
+    medicalappointments:insurancePolicyNumber "XZC-884210773" ;
 
-    persona:preferredPharmacy "CVS Pharmacy, 123 Main St, Paradise, CA" .
+    medicalappointments:preferredPharmacy "CVS Pharmacy, 123 Main St, Paradise, CA" .
 ```
 
 <a id="graph-28"></a>
@@ -111,12 +112,12 @@ This graph captures Alice's shared record of the claims needed to arrange a medi
 
 #### Overview
 
-This graph captures Carol Walker's own self-claimed persona and contact info, shared directly from her own instance of the app to Alice's over the PDN — her given name already satisfies the `JSContactCardPersonShape` every templated cell's `member` content is now expected to conform to (`cell:memberGraphShape`); the organization name below is optional extra detail, not what the shape actually requires. This cell's two members are Alice and Carol (its derived subject, `:Paula_Walker` (from its sole `graph` entry), is a third party the cell is *about*, not one of its members) — this graph and its counterpart (graph 30, Alice's own self-claimed contact info) together represent those two members, alongside graph 26 (Alice's claims about Paula's medical appointment). Carol is the claimant.
+This graph captures Dave's own self-claimed persona and contact info, shared directly from his own instance of the app to Alice's over the PDN — his given name already satisfies the `JSContactCardPersonShape` every templated cell's `member` content is now expected to conform to (`cell:memberGraphShape`); the organization name below is optional extra detail, not what the shape actually requires. This cell's two members are Alice and Dave (its derived subject, `:Sophia_Walker` (from its sole `topic` entry), is a third party the cell is *about*, not one of its members) — this graph and its counterpart (graph 30, Alice's own self-claimed contact info) together represent those two members, alongside graph 26 (Alice's claims about Sophia's medical appointment). Dave is the claimant.
 
 #### Graph
 
 ```turtle
-<!-- databook:id: carol-self-graph -->
+<!-- databook:id: dave-self-graph -->
 <!-- databook:graph: http://www.example.org/mia/graphs/graph-28#graph -->
 @prefix : <http://www.example.org/mia#> .
 @prefix persona: <http://mee.foundation/ontologies/persona#> .
@@ -125,13 +126,13 @@ This graph captures Carol Walker's own self-claimed persona and contact info, sh
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
 
-:Carol_Walker rdf:type owl:NamedIndividual ,
+:Dave rdf:type owl:NamedIndividual ,
                persona:Person ;
-    rdfs:label "Carol Walker"@en ;
+    rdfs:label "Dave (Alice's spouse)"@en ;
 
     <https://w3id.org/cco-domains/cco/ont00001879> [  # designated by → GivenName
         rdf:type cco:ent00000002 ;  # GivenName
-        <https://w3id.org/cco-domains/cco/ont00001765> "Carol"
+        <https://w3id.org/cco-domains/cco/ont00001765> "Dave"
     ] ;
 
     <https://w3id.org/cco-domains/cco/ont00001879> [  # designated by → FamilyName
@@ -151,7 +152,7 @@ This graph captures Carol Walker's own self-claimed persona and contact info, sh
 
     <https://w3id.org/cco-domains/cco/ont00001917> [  # described by → Person Note
         rdf:type cco:ent00000048 ;
-        <https://w3id.org/cco-domains/cco/ont00001765> "Usually available weekday evenings and weekends for Mom's appointments."
+        <https://w3id.org/cco-domains/cco/ont00001765> "Usually available weekday evenings and weekends for Sophia's appointments."
     ] .
 ```
 
@@ -160,7 +161,7 @@ This graph captures Carol Walker's own self-claimed persona and contact info, sh
 
 #### Overview
 
-This graph captures Alice Walker's own self-claimed contact info, kept in this cell so Carol can reach her while coordinating Paula's medical appointments, plus her given name, which is what actually satisfies the `JSContactCardPersonShape` every templated cell's `member` content is now expected to conform to (`cell:memberGraphShape`) — the organization name below is optional extra detail, not a requirement. This cell's two members are Alice and Carol (its derived subject, `:Paula_Walker` (from its sole `graph` entry), is a third party the cell is *about*, not one of its members) — this graph and its counterpart (graph 28, Carol's own self-claimed persona) together represent those two members, alongside graph 26 (Alice's claims about Paula's medical appointment). Alice is the claimant.
+This graph captures Alice Walker's own self-claimed contact info, kept in this cell so Dave can reach her while coordinating Sophia's medical appointments, plus her given name, which is what actually satisfies the `JSContactCardPersonShape` every templated cell's `member` content is now expected to conform to (`cell:memberGraphShape`) — the organization name below is optional extra detail, not a requirement. This cell's two members are Alice and Dave (its derived subject, `:Sophia_Walker` (from its sole `topic` entry), is a third party the cell is *about*, not one of its members) — this graph and its counterpart (graph 28, Dave's own self-claimed persona) together represent those two members, alongside graph 26 (Alice's claims about Sophia's medical appointment). Alice is the claimant.
 
 #### Graph
 
@@ -194,6 +195,6 @@ This graph captures Alice Walker's own self-claimed contact info, kept in this c
 
     <https://w3id.org/cco-domains/cco/ont00001917> [  # described by → Person Note
         rdf:type cco:ent00000048 ;
-        <https://w3id.org/cco-domains/cco/ont00001765> "Best reached by text for scheduling Mom's appointments."
+        <https://w3id.org/cco-domains/cco/ont00001765> "Best reached by text for scheduling Sophia's appointments."
     ] .
 ```

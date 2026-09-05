@@ -1,0 +1,96 @@
+@prefix : <http://mee.foundation/ontologies/medical-appointments/shapes#> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix medicalappointments: <http://mee.foundation/ontologies/medical-appointments#> .
+@prefix persona: <http://mee.foundation/ontologies/persona#> .
+@prefix dc: <http://purl.org/dc/elements/1.1/> .
+
+<http://mee.foundation/ontologies/medical-appointments/shapes> rdf:type owl:Ontology ;
+    owl:imports <http://mee.foundation/ontologies/medical-appointments> ;
+    owl:versionIRI <http://mee.foundation/ontologies/medical-appointments/shapes/1.0.0> ;
+    dc:date "2026-09-05"^^xsd:date ;
+    rdfs:label "Medical Appointments Template SHACL Shapes"@en ;
+    rdfs:comment """SHACL shapes for validating graph files carrying cell:template mashapes:MedicalAppointmentRecordShape.
+                    Apply in addition to shacl/persona-shacl.ttl when validating a medical appointment graph file.
+                    Targets medicalappointments:MedicalAppointmentRecord individuals directly — the claims needed
+                    to arrange the appointment are properties of the record, not of the patient's persona:Person
+                    individual. Paired with other/medical-appointments.ttl, the ontology it validates."""@en .
+
+
+#################################################################
+#  Medical Appointment Record Shape
+#  Targets medicalappointments:MedicalAppointmentRecord individuals.
+#  Required: forPatient (medicalappointments:forPatient, 1..1)
+#            InsuranceProvider (medicalappointments:insuranceProvider, 1..1)
+#            InsurancePolicyNumber (medicalappointments:insurancePolicyNumber, 1..1)
+#  Optional: PrimaryCarePhysician (medicalappointments:hasPrimaryCarePhysician, 0..1)
+#            CurrentMedication (medicalappointments:currentMedication, 0..n)
+#            Allergy (medicalappointments:allergy, 0..n)
+#            MedicalHistoryNote (medicalappointments:medicalHistoryNote, 0..1)
+#            InsuranceGroupNumber (medicalappointments:insuranceGroupNumber, 0..1)
+#            PreferredPharmacy (medicalappointments:preferredPharmacy, 0..1)
+#################################################################
+
+:MedicalAppointmentRecordShape
+    a sh:NodeShape ;
+    sh:targetClass medicalappointments:MedicalAppointmentRecord ;
+    sh:message "Medical Appointment record validation: patient, insurance provider, and policy number are required."@en ;
+
+    # ── Required: patient, insurance provider, insurance policy number ──────
+    sh:property [
+        sh:path medicalappointments:forPatient ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:class persona:Person ;
+        sh:message "A Medical Appointment record must link to exactly one patient via forPatient."@en
+    ] ;
+
+    sh:property [
+        sh:path medicalappointments:insuranceProvider ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:datatype xsd:string ;
+        sh:message "A Medical Appointment record must record exactly one insurance provider."@en
+    ] ;
+
+    sh:property [
+        sh:path medicalappointments:insurancePolicyNumber ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:datatype xsd:string ;
+        sh:message "A Medical Appointment record must record exactly one insurance policy number."@en
+    ] ;
+
+    # ── Optional fields ──────────────────────────────────────────────────────
+    sh:property [
+        sh:path medicalappointments:hasPrimaryCarePhysician ;
+        sh:maxCount 1 ;
+        sh:class persona:Person ;
+        sh:message "A Medical Appointment record may link to at most one primary care physician."@en
+    ] ;
+
+    sh:property [
+        sh:path medicalappointments:medicalHistoryNote ;
+        sh:maxCount 1 ;
+        sh:datatype xsd:string ;
+        sh:message "A Medical Appointment record may have at most one medical history note."@en
+    ] ;
+
+    sh:property [
+        sh:path medicalappointments:insuranceGroupNumber ;
+        sh:maxCount 1 ;
+        sh:datatype xsd:string ;
+        sh:message "A Medical Appointment record may have at most one insurance group number."@en
+    ] ;
+
+    sh:property [
+        sh:path medicalappointments:preferredPharmacy ;
+        sh:maxCount 1 ;
+        sh:datatype xsd:string ;
+        sh:message "A Medical Appointment record may have at most one preferred pharmacy."@en
+    ] .
+    # ── Multi-valued claims (no upper bound) ─────────────────────────────────
+    # currentMedication, allergy — no sh:maxCount constraint; repeatable.

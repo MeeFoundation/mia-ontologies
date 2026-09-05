@@ -14,15 +14,15 @@ mia:
     - id: "http://www.example.org/mia/graphs/graph-01"
       claimant: ":BHS"
       subject: ":BHS"
-      template: "persona:JSContactCard"
+      template: "pshapes:JSContactCardPersonShape"
     - id: "http://www.example.org/mia/graphs/graph-14"
       claimant: ":Self"
       subject: ":Self"
-      template: "persona:JSContactCard"
+      template: "pshapes:JSContactCardPersonShape"
     - id: "http://www.example.org/mia/graphs/graph-03"
       claimant: ":Bob_Johnson"
       subject: ":Bob_Johnson"
-      template: "persona:JSContactCard"
+      template: "pshapes:JSContactCardPersonShape"
 ---
 
 ## Graphs

@@ -1,0 +1,87 @@
+@prefix : <http://mee.foundation/ontologies/banking/shapes#> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix cco: <https://w3id.org/cco-domains/cco/> .
+@prefix banking: <http://mee.foundation/ontologies/banking#> .
+@prefix dc: <http://purl.org/dc/elements/1.1/> .
+
+<http://mee.foundation/ontologies/banking/shapes> rdf:type owl:Ontology ;
+    owl:imports <http://mee.foundation/ontologies/banking> ;
+    owl:versionIRI <http://mee.foundation/ontologies/banking/shapes/1.0.0> ;
+    dc:date "2026-09-05"^^xsd:date ;
+    rdfs:label "Banking Template SHACL Shapes"@en ;
+    rdfs:comment """SHACL shapes for validating graph files carrying cell:template
+                    bankingshapes:DebitCardShape or bankingshapes:CheckingAccountShape. Apply in addition
+                    to shacl/persona-shacl.ttl when validating a banking graph file. Paired with
+                    other/banking.ttl, the ontology it validates. :DebitCardShape targets
+                    cco:ent00000051 (Debit Card) directly rather than banking:DebitCard, since every
+                    banking:DebitCard individual is always multi-typed alongside that CCO class."""@en .
+
+
+#################################################################
+#  Payment cards
+#################################################################
+
+:DebitCardShape
+    a sh:NodeShape ;
+    sh:targetClass cco:ent00000051 ;  # Debit Card
+    sh:message "A DebitCard must have a card number and expiration date."@en ;
+
+    sh:property [
+        sh:path <https://w3id.org/cco-domains/cco/ont00001879> ;  # designated by → Card Number (PAN)
+        sh:qualifiedValueShape [ sh:class cco:ent00000052 ] ;
+        sh:qualifiedMinCount 1 ;
+        sh:qualifiedMaxCount 1 ;
+        sh:message "A DebitCard must be designated by exactly one CardNumber (PAN)."@en
+    ] ;
+
+    sh:property [
+        sh:path cco:ent00000070 ;  # has expiration date → Calendar Date Identifier
+        sh:qualifiedValueShape [ sh:class cco:ont00001340 ] ;  # Calendar Date Identifier
+        sh:qualifiedMinCount 1 ;
+        sh:qualifiedMaxCount 1 ;
+        sh:message "A DebitCard must have exactly one expiration date (has expiration date → Calendar Date Identifier)."@en
+    ] ;
+
+    sh:property [
+        sh:path <https://w3id.org/cco-domains/cco/ont00001879> ;  # designated by → CVV (optional)
+        sh:qualifiedValueShape [ sh:class cco:ent00000053 ] ;
+        sh:qualifiedMaxCount 1 ;
+        sh:message "A DebitCard may have at most one CVV."@en
+    ] ;
+
+    # Optional: linked checking account (0..1)
+    sh:property [
+        sh:path banking:accessesBankAccount ;
+        sh:class banking:CheckingAccount ;
+        sh:maxCount 1 ;
+        sh:message "A DebitCard may access at most one CheckingAccount."@en
+    ] .
+
+#################################################################
+#  Checking Account
+#################################################################
+
+:CheckingAccountShape
+    a sh:NodeShape ;
+    sh:targetClass banking:CheckingAccount ;
+    sh:message "A CheckingAccount must have exactly one account number and one routing number."@en ;
+
+    sh:property [
+        sh:path <https://w3id.org/cco-domains/cco/ont00001879> ;  # designated by → Account Number
+        sh:qualifiedValueShape [ sh:class cco:ent00000071 ] ;  # Checking Account Number
+        sh:qualifiedMinCount 1 ;
+        sh:qualifiedMaxCount 1 ;
+        sh:message "A CheckingAccount must be designated by exactly one CheckingAccountNumber."@en
+    ] ;
+
+    sh:property [
+        sh:path <https://w3id.org/cco-domains/cco/ont00001879> ;  # designated by → Routing Number
+        sh:qualifiedValueShape [ sh:class cco:ent00000072 ] ;  # Routing Number
+        sh:qualifiedMinCount 1 ;
+        sh:qualifiedMaxCount 1 ;
+        sh:message "A CheckingAccount must be designated by exactly one RoutingNumber."@en
+    ] .

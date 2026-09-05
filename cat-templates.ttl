@@ -4,6 +4,12 @@
 @prefix pshapes: <http://mee.foundation/ontologies/persona/shapes#> .
 @prefix petshapes: <http://mee.foundation/ontologies/pets/shapes#> .
 @prefix vehicleshapes: <http://mee.foundation/ontologies/vehicles/shapes#> .
+@prefix idocshapes: <http://mee.foundation/ontologies/identity-documents/shapes#> .
+@prefix mashapes: <http://mee.foundation/ontologies/medical-appointments/shapes#> .
+@prefix sashapes: <http://mee.foundation/ontologies/service-accounts/shapes#> .
+@prefix bankingshapes: <http://mee.foundation/ontologies/banking/shapes#> .
+@prefix residenceshapes: <http://mee.foundation/ontologies/residences/shapes#> .
+@prefix itineraryshapes: <http://mee.foundation/ontologies/itineraries/shapes#> .
 @prefix owl: <http://www.w3.org/2002/07/owl#> .
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
@@ -12,10 +18,10 @@
 @base <http://mee.foundation/ontologies/cell-templates> .
 
 <http://mee.foundation/ontologies/cell-templates> rdf:type owl:Ontology ;
-    owl:versionIRI <http://mee.foundation/ontologies/cell-templates/2.16.0> ;
+    owl:versionIRI <http://mee.foundation/ontologies/cell-templates/2.20.0> ;
     dc:date "2026-09-05"^^xsd:date ;
     owl:imports <http://mee.foundation/ontologies/cell> ;
-    owl:versionInfo "Version 2.16.0 - deleted ctpl:EmployeeTemplateCell (cat:Employee, deleted from category.ttl) — an exception to this project's own scaffold/leaf pattern, where a leaf cell reuses its scaffold ancestor's category directly rather than a separately-minted narrower one (as Pets/Ginger, Companies/Google/ATT already do); Paula Walker/Alice Walker's cells now reuse cat:Employees directly instead."@en ;
+    owl:versionInfo "Version 2.21.0 - ctpl:ImmediateFamilyTemplateCell gains cell:topicGraphShape pshapes:JSContactCardPersonShape while keeping cell:isTopicCell false: no topic is expected at instantiation, but a user may add one manually, and when they do it is a Contact Info profile."@en ;
     rdfs:label "Cell Templates"@en ;
     rdfs:comment """Class-level cell:Cell templates for category concepts (category.ttl's cat:CategoryScheme). Each individual here is what the app clones into a new cell when a folder representing its own cell:category concept is first instantiated into a user's tree (Lazy Instantiation) — finding the template for a given category is a reverse lookup (?tc cell:category cat:X), since category.ttl carries no forward pointer of its own. Each is typed solely cell:TemplateCell."""@en .
 
@@ -27,7 +33,7 @@ ctpl:PassportTemplateCell rdf:type cell:Cell, cell:TemplateCell ;
     rdfs:label "Passport Template Cell"@en ;
     cell:category cat:Passport ;
     cell:memberGraphShape pshapes:JSContactCardPersonShape ;
-    cell:topicGraphShape pshapes:PassportDocumentShape ;
+    cell:topicGraphShape idocshapes:PassportShape ;
     cell:isTopicCell true .
 
 #################################################################
@@ -49,7 +55,7 @@ ctpl:HomeTemplateCell rdf:type cell:Cell, cell:TemplateCell ;
     rdfs:label "Home Template Cell"@en ;
     cell:category cat:Home ;
     cell:memberGraphShape pshapes:JSContactCardPersonShape ;
-    cell:topicGraphShape pshapes:ResidenceShape ;
+    cell:topicGraphShape residenceshapes:ResidenceShape ;
     cell:isTopicCell true .
 
 #################################################################
@@ -60,7 +66,7 @@ ctpl:TripsTemplateCell rdf:type cell:Cell, cell:TemplateCell ;
     rdfs:label "Trips Template Cell"@en ;
     cell:category cat:Trips ;
     cell:memberGraphShape pshapes:JSContactCardPersonShape ;
-    cell:topicGraphShape pshapes:ItineraryShape ;
+    cell:topicGraphShape itineraryshapes:ItineraryShape ;
     cell:isTopicCell true .
 
 #################################################################
@@ -91,7 +97,7 @@ ctpl:BirthCertificateTemplateCell rdf:type cell:Cell, cell:TemplateCell ;
     rdfs:label "Birth Certificate Template Cell"@en ;
     cell:category cat:BirthCertificate ;
     cell:memberGraphShape pshapes:JSContactCardPersonShape ;
-    cell:topicGraphShape pshapes:BirthCertificateDocumentShape ;
+    cell:topicGraphShape idocshapes:BirthCertificateShape ;
     cell:isTopicCell true .
 
 #################################################################
@@ -102,7 +108,7 @@ ctpl:DriversLicenseTemplateCell rdf:type cell:Cell, cell:TemplateCell ;
     rdfs:label "Drivers License Template Cell"@en ;
     cell:category cat:DriversLicense ;
     cell:memberGraphShape pshapes:JSContactCardPersonShape ;
-    cell:topicGraphShape pshapes:DriversLicenseDocumentShape ;
+    cell:topicGraphShape idocshapes:DriversLicenseShape ;
     cell:isTopicCell true .
 
 #################################################################
@@ -113,7 +119,7 @@ ctpl:MedicalAppointmentTemplateCell rdf:type cell:Cell, cell:TemplateCell ;
     rdfs:label "Medical Appointment Template Cell"@en ;
     cell:category cat:MedicalAppointment ;
     cell:memberGraphShape pshapes:JSContactCardPersonShape ;
-    cell:topicGraphShape pshapes:MedicalAppointmentRecordShape ;
+    cell:topicGraphShape mashapes:MedicalAppointmentRecordShape ;
     cell:isTopicCell true .
 
 #################################################################
@@ -167,6 +173,7 @@ ctpl:ImmediateFamilyTemplateCell rdf:type cell:Cell, cell:TemplateCell ;
     rdfs:label "Immediate Family Template Cell"@en ;
     cell:category cat:ImmediateFamily ;
     cell:memberGraphShape pshapes:JSContactCardPersonShape ;
+    cell:topicGraphShape pshapes:JSContactCardPersonShape ;
     cell:isTopicCell false .
 
 #################################################################
@@ -207,7 +214,7 @@ ctpl:CompaniesTemplateCell rdf:type cell:Cell, cell:TemplateCell ;
     rdfs:label "Companies Template Cell"@en ;
     cell:category cat:Companies ;
     cell:memberGraphShape pshapes:JSContactCardPersonShape ;
-    cell:topicGraphShape pshapes:ServiceAccountShape ;
+    cell:topicGraphShape sashapes:ServiceAccountShape ;
     cell:isTopicCell true .
 
 #################################################################
@@ -218,7 +225,7 @@ ctpl:BankingPaymentsTemplateCell rdf:type cell:Cell, cell:TemplateCell ;
     rdfs:label "Banking & Payments Firms Template Cell"@en ;
     cell:category cat:BankingPayments ;
     cell:memberGraphShape pshapes:JSContactCardPersonShape ;
-    cell:topicGraphShape pshapes:ServiceAccountShape , pshapes:DebitCardShape , pshapes:CheckingAccountShape ;
+    cell:topicGraphShape sashapes:ServiceAccountShape , bankingshapes:DebitCardShape , bankingshapes:CheckingAccountShape ;
     cell:isTopicCell true .
 
 #################################################################
@@ -911,7 +918,7 @@ ctpl:PrimaryCarePhysicianTemplateCell rdf:type cell:Cell, cell:TemplateCell ;
     rdfs:label "Primary Care Physician Template Cell"@en ;
     cell:category cat:PrimaryCarePhysician ;
     cell:memberGraphShape pshapes:JSContactCardPersonShape ;
-    cell:topicGraphShape pshapes:PrimaryCarePhysicianShape ;
+    cell:topicGraphShape pshapes:PrimaryCarePhysicianShape , pshapes:JSContactCardPersonShape ;
     cell:isTopicCell true .
 
 #################################################################

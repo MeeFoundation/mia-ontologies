@@ -4,8 +4,8 @@ draw.py  —  Generate a Mermaid (.mmd) and PNG diagram for a single graph's
 RDF content, whether that graph is embedded in a cell-databook (post-merge)
 or (for legacy/under-development .ttl files) stands alone.
 
-Usage:   python draw.py <cell_file.databook.md> <graph-id-or-local-name>
-         python draw.py <graph_file.ttl>
+Usage:   python helpers/draw.py <cell_file.databook.md> <graph-id-or-local-name>
+         python helpers/draw.py <graph_file.ttl>
 Output:  <graph-id-local-name>.mmd and .png, always written to
          example/graphs/images/ regardless of where the source cell file
          lives — graph diagrams keep their pre-merge names/location even
@@ -137,6 +137,7 @@ LABELS = {
     # cco: ont properties
     "https://w3id.org/cco-domains/cco/ont00001780":         "hasMother",
     "https://w3id.org/cco-domains/cco/ont00001786":         "isMotherOf",
+    "https://w3id.org/cco-domains/cco/ont00001987":         "hasDaughter",
     "https://w3id.org/cco-domains/cco/ont00001769":         "hasDecimalValue",
     "https://w3id.org/cco-domains/cco/ont00001863":         "usesMeasurementUnit",
     "https://w3id.org/cco-domains/cco/ont00001983":         "isRatioMeasurementOf",
@@ -450,8 +451,8 @@ def generate_png(mmd_path: Path, png_path: Path) -> None:
 def main() -> None:
     if len(sys.argv) < 2:
         sys.exit(
-            "Usage: python draw.py <cell_file.databook.md> <graph-id-or-local-name>\n"
-            "       python draw.py <graph_file.ttl>"
+            "Usage: python helpers/draw.py <cell_file.databook.md> <graph-id-or-local-name>\n"
+            "       python helpers/draw.py <graph_file.ttl>"
         )
     src = Path(sys.argv[1])
     if not src.exists():

@@ -9,10 +9,11 @@
 @prefix mia: <http://www.example.org/mia#> .
 @prefix persona: <http://mee.foundation/ontologies/persona#> .
 @prefix pets: <http://mee.foundation/ontologies/pets#> .
+@prefix banking: <http://mee.foundation/ontologies/banking#> .
 @prefix dc: <http://purl.org/dc/elements/1.1/> .
 
 <http://mee.foundation/ontologies/persona/shapes> rdf:type owl:Ontology ;
-    owl:versionIRI <http://mee.foundation/ontologies/persona/shapes/4.9.0> ;
+    owl:versionIRI <http://mee.foundation/ontologies/persona/shapes/4.11.0> ;
     dc:date "2026-09-05"^^xsd:date ;
     rdfs:label "Cellula's SHACL Validation Shapes"@en ;
     rdfs:comment """SHACL validation shapes for Cellula, an identity agent application from Mee.
@@ -103,24 +104,30 @@
         sh:message "hasSocialNetwork values must be of type Social Network."@en
     ] ;
 
-    # Optional: pets (0..many); what a pet *is* is validated by other/pets-shacl.ttl's :PetShape
+    # Optional: pets (0..many); what a pet *is* is validated by other/shacl/pets-shacl.ttl's :PetShape
     sh:property [
         sh:path persona:hasPet ;
         sh:class pets:Pet ;
         sh:message "hasPet values must be of type pets:Pet."@en
     ] ;
 
-    # Optional: payment cards (0..many)
+    # Optional: payment cards (0..many). Constrained to Debit Card
+    # (cco:ent00000051) rather than the broader Payment Card
+    # (cco:ent00000049), because Debit Card is the only payment-card class
+    # this project actually models — persona.ttl's usesCCOClass list names
+    # ent00000051 and never ent00000049, and no merged ontology declares the
+    # latter or relates the two, so sh:class ent00000049 could never be
+    # satisfied. Widen this to an sh:or if credit cards are ever added.
     sh:property [
         sh:path cco:ent00000073 ;  # has payment card
-        sh:class cco:ent00000049 ;  # Payment Card
-        sh:message "has payment card (cco:ent00000073) must point to a PaymentCard."@en
+        sh:class cco:ent00000051 ;  # Debit Card
+        sh:message "has payment card (cco:ent00000073) must point to a DebitCard."@en
     ] ;
 
     # Optional: checking account (0..1)
     sh:property [
         sh:path persona:hasBankAccount ;
-        sh:class persona:CheckingAccount ;
+        sh:class banking:CheckingAccount ;
         sh:maxCount 1 ;
         sh:message "A Person may hold at most one bank account."@en
     ] ;
@@ -346,7 +353,7 @@
 
 #################################################################
 #  Health & Wellness (cat:HealthWellness's own cell:topicGraphShape)
-#  Formalizes the physical-characteristics pattern Paula Walker's own
+#  Formalizes the physical-characteristics pattern Sophia Walker's own
 #  Health & Wellness cell (graph-17) already uses — height, eye color,
 #  and hair color, each borne directly (or via ScalpHair) by a
 #  persona:Person — with every property optional, since this is a
@@ -354,8 +361,8 @@
 #  not a required profile. Self-contained (the ScalpHair/HairColor
 #  check is duplicated inline rather than deferred to
 #  :ScalpHairShape/:HairColorShape above) so it still validates fully
-#  under Tier 2's per-graph isolation, where every other root shape
-#  co-located in this file is deactivated for the call.
+#  under the template pass's per-graph isolation, where every other root
+#  shape co-located in this file is deactivated for the call.
 #################################################################
 
 :HealthWellnessShape
@@ -445,69 +452,22 @@
 
 
 #################################################################
-#  Payment cards
+#  Primary Care Physician
 #################################################################
 
-:DebitCardShape
+:PrimaryCarePhysicianShape
     a sh:NodeShape ;
-    sh:targetClass cco:ent00000051 ;  # Debit Card
-    sh:message "A DebitCard must have a card number and expiration date."@en ;
-
+    sh:targetClass persona:Person ;
+    sh:message "Primary Care Physician topic: an optional medical specialty."@en ;
     sh:property [
-        sh:path <https://w3id.org/cco-domains/cco/ont00001879> ;  # designated by → Card Number (PAN)
-        sh:qualifiedValueShape [ sh:class cco:ent00000052 ] ;
-        sh:qualifiedMinCount 1 ;
-        sh:qualifiedMaxCount 1 ;
-        sh:message "A DebitCard must be designated by exactly one CardNumber (PAN)."@en
-    ] ;
-
-    sh:property [
-        sh:path cco:ent00000070 ;  # has expiration date → Calendar Date Identifier
-        sh:qualifiedValueShape [ sh:class cco:ont00001340 ] ;  # Calendar Date Identifier
-        sh:qualifiedMinCount 1 ;
-        sh:qualifiedMaxCount 1 ;
-        sh:message "A DebitCard must have exactly one expiration date (has expiration date → Calendar Date Identifier)."@en
-    ] ;
-
-    sh:property [
-        sh:path <https://w3id.org/cco-domains/cco/ont00001879> ;  # designated by → CVV (optional)
-        sh:qualifiedValueShape [ sh:class cco:ent00000053 ] ;
-        sh:qualifiedMaxCount 1 ;
-        sh:message "A DebitCard may have at most one CVV."@en
-    ] ;
-
-    # Optional: linked checking account (0..1)
-    sh:property [
-        sh:path persona:accessesBankAccount ;
-        sh:class persona:CheckingAccount ;
+        sh:path persona:specialty ;
         sh:maxCount 1 ;
-        sh:message "A DebitCard may access at most one CheckingAccount."@en
+        sh:datatype xsd:string ;
+        sh:message "A Person may record at most one specialty, as a string."@en
     ] .
 
-#################################################################
-#  Checking Account
-#################################################################
-
-:CheckingAccountShape
-    a sh:NodeShape ;
-    sh:targetClass persona:CheckingAccount ;
-    sh:message "A CheckingAccount must have exactly one account number and one routing number."@en ;
-
-    sh:property [
-        sh:path <https://w3id.org/cco-domains/cco/ont00001879> ;  # designated by → Account Number
-        sh:qualifiedValueShape [ sh:class cco:ent00000071 ] ;  # Checking Account Number
-        sh:qualifiedMinCount 1 ;
-        sh:qualifiedMaxCount 1 ;
-        sh:message "A CheckingAccount must be designated by exactly one CheckingAccountNumber."@en
-    ] ;
-
-    sh:property [
-        sh:path <https://w3id.org/cco-domains/cco/ont00001879> ;  # designated by → Routing Number
-        sh:qualifiedValueShape [ sh:class cco:ent00000072 ] ;  # Routing Number
-        sh:qualifiedMinCount 1 ;
-        sh:qualifiedMaxCount 1 ;
-        sh:message "A CheckingAccount must be designated by exactly one RoutingNumber."@en
-    ] .
+# The DebitCard/CheckingAccount shapes live in other/shacl/banking-shacl.ttl,
+# paired with other/banking.ttl, which declares the classes they target.
 
 #################################################################
 #  Online Service Account

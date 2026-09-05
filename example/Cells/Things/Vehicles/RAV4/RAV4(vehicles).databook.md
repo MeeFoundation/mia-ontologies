@@ -19,12 +19,12 @@ mia:
     id: "http://www.example.org/mia/graphs/graph-62"
     claimant: ":Self"
     subject: ":Self"
-    template: "persona:JSContactCard"
+    template: "pshapes:JSContactCardPersonShape"
   topic:
     id: "http://www.example.org/mia/graphs/graph-63"
     claimant: ":Self"
     subject: ":Alice_RAV4"
-    template: "vehicles:Vehicle"
+    template: "vehicleshapes:VehicleShape"
 ---
 
 ## Graphs
@@ -69,7 +69,7 @@ This graph is the cell's one required `member` entry — a cell with a single `m
 
 #### Overview
 
-This graph captures Alice's basic claim about her car itself — just enough to back the cell's `subject: ":Alice_RAV4"` with a real graph (see Check 22) — and, validated by `vehicles:Vehicle`'s SHACL shape (`other/vehicles-shacl.ttl`'s `:VehicleShape`), identifies its vehicle type (`vehicles:Car`, class-value-punned), make and model (both real Wikidata individuals vendored in `project_files/wikidata-vehicle-makes-subset.ttl`/`project_files/wikidata-vehicle-models-subset.ttl`), model year, VIN, color, body type, fuel type, drive wheel configuration, current odometer reading (a `vehicles:OdometerReading` individual reusing CCO's decimal-value/measurement-unit pattern, the same reification style `pets:BodyWeight`/`pets:DosageAmount` already use), and engine specification. `:Self persona:hasVehicle :Alice_RAV4` closes the loop from the Person side.
+This graph captures Alice's basic claim about her car itself — just enough to back the cell's `subject: ":Alice_RAV4"` with a real graph (see Check 22) — and, validated by `vehicles:Vehicle`'s SHACL shape (`other/shacl/vehicles-shacl.ttl`'s `:VehicleShape`), identifies its vehicle type (`vehicles:Car`, class-value-punned), make and model (both real Wikidata individuals vendored in `project_files/wikidata-vehicle-makes-subset.ttl`/`project_files/wikidata-vehicle-models-subset.ttl`), model year, VIN, color, body type, fuel type, drive wheel configuration, current odometer reading (a `vehicles:OdometerReading` individual reusing CCO's decimal-value/measurement-unit pattern, the same reification style `pets:BodyWeight`/`pets:DosageAmount` already use), and engine specification. `:Self persona:hasVehicle :Alice_RAV4` closes the loop from the Person side.
 
 #### Graph
 

@@ -7,7 +7,7 @@ created: 2026-07-10
 description: >
   Cell DataBook for folder "Birth Certificate" (cell:category: cat:BirthCertificate). It is a
   one-member cell with one member entry about :Self and one topic graph about :Self (the cell's
-  subject), typed persona:BirthCertificateDocument, carrying Alice's Texas birth certificate
+  subject), typed identitydocuments:BirthCertificate, carrying Alice's Texas birth certificate
   identity data.
 mia:
   category: "cat:BirthCertificate"
@@ -17,12 +17,12 @@ mia:
     id: "http://www.example.org/mia/graphs/graph-24"
     claimant: ":Self"
     subject: ":Self"
-    template: "persona:JSContactCard"
+    template: "pshapes:JSContactCardPersonShape"
   topic:
     id: "http://www.example.org/mia/graphs/graph-78"
     claimant: ":Self"
     subject: ":Self"
-    template: "persona:BirthCertificateDocument"
+    template: "idocshapes:BirthCertificateShape"
 ---
 
 ## Graphs
@@ -59,7 +59,7 @@ This graph is the cell's one required `member` entry — a cell with a single `m
 
 #### Overview
 
-This graph captures Alice Walker's Texas birth certificate identity data — moved here, as this cell's `cell:topic` content, from the cell's former `member` graph-24. Alice self-enters her legal name (Margery Alice Walker) and maiden name (Margery Alice Arnold) from her physical birth certificate. Validated by the `BirthCertificateDocumentShape` per-template SHACL shape. Alice is the claimant.
+This graph captures Alice Walker's Texas birth certificate identity data — moved here, as this cell's `cell:topic` content, from the cell's former `member` graph-24. Alice self-enters her legal name (Margery Alice Walker) and maiden name (Margery Alice Arnold) from her physical birth certificate. Validated by the `BirthCertificateShape` per-template SHACL shape (`other/shacl/identity-documents-shacl.ttl`). Alice is the claimant.
 
 #### Graph
 
@@ -68,6 +68,7 @@ This graph captures Alice Walker's Texas birth certificate identity data — mov
 <!-- databook:graph: http://www.example.org/mia/graphs/graph-78#graph -->
 @prefix : <http://www.example.org/mia#> .
 @prefix persona: <http://mee.foundation/ontologies/persona#> .
+@prefix identitydocuments: <http://mee.foundation/ontologies/identity-documents#> .
 @prefix cco: <https://w3id.org/cco-domains/cco/> .
 @prefix owl: <http://www.w3.org/2002/07/owl#> .
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
@@ -79,7 +80,7 @@ This graph captures Alice Walker's Texas birth certificate identity data — mov
 :Self persona:hasIdentityDocument :Alice_TX_Birth_Certificate .
 
 :Alice_TX_Birth_Certificate rdf:type owl:NamedIndividual ,
-                                      persona:BirthCertificateDocument ;
+                                      identitydocuments:BirthCertificate ;
     rdfs:label "Alice Walker's Texas Birth Certificate"@en ;
 
     <https://w3id.org/cco-domains/cco/ont00001879> [  # designated by → GivenName (legal first name)

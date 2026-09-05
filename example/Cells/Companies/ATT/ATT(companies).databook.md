@@ -7,7 +7,7 @@ created: 2026-07-10
 description: >
   Cell DataBook for folder "ATT" (cell:category: cat:Companies). It is a one-member cell with one
   member entry about :Self and one graph about :Alice_ATT_Account (the cell's subject), typed
-  persona:ServiceAccount and cco:ent00000033 (Online Service Account), carrying the service name,
+  serviceaccounts:ServiceAccount and cco:ent00000033 (Online Service Account), carrying the service name,
   account username, and password for Alice's AT&T account.
 mia:
   category: "cat:Companies"
@@ -17,12 +17,12 @@ mia:
     id: "http://www.example.org/mia/graphs/graph-11"
     claimant: ":Self"
     subject: ":Self"
-    template: "persona:JSContactCard"
+    template: "pshapes:JSContactCardPersonShape"
   topic:
     id: "http://www.example.org/mia/graphs/graph-74"
     claimant: ":Self"
     subject: ":Alice_ATT_Account"
-    template: "persona:ServiceAccount"
+    template: "sashapes:ServiceAccountShape"
 ---
 
 ## Graphs
@@ -67,7 +67,7 @@ This graph is the cell's one required `member` entry — a cell with a single `m
 
 #### Overview
 
-This graph captures Alice's basic claim about her AT&T account itself — just enough to back the cell's `subject: ":Alice_ATT_Account"` with a real graph (see Check 22) — and, validated by `persona:ServiceAccount`'s SHACL shape (`cell-templates-shacl.ttl`'s `:ServiceAccountShape`), identifies the service (AT&T), her account username (her mobile phone number, in E.164 format — the same Phone designator this cell's original single graph used to carry on `:Self` directly, moved here since it's really a fact about the account, not about Alice as a person — AT&T accounts are logged into by phone number rather than a separate handle), her account's service URI, and her account password. `:Self` is also, separately, still designated by that same phone number directly (the `:Self`-level fact this cell's `member` graph doesn't itself carry). `:Self` carries `cco:ent00000045` (has/holds user account) to `:Alice_ATT_Account`, closing the loop from the Person side.
+This graph captures Alice's basic claim about her AT&T account itself — just enough to back the cell's `subject: ":Alice_ATT_Account"` with a real graph (see Check 22) — and, validated by `serviceaccounts:ServiceAccount`'s SHACL shape (`other/shacl/service-accounts-shacl.ttl`'s `:ServiceAccountShape`), identifies the service (AT&T), her account username (her mobile phone number, in E.164 format — the same Phone designator this cell's original single graph used to carry on `:Self` directly, moved here since it's really a fact about the account, not about Alice as a person — AT&T accounts are logged into by phone number rather than a separate handle), her account's service URI, and her account password. `:Self` is also, separately, still designated by that same phone number directly (the `:Self`-level fact this cell's `member` graph doesn't itself carry). `:Self` carries `cco:ent00000045` (has/holds user account) to `:Alice_ATT_Account`, closing the loop from the Person side.
 
 #### Graph
 
@@ -81,6 +81,7 @@ This graph captures Alice's basic claim about her AT&T account itself — just e
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix serviceaccounts: <http://mee.foundation/ontologies/service-accounts#> .
 
 :Self rdf:type owl:NamedIndividual ,
                persona:Person .
@@ -92,13 +93,13 @@ This graph captures Alice's basic claim about her AT&T account itself — just e
     ] .
 
 :Alice_ATT_Account rdf:type owl:NamedIndividual ,
-                     persona:ServiceAccount ,
+                     serviceaccounts:ServiceAccount ,
                      cco:ent00000033 ;
     rdfs:label "Alice Walker's AT&T account"@en ;
     cco:ent00000034 "AT&T" ;                            # has service name
     cco:ent00000035 "+15108149999" ;                    # has user handle (username — AT&T logs in by phone number)
     cco:ent00000036 "https://www.att.com/my/"^^xsd:anyURI ;  # has service URI
-    persona:hasPassword "Alice#ATT2026!" .              # has password
+    serviceaccounts:hasPassword "Alice#ATT2026!" .              # has password
 
 :Self <https://w3id.org/cco-domains/cco/ent00000045> :Alice_ATT_Account .  # holds user account
 ```

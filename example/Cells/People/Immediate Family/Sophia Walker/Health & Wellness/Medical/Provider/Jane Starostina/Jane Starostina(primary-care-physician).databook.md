@@ -2,7 +2,7 @@
 id: http://www.example.org/mia/cells/cell-14
 title: "Jane Starostina"
 type: cell-databook
-version: 1.3.0
+version: 1.4.0
 created: 2026-07-10
 description: >
   Cell DataBook for folder "Jane Starostina" (cell:category: cat:PrimaryCarePhysician). It is a one-member cell with one member entry about :Self and one graph about :Jane_Starostina (the cell's subject).
@@ -14,11 +14,14 @@ mia:
     id: "http://www.example.org/mia/graphs/graph-34"
     claimant: ":Self"
     subject: ":Self"
-    template: "persona:JSContactCard"
+    template: "pshapes:JSContactCardPersonShape"
   topic:
     id: "http://www.example.org/mia/graphs/graph-25"
     claimant: ":Self"
     subject: ":Jane_Starostina"
+    template:
+      - "pshapes:PrimaryCarePhysicianShape"
+      - "pshapes:JSContactCardPersonShape"
 ---
 
 ## Graphs
@@ -55,7 +58,7 @@ This graph captures Alice's own bare identity claim (just her given name) — th
 
 #### Overview
 
-This graph captures Alice's record of Dr. Jane Starostina, who is the primary care physician for Alice's mother, Paula Walker, including her medical specialty (Endocrinology), via `persona:specialty` — `cat:PrimaryCarePhysician`'s own `cell:topicGraphShape` (`:PrimaryCarePhysicianShape`). Alice keeps this information so she and her sister Carol can coordinate Paula's medical appointments. Alice is the claimant; Jane is the cell's `subject` but, since this cell now has a real member entry (graph 34, above) about Alice herself, Jane's graph is linked via `cell:topic` rather than as one of the required `member` entries.
+This graph captures Alice's record of Dr. Jane Starostina, who is the primary care physician for Alice's daughter, Sophia Walker, including her medical specialty (Endocrinology), via `persona:specialty` — `cat:PrimaryCarePhysician`'s own `cell:topicGraphShape` (`:PrimaryCarePhysicianShape`). Alice keeps this information so she and her husband Dave can coordinate Sophia's medical appointments. Alice is the claimant; Jane is the cell's `subject` but, since this cell now has a real member entry (graph 34, above) about Alice herself, Jane's graph is linked via `cell:topic` rather than as one of the required `member` entries.
 
 #### Graph
 
@@ -85,7 +88,7 @@ This graph captures Alice's record of Dr. Jane Starostina, who is the primary ca
 
     <https://w3id.org/cco-domains/cco/ont00001917> [  # described by → Person Note
         rdf:type cco:ent00000048 ;
-        <https://w3id.org/cco-domains/cco/ont00001765> "Paula Walker's primary care physician"
+        <https://w3id.org/cco-domains/cco/ont00001765> "Sophia Walker's primary care physician"
     ] ;
 
     persona:specialty "Endocrinology" .

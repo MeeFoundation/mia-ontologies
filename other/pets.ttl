@@ -12,9 +12,9 @@
     owl:imports <http://mee.foundation/ontologies/dron-upper-subset> ,
                 <http://mee.foundation/ontologies/ncbitaxon-subset> ,
                 <http://mee.foundation/ontologies/vbo-subset> ;
-    owl:versionIRI <http://mee.foundation/ontologies/pets/1.6.0> ;
-    dc:date "2026-09-04"^^xsd:date ;
-    owl:versionInfo "Version 1.6.0 - updated cell:templateShape references to cell:topicGraphShape, following cell.ttl's split of that property."@en ;
+    owl:versionIRI <http://mee.foundation/ontologies/pets/1.8.0> ;
+    dc:date "2026-09-05"^^xsd:date ;
+    owl:versionInfo "Version 1.8.0 - pets:Pet/pets:PetMedicationRecord no longer rdfs:subClassOf persona:PersonaTemplate, which was removed; each is now an independent class targeted directly by its own SHACL shape."@en ;
     persona:usesDrOnClass <http://purl.obolibrary.org/obo/DRON_00000074> ,  # drug product
                     <http://purl.obolibrary.org/obo/DRON_00000028> ,  # active ingredient (role)
                     <http://purl.obolibrary.org/obo/DRON_00000022> ,  # drug tablet
@@ -27,21 +27,20 @@
     rdfs:label "Pets Ontology"@en ;
     rdfs:comment """The first of this project's other/ peer ontologies — small, mostly-vendored ontologies
                     for domains a person merely *has* (a pet, eventually e.g. a vehicle) rather than *is*.
-                    persona.ttl/persona-templates.ttl model a person's own identity; the details of what a
+                    persona.ttl models a person's own identity; the details of what a
                     pet (or, later, a vehicle) actually is belong here instead, each in its own other/*.ttl
-                    file, so that persona.ttl/persona-templates.ttl stay scoped to a person's identity data.
+                    file, so that persona.ttl stays scoped to a person's identity data.
                     persona.ttl holds only the thin link property (persona:hasPet, domain persona:Person,
                     range pets:Pet) connecting a person to this file's classes, referenced by name with no
                     owl:imports in either direction — the same "referenced by name" pattern cell.ttl already
                     uses for cell:category's range (skos:Concept) and cell:creator's range
                     (persona:Person/o:Organization).
 
-                    pets:Pet and pets:PetMedicationRecord are both rdfs:subClassOf persona:PersonaTemplate,
-                    also referenced by name with no owl:imports of persona.ttl/persona-templates.ttl — this
-                    keeps cell.ttl's cell:template property's range (persona:PersonaTemplate) as the one
-                    shared "this classifies a graph" root that every domain's template classes plug into,
-                    exactly like cat:Category is the one shared classification root every cat: leaf plugs
-                    into.
+                    pets:Pet and pets:PetMedicationRecord are each independent template type label classes,
+                    asserted via rdf:type directly on the graph's own content individual and targeted
+                    directly by their own SHACL shape (other/shacl/pets-shacl.ttl) — independent of cell.ttl's
+                    cell:template property, whose own range is sh:NodeShape (the validating shape, not the
+                    content's own class).
 
                     Vendors a hand-curated subset of NCBITaxon (project_files/ncbitaxon-subset.ttl, 33
                     common pet species — NCBITaxon's true ~2.7-million-class scale rules out ever vendoring
@@ -50,7 +49,7 @@
                     species this project names, preserving VBO's own species→breed→sub-breed subClassOf
                     tree — VBO's real full release turned out small enough, once its ~78%-livestock content
                     is excluded, to extract in full rather than hand-pick a few illustrative breeds) for
-                    pets:hasSpecies/pets:hasBreed, and (moved from persona-templates.ttl) DrOn
+                    pets:hasSpecies/pets:hasBreed, and DrOn
                     (project_files/dron-upper.ttl) and cited ChEBI class IRIs for pets:Medication's
                     active-ingredient/dose-form design — see pets:Medication's own rdfs:comment."""@en .
 
@@ -60,17 +59,16 @@
 #################################################################
 
 pets:Pet rdf:type owl:Class ;
-    rdfs:subClassOf persona:PersonaTemplate ;
     rdfs:label "Pet"@en ;
     rdfs:comment """Template type label for a graph whose purpose is to identify a pet — its name, what
                     kind of animal it is (species, and, when known/purebred, breed), and, optionally, its
                     birth date, current body weight, sex, and spay/neuter status. Also the actual rdf:type
                     of the pet individual itself, following the same document-individual pattern as
-                    persona:PassportDocument: pets:name/pets:hasSpecies/pets:hasBreed/pets:birthDate/
+                    identitydocuments:Passport: pets:name/pets:hasSpecies/pets:hasBreed/pets:birthDate/
                     pets:hasBodyWeight/pets:sex/pets:isSpayedOrNeutered are properties of the pet individual
-                    directly (a pet has no persona:Person individual of its own). Used as the value of
-                    cell:template on the graph file's ontology IRI. Selects the SHACL shape :PetShape in
-                    other/pets-shacl.ttl, linked from cat:Pets's template cell (cell-templates.ttl) via
+                    directly (a pet has no persona:Person individual of its own). Validated by the SHACL
+                    shape :PetShape in
+                    other/shacl/pets-shacl.ttl, linked from cat:Pets's template cell (cat-templates.ttl) via
                     cell:topicGraphShape."""@en .
 
 pets:hasSpecies rdf:type owl:ObjectProperty ;
@@ -101,7 +99,7 @@ pets:name rdf:type owl:DatatypeProperty ;
     rdfs:range xsd:string ;
     rdfs:label "name"@en ;
     rdfs:comment """The pet's own name, e.g. "Ginger". A plain direct string property, not the CCO
-                    designated-by/Designative-Name machinery persona-templates.ttl uses for a persona:Person's
+                    designated-by/Designative-Name machinery persona.ttl uses for a persona:Person's
                     name (FullName/GivenName/FamilyName/AlternateName as distinct sibling designators) — a
                     pet has none of that structure, just one simple name, so a direct property is the
                     right-sized choice here, consistent with pets:medicationBrandName and similar plain-string
@@ -111,7 +109,7 @@ pets:birthDate rdf:type owl:DatatypeProperty ;
     rdfs:domain pets:Pet ;
     rdfs:label "birth date"@en ;
     rdfs:comment """The pet's date of birth. Deliberately left unconstrained at the rdfs:range level (no
-                    single fixed datatype) — the real constraint lives in other/pets-shacl.ttl's :PetShape,
+                    single fixed datatype) — the real constraint lives in other/shacl/pets-shacl.ttl's :PetShape,
                     which accepts either a full xsd:date (e.g. "2019-04-12") when the exact date is known, or
                     a bare xsd:gYear (e.g. "2019") when only the approximate year is known — the same
                     dual-precision reasoning persona:anniversaryDate already documents (xsd:date for fully
@@ -146,7 +144,7 @@ pets:sex rdf:type owl:DatatypeProperty ;
     rdfs:domain pets:Pet ;
     rdfs:range xsd:string ;
     rdfs:label "sex"@en ;
-    rdfs:comment """The pet's biological sex. Constrained by other/pets-shacl.ttl's :PetShape to exactly
+    rdfs:comment """The pet's biological sex. Constrained by other/shacl/pets-shacl.ttl's :PetShape to exactly
                     "Male" or "Female" via sh:in — a two-value controlled vocabulary kept as a plain
                     SHACL-enumerated string rather than a vendored external class, the same small-enumeration
                     reasoning other/vehicles.ttl's vehicles:fuelType/vehicles:driveWheelConfiguration use.
@@ -168,18 +166,17 @@ pets:isSpayedOrNeutered rdf:type owl:DatatypeProperty ;
 #################################################################
 
 pets:PetMedicationRecord rdf:type owl:Class ;
-    rdfs:subClassOf persona:PersonaTemplate ;
     rdfs:label "Pet Medications"@en ;
     rdfs:comment """Template type label for a graph that carries a pet's list of medications. Also the
                     class of the record individual itself, following the same document-individual pattern
-                    as persona:PassportDocument: the pets:hasMedication links below are properties of the
+                    as identitydocuments:Passport: the pets:hasMedication links below are properties of the
                     PetMedicationRecord, not of the pet directly (a pet has no persona:Person individual of
                     its own — it is identified only via the cell's/graph's own subject metadata, or, for a
-                    pet with its own identity graph, via pets:Pet). Used as the value of cell:template on the
-                    graph file's ontology IRI. Selects the SHACL shape :PetMedicationRecordShape in
-                    other/pets-shacl.ttl, linked from cat:PetsMedical's template cell (cell-templates.ttl)
+                    pet with its own identity graph, via pets:Pet). Asserted via rdf:type directly on the
+                    graph file's own individual, validated by the SHACL shape :PetMedicationRecordShape in
+                    other/shacl/pets-shacl.ttl, linked from cat:PetsMedical's template cell (cat-templates.ttl)
                     via cell:topicGraphShape. Named "Record" rather than "Document" since this class is not a
-                    persona:IdentityDocument, matching persona:MedicalAppointmentRecord's identical naming
+                    identitydocuments:IdentityDocument, matching medicalappointments:MedicalAppointmentRecord's identical naming
                     reasoning."""@en .
 
 pets:hasMedication rdf:type owl:ObjectProperty ;
@@ -300,7 +297,7 @@ pets:medicationBrandName rdf:type owl:DatatypeProperty ;
 pets:medicationManufacturer rdf:type owl:DatatypeProperty ;
     rdfs:domain pets:Medication ;
     rdfs:label "medication manufacturer"@en ;
-    rdfs:comment "The name of the medication's manufacturer, as a free-text string (e.g. 'Zoetis') — not a linked o:Organization, matching persona:insuranceProvider's identical flat-string treatment. Kept as a flat string — DrOn has no manufacturer/labeler class at all, so there is no external term to reuse here."@en ;
+    rdfs:comment "The name of the medication's manufacturer, as a free-text string (e.g. 'Zoetis') — not a linked o:Organization, matching medicalappointments:insuranceProvider's identical flat-string treatment. Kept as a flat string — DrOn has no manufacturer/labeler class at all, so there is no external term to reuse here."@en ;
     rdfs:range xsd:string .
 
 pets:medicationDuration rdf:type owl:DatatypeProperty ;

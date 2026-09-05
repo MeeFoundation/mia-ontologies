@@ -14,16 +14,16 @@ mia:
     - id: "http://www.example.org/mia/graphs/graph-33"
       claimant: ":Self"
       subject: ":Self"
-      template: "persona:JSContactCard"
+      template: "pshapes:JSContactCardPersonShape"
     - id: "http://www.example.org/mia/graphs/graph-57"
       claimant: ":Paula_Walker"
       subject: ":Paula_Walker"
-      template: "persona:JSContactCard"
+      template: "pshapes:JSContactCardPersonShape"
   topic:
     id: "http://www.example.org/mia/graphs/graph-32"
     claimant: ":Self"
     subject: ":Ginger"
-    template: "pets:PetMedicationRecord"
+    template: "petshapes:PetMedicationRecordShape"
 ---
 
 ## Graphs
@@ -104,7 +104,7 @@ This cell was created by Alice and later shared with Paula, making the cell a tw
 
 #### Overview
 
-This graph captures Alice's record of her cat Ginger's medications — an amoxicillin/clavulanate course prescribed after a minor infection, and an ongoing daily joint supplement. Validated by the `PetMedications` per-template SHACL shapes (`other/pets-shacl.ttl`). Alice is the claimant; Ginger is the cell's `subject` but, since she has no `p:Person` individual of her own, her graph is linked via `cell:topic` rather than as one of the required `member` entries (graphs 33 and 57, above, fill those slots instead). Each medication's active ingredient(s) are cited by real ChEBI class IRIs, its tablet/liquid dosage form and amount by DrOn/CCO terms, and its schedule by a DrOn drug-administration individual carrying a BFO temporal interval — see `pets:Medication`'s `rdfs:comment` (`other/pets.ttl`) for the full reuse rationale.
+This graph captures Alice's record of her cat Ginger's medications — an amoxicillin/clavulanate course prescribed after a minor infection, and an ongoing daily joint supplement. Validated by the `PetMedications` per-template SHACL shapes (`other/shacl/pets-shacl.ttl`). Alice is the claimant; Ginger is the cell's `subject` but, since she has no `p:Person` individual of her own, her graph is linked via `cell:topic` rather than as one of the required `member` entries (graphs 33 and 57, above, fill those slots instead). Each medication's active ingredient(s) are cited by real ChEBI class IRIs, its tablet/liquid dosage form and amount by DrOn/CCO terms, and its schedule by a DrOn drug-administration individual carrying a BFO temporal interval — see `pets:Medication`'s `rdfs:comment` (`other/pets.ttl`) for the full reuse rationale.
 
 #### Graph
 

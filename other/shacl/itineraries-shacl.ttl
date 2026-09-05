@@ -1,0 +1,36 @@
+@prefix : <http://mee.foundation/ontologies/itineraries/shapes#> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix itineraries: <http://mee.foundation/ontologies/itineraries#> .
+@prefix dc: <http://purl.org/dc/elements/1.1/> .
+
+<http://mee.foundation/ontologies/itineraries/shapes> rdf:type owl:Ontology ;
+    owl:imports <http://mee.foundation/ontologies/itineraries> ;
+    owl:versionIRI <http://mee.foundation/ontologies/itineraries/shapes/1.0.0> ;
+    dc:date "2026-09-05"^^xsd:date ;
+    rdfs:label "Itineraries Template SHACL Shapes"@en ;
+    rdfs:comment """SHACL shapes for validating graph files carrying cell:template itineraryshapes:ItineraryShape.
+                    Apply in addition to shacl/persona-shacl.ttl when validating a trip itinerary graph
+                    file. Targets itineraries:Itinerary individuals directly — no existing CCO/domain
+                    class to multi-type alongside, so this shape requires only a human-readable
+                    description rather than any structured trip-planning fields. Paired with
+                    other/itineraries.ttl, the ontology it validates."""@en .
+
+
+#################################################################
+#  Itinerary Shape
+#  Targets itineraries:Itinerary individuals.
+#  Required: at least one of rdfs:label or rdfs:comment (free-text description)
+#################################################################
+
+:ItineraryShape
+    a sh:NodeShape ;
+    sh:targetClass itineraries:Itinerary ;
+    sh:message "An Itinerary must have at least a human-readable label or description."@en ;
+    sh:or (
+        [ sh:property [ sh:path rdfs:label ; sh:minCount 1 ] ]
+        [ sh:property [ sh:path rdfs:comment ; sh:minCount 1 ] ]
+    ) .

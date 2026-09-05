@@ -7,7 +7,7 @@ created: 2026-07-10
 description: >
   Cell DataBook for folder "Google" (cell:category: cat:Companies). It is a one-member cell with one
   member entry about :Self and one graph about :Alice_Google_Account (the cell's subject), typed
-  persona:ServiceAccount and cco:ent00000033 (Online Service Account), carrying the service name,
+  serviceaccounts:ServiceAccount and cco:ent00000033 (Online Service Account), carrying the service name,
   account username, and password for Alice's Google account.
 mia:
   category: "cat:Companies"
@@ -17,12 +17,12 @@ mia:
     id: "http://www.example.org/mia/graphs/graph-16"
     claimant: ":Self"
     subject: ":Self"
-    template: "persona:JSContactCard"
+    template: "pshapes:JSContactCardPersonShape"
   topic:
     id: "http://www.example.org/mia/graphs/graph-73"
     claimant: ":Self"
     subject: ":Alice_Google_Account"
-    template: "persona:ServiceAccount"
+    template: "sashapes:ServiceAccountShape"
 ---
 
 ## Graphs
@@ -67,7 +67,7 @@ This graph is the cell's one required `member` entry — a cell with a single `m
 
 #### Overview
 
-This graph captures Alice's basic claim about her Google account itself — just enough to back the cell's `subject: ":Alice_Google_Account"` with a real graph (see Check 22) — and, validated by `persona:ServiceAccount`'s SHACL shape (`cell-templates-shacl.ttl`'s `:ServiceAccountShape`), identifies the service (Google), her account username (her Gmail address — the same Email designator this cell's original single graph used to carry on `:Self` directly, moved here since it's really a fact about the account, not about Alice as a person), and her account password. `:Self` is also, separately, still designated by that same Email address directly (the `:Self`-level fact this cell's `member` graph doesn't itself carry) — a person's Gmail address is both her own contact email and her Google account's username, so it's asserted once here on each individual it actually describes. `:Self` carries `cco:ent00000045` (has/holds user account) to `:Alice_Google_Account`, closing the loop from the Person side.
+This graph captures Alice's basic claim about her Google account itself — just enough to back the cell's `subject: ":Alice_Google_Account"` with a real graph (see Check 22) — and, validated by `serviceaccounts:ServiceAccount`'s SHACL shape (`other/shacl/service-accounts-shacl.ttl`'s `:ServiceAccountShape`), identifies the service (Google), her account username (her Gmail address — the same Email designator this cell's original single graph used to carry on `:Self` directly, moved here since it's really a fact about the account, not about Alice as a person), and her account password. `:Self` is also, separately, still designated by that same Email address directly (the `:Self`-level fact this cell's `member` graph doesn't itself carry) — a person's Gmail address is both her own contact email and her Google account's username, so it's asserted once here on each individual it actually describes. `:Self` carries `cco:ent00000045` (has/holds user account) to `:Alice_Google_Account`, closing the loop from the Person side.
 
 #### Graph
 
@@ -81,18 +81,19 @@ This graph captures Alice's basic claim about her Google account itself — just
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix serviceaccounts: <http://mee.foundation/ontologies/service-accounts#> .
 
 :Self rdf:type owl:NamedIndividual ,
                persona:Person .
 
 :Alice_Google_Account rdf:type owl:NamedIndividual ,
-                     persona:ServiceAccount ,
+                     serviceaccounts:ServiceAccount ,
                      cco:ent00000033 ;
     rdfs:label "Alice Walker's Google account"@en ;
     cco:ent00000034 "Google" ;                       # has service name
     cco:ent00000035 "awalker@gmail.com" ;            # has user handle (username)
     cco:ent00000036 "https://myaccount.google.com"^^xsd:anyURI ;  # has service URI
-    persona:hasPassword "Alice#Google2026!" .        # has password
+    serviceaccounts:hasPassword "Alice#Google2026!" .        # has password
 
 :Self <https://w3id.org/cco-domains/cco/ent00000045> :Alice_Google_Account .  # holds user account
 ```

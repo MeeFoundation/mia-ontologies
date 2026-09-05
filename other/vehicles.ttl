@@ -12,26 +12,25 @@
 <http://mee.foundation/ontologies/vehicles> rdf:type owl:Ontology ;
     owl:imports <http://mee.foundation/ontologies/wikidata-vehicle-makes-subset> ,
                 <http://mee.foundation/ontologies/wikidata-vehicle-models-subset> ;
-    owl:versionIRI <http://mee.foundation/ontologies/vehicles/1.3.0> ;
-    dc:date "2026-09-04"^^xsd:date ;
-    owl:versionInfo "Version 1.3.0 - updated cell:templateShape reference to cell:topicGraphShape, following cell.ttl's split of that property."@en ;
+    owl:versionIRI <http://mee.foundation/ontologies/vehicles/1.5.0> ;
+    dc:date "2026-09-05"^^xsd:date ;
+    owl:versionInfo "Version 1.5.0 - vehicles:Vehicle no longer rdfs:subClassOf persona:PersonaTemplate, which was removed; it is now an independent class targeted directly by its own SHACL shape."@en ;
     rdfs:label "Vehicles Ontology"@en ;
     rdfs:comment """The second of this project's other/ peer ontologies (after other/pets.ttl) — small,
                     mostly-vendored ontologies for domains a person merely *has* (a pet, a vehicle) rather
-                    than *is*. persona.ttl/persona-templates.ttl model a person's own identity; the details
-                    of what a vehicle actually is belong here instead, so that persona.ttl/persona-templates.ttl
-                    stay scoped to a person's identity data. persona.ttl holds only the thin link property
+                    than *is*. persona.ttl models a person's own identity; the details
+                    of what a vehicle actually is belong here instead, so that persona.ttl
+                    stays scoped to a person's identity data. persona.ttl holds only the thin link property
                     (persona:hasVehicle, domain persona:Person, range vehicles:Vehicle) connecting a person to
                     this file's classes, referenced by name with no owl:imports in either direction — the same
                     "referenced by name" pattern cell.ttl already uses for cell:category's range (skos:Concept)
                     and cell:creator's range (persona:Person/o:Organization), and other/pets.ttl already uses
                     for persona:hasPet.
 
-                    vehicles:Vehicle is rdfs:subClassOf persona:PersonaTemplate, also referenced by name with
-                    no owl:imports of persona.ttl/persona-templates.ttl — this keeps cell.ttl's cell:template
-                    property's range (persona:PersonaTemplate) as the one shared "this classifies a graph"
-                    root that every domain's template classes plug into, exactly like cat:Category is the one
-                    shared classification root every cat: leaf plugs into.
+                    vehicles:Vehicle is an independent template type label class, asserted via rdf:type
+                    directly on the graph's own content individual and targeted directly by its own SHACL
+                    shape (other/shacl/vehicles-shacl.ttl) — independent of cell.ttl's cell:template property,
+                    whose own range is sh:NodeShape (the validating shape, not the content's own class).
 
                     Unlike other/pets.ttl (which never vendors an upstream class for "Pet" itself — only
                     pets:hasSpecies/pets:hasBreed's controlled vocabularies are vendored), vehicles:Vehicle and
@@ -97,17 +96,16 @@ vehicles:hasVehicleType rdf:type owl:ObjectProperty ;
 #################################################################
 
 vehicles:Vehicle rdf:type owl:Class ;
-    rdfs:subClassOf persona:PersonaTemplate ;
     rdfs:label "Vehicle"@en ;
     rdfs:comment """Template type label for a graph whose purpose is to identify a vehicle — its kind, make,
                     model, and model year, plus optional specification details (VIN, color, body type, fuel
                     type, drive wheel configuration, odometer reading, and engine specification). Also the
                     actual rdf:type of the vehicle individual itself, following the same document-individual
-                    pattern as persona:PassportDocument and pets:Pet: the properties below are properties of
+                    pattern as identitydocuments:Passport and pets:Pet: the properties below are properties of
                     the vehicle individual directly (a vehicle has no persona:Person individual of its own).
-                    Used as the value of cell:template on the graph file's ontology IRI. Selects the SHACL shape
-                    :VehicleShape in other/vehicles-shacl.ttl, linked from cat:Vehicles's template cell
-                    (cell-templates.ttl) via cell:topicGraphShape."""@en .
+                    Validated by the SHACL shape :VehicleShape in other/shacl/vehicles-shacl.ttl, whose own CURIE —
+                    not this class — is what the graph's cell:template value names; linked from cat:Vehicles's template cell
+                    (cat-templates.ttl) via cell:topicGraphShape."""@en .
 
 vehicles:hasMake rdf:type owl:ObjectProperty ;
     rdfs:domain vehicles:Vehicle ;
@@ -170,13 +168,13 @@ vehicles:fuelType rdf:type owl:DatatypeProperty ;
     rdfs:domain vehicles:Vehicle ;
     rdfs:range xsd:string ;
     rdfs:label "fuel type"@en ;
-    rdfs:comment "The type of fuel the vehicle's engine uses. Constrained by other/vehicles-shacl.ttl's :VehicleShape to a small controlled vocabulary (Gasoline, Diesel, Electric, Hybrid, PlugInHybrid, Hydrogen) via sh:in, rather than a vendored external class list — six values is too small to justify vendoring a separate file for. Optional, at most one value."@en .
+    rdfs:comment "The type of fuel the vehicle's engine uses. Constrained by other/shacl/vehicles-shacl.ttl's :VehicleShape to a small controlled vocabulary (Gasoline, Diesel, Electric, Hybrid, PlugInHybrid, Hydrogen) via sh:in, rather than a vendored external class list — six values is too small to justify vendoring a separate file for. Optional, at most one value."@en .
 
 vehicles:driveWheelConfiguration rdf:type owl:DatatypeProperty ;
     rdfs:domain vehicles:Vehicle ;
     rdfs:range xsd:string ;
     rdfs:label "drive wheel configuration"@en ;
-    rdfs:comment "Which wheels receive power from the engine. Constrained by other/vehicles-shacl.ttl's :VehicleShape to a small controlled vocabulary (FWD, RWD, AWD, 4WD) via sh:in — the same small-enumeration-via-SHACL reasoning as vehicles:fuelType, rather than vendoring schema.org's own DriveWheelConfigurationValue class IRIs for just four values. Optional, at most one value."@en .
+    rdfs:comment "Which wheels receive power from the engine. Constrained by other/shacl/vehicles-shacl.ttl's :VehicleShape to a small controlled vocabulary (FWD, RWD, AWD, 4WD) via sh:in — the same small-enumeration-via-SHACL reasoning as vehicles:fuelType, rather than vendoring schema.org's own DriveWheelConfigurationValue class IRIs for just four values. Optional, at most one value."@en .
 
 
 #################################################################

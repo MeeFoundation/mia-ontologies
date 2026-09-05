@@ -10,16 +10,17 @@
 @prefix dcterms: <http://purl.org/dc/terms/> .
 @prefix pets: <http://mee.foundation/ontologies/pets#> .
 @prefix vehicles: <http://mee.foundation/ontologies/vehicles#> .
+@prefix identitydocuments: <http://mee.foundation/ontologies/identity-documents#> .
+@prefix banking: <http://mee.foundation/ontologies/banking#> .
 @base <http://mee.foundation/ontologies/persona> .
 
 <http://mee.foundation/ontologies/persona> rdf:type owl:Ontology ;
-    owl:versionIRI <http://mee.foundation/ontologies/persona/4.11.0> ;
+    owl:versionIRI <http://mee.foundation/ontologies/persona/4.15.0> ;
     owl:imports <https://w3id.org/cco-domains/domains/PersonOntology> ;
     owl:imports <https://w3id.org/cco-domains/domains/AddressOntology> ;
     owl:imports <https://w3id.org/cco-domains/domains/StagingOntology> ;
-    owl:imports <http://mee.foundation/ontologies/persona-templates> ;
-    dc:date "2026-09-04"^^xsd:date ;
-    owl:versionInfo "Version 4.11.0 - p:CheckingAccount is now also rdfs:subClassOf persona:PersonaTemplate, a template label for cat:BankingPayments's topic content alongside the new persona:DebitCard (persona-templates.ttl)."@en ;
+    dc:date "2026-09-05"^^xsd:date ;
+    owl:versionInfo "Version 4.15.0 - persona-extensions.ttl dissolved: its JSContact-alignment terms, p:hasIdentityDocument, and p:specialty absorbed here, its record/document classes migrated into five new other/ peer ontologies; p:CheckingAccount/p:accessesBankAccount/p:hasPassword moved out to other/banking.ttl and other/service-accounts.ttl."@en ;
     rdfs:label "Persona Ontology"@en ;
     rdfs:comment """Persona Ontology for the Cellula App.
 
@@ -28,7 +29,7 @@
 
                     ARCHITECTURE:
                     This application ontology serves as:
-                    1. Aggregation point (imports 3 domain ontologies + persona-templates.ttl)
+                    1. Aggregation point (imports 3 domain ontologies)
                     2. Documentation (annotations show which classes Persona uses)
                     3. Extension point (Persona-specific terms: future: accounts, service providers)
 
@@ -200,39 +201,34 @@ p:hasVehicle rdf:type owl:ObjectProperty ;
                     has-link" pattern p:hasPet already establishes for other/pets.ttl. vehicles:Vehicle
                     is referenced by name only, no owl:imports either direction."""@en .
 
+p:hasIdentityDocument rdf:type owl:ObjectProperty ;
+    rdfs:domain p:Person ;
+    rdfs:range identitydocuments:IdentityDocument ;    # other/identity-documents.ttl, referenced by name — no owl:imports either direction
+    rdfs:label "has identity document"@en ;
+    rdfs:comment """Links a Person to a government-issued identity document they hold. What an identity
+                    document *is* (birth certificate, driver's license, passport — each a subclass of
+                    identitydocuments:IdentityDocument, each with its own identity claims) is modeled in
+                    the peer other/identity-documents.ttl ontology, not here — the exact same "thin
+                    has-link" pattern p:hasPet/p:hasVehicle already establish for
+                    other/pets.ttl/other/vehicles.ttl, and the one place in this project where that
+                    pattern's abstract-superclass fan-out really earns its keep: one link property here
+                    serves three concrete document subtypes there. identitydocuments:IdentityDocument is
+                    referenced by name only, no owl:imports either direction."""@en .
+
 #################################################################
 #    Banking-related
 #################################################################
 
-p:CheckingAccount rdf:type owl:Class ;
-    rdfs:subClassOf p:PersonaTemplate ;
-    rdfs:label "Checking Account"@en ;
-    rdfs:comment """A bank checking account held by a person, linked to a debit card. Also a
-                    template type label for a graph whose purpose is to carry this account's own
-                    details (designated by → cco:ent00000071 Checking Account Number,
-                    cco:ent00000072 Routing Number) — the same dual role p:PassportDocument/
-                    p:MedicalAppointmentRecord already play as both a real content class and a
-                    cell:template value. Selects the existing SHACL shape :CheckingAccountShape
-                    (persona-shacl.ttl), linked from cat:BankingPayments's template cell
-                    (cell-templates.ttl) via cell:topicGraphShape."""@en .
-
 p:hasBankAccount rdf:type owl:ObjectProperty ;
     rdfs:domain p:Person ;
-    rdfs:range p:CheckingAccount ;
+    rdfs:range banking:CheckingAccount ;    # other/banking.ttl, referenced by name — no owl:imports either direction
     rdfs:label "holds bank account"@en ;
-    rdfs:comment "Links a Person to a bank account it records."@en .
-
-p:accessesBankAccount rdf:type owl:ObjectProperty ;
-    rdfs:domain cco:ent00000051 ;  # Debit Card
-    rdfs:range p:CheckingAccount ;
-    rdfs:label "accesses bank account"@en ;
-    rdfs:comment "Links a DebitCard to the CheckingAccount it draws funds from."@en .
-
-p:hasPassword rdf:type owl:DatatypeProperty ;
-    rdfs:domain cco:ent00000033 ;  # Online Service Account
-    rdfs:range xsd:string ;
-    rdfs:label "has password"@en ;
-    rdfs:comment "The password credential for an online service account."@en .
+    rdfs:comment """Links a Person to a bank account it records. What a checking account (or the debit
+                    card that draws on it) *is* lives in the peer other/banking.ttl ontology, not here —
+                    the same thin has-link pattern p:hasPet/p:hasVehicle/p:hasIdentityDocument already
+                    establish; banking:CheckingAccount is referenced by name only, no owl:imports either
+                    direction. banking:accessesBankAccount (DebitCard → CheckingAccount) lives there too,
+                    since neither of its endpoints is a p:Person."""@en .
 
 
 #################################################################
@@ -286,6 +282,240 @@ p:hasImageScan rdf:type owl:DatatypeProperty ;
     rdfs:range xsd:anyURI ;
     rdfs:label "has image scan"@en ;
     rdfs:comment "A URI pointing to a scanned image of the physical (e.g. plastic, paper) card."@en .
+
+
+#################################################################
+#    JSContactCard and related properties
+#################################################################
+
+p:JSContactCard rdf:type owl:Class ;
+    rdfs:label "JSContact Card"@en ;
+    rdfs:comment """Label for a graph whose purpose is to carry professional
+                    contact details in the JSContact (RFC 9553) format. OrganizationName and
+                    at least one contact channel (email or phone) are required. Never asserted
+                    via rdf:type anywhere — a label only; the graph's own cell:template
+                    value instead names the validating shape, pshapes:JSContactCardPersonShape
+                    (shacl/jscontactcard-shacl.ttl), directly. Unlike the record/document classes
+                    that moved out to other/*.ttl peer ontologies, everything in this section is
+                    a property of a p:Person directly, reused across every category's member
+                    graph, so it belongs here in persona.ttl rather than in a domain file."""@en .
+
+
+#  1. Contact Channel Annotation Properties
+#     Used on designated-by blank nodes to record JSContact context
+#     labels (work/home/other) and phone feature flags.
+
+p:contactContext rdf:type owl:AnnotationProperty ;
+    rdfs:label "contact context"@en ;
+    rdfs:comment """JSContact 'contexts' key on an email, phone, or address entry.
+                    Controlled vocabulary: 'work', 'home', 'other', 'billing' (address),
+                    'delivery' (address)."""@en ;
+    rdfs:range xsd:string .
+
+p:phoneFeature rdf:type owl:AnnotationProperty ;
+    rdfs:label "phone feature"@en ;
+    rdfs:comment """JSContact phone 'features' flag. Repeat the property for multiple features.
+                    Controlled vocabulary: 'voice', 'fax', 'text', 'video', 'pager',
+                    'textphone'."""@en ;
+    rdfs:range xsd:string .
+
+p:serviceLabel rdf:type owl:AnnotationProperty ;
+    rdfs:label "service label"@en ;
+    rdfs:comment """JSContact 'service' field on an onlineServices entry. Identifies which
+                    platform the OnlineServiceAccount or WebURL belongs to.
+                    Examples: 'twitter', 'linkedin', 'github', 'mastodon'."""@en ;
+    rdfs:range xsd:string .
+
+
+#  2. Name Component Designator Classes
+#     All are subclasses of cco:ont00000003 (Designative Name),
+#     consistent with GivenName, FamilyName, OrganizationName, etc.
+
+p:Credential rdf:type owl:Class ;
+    rdfs:subClassOf cco:ont00000003 ;  # Designative Name
+    rdfs:label "Credential"@en ;
+    rdfs:comment """A post-nominal professional or academic credential that follows a
+                    person's name. Examples: 'MD', 'PhD', 'Esq.', 'CPA', 'MBA'.
+                    Distinct from cco:ent00000057 (Title/HonorificPrefix) which precedes
+                    the name, and from cco:ent00000005 (Suffix) which covers generational
+                    suffixes (Jr., Sr., III).
+                    JSContact: name component kind 'credential'."""@en .
+
+
+#  3. Online Service Designator Class
+
+p:WebURL rdf:type owl:Class ;
+    rdfs:subClassOf cco:ont00000003 ;  # Designative Name
+    rdfs:label "Web URL"@en ;
+    rdfs:comment """A URL that designates a person's web presence — personal website, blog,
+                    portfolio, or profile page. Distinct from cco:ent00000033
+                    (OnlineServiceAccount) which represents a login-based account.
+                    Attach p:serviceLabel to identify the platform where relevant.
+                    JSContact: onlineServices entry with a URI value."""@en .
+
+
+#  4. Organisation Designator Classes
+
+p:OrganizationUnit rdf:type owl:Class ;
+    rdfs:subClassOf cco:ont00000003 ;  # Designative Name
+    rdfs:label "Organization Unit"@en ;
+    rdfs:comment """A Designative Name identifying a department, division, or other
+                    sub-unit within an organization. Typically paired with an
+                    OrganizationName (cco:ent00000047) on the same Person.
+                    Examples: 'Engineering', 'Sales', 'R&D'.
+                    JSContact: organizations[*].units array entry."""@en .
+
+p:JobTitle rdf:type owl:Class ;
+    rdfs:subClassOf cco:ont00000003 ;  # Designative Name
+    rdfs:label "Job Title"@en ;
+    rdfs:comment """A Designative Name for a person's position or role within an
+                    organisation. Examples: 'Software Engineer', 'VP of Sales',
+                    'Chief Medical Officer'.
+                    Distinct from cco:ent00000057 (Title/HonorificPrefix) which is an
+                    honorific preceding the name (Dr., Prof., Mr.).
+                    JSContact: titles[*].name."""@en .
+
+
+#  5. Anniversary Class and Properties
+#     A named individual of type p:Anniversary is attached to a
+#     Person via p:hasAnniversary.
+
+p:Anniversary rdf:type owl:Class ;
+    rdfs:label "Anniversary"@en ;
+    rdfs:comment """A personally significant recurring date, such as a wedding anniversary
+                    or other custom commemoration. Birthdays use cco:ent00000046 (Birthdate)
+                    directly on the Person via designated-by; Anniversary covers all other
+                    recurring dates.
+                    JSContact: anniversaries map (excluding 'birth' and 'death' kinds)."""@en .
+
+p:hasAnniversary rdf:type owl:ObjectProperty ;
+    rdfs:label "has anniversary"@en ;
+    rdfs:comment "Links a p:Person to one of its Anniversary individuals."@en ;
+    rdfs:range p:Anniversary .
+
+p:anniversaryKind rdf:type owl:DatatypeProperty ;
+    rdfs:label "anniversary kind"@en ;
+    rdfs:comment """The type of anniversary. Controlled vocabulary: 'wedding', 'custom'.
+                    JSContact: anniversaries[*].kind."""@en ;
+    rdfs:domain p:Anniversary ;
+    rdfs:range xsd:string .
+
+p:anniversaryDate rdf:type owl:DatatypeProperty ;
+    rdfs:label "anniversary date"@en ;
+    rdfs:comment """The calendar date of the anniversary. Use xsd:date ('YYYY-MM-DD') for
+                    fully known dates; xsd:gMonthDay ('--MM-DD') for day/month only.
+                    JSContact: anniversaries[*].date."""@en ;
+    rdfs:domain p:Anniversary .
+
+p:anniversaryLabel rdf:type owl:DatatypeProperty ;
+    rdfs:label "anniversary label"@en ;
+    rdfs:comment """Human-readable label for a 'custom' anniversary.
+                    JSContact: anniversaries[*].label."""@en ;
+    rdfs:domain p:Anniversary ;
+    rdfs:range xsd:string .
+
+
+#  6. PersonalInfo Class and Properties
+#     A named individual of type p:PersonalInfo is attached to a
+#     Person via p:hasPersonalInfo.
+
+p:PersonalInfo rdf:type owl:Class ;
+    rdfs:label "Personal Info"@en ;
+    rdfs:comment """A record of a person's hobby, personal interest, or area of expertise.
+                    JSContact: personalInfo map entries."""@en .
+
+p:hasPersonalInfo rdf:type owl:ObjectProperty ;
+    rdfs:label "has personal info"@en ;
+    rdfs:comment "Links a p:Person to one of its PersonalInfo individuals."@en ;
+    rdfs:range p:PersonalInfo .
+
+p:personalInfoKind rdf:type owl:DatatypeProperty ;
+    rdfs:label "personal info kind"@en ;
+    rdfs:comment """The category of personal information.
+                    Controlled vocabulary: 'expertise', 'hobby', 'interest'.
+                    JSContact: personalInfo[*].kind."""@en ;
+    rdfs:domain p:PersonalInfo ;
+    rdfs:range xsd:string .
+
+p:personalInfoValue rdf:type owl:DatatypeProperty ;
+    rdfs:label "personal info value"@en ;
+    rdfs:comment """The subject matter — e.g. 'rock climbing', 'jazz piano', 'Rust'.
+                    JSContact: personalInfo[*].value."""@en ;
+    rdfs:domain p:PersonalInfo ;
+    rdfs:range xsd:string .
+
+p:personalInfoLevel rdf:type owl:DatatypeProperty ;
+    rdfs:label "personal info level"@en ;
+    rdfs:comment """Self-assessed proficiency level for expertise entries.
+                    Controlled vocabulary: 'high', 'medium', 'low'.
+                    JSContact: personalInfo[*].level."""@en ;
+    rdfs:domain p:PersonalInfo ;
+    rdfs:range xsd:string .
+
+
+#  7. Photo Property
+
+p:hasPhoto rdf:type owl:DatatypeProperty ;
+    rdfs:label "has photo"@en ;
+    rdfs:comment """A URI pointing to a photo or avatar image for this Person.
+                    Repeat the property for multiple photos (e.g. work headshot vs
+                    informal photo). Use p:contactContext as an annotation on
+                    the reified statement if context labeling is needed.
+                    Also used on an identitydocuments:IdentityDocument individual, whose own
+                    SHACL shapes (other/shacl/identity-documents-shacl.ttl) constrain it to at
+                    most one value — hence no rdfs:domain here.
+                    JSContact: photos[*].uri."""@en ;
+    rdfs:range xsd:anyURI .
+
+
+#  8. PersonalityAssessment Class and Properties
+#     A named individual of type p:PersonalityAssessment is attached to a
+#     Person via p:hasPersonalityAssessment.
+
+p:PersonalityAssessment rdf:type owl:Class ;
+    rdfs:label "Personality Assessment"@en ;
+    rdfs:comment "A self-assessment of personality, temperament, or social style from a named framework (e.g. Myers-Briggs, Big Five, DISC, Enneagram)."@en .
+
+p:hasPersonalityAssessment rdf:type owl:ObjectProperty ;
+    rdfs:label "has personality assessment"@en ;
+    rdfs:comment "Links a p:Person to one of its PersonalityAssessment individuals."@en ;
+    rdfs:range p:PersonalityAssessment .
+
+p:personalityFramework rdf:type owl:DatatypeProperty ;
+    rdfs:label "personality framework"@en ;
+    rdfs:comment "The named framework or instrument the result comes from — e.g. 'MBTI', 'Big Five', 'DISC', 'Enneagram', 'Social Style', or another named framework."@en ;
+    rdfs:domain p:PersonalityAssessment ;
+    rdfs:range xsd:string .
+
+p:personalityResult rdf:type owl:DatatypeProperty ;
+    rdfs:label "personality result"@en ;
+    rdfs:comment "The self-assessed result or type code within that framework — e.g. 'INFJ' (MBTI), 'Type 4' (Enneagram), 'Dominance' (DISC), or a Big Five score summary."@en ;
+    rdfs:domain p:PersonalityAssessment ;
+    rdfs:range xsd:string .
+
+p:personalityAssessmentDate rdf:type owl:DatatypeProperty ;
+    rdfs:label "personality assessment date"@en ;
+    rdfs:comment "The date the self-assessment was taken or last confirmed."@en ;
+    rdfs:domain p:PersonalityAssessment ;
+    rdfs:range xsd:date .
+
+
+#################################################################
+#    Medical specialty
+#################################################################
+
+p:specialty rdf:type owl:DatatypeProperty ;
+    rdfs:domain p:Person ;
+    rdfs:range xsd:string ;
+    rdfs:label "specialty"@en ;
+    rdfs:comment """A physician's medical specialty, as a single free-text string (e.g.
+                    'Endocrinology') — asserted on the physician's own Person individual
+                    directly, which is why it stays here rather than moving to
+                    other/medical-appointments.ttl alongside
+                    medicalappointments:MedicalAppointmentRecord's own claim properties, whose
+                    domain is that record individual rather than a Person. Backs
+                    cat:PrimaryCarePhysician's own cell:topicGraphShape,
+                    pshapes:PrimaryCarePhysicianShape (shacl/persona-shacl.ttl)."""@en .
 
 
 #################################################################

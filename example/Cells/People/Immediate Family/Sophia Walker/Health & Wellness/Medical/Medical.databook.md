@@ -17,7 +17,7 @@ mia:
     id: "http://www.example.org/mia/graphs/graph-49"
     claimant: ":Self"
     subject: ":Self"
-    template: "persona:JSContactCard"
+    template: "pshapes:JSContactCardPersonShape"
 ---
 
 ## Graphs
