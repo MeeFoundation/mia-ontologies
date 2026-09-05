@@ -2,12 +2,12 @@
 id: http://www.example.org/mia/cells/cell-19
 title: "Paula Walker"
 type: cell-databook
-version: 1.2.0
+version: 1.3.0
 created: 2026-07-10
 description: >
-  Cell DataBook for folder "Paula Walker" (cell:category: cat:Employee). It is a two-member cell with member entries about :Self and :Paula_Walker.
+  Cell DataBook for folder "Paula Walker" (cell:category: cat:Employees, reusing its parent "Employees" cell's own origin, mirroring how e.g. "Ginger" reuses its parent "Pets" folder's own category rather than a separately-minted narrower one). It is a two-member cell with member entries about :Self and :Paula_Walker.
 mia:
-  category: "cat:Employee"
+  category: "cat:Employees"
   creator: ":Self"
   owner: ":Self"
   member:
@@ -28,7 +28,7 @@ mia:
 
 #### Overview
 
-This graph captures Alice's record of her colleague Paula Walker in their shared Acme employment graph — one of the cell's two required `member` entries, satisfying `JSContactCardPersonShape`'s required GivenName alongside her existing `rdfs:label` (`cat:Employee` reverted to `isTopicCell: false`, so this content moved here from `cell:topic`, per Check 32's resolution). Alice is the claimant.
+This graph captures Alice's record of her colleague Paula Walker in their shared Acme employment graph — one of the cell's two required `member` entries, satisfying `JSContactCardPersonShape`'s required GivenName alongside her existing `rdfs:label` (moved here from `cell:topic` once the cell's category, then `cat:Employee`, reverted to `isTopicCell: false`; `cat:Employee` has since been deleted entirely, and this cell now reuses `cat:Employees` directly). Alice is the claimant.
 
 #### Graph
 

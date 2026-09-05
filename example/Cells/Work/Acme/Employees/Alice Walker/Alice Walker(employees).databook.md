@@ -2,12 +2,12 @@
 id: http://www.example.org/mia/cells/cell-18
 title: "Alice Walker"
 type: cell-databook
-version: 1.1.0
+version: 1.2.0
 created: 2026-07-10
 description: >
-  Cell DataBook for folder "Alice Walker" (cell:category: cat:Employee). It is a one-member cell with one member entry about :Self.
+  Cell DataBook for folder "Alice Walker" (cell:category: cat:Employees, reusing its parent "Employees" cell's own origin, mirroring how e.g. "Ginger" reuses its parent "Pets" folder's own category rather than a separately-minted narrower one). It is a one-member cell with one member entry about :Self.
 mia:
-  category: "cat:Employee"
+  category: "cat:Employees"
   creator: ":Self"
   owner: ":Self"
   member:

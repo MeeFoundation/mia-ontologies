@@ -12,10 +12,10 @@
 @base <http://mee.foundation/ontologies/cell-templates> .
 
 <http://mee.foundation/ontologies/cell-templates> rdf:type owl:Ontology ;
-    owl:versionIRI <http://mee.foundation/ontologies/cell-templates/2.15.0> ;
+    owl:versionIRI <http://mee.foundation/ontologies/cell-templates/2.16.0> ;
     dc:date "2026-09-05"^^xsd:date ;
     owl:imports <http://mee.foundation/ontologies/cell> ;
-    owl:versionInfo "Version 2.15.0 - new rule: isTopicCell true requires a cell:topicGraphShape (Check 32). Reverted cat:Employee to isTopicCell false (its bare third-party-reference topic didn't warrant one); added cell:topicGraphShape to cat:HealthWellness/cat:PrimaryCarePhysician/cat:PetsCareAndFeeding instead of leaving them shapeless."@en ;
+    owl:versionInfo "Version 2.16.0 - deleted ctpl:EmployeeTemplateCell (cat:Employee, deleted from category.ttl) — an exception to this project's own scaffold/leaf pattern, where a leaf cell reuses its scaffold ancestor's category directly rather than a separately-minted narrower one (as Pets/Ginger, Companies/Google/ATT already do); Paula Walker/Alice Walker's cells now reuse cat:Employees directly instead."@en ;
     rdfs:label "Cell Templates"@en ;
     rdfs:comment """Class-level cell:Cell templates for category concepts (category.ttl's cat:CategoryScheme). Each individual here is what the app clones into a new cell when a folder representing its own cell:category concept is first instantiated into a user's tree (Lazy Instantiation) — finding the template for a given category is a reverse lookup (?tc cell:category cat:X), since category.ttl carries no forward pointer of its own. Each is typed solely cell:TemplateCell."""@en .
 
@@ -408,16 +408,6 @@ ctpl:DirectReportsTemplateCell rdf:type cell:Cell, cell:TemplateCell ;
 ctpl:EducationTemplateCell rdf:type cell:Cell, cell:TemplateCell ;
     rdfs:label "Education Template Cell"@en ;
     cell:category cat:Education ;
-    cell:memberGraphShape pshapes:JSContactCardPersonShape ;
-    cell:isTopicCell false .
-
-#################################################################
-#  cat:Employee
-#################################################################
-
-ctpl:EmployeeTemplateCell rdf:type cell:Cell, cell:TemplateCell ;
-    rdfs:label "Employee Template Cell"@en ;
-    cell:category cat:Employee ;
     cell:memberGraphShape pshapes:JSContactCardPersonShape ;
     cell:isTopicCell false .
 
