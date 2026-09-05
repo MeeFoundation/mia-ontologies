@@ -10,16 +10,15 @@ mia:
   category: "cat:PrimaryCarePhysician"
   creator: ":Self"
   owner: ":Self"
-  member: "graph-34"
-  topic: "graph-25"
-  graphs:
-    - id: "http://www.example.org/mia/graphs/graph-34"
-      claimant: ":Self"
-      subject: ":Self"
-      template: "persona:JSContactCard"
-    - id: "http://www.example.org/mia/graphs/graph-25"
-      claimant: ":Self"
-      subject: ":Jane_Starostina"
+  member:
+    id: "http://www.example.org/mia/graphs/graph-34"
+    claimant: ":Self"
+    subject: ":Self"
+    template: "persona:JSContactCard"
+  topic:
+    id: "http://www.example.org/mia/graphs/graph-25"
+    claimant: ":Self"
+    subject: ":Jane_Starostina"
 ---
 
 ## Graphs
@@ -56,7 +55,7 @@ This graph captures Alice's own bare identity claim (just her given name) — th
 
 #### Overview
 
-This graph captures Alice's record of Dr. Jane Starostina, who is the primary care physician for Alice's mother, Paula Walker. Alice keeps this information so she and her sister Carol can coordinate Paula's medical appointments. Alice is the claimant; Jane is the cell's `subject` but, since this cell now has a real member entry (graph 34, above) about Alice herself, Jane's graph is linked via `cell:topic` rather than as one of the required `member` entries.
+This graph captures Alice's record of Dr. Jane Starostina, who is the primary care physician for Alice's mother, Paula Walker, including her medical specialty (Endocrinology), via `persona:specialty` — `cat:PrimaryCarePhysician`'s own `cell:topicGraphShape` (`:PrimaryCarePhysicianShape`). Alice keeps this information so she and her sister Carol can coordinate Paula's medical appointments. Alice is the claimant; Jane is the cell's `subject` but, since this cell now has a real member entry (graph 34, above) about Alice herself, Jane's graph is linked via `cell:topic` rather than as one of the required `member` entries.
 
 #### Graph
 
@@ -87,5 +86,7 @@ This graph captures Alice's record of Dr. Jane Starostina, who is the primary ca
     <https://w3id.org/cco-domains/cco/ont00001917> [  # described by → Person Note
         rdf:type cco:ent00000048 ;
         <https://w3id.org/cco-domains/cco/ont00001765> "Paula Walker's primary care physician"
-    ] .
+    ] ;
+
+    persona:specialty "Endocrinology" .
 ```

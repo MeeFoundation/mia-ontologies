@@ -222,7 +222,7 @@ def main():
             continue
         mia = fm.get("mia", {}) or {}
 
-        for entry in as_list(mia.get("graphs")):
+        for entry in as_list(mia.get("member")) + as_list(mia.get("topic")):
             if not isinstance(entry, dict):
                 continue
             gid = entry["id"]

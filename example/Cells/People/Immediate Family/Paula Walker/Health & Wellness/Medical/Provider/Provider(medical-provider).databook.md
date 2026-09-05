@@ -13,12 +13,11 @@ mia:
   category: "cat:MedicalProvider"
   creator: ":Self"
   owner: ":Self"
-  member: "graph-50"
-  graphs:
-    - id: "http://www.example.org/mia/graphs/graph-50"
-      claimant: ":Self"
-      subject: ":Self"
-      template: "persona:JSContactCard"
+  member:
+    id: "http://www.example.org/mia/graphs/graph-50"
+    claimant: ":Self"
+    subject: ":Self"
+    template: "persona:JSContactCard"
 ---
 
 ## Graphs

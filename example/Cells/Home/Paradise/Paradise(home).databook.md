@@ -12,17 +12,16 @@ mia:
   category: "cat:Home"
   creator: ":Self"
   owner: ":Self"
-  member: "graph-18"
-  topic: "graph-83"
-  graphs:
-    - id: "http://www.example.org/mia/graphs/graph-18"
-      claimant: ":Self"
-      subject: ":Self"
-      template: "persona:JSContactCard"
-    - id: "http://www.example.org/mia/graphs/graph-83"
-      claimant: ":Self"
-      subject: ":Self"
-      template: "persona:Residence"
+  member:
+    id: "http://www.example.org/mia/graphs/graph-18"
+    claimant: ":Self"
+    subject: ":Self"
+    template: "persona:JSContactCard"
+  topic:
+    id: "http://www.example.org/mia/graphs/graph-83"
+    claimant: ":Self"
+    subject: ":Self"
+    template: "persona:Residence"
 ---
 
 ## Graphs

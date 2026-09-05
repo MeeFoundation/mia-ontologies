@@ -33,7 +33,7 @@ from pathlib import Path
 from rdflib import BNode, Graph, Literal, Namespace, URIRef
 from rdflib.namespace import OWL, RDF, RDFS
 
-from databook_graphs import extract_graph_block, find_graph_entry, split_frontmatter
+from databook_graphs import as_list, extract_graph_block, find_graph_entry, split_frontmatter
 
 # ── Namespaces ─────────────────────────────────────────────────────────────────
 PERSONA = Namespace("http://mee.foundation/ontologies/persona#")
@@ -188,9 +188,9 @@ def esc(s: str) -> str:
 def load_databook(path: Path, graph_id: str | None = None):
     """Parse a cell-databook's frontmatter, and (when graph_id is given)
     isolate just that one embedded graph's turtle fence — a merged cell
-    file's body may contain several fences, one per mia.graphs entry, so
-    concatenating all of them (the old, pre-merge behavior) would wrongly
-    combine sibling graphs' RDF into one graph."""
+    file's body may contain several fences, one per mia.member/mia.topic
+    entry, so concatenating all of them (the old, pre-merge behavior) would
+    wrongly combine sibling graphs' RDF into one graph."""
     content = path.read_text()
     try:
         fm_text, _, body = split_frontmatter(content)
@@ -465,10 +465,11 @@ def main() -> None:
             )
         graph_arg = sys.argv[2]
         _, cell_fm = load_databook(src)  # frontmatter only — no graph_id yet
-        graphs = (cell_fm.get("mia") or {}).get("graphs") or []
-        match = find_graph_entry(graphs, graph_arg)
+        mia = cell_fm.get("mia") or {}
+        entries = as_list(mia.get("member")) + as_list(mia.get("topic"))
+        match = find_graph_entry(entries, graph_arg)
         if not match:
-            sys.exit(f"No mia.graphs entry with id/local-name {graph_arg!r} in {src}")
+            sys.exit(f"No mia.member/mia.topic entry with id/local-name {graph_arg!r} in {src}")
         graph_id = match["id"]
         stem = graph_id.rsplit("/", 1)[-1]  # unchanged filename-stem convention
         g, _ = load_databook(src, graph_id)

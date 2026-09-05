@@ -23,15 +23,17 @@ YAML field below — never derived from filename-parsing.
 
 Since graph-databooks were merged into their owning cell-databooks (each
 graph's Turtle content and Overview now live in that cell file's body; its
-`claimant`/`subject`/etc. now live in a `mia.graphs` list on that same cell's
-frontmatter — see CLAUDE.md's "Graph ID Naming Convention" section), there is
-no separate `example/graphs/*.databook.md` glob any more: `process_cell_databook`
-below also iterates `mia.graphs` and emits the same three triples per entry
-that a standalone graph-databook file's frontmatter used to supply.
+`id`/`claimant`/`subject`/`template` now live directly on that same graph's
+own `mia.member`/`mia.topic` entry — see CLAUDE.md's "Graph ID Naming
+Convention" section), there is no separate `example/graphs/*.databook.md`
+glob any more: `process_cell_databook` below also emits the same three
+triples per `member`/`topic` entry that a standalone graph-databook file's
+frontmatter used to supply.
 
-A graph's `claimant`/`subject` are typed on its plain `mia.graphs[].id`, not
-that id + "#graph" — matching cell.ttl's cell:subject/cell:claimant doc
-comments, and the IRI cell:member/cell:topic actually reference.
+A graph's `claimant`/`subject` are typed on its plain `mia.member[]`/
+`mia.topic[].id`, not that id + "#graph" — matching cell.ttl's
+cell:subject/cell:claimant doc comments, and the IRI cell:member/cell:topic
+actually reference.
 
 Usage:   python3 yaml-to-rdf.py [repo-root] > yaml-data.ttl
 Output:  Turtle triples on stdout — merge with `riot` alongside data extracted
@@ -88,8 +90,9 @@ def process_cell_databook(fm, triples):
     for owner_iri in as_list(mia.get("owner")):
         emit_obj(triples, subj, CELL + "owner", resolve(owner_iri))
 
-    for graph_iri in as_list(mia.get("member")):
-        emit_obj(triples, subj, CELL + "member", resolve(graph_iri))
+    for entry in as_list(mia.get("member")):
+        emit_obj(triples, subj, CELL + "member", entry["id"])
+        process_embedded_graph(entry, triples)
 
     topic = as_list(mia.get("topic"))
     if topic:
@@ -97,8 +100,9 @@ def process_cell_databook(fm, triples):
         # that actually carries a cell:topic value (cell.ttl 3.37.0). See
         # CLAUDE.md's TopicCell integrity check.
         emit_type(triples, subj, CELL + "TopicCell")
-    for graph_iri in topic:
-        emit_obj(triples, subj, CELL + "topic", resolve(graph_iri))
+    for entry in topic:
+        emit_obj(triples, subj, CELL + "topic", entry["id"])
+        process_embedded_graph(entry, triples)
 
     # No cell:subject synthesis: who/what a cell is about is derivable
     # directly from members/topic (cell.ttl's cell:topic comment) rather
@@ -110,14 +114,11 @@ def process_cell_databook(fm, triples):
     # its own cell:category value via a reverse lookup on cell-templates.ttl
     # rather than stored per-instance.
 
-    for graph in as_list(mia.get("graphs")):
-        process_embedded_graph(graph, triples)
-
 
 def process_embedded_graph(graph, triples):
-    """Emit cell:SCGraph/claimant/subject/template for one mia.graphs[]
-    entry — replaces the old process_topic_databook, which read the same
-    fields from a separate graph-databook file's own frontmatter."""
+    """Emit cell:SCGraph/claimant/subject/template for one mia.member[]/
+    mia.topic[] entry — replaces the old process_topic_databook, which read
+    the same fields from a separate graph-databook file's own frontmatter."""
     claimant = graph.get("claimant")
     subject = graph.get("subject")
     if not (claimant and subject):

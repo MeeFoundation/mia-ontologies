@@ -12,8 +12,8 @@
 @prefix dc: <http://purl.org/dc/elements/1.1/> .
 
 <http://mee.foundation/ontologies/persona/shapes> rdf:type owl:Ontology ;
-    owl:versionIRI <http://mee.foundation/ontologies/persona/shapes/4.8.0> ;
-    dc:date "2026-08-29"^^xsd:date ;
+    owl:versionIRI <http://mee.foundation/ontologies/persona/shapes/4.9.0> ;
+    dc:date "2026-09-05"^^xsd:date ;
     rdfs:label "Cellula's SHACL Validation Shapes"@en ;
     rdfs:comment """SHACL validation shapes for Cellula, an identity agent application from Mee.
 
@@ -342,6 +342,83 @@
         sh:minCount 1 ;
         sh:maxCount 1 ;
         sh:message "HairColor must have exactly one non-empty string text value."@en
+    ] .
+
+#################################################################
+#  Health & Wellness (cat:HealthWellness's own cell:topicGraphShape)
+#  Formalizes the physical-characteristics pattern Paula Walker's own
+#  Health & Wellness cell (graph-17) already uses — height, eye color,
+#  and hair color, each borne directly (or via ScalpHair) by a
+#  persona:Person — with every property optional, since this is a
+#  topic-level reference to someone else's physical characteristics,
+#  not a required profile. Self-contained (the ScalpHair/HairColor
+#  check is duplicated inline rather than deferred to
+#  :ScalpHairShape/:HairColorShape above) so it still validates fully
+#  under Tier 2's per-graph isolation, where every other root shape
+#  co-located in this file is deactivated for the call.
+#################################################################
+
+:HealthWellnessShape
+    a sh:NodeShape ;
+    sh:targetClass persona:Person ;
+    sh:message "Health & Wellness topic: height, eye color, and hair color, all optional."@en ;
+
+    # Optional: height quality (0..1)
+    sh:property [
+        sh:path <http://purl.obolibrary.org/obo/BFO_0000196> ;  # bearer of
+        sh:qualifiedValueShape [ sh:class cco:ont00000967 ] ;  # Height
+        sh:qualifiedMinCount 0 ;
+        sh:qualifiedMaxCount 1 ;
+        sh:message "At most one Height quality may be asserted."@en
+    ] ;
+
+    # Optional: height measurement (0..1) — asserted as a sibling bearer-of
+    # value alongside the Height quality itself, matching graph-17's own
+    # pattern rather than second-guessing the data model.
+    sh:property [
+        sh:path <http://purl.obolibrary.org/obo/BFO_0000196> ;  # bearer of
+        sh:qualifiedValueShape [ sh:class cco:ont00001022 ] ;  # Ratio Measurement ICE
+        sh:qualifiedMinCount 0 ;
+        sh:qualifiedMaxCount 1 ;
+        sh:message "At most one height measurement (Ratio Measurement ICE) may be asserted."@en
+    ] ;
+
+    # Optional: eye color (0..1) — the specific Blue Eye Color individual
+    # this project's example data actually uses; CCO's fuller eye-color
+    # class hierarchy isn't vendored in this repo.
+    sh:property [
+        sh:path <http://purl.obolibrary.org/obo/BFO_0000196> ;  # bearer of
+        sh:qualifiedValueShape [ sh:class cco:ent00000040 ] ;  # Blue Eye Color
+        sh:qualifiedMinCount 0 ;
+        sh:qualifiedMaxCount 1 ;
+        sh:message "At most one Blue Eye Color quality may be asserted."@en
+    ] ;
+
+    # Optional: scalp hair (0..1), with its own nested hair-color check.
+    sh:property [
+        sh:path <http://purl.obolibrary.org/obo/BFO_0000178> ;  # has continuant part
+        sh:qualifiedValueShape [
+            sh:class cco:ont00000058 ;  # Scalp Hair
+            sh:property [
+                sh:path <http://purl.obolibrary.org/obo/BFO_0000196> ;  # bearer of
+                sh:qualifiedValueShape [
+                    sh:class cco:ont00000026 ;  # Hair Color
+                    sh:property [
+                        sh:path <https://w3id.org/cco-domains/cco/ont00001765> ;  # has text value
+                        sh:datatype xsd:string ;
+                        sh:minLength 1 ;
+                        sh:maxCount 1 ;
+                        sh:message "Hair Color, if present, must have at most one non-empty string text value."@en
+                    ]
+                ] ;
+                sh:qualifiedMinCount 0 ;
+                sh:qualifiedMaxCount 1 ;
+                sh:message "At most one Hair Color may be borne by the Scalp Hair."@en
+            ]
+        ] ;
+        sh:qualifiedMinCount 0 ;
+        sh:qualifiedMaxCount 1 ;
+        sh:message "At most one ScalpHair continuant part may be asserted."@en
     ] .
 
 

@@ -13,17 +13,16 @@ mia:
   category: "cat:DriversLicense"
   creator: ":Self"
   owner: ":Self"
-  member: "graph-15"
-  topic: "graph-79"
-  graphs:
-    - id: "http://www.example.org/mia/graphs/graph-15"
-      claimant: ":Self"
-      subject: ":Self"
-      template: "persona:JSContactCard"
-    - id: "http://www.example.org/mia/graphs/graph-79"
-      claimant: ":Self"
-      subject: ":Self"
-      template: "persona:DriversLicenseDocument"
+  member:
+    id: "http://www.example.org/mia/graphs/graph-15"
+    claimant: ":Self"
+    subject: ":Self"
+    template: "persona:JSContactCard"
+  topic:
+    id: "http://www.example.org/mia/graphs/graph-79"
+    claimant: ":Self"
+    subject: ":Self"
+    template: "persona:DriversLicenseDocument"
 ---
 
 ## Graphs

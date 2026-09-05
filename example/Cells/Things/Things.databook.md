@@ -10,12 +10,11 @@ mia:
   category: "cat:Things"
   creator: ":Self"
   owner: ":Self"
-  member: "graph-22"
-  graphs:
-    - id: "http://www.example.org/mia/graphs/graph-22"
-      claimant: ":Self"
-      subject: ":Self"
-      template: "persona:JSContactCard"
+  member:
+    id: "http://www.example.org/mia/graphs/graph-22"
+    claimant: ":Self"
+    subject: ":Self"
+    template: "persona:JSContactCard"
 ---
 
 ## Graphs

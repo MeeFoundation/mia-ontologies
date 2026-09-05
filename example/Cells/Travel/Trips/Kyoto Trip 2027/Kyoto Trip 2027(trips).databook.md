@@ -19,13 +19,6 @@ mia:
   creator: ":Self"
   owner: ":Self"
   member:
-    - "graph-66"
-    - "graph-67"
-    - "graph-68"
-  topic:
-    - "graph-69"
-    - "graph-70"
-  graphs:
     - id: "http://www.example.org/mia/graphs/graph-66"
       claimant: ":Self"
       subject: ":Self"
@@ -38,6 +31,7 @@ mia:
       claimant: ":Dave"
       subject: ":Dave"
       template: "persona:JSContactCard"
+  topic:
     - id: "http://www.example.org/mia/graphs/graph-69"
       claimant: ":Self"
       subject: ":Kyoto_Trip_2027"

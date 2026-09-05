@@ -19,7 +19,7 @@ import sys
 
 import yaml
 
-from databook_graphs import extract_graph_block, find_graph_entry, split_frontmatter
+from databook_graphs import as_list, extract_graph_block, find_graph_entry, split_frontmatter
 
 
 def main():
@@ -29,10 +29,11 @@ def main():
     text = open(path, encoding="utf-8").read()
     fm_text, _, body = split_frontmatter(text)
     fm = yaml.safe_load(fm_text)
-    graphs = (fm.get("mia") or {}).get("graphs") or []
-    match = find_graph_entry(graphs, graph_arg)
+    mia = fm.get("mia") or {}
+    entries = as_list(mia.get("member")) + as_list(mia.get("topic"))
+    match = find_graph_entry(entries, graph_arg)
     if not match:
-        sys.exit(f"No mia.graphs entry with id/local-name {graph_arg!r} in {path}")
+        sys.exit(f"No mia.member/mia.topic entry with id/local-name {graph_arg!r} in {path}")
     lines = extract_graph_block(body, f"{match['id']}#graph")
     if lines is None:
         sys.exit(f"No turtle block found for {match['id']!r} in {path}")

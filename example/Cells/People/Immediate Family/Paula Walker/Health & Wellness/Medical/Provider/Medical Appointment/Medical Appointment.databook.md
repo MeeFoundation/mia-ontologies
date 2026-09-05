@@ -11,15 +11,6 @@ mia:
   creator: ":Self"
   owner: ":Self"
   member:
-    - "graph-28"
-    - "graph-30"
-  topic:
-    - "graph-26"
-  graphs:
-    - id: "http://www.example.org/mia/graphs/graph-26"
-      claimant: ":Self"
-      subject: ":Paula_Walker"
-      template: "persona:MedicalAppointmentRecord"
     - id: "http://www.example.org/mia/graphs/graph-28"
       claimant: ":Carol_Walker"
       subject: ":Carol_Walker"
@@ -28,6 +19,11 @@ mia:
       claimant: ":Self"
       subject: ":Self"
       template: "persona:JSContactCard"
+  topic:
+    id: "http://www.example.org/mia/graphs/graph-26"
+    claimant: ":Self"
+    subject: ":Paula_Walker"
+    template: "persona:MedicalAppointmentRecord"
 ---
 
 ## Graphs

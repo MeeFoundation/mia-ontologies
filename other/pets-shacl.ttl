@@ -10,8 +10,8 @@
 
 <http://mee.foundation/ontologies/pets/shapes> rdf:type owl:Ontology ;
     owl:imports <http://mee.foundation/ontologies/pets> ;
-    owl:versionIRI <http://mee.foundation/ontologies/pets/shapes/1.2.0> ;
-    dc:date "2026-08-29"^^xsd:date ;
+    owl:versionIRI <http://mee.foundation/ontologies/pets/shapes/1.3.0> ;
+    dc:date "2026-09-05"^^xsd:date ;
     rdfs:label "Pets Template SHACL Shapes"@en ;
     rdfs:comment """SHACL shapes for validating graph files carrying cell:template pets:Pet or
                     pets:PetMedicationRecord. Apply in addition to persona-shacl.ttl when validating a pet
@@ -68,6 +68,75 @@
     # If a birthDate value is present (at most one, per the maxCount above), it must be either a full
     # xsd:date (exact) or a bare xsd:gYear (approximate) — each branch vacuously passes when no value
     # is present at all, so this only ever fires when a value exists and its datatype is neither.
+    sh:or (
+        [ sh:property [ sh:path pets:birthDate ; sh:datatype xsd:date ] ]
+        [ sh:property [ sh:path pets:birthDate ; sh:datatype xsd:gYear ] ]
+    ) ;
+
+    sh:property [
+        sh:path pets:hasBodyWeight ;
+        sh:maxCount 1 ;
+        sh:class pets:BodyWeight ;
+        sh:message "A Pet may link to at most one pets:BodyWeight via hasBodyWeight."@en
+    ] ;
+
+    sh:property [
+        sh:path pets:sex ;
+        sh:maxCount 1 ;
+        sh:in ( "Male" "Female" ) ;
+        sh:message "A Pet's sex, if present, must be exactly one of \"Male\" or \"Female\"."@en
+    ] ;
+
+    sh:property [
+        sh:path pets:isSpayedOrNeutered ;
+        sh:maxCount 1 ;
+        sh:datatype xsd:boolean ;
+        sh:message "A Pet may record at most one spayed/neutered status, as a boolean."@en
+    ] .
+
+
+#################################################################
+#  Care & Feeding Shape (cat:PetsCareAndFeeding's own cell:topicGraphShape)
+#  Mirrors :PetShape's own property list — the same properties Ginger's
+#  own pet-identity graph (graph-37) actually asserts — but with every
+#  property optional, including name/hasSpecies (required by :PetShape
+#  itself): a Care & Feeding topic may reference a pet by any subset of
+#  these properties, or none at all.
+#################################################################
+
+:PetsCareAndFeedingShape
+    a sh:NodeShape ;
+    sh:targetClass pets:Pet ;
+    sh:message "Care & Feeding topic: name, species, breed, birth date, body weight, sex, and spay/neuter status, all optional."@en ;
+
+    sh:property [
+        sh:path pets:name ;
+        sh:maxCount 1 ;
+        sh:datatype xsd:string ;
+        sh:message "A Pet may record at most one name via pets:name."@en
+    ] ;
+
+    sh:property [
+        sh:path pets:hasSpecies ;
+        sh:maxCount 1 ;
+        sh:nodeKind sh:IRI ;
+        sh:message "A Pet may link to at most one species (an NCBITaxon class IRI) via hasSpecies."@en
+    ] ;
+
+    sh:property [
+        sh:path pets:hasBreed ;
+        sh:maxCount 1 ;
+        sh:nodeKind sh:IRI ;
+        sh:message "A Pet may link to at most one breed (a VBO class IRI) via hasBreed."@en
+    ] ;
+
+    sh:property [
+        sh:path pets:birthDate ;
+        sh:maxCount 1 ;
+        sh:message "A Pet may record at most one birth date, either a full date or an approximate year."@en
+    ] ;
+
+    # Same vacuously-passing-when-absent pattern as :PetShape's own sh:or.
     sh:or (
         [ sh:property [ sh:path pets:birthDate ; sh:datatype xsd:date ] ]
         [ sh:property [ sh:path pets:birthDate ; sh:datatype xsd:gYear ] ]

@@ -13,12 +13,11 @@ mia:
   category: "cat:Travel"
   creator: ":Self"
   owner: ":Self"
-  member: "graph-64"
-  graphs:
-    - id: "http://www.example.org/mia/graphs/graph-64"
-      claimant: ":Self"
-      subject: ":Self"
-      template: "persona:JSContactCard"
+  member:
+    id: "http://www.example.org/mia/graphs/graph-64"
+    claimant: ":Self"
+    subject: ":Self"
+    template: "persona:JSContactCard"
 ---
 
 ## Graphs

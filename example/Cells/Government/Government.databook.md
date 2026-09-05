@@ -13,12 +13,11 @@ mia:
   category: "cat:Government"
   creator: ":Self"
   owner: ":Self"
-  member: "graph-43"
-  graphs:
-    - id: "http://www.example.org/mia/graphs/graph-43"
-      claimant: ":Self"
-      subject: ":Self"
-      template: "persona:JSContactCard"
+  member:
+    id: "http://www.example.org/mia/graphs/graph-43"
+    claimant: ":Self"
+    subject: ":Self"
+    template: "persona:JSContactCard"
 ---
 
 ## Graphs

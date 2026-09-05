@@ -13,12 +13,11 @@ mia:
   category: "cat:Federal"
   creator: ":Self"
   owner: ":Self"
-  member: "graph-44"
-  graphs:
-    - id: "http://www.example.org/mia/graphs/graph-44"
-      claimant: ":Self"
-      subject: ":Self"
-      template: "persona:JSContactCard"
+  member:
+    id: "http://www.example.org/mia/graphs/graph-44"
+    claimant: ":Self"
+    subject: ":Self"
+    template: "persona:JSContactCard"
 ---
 
 ## Graphs

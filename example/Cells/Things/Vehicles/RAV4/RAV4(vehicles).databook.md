@@ -15,17 +15,16 @@ mia:
   category: "cat:Vehicles"
   creator: ":Self"
   owner: ":Self"
-  member: "graph-62"
-  topic: "graph-63"
-  graphs:
-    - id: "http://www.example.org/mia/graphs/graph-62"
-      claimant: ":Self"
-      subject: ":Self"
-      template: "persona:JSContactCard"
-    - id: "http://www.example.org/mia/graphs/graph-63"
-      claimant: ":Self"
-      subject: ":Alice_RAV4"
-      template: "vehicles:Vehicle"
+  member:
+    id: "http://www.example.org/mia/graphs/graph-62"
+    claimant: ":Self"
+    subject: ":Self"
+    template: "persona:JSContactCard"
+  topic:
+    id: "http://www.example.org/mia/graphs/graph-63"
+    claimant: ":Self"
+    subject: ":Alice_RAV4"
+    template: "vehicles:Vehicle"
 ---
 
 ## Graphs

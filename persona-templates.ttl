@@ -8,8 +8,8 @@
 @base <http://mee.foundation/ontologies/persona-templates> .
 
 <http://mee.foundation/ontologies/persona-templates> rdf:type owl:Ontology ;
-    dc:date "2026-09-04"^^xsd:date ;
-    owl:versionInfo "Version 3.6.0 - added persona:Itinerary (template label for cat:Trips's topic content); unlike ServiceAccount/DebitCard/Residence, not multi-typed alongside any existing CCO/domain class, since none models trip-planning data yet."@en ;
+    dc:date "2026-09-05"^^xsd:date ;
+    owl:versionInfo "Version 3.7.0 - added persona:specialty (a physician's medical specialty, domain persona:Person, backing cat:PrimaryCarePhysician's new cell:topicGraphShape)."@en ;
     rdfs:label "Persona Templates Ontology"@en ;
     rdfs:comment """Template type classification used as values for the cell:template annotation property.
                     Each concrete template type (BirthCertificateDocument, JSContactCard, DriversLicenseDocument,
@@ -417,6 +417,15 @@ persona:hasPrimaryCarePhysician rdf:type owl:ObjectProperty ;
     rdfs:comment """Links a MedicalAppointmentRecord to the patient's primary care physician.
                     The linked Person individual must carry copied identity claims, not merely
                     a bare reference — see persona:MedicalAppointmentRecord."""@en .
+
+persona:specialty rdf:type owl:DatatypeProperty ;
+    rdfs:domain persona:Person ;
+    rdfs:range xsd:string ;
+    rdfs:label "specialty"@en ;
+    rdfs:comment """A physician's medical specialty, as a single free-text string (e.g.
+                    'Endocrinology') — asserted on the physician's own Person individual
+                    directly, unlike persona:hasPrimaryCarePhysician/persona:forPatient above,
+                    whose domain is the MedicalAppointmentRecord rather than a Person."""@en .
 
 persona:currentMedication rdf:type owl:DatatypeProperty ;
     rdfs:domain persona:MedicalAppointmentRecord ;

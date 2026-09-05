@@ -15,12 +15,11 @@ mia:
   category: "cat:People"
   creator: ":Self"
   owner: ":Self"
-  member: "graph-47"
-  graphs:
-    - id: "http://www.example.org/mia/graphs/graph-47"
-      claimant: ":Self"
-      subject: ":Self"
-      template: "persona:JSContactCard"
+  member:
+    id: "http://www.example.org/mia/graphs/graph-47"
+    claimant: ":Self"
+    subject: ":Self"
+    template: "persona:JSContactCard"
 ---
 
 ## Graphs

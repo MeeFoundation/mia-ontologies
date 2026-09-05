@@ -13,12 +13,11 @@ mia:
   category: "cat:Affiliations"
   creator: ":Self"
   owner: ":Self"
-  member: "graph-39"
-  graphs:
-    - id: "http://www.example.org/mia/graphs/graph-39"
-      claimant: ":Self"
-      subject: ":Self"
-      template: "persona:JSContactCard"
+  member:
+    id: "http://www.example.org/mia/graphs/graph-39"
+    claimant: ":Self"
+    subject: ":Self"
+    template: "persona:JSContactCard"
 ---
 
 ## Graphs

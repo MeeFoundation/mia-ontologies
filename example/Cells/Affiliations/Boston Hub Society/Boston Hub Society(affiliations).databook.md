@@ -11,21 +11,17 @@ mia:
   creator: ":Self"
   owner: ":Self"
   member:
-    - "graph-01"
-    - "graph-14"
-    - "graph-03"
-  graphs:
     - id: "http://www.example.org/mia/graphs/graph-01"
       claimant: ":BHS"
       subject: ":BHS"
       template: "persona:JSContactCard"
-    - id: "http://www.example.org/mia/graphs/graph-03"
-      claimant: ":Bob_Johnson"
-      subject: ":Bob_Johnson"
-      template: "persona:JSContactCard"
     - id: "http://www.example.org/mia/graphs/graph-14"
       claimant: ":Self"
       subject: ":Self"
+      template: "persona:JSContactCard"
+    - id: "http://www.example.org/mia/graphs/graph-03"
+      claimant: ":Bob_Johnson"
+      subject: ":Bob_Johnson"
       template: "persona:JSContactCard"
 ---
 

@@ -13,17 +13,16 @@ mia:
   category: "cat:BirthCertificate"
   creator: ":Self"
   owner: ":Self"
-  member: "graph-24"
-  topic: "graph-78"
-  graphs:
-    - id: "http://www.example.org/mia/graphs/graph-24"
-      claimant: ":Self"
-      subject: ":Self"
-      template: "persona:JSContactCard"
-    - id: "http://www.example.org/mia/graphs/graph-78"
-      claimant: ":Self"
-      subject: ":Self"
-      template: "persona:BirthCertificateDocument"
+  member:
+    id: "http://www.example.org/mia/graphs/graph-24"
+    claimant: ":Self"
+    subject: ":Self"
+    template: "persona:JSContactCard"
+  topic:
+    id: "http://www.example.org/mia/graphs/graph-78"
+    claimant: ":Self"
+    subject: ":Self"
+    template: "persona:BirthCertificateDocument"
 ---
 
 ## Graphs

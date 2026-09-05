@@ -21,7 +21,7 @@ There are no build, compile, test, or lint commands. The files are Turtle (`.ttl
 | `persona.ttl` | Persona ontology — imports domain ontologies, annotates which classes/properties are required vs. optional for Mee, defines app-specific classes and properties |
 | `cell.ttl` | Cell ontology — `cell:Cell`, the content facet of a cell, carrying only what's common regardless of facet: `category` — range `skos:Concept`, at most one value (0..1; absent/nil exactly when the cell is of the UserDefined category, identified precisely by its cell-databook filename's `(custom)` disambiguator), else the category concept (a genuine `skos:Concept` individual scoped to `cat:CategoryScheme` — no class-value punning, since category.ttl's tree is SKOS, not OWL classes) it was originally instantiated as, fixed at creation rather than re-derived from the folder's current name, letting a recipient's app use it as a filing hint, referenced by name without `owl:imports category.ttl` (mirroring `creator`'s identical pattern below); does not contradict `cell:Cell`'s "no link to a tree position" design (see Check 12), since `skos:Concept` is the classificatory hierarchy — a folder is purely a filesystem concept with no RDF individual at all. The folder ownership boundary rule: a subfolder belongs to a different, nested cell rather than this one iff it directly contains a `*.databook.md` file (the only DataBook type in a user's instance tree is `cell-databook`), resolvable one folder at a time with no category-tree traversal and no dependency on any recorded path. Splits into two disjoint kinds (`owl:disjointWith` — a cell is always exactly one, never both): `cell:TemplateCell` (abstract, a reusable class-level template — carries `category` (the category concept it's a template for) and `memberGraphShape`/`topicGraphShape`, each 0..N) and `cell:MemberCell` (concrete, an actual cell instantiated in a user's own tree — carries `creator`, `owner`, and `member`). There is no `shape` property any more — a `MemberCell`'s applicable validation shape is derived, not stored: reverse-lookup the `TemplateCell` sharing the same `category` value and read whichever of its `memberGraphShape`/`topicGraphShape` values applies to the graph in question (`member` vs. `topic`) directly (the same reasoning that already removed `cell:Cell`'s own subject property). `cell:TopicCell` is a further subclass of `MemberCell`, a mixin for a cell that also carries at least one `topic` value — every real cell is typed directly `MemberCell`, optionally also `TopicCell`. `creator`'s range is a union of `p:Person`/`o:Organization`, referenced by name without importing those ontologies (mirroring `claimant`, below, though `claimant`'s own range is wider, also admitting `agent:Agent`), required exactly one value, since every actual cell's content is authored by someone. `owner` (same range as `creator` — never `agent:Agent`) identifies which of the cell's members hold the owner role rather than the regular (non-owner) member role every other member defaults to — required, one or more values, no fixed upper bound; `creator`'s own value is always included as the cell's initial owner, and any current owner may promote any other current regular member (never an agent) to owner, with no demotion modeled — see Check 23. `member` is an `owl:ObjectProperty` (range `cell:SCGraph`, domain `MemberCell`) — the required per-member baseline, one or more values enforced by `cell-shacl.ttl`'s `:MemberCellShape`, no fixed upper bound; `topic` (same range, domain `TopicCell`) is one or more additional graphs beyond that baseline — required (at least one) exactly when a cell is typed `TopicCell`, capped in practice at the cell's own member count (see Check 25), absent otherwise. `memberGraphShape`/`topicGraphShape` (domain `cell:TemplateCell`, range `sh:NodeShape`, each 0..N) link a template cell to its SHACL shape(s) describing what a `member`/`topic` graph (respectively) filed under its category should look like. Every individual in `cell-templates.ttl` is typed solely `cell:TemplateCell` — never also `cell:MemberCell` or a `cell:MemberCell`-lineage class (including `TopicCell`), since the two kinds are disjoint. Carries no link back to a folder at all — a folder is purely a filesystem concept with no RDF individual; `category` is the sole remaining record of a cell's original classification. Also defines `cell:Graph`/`cell:SCGraph` (`SCGraph` a subclass of `Graph`, no subclasses of its own — the concrete class every self-vs-other classified graph DataBook is typed as directly) and their `template`/`subject`/`claimant` annotation properties — controlled vocabularies for classifying graph files: who claimed the data (`claimant`, range a union of `p:Person`/`o:Organization`/`agent:Agent`), and what or whom the file is about (`subject` — any resource IRI; the ontology does not require it to be a person's identity, though in the example data every `subject` value happens to be a `p:Person`/`o:Organization`, a convention of the example, not an ontology requirement). The four self-vs-other combinations these two values distinguish (self-by-self, other-by-self, other-by-other, self-by-other) are derived directly from `subject`/`claimant`. A graph DataBook only ever exists to be linked from a cell (via `member`/`topic`), so its classification vocabulary lives in this same file rather than a separate one |
 | `category.ttl` | Category ontology — a `skos:ConceptScheme` (`cat:CategoryScheme`), not an OWL class hierarchy: every category is a plain `skos:Concept` individual (there is no `cat:Category` class), rooted at two top concepts (`cat:Person`/`cat:Organization`, `skos:hasTopConcept`) and connected to every narrower concept via `skos:broader` (asserted child → parent, one self-contained block per concept, scoped via `skos:inScheme cat:CategoryScheme`) — a deliberate fix over an earlier `rdfs:subClassOf` design that wrongly implied OWL subsumption (`cat:Pets rdfs:subClassOf cat:Person` reads as "every Pet is a Person"; `skos:broader` carries no such entailment). No tree-position facet at all: a user's own instance-tree position is purely a filesystem fact, with `cell:category` (cell.ttl) the sole remaining RDF-level record of a cell's matched classification. No `cat:templateCell` property (removed) — a templated category's reusable content is found via `cell-templates.ttl`'s own `cell:TemplateCell` individuals, each carrying its own `cell:category` value naming the concept it's a template for, a reverse lookup rather than a forward pointer. Carries no `owl:imports` at all any more, since nothing in it references a `cell:` term |
-| `cell-templates.ttl` | Class-level `cell:Cell` templates, 103 in total — one individual per category concept in `category.ttl` except the two SKOS top concepts `cat:Person`/`cat:Organization` themselves (see Check 29 — no real leaf cell is ever instantiated as bare "Person" or "Organization"), each carrying its own `cell:category` value naming that concept — the reverse of the deleted `category.ttl`'s `cat:templateCell` forward-pointer — plus one more, `ctpl:UserDefinedTemplateCell`, with **no** `cell:category` value at all: the fallback template for a cell created with no category selected (the Custom/UserDefined case), found as the unique category-less `cell:TemplateCell` rather than by the usual reverse lookup. Each is typed solely `cell:Cell, cell:TemplateCell` — `cell:TemplateCell` and `cell:MemberCell` are disjoint, so a template cell carries no member composition of its own, just its shape property/properties pointing to SHACL shape(s) — in `cell-templates-shacl.ttl` or directly in `persona-shacl.ttl` for a `persona:PersonaTemplate`-typed template, or in `other/pets-shacl.ttl` for `ctpl:PetMedicationsTemplateCell`/`ctpl:PetProfileTemplateCell` (both `pets:`-typed) or `other/vehicles-shacl.ttl` for `ctpl:VehicleProfileTemplateCell` (`vehicles:`-typed) — following two patterns (a third, member-only document shape with no topic content at all, existed before this file's Passport/BirthCertificate/DriversLicense templates were each flipped to the topic-based pattern below, and is now empty): (1) `cell:memberGraphShape pshapes:JSContactCardPersonShape` plus `cell:topicGraphShape` carrying the category's own record shape — the 12 whose real content is filed as a `cell:topic` graph instead (Passport, SSN, BirthCertificate, DriversLicense, MedicalAppointment, PetMedications, PetProfile, VehicleProfile, Companies, BankingPayments, Home, Trips) — `cat:BankingPayments` alone carries three `cell:topicGraphShape` values at once (`ServiceAccountShape`, `DebitCardShape`, `CheckingAccountShape`), since a single Citibank-claimed topic graph there holds all three templates' content together; (2) `cell:memberGraphShape pshapes:JSContactCardPersonShape` alone, no `cell:topicGraphShape` at all — every other templated category (90 of them, including `cat:People` and its four direct `skos:broader` children, `cat:Employee`, `cat:Affiliations`, and every other category with no document type or topic content of its own), plus `ctpl:UserDefinedTemplateCell`. **`cell:memberGraphShape pshapes:JSContactCardPersonShape` is asserted directly and identically on every one of the 103 individuals with no exception** (Check 30) — not hoisted onto the `cell:TemplateCell` class itself via an OWL restriction, since nothing in this project's validation pipeline runs a reasoner to materialize such an entailment. The required `cell:isTopicCell` — `true` on the 12 pattern-(1) templates, `false` on the other 91 (pattern (2), including `ctpl:UserDefinedTemplateCell`) — flags whether Lazy Instantiation's clone of the template is expected to be typed `cell:TopicCell`. Imports `cell.ttl` directly — no mutual import with `category.ttl` |
+| `cell-templates.ttl` | Class-level `cell:Cell` templates, 103 in total — one individual per category concept in `category.ttl` except the two SKOS top concepts `cat:Person`/`cat:Organization` themselves (see Check 29 — no real leaf cell is ever instantiated as bare "Person" or "Organization"), each carrying its own `cell:category` value naming that concept — the reverse of the deleted `category.ttl`'s `cat:templateCell` forward-pointer — plus one more, `ctpl:UserDefinedTemplateCell`, with **no** `cell:category` value at all: the fallback template for a cell created with no category selected (the Custom/UserDefined case), found as the unique category-less `cell:TemplateCell` rather than by the usual reverse lookup. Each is typed solely `cell:Cell, cell:TemplateCell` — `cell:TemplateCell` and `cell:MemberCell` are disjoint, so a template cell carries no member composition of its own, just its shape property/properties pointing to SHACL shape(s) — in `cell-templates-shacl.ttl` or directly in `persona-shacl.ttl` for a `persona:PersonaTemplate`-typed template, or in `other/pets-shacl.ttl` for `ctpl:PetMedicationsTemplateCell`/`ctpl:PetProfileTemplateCell` (both `pets:`-typed) or `other/vehicles-shacl.ttl` for `ctpl:VehicleProfileTemplateCell` (`vehicles:`-typed) — following two patterns (a third, member-only document shape with no topic content at all, existed before this file's Passport/BirthCertificate/DriversLicense templates were each flipped to the topic-based pattern below, and is now empty): (1) `cell:memberGraphShape pshapes:JSContactCardPersonShape` plus `cell:topicGraphShape` carrying the category's own record shape, `cell:isTopicCell true` — the 15 whose real content is filed as a `cell:topic` graph instead (Passport, SSN, BirthCertificate, DriversLicense, MedicalAppointment, PetMedications, PetProfile, VehicleProfile, Companies, BankingPayments, Home, Trips — each a real reified document/account type — plus HealthWellness, PrimaryCarePhysician, and PetsCareAndFeeding, each a more modest shape with every property optional, per Check 32) — `cat:BankingPayments` alone carries three `cell:topicGraphShape` values at once (`ServiceAccountShape`, `DebitCardShape`, `CheckingAccountShape`), since a single Citibank-claimed topic graph there holds all three templates' content together; (2) `cell:memberGraphShape pshapes:JSContactCardPersonShape` alone, no `cell:topicGraphShape`, `cell:isTopicCell false` — every other templated category (88 of them, including `cat:People` and its four direct `skos:broader` children, `cat:Employee`, `cat:Affiliations`, and every other category with no document type or topic content of its own), plus `ctpl:UserDefinedTemplateCell`. **`cell:memberGraphShape pshapes:JSContactCardPersonShape` is asserted directly and identically on every one of the 103 individuals with no exception** (Check 30) — not hoisted onto the `cell:TemplateCell` class itself via an OWL restriction, since nothing in this project's validation pipeline runs a reasoner to materialize such an entailment. The required `cell:isTopicCell` — `true` on the 15 pattern-(1) templates, `false` on the other 88 (pattern (2), including `ctpl:UserDefinedTemplateCell`) — flags whether Lazy Instantiation's clone of the template is expected to be typed `cell:TopicCell` (see Check 31 — a real cell's own `topic` presence must always agree with its category's `isTopicCell` value, no exceptions — and Check 32 — `isTopicCell true` always requires a real `cell:topicGraphShape`, so there is no longer a state where a template is `isTopicCell true` with no shape at all). Imports `cell.ttl` directly — no mutual import with `category.ttl` |
 | `cell-shacl.ttl` | SHACL validation shapes for `cell:Cell` DataBook instances, split across shapes matching `cell.ttl`'s two-kind split: `:CellShape` (target `cell:Cell`) — `category` cardinality (at most one — 0..1 — constrained via `sh:class skos:Concept` plus a nested `skos:inScheme cat:CategoryScheme` check, now that category.ttl's tree is genuine SKOS individuals rather than class-value-punned classes), plus an `sh:xone` requiring `rdf:type` to be exactly one of `cell:TemplateCell`/`cell:MemberCell` (mirroring `cell.ttl`'s `owl:disjointWith`); `:TemplateCellShape` (target `cell:TemplateCell`) — `memberGraphShape`/`topicGraphShape` cardinality (zero or more values each, no fixed upper bound; deliberately not constrained to `sh:class sh:NodeShape` since their values are only typed as such in `cell-templates-shacl.ttl`, which Tier 1 excludes from its merged-data run) and `isTopicCell` cardinality (required, exactly one value, must be a boolean); `:MemberCellShape` (target `cell:MemberCell`) — `creator` (required, exactly one value) constrained to be a `p:Person` or `o:Organization`, `owner` (required, one or more values, no fixed upper bound, each constrained to be a `p:Person` or `o:Organization`, never an `agent:Agent`), `member` (required, one or more values, no fixed upper bound, each constrained to `cell:SCGraph`). There is no `shape` shape any more — a `MemberCell`'s validation shape is derived via its own `category` value, never stored, so there's nothing to constrain; there is likewise no SHACL constraint tying `owner` to `creator`/`member` — that invariant is checked only by Check 23; `:TopicCellShape` (target `cell:TopicCell`, the mixin subclass for a cell that carries at least one `topic` value) — `topic` required, at least one value (SHACL sets no maximum here; the real cap — one value per cell member, each with a distinct claimant — is Check 25, not a SHACL constraint), each constrained to be a `cell:SCGraph`. There is no cell-level subject property/shape at all — a cell's own subject is derived, never stored (see Check 18); `:SCGraphShape` (target `cell:SCGraph`) constrains that different, graph-level `subject`/`claimant` instead — `claimant` required exactly once and constrained to a `p:Person`/`o:Organization`/`agent:Agent`, `subject` required exactly once and constrained to be an IRI — its range is `xsd:anyURI`, so a graph's subject need not be a person's identity. A graph DataBook does not carry `cell:creator` (or any creator property) — that stays a `cell:Cell`-only property |
 | `persona-shacl.ttl` | SHACL validation shapes — constraint rules for all `persona:Person` instances (SSN format, address cardinality, payment cards, wallet, social network, etc.) |
 | `persona-templates.ttl` | Persona template labels — defines `p:PersonaTemplate` (abstract classification superclass) and concrete label subclasses `p:BirthCertificateDocument`, `p:JSContactCard`, `p:DriversLicenseDocument`, `p:PassportDocument`, `p:MedicalAppointmentRecord`, `p:ServiceAccount`; also defines related designator classes (`persona:DriversLicenseNumber`, `persona:IssuingJurisdiction`, `persona:PassportNumber`, `persona:IssuingCountry`, `persona:PlaceOfBirth`, `persona:GenderMarker`, `persona:IssueDate`, `persona:Credential`, `persona:WebURL`, `persona:OrganizationUnit`, `persona:JobTitle`), complex classes (`persona:Anniversary`, `persona:PersonalInfo`, `persona:PersonalityAssessment` with `persona:hasPersonalityAssessment`/`persona:personalityFramework`/`persona:personalityResult`/`persona:personalityAssessmentDate`), the `p:MedicalAppointmentRecord` claim properties (`persona:forPatient`, `persona:hasPrimaryCarePhysician`, `persona:currentMedication`, `persona:allergy`, `persona:medicalHistoryNote`, `persona:insuranceProvider`, `persona:insurancePolicyNumber`, `persona:insuranceGroupNumber`, `persona:preferredPharmacy`), and other properties (`persona:hasAnniversary`, `persona:hasPhoto`, etc.). `p:ServiceAccount` carries no claim properties of its own — the individual it labels is always multi-typed `cco:ent00000033` (Online Service Account, StagingOntology) as well, reusing that class's own existing service-name/user-handle/service-URI properties directly. Carries no `owl:imports` of its own any more — the `p:PetMedicationRecord`/`p:Medication` classes/properties and their DrOn/ChEBI reuse moved to `other/pets.ttl` |
@@ -37,13 +37,13 @@ There are no build, compile, test, or lint commands. The files are Turtle (`.ttl
 | `project_files/prov-upper.ttl` | A hand-curated subset of the W3C PROV Ontology (PROV-O) — `prov:Agent`, `prov:SoftwareAgent`, `prov:Person`, `prov:Organization`, and `prov:actedOnBehalfOf`, cited by their real upstream IRIs with definitions adapted from the PROV-O Recommendation, not a full mirror (PROV-O also defines `prov:Entity`/`prov:Activity` and the relations connecting them, none referenced anywhere in this project yet). Published under the W3C Document License (unlike DrOn/NCBITaxon's CC0/public-domain status or VBO's CC-BY 4.0). `owl:import`ed by `agent.ttl` — `agent.ttl`'s only import |
 | `cell-templates-shacl.ttl` | Per-template SHACL shapes for birth certificate, driver's license, passport, medical appointment, and service account graph files — `:BirthCertificateDocumentShape`, `:DriversLicenseDocumentShape`, `:PassportDocumentShape` (each directly linked from its `cell-templates.ttl` template cell via `cell:memberGraphShape`), `:MedicalAppointmentRecordShape`, `:ServiceAccountShape` (each linked via `cell:topicGraphShape` instead); run against the individual graph file, not merged data. `:ServiceAccountShape` targets `persona:ServiceAccount` individuals — also typed `cco:ent00000033` (Online Service Account) — requiring exactly one username (`cco:ent00000035`, has user handle) and one `persona:hasPassword`; service name (`cco:ent00000034`) and service URI (`cco:ent00000036`) are optional. The Pets shapes (`:PetMedicationRecordShape`, `:MedicationShape`, `:DosageAmountShape`, `:MedicationAdministrationShape`, and the new `:PetShape`) live in `other/pets-shacl.ttl` instead, paired with `other/pets.ttl` rather than this file; the Vehicles shapes (`:VehicleShape`, `:OdometerReadingShape`, `:EngineSpecificationShape`) live in `other/vehicles-shacl.ttl`, paired with `other/vehicles.ttl` |
 | `shacl/jscontactcard-shacl.ttl` | Per-template SHACL shapes for JSContactCard graph files — run against the individual graph file, not merged data (JSContactCard is reused across many unrelated tree positions with no single category concept of its own, so its shape stays standalone) |
-| `yaml-to-rdf.py` | Synthesizes `cell:` triples from each cell-databook's `mia.` YAML frontmatter (including its embedded `mia.graphs` list), used as Tier 1 validation Step 1b (see EXAMPLE.md's Validation section) — `databook extract` only pulls fenced Turtle blocks, which cell-databooks mostly don't carry, so without this script `cell:Cell` individuals and `cell:SCGraph`'s subject/claimant/template never reach the merged validation graph. No category-side synthesis at all — a folder's tree position is purely a filesystem fact with no RDF individual to synthesize |
+| `yaml-to-rdf.py` | Synthesizes `cell:` triples from each cell-databook's `mia.` YAML frontmatter (including each `mia.member`/`mia.topic` entry's own embedded `id`/`claimant`/`subject`/`template` fields), used as Tier 1 validation Step 1b (see EXAMPLE.md's Validation section) — `databook extract` only pulls fenced Turtle blocks, which cell-databooks mostly don't carry, so without this script `cell:Cell` individuals and `cell:SCGraph`'s subject/claimant/template never reach the merged validation graph. No category-side synthesis at all — a folder's tree position is purely a filesystem fact with no RDF individual to synthesize |
 | `project_files/` | Reference materials: imported domain ontologies (PersonOntology.ttl, AddressOntology.ttl, StagingOntology.ttl), BFO/CCO source files, PDFs, docs, plus the hand-curated vendor subsets (`dron-upper.ttl`, `ncbitaxon-subset.ttl`, `vbo-subset.ttl`) `owl:import`ed by `other/pets.ttl`, (`wikidata-vehicle-makes-subset.ttl`, `wikidata-vehicle-models-subset.ttl`) `owl:import`ed by `other/vehicles.ttl`, and `prov-upper.ttl` (a hand-curated W3C PROV-O subset — `prov:Agent`/`prov:SoftwareAgent`/`prov:Person`/`prov:Organization`/`prov:actedOnBehalfOf`) `owl:import`ed by `agent.ttl` |
 | `APP-BEHAVIOR.md` | App-behavior documentation — how the app uses the ontologies above: cell lifecycle (Lazy Instantiation), storage and sync, sharing/permissions (Number of Members, Permissions), cell naming/renaming/collision handling, how a cell is persisted as a filesystem folder (naming and fill/text-color conventions), and the auto-filing heuristic used when a shared cell is received. Not itself an RDF file — no `owl:versionInfo`. Linked from `README.md` and `EXAMPLE.md` |
 
 ## Example Files
 
-Every graph below is an embedded section (`mia.graphs` entry + `### Graph NN` body) inside its owning cell-databook file under `example/Cells/` — there are no standalone graph files (see [Graph ID Naming Convention](#graph-id-naming-convention)).
+Every graph below is an embedded section (a `mia.member`/`mia.topic` entry + `### Graph NN` body) inside its owning cell-databook file under `example/Cells/` — there are no standalone graph files (see [Graph ID Naming Convention](#graph-id-naming-convention)).
 
 | Graph — File | Purpose |
 |------|---------|
@@ -58,16 +58,19 @@ Every graph below is an embedded section (`mia.graphs` entry + `### Graph NN` bo
 | Graph 03 — `example/Cells/Affiliations/Boston Hub Society/Boston Hub Society(affiliations).databook.md` | Bob Johnson's BHS member persona — name, email, phone, address |
 | Graph 09 — `example/Cells/Finances/Banking & Payments Firms/Citibank/Citibank(banking-payments).databook.md` | Alice's Citibank graph — debit card; claimed by Citibank |
 | Graph 27 — `example/Cells/Finances/Banking & Payments Firms/Citibank/Citibank(banking-payments).databook.md` | Alice's own self-claimed notes about Citibank as an institution, alongside Citibank's own claimed record about her (graph 09) |
+| Graph 86 — `example/Cells/Finances/Banking & Payments Firms/Banking & Payments Firms(banking-payments).databook.md` | The Banking & Payments Firms scaffold cell's required `topic` — deliberately empty, since its real content lives in its own leaf cell (Citibank) instead |
 | Graph 16 — `example/Cells/Companies/Google/Google(companies).databook.md` | The Google cell's required `member` entry, claimed by Alice — carries her given name (required by `JSContactCardPersonShape`, `cell:memberGraphShape`, since this template is `isTopicCell: true`), plus an optional organization name and email |
 | Graph 73 — `example/Cells/Companies/Google/Google(companies).databook.md` | Alice's basic claim about her Google account itself — as the Google cell's sole `topic`, its own `subject: ":Alice_Google_Account"` is what the cell's derived subject resolves to (see Check 18); typed `persona:ServiceAccount`, also multi-typed `cco:ent00000033` (Online Service Account) — service name, username (her Gmail address), and password |
 | Graph 11 — `example/Cells/Companies/ATT/ATT(companies).databook.md` | The ATT cell's required `member` entry, claimed by Alice — carries her given name (required by `JSContactCardPersonShape`, `cell:memberGraphShape`, since this template is `isTopicCell: true`), plus an optional organization name and email |
 | Graph 74 — `example/Cells/Companies/ATT/ATT(companies).databook.md` | Alice's basic claim about her AT&T account itself — as the ATT cell's sole `topic`, its own `subject: ":Alice_ATT_Account"` is what the cell's derived subject resolves to (see Check 18); typed `persona:ServiceAccount`, also multi-typed `cco:ent00000033` (Online Service Account) — service name, username (her mobile phone number), service URI, and password |
+| Graph 85 — `example/Cells/Companies/Companies.databook.md` | The Companies scaffold cell's required `topic` — deliberately empty, since its real content lives in its own leaf cells (Google, ATT) instead |
 | Graph 24 — `example/Cells/Government/State/Birth Certificate/Birth Certificate.databook.md` | The Birth Certificate cell's required `member` entry, claimed by Alice — carries her given name (required by `JSContactCardPersonShape`, `cell:memberGraphShape`, since this template is `isTopicCell: true`) |
 | Graph 78 — `example/Cells/Government/State/Birth Certificate/Birth Certificate.databook.md` | Alice's Texas birth certificate — legal names, maiden name; the cell's `cell:topic`, typed `persona:BirthCertificateDocument` |
 | Graph 18 — `example/Cells/Home/Paradise/Paradise(home).databook.md` | The Paradise cell's required `member` entry, claimed by Alice — carries her given name (required by `JSContactCardPersonShape`, `cell:memberGraphShape`, since this template is `isTopicCell: true`) |
 | Graph 83 — `example/Cells/Home/Paradise/Paradise(home).databook.md` | Alice's Paradise, CA address — current residence (2025–present); the cell's `cell:topic`, typed `persona:Residence` |
 | Graph 13 — `example/Cells/Home/Previous/Boston/Boston(home).databook.md` | The Boston cell's required `member` entry, claimed by Alice — carries her given name (required by `JSContactCardPersonShape`, `cell:memberGraphShape`, since this template is `isTopicCell: true`) |
 | Graph 82 — `example/Cells/Home/Previous/Boston/Boston(home).databook.md` | Alice's Boston, MA address — previous residence (2020–2025); the cell's `cell:topic`, typed `persona:Residence` |
+| Graph 87 — `example/Cells/Home/Home.databook.md` | The Home scaffold cell's required `topic` — deliberately empty, since its real content lives in its own leaf cells (Paradise, Boston) instead |
 | Graph 23 — `example/Cells/Government/Federal/SSN/SSN.databook.md` | The SSN cell's required `member` entry, claimed by Alice — carries her given name (required by `JSContactCardPersonShape`, `cell:memberGraphShape`, since this template is `isTopicCell: true`) |
 | Graph 80 — `example/Cells/Government/Federal/SSN/SSN.databook.md` | Alice's Social Security Number — the cell's `cell:topic`, validated directly by `persona-shacl.ttl`'s `:SSNShape` (no dedicated template class) |
 | Graph 12 — `example/Cells/People/Others/Bob Johnson/Bob Johnson(others).databook.md` | Alice's 1:1 graph with Bob; social network with Bob as member |
@@ -83,7 +86,8 @@ Every graph below is an embedded section (`mia.graphs` entry + `### Graph NN` bo
 | Graph 35 — `example/Cells/People/Immediate Family/Paula Walker/Health & Wellness/Health & Wellness.databook.md` | Alice's bare given-name claim — the cell's required `member` entry, claimed by Alice |
 | Graph 36 — `example/Cells/Pets/Ginger/Ginger(pets).databook.md` | The `cat:Pets`-category Ginger cell's required `member` entry, claimed by Alice — carries her given name (required by `JSContactCardPersonShape`, `cell:memberGraphShape`, since this template is `isTopicCell: true`), plus an optional organization name and email |
 | Graph 37 — `example/Cells/Pets/Ginger/Ginger(pets).databook.md` | Alice's basic claim identifying Ginger — as the Ginger cell's sole `topic`, its own `subject: ":Ginger"` is what the cell's derived subject resolves to (see Check 18) |
-| Graph 25 — `example/Cells/People/Immediate Family/Paula Walker/Health & Wellness/Medical/Provider/Jane Starostina/Jane Starostina(primary-care-physician).databook.md` | Alice's record of Dr. Jane Starostina, Paula Walker's primary care physician — claimed by Alice; linked via `cell:topic` (Jane is the cell's subject, not its member) |
+| Graph 88 — `example/Cells/Pets/Pets.databook.md` | The Pets scaffold cell's required `topic` — deliberately empty, since its real content lives in its own leaf cell (Ginger) instead |
+| Graph 25 — `example/Cells/People/Immediate Family/Paula Walker/Health & Wellness/Medical/Provider/Jane Starostina/Jane Starostina(primary-care-physician).databook.md` | Alice's record of Dr. Jane Starostina, Paula Walker's primary care physician, including her medical specialty (Endocrinology) — claimed by Alice; linked via `cell:topic` (Jane is the cell's subject, not its member) |
 | Graph 34 — `example/Cells/People/Immediate Family/Paula Walker/Health & Wellness/Medical/Provider/Jane Starostina/Jane Starostina(primary-care-physician).databook.md` | Alice's bare given-name claim — the cell's required `member` entry, claimed by Alice |
 | Graph 26 — `example/Cells/People/Immediate Family/Paula Walker/Health & Wellness/Medical/Provider/Medical Appointment/Medical Appointment.databook.md` | Alice and Carol's shared claims for Paula's medical appointment — medications, allergies, insurance, PCP reference — claimed by Alice |
 | Graph 28 — `example/Cells/People/Immediate Family/Paula Walker/Health & Wellness/Medical/Provider/Medical Appointment/Medical Appointment.databook.md` | Carol's own self-claimed persona and contact info — one of this cell's two members, alongside Alice (graph 30) |
@@ -98,6 +102,8 @@ Every graph below is an embedded section (`mia.graphs` entry + `### Graph NN` bo
 | Graph 60 — `example/Cells/Pets/Ginger/Care & Feeding/Care & Feeding.databook.md` | Alice's day-to-day care and feeding instructions for her cat Ginger — feeding schedule, food, and where she sleeps — claimed by Alice; linked via `cell:topic` (Ginger has no `p:Person` individual) |
 | Graph 62 — `example/Cells/Things/Vehicles/RAV4/RAV4(vehicles).databook.md` | The RAV4 cell's required `member` entry, claimed by Alice — carries her given name (required by `JSContactCardPersonShape`, `cell:memberGraphShape`, since this template is `isTopicCell: true`), plus an optional organization name and email |
 | Graph 63 — `example/Cells/Things/Vehicles/RAV4/RAV4(vehicles).databook.md` | Alice's basic claim identifying her car — as the RAV4 cell's sole `topic`, its own `subject: ":Alice_RAV4"` is what the cell's derived subject resolves to; vehicle type, make and model (real Wikidata individuals), model year, VIN, color, body type, fuel type, drive wheel configuration, odometer reading, and engine specification |
+| Graph 89 — `example/Cells/Things/Vehicles/Vehicles.databook.md` | The Vehicles scaffold cell's required `topic` — deliberately empty, since its real content lives in its own leaf cell (RAV4) instead |
+| Graph 90 — `example/Cells/Travel/Trips/Trips.databook.md` | The Trips scaffold cell's required `topic` — deliberately empty, since its real content lives in its own leaf cell (Kyoto Trip 2027) instead |
 
 ## Architecture
 
@@ -111,7 +117,7 @@ Triplestore (Fuseki) — loads all DataBook files directly:
   │   └─ StagingOntology.ttl → BFO terms
   ├─ example/Cells/Work/Acme/Employees/Paula Walker/Paula Walker(employee).databook.md      (embeds graphs 06, 20)
   ├─ example/Cells/People/Immediate Family/Paula Walker/Paula Walker(immediate-family).databook.md  (embeds graphs 05, 07, 21)
-  ├─ … (all other cell-databooks, each embedding one or more numbered graphs via mia.graphs)
+  ├─ … (all other cell-databooks, each embedding one or more numbered graphs via mia.member/mia.topic)
   └─ example/Cells/People/Immediate Family/Paula Walker/Health & Wellness/Health & Wellness.databook.md  (embeds graph 17)
 
 persona-shacl.ttl — no owl:imports of data; validated against the loaded dataset
@@ -144,21 +150,21 @@ Folder naming is standardized as the category's own display label (the OS folder
 
 ### Graph ID Naming Convention
 
-A graph lives physically inside its owning cell-databook's `mia.graphs` list and body (see [Key Architectural Patterns](#key-architectural-patterns)'s Cell/Category split note) — it has no file or filename of its own. Its `mia.graphs[].id` (which doubles as the graph's own named-graph identity, `{id}#graph`) does not re-encode `claimant`/`subject`/the containing cell into the id string, since those facts are already carried by that same entry's own sibling `claimant:`/`subject:` fields, and the containing cell is simply wherever the entry physically lives — encoding them a second time would be pure redundancy. It follows a single flat pattern instead:
+A graph lives physically inside its owning cell-databook's `mia.member`/`mia.topic` entries and body (see [Key Architectural Patterns](#key-architectural-patterns)'s Cell/Category split note) — it has no file or filename of its own. Each entry's own `id` (which doubles as the graph's own named-graph identity, `{id}#graph`) does not re-encode `claimant`/`subject`/the containing cell into the id string, since those facts are already carried by that same entry's own sibling `claimant:`/`subject:` fields, and the containing cell is simply wherever the entry physically lives — encoding them a second time would be pure redundancy. It follows a single flat pattern instead:
 
 ```
 http://www.example.org/mia/graphs/graph-<NN>
 ```
 
-`<NN>` is the same zero-padded two-digit graph number used everywhere else for this graph — the diagram label, the `### Graph NN` body heading, and its `<a id="graph-NN">` anchor. `mia.member`/`mia.topic` entries reference a graph by its bare local name (`graph-<NN>`) rather than the full IRI (see [Check 3](#integrity-checks)).
+`<NN>` is the same zero-padded two-digit graph number used everywhere else for this graph — the diagram label, the `### Graph NN` body heading, and its `<a id="graph-NN">` anchor. A `mia.member`/`mia.topic` entry carries this full IRI directly as its own `id` field — there's no separate list to cross-reference it against.
 
-**`claimant` vocabulary** (a `mia.graphs[]` entry's own field): takes the local IRI of a `p:Person` or `o:Organization` individual — NOT an `i:PDNidentifier`. Specifically: `:Self` (the user's `p:Person`) for self-claimed graphs; a named `p:Person` individual (e.g. `:Bob_Johnson`) when another user claims the data; and a named `o:Organization` individual (e.g. `:Citibank`) only when the claiming organization is itself PDN-interoperable. In the example data **only Citibank is treated as PDN-interoperable**, so only the graph embedded in `Citibank(banking-payments).databook.md` (id `graph-09`) uses `claimant: ":Citibank"`. All other organization-related graphs (Google, AT&T, SSA, etc.) use `claimant: ":Self"` because Alice self-enters that data — those organizations aren't PDN-interoperable. (This distinction is currently just a data-modeling convention in the example, not formally enforced by any property — `pdn-identity.ttl` defines no property for it.)
+**`claimant` vocabulary** (a `mia.member`/`mia.topic` entry's own field): takes the local IRI of a `p:Person` or `o:Organization` individual — NOT an `i:PDNidentifier`. Specifically: `:Self` (the user's `p:Person`) for self-claimed graphs; a named `p:Person` individual (e.g. `:Bob_Johnson`) when another user claims the data; and a named `o:Organization` individual (e.g. `:Citibank`) only when the claiming organization is itself PDN-interoperable. In the example data **only Citibank is treated as PDN-interoperable**, so only the graph embedded in `Citibank(banking-payments).databook.md` (id `graph-09`) uses `claimant: ":Citibank"`. All other organization-related graphs (Google, AT&T, SSA, etc.) use `claimant: ":Self"` because Alice self-enters that data — those organizations aren't PDN-interoperable. (This distinction is currently just a data-modeling convention in the example, not formally enforced by any property — `pdn-identity.ttl` defines no property for it.)
 
 **"Other" claimants**: When the claimant is someone other than the current user (`:Self`), the claimant is a named individual of one of:
 - `p:Person` — another user (a different person, e.g. `:Bob_Johnson` claiming data about Alice)
 - `o:Organization` — a company, nonprofit, or government agency that is a PDN node (e.g. `:Citibank`)
 
-**Examples** (id local-name and the corresponding `claimant`/`subject` field values, found in that same `mia.graphs[]` entry; the owning cell-databook file is found via [Check 3](#integrity-checks)):
+**Examples** (id local-name and the corresponding `claimant`/`subject` field values, found in that same `mia.member`/`mia.topic` entry):
 
 | Id local-name | Subject | Claimed by | Containing cell |
 |----------|---------|-------------|---------------------|
@@ -220,26 +226,26 @@ owl:versionInfo "Version 3.0.4 - added birth date"@en
 
 Files inside any directory named `under-development/` (at any depth) are works-in-progress and must be **excluded from all integrity checks** below.
 
-After any change to a graph (its `mia.graphs` entry or `### Graph NN` body section) or a cell DataBook, verify the following.
+After any change to a graph (its `mia.member`/`mia.topic` entry or `### Graph NN` body section) or a cell DataBook, verify the following.
 
-**Check 1 — Diagram ↔ files ↔ EXAMPLE.md coverage**: Every numbered graph circle in any of the 12 cell diagrams (`example/images/`) must have (a) a corresponding embedded graph section — a `mia.graphs` entry plus its `### Graph NN` body section — inside a cell-databook file under `example/Cells/`, and (b) a row in one of the tables in the **Graphs** section of `EXAMPLE.md`. Conversely, every row in those tables must correspond to a numbered circle in a diagram and an embedded graph that actually exists. If a circle exists in a diagram but has no embedded graph or `EXAMPLE.md` row, create them to match the diagram.
+**Check 1 — Diagram ↔ files ↔ EXAMPLE.md coverage**: Every numbered graph circle in any of the 12 cell diagrams (`example/images/`) must have (a) a corresponding embedded graph section — a `mia.member`/`mia.topic` entry plus its `### Graph NN` body section — inside a cell-databook file under `example/Cells/`, and (b) a row in one of the tables in the **Graphs** section of `EXAMPLE.md`. Conversely, every row in those tables must correspond to a numbered circle in a diagram and an embedded graph that actually exists. If a circle exists in a diagram but has no embedded graph or `EXAMPLE.md` row, create them to match the diagram.
 
-**Check 2 — Graph id naming convention**: Every `mia.graphs[].id` value's local-name (the string after the final `/`) — across all cell-databooks in `example/Cells/` — must follow the flat pattern `graph-<NN>`, where `<NN>` is a zero-padded two-digit number matching the graph's own diagram label, `### Graph NN` body heading, and `<a id="graph-NN">` anchor. If an id does not match this pattern, flag it rather than silently renaming — `mia.graphs[].id` also doubles as the graph's own named-graph identity (`{id}#graph`), so changing it is a bigger operation than a file rename ever was.
+**Check 2 — Graph id naming convention**: Every `mia.member[]`/`mia.topic[]` entry's own `id` value's local-name (the string after the final `/`) — across all cell-databooks in `example/Cells/` — must follow the flat pattern `graph-<NN>`, where `<NN>` is a zero-padded two-digit number matching the graph's own diagram label, `### Graph NN` body heading, and `<a id="graph-NN">` anchor. If an id does not match this pattern, flag it rather than silently renaming — the entry's `id` also doubles as the graph's own named-graph identity (`{id}#graph`), so changing it is a bigger operation than a file rename ever was.
 
-**Check 3 — `mia.graphs` ↔ `member`/`topic` consistency**: Since a graph lives physically inside its owning cell-databook file, containment is structural rather than a cross-file reverse lookup — but the two lists that record it independently (`mia.member`/`mia.topic`, and `mia.graphs`) must still agree exactly. For every cell-databook under `example/Cells/`, the set of ids across `mia.member`+`mia.topic` and the set of `mia.graphs[].id` values must be identical — every linked id has a matching `graphs` entry supplying its metadata, and every `graphs` entry is linked from one of the two lists. `mia.member`/`mia.topic` entries are written as the graph id's bare local name (e.g. `"graph-22"`) rather than the full `http://www.example.org/mia/graphs/...` IRI — that base is constant across every graph id in the dataset and repeating it on every list entry is pure redundancy, since a graph only ever lives inside the one cell-databook file whose own `member`/`topic` reference it (see [Graph ID Naming Convention](#graph-id-naming-convention)); `mia.graphs[].id` itself keeps the full IRI, since that value also doubles as the graph's own named-graph identity (`{id}#graph`). This check normalizes both sides to the bare local name before comparing, so it still catches a real mismatch and isn't fooled by that form difference. Run:
+**Check 3 — `member`/`topic` entry well-formedness**: Each `mia.member`/`mia.topic` entry carries a graph's full metadata directly (`id`, `claimant`, `subject`, and optionally `template`) rather than a bare local-name reference into a separate list, so there's no cross-list consistency left to check — but a malformed entry (e.g. a stray bare string left over from a hand edit, or a missing required field) would otherwise go unnoticed. For every cell-databook under `example/Cells/`, verify that every `mia.member`/`mia.topic` entry is a mapping (never a bare string), that its `id` matches the `graph-<NN>` id pattern (see Check 2), and that both `claimant` and `subject` are present — both required per `cell-shacl.ttl`'s `:SCGraphShape`; `template` stays optional (see Check 28 for when it's actually required). Run:
 
 ```python
 import glob, re, yaml
 
-GRAPHS_BASE_RE = re.compile(r'^https?://www\.example\.org/mia/graphs/')
+GRAPH_ID_RE = re.compile(r'^http://www\.example\.org/mia/graphs/graph-\d{2}$')
 
 def frontmatter(path):
     text = open(path, encoding='utf-8').read()
     m = re.match(r'^---\n(.*?)\n---', text, re.DOTALL)
     return yaml.safe_load(m.group(1)) if m else None
 
-def local_name(v):
-    return GRAPHS_BASE_RE.sub('', v)
+def as_list(v):
+    return [] if v is None else (v if isinstance(v, list) else [v])
 
 errors = 0
 for path in sorted(glob.glob('example/Cells/**/*.databook.md', recursive=True)):
@@ -249,33 +255,34 @@ for path in sorted(glob.glob('example/Cells/**/*.databook.md', recursive=True)):
     if not fm or fm.get('type') != 'cell-databook':
         continue
     mia = fm.get('mia', {}) or {}
-    linked_ids = set()
     for field in ('member', 'topic'):
-        val = mia.get(field)
-        if val:
-            linked_ids.update(local_name(v) for v in (val if isinstance(val, list) else [val]))
-    graph_ids = {local_name(t['id']) for t in (mia.get('graphs') or []) if isinstance(t, dict) and t.get('id')}
-    missing = linked_ids - graph_ids
-    unlinked = graph_ids - linked_ids
-    if missing:
-        print(f'{path}: member/topic reference(s) with no matching mia.graphs entry: {sorted(missing)}')
-        errors += 1
-    if unlinked:
-        print(f'{path}: mia.graphs entry/entries with no member/topic link: {sorted(unlinked)}')
-        errors += 1
+        for entry in as_list(mia.get(field)):
+            if not isinstance(entry, dict):
+                print(f'{path}: {field} entry is not a mapping: {entry!r}')
+                errors += 1
+                continue
+            if not GRAPH_ID_RE.match(entry.get('id') or ''):
+                print(f"{path}: {field} entry id {entry.get('id')!r} does not match graph-<NN> id pattern")
+                errors += 1
+            if not entry.get('claimant'):
+                print(f"{path}: {field} entry {entry.get('id')!r} missing claimant")
+                errors += 1
+            if not entry.get('subject'):
+                print(f"{path}: {field} entry {entry.get('id')!r} missing subject")
+                errors += 1
 if not errors:
-    print('All cell-databooks: mia.graphs entries and member/topic links are in 1:1 correspondence.')
+    print('All cell-databooks: every member/topic entry is a well-formed graph mapping.')
 ```
 
-If a mismatch appears, add the missing `mia.graphs` entry (or `### Graph NN` body section) or the missing `member`/`topic` reference — whichever side is incomplete.
+If a malformed entry is found, fix it directly (turn a stray bare string back into a full mapping, correct the id, or add the missing `claimant`/`subject`).
 
 **Check 4 — No orphan Persons**: Every `persona:Person` individual other than `:Self` must be reachable via `BFO_0000115` (has member part) from a Social Network individual linked to another `persona:Person` via `persona:hasSocialNetwork`. `:Self` is always the root and needs no incoming link. Since graphs are embedded graph sections across every cell-databook under `example/Cells/**`, this check's scope is the merged Tier 1 data graph, which spans every embedded graph. **Exception**: a `persona:Person` referenced only via a professional/service-designation property (e.g. `persona:hasPrimaryCarePhysician`) rather than social-network membership is exempt — it represents a service relationship (e.g. a physician), not a social connection, so it has no social network to be reachable from. Example: `:Jane_Starostina` (graph #25), Paula Walker's primary care physician.
 
-**Check 5 — Validation command completeness**: The `## Validation` section of `EXAMPLE.md` must document two tiers. Tier 1 uses five steps: (1) a `find example -name "*.databook.md"` loop using `databook extract` to extract turtle content and produce a merged turtle file of all graph data (excluding `under-development/`) — directory-agnostic, so it naturally concatenates every embedded graph within a cell-databook, which is exactly what Tier 1 wants; (1b) `python3 yaml-to-rdf.py` to synthesize `cell:` triples from each cell-databook's own `mia.` YAML frontmatter (including its `mia.graphs` list; a graph's `claimant`/`subject`/`template` live there, not in a separate graph-databook file) — there is no `cat:` synthesis at all, since a folder's tree position is purely a filesystem fact with no RDF individual to synthesize; the only surviving classification fact, `cell:category`, is read directly from each cell-databook's own explicit `mia.category` field, no reverse-matching involved. `databook extract` only pulls fenced Turtle blocks, which cell DataBooks don't carry, so without this step `cell:Cell` individuals and `cell:SCGraph`'s subject/claimant/template never reach the merged graph and `cell-shacl.ttl`'s `:SCGraphShape` never fires against real instance data; (2) a `riot` merge of both extracted files with all application ontology TTL files (including `other/pets.ttl`, `other/vehicles.ttl`, and `agent.ttl`) and the foundation ontologies listed explicitly from `project_files/` (including the three vendor subsets `dron-upper.ttl`, `ncbitaxon-subset.ttl`, `vbo-subset.ttl`, imported by `other/pets.ttl`; `wikidata-vehicle-makes-subset.ttl`/`wikidata-vehicle-models-subset.ttl`, imported by `other/vehicles.ttl`; and `prov-upper.ttl`, imported by `agent.ttl`; rather than `persona-templates.ttl` directly) — `cell-templates.ttl` is deliberately excluded from this merge (unlike Tier 2's per-file base merge, below): its template individuals are generic, reusable content bound to no real person, so they can't sensibly carry `cell-shacl.ttl`'s required `cell:member`/`cell:creator`/`cell:owner`, and are instead validated only via `cell-templates-shacl.ttl`/`other/pets-shacl.ttl`/`other/vehicles-shacl.ttl` in Tier 2; (3) a `grep -v owl:imports` on `persona-shacl.ttl`, `cell-shacl.ttl`, and `organization-shacl.ttl` to collect shapes (`shacl/jscontactcard-shacl.ttl`, `cell-templates-shacl.ttl`, `other/pets-shacl.ttl`, and `other/vehicles-shacl.ttl` are excluded here — they target document classes and would fire incorrectly on all individuals when applied to merged data; `pdn-identity-shacl.ttl` is also excluded — its ontology, `pdn-identity.ttl`, isn't part of the Step 2 merge, since nothing in the active ontology stack references an `identity:` term); (4) a `shacl validate` call. Tier 2 is fully automated by `validate-tier2.py` rather than a hand-enumerated command list: it processes each cell-databook independently (never merging two cells' data into one `shacl validate` call), and for each of a cell's embedded graphs reads that graph's own `mia.graphs[].template` YAML value as the sole indicator of which SHACL shape to validate it against — resolved via a fixed template-CURIE → shape table in the script, itself built from each `*-shacl.ttl` shape's own `sh:targetClass` with two named exceptions (`persona:JSContactCard` and `persona:DebitCard`, both label-only classes whose shape targets a different underlying class instead — see `shacl/jscontactcard-shacl.ttl` and `persona-shacl.ttl`). A graph with no `template:` value needs no Tier 2 validation at all and is skipped. Each resolved shape is additionally scoped so it can't fire on an individual outside the one graph being checked: every other shape co-located in the same physical shapes file is deactivated for that call, and — only for `JSContactCardPersonShape` (`sh:targetClass persona:Person`, the one class broad enough to risk an incidental same-type individual within a single isolated graph, e.g. a bare `:Self` reasserted by the self-containment convention) — the shape is re-targeted (`sh:targetNode`) at only the *substantive* `persona:Person` individual(s) actually present in that graph, rather than the whole class. If the algorithm changes, update `EXAMPLE.md`'s Tier 2 subsection and `validate-tier2.py` to match.
+**Check 5 — Validation command completeness**: The `## Validation` section of `EXAMPLE.md` must document two tiers. Tier 1 uses five steps: (1) a `find example -name "*.databook.md"` loop using `databook extract` to extract turtle content and produce a merged turtle file of all graph data (excluding `under-development/`) — directory-agnostic, so it naturally concatenates every embedded graph within a cell-databook, which is exactly what Tier 1 wants; (1b) `python3 yaml-to-rdf.py` to synthesize `cell:` triples from each cell-databook's own `mia.` YAML frontmatter (including each `mia.member`/`mia.topic` entry's own embedded `claimant`/`subject`/`template` fields, not read from a separate graph-databook file) — there is no `cat:` synthesis at all, since a folder's tree position is purely a filesystem fact with no RDF individual to synthesize; the only surviving classification fact, `cell:category`, is read directly from each cell-databook's own explicit `mia.category` field, no reverse-matching involved. `databook extract` only pulls fenced Turtle blocks, which cell DataBooks don't carry, so without this step `cell:Cell` individuals and `cell:SCGraph`'s subject/claimant/template never reach the merged graph and `cell-shacl.ttl`'s `:SCGraphShape` never fires against real instance data; (2) a `riot` merge of both extracted files with all application ontology TTL files (including `other/pets.ttl`, `other/vehicles.ttl`, and `agent.ttl`) and the foundation ontologies listed explicitly from `project_files/` (including the three vendor subsets `dron-upper.ttl`, `ncbitaxon-subset.ttl`, `vbo-subset.ttl`, imported by `other/pets.ttl`; `wikidata-vehicle-makes-subset.ttl`/`wikidata-vehicle-models-subset.ttl`, imported by `other/vehicles.ttl`; and `prov-upper.ttl`, imported by `agent.ttl`; rather than `persona-templates.ttl` directly) — `cell-templates.ttl` is deliberately excluded from this merge (unlike Tier 2's per-file base merge, below): its template individuals are generic, reusable content bound to no real person, so they can't sensibly carry `cell-shacl.ttl`'s required `cell:member`/`cell:creator`/`cell:owner`, and are instead validated only via `cell-templates-shacl.ttl`/`other/pets-shacl.ttl`/`other/vehicles-shacl.ttl` in Tier 2; (3) a `grep -v owl:imports` on `persona-shacl.ttl`, `cell-shacl.ttl`, and `organization-shacl.ttl` to collect shapes (`shacl/jscontactcard-shacl.ttl`, `cell-templates-shacl.ttl`, `other/pets-shacl.ttl`, and `other/vehicles-shacl.ttl` are excluded here — they target document classes and would fire incorrectly on all individuals when applied to merged data; `pdn-identity-shacl.ttl` is also excluded — its ontology, `pdn-identity.ttl`, isn't part of the Step 2 merge, since nothing in the active ontology stack references an `identity:` term); (4) a `shacl validate` call. Tier 2 is fully automated by `validate-tier2.py` rather than a hand-enumerated command list: it processes each cell-databook independently (never merging two cells' data into one `shacl validate` call), and for each of a cell's embedded graphs reads that graph's own `mia.member[]`/`mia.topic[].template` YAML value as the sole indicator of which SHACL shape to validate it against — resolved via a fixed template-CURIE → shape table in the script, itself built from each `*-shacl.ttl` shape's own `sh:targetClass` with two named exceptions (`persona:JSContactCard` and `persona:DebitCard`, both label-only classes whose shape targets a different underlying class instead — see `shacl/jscontactcard-shacl.ttl` and `persona-shacl.ttl`). A graph with no `template:` value needs no Tier 2 validation at all and is skipped. Each resolved shape is additionally scoped so it can't fire on an individual outside the one graph being checked: every other shape co-located in the same physical shapes file is deactivated for that call, and — only for `JSContactCardPersonShape` (`sh:targetClass persona:Person`, the one class broad enough to risk an incidental same-type individual within a single isolated graph, e.g. a bare `:Self` reasserted by the self-containment convention) — the shape is re-targeted (`sh:targetNode`) at only the *substantive* `persona:Person` individual(s) actually present in that graph, rather than the whole class. If the algorithm changes, update `EXAMPLE.md`'s Tier 2 subsection and `validate-tier2.py` to match.
 
-**Check 6 — PNG file location**: The diagram PNG for every embedded graph (each `mia.graphs` entry across every cell-databook under `example/Cells/`) must be stored directly in `example/graphs/images/` (flat, no subfolders — not `images/example/`) — this location is unchanged by the graph/cell merge; only the graphs' own `.databook.md` files were removed, not this images directory. Files in `under-development/` are excluded. **Exempt**: the minimal `:Self`-stub `member` graph Check 21 requires on a purely organizational scaffold cell — one with no rendered diagram box at all, per Check 10h/Check 1's scope — needs no diagram PNG and no `EXAMPLE.md` row of any kind, not even `*(todo)*` (Check 7); it was never intended to be visualized, unlike every other embedded graph. `example/Cells/Cells(person).databook.md`'s `graph-38` and the other scaffold-cell stub graphs (e.g. `graph-52` on `Work`, `graph-61` on `Vehicles`) fall under this exemption.
+**Check 6 — PNG file location**: The diagram PNG for every embedded graph (each `mia.member`/`mia.topic` entry across every cell-databook under `example/Cells/`) must be stored directly in `example/graphs/images/` (flat, no subfolders — not `images/example/`) — this location is unchanged by the graph/cell merge; only the graphs' own `.databook.md` files were removed, not this images directory. Files in `under-development/` are excluded. **Exempt**: the minimal `:Self`-stub `member` graph Check 21 requires on a purely organizational scaffold cell — one with no rendered diagram box at all, per Check 10h/Check 1's scope — needs no diagram PNG and no `EXAMPLE.md` row of any kind, not even `*(todo)*` (Check 7); it was never intended to be visualized, unlike every other embedded graph. `example/Cells/Cells(person).databook.md`'s `graph-38` and the other scaffold-cell stub graphs (e.g. `graph-52` on `Work`, `graph-61` on `Vehicles`) fall under this exemption.
 
-**Check 7 — PNG filename convention**: Every diagram PNG in `example/graphs/images/` must use the same base filename as the graph's own `mia.graphs[].id` local-name (the string after the final `/`), with `.png` appended. For example, id local-name `graph-14` → `graph-14.png`. If the PNG does not yet exist, the `EXAMPLE.md` Diagram cell must be marked `*(todo)*` rather than left blank — except for a scaffold-cell stub graph covered by Check 6's exemption, which gets no `EXAMPLE.md` row at all, not even `*(todo)*`.
+**Check 7 — PNG filename convention**: Every diagram PNG in `example/graphs/images/` must use the same base filename as the graph's own `mia.member[]`/`mia.topic[].id` local-name (the string after the final `/`), with `.png` appended. For example, id local-name `graph-14` → `graph-14.png`. If the PNG does not yet exist, the `EXAMPLE.md` Diagram cell must be marked `*(todo)*` rather than left blank — except for a scaffold-cell stub graph covered by Check 6's exemption, which gets no `EXAMPLE.md` row at all, not even `*(todo)*`.
 
 **Check 8 — No broken image links in `README.md`/`EXAMPLE.md`/`APP-BEHAVIOR.md`**: Every PNG path referenced in `README.md`, `EXAMPLE.md`, or `APP-BEHAVIOR.md` (both `<img src="...">` tags and `[view](...)` table links) must resolve to an actual file on disk. Run:
 
@@ -322,7 +329,7 @@ print('Check 9: OK' if errors == 0 else f'Check 9: {errors} issue(s) found')
 
 If a malformed id is found, fix it to match the pattern. If a duplicate `<NN>` is found, assign the newer cell the next unused number — never renumber an existing cell's id, since (like a graph id) it may already be referenced by an external peer over the PDN. This rule has no exceptions for `example/Cells/`, fictional as its data is — treat every id there exactly as if a real external PDN peer might already hold a reference to it.
 
-Note: this check's `^id:\s*(\S+)` regex is anchored at true line-start with no leading whitespace, so it only ever matches a file's own top-level `id:` line — a nested, indented `mia.graphs[].id` value never matches this anchor and is intentionally out of scope here (a graph's `id` is not expected to relate to its owning cell file's name at all; see Check 2 for that). This imposes a requirement on any script that writes `mia.graphs`: never emit an unindented `id:` at column 0.
+Note: this check's `^id:\s*(\S+)` regex is anchored at true line-start with no leading whitespace, so it only ever matches a file's own top-level `id:` line — a nested, indented `mia.member[]`/`mia.topic[].id` value never matches this anchor and is intentionally out of scope here (a graph's `id` is not expected to relate to its owning cell file's name at all; see Check 2 for that). This imposes a requirement on any script that writes `mia.member`/`mia.topic`: never emit an unindented `id:` at column 0.
 
 **Check 10 — Example cell diagrams are authoritative**: The 12 cell diagrams in `example/images/` are the authoritative source of truth for the example cell tree. When any discrepancy is found between a diagram and the DataBook files, the diagram wins — update the DataBooks to match, not the other way around. Each diagram box corresponds to a cell in `example/Cells/` (a folder holding its one `cell-databook` directly inside it, box label = the cell's own folder name, mirrored in its cell-databook's `title:`). After any change to `example/Cells/` DataBooks or to the 12 diagrams, verify all of the following:
 
@@ -332,7 +339,7 @@ Note: this check's `^id:\s*(\S+)` regex is anchored at true line-start with no l
 
 - **10c — Solid graph circles match DataBook links**: Every solid (filled) graph circle attached to a cell box indicates a real graph link. The cell-databook co-located in that box's own folder must carry a corresponding `member` or `topic` value pointing to the graph DataBook IRI. A dashed (empty) circle indicates an unfilled slot — the cell DataBook must NOT have a link for that slot.
 
-- **10d — Numbered graph circles have matching embedded graphs**: Every numbered graph circle (e.g. `[10]`, `[17]`) shown in a diagram must correspond to a `mia.graphs` entry (equivalently, a `### Graph NN` body section) in some cell-databook under `example/Cells/` whose id contains that number (e.g. `(10)`, `(17)`).
+- **10d — Numbered graph circles have matching embedded graphs**: Every numbered graph circle (e.g. `[10]`, `[17]`) shown in a diagram must correspond to a `mia.member`/`mia.topic` entry (equivalently, a `### Graph NN` body section) in some cell-databook under `example/Cells/` whose id contains that number (e.g. `(10)`, `(17)`).
 
 - **10e — Child arrows match folder nesting**: Every downward child arrow from cell box A to cell box B in a diagram must correspond to B's folder being a direct filesystem subfolder of A's folder (i.e. B is a descendant cell of A) — child links are derived purely from folder nesting, not any `child:` YAML field. Conversely, every direct-subfolder relationship between two cells must be reflected by a visible child arrow in the diagram.
 
@@ -448,7 +455,7 @@ If a `TOO MANY CELLS` issue is found, move the extra file(s) out to their own ne
 
   Each cell box shows no icon of any kind — no folder icon and no separate "note", "attachment", or "chat" icon (see Check 12's `cell:note`/`cell:attachment`/`cell:chat` planned-property note, which concerns `cell.png` only, not this diagram) — just the filled box itself. Re-verify each box's circles/squares remain a valid illustration of the properties and cardinalities described in the Cell and Graph Ontology sections of `README.md` after any change to those properties.
 
-**Check 16 — IRI roots: `mee.foundation/ontologies` for foundational files, `www.example.org` for example data**: Every foundational ontology and SHACL shapes file — `persona.ttl`, `cell.ttl`, `category.ttl`, `cell-templates.ttl`, `pdn-identity.ttl`, `organization.ttl`, `agent.ttl`, `persona-templates.ttl`, their `*-shacl.ttl` companions (including `cell-templates-shacl.ttl` and `agent-shacl.ttl`), the per-template files in `shacl/`, and every `other/*.ttl` peer ontology (`other/pets.ttl`/`other/pets-shacl.ttl`, `other/vehicles.ttl`/`other/vehicles-shacl.ttl`, globbed the same way `shacl/*.ttl` already is) — must declare its `owl:Ontology` IRI under `http://mee.foundation/ontologies/`. There is no separate canonical category/cell DataBook tree to check — the canonical tree's IRI roots are covered by `category.ttl`/`cell-templates.ttl` themselves. Every DataBook under `example/Cells/` (excluding `under-development/`) represents Alice's own example instance data, so both its own `id:` and every `mia.graphs[].id` value it carries must be grounded under `http://www.example.org/` — `https://` is deliberately rejected here, not just accepted alongside it, since every identifier in the example tree (cell ids and graph ids alike) was standardized on the plain `http://` scheme for consistency; a stray `https://` is exactly the kind of drift this check exists to catch. Run:
+**Check 16 — IRI roots: `mee.foundation/ontologies` for foundational files, `www.example.org` for example data**: Every foundational ontology and SHACL shapes file — `persona.ttl`, `cell.ttl`, `category.ttl`, `cell-templates.ttl`, `pdn-identity.ttl`, `organization.ttl`, `agent.ttl`, `persona-templates.ttl`, their `*-shacl.ttl` companions (including `cell-templates-shacl.ttl` and `agent-shacl.ttl`), the per-template files in `shacl/`, and every `other/*.ttl` peer ontology (`other/pets.ttl`/`other/pets-shacl.ttl`, `other/vehicles.ttl`/`other/vehicles-shacl.ttl`, globbed the same way `shacl/*.ttl` already is) — must declare its `owl:Ontology` IRI under `http://mee.foundation/ontologies/`. There is no separate canonical category/cell DataBook tree to check — the canonical tree's IRI roots are covered by `category.ttl`/`cell-templates.ttl` themselves. Every DataBook under `example/Cells/` (excluding `under-development/`) represents Alice's own example instance data, so both its own `id:` and every `mia.member[]`/`mia.topic[].id` value it carries must be grounded under `http://www.example.org/` — `https://` is deliberately rejected here, not just accepted alongside it, since every identifier in the example tree (cell ids and graph ids alike) was standardized on the plain `http://` scheme for consistency; a stray `https://` is exactly the kind of drift this check exists to catch. Run:
 
 ```python
 import os, re, glob, yaml
@@ -492,7 +499,12 @@ def check_cell_tree_id_roots(pattern, expected_prefixes):
         if iri and not any(str(iri).startswith(p) for p in expected_prefixes):
             print(f'WRONG ID ROOT: {path} -> {iri}')
             errors += 1
-        for graph in (fm.get('mia', {}) or {}).get('graphs') or []:
+        mia = fm.get('mia', {}) or {}
+        entries = mia.get('member') or []
+        entries = entries if isinstance(entries, list) else [entries]
+        topic = mia.get('topic') or []
+        entries += topic if isinstance(topic, list) else [topic]
+        for graph in entries:
             tid = graph.get('id') if isinstance(graph, dict) else None
             if tid and not any(tid.startswith(p) for p in expected_prefixes):
                 print(f'WRONG GRAPH ID ROOT: {path} -> {tid}')
@@ -510,15 +522,10 @@ If a violation is found, rename the offending file's `owl:Ontology`/`id:` IRI to
 ```python
 import re, yaml, glob
 
-GRAPHS_BASE_RE = re.compile(r'^https?://www\.example\.org/mia/graphs/')
-
 def frontmatter(path):
     text = open(path, encoding='utf-8').read()
     m = re.match(r'^---\n(.*?)\n---', text, re.DOTALL)
     return yaml.safe_load(m.group(1)) if m else None
-
-def local_name(v):
-    return GRAPHS_BASE_RE.sub('', v)
 
 for f in glob.glob('example/Cells/**/*.databook.md', recursive=True):
     fm = frontmatter(f)
@@ -527,16 +534,14 @@ for f in glob.glob('example/Cells/**/*.databook.md', recursive=True):
     mia = fm.get('mia', {}) or {}
     if not mia.get('member'):
         continue
-    # mia.member/topic hold bare graph-id local names; mia.graphs[].id
-    # keeps the full IRI (it doubles as the graph's named-graph identity) — normalize
-    # both to the local name before looking up.
-    graph_subject = {local_name(t['id']): t.get('subject') for t in (mia.get('graphs') or []) if isinstance(t, dict)}
+    # mia.member/topic entries now carry their own subject directly —
+    # no separate mia.graphs list to look up.
     pt = mia.get('member') or []
     pt = pt if isinstance(pt, list) else [pt]
     ot = mia.get('topic') or []
     ot = ot if isinstance(ot, list) else [ot]
-    pt_subs = {graph_subject.get(local_name(t)) for t in pt}
-    ot_subs = {graph_subject.get(local_name(t)) for t in ot}
+    pt_subs = {t.get('subject') for t in pt}
+    ot_subs = {t.get('subject') for t in ot}
     derived = ot_subs if ot else pt_subs
     print(f'derived subject={sorted(s for s in derived if s)} {f}')
 print()
@@ -641,15 +646,10 @@ for path in sorted(glob.glob('example/Cells/**/*.databook.md', recursive=True)):
 ```python
 import re, yaml, glob
 
-GRAPHS_BASE_RE = re.compile(r'^https?://www\.example\.org/mia/graphs/')
-
 def frontmatter(path):
     text = open(path, encoding='utf-8').read()
     m = re.match(r'^---\n(.*?)\n---', text, re.DOTALL)
     return yaml.safe_load(m.group(1)) if m else None
-
-def local_name(v):
-    return GRAPHS_BASE_RE.sub('', v)
 
 violations = 0
 for f in glob.glob('example/Cells/**/*.databook.md', recursive=True):
@@ -661,10 +661,9 @@ for f in glob.glob('example/Cells/**/*.databook.md', recursive=True):
     mia = fm.get('mia', {}) or {}
     if not mia.get('member'):
         continue
-    graph_subject = {local_name(t['id']): t.get('subject') for t in (mia.get('graphs') or []) if isinstance(t, dict)}
     pt = mia.get('member') or []
     pt = pt if isinstance(pt, list) else [pt]
-    subs = [graph_subject.get(local_name(t)) for t in pt]
+    subs = [t.get('subject') for t in pt]
     if not any(s == ':Self' for s in subs):
         violations += 1
         print(f'VIOLATION member-subjects={subs} (no :Self) {f}')
@@ -703,15 +702,10 @@ for block in blocks:
 ```python
 import re, yaml, glob
 
-GRAPHS_BASE_RE = re.compile(r'^https?://www\.example\.org/mia/graphs/')
-
 def frontmatter(path):
     text = open(path, encoding='utf-8').read()
     m = re.match(r'^---\n(.*?)\n---', text, re.DOTALL)
     return yaml.safe_load(m.group(1)) if m else None
-
-def local_name(v):
-    return GRAPHS_BASE_RE.sub('', v)
 
 violations = 0
 for f in glob.glob('example/Cells/**/*.databook.md', recursive=True):
@@ -730,10 +724,9 @@ for f in glob.glob('example/Cells/**/*.databook.md', recursive=True):
         violations += 1
         print(f'VIOLATION {f}: creator {creator!r} not in owner {owner!r} (creator must be a subset of owner)')
 
-    graph_subject = {local_name(t['id']): t.get('subject') for t in (mia.get('graphs') or []) if isinstance(t, dict)}
     mt = mia.get('member') or []
     mt = mt if isinstance(mt, list) else [mt]
-    member_subs = {graph_subject.get(local_name(t)) for t in mt}
+    member_subs = {t.get('subject') for t in mt}
     bad_owners = [o for o in owner if o not in member_subs]
     if bad_owners:
         violations += 1
@@ -748,15 +741,10 @@ If a violation is found: for (a), add the missing creator value to `mia.owner`. 
 ```python
 import re, yaml, glob
 
-GRAPHS_BASE_RE = re.compile(r'^https?://www\.example\.org/mia/graphs/')
-
 def frontmatter(path):
     text = open(path, encoding='utf-8').read()
     m = re.match(r'^---\n(.*?)\n---', text, re.DOTALL)
     return yaml.safe_load(m.group(1)) if m else None
-
-def local_name(v):
-    return GRAPHS_BASE_RE.sub('', v)
 
 violations = 0
 for f in glob.glob('example/Cells/**/*.databook.md', recursive=True):
@@ -770,8 +758,7 @@ for f in glob.glob('example/Cells/**/*.databook.md', recursive=True):
     ot = ot if isinstance(ot, list) else [ot]
     if len(ot) < 2:
         continue
-    graph_subject = {local_name(t['id']): t.get('subject') for t in (mia.get('graphs') or []) if isinstance(t, dict)}
-    subs = {graph_subject.get(local_name(t)) for t in ot}
+    subs = {t.get('subject') for t in ot}
     if len(subs) > 1:
         violations += 1
         print(f'VIOLATION {f}: topic subjects {sorted(s for s in subs if s)} are not all equal')
@@ -785,15 +772,10 @@ If a violation is found: reconsider whether all of the offending `topic` graphs 
 ```python
 import re, yaml, glob
 
-GRAPHS_BASE_RE = re.compile(r'^https?://www\.example\.org/mia/graphs/')
-
 def frontmatter(path):
     text = open(path, encoding='utf-8').read()
     m = re.match(r'^---\n(.*?)\n---', text, re.DOTALL)
     return yaml.safe_load(m.group(1)) if m else None
-
-def local_name(v):
-    return GRAPHS_BASE_RE.sub('', v)
 
 violations = 0
 for f in glob.glob('example/Cells/**/*.databook.md', recursive=True):
@@ -807,12 +789,10 @@ for f in glob.glob('example/Cells/**/*.databook.md', recursive=True):
     ot = ot if isinstance(ot, list) else [ot]
     if not ot:
         continue
-    graph_claimant = {local_name(t['id']): t.get('claimant') for t in (mia.get('graphs') or []) if isinstance(t, dict)}
-    graph_subject = {local_name(t['id']): t.get('subject') for t in (mia.get('graphs') or []) if isinstance(t, dict)}
     mt = mia.get('member') or []
     mt = mt if isinstance(mt, list) else [mt]
-    member_subs = {graph_subject.get(local_name(t)) for t in mt}
-    topic_claimants = [graph_claimant.get(local_name(t)) for t in ot]
+    member_subs = {t.get('subject') for t in mt}
+    topic_claimants = [t.get('claimant') for t in ot]
     non_member = [c for c in topic_claimants if c not in member_subs]
     if non_member:
         violations += 1
@@ -828,11 +808,11 @@ print('All cells satisfy the topic-claimant invariants (member-only, distinct).'
 
 If a violation is found: for a `topic` claimed by a non-member, either add that claimant as a new `member` entry first, or reconsider whether the claim really belongs in this cell's `topic` at all. For a repeated claimant across two `topic` entries, merge the two graphs' content into one — a single member can only make one claim about the cell's topic, not two.
 
-**Check 26 — `cell:template`'s declared value must match the `rdf:type` actually asserted in the graph's own embedded Turtle body**: `cell:template` (`cell.ttl`) is a real `owl:AnnotationProperty` (domain `cell:Graph`, range `persona:PersonaTemplate`, cardinality 0..1 per `graph.png`), synthesized into RDF from each `mia.graphs[].template` YAML value by `yaml-to-rdf.py`. But SHACL validation of a templated graph never actually reads this synthesized triple — each per-template shape (e.g. `:PassportDocumentShape`) fires purely via its own `sh:targetClass`, matching whatever `rdf:type` is asserted directly in the graph's body (e.g. `:Alice_US_Passport rdf:type persona:PassportDocument`), completely independent of `template:`. So nothing else cross-checks that a graph's declared `template:` value actually names the same class asserted on an individual in its own body — a typo'd or stale `template:` value would go undetected, silently decoupled from what SHACL is actually validating. This is not itself an OWL/SHACL-expressible constraint (same reasoning as Checks 18/21/23/24/25 — it requires dereferencing the graph's own embedded Turtle content, not just its YAML frontmatter), so it's checked here instead. For every cell-databook under `example/Cells/` (excluding `under-development/`) with a `mia.graphs[].template` value, that same graph's own embedded Turtle body must assert `rdf:type` (directly, on some individual) to that same class. **Exempt**: `persona:JSContactCard` — per `persona-templates.ttl`'s own class-hierarchy doc comment, it's "a template label only," and its shape (`:JSContactCardShape`, `shacl/jscontactcard-shacl.ttl`) targets `persona:Person` directly (validating the graph's own `:Self`/subject individual in place, e.g. graph-10) rather than a separate reified document individual the way `BirthCertificateDocument`/`DriversLicenseDocument`/`PassportDocument`/`MedicalAppointmentRecord` all do — so no `rdf:type persona:JSContactCard` triple is ever expected to exist anywhere. Run:
+**Check 26 — `cell:template`'s declared value must match the `rdf:type` actually asserted in the graph's own embedded Turtle body**: `cell:template` (`cell.ttl`) is a real `owl:AnnotationProperty` (domain `cell:Graph`, range `persona:PersonaTemplate`, cardinality 0..1 per `graph.png`), synthesized into RDF from each `mia.member[]`/`mia.topic[].template` YAML value by `yaml-to-rdf.py`. But SHACL validation of a templated graph never actually reads this synthesized triple — each per-template shape (e.g. `:PassportDocumentShape`) fires purely via its own `sh:targetClass`, matching whatever `rdf:type` is asserted directly in the graph's body (e.g. `:Alice_US_Passport rdf:type persona:PassportDocument`), completely independent of `template:`. So nothing else cross-checks that a graph's declared `template:` value actually names the same class asserted on an individual in its own body — a typo'd or stale `template:` value would go undetected, silently decoupled from what SHACL is actually validating. This is not itself an OWL/SHACL-expressible constraint (same reasoning as Checks 18/21/23/24/25 — it requires dereferencing the graph's own embedded Turtle content, not just its YAML frontmatter), so it's checked here instead. For every cell-databook under `example/Cells/` (excluding `under-development/`) with a `mia.member[]`/`mia.topic[].template` value, that same graph's own embedded Turtle body must assert `rdf:type` (directly, on some individual) to that same class. **Exempt**: `persona:JSContactCard` — per `persona-templates.ttl`'s own class-hierarchy doc comment, it's "a template label only," and its shape (`:JSContactCardShape`, `shacl/jscontactcard-shacl.ttl`) targets `persona:Person` directly (validating the graph's own `:Self`/subject individual in place, e.g. graph-10) rather than a separate reified document individual the way `BirthCertificateDocument`/`DriversLicenseDocument`/`PassportDocument`/`MedicalAppointmentRecord` all do — so no `rdf:type persona:JSContactCard` triple is ever expected to exist anywhere. Run:
 
 ```python
 import re, yaml, glob
-from databook_graphs import split_frontmatter, extract_graph_block
+from databook_graphs import as_list, split_frontmatter, extract_graph_block
 
 def load(path):
     text = open(path, encoding='utf-8').read()
@@ -849,7 +829,8 @@ for f in glob.glob('example/Cells/**/*.databook.md', recursive=True):
     fm, body = load(f)
     if not fm:
         continue
-    for g in ((fm.get('mia') or {}).get('graphs') or []):
+    mia = fm.get('mia') or {}
+    for g in as_list(mia.get('member')) + as_list(mia.get('topic')):
         if not isinstance(g, dict) or not g.get('template'):
             continue
         raw, gid = g['template'], g['id']
@@ -930,11 +911,6 @@ for prefix, paths in SHAPES_FILES.items():
 def resolve_targets(shape_curies):
     return {target_class[c] for c in shape_curies if c in target_class}
 
-GRAPHS_BASE_RE = re.compile(r'^https?://www\.example\.org/mia/graphs/')
-
-def local_name(v):
-    return GRAPHS_BASE_RE.sub('', v)
-
 def frontmatter(path):
     text = open(path, encoding='utf-8').read()
     m = re.match(r'^---\n(.*?)\n---', text, re.DOTALL)
@@ -954,14 +930,14 @@ for path in sorted(glob.glob('example/Cells/**/*.databook.md', recursive=True)):
     shapes = category_shapes.get(category.split(':', 1)[1])
     if not shapes:
         continue  # no TemplateCell for this category — nothing to check
-    graph_template = {local_name(g['id']): g.get('template') for g in (mia.get('graphs') or []) if isinstance(g, dict)}
 
     for field in ('member', 'topic'):
-        ids = mia.get(field) or []
-        ids = ids if isinstance(ids, list) else [ids]
+        entries = mia.get(field) or []
+        entries = entries if isinstance(entries, list) else [entries]
         allowed = resolve_targets(shapes[field])
-        for gid in ids:
-            raw = graph_template.get(local_name(gid))
+        for entry in entries:
+            gid = entry.get('id')
+            raw = entry.get('template')
             templates = raw if isinstance(raw, list) else ([raw] if raw else [])
             for template in templates:
                 if template in ('persona:JSContactCard', 'persona:DebitCard'):
@@ -1023,11 +999,6 @@ SHAPE_LABEL_OVERRIDES = {
 def shape_label(curie):
     return SHAPE_LABEL_OVERRIDES.get(curie, target_class.get(curie))
 
-GRAPHS_BASE_RE = re.compile(r'^https?://www\.example\.org/mia/graphs/')
-
-def local_name(v):
-    return GRAPHS_BASE_RE.sub('', v)
-
 def frontmatter(path):
     text = open(path, encoding='utf-8').read()
     m = re.match(r'^---\n(.*?)\n---', text, re.DOTALL)
@@ -1051,11 +1022,11 @@ for path in sorted(glob.glob('example/Cells/**/*.databook.md', recursive=True)):
     required.discard(None)
     if not required:
         continue
-    graph_template = {local_name(g['id']): g.get('template') for g in (mia.get('graphs') or []) if isinstance(g, dict)}
-    ids = mia.get('member') or []
-    ids = ids if isinstance(ids, list) else [ids]
-    for gid in ids:
-        raw = graph_template.get(local_name(gid))
+    entries = mia.get('member') or []
+    entries = entries if isinstance(entries, list) else [entries]
+    for entry in entries:
+        gid = entry.get('id')
+        raw = entry.get('template')
         have = set(raw if isinstance(raw, list) else ([raw] if raw else []))
         missing = required - have
         if missing:
@@ -1064,7 +1035,7 @@ for path in sorted(glob.glob('example/Cells/**/*.databook.md', recursive=True)):
 print("All c:member graphs carry every c:template value their category's TemplateCell requires." if violations == 0 else f'{violations} violation(s) found.')
 ```
 
-If a violation is found: add the missing `template:` value(s) to the graph's `mia.graphs[]` entry, and verify (per Check 26) that the graph's own individual — usually its `:Self` claim, per the required minimal `GivenName` stub — actually satisfies the shape's constraints; if it doesn't yet, add the missing content rather than just the label.
+If a violation is found: add the missing `template:` value(s) to the graph's own `mia.member[]`/`mia.topic[]` entry, and verify (per Check 26) that the graph's own individual — usually its `:Self` claim, per the required minimal `GivenName` stub — actually satisfies the shape's constraints; if it doesn't yet, add the missing content rather than just the label.
 
 **Check 29 — every category concept has a matching `cell:TemplateCell`**: Every `skos:Concept` in `category.ttl`'s `cat:CategoryScheme`, except the two SKOS top concepts `cat:Person`/`cat:Organization` themselves (no real leaf cell is ever instantiated as bare "Person" or "Organization" — every example cell uses a narrower concept), must have a matching `cell:TemplateCell` in `cell-templates.ttl` carrying that same `cell:category` value. This is the reverse direction of Check 27/28's own reverse lookup (`?tc cell:category cat:X`): those checks skip a category outright when it has no `TemplateCell` at all, so nothing previously caught a category that should have one but doesn't. This is not itself an OWL/SHACL-expressible constraint (same reasoning as Checks 18/21/23/24/25/26/27/28 — it requires cross-referencing every concept in `category.ttl` against every individual in `cell-templates.ttl`, not just parsing one file's own YAML or Turtle in isolation), so it's checked here instead. Run:
 
@@ -1135,6 +1106,85 @@ print("Every TemplateCell carries cell:memberGraphShape pshapes:JSContactCardPer
 ```
 
 If a violation is found: add `cell:memberGraphShape pshapes:JSContactCardPersonShape` to the offending `TemplateCell` individual — every `TemplateCell`, with no exception, carries it.
+
+**Check 31 — a cell has a `topic` value iff its category's `TemplateCell` has `cell:isTopicCell true`**: `cell:isTopicCell` (`cell-templates.ttl`) exists precisely to say what Lazy Instantiation's clone of a category should look like — `true` means a real cell of that category is expected to carry `cell:topic` content (and be typed `cell:TopicCell`), `false` means it isn't. So for a real cell whose category has a matching `TemplateCell`, `topic` presence and `isTopicCell` should always agree, with no exception — a mismatch means either the cell has drifted from what its category's template declares, or the template itself is stale relative to how the category is actually being used in practice. This is not itself an OWL/SHACL-expressible constraint (same reasoning as Checks 18/21/23/24/25/26/27/28/29/30 — it requires cross-referencing each cell's own `category` against `cell-templates.ttl`'s `isTopicCell` value, not just parsing one file's own YAML or Turtle in isolation), so it's checked here instead. Run:
+
+```python
+import re, yaml, glob
+
+def read(path):
+    return open(path, encoding='utf-8').read()
+
+# category local name -> isTopicCell boolean, parsed from cell-templates.ttl
+category_is_topic_cell = {}
+for block in re.split(r'\n\n(?=ctpl:)', read('cell-templates.ttl')):
+    if 'rdf:type cell:Cell, cell:TemplateCell' not in block:
+        continue
+    # [^\s;]+ (not just \w+) — see Check 27's identical fix for why: \w+
+    # would collide cat:BankingPayments with cat:BankingPayments\(org\).
+    m_cat = re.search(r'cell:category\s+cat:([^\s;]+)', block)
+    if not m_cat:
+        continue  # e.g. ctpl:UserDefinedTemplateCell, which carries no cell:category
+    cat_local = m_cat.group(1).replace('\\(', '(').replace('\\)', ')')
+    m_topic = re.search(r'cell:isTopicCell\s+(true|false)\s*\.', block)
+    category_is_topic_cell[cat_local] = (m_topic.group(1) == 'true') if m_topic else None
+
+def frontmatter(path):
+    text = open(path, encoding='utf-8').read()
+    m = re.match(r'^---\n(.*?)\n---', text, re.DOTALL)
+    return yaml.safe_load(m.group(1)) if m else None
+
+violations = 0
+for path in sorted(glob.glob('example/Cells/**/*.databook.md', recursive=True)):
+    if 'under-development' in path.split('/'):
+        continue
+    fm = frontmatter(path)
+    if not fm:
+        continue
+    mia = fm.get('mia', {}) or {}
+    category = mia.get('category')
+    cat_local = category.split(':', 1)[1] if category else None
+    if cat_local is None:
+        continue  # UserDefined/Custom cell — no TemplateCell to check against
+    expected = category_is_topic_cell.get(cat_local)
+    if expected is None:
+        continue  # no matching TemplateCell (Check 29 already flags this) — nothing to compare
+    has_topic = bool(mia.get('topic'))
+    if has_topic == expected:
+        continue
+    violations += 1
+    print(f"VIOLATION {path}: category cat:{cat_local} has isTopicCell={expected} but cell {'has' if has_topic else 'has no'} topic value")
+print("Every cell's topic presence matches its category's TemplateCell isTopicCell value." if violations == 0 else f'{violations} violation(s) found.')
+```
+
+If a violation is found, decide which side is actually wrong rather than mechanically flipping one: a cell carrying a `topic` value the template doesn't expect may be legitimate real-world content the template should be updated to reflect (flip `isTopicCell` to `true` and add a `cell:topicGraphShape`, per Check 32) — or it may be a one-off exception, in which case the cell's own usage should change instead (see `cat:Employee`'s resolution: reverted to `isTopicCell false`, with Paula Walker's colleague reference moved from a bare `topic` into a proper second `member` entry). Conversely, a cell missing a `topic` value its template expects needs that content added — this includes a purely organizational scaffold cell that reuses a templated category from a nested descendant cell (e.g. `Companies`/`Google`/`ATT` all sharing `cat:Companies`), which this check does **not** exempt: every real cell of that category, scaffold or leaf, must carry its own `topic` — though it may be empty (see Check 32).
+
+**Check 32 — every `cell:TemplateCell` with `cell:isTopicCell true` carries at least one `cell:topicGraphShape` value**: `cell:isTopicCell true` promises that a real cell of this category is expected to carry `cell:topic` content (Check 31) — but without a `cell:topicGraphShape` telling Tier 2 what to validate that content against, this promise is unenforceable and the template is incomplete. This is the mirror image of Check 30 (every `TemplateCell` carries `cell:memberGraphShape`, unconditionally) — this one instead conditions on `isTopicCell`, since `cell:topicGraphShape` itself stays legitimately absent whenever `isTopicCell` is `false` (the ordinary, non-topic case). A `topicGraphShape` here doesn't have to govern a real reified document type — see `cat:HealthWellness`/`cat:PrimaryCarePhysician`/`cat:PetsCareAndFeeding`'s own shapes, each formalizing a real but modest content pattern (physical characteristics; a physician's specialty; a pet's identifying properties, all made optional) with no `template:` value ever asserted on the actual topic graph itself — the shape's existence satisfies this check regardless of whether any real graph's `template:` field currently points at it. This is not itself an OWL/SHACL-expressible constraint (same reasoning as Checks 18/21/23/24/25/26/27/28/29/30/31 — it requires reading two different properties off the same `cell-templates.ttl` individual and comparing them, not a single path's cardinality), so it's checked here instead. Run:
+
+```python
+import re
+
+def read(path):
+    return open(path, encoding='utf-8').read()
+
+violations = 0
+for block in re.split(r'\n\n(?=ctpl:)', read('cell-templates.ttl')):
+    if 'rdf:type cell:Cell, cell:TemplateCell' not in block:
+        continue
+    m_name = re.search(r'^(ctpl:\w+)', block)
+    name = m_name.group(1) if m_name else '(unknown)'
+    m_topic_cell = re.search(r'cell:isTopicCell\s+(true|false)\s*\.', block)
+    is_topic_cell = m_topic_cell and m_topic_cell.group(1) == 'true'
+    if not is_topic_cell:
+        continue
+    has_shape = re.search(r'^\s*cell:topicGraphShape\s+', block, re.MULTILINE)
+    if not has_shape:
+        violations += 1
+        print(f"VIOLATION: {name} has cell:isTopicCell true but no cell:topicGraphShape value")
+print("Every isTopicCell:true TemplateCell carries a topicGraphShape." if violations == 0 else f'{violations} violation(s) found.')
+```
+
+If a violation is found: either add a `cell:topicGraphShape` value to the offending `TemplateCell` (a new or existing SHACL shape describing its real topic content, even a modest one with every property optional), or flip `cell:isTopicCell` back to `false` if the category shouldn't be a `TopicCell` at all — never leave the mismatch standing.
 
 ## Keeping Files in Sync
 

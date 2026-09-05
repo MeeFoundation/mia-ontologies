@@ -12,10 +12,10 @@
 @base <http://mee.foundation/ontologies/cell-templates> .
 
 <http://mee.foundation/ontologies/cell-templates> rdf:type owl:Ontology ;
-    owl:versionIRI <http://mee.foundation/ontologies/cell-templates/2.12.0> ;
-    dc:date "2026-09-04"^^xsd:date ;
+    owl:versionIRI <http://mee.foundation/ontologies/cell-templates/2.15.0> ;
+    dc:date "2026-09-05"^^xsd:date ;
     owl:imports <http://mee.foundation/ontologies/cell> ;
-    owl:versionInfo "Version 2.12.0 - added a TemplateCell for every remaining category.ttl concept (85 new, all cell:memberGraphShape pshapes:JSContactCardPersonShape only, cell:isTopicCell false, no cell:topicGraphShape), except cat:Person/cat:Organization themselves — every category now has a TemplateCell."@en ;
+    owl:versionInfo "Version 2.15.0 - new rule: isTopicCell true requires a cell:topicGraphShape (Check 32). Reverted cat:Employee to isTopicCell false (its bare third-party-reference topic didn't warrant one); added cell:topicGraphShape to cat:HealthWellness/cat:PrimaryCarePhysician/cat:PetsCareAndFeeding instead of leaving them shapeless."@en ;
     rdfs:label "Cell Templates"@en ;
     rdfs:comment """Class-level cell:Cell templates for category concepts (category.ttl's cat:CategoryScheme). Each individual here is what the app clones into a new cell when a folder representing its own cell:category concept is first instantiated into a user's tree (Lazy Instantiation) — finding the template for a given category is a reverse lookup (?tc cell:category cat:X), since category.ttl carries no forward pointer of its own. Each is typed solely cell:TemplateCell."""@en .
 
@@ -549,7 +549,8 @@ ctpl:HealthWellnessTemplateCell rdf:type cell:Cell, cell:TemplateCell ;
     rdfs:label "Health & Wellness Template Cell"@en ;
     cell:category cat:HealthWellness ;
     cell:memberGraphShape pshapes:JSContactCardPersonShape ;
-    cell:isTopicCell false .
+    cell:topicGraphShape pshapes:HealthWellnessShape ;
+    cell:isTopicCell true .
 
 #################################################################
 #  cat:Information
@@ -849,7 +850,8 @@ ctpl:PetsCareAndFeedingTemplateCell rdf:type cell:Cell, cell:TemplateCell ;
     rdfs:label "Care & Feeding Template Cell"@en ;
     cell:category cat:PetsCareAndFeeding ;
     cell:memberGraphShape pshapes:JSContactCardPersonShape ;
-    cell:isTopicCell false .
+    cell:topicGraphShape petshapes:PetsCareAndFeedingShape ;
+    cell:isTopicCell true .
 
 #################################################################
 #  cat:PetsDevices
@@ -919,7 +921,8 @@ ctpl:PrimaryCarePhysicianTemplateCell rdf:type cell:Cell, cell:TemplateCell ;
     rdfs:label "Primary Care Physician Template Cell"@en ;
     cell:category cat:PrimaryCarePhysician ;
     cell:memberGraphShape pshapes:JSContactCardPersonShape ;
-    cell:isTopicCell false .
+    cell:topicGraphShape pshapes:PrimaryCarePhysicianShape ;
+    cell:isTopicCell true .
 
 #################################################################
 #  cat:Projects

@@ -13,17 +13,16 @@ mia:
   category: "cat:Companies"
   creator: ":Self"
   owner: ":Self"
-  member: "graph-11"
-  topic: "graph-74"
-  graphs:
-    - id: "http://www.example.org/mia/graphs/graph-11"
-      claimant: ":Self"
-      subject: ":Self"
-      template: "persona:JSContactCard"
-    - id: "http://www.example.org/mia/graphs/graph-74"
-      claimant: ":Self"
-      subject: ":Alice_ATT_Account"
-      template: "persona:ServiceAccount"
+  member:
+    id: "http://www.example.org/mia/graphs/graph-11"
+    claimant: ":Self"
+    subject: ":Self"
+    template: "persona:JSContactCard"
+  topic:
+    id: "http://www.example.org/mia/graphs/graph-74"
+    claimant: ":Self"
+    subject: ":Alice_ATT_Account"
+    template: "persona:ServiceAccount"
 ---
 
 ## Graphs

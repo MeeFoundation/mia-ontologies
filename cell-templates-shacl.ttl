@@ -584,6 +584,33 @@
     ) .
 
 
+#################################################################
+#  Primary Care Physician
+#################################################################
+
+<http://mee.foundation/ontologies/persona/shapes/primarycarephysician> rdf:type owl:Ontology ;
+    owl:imports <http://mee.foundation/ontologies/persona> ;
+    owl:versionIRI <http://mee.foundation/ontologies/persona/shapes/primarycarephysician/1.0.0> ;
+    dc:date "2026-09-05"^^xsd:date ;
+    rdfs:label "Primary Care Physician Template SHACL Shapes"@en ;
+    rdfs:comment """SHACL shapes for validating cat:PrimaryCarePhysician's own cell:topicGraphShape.
+                    Apply in addition to persona-shacl.ttl when validating a primary-care-physician
+                    topic graph. Targets persona:Person directly — a physician has no reified
+                    document individual of their own — with one optional property,
+                    persona:specialty, matching Dr. Jane Starostina's own graph (graph-25)."""@en .
+
+:PrimaryCarePhysicianShape
+    a sh:NodeShape ;
+    sh:targetClass persona:Person ;
+    sh:message "Primary Care Physician topic: an optional medical specialty."@en ;
+    sh:property [
+        sh:path persona:specialty ;
+        sh:maxCount 1 ;
+        sh:datatype xsd:string ;
+        sh:message "A Person may record at most one specialty, as a string."@en
+    ] .
+
+
 # Pets shapes (cat:Pets, cat:PetsMedical) live in other/pets-shacl.ttl, not here — pets:Pet and
 # pets:PetMedicationRecord/pets:Medication are declared in the peer other/pets.ttl ontology, not
 # persona-templates.ttl, so their shapes stay paired with that file instead of this one.

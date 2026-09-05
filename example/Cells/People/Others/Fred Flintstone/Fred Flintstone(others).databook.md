@@ -11,16 +11,13 @@ mia:
   creator: ":Self"
   owner: ":Self"
   member:
-    - "graph-31"
-    - "graph-29"
-  graphs:
-    - id: "http://www.example.org/mia/graphs/graph-29"
-      claimant: ":Self"
-      subject: ":Self"
-      template: "persona:JSContactCard"
     - id: "http://www.example.org/mia/graphs/graph-31"
       claimant: ":Fred_Flintstone"
       subject: ":Fred_Flintstone"
+      template: "persona:JSContactCard"
+    - id: "http://www.example.org/mia/graphs/graph-29"
+      claimant: ":Self"
+      subject: ":Self"
       template: "persona:JSContactCard"
 ---
 

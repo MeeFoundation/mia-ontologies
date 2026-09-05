@@ -10,17 +10,16 @@ mia:
   category: "cat:Pets"
   creator: ":Self"
   owner: ":Self"
-  member: "graph-36"
-  topic: "graph-37"
-  graphs:
-    - id: "http://www.example.org/mia/graphs/graph-36"
-      claimant: ":Self"
-      subject: ":Self"
-      template: "persona:JSContactCard"
-    - id: "http://www.example.org/mia/graphs/graph-37"
-      claimant: ":Self"
-      subject: ":Ginger"
-      template: "pets:Pet"
+  member:
+    id: "http://www.example.org/mia/graphs/graph-36"
+    claimant: ":Self"
+    subject: ":Self"
+    template: "persona:JSContactCard"
+  topic:
+    id: "http://www.example.org/mia/graphs/graph-37"
+    claimant: ":Self"
+    subject: ":Ginger"
+    template: "pets:Pet"
 ---
 
 ## Graphs

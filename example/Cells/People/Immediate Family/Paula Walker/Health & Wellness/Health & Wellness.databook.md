@@ -10,16 +10,15 @@ mia:
   category: "cat:HealthWellness"
   creator: ":Self"
   owner: ":Self"
-  member: "graph-35"
-  topic: "graph-17"
-  graphs:
-    - id: "http://www.example.org/mia/graphs/graph-35"
-      claimant: ":Self"
-      subject: ":Self"
-      template: "persona:JSContactCard"
-    - id: "http://www.example.org/mia/graphs/graph-17"
-      claimant: ":Self"
-      subject: ":Paula_Walker"
+  member:
+    id: "http://www.example.org/mia/graphs/graph-35"
+    claimant: ":Self"
+    subject: ":Self"
+    template: "persona:JSContactCard"
+  topic:
+    id: "http://www.example.org/mia/graphs/graph-17"
+    claimant: ":Self"
+    subject: ":Paula_Walker"
 ---
 
 ## Graphs

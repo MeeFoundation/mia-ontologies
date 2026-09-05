@@ -2,23 +2,28 @@
 id: http://www.example.org/mia/cells/cell-46
 title: "Trips"
 type: cell-databook
-version: 1.0.0
+version: 1.1.0
 created: 2026-08-30
 description: >
   Cell DataBook for folder "Trips" (cell:category: cat:Trips), nested under "Travel". It is a
   one-member cell with one member entry about :Self — a minimal stub, since "Trips" is a purely
   organizational category node with no content or relationship of its own beyond Alice's required
-  membership. Nested inside it is the "Kyoto Trip 2027" cell for a specific trip.
+  membership. Nested inside it is the "Kyoto Trip 2027" cell for a specific trip. Also carries an
+  empty topic graph, required now that cat:Trips's own TemplateCell is isTopicCell: true (Check 31)
+  — the real topic content lives in this category's own leaf cell (Kyoto Trip 2027) instead.
 mia:
   category: "cat:Trips"
   creator: ":Self"
   owner: ":Self"
-  member: "graph-65"
-  graphs:
-    - id: "http://www.example.org/mia/graphs/graph-65"
-      claimant: ":Self"
-      subject: ":Self"
-      template: "persona:JSContactCard"
+  member:
+    id: "http://www.example.org/mia/graphs/graph-65"
+    claimant: ":Self"
+    subject: ":Self"
+    template: "persona:JSContactCard"
+  topic:
+    id: "http://www.example.org/mia/graphs/graph-90"
+    claimant: ":Self"
+    subject: ":Self"
 ---
 
 ## Graphs
@@ -48,4 +53,18 @@ This graph is the cell's one required `member` entry — a cell with a single `m
         rdf:type cco:ent00000002 ;
         <https://w3id.org/cco-domains/cco/ont00001765> "Alice"
     ] .
+```
+
+<a id="graph-90"></a>
+### Graph 90
+
+#### Overview
+
+This graph is the cell's required `topic` — required now that `cat:Trips`'s own `TemplateCell` is `isTopicCell: true` (Check 31), even though "Trips" is a purely organizational scaffold cell with no topic content of its own (the real content lives in this category's own leaf cell, Kyoto Trip 2027, instead). Deliberately empty — no triples at all, per Check 32's own allowance. Alice is both the claimant and the subject.
+
+#### Graph
+
+```turtle
+<!-- databook:id: alice-trips-topic-graph -->
+<!-- databook:graph: http://www.example.org/mia/graphs/graph-90#graph -->
 ```

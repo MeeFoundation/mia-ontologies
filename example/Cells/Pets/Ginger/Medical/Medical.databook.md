@@ -11,10 +11,6 @@ mia:
   creator: ":Self"
   owner: ":Self"
   member:
-    - "graph-33"
-    - "graph-57"
-  topic: "graph-32"
-  graphs:
     - id: "http://www.example.org/mia/graphs/graph-33"
       claimant: ":Self"
       subject: ":Self"
@@ -23,10 +19,11 @@ mia:
       claimant: ":Paula_Walker"
       subject: ":Paula_Walker"
       template: "persona:JSContactCard"
-    - id: "http://www.example.org/mia/graphs/graph-32"
-      claimant: ":Self"
-      subject: ":Ginger"
-      template: "pets:PetMedicationRecord"
+  topic:
+    id: "http://www.example.org/mia/graphs/graph-32"
+    claimant: ":Self"
+    subject: ":Ginger"
+    template: "pets:PetMedicationRecord"
 ---
 
 ## Graphs

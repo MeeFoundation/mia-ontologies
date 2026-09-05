@@ -15,12 +15,6 @@ mia:
   creator: ":Self"
   owner: ":Self"
   member:
-    - "graph-27"
-    - "graph-77"
-  topic:
-    - "graph-75"
-    - "graph-76"
-  graphs:
     - id: "http://www.example.org/mia/graphs/graph-27"
       claimant: ":Self"
       subject: ":Citibank"
@@ -29,6 +23,7 @@ mia:
       claimant: ":Self"
       subject: ":Self"
       template: "persona:JSContactCard"
+  topic:
     - id: "http://www.example.org/mia/graphs/graph-75"
       claimant: ":Self"
       subject: ":Self"

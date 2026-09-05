@@ -6,23 +6,22 @@ draw.py and extract-graph.py.
 
 Since graph-databooks were merged into their owning cell-databooks, a cell
 file's body may contain several ```turtle fences — one per embedded graph
-(see the `mia.graphs` list in that cell's frontmatter). Each fence still
-carries its own `<!-- databook:graph: {graph_id}#graph -->` marker, computed
-from the graph's own `id` per the unchanged `{id}#graph` named-graph
-convention (CLAUDE.md's "DataBook IRI convention") — so isolating one
-graph's fence only requires knowing that graph's `id`, no new marker scheme.
+(each `mia.member`/`mia.topic` entry in that cell's frontmatter is one such
+graph's own metadata dict). Each fence still carries its own
+`<!-- databook:graph: {graph_id}#graph -->` marker, computed from the
+graph's own `id` per the unchanged `{id}#graph` named-graph convention
+(CLAUDE.md's "DataBook IRI convention") — so isolating one graph's fence
+only requires knowing that graph's `id`, no new marker scheme.
 
 Also carries `resolve()`/`as_list()` — shared by `yaml-to-rdf.py` and
 `validate-tier2.py`, both of which need to turn a `mia.*` YAML value (a
-CURIE, a bare `:X` local name, or a bare `graph-<NN>` local name) into the
-same full IRI.
+CURIE or a bare `:X` local name) into the same full IRI.
 """
 import re
 
 FRONTMATTER_RE = re.compile(r"^(---\n)(.*?\n)(---\n?)(.*)$", re.DOTALL)
 
 MIA_NS = "http://www.example.org/mia#"
-GRAPHS_BASE = "http://www.example.org/mia/graphs/"
 
 PREFIXES = {
     "cat": "http://mee.foundation/ontologies/category#",
@@ -32,29 +31,16 @@ PREFIXES = {
     "vehicles": "http://mee.foundation/ontologies/vehicles#",
 }
 
-GRAPH_LOCAL_RE = re.compile(r"^graph-\d+$")
-
 
 def resolve(val):
-    """Resolve a YAML-string value (curie, bare graph local name, or bare
-    MIA local name) to a full IRI.
-
-    mia.member/topic entries are written as bare graph
-    id local names (e.g. "graph-22") rather than the full
-    http://www.example.org/mia/graphs/... IRI — the base is constant across
-    every graph id in the dataset (mia.graphs[].id and the #graph names still
-    spell it out in full, since those double as the graph's actual named-graph
-    identity), so repeating it on every member/topic list entry is
-    pure baggage. A graph id local name always matches "graph-<NN>", which no
-    other resolve()-able value (":Self", "cat:Affiliations", ...) ever does,
-    so that's what distinguishes the two bare forms below.
-    """
+    """Resolve a YAML-string value (curie or bare MIA local name) to a full
+    IRI. A `mia.member`/`mia.topic` entry's own `id` is already a full IRI
+    (it doubles as the graph's actual named-graph identity), so it's used
+    directly rather than passed through here."""
     if val.startswith("http://") or val.startswith("https://"):
         return val
     if val.startswith(":"):
         return MIA_NS + val[1:]
-    if GRAPH_LOCAL_RE.match(val):
-        return GRAPHS_BASE + val
     if ":" in val:
         prefix, local = val.split(":", 1)
         if prefix in PREFIXES:
@@ -106,9 +92,11 @@ def extract_graph_block(body_text, target_graph):
     return None
 
 
-def find_graph_entry(graphs, graph_arg):
-    """Match graph_arg against a mia.graphs list's id or id-local-name."""
-    for g in graphs or []:
+def find_graph_entry(entries, graph_arg):
+    """Match graph_arg (an id or id-local-name) against an iterable of
+    mia.member/mia.topic entry dicts — callers pass in the concatenation of
+    both fields, since either can hold the graph being looked for."""
+    for g in entries or []:
         if not isinstance(g, dict):
             continue
         gid = g.get("id", "")

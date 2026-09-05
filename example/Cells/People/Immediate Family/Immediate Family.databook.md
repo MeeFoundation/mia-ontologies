@@ -15,12 +15,11 @@ mia:
   category: "cat:ImmediateFamily"
   creator: ":Self"
   owner: ":Self"
-  member: "graph-48"
-  graphs:
-    - id: "http://www.example.org/mia/graphs/graph-48"
-      claimant: ":Self"
-      subject: ":Self"
-      template: "persona:JSContactCard"
+  member:
+    id: "http://www.example.org/mia/graphs/graph-48"
+    claimant: ":Self"
+    subject: ":Self"
+    template: "persona:JSContactCard"
 ---
 
 ## Graphs
