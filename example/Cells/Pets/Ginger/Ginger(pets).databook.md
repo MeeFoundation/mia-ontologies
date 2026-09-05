@@ -14,7 +14,7 @@ mia:
     id: "http://www.example.org/mia/graphs/graph-36"
     claimant: ":Self"
     subject: ":Self"
-    template: "pshapes:JSContactCardPersonShape"
+    template: "pshapes:ContactInfoShape"
   topic:
     id: "http://www.example.org/mia/graphs/graph-37"
     claimant: ":Self"
@@ -29,7 +29,7 @@ mia:
 
 #### Overview
 
-This graph is the cell's one required `member` entry — a cell with a single `member` entry in the user's own category-cell tree always has `:Self` as that member (see Check 21), regardless of what the cell's `subject` is — here, Ginger herself. Alice is both the claimant and the subject. It carries her given name, plus a minimal organization name and email, so `:Self` satisfies the `JSContactCardPersonShape` every templated cell's `member` content is now expected to conform to (`cell:memberGraphShape`) — no longer deliberately empty now that this requirement applies.
+This graph is the cell's one required `member` entry — a cell with a single `member` entry in the user's own category-cell tree always has `:Self` as that member (see Check 21), regardless of what the cell's `subject` is — here, Ginger herself. Alice is both the claimant and the subject. It carries her given name, plus a minimal organization name and email, so `:Self` satisfies the `ContactInfoShape` every templated cell's `member` content is now expected to conform to (`cell:memberGraphShape`) — no longer deliberately empty now that this requirement applies.
 
 #### Graph
 
@@ -45,15 +45,15 @@ This graph is the cell's one required `member` entry — a cell with a single `m
 :Self rdf:type owl:NamedIndividual ,
                persona:Person .
 
-:Self <https://w3id.org/cco-domains/cco/ont00001879> [  # designated by → GivenName (JSContactCardPersonShape)
+:Self <https://w3id.org/cco-domains/cco/ont00001879> [  # designated by → GivenName (ContactInfoShape)
         rdf:type cco:ent00000002 ;
         <https://w3id.org/cco-domains/cco/ont00001765> "Alice"
     ] ,
-    [  # designated by → OrganizationName (JSContactCardPersonShape)
+    [  # designated by → OrganizationName (ContactInfoShape)
         rdf:type cco:ent00000047 ;
         <https://w3id.org/cco-domains/cco/ont00001765> "Acme"
     ] ,
-    [  # designated by → EmailAddress (JSContactCardPersonShape)
+    [  # designated by → EmailAddress (ContactInfoShape)
         rdf:type cco:ent00000024 ;
         <https://w3id.org/cco-domains/cco/ont00001765> "alice@acme.com"
     ] .

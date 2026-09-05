@@ -24,15 +24,15 @@ mia:
     - id: "http://www.example.org/mia/graphs/graph-66"
       claimant: ":Self"
       subject: ":Self"
-      template: "pshapes:JSContactCardPersonShape"
+      template: "pshapes:ContactInfoShape"
     - id: "http://www.example.org/mia/graphs/graph-67"
       claimant: ":Alice_Travel_Agent"
       subject: ":Alice_Travel_Agent"
-      template: "pshapes:JSContactCardPersonShape"
+      template: "pshapes:ContactInfoShape"
     - id: "http://www.example.org/mia/graphs/graph-68"
       claimant: ":Dave"
       subject: ":Dave"
-      template: "pshapes:JSContactCardPersonShape"
+      template: "pshapes:ContactInfoShape"
   topic:
     - id: "http://www.example.org/mia/graphs/graph-69"
       claimant: ":Self"
@@ -71,7 +71,7 @@ This graph is one of the cell's three required `member` entries — Alice's own 
 
 :Self rdf:type owl:NamedIndividual ,
                persona:Person ;
-    <https://w3id.org/cco-domains/cco/ont00001879> [  # designated by → GivenName (JSContactCardPersonShape)
+    <https://w3id.org/cco-domains/cco/ont00001879> [  # designated by → GivenName (ContactInfoShape)
         rdf:type cco:ent00000002 ;
         <https://w3id.org/cco-domains/cco/ont00001765> "Alice"
     ] .
@@ -113,7 +113,7 @@ This graph is another of the cell's three required `member` entries — Alice's 
 
 :Self rdf:type owl:NamedIndividual ,
                persona:Person ;
-    <https://w3id.org/cco-domains/cco/ont00001879> [  # designated by → GivenName (JSContactCardPersonShape)
+    <https://w3id.org/cco-domains/cco/ont00001879> [  # designated by → GivenName (ContactInfoShape)
         rdf:type cco:ent00000002 ;
         <https://w3id.org/cco-domains/cco/ont00001765> "Alice"
     ] .

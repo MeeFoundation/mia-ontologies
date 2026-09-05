@@ -1,16 +1,17 @@
 flowchart TD
     classDef person fill:#fffacd,stroke:#aaa,color:#333
-    classDef grp    fill:#d4edda,stroke:#aaa,color:#333
     classDef org    fill:#cce5ff,stroke:#aaa,color:#333
     classDef lit    fill:none,stroke:none,font-style:italic,color:#2a7a2a
     classDef meta   fill:#f5f5ff,stroke:#9999cc,color:#333
 
-    subgraph ctx["Topic Graph"]
+    subgraph ctx["Graph"]
         direction LR
-        ctx_meta["claimant: :Self\nsubject: :Citibank"]:::meta
+        ctx_meta["claimant: :Self\nsubject: :Citibank\ntemplate: pshapes:ContactInfoShape"]:::meta
     end
 
     n0415a88486d3[":Citibank\n(Organization)"]:::org
-    n4ddc17b6b646("My primary checking account is here — used for rent and bill-pay autopay. Opened 2019."):::lit
+    n53e51b30af9b("https://citibank.com"):::lit
+    nb21d5c4329ea("My primary checking account is here — used for rent and bill-pay autopay. Opened 2019."):::lit
 
-    n0415a88486d3 -->|"ont00001917"| n4ddc17b6b646
+    n0415a88486d3 -->|"hasWebsite"| n53e51b30af9b
+    n0415a88486d3 -->|"ont00001917"| nb21d5c4329ea

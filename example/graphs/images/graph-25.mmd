@@ -6,16 +6,16 @@ flowchart TD
 
     subgraph ctx["Graph"]
         direction LR
-        ctx_meta["claimant: :Self\nsubject: :Jane_Starostina\ntemplate: ['pshapes:PrimaryCarePhysicianShape', 'pshapes:JSContactCardPersonShape']"]:::meta
+        ctx_meta["claimant: :Self\nsubject: :Jane_Starostina\ntemplate: ['pshapes:PrimaryCarePhysicianShape', 'pshapes:ContactInfoShape']"]:::meta
     end
 
     ncb7388e459f8[":Jane_Starostina\n(Person)"]:::person
-    nb37c2d1722f7("Jane"):::lit
-    nfe46ff05e293("Starostina"):::lit
-    n9f4b94edfa47("Sophia Walker's primary care physician"):::lit
+    n9c4e38618163("Jane"):::lit
+    n3569032f4309("Starostina"):::lit
+    n04358eb51fb0("Sophia Walker's primary care physician"):::lit
     n3c7aa6d071dd("Endocrinology"):::lit
 
-    ncb7388e459f8 -->|"GivenName"| nb37c2d1722f7
-    ncb7388e459f8 -->|"FamilyName"| nfe46ff05e293
-    ncb7388e459f8 -->|"ont00001917"| n9f4b94edfa47
+    ncb7388e459f8 -->|"GivenName"| n9c4e38618163
+    ncb7388e459f8 -->|"FamilyName"| n3569032f4309
+    ncb7388e459f8 -->|"ont00001917"| n04358eb51fb0
     ncb7388e459f8 -->|"specialty"| n3c7aa6d071dd

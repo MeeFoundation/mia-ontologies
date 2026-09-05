@@ -1,24 +1,23 @@
 flowchart TD
     classDef person fill:#fffacd,stroke:#aaa,color:#333
-    classDef grp    fill:#d4edda,stroke:#aaa,color:#333
     classDef org    fill:#cce5ff,stroke:#aaa,color:#333
     classDef lit    fill:none,stroke:none,font-style:italic,color:#2a7a2a
     classDef meta   fill:#f5f5ff,stroke:#9999cc,color:#333
 
-    subgraph ctx["Topic Graph"]
+    subgraph ctx["Graph"]
         direction LR
-        ctx_meta["claimant: :Self\nsubject: :Self"]:::meta
+        ctx_meta["claimant: :Self\nsubject: :Self\ntemplate: pshapes:ContactInfoShape"]:::meta
     end
 
     na0f9c29996d0[":Alice_Fred_Network\n(SocialNetwork)"]
     ne18068490c1e[":Fred_Flintstone"]
     ne0c3ba92f1db[":Self\n(Person)"]:::person
-    nf6da5698b516("Alice Walker"):::lit
-    n6b30dfb5c12f("Alice"):::lit
-    na69a62155c09("Walker"):::lit
+    n997a692e6ee3("Alice Walker"):::lit
+    n8f79d0c41bc1("Alice"):::lit
+    nfd88d3e243fe("Walker"):::lit
 
     na0f9c29996d0 -->|"hasMemberPart"| ne18068490c1e
-    ne0c3ba92f1db -->|"AlternateName"| nf6da5698b516
-    ne0c3ba92f1db -->|"GivenName"| n6b30dfb5c12f
-    ne0c3ba92f1db -->|"FamilyName"| na69a62155c09
+    ne0c3ba92f1db -->|"AlternateName"| n997a692e6ee3
+    ne0c3ba92f1db -->|"GivenName"| n8f79d0c41bc1
+    ne0c3ba92f1db -->|"FamilyName"| nfd88d3e243fe
     ne0c3ba92f1db -->|"hasSocialNetwork"| na0f9c29996d0

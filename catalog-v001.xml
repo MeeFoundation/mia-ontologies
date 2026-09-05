@@ -4,8 +4,8 @@
     <!-- ── Application ontologies ───────────────────────────────────────── -->
     <uri id="persona"                  name="http://mee.foundation/ontologies/persona"
          uri="persona.ttl"/>
-    <uri id="jscontactcard-shacl"      name="http://mee.foundation/ontologies/persona/shapes/jscontactcard"
-         uri="shacl/jscontactcard-shacl.ttl"/>
+    <uri id="contactinfo-shacl"      name="http://mee.foundation/ontologies/persona/shapes/contactinfo"
+         uri="shacl/contactinfo-shacl.ttl"/>
     <uri id="cell"                 name="http://mee.foundation/ontologies/cell"
          uri="cell.ttl"/>
     <uri id="category"             name="http://mee.foundation/ontologies/category"

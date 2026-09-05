@@ -1,13 +1,12 @@
 flowchart TD
     classDef person fill:#fffacd,stroke:#aaa,color:#333
-    classDef grp    fill:#d4edda,stroke:#aaa,color:#333
     classDef org    fill:#cce5ff,stroke:#aaa,color:#333
     classDef lit    fill:none,stroke:none,font-style:italic,color:#2a7a2a
     classDef meta   fill:#f5f5ff,stroke:#9999cc,color:#333
 
-    subgraph ctx["Topic Graph"]
+    subgraph ctx["Graph"]
         direction LR
-        ctx_meta["claimant: :Self\nsubject: :Self"]:::meta
+        ctx_meta["claimant: :Self\nsubject: :Self\ntemplate: pshapes:ContactInfoShape"]:::meta
     end
 
     n8020f1e0dda3[":Alice_DriversLicense\n(PhysicalDriversLicense)"]
@@ -18,11 +17,15 @@ flowchart TD
     n424bc5303466[":Alice_PaymentCard\n(PhysicalPaymentCard)"]
     nfb9947b1c0ef[":Alice_SSNCard\n(PhysicalSocialSecurityCard)"]
     ne0c3ba92f1db[":Self\n(Person)"]:::person
+    necd8a455acd1("Alice"):::lit
 
     n8020f1e0dda3 -->|"continuantPartOf"| ne031334f4c41
     n8020f1e0dda3 -->|"hasImageScan"| n16319a7d9aaf
     n45648c6e1691 -->|"hasImageScan"| n5aa16707069d
     n424bc5303466 -->|"continuantPartOf"| ne031334f4c41
+    ne0c3ba92f1db -->|"GivenName"| necd8a455acd1
     ne0c3ba92f1db -->|"hasWallet"| ne031334f4c41
     ne0c3ba92f1db -->|"hasPhysicalCard"| n45648c6e1691
     ne0c3ba92f1db -->|"hasPhysicalCard"| nfb9947b1c0ef
+    ne0c3ba92f1db -->|"hasPhysicalCard"| n8020f1e0dda3
+    ne0c3ba92f1db -->|"hasPhysicalCard"| n424bc5303466

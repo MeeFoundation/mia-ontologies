@@ -6,20 +6,18 @@ flowchart TD
 
     subgraph ctx["Graph"]
         direction LR
-        ctx_meta["claimant: :Self\nsubject: :Alice_Google_Account\ntemplate: persona:ServiceAccount"]:::meta
+        ctx_meta["claimant: :Self\nsubject: :Alice_Google_Account\ntemplate: sashapes:ServiceAccountShape"]:::meta
     end
 
     nb70624797640[":Alice_Google_Account\n(ServiceAccount)"]
     n0f068188a8fa("Google"):::lit
     nba6e63e440e9("awalker@gmail.com"):::lit
     n04ffdd1fe842("https://myaccount.google.com"):::lit
-    n669f5e81cce4("Alice#Google2026!"):::lit
+    nf76839aefb51("Alice#Google2026!"):::lit
     ne0c3ba92f1db[":Self\n(Person)"]:::person
-    nbc10014459fc("awalker@gmail.com"):::lit
 
     nb70624797640 -->|"serviceName"| n0f068188a8fa
     nb70624797640 -->|"userHandle"| nba6e63e440e9
     nb70624797640 -->|"serviceURI"| n04ffdd1fe842
-    nb70624797640 -->|"hasPassword"| n669f5e81cce4
-    ne0c3ba92f1db -->|"EmailAddress"| nbc10014459fc
+    nb70624797640 -->|"hasPassword"| nf76839aefb51
     ne0c3ba92f1db -->|"holdsUserAccount"| nb70624797640

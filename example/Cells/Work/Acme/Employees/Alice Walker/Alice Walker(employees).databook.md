@@ -14,7 +14,7 @@ mia:
     id: "http://www.example.org/mia/graphs/graph-10"
     claimant: ":Self"
     subject: ":Self"
-    template: "pshapes:JSContactCardPersonShape"
+    template: "pshapes:ContactInfoShape"
 ---
 
 ## Graphs
@@ -24,7 +24,7 @@ mia:
 
 #### Overview
 
-This graph captures Alice Walker's professional business card in JSContactCard format. It records her full name, work email (alice@acme.com), work phone (+15108149999), employer (Acme), department (Engineering), job title (Software Engineer), and LinkedIn profile URL. Validated by the `JSContactCard` per-template SHACL shapes. Alice is the claimant.
+This graph captures Alice Walker's professional business card in ContactInfo format. It records her full name, work email (alice@acme.com), work phone (+15108149999), employer (Acme), department (Engineering), job title (Software Engineer), and LinkedIn profile URL. Validated by the `ContactInfo` per-template SHACL shapes. Alice is the claimant.
 
 #### Graph
 
@@ -41,7 +41,7 @@ This graph captures Alice Walker's professional business card in JSContactCard f
 :Self rdf:type owl:NamedIndividual ,
                persona:Person .
 
-:Self rdfs:comment "Alice Walker's JSContact card persona — professional contact details taking details from her Acme graph."@en ;
+:Self rdfs:comment "Alice Walker's Contact Info persona — professional contact details taking details from her Acme graph."@en ;
 
     # ── Name components ──────────────────────────────────────────────────────
 

@@ -6,10 +6,12 @@ flowchart TD
 
     subgraph ctx["Graph"]
         direction LR
-        ctx_meta["claimant: :Alice_Travel_Agent\nsubject: :Alice_Travel_Agent"]:::meta
+        ctx_meta["claimant: :Alice_Travel_Agent\nsubject: :Alice_Travel_Agent\ntemplate: pshapes:ContactInfoShape"]:::meta
     end
 
     nff7045b74671[":Alice_Travel_Agent\n(Agent)"]
     ne0c3ba92f1db[":Self\n(Person)"]:::person
+    nff9485fb17d6("Alice"):::lit
 
     nff7045b74671 -->|"actsFor"| ne0c3ba92f1db
+    ne0c3ba92f1db -->|"GivenName"| nff9485fb17d6

@@ -1,32 +1,36 @@
 flowchart TD
     classDef person fill:#fffacd,stroke:#aaa,color:#333
-    classDef grp    fill:#d4edda,stroke:#aaa,color:#333
     classDef org    fill:#cce5ff,stroke:#aaa,color:#333
     classDef lit    fill:none,stroke:none,font-style:italic,color:#2a7a2a
     classDef meta   fill:#f5f5ff,stroke:#9999cc,color:#333
 
-    subgraph ctx["Topic Graph"]
+    subgraph ctx["Graph"]
         direction LR
-        ctx_meta["claimant: :Self\nsubject: :Self"]:::meta
+        ctx_meta["claimant: :Self\nsubject: :Self\ntemplate: pshapes:ContactInfoShape"]:::meta
     end
 
     nbb363374209c[":Address_BHS\n(PostalAddress)"]
-    n71f8bbd246c7("123 Sleepy Hollow"):::lit
-    nc7cebb1661db("Paradise"):::lit
-    nbacb8488dd33("CA"):::lit
-    n9b37dab16c47("95969"):::lit
-    n68cd39ed1821("USA"):::lit
+    nd68eaa789f05("123 Sleepy Hollow"):::lit
+    nb278000ea5ba("Paradise"):::lit
+    na87e0bc95fa5("CA"):::lit
+    n6ae30b787656("95969"):::lit
+    ned00ce4034c4("USA"):::lit
+    n166799fc4707[":BHS_AddressDesignation\n(AddressDesignation)"]
     ne0c3ba92f1db[":Self\n(Person)"]:::person
-    n8312d2e3da2a("Alice Walker"):::lit
-    n46dcdc758bb7("+15108149999"):::lit
-    n278afb4c9de4("awalker@gmail.com"):::lit
+    n3291f8afcc38("Alice"):::lit
+    n8c70a681e25d("Alice Walker"):::lit
+    n9ecb579ee73b("+15108149999"):::lit
+    nbc35587dfe20("awalker@gmail.com"):::lit
 
-    nbb363374209c -->|"hasContinuantPart"| n71f8bbd246c7
-    nbb363374209c -->|"hasContinuantPart"| nc7cebb1661db
-    nbb363374209c -->|"hasContinuantPart"| nbacb8488dd33
-    nbb363374209c -->|"hasContinuantPart"| n9b37dab16c47
-    nbb363374209c -->|"hasContinuantPart"| n68cd39ed1821
-    ne0c3ba92f1db -->|"AlternateName"| n8312d2e3da2a
-    ne0c3ba92f1db -->|"designated by"| nbb363374209c
-    ne0c3ba92f1db -->|"TelephoneNumber"| n46dcdc758bb7
-    ne0c3ba92f1db -->|"EmailAddress"| n278afb4c9de4
+    nbb363374209c -->|"hasContinuantPart"| nd68eaa789f05
+    nbb363374209c -->|"hasContinuantPart"| nb278000ea5ba
+    nbb363374209c -->|"hasContinuantPart"| na87e0bc95fa5
+    nbb363374209c -->|"hasContinuantPart"| n6ae30b787656
+    nbb363374209c -->|"hasContinuantPart"| ned00ce4034c4
+    n166799fc4707 -->|"hasParticipant"| ne0c3ba92f1db
+    n166799fc4707 -->|"ent00000324"| nbb363374209c
+    ne0c3ba92f1db -->|"GivenName"| n3291f8afcc38
+    ne0c3ba92f1db -->|"AlternateName"| n8c70a681e25d
+    ne0c3ba92f1db -->|"TelephoneNumber"| n9ecb579ee73b
+    ne0c3ba92f1db -->|"EmailAddress"| nbc35587dfe20
+    ne0c3ba92f1db -->|"ent00000324"| nbb363374209c

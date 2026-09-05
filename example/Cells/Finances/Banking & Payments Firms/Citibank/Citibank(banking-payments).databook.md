@@ -18,11 +18,11 @@ mia:
     - id: "http://www.example.org/mia/graphs/graph-27"
       claimant: ":Self"
       subject: ":Citibank"
-      template: "pshapes:JSContactCardPersonShape"
+      template: "pshapes:ContactInfoShape"
     - id: "http://www.example.org/mia/graphs/graph-77"
       claimant: ":Self"
       subject: ":Self"
-      template: "pshapes:JSContactCardPersonShape"
+      template: "pshapes:ContactInfoShape"
   topic:
     - id: "http://www.example.org/mia/graphs/graph-75"
       claimant: ":Self"
@@ -91,15 +91,15 @@ This graph is one of the cell's two required `member` entries, claimed by and ab
 :Self rdf:type owl:NamedIndividual ,
                persona:Person .
 
-:Self <https://w3id.org/cco-domains/cco/ont00001879> [  # designated by → GivenName (JSContactCardPersonShape)
+:Self <https://w3id.org/cco-domains/cco/ont00001879> [  # designated by → GivenName (ContactInfoShape)
         rdf:type cco:ent00000002 ;
         <https://w3id.org/cco-domains/cco/ont00001765> "Alice"
     ] ,
-    [  # designated by → OrganizationName (JSContactCardPersonShape)
+    [  # designated by → OrganizationName (ContactInfoShape)
         rdf:type cco:ent00000047 ;
         <https://w3id.org/cco-domains/cco/ont00001765> "Acme"
     ] ,
-    [  # designated by → EmailAddress (JSContactCardPersonShape)
+    [  # designated by → EmailAddress (ContactInfoShape)
         rdf:type cco:ent00000024 ;
         <https://w3id.org/cco-domains/cco/ont00001765> "alice@acme.com"
     ] .

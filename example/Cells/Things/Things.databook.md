@@ -14,7 +14,7 @@ mia:
     id: "http://www.example.org/mia/graphs/graph-22"
     claimant: ":Self"
     subject: ":Self"
-    template: "pshapes:JSContactCardPersonShape"
+    template: "pshapes:ContactInfoShape"
 ---
 
 ## Graphs
@@ -42,7 +42,7 @@ This graph captures Alice Walker's day-to-day physical possessions. Her wallet h
 :Self rdf:type owl:NamedIndividual ,
                persona:Person .
 
-:Self <https://w3id.org/cco-domains/cco/ont00001879> [  # designated by → GivenName (JSContactCardPersonShape)
+:Self <https://w3id.org/cco-domains/cco/ont00001879> [  # designated by → GivenName (ContactInfoShape)
         rdf:type cco:ent00000002 ;
         <https://w3id.org/cco-domains/cco/ont00001765> "Alice"
     ] ;

@@ -6,19 +6,19 @@ flowchart TD
 
     subgraph ctx["Graph"]
         direction LR
-        ctx_meta["claimant: :Self\nsubject: :Self\ntemplate: pshapes:JSContactCardPersonShape"]:::meta
+        ctx_meta["claimant: :Self\nsubject: :Self\ntemplate: pshapes:ContactInfoShape"]:::meta
     end
 
     n29ddd4160a4b[":Alice_Family_Network\n(SocialNetwork)"]
     n2862909bb09a[":Sophia_Walker\n(Person)"]:::person
     n1c28f5f47932[":Dave\n(Person)"]:::person
     ne0c3ba92f1db[":Self\n(Person)"]:::person
-    n8c081226ffaa("Alice"):::lit
-    n1162704a6f51("Alice Walker"):::lit
+    n5166b9d83c0b("Alice"):::lit
+    n2840c63b9399("Alice Walker"):::lit
 
     n29ddd4160a4b -->|"hasMemberPart"| n2862909bb09a
     n29ddd4160a4b -->|"hasMemberPart"| n1c28f5f47932
-    ne0c3ba92f1db -->|"GivenName"| n8c081226ffaa
-    ne0c3ba92f1db -->|"AlternateName"| n1162704a6f51
+    ne0c3ba92f1db -->|"GivenName"| n5166b9d83c0b
+    ne0c3ba92f1db -->|"AlternateName"| n2840c63b9399
     ne0c3ba92f1db -->|"hasDaughter"| n2862909bb09a
     ne0c3ba92f1db -->|"hasSocialNetwork"| n29ddd4160a4b

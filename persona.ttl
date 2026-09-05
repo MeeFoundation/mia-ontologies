@@ -15,12 +15,12 @@
 @base <http://mee.foundation/ontologies/persona> .
 
 <http://mee.foundation/ontologies/persona> rdf:type owl:Ontology ;
-    owl:versionIRI <http://mee.foundation/ontologies/persona/4.15.0> ;
+    owl:versionIRI <http://mee.foundation/ontologies/persona/4.16.0> ;
     owl:imports <https://w3id.org/cco-domains/domains/PersonOntology> ;
     owl:imports <https://w3id.org/cco-domains/domains/AddressOntology> ;
     owl:imports <https://w3id.org/cco-domains/domains/StagingOntology> ;
     dc:date "2026-09-05"^^xsd:date ;
-    owl:versionInfo "Version 4.15.0 - persona-extensions.ttl dissolved: its JSContact-alignment terms, p:hasIdentityDocument, and p:specialty absorbed here, its record/document classes migrated into five new other/ peer ontologies; p:CheckingAccount/p:accessesBankAccount/p:hasPassword moved out to other/banking.ttl and other/service-accounts.ttl."@en ;
+    owl:versionInfo "Version 4.16.0 - p:JSContactCard renamed to p:ContactInfo; its shape pshapes:JSContactCardPersonShape renamed to pshapes:ContactInfoShape, defined in the renamed shacl/contactinfo-shacl.ttl"@en ;
     rdfs:label "Persona Ontology"@en ;
     rdfs:comment """Persona Ontology for the Cellula App.
 
@@ -285,17 +285,17 @@ p:hasImageScan rdf:type owl:DatatypeProperty ;
 
 
 #################################################################
-#    JSContactCard and related properties
+#    ContactInfo and related properties
 #################################################################
 
-p:JSContactCard rdf:type owl:Class ;
-    rdfs:label "JSContact Card"@en ;
+p:ContactInfo rdf:type owl:Class ;
+    rdfs:label "Contact Info"@en ;
     rdfs:comment """Label for a graph whose purpose is to carry professional
                     contact details in the JSContact (RFC 9553) format. OrganizationName and
                     at least one contact channel (email or phone) are required. Never asserted
                     via rdf:type anywhere — a label only; the graph's own cell:template
-                    value instead names the validating shape, pshapes:JSContactCardPersonShape
-                    (shacl/jscontactcard-shacl.ttl), directly. Unlike the record/document classes
+                    value instead names the validating shape, pshapes:ContactInfoShape
+                    (shacl/contactinfo-shacl.ttl), directly. Unlike the record/document classes
                     that moved out to other/*.ttl peer ontologies, everything in this section is
                     a property of a p:Person directly, reused across every category's member
                     graph, so it belongs here in persona.ttl rather than in a domain file."""@en .

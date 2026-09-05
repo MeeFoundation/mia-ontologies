@@ -9,7 +9,7 @@ description: >
   one-member cell with one member entry about :Self — a purely
   organizational category node with no relationship of its own beyond
   Alice's required membership, though that member entry now carries a
-  minimal JSContactCard-style business-card claim (given name,
+  minimal ContactInfo-style business-card claim (given name,
   organization name, email), per cat:Others's own cell:TemplateCell.
 mia:
   category: "cat:Others"
@@ -19,7 +19,7 @@ mia:
     id: "http://www.example.org/mia/graphs/graph-51"
     claimant: ":Self"
     subject: ":Self"
-    template: "pshapes:JSContactCardPersonShape"
+    template: "pshapes:ContactInfoShape"
 ---
 
 ## Graphs
@@ -29,7 +29,7 @@ mia:
 
 #### Overview
 
-This graph is the cell's one required `member` entry — a cell with a single `member` entry in the user's own category-cell tree always has `:Self` as that member (see Check 21), regardless of what the cell's `subject` is — here, Alice herself. The "Others" cell is a purely organizational category node (`cell:category: cat:Others`) with no relationship or subject of its own beyond Alice's required membership. Alice is both the claimant and the subject. It carries her given name (required by `JSContactCardPersonShape`, `cell:memberGraphShape`), plus an optional organization name and email — no longer deliberately empty now that this requirement applies.
+This graph is the cell's one required `member` entry — a cell with a single `member` entry in the user's own category-cell tree always has `:Self` as that member (see Check 21), regardless of what the cell's `subject` is — here, Alice herself. The "Others" cell is a purely organizational category node (`cell:category: cat:Others`) with no relationship or subject of its own beyond Alice's required membership. Alice is both the claimant and the subject. It carries her given name (required by `ContactInfoShape`, `cell:memberGraphShape`), plus an optional organization name and email — no longer deliberately empty now that this requirement applies.
 
 #### Graph
 
@@ -45,15 +45,15 @@ This graph is the cell's one required `member` entry — a cell with a single `m
 :Self rdf:type owl:NamedIndividual ,
                persona:Person .
 
-:Self <https://w3id.org/cco-domains/cco/ont00001879> [  # designated by → GivenName (JSContactCardPersonShape)
+:Self <https://w3id.org/cco-domains/cco/ont00001879> [  # designated by → GivenName (ContactInfoShape)
         rdf:type cco:ent00000002 ;
         <https://w3id.org/cco-domains/cco/ont00001765> "Alice"
     ] ,
-    [  # designated by → OrganizationName (JSContactCardPersonShape)
+    [  # designated by → OrganizationName (ContactInfoShape)
         rdf:type cco:ent00000047 ;
         <https://w3id.org/cco-domains/cco/ont00001765> "Acme"
     ] ,
-    [  # designated by → EmailAddress (JSContactCardPersonShape)
+    [  # designated by → EmailAddress (ContactInfoShape)
         rdf:type cco:ent00000024 ;
         <https://w3id.org/cco-domains/cco/ont00001765> "alice@acme.com"
     ] .

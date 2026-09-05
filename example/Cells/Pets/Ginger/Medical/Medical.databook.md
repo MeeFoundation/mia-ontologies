@@ -14,11 +14,11 @@ mia:
     - id: "http://www.example.org/mia/graphs/graph-33"
       claimant: ":Self"
       subject: ":Self"
-      template: "pshapes:JSContactCardPersonShape"
+      template: "pshapes:ContactInfoShape"
     - id: "http://www.example.org/mia/graphs/graph-57"
       claimant: ":Paula_Walker"
       subject: ":Paula_Walker"
-      template: "pshapes:JSContactCardPersonShape"
+      template: "pshapes:ContactInfoShape"
   topic:
     id: "http://www.example.org/mia/graphs/graph-32"
     claimant: ":Self"
@@ -33,7 +33,7 @@ mia:
 
 #### Overview
 
-This graph is one of the cell's two `member` entries, satisfying the two-member baseline alongside graph 57 (Paula's own claim, below). Alice is both the claimant and the subject. It carries her given name, plus a minimal organization name and email, so `:Self` satisfies the `JSContactCardPersonShape` every templated cell's `member` content is now expected to conform to (`cell:memberGraphShape`) — no longer deliberately empty now that this requirement applies.
+This graph is one of the cell's two `member` entries, satisfying the two-member baseline alongside graph 57 (Paula's own claim, below). Alice is both the claimant and the subject. It carries her given name, plus a minimal organization name and email, so `:Self` satisfies the `ContactInfoShape` every templated cell's `member` content is now expected to conform to (`cell:memberGraphShape`) — no longer deliberately empty now that this requirement applies.
 
 #### Graph
 
@@ -49,15 +49,15 @@ This graph is one of the cell's two `member` entries, satisfying the two-member 
 :Self rdf:type owl:NamedIndividual ,
                persona:Person .
 
-:Self <https://w3id.org/cco-domains/cco/ont00001879> [  # designated by → GivenName (JSContactCardPersonShape)
+:Self <https://w3id.org/cco-domains/cco/ont00001879> [  # designated by → GivenName (ContactInfoShape)
         rdf:type cco:ent00000002 ;
         <https://w3id.org/cco-domains/cco/ont00001765> "Alice"
     ] ,
-    [  # designated by → OrganizationName (JSContactCardPersonShape)
+    [  # designated by → OrganizationName (ContactInfoShape)
         rdf:type cco:ent00000047 ;
         <https://w3id.org/cco-domains/cco/ont00001765> "Acme"
     ] ,
-    [  # designated by → EmailAddress (JSContactCardPersonShape)
+    [  # designated by → EmailAddress (ContactInfoShape)
         rdf:type cco:ent00000024 ;
         <https://w3id.org/cco-domains/cco/ont00001765> "alice@acme.com"
     ] .
@@ -68,7 +68,7 @@ This graph is one of the cell's two `member` entries, satisfying the two-member 
 
 #### Overview
 
-This cell was created by Alice and later shared with Paula, making the cell a two-member cell. This graph is Paula's own identity claim — her given name is what actually satisfies the `JSContactCardPersonShape` every templated cell's `member` content is now expected to conform to (`cell:memberGraphShape`); the organization name and phone below are optional extra detail, not a requirement — the cell's second `member` entry, satisfying the two-member baseline alongside graph 33 (Alice's own claim, above). Paula is both the claimant and the subject.
+This cell was created by Alice and later shared with Paula, making the cell a two-member cell. This graph is Paula's own identity claim — her given name is what actually satisfies the `ContactInfoShape` every templated cell's `member` content is now expected to conform to (`cell:memberGraphShape`); the organization name and phone below are optional extra detail, not a requirement — the cell's second `member` entry, satisfying the two-member baseline alongside graph 33 (Alice's own claim, above). Paula is both the claimant and the subject.
 
 #### Graph
 
@@ -88,12 +88,12 @@ This cell was created by Alice and later shared with Paula, making the cell a tw
         cco:ont00001765 "Paula"  # has text value
     ] ;
 
-    cco:ont00001879 [  # designated by → OrganizationName (JSContactCardPersonShape)
+    cco:ont00001879 [  # designated by → OrganizationName (ContactInfoShape)
         rdf:type cco:ent00000047 ;
         cco:ont00001765 "Retired"
     ] ;
 
-    cco:ont00001879 [  # designated by → Phone (JSContactCardPersonShape)
+    cco:ont00001879 [  # designated by → Phone (ContactInfoShape)
         rdf:type cco:ent00000023 ;
         cco:ont00001765 "+19165550172"
     ] .

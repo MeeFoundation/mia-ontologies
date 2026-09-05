@@ -227,7 +227,7 @@
 # cell:topicGraphShape to sh:class sh:NodeShape: the individuals a cell:template
 # value points at (e.g. idocshapes:PassportShape) are only typed
 # sh:NodeShape in files (shacl/persona-shacl.ttl,
-# shacl/jscontactcard-shacl.ttl, and every other/shacl/*-shacl.ttl file)
+# shacl/contactinfo-shacl.ttl, and every other/shacl/*-shacl.ttl file)
 # that the cell pass's own shapes deliberately exclude — asserting
 # sh:class here would spuriously fail there.
 

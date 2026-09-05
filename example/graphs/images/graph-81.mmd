@@ -6,32 +6,32 @@ flowchart TD
 
     subgraph ctx["Graph"]
         direction LR
-        ctx_meta["claimant: :Self\nsubject: :Self\ntemplate: persona:PassportDocument"]:::meta
+        ctx_meta["claimant: :Self\nsubject: :Self\ntemplate: idocshapes:PassportShape"]:::meta
     end
 
     n104df4bab92a[":Alice_Passport_Number\n(PassportNumber)"]
-    n1e9b86ff4c78[":Alice_US_Passport\n(PassportDocument)"]
-    n8ebbc3d68ab9("Margery"):::lit
-    n924644b8b638("Alice"):::lit
-    nd0a3518f2928("Walker"):::lit
-    n049f6db1e58b("1985-07-04"):::lit
-    n9aec4cb4899b("USA"):::lit
-    n3ed37ac14278("Austin, Texas, USA"):::lit
-    nb08849248b25("F"):::lit
-    n052df058231c("2021-07-04"):::lit
-    n6945e67e4f1a("2031-07-04"):::lit
+    n1e9b86ff4c78[":Alice_US_Passport\n(Passport)"]
+    n0746d06eecb5("Margery"):::lit
+    n107ca5be6a8d("Alice"):::lit
+    nc60279be300c("Walker"):::lit
+    n65efe3055299("1985-07-04"):::lit
+    nc55097e4ce75("USA"):::lit
+    ncf3ebeecba72("Austin, Texas, USA"):::lit
+    n3a42541712e1("F"):::lit
+    n76b183839ad0("2021-07-04"):::lit
+    n57d02b58f135("2031-07-04"):::lit
     n0b3af7b5a715("https://example.org/alice-passport-photo.jpg"):::lit
     ne0c3ba92f1db[":Self\n(Person)"]:::person
 
-    n1e9b86ff4c78 -->|"GivenName"| n8ebbc3d68ab9
-    n1e9b86ff4c78 -->|"AdditionalName"| n924644b8b638
-    n1e9b86ff4c78 -->|"FamilyName"| nd0a3518f2928
-    n1e9b86ff4c78 -->|"ent00000046"| n049f6db1e58b
-    n1e9b86ff4c78 -->|"IssuingJurisdiction"| n9aec4cb4899b
-    n1e9b86ff4c78 -->|"PlaceOfBirth"| n3ed37ac14278
-    n1e9b86ff4c78 -->|"GenderMarker"| nb08849248b25
-    n1e9b86ff4c78 -->|"IssueDate"| n052df058231c
-    n1e9b86ff4c78 -->|"ExpirationDate"| n6945e67e4f1a
+    n1e9b86ff4c78 -->|"GivenName"| n0746d06eecb5
+    n1e9b86ff4c78 -->|"AdditionalName"| n107ca5be6a8d
+    n1e9b86ff4c78 -->|"FamilyName"| nc60279be300c
+    n1e9b86ff4c78 -->|"ent00000046"| n65efe3055299
+    n1e9b86ff4c78 -->|"IssuingJurisdiction"| nc55097e4ce75
+    n1e9b86ff4c78 -->|"PlaceOfBirth"| ncf3ebeecba72
+    n1e9b86ff4c78 -->|"GenderMarker"| n3a42541712e1
+    n1e9b86ff4c78 -->|"IssueDate"| n76b183839ad0
+    n1e9b86ff4c78 -->|"ExpirationDate"| n57d02b58f135
     n1e9b86ff4c78 -->|"isCarrierOf"| n104df4bab92a
     n1e9b86ff4c78 -->|"hasPhoto"| n0b3af7b5a715
     ne0c3ba92f1db -->|"hasIdentityDocument"| n1e9b86ff4c78

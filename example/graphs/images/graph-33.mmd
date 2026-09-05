@@ -4,8 +4,16 @@ flowchart TD
     classDef lit    fill:none,stroke:none,font-style:italic,color:#2a7a2a
     classDef meta   fill:#f5f5ff,stroke:#9999cc,color:#333
 
-    subgraph ctx["Topic Graph"]
+    subgraph ctx["Graph"]
         direction LR
-        ctx_meta["claimant: :Self\nsubject: :Self"]:::meta
+        ctx_meta["claimant: :Self\nsubject: :Self\ntemplate: pshapes:ContactInfoShape"]:::meta
     end
 
+    ne0c3ba92f1db[":Self\n(Person)"]:::person
+    n44aac4692f72("Alice"):::lit
+    nfa66c708ac0c("Acme"):::lit
+    n841b4826c868("alice@acme.com"):::lit
+
+    ne0c3ba92f1db -->|"GivenName"| n44aac4692f72
+    ne0c3ba92f1db -->|"OrganizationName"| nfa66c708ac0c
+    ne0c3ba92f1db -->|"EmailAddress"| n841b4826c868

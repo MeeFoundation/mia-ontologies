@@ -1,22 +1,21 @@
 flowchart TD
     classDef person fill:#fffacd,stroke:#aaa,color:#333
-    classDef grp    fill:#d4edda,stroke:#aaa,color:#333
     classDef org    fill:#cce5ff,stroke:#aaa,color:#333
     classDef lit    fill:none,stroke:none,font-style:italic,color:#2a7a2a
     classDef meta   fill:#f5f5ff,stroke:#9999cc,color:#333
 
-    subgraph ctx["Topic Graph"]
+    subgraph ctx["Graph"]
         direction LR
-        ctx_meta["claimant: :Fred_Flintstone\nsubject: :Fred_Flintstone"]:::meta
+        ctx_meta["claimant: :Fred_Flintstone\nsubject: :Fred_Flintstone\ntemplate: pshapes:ContactInfoShape"]:::meta
     end
 
     n65f31abcd71e[":Fred_Flintstone\n(Person)"]:::person
-    nf1016795299f("Fred"):::lit
-    n2f41a7c3531c("Flintstone"):::lit
+    na4523d2ee455("Fred"):::lit
+    n4b1a41874a7c("Flintstone"):::lit
     n48ac21e51de9[":Fred_Fred_Network\n(SocialNetwork)"]
-    ne0c3ba92f1db[":Self\n(Person)"]:::person
+    n89768dce3f8b[":Self"]
 
-    n65f31abcd71e -->|"GivenName"| nf1016795299f
-    n65f31abcd71e -->|"FamilyName"| n2f41a7c3531c
+    n65f31abcd71e -->|"GivenName"| na4523d2ee455
+    n65f31abcd71e -->|"FamilyName"| n4b1a41874a7c
     n65f31abcd71e -->|"hasSocialNetwork"| n48ac21e51de9
-    n48ac21e51de9 -->|"hasMemberPart"| ne0c3ba92f1db
+    n48ac21e51de9 -->|"hasMemberPart"| n89768dce3f8b

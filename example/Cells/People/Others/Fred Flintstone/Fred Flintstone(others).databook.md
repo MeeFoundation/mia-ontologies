@@ -14,11 +14,11 @@ mia:
     - id: "http://www.example.org/mia/graphs/graph-31"
       claimant: ":Fred_Flintstone"
       subject: ":Fred_Flintstone"
-      template: "pshapes:JSContactCardPersonShape"
+      template: "pshapes:ContactInfoShape"
     - id: "http://www.example.org/mia/graphs/graph-29"
       claimant: ":Self"
       subject: ":Self"
-      template: "pshapes:JSContactCardPersonShape"
+      template: "pshapes:ContactInfoShape"
 ---
 
 ## Graphs

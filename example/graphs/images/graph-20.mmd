@@ -1,22 +1,23 @@
 flowchart TD
     classDef person fill:#fffacd,stroke:#aaa,color:#333
-    classDef grp    fill:#d4edda,stroke:#aaa,color:#333
     classDef org    fill:#cce5ff,stroke:#aaa,color:#333
     classDef lit    fill:none,stroke:none,font-style:italic,color:#2a7a2a
     classDef meta   fill:#f5f5ff,stroke:#9999cc,color:#333
 
-    subgraph ctx["Topic Graph"]
+    subgraph ctx["Graph"]
         direction LR
-        ctx_meta["claimant: :Self\nsubject: :Self"]:::meta
+        ctx_meta["claimant: :Self\nsubject: :Self\ntemplate: pshapes:ContactInfoShape"]:::meta
     end
 
     n2ed3865285b0[":Alice_Acme_Network\n(SocialNetwork)"]
-    nb654756d5ced[":Paula_Walker"]
+    nf4296ab13de4[":Paula_Walker\n(Person)"]:::person
     ne0c3ba92f1db[":Self\n(Person)"]:::person
-    n7a23ae638ab2("Alice Walker"):::lit
-    n13be40399db7("alice@acme.com"):::lit
+    n967531f673ee("Alice"):::lit
+    n032b4cad0879("Alice Walker"):::lit
+    n006a3559c22c("alice@acme.com"):::lit
 
-    n2ed3865285b0 -->|"hasMemberPart"| nb654756d5ced
-    ne0c3ba92f1db -->|"AlternateName"| n7a23ae638ab2
-    ne0c3ba92f1db -->|"EmailAddress"| n13be40399db7
+    n2ed3865285b0 -->|"hasMemberPart"| nf4296ab13de4
+    ne0c3ba92f1db -->|"GivenName"| n967531f673ee
+    ne0c3ba92f1db -->|"AlternateName"| n032b4cad0879
+    ne0c3ba92f1db -->|"EmailAddress"| n006a3559c22c
     ne0c3ba92f1db -->|"hasSocialNetwork"| n2ed3865285b0

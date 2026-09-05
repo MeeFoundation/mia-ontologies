@@ -6,12 +6,12 @@ flowchart TD
 
     subgraph ctx["Graph"]
         direction LR
-        ctx_meta["claimant: :Self\nsubject: :Sophia_Walker\ntemplate: pshapes:JSContactCardPersonShape"]:::meta
+        ctx_meta["claimant: :Self\nsubject: :Sophia_Walker\ntemplate: pshapes:ContactInfoShape"]:::meta
     end
 
     n2862909bb09a[":Sophia_Walker\n(Person)"]:::person
-    nd361278e68fc("Sophia"):::lit
-    n0b7cb87e02be("Walker"):::lit
+    nf718dff04c23("Sophia"):::lit
+    nd41112f93d5f("Walker"):::lit
 
-    n2862909bb09a -->|"GivenName"| nd361278e68fc
-    n2862909bb09a -->|"FamilyName"| n0b7cb87e02be
+    n2862909bb09a -->|"GivenName"| nf718dff04c23
+    n2862909bb09a -->|"FamilyName"| nd41112f93d5f

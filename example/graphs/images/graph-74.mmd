@@ -6,20 +6,20 @@ flowchart TD
 
     subgraph ctx["Graph"]
         direction LR
-        ctx_meta["claimant: :Self\nsubject: :Alice_ATT_Account\ntemplate: persona:ServiceAccount"]:::meta
+        ctx_meta["claimant: :Self\nsubject: :Alice_ATT_Account\ntemplate: sashapes:ServiceAccountShape"]:::meta
     end
 
     n6b841a14e1a6[":Alice_ATT_Account\n(ServiceAccount)"]
     nb207e27d4b3f("AT&T"):::lit
     n9e9b92220f65("+15108149999"):::lit
     n30d72c0afa33("https://www.att.com/my/"):::lit
-    n1a47ce515794("Alice#ATT2026!"):::lit
+    n14149baff2f5("Alice#ATT2026!"):::lit
     ne0c3ba92f1db[":Self\n(Person)"]:::person
-    n4cb0d813ad5a("+15108149999"):::lit
+    nae7cb1e74db7("+15108149999"):::lit
 
     n6b841a14e1a6 -->|"serviceName"| nb207e27d4b3f
     n6b841a14e1a6 -->|"userHandle"| n9e9b92220f65
     n6b841a14e1a6 -->|"serviceURI"| n30d72c0afa33
-    n6b841a14e1a6 -->|"hasPassword"| n1a47ce515794
-    ne0c3ba92f1db -->|"TelephoneNumber"| n4cb0d813ad5a
+    n6b841a14e1a6 -->|"hasPassword"| n14149baff2f5
+    ne0c3ba92f1db -->|"TelephoneNumber"| nae7cb1e74db7
     ne0c3ba92f1db -->|"holdsUserAccount"| n6b841a14e1a6

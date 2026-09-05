@@ -4,12 +4,12 @@ flowchart TD
     classDef lit    fill:none,stroke:none,font-style:italic,color:#2a7a2a
     classDef meta   fill:#f5f5ff,stroke:#9999cc,color:#333
 
-    subgraph ctx["Topic Graph"]
+    subgraph ctx["Graph"]
         direction LR
-        ctx_meta["claimant: :Self\nsubject: :Self"]:::meta
+        ctx_meta["claimant: :Self\nsubject: :Self\ntemplate: pshapes:ContactInfoShape"]:::meta
     end
 
     ne0c3ba92f1db[":Self\n(Person)"]:::person
-    n89f1bb76f779("Alice"):::lit
+    n408d43187bed("Alice"):::lit
 
-    ne0c3ba92f1db -->|"GivenName"| n89f1bb76f779
+    ne0c3ba92f1db -->|"GivenName"| n408d43187bed

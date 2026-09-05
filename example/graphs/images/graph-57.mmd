@@ -4,12 +4,16 @@ flowchart TD
     classDef lit    fill:none,stroke:none,font-style:italic,color:#2a7a2a
     classDef meta   fill:#f5f5ff,stroke:#9999cc,color:#333
 
-    subgraph ctx["Topic Graph"]
+    subgraph ctx["Graph"]
         direction LR
-        ctx_meta["claimant: :Paula_Walker\nsubject: :Paula_Walker"]:::meta
+        ctx_meta["claimant: :Paula_Walker\nsubject: :Paula_Walker\ntemplate: pshapes:ContactInfoShape"]:::meta
     end
 
     nf4296ab13de4[":Paula_Walker\n(Person)"]:::person
-    nd500ed774b5b("Paula"):::lit
+    n6a34691b03da("Paula"):::lit
+    nc663ca49f9d9("Retired"):::lit
+    nc2dda1e9b824("+19165550172"):::lit
 
-    nf4296ab13de4 -->|"GivenName"| nd500ed774b5b
+    nf4296ab13de4 -->|"GivenName"| n6a34691b03da
+    nf4296ab13de4 -->|"OrganizationName"| nc663ca49f9d9
+    nf4296ab13de4 -->|"TelephoneNumber"| nc2dda1e9b824

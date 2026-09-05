@@ -4,54 +4,54 @@ flowchart TD
     classDef lit    fill:none,stroke:none,font-style:italic,color:#2a7a2a
     classDef meta   fill:#f5f5ff,stroke:#9999cc,color:#333
 
-    subgraph ctx["Topic Graph"]
+    subgraph ctx["Graph"]
         direction LR
-        ctx_meta["claimant: :Self\nsubject: :Ginger\ntemplate: persona:PetMedicationRecord"]:::meta
+        ctx_meta["claimant: :Self\nsubject: :Ginger\ntemplate: petshapes:PetMedicationRecordShape"]:::meta
     end
 
     nd44f902e3f9e[":Ginger"]
     n522e3529c773[":Ginger_Medication_Clavamox\n(Medication)"]
-    n1817514e9f7f("CHEBI_2676"):::lit
-    n96a3aff4af7b("CHEBI_48947"):::lit
-    n0417dac36b57("DRON_00000022"):::lit
-    n3dfec799d850("Clavamox"):::lit
-    n7aa6ef22271b("Zoetis"):::lit
+    n70ec3204b597("CHEBI_2676"):::lit
+    n0fec13ce0d41("CHEBI_48947"):::lit
+    n7f5f56257aba("DRON_00000022"):::lit
+    n0c2855e4586d("Clavamox"):::lit
+    n2fef7c6b8836("Zoetis"):::lit
     n6b826f98f918[":Ginger_Medication_Clavamox_Dosage\n(DosageAmount)"]
     n75117782fc2d[":Ginger_Medication_Clavamox_Administration\n(MedicationAdministration)"]
-    n3edc5079d20f("2"):::lit
+    n9e255f126aaf("2"):::lit
     n320d619d95a3[":Ginger_Medication_Clavamox_Interval\n(TemporalInterval)"]
     n6ee0b95a3459("1"):::lit
     n48e84d834332("2026-08-10"):::lit
     nc1a46c35d155("2026-08-20"):::lit
     n97a2a6cd305a[":Ginger_Medication_Glucosamine\n(Medication)"]
-    n643769e22cff("CHEBI_5417"):::lit
-    n5c4fb9d5ba85("CHEBI_37397"):::lit
+    n932da3a6ec3f("CHEBI_5417"):::lit
+    nd3ced5c39e91("CHEBI_37397"):::lit
     n036f964ddb0b[":Ginger_Medication_Glucosamine_Dosage\n(DosageAmount)"]
     nde20efbb3d82[":Ginger_Medication_Glucosamine_Administration\n(MedicationAdministration)"]
-    ndb5e1b60fd7e("1"):::lit
+    nd31babbf8a3c("1"):::lit
     n52641b9e32d5[":Ginger_Medication_Glucosamine_Interval\n(TemporalInterval)"]
     n9392c085e74f("1.0"):::lit
     n38a7a21dfdb5("ont00001573"):::lit
     n83b5896f04dc("2026-01-15"):::lit
     n6dd6d267adfc[":Ginger_Medications\n(PetMedicationRecord)"]
 
-    n522e3529c773 -->|"hasActiveIngredient"| n1817514e9f7f
-    n522e3529c773 -->|"hasActiveIngredient"| n96a3aff4af7b
-    n522e3529c773 -->|"hasDoseForm"| n0417dac36b57
-    n522e3529c773 -->|"medicationBrandName"| n3dfec799d850
-    n522e3529c773 -->|"medicationManufacturer"| n7aa6ef22271b
+    n522e3529c773 -->|"hasActiveIngredient"| n70ec3204b597
+    n522e3529c773 -->|"hasActiveIngredient"| n0fec13ce0d41
+    n522e3529c773 -->|"hasDoseForm"| n7f5f56257aba
+    n522e3529c773 -->|"medicationBrandName"| n0c2855e4586d
+    n522e3529c773 -->|"medicationManufacturer"| n2fef7c6b8836
     n522e3529c773 -->|"hasDosageAmount"| n6b826f98f918
     n522e3529c773 -->|"hasAdministration"| n75117782fc2d
-    n75117782fc2d -->|"medicationFrequencyPerDay"| n3edc5079d20f
+    n75117782fc2d -->|"medicationFrequencyPerDay"| n9e255f126aaf
     n75117782fc2d -->|"BFO_0000199"| n320d619d95a3
     n6b826f98f918 -->|"ont00001773"| n6ee0b95a3459
     n320d619d95a3 -->|"hasStartDate"| n48e84d834332
     n320d619d95a3 -->|"hasEndDate"| nc1a46c35d155
-    n97a2a6cd305a -->|"hasActiveIngredient"| n643769e22cff
-    n97a2a6cd305a -->|"hasActiveIngredient"| n5c4fb9d5ba85
+    n97a2a6cd305a -->|"hasActiveIngredient"| n932da3a6ec3f
+    n97a2a6cd305a -->|"hasActiveIngredient"| nd3ced5c39e91
     n97a2a6cd305a -->|"hasDosageAmount"| n036f964ddb0b
     n97a2a6cd305a -->|"hasAdministration"| nde20efbb3d82
-    nde20efbb3d82 -->|"medicationFrequencyPerDay"| ndb5e1b60fd7e
+    nde20efbb3d82 -->|"medicationFrequencyPerDay"| nd31babbf8a3c
     nde20efbb3d82 -->|"BFO_0000199"| n52641b9e32d5
     n036f964ddb0b -->|"hasDecimalValue"| n9392c085e74f
     n036f964ddb0b -->|"usesMeasurementUnit"| n38a7a21dfdb5

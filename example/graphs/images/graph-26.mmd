@@ -10,9 +10,9 @@ flowchart TD
     end
 
     ncb7388e459f8[":Jane_Starostina\n(Person)"]:::person
-    n3634f578b720("Jane"):::lit
-    n8b8a8d2e353c("Starostina"):::lit
-    nde308694bc44("Sophia Walker's primary care physician"):::lit
+    nb5a06a663805("Jane"):::lit
+    nb7fabb82e13f("Starostina"):::lit
+    n77a75937e066("Sophia Walker's primary care physician"):::lit
     na4b527a367fe[":Sophia_Medical_Appointment\n(MedicalAppointmentRecord)"]
     n2862909bb09a[":Sophia_Walker\n(Person)"]:::person
     ned787b716bf4("Albuterol inhaler, 2 puffs as needed"):::lit
@@ -22,12 +22,12 @@ flowchart TD
     n8334609721f0("Acme Health Plan (BlueShield of California)"):::lit
     n37a056879e45("XZC-884210773"):::lit
     nd86d8f4bf8bd("CVS Pharmacy, 123 Main St, Paradise, CA"):::lit
-    ndec41448034a("Sophia"):::lit
-    n80ca25725fc4("Walker"):::lit
+    n844c7eb56ff9("Sophia"):::lit
+    n2791a505a5c8("Walker"):::lit
 
-    ncb7388e459f8 -->|"GivenName"| n3634f578b720
-    ncb7388e459f8 -->|"FamilyName"| n8b8a8d2e353c
-    ncb7388e459f8 -->|"ont00001917"| nde308694bc44
+    ncb7388e459f8 -->|"GivenName"| nb5a06a663805
+    ncb7388e459f8 -->|"FamilyName"| nb7fabb82e13f
+    ncb7388e459f8 -->|"ont00001917"| n77a75937e066
     na4b527a367fe -->|"forPatient"| n2862909bb09a
     na4b527a367fe -->|"hasPrimaryCarePhysician"| ncb7388e459f8
     na4b527a367fe -->|"currentMedication"| ned787b716bf4
@@ -37,5 +37,5 @@ flowchart TD
     na4b527a367fe -->|"insuranceProvider"| n8334609721f0
     na4b527a367fe -->|"insurancePolicyNumber"| n37a056879e45
     na4b527a367fe -->|"preferredPharmacy"| nd86d8f4bf8bd
-    n2862909bb09a -->|"GivenName"| ndec41448034a
-    n2862909bb09a -->|"FamilyName"| n80ca25725fc4
+    n2862909bb09a -->|"GivenName"| n844c7eb56ff9
+    n2862909bb09a -->|"FamilyName"| n2791a505a5c8

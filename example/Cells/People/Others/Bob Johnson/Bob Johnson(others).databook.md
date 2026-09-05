@@ -14,19 +14,19 @@ mia:
     - id: "http://www.example.org/mia/graphs/graph-02"
       claimant: ":Bob_Johnson"
       subject: ":Bob_Johnson"
-      template: "pshapes:JSContactCardPersonShape"
+      template: "pshapes:ContactInfoShape"
     - id: "http://www.example.org/mia/graphs/graph-12"
       claimant: ":Self"
       subject: ":Self"
-      template: "pshapes:JSContactCardPersonShape"
+      template: "pshapes:ContactInfoShape"
     - id: "http://www.example.org/mia/graphs/graph-04"
       claimant: ":Self"
       subject: ":Bob_Johnson"
-      template: "pshapes:JSContactCardPersonShape"
+      template: "pshapes:ContactInfoShape"
     - id: "http://www.example.org/mia/graphs/graph-08"
       claimant: ":Bob_Johnson"
       subject: ":Self"
-      template: "pshapes:JSContactCardPersonShape"
+      template: "pshapes:ContactInfoShape"
 ---
 
 ## Graphs
@@ -79,7 +79,7 @@ This graph captures Bob Johnson's self-claimed Bob-graph persona, transmitted fr
 
 #### Overview
 
-This graph captures Alice's record of Bob Johnson in their 1:1 relationship graph. Alice notes Bob's favorite drink and given name, the latter required by the `JSContactCardPersonShape` every templated cell's `member` content is now expected to conform to (`cell:memberGraphShape`). Alice is the claimant.
+This graph captures Alice's record of Bob Johnson in their 1:1 relationship graph. Alice notes Bob's favorite drink and given name, the latter required by the `ContactInfoShape` every templated cell's `member` content is now expected to conform to (`cell:memberGraphShape`). Alice is the claimant.
 
 #### Graph
 
@@ -97,7 +97,7 @@ This graph captures Alice's record of Bob Johnson in their 1:1 relationship grap
               persona:Person ;
     rdfs:label "Bob Johnson (Bob-colleague-of-alice)"@en ;
 
-    <https://w3id.org/cco-domains/cco/ont00001879> [  # designated by → GivenName (JSContactCardPersonShape)
+    <https://w3id.org/cco-domains/cco/ont00001879> [  # designated by → GivenName (ContactInfoShape)
         rdf:type cco:ent00000002 ;
         <https://w3id.org/cco-domains/cco/ont00001765> "Bob"
     ] ;
@@ -113,7 +113,7 @@ This graph captures Alice's record of Bob Johnson in their 1:1 relationship grap
 
 #### Overview
 
-This graph captures Bob's record of Alice in their 1:1 relationship graph, transmitted from Bob's own instance of the app to Alice's over the PDN. Bob notes Alice's favorite drink and given name, the latter required by the `JSContactCardPersonShape` every templated cell's `member` content is now expected to conform to (`cell:memberGraphShape`). Bob is the claimant.
+This graph captures Bob's record of Alice in their 1:1 relationship graph, transmitted from Bob's own instance of the app to Alice's over the PDN. Bob notes Alice's favorite drink and given name, the latter required by the `ContactInfoShape` every templated cell's `member` content is now expected to conform to (`cell:memberGraphShape`). Bob is the claimant.
 
 #### Graph
 
@@ -130,7 +130,7 @@ This graph captures Bob's record of Alice in their 1:1 relationship graph, trans
 :Self rdf:type owl:NamedIndividual ,
                persona:Person .
 
-:Self <https://w3id.org/cco-domains/cco/ont00001879> [  # designated by → GivenName (JSContactCardPersonShape)
+:Self <https://w3id.org/cco-domains/cco/ont00001879> [  # designated by → GivenName (ContactInfoShape)
         rdf:type cco:ent00000002 ;
         <https://w3id.org/cco-domains/cco/ont00001765> "Alice"
     ] ;

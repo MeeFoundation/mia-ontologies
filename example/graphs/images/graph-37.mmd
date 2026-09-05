@@ -6,7 +6,7 @@ flowchart TD
 
     subgraph ctx["Graph"]
         direction LR
-        ctx_meta["claimant: :Self\nsubject: :Ginger\ntemplate: pets:Pet"]:::meta
+        ctx_meta["claimant: :Self\nsubject: :Ginger\ntemplate: petshapes:PetShape"]:::meta
     end
 
     nd44f902e3f9e[":Ginger\n(Pet)"]
@@ -15,6 +15,8 @@ flowchart TD
     n9e505e1dc69a("VBO_0100262"):::lit
     ne20592b7b4fa("2020-06-15"):::lit
     nd98aabc76a0e[":Ginger_Weight\n(BodyWeight)"]
+    ne6f075283022("Female"):::lit
+    nc22e9031e2b9("true"):::lit
     nd93284aad1dc("9.5"):::lit
     nfacd527fabed("ont00001728"):::lit
     ne0c3ba92f1db[":Self\n(Person)"]:::person
@@ -24,6 +26,8 @@ flowchart TD
     nd44f902e3f9e -->|"hasBreed"| n9e505e1dc69a
     nd44f902e3f9e -->|"birthDate"| ne20592b7b4fa
     nd44f902e3f9e -->|"hasBodyWeight"| nd98aabc76a0e
+    nd44f902e3f9e -->|"sex"| ne6f075283022
+    nd44f902e3f9e -->|"isSpayedOrNeutered"| nc22e9031e2b9
     nd98aabc76a0e -->|"hasDecimalValue"| nd93284aad1dc
     nd98aabc76a0e -->|"usesMeasurementUnit"| nfacd527fabed
     ne0c3ba92f1db -->|"hasPet"| nd44f902e3f9e

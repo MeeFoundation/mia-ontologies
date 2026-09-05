@@ -14,7 +14,7 @@ mia:
     id: "http://www.example.org/mia/graphs/graph-35"
     claimant: ":Self"
     subject: ":Self"
-    template: "pshapes:JSContactCardPersonShape"
+    template: "pshapes:ContactInfoShape"
   topic:
     id: "http://www.example.org/mia/graphs/graph-17"
     claimant: ":Self"

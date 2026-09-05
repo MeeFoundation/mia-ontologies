@@ -1,30 +1,29 @@
 flowchart TD
     classDef person fill:#fffacd,stroke:#aaa,color:#333
-    classDef grp    fill:#d4edda,stroke:#aaa,color:#333
     classDef org    fill:#cce5ff,stroke:#aaa,color:#333
     classDef lit    fill:none,stroke:none,font-style:italic,color:#2a7a2a
     classDef meta   fill:#f5f5ff,stroke:#9999cc,color:#333
 
-    subgraph ctx["Topic Graph"]
+    subgraph ctx["Graph"]
         direction LR
-        ctx_meta["claimant: :Self\nsubject: :Self\ntemplate: persona:JSContactCard"]:::meta
+        ctx_meta["claimant: :Self\nsubject: :Self\ntemplate: pshapes:ContactInfoShape"]:::meta
     end
 
     ne0c3ba92f1db[":Self\n(Person)"]:::person
-    n9875ee9f9bfe("Alice"):::lit
-    n13a0e0741314("Walker"):::lit
-    nd4903f0d3c47("alice@acme.com"):::lit
-    n2a1c264e5432("+15108149999"):::lit
-    n12b5c9c0e210("Acme"):::lit
-    nf9ddf72fb8eb("Engineering"):::lit
-    nf47773635bca("Software Engineer"):::lit
-    n6f51fe59be24("https://www.linkedin.com/in/alicewalker"):::lit
+    n82d6b9fb70d9("Alice"):::lit
+    n36e684d0931b("Walker"):::lit
+    n9e91f1b8c1a5("alice@acme.com"):::lit
+    n21fa3551c0df("+15108149999"):::lit
+    n1daf08e320d2("Acme"):::lit
+    n304ff944eaa8("Engineering"):::lit
+    n328055cec4e3("Software Engineer"):::lit
+    n7f4fb5652e58("https://www.linkedin.com/in/alicewalker"):::lit
 
-    ne0c3ba92f1db -->|"GivenName"| n9875ee9f9bfe
-    ne0c3ba92f1db -->|"FamilyName"| n13a0e0741314
-    ne0c3ba92f1db -->|"EmailAddress"| nd4903f0d3c47
-    ne0c3ba92f1db -->|"TelephoneNumber"| n2a1c264e5432
-    ne0c3ba92f1db -->|"OrganizationName"| n12b5c9c0e210
-    ne0c3ba92f1db -->|"OrganizationUnit"| nf9ddf72fb8eb
-    ne0c3ba92f1db -->|"JobTitle"| nf47773635bca
-    ne0c3ba92f1db -->|"WebURL"| n6f51fe59be24
+    ne0c3ba92f1db -->|"GivenName"| n82d6b9fb70d9
+    ne0c3ba92f1db -->|"FamilyName"| n36e684d0931b
+    ne0c3ba92f1db -->|"EmailAddress"| n9e91f1b8c1a5
+    ne0c3ba92f1db -->|"TelephoneNumber"| n21fa3551c0df
+    ne0c3ba92f1db -->|"OrganizationName"| n1daf08e320d2
+    ne0c3ba92f1db -->|"OrganizationUnit"| n304ff944eaa8
+    ne0c3ba92f1db -->|"JobTitle"| n328055cec4e3
+    ne0c3ba92f1db -->|"WebURL"| n7f4fb5652e58

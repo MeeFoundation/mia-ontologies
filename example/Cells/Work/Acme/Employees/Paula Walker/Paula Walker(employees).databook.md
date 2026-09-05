@@ -14,11 +14,11 @@ mia:
     - id: "http://www.example.org/mia/graphs/graph-20"
       claimant: ":Self"
       subject: ":Self"
-      template: "pshapes:JSContactCardPersonShape"
+      template: "pshapes:ContactInfoShape"
     - id: "http://www.example.org/mia/graphs/graph-06"
       claimant: ":Self"
       subject: ":Paula_Walker"
-      template: "pshapes:JSContactCardPersonShape"
+      template: "pshapes:ContactInfoShape"
 ---
 
 ## Graphs
@@ -28,7 +28,7 @@ mia:
 
 #### Overview
 
-This graph captures Alice's record of her colleague Paula Walker in their shared Acme employment graph — one of the cell's two required `member` entries, satisfying `JSContactCardPersonShape`'s required GivenName alongside her existing `rdfs:label` (moved here from `cell:topic` once the cell's category, then `cat:Employee`, reverted to `isTopicCell: false`; `cat:Employee` has since been deleted entirely, and this cell now reuses `cat:Employees` directly). Alice is the claimant.
+This graph captures Alice's record of her colleague Paula Walker in their shared Acme employment graph — one of the cell's two required `member` entries, satisfying `ContactInfoShape`'s required GivenName alongside her existing `rdfs:label` (moved here from `cell:topic` once the cell's category, then `cat:Employee`, reverted to `isTopicCell: false`; `cat:Employee` has since been deleted entirely, and this cell now reuses `cat:Employees` directly). Alice is the claimant.
 
 #### Graph
 
@@ -46,7 +46,7 @@ This graph captures Alice's record of her colleague Paula Walker in their shared
                persona:Person ;
     rdfs:label "Paula Walker (Acme)"@en ;
 
-    <https://w3id.org/cco-domains/cco/ont00001879> [  # designated by → GivenName (JSContactCardPersonShape)
+    <https://w3id.org/cco-domains/cco/ont00001879> [  # designated by → GivenName (ContactInfoShape)
         rdf:type cco:ent00000002 ;
         <https://w3id.org/cco-domains/cco/ont00001765> "Paula"
     ] .
@@ -79,7 +79,7 @@ This graph captures Alice Walker's employee identity at Acme. It records her wor
 
 :Self rdfs:comment "Alice Walker's persona for her employment at Acme."@en ;
 
-    <https://w3id.org/cco-domains/cco/ont00001879> [  # designated by → GivenName (JSContactCardPersonShape)
+    <https://w3id.org/cco-domains/cco/ont00001879> [  # designated by → GivenName (ContactInfoShape)
         rdf:type cco:ent00000002 ;
         <https://w3id.org/cco-domains/cco/ont00001765> "Alice"
     ] ;

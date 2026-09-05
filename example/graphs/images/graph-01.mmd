@@ -4,12 +4,12 @@ flowchart TD
     classDef lit    fill:none,stroke:none,font-style:italic,color:#2a7a2a
     classDef meta   fill:#f5f5ff,stroke:#9999cc,color:#333
 
-    subgraph ctx["Topic Graph"]
+    subgraph ctx["Graph"]
         direction LR
-        ctx_meta["claimant: :BHS\nsubject: :BHS"]:::meta
+        ctx_meta["claimant: :BHS\nsubject: :BHS\ntemplate: pshapes:ContactInfoShape"]:::meta
     end
 
     n0644db9ef116[":BHS\n(Organization)"]:::org
-    n23d5650e2787("An informal Boston-area professional networking society. Current members include Alice Walker and Bob Johnson."):::lit
+    nb40320d13138("An informal Boston-area professional networking society. Current members include Alice Walker and Bob Johnson."):::lit
 
-    n0644db9ef116 -->|"ont00001917"| n23d5650e2787
+    n0644db9ef116 -->|"ont00001917"| nb40320d13138

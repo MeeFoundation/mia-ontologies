@@ -40,7 +40,7 @@ can't fire on the 102 ctpl:*TemplateCell individuals, which are generic
 class-level content bound to no real person.
 
 Root-cause scoping fix (template pass): a class-wide shape targeting `persona:Person` directly
-— in practice only `JSContactCardPersonShape`, since every other template's
+— in practice only `ContactInfoShape`, since every other template's
 shape targets a narrow, specific document/account class that only the one
 real individual per graph is ever typed as — would otherwise fire on *every*
 `persona:Person` individual present in a graph's merged test data, including
@@ -51,7 +51,7 @@ graph's own real subject and may legitimately lack a GivenName.
 The graph's own YAML `subject:` isn't a safe stand-in for "the individual to
 validate" here either — a member graph's `subject` can legitimately name a
 non-`persona:Person` party (e.g. a Kyoto trip's Agent member has `subject:
-":Alice_Travel_Agent"`, an `a:Agent`, while the real JSContactCard-conformant
+":Alice_Travel_Agent"`, an `a:Agent`, while the real ContactInfo-conformant
 content is asserted on `:Self` in that same graph). So whenever the resolved
 shape's own declared target is exactly `sh:targetClass persona:Person`,
 `scope_shape` (below) instead re-targets it at every *substantive*
@@ -96,7 +96,7 @@ from databook_graphs import (
 # SHAPE_NS[shapes_file] + local_name.
 SHAPE_NS = {
     "shacl/persona-shacl.ttl":            "http://mee.foundation/ontologies/persona/shapes#",
-    "shacl/jscontactcard-shacl.ttl": "http://mee.foundation/ontologies/persona/shapes#",
+    "shacl/contactinfo-shacl.ttl": "http://mee.foundation/ontologies/persona/shapes#",
     "other/shacl/pets-shacl.ttl":         "http://mee.foundation/ontologies/pets/shapes#",
     "other/shacl/vehicles-shacl.ttl":     "http://mee.foundation/ontologies/vehicles/shapes#",
     "other/shacl/identity-documents-shacl.ttl": "http://mee.foundation/ontologies/identity-documents/shapes#",
@@ -113,7 +113,7 @@ SHAPE_NS = {
 # local name (below) picks the exact one; every other prefix maps to exactly
 # one file.
 PREFIX_TO_FILES = {
-    "pshapes": ["shacl/persona-shacl.ttl", "shacl/jscontactcard-shacl.ttl"],
+    "pshapes": ["shacl/persona-shacl.ttl", "shacl/contactinfo-shacl.ttl"],
     "petshapes": ["other/shacl/pets-shacl.ttl"],
     "vehicleshapes": ["other/shacl/vehicles-shacl.ttl"],
     "idocshapes": ["other/shacl/identity-documents-shacl.ttl"],
@@ -144,7 +144,7 @@ SHAPE_TO_FILE = {
     "DebitCardShape":                "other/shacl/banking-shacl.ttl",
     "SSNShape":                      "shacl/persona-shacl.ttl",
     "HealthWellnessShape":           "shacl/persona-shacl.ttl",
-    "JSContactCardPersonShape":      "shacl/jscontactcard-shacl.ttl",
+    "ContactInfoShape":      "shacl/contactinfo-shacl.ttl",
     "PetShape":                      "other/shacl/pets-shacl.ttl",
     "PetMedicationRecordShape":      "other/shacl/pets-shacl.ttl",
     "PetsCareAndFeedingShape":       "other/shacl/pets-shacl.ttl",

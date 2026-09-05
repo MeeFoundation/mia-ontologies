@@ -5,7 +5,7 @@ type: cell-databook
 version: 2.0.0
 created: 2026-07-10
 description: >
-  Cell DataBook for folder "Sophia Walker" (cell:category: cat:ImmediateFamily). It is a two-member cell — Alice (:Self) and her husband Dave — that is also a cell:TopicCell, with one topic about :Sophia_Walker, Alice's daughter. Sophia has no instance of the app, so she is the cell's subject rather than one of its members: Alice added the topic manually and chose the Contact Info template (pshapes:JSContactCardPersonShape) for it, even though cat:ImmediateFamily's own template cell carries cell:isTopicCell false.
+  Cell DataBook for folder "Sophia Walker" (cell:category: cat:ImmediateFamily). It is a two-member cell — Alice (:Self) and her husband Dave — that is also a cell:TopicCell, with one topic about :Sophia_Walker, Alice's daughter. Sophia has no instance of the app, so she is the cell's subject rather than one of its members: Alice added the topic manually and chose the Contact Info template (pshapes:ContactInfoShape) for it, even though cat:ImmediateFamily's own template cell carries cell:isTopicCell false.
 mia:
   category: "cat:ImmediateFamily"
   creator: ":Self"
@@ -14,16 +14,16 @@ mia:
     - id: "http://www.example.org/mia/graphs/graph-21"
       claimant: ":Self"
       subject: ":Self"
-      template: "pshapes:JSContactCardPersonShape"
+      template: "pshapes:ContactInfoShape"
     - id: "http://www.example.org/mia/graphs/graph-05"
       claimant: ":Dave"
       subject: ":Dave"
-      template: "pshapes:JSContactCardPersonShape"
+      template: "pshapes:ContactInfoShape"
   topic:
     - id: "http://www.example.org/mia/graphs/graph-07"
       claimant: ":Self"
       subject: ":Sophia_Walker"
-      template: "pshapes:JSContactCardPersonShape"
+      template: "pshapes:ContactInfoShape"
 ---
 
 ## Graphs
@@ -33,7 +33,7 @@ mia:
 
 #### Overview
 
-This graph captures Dave's self-claimed family persona as transmitted from Dave's own instance of the app to Alice's over the PDN, plus his given name, required by the `JSContactCardPersonShape` every templated cell's `member` content is now expected to conform to (`cell:memberGraphShape`). Dave is the claimant — this is the cell's second `member` entry, alongside Alice's own (graph 21), making it a two-member cell.
+This graph captures Dave's self-claimed family persona as transmitted from Dave's own instance of the app to Alice's over the PDN, plus his given name, required by the `ContactInfoShape` every templated cell's `member` content is now expected to conform to (`cell:memberGraphShape`). Dave is the claimant — this is the cell's second `member` entry, alongside Alice's own (graph 21), making it a two-member cell.
 
 #### Graph
 
@@ -51,7 +51,7 @@ This graph captures Dave's self-claimed family persona as transmitted from Dave'
                persona:Person ;
     rdfs:label "Dave (Family) self-claimed"@en ;
 
-    <https://w3id.org/cco-domains/cco/ont00001879> [  # designated by → GivenName (JSContactCardPersonShape)
+    <https://w3id.org/cco-domains/cco/ont00001879> [  # designated by → GivenName (ContactInfoShape)
         rdf:type cco:ent00000002 ;
         <https://w3id.org/cco-domains/cco/ont00001765> "Dave"
     ] .
@@ -62,7 +62,7 @@ This graph captures Dave's self-claimed family persona as transmitted from Dave'
 
 #### Overview
 
-This graph captures Alice's Contact Info record of her daughter Sophia Walker. Sophia has no instance of the app, so she cannot join this cell as a member: Alice added this graph manually as the cell's `cell:topic` and chose the Contact Info template (`pshapes:JSContactCardPersonShape`) for it, which is what makes an otherwise ordinary `cat:ImmediateFamily` cell a `cell:TopicCell`. Sophia is therefore the cell's derived subject rather than one of its two members. Alice is the claimant.
+This graph captures Alice's Contact Info record of her daughter Sophia Walker. Sophia has no instance of the app, so she cannot join this cell as a member: Alice added this graph manually as the cell's `cell:topic` and chose the Contact Info template (`pshapes:ContactInfoShape`) for it, which is what makes an otherwise ordinary `cat:ImmediateFamily` cell a `cell:TopicCell`. Sophia is therefore the cell's derived subject rather than one of its two members. Alice is the claimant.
 
 #### Graph
 
@@ -96,7 +96,7 @@ This graph captures Alice's Contact Info record of her daughter Sophia Walker. S
 
 #### Overview
 
-This graph captures Alice Walker's family relationships. It records that Sophia Walker is her daughter and her family social network, which includes Sophia Walker and Dave (Alice's husband) as members, plus her own given name, required by the `JSContactCardPersonShape` every templated cell's `member` content is now expected to conform to (`cell:memberGraphShape`). Dave's own family graph (`graph-05`) is the peer record in this relationship; his own claimed record about their daughter appears separately in the "Medical Appointment" cell (graph 28). Alice is the claimant.
+This graph captures Alice Walker's family relationships. It records that Sophia Walker is her daughter and her family social network, which includes Sophia Walker and Dave (Alice's husband) as members, plus her own given name, required by the `ContactInfoShape` every templated cell's `member` content is now expected to conform to (`cell:memberGraphShape`). Dave's own family graph (`graph-05`) is the peer record in this relationship; his own claimed record about their daughter appears separately in the "Medical Appointment" cell (graph 28). Alice is the claimant.
 
 #### Graph
 
@@ -121,7 +121,7 @@ This graph captures Alice Walker's family relationships. It records that Sophia 
 
 :Self rdfs:comment "Alice Walker's persona for her family relationships."@en ;
 
-    <https://w3id.org/cco-domains/cco/ont00001879> [  # designated by → GivenName (JSContactCardPersonShape)
+    <https://w3id.org/cco-domains/cco/ont00001879> [  # designated by → GivenName (ContactInfoShape)
         rdf:type cco:ent00000002 ;
         <https://w3id.org/cco-domains/cco/ont00001765> "Alice"
     ] ;
