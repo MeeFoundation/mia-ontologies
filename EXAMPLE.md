@@ -8,7 +8,7 @@ This section describes the local dataset for a hypothetical user, Alice Walker. 
 
 ### Bob and Fred
 
-Alice knows two people, Bob and Fred. She has created two two-member cells nested under *Others* sharing one with Bob and the other with Fred. 
+Alice knows two people, Bob and Fred. Under *Others* she has created a two-member cell for each, sharing one with Bob and the other with Fred. 
 
 In her shared cell with Bob ([cell 16](<example/Cells/People/Others/Bob Johnson/Bob Johnson(others).databook.md>)) Alice has included some claims about herself ([graph 12](<example/Cells/People/Others/Bob Johnson/Bob Johnson(others).databook.md#graph-12>)) including her given name "Alice", her family name "Walker", etc. She has included ([graph 4](<example/Cells/People/Others/Bob Johnson/Bob Johnson(others).databook.md#graph-04>)) her claim that Bob's favorite drink is an oat milk cappuccino. Bob has claimed some contact information about himself ([graph 2](<example/Cells/People/Others/Bob Johnson/Bob Johnson(others).databook.md#graph-02>)), and he claims that her favorite drink is Pepsi ([graph 8](<example/Cells/People/Others/Bob Johnson/Bob Johnson(others).databook.md#graph-08>)).
 
@@ -30,7 +30,7 @@ Alice's husband Dave is involved in taking care of their daughter. The two paren
 
 Alice is an employee of Acme, so under her *Work* cell she has created an *Acme* cell to represent her employer. Since Acme is an organization, rather than using `cat:Person` categories she has switched to `cat:Organization` categories (light blue color). 
 
-Under *Employees* she has added her own *Alice Walker* cell holding her Business Card claims ([graph 10](<example/Cells/Work/Acme/Employees/Alice Walker/Alice Walker(employees).databook.md#graph-10>)) — job title at Acme, work telephone number, work email, etc. One of the employees she works with is Paula Walker, so she has a *Paula Walker* cell for her — a two-member cell with Paula herself as the second member ([graph 6](<example/Cells/Work/Acme/Employees/Paula Walker/Paula Walker(employees).databook.md#graph-06>), a bare identifying claim mirroring Alice's own) alongside Alice's own claims about herself ([graph 20](<example/Cells/Work/Acme/Employees/Paula Walker/Paula Walker(employees).databook.md#graph-20>)) — neither of which have been shared with Paula since this is a (non-shared) single member cell.
+Under *Employees* she has added her own *Alice Walker* cell holding her Business Card claims ([graph 10](<example/Cells/Work/Acme/Employees/Alice Walker/Alice Walker(employees).databook.md#graph-10>)) — job title at Acme, work telephone number, work email, etc. One of the employees she works with is Paula Walker, so she has a *Paula Walker* cell for her — a two-member cell with Paula herself as the second member ([graph 6](<example/Cells/Work/Acme/Employees/Paula Walker/Paula Walker(employees).databook.md#graph-06>), a bare identifying claim mirroring Alice's own) alongside Alice's own claims about herself ([graph 20](<example/Cells/Work/Acme/Employees/Paula Walker/Paula Walker(employees).databook.md#graph-20>)) — neither of which has been shared with Paula, since Alice has not yet shared the cell with her: both graphs are still her own claims, graph 6 included.
 
 <p align="center"><img src="example/images/work.png" alt="Work cells"></p>
 
