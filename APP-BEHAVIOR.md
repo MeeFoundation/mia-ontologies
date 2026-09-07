@@ -52,10 +52,12 @@ Roles, as used in every table's column headings:
 Each table's **Source** column records where that row came from, since these tables merge two independently-written sources — this document's own prior capability table and Vladimir and Sergey's four tables, which cover only owner and member roles and say nothing about agents or organizations:
 
 - `DOC` — the row comes from this document only; Vladimir and Sergey's tables don't cover it.
-- `NEW` — the row comes from Vladimir and Sergey only. Its Agent and Organization values are therefore `?` — not yet determined, as distinct from `n/a`, which marks a capability that genuinely cannot apply to that role.
+- `NEW` — the row comes from Vladimir and Sergey only; this document carried no such row before. Because their tables have no Agent or Organization axis, those two values on a `NEW` row are this document's own, decided here rather than merged in from theirs.
 - `AGREE` — both sources carry the row (sometimes under a different name) and every value matches.
 - `DECIDED` — the two sources disagreed and the disagreement has since been settled some way other than simply adopting the other side's value — including where it turned out they were describing different layers. The cell shows the settled user-level value, and a footnote explains.
 - `CONFLICT` — both sources carry the row but disagree on at least one value. Both values are shown, `this-document / Vladimir-and-Sergey`, with a footnote naming each. These are open questions, listed under [Unresolved](#unresolved) below.
+
+Every cell in every table now carries a decided value. A cell reading `n/a` marks a capability that genuinely cannot apply to that role, rather than one left open — an `a:Agent` can invite no one, so it can never have a self-invited member to remove.
 
 #### Cell Container Permissions
 
@@ -65,8 +67,8 @@ Each table's **Source** column records where that row came from, since these tab
 | Invite member to a cell | yes | yes | no | no | AGREE |
 | Uninvite self-invited member | yes | yes | n/a | n/a | DOC |
 | Remove member from cell | yes | no | no | no | AGREE |
-| Remove owner-member from cell | yes | no | ? | ? | NEW |
-| Leave cell | yes | yes | ? | ? | NEW |
+| Remove owner-member from cell | yes | no | no | no | NEW |
+| Leave cell | yes | yes | yes | yes | NEW |
 | Rename cell for all members | yes | yes / no ¹ | no | no | CONFLICT |
 | Delete cell locally | yes | yes | yes | yes | DOC |
 | Delete cell for all members | no | no | no | no | AGREE |
@@ -95,10 +97,10 @@ An attachment is any plain file held directly in the cell's own folder, shown in
 
 | Capability | Owner | Human | Agent | Organization | Source |
 |---|---|---|---|---|---|
-| Read own attachment | yes | yes | ? | ? | NEW |
-| Read another member's attachment | yes | yes | ? | ? | NEW |
+| Read own attachment | yes | yes | yes | yes | NEW |
+| Read another member's attachment | yes | yes | yes | yes | NEW |
 | Add own attachment | yes | yes | yes | yes | AGREE |
-| Add an attachment as if authored by another member | no | no | ? | ? | NEW |
+| Add an attachment as if authored by another member | no | no | no | no | NEW |
 | Update own attachment | no | no | no | no | AGREE |
 | Update another member's attachment | no | no | no | no | AGREE |
 | Delete own attachment | yes | yes | yes | yes | AGREE |
@@ -164,7 +166,7 @@ Three questions remain open, each arising from a `CONFLICT` row above or from a 
 
 1. **Rename** — may any member rename a cell for everyone, or only an owner? This document's [Naming, Renaming, and Sharing](#naming-renaming-and-sharing) section argues at length for any member, against the Microsoft Teams/Discord/GitHub precedent; Vladimir and Sergey restrict it to owners.
 2. **Leave vs. delete locally** — does *Leave cell* subsume *Delete cell locally*, or are they distinct? Leaving withdraws one's membership, which propagates; deleting locally removes the cell from one's own tree only. They are kept as separate rows pending an answer.
-3. **Does "member" mean "human"?** — Vladimir and Sergey's tables have a single non-owner "Cell member" column, with no identity-type axis at all. Mapping it onto **Human** above assumes it means a non-owner `p:Person`; if it instead means any non-owner member regardless of identity type, the Agent and Organization columns inherit those values too, and most `?` cells resolve at once.
+3. **Does "member" mean "human"?** — Vladimir and Sergey's tables have a single non-owner "Cell member" column, with no identity-type axis at all. Mapping it onto **Human** above assumes it means a non-owner `p:Person`. This no longer changes any value, since the Agent and Organization columns are now fully decided; it only settles how much of their input already covered those two roles rather than leaving them to this document. Worth noting that on every `NEW` row the decided Agent and Organization values do match the Human one, so the broader reading would have produced the same table — but it cannot be the reading throughout, since an `a:Agent` differs from a human member on several rows above (it may not create a cell, invite a member, or hold the owner role).
 
 ### Naming, Renaming, and Sharing
 
