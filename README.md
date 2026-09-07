@@ -176,18 +176,18 @@ As we've mentioned, the user is free to create cells not included in the predefi
 
 ### Introduction to Cells
 
-A cell is a secure **container of information** that can remain private to the user or be shared with other users and/or organizations. A **regular cell** holds various kinds of information, organized into a set of tabs:
+A cell is a secure container of information (or a data space if you prefer) that can remain private to the user or be shared with other users and/or organizations. A **regular cell** holds various kinds of information, organized into a set of tabs:
 
-- **Members** tab — structured information (fields and values) about the member(s) of the cell. If the cell hasn't been shared, it has only one member.
+- **Members** tab — contact information about the member(s) of the cell. Things like name, email, phone number, etc. If the cell hasn't been shared, it has only one member, its creator.
 - **Note** tab — a Markdown document about the cell. It may contain links to other cells.
 - **Attachments** tab (📎) — an optional set of file attachments, analogous to email attachments.
 - **Chat** tab — a chat stream shared with all members.
 
 A **topic cell** adds one more:
 
-- **Topic** tab — structured information about a single topic that is the focus of the cell. That topic could be a person who is not a member of the cell, or a project the members are working on together (e.g. organizing a medical appointment for someone who is not a member of the cell).
+- **Topic** tab — structured information about a single topic that is the focus of the cell. That topic could be a person who is not a member of the cell, a pet, or a project the members are working on together. By "structured" we mean fields and values. For example if the topic was about taking care of a pet the structured information might include: species:dog, breed:Labradoodle, weight:26 pounds, and so on. If the topic is a credit card the topic would have fields like name, credit card number, expiration data, and CVV code.
 
-The app contains two pre-defined, non-user-editable taxonomies of **categories**. One is focused on helping organize the information in a person's personal life (Family, Home, Pets, etc.), and the other on their work life (Employer, Employees, etc.). For some of these categories, the app includes a *template cell* which may contain some starter content (or may be empty) and/or may have a schema for the structured fields and values that a cell of this category might contain.
+The app contains two pre-defined, non-user-editable taxonomies of **categories**. One is focused on helping org anize the information in a person's personal life (Family, Home, Pets, etc.), and the other on their work life (Employer, Employees, etc.). For some of these categories, the app includes a *template cell* which may contain some starter content (or may be empty) and/or may have a schema for the structured fields and values that a cell of this category might contain.
 
 A cell has a **name**. Often this name is just a copy of the name of the category. For example, if the category is "People", the cell might be called "People". However, the user can give the cell a name of their own choosing.
 
