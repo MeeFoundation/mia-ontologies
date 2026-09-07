@@ -50,7 +50,7 @@ Cell-level capabilities are governed by two independent axes: **ownership** (`c:
 | Graph claims CRUD | yes | yes | yes | yes |
 | Delete cell locally | yes | yes | yes | yes |
 | Delete cell globally | no | no | no | no |
-| Out-of-cell comms | yes | yes | no | no |
+| Out-of-cell communications | yes | yes | no | no |
 | Add attachments | yes | yes | yes | yes |
 | Edit own attachments | yes | yes | yes | yes |
 | Delete own attachments | yes | yes | yes | yes |
