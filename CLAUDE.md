@@ -60,7 +60,7 @@ Every graph below is an embedded section (a `mia.member`/`mia.topic` entry + `##
 | Graph 21 — `example/Cells/People/Immediate Family/Sophia Walker/Sophia Walker(immediate-family).databook.md` | Alice's family graph — social network with Sophia Walker and Dave as members |
 | Graph 22 — `example/Cells/Things/Things.databook.md` | Alice's possessions — wallet, health insurance card, SSN card |
 | Graph 20 — `example/Cells/Work/Acme/Employees/Paula Walker/Paula Walker(employees).databook.md` | Alice's Acme employee graph; social network with Paula Walker |
-| Graph 10 — `example/Cells/Work/Acme/Employees/Alice Walker/Alice Walker(employees).databook.md` | Alice's business card (ContactInfo) — name, email, phone, employer, job title |
+| Graph 10 — `example/Cells/Work/Acme/Employees/Alice Walker/Alice Walker(employees).databook.md` | Alice's contact info (ContactInfo) — name, email, phone, employer, job title |
 | Graph 15 — `example/Cells/Government/State/Drivers License/Drivers License.databook.md` | The Drivers License cell's required `member` entry, claimed by Alice — carries her given name (required by `ContactInfoShape`, `cell:memberGraphShape`, since this template is `isTopicCell: true`) |
 | Graph 79 — `example/Cells/Government/State/Drivers License/Drivers License.databook.md` | Alice's California driver's license — legal name, DOB, DL#, expiry, photo; the cell's `cell:topic`, typed `identitydocuments:DriversLicense` |
 | Graph 19 — `example/Cells/Government/Federal/Passport/Passport.databook.md` | The Passport cell's required `member` entry, claimed by Alice — carries her given name (required by `ContactInfoShape`, `cell:memberGraphShape`, since this template is `isTopicCell: true`) |

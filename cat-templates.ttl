@@ -19,10 +19,10 @@
 @base <http://mee.foundation/ontologies/cell-templates> .
 
 <http://mee.foundation/ontologies/cell-templates> rdf:type owl:Ontology ;
-    owl:versionIRI <http://mee.foundation/ontologies/cell-templates/2.24.0> ;
-    dc:date "2026-09-06"^^xsd:date ;
+    owl:versionIRI <http://mee.foundation/ontologies/cell-templates/2.25.0> ;
+    dc:date "2026-09-07"^^xsd:date ;
     owl:imports <http://mee.foundation/ontologies/cell> ;
-    owl:versionInfo "Version 2.24.0 - added ctpl:PersonTemplateCell (isTopicCell false) and ctpl:OrganizationTemplateCell (isTopicCell true, topicGraphShape oshapes:OrganizationShape) for the two SKOS top concepts"@en ;
+    owl:versionInfo "Version 2.25.0 - reworded rdfs:comment text to say 'contact-info' rather than 'business-card'"@en ;
     rdfs:label "Cell Templates"@en ;
     rdfs:comment """Class-level cell:Cell templates for category concepts (category.ttl's cat:CategoryScheme). Each individual here is what the app clones into a new cell when a folder representing its own cell:category concept is first instantiated into a user's tree (Lazy Instantiation) — finding the template for a given category is a reverse lookup (?tc cell:category cat:X), since category.ttl carries no forward pointer of its own. Each is typed solely cell:TemplateCell."""@en .
 
@@ -35,7 +35,7 @@ ctpl:PersonTemplateCell rdf:type cell:Cell, cell:TemplateCell ;
     rdfs:comment """The template for cat:Person, one of the scheme's two SKOS top concepts. A cell
                     instantiated directly as bare "Person" is the root of a user's own tree of
                     cells — purely organizational, with no document, account or third party of its
-                    own — so it carries only the business-card member view every template shares,
+                    own — so it carries only the contact-info member view every template shares,
                     and cell:isTopicCell false."""@en ;
     cell:category cat:Person ;
     cell:memberGraphShape pshapes:ContactInfoShape ;
@@ -117,7 +117,7 @@ ctpl:UserDefinedTemplateCell rdf:type cell:Cell, cell:TemplateCell ;
                     Instantiation falls back to cloning it whenever a new cell is created with no
                     category selected. Carries only cell:memberGraphShape
                     pshapes:ContactInfoShape — a Custom cell has no document type and no
-                    topic content of its own, only ever a business-card view of its member(s)."""@en ;
+                    topic content of its own, only ever a contact-info view of its member(s)."""@en ;
     cell:memberGraphShape pshapes:ContactInfoShape ;
     cell:isTopicCell false .
 

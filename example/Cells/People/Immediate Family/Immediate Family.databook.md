@@ -9,7 +9,7 @@ description: >
   one-member cell with one member entry about :Self — a purely
   organizational category node with no relationship of its own beyond
   Alice's required membership, though that member entry now carries a
-  minimal ContactInfo-style business-card claim (given name,
+  minimal ContactInfo-style claim (given name,
   organization name, email), per cat:ImmediateFamily's own cell:TemplateCell.
 mia:
   category: "cat:ImmediateFamily"

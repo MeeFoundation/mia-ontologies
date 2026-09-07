@@ -24,12 +24,12 @@ mia:
 
 #### Overview
 
-This graph captures Alice Walker's professional business card in ContactInfo format. It records her full name, work email (alice@acme.com), work phone (+15108149999), employer (Acme), department (Engineering), job title (Software Engineer), and LinkedIn profile URL. Validated by the `ContactInfo` per-template SHACL shapes. Alice is the claimant.
+This graph captures Alice Walker's professional contact info in ContactInfo format. It records her full name, work email (alice@acme.com), work phone (+15108149999), employer (Acme), department (Engineering), job title (Software Engineer), and LinkedIn profile URL. Validated by the `ContactInfo` per-template SHACL shapes. Alice is the claimant.
 
 #### Graph
 
 ```turtle
-<!-- databook:id: alice-business-card-graph -->
+<!-- databook:id: alice-contact-info-graph -->
 <!-- databook:graph: http://www.example.org/mia/graphs/graph-10#graph -->
 @prefix : <http://www.example.org/mia#> .
 @prefix persona: <http://mee.foundation/ontologies/persona#> .
