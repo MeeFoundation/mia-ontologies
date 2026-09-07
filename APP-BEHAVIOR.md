@@ -54,7 +54,7 @@ Cell-level capabilities are governed by two independent axes: **ownership** (`c:
 | Add attachments | yes | yes | yes | yes |
 | Edit own attachments | yes | yes | yes | yes |
 | Delete own attachments | yes | yes | yes | yes |
-| Delete another member's claim or attachment | yes | no | no | no |
+| Delete any member's claim or attachment | yes | no | no | no |
 | Promote member to owner | yes | no | no | no |
 | Edit note directly | yes | no | no | no |
 | Add note comment / suggested edit | yes | yes | yes | yes |
@@ -71,7 +71,7 @@ Cell-level capabilities are governed by two independent axes: **ownership** (`c:
 - **Delete cell locally** — removes the cell from this member's own tree only, not from any other member's copy.
 - **Delete cell globally** — no role can do this. We don't allow any role to send a message to all other members that telling their app to delete that member's local copy of a cell.
 - **Out-of-cell comms** — permission to communicate by sending an email or sending an SMS message with another cell member using contact information (e.g. email address, phone number) about that member that they have put in the cell.
-- **Delete another member's claim or attachment** — permission to delete a graph claim or attachment that a different member created or claims, not just one's own (contrast Graph claims CRUD/Delete own attachments above, both scoped to a member's own content) — restricted to owners.
+- **Delete any member's claim or attachment** — permission to delete a graph claim or attachment that a different member created or claims, not just one's own (contrast Graph claims CRUD/Delete own attachments above, both scoped to a member's own content) — restricted to owners.
 - **Promote member to owner** — permission to add a current regular member (a `p:Person` or `o:Organization`, never an `a:Agent`) to `c:owner` — restricted to owners; there is no corresponding capability to demote an owner.
 - **Edit note directly** — commit a change straight to the note's text, with no review step — restricted to owners; a non-owner member of any identity type can only add a comment or suggested edit instead (see below).
 - **Add note comment / suggested edit** — attach a margin comment, or propose an inline text change shown in the proposing member's own color and tagged with their name, without altering the committed text.
