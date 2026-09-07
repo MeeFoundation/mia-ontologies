@@ -44,7 +44,8 @@ Cell-level capabilities are governed by two independent axes: **ownership** (`c:
 |---|---|---|---|---|
 | Create cell | yes | yes | no | yes |
 | Invite member | yes | yes | no | no |
-| Uninvite member | yes | yes | n/a | n/a |
+| Uninvite self-invited member | yes | yes | n/a | n/a |
+| Uninvite any member | yes | no | no | no |
 | Rename cell | yes | yes | yes | yes |
 | Graph claims CRUD | yes | yes | yes | yes |
 | Delete cell locally | yes | yes | yes | yes |
@@ -63,7 +64,8 @@ Cell-level capabilities are governed by two independent axes: **ownership** (`c:
 - **Human** — a human member (`p:Person`) who is not currently an owner.
 - **Organization** — an organization member (`o:Organization`) who is not currently an owner.
 - **Invite member** — permission to invite a person, agent (of themselves), or an organization to a cell of which they are already a member.
-- **Uninvite member** — permission to remove a cell member whom this member originally invited.
+- **Uninvite any member** — permission to remove any cell member.
+- **Uninvite self-invited member** — permission to remove a cell member whom this member originally invited.
 - **Rename cell** — see [Naming, Renaming, and Sharing](#naming-renaming-and-sharing) below for the full rule, including the bare two-member-cell exception where the name is independent per member rather than shared. Renaming is never gated by ownership.
 - **Graph claims CRUD** — create/read/update/delete claims as claimant, scoped to the graphs that member or agent itself claims (see [Agent Collaboration](#agent-collaboration) and [Integrations](#integrations) for how this applies to an invited agent).
 - **Delete cell locally** — removes the cell from this member's own tree only, not from any other member's copy.
