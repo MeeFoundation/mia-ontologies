@@ -38,48 +38,149 @@ A cell can have just one member (the user) or several. We don't yet know how man
 
 ### Permissions
 
-Cell-level capabilities are governed by two independent axes: **ownership** (`c:owner`, cell.ttl — owner vs. regular member) and **identity type** (human, agent, or organization). A cell's creator (`c:creator`) is always its initial, and until any promotion its sole, owner; any current owner may promote any other current regular member of `p:Person`/`o:Organization` identity — never an `a:Agent`, which can never hold the owner role, mirroring `c:creator`'s own exclusion of agents — to owner, at which point that member's capabilities change as shown below; there is no mechanism to demote an owner back to regular-member status once promoted. Below, **Owner** covers any member (human or organization) currently holding that role, while **Human**/**Organization** cover a member of that identity type who is not (currently) an owner; an invited **Agent** is always a non-owner. A single-member cell has only its creator, who is trivially its sole owner — the owner/regular-member distinction only becomes observable once a cell gains a second member. There is no separate comment-only guest tier — every member, of any identity type, has exactly the same read/write access as any other member of the same ownership status; only ownership (not an invite-time choice) determines whether a member can edit the note directly or can only comment on it.
+Cell-level capabilities are governed by two independent axes: **ownership** (`c:owner`, cell.ttl — owner vs. regular member) and **identity type** (human, agent, or organization). A cell's creator (`c:creator`) is always its initial, and until any promotion its sole, owner; any current owner may promote any other current regular member of `p:Person`/`o:Organization` identity — never an `a:Agent`, which can never hold the owner role, mirroring `c:creator`'s own exclusion of agents — to owner, at which point that member's capabilities change as shown below. Whether an owner can ever be demoted back to regular-member status is currently unsettled (see [Unresolved](#unresolved) below). A single-member cell has only its creator, who is trivially its sole owner — the owner/regular-member distinction only becomes observable once a cell gains a second member. There is no separate comment-only guest tier — every member, of any identity type, has exactly the same read/write access as any other member of the same ownership status.
 
-| Capability | Owner | Human | Agent | Organization |
-|---|---|---|---|---|
-| Create cell | yes | yes | no | yes |
-| Invite member | yes | yes | no | no |
-| Uninvite self-invited member | yes | yes | n/a | n/a |
-| Uninvite any member | yes | no | no | no |
-| Rename cell | yes | yes | yes | yes |
-| Graph claims CRUD | yes | yes | yes | yes |
-| Delete cell locally | yes | yes | yes | yes |
-| Delete cell globally | no | no | no | no |
-| Out-of-cell communications | yes | yes | no | no |
-| Add attachments | yes | yes | yes | yes |
-| Edit own attachments | yes | yes | yes | yes |
-| Delete own attachments | yes | yes | yes | yes |
-| Delete any member's claim or attachment | yes | no | no | no |
-| Promote member to owner | yes | no | no | no |
-| Edit note directly | yes | no | no | no |
-| Add note comment / suggested edit | yes | yes | yes | yes |
-| Accept or reject suggested edit | yes | no | no | no |
+Capabilities are grouped by the surface they govern, one table each: the **cell container** itself, its **attachments**, its **note**, and its **topic & member info** (graph claims). A capability appears in exactly one table.
+
+Roles, as used in every table's column headings:
 
 - **Owner** — a member (`p:Person` or `o:Organization`, never an `a:Agent`) currently holding the owner role via `c:owner`. The creator immediately becomes the cell's first (and initially sole) owner.
 - **Human** — a human member (`p:Person`) who is not currently an owner.
+- **Agent** — an invited `a:Agent` member, always a non-owner.
 - **Organization** — an organization member (`o:Organization`) who is not currently an owner.
-- **Invite member** — permission to invite a person, agent (of themselves), or an organization to a cell of which they are already a member.
-- **Uninvite any member** — permission to remove any cell member.
-- **Uninvite self-invited member** — permission to remove a cell member whom this member originally invited.
-- **Rename cell** — see [Naming, Renaming, and Sharing](#naming-renaming-and-sharing) below for the full rule, including the bare two-member-cell exception where the name is independent per member rather than shared. Renaming is never gated by ownership.
-- **Graph claims CRUD** — create/read/update/delete claims as claimant, scoped to the graphs that member or agent itself claims (see [Agent Collaboration](#agent-collaboration) and [Integrations](#integrations) for how this applies to an invited agent).
-- **Delete cell locally** — removes the cell from this member's own tree only, not from any other member's copy.
-- **Delete cell globally** — no role can do this. We don't allow any role to send a message to all other members that telling their app to delete that member's local copy of a cell.
-- **Out-of-cell comms** — permission to communicate by sending an email or sending an SMS message with another cell member using contact information (e.g. email address, phone number) about that member that they have put in the cell.
-- **Delete any member's claim or attachment** — permission to delete a graph claim or attachment that a different member created or claims, not just one's own (contrast Graph claims CRUD/Delete own attachments above, both scoped to a member's own content) — restricted to owners.
-- **Promote member to owner** — permission to add a current regular member (a `p:Person` or `o:Organization`, never an `a:Agent`) to `c:owner` — restricted to owners; there is no corresponding capability to demote an owner.
-- **Edit note directly** — commit a change straight to the note's text, with no review step — restricted to owners; a non-owner member of any identity type can only add a comment or suggested edit instead (see below).
+
+Each table's **Source** column records where that row came from, since these tables merge two independently-written sources — this document's own prior capability table and Vladimir and Sergey's four tables, which cover only owner and member roles and say nothing about agents or organizations:
+
+- `DOC` — the row comes from this document only; Vladimir and Sergey's tables don't cover it.
+- `NEW` — the row comes from Vladimir and Sergey only. Its Agent and Organization values are therefore `?` — not yet determined, as distinct from `n/a`, which marks a capability that genuinely cannot apply to that role.
+- `AGREE` — both sources carry the row (sometimes under a different name) and every value matches.
+- `CONFLICT` — both sources carry the row but disagree on at least one value. Both values are shown, `this-document / development-team`, with a footnote naming each. These are open questions, listed under [Unresolved](#unresolved) below.
+
+#### Cell Container Permissions
+
+| Capability | Owner | Human | Agent | Organization | Source |
+|---|---|---|---|---|---|
+| Create cell | yes | yes | no | yes | DOC |
+| Invite member to a cell | yes | yes | no | no | AGREE |
+| Uninvite self-invited member | yes | yes | n/a | n/a | DOC |
+| Remove member from cell | yes | no | no | no | AGREE |
+| Remove owner-member from cell | yes | no | ? | ? | NEW |
+| Leave cell | yes | yes | ? | ? | NEW |
+| Rename cell for all members | yes | yes / no ¹ | no | no | CONFLICT |
+| Delete cell locally | yes | yes | yes | yes | DOC |
+| Delete cell for all members | no | no | no | no | AGREE |
+| Promote member to owner | yes | no | no | no | AGREE |
+| Demote owner to member | yes / no ² | no | ? | ? | CONFLICT |
+| Out-of-cell communications | yes | yes | no | no | DOC |
+
+¹ This document: any member, of any identity type, may rename, and the new name propagates to every member. Vladimir and Sergey: owner only.
+² Vladimir and Sergey: an owner may demote another owner. This document has asserted the opposite — that no such mechanism exists at all.
+
+- **Create cell** — create a new cell in one's own tree.
+- **Invite member to a cell** — invite a person, an agent (of oneself), or an organization to a cell of which one is already a member.
+- **Uninvite self-invited member** — remove a cell member whom this member originally invited.
+- **Remove member from cell** — remove any regular (non-owner) member.
+- **Remove owner-member from cell** — remove a member who currently holds the owner role, as distinct from removing a regular member.
+- **Leave cell** — withdraw one's own membership, dropping oneself from `c:member` (and from `c:owner`, if held). Its relationship to *Delete cell locally* is unsettled — see [Unresolved](#unresolved).
+- **Rename cell for all members** — change the cell's shared name so the change propagates to every member's copy. See [Naming, Renaming, and Sharing](#naming-renaming-and-sharing) below for the full rule, including the bare two-member-cell exception where the name is independent per member rather than shared.
+- **Delete cell locally** — remove the cell from this member's own tree only, not from any other member's copy.
+- **Delete cell for all members** — no role can do this. No role may send a message to all other members telling their app to delete their own local copy of a cell.
+- **Promote member to owner** — add a current regular member (a `p:Person` or `o:Organization`, never an `a:Agent`) to `c:owner`.
+- **Demote owner to member** — remove a current owner from `c:owner`, returning them to regular-member status.
+- **Out-of-cell communications** — communicate with another cell member outside the cell, by email or SMS, using contact information about that member that they have put in the cell.
+
+#### Attachment Permissions
+
+An attachment is any plain file held directly in the cell's own folder, shown in the app's Attachments tab (see [Filesystem Persistence](#filesystem-persistence) above). An attachment is **immutable**: once added, its content is never updated in place by any role, so a correction means deleting it and adding the corrected file. Vladimir and Sergey call this an *immutable document*, a PDF being their example.
+
+| Capability | Owner | Human | Agent | Organization | Source |
+|---|---|---|---|---|---|
+| Read own attachment | yes | yes | ? | ? | NEW |
+| Read another member's attachment | yes | yes | ? | ? | NEW |
+| Add own attachment | yes | yes | yes | yes | AGREE |
+| Add an attachment as if authored by another member | no | no | ? | ? | NEW |
+| Update own attachment | no | no | no | no | AGREE |
+| Update another member's attachment | no | no | no | no | AGREE |
+| Delete own attachment | yes | yes | yes | yes | AGREE |
+| Delete another member's attachment | yes | no | no | no | AGREE |
+
+- **Read own attachment** / **Read another member's attachment** — retrieve an attachment's content, one's own or one added by a different member.
+- **Add own attachment** — put a new file into the cell's flat attachment set, authored as oneself.
+- **Add an attachment as if authored by another member** — attribute a newly-added attachment to a member other than oneself. No role may do this.
+- **Update own attachment** / **Update another member's attachment** — modify an existing attachment's content in place. No role may do either: an attachment is immutable, so replacing one means deleting it and adding the corrected file, which re-dates it and re-attributes it to whoever added the replacement.
+- **Delete own attachment** — remove an attachment one added oneself.
+- **Delete another member's attachment** — remove an attachment a different member added.
+
+#### Note Permissions
+
+A cell has exactly one note — its folder note, `X.md` inside folder `X` (see [Filesystem Persistence](#filesystem-persistence) above and [Note](#note) below). Vladimir and Sergey call this a *mergeable document*. Their own row labels distinguish a member's "own" document from "another member's," which only makes sense if a cell can hold more than one note; the rows below are therefore stated as capabilities on the cell's single note, and the divergence is listed under [Unresolved](#unresolved).
+
+| Capability | Owner | Human | Agent | Organization | Source |
+|---|---|---|---|---|---|
+| Read the note | yes | yes | ? ³ | ? | NEW |
+| Create the note | yes | yes | ? | ? | NEW |
+| Create the note as if authored by another member | no | no | ? | ? | NEW |
+| Edit the note directly | yes | no / yes ¹ | no ³ | no | CONFLICT |
+| Edit another member's note contribution, preserving per-edit authorship | yes | no / yes ¹ | ? | ? | CONFLICT |
+| Delete the note | yes | yes ² | ? | ? | NEW |
+| Add note comment / suggested edit | yes | yes | yes | yes | DOC |
+| Accept or reject suggested edit | yes | no | no | no | DOC |
+
+¹ This document: direct note editing is restricted to owners; a non-owner may only add a comment or a suggested edit, which an owner then accepts or rejects. Vladimir and Sergey: any member may edit the note directly, with each edit's own authorship preserved — which would leave the suggested-edit mechanism with nothing to do.
+² Vladimir and Sergey split this by authorship — delete one's own document, yes for both roles; delete another member's document, owner yes and member no. With one note per cell those two rows collapse, and which value applies to a non-owner depends on how the one-note question resolves.
+³ This document already contradicts itself here, independently of Vladimir and Sergey's input: this column says an agent may not edit the note, while [Agent Collaboration](#agent-collaboration) and the [ChatGPT Integration Module](#chatgpt-integration-module) both state that an invited agent has the same note read/write access as any other member, and that its read access is unrestricted. Listed under [Unresolved](#unresolved).
+
+- **Read the note** — retrieve the note's current text.
+- **Create the note** — bring the cell's note into existence, where it does not exist yet.
+- **Create the note as if authored by another member** — attribute a newly-created note to a member other than oneself. No role may do this.
+- **Edit the note directly** — commit a change straight to the note's text, with no review step.
+- **Edit another member's note contribution, preserving per-edit authorship** — change text a different member committed, with the record of who wrote what surviving the edit.
+- **Delete the note** — remove the cell's note.
 - **Add note comment / suggested edit** — attach a margin comment, or propose an inline text change shown in the proposing member's own color and tagged with their name, without altering the committed text.
-- **Accept or reject suggested edit** — fold a proposed inline change into the committed note text, or discard it — restricted to owners.
+- **Accept or reject suggested edit** — fold a proposed inline change into the committed note text, or discard it.
+
+#### Topic & Member Info Permissions
+
+These govern the graph claims backing a cell's `c:member` and `c:topic` content — what Vladimir and Sergey call a *claim*. Every row is scoped by claimant: a member's own claims are the ones they themselves claim.
+
+| Capability | Owner | Human | Agent | Organization | Source |
+|---|---|---|---|---|---|
+| Read own claim | yes | yes | yes | yes | AGREE |
+| Read another member's claim | yes | yes | yes | yes | AGREE |
+| Issue own claim | yes | yes | yes | yes | AGREE |
+| Issue a claim as if issued by another member | no | no | no | no | AGREE |
+| Update own claim | yes / no ¹ | yes / no ¹ | yes / no ¹ | yes / no ¹ | CONFLICT |
+| Update another member's claim | no | no | no | no | AGREE |
+| Delete own claim | yes | yes | yes | yes | AGREE |
+| Delete another member's claim | yes | no | no | no | AGREE |
+
+¹ This document: a claim may be revised in place. Vladimir and Sergey: a claim is never updated — it is issued and deleted only, so a correction means retracting and re-issuing.
+
+- **Read own claim** / **Read another member's claim** — read a graph claim, one's own or one another member claims. Read access is unrestricted across the cell.
+- **Issue own claim** — assert a new claim as claimant, in a `c:member` or `c:topic` graph one claims oneself.
+- **Issue a claim as if issued by another member** — attribute a newly-issued claim to a claimant other than oneself. No role may do this.
+- **Update own claim** — revise a claim one issued oneself, in place.
+- **Update another member's claim** — revise a claim a different member issued. No role may do this; write access is always scoped to one's own claimant identity.
+- **Delete own claim** — retract a claim one issued oneself.
+- **Delete another member's claim** — retract a claim a different member issued.
+
+#### Unresolved
+
+Seven questions are open, each arising from a `CONFLICT` row above or from a structural difference between the two sources. None is resolved in the tables; both positions are recorded instead.
+
+1. **Rename** — may any member rename a cell for everyone, or only an owner? This document's [Naming, Renaming, and Sharing](#naming-renaming-and-sharing) section argues at length for any member, against the Microsoft Teams/Discord/GitHub precedent; Vladimir and Sergey restrict it to owners.
+2. **Direct note editing** — owner-only, with non-owners confined to comments and suggested edits, or any member, with per-edit authorship preserved? The whole suggested-edit/accept-reject mechanism exists only under the first answer.
+3. **Claim immutability** — may a claim be revised in place, or only retracted and re-issued? [The Iterative Prompt/Response Loop](#the-iterative-promptresponse-loop) currently has an agent's `c:topic` graph "revised in place" turn by turn, which the second answer would require rewriting as delete-then-reissue.
+4. **Demotion** — may an owner be demoted back to regular member? This document has asserted no such mechanism exists; Vladimir and Sergey give owners the capability.
+5. **Leave vs. delete locally** — does *Leave cell* subsume *Delete cell locally*, or are they distinct? Leaving withdraws one's membership, which propagates; deleting locally removes the cell from one's own tree only. They are kept as separate rows pending an answer.
+6. **One note per cell** — this document says a cell has exactly one note, never more; Vladimir and Sergey's row labels distinguish one member's note from another's, implying several.
+7. **Does "member" mean "human"?** — Vladimir and Sergey's tables have a single non-owner "Cell member" column, with no identity-type axis at all. Mapping it onto **Human** above assumes it means a non-owner `p:Person`; if it instead means any non-owner member regardless of identity type, the Agent and Organization columns inherit those values too, and most `?` cells resolve at once.
+
+Separately, and independently of Vladimir and Sergey's input, footnote ³ under [Note Permissions](#note-permissions) records a contradiction already present in this document: the Agent column denies an agent direct note editing, while [Agent Collaboration](#agent-collaboration) and [ChatGPT Integration Module](#chatgpt-integration-module) item 3 both grant it. That one needs fixing whichever way question 2 lands.
 
 ### Naming, Renaming, and Sharing
 
-For a single-member cell or a cell with three or more members — or a two-member cell that is also typed `c:TopicCell` — any member of the cell — not just its creator or another owner — can rename it, and the new name propagates to every member: renaming is never gated by ownership, unlike direct note edits and other-member claim/attachment deletion (see [Permissions](#permissions) above). Files and chat likewise stay freely editable by every member regardless of ownership status. This mirrors how **Slack** and **Notion** handle renaming by default: any member/editor can rename a channel or page, and the new name propagates to everyone. It's a deliberate contrast with **Microsoft Teams** (channel owners only, by default), **Discord**, and **GitHub**, which restrict renaming to a privileged admin/Manage-Channels/owner role — a distinction the app's cell model doesn't have to begin with. A bare two-member cell — one that is *not* also `c:TopicCell` — does *not* follow this rule — see the exception below.
+For a single-member cell or a cell with three or more members — or a two-member cell that is also typed `c:TopicCell` — any member of the cell — not just its creator or another owner — can rename it, and the new name propagates to every member: renaming is never gated by ownership, unlike direct note edits and other-member claim/attachment deletion (see [Permissions](#permissions) above). Chat likewise stays freely editable by every member regardless of ownership status, and any member may add or delete their own attachments — though no member may update an attachment in place, since an attachment is immutable. This mirrors how **Slack** and **Notion** handle renaming by default: any member/editor can rename a channel or page, and the new name propagates to everyone. It's a deliberate contrast with **Microsoft Teams** (channel owners only, by default), **Discord**, and **GitHub**, which restrict renaming to a privileged admin/Manage-Channels/owner role — a distinction the app's cell model doesn't have to begin with. A bare two-member cell — one that is *not* also `c:TopicCell` — does *not* follow this rule — see the exception below.
 
 A cell's name must be unique among its sibling cells — the cells directly nested under the same parent. When a user renames a cell — e.g. to give it a name of its own choosing, different from its category's label, the same convention followed by other PKM tools — to a name that already belongs to one of its siblings, the app doesn't prompt or reject the input: it silently appends the next available integer suffix (`"1"`, `"2"`, ...) to make the name unique. The same rule applies when creating a brand-new cell whose default name (e.g. copied verbatim from its category's own label) would otherwise collide with an existing sibling.
 
