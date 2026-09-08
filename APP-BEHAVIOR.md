@@ -166,7 +166,6 @@ Three questions remain open, each arising from a `CONFLICT` row above or from a 
 
 1. **Rename** — may any member rename a cell for everyone, or only an owner? This document's [Naming, Renaming, and Sharing](#naming-renaming-and-sharing) section argues at length for any member, against the Microsoft Teams/Discord/GitHub precedent; Vladimir and Sergey restrict it to owners.
 2. **Leave vs. delete locally** — does *Leave cell* subsume *Delete cell locally*, or are they distinct? Leaving withdraws one's membership, which propagates; deleting locally removes the cell from one's own tree only. They are kept as separate rows pending an answer.
-3. **Does "member" mean "human"?** — Vladimir and Sergey's tables have a single non-owner "Cell member" column, with no identity-type axis at all. Mapping it onto **Human** above assumes it means a non-owner `p:Person`. This no longer changes any value, since the Agent and Organization columns are now fully decided; it only settles how much of their input already covered those two roles rather than leaving them to this document. Worth noting that on every `NEW` row the decided Agent and Organization values do match the Human one, so the broader reading would have produced the same table — but it cannot be the reading throughout, since an `a:Agent` differs from a human member on several rows above (it may not create a cell, invite a member, or hold the owner role).
 
 ### Naming, Renaming, and Sharing
 
