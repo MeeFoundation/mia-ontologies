@@ -188,7 +188,7 @@ A regular cell holds various kinds of information, each in their own area:
 - **Members**  — contact information about the members. 
 - **Attachments**  (📎) — an optional set of file attachments.
 
-A **topic cell** adds one more area:
+A *topic* cell has an additional area:
 
 - **Topic** — structured information about a single topic that is the focus of the cell. That topic could be a person who is not a member of the cell, a pet, or a project the members are working on together. By "structured" we mean fields and values. For example if the topic was about taking care of a pet the structured information might include: species:dog, breed:Labradoodle, weight:26 pounds, and so on. If the topic is a credit card the topic would have fields like name, credit card number, expiration data, and CVV code.
 
