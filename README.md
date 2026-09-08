@@ -176,16 +176,21 @@ As we've mentioned, the user is free to create cells not included in the predefi
 
 ### Introduction to Cells
 
-A cell is a secure container of information (or a data space if you prefer) that can remain private to the user or be shared with other users and/or organizations. A **regular cell** holds various kinds of information, organized into a set of tabs:
+A cell is a secure container of information that can remain private to the user or be shared with other users, agents, and/or organizations. It enables these members share context, communicate and collaborate towards a common purpose.
 
-- **Members** tab — contact information about the member(s) of the cell. Things like name, email, phone number, etc. If the cell hasn't been shared, it has only one member, its creator.
-- **Note** tab — a Markdown document about the cell. It may contain links to other cells.
-- **Attachments** tab (📎) — an optional set of file attachments, analogous to email attachments.
-- **Chat** tab — a chat stream shared with all members.
+<p align="center"><img src="images/cell-ontology/cell-dimensions.png" alt="Cell dimensions"></p>
 
-A **topic cell** adds one more:
 
-- **Topic** tab — structured information about a single topic that is the focus of the cell. That topic could be a person who is not a member of the cell, a pet, or a project the members are working on together. By "structured" we mean fields and values. For example if the topic was about taking care of a pet the structured information might include: species:dog, breed:Labradoodle, weight:26 pounds, and so on. If the topic is a credit card the topic would have fields like name, credit card number, expiration data, and CVV code.
+A regular cell holds various kinds of information, each in their own area:
+
+- **Note**  — a jointly writable document which may contain links to other cells.
+- **Chat**  — a chat stream shared with all members (and supports 1:1 messaging).
+- **Members**  — contact information about the members. 
+- **Attachments**  (📎) — an optional set of file attachments.
+
+A **topic cell** adds one more area:
+
+- **Topic** — structured information about a single topic that is the focus of the cell. That topic could be a person who is not a member of the cell, a pet, or a project the members are working on together. By "structured" we mean fields and values. For example if the topic was about taking care of a pet the structured information might include: species:dog, breed:Labradoodle, weight:26 pounds, and so on. If the topic is a credit card the topic would have fields like name, credit card number, expiration data, and CVV code.
 
 The app contains two pre-defined, non-user-editable taxonomies of **categories**. One is focused on helping org anize the information in a person's personal life (Family, Home, Pets, etc.), and the other on their work life (Employer, Employees, etc.). For some of these categories, the app includes a *template cell* which may contain some starter content (or may be empty) and/or may have a schema for the structured fields and values that a cell of this category might contain.
 
@@ -209,7 +214,7 @@ A cell is an atomic unit of information that the app manages for the user. This 
 
 <p align="center"><img src="images/cell-ontology/cell.png" alt="Cell hierarchy"></p>
 
-A cell's own Markdown folder note is displayed in the **Note tab** (not the Attachments tab); clicking a link in it to a note that doesn't exist yet creates a new, category-less cell for it — see [Wikilink-Triggered Cell Creation](APP-BEHAVIOR.md#wikilink-triggered-cell-creation) in APP-BEHAVIOR.md. See [Documentation-only Properties](#documentation-only-properties) below for what counts as a cell's attachments, shown in the app's **Attachments tab**.
+A cell's own Markdown folder note is displayed in the **Note area** (not the Attachments area); clicking a link in it to a note that doesn't exist yet creates a new, category-less cell for it — see [Wikilink-Triggered Cell Creation](APP-BEHAVIOR.md#wikilink-triggered-cell-creation) in APP-BEHAVIOR.md. See [Documentation-only Properties](#documentation-only-properties) below for what counts as a cell's attachments, shown in the app's **Attachments area**.
 
 #### Cell Properties
 
@@ -219,9 +224,9 @@ A cell's own Markdown folder note is displayed in the **Note tab** (not the Atta
 
 Three more concepts appear off `Cell` in `images/cell-ontology/cell.png`'s diagram, described here for their intended semantics, but documentation only — none is an actual property declared in `cell.ttl`, and none is ever reified as a triple in any real graph (see integrity.md's Check 12 for this open, accepted discrepancy):
 
-- **`c:note`** — a cell's single Markdown folder note, shown in the app's **Note tab**, 1..1. See [Introduction to Cells](#introduction-to-cells) above for the folder-note convention (linking, sharing, PKM-vault compatibility) and [Wikilink-Triggered Cell Creation](APP-BEHAVIOR.md#wikilink-triggered-cell-creation) in APP-BEHAVIOR.md.
+- **`c:note`** — a cell's single Markdown folder note, shown in the app's **Note area**, 1..1. See [Introduction to Cells](#introduction-to-cells) above for the folder-note convention (linking, sharing, PKM-vault compatibility) and [Wikilink-Triggered Cell Creation](APP-BEHAVIOR.md#wikilink-triggered-cell-creation) in APP-BEHAVIOR.md.
 
-- **`c:attachment`** — a cell's flat set of file attachments, shown in the app's **Attachments tab** (📎), 0..N. Attachments are the plain files found directly inside a cell's own folder, excluding (1) any subfolder — always either a **descendant cell** (a nested folder that is itself a cell, holding its own cell DataBook: a separate node in the tree of cells, never counted as part of its ancestor's content even though it physically sits inside the ancestor's folder) or a bare pass-through directory with no DataBook of its own (a folder without a matching cell DataBook is simply a regular file system folder, not a cell — even if it contains nested cells of its own — existing only to reach a descendant cell nested deeper still; see integrity.md's Check 11) — and (2) the cell's own Markdown folder note — exactly one per cell; it is displayed in the **Note tab** for that cell (not the Attachments tab). Attachments are flat, like email attachments: no subfolder is ever counted as one, on disk or in the model.
+- **`c:attachment`** — a cell's flat set of file attachments, shown in the app's **Attachments area** (📎), 0..N. Attachments are the plain files found directly inside a cell's own folder, excluding (1) any subfolder — always either a **descendant cell** (a nested folder that is itself a cell, holding its own cell DataBook: a separate node in the tree of cells, never counted as part of its ancestor's content even though it physically sits inside the ancestor's folder) or a bare pass-through directory with no DataBook of its own (a folder without a matching cell DataBook is simply a regular file system folder, not a cell — even if it contains nested cells of its own — existing only to reach a descendant cell nested deeper still; see integrity.md's Check 11) — and (2) the cell's own Markdown folder note — exactly one per cell; it is displayed in the **Note area** for that cell (not the Attachments area). Attachments are flat, like email attachments: no subfolder is ever counted as one, on disk or in the model.
 
 - **`c:chat`** — a cell's single chat stream, 1..1. Every cell always has one, even if empty.
 
