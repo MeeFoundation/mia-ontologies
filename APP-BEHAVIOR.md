@@ -162,7 +162,7 @@ This document describes the first of those two layers, so every row below is the
 
 #### Unresolved
 
-Three questions remain open, each arising from a `CONFLICT` row above or from a structural difference between the two sources. None is resolved in the tables; both positions are recorded instead.
+Two questions remain open, each arising from a `CONFLICT` row above or from a structural difference between the two sources. None is resolved in the tables; both positions are recorded instead.
 
 1. **Rename** — may any member rename a cell for everyone, or only an owner? This document's [Naming, Renaming, and Sharing](#naming-renaming-and-sharing) section argues at length for any member, against the Microsoft Teams/Discord/GitHub precedent; Vladimir and Sergey restrict it to owners.
 2. **Leave vs. delete locally** — does *Leave cell* subsume *Delete cell locally*, or are they distinct? Leaving withdraws one's membership, which propagates; deleting locally removes the cell from one's own tree only. They are kept as separate rows pending an answer.
