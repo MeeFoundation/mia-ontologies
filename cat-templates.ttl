@@ -19,10 +19,10 @@
 @base <http://mee.foundation/ontologies/cell-templates> .
 
 <http://mee.foundation/ontologies/cell-templates> rdf:type owl:Ontology ;
-    owl:versionIRI <http://mee.foundation/ontologies/cell-templates/2.25.0> ;
-    dc:date "2026-09-07"^^xsd:date ;
+    owl:versionIRI <http://mee.foundation/ontologies/cell-templates/2.26.0> ;
+    dc:date "2026-09-09"^^xsd:date ;
     owl:imports <http://mee.foundation/ontologies/cell> ;
-    owl:versionInfo "Version 2.25.0 - reworded rdfs:comment text to say 'contact-info' rather than 'business-card'"@en ;
+    owl:versionInfo "Version 2.26.0 - added ctpl:TravelProviderTemplateCell for the new cat:TravelProvider category"@en ;
     rdfs:label "Cell Templates"@en ;
     rdfs:comment """Class-level cell:Cell templates for category concepts (category.ttl's cat:CategoryScheme). Each individual here is what the app clones into a new cell when a folder representing its own cell:category concept is first instantiated into a user's tree (Lazy Instantiation) — finding the template for a given category is a reverse lookup (?tc cell:category cat:X), since category.ttl carries no forward pointer of its own. Each is typed solely cell:TemplateCell."""@en .
 
@@ -1041,6 +1041,16 @@ ctpl:ThingsTemplateCell rdf:type cell:Cell, cell:TemplateCell ;
 ctpl:TravelTemplateCell rdf:type cell:Cell, cell:TemplateCell ;
     rdfs:label "Travel Template Cell"@en ;
     cell:category cat:Travel ;
+    cell:memberGraphShape pshapes:ContactInfoShape ;
+    cell:isTopicCell false .
+
+#################################################################
+#  cat:TravelProvider
+#################################################################
+
+ctpl:TravelProviderTemplateCell rdf:type cell:Cell, cell:TemplateCell ;
+    rdfs:label "Provider Template Cell"@en ;
+    cell:category cat:TravelProvider ;
     cell:memberGraphShape pshapes:ContactInfoShape ;
     cell:isTopicCell false .
 
