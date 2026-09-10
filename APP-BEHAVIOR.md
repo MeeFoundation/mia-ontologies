@@ -208,12 +208,16 @@ Ideally it would have filed the cell shared by Alice's app under People > Immedi
 
 There are two kinds of organizing that the app does when the user selects a cell and taps " Organize":
 
-* **Auto File/Categorize**: It examines the selected cell and if it doesn't have a category, suggests one and then automatically files it there if the users wishes.
+* **Auto File**: It examines the selected cell and if it doesn't have a category, suggests one and then automatically files it there if the users wishes.
 * **Divide and Conquer**: It looks inside the cell (especially the cell's note) and does the following.
+
+#### Auto File
+
+The app might look at the chat and/or Note and say "Hmmm...this looks like it's about taking care of your cat. Would you like me to file it under Cells > Pets? 
 
 #### Divide and Conquer
 
-Divide and Conquer is where the app moves chunks of content out of the cell's Note leaving behind a link where the chunk was. It then creates a new categorized cell from this chunk of content. The category would come from an examination of the contents. 
+The app looks at the Note, and moves chunks of content out it, leaving behind a link where the chunk was. It then creates a new categorized cell from this chunk of content. The category would come from an examination of the contents. 
 
 Here's an example. Imagine a cell that contained lots of notes about Alice's mother Paula. In that stream of notes was Paula's credit card info (name, number, expiration date, CVV, etc.). The app removes this chunk of content leaving behind a link called "Paula's Credit Card". If Alice taps this link it brings her to a new cell called "Paula's Credit Card" of type `cat:BankingPayments` with a Topic area that contains the credit card info, but parsed into fields and values. It automatically files this new cell under Cells > Immediate Family > Paula Walker > Finances > Banking & Payments.
 
