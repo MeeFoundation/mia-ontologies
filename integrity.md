@@ -1078,3 +1078,87 @@ print('Every diagram\'s claim-fill colors match their graphs\' own claimants.'
 ```
 
 If a violation is found, the diagram is the authoritative side for *which cells and shapes exist* (Check 10), but the DataBook is authoritative for *who claimed a graph* — a `claimant` is a fact about the data, not a drawing choice. So recolor the shape to match its graph's own `claimant` under the three-way rule above. A count that is short by one green usually means a non-`:Self`-claimed shape was left unfilled; a count long by one usually means a `:Self`-claimed shape was filled. The check reports counts rather than naming the offending shape, since matching a specific circle to a specific graph number would require reading the diagram's own `[NN]` labels; with per-diagram counts the candidates are few enough to spot by eye.
+
+**Check 34 — no diagram still carries the retired "Delegate" legend swatch**: The 12 example diagrams plus `images/representative-cells.png` and `images/folder-mapping.png` each carry their own copy of the "Key" box, so a change to the legend has to be applied fourteen times by hand. The current key holds two claim-fill swatches (green "Other", dashed "Self") and three shape swatches (circle "Human", octagon "Service", square "Topic"); it no longer holds the gray "Delegate" swatch that a third claim-fill state once needed (see Check 15 and Check 33 — claim fill is now a two-state self/not-self fact, and a member's identity type is carried by shape instead). A diagram left on the older key is mechanically detectable, because that swatch is the only place a filled `(235, 235, 235)` block of any size appears: the new key uses no gray at all, and the incidental gray in these PNGs is antialiasing a few dozen pixels in size, far below the threshold below. This catches the stale-legend case that Check 33 cannot — Check 33 compares fills against the DataBooks and so passes happily on a diagram whose *shapes* are all correct but whose *legend* still advertises a retired state. Requires `pip install pillow`. Run:
+
+```python
+from PIL import Image
+import os
+
+GRAY = (235, 235, 235)      # the retired "Delegate" swatch fill
+MIN_AREA = 200              # far above antialiasing, far below a real swatch (~1150px)
+
+KEYED = ['example/images/' + n + '.png' for n in
+         ('people', 'people2', 'work', 'companies', 'finances', 'gov-state', 'gov-federal',
+          'home', 'things', 'affiliations', 'pets', 'travel')] + \
+        ['images/representative-cells.png', 'images/folder-mapping.png']
+
+def gray_blocks(path):
+    im = Image.open(path).convert('RGB')
+    W, H = im.size
+    px = im.load()
+    seen = [[False] * H for _ in range(W)]
+    found = []
+    for x in range(W):
+        for y in range(H):
+            if seen[x][y] or px[x, y] != GRAY:
+                continue
+            stack, area, xs, ys = [(x, y)], 0, [], []
+            seen[x][y] = True
+            while stack:
+                a, b = stack.pop()
+                area += 1
+                xs.append(a)
+                ys.append(b)
+                for da, db in ((1, 0), (-1, 0), (0, 1), (0, -1)):
+                    m, n = a + da, b + db
+                    if 0 <= m < W and 0 <= n < H and not seen[m][n] and px[m, n] == GRAY:
+                        seen[m][n] = True
+                        stack.append((m, n))
+            if area >= MIN_AREA:
+                found.append((area, min(xs), min(ys), max(xs) - min(xs) + 1, max(ys) - min(ys) + 1))
+    return found
+
+violations = 0
+for path in KEYED:
+    if not os.path.exists(path):
+        violations += 1
+        print(f'VIOLATION {path}: keyed diagram missing from disk')
+        continue
+    blocks = gray_blocks(path)
+    if blocks:
+        violations += 1
+        where = ', '.join(f'{a}px {w}x{h} at ({x},{y})' for a, x, y, w, h in blocks)
+        print(f'VIOLATION {path}: gray {GRAY} region(s) present — {where}')
+print('No diagram carries the retired Delegate swatch.' if violations == 0
+      else f'{violations} violation(s) found.')
+```
+
+If a violation is found, the diagram is still on the older key and needs its "Key" box replaced: drop the gray "Delegate" swatch, and make sure the member shape swatches read "Human" (circle) and "Service" (octagon) rather than a single "Member" circle. A gray region far from the legend column is the other possibility — a graph shape still filled with the retired Delegate color, which Check 33 will also flag as a count mismatch. Note the limit: this detects the *absence* of the retired swatch, not the *presence* of the correct new one, since reading swatch labels and telling a circle from an octagon would need text and shape recognition rather than exact-color sampling. The circle/octagon distinction stays a visual check for the same reason (see Check 10c).
+
+**Check 35 — every image on disk is referenced by the documentation**: Check 8 verifies the forward direction — that every image a document references actually exists. This is the inverse: that every PNG under `images/` and `example/images/` is referenced by at least one Markdown file. An unreferenced image is normally a misplaced export or a leftover from a renamed diagram, invisible to every other check precisely because nothing points at it; without this check such a file can sit in the tree indefinitely and be committed by accident. Note this deliberately covers only the two diagram directories, not `example/graphs/images/`, whose per-graph PNGs are generated by `helpers/draw.py` and linked from EXAMPLE.md's graph tables rather than embedded. Run:
+
+```python
+import re, glob, os
+
+DIRS = ['images/**/*.png', 'example/images/*.png']
+docs = [f for f in glob.glob('**/*.md', recursive=True)
+        if 'under-development' not in f.split('/')]
+
+referenced = set()
+for f in docs:
+    text = open(f, encoding='utf-8').read()
+    referenced |= set(re.findall(r'(?:example/)?images/[\w./-]+\.png', text))
+
+on_disk = set()
+for pattern in DIRS:
+    on_disk |= set(glob.glob(pattern, recursive=True))
+
+orphans = sorted(on_disk - referenced)
+for o in orphans:
+    print(f'VIOLATION {o}: present on disk but referenced by no Markdown file')
+print('Every image on disk is referenced by the documentation.' if not orphans
+      else f'{len(orphans)} unreferenced image(s) found.')
+```
+
+If a violation is found, decide which way the discrepancy should be resolved: either the image is wanted, and whichever document should embed it is missing its reference (add it, and see Check 8 for the forward direction), or it is a stray — a save that went to the wrong folder, or the old name of a renamed diagram — and should be deleted. Do not simply add a reference to make the check pass; an image nothing needed is a file that should not be in the tree.
