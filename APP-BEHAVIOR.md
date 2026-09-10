@@ -1,6 +1,8 @@
 # App Behavior
 
-This file continues [README.md](README.md) and [EXAMPLE.md](EXAMPLE.md), which describe the Category, Cell, Graph, Persona, Organization, and Service ontologies and illustrate them with a worked example. This file documents how the app behaves *on top of* that data — cell lifecycle, storage, sharing, permissions, naming/renaming, how a cell maps onto an actual filesystem folder, and what happens when a shared cell arrives somewhere new. Nothing in this file changes any `.ttl` file or DataBook triple — every rule here is app-level behavior, not an ontology rule. This file is also written at the **user level** throughout: it describes what a member can do and sees in the app, not how the PDN layer beneath implements it. The two can legitimately differ, and where they do this file follows the user's view — see [Topic & Member Info Permissions](#topic--member-info-permissions) for the case where they diverge most visibly.
+This file continues [README.md](README.md) and [EXAMPLE.md](EXAMPLE.md), which describe the Category, Cell, Graph, Persona, Organization, and Service ontologies and illustrate them with a worked example. This file documents how the app behaves *on top of* that data — cell lifecycle, storage, sharing, permissions, naming/renaming, how a cell maps onto an actual filesystem folder, what actions a user can take on a cell, what happens when a shared cell arrives somewhere new, and so on.
+
+Nothing in this file changes any `.ttl` file or DataBook triple — every rule here is app-level behavior, not an ontology rule. This file is also written at the **user level** throughout: it describes what a member can do and sees in the app, not how the PDN layer beneath implements it. The two can legitimately differ, and where they do this file follows the user's view — see [Topic & Member Info Permissions](#topic--member-info-permissions) for the case where they diverge most visibly.
 
 ## Cell Storage
 
