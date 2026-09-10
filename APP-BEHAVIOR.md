@@ -206,10 +206,12 @@ Ideally it would have filed the cell shared by Alice's app under People > Immedi
 
 ### Organize
 
-There are two kinds of organizing that app does when the user selects a cell and chooses the Organize action:
+There are two kinds of organizing that the app does when the user selects a cell and taps " Organize":
 
-* **Auto File/Categorize**: IT examines the selected cell and if it doesn't have a category, suggest one and then automatically file it there. 
+* **Auto File/Categorize**: It examines the selected cell and if it doesn't have a category, suggests one and then automatically files it there if the users wishes.
 * **Divide and Conquer**: It looks inside the cell (especially the cell's note) and does the following.
+
+#### Divide and Conquer
 
 Divide and Conquer is where the app moves chunks of content out of the cell's Note leaving behind a link where the chunk was. It then creates a new categorized cell from this chunk of content. The category would come from an examination of the contents. 
 
