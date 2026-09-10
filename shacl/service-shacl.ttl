@@ -1,0 +1,118 @@
+@prefix : <http://mee.foundation/ontologies/service/shapes#> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix service: <http://mee.foundation/ontologies/service#> .
+@prefix p: <http://mee.foundation/ontologies/persona#> .
+@prefix o: <http://mee.foundation/ontologies/organization#> .
+@prefix dc: <http://purl.org/dc/elements/1.1/> .
+
+<http://mee.foundation/ontologies/service/shapes> rdf:type owl:Ontology ;
+    owl:imports <http://mee.foundation/ontologies/service> ;
+    owl:versionIRI <http://mee.foundation/ontologies/service/shapes/1.1.0> ;
+    dc:date "2026-09-10"^^xsd:date ;
+    rdfs:label "Service Ontology SHACL Validation Shapes"@en ;
+    rdfs:comment "SHACL validation shapes for the Service Ontology."@en .
+
+
+#################################################################
+#  Service
+#################################################################
+#  The class-wide shape, constraining only what holds of every
+#  service:Service regardless of kind. The per-kind shapes below
+#  raise the same two paths to required exactly-one values where
+#  their own kind demands it; none of them lowers a bound, so a
+#  service typed as more than one kind (the kinds are deliberately
+#  not owl:disjointWith, see service.ttl) still has a satisfiable
+#  set of constraints. For the same reason no shape here asserts
+#  sh:maxCount 0 on service:actsFor for the two kinds that don't
+#  use it — that would be unsatisfiable against
+#  :AIAgentServiceShape's own sh:minCount 1 for any service typed
+#  both an AI agent and something else.
+#################################################################
+
+:ServiceShape
+    a sh:NodeShape ;
+    sh:targetClass service:Service ;
+
+    # service:providedBy — 0..1 on a service:Service generally, since a
+    # service with no organization behind it simply omits it.
+    sh:property [
+        sh:path service:providedBy ;
+        sh:maxCount 1 ;
+        sh:class o:Organization ;
+        sh:message "A service:Service may have at most one service:providedBy value, a single o:Organization."@en
+    ] ;
+
+    # service:actsFor — rdfs:domain is service:AIAgentService alone, so this
+    # class-wide shape constrains only its cardinality and value type; the
+    # required exactly-one lives on :AIAgentServiceShape below.
+    sh:property [
+        sh:path service:actsFor ;
+        sh:maxCount 1 ;
+        sh:class p:Person ;
+        sh:message "A service:Service may have at most one service:actsFor value, a single p:Person."@en
+    ] ;
+    sh:message "Service validation."@en .
+
+
+#################################################################
+#  AI Agent Service
+#################################################################
+
+:AIAgentServiceShape
+    a sh:NodeShape ;
+    sh:targetClass service:AIAgentService ;
+
+    # service:actsFor — required, exactly one value: an AI agent is always
+    # invited by, and acts on behalf of, exactly one person.
+    sh:property [
+        sh:path service:actsFor ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:class p:Person ;
+        sh:message "A service:AIAgentService must have exactly one service:actsFor value, a single p:Person."@en
+    ] ;
+    sh:message "AI Agent Service validation."@en .
+
+
+#################################################################
+#  Backup Service
+#################################################################
+
+:BackupServiceShape
+    a sh:NodeShape ;
+    sh:targetClass service:BackupService ;
+
+    # service:providedBy — required, exactly one value: a backup service is
+    # always run by some organization.
+    sh:property [
+        sh:path service:providedBy ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:class o:Organization ;
+        sh:message "A service:BackupService must have exactly one service:providedBy value, a single o:Organization."@en
+    ] ;
+    sh:message "Backup Service validation."@en .
+
+
+#################################################################
+#  Service Provider
+#################################################################
+
+:ServiceProviderShape
+    a sh:NodeShape ;
+    sh:targetClass service:ServiceProvider ;
+
+    # service:providedBy — required, exactly one value: this class exists
+    # precisely to be an organization's own service.
+    sh:property [
+        sh:path service:providedBy ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:class o:Organization ;
+        sh:message "A service:ServiceProvider must have exactly one service:providedBy value, a single o:Organization."@en
+    ] ;
+    sh:message "Service Provider validation."@en .

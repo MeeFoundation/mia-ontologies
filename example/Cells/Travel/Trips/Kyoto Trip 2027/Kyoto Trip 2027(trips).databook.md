@@ -2,13 +2,13 @@
 id: http://www.example.org/mia/cells/cell-47
 title: "Kyoto Trip 2027"
 type: cell-databook
-version: 1.0.0
+version: 1.1.0
 created: 2026-08-30
 description: >
   Cell DataBook for folder "Kyoto Trip 2027" (cell:category: cat:Trips, reusing its parent "Trips"
   cell's own origin), nested under "Travel" > "Trips". A user-defined instance folder for a
   specific trip Alice is planning with her spouse Dave. A three-member cell demonstrating
-  agent:Agent as a real cell member: Alice's own AI travel agent joins alongside Alice and Dave,
+  service:AIAgentService as a real cell member: Alice's own AI travel agent joins alongside Alice and Dave,
   each with a self-claimed member entry (graph-66, graph-67, graph-68). The trip itself is backed
   by three topic graphs sharing one subject (:Kyoto_Trip_2027), one per member, each with a
   distinct claimant — Alice's own basic claim (graph-69), her agent's own evolving,
@@ -96,7 +96,7 @@ This graph is one of the cell's three required `member` entries — Alice's own 
 
 #### Overview
 
-This graph is another of the cell's three required `member` entries — Alice's own AI travel agent, invited to collaborate on planning this trip, joins as a real cell member (see README.md's Agent Ontology section) rather than staying an invisible tool: it gets its own self-claimed member graph, exactly like a human member's, typed `agent:Agent` and carrying `agent:actsFor :Self` to record which member it is a delegate for. `agent:Agent` is never a `cell:creator` — Alice alone created this cell — but it is a legitimate `g:claimant` and `cell:member` participant.
+This graph is another of the cell's three required `member` entries — Alice's own AI travel agent, invited to collaborate on planning this trip, joins as a real cell member (see README.md's Service Ontology section) rather than staying an invisible tool: it gets its own self-claimed member graph, exactly like a human member's, typed `service:AIAgentService` and carrying `service:actsFor :Self` to record which member it is a delegate for. A `service:Service` is never a `cell:creator` — Alice alone created this cell — but it is a legitimate `cell:claimant` and `cell:member` participant. Unlike a `service:ServiceProvider`, whose claims are attributed to the organization providing it, an AI agent claims under its own IRI: no organization stands behind it in this cell's relationship.
 
 #### Graph
 
@@ -104,7 +104,7 @@ This graph is another of the cell's three required `member` entries — Alice's 
 <!-- databook:id: alice-travel-agent-member-graph -->
 <!-- databook:graph: http://www.example.org/mia/graphs/graph-67#graph -->
 @prefix : <http://www.example.org/mia#> .
-@prefix agent: <http://mee.foundation/ontologies/agent#> .
+@prefix service: <http://mee.foundation/ontologies/service#> .
 @prefix owl: <http://www.w3.org/2002/07/owl#> .
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
@@ -119,9 +119,9 @@ This graph is another of the cell's three required `member` entries — Alice's 
     ] .
 
 :Alice_Travel_Agent rdf:type owl:NamedIndividual ,
-               agent:Agent ;
+               service:AIAgentService ;
     rdfs:label "Alice's Travel Agent (ChatGPT)"@en ;
-    agent:actsFor :Self .
+    service:actsFor :Self .
 ```
 
 <a id="graph-68"></a>

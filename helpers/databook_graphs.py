@@ -157,8 +157,8 @@ def process_cell_databook(fm, triples):
     if mia.get("creator"):
         emit_obj(triples, subj, CELL + "creator", resolve(mia["creator"]))
 
-    # cell:owner — one or more p:Person/o:Organization IRIs, resolved the
-    # same way as cell:creator (never a bare graph-local-name).
+    # cell:owner — one or more p:Person IRIs, resolved the same way as
+    # cell:creator (never a bare graph-local-name).
     for owner_iri in as_list(mia.get("owner")):
         emit_obj(triples, subj, CELL + "owner", resolve(owner_iri))
 

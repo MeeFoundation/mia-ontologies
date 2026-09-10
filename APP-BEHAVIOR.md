@@ -1,10 +1,10 @@
 # Cellula App Behavior
 
-This file continues [README.md](README.md) and [EXAMPLE.md](EXAMPLE.md), which describe the Category, Cell, Graph, Persona, Organization, and Agent ontologies and illustrate them with a worked example. This file documents how the app behaves *on top of* that data — cell lifecycle, storage, sharing, permissions, naming/renaming, how a cell maps onto an actual filesystem folder, and what happens when a shared cell arrives somewhere new. Nothing in this file changes any `.ttl` file or DataBook triple — every rule here is app-level behavior, not an ontology rule. This file is also written at the **user level** throughout: it describes what a member can do and sees in the app, not how the PDN layer beneath implements it. The two can legitimately differ, and where they do this file follows the user's view — see [Topic & Member Info Permissions](#topic--member-info-permissions) for the case where they diverge most visibly.
+This file continues [README.md](README.md) and [EXAMPLE.md](EXAMPLE.md), which describe the Category, Cell, Graph, Persona, Organization, and Service ontologies and illustrate them with a worked example. This file documents how the app behaves *on top of* that data — cell lifecycle, storage, sharing, permissions, naming/renaming, how a cell maps onto an actual filesystem folder, and what happens when a shared cell arrives somewhere new. Nothing in this file changes any `.ttl` file or DataBook triple — every rule here is app-level behavior, not an ontology rule. This file is also written at the **user level** throughout: it describes what a member can do and sees in the app, not how the PDN layer beneath implements it. The two can legitimately differ, and where they do this file follows the user's view — see [Topic & Member Info Permissions](#topic--member-info-permissions) for the case where they diverge most visibly.
 
 ## Cell Storage
 
-Cells are stored on the user's device(s) or, for organizations, on Personal Data Network (PDN) nodes hosted by that organization. No cell is ever stored by any cloud provider, or any third party of any kind, including The Mee Foundation. When a cell is shared, changes to its contents — including its own name, for a single-member cell or a cell with three or more members, or a two-member cell that is also `c:TopicCell` — propagate to every member over the PDN; see [Naming, Renaming, and Sharing](#naming-renaming-and-sharing) below for what stays independent per member instead.
+Cells are stored on the user's device(s) or, for an organization's own `s:ServiceProvider`, on Personal Data Network (PDN) nodes hosted by that organization. No cell is ever stored by any cloud provider, or any third party of any kind, including The Mee Foundation. When a cell is shared, changes to its contents — including its own name, for a single-member cell or a cell with three or more members, or a two-member cell that is also `c:TopicCell` — propagate to every member over the PDN; see [Naming, Renaming, and Sharing](#naming-renaming-and-sharing) below for what stays independent per member instead.
 
 ### Filesystem Persistence
 
@@ -34,52 +34,51 @@ When a member then actually fills in that cell's `c:member`/`c:topic` graph, the
 
 ### Number of Members
 
-A cell can have just one member (the user) or several. We don't yet know how many members a cell can support, but the number is almost surely well under 100. An invited AI agent (`a:Agent`, see [Agent Collaboration](#agent-collaboration) below) is a real member too, and counts toward this same tally — inviting one raises a single-member cell to a two-member cell, exactly as inviting a human would.
+A cell can have just one member (the user) or several. We don't yet know how many members a cell can support, but the number is almost surely well under 100. An invited AI agent (`s:AIAgentService`, see [Agent Collaboration](#agent-collaboration) below) is a real member too, and counts toward this same tally — inviting one raises a single-member cell to a two-member cell, exactly as inviting a human would.
 
 ### Permissions
 
-Cell-level capabilities are governed by two independent axes: **ownership** (`c:owner`, cell.ttl — owner vs. regular member) and **identity type** (human, agent, or organization). A cell's creator (`c:creator`) is always its initial, and until any promotion its sole, owner; any current owner may promote any other current regular member of `p:Person`/`o:Organization` identity — never an `a:Agent`, which can never hold the owner role, mirroring `c:creator`'s own exclusion of agents — to owner, at which point that member's capabilities change as shown below. Any current owner may likewise demote another owner back to regular-member status, so ownership is not permanent once granted — the one limit being that a cell always retains at least one owner (`c:owner` carries `sh:minCount 1`), so the last remaining owner cannot be demoted. A single-member cell has only its creator, who is trivially its sole owner — the owner/regular-member distinction only becomes observable once a cell gains a second member. There is no separate guest tier — every member, of any identity type, has exactly the same access as any other member of the same ownership status.
+Cell-level capabilities are governed by two independent axes: **ownership** (`c:owner`, cell.ttl — owner vs. regular member) and **identity type** (human or service). A cell's creator (`c:creator`) is always its initial, and until any promotion its sole, owner; any current owner may promote any other current regular member of `p:Person` identity — never an `s:Service`, which can never hold the owner role, mirroring `c:creator`'s own person-only range — to owner, at which point that member's capabilities change as shown below. Any current owner may likewise demote another owner back to regular-member status, so ownership is not permanent once granted — the one limit being that a cell always retains at least one owner (`c:owner` carries `sh:minCount 1`), so the last remaining owner cannot be demoted. A single-member cell has only its creator, who is trivially its sole owner — the owner/regular-member distinction only becomes observable once a cell gains a second member. There is no separate guest tier — every member, of any identity type, has exactly the same access as any other member of the same ownership status.
 
 Capabilities are grouped by the surface they govern, one table each: the **cell container** itself, its **attachments**, its **note**, and its **topic & member info** (graph claims). A capability appears in exactly one table.
 
 Roles, as used in every table's column headings:
 
-- **Owner** — a member (`p:Person` or `o:Organization`, never an `a:Agent`) currently holding the owner role via `c:owner`. The creator immediately becomes the cell's first (and initially sole) owner.
+- **Owner** — a member (`p:Person`, never an `s:Service`) currently holding the owner role via `c:owner`. The creator immediately becomes the cell's first (and initially sole) owner.
 - **Human** — a human member (`p:Person`) who is not currently an owner.
-- **Agent** — an invited `a:Agent` member, always a non-owner.
-- **Organization** — an organization member (`o:Organization`) who is not currently an owner.
+- **Service** — an `s:Service` member, always a non-owner: an invited AI agent (`s:AIAgentService`), a cell backup service (`s:BackupService`), or an organization's own service (`s:ServiceProvider`). All three behave identically at this layer, which is why they share one column.
 
 Each table's **Source** column records where that row came from, since these tables merge two independently-written sources — this document's own prior capability table and Vladimir and Sergey's four tables, which cover only owner and member roles and say nothing about agents or organizations:
 
 - `DOC` — the row comes from this document only; Vladimir and Sergey's tables don't cover it.
-- `NEW` — the row comes from Vladimir and Sergey only; this document carried no such row before. Because their tables have no Agent or Organization axis, those two values on a `NEW` row are this document's own, decided here rather than merged in from theirs.
+- `NEW` — the row comes from Vladimir and Sergey only; this document carried no such row before. Because their tables have no Service axis, that value on a `NEW` row is this document's own, decided here rather than merged in from theirs.
 - `AGREE` — both sources carry the row (sometimes under a different name) and every value matches.
 - `DECIDED` — the two sources disagreed and the disagreement has since been settled some way other than simply adopting the other side's value — including where it turned out they were describing different layers. The cell shows the settled user-level value, and a footnote explains.
 - `CONFLICT` — both sources carry the row but disagree on at least one value. Both values are shown, `this-document / Vladimir-and-Sergey`, with a footnote naming each. These are open questions, listed under [Unresolved](#unresolved) below.
 
-Every cell in every table now carries a decided value. A cell reading `n/a` marks a capability that genuinely cannot apply to that role, rather than one left open — an `a:Agent` can invite no one, so it can never have a self-invited member to remove.
+Every cell in every table now carries a decided value. A cell reading `n/a` marks a capability that genuinely cannot apply to that role, rather than one left open — an `s:Service` can invite no one, so it can never have a self-invited member to remove.
 
 #### Cell Container Permissions
 
-| Capability | Owner | Human | Agent | Organization | Source |
-|---|---|---|---|---|---|
-| Create cell | yes | yes | no | yes | DOC |
-| Invite member to a cell | yes | yes | no | no | AGREE |
-| Uninvite self-invited member | yes | yes | n/a | n/a | DOC |
-| Remove member from cell | yes | no | no | no | AGREE |
-| Remove owner-member from cell | yes | no | no | no | NEW |
-| Leave cell | yes | yes | yes | yes | NEW |
-| Rename cell for all members | yes | yes / no ¹ | no | no | CONFLICT |
-| Delete cell locally | yes | yes | yes | yes | DOC |
-| Delete cell for all members | no | no | no | no | AGREE |
-| Promote member to owner | yes | no | no | no | AGREE |
-| Demote owner to member | yes | no | no | no | AGREE |
-| Out-of-cell communications | yes | yes | no | no | DOC |
+| Capability | Owner | Human | Service | Source |
+|---|---|---|---|---|
+| Create cell | yes | yes | no | DOC |
+| Invite member to a cell | yes | yes | no | AGREE |
+| Uninvite self-invited member | yes | yes | n/a | DOC |
+| Remove member from cell | yes | no | no | AGREE |
+| Remove owner-member from cell | yes | no | no | NEW |
+| Leave cell | yes | yes | yes | NEW |
+| Rename cell for all members | yes | yes / no ¹ | no | CONFLICT |
+| Delete cell locally | yes | yes | yes | DOC |
+| Delete cell for all members | no | no | no | AGREE |
+| Promote member to owner | yes | no | no | AGREE |
+| Demote owner to member | yes | no | no | AGREE |
+| Out-of-cell communications | yes | yes | no | DOC |
 
 ¹ This document: any member, of any identity type, may rename, and the new name propagates to every member. Vladimir and Sergey: owner only.
 
-- **Create cell** — create a new cell in one's own tree.
-- **Invite member to a cell** — invite a person, an agent (of oneself), or an organization to a cell of which one is already a member.
+- **Create cell** — create a new cell in one's own tree. Only a human can: `c:creator`'s range is `p:Person` alone, so no service — provider, agent, or backup — can originate a cell, and none can invite anyone into one either. An organization's relationship with a person therefore only ever exists because the person created the cell and invited that organization's `s:ServiceProvider` into it; the organization cannot open the conversation.
+- **Invite member to a cell** — invite a person, or a service (one's own AI agent, a backup service, or an organization's own service), to a cell of which one is already a member.
 - **Uninvite self-invited member** — remove a cell member whom this member originally invited.
 - **Remove member from cell** — remove any regular (non-owner) member.
 - **Remove owner-member from cell** — remove a member who currently holds the owner role, as distinct from removing a regular member.
@@ -87,7 +86,7 @@ Every cell in every table now carries a decided value. A cell reading `n/a` mark
 - **Rename cell for all members** — change the cell's shared name so the change propagates to every member's copy. See [Naming, Renaming, and Sharing](#naming-renaming-and-sharing) below for the full rule, including the bare two-member-cell exception where the name is independent per member rather than shared.
 - **Delete cell locally** — remove the cell from this member's own tree only, not from any other member's copy.
 - **Delete cell for all members** — no role can do this. No role may send a message to all other members telling their app to delete their own local copy of a cell.
-- **Promote member to owner** — add a current regular member (a `p:Person` or `o:Organization`, never an `a:Agent`) to `c:owner`.
+- **Promote member to owner** — add a current regular member (a `p:Person`, never an `s:Service`) to `c:owner`.
 - **Demote owner to member** — remove a current owner from `c:owner`, returning them to regular-member status. Restricted to owners, and never applicable to the cell's last remaining owner, since `c:owner` requires at least one value.
 - **Out-of-cell communications** — communicate with another cell member outside the cell, by email or SMS, using contact information about that member that they have put in the cell.
 
@@ -95,16 +94,16 @@ Every cell in every table now carries a decided value. A cell reading `n/a` mark
 
 An attachment is any plain file held directly in the cell's own folder, shown in the app's Attachments tab (see [Filesystem Persistence](#filesystem-persistence) above). An attachment is **immutable**: once added, its content is never updated in place by any role, so a correction means deleting it and adding the corrected file. Vladimir and Sergey call this an *immutable document*, a PDF being their example.
 
-| Capability | Owner | Human | Agent | Organization | Source |
-|---|---|---|---|---|---|
-| Read own attachment | yes | yes | yes | yes | NEW |
-| Read another member's attachment | yes | yes | yes | yes | NEW |
-| Add own attachment | yes | yes | yes | yes | AGREE |
-| Add an attachment as if authored by another member | no | no | no | no | NEW |
-| Update own attachment | no | no | no | no | AGREE |
-| Update another member's attachment | no | no | no | no | AGREE |
-| Delete own attachment | yes | yes | yes | yes | AGREE |
-| Delete another member's attachment | yes | no | no | no | AGREE |
+| Capability | Owner | Human | Service | Source |
+|---|---|---|---|---|
+| Read own attachment | yes | yes | yes | NEW |
+| Read another member's attachment | yes | yes | yes | NEW |
+| Add own attachment | yes | yes | yes | AGREE |
+| Add an attachment as if authored by another member | no | no | no | NEW |
+| Update own attachment | no | no | no | AGREE |
+| Update another member's attachment | no | no | no | AGREE |
+| Delete own attachment | yes | yes | yes | AGREE |
+| Delete another member's attachment | yes | no | no | AGREE |
 
 - **Read own attachment** / **Read another member's attachment** — retrieve an attachment's content, one's own or one added by a different member.
 - **Add own attachment** — put a new file into the cell's flat attachment set, authored as oneself.
@@ -117,13 +116,13 @@ An attachment is any plain file held directly in the cell's own folder, shown in
 
 A cell has **exactly one note** — its folder note, `X.md` inside folder `X` (see [Filesystem Persistence](#filesystem-persistence) above and [Note](#note) below) — never more. Vladimir and Sergey call this a *mergeable document*, and their own row labels distinguish a member's "own" document from "another member's"; with one note per cell that split does not arise, so the rows below are stated as capabilities on the cell's single note. Every member may write to it, regardless of ownership — reading and writing the note is the one surface where the owner/regular-member distinction does not apply at all. There is no commenting or suggested-edit mechanism of any kind — no margin comments, no proposed inline changes, and so no accept-or-reject step; a member simply edits the note, and every other member sees the result.
 
-| Capability | Owner | Human | Agent | Organization | Source |
-|---|---|---|---|---|---|
-| Read the note | yes | yes | yes | yes | AGREE |
-| Create the note | yes | yes | yes | yes | AGREE |
-| Create the note as if authored by another member | no | no | no | no | AGREE |
-| Edit the note | yes | yes | yes | yes | AGREE |
-| Delete the note | yes | yes | yes | yes | AGREE |
+| Capability | Owner | Human | Service | Source |
+|---|---|---|---|---|
+| Read the note | yes | yes | yes | AGREE |
+| Create the note | yes | yes | yes | AGREE |
+| Create the note as if authored by another member | no | no | no | AGREE |
+| Edit the note | yes | yes | yes | AGREE |
+| Delete the note | yes | yes | yes | AGREE |
 
 - **Read the note** — retrieve the note's current text.
 - **Create the note** — bring the cell's note into existence, where it does not exist yet.
@@ -139,16 +138,16 @@ Underneath, at the **PDN layer**, there is no update operation on a claim at all
 
 This document describes the first of those two layers, so every row below is the user-level rule. Vladimir and Sergey's own tables describe the second, which is why their `Update own claim` row reads `no` where this one reads `yes` — the two are not in conflict, they are the same behavior seen from either side of that boundary.
 
-| Capability | Owner | Human | Agent | Organization | Source |
-|---|---|---|---|---|---|
-| Read own claim | yes | yes | yes | yes | AGREE |
-| Read another member's claim | yes | yes | yes | yes | AGREE |
-| Issue own claim | yes | yes | yes | yes | AGREE |
-| Issue a claim as if issued by another member | no | no | no | no | AGREE |
-| Update own claim | yes | yes | yes | yes | DECIDED ¹ |
-| Update another member's claim | no | no | no | no | AGREE |
-| Delete own claim | yes | yes | yes | yes | AGREE |
-| Delete another member's claim | yes | no | no | no | AGREE |
+| Capability | Owner | Human | Service | Source |
+|---|---|---|---|---|
+| Read own claim | yes | yes | yes | AGREE |
+| Read another member's claim | yes | yes | yes | AGREE |
+| Issue own claim | yes | yes | yes | AGREE |
+| Issue a claim as if issued by another member | no | no | no | AGREE |
+| Update own claim | yes | yes | yes | DECIDED ¹ |
+| Update another member's claim | no | no | no | AGREE |
+| Delete own claim | yes | yes | yes | AGREE |
+| Delete another member's claim | yes | no | no | AGREE |
 
 ¹ User-level, this is an ordinary edit of one's own claim. At the PDN layer the claim is immutable and the edit is carried out as a delete plus a fresh claim — which is what Vladimir and Sergey's `no` records. Same behavior, different layer.
 
@@ -246,14 +245,14 @@ Chat is one feature with two visibility modes, not two separate concepts. By def
 
 ## Agent Collaboration
 
-A member may invite their own AI agent (`a:Agent`, see README.md's [Agent Ontology](README.md#agent-ontology)) into a shared cell — e.g. inviting ChatGPT to help plan a trip in a `cat:Trips` cell. An invited agent becomes a real cell member: it gets its own self-claimed `c:member` entry alongside the human members, which raises the cell's own distinct-member count (e.g. Alice + her own agent = two distinct members, a two-member cell; a third member joining too — human or agent — would raise it to three members, the same derivation applying regardless of count — see [Number of Members](#number-of-members) above). Because the agent is a literal member, it needs no special-case permission logic — [Permissions](#permissions) above already covers it: by default, an invited agent gets exactly the same read/write access to the cell's note, files, and [chat](#chat) that any non-owner human member has (see [Permissions](#permissions) above) — and, unlike a human or organization member, an agent can never be promoted to owner, so it stays at that baseline permanently. Each principal's own device hosts and runs their own agent independently (their own credentials, their own bridge to the underlying LLM service) — the same way each peer already independently manages their own tree position for a shared cell (see [Cell Storage](#cell-storage) above).
+A member may invite their own AI agent (`s:AIAgentService`, see README.md's [Service Ontology](README.md#service-ontology)) into a shared cell — e.g. inviting ChatGPT to help plan a trip in a `cat:Trips` cell. An invited agent becomes a real cell member: it gets its own self-claimed `c:member` entry alongside the human members, which raises the cell's own distinct-member count (e.g. Alice + her own agent = two distinct members, a two-member cell; a third member joining too — human or service — would raise it to three members, the same derivation applying regardless of count — see [Number of Members](#number-of-members) above). Because the agent is a literal member, it needs no special-case permission logic — [Permissions](#permissions) above already covers it: by default, an invited agent gets exactly the same read/write access to the cell's note, files, and [chat](#chat) that any non-owner human member has (see [Permissions](#permissions) above) — and, unlike a human member, a service member can never be promoted to owner, so it stays at that baseline permanently. Each principal's own device hosts and runs their own agent independently (their own credentials, their own bridge to the underlying LLM service) — the same way each peer already independently manages their own tree position for a shared cell (see [Cell Storage](#cell-storage) above).
 
 ### The Iterative Prompt/Response Loop
 
 Each turn of a member's conversation with their own agent proceeds as follows:
 
 1. The member sends a message — in the shared group stream (optionally @-directed at their agent) or in a private DM thread with their agent.
-2. Their own device's Agent Bridge (invoked on receiving a message addressed to "its" agent, matched via `a:actsFor`) assembles context: the shared note's current text, the agent's single evolving `c:topic` graph (its accumulated understanding of the trip, or whatever the cell concerns), recent relevant chat turns, and existing attachment metadata (filenames/captions).
+2. Their own device's Agent Bridge (invoked on receiving a message addressed to "its" agent, matched via `s:actsFor`) assembles context: the shared note's current text, the agent's single evolving `c:topic` graph (its accumulated understanding of the trip, or whatever the cell concerns), recent relevant chat turns, and existing attachment metadata (filenames/captions).
 3. This context plus the new message is sent to the underlying LLM service (push model — the app calls out; no inbound endpoint is ever exposed).
 4. The response is applied as one atomic turn, all under the agent's own existing member-level write rights:
    - a conversational reply posted back into the same stream/thread the prompt came from (group-visible or private, matching where it arrived);
@@ -264,17 +263,17 @@ Nothing currently records *which* conversation (group vs. private) produced a gi
 
 ## Integrations
 
-The app supports pluggable **integration modules** — each one is the concrete implementation of an `a:Agent`'s [Agent Bridge](#agent-collaboration) for a specific external service, translating between that service's own API and the cell-level primitives already described above (chat, note, and SCGraph claims). This section documents integration modules as they're added; the first is a ChatGPT integration module.
+The app supports pluggable **integration modules** — each one is the concrete implementation of an `s:AIAgentService`'s [Agent Bridge](#agent-collaboration) for a specific external service, translating between that service's own API and the cell-level primitives already described above (chat, note, and SCGraph claims). This section documents integration modules as they're added; the first is a ChatGPT integration module.
 
 ### ChatGPT Integration Module
 
-This module lets a member invite OpenAI's ChatGPT into a cell as a real `a:Agent` member (see [Agent Collaboration](#agent-collaboration) and README.md's [Agent Ontology](README.md#agent-ontology)). At a high level, once invited, it does four things:
+This module lets a member invite OpenAI's ChatGPT into a cell as a real `s:AIAgentService` member (see [Agent Collaboration](#agent-collaboration) and README.md's [Service Ontology](README.md#service-ontology)). At a high level, once invited, it does four things:
 
 1. **Participates in the cell's chat.** It posts and receives messages through the same group/directed/private-DM model described in [Chat](#chat) above — no separate messaging channel of its own.
 2. **Reads all of the cell's data.** Unlike its write access (below), read access is unrestricted: the note's current text, every member's and every topic's SCGraph content, and attachment metadata are all available to it as context for each turn — this is the raw material the [Iterative Prompt/Response Loop](#the-iterative-promptresponse-loop) assembles on its behalf.
 3. **Writes edits to the note.** Because it's a real cell member, it has the same free note-editing rights [Permissions](#permissions) already grants any member — no agent-specific carve-out is needed.
 4. **Creates, reads, updates, and deletes its own claims, as claimant** — but only within the two SCGraphs it actually claims:
-    - **Its own `c:member` entry** — the self-claimed graph proving its membership (e.g. [graph 67](<example/Cells/Travel/Trips/Kyoto Trip 2027/Kyoto Trip 2027(trips).databook.md#graph-67>)'s `a:actsFor` claim) — content *about itself*.
+    - **Its own `c:member` entry** — the self-claimed graph proving its membership (e.g. [graph 67](<example/Cells/Travel/Trips/Kyoto Trip 2027/Kyoto Trip 2027(trips).databook.md#graph-67>)'s `s:actsFor` claim) — content *about itself*.
     - **Its own `c:topic` entry (or entries)** — content about whatever the cell's relationship concerns (e.g. [graph 70](<example/Cells/Travel/Trips/Kyoto Trip 2027/Kyoto Trip 2027(trips).databook.md#graph-70>)'s evolving itinerary) — content about *the cell's topic*, distinct from any other member's or party's own topic claims about that same subject.
 
    It never writes to a graph claimed by someone else — not another member's `c:member` entry, not a topic graph another party claims — read access is unrestricted, but write access is always scoped to the module's own claimant identity. In the steady state this means revising its topic graph in place turn by turn (see [The Iterative Prompt/Response Loop](#the-iterative-promptresponse-loop)); "create" and "delete" cover the initial contribution and retracting a claim that's no longer accurate (e.g. a cancelled leg of an itinerary), respectively. Each of those revisions is a delete-and-re-issue at the PDN layer, exactly as for a human member's own edit (see [Topic & Member Info Permissions](#topic--member-info-permissions) above).

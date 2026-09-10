@@ -25,7 +25,9 @@
     sh:message "Organization validation."@en ;
 
     # Both properties are optional — most organizations in the example data are
-    # named only as a cell member or claimant, with no profile of their own.
+    # named only as a cell:claimant or a cell:topic subject, with no profile
+    # of their own — an organization is never a cell:member subject, since it
+    # participates in a cell through the service:ServiceProvider it provides.
     sh:property [
         sh:path o:hasWebsite ;
         sh:datatype xsd:anyURI ;

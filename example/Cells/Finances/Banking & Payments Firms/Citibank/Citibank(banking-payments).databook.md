@@ -2,13 +2,16 @@
 id: http://www.example.org/mia/cells/cell-04
 title: "Citibank"
 type: cell-databook
-version: 2.0.0
+version: 2.1.0
 created: 2026-07-10
 description: >
   Cell DataBook for folder "Citibank" (cell:category: cat:BankingPayments). It is a two-member
-  cell (member entries about :Citibank and :Self) with two topic graphs about :Self — one Alice's
-  own self-asserted service-account username/password, the other Citibank's own claimed record
-  (debit card, checking account, online service account).
+  cell (member entries about :Citibank_Service and :Self) with two topic graphs about :Self — one
+  Alice's own self-asserted service-account username/password, the other Citibank's own claimed
+  record (debit card, checking account, online service account). An o:Organization is not
+  member-capable, so the bank participates through :Citibank_Service, the service:ServiceProvider
+  it provides; its topic graph is still claimed by :Citibank itself, the party really making
+  those claims.
 mia:
   category: "cat:BankingPayments"
   creator: ":Self"
@@ -16,7 +19,7 @@ mia:
   member:
     - id: "http://www.example.org/mia/graphs/graph-27"
       claimant: ":Self"
-      subject: ":Citibank"
+      subject: ":Citibank_Service"
       template: "pshapes:ContactInfoShape"
     - id: "http://www.example.org/mia/graphs/graph-77"
       claimant: ":Self"
@@ -43,7 +46,7 @@ mia:
 
 #### Overview
 
-This graph captures Alice Walker's own self-claimed notes about Citibank as an institution — her own record of the organization, distinct from Citibank's own claimed record about her (graph 76). Alice is the claimant.
+This graph is one of the cell's two required `member` entries — the bank's side of the relationship. An `o:Organization` is never itself a `cell:member` subject, so what joins the cell is `:Citibank_Service`, the `service:ServiceProvider` the bank provides, carrying `service:providedBy :Citibank`. The substance of the graph is Alice Walker's own self-claimed notes about Citibank as an institution — her own record of the organization, asserted on `:Citibank` where it belongs, and distinct from Citibank's own claimed record about her (graph 76). Alice is the claimant here, since these are her notes, not the bank's.
 
 #### Graph
 
@@ -52,11 +55,17 @@ This graph captures Alice Walker's own self-claimed notes about Citibank as an i
 <!-- databook:graph: http://www.example.org/mia/graphs/graph-27#graph -->
 @prefix : <http://www.example.org/mia#> .
 @prefix o: <http://mee.foundation/ontologies/organization#> .
+@prefix service: <http://mee.foundation/ontologies/service#> .
 @prefix cco: <https://w3id.org/cco-domains/cco/> .
 @prefix owl: <http://www.w3.org/2002/07/owl#> .
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:Citibank_Service rdf:type owl:NamedIndividual ,
+                   service:ServiceProvider ;
+    rdfs:label "Citibank consumer banking service"@en ;
+    service:providedBy :Citibank .
 
 :Citibank rdf:type owl:NamedIndividual ,
                    o:Organization ;

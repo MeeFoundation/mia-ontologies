@@ -2,12 +2,14 @@
 id: http://www.example.org/mia/cells/cell-01
 title: "Boston Hub Society"
 type: cell-databook
-version: 1.3.0
+version: 1.4.0
 created: 2026-07-10
 description: >
   Cell DataBook for folder "Boston Hub Society" (cell:category: cat:Affiliations). It is a multi-member
-  cell with three members about :BHS, :Self, and :Bob_Johnson, plus one topic graph about :BHS itself —
-  the society's own organizational profile, claimed by BHS.
+  cell with three members about :BHS_Service, :Self, and :Bob_Johnson, plus one topic graph about :BHS
+  itself — the society's own organizational profile. An o:Organization is not member-capable, so the
+  society participates through :BHS_Service, the service:ServiceProvider it provides; both of its graphs
+  are still claimed by :BHS itself, the party really making those claims.
 mia:
   category: "cat:Affiliations"
   creator: ":Self"
@@ -15,7 +17,7 @@ mia:
   member:
     - id: "http://www.example.org/mia/graphs/graph-01"
       claimant: ":BHS"
-      subject: ":BHS"
+      subject: ":BHS_Service"
       template: "pshapes:ContactInfoShape"
     - id: "http://www.example.org/mia/graphs/graph-14"
       claimant: ":Self"
@@ -39,7 +41,7 @@ mia:
 
 #### Overview
 
-This graph captures the Boston Hub Society as an `o:Organization`. In our example BHS is compatible with PDN and participates directly as a member of this cell, alongside Alice and Bob. This is the identity BHS presents as one of the cell's three parties — its name and a short description of itself; the society's own organizational facts (member count, website) are the cell's `cell:topic` instead, graph 92. BHS is the claimant.
+This graph captures the identity the Boston Hub Society presents as one of the cell's three parties. In our example BHS is compatible with PDN and participates directly, alongside Alice and Bob — but an `o:Organization` is never itself a `cell:member` subject, so what joins the cell is `:BHS_Service`, the `service:ServiceProvider` the society provides, carrying `service:providedBy :BHS`. The society's name and short self-description sit on `:BHS` itself, where they belong; its own organizational facts (member count, website) are the cell's `cell:topic` instead, graph 92. BHS — the organization, not the service — is the claimant, since it is the party really making the claim and the one an eventual cryptographic signature would name.
 
 #### Graph
 
@@ -48,10 +50,16 @@ This graph captures the Boston Hub Society as an `o:Organization`. In our exampl
 <!-- databook:graph: http://www.example.org/mia/graphs/graph-01#graph -->
 @prefix : <http://www.example.org/mia#> .
 @prefix o: <http://mee.foundation/ontologies/organization#> .
+@prefix service: <http://mee.foundation/ontologies/service#> .
 @prefix cco: <https://w3id.org/cco-domains/cco/> .
 @prefix owl: <http://www.w3.org/2002/07/owl#> .
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+
+:BHS_Service rdf:type owl:NamedIndividual ,
+             service:ServiceProvider ;
+    rdfs:label "Boston Hub Society membership service"@en ;
+    service:providedBy :BHS .
 
 :BHS rdf:type owl:NamedIndividual ,
              o:Organization ;

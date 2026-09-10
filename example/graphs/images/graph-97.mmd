@@ -1,0 +1,24 @@
+flowchart TD
+    classDef person fill:#fffacd,stroke:#aaa,color:#333
+    classDef org    fill:#cce5ff,stroke:#aaa,color:#333
+    classDef service fill:#e6e6e6,stroke:#aaa,color:#333
+    classDef lit    fill:none,stroke:none,font-style:italic,color:#2a7a2a
+    classDef meta   fill:#f5f5ff,stroke:#9999cc,color:#333
+
+    subgraph ctx["Graph"]
+        direction LR
+        ctx_meta["claimant: :Self\nsubject: :Alice_Arca_Account\ntemplate: sashapes:ServiceAccountShape"]:::meta
+    end
+
+    n7a1e356de3c9[":Alice_Arca_Account\n(ServiceAccount)"]
+    n367ed95820d7("Arca"):::lit
+    n55acb94bc8e0("awalker@gmail.com"):::lit
+    n2d7adaf1ca04("https://arca.example.com/account"):::lit
+    n917e04fa4120("Alice#Arca2026!"):::lit
+    ne0c3ba92f1db[":Self\n(Person)"]:::person
+
+    n7a1e356de3c9 -->|"serviceName"| n367ed95820d7
+    n7a1e356de3c9 -->|"userHandle"| n55acb94bc8e0
+    n7a1e356de3c9 -->|"serviceURI"| n2d7adaf1ca04
+    n7a1e356de3c9 -->|"hasPassword"| n917e04fa4120
+    ne0c3ba92f1db -->|"holdsUserAccount"| n7a1e356de3c9

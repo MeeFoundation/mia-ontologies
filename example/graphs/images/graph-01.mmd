@@ -1,15 +1,18 @@
 flowchart TD
     classDef person fill:#fffacd,stroke:#aaa,color:#333
     classDef org    fill:#cce5ff,stroke:#aaa,color:#333
+    classDef service fill:#e6e6e6,stroke:#aaa,color:#333
     classDef lit    fill:none,stroke:none,font-style:italic,color:#2a7a2a
     classDef meta   fill:#f5f5ff,stroke:#9999cc,color:#333
 
     subgraph ctx["Graph"]
         direction LR
-        ctx_meta["claimant: :BHS\nsubject: :BHS\ntemplate: pshapes:ContactInfoShape"]:::meta
+        ctx_meta["claimant: :BHS\nsubject: :BHS_Service\ntemplate: pshapes:ContactInfoShape"]:::meta
     end
 
     n0644db9ef116[":BHS\n(Organization)"]:::org
-    nb40320d13138("An informal Boston-area professional networking society. Current members include Alice Walker and Bob Johnson."):::lit
+    ndef94ab3a90b("An informal Boston-area professional networking society. Current members include Alice Walker and Bob Johnson."):::lit
+    n4cd32c179607[":BHS_Service\n(ProviderService)"]:::service
 
-    n0644db9ef116 -->|"ont00001917"| nb40320d13138
+    n0644db9ef116 -->|"ont00001917"| ndef94ab3a90b
+    n4cd32c179607 -->|"providedBy"| n0644db9ef116

@@ -70,10 +70,10 @@
          uri="organization.ttl"/>
     <uri id="organization-shacl"       name="http://mee.foundation/ontologies/organization/shapes"
          uri="shacl/organization-shacl.ttl"/>
-    <uri id="agent"                    name="http://mee.foundation/ontologies/agent"
-         uri="agent.ttl"/>
-    <uri id="agent-shacl"              name="http://mee.foundation/ontologies/agent/shapes"
-         uri="shacl/agent-shacl.ttl"/>
+    <uri id="service"                  name="http://mee.foundation/ontologies/service"
+         uri="service.ttl"/>
+    <uri id="service-shacl"            name="http://mee.foundation/ontologies/service/shapes"
+         uri="shacl/service-shacl.ttl"/>
 
     <!-- ── Selfness files (now DataBook — loaded via triplestore, not owl:imports) ── -->
 

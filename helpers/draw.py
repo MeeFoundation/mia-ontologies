@@ -38,6 +38,7 @@ from databook_graphs import as_list, extract_graph_block, find_graph_entry, spli
 # ── Namespaces ─────────────────────────────────────────────────────────────────
 PERSONA = Namespace("http://mee.foundation/ontologies/persona#")
 ORG     = Namespace("http://mee.foundation/ontologies/organization#")
+SERVICE = Namespace("http://mee.foundation/ontologies/service#")
 
 DESIGNATED_BY  = URIRef("https://w3id.org/cco-domains/cco/ont00001879")
 HAS_TEXT_VALUE = URIRef("https://w3id.org/cco-domains/cco/ont00001765")
@@ -152,6 +153,13 @@ LABELS = {
     "http://purl.obolibrary.org/obo/BFO_0000196": "bearerOf",
     # org
     str(ORG.Organization):                      "Organization",
+    # service
+    str(SERVICE.Service):                       "Service",
+    str(SERVICE.AIAgentService):                "AIAgentService",
+    str(SERVICE.BackupService):                 "BackupService",
+    str(SERVICE.ProviderService):               "ProviderService",
+    str(SERVICE.actsFor):                       "actsFor",
+    str(SERVICE.providedBy):                    "providedBy",
 }
 
 # Properties suppressed from edge rendering
@@ -217,6 +225,9 @@ def style_class(g: Graph, iri: URIRef) -> str:
         return "person"
     if ORG.Organization in types:
         return "org"
+    if types & {SERVICE.Service, SERVICE.AIAgentService,
+                SERVICE.BackupService, SERVICE.ProviderService}:
+        return "service"
     return ""
 
 
@@ -285,6 +296,7 @@ def build_mermaid(g: Graph, frontmatter: dict | None = None, src_dir: Path | Non
     header.append("flowchart TD")
     header.append("    classDef person fill:#fffacd,stroke:#aaa,color:#333")
     header.append("    classDef org    fill:#cce5ff,stroke:#aaa,color:#333")
+    header.append("    classDef service fill:#e6e6e6,stroke:#aaa,color:#333")
     header.append("    classDef lit    fill:none,stroke:none,font-style:italic,color:#2a7a2a")
     header.append("    classDef meta   fill:#f5f5ff,stroke:#9999cc,color:#333")
 

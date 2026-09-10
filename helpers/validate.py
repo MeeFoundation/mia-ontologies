@@ -18,11 +18,12 @@ Each cell gets two passes:
    embedded graphs' Turtle, plus the `cell:` triples synthesized from its own
    `mia.*` frontmatter (databook_graphs.process_cell_databook). Validated
    against the four general shapes files — cell-shacl (the cell model
-   itself), persona-shacl, organization-shacl, agent-shacl. The graph Turtle
+   itself), persona-shacl, organization-shacl, service-shacl. The graph Turtle
    has to be in here, not just the frontmatter triples: cell-shacl's
-   :MemberCellShape/:SCGraphShape constrain creator/owner/claimant with
-   `sh:or ( [sh:class p:Person] [sh:class o:Organization] ... )`, and those
-   individuals are typed only in the graph Turtle.
+   :MemberCellShape constrains creator/owner with `sh:class p:Person` and its
+   :SCGraphShape constrains claimant with
+   `sh:or ( [sh:class p:Person] [sh:class o:Organization] [sh:class service:Service] )`,
+   and those individuals are typed only in the graph Turtle.
 
 2. **Template pass** — each graph that carries a `template:` value, checked
    on its own against the shape that value names. A graph's `template:` is
@@ -50,9 +51,9 @@ graph's own real subject and may legitimately lack a GivenName.
 
 The graph's own YAML `subject:` isn't a safe stand-in for "the individual to
 validate" here either — a member graph's `subject` can legitimately name a
-non-`persona:Person` party (e.g. a Kyoto trip's Agent member has `subject:
-":Alice_Travel_Agent"`, an `a:Agent`, while the real ContactInfo-conformant
-content is asserted on `:Self` in that same graph). So whenever the resolved
+non-`persona:Person` party (e.g. a Kyoto trip's agent member has `subject:
+":Alice_Travel_Agent"`, a `service:AIAgentService`, while the real
+ContactInfo-conformant content is asserted on `:Self` in that same graph). So whenever the resolved
 shape's own declared target is exactly `sh:targetClass persona:Person`,
 `scope_shape` (below) instead re-targets it at every *substantive*
 `persona:Person` individual actually present in the graph's own extracted
@@ -188,7 +189,7 @@ BASE_ONTOLOGY_FILES = [
     "other/pets.ttl", "other/vehicles.ttl", "other/identity-documents.ttl",
     "other/medical-appointments.ttl", "other/service-accounts.ttl",
     "other/banking.ttl", "other/residences.ttl", "other/itineraries.ttl",
-    "organization.ttl", "agent.ttl",
+    "organization.ttl", "service.ttl",
 ]
 
 # The template pass additionally merges cat-templates.ttl; the cell pass
@@ -204,7 +205,7 @@ CELL_SHAPES_FILES = [
     "shacl/cell-shacl.ttl",
     "shacl/persona-shacl.ttl",
     "shacl/organization-shacl.ttl",
-    "shacl/agent-shacl.ttl",
+    "shacl/service-shacl.ttl",
 ]
 
 TARGET_PROPS = [SH.targetClass, SH.targetNode, SH.targetObjectsOf, SH.targetSubjectsOf]

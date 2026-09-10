@@ -7,14 +7,14 @@
 @prefix cell: <http://mee.foundation/ontologies/cell#> .
 @prefix p: <http://mee.foundation/ontologies/persona#> .
 @prefix o: <http://mee.foundation/ontologies/organization#> .
-@prefix agent: <http://mee.foundation/ontologies/agent#> .
+@prefix service: <http://mee.foundation/ontologies/service#> .
 @prefix cat: <http://mee.foundation/ontologies/category#> .
 @prefix skos: <http://www.w3.org/2004/02/skos/core#> .
 @prefix dc: <http://purl.org/dc/elements/1.1/> .
 
 <http://mee.foundation/ontologies/cell/shapes> rdf:type owl:Ontology ;
-    owl:versionIRI <http://mee.foundation/ontologies/cell/shapes/3.34.0> ;
-    dc:date "2026-09-05"^^xsd:date ;
+    owl:versionIRI <http://mee.foundation/ontologies/cell/shapes/3.35.0> ;
+    dc:date "2026-09-10"^^xsd:date ;
     rdfs:label "Cell Ontology SHACL Validation Shapes"@en ;
     rdfs:comment "SHACL validation shapes for cell:Cell DataBook instances (the content facet of a cell) and cell:SCGraph DataBook instances (the graph DataBooks a cell links to) in the Cell Ontology."@en .
 
@@ -150,24 +150,27 @@
     sh:targetClass cell:MemberCell ;
     sh:message "Member Cell validation."@en ;
 
-    # cell:creator — exactly one value, required, must be a Person or Organization
+    # cell:creator — exactly one value, required, must be a Person: a cell
+    # is always created by a human, never by a service:Service and never by
+    # an o:Organization, whose participation in a cell is always through the
+    # service:ServiceProvider it provides.
     sh:property [
         sh:path cell:creator ;
         sh:minCount 1 ;
         sh:maxCount 1 ;
-        sh:or ( [ sh:class p:Person ] [ sh:class o:Organization ] ) ;
-        sh:message "A cell:MemberCell must have exactly one cell:creator, a single p:Person or o:Organization."@en
+        sh:class p:Person ;
+        sh:message "A cell:MemberCell must have exactly one cell:creator, a single p:Person."@en
     ] ;
 
     # cell:owner — one or more values, required, no fixed upper bound,
-    # each must be a Person or Organization (never an agent:Agent — an
-    # invited agent can be a cell:member but can never be promoted to
-    # owner; see cell.ttl's cell:owner comment).
+    # each must be a Person (never a service:Service — an invited service
+    # can be a cell:member but can never be promoted to owner; see
+    # cell.ttl's cell:owner comment).
     sh:property [
         sh:path cell:owner ;
         sh:minCount 1 ;
-        sh:or ( [ sh:class p:Person ] [ sh:class o:Organization ] ) ;
-        sh:message "A cell:MemberCell must have at least one cell:owner, each a p:Person or o:Organization."@en
+        sh:class p:Person ;
+        sh:message "A cell:MemberCell must have at least one cell:owner, each a p:Person."@en
     ] ;
 
     # cell:member — one or more values, required, no fixed upper bound.
@@ -234,7 +237,7 @@
 :SCGraphShape
     a sh:NodeShape ;
     sh:targetClass cell:SCGraph ;
-    sh:message "SCGraph validation: claimant must be exactly one Person, Organization, or Agent; subject must be exactly one IRI."@en ;
+    sh:message "SCGraph validation: claimant must be exactly one Person, Organization, or Service; subject must be exactly one IRI."@en ;
     sh:property [
         sh:path cell:subject ;
         sh:minCount 1 ;
@@ -246,6 +249,6 @@
         sh:path cell:claimant ;
         sh:minCount 1 ;
         sh:maxCount 1 ;
-        sh:or ( [ sh:class p:Person ] [ sh:class o:Organization ] [ sh:class agent:Agent ] ) ;
-        sh:message "cell:claimant must have exactly one value, and it must be a p:Person, o:Organization, or agent:Agent."@en
+        sh:or ( [ sh:class p:Person ] [ sh:class o:Organization ] [ sh:class service:Service ] ) ;
+        sh:message "cell:claimant must have exactly one value, and it must be a p:Person, o:Organization, or service:Service."@en
     ] .
