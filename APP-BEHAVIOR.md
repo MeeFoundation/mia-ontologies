@@ -204,19 +204,6 @@ For example (see EXAMPLE.md's ["Caring for Ginger"](EXAMPLE.md#caring-for-ginger
 
 Ideally it would have filed the cell shared by Alice's app under People > Immediate Family, because she is Paula's daughter, but Paula's app didn't know that, so it did the best it could. To perfect things, Paula can create an Immediate Family cell under her People cell and move Alice (and sub-cells) under it.
 
-## User Interface
-
-## Cell Actions
-
-When the user selects an entire cell. Here are some actions they can take:
-
-- [Add a Topic](#add-topic)
-- Delete
-- Rename
-- ...
-- [Organize](#organize)
-
-
 ### Organize
 
 There are two kinds of organizing that app does when the user selects a cell and chooses the Organize action:
@@ -241,7 +228,7 @@ Whichever template the user picks is stamped directly onto the new `c:SCGraph` a
 
 The limit is one: a cell whose category's template says `c:isTopicCell false` ends up with exactly one `c:topic` value if the user adds one, and the **Add Topic** action is no longer offered on it afterwards (Check 31 enforces the cap). A `c:isTopicCell true` cell is the other case entirely — its topics come from the template rather than by hand, and are capped instead by the cell's own member count (Check 25). Alice's Immediate Family cell for her daughter Sophia (cell-12) is the worked example of the manual path: Sophia has no instance of the app and so cannot be one of the cell's members, so Alice adds a Contact Info topic about her by hand.
 
-### Note
+### Note Area
 
 The Note area is a Markdown editor for the cell's one folder note, providing the functionality typical of Markdown editors:
 
@@ -256,9 +243,35 @@ The Note area is a Markdown editor for the cell's one folder note, providing the
 - Continuous autosave — there is no explicit save step
 - Editable by every member regardless of ownership (see [Permissions](#permissions) above). There is no commenting or suggested-edit mechanism, so nothing is stored in the note beyond its own Markdown, keeping it a portable `.md` file
 
-### Chat
+### Chat Area
 
 Chat is one feature with two visibility modes, not two separate concepts. By default, every message posts to the cell's one shared group stream, visible to every member. Any message can additionally be *directed* at a specific named member — human or agent — while staying in the shared stream (e.g. Alice @-mentions her agent; every member sees both her prompt and the agent's reply). Separately, a true private 1:1 thread between a member and their own agent is also supported, whose transcript is not visible to other members — only the *resulting* committed changes (note edits, topic-graph revisions, new attachments) surface into the shared cell.
+
+### Inviting services
+
+#### Inviting AI Agents
+
+A member may invite their own AI agent (`s:AIAgentService`, see README.md's [Service Ontology](README.md#service-ontology)) into a shared cell — e.g. inviting ChatGPT to help plan a trip in a `cat:Trips` cell. An invited agent becomes a real cell member: it gets its own self-claimed `c:member` entry alongside the human members, which raises the cell's own distinct-member count (e.g. Alice + her own agent = two distinct members, a two-member cell; a third member joining too — human or service — would raise it to three members, the same derivation applying regardless of count — see [Number of Members](#number-of-members) above). Because the agent is a literal member, it needs no special-case permission logic — [Permissions](#permissions) above already covers it: by default, an invited agent gets exactly the same read/write access to the cell's note, files, and [chat](#chat) that any non-owner human member has (see [Permissions](#permissions) above) — and, unlike a human member, a service member can never be promoted to owner, so it stays at that baseline permanently. Each principal's own device hosts and runs their own agent independently (their own credentials, their own bridge to the underlying LLM service) — the same way each peer already independently manages their own tree position for a shared cell (see [Cell Storage](#cell-storage) above).
+
+Each turn of a member's conversation with the agent proceeds as follows:
+
+1. The member sends a message — in the shared group stream (optionally @-directed at their agent) or in a private DM thread with their agent.
+2. Their own device's Agent Bridge (invoked on receiving a message addressed to "its" agent, matched via `s:actsFor`) assembles context: the shared note's current text, the agent's single evolving `c:topic` graph (its accumulated understanding of the trip, or whatever the cell concerns), recent relevant chat turns, and existing attachment metadata (filenames/captions).
+3. This context plus the new message is sent to the underlying LLM service (push model — the app calls out; no inbound endpoint is ever exposed).
+4. The response is applied as one atomic turn, all under the agent's own existing member-level write rights:
+   - a conversational reply posted back into the same stream/thread the prompt came from (group-visible or private, matching where it arrived);
+   - the agent's `c:topic` graph revised in place to fold in this turn's new facts/decisions — a single evolving graph, not a new one per turn, mirroring how the note itself is one living document rather than a new file per edit;
+   - optionally, a direct edit to the shared note, and/or a new attachment (e.g. a fetched photo of a hotel or landscape) added to the cell's flat attachment set.
+
+Nothing currently records *which* conversation (group vs. private) produced a given note edit or topic-graph revision — an accepted limitation, not a defect, worth knowing if audit-level provenance ever matters.
+
+#### Inviting Backup Services
+
+{to be written}
+
+#### Inviting Service Providers
+
+{to be written. Inviting Cititbank, etc.}
 
 ## UI Implementation
 ### Form Fields from SHACL Shapes
@@ -271,24 +284,6 @@ A property constrained only by `sh:nodeKind sh:IRI`, with no `sh:in` list — e.
 
 Where one such field's legal values depend on another field already filled in, the app narrows the query accordingly rather than presenting two independent pickers. `v:hasModel`'s dropdown is filtered to only the `v:Model` individuals whose `v:modelMake` points back at the already-selected `v:hasMake` value — a cascading, make-then-model picker. Alice's RAV4 cell illustrates this: choosing "Toyota" narrows the model dropdown to Toyota's own vendored models before "Toyota RAV4" can be selected (see EXAMPLE.md's ["Vehicles"](EXAMPLE.md#vehicles) for the underlying cell and [graph 63](<example/Cells/Things/Vehicles/RAV4/RAV4(vehicles).databook.md#graph-63>)).
 
-
-## Agent Collaboration
-
-A member may invite their own AI agent (`s:AIAgentService`, see README.md's [Service Ontology](README.md#service-ontology)) into a shared cell — e.g. inviting ChatGPT to help plan a trip in a `cat:Trips` cell. An invited agent becomes a real cell member: it gets its own self-claimed `c:member` entry alongside the human members, which raises the cell's own distinct-member count (e.g. Alice + her own agent = two distinct members, a two-member cell; a third member joining too — human or service — would raise it to three members, the same derivation applying regardless of count — see [Number of Members](#number-of-members) above). Because the agent is a literal member, it needs no special-case permission logic — [Permissions](#permissions) above already covers it: by default, an invited agent gets exactly the same read/write access to the cell's note, files, and [chat](#chat) that any non-owner human member has (see [Permissions](#permissions) above) — and, unlike a human member, a service member can never be promoted to owner, so it stays at that baseline permanently. Each principal's own device hosts and runs their own agent independently (their own credentials, their own bridge to the underlying LLM service) — the same way each peer already independently manages their own tree position for a shared cell (see [Cell Storage](#cell-storage) above).
-
-### The Iterative Prompt/Response Loop
-
-Each turn of a member's conversation with their own agent proceeds as follows:
-
-1. The member sends a message — in the shared group stream (optionally @-directed at their agent) or in a private DM thread with their agent.
-2. Their own device's Agent Bridge (invoked on receiving a message addressed to "its" agent, matched via `s:actsFor`) assembles context: the shared note's current text, the agent's single evolving `c:topic` graph (its accumulated understanding of the trip, or whatever the cell concerns), recent relevant chat turns, and existing attachment metadata (filenames/captions).
-3. This context plus the new message is sent to the underlying LLM service (push model — the app calls out; no inbound endpoint is ever exposed).
-4. The response is applied as one atomic turn, all under the agent's own existing member-level write rights:
-   - a conversational reply posted back into the same stream/thread the prompt came from (group-visible or private, matching where it arrived);
-   - the agent's `c:topic` graph revised in place to fold in this turn's new facts/decisions — a single evolving graph, not a new one per turn, mirroring how the note itself is one living document rather than a new file per edit;
-   - optionally, a direct edit to the shared note, and/or a new attachment (e.g. a fetched photo of a hotel or landscape) added to the cell's flat attachment set.
-
-Nothing currently records *which* conversation (group vs. private) produced a given note edit or topic-graph revision — an accepted limitation, not a defect, worth knowing if audit-level provenance ever matters.
 
 ## Integrations
 
