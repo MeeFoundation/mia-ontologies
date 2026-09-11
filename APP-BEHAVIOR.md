@@ -65,9 +65,9 @@ Every cell in every table now carries a decided value. A cell reading `n/a` mark
 | Remove member from cell | yes | no | no |  |
 | Remove owner-member from cell | yes | no | no |  |
 | Leave cell | yes | yes | yes |  |
-| Rename cell for all members | yes | yes / no  | no |  #2 |
+| Rename cell for all members | yes | yes / no  | no |  #1 |
 | Delete cell locally | yes | yes | yes |  |
-| Delete cell for all members | yes | no | no |  #1 |
+| Delete cell for all members | yes | no | no |  #2 |
 | Promote member to owner | yes | no | no |  |
 | Demote owner to member | yes | no | no |  |
 | Out-of-cell communications | yes | yes | no |  |
