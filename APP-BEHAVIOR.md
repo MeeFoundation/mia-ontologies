@@ -44,20 +44,17 @@ Cell-level capabilities are governed by two independent axes: **ownership** (`c:
 
 Capabilities are grouped by the surface they govern, one table each: the **cell container** itself, its **attachments**, its **note**, and its **topic & member info** (graph claims). A capability appears in exactly one table.
 
-Roles, as used in every table's column headings:
+We define three kinds of members:
 
-- **Owner** — a member (`p:Person`, never an `s:Service`) currently holding the owner role via `c:owner`. The creator immediately becomes the cell's first (and initially sole) owner.
-- **Human** — a human member (`p:Person`) who is not currently an owner.
-- **Service** — an `s:Service` member, always a non-owner: an invited AI agent (`s:AIAgentService`), a cell backup service (`s:BackupService`), or an organization's own service (`s:ServiceProvider`). All three behave identically at this layer, which is why they share one column.
-
-If a table has an **Open** column:
-
+- **Owner** — a user who is currently holding the owner role. The cell creator immediately becomes the cell's first, and initially sole, owner.
+- **Member** — a user who is not currently an owner.
+- **Service** — a service, (always a non-owner).
 
 Every cell in every table now carries a decided value. A cell reading `n/a` marks a capability that genuinely cannot apply to that role, rather than one left open — an `s:Service` can invite no one, so it can never have a self-invited member to remove.
 
 #### Cell Container Permissions
 
-| Capability | Owner | Human | Service | Open Issues |
+| Capability | Owner | Member | Service | Open Issue |
 |---|---|---|---|---|
 | Create cell | yes | yes | no |  |
 | Invite member to a cell | yes | yes | no |  |
@@ -96,7 +93,7 @@ Every cell in every table now carries a decided value. A cell reading `n/a` mark
 
 An attachment is any plain file held directly in the cell's own folder, shown in the app's Attachments area (see [Filesystem Persistence](#filesystem-persistence) above). An attachment is **immutable**: once added, its content is never updated in place by any role, so a correction means deleting it and adding the corrected file. Vladimir and Sergey call this an *immutable document*, a PDF being their example.
 
-| Capability | Owner | Human | Service | 
+| Capability | Owner | Person | Service | 
 |---|---|---|---|
 | Read own attachment | yes | yes | yes | 
 | Read another member's attachment | yes | yes | yes | 
@@ -118,7 +115,7 @@ An attachment is any plain file held directly in the cell's own folder, shown in
 
 A cell has **exactly one note** — its folder note, `X.md` inside folder `X` (see [Filesystem Persistence](#filesystem-persistence) above and [Note](#note) below) — never more. Vladimir and Sergey call this a *mergeable document*, and their own row labels distinguish a member's "own" document from "another member's"; with one note per cell that split does not arise, so the rows below are stated as capabilities on the cell's single note. Every member may write to it, regardless of ownership — reading and writing the note is the one surface where the owner/regular-member distinction does not apply at all. There is no commenting or suggested-edit mechanism of any kind — no margin comments, no proposed inline changes, and so no accept-or-reject step; a member simply edits the note, and every other member sees the result.
 
-| Capability | Owner | Human | Service | 
+| Capability | Owner | Person | Service | 
 |---|---|---|---|
 | Read the note | yes | yes | yes | 
 | Create the note | yes | yes | yes | 
@@ -140,7 +137,7 @@ Underneath, at the **PDN layer**, there is no update operation on a claim at all
 
 This document describes the first of those two layers, so every row below is the user-level rule. Vladimir and Sergey's own tables describe the second, which is why their `Update own claim` row reads `no` where this one reads `yes` — the two are not in conflict, they are the same behavior seen from either side of that boundary.
 
-| Capability | Owner | Human | Service | 
+| Capability | Owner | Person | Service | 
 |---|---|---|---|
 | Read own claim | yes | yes | yes |  
 | Read another member's claim | yes | yes | yes |  
