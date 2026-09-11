@@ -88,7 +88,7 @@ vehicles:hasVehicleType rdf:type owl:ObjectProperty ;
     rdfs:domain vehicles:Vehicle ;
     rdfs:range vehicles:VehicleType ;
     rdfs:label "has vehicle type"@en ;
-    rdfs:comment "Links a Vehicle to its kind — the value IS one of vehicles:Car/BusOrCoach/Motorcycle/MotorizedBicycle directly (class-value-punning), not an instance of it. Required, exactly one value: every vehicle is exactly one kind."@en .
+    rdfs:comment """Links a Vehicle to its kind — the value IS one of vehicles:Car/BusOrCoach/Motorcycle/MotorizedBicycle directly (class-value-punning), not an instance of it. Required, exactly one value: every vehicle is exactly one kind."""@en .
 
 
 #################################################################
@@ -111,27 +111,27 @@ vehicles:hasMake rdf:type owl:ObjectProperty ;
     rdfs:domain vehicles:Vehicle ;
     rdfs:range vehicles:Make ;
     rdfs:label "has make"@en ;
-    rdfs:comment "Links a Vehicle to its manufacturer, a vehicles:Make individual from project_files/wikidata-vehicle-makes-subset.ttl (e.g. wd:Q53268 for Toyota) — a real Wikidata individual, not a locally-minted one. Required, exactly one value: every vehicle has exactly one make."@en .
+    rdfs:comment """Links a Vehicle to its manufacturer, a vehicles:Make individual from project_files/wikidata-vehicle-makes-subset.ttl (e.g. wd:Q53268 for Toyota) — a real Wikidata individual, not a locally-minted one. Required, exactly one value: every vehicle has exactly one make."""@en .
 
 vehicles:hasModel rdf:type owl:ObjectProperty ;
     rdfs:domain vehicles:Vehicle ;
     rdfs:range vehicles:Model ;
     rdfs:label "has model"@en ;
-    rdfs:comment "Links a Vehicle to its model, a vehicles:Model individual from project_files/wikidata-vehicle-models-subset.ttl (e.g. wd:Q819982 for the Toyota RAV4) — a real Wikidata individual, linked back to its own manufacturer via vehicles:modelMake. Required, exactly one value: every vehicle has exactly one model."@en .
+    rdfs:comment """Links a Vehicle to its model, a vehicles:Model individual from project_files/wikidata-vehicle-models-subset.ttl (e.g. wd:Q819982 for the Toyota RAV4) — a real Wikidata individual, linked back to its own manufacturer via vehicles:modelMake. Required, exactly one value: every vehicle has exactly one model."""@en .
 
 vehicles:Make rdf:type owl:Class ;
     rdfs:label "Make"@en ;
-    rdfs:comment "The type of every individual vendored in project_files/wikidata-vehicle-makes-subset.ttl — a real-world vehicle manufacturer, each a genuine Wikidata individual (not a class: unlike NCBITaxon species/VBO breeds, Wikidata does not model a manufacturer as a class in its own right)."@en .
+    rdfs:comment """The type of every individual vendored in project_files/wikidata-vehicle-makes-subset.ttl — a real-world vehicle manufacturer, each a genuine Wikidata individual (not a class: unlike NCBITaxon species/VBO breeds, Wikidata does not model a manufacturer as a class in its own right)."""@en .
 
 vehicles:Model rdf:type owl:Class ;
     rdfs:label "Model"@en ;
-    rdfs:comment "The type of every individual vendored in project_files/wikidata-vehicle-models-subset.ttl — a real-world vehicle model, each a genuine Wikidata individual (not a class, for the same reason as vehicles:Make)."@en .
+    rdfs:comment """The type of every individual vendored in project_files/wikidata-vehicle-models-subset.ttl — a real-world vehicle model, each a genuine Wikidata individual (not a class, for the same reason as vehicles:Make)."""@en .
 
 vehicles:modelMake rdf:type owl:ObjectProperty ;
     rdfs:domain vehicles:Model ;
     rdfs:range vehicles:Make ;
     rdfs:label "model make"@en ;
-    rdfs:comment "Links a vehicles:Model individual back to the vehicles:Make individual that manufactures it — asserted once per model in project_files/wikidata-vehicle-models-subset.ttl itself, the cross-vendor-file link mirroring the role project_files/vbo-subset.ttl's breed-group-node-to-NCBITaxon-species rdfs:subClassOf link plays for pets:hasBreed, adapted to an object-property link between two individuals since neither vehicles:Make nor vehicles:Model values are classes."@en .
+    rdfs:comment """Links a vehicles:Model individual back to the vehicles:Make individual that manufactures it — asserted once per model in project_files/wikidata-vehicle-models-subset.ttl itself, the cross-vendor-file link mirroring the role project_files/vbo-subset.ttl's breed-group-node-to-NCBITaxon-species rdfs:subClassOf link plays for pets:hasBreed, adapted to an object-property link between two individuals since neither vehicles:Make nor vehicles:Model values are classes."""@en .
 
 vehicles:modelYear rdf:type owl:DatatypeProperty ;
     rdfs:domain vehicles:Vehicle ;
@@ -162,19 +162,19 @@ vehicles:bodyType rdf:type owl:DatatypeProperty ;
     rdfs:domain vehicles:Vehicle ;
     rdfs:range xsd:string ;
     rdfs:label "body type"@en ;
-    rdfs:comment "The vehicle's body style (e.g. \"SUV\", \"Sedan\", \"Hatchback\"), as free text — mirroring schema.org's own bodyType property, which is likewise left as Text rather than a fixed enumeration, since no single standard body-type vocabulary is universal across markets. Optional, at most one value."@en .
+    rdfs:comment """The vehicle's body style (e.g. \"SUV\", \"Sedan\", \"Hatchback\"), as free text — mirroring schema.org's own bodyType property, which is likewise left as Text rather than a fixed enumeration, since no single standard body-type vocabulary is universal across markets. Optional, at most one value."""@en .
 
 vehicles:fuelType rdf:type owl:DatatypeProperty ;
     rdfs:domain vehicles:Vehicle ;
     rdfs:range xsd:string ;
     rdfs:label "fuel type"@en ;
-    rdfs:comment "The type of fuel the vehicle's engine uses. Constrained by other/shacl/vehicles-shacl.ttl's :VehicleShape to a small controlled vocabulary (Gasoline, Diesel, Electric, Hybrid, PlugInHybrid, Hydrogen) via sh:in, rather than a vendored external class list — six values is too small to justify vendoring a separate file for. Optional, at most one value."@en .
+    rdfs:comment """The type of fuel the vehicle's engine uses. Constrained by other/shacl/vehicles-shacl.ttl's :VehicleShape to a small controlled vocabulary (Gasoline, Diesel, Electric, Hybrid, PlugInHybrid, Hydrogen) via sh:in, rather than a vendored external class list — six values is too small to justify vendoring a separate file for. Optional, at most one value."""@en .
 
 vehicles:driveWheelConfiguration rdf:type owl:DatatypeProperty ;
     rdfs:domain vehicles:Vehicle ;
     rdfs:range xsd:string ;
     rdfs:label "drive wheel configuration"@en ;
-    rdfs:comment "Which wheels receive power from the engine. Constrained by other/shacl/vehicles-shacl.ttl's :VehicleShape to a small controlled vocabulary (FWD, RWD, AWD, 4WD) via sh:in — the same small-enumeration-via-SHACL reasoning as vehicles:fuelType, rather than vendoring schema.org's own DriveWheelConfigurationValue class IRIs for just four values. Optional, at most one value."@en .
+    rdfs:comment """Which wheels receive power from the engine. Constrained by other/shacl/vehicles-shacl.ttl's :VehicleShape to a small controlled vocabulary (FWD, RWD, AWD, 4WD) via sh:in — the same small-enumeration-via-SHACL reasoning as vehicles:fuelType, rather than vendoring schema.org's own DriveWheelConfigurationValue class IRIs for just four values. Optional, at most one value."""@en .
 
 
 #################################################################

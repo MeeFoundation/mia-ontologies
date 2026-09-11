@@ -269,7 +269,7 @@ p:hasPhysicalCard rdf:type owl:ObjectProperty ;
     rdfs:domain p:Person ;
     rdfs:range p:PhysicalCard ;
     rdfs:label "holds physical card"@en ;
-    rdfs:comment "Links a Person to a PhysicalCard they possess, whether carried directly, stored separately, or held inside a wallet (see p:hasWallet and continuant part of for the separate, complementary fact of a card's wallet containment)."@en .
+    rdfs:comment """Links a Person to a PhysicalCard they possess, whether carried directly, stored separately, or held inside a wallet (see p:hasWallet and continuant part of for the separate, complementary fact of a card's wallet containment)."""@en .
 
 p:hasWallet rdf:type owl:ObjectProperty ;
     rdfs:domain p:Person ;

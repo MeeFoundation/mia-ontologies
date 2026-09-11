@@ -2,7 +2,7 @@
 id: http://www.example.org/mia/cells/cell-41
 title: "Ginger"
 type: cell-databook
-version: 1.4.0
+version: 1.5.0
 created: 2026-08-22
 description: >
   Cell DataBook for folder "Ginger" (cell:category: cat:Pets). A user-defined instance folder for Alice's specific cat, Ginger, nested under the generic Pets category — mirroring how e.g. "Bob Johnson" reuses its parent "Others" folder's own origin class rather than being Custom. It is a one-member cell with one member entry about :Self and one graph about :Ginger (the cell's subject), typed pets:Pet and carrying her name, species, breed, birth date, current body weight, sex, and spay/neuter status.
@@ -10,6 +10,8 @@ mia:
   category: "cat:Pets"
   creator: ":Self"
   owner: ":Self"
+  userTag:
+    - "Ginger"
   member:
     id: "http://www.example.org/mia/graphs/graph-36"
     claimant: ":Self"

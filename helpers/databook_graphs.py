@@ -135,6 +135,17 @@ def emit_obj(triples, subj, prop, obj_iri):
     triples.append(f"<{subj}> <{prop}> <{obj_iri}> .")
 
 
+def emit_lit(triples, subj, prop, lit):
+    """Emit an xsd:string-typed literal triple — the tag properties are the
+    only `mia.` fields whose values are literals rather than IRIs, so they
+    can't go through emit_obj()/resolve(): a tag is a plain string, never a
+    CURIE or a local name."""
+    escaped = str(lit).replace("\\", "\\\\").replace('"', '\\"')
+    triples.append(
+        f'<{subj}> <{prop}> "{escaped}"^^<http://www.w3.org/2001/XMLSchema#string> .'
+    )
+
+
 def process_cell_databook(fm, triples):
     subj = fm["id"]
     mia = fm.get("mia", {}) or {}
@@ -161,6 +172,16 @@ def process_cell_databook(fm, triples):
     # cell:creator (never a bare graph-local-name).
     for owner_iri in as_list(mia.get("owner")):
         emit_obj(triples, subj, CELL + "owner", resolve(owner_iri))
+
+    # cell:builtInTag/cell:userTag/cell:integrationTag — each 0..N plain
+    # xsd:string values, domain cell:MemberCell (cell.ttl's Cell Tags
+    # section), so they are emitted after the cell:MemberCell typing above.
+    # as_list() lets a single bare string stand in for a one-element list,
+    # the same latitude mia.owner and a graph entry's own template already
+    # get. No resolve() here — a tag is a literal, not a CURIE.
+    for tag_field in ("builtInTag", "userTag", "integrationTag"):
+        for tag in as_list(mia.get(tag_field)):
+            emit_lit(triples, subj, CELL + tag_field, tag)
 
     for entry in as_list(mia.get("member")):
         emit_obj(triples, subj, CELL + "member", entry["id"])

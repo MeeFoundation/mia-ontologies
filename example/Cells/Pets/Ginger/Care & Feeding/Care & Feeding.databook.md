@@ -2,7 +2,7 @@
 id: http://www.example.org/mia/cells/cell-42
 title: "Care & Feeding"
 type: cell-databook
-version: 1.0.0
+version: 1.1.0
 created: 2026-08-29
 description: >
   Cell DataBook for folder "Care & Feeding" (cell:category: cat:PetsCareAndFeeding). It is a two-member cell, shared by Alice with Paula, with two members (about :Self and :Paula_Walker) and one graph about :Ginger, Alice's cat (the cell's subject) — the day-to-day instructions for looking after Ginger, alongside her Medical cell's sibling record of her medical care.
@@ -10,6 +10,8 @@ mia:
   category: "cat:PetsCareAndFeeding"
   creator: ":Self"
   owner: ":Self"
+  userTag:
+    - "Ginger"
   member:
     - id: "http://www.example.org/mia/graphs/graph-58"
       claimant: ":Self"

@@ -291,17 +291,17 @@ pets:hasAdministration rdf:type owl:ObjectProperty ;
 pets:medicationBrandName rdf:type owl:DatatypeProperty ;
     rdfs:domain pets:Medication ;
     rdfs:label "medication brand name"@en ;
-    rdfs:comment "The medication's marketed brand name, if any (e.g. 'Clavamox'). Kept as a flat string — DrOn embeds brand names only inside its auto-generated RxNorm product-class rdfs:labels, never as a separate reusable property, so there is no external term to reuse here."@en ;
+    rdfs:comment """The medication's marketed brand name, if any (e.g. 'Clavamox'). Kept as a flat string — DrOn embeds brand names only inside its auto-generated RxNorm product-class rdfs:labels, never as a separate reusable property, so there is no external term to reuse here."""@en ;
     rdfs:range xsd:string .
 
 pets:medicationManufacturer rdf:type owl:DatatypeProperty ;
     rdfs:domain pets:Medication ;
     rdfs:label "medication manufacturer"@en ;
-    rdfs:comment "The name of the medication's manufacturer, as a free-text string (e.g. 'Zoetis') — not a linked o:Organization, matching medicalappointments:insuranceProvider's identical flat-string treatment. Kept as a flat string — DrOn has no manufacturer/labeler class at all, so there is no external term to reuse here."@en ;
+    rdfs:comment """The name of the medication's manufacturer, as a free-text string (e.g. 'Zoetis') — not a linked o:Organization, matching medicalappointments:insuranceProvider's identical flat-string treatment. Kept as a flat string — DrOn has no manufacturer/labeler class at all, so there is no external term to reuse here."""@en ;
     rdfs:range xsd:string .
 
 pets:medicationDuration rdf:type owl:DatatypeProperty ;
     rdfs:domain pets:Medication ;
     rdfs:label "medication duration"@en ;
-    rdfs:comment "A free-text alternative to a fixed end date for expressing how long the medication runs (e.g. '10 days'), for courses with no fixed calendar end date. Not constrained to be mutually exclusive with pets:MedicationAdministration's end-date link. Kept as a flat string — nothing reused covers this narrow a fact."@en ;
+    rdfs:comment """A free-text alternative to a fixed end date for expressing how long the medication runs (e.g. '10 days'), for courses with no fixed calendar end date. Not constrained to be mutually exclusive with pets:MedicationAdministration's end-date link. Kept as a flat string — nothing reused covers this narrow a fact."""@en ;
     rdfs:range xsd:string .
