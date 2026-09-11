@@ -50,34 +50,34 @@ Roles, as used in every table's column headings:
 - **Human** — a human member (`p:Person`) who is not currently an owner.
 - **Service** — an `s:Service` member, always a non-owner: an invited AI agent (`s:AIAgentService`), a cell backup service (`s:BackupService`), or an organization's own service (`s:ServiceProvider`). All three behave identically at this layer, which is why they share one column.
 
-Each table's **Source** column records where that row came from, since these tables merge two independently-written sources — this document's own prior capability table and Vladimir and Sergey's four tables, which cover only owner and member roles and say nothing about agents or organizations:
+If a table has an **Open** column:
 
-- `DOC` — the row comes from this document only; Vladimir and Sergey's tables don't cover it.
-- `NEW` — the row comes from Vladimir and Sergey only; this document carried no such row before. Because their tables have no Service axis, that value on a `NEW` row is this document's own, decided here rather than merged in from theirs.
-- `AGREE` — both sources carry the row (sometimes under a different name) and every value matches.
-- `DECIDED` — the two sources disagreed and the disagreement has since been settled some way other than simply adopting the other side's value — including where it turned out they were describing different layers. The cell shows the settled user-level value, and a footnote explains.
-- `CONFLICT` — both sources carry the row but disagree on at least one value. Both values are shown, `this-document / Vladimir-and-Sergey`, with a footnote naming each. These are open questions, listed under [Unresolved](#unresolved) below.
 
 Every cell in every table now carries a decided value. A cell reading `n/a` marks a capability that genuinely cannot apply to that role, rather than one left open — an `s:Service` can invite no one, so it can never have a self-invited member to remove.
 
 #### Cell Container Permissions
 
-| Capability | Owner | Human | Service | Source |
+| Capability | Owner | Human | Service | Open Issues |
 |---|---|---|---|---|
-| Create cell | yes | yes | no | DOC |
-| Invite member to a cell | yes | yes | no | AGREE |
-| Uninvite self-invited member | yes | yes | n/a | DOC |
-| Remove member from cell | yes | no | no | AGREE |
-| Remove owner-member from cell | yes | no | no | NEW |
-| Leave cell | yes | yes | yes | NEW |
-| Rename cell for all members | yes | yes / no ¹ | no | CONFLICT |
-| Delete cell locally | yes | yes | yes | DOC |
-| Delete cell for all members | yes | no | no | DISCUSS |
-| Promote member to owner | yes | no | no | AGREE |
-| Demote owner to member | yes | no | no | AGREE |
-| Out-of-cell communications | yes | yes | no | DOC |
+| Create cell | yes | yes | no |  |
+| Invite member to a cell | yes | yes | no |  |
+| Uninvite self-invited member | yes | yes | n/a |  |
+| Remove member from cell | yes | no | no |  |
+| Remove owner-member from cell | yes | no | no |  |
+| Leave cell | yes | yes | yes |  |
+| Rename cell for all members | yes | yes / no  | no |  #2 |
+| Delete cell locally | yes | yes | yes |  |
+| Delete cell for all members | yes | no | no |  #1 |
+| Promote member to owner | yes | no | no |  |
+| Demote owner to member | yes | no | no |  |
+| Out-of-cell communications | yes | yes | no |  |
 
-¹ This document: any member, of any identity type, may rename, and the new name propagates to every member. Vladimir and Sergey: owner only.
+**Open Issues**
+
+1. **Rename** — may any member rename a cell for everyone, or only an owner? This document's [Naming, Renaming, and Sharing](#naming-renaming-and-sharing) section argues at length for any member, against the Microsoft Teams/Discord/GitHub precedent; Vladimir and Sergey restrict it to owners.
+2. **Leave vs. delete locally** — does *Leave cell* subsume *Delete cell locally*, or are they distinct? Leaving withdraws one's membership, which propagates; deleting locally removes the cell from one's own tree only. They are kept as separate rows pending an answer.
+
+**Capabilities**
 
 - **Create cell** — create a new cell in one's own tree. Only a human can: `c:creator`'s range is `p:Person` alone, so no service — provider, agent, or backup — can originate a cell, and none can invite anyone into one either. An organization's relationship with a person therefore only ever exists because the person created the cell and invited that organization's `s:ServiceProvider` into it; the organization cannot open the conversation.
 - **Invite member to a cell** — invite a person, or a service (one's own AI agent, a backup service, or an organization's own service), to a cell of which one is already a member.
@@ -96,16 +96,16 @@ Every cell in every table now carries a decided value. A cell reading `n/a` mark
 
 An attachment is any plain file held directly in the cell's own folder, shown in the app's Attachments area (see [Filesystem Persistence](#filesystem-persistence) above). An attachment is **immutable**: once added, its content is never updated in place by any role, so a correction means deleting it and adding the corrected file. Vladimir and Sergey call this an *immutable document*, a PDF being their example.
 
-| Capability | Owner | Human | Service | Source |
-|---|---|---|---|---|
-| Read own attachment | yes | yes | yes | NEW |
-| Read another member's attachment | yes | yes | yes | NEW |
-| Add own attachment | yes | yes | yes | AGREE |
-| Add an attachment as if authored by another member | no | no | no | NEW |
-| Update own attachment | no | no | no | AGREE |
-| Update another member's attachment | no | no | no | AGREE |
-| Delete own attachment | yes | yes | yes | AGREE |
-| Delete another member's attachment | yes | no | no | AGREE |
+| Capability | Owner | Human | Service | 
+|---|---|---|---|
+| Read own attachment | yes | yes | yes | 
+| Read another member's attachment | yes | yes | yes | 
+| Add own attachment | yes | yes | yes | 
+| Add an attachment as if authored by another member | no | no | no | 
+| Update own attachment | no | no | no | 
+| Update another member's attachment | no | no | no | 
+| Delete own attachment | yes | yes | yes | 
+| Delete another member's attachment | yes | no | no | 
 
 - **Read own attachment** / **Read another member's attachment** — retrieve an attachment's content, one's own or one added by a different member.
 - **Add own attachment** — put a new file into the cell's flat attachment set, authored as oneself.
@@ -118,13 +118,13 @@ An attachment is any plain file held directly in the cell's own folder, shown in
 
 A cell has **exactly one note** — its folder note, `X.md` inside folder `X` (see [Filesystem Persistence](#filesystem-persistence) above and [Note](#note) below) — never more. Vladimir and Sergey call this a *mergeable document*, and their own row labels distinguish a member's "own" document from "another member's"; with one note per cell that split does not arise, so the rows below are stated as capabilities on the cell's single note. Every member may write to it, regardless of ownership — reading and writing the note is the one surface where the owner/regular-member distinction does not apply at all. There is no commenting or suggested-edit mechanism of any kind — no margin comments, no proposed inline changes, and so no accept-or-reject step; a member simply edits the note, and every other member sees the result.
 
-| Capability | Owner | Human | Service | Source |
-|---|---|---|---|---|
-| Read the note | yes | yes | yes | AGREE |
-| Create the note | yes | yes | yes | AGREE |
-| Create the note as if authored by another member | no | no | no | AGREE |
-| Edit the note | yes | yes | yes | AGREE |
-| Delete the note | yes | yes | yes | AGREE |
+| Capability | Owner | Human | Service | 
+|---|---|---|---|
+| Read the note | yes | yes | yes | 
+| Create the note | yes | yes | yes | 
+| Create the note as if authored by another member | no | no | no | 
+| Edit the note | yes | yes | yes | 
+| Delete the note | yes | yes | yes | 
 
 - **Read the note** — retrieve the note's current text.
 - **Create the note** — bring the cell's note into existence, where it does not exist yet.
@@ -140,16 +140,16 @@ Underneath, at the **PDN layer**, there is no update operation on a claim at all
 
 This document describes the first of those two layers, so every row below is the user-level rule. Vladimir and Sergey's own tables describe the second, which is why their `Update own claim` row reads `no` where this one reads `yes` — the two are not in conflict, they are the same behavior seen from either side of that boundary.
 
-| Capability | Owner | Human | Service | Source |
-|---|---|---|---|---|
-| Read own claim | yes | yes | yes | AGREE |
-| Read another member's claim | yes | yes | yes | AGREE |
-| Issue own claim | yes | yes | yes | AGREE |
-| Issue a claim as if issued by another member | no | no | no | AGREE |
-| Update own claim | yes | yes | yes | DECIDED ¹ |
-| Update another member's claim | no | no | no | AGREE |
-| Delete own claim | yes | yes | yes | AGREE |
-| Delete another member's claim | yes | no | no | AGREE |
+| Capability | Owner | Human | Service | 
+|---|---|---|---|
+| Read own claim | yes | yes | yes |  
+| Read another member's claim | yes | yes | yes |  
+| Issue own claim | yes | yes | yes |  
+| Issue a claim as if issued by another member | no | no | no | 
+| Update own claim ¹| yes | yes | yes |  
+| Update another member's claim | no | no | no | 
+| Delete own claim | yes | yes | yes | 
+| Delete another member's claim | yes | no | no | 
 
 ¹ User-level, this is an ordinary edit of one's own claim. At the PDN layer the claim is immutable and the edit is carried out as a delete plus a fresh claim — which is what Vladimir and Sergey's `no` records. Same behavior, different layer.
 
@@ -160,13 +160,6 @@ This document describes the first of those two layers, so every row below is the
 - **Update another member's claim** — change a claim a different member issued. No role may do this at either layer: write access is always scoped to one's own claimant identity.
 - **Delete own claim** — retract a claim one issued oneself.
 - **Delete another member's claim** — retract a claim a different member issued.
-
-#### Unresolved
-
-Two questions remain open, each arising from a `CONFLICT` row above or from a structural difference between the two sources. None is resolved in the tables; both positions are recorded instead.
-
-1. **Rename** — may any member rename a cell for everyone, or only an owner? This document's [Naming, Renaming, and Sharing](#naming-renaming-and-sharing) section argues at length for any member, against the Microsoft Teams/Discord/GitHub precedent; Vladimir and Sergey restrict it to owners.
-2. **Leave vs. delete locally** — does *Leave cell* subsume *Delete cell locally*, or are they distinct? Leaving withdraws one's membership, which propagates; deleting locally removes the cell from one's own tree only. They are kept as separate rows pending an answer.
 
 ### Naming, Renaming, and Sharing
 
