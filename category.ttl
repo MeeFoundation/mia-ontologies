@@ -8,8 +8,8 @@
 @base <http://mee.foundation/ontologies/category> .
 
 <http://mee.foundation/ontologies/category> rdf:type owl:Ontology ;
-    owl:versionIRI <http://mee.foundation/ontologies/category/2.3.0> ;
-    dc:date "2026-09-09"^^xsd:date ;
+    owl:versionIRI <http://mee.foundation/ontologies/category/2.5.0> ;
+    dc:date "2026-09-11"^^xsd:date ;
     rdfs:label "Category Ontology"@en ;
     rdfs:comment """Category Ontology for the Cellula App."""@en .
 
@@ -53,7 +53,7 @@ cat:Affiliations rdf:type skos:Concept ;
     skos:prefLabel "Affiliations"@en ;
     skos:broader cat:Person ;
     skos:inScheme cat:CategoryScheme ;
-    rdfs:comment "A catch-all for clubs, charities, faith groups, and other group affiliations not covered by a more specific category (e.g. cat:SportsEntertainment, cat:Food, etc.)."@en .
+    rdfs:comment "A catch-all for clubs, charities, faith groups, and other group affiliations that are not covered by a more specific category (e.g. cat:SportsEntertainment, cat:Food, etc.)."@en .
 
 
 #################################################################
@@ -64,7 +64,7 @@ cat:People rdf:type skos:Concept ;
     skos:prefLabel "People"@en ;
     skos:broader cat:Person ;
     skos:inScheme cat:CategoryScheme ;
-    rdfs:comment "People in your social or professional life. Use this category for people not otherwise tied to a specific domain — a bookkeeper you know belongs under Finances (Advisory Firms), and your primary care physician belongs under Health & Wellness (Medical > Providers > Primary Care Physician), rather than here."@en .
+    rdfs:comment "People in your social or professional life. Use this category for people not otherwise tied to a specific domain — a bookkeeper you know belongs under Finances (Advisory Firms), and your primary care physician belongs under Health & Wellness (Medical > Provider > Primary Care Physician), rather than here."@en .
 
 cat:ImmediateFamily rdf:type skos:Concept ;
     skos:prefLabel "Immediate Family"@en ;
@@ -138,7 +138,7 @@ cat:Investing rdf:type skos:Concept ;
     skos:prefLabel "Investment Firms"@en ;
     skos:broader cat:Finances ;
     skos:inScheme cat:CategoryScheme ;
-    rdfs:comment "Firms that help you buy assets so your money can grow over time for goals like buying a house or retiring. These include Brokerage Firms like Charles Schwab or Robinhood where you buy and sell stocks, bonds, and ETFs; Robo-Advisors, computer-run investing platforms like Betterment or Wealthfront that manage your portfolio for a low fee; and Mutual Fund Companies like Vanguard or Fidelity that pool your money with other investors to buy a large bundle of stocks."@en .
+    rdfs:comment "Firms that help you buy assets, so your money can grow over time for goals like buying a house or retiring. These include Brokerage Firms like Charles Schwab or Robinhood where you buy and sell stocks, bonds, and ETFs; Robo-Advisors, computer-run investing platforms like Betterment or Wealthfront that manage your portfolio for a low fee; and Mutual Fund companies like Vanguard or Fidelity that pool your money with other investors to buy a large bundle of stocks."@en .
 
 cat:LendingCredit rdf:type skos:Concept ;
     skos:prefLabel "Lending & Credit Firms"@en ;
@@ -378,7 +378,7 @@ cat:Events rdf:type skos:Concept ;
     skos:prefLabel "Events"@en ;
     skos:broader cat:Person ;
     skos:inScheme cat:CategoryScheme ;
-    rdfs:comment "Participation in or relationship to a specific event or gathering."@en .
+    rdfs:comment "Participation in or relationship to a specific event or gathering. This is the catch-all category. Sporting events, concerts, etc. would be in cat:SportsEntertainment. Events put on by clubs, faith groups, and other affiliations would be in cat:Affiliations."@en .
 
 
 #################################################################
@@ -401,13 +401,13 @@ cat:SSN rdf:type skos:Concept ;
     skos:prefLabel "SSN"@en ;
     skos:broader cat:Federal ;
     skos:inScheme cat:CategoryScheme ;
-    rdfs:comment "A social security number issued by the federal Social Security Administration."@en .
+    rdfs:comment "Social security number issued by the federal Social Security Administration."@en .
 
 cat:Passport rdf:type skos:Concept ;
     skos:prefLabel "Passport"@en ;
     skos:broader cat:Federal ;
     skos:inScheme cat:CategoryScheme ;
-    rdfs:comment "A passport issued by the Department of State."@en .
+    rdfs:comment "Passport issued by the Department of State."@en .
 
 cat:State rdf:type skos:Concept ;
     skos:prefLabel "State"@en ;
@@ -451,7 +451,13 @@ cat:Vehicles rdf:type skos:Concept ;
     skos:prefLabel "Vehicles"@en ;
     skos:broader cat:Things ;
     skos:inScheme cat:CategoryScheme ;
-    rdfs:comment "Related to owning and maintaining a vehicle. Vehicle insurance, repairs, mechanics, garages."@en .
+    rdfs:comment "Related to owning and maintaining a vehicle. Registration, title, maintenance and repair history. See cat:VehiclesProvider for the firms and shops that service a vehicle, and cat:Insurance for vehicle insurance."@en .
+
+cat:VehiclesProvider rdf:type skos:Concept ;
+    skos:prefLabel "Provider"@en ;
+    skos:broader cat:Vehicles ;
+    skos:inScheme cat:CategoryScheme ;
+    rdfs:comment "Firms and shops that keep a vehicle on the road — roadside assistance, dealerships, accessory vendors, and repair shops. See cat:Insurance for vehicle insurance."@en .
 
 cat:Pets rdf:type skos:Concept ;
     skos:prefLabel "Pets"@en ;

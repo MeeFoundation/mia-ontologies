@@ -115,7 +115,8 @@ As we've mentioned, the user is free to create cells not included in the pre-def
     - **Previous** (`cat:Previous`) — a previous home or residence, no longer current.
 1. **Work** (`cat:Work`) — professional roles. Employment history, resume/CV, job level, job function, industry.
 1. **Things** (`cat:Things`) — owned assets, property, vehicles, and other possessions.
-    - **Vehicles** (`cat:Vehicles`) — related to owning and maintaining a vehicle. Vehicle insurance, repairs, mechanics, garages.
+    - **Vehicles** (`cat:Vehicles`) — related to owning and maintaining a vehicle. Registration, title, maintenance and repair history. See `cat:VehiclesProvider` for the firms and shops that service a vehicle, and `cat:Insurance` for vehicle insurance.
+        - **Provider** (`cat:VehiclesProvider`) — firms and shops that keep a vehicle on the road — roadside assistance, dealerships, accessory vendors, and repair shops. See `cat:Insurance` for vehicle insurance.
 1. **Travel** (`cat:Travel`) — travel plans, trips, and related information. Loyalty programs, airlines, bus lines, trains.
     - **Trips** (`cat:Trips`) — an individual trip being planned or taken — its own itinerary, dates, and destination-specific details, as distinct from `cat:Travel`'s broader loyalty-program/airline/general travel information.
     - **Provider** (`cat:TravelProvider`) — travel providers you book with — airlines, hotels, rail and bus lines, car rental companies, cruise lines, and travel agencies, including the loyalty program accounts and preferences held with each.
@@ -124,7 +125,7 @@ As we've mentioned, the user is free to create cells not included in the pre-def
 1. **Education** (`cat:Education`) — educational history and ongoing learning — schools, degrees, certifications, transcripts, and enrolled courses.
 1. **Legal** (`cat:Legal`) — legal matters, contracts, agreements, trusts, wills, and professional legal relationships. Includes durable power of attorney and healthcare proxy agreements.
 1. **Projects** (`cat:Projects`) — involvement in a specific project or initiative.
-1. **Events** (`cat:Events`) — participation in or relationship to a specific event or gathering.
+1. **Events** (`cat:Events`) — participation in or relationship to a specific event or gathering. This is the catch-all category. Sporting events, concerts, etc. would be in `cat:SportsEntertainment`. Events put on by clubs, faith groups, and other affiliations would be in `cat:Affiliations`.
 1. **Information** (`cat:Information`) — information about anything; articles, web links, documents, images. Includes topics that interest and inspire you (e.g. drawing, painting, dancing, religion, gaming, music). See `cat:SportsEntertainment` for sports and entertainment, and `cat:Affiliations` for formal memberships tied to a hobby or interest.
 1. **Government** (`cat:Government`) — government-issued credentials, tax records, and civic relationships.
     - **Federal** (`cat:Federal`) — federal government topic (e.g. passport, federal tax records).
