@@ -36,7 +36,7 @@ When a member then actually fills in that cell's `c:member`/`c:topic` graph, the
 
 ### Number of Members
 
-A cell can have just one member (the user) or several. We don't yet know how many members a cell can support, but the number is almost surely well under 100. An invited AI agent (`s:AIAgentService`, see [Agent Collaboration](#agent-collaboration) below) is a real member too, and counts toward this same tally — inviting one raises a single-member cell to a two-member cell, exactly as inviting a human would.
+A cell can have just one member (the user) or several. We don't yet know how many members a cell can support, but the number is almost surely well under 100. An invited AI agent (`s:AIAgentService`, see [Inviting AI Agents](#inviting-ai-agents) below) is a real member too, and counts toward this same tally — inviting one raises a single-member cell to a two-member cell, exactly as inviting a human would.
 
 ### Permissions
 
@@ -81,7 +81,7 @@ Every cell in every table now carries a decided value. A cell reading `n/a` mark
 - **Uninvite self-invited member** — remove a cell member whom this member originally invited.
 - **Remove member from cell** — remove any regular (non-owner) member.
 - **Remove owner-member from cell** — remove a member who currently holds the owner role, as distinct from removing a regular member.
-- **Leave cell** — withdraw one's own membership, dropping oneself from `c:member` (and from `c:owner`, if held). Its relationship to *Delete cell locally* is unsettled — see [Unresolved](#unresolved).
+- **Leave cell** — withdraw one's own membership, dropping oneself from `c:member` (and from `c:owner`, if held). Its relationship to *Delete cell locally* is unsettled.
 - **Rename cell for all members** — change the cell's shared name so the change propagates to every member's copy. See [Naming, Renaming, and Sharing](#naming-renaming-and-sharing) below for the full rule, including the bare two-member-cell exception where the name is independent per member rather than shared.
 - **Delete cell locally** — remove the cell from this member's own tree only, not from any other member's copy.
 - **Delete cell for all members** — only the owner can do this. 
@@ -113,7 +113,7 @@ An attachment is any plain file held directly in the cell's own folder, shown in
 
 #### Note Permissions
 
-A cell has **exactly one note** — its folder note, `X.md` inside folder `X` (see [Filesystem Persistence](#filesystem-persistence) above and [Note](#note) below) — never more. Vladimir and Sergey call this a *mergeable document*, and their own row labels distinguish a member's "own" document from "another member's"; with one note per cell that split does not arise, so the rows below are stated as capabilities on the cell's single note. Every member may write to it, regardless of ownership — reading and writing the note is the one surface where the owner/regular-member distinction does not apply at all. There is no commenting or suggested-edit mechanism of any kind — no margin comments, no proposed inline changes, and so no accept-or-reject step; a member simply edits the note, and every other member sees the result.
+A cell has **exactly one note** — its folder note, `X.md` inside folder `X` (see [Filesystem Persistence](#filesystem-persistence) above and [Note Area](#note-area) below) — never more. Vladimir and Sergey call this a *mergeable document*, and their own row labels distinguish a member's "own" document from "another member's"; with one note per cell that split does not arise, so the rows below are stated as capabilities on the cell's single note. Every member may write to it, regardless of ownership — reading and writing the note is the one surface where the owner/regular-member distinction does not apply at all. There is no commenting or suggested-edit mechanism of any kind — no margin comments, no proposed inline changes, and so no accept-or-reject step; a member simply edits the note, and every other member sees the result.
 
 | Capability | Owner | Person | Service | 
 |---|---|---|---|
@@ -186,7 +186,7 @@ The new cell carries no `c:category` at all — the user didn't pick any existin
 
 This creation behavior is strictly for the no-id case. A wikilink that already carries a target id — one pointing to a real, already-instantiated cell the sender has, but that the clicking member doesn't have in their own tree (e.g. it was never shared with them, or they organize their tree completely differently) — must never fall back to creating a same-named stub cell either: doing so would produce an empty, disconnected cell that visually masquerades as the real target, reintroducing a milder version of the same misdirection risk id-based resolution exists to prevent. That case instead renders as unresolved/inaccessible, exactly as described in Filesystem Persistence above — creation is reserved for links whose target has literally never existed anywhere.
 
-### Automatically create missing "parent" categories on receipt of a categorized cell
+### Auto-Filing on Receipt
  
 When a cell is shared with someone who doesn't yet have the app, receiving it — e.g. clicking an invite link — triggers installation, and the app must then decide where to file the incoming cell in the recipient's own tree of cells.
 
@@ -214,13 +214,13 @@ Here's an example. Imagine a cell that contained lots of notes about Alice's mot
 It could then ask some questions, do you know the name of the bank that issued this card? (to which Alice answers "GiantBank"). Would you like me to rename this new cell "GiantBank - Mastercard"? etc. 
 
 
-### Add Topic
+### Adding a Topic
 
 A cell that carries no `c:topic` value yet — every cell cloned from a `c:isTopicCell false` template starts this way (see [Lazy Instantiation](#lazy-instantiation) above) — offers an **Add Topic** action. The user selects the cell, taps **Add Topic**, and a modal dialog asks them to pick the template the new topic's information should follow. The default selection is **Contact Info** (`pshapes:ContactInfoShape`) — the same contact-info shape every cell's `c:member` graph already uses — since a topic about a person who is not themselves a member of the cell is the commonest case by far. The dialog offers many other choices alongside it, one per SHACL shape a `c:topic` graph can be validated against: **Debit Card** (`bankingshapes:DebitCardShape`), **Checking Account**, **Passport**, **Driver's License**, **Birth Certificate**, **Service Account**, **Residence**, **Vehicle**, **Pet**, **Pet Medications**, **Medical Appointment**, **Trip Itinerary**, and so on.
 
-Whichever template the user picks is stamped directly onto the new `c:SCGraph` as its `c:template` value — the same value Lazy Instantiation would have stamped automatically had the category's own template declared the topic up front — and the form the app renders for filling it in is derived from that same shape (see [Form Fields from SHACL Shapes](#form-fields-from-shacl-shapes) below). The cell gains its first `c:topic` value and is typed `c:TopicCell` from that point on.
+Whichever template the user picks is stamped directly onto the new `c:SCGraph` as its `c:template` value — the same value Lazy Instantiation would have stamped automatically had the category's own template declared the topic up front — and the form the app renders for filling it in is derived from that same shape (see [Form Fields from SHACL Shapes](#form-fields-from-shacl-shapes) below). Adding it retypes the cell `c:TopicCell`, and only then does it carry that first `c:topic` value — a bare `c:MemberCell` never holds one.
 
-**Any `c:MemberCell` can gain a topic this way — up to one.** The action is not restricted to `c:isTopicCell true` categories, and the picked template does not have to be one the cell's own category declares: the dialog offers the full list of shapes regardless, and whatever the user picks is stamped onto the new graph as-is. A category's `c:TemplateCell` therefore has no authority over a manually-added topic; where such a template carries a `c:topicGraphShape` alongside `c:isTopicCell false` (`cat:ImmediateFamily` today), that value only names the template the dialog offers first, and integrity.md's Check 27 deliberately does not check a manually-added topic against it.
+**Any `c:MemberCell` can be converted into a `c:TopicCell` this way — once, for one topic.** The action is not restricted to `c:isTopicCell true` categories, and the picked template does not have to be one the cell's own category declares: the dialog offers the full list of shapes regardless, and whatever the user picks is stamped onto the new graph as-is. A category's `c:TemplateCell` therefore has no authority over a manually-added topic; where such a template carries a `c:topicGraphShape` alongside `c:isTopicCell false` (`cat:ImmediateFamily` today), that value only names the template the dialog offers first, and integrity.md's Check 27 deliberately does not check a manually-added topic against it.
 
 The limit is one: a cell whose category's template says `c:isTopicCell false` ends up with exactly one `c:topic` value if the user adds one, and the **Add Topic** action is no longer offered on it afterwards (Check 31 enforces the cap). A `c:isTopicCell true` cell is the other case entirely — its topics come from the template rather than by hand, and are capped instead by the cell's own member count (Check 25). Alice's Immediate Family cell for her daughter Sophia (cell-12) is the worked example of the manual path: Sophia has no instance of the app and so cannot be one of the cell's members, so Alice adds a Contact Info topic about her by hand.
 
@@ -247,7 +247,13 @@ Chat is one feature with two visibility modes, not two separate concepts. By def
 
 #### Inviting AI Agents
 
-A member may invite their own AI agent (`s:AIAgentService`, see README.md's [Service Ontology](README.md#service-ontology)) into a shared cell — e.g. inviting ChatGPT to help plan a trip in a `cat:Trips` cell. An invited agent becomes a real cell member: it gets its own self-claimed `c:member` entry alongside the human members, which raises the cell's own distinct-member count (e.g. Alice + her own agent = two distinct members, a two-member cell; a third member joining too — human or service — would raise it to three members, the same derivation applying regardless of count — see [Number of Members](#number-of-members) above). Because the agent is a literal member, it needs no special-case permission logic — [Permissions](#permissions) above already covers it: by default, an invited agent gets exactly the same read/write access to the cell's note, files, and [chat](#chat) that any non-owner human member has (see [Permissions](#permissions) above) — and, unlike a human member, a service member can never be promoted to owner, so it stays at that baseline permanently. Each principal's own device hosts and runs their own agent independently (their own credentials, their own bridge to the underlying LLM service) — the same way each peer already independently manages their own tree position for a shared cell (see [Cell Storage](#cell-storage) above).
+A member may invite their own AI agent (`s:AIAgentService`, see README.md's [Service Ontology](README.md#service-ontology)) into a shared cell — e.g. inviting ChatGPT to help plan a trip in a `cat:Trips` cell. An invited agent becomes a real cell member: it gets its own self-claimed `c:member` entry alongside the human members, which raises the cell's own distinct-member count (e.g. Alice + her own agent = two distinct members, a two-member cell; a third member joining too — human or service — would raise it to three members, the same derivation applying regardless of count — see [Number of Members](#number-of-members) above). Because the agent is a literal member, it needs no special-case permission logic — [Permissions](#permissions) above already covers it: by default, an invited agent gets exactly the same read/write access to the cell's note, files, and [chat](#chat-area) that any non-owner human member has (see [Permissions](#permissions) above) — and, unlike a human member, a service member can never be promoted to owner, so it stays at that baseline permanently.
+
+##### Agent Bridge
+
+Each principal's own device hosts and runs their own agent independently (their own credentials, their own bridge to the underlying LLM service) — the same way each peer already independently manages their own tree position for a shared cell (see [Cell Storage](#cell-storage) above). That per-device component is the **Agent Bridge**: it is invoked whenever a message addressed to "its" agent arrives (matched via `s:actsFor`), and it is what each of the pluggable [integration modules](#integrations) below concretely implements for one specific external service.
+
+##### The Iterative Prompt/Response Loop
 
 Each turn of a member's conversation with the agent proceeds as follows:
 
@@ -283,13 +289,13 @@ Where one such field's legal values depend on another field already filled in, t
 
 ## Integrations
 
-The app supports pluggable **integration modules** — each one is the concrete implementation of an `s:AIAgentService`'s [Agent Bridge](#agent-collaboration) for a specific external service, translating between that service's own API and the cell-level primitives already described above (chat, note, and SCGraph claims). This section documents integration modules as they're added; the first is a ChatGPT integration module.
+The app supports pluggable **integration modules** — each one is the concrete implementation of an `s:AIAgentService`'s [Agent Bridge](#agent-bridge) for a specific external service, translating between that service's own API and the cell-level primitives already described above (chat, note, and SCGraph claims). This section documents integration modules as they're added; the first is a ChatGPT integration module.
 
 ### ChatGPT Integration Module
 
-This module lets a member invite OpenAI's ChatGPT into a cell as a real `s:AIAgentService` member (see [Agent Collaboration](#agent-collaboration) and README.md's [Service Ontology](README.md#service-ontology)). At a high level, once invited, it does four things:
+This module lets a member invite OpenAI's ChatGPT into a cell as a real `s:AIAgentService` member (see [Inviting AI Agents](#inviting-ai-agents) and README.md's [Service Ontology](README.md#service-ontology)). At a high level, once invited, it does four things:
 
-1. **Participates in the cell's chat.** It posts and receives messages through the same group/directed/private-DM model described in [Chat](#chat) above — no separate messaging channel of its own.
+1. **Participates in the cell's chat.** It posts and receives messages through the same group/directed/private-DM model described in [Chat Area](#chat-area) above — no separate messaging channel of its own.
 2. **Reads all of the cell's data.** Unlike its write access (below), read access is unrestricted: the note's current text, every member's and every topic's SCGraph content, and attachment metadata are all available to it as context for each turn — this is the raw material the [Iterative Prompt/Response Loop](#the-iterative-promptresponse-loop) assembles on its behalf.
 3. **Writes edits to the note.** Because it's a real cell member, it has the same free note-editing rights [Permissions](#permissions) already grants any member — no agent-specific carve-out is needed.
 4. **Creates, reads, updates, and deletes its own claims, as claimant** — but only within the two SCGraphs it actually claims:
