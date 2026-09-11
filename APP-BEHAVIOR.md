@@ -84,7 +84,7 @@ Every cell in every table now carries a decided value. A cell reading `n/a` mark
 - **Leave cell** — withdraw one's own membership, dropping oneself from `c:member` (and from `c:owner`, if held). Its relationship to *Delete cell locally* is unsettled — see [Unresolved](#unresolved).
 - **Rename cell for all members** — change the cell's shared name so the change propagates to every member's copy. See [Naming, Renaming, and Sharing](#naming-renaming-and-sharing) below for the full rule, including the bare two-member-cell exception where the name is independent per member rather than shared.
 - **Delete cell locally** — remove the cell from this member's own tree only, not from any other member's copy.
-- **Delete cell for all members** — no role can do this. No role may send a message to all other members telling their app to delete their own local copy of a cell.
+- **Delete cell for all members** — only the owner can do this. 
 - **Promote member to owner** — add a current regular member (a `p:Person`, never an `s:Service`) to `c:owner`.
 - **Demote owner to member** — remove a current owner from `c:owner`, returning them to regular-member status. Restricted to owners, and never applicable to the cell's last remaining owner, since `c:owner` requires at least one value.
 - **Out-of-cell communications** — communicate with another cell member outside the cell, by email or SMS, using contact information about that member that they have put in the cell.
