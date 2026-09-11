@@ -1,6 +1,7 @@
 flowchart TD
     classDef person fill:#fffacd,stroke:#aaa,color:#333
     classDef org    fill:#cce5ff,stroke:#aaa,color:#333
+    classDef service fill:#e6e6e6,stroke:#aaa,color:#333
     classDef lit    fill:none,stroke:none,font-style:italic,color:#2a7a2a
     classDef meta   fill:#f5f5ff,stroke:#9999cc,color:#333
 
@@ -9,11 +10,10 @@ flowchart TD
         ctx_meta["claimant: :Self\nsubject: :Self\ntemplate: pshapes:ContactInfoShape"]:::meta
     end
 
+    n0415a88486d3[":Citibank\n(Organization)"]:::org
+    n2444d00e7b42("My primary checking account is here — used for rent and bill-pay autopay. Opened 2019."):::lit
     ne0c3ba92f1db[":Self\n(Person)"]:::person
-    nae0bd838a791("Alice"):::lit
-    nb97f090bcd52("Acme"):::lit
-    nb77d6521ad3f("alice@acme.com"):::lit
+    n0f2da7dfdb12("Alice"):::lit
 
-    ne0c3ba92f1db -->|"GivenName"| nae0bd838a791
-    ne0c3ba92f1db -->|"OrganizationName"| nb97f090bcd52
-    ne0c3ba92f1db -->|"EmailAddress"| nb77d6521ad3f
+    n0415a88486d3 -->|"ont00001917"| n2444d00e7b42
+    ne0c3ba92f1db -->|"GivenName"| n0f2da7dfdb12
