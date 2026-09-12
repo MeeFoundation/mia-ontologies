@@ -11,8 +11,8 @@
 
 <http://mee.foundation/ontologies/service/shapes> rdf:type owl:Ontology ;
     owl:imports <http://mee.foundation/ontologies/service> ;
-    owl:versionIRI <http://mee.foundation/ontologies/service/shapes/1.1.0> ;
-    dc:date "2026-09-10"^^xsd:date ;
+    owl:versionIRI <http://mee.foundation/ontologies/service/shapes/2.0.0> ;
+    dc:date "2026-09-12"^^xsd:date ;
     rdfs:label "Service Ontology SHACL Validation Shapes"@en ;
     rdfs:comment "SHACL validation shapes for the Service Ontology."@en .
 
@@ -24,13 +24,19 @@
 #  service:Service regardless of kind. The per-kind shapes below
 #  raise the same two paths to required exactly-one values where
 #  their own kind demands it; none of them lowers a bound, so a
-#  service typed as more than one kind (the kinds are deliberately
-#  not owl:disjointWith, see service.ttl) still has a satisfiable
-#  set of constraints. For the same reason no shape here asserts
-#  sh:maxCount 0 on service:actsFor for the two kinds that don't
-#  use it — that would be unsatisfiable against
-#  :AIAgentServiceShape's own sh:minCount 1 for any service typed
-#  both an AI agent and something else.
+#  service typed as more than one kind (no class in service.ttl is
+#  declared owl:disjointWith any other) still has a satisfiable set
+#  of constraints. For the same reason no shape here asserts
+#  sh:maxCount 0 on service:actsFor for service:ServiceProvider,
+#  the one branch that doesn't use it — that would be unsatisfiable
+#  against :AgentServiceShape's own sh:minCount 1 for any service
+#  typed both an agent service and a provider.
+#
+#  service:ChatGPT and service:AppleContacts get no shape of their
+#  own: they add no constraint beyond the :AgentServiceShape they
+#  already inherit by rdfs:subClassOf, and an empty shape would be
+#  noise. service:ArcaBackup gets one only because it additionally
+#  requires service:providedBy.
 #################################################################
 
 :ServiceShape
@@ -46,9 +52,9 @@
         sh:message "A service:Service may have at most one service:providedBy value, a single o:Organization."@en
     ] ;
 
-    # service:actsFor — rdfs:domain is service:AIAgentService alone, so this
-    # class-wide shape constrains only its cardinality and value type; the
-    # required exactly-one lives on :AIAgentServiceShape below.
+    # service:actsFor — rdfs:domain is service:AgentService, so this class-wide
+    # shape constrains only its cardinality and value type; the required
+    # exactly-one lives on :AgentServiceShape below.
     sh:property [
         sh:path service:actsFor ;
         sh:maxCount 1 ;
@@ -59,43 +65,46 @@
 
 
 #################################################################
-#  AI Agent Service
+#  Agent Service
 #################################################################
 
-:AIAgentServiceShape
+:AgentServiceShape
     a sh:NodeShape ;
-    sh:targetClass service:AIAgentService ;
+    sh:targetClass service:AgentService ;
 
-    # service:actsFor — required, exactly one value: an AI agent is always
-    # invited by, and acts on behalf of, exactly one person.
+    # service:actsFor — required, exactly one value: an agent service is always
+    # invited by, and acts on behalf of, exactly one person. Inherited by
+    # service:ChatGPT, service:AppleContacts and service:ArcaBackup, which is
+    # why none of the three needs a shape of its own for it.
     sh:property [
         sh:path service:actsFor ;
         sh:minCount 1 ;
         sh:maxCount 1 ;
         sh:class p:Person ;
-        sh:message "A service:AIAgentService must have exactly one service:actsFor value, a single p:Person."@en
+        sh:message "A service:AgentService must have exactly one service:actsFor value, a single p:Person."@en
     ] ;
-    sh:message "AI Agent Service validation."@en .
+    sh:message "Agent Service validation."@en .
 
 
 #################################################################
-#  Backup Service
+#  Arca Backup
 #################################################################
 
-:BackupServiceShape
+:ArcaBackupShape
     a sh:NodeShape ;
-    sh:targetClass service:BackupService ;
+    sh:targetClass service:ArcaBackup ;
 
     # service:providedBy — required, exactly one value: a backup service is
-    # always run by some organization.
+    # always run by some organization. Its service:actsFor requirement comes
+    # from :AgentServiceShape above, inherited rather than restated here.
     sh:property [
         sh:path service:providedBy ;
         sh:minCount 1 ;
         sh:maxCount 1 ;
         sh:class o:Organization ;
-        sh:message "A service:BackupService must have exactly one service:providedBy value, a single o:Organization."@en
+        sh:message "A service:ArcaBackup must have exactly one service:providedBy value, a single o:Organization."@en
     ] ;
-    sh:message "Backup Service validation."@en .
+    sh:message "Arca Backup validation."@en .
 
 
 #################################################################

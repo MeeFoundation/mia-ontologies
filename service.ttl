@@ -11,16 +11,20 @@
 @base <http://mee.foundation/ontologies/service> .
 
 <http://mee.foundation/ontologies/service> rdf:type owl:Ontology ;
-    owl:versionIRI <http://mee.foundation/ontologies/service/1.1.0> ;
-    dc:date "2026-09-10"^^xsd:date ;
-    owl:versionInfo "Version 1.1.0 - renamed service:ProviderService to service:ServiceProvider."@en ;
+    owl:versionIRI <http://mee.foundation/ontologies/service/2.0.0> ;
+    dc:date "2026-09-12"^^xsd:date ;
+    owl:versionInfo "Version 2.0.0 - renamed service:AIAgentService to service:AgentService and service:BackupService to service:ArcaBackup, which now sits under it; added service:ChatGPT and service:AppleContacts; a service is what the app calls an integration."@en ;
     owl:imports <https://w3id.org/cco-domains/cco/AgentOntology> ,
                 <http://mee.foundation/ontologies/prov-upper-subset> ;
     rdfs:label "Service Ontology"@en ;
     rdfs:comment """Service Ontology for the Cellula App.
                     Describes the non-human services a person invites to collaborate inside a
                     shared cell — the second kind of first-class, member-capable participant,
-                    peer to persona.ttl (models Person). A cell's members are only ever
+                    peer to persona.ttl (models Person). A service:Service is exactly what the app calls an
+                    **integration**: the two are one concept under two names, not a service
+                    and some separate module wrapping it — every integration the app offers
+                    is one of the classes below, and every class below is an integration.
+                    A cell's members are only ever
                     p:Person or service:Service individuals: o:Organization
                     (organization.ttl) is not itself member-capable, and reaches a cell only
                     as a cell:topic subject, as a cell:claimant, or as service:providedBy's
@@ -59,11 +63,15 @@ service:Service rdf:type owl:Class ;
                     about whatever the cell's relationship concerns (e.g. a trip being
                     planned). Where an o:Organization stands behind the service in the
                     relationship, that organization claims on the service's behalf instead —
-                    see cell:claimant's own comment for which of the two a graph names. Its
-                    three kinds are service:AIAgentService, service:BackupService and
-                    service:ServiceProvider, each below; they are deliberately not declared
-                    owl:disjointWith one another, since one real service can legitimately be
-                    more than one kind at once. rdfs:subClassOf cco:ont00001017 (CCO Agent,
+                    see cell:claimant's own comment for which of the two a graph names. It branches in two on the
+                    question of whom the service acts for: service:AgentService acts on
+                    behalf of exactly one p:Person member of the cell (service:actsFor), and
+                    service:ServiceProvider acts on behalf of the o:Organization that
+                    provides it (service:providedBy). The concrete integrations the app
+                    ships — service:ChatGPT, service:AppleContacts and service:ArcaBackup —
+                    are all the former, each a leaf under service:AgentService. No class here
+                    is declared owl:disjointWith any other, since one real service can
+                    legitimately be more than one kind at once. rdfs:subClassOf cco:ont00001017 (CCO Agent,
                     "A Material Entity that bears an Agent Capability", itself a
                     BFO_0000040 Material Entity) — this is what grounds a service as a thing
                     that genuinely acts, which is exactly what a cell member has to be, and it
@@ -85,8 +93,10 @@ service:providedBy rdf:type owl:ObjectProperty ;
                     generally (0..1 — a service standing behind no organization at all, such
                     as an AI agent a person runs on their own device, simply omits it), and
                     required, exactly one value on service:ServiceProvider and
-                    service:BackupService specifically (1..1); all three cardinalities are
-                    enforced by shacl/service-shacl.ttl. This is the only route by which an
+                    service:ArcaBackup specifically (1..1); all three cardinalities are
+                    enforced by shacl/service-shacl.ttl. service:ChatGPT and
+                    service:AppleContacts deliberately require none: naming the vendor is the
+                    class's own job, and neither vendor is a party to the cell's relationship. This is the only route by which an
                     o:Organization reaches a cell's member list at all: the organization
                     itself is not member-capable, its service is. It is also what identifies
                     the party a provider service's claims are attributed to — see
@@ -96,75 +106,121 @@ service:providedBy rdf:type owl:ObjectProperty ;
 
 
 #################################################################
-#    AI Agent Service
+#    Agent Service
 #################################################################
 
-service:AIAgentService rdf:type owl:Class ;
+service:AgentService rdf:type owl:Class ;
     rdfs:subClassOf service:Service ,
                     prov:SoftwareAgent ;
-    rdfs:label "AI Agent Service"@en ;
-    rdfs:comment """An AI agent (e.g. an LLM-based assistant such as ChatGPT) that a p:Person
-                    has invited to collaborate inside a shared cell — e.g. Alice's own travel
-                    agent, joining her Kyoto trip cell alongside Alice and Dave, with its own
-                    self-claimed cell:member entry and its own cell:topic contribution.
-                    Always carries exactly one service:actsFor value identifying which
-                    p:Person member it is a delegate/collaborator for, and is the only
-                    service:Service kind carrying service:actsFor at all — a
-                    service:BackupService serves the cell rather than any one member, and a
-                    service:ServiceProvider acts for the organization named by its own
-                    service:providedBy. Unlike a service:ServiceProvider, it claims the graphs
-                    it contributes under its own IRI rather than an organization's, since no
-                    organization stands behind it in the cell's relationship.
-                    rdfs:subClassOf prov:SoftwareAgent (project_files/prov-upper.ttl)
-                    alongside its service:Service parent — every service:AIAgentService
-                    individual (an LLM-based assistant) is, in PROV-O terms, real software
-                    running on someone's behalf; subClassOf rather than owl:equivalentClass
-                    since prov:SoftwareAgent's own membership is broader than "invited to
-                    collaborate inside a shared cell.\""""@en .
+    rdfs:label "Agent Service"@en ;
+    rdfs:comment """A service that acts on behalf of exactly one p:Person member of the cell,
+                    named by its own required service:actsFor value — this is what defines the
+                    class, not what the service happens to do with that mandate. An LLM
+                    assistant (service:ChatGPT), a contact sync (service:AppleContacts) and a
+                    backup service (service:ArcaBackup) are all agent services in exactly the
+                    same sense: each was invited by one member, works for that member, and
+                    answers to no one else in the cell. It is the whole of the
+                    service:actsFor side of service:Service's two-way branch; the other side,
+                    service:ServiceProvider, acts for the o:Organization that provides it
+                    instead, recorded by service:providedBy rather than service:actsFor.
+                    Directly instantiable, not abstract: a member's agent that has no vendor
+                    class of its own is typed service:AgentService and nothing more, so
+                    modeling a new integration never requires minting a class for it first.
+                    Unlike a service:ServiceProvider, an agent service claims the graphs it
+                    contributes under its own IRI rather than an organization's, since no
+                    organization stands behind it in the cell's relationship — even where one
+                    provides it (service:ArcaBackup carries service:providedBy :Arca and still
+                    claims as itself). rdfs:subClassOf prov:SoftwareAgent
+                    (project_files/prov-upper.ttl) alongside its service:Service parent, so
+                    every leaf below inherits it: each is real software running on someone's
+                    behalf, which is what prov:SoftwareAgent means; subClassOf rather than
+                    owl:equivalentClass since prov:SoftwareAgent's own membership is broader
+                    than "invited to collaborate inside a shared cell.\""""@en .
 
 service:actsFor rdf:type owl:ObjectProperty ;
     rdfs:subPropertyOf prov:actedOnBehalfOf ;
-    rdfs:domain service:AIAgentService ;
+    rdfs:domain service:AgentService ;
     rdfs:range p:Person ;
     rdfs:label "acts for"@en ;
-    rdfs:comment """Identifies the p:Person member this AI agent is a delegate/collaborator
-                    for — e.g. Alice's own travel agent carries service:actsFor :Self.
-                    Required, exactly one value: a service:AIAgentService is always invited
-                    into a cell by, and acts on behalf of, exactly one person, never
-                    independently — a second member who wants their own agent invites a
-                    separate service:AIAgentService individual of their own, with its own
-                    service:actsFor value. The range is p:Person alone, not the wider member
-                    union: an agent's principal is always a human, mirroring cell:creator's
-                    and cell:owner's own person-only ranges, and referenced by name without
-                    owl:imports the same way they are. rdfs:subPropertyOf
+    rdfs:comment """Identifies the p:Person member this agent service is a
+                    delegate/collaborator for — e.g. Alice's own travel agent carries
+                    service:actsFor :Self. Required, exactly one value: a
+                    service:AgentService is always invited into a cell by, and acts on behalf
+                    of, exactly one person, never independently — a second member who wants
+                    their own agent invites a separate service:AgentService individual of
+                    their own, with its own service:actsFor value. That one-principal rule is
+                    also why a cell:integrationTag (cell.ttl) written by an agent service is
+                    never propagated on a share: the tag means something only in the instance
+                    of the member the service acts for. The range is p:Person alone, not the
+                    wider member union: an agent's principal is always a human, mirroring
+                    cell:creator's and cell:owner's own person-only ranges, and referenced by
+                    name without owl:imports the same way they are. rdfs:subPropertyOf
                     prov:actedOnBehalfOf (project_files/prov-upper.ttl) — PROV-O's own
-                    delegation relation, narrowed here to service:AIAgentService's own domain
+                    delegation relation, narrowed here to service:AgentService's own domain
                     and to p:Person's own range rather than PROV-O's broader prov:Agent on
                     both sides; a legal RDFS narrowing, not owl:equivalentProperty."""@en .
 
 
 #################################################################
-#    Backup Service
+#    ChatGPT
 #################################################################
 
-service:BackupService rdf:type owl:Class ;
-    rdfs:subClassOf service:Service ,
-                    prov:SoftwareAgent ;
-    rdfs:label "Backup Service"@en ;
-    rdfs:comment """A service that backs up a cell's content, joining that cell as a real
-                    member with its own self-claimed cell:member entry — e.g. :Arca_Backup,
-                    the backup service Arca provides, the second member of Alice's Arca cell
-                    alongside her own. Carries no service:actsFor value: a backup service is
-                    not any one member's delegate, it serves the cell itself, so it has no
-                    single principal to name. Carries service:providedBy, required exactly
-                    once (1..1, shacl/service-shacl.ttl's :BackupServiceShape), naming the
-                    o:Organization that runs it. Structurally identical to
-                    service:ServiceProvider — the two differ in what they do for the person,
-                    not in the properties they carry, so nothing in OWL or SHACL distinguishes
-                    them; the choice between them is documentary. rdfs:subClassOf
-                    prov:SoftwareAgent (project_files/prov-upper.ttl) alongside its
-                    service:Service parent — a backup service is real running software,
-                    exactly what prov:SoftwareAgent means."""@en .
+service:ChatGPT rdf:type owl:Class ;
+    rdfs:subClassOf service:AgentService ;
+    rdfs:label "ChatGPT"@en ;
+    rdfs:comment """OpenAI's ChatGPT, invited by a member into a shared cell to collaborate —
+                    e.g. :Alice_Travel_Agent, joining her Kyoto trip cell alongside Alice and
+                    Dave, with its own self-claimed cell:member entry and its own cell:topic
+                    contribution to the itinerary. Inherits service:actsFor from
+                    service:AgentService, required exactly once, naming the member whose agent
+                    it is; each member wanting one invites their own individual. Carries no
+                    service:providedBy: the class already names the vendor, and no
+                    o:Organization stands behind it inside the cell's own relationship —
+                    contrast service:ArcaBackup, where the providing organization is a party
+                    to the arrangement. See APP-BEHAVIOR.md's ChatGPT Integration Module
+                    section for what it actually does once invited."""@en .
+
+
+#################################################################
+#    Apple Contacts
+#################################################################
+
+service:AppleContacts rdf:type owl:Class ;
+    rdfs:subClassOf service:AgentService ;
+    rdfs:label "Apple Contacts"@en ;
+    rdfs:comment """The Apple Contacts sync integration, which imports a member's contacts
+                    into cells and carries later edits back out, keeping the two sides in step.
+                    An agent service with no LLM in it at all — what makes it one is
+                    service:actsFor: it syncs exactly one member's own address book and
+                    answers to that member alone. This is what makes the
+                    cell:integrationTag values it writes (e.g. AppleContacts/Christmas_List,
+                    recording that a contact sat in an Apple Contacts Group of that name)
+                    local to that member's instance and never propagated on a share: another
+                    member's instance runs a different integration, or none, and could not
+                    interpret or clear the value. Carries no service:providedBy — Apple is not
+                    a party to the cell's relationship, it is merely where the data came from.
+                    See APP-BEHAVIOR.md's Apple Contacts Integration Module section."""@en .
+
+
+#################################################################
+#    Arca Backup
+#################################################################
+
+service:ArcaBackup rdf:type owl:Class ;
+    rdfs:subClassOf service:AgentService ;
+    rdfs:label "Arca Backup"@en ;
+    rdfs:comment """The cell backup service Arca provides, joining a cell as a real member with
+                    its own self-claimed cell:member entry — e.g. :Arca_Backup, the second
+                    member of Alice's Arca cell alongside her own. Inherits service:actsFor
+                    from service:AgentService, required exactly once: a backup service backs
+                    up on behalf of the member who invited it, and it is that member's copy of
+                    the cell it preserves, which is why it has a single principal like any
+                    other agent service. Carries service:providedBy as well, required exactly
+                    once (1..1, shacl/service-shacl.ttl's :ArcaBackupShape), naming the
+                    o:Organization that runs it — the one leaf under service:AgentService that
+                    names a provider, since the arrangement genuinely involves Arca as well as
+                    the member. It still claims its own graphs under its own IRI rather than
+                    Arca's, unlike a service:ServiceProvider."""@en .
 
 
 #################################################################
@@ -181,9 +237,10 @@ service:ServiceProvider rdf:type owl:Class ;
                     service:providedBy, required exactly once (1..1,
                     shacl/service-shacl.ttl's :ServiceProviderShape), naming the providing
                     organization — this class exists precisely to be an organization's own
-                    service, so that link is never absent. Carries no service:actsFor value: a
-                    provider service acts for the organization that provides it, recorded by
-                    service:providedBy, not for any p:Person member of the cell. It is the
+                    service, so that link is never absent. Carries no service:actsFor value — it is not a
+                    service:AgentService: a provider service acts for the organization that
+                    provides it, recorded by service:providedBy, not for any p:Person member
+                    of the cell. That is the whole of the difference between the two branches. It is the
                     cell:member subject, but not the cell:claimant, of the content the
                     organization contributes: the claims are attributed to the providing
                     o:Organization itself, since that is the party really making them and the
@@ -198,6 +255,6 @@ service:ServiceProvider rdf:type owl:Class ;
                     ends of one service:providedBy triple, and no alignment is asserted between
                     them, since aligning them would wrongly make every service an organization.
                     Left at its service:Service parent's cco:ont00001017/prov:Agent alignment
-                    rather than narrowed to prov:SoftwareAgent (unlike
-                    service:AIAgentService/service:BackupService), since what an organization
-                    provides need not be running software at all."""@en .
+                    rather than narrowed to prov:SoftwareAgent (unlike service:AgentService
+                    and every leaf beneath it), since what an organization provides need not
+                    be running software at all."""@en .

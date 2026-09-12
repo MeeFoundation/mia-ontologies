@@ -2,11 +2,11 @@
 id: http://www.example.org/mia/cells/cell-50
 title: "Arca"
 type: cell-databook
-version: 1.0.0
+version: 1.1.0
 created: 2026-09-10
 description: >
   Cell DataBook for folder "Arca" (cell:category: cat:Companies), nested under "Companies". Alice's
-  cell backup provider. A two-member cell demonstrating service:BackupService as a real cell member:
+  cell backup provider. A two-member cell demonstrating service:ArcaBackup as a real cell member:
   :Arca_Backup, the backup service Arca provides, joins alongside Alice, each with its own member
   entry (graph-95, graph-96). Unlike :Citibank_Service and :BHS_Service, which are
   service:ServiceProvider individuals standing in for an organization Alice has a relationship with,
@@ -67,9 +67,9 @@ This graph is one of the cell's two required `member` entries — Alice's own ba
 
 #### Overview
 
-This graph is the other of the cell's two required `member` entries — Arca's backup service, joining as a real cell member with its own self-claimed member graph, exactly like a human member's. It is typed `service:BackupService` and carries `service:providedBy :Arca`, naming the organization that runs it. It carries no `service:actsFor` value: a backup service is not any one member's delegate, it serves the cell itself, so there is no single principal to name — the one structural difference from the `service:AIAgentService` member in the Kyoto Trip cell (graph 67). A `service:Service` is never a `cell:creator` and can never be promoted to `cell:owner` — Alice alone created and owns this cell — but it is a legitimate `cell:member` participant and, having no organization claiming on its behalf in this relationship, a `cell:claimant` under its own IRI.
+This graph is the other of the cell's two required `member` entries — Arca's backup service, joining as a real cell member with its own self-claimed member graph, exactly like a human member's. It is typed `service:ArcaBackup`, a leaf under `service:AgentService`, and carries both `service:actsFor :Self` — Alice invited it, and it is her copy of the cell it preserves, so she is the one member it answers to — and `service:providedBy :Arca`, naming the organization that runs it. Carrying both is what distinguishes it from the other two agent-service leaves: `service:ChatGPT` (the Kyoto Trip cell's own agent member, graph 67) names no provider, because OpenAI is not a party to that cell's relationship, whereas Arca genuinely is a party to this one. A `service:Service` is never a `cell:creator` and can never be promoted to `cell:owner` — Alice alone created and owns this cell — but it is a legitimate `cell:member` participant and, having no organization claiming on its behalf in this relationship, a `cell:claimant` under its own IRI.
 
-Like graph 01 and graph 27, this `member` graph declares `pshapes:ContactInfoShape` (required of every member graph by Check 30) while containing no `persona:Person` individual at all — it is therefore vacuously conformant, the exemption integrity.md's Check 26 describes.
+Like graph 01 and graph 27, this `member` graph declares `pshapes:ContactInfoShape` (required of every member graph by Check 30) while carrying no *substantive* contact-info content — the only `persona:Person` individual here is the bare `:Self` the self-containment convention requires, since `service:actsFor` names her. `helpers/validate.py` re-targets `ContactInfoShape` at substantive individuals only, so that bare declaration is not treated as a contact-info profile, and the graph stays vacuously conformant — the exemption integrity.md's Check 26 describes.
 
 #### Graph
 
@@ -78,15 +78,20 @@ Like graph 01 and graph 27, this `member` graph declares `pshapes:ContactInfoSha
 <!-- databook:graph: http://www.example.org/mia/graphs/graph-96#graph -->
 @prefix : <http://www.example.org/mia#> .
 @prefix o: <http://mee.foundation/ontologies/organization#> .
+@prefix persona: <http://mee.foundation/ontologies/persona#> .
 @prefix service: <http://mee.foundation/ontologies/service#> .
 @prefix owl: <http://www.w3.org/2002/07/owl#> .
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 
+:Self rdf:type owl:NamedIndividual ,
+               persona:Person .
+
 :Arca_Backup rdf:type owl:NamedIndividual ,
-                      service:BackupService ;
+                      service:ArcaBackup ;
     rdfs:label "Arca cell backup service"@en ;
+    service:actsFor :Self ;
     service:providedBy :Arca .
 
 :Arca rdf:type owl:NamedIndividual ,

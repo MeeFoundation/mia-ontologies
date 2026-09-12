@@ -155,9 +155,11 @@ LABELS = {
     str(ORG.Organization):                      "Organization",
     # service
     str(SERVICE.Service):                       "Service",
-    str(SERVICE.AIAgentService):                "AIAgentService",
-    str(SERVICE.BackupService):                 "BackupService",
-    str(SERVICE.ProviderService):               "ProviderService",
+    str(SERVICE.AgentService):                  "AgentService",
+    str(SERVICE.ChatGPT):                       "ChatGPT",
+    str(SERVICE.AppleContacts):                 "AppleContacts",
+    str(SERVICE.ArcaBackup):                    "ArcaBackup",
+    str(SERVICE.ServiceProvider):               "ServiceProvider",
     str(SERVICE.actsFor):                       "actsFor",
     str(SERVICE.providedBy):                    "providedBy",
 }
@@ -225,8 +227,9 @@ def style_class(g: Graph, iri: URIRef) -> str:
         return "person"
     if ORG.Organization in types:
         return "org"
-    if types & {SERVICE.Service, SERVICE.AIAgentService,
-                SERVICE.BackupService, SERVICE.ProviderService}:
+    if types & {SERVICE.Service, SERVICE.AgentService, SERVICE.ChatGPT,
+                SERVICE.AppleContacts, SERVICE.ArcaBackup,
+                SERVICE.ServiceProvider}:
         return "service"
     return ""
 

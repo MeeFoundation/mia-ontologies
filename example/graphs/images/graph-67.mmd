@@ -10,9 +10,9 @@ flowchart TD
         ctx_meta["claimant: :Alice_Travel_Agent\nsubject: :Alice_Travel_Agent\ntemplate: pshapes:ContactInfoShape"]:::meta
     end
 
-    nff7045b74671[":Alice_Travel_Agent\n(AIAgentService)"]:::service
+    nff7045b74671[":Alice_Travel_Agent\n(ChatGPT)"]:::service
     ne0c3ba92f1db[":Self\n(Person)"]:::person
-    nfebee7902a81("Alice"):::lit
+    n0ad6bdb1a40d("Alice"):::lit
 
     nff7045b74671 -->|"actsFor"| ne0c3ba92f1db
-    ne0c3ba92f1db -->|"GivenName"| nfebee7902a81
+    ne0c3ba92f1db -->|"GivenName"| n0ad6bdb1a40d

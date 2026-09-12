@@ -36,7 +36,7 @@ When a member then actually fills in that cell's `c:member`/`c:topic` graph, the
 
 ### Number of Members
 
-A cell can have just one member (the user) or several. We don't yet know how many members a cell can support, but the number is almost surely well under 100. An invited AI agent (`s:AIAgentService`, see [Inviting AI Agents](#inviting-ai-agents) below) is a real member too, and counts toward this same tally — inviting one raises a single-member cell to a two-member cell, exactly as inviting a human would.
+A cell can have just one member (the user) or several. We don't yet know how many members a cell can support, but the number is almost surely well under 100. An invited agent service (`s:AgentService`, see [Inviting AI Agents](#inviting-ai-agents) below) is a real member too, and counts toward this same tally — inviting one raises a single-member cell to a two-member cell, exactly as inviting a human would.
 
 ### Permissions
 
@@ -221,7 +221,7 @@ A cell can carry any number of **tags** — short text labels, shown in the cell
 There are two kinds, and which kind a tag is determines both whether the user ever sees it and whether it travels when the cell is shared:
 
 - **User-defined tags** are typed freely by the user. There is no list to choose from, no approval step, and no restriction beyond being non-empty text. Alice tags her cat's three cells — `Ginger`, its `Medical` cell, and its `Care & Feeding` cell — **Ginger**, so one search collects everything about the cat regardless of where in the tree each cell sits; that the cells happen to be nested under one another is incidental, and the same tag would gather them just as well if they were scattered. A user tag may coincidentally match a built-in one; the app treats them as separate and shows both.
-- **Hidden integration-defined tags** are written by a member's own [integration module](#integrations) — the [Agent Bridge](#agent-bridge) implementing an invited agent for one specific external service — for that module's own bookkeeping, never by a person. The app never shows these in the Tags area, and the user neither adds nor edits them.
+- **Hidden integration-defined tags** are written by a member's own [integration](#integrations) — an invited `s:AgentService` such as `s:AppleContacts` — for that service's own bookkeeping, never by a person. The app never shows these in the Tags area, and the user neither adds nor edits them.
 
 There is deliberately no third, app-supplied kind — the app ships no built-in tag vocabulary at all. Where a set of cells shares a fact the data already models, that fact is found by searching for it directly rather than by labelling it; see [Finding Cells by Property](#finding-cells-by-property) below. A tag is for what the data does not already model.
 
@@ -229,7 +229,7 @@ The hidden kind is what lets an integration keep external state it must round-tr
 
 User-defined tags are ordinary shared cell content: adding or removing one propagates to every member's copy over the PDN, exactly like the cell's note, attachments, chat, and (for the cells where the name is shared at all) its name. Every member may add and remove them regardless of ownership, the same latitude they already have over the note.
 
-A hidden integration tag is the one exception — **it is never shared**. It stays in the copy belonging to the member whose integration wrote it, and no other member ever receives it. The reason is meaning rather than secrecy: each principal's own device hosts and runs its own agent independently (see [Agent Bridge](#agent-bridge)), so a bookkeeping label written by one member's module says nothing in a member's instance running a different integration, or none at all — syncing it would deliver a value no one on the other side could interpret or clear. The consequence is that the same shared cell can legitimately carry different hidden tags on each member's side.
+A hidden integration tag is the one exception — **it is never shared**. It stays in the copy belonging to the member whose integration wrote it, and no other member ever receives it. The reason is meaning rather than secrecy: each principal's own device hosts and runs its own agent services independently (see [Service Bridge](#service-bridge)), so a bookkeeping label written by one member's module says nothing in a member's instance running a different integration, or none at all — syncing it would deliver a value no one on the other side could interpret or clear. The consequence is that the same shared cell can legitimately carry different hidden tags on each member's side.
 
 The deliberate limits: nothing merges or reconciles two members' tag sets beyond the ordinary content sync above, and there is no rename-a-tag-everywhere or merge-two-tags operation — renaming means removing one label and adding another, cell by cell. Tags apply to a cell as a whole; there is no way to tag an individual note, attachment, or topic within one.
 
@@ -281,20 +281,35 @@ Chat is one feature with two visibility modes, not two separate concepts. By def
 
 ### Inviting services
 
+#### Cell Interface
+
+Every `s:Service` reaches a cell through one and the same surface, the **Cell Interface**: the read and write operations over a cell's [note](#note-area), [attachments](#filesystem-persistence), [chat](#chat-area), and `c:member`/`c:topic` claims. There is no side door — no service reads a cell's files off disk or writes to another member's claims directly, and no integration gets an API of its own.
+
+This is why an invited service needs no special-case permission logic anywhere in this document. The Cell Interface is the same surface a human member's own UI uses, and it enforces the same rules for both, already set out in [Permissions](#permissions) above:
+
+- **Read access is unrestricted across the cell** — every member, human or service, can read the note, every member's and every topic's claims, and attachment metadata.
+- **Write access is scoped to the caller's own claimant identity** — a service creates, updates and deletes only the claims it claims itself. It can edit the shared note and add attachments like any member, but it can never write to another party's `c:member` or `c:topic` graph.
+- **A service is never an owner.** It cannot be promoted (`c:owner`'s range is `p:Person`), so it permanently sits at the non-owner baseline: it cannot delete another member's claims or attachments, and it cannot delete the cell for everyone.
+- **Its access is its principal's access.** An `s:AgentService` operates with the access of the one member it `s:actsFor`, never more — inviting an agent grants it nothing its principal did not already have.
+
+What a service does *beyond* the cell — call an LLM, read an address book, write a backup — is its own business and is not the Cell Interface's concern. The interface's job is that everything arriving back *in* the cell arrives through the same door, under the same rules, as a person's own edits.
+
 #### Inviting AI Agents
 
-A member may invite their own AI agent (`s:AIAgentService`, see README.md's [Service Ontology](README.md#service-ontology)) into a shared cell — e.g. inviting ChatGPT to help plan a trip in a `cat:Trips` cell. An invited agent becomes a real cell member: it gets its own self-claimed `c:member` entry alongside the human members, which raises the cell's own distinct-member count (e.g. Alice + her own agent = two distinct members, a two-member cell; a third member joining too — human or service — would raise it to three members, the same derivation applying regardless of count — see [Number of Members](#number-of-members) above). Because the agent is a literal member, it needs no special-case permission logic — [Permissions](#permissions) above already covers it: by default, an invited agent gets exactly the same read/write access to the cell's note, files, and [chat](#chat-area) that any non-owner human member has (see [Permissions](#permissions) above) — and, unlike a human member, a service member can never be promoted to owner, so it stays at that baseline permanently.
+A member may invite their own AI agent (`s:ChatGPT`, a leaf under `s:AgentService` — see README.md's [Service Ontology](README.md#service-ontology)) into a shared cell — e.g. inviting ChatGPT to help plan a trip in a `cat:Trips` cell. An invited agent becomes a real cell member: it gets its own self-claimed `c:member` entry alongside the human members, which raises the cell's own distinct-member count (e.g. Alice + her own agent = two distinct members, a two-member cell; a third member joining too — human or service — would raise it to three members, the same derivation applying regardless of count — see [Number of Members](#number-of-members) above). Because the agent is a literal member, it needs no special-case permission logic — [Permissions](#permissions) above already covers it: by default, an invited agent gets exactly the same read/write access to the cell's note, files, and [chat](#chat-area) that any non-owner human member has (see [Permissions](#permissions) above) — and, unlike a human member, a service member can never be promoted to owner, so it stays at that baseline permanently.
 
-##### Agent Bridge
+##### Service Bridge
 
-Each principal's own device hosts and runs their own agent independently (their own credentials, their own bridge to the underlying LLM service) — the same way each peer already independently manages their own tree position for a shared cell (see [Cell Storage](#cell-storage) above). That per-device component is the **Agent Bridge**: it is invoked whenever a message addressed to "its" agent arrives (matched via `s:actsFor`), and it is what each of the pluggable [integration modules](#integrations) below concretely implements for one specific external service.
+Each principal's own device hosts and runs their own agent services independently (their own credentials, their own connection to the underlying external service) — the same way each peer already independently manages their own tree position for a shared cell (see [Cell Storage](#cell-storage) above). That per-device component is the **Service Bridge**, and every `s:AgentService` has one: it is what an [integration](#integrations) concretely is on the member's device. For an AI agent it is invoked whenever a message addressed to "its" agent arrives (matched via `s:actsFor`); for a contact sync or a backup service it runs on its own schedule instead. Whichever it is, it reaches the cell only through the [Cell Interface](#cell-interface) below, with that member's own access and no more.
+
+Because a bridge belongs to exactly one member — the one its service `s:actsFor` — everything it records privately stays on that member's side. That is the whole reason a hidden [integration tag](#tags) never propagates on a share.
 
 ##### The Iterative Prompt/Response Loop
 
 Each turn of a member's conversation with the agent proceeds as follows:
 
 1. The member sends a message — in the shared group stream (optionally @-directed at their agent) or in a private DM thread with their agent.
-2. Their own device's Agent Bridge (invoked on receiving a message addressed to "its" agent, matched via `s:actsFor`) assembles context: the shared note's current text, the agent's single evolving `c:topic` graph (its accumulated understanding of the trip, or whatever the cell concerns), recent relevant chat turns, and existing attachment metadata (filenames/captions).
+2. Their own device's Service Bridge (invoked on receiving a message addressed to "its" agent, matched via `s:actsFor`) assembles context: the shared note's current text, the agent's single evolving `c:topic` graph (its accumulated understanding of the trip, or whatever the cell concerns), recent relevant chat turns, and existing attachment metadata (filenames/captions).
 3. This context plus the new message is sent to the underlying LLM service (push model — the app calls out; no inbound endpoint is ever exposed).
 4. The response is applied as one atomic turn, all under the agent's own existing member-level write rights:
    - a conversational reply posted back into the same stream/thread the prompt came from (group-visible or private, matching where it arrived);
@@ -325,11 +340,21 @@ Where one such field's legal values depend on another field already filled in, t
 
 ## Integrations
 
-The app supports pluggable **integration modules** — each one is the concrete implementation of an `s:AIAgentService`'s [Agent Bridge](#agent-bridge) for a specific external service, translating between that service's own API and the cell-level primitives already described above (chat, note, and SCGraph claims). This section documents integration modules as they're added; the first is a ChatGPT integration module.
+An **integration** and an `s:Service` are the same thing under two names. There is no separate integration concept wrapping a service: every integration the app offers *is* one of the classes in README.md's [Service Ontology](README.md#service-ontology), and every one of those classes is an integration. What the app ships per integration is the code that runs it on the member's own device — its [Service Bridge](#service-bridge) — translating between the external service's own API and the cell, which it reaches through the [Cell Interface](#cell-interface) like any other member.
+
+Three are documented below. All three are `s:AgentService`s, meaning each acts for exactly one member:
+
+| Integration | Class | What it does |
+|---|---|---|
+| ChatGPT | `s:ChatGPT` | An LLM assistant that collaborates in the cell's chat, note, and topic graphs |
+| Apple Contacts | `s:AppleContacts` | Syncs a member's address book into and out of cells |
+| Arca Backup | `s:ArcaBackup` | Backs up the member's own copy of a cell |
+
+An `s:ServiceProvider` — an organization's own service, such as Citibank's — is equally an integration by this definition; it simply acts for the organization that provides it rather than for a member, and the app does not ship its code.
 
 ### ChatGPT Integration Module
 
-This module lets a member invite OpenAI's ChatGPT into a cell as a real `s:AIAgentService` member (see [Inviting AI Agents](#inviting-ai-agents) and README.md's [Service Ontology](README.md#service-ontology)). At a high level, once invited, it does four things:
+This module lets a member invite OpenAI's ChatGPT into a cell as a real `s:ChatGPT` member (see [Inviting AI Agents](#inviting-ai-agents) and README.md's [Service Ontology](README.md#service-ontology)). At a high level, once invited, it does four things:
 
 1. **Participates in the cell's chat.** It posts and receives messages through the same group/directed/private-DM model described in [Chat Area](#chat-area) above — no separate messaging channel of its own.
 2. **Reads all of the cell's data.** Unlike its write access (below), read access is unrestricted: the note's current text, every member's and every topic's SCGraph content, and attachment metadata are all available to it as context for each turn — this is the raw material the [Iterative Prompt/Response Loop](#the-iterative-promptresponse-loop) assembles on its behalf.
@@ -339,3 +364,13 @@ This module lets a member invite OpenAI's ChatGPT into a cell as a real `s:AIAge
     - **Its own `c:topic` entry (or entries)** — content about whatever the cell's relationship concerns (e.g. [graph 70](<example/Cells/Travel/Trips/Kyoto Trip 2027/Kyoto Trip 2027(trips).databook.md#graph-70>)'s evolving itinerary) — content about *the cell's topic*, distinct from any other member's or party's own topic claims about that same subject.
 
    It never writes to a graph claimed by someone else — not another member's `c:member` entry, not a topic graph another party claims — read access is unrestricted, but write access is always scoped to the module's own claimant identity. In the steady state this means revising its topic graph in place turn by turn (see [The Iterative Prompt/Response Loop](#the-iterative-promptresponse-loop)); "create" and "delete" cover the initial contribution and retracting a claim that's no longer accurate (e.g. a cancelled leg of an itinerary), respectively. Each of those revisions is a delete-and-re-issue at the PDN layer, exactly as for a human member's own edit (see [Topic & Member Info Permissions](#topic--member-info-permissions) above).
+
+### Apple Contacts Integration Module
+
+This module lets a member sync their Apple Contacts address book into and out of cells, as an `s:AppleContacts` member. It has no LLM in it at all — what makes it an agent service is simply that it acts for exactly one member, syncing that member's own address book and answering to nobody else in the cell.
+
+On **import**, each contact record becomes a graph, its vCard fields mapping onto the Persona ontology's own names, phone numbers, addresses, organization, job title, birthday, photo and so on. On **export**, the direction reverses: all of a person's graphs merge into a single vCard, each field value carrying the label of the graph it came from, since vCard's own model is one card per person with repeatable labelled fields.
+
+The piece the cell model has nowhere else to put is an Apple Contacts **Group**. A group is not a category, not a topic, and not a member, so the module records it as a [hidden integration tag](#tags) on the cell — `AppleContacts/Christmas_List` for a contact that sat in a group called "Christmas List". Holding it on the cell is what makes the round trip **lossless** and the sync **bidirectional**: a later edit on either side can be carried back to the other, because the module can still tell which group the contact came from. Alice's `Bob Johnson` and `Fred Flintstone` cells both carry it.
+
+That tag stays in the syncing member's own copy and is never shared, for the reason [Service Bridge](#service-bridge) gives: the bridge belongs to one member, and a member whose instance runs a different integration, or none, could neither interpret nor clear the value.

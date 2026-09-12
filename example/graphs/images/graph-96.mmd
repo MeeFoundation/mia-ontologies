@@ -12,7 +12,9 @@ flowchart TD
 
     n203f6bee5d4e[":Arca\n(Organization)"]:::org
     n80668e033d77("https://arca.example.com"):::lit
-    n1c6501c4f397[":Arca_Backup\n(BackupService)"]:::service
+    n1c6501c4f397[":Arca_Backup\n(ArcaBackup)"]:::service
+    ne0c3ba92f1db[":Self\n(Person)"]:::person
 
     n203f6bee5d4e -->|"hasWebsite"| n80668e033d77
+    n1c6501c4f397 -->|"actsFor"| ne0c3ba92f1db
     n1c6501c4f397 -->|"providedBy"| n203f6bee5d4e

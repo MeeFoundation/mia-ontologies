@@ -10,7 +10,7 @@
 <http://mee.foundation/ontologies/prov-upper-subset> rdf:type owl:Ontology ;
     owl:versionIRI <http://mee.foundation/ontologies/prov-upper-subset/1.1.0> ;
     dc:date "2026-09-10"^^xsd:date ;
-    owl:versionInfo "Version 1.1.0 - PROV-O alignment back-references name service.ttl's service:Service/service:AIAgentService/service:BackupService/service:actsFor."@en ;
+    owl:versionInfo "Version 1.2.0 - PROV-O alignment back-references name service.ttl's service:Service/service:AgentService/service:BackupService/service:actsFor."@en ;
     rdfs:label "PROV-O Upper Subset"@en ;
     rdfs:comment """A hand-curated subset of the W3C PROV Ontology (PROV-O,
                     https://www.w3.org/TR/prov-o/, namespace http://www.w3.org/ns/prov#),
@@ -24,7 +24,7 @@
                     here. This file instead declares only the handful of classes and the one
                     property actually referenced by service.ttl's own PROV-O alignment
                     (service:Service rdfs:subClassOf prov:Agent;
-                    service:AIAgentService/service:BackupService rdfs:subClassOf
+                    service:AgentService rdfs:subClassOf
                     prov:SoftwareAgent; service:actsFor rdfs:subPropertyOf
                     prov:actedOnBehalfOf), each declared with its real
                     upstream IRI, rdfs:label, and definition (adapted from the PROV-O
