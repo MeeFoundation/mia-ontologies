@@ -12,10 +12,10 @@
 @base <http://mee.foundation/ontologies/cell> .
 
 <http://mee.foundation/ontologies/cell> rdf:type owl:Ontology ;
-    owl:versionIRI <http://mee.foundation/ontologies/cell/3.56.0> ;
-    dc:date "2026-09-11"^^xsd:date ;
+    owl:versionIRI <http://mee.foundation/ontologies/cell/3.57.0> ;
+    dc:date "2026-09-12"^^xsd:date ;
     rdfs:label "Cell Ontology"@en ;
-    rdfs:comment """Cell Ontology for the Cellula App. A cell is the atomic unit of the user's tree: a filesystem folder holding exactly one cell-databook file, folder and file together forming one tree node. Defines cell:Cell — the self-contained content facet of a cell, carried by that cell-databook file's own triples. cell:Cell stores no property recording the cell's own tree position: that position is simply whichever folder the cell-databook currently lives in, not a fact this RDF individual needs to carry. cell:Cell splits into two disjoint kinds: cell:TemplateCell (a reusable, class-level template) and cell:MemberCell (an actual cell instantiated in a user's own tree) — a cell is always exactly one of the two, never both. cell:MemberCell further specializes into cell:TopicCell, for a member cell that actually carries a cell:topic value beyond its cell:member baseline. cell:MemberCell also carries the three tag properties — cell:builtInTag, cell:userTag and cell:integrationTag, each a plain xsd:string, zero or more values — a retrieval dimension orthogonal to cell:category's single filing hint. Also defines cell:Graph and cell:SCGraph — the graph-DataBook classes cell:member/cell:topic link to — and their cell:template/cell:subject/cell:claimant annotation properties, since a graph DataBook only ever exists to be linked from a cell."""@en .
+    rdfs:comment """Cell Ontology for the Cellula App. A cell is the atomic unit of the user's tree: a filesystem folder holding exactly one cell-databook file, folder and file together forming one tree node. Defines cell:Cell — the self-contained content facet of a cell, carried by that cell-databook file's own triples. cell:Cell stores no property recording the cell's own tree position: that position is simply whichever folder the cell-databook currently lives in, not a fact this RDF individual needs to carry. cell:Cell splits into two disjoint kinds: cell:TemplateCell (a reusable, class-level template) and cell:MemberCell (an actual cell instantiated in a user's own tree) — a cell is always exactly one of the two, never both. cell:MemberCell further specializes into cell:TopicCell, for a member cell that actually carries a cell:topic value beyond its cell:member baseline. cell:MemberCell also carries the two tag properties — cell:userTag and cell:integrationTag, each a plain xsd:string, zero or more values — a retrieval dimension orthogonal to cell:category's single filing hint. Also defines cell:Graph and cell:SCGraph — the graph-DataBook classes cell:member/cell:topic link to — and their cell:template/cell:subject/cell:claimant annotation properties, since a graph DataBook only ever exists to be linked from a cell."""@en .
 
 
 #################################################################
@@ -72,7 +72,7 @@ cell:abstract rdf:type owl:AnnotationProperty ;
 cell:Cell rdf:type owl:Class ;
     cell:abstract true ;
     rdfs:label "Cell"@en ;
-    rdfs:comment """Superclass of every cell individual, carrying only what's common regardless of kind: inherent classification (cell:category). cell:Cell — the RDF content facet of a cell — stores no property recording its own tree position: a cell's position is simply whichever folder it (folder + this cell-databook) currently occupies, and moving that folder is a pure filesystem operation requiring no triple to change, which is what keeps a cell robust under PDN sync. cell:category does not violate this: its range is skos:Concept — a category concept scoped to cat:CategoryScheme (category.ttl), not a tree position — so it records what kind of thing the cell is, never where it currently lives. Creator and ownership metadata (cell:creator, cell:owner), the tag properties (cell:builtInTag, cell:userTag, cell:integrationTag) and graph links (cell:member, cell:topic) live on the cell:MemberCell kind (and, for cell:topic, its cell:TopicCell subclass), not directly here — tags in particular are deliberately not hoisted up to cell:Cell the way cell:category is, since a cell:TemplateCell seeds none; validation shape is not stored on either kind, only derived (see cell:MemberCell's own comment)."""@en .
+    rdfs:comment """Superclass of every cell individual, carrying only what's common regardless of kind: inherent classification (cell:category). cell:Cell — the RDF content facet of a cell — stores no property recording its own tree position: a cell's position is simply whichever folder it (folder + this cell-databook) currently occupies, and moving that folder is a pure filesystem operation requiring no triple to change, which is what keeps a cell robust under PDN sync. cell:category does not violate this: its range is skos:Concept — a category concept scoped to cat:CategoryScheme (category.ttl), not a tree position — so it records what kind of thing the cell is, never where it currently lives. Creator and ownership metadata (cell:creator, cell:owner), the tag properties (cell:userTag, cell:integrationTag) and graph links (cell:member, cell:topic) live on the cell:MemberCell kind (and, for cell:topic, its cell:TopicCell subclass), not directly here — tags in particular are deliberately not hoisted up to cell:Cell the way cell:category is, since a cell:TemplateCell seeds none; validation shape is not stored on either kind, only derived (see cell:MemberCell's own comment)."""@en .
 
 
 #################################################################
@@ -155,7 +155,7 @@ cell:isTopicCell rdf:type owl:DatatypeProperty ;
 cell:MemberCell rdf:type owl:Class ;
     rdfs:subClassOf cell:Cell ;
     rdfs:label "Member Cell"@en ;
-    rdfs:comment """An actual cell instantiated in a user's own tree — real, member-classified content, as opposed to a reusable class-level template (cell:TemplateCell). Carries cell:creator (required, exactly one value), cell:owner (required, one or more values — the members holding the owner role, as opposed to the regular member role every other member defaults to; cell:creator's own value is always included, as the cell's initial owner — see cell:owner's own comment for the full owner/regular-member role semantics), cell:member (required, one or more cell:SCGraph containers backing the cell's content — one per member in the relationship, no fixed upper bound), and the three tag properties cell:builtInTag/cell:userTag/cell:integrationTag (each a plain xsd:string, zero or more values, no fixed upper bound — see the Cell Tags section below). There is no cell:shape property: a cell:MemberCell's applicable validation shape is not stored at all, only derived, via its own cell:category value — find the cell:TemplateCell with the same cell:category (cat-templates.ttl) and read whichever of its cell:memberGraphShape (for one of this cell's own cell:member graphs) or cell:topicGraphShape (for one of its cell:topic graphs) values applies, depending on which list the graph in question belongs to. A cell:MemberCell that also carries one or more cell:topic values is additionally typed cell:TopicCell, the only class cell:topic (one or more additional cell:SCGraph containers beyond the cell:member baseline) has domain over. Who or what the cell's relationship is about is not a stored fact either — it is derivable directly from cell:member/cell:topic: the full set of distinct subjects among cell:topic if any are linked, else the full set of distinct subjects among cell:member (see cell:topic's own comment). Every real cell:Cell individual in a user's own tree is typed directly cell:MemberCell — its member count is never itself stored as a class, simply counted from cell:member/cell:topic when needed. Disjoint with cell:TemplateCell (see cell:TemplateCell's own comment): every cell:Cell individual in a user's own tree is typed cell:MemberCell, never cell:TemplateCell, which is reserved for the reusable templates in cat-templates.ttl. Even a purely organizational cell with nothing substantive to say carries a minimal stub cell:member entry (claimed by and about cell:creator's own :Self, who is then also that cell's sole cell:owner value) rather than omitting member content altogether — such a cell has no third party to link via cell:topic, so it stays a bare cell:MemberCell, not also cell:TopicCell."""@en .
+    rdfs:comment """An actual cell instantiated in a user's own tree — real, member-classified content, as opposed to a reusable class-level template (cell:TemplateCell). Carries cell:creator (required, exactly one value), cell:owner (required, one or more values — the members holding the owner role, as opposed to the regular member role every other member defaults to; cell:creator's own value is always included, as the cell's initial owner — see cell:owner's own comment for the full owner/regular-member role semantics), cell:member (required, one or more cell:SCGraph containers backing the cell's content — one per member in the relationship, no fixed upper bound), and the two tag properties cell:userTag/cell:integrationTag (each a plain xsd:string, zero or more values, no fixed upper bound — see the Cell Tags section below). There is no cell:shape property: a cell:MemberCell's applicable validation shape is not stored at all, only derived, via its own cell:category value — find the cell:TemplateCell with the same cell:category (cat-templates.ttl) and read whichever of its cell:memberGraphShape (for one of this cell's own cell:member graphs) or cell:topicGraphShape (for one of its cell:topic graphs) values applies, depending on which list the graph in question belongs to. A cell:MemberCell that also carries one or more cell:topic values is additionally typed cell:TopicCell, the only class cell:topic (one or more additional cell:SCGraph containers beyond the cell:member baseline) has domain over. Who or what the cell's relationship is about is not a stored fact either — it is derivable directly from cell:member/cell:topic: the full set of distinct subjects among cell:topic if any are linked, else the full set of distinct subjects among cell:member (see cell:topic's own comment). Every real cell:Cell individual in a user's own tree is typed directly cell:MemberCell — its member count is never itself stored as a class, simply counted from cell:member/cell:topic when needed. Disjoint with cell:TemplateCell (see cell:TemplateCell's own comment): every cell:Cell individual in a user's own tree is typed cell:MemberCell, never cell:TemplateCell, which is reserved for the reusable templates in cat-templates.ttl. Even a purely organizational cell with nothing substantive to say carries a minimal stub cell:member entry (claimed by and about cell:creator's own :Self, who is then also that cell's sole cell:owner value) rather than omitting member content altogether — such a cell has no third party to link via cell:topic, so it stays a bare cell:MemberCell, not also cell:TopicCell."""@en .
 
 cell:creator rdf:type owl:ObjectProperty ;
     rdfs:domain cell:MemberCell ;
@@ -172,15 +172,26 @@ cell:owner rdf:type owl:ObjectProperty ;
 #################################################################
 #    Cell Tags
 #
-#    Three sibling datatype properties, each range xsd:string,
-#    each zero or more values, all domain cell:MemberCell:
-#    cell:builtInTag, cell:userTag, and cell:integrationTag. A tag
-#    is a plain string, and which of the three properties carries
-#    it is the whole of what records its kind — there is no
-#    reified tag individual and no separate kind marker, the same
-#    "the property is the fact" economy cell:member/cell:topic
-#    already use to distinguish two lists of the identical
-#    cell:SCGraph range.
+#    Two sibling datatype properties, each range xsd:string, each
+#    zero or more values, both domain cell:MemberCell:
+#    cell:userTag and cell:integrationTag. A tag is a plain
+#    string, and which of the two properties carries it is the
+#    whole of what records its kind — there is no reified tag
+#    individual and no separate kind marker, the same "the
+#    property is the fact" economy cell:member/cell:topic already
+#    use to distinguish two lists of the identical cell:SCGraph
+#    range.
+#
+#    There is deliberately no third, app-supplied kind: no
+#    property here holds a label the app itself ships, and the app
+#    maintains no built-in tag vocabulary. Where a set of cells
+#    shares a fact the data already models — every cell recording
+#    a loyalty-program relationship, say — that fact is found by
+#    searching for the property itself
+#    (serviceaccounts:loyaltyProgramID, other/service-accounts.ttl),
+#    which needs no one to have remembered to apply a label. See
+#    APP-BEHAVIOR.md's Finding Cells by Property section. A tag
+#    is for what the data does not already model.
 #
 #    Tags are orthogonal to cell:category, not a second stab at
 #    it. cell:category is a filing mechanism: at most one value,
@@ -188,7 +199,7 @@ cell:owner rdf:type owl:ObjectProperty ;
 #    recipient's app should file an incoming shared cell. A tag
 #    records nothing about filing or tree position at all — it is
 #    a retrieval label, and a cell may carry any number of them at
-#    once, across all three kinds.
+#    once, across both kinds.
 #
 #    Domain is cell:MemberCell rather than cell:Cell deliberately:
 #    a cell:TemplateCell (cat-templates.ttl) seeds no tags, so no
@@ -199,7 +210,7 @@ cell:owner rdf:type owl:ObjectProperty ;
 #    a template does carry the category concept it is a template
 #    for.
 #
-#    All three are constrained by shacl/cell-shacl.ttl's
+#    Both are constrained by shacl/cell-shacl.ttl's
 #    :MemberCellShape to non-empty strings and nothing more. The
 #    further well-formedness rules SHACL cannot see — no
 #    leading/trailing whitespace, no YAML type confusion, and no
@@ -207,28 +218,22 @@ cell:owner rdf:type owl:ObjectProperty ;
 #    literal collapses silently before validation ever runs) — are
 #    integrity.md's Check 36 instead.
 #
-#    cell:builtInTag and cell:userTag are ordinary shared cell
-#    content; cell:integrationTag alone is not. See its own
-#    comment below, and APP-BEHAVIOR.md's Tags section.
+#    cell:userTag is ordinary shared cell content;
+#    cell:integrationTag is not. See its own comment below, and
+#    APP-BEHAVIOR.md's Tags section.
 #################################################################
-
-cell:builtInTag rdf:type owl:DatatypeProperty ;
-    rdfs:domain cell:MemberCell ;
-    rdfs:range xsd:string ;
-    rdfs:label "builtInTag"@en ;
-    rdfs:comment """A tag drawn from the app's own supplied set, applied to this cell — a plain string, zero or more values, no fixed upper bound. The set of strings the app ships is deliberately not enumerated anywhere in RDF: shacl/cell-shacl.ttl's :MemberCellShape constrains a value only to a non-empty string (sh:minLength 1), never to an sh:in list, since which tags the app offers is an app-level concern that grows independently of this ontology and is documented in APP-BEHAVIOR.md's Tags section rather than frozen here — contrast vehicles:fuelType (other/vehicles.ttl) and pets:sex (other/pets.ttl), whose vocabularies really are small, closed, and frozen via sh:in. Being built-in is a fact about where the string came from, not about who may remove it: a member can drop a built-in tag from a cell exactly as they can a cell:userTag. Shared cell content — it propagates to every member's copy when the cell is shared, exactly as the cell's own name and its cell:category value do; cell:integrationTag is the one tag property that does not."""@en .
 
 cell:userTag rdf:type owl:DatatypeProperty ;
     rdfs:domain cell:MemberCell ;
     rdfs:range xsd:string ;
     rdfs:label "userTag"@en ;
-    rdfs:comment """A free-text tag the user minted themselves and applied to this cell — a plain string, zero or more values, no fixed upper bound. Unconstrained beyond being a non-empty string (shacl/cell-shacl.ttl's :MemberCellShape), since the whole point of this kind is that the user is not choosing from any list: there is no vocabulary, no scheme, and no registry a value must belong to, which is exactly what separates it from cell:builtInTag. Nothing prevents a user tag from coincidentally equaling a built-in one — the two are separate properties, and a cell carrying the same string under both is redundant but legal; only duplication within a single kind is flagged (integrity.md's Check 36). Shared cell content, propagating to every member's copy when the cell is shared, the same as cell:builtInTag."""@en .
+    rdfs:comment """A free-text tag the user minted themselves and applied to this cell — a plain string, zero or more values, no fixed upper bound. Unconstrained beyond being a non-empty string (shacl/cell-shacl.ttl's :MemberCellShape): there is no vocabulary, no scheme, and no registry a value must belong to, and neither this ontology nor the app supplies a list to pick from — the user simply types what they want. Repeating the same string across several cells is the entire point, since that is what lets one search gather them all; what integrity.md's Check 36 flags is only the same value repeated within this one property on a single cell. Shared cell content: it propagates to every member's copy when the cell is shared, exactly as the cell's own name and its cell:category value do, and any member may add or remove one regardless of ownership. cell:integrationTag, the other tag kind, is the one that does not propagate."""@en .
 
 cell:integrationTag rdf:type owl:DatatypeProperty ;
     rdfs:domain cell:MemberCell ;
     rdfs:range xsd:string ;
     rdfs:label "integrationTag"@en ;
-    rdfs:comment """A tag written by one member's own integration module — the Agent Bridge implementing an invited service:AIAgentService for a specific external service (APP-BEHAVIOR.md's Integrations section) — for that module's own bookkeeping, rather than by a person: a plain string, zero or more values, no fixed upper bound. The value's own internal structure is by convention only: today it is an opaque string, and the example data's "AppleContacts/Christmas_List" merely follows a "<module>/<label>" spelling by hand, with nothing enforcing the prefix and nothing parsing it. That convention is a placeholder for a future structured value, which is what will actually keep two integration modules' labels from colliding — until then, two modules choosing the same bare string really would collide, and it is the writing module's own responsibility to namespace itself. Hidden, in the sense that the app never shows these in the cell's tag display alongside cell:builtInTag/cell:userTag values; hidden from display is not hidden from retrieval, though, and a tag search does match them. Alone among a cell's content, a cell:integrationTag value is local to the instance that wrote it and is never propagated to any other member when the cell is shared — the deliberate exception to the rule that everything in a cell's content is kept in sync across every member's copy. That exception is not a privacy carve-out but a meaning one: each principal's device hosts and runs its own agent independently, so a bookkeeping string written by one member's own module says nothing in a member's instance running a different integration, or none at all, and syncing it would produce values no one there can interpret or clear. Its consequence is that the same cell can legitimately carry different cell:integrationTag values on either side of a share, with nothing merging or reconciling the two."""@en .
+    rdfs:comment """A tag written by one member's own integration module — the Agent Bridge implementing an invited service:AIAgentService for a specific external service (APP-BEHAVIOR.md's Integrations section) — for that module's own bookkeeping, rather than by a person: a plain string, zero or more values, no fixed upper bound. The value's own internal structure is by convention only: today it is an opaque string, and the example data's "AppleContacts/Christmas_List" merely follows a "<module>/<label>" spelling by hand, with nothing enforcing the prefix and nothing parsing it. That convention is a placeholder for a future structured value, which is what will actually keep two integration modules' labels from colliding — until then, two modules choosing the same bare string really would collide, and it is the writing module's own responsibility to namespace itself. Hidden, in the sense that the app never shows these in the cell's tag display alongside its cell:userTag values; hidden from display is not hidden from retrieval, though, and a tag search does match them. Alone among a cell's content, a cell:integrationTag value is local to the instance that wrote it and is never propagated to any other member when the cell is shared — the deliberate exception to the rule that everything in a cell's content is kept in sync across every member's copy. That exception is not a privacy carve-out but a meaning one: each principal's device hosts and runs its own agent independently, so a bookkeeping string written by one member's own module says nothing in a member's instance running a different integration, or none at all, and syncing it would produce values no one there can interpret or clear. Its consequence is that the same cell can legitimately carry different cell:integrationTag values on either side of a share, with nothing merging or reconciling the two."""@en .
 
 #################################################################
 #    Topic Cell

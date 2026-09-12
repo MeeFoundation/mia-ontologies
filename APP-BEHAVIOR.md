@@ -216,17 +216,18 @@ It could then ask some questions, do you know the name of the bank that issued t
 
 ### Tags
 
-A cell can carry any number of **tags** — short text labels, shown in the cell's **Tags area**. A tag is not a second category: a cell sits in at most one category, which is a *filing* decision about where the cell belongs in a tree, while tags are *retrieval* labels that cut across the tree freely. A cell filed under Pets can carry a user tag naming the animal it concerns and a built-in tag such as **Emergency Contact** at the same time, without either changing where the cell sits.
+A cell can carry any number of **tags** — short text labels, shown in the cell's **Tags area**. A tag is not a second category: a cell sits in at most one category, which is a *filing* decision about where the cell belongs in a tree, while tags are *retrieval* labels that cut across the tree freely. A cell filed under Pets can carry a user tag naming the animal it concerns while sitting exactly where it sits, and the same tag can appear on cells filed in completely different branches.
 
-There are three kinds, and which kind a tag is determines both whether the user ever sees it and whether it travels when the cell is shared:
+There are two kinds, and which kind a tag is determines both whether the user ever sees it and whether it travels when the cell is shared:
 
-- **Built-in tags** come from a set the app itself supplies, offered in a picker so that common labels stay spelled the same way across a user's whole tree — **LoyaltyProgram** and **Emergency Contact** are two. Built-in only describes where the string came from, not who controls it: a member can remove one from a cell exactly as they can a tag they typed themselves. The app's set grows between releases; nothing in the ontology freezes it. Alice's `Hilton` cell carries **LoyaltyProgram**, so searching that label returns a link to it.
 - **User-defined tags** are typed freely by the user. There is no list to choose from, no approval step, and no restriction beyond being non-empty text. Alice tags her cat's three cells — `Ginger`, its `Medical` cell, and its `Care & Feeding` cell — **Ginger**, so one search collects everything about the cat regardless of where in the tree each cell sits; that the cells happen to be nested under one another is incidental, and the same tag would gather them just as well if they were scattered. A user tag may coincidentally match a built-in one; the app treats them as separate and shows both.
 - **Hidden integration-defined tags** are written by a member's own [integration module](#integrations) — the [Agent Bridge](#agent-bridge) implementing an invited agent for one specific external service — for that module's own bookkeeping, never by a person. The app never shows these in the Tags area, and the user neither adds nor edits them.
 
+There is deliberately no third, app-supplied kind — the app ships no built-in tag vocabulary at all. Where a set of cells shares a fact the data already models, that fact is found by searching for it directly rather than by labelling it; see [Finding Cells by Property](#finding-cells-by-property) below. A tag is for what the data does not already model.
+
 The hidden kind is what lets an integration keep external state it must round-trip without inventing a parallel store for it. An Apple Contacts integration importing a contact into a cell writes `AppleContacts/Christmas_List` on that cell to record that the contact sat in an Apple Contacts *Group* called "Christmas List" — a fact the cell model has nowhere else to put, since a group is not a category, not a topic, and not a member. Holding it on the cell is what makes the import **lossless** and the sync **bidirectional**: a later edit on either side can be carried back to the other, because the integration can still tell which group the contact came from. Alice's `Bob Johnson` and `Fred Flintstone` cells both carry it. The `<module>/<label>` spelling is a hand-kept convention today, not a parsed structure — the value is just an opaque string, so for now it falls to each module to prefix its own labels and thereby avoid colliding with another module's.
 
-Built-in and user-defined tags are ordinary shared cell content: adding or removing one propagates to every member's copy over the PDN, exactly like the cell's note, attachments, chat, and (for the cells where the name is shared at all) its name. Every member may add and remove them regardless of ownership, the same latitude they already have over the note.
+User-defined tags are ordinary shared cell content: adding or removing one propagates to every member's copy over the PDN, exactly like the cell's note, attachments, chat, and (for the cells where the name is shared at all) its name. Every member may add and remove them regardless of ownership, the same latitude they already have over the note.
 
 A hidden integration tag is the one exception — **it is never shared**. It stays in the copy belonging to the member whose integration wrote it, and no other member ever receives it. The reason is meaning rather than secrecy: each principal's own device hosts and runs its own agent independently (see [Agent Bridge](#agent-bridge)), so a bookkeeping label written by one member's module says nothing in a member's instance running a different integration, or none at all — syncing it would deliver a value no one on the other side could interpret or clear. The consequence is that the same shared cell can legitimately carry different hidden tags on each member's side.
 
@@ -234,12 +235,20 @@ The deliberate limits: nothing merges or reconciles two members' tag sets beyond
 
 ### Finding Cells by Tag
 
-The user can search their tree for a tag. The result is a flat list of links to cells — not a filtered tree, and not the cells' contents — from which tapping an entry opens that cell. Searching **LoyaltyProgram** returns a link to Alice's `Hilton` cell; searching **Ginger** returns links to all three of her cat's cells at once.
+The user can search their tree for a tag. The result is a flat list of links to cells — not a filtered tree, and not the cells' contents — from which tapping an entry opens that cell. Searching **Ginger** returns links to all three of her cat's cells at once.
 
 Each result links by the target cell's own stable id, exactly as a resolved wikilink in a note does (see [Filesystem Persistence](#filesystem-persistence) above). This matters for the same reason it matters there: cell names are only unique among siblings, never globally, so resolving a result by name could land on an unrelated cell that happens to share a display name with the intended one. Id-based resolution rules that out.
 
-Search matches all three kinds of tag, hidden integration tags included — those are hidden from *display*, not from *retrieval*, and being able to find the cells an integration has been working in is the point of it writing them. Results are scoped to the searching member's own tree, so a hidden tag only ever turns up in the instance that wrote it, consistent with its never being shared.
+Search matches both kinds of tag, hidden integration tags included — those are hidden from *display*, not from *retrieval*, and being able to find the cells an integration has been working in is the point of it writing them. Results are scoped to the searching member's own tree, so a hidden tag only ever turns up in the instance that wrote it, consistent with its never being shared.
 
+
+### Finding Cells by Property
+
+Tags are not the only way to gather cells. The user — or their own AI agent, working on their behalf — can also search for every cell whose `c:topic` graph carries a given **property**, and get back the same flat list of cell links a tag search returns.
+
+The worked example is the one a tag would otherwise have handled: "show me every cell where I hold a loyalty program." That is a search for `sa:loyaltyProgramID` (see [Service Accounts Ontology](README.md#service-accounts-ontology) in README.md), and it returns Alice's `Hilton` cell because that cell's topic graph records her Hilton Honors membership number. Nobody had to label the cell for this to work.
+
+The two searches complement each other rather than competing. A property search needs no one to have remembered to tag anything and cannot drift out of date, since it reads the same fact the cell already stores for its own sake — but it only reaches what the data actually models. A tag reaches anything at all, including a grouping that exists only in the user's head ("Ginger"), at the cost of someone having to apply it. So a fact with a property of its own is found by that property, and a tag is for what the data does not already model — which is why the app ships no built-in tag vocabulary.
 
 ### Adding a Topic
 

@@ -13,8 +13,8 @@
 @prefix dc: <http://purl.org/dc/elements/1.1/> .
 
 <http://mee.foundation/ontologies/cell/shapes> rdf:type owl:Ontology ;
-    owl:versionIRI <http://mee.foundation/ontologies/cell/shapes/3.36.0> ;
-    dc:date "2026-09-11"^^xsd:date ;
+    owl:versionIRI <http://mee.foundation/ontologies/cell/shapes/3.37.0> ;
+    dc:date "2026-09-12"^^xsd:date ;
     rdfs:label "Cell Ontology SHACL Validation Shapes"@en ;
     rdfs:comment "SHACL validation shapes for cell:Cell DataBook instances (the content facet of a cell) and cell:SCGraph DataBook instances (the graph DataBooks a cell links to) in the Cell Ontology."@en .
 
@@ -125,9 +125,8 @@
 #  MemberCell
 #  cell:MemberCell is the actual/instantiated facet of a cell — real,
 #  member-classified content. :MemberCellShape constrains
-#  cell:creator/cell:owner/cell:member, plus the three tag properties
-#  cell:builtInTag/cell:userTag/cell:integrationTag (see their own comment
-#  below) — cell:owner and cell:member are
+#  cell:creator/cell:owner/cell:member, plus the two tag properties
+#  cell:userTag/cell:integrationTag (see their own comment below) — cell:owner and cell:member are
 #  each required, one or more values, no fixed upper bound (cell:creator
 #  stays exactly one); cell:topic's requirement of at least one value, no
 #  upper bound (on the cell:TopicCell subclass only) is enforced by
@@ -187,30 +186,19 @@
         sh:message "A cell:MemberCell's cell:member is required, at least one value, and each must be a cell:SCGraph."@en
     ] ;
 
-    # cell:builtInTag/cell:userTag/cell:integrationTag — each zero or more
-    # values, no minCount and no maxCount: a cell need carry no tags at all,
-    # and nothing caps how many it may carry. All three are constrained
-    # identically, to a non-empty string and nothing further.
-    #
-    # cell:builtInTag in particular is deliberately NOT given an sh:in list.
-    # Which strings the app ships as built-in tags is an app-level concern
-    # that grows independently of this ontology (documented in
-    # APP-BEHAVIOR.md's Tags section), unlike vehicles:fuelType and pets:sex,
-    # whose vocabularies are small, closed, and genuinely frozen — freezing
-    # this one here would make every new app-supplied tag a SHACL edit.
+    # cell:userTag/cell:integrationTag — each zero or more values, no
+    # minCount and no maxCount: a cell need carry no tags at all, and nothing
+    # caps how many it may carry. Both are constrained identically, to a
+    # non-empty string and nothing further; neither has an sh:in list, since
+    # a tag value belongs to no vocabulary at all (contrast vehicles:fuelType
+    # and pets:sex, whose small closed vocabularies really are frozen that
+    # way).
     #
     # sh:minLength 1 catches only the empty string. The rules SHACL cannot
     # see — leading/trailing whitespace, a YAML value that isn't a string at
     # all, and duplicates within one kind (RDF is a set, so a repeated
     # literal collapses before validation ever runs) — are integrity.md's
     # Check 36 instead.
-    sh:property [
-        sh:path cell:builtInTag ;
-        sh:datatype xsd:string ;
-        sh:minLength 1 ;
-        sh:message "A cell:builtInTag value must be a non-empty string."@en
-    ] ;
-
     sh:property [
         sh:path cell:userTag ;
         sh:datatype xsd:string ;

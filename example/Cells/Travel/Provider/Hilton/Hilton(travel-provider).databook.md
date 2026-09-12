@@ -2,7 +2,7 @@
 id: http://www.example.org/mia/cells/cell-52
 title: "Hilton"
 type: cell-databook
-version: 1.2.0
+version: 1.3.0
 created: 2026-09-11
 description: >
   Cell DataBook for folder "Hilton" (cell:category: cat:TravelProvider). A leaf cell
@@ -13,14 +13,12 @@ description: >
   her Hilton Honors account. cat:TravelProvider's own cell:TemplateCell
   is cell:isTopicCell true with cell:topicGraphShape sashapes:ServiceAccountShape, so
   that topic is template-driven and the cell is typed cell:TopicCell from the start.
-  The cell carries the built-in tag "LoyaltyProgram", so a tag search for that label
-  returns a link to it.
+  The cell carries no tag: what makes it findable is the loyaltyProgramID in its
+  own topic graph, which a search for that property returns directly.
 mia:
   category: "cat:TravelProvider"
   creator: ":Self"
   owner: ":Self"
-  builtInTag:
-    - "LoyaltyProgram"
   member:
     id: "http://www.example.org/mia/graphs/graph-99"
     claimant: ":Self"
