@@ -205,7 +205,7 @@ A cell has a **creator**, which is the identity of the user who created it. This
 
 A cell can be **shared**. The creator of a cell can invite people, or services — one's own AI agent, a cell backup service, or the service of an organization compatible with the Mee PDN protocols — to join the cell. When they do, they gain access to the cell. Cells are alive: any change made to a cell's contents by any member is visible to all members. Cells are self-contained and may be nested inside other cells by any app user. The organization of these multi-cellular structures is personal to the app user and not shared. The structures will be similar between users to the extent that they are leveraging the app's built-in tree of categories.
 
-Cells can be **linked**. Cells have globally unique identifiers. This allows the note of a "source" cell to include a link to a "target" cell. The user can follow a link in a source cell if they also have access to the target cell.
+Cells can be **linked**. Cells have globally unique identifiers (see [Cell Id](#cell-id) below). This allows the note of a "source" cell to include a link to a "target" cell. The user can follow a link in a source cell if they also have access to the target cell.
 
 ### Diving Deeper
 
@@ -288,6 +288,22 @@ Reusable class-level templates (`cat-templates.ttl`) are the exception: each is 
 Note: neither is ever carried by a `c:TemplateCell` — their domain is `c:MemberCell` deliberately, so no tag is ever cloned into a new cell by [Lazy Instantiation](APP-BEHAVIOR.md#lazy-instantiation); every tag is applied to the real, already-instantiated cell afterwards. This is the opposite choice from `c:category`, whose domain really is `c:Cell` because a template does carry the concept it's a template for.
 
 Note: A `c:MemberCell`'s applicable validation shape is derived: reverse-lookup the `c:TemplateCell` sharing this cell's own `c:category` value and read whichever of its `c:memberGraphShape` (for one of this cell's own `c:member` graphs) or `c:topicGraphShape` (for one of its `c:topic` graphs) values applies, depending on which list the graph in question belongs to.
+
+#### Cell Id
+
+A cell's id is globally unique across every user's independent tree, not merely within one person's own. It is flat and opaque, never derived from the cell's own name or category, and no registry or central coordination assigns it — consistent with no cell, and nothing about it, ever being held by a cloud provider or third party (see [Cell Storage](APP-BEHAVIOR.md#cell-storage)), and with `:Self`'s purely-local identifier (see [`:Self` IRI convention](CLAUDE.md#key-architectural-patterns)). Instead, it is derived from its creator's identity and freshly generated random bytes. For Alice creating a cell (`‖` is byte concatenation):
+
+```
+nonce     = 16 random bytes
+cell_id   = BLAKE3 derive_key("pdn/cell-id/v1", pdn_id ‖ announcement_pubkey ‖ nonce), first 16 bytes
+signature = sign(announcement_secret, "pdn/cell-founding/v1" ‖ pdn_id ‖ announcement_pubkey ‖ nonce)
+```
+
+`pdn_id` is Alice's PDN ID; the announcement key pair belongs to her identity, shared by all her devices, not to one device. The id is written as 32 lowercase hex characters. `pdn_id`, `announcement_pubkey`, `nonce` and `signature` are stored in the cell's founding event — the first event in the cell's membership store; the id itself is not stored.
+
+A founding event is valid only when the id recomputed from its fields matches and its signature verifies (see [Deriving and Checking a Cell Id](APP-BEHAVIOR.md#deriving-and-checking-a-cell-id)). This is what prevents a member from feeding a device that already knows the id (from its identity's records or a note link) a forged history with a different founder — a random id such as a v4 UUID names no one and cannot. The context strings keep this hash and signature apart from any other made over the same bytes; without the founding event, which only members hold, the id reveals neither creator nor creation time.
+
+This repo's own example data uses sequential `cell-<NN>` ids instead (see integrity.md's Check 9) — the same flat, opaque shape, deliberately simple for one worked example living entirely under a single shared example domain, and not unique once real cells belong to many different users' independent instances.
 
 ### ServiceTag
 
