@@ -11,19 +11,18 @@
 @base <http://mee.foundation/ontologies/service> .
 
 <http://mee.foundation/ontologies/service> rdf:type owl:Ontology ;
-    owl:versionIRI <http://mee.foundation/ontologies/service/2.0.1> ;
+    owl:versionIRI <http://mee.foundation/ontologies/service/2.1.0> ;
     dc:date "2026-09-12"^^xsd:date ;
-    owl:versionInfo "Version 2.0.1 - service:AppleContacts's comment describes the structured cell:IntegrationTag values it writes, namespaced by its own developer's reverse-DNS domain."@en ;
+    owl:versionInfo "Version 2.1.0 - comment terminology aligned on 'service' and on cell:serviceTag, the tag a member's own service module writes"@en ;
     owl:imports <https://w3id.org/cco-domains/cco/AgentOntology> ,
                 <http://mee.foundation/ontologies/prov-upper-subset> ;
     rdfs:label "Service Ontology"@en ;
-    rdfs:comment """Service Ontology for the Cellula App.
+    rdfs:comment """Service Ontology for the V4 App.
                     Describes the non-human services a person invites to collaborate inside a
                     shared cell — the second kind of first-class, member-capable participant,
-                    peer to persona.ttl (models Person). A service:Service is exactly what the app calls an
-                    **integration**: the two are one concept under two names, not a service
-                    and some separate module wrapping it — every integration the app offers
-                    is one of the classes below, and every class below is an integration.
+                    peer to persona.ttl (models Person). A service is not a service plus some
+                    separate module wrapping it: every service the app offers is one of the
+                    classes below, and every class below is a service the app can run.
                     A cell's members are only ever
                     p:Person or service:Service individuals: o:Organization
                     (organization.ttl) is not itself member-capable, and reaches a cell only
@@ -67,7 +66,7 @@ service:Service rdf:type owl:Class ;
                     question of whom the service acts for: service:AgentService acts on
                     behalf of exactly one p:Person member of the cell (service:actsFor), and
                     service:ServiceProvider acts on behalf of the o:Organization that
-                    provides it (service:providedBy). The concrete integrations the app
+                    provides it (service:providedBy). The concrete services the app
                     ships — service:ChatGPT, service:AppleContacts and service:ArcaBackup —
                     are all the former, each a leaf under service:AgentService. No class here
                     is declared owl:disjointWith any other, since one real service can
@@ -125,7 +124,7 @@ service:AgentService rdf:type owl:Class ;
                     instead, recorded by service:providedBy rather than service:actsFor.
                     Directly instantiable, not abstract: a member's agent that has no vendor
                     class of its own is typed service:AgentService and nothing more, so
-                    modeling a new integration never requires minting a class for it first.
+                    modeling a new service never requires minting a class for it first.
                     Unlike a service:ServiceProvider, an agent service claims the graphs it
                     contributes under its own IRI rather than an organization's, since no
                     organization stands behind it in the cell's relationship — even where one
@@ -149,7 +148,7 @@ service:actsFor rdf:type owl:ObjectProperty ;
                     of, exactly one person, never independently — a second member who wants
                     their own agent invites a separate service:AgentService individual of
                     their own, with its own service:actsFor value. That one-principal rule is
-                    also why a cell:integrationTag (cell.ttl) written by an agent service is
+                    also why a cell:serviceTag (cell.ttl) written by an agent service is
                     never propagated on a share: the tag means something only in the instance
                     of the member the service acts for. The range is p:Person alone, not the
                     wider member union: an agent's principal is always a human, mirroring
@@ -177,7 +176,7 @@ service:ChatGPT rdf:type owl:Class ;
                     service:providedBy: the class already names the vendor, and no
                     o:Organization stands behind it inside the cell's own relationship —
                     contrast service:ArcaBackup, where the providing organization is a party
-                    to the arrangement. See APP-BEHAVIOR.md's ChatGPT Integration Module
+                    to the arrangement. See APP-BEHAVIOR.md's ChatGPT Service Module
                     section for what it actually does once invited."""@en .
 
 
@@ -188,19 +187,19 @@ service:ChatGPT rdf:type owl:Class ;
 service:AppleContacts rdf:type owl:Class ;
     rdfs:subClassOf service:AgentService ;
     rdfs:label "Apple Contacts"@en ;
-    rdfs:comment """The Apple Contacts sync integration, which imports a member's contacts
+    rdfs:comment """The Apple Contacts sync service, which imports a member's contacts
                     into cells and carries later edits back out, keeping the two sides in step.
                     An agent service with no LLM in it at all — what makes it one is
                     service:actsFor: it syncs exactly one member's own address book and
                     answers to that member alone. This is what makes the
-                    cell:IntegrationTag values it writes (cell.ttl) — namespace
+                    cell:ServiceTag values it writes (cell.ttl) — namespace
                     foundation.mee.applecontacts, key group, value the name of the Apple
                     Contacts Group a synced contact sat in — local to that member's
                     instance and never propagated on a share: another
-                    member's instance runs a different integration, or none, and could not
+                    member's instance runs a different service, or none, and could not
                     interpret or clear the value. Carries no service:providedBy — Apple is not
                     a party to the cell's relationship, it is merely where the data came from.
-                    See APP-BEHAVIOR.md's Apple Contacts Integration Module section."""@en .
+                    See APP-BEHAVIOR.md's Apple Contacts Service Module section."""@en .
 
 
 #################################################################

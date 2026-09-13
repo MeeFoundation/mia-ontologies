@@ -44,8 +44,8 @@ PREFIXES = {
     "vehicleshapes": "http://mee.foundation/ontologies/vehicles/shapes#",
 }
 
-# The three sub-keys of one mia.integrationTag entry, mapped to the
-# cell:IntegrationTag datatype property each becomes (cell.ttl's Integration
+# The three sub-keys of one mia.serviceTag entry, mapped to the
+# cell:ServiceTag datatype property each becomes (cell.ttl's Service
 # Tag section). Spelled out rather than derived from the key name, so a grep
 # for cell:tagNamespace finds this line.
 TAG_SUBKEYS = {
@@ -140,15 +140,15 @@ def find_graph_entry(entries, graph_arg):
 def term(node):
     """Format a node as a Turtle term: a blank-node label (`_:x`) is written
     as-is, anything else is an IRI and gets angle brackets. Blank nodes enter
-    the picture only as cell:integrationTag's cell:IntegrationTag value nodes
-    (cell.ttl's Integration Tag section)."""
+    the picture only as cell:serviceTag's cell:ServiceTag value nodes
+    (cell.ttl's Service Tag section)."""
     return node if node.startswith("_:") else f"<{node}>"
 
 
 def tag_node(cell_id, index):
-    """A stable blank-node label for one cell:IntegrationTag value node,
+    """A stable blank-node label for one cell:ServiceTag value node,
     derived from the cell's own id local-name plus the value's position in
-    mia.integrationTag. Turtle scopes a blank-node label to one document and
+    mia.serviceTag. Turtle scopes a blank-node label to one document and
     yaml-to-rdf.py emits every cell in the tree into a single document, so a
     label unique only within one process_cell_databook() call would silently
     merge two cells' tag nodes into one. A cell id is already globally unique
@@ -167,7 +167,7 @@ def emit_obj(triples, subj, prop, obj_iri):
 
 def emit_lit(triples, subj, prop, lit):
     """Emit an xsd:string-typed literal triple — cell:userTag and the three
-    cell:IntegrationTag parts are the only `mia.` values that are literals
+    cell:ServiceTag parts are the only `mia.` values that are literals
     rather than IRIs, so they can't go through emit_obj()/resolve(): a tag is
     a plain string, never a CURIE or a local name."""
     escaped = str(lit).replace("\\", "\\\\").replace('"', '\\"')
@@ -212,7 +212,7 @@ def process_cell_databook(fm, triples):
     for tag in as_list(mia.get("userTag")):
         emit_lit(triples, subj, CELL + "userTag", tag)
 
-    # cell:integrationTag — 0..N, each value a cell:IntegrationTag node
+    # cell:serviceTag — 0..N, each value a cell:ServiceTag node
     # rather than a literal (an owl:ObjectProperty), carrying exactly one
     # cell:tagNamespace/cell:tagKey/cell:tagValue. as_list() applies to the
     # outer sequence only — a lone mapping may stand in for a one-element
@@ -220,14 +220,14 @@ def process_cell_databook(fm, triples):
     # sub-values, each of which is exactly one scalar; coercing there would
     # turn a YAML error into a confusing sh:maxCount violation. The node and
     # its type are emitted even when the entry is malformed, so a missing
-    # sub-key surfaces as an :IntegrationTagShape sh:minCount violation
+    # sub-key surfaces as an :ServiceTagShape sh:minCount violation
     # rather than the tag vanishing from the synthesized graph unremarked;
     # integrity.md's Check 36 catches the same thing at YAML level, where it
     # can name the file and the sub-key.
-    for i, tag in enumerate(as_list(mia.get("integrationTag"))):
+    for i, tag in enumerate(as_list(mia.get("serviceTag"))):
         node = tag_node(subj, i)
-        emit_obj(triples, subj, CELL + "integrationTag", node)
-        emit_type(triples, node, CELL + "IntegrationTag")
+        emit_obj(triples, subj, CELL + "serviceTag", node)
+        emit_type(triples, node, CELL + "ServiceTag")
         if not isinstance(tag, dict):
             continue
         for sub_key, prop in TAG_SUBKEYS.items():

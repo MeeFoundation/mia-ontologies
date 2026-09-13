@@ -1,8 +1,8 @@
-# Apple Contacts Integration Notes
+# Apple Contacts Service Notes
 
 ## Overview
 
-Cellula is a strict superset of Apple Contacts in every dimension. This means importing from Apple Contacts into the app is straightforward, but exporting from the app back to Apple Contacts requires explicit design decisions. Round-tripping losslessly is achievable but requires an anchor strategy (see below).
+V4 is a strict superset of Apple Contacts in every dimension. This means importing from Apple Contacts into the app is straightforward, but exporting from the app back to Apple Contacts requires explicit design decisions. Round-tripping losslessly is achievable but requires an anchor strategy (see below).
 
 There are two levels to address:
 
@@ -28,9 +28,9 @@ This display truncation limit is not publicly documented by Apple and likely var
 
 ---
 
-## Level 2: Groups ↔ Hidden Integration Tags
+## Level 2: Groups ↔ Hidden Service Tags
 
-An Apple Contacts **group** is not a category, not a topic, and not a member, so it does not map onto the cell tree at all. The module records it instead as a [hidden integration tag](../APP-BEHAVIOR.md#tags) on the contact's own cell — `c:integrationTag`, namespace `foundation.mee.applecontacts`, key `group`, value the group's name verbatim.
+An Apple Contacts **group** is not a category, not a topic, and not a member, so it does not map onto the cell tree at all. The module records it instead as a [hidden service tag](../README.md#tags) on the contact's own cell — `c:serviceTag`, namespace `foundation.mee.applecontacts`, key `group`, value the group's name verbatim.
 
 **Import (Apple Contacts → the app):** for each group a contact belongs to, write one tag. A contact in three groups gets three tags sharing one namespace and one key, differing only in value — which is exactly what a namespace/key pair is allowed to repeat for. Where the contact's cell is filed is decided independently, by the ordinary auto-filing heuristic; no cell is created, moved, or reclassified on account of a group.
 
@@ -40,7 +40,7 @@ There is no flattening to do in either direction. Because a group never correspo
 
 **Rename safety:** matching is by name, so a group renamed on the Apple side reads as a new group, leaving the old tag stale. A module that wants to survive renames stores the group's own identifier alongside the name under a second key — `groupID` — which is precisely what having a key rather than one opaque string buys.
 
-Note that these tags never propagate when a cell is shared: they are one member's own module's bookkeeping, and a member running a different integration, or none, could not interpret them.
+Note that these tags never propagate when a cell is shared: they are one member's own module's bookkeeping, and a member running a different servicn, or none, could not interpret them.
 
 ---
 
@@ -50,7 +50,7 @@ vCard supports custom extension fields (`X-` prefix). Storing app IRIs in these 
 
 - `X-CELLULA-PERSON-IRI` on a contact record — points to the `p:Person` individual IRI
 
-Groups need no anchor field of their own: the hidden integration tag already holds the group's name verbatim on the cell, and re-identification is by that value (see the rename-safety note above for when a `groupID` tag is worth writing alongside it).
+Groups need no anchor field of their own: the hidden service tag already holds the group's name verbatim on the cell, and re-identification is by that value (see the rename-safety note above for when a `groupID` tag is worth writing alongside it).
 
 These fields are ignored by Apple Contacts and other vCard consumers but survive export/import cycles, making true lossless round-tripping achievable.
 
@@ -62,5 +62,5 @@ These fields are ignored by Apple Contacts and other vCard consumers but survive
 |-----------|--------|--------|-----------|
 | Contact fields | Direct field mapping | Merge all graphs into one vCard | Yes, with `X-CELLULA-PERSON-IRI` anchor |
 | Multiple graphs per person | Each → a separate graph embedded in the person's cell DataBook | Flatten to single vCard; multiple values per label are correct | Yes |
-| Group membership | Each group → one hidden integration tag on the cell | Tags in this module's namespace with key `group` → group membership | Yes — the group name round-trips verbatim |
+| Group membership | Each group → one hidden service tag on the cell | Tags in this module's namespace with key `group` → group membership | Yes — the group name round-trips verbatim |
 | App-specific metadata | Stored in graph DataBook | Store IRI in `X-CELLULA-*` vCard field | Yes, with anchor fields |

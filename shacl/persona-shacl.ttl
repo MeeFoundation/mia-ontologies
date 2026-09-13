@@ -13,10 +13,10 @@
 @prefix dc: <http://purl.org/dc/elements/1.1/> .
 
 <http://mee.foundation/ontologies/persona/shapes> rdf:type owl:Ontology ;
-    owl:versionIRI <http://mee.foundation/ontologies/persona/shapes/4.11.0> ;
-    dc:date "2026-09-05"^^xsd:date ;
-    rdfs:label "Cellula's SHACL Validation Shapes"@en ;
-    rdfs:comment """SHACL validation shapes for Cellula, an identity agent application from Mee.
+    owl:versionIRI <http://mee.foundation/ontologies/persona/shapes/4.12.0> ;
+    dc:date "2026-09-12"^^xsd:date ;
+    rdfs:label "V4's SHACL Validation Shapes"@en ;
+    rdfs:comment """SHACL validation shapes for V4, an identity agent application from Mee.
 
                     Architecture: named-graph graphs — each graph file contains exactly one
                     persona:Person individual. The user's individual uses the IRI :Self across

@@ -10,7 +10,7 @@ mia:
   category: "cat:Others"
   creator: ":Self"
   owner: ":Self"
-  integrationTag:
+  serviceTag:
     - namespace: "foundation.mee.applecontacts"
       key: "group"
       value: "Christmas List"

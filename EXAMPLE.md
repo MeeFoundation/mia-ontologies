@@ -1,4 +1,4 @@
-# Cellula Ontologies — Illustrative Example
+# V4 Ontologies — Illustrative Example
 
 This file continues [README.md](README.md), which describes the Category, Cell, Graph, Persona, and Organization ontologies, and is continued by [APP-BEHAVIOR.md](APP-BEHAVIOR.md), which documents how the app behaves on top of this data. It provides an illustrative example — a hypothetical user, Alice Walker — showing how those ontologies are used together, followed by diagram-generation instructions and the full validation pipeline for the example dataset.
 
@@ -149,7 +149,7 @@ The trip itself is backed by three `c:topic` graphs sharing one subject, `:Kyoto
 
 Alongside her trips, Alice keeps a cell per travel provider she books with, under a *Provider* cell (`cat:TravelProvider`) nested in the same *Travel* cell. Her [Hilton](<example/Cells/Travel/Provider/Hilton/Hilton(travel-provider).databook.md>) cell is the one worked example: a single `c:topic` ([graph 84](<example/Cells/Travel/Provider/Hilton/Hilton(travel-provider).databook.md#graph-84>)) carrying her Hilton Honors account — username, password, service URI, and `sa:loyaltyProgramID`, her membership number. `cat:TravelProvider` is `c:isTopicCell true` with `c:topicGraphShape sashapes:ServiceAccountShape`, so that topic is template-driven: [Lazy Instantiation](APP-BEHAVIOR.md#lazy-instantiation) types the cell `c:TopicCell` from the start and stamps the graph's `c:template` straight from that shape. The parent *Provider* cell is a scaffold, so it carries the same required topic ([graph 56](<example/Cells/Travel/Provider/Provider(travel-provider).databook.md#graph-56>)) deliberately empty — its real content lives in the leaf cell instead, exactly as *Trips* does above.
 
-The cell carries no tag at all, and needs none: `sa:loyaltyProgramID` in its own topic graph is what makes it findable. Asking for every cell where Alice holds a loyalty program is a search for that property, which returns this cell without anyone having had to label it — see [Finding Cells by Property](APP-BEHAVIOR.md#finding-cells-by-property) in APP-BEHAVIOR.md, and [Tags](APP-BEHAVIOR.md#tags) for the cases a property search cannot reach.
+The cell carries no tag at all, and needs none: `sa:loyaltyProgramID` in its own topic graph is what makes it findable. Asking for every cell where Alice holds a loyalty program is a search for that property, which returns this cell without anyone having had to label it — see [Finding Cells by Property](APP-BEHAVIOR.md#finding-cells-by-property) in APP-BEHAVIOR.md, and [Tags](README.md#tags) for the cases a property search cannot reach.
 
 ## Cells Mentioned
 

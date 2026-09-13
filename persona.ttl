@@ -15,17 +15,17 @@
 @base <http://mee.foundation/ontologies/persona> .
 
 <http://mee.foundation/ontologies/persona> rdf:type owl:Ontology ;
-    owl:versionIRI <http://mee.foundation/ontologies/persona/4.16.0> ;
+    owl:versionIRI <http://mee.foundation/ontologies/persona/4.17.0> ;
     owl:imports <https://w3id.org/cco-domains/domains/PersonOntology> ;
     owl:imports <https://w3id.org/cco-domains/domains/AddressOntology> ;
     owl:imports <https://w3id.org/cco-domains/domains/StagingOntology> ;
-    dc:date "2026-09-05"^^xsd:date ;
-    owl:versionInfo "Version 4.16.0 - p:JSContactCard renamed to p:ContactInfo; its shape pshapes:JSContactCardPersonShape renamed to pshapes:ContactInfoShape, defined in the renamed shacl/contactinfo-shacl.ttl"@en ;
+    dc:date "2026-09-12"^^xsd:date ;
+    owl:versionInfo "Version 4.17.0 - app named V4 in the ontology comments"@en ;
     rdfs:label "Persona Ontology"@en ;
-    rdfs:comment """Persona Ontology for the Cellula App.
+    rdfs:comment """Persona Ontology for the V4 App.
 
                     This application ontology extends PersonOntology, AddressOntology,
-                    and StagingOntology for the Cellula App
+                    and StagingOntology for the V4 App
 
                     ARCHITECTURE:
                     This application ontology serves as:
