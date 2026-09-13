@@ -7,10 +7,10 @@ flowchart TD
 
     subgraph ctx["Graph"]
         direction LR
-        ctx_meta["claimant: :Self\nsubject: :Self\ntemplate: pshapes:ContactInfoShape"]:::meta
+        ctx_meta["claimant: :Self\ngraphSubject: :Self\ntemplate: pshapes:ContactInfoShape"]:::meta
     end
 
     ne0c3ba92f1db[":Self\n(Person)"]:::person
-    nc385c412c77c("Alice"):::lit
+    n7ffbf572c94b("Alice"):::lit
 
-    ne0c3ba92f1db -->|"GivenName"| nc385c412c77c
+    ne0c3ba92f1db -->|"GivenName"| n7ffbf572c94b

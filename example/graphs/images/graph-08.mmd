@@ -1,17 +1,18 @@
 flowchart TD
     classDef person fill:#fffacd,stroke:#aaa,color:#333
     classDef org    fill:#cce5ff,stroke:#aaa,color:#333
+    classDef service fill:#e6e6e6,stroke:#aaa,color:#333
     classDef lit    fill:none,stroke:none,font-style:italic,color:#2a7a2a
     classDef meta   fill:#f5f5ff,stroke:#9999cc,color:#333
 
     subgraph ctx["Graph"]
         direction LR
-        ctx_meta["claimant: :Bob_Johnson\nsubject: :Self\ntemplate: pshapes:ContactInfoShape"]:::meta
+        ctx_meta["claimant: :Bob_Johnson\ngraphSubject: :Self\ntemplate: pshapes:ContactInfoShape"]:::meta
     end
 
     ne0c3ba92f1db[":Self\n(Person)"]:::person
-    ne87afe0097ae("Alice"):::lit
-    n465047785ac1("Favorite drink: pepsi"):::lit
+    nf1e9fccb8c41("Alice"):::lit
+    n70a654863c71("Favorite drink: pepsi"):::lit
 
-    ne0c3ba92f1db -->|"GivenName"| ne87afe0097ae
-    ne0c3ba92f1db -->|"ont00001917"| n465047785ac1
+    ne0c3ba92f1db -->|"GivenName"| nf1e9fccb8c41
+    ne0c3ba92f1db -->|"ont00001917"| n70a654863c71

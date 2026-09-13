@@ -1,12 +1,13 @@
 flowchart TD
     classDef person fill:#fffacd,stroke:#aaa,color:#333
     classDef org    fill:#cce5ff,stroke:#aaa,color:#333
+    classDef service fill:#e6e6e6,stroke:#aaa,color:#333
     classDef lit    fill:none,stroke:none,font-style:italic,color:#2a7a2a
     classDef meta   fill:#f5f5ff,stroke:#9999cc,color:#333
 
     subgraph ctx["Graph"]
         direction LR
-        ctx_meta["claimant: :Self\nsubject: :Alice_ATT_Account\ntemplate: sashapes:ServiceAccountShape"]:::meta
+        ctx_meta["claimant: :Self\ngraphTopic: :Alice_ATT_Account\ntemplate: sashapes:ServiceAccountShape"]:::meta
     end
 
     n6b841a14e1a6[":Alice_ATT_Account\n(ServiceAccount)"]
@@ -15,11 +16,11 @@ flowchart TD
     n30d72c0afa33("https://www.att.com/my/"):::lit
     n14149baff2f5("Alice#ATT2026!"):::lit
     ne0c3ba92f1db[":Self\n(Person)"]:::person
-    nae7cb1e74db7("+15108149999"):::lit
+    n51a9e2da028a("+15108149999"):::lit
 
     n6b841a14e1a6 -->|"serviceName"| nb207e27d4b3f
     n6b841a14e1a6 -->|"userHandle"| n9e9b92220f65
     n6b841a14e1a6 -->|"serviceURI"| n30d72c0afa33
     n6b841a14e1a6 -->|"hasPassword"| n14149baff2f5
-    ne0c3ba92f1db -->|"TelephoneNumber"| nae7cb1e74db7
+    ne0c3ba92f1db -->|"TelephoneNumber"| n51a9e2da028a
     ne0c3ba92f1db -->|"holdsUserAccount"| n6b841a14e1a6

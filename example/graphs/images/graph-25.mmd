@@ -1,21 +1,22 @@
 flowchart TD
     classDef person fill:#fffacd,stroke:#aaa,color:#333
     classDef org    fill:#cce5ff,stroke:#aaa,color:#333
+    classDef service fill:#e6e6e6,stroke:#aaa,color:#333
     classDef lit    fill:none,stroke:none,font-style:italic,color:#2a7a2a
     classDef meta   fill:#f5f5ff,stroke:#9999cc,color:#333
 
     subgraph ctx["Graph"]
         direction LR
-        ctx_meta["claimant: :Self\nsubject: :Jane_Starostina\ntemplate: ['pshapes:PrimaryCarePhysicianShape', 'pshapes:ContactInfoShape']"]:::meta
+        ctx_meta["claimant: :Self\ngraphTopic: :Jane_Starostina\ntemplate: ['pshapes:PrimaryCarePhysicianShape', 'pshapes:ContactInfoShape']"]:::meta
     end
 
     ncb7388e459f8[":Jane_Starostina\n(Person)"]:::person
-    n9c4e38618163("Jane"):::lit
-    n3569032f4309("Starostina"):::lit
-    n04358eb51fb0("Sophia Walker's primary care physician"):::lit
+    ncca514416f73("Jane"):::lit
+    n1108a2f91206("Starostina"):::lit
+    nb8807e2e1330("Sophia Walker's primary care physician"):::lit
     n3c7aa6d071dd("Endocrinology"):::lit
 
-    ncb7388e459f8 -->|"GivenName"| n9c4e38618163
-    ncb7388e459f8 -->|"FamilyName"| n3569032f4309
-    ncb7388e459f8 -->|"ont00001917"| n04358eb51fb0
+    ncb7388e459f8 -->|"GivenName"| ncca514416f73
+    ncb7388e459f8 -->|"FamilyName"| n1108a2f91206
+    ncb7388e459f8 -->|"ont00001917"| nb8807e2e1330
     ncb7388e459f8 -->|"specialty"| n3c7aa6d071dd

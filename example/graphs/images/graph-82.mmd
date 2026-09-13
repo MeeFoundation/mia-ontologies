@@ -1,29 +1,30 @@
 flowchart TD
     classDef person fill:#fffacd,stroke:#aaa,color:#333
     classDef org    fill:#cce5ff,stroke:#aaa,color:#333
+    classDef service fill:#e6e6e6,stroke:#aaa,color:#333
     classDef lit    fill:none,stroke:none,font-style:italic,color:#2a7a2a
     classDef meta   fill:#f5f5ff,stroke:#9999cc,color:#333
 
     subgraph ctx["Graph"]
         direction LR
-        ctx_meta["claimant: :Self\nsubject: :Self\ntemplate: residenceshapes:ResidenceShape"]:::meta
+        ctx_meta["claimant: :Self\ngraphTopic: :Self\ntemplate: residenceshapes:ResidenceShape"]:::meta
     end
 
     nc67f0317dd3d[":Address_Boston\n(PostalAddress)"]
-    nd810ac77f2a0("456 Commonwealth Ave"):::lit
-    nbded58b61b55("Boston"):::lit
-    n909af9ba2b3d("MA"):::lit
-    nd66831da8997("02215"):::lit
+    na0c2b79e8f9b("456 Commonwealth Ave"):::lit
+    nbf6f97f1297d("Boston"):::lit
+    nc3bd5ca4c01a("MA"):::lit
+    ne4cec26894ef("02215"):::lit
     n596b411b2d6f[":Boston_Residence\n(Residence)"]
     ne0c3ba92f1db[":Self\n(Person)"]:::person
     n712165170b98[":Interval_2020_2025\n(TemporalInterval)"]
     na357c4eb4a16("2020-01-01"):::lit
     nbf2895943c37("2025-08-31"):::lit
 
-    nc67f0317dd3d -->|"hasContinuantPart"| nd810ac77f2a0
-    nc67f0317dd3d -->|"hasContinuantPart"| nbded58b61b55
-    nc67f0317dd3d -->|"hasContinuantPart"| n909af9ba2b3d
-    nc67f0317dd3d -->|"hasContinuantPart"| nd66831da8997
+    nc67f0317dd3d -->|"hasContinuantPart"| na0c2b79e8f9b
+    nc67f0317dd3d -->|"hasContinuantPart"| nbf6f97f1297d
+    nc67f0317dd3d -->|"hasContinuantPart"| nc3bd5ca4c01a
+    nc67f0317dd3d -->|"hasContinuantPart"| ne4cec26894ef
     n596b411b2d6f -->|"hasParticipant"| ne0c3ba92f1db
     n596b411b2d6f -->|"ent00000324"| nc67f0317dd3d
     n596b411b2d6f -->|"BFO_0000199"| n712165170b98

@@ -1,30 +1,31 @@
 flowchart TD
     classDef person fill:#fffacd,stroke:#aaa,color:#333
     classDef org    fill:#cce5ff,stroke:#aaa,color:#333
+    classDef service fill:#e6e6e6,stroke:#aaa,color:#333
     classDef lit    fill:none,stroke:none,font-style:italic,color:#2a7a2a
     classDef meta   fill:#f5f5ff,stroke:#9999cc,color:#333
 
     subgraph ctx["Graph"]
         direction LR
-        ctx_meta["claimant: :Self\nsubject: :Self\ntemplate: residenceshapes:ResidenceShape"]:::meta
+        ctx_meta["claimant: :Self\ngraphTopic: :Self\ntemplate: residenceshapes:ResidenceShape"]:::meta
     end
 
     ndbcf44a48000[":Address_Paradise\n(PostalAddress)"]
-    ne0ea2dd0fc67("123 Sleepy Hollow"):::lit
-    ndb5a285758f5("Paradise"):::lit
-    na8c273d6d7df("CA"):::lit
-    n155ae9f860ac("95969"):::lit
-    ne0e534833724("USA"):::lit
+    n96bc7ccab5d0("123 Sleepy Hollow"):::lit
+    n0bfe32f6b6ed("Paradise"):::lit
+    na61aa844eb33("CA"):::lit
+    n078f7ca1c7ea("95969"):::lit
+    nac5b8fc02a7f("USA"):::lit
     naf26563dc3c8[":Interval_2025_Present\n(TemporalInterval)"]
     nd5dae2a8dede("2025-09-01"):::lit
     n0eecd6ebe039[":Paradise_Residence\n(Residence)"]
     ne0c3ba92f1db[":Self\n(Person)"]:::person
 
-    ndbcf44a48000 -->|"hasContinuantPart"| ne0ea2dd0fc67
-    ndbcf44a48000 -->|"hasContinuantPart"| ndb5a285758f5
-    ndbcf44a48000 -->|"hasContinuantPart"| na8c273d6d7df
-    ndbcf44a48000 -->|"hasContinuantPart"| n155ae9f860ac
-    ndbcf44a48000 -->|"hasContinuantPart"| ne0e534833724
+    ndbcf44a48000 -->|"hasContinuantPart"| n96bc7ccab5d0
+    ndbcf44a48000 -->|"hasContinuantPart"| n0bfe32f6b6ed
+    ndbcf44a48000 -->|"hasContinuantPart"| na61aa844eb33
+    ndbcf44a48000 -->|"hasContinuantPart"| n078f7ca1c7ea
+    ndbcf44a48000 -->|"hasContinuantPart"| nac5b8fc02a7f
     naf26563dc3c8 -->|"hasStartDate"| nd5dae2a8dede
     n0eecd6ebe039 -->|"hasParticipant"| ne0c3ba92f1db
     n0eecd6ebe039 -->|"ent00000324"| ndbcf44a48000

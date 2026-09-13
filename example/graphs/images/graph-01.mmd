@@ -7,12 +7,12 @@ flowchart TD
 
     subgraph ctx["Graph"]
         direction LR
-        ctx_meta["claimant: :BHS\nsubject: :BHS_Service\ntemplate: pshapes:ContactInfoShape"]:::meta
+        ctx_meta["claimant: :BHS\ngraphSubject: :BHS_Service\ntemplate: pshapes:ContactInfoShape"]:::meta
     end
 
     n0644db9ef116[":BHS\n(Organization)"]:::org
-    ndef94ab3a90b("An informal Boston-area professional networking society. Current members include Alice Walker and Bob Johnson."):::lit
-    n4cd32c179607[":BHS_Service\n(ProviderService)"]:::service
+    n0e2bb7c52468("An informal Boston-area professional networking society. Current members include Alice Walker and Bob Johnson."):::lit
+    n4cd32c179607[":BHS_Service\n(ServiceProvider)"]:::service
 
-    n0644db9ef116 -->|"ont00001917"| ndef94ab3a90b
+    n0644db9ef116 -->|"ont00001917"| n0e2bb7c52468
     n4cd32c179607 -->|"providedBy"| n0644db9ef116

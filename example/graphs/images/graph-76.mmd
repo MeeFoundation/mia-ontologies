@@ -1,38 +1,39 @@
 flowchart TD
     classDef person fill:#fffacd,stroke:#aaa,color:#333
     classDef org    fill:#cce5ff,stroke:#aaa,color:#333
+    classDef service fill:#e6e6e6,stroke:#aaa,color:#333
     classDef lit    fill:none,stroke:none,font-style:italic,color:#2a7a2a
     classDef meta   fill:#f5f5ff,stroke:#9999cc,color:#333
 
     subgraph ctx["Graph"]
         direction LR
-        ctx_meta["claimant: :Citibank\nsubject: :Self\ntemplate: ['sashapes:ServiceAccountShape', 'bankingshapes:DebitCardShape', 'bankingshapes:CheckingAccountShape']"]:::meta
+        ctx_meta["claimant: :Citibank\ngraphTopic: :Self\ntemplate: ['sashapes:ServiceAccountShape', 'bankingshapes:DebitCardShape', 'bankingshapes:CheckingAccountShape']"]:::meta
     end
 
     naadb4eb7dbfe[":Alice_Checking_Account\n(CheckingAccount)"]
-    n4501fc2f283e("9876543210"):::lit
-    nced0cd1ef3d5("021000089"):::lit
+    nc48245e411f2("9876543210"):::lit
+    n9bd0421b44b7("021000089"):::lit
     nd168547b019a[":Alice_Citibank_Online\n(ServiceAccount)"]
     nc9432ab45295("Citibank"):::lit
     n6ca0a0131dbe("awalker@gmail.com"):::lit
     nc8206224677c("https://online.citi.com"):::lit
     n7342ed3a24fa("C1t1b@nk#2024!"):::lit
     ne33644105d79[":Alice_Debit_Card\n(DebitCard)"]
-    nb74a926b4365("4111-1111-1111-1111"):::lit
-    nb4914d2b36fa("123"):::lit
-    nff745560d2a1("12/28"):::lit
+    n19203b6760b3("4111-1111-1111-1111"):::lit
+    ndf2d200b9759("123"):::lit
+    n9d77610adf61("12/28"):::lit
     n0415a88486d3[":Citibank\n(Organization)"]:::org
     ne0c3ba92f1db[":Self\n(Person)"]:::person
 
-    naadb4eb7dbfe -->|"AccountNumber"| n4501fc2f283e
-    naadb4eb7dbfe -->|"RoutingNumber"| nced0cd1ef3d5
+    naadb4eb7dbfe -->|"AccountNumber"| nc48245e411f2
+    naadb4eb7dbfe -->|"RoutingNumber"| n9bd0421b44b7
     nd168547b019a -->|"serviceName"| nc9432ab45295
     nd168547b019a -->|"userHandle"| n6ca0a0131dbe
     nd168547b019a -->|"serviceURI"| nc8206224677c
     nd168547b019a -->|"hasPassword"| n7342ed3a24fa
-    ne33644105d79 -->|"CardNumber"| nb74a926b4365
-    ne33644105d79 -->|"CVV"| nb4914d2b36fa
-    ne33644105d79 -->|"ExpirationDate"| nff745560d2a1
+    ne33644105d79 -->|"CardNumber"| n19203b6760b3
+    ne33644105d79 -->|"CVV"| ndf2d200b9759
+    ne33644105d79 -->|"ExpirationDate"| n9d77610adf61
     ne33644105d79 -->|"accessesBankAccount"| naadb4eb7dbfe
     ne0c3ba92f1db -->|"hasPaymentCard"| ne33644105d79
     ne0c3ba92f1db -->|"hasBankAccount"| naadb4eb7dbfe

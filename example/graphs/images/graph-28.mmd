@@ -1,23 +1,24 @@
 flowchart TD
     classDef person fill:#fffacd,stroke:#aaa,color:#333
     classDef org    fill:#cce5ff,stroke:#aaa,color:#333
+    classDef service fill:#e6e6e6,stroke:#aaa,color:#333
     classDef lit    fill:none,stroke:none,font-style:italic,color:#2a7a2a
     classDef meta   fill:#f5f5ff,stroke:#9999cc,color:#333
 
     subgraph ctx["Graph"]
         direction LR
-        ctx_meta["claimant: :Dave\nsubject: :Dave\ntemplate: pshapes:ContactInfoShape"]:::meta
+        ctx_meta["claimant: :Dave\ngraphSubject: :Dave\ntemplate: pshapes:ContactInfoShape"]:::meta
     end
 
     n1c28f5f47932[":Dave\n(Person)"]:::person
-    n486109c887b3("Dave"):::lit
-    nc6347e9c9cde("Walker"):::lit
-    n6caf2a33124a("+19165550198"):::lit
-    n0cb8f3a802d5("Self-Employed"):::lit
-    ndebd0e27c81c("Usually available weekday evenings and weekends for Sophia's appointments."):::lit
+    n439ab992f46c("Dave"):::lit
+    n6f7687ccfa38("Walker"):::lit
+    n293be18eb187("+19165550198"):::lit
+    n306f9cb0fd45("Self-Employed"):::lit
+    nc2a559b2182e("Usually available weekday evenings and weekends for Sophia's appointments."):::lit
 
-    n1c28f5f47932 -->|"GivenName"| n486109c887b3
-    n1c28f5f47932 -->|"FamilyName"| nc6347e9c9cde
-    n1c28f5f47932 -->|"TelephoneNumber"| n6caf2a33124a
-    n1c28f5f47932 -->|"OrganizationName"| n0cb8f3a802d5
-    n1c28f5f47932 -->|"ont00001917"| ndebd0e27c81c
+    n1c28f5f47932 -->|"GivenName"| n439ab992f46c
+    n1c28f5f47932 -->|"FamilyName"| n6f7687ccfa38
+    n1c28f5f47932 -->|"TelephoneNumber"| n293be18eb187
+    n1c28f5f47932 -->|"OrganizationName"| n306f9cb0fd45
+    n1c28f5f47932 -->|"ont00001917"| nc2a559b2182e

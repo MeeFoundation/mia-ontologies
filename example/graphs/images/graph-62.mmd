@@ -1,19 +1,20 @@
 flowchart TD
     classDef person fill:#fffacd,stroke:#aaa,color:#333
     classDef org    fill:#cce5ff,stroke:#aaa,color:#333
+    classDef service fill:#e6e6e6,stroke:#aaa,color:#333
     classDef lit    fill:none,stroke:none,font-style:italic,color:#2a7a2a
     classDef meta   fill:#f5f5ff,stroke:#9999cc,color:#333
 
     subgraph ctx["Graph"]
         direction LR
-        ctx_meta["claimant: :Self\nsubject: :Self\ntemplate: pshapes:ContactInfoShape"]:::meta
+        ctx_meta["claimant: :Self\ngraphSubject: :Self\ntemplate: pshapes:ContactInfoShape"]:::meta
     end
 
     ne0c3ba92f1db[":Self\n(Person)"]:::person
-    n41b990275994("Alice"):::lit
-    ne674494e7eff("Acme"):::lit
-    na18e6b7efbec("alice@acme.com"):::lit
+    n41b9eb4f28be("Alice"):::lit
+    n5362704b1f73("Acme"):::lit
+    n6a2eeb4326bf("alice@acme.com"):::lit
 
-    ne0c3ba92f1db -->|"GivenName"| n41b990275994
-    ne0c3ba92f1db -->|"OrganizationName"| ne674494e7eff
-    ne0c3ba92f1db -->|"EmailAddress"| na18e6b7efbec
+    ne0c3ba92f1db -->|"GivenName"| n41b9eb4f28be
+    ne0c3ba92f1db -->|"OrganizationName"| n5362704b1f73
+    ne0c3ba92f1db -->|"EmailAddress"| n6a2eeb4326bf

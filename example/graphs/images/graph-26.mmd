@@ -1,18 +1,19 @@
 flowchart TD
     classDef person fill:#fffacd,stroke:#aaa,color:#333
     classDef org    fill:#cce5ff,stroke:#aaa,color:#333
+    classDef service fill:#e6e6e6,stroke:#aaa,color:#333
     classDef lit    fill:none,stroke:none,font-style:italic,color:#2a7a2a
     classDef meta   fill:#f5f5ff,stroke:#9999cc,color:#333
 
     subgraph ctx["Graph"]
         direction LR
-        ctx_meta["claimant: :Self\nsubject: :Sophia_Walker\ntemplate: mashapes:MedicalAppointmentRecordShape"]:::meta
+        ctx_meta["claimant: :Self\ngraphTopic: :Sophia_Walker\ntemplate: mashapes:MedicalAppointmentRecordShape"]:::meta
     end
 
     ncb7388e459f8[":Jane_Starostina\n(Person)"]:::person
-    nb5a06a663805("Jane"):::lit
-    nb7fabb82e13f("Starostina"):::lit
-    n77a75937e066("Sophia Walker's primary care physician"):::lit
+    nbb9b90dcc9fa("Jane"):::lit
+    n7c64bbca9cc5("Starostina"):::lit
+    n5d102784d5e0("Sophia Walker's primary care physician"):::lit
     na4b527a367fe[":Sophia_Medical_Appointment\n(MedicalAppointmentRecord)"]
     n2862909bb09a[":Sophia_Walker\n(Person)"]:::person
     ned787b716bf4("Albuterol inhaler, 2 puffs as needed"):::lit
@@ -22,12 +23,12 @@ flowchart TD
     n8334609721f0("Acme Health Plan (BlueShield of California)"):::lit
     n37a056879e45("XZC-884210773"):::lit
     nd86d8f4bf8bd("CVS Pharmacy, 123 Main St, Paradise, CA"):::lit
-    n844c7eb56ff9("Sophia"):::lit
-    n2791a505a5c8("Walker"):::lit
+    nfa9bf21629ab("Sophia"):::lit
+    n922073c5e89f("Walker"):::lit
 
-    ncb7388e459f8 -->|"GivenName"| nb5a06a663805
-    ncb7388e459f8 -->|"FamilyName"| nb7fabb82e13f
-    ncb7388e459f8 -->|"ont00001917"| n77a75937e066
+    ncb7388e459f8 -->|"GivenName"| nbb9b90dcc9fa
+    ncb7388e459f8 -->|"FamilyName"| n7c64bbca9cc5
+    ncb7388e459f8 -->|"ont00001917"| n5d102784d5e0
     na4b527a367fe -->|"forPatient"| n2862909bb09a
     na4b527a367fe -->|"hasPrimaryCarePhysician"| ncb7388e459f8
     na4b527a367fe -->|"currentMedication"| ned787b716bf4
@@ -37,5 +38,5 @@ flowchart TD
     na4b527a367fe -->|"insuranceProvider"| n8334609721f0
     na4b527a367fe -->|"insurancePolicyNumber"| n37a056879e45
     na4b527a367fe -->|"preferredPharmacy"| nd86d8f4bf8bd
-    n2862909bb09a -->|"GivenName"| n844c7eb56ff9
-    n2862909bb09a -->|"FamilyName"| n2791a505a5c8
+    n2862909bb09a -->|"GivenName"| nfa9bf21629ab
+    n2862909bb09a -->|"FamilyName"| n922073c5e89f

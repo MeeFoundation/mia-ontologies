@@ -1,17 +1,18 @@
 flowchart TD
     classDef person fill:#fffacd,stroke:#aaa,color:#333
     classDef org    fill:#cce5ff,stroke:#aaa,color:#333
+    classDef service fill:#e6e6e6,stroke:#aaa,color:#333
     classDef lit    fill:none,stroke:none,font-style:italic,color:#2a7a2a
     classDef meta   fill:#f5f5ff,stroke:#9999cc,color:#333
 
     subgraph ctx["Graph"]
         direction LR
-        ctx_meta["claimant: :Bob_Johnson\nsubject: :Bob_Johnson\ntemplate: pshapes:ContactInfoShape"]:::meta
+        ctx_meta["claimant: :Bob_Johnson\ngraphSubject: :Bob_Johnson\ntemplate: pshapes:ContactInfoShape"]:::meta
     end
 
     n166b15bd501b[":Bob_Johnson\n(Person)"]:::person
-    n742737e7eaf4("Bob"):::lit
-    n104bfdc5aed4("Johnson"):::lit
+    n63dfc579f7db("Bob"):::lit
+    necf09535d80e("Johnson"):::lit
 
-    n166b15bd501b -->|"GivenName"| n742737e7eaf4
-    n166b15bd501b -->|"FamilyName"| n104bfdc5aed4
+    n166b15bd501b -->|"GivenName"| n63dfc579f7db
+    n166b15bd501b -->|"FamilyName"| necf09535d80e

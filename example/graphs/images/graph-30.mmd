@@ -1,21 +1,22 @@
 flowchart TD
     classDef person fill:#fffacd,stroke:#aaa,color:#333
     classDef org    fill:#cce5ff,stroke:#aaa,color:#333
+    classDef service fill:#e6e6e6,stroke:#aaa,color:#333
     classDef lit    fill:none,stroke:none,font-style:italic,color:#2a7a2a
     classDef meta   fill:#f5f5ff,stroke:#9999cc,color:#333
 
     subgraph ctx["Graph"]
         direction LR
-        ctx_meta["claimant: :Self\nsubject: :Self\ntemplate: pshapes:ContactInfoShape"]:::meta
+        ctx_meta["claimant: :Self\ngraphSubject: :Self\ntemplate: pshapes:ContactInfoShape"]:::meta
     end
 
     ne0c3ba92f1db[":Self\n(Person)"]:::person
-    nab743c88cf13("Alice"):::lit
-    nb8f0baf272a0("+15108149999"):::lit
-    n53cc191b7f44("Acme"):::lit
-    n66d96210b6a5("Best reached by text for scheduling Sophia's appointments."):::lit
+    ne2d0f025d1c5("Alice"):::lit
+    n3cb929e3eaf0("+15108149999"):::lit
+    naad10db09df3("Acme"):::lit
+    na8af7ee79f74("Best reached by text for scheduling Sophia's appointments."):::lit
 
-    ne0c3ba92f1db -->|"GivenName"| nab743c88cf13
-    ne0c3ba92f1db -->|"TelephoneNumber"| nb8f0baf272a0
-    ne0c3ba92f1db -->|"OrganizationName"| n53cc191b7f44
-    ne0c3ba92f1db -->|"ont00001917"| n66d96210b6a5
+    ne0c3ba92f1db -->|"GivenName"| ne2d0f025d1c5
+    ne0c3ba92f1db -->|"TelephoneNumber"| n3cb929e3eaf0
+    ne0c3ba92f1db -->|"OrganizationName"| naad10db09df3
+    ne0c3ba92f1db -->|"ont00001917"| na8af7ee79f74

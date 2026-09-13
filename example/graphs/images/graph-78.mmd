@@ -1,23 +1,24 @@
 flowchart TD
     classDef person fill:#fffacd,stroke:#aaa,color:#333
     classDef org    fill:#cce5ff,stroke:#aaa,color:#333
+    classDef service fill:#e6e6e6,stroke:#aaa,color:#333
     classDef lit    fill:none,stroke:none,font-style:italic,color:#2a7a2a
     classDef meta   fill:#f5f5ff,stroke:#9999cc,color:#333
 
     subgraph ctx["Graph"]
         direction LR
-        ctx_meta["claimant: :Self\nsubject: :Self\ntemplate: idocshapes:BirthCertificateShape"]:::meta
+        ctx_meta["claimant: :Self\ngraphTopic: :Self\ntemplate: idocshapes:BirthCertificateShape"]:::meta
     end
 
     n0b5b9e968f7f[":Alice_TX_Birth_Certificate\n(BirthCertificate)"]
-    neecb0fd36634("Margery"):::lit
-    n60c44b92a4b6("Alice"):::lit
-    nb09f78bda351("Walker"):::lit
-    n3a2d898c5115("Margery Alice Arnold"):::lit
+    ndae4d9394e70("Margery"):::lit
+    n1eb107154963("Alice"):::lit
+    na237b93265bb("Walker"):::lit
+    n1e22bdfb2072("Margery Alice Arnold"):::lit
     ne0c3ba92f1db[":Self\n(Person)"]:::person
 
-    n0b5b9e968f7f -->|"GivenName"| neecb0fd36634
-    n0b5b9e968f7f -->|"AdditionalName"| n60c44b92a4b6
-    n0b5b9e968f7f -->|"FamilyName"| nb09f78bda351
-    n0b5b9e968f7f -->|"AlternateName"| n3a2d898c5115
+    n0b5b9e968f7f -->|"GivenName"| ndae4d9394e70
+    n0b5b9e968f7f -->|"AdditionalName"| n1eb107154963
+    n0b5b9e968f7f -->|"FamilyName"| na237b93265bb
+    n0b5b9e968f7f -->|"AlternateName"| n1e22bdfb2072
     ne0c3ba92f1db -->|"hasIdentityDocument"| n0b5b9e968f7f

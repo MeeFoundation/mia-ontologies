@@ -1,15 +1,16 @@
 flowchart TD
     classDef person fill:#fffacd,stroke:#aaa,color:#333
     classDef org    fill:#cce5ff,stroke:#aaa,color:#333
+    classDef service fill:#e6e6e6,stroke:#aaa,color:#333
     classDef lit    fill:none,stroke:none,font-style:italic,color:#2a7a2a
     classDef meta   fill:#f5f5ff,stroke:#9999cc,color:#333
 
     subgraph ctx["Graph"]
         direction LR
-        ctx_meta["claimant: :Dave\nsubject: :Dave\ntemplate: pshapes:ContactInfoShape"]:::meta
+        ctx_meta["claimant: :Dave\ngraphSubject: :Dave\ntemplate: pshapes:ContactInfoShape"]:::meta
     end
 
     n1c28f5f47932[":Dave\n(Person)"]:::person
-    nc848fcddf567("Dave"):::lit
+    n266f744c289a("Dave"):::lit
 
-    n1c28f5f47932 -->|"GivenName"| nc848fcddf567
+    n1c28f5f47932 -->|"GivenName"| n266f744c289a
