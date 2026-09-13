@@ -21,7 +21,7 @@ The following **domain ontologies** model claims about people, organizations, an
   - **Residences ontology** (`other/residences.ttl`) — models a place a person has lived, current or past. See [Residences Ontology](#residences-ontology).
   - **Itineraries ontology** (`other/itineraries.ttl`) — models a specific trip a person is planning or taking. See [Itineraries Ontology](#itineraries-ontology).
 
-Also included are the Category and Cell **metadata ontologies**. A *cell* is the atomic unit of information. A cell is implemented as a filesystem folder holding exactly one cell DataBook file and potentially other (non-cell) attachments, the folder and its DataBook file together forming one atomic tree node. Cells nest inside cells, forming a tree. A cell usually carries a **category** — a classification, described in the Category ontology, recording what kind of information it holds. A cell contains various kinds of content including markdown notes, chat streams, and other file attachments. It also contains structured information blocks (called *graphs*, defined as part of the Cell ontology — see [Graphs](#graphs)) whose schemas differ based on the cell's category.
+Also included are the Category **taxonomy** and the Cell **ontology**, the app's metadata layer. A *cell* is the atomic unit of information. A cell is implemented as a filesystem folder holding exactly one cell DataBook file and potentially other (non-cell) attachments, the folder and its DataBook file together forming one atomic tree node. Cells nest inside cells, forming a tree. A cell usually carries a **category** — a classification, described in the Category taxonomy, recording what kind of information it holds. A cell contains various kinds of content including markdown notes, chat streams, and other file attachments. It also contains structured information blocks (called *graphs*, defined as part of the Cell ontology — see [Graphs](#graphs)) whose schemas differ based on the cell's category.
 
 Throughout this document we use these short-hands:
 
@@ -41,7 +41,7 @@ Throughout this document we use these short-hands:
 
 See [**EXAMPLE.md**](EXAMPLE.md) for an illustration of the use of these ontologies by a hypothetical user, Alice, along with diagram-generation and validation instructions for the example dataset, and [**APP-BEHAVIOR.md**](APP-BEHAVIOR.md) for how the app behaves on top of this data — cell naming/renaming/sharing, storage, permissions, and filing heuristics.
 
-## Category Ontology
+## Category Taxonomy
 
 To help the user organize their information, the app comes with a pre-defined tree structure of categories. Although the user is free to organize their cells however they like, we think many users will choose to create their own tree of cells based on the pattern of the tree of category concepts. Cells that are created based on a pre-defined category have a `c:category` property whose value is that category.
 
@@ -168,9 +168,9 @@ As we've mentioned, the user is free to create cells not included in the pre-def
     - **Insurance (org)** (`cat:Insurance(org)`) — firms that protect organizations from risks.
     - **Advisory (org)** (`cat:Advisory(org)`) — Financial Planners, outsourced CFO consultants, Accountants and Bookkeepers and Tax preparers.
 
-### Category Ontology File
+### Category Taxonomy File
 
-**`category.ttl`** — The Category ontology, defining a `skos:ConceptScheme` rather than an OWL class hierarchy:
+**`category.ttl`** — The Category taxonomy, defining a `skos:ConceptScheme` rather than an OWL class hierarchy:
   - *Individuals*: `cat:CategoryScheme` (a `skos:ConceptScheme`), `cat:Person`/`cat:Organization` (its two `skos:hasTopConcept` top concepts), and every other category concept — each a plain `skos:Concept`, with a `skos:prefLabel` for its display name, a `skos:broader` value naming its parent concept, and `skos:inScheme cat:CategoryScheme`. There is no `cat:Category` class at all — a category concept's type is just `skos:Concept`, scoped to the app's own scheme via `skos:inScheme` rather than a dedicated class.
   - No `cat:` property of its own — each `cat-templates.ttl` template cell instead carries its own `c:category` value naming the concept it's a template for (see [Cell Ontology File](#cell-ontology-files) below).
 
