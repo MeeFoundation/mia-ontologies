@@ -62,10 +62,6 @@
          uri="file:/Users/paul/GitHub/v4-ontologies/project_files/wikidata-vehicle-models-subset.ttl"/>
     <uri id="prov-upper-subset"        name="http://mee.foundation/ontologies/prov-upper-subset"
          uri="file:/Users/paul/GitHub/v4-ontologies/project_files/prov-upper.ttl"/>
-    <uri id="pdn-identity"             name="http://mee.foundation/ontologies/pdn-identity"
-         uri="file:/Users/paul/GitHub/v4-ontologies/pdn-identity.ttl"/>
-    <uri id="pdn-identity-shacl" name="http://mee.foundation/ontologies/pdn-identity/shapes"
-         uri="file:/Users/paul/GitHub/v4-ontologies/shacl/pdn-identity-shacl.ttl"/>
     <uri id="organization"             name="http://mee.foundation/ontologies/organization"
          uri="file:/Users/paul/GitHub/v4-ontologies/organization.ttl"/>
     <uri id="organization-shacl"       name="http://mee.foundation/ontologies/organization/shapes"
