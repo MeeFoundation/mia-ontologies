@@ -28,18 +28,19 @@ This display truncation limit is not publicly documented by Apple and likely var
 
 ---
 
-## Level 2: Groups ↔ c:UserDefined Categories
+## Level 2: Groups ↔ Hidden Integration Tags
 
-Apple Contacts groups are **flat** (one level only) and untyped. The app's category tree is hierarchical and typed (two-member cells, cells with more members, `c:UserDefined`, etc.).
+An Apple Contacts **group** is not a category, not a topic, and not a member, so it does not map onto the cell tree at all. The module records it instead as a [hidden integration tag](../APP-BEHAVIOR.md#tags) on the contact's own cell — `c:integrationTag`, namespace `foundation.mee.applecontacts`, key `group`, value the group's name verbatim.
 
-**Import (Apple Contacts → the app):** each Apple group becomes a leaf-level two-member or `c:UserDefined` category. No hierarchy is lost since Apple groups have none.
+**Import (Apple Contacts → the app):** for each group a contact belongs to, write one tag. A contact in three groups gets three tags sharing one namespace and one key, differing only in value — which is exactly what a namespace/key pair is allowed to repeat for. Where the contact's cell is filed is decided independently, by the ordinary auto-filing heuristic; no cell is created, moved, or reclassified on account of a group.
 
-**Export (the app → Apple Contacts):** the hierarchy must be flattened. Two options:
+**Export (the app → Apple Contacts):** read back every tag in this module's namespace with key `group` and re-create the contact's group membership from the values.
 
-1. **Path encoding**: encode the hierarchy in the Apple group name using a separator, e.g. category `People > Family` becomes Apple group `"People/Family"`. Survives the round-trip — on re-import, parse the separator to restore the tree.
-2. **Leaf-only sync**: export only leaf-level categories and discard the hierarchy. Simpler but lossy — the hierarchy cannot be restored on re-import.
+There is no flattening to do in either direction. Because a group never corresponds to a position in the cell tree, no hierarchy has to be encoded on the way out or reconstructed on the way back in — the group name round-trips verbatim, and a group name that happens to contain a `/` is just a group name, since the tag's structure lives in its sibling properties rather than inside the value.
 
-Path encoding is recommended if lossless round-tripping is required.
+**Rename safety:** matching is by name, so a group renamed on the Apple side reads as a new group, leaving the old tag stale. A module that wants to survive renames stores the group's own identifier alongside the name under a second key — `groupID` — which is precisely what having a key rather than one opaque string buys.
+
+Note that these tags never propagate when a cell is shared: they are one member's own module's bookkeeping, and a member running a different integration, or none, could not interpret them.
 
 ---
 
@@ -48,7 +49,8 @@ Path encoding is recommended if lossless round-tripping is required.
 vCard supports custom extension fields (`X-` prefix). Storing app IRIs in these fields lets the app re-identify records on re-import without duplication or drift:
 
 - `X-CELLULA-PERSON-IRI` on a contact record — points to the `p:Person` individual IRI
-- `X-CELLULA-CATEGORY-IRI` on a group — points to the category DataBook IRI
+
+Groups need no anchor field of their own: the hidden integration tag already holds the group's name verbatim on the cell, and re-identification is by that value (see the rename-safety note above for when a `groupID` tag is worth writing alongside it).
 
 These fields are ignored by Apple Contacts and other vCard consumers but survive export/import cycles, making true lossless round-tripping achievable.
 
@@ -59,6 +61,6 @@ These fields are ignored by Apple Contacts and other vCard consumers but survive
 | Dimension | Import | Export | Lossless? |
 |-----------|--------|--------|-----------|
 | Contact fields | Direct field mapping | Merge all graphs into one vCard | Yes, with `X-CELLULA-PERSON-IRI` anchor |
-| Multiple graphs per person | Each → separate DataBook | Flatten to single vCard; multiple values per label are correct | Yes |
-| Group hierarchy | Flat → leaf categories | Encode as path in group name | Yes, with path encoding |
+| Multiple graphs per person | Each → a separate graph embedded in the person's cell DataBook | Flatten to single vCard; multiple values per label are correct | Yes |
+| Group membership | Each group → one hidden integration tag on the cell | Tags in this module's namespace with key `group` → group membership | Yes — the group name round-trips verbatim |
 | App-specific metadata | Stored in graph DataBook | Store IRI in `X-CELLULA-*` vCard field | Yes, with anchor fields |

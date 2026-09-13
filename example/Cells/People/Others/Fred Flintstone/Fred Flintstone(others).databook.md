@@ -2,7 +2,7 @@
 id: http://www.example.org/mia/cells/cell-17
 title: "Fred Flintstone"
 type: cell-databook
-version: 1.2.0
+version: 1.3.0
 created: 2026-08-03
 description: >
   Cell DataBook for folder "Fred Flintstone" (cell:category: cat:Others). It is a two-member cell with two members about :Fred_Flintstone and :Self.
@@ -11,7 +11,9 @@ mia:
   creator: ":Self"
   owner: ":Self"
   integrationTag:
-    - "AppleContacts/Christmas_List"
+    - namespace: "foundation.mee.applecontacts"
+      key: "group"
+      value: "Christmas List"
   member:
     - id: "http://www.example.org/mia/graphs/graph-31"
       claimant: ":Fred_Flintstone"

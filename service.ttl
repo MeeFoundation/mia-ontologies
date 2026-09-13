@@ -11,9 +11,9 @@
 @base <http://mee.foundation/ontologies/service> .
 
 <http://mee.foundation/ontologies/service> rdf:type owl:Ontology ;
-    owl:versionIRI <http://mee.foundation/ontologies/service/2.0.0> ;
+    owl:versionIRI <http://mee.foundation/ontologies/service/2.0.1> ;
     dc:date "2026-09-12"^^xsd:date ;
-    owl:versionInfo "Version 2.0.0 - renamed service:AIAgentService to service:AgentService and service:BackupService to service:ArcaBackup, which now sits under it; added service:ChatGPT and service:AppleContacts; a service is what the app calls an integration."@en ;
+    owl:versionInfo "Version 2.0.1 - service:AppleContacts's comment describes the structured cell:IntegrationTag values it writes, namespaced by its own developer's reverse-DNS domain."@en ;
     owl:imports <https://w3id.org/cco-domains/cco/AgentOntology> ,
                 <http://mee.foundation/ontologies/prov-upper-subset> ;
     rdfs:label "Service Ontology"@en ;
@@ -193,9 +193,10 @@ service:AppleContacts rdf:type owl:Class ;
                     An agent service with no LLM in it at all — what makes it one is
                     service:actsFor: it syncs exactly one member's own address book and
                     answers to that member alone. This is what makes the
-                    cell:integrationTag values it writes (e.g. AppleContacts/Christmas_List,
-                    recording that a contact sat in an Apple Contacts Group of that name)
-                    local to that member's instance and never propagated on a share: another
+                    cell:IntegrationTag values it writes (cell.ttl) — namespace
+                    foundation.mee.applecontacts, key group, value the name of the Apple
+                    Contacts Group a synced contact sat in — local to that member's
+                    instance and never propagated on a share: another
                     member's instance runs a different integration, or none, and could not
                     interpret or clear the value. Carries no service:providedBy — Apple is not
                     a party to the cell's relationship, it is merely where the data came from.

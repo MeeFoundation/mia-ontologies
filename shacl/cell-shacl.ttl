@@ -13,7 +13,7 @@
 @prefix dc: <http://purl.org/dc/elements/1.1/> .
 
 <http://mee.foundation/ontologies/cell/shapes> rdf:type owl:Ontology ;
-    owl:versionIRI <http://mee.foundation/ontologies/cell/shapes/3.37.0> ;
+    owl:versionIRI <http://mee.foundation/ontologies/cell/shapes/3.38.0> ;
     dc:date "2026-09-12"^^xsd:date ;
     rdfs:label "Cell Ontology SHACL Validation Shapes"@en ;
     rdfs:comment "SHACL validation shapes for cell:Cell DataBook instances (the content facet of a cell) and cell:SCGraph DataBook instances (the graph DataBooks a cell links to) in the Cell Ontology."@en .
@@ -126,7 +126,9 @@
 #  cell:MemberCell is the actual/instantiated facet of a cell — real,
 #  member-classified content. :MemberCellShape constrains
 #  cell:creator/cell:owner/cell:member, plus the two tag properties
-#  cell:userTag/cell:integrationTag (see their own comment below) — cell:owner and cell:member are
+#  cell:userTag/cell:integrationTag (see their own comment below; the
+#  cell:IntegrationTag value nodes cell:integrationTag points at are
+#  constrained by :IntegrationTagShape, further below) — cell:owner and cell:member are
 #  each required, one or more values, no fixed upper bound (cell:creator
 #  stays exactly one); cell:topic's requirement of at least one value, no
 #  upper bound (on the cell:TopicCell subclass only) is enforced by
@@ -188,17 +190,19 @@
 
     # cell:userTag/cell:integrationTag — each zero or more values, no
     # minCount and no maxCount: a cell need carry no tags at all, and nothing
-    # caps how many it may carry. Both are constrained identically, to a
-    # non-empty string and nothing further; neither has an sh:in list, since
-    # a tag value belongs to no vocabulary at all (contrast vehicles:fuelType
-    # and pets:sex, whose small closed vocabularies really are frozen that
-    # way).
+    # caps how many it may carry. Neither has an sh:in list, since a tag
+    # belongs to no vocabulary at all (contrast vehicles:fuelType and
+    # pets:sex, whose small closed vocabularies really are frozen that way).
     #
-    # sh:minLength 1 catches only the empty string. The rules SHACL cannot
-    # see — leading/trailing whitespace, a YAML value that isn't a string at
-    # all, and duplicates within one kind (RDF is a set, so a repeated
-    # literal collapses before validation ever runs) — are integrity.md's
-    # Check 36 instead.
+    # They are constrained to different depths, because they are different
+    # shapes. cell:userTag is a literal, held to a non-empty string and
+    # nothing further — sh:minLength 1 catches only the empty string, so the
+    # rules SHACL cannot see for it (leading/trailing whitespace, a YAML
+    # value that isn't a string at all, and duplicates, RDF being a set so a
+    # repeated literal collapses before validation ever runs) are
+    # integrity.md's Check 36 instead. cell:integrationTag's value is a
+    # cell:IntegrationTag node, and this block fixes only that: the node's
+    # own three required parts are :IntegrationTagShape's business below.
     sh:property [
         sh:path cell:userTag ;
         sh:datatype xsd:string ;
@@ -208,9 +212,71 @@
 
     sh:property [
         sh:path cell:integrationTag ;
+        sh:nodeKind sh:BlankNodeOrIRI ;
+        sh:class cell:IntegrationTag ;
+        sh:message "Each cell:integrationTag value must be a cell:IntegrationTag node, not a literal."@en
+    ] .
+
+
+#################################################################
+#  IntegrationTag
+#  cell:IntegrationTag is the value node cell:integrationTag points at —
+#  cell:tagNamespace (whose module wrote the tag), cell:tagKey (what kind
+#  of external fact it records) and cell:tagValue (the label itself), each
+#  required exactly once. A node missing any of the three records nothing
+#  a module could act on; one carrying two of a single part would be two
+#  tags, not one.
+#
+#  sh:pattern does the structural work sh:minLength alone cannot:
+#  reverse-DNS well-formedness on the namespace, an identifier token on
+#  the key, and — now that the label has a property of its own rather than
+#  being one segment of an opaque string — no leading or trailing
+#  whitespace on the value. What stays integrity.md's Check 36 is only
+#  what no SHACL constraint can reach: a YAML sub-value that is not a
+#  string at all (a bare 1.2 stringifies to "1.2" and passes the namespace
+#  pattern), an entry that is not a mapping, an unrecognized extra
+#  sub-key, and the same (namespace, key, value) triple twice on one cell
+#  — two value nodes are distinct, so unlike two identical literals a
+#  duplicate really is present after synthesis, but comparing sibling
+#  nodes needs a SPARQL query rather than any core SHACL constraint.
+#
+#  sh:BlankNodeOrIRI rather than sh:BlankNode: helpers/databook_graphs.py
+#  synthesizes a blank node, since a cell-databook's frontmatter has
+#  nowhere to mint an IRI, but a named individual is equally legal — the
+#  spelling an app writing straight into a triplestore would reach for.
+#################################################################
+
+:IntegrationTagShape
+    a sh:NodeShape ;
+    sh:targetClass cell:IntegrationTag ;
+    sh:message "Integration Tag validation: exactly one namespace, key and value are required."@en ;
+
+    sh:property [
+        sh:path cell:tagNamespace ;
         sh:datatype xsd:string ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:pattern "^[a-z0-9]([a-z0-9-]*[a-z0-9])?(\\.[a-z0-9]([a-z0-9-]*[a-z0-9])?)+$" ;  # reverse-DNS, two or more lowercase labels
+        sh:message "cell:tagNamespace must be a DNS domain the writing module's developer controls, in reverse-DNS order: two or more lowercase labels, e.g. foundation.mee.applecontacts."@en
+    ] ;
+
+    sh:property [
+        sh:path cell:tagKey ;
+        sh:datatype xsd:string ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:pattern "^[A-Za-z][A-Za-z0-9_-]*$" ;  # identifier token, no dot: a key is never a further namespace segment
+        sh:message "cell:tagKey must be a letter followed by letters, digits, underscores or hyphens, e.g. group or recordID."@en
+    ] ;
+
+    sh:property [
+        sh:path cell:tagValue ;
+        sh:datatype xsd:string ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
         sh:minLength 1 ;
-        sh:message "A cell:integrationTag value must be a non-empty string."@en
+        sh:pattern "^\\S(.*\\S)?$" ;  # non-empty, single-line, no surrounding whitespace
+        sh:message "cell:tagValue must be a non-empty single-line string with no leading or trailing whitespace."@en
     ] .
 
 
