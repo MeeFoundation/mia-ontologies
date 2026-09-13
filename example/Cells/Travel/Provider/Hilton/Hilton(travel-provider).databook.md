@@ -22,12 +22,12 @@ mia:
   member:
     id: "http://www.example.org/mia/graphs/graph-99"
     claimant: ":Self"
-    subject: ":Self"
+    graphSubject: ":Self"
     template: "pshapes:ContactInfoShape"
   topic:
     id: "http://www.example.org/mia/graphs/graph-84"
     claimant: ":Self"
-    subject: ":Alice_Hilton_Account"
+    graphTopic: ":Alice_Hilton_Account"
     template: "sashapes:ServiceAccountShape"
 ---
 

@@ -16,12 +16,12 @@ mia:
   member:
     id: "http://www.example.org/mia/graphs/graph-11"
     claimant: ":Self"
-    subject: ":Self"
+    graphSubject: ":Self"
     template: "pshapes:ContactInfoShape"
   topic:
     id: "http://www.example.org/mia/graphs/graph-74"
     claimant: ":Self"
-    subject: ":Alice_ATT_Account"
+    graphTopic: ":Alice_ATT_Account"
     template: "sashapes:ServiceAccountShape"
 ---
 

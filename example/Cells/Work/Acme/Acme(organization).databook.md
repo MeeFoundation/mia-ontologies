@@ -16,12 +16,12 @@ mia:
   member:
     id: "http://www.example.org/mia/graphs/graph-53"
     claimant: ":Self"
-    subject: ":Self"
+    graphSubject: ":Self"
     template: "pshapes:ContactInfoShape"
   topic:
     id: "http://www.example.org/mia/graphs/graph-94"
     claimant: ":Self"
-    subject: ":Acme"
+    graphTopic: ":Acme"
     template: "oshapes:OrganizationShape"
 ---
 

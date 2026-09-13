@@ -13,16 +13,16 @@ mia:
   member:
     - id: "http://www.example.org/mia/graphs/graph-28"
       claimant: ":Dave"
-      subject: ":Dave"
+      graphSubject: ":Dave"
       template: "pshapes:ContactInfoShape"
     - id: "http://www.example.org/mia/graphs/graph-30"
       claimant: ":Self"
-      subject: ":Self"
+      graphSubject: ":Self"
       template: "pshapes:ContactInfoShape"
   topic:
     id: "http://www.example.org/mia/graphs/graph-26"
     claimant: ":Self"
-    subject: ":Sophia_Walker"
+    graphTopic: ":Sophia_Walker"
     template: "mashapes:MedicalAppointmentRecordShape"
 ---
 

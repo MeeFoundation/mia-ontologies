@@ -272,8 +272,10 @@ def _meta_subgraph(mia: dict, src_dir: Path | None = None) -> list[str]:
         props.append(f"category: {cat.removeprefix('context:')}")
     if claimant := mia.get("claimant"):
         props.append(f"claimant: {claimant}")
-    if subject := mia.get("subject"):
-        props.append(f"subject: {subject}")
+    if graph_subject := mia.get("graphSubject"):
+        props.append(f"graphSubject: {graph_subject}")
+    if graph_topic := mia.get("graphTopic"):
+        props.append(f"graphTopic: {graph_topic}")
     if template := mia.get("template"):
         props.append(f"template: {template}")
     if dyad := mia.get("dyad"):
@@ -500,7 +502,8 @@ def main() -> None:
         # cell's subject is derived from its members/topic).
         frontmatter = {"mia": {
             "claimant": match.get("claimant"),
-            "subject": match.get("subject"),
+            "graphSubject": match.get("graphSubject"),
+            "graphTopic": match.get("graphTopic"),
             "template": match.get("template"),
         }}
         out_dir = Path("example/graphs/images")  # fixed — graph PNGs never move

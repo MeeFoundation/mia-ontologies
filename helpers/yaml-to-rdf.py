@@ -23,17 +23,18 @@ YAML field below — never derived from filename-parsing.
 
 Since graph-databooks were merged into their owning cell-databooks (each
 graph's Turtle content and Overview now live in that cell file's body; its
-`id`/`claimant`/`subject`/`template` now live directly on that same graph's
-own `mia.member`/`mia.topic` entry — see CLAUDE.md's "Graph ID Naming
+`id`/`claimant`/`template`, plus the `graphSubject` or `graphTopic` its own
+list calls for, now live directly on that same graph's own
+`mia.member`/`mia.topic` entry — see CLAUDE.md's "Graph ID Naming
 Convention" section), there is no separate `example/graphs/*.databook.md`
-glob any more: `process_cell_databook` below also emits the same three
-triples per `member`/`topic` entry that a standalone graph-databook file's
-frontmatter used to supply.
+glob any more: `process_cell_databook` below also emits the same triples per
+`member`/`topic` entry that a standalone graph-databook file's frontmatter
+used to supply.
 
-A graph's `claimant`/`subject` are typed on its plain `mia.member[]`/
-`mia.topic[].id`, not that id + "#graph" — matching cell.ttl's
-cell:subject/cell:claimant doc comments, and the IRI cell:member/cell:topic
-actually reference.
+A graph's `claimant` and its about-ness value are typed on its plain
+`mia.member[]`/`mia.topic[].id`, not that id + "#graph" — matching cell.ttl's
+cell:claimant/cell:graphSubject/cell:graphTopic doc comments, and the IRI
+cell:member/cell:topic actually reference.
 
 Usage:   python3 helpers/yaml-to-rdf.py [repo-root] > yaml-data.ttl
 Output:  Turtle triples on stdout — merge with `riot` alongside data extracted

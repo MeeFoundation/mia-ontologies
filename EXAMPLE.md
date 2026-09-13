@@ -336,10 +336,10 @@ plus the `c:` triples synthesized from its own `mia.*` frontmatter
 (`databook_graphs.process_cell_databook()`). This is validated against the four general shapes
 files — `shacl/cell-shacl.ttl` (the cell model itself: `c:category` cardinality, the
 `c:TemplateCell`/`c:MemberCell` split, `c:creator`/`c:owner`/`c:member`/`c:topic`, and
-`c:SCGraph`'s `c:claimant`/`c:subject`), plus `shacl/persona-shacl.ttl`,
+`c:CGraph`'s `c:claimant` and the two leaves' `c:graphSubject`/`c:graphTopic`), plus `shacl/persona-shacl.ttl`,
 `shacl/organization-shacl.ttl` and `shacl/service-shacl.ttl` — merged into one shapes graph with
 `owl:imports` stripped. The graph Turtle has to be in this data, not just the frontmatter triples:
-`:MemberCellShape` and `:SCGraphShape` constrain `c:creator`/`c:owner`/`c:claimant` with
+`:MemberCellShape` and `:CGraphShape` constrain `c:creator`/`c:owner`/`c:claimant` with
 `sh:or ( [sh:class p:Person] [sh:class o:Organization] … )`, and those individuals are typed only
 in the graph Turtle.
 

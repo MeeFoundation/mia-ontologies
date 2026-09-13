@@ -16,12 +16,12 @@ mia:
   member:
     id: "http://www.example.org/mia/graphs/graph-24"
     claimant: ":Self"
-    subject: ":Self"
+    graphSubject: ":Self"
     template: "pshapes:ContactInfoShape"
   topic:
     id: "http://www.example.org/mia/graphs/graph-78"
     claimant: ":Self"
-    subject: ":Self"
+    graphTopic: ":Self"
     template: "idocshapes:BirthCertificateShape"
 ---
 

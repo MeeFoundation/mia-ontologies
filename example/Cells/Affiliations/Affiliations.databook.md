@@ -19,12 +19,12 @@ mia:
   member:
     id: "http://www.example.org/mia/graphs/graph-39"
     claimant: ":Self"
-    subject: ":Self"
+    graphSubject: ":Self"
     template: "pshapes:ContactInfoShape"
   topic:
     id: "http://www.example.org/mia/graphs/graph-93"
     claimant: ":Self"
-    subject: ":Self"
+    graphTopic: ":Self"
 ---
 
 ## Graphs

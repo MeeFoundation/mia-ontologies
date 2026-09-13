@@ -15,12 +15,12 @@ mia:
   member:
     id: "http://www.example.org/mia/graphs/graph-36"
     claimant: ":Self"
-    subject: ":Self"
+    graphSubject: ":Self"
     template: "pshapes:ContactInfoShape"
   topic:
     id: "http://www.example.org/mia/graphs/graph-37"
     claimant: ":Self"
-    subject: ":Ginger"
+    graphTopic: ":Ginger"
     template: "petshapes:PetShape"
 ---
 

@@ -20,16 +20,16 @@ mia:
   member:
     - id: "http://www.example.org/mia/graphs/graph-95"
       claimant: ":Self"
-      subject: ":Self"
+      graphSubject: ":Self"
       template: "pshapes:ContactInfoShape"
     - id: "http://www.example.org/mia/graphs/graph-96"
       claimant: ":Arca_Backup"
-      subject: ":Arca_Backup"
+      graphSubject: ":Arca_Backup"
       template: "pshapes:ContactInfoShape"
   topic:
     - id: "http://www.example.org/mia/graphs/graph-97"
       claimant: ":Self"
-      subject: ":Alice_Arca_Account"
+      graphTopic: ":Alice_Arca_Account"
       template: "sashapes:ServiceAccountShape"
 ---
 

@@ -17,11 +17,11 @@ mia:
   member:
     - id: "http://www.example.org/mia/graphs/graph-31"
       claimant: ":Fred_Flintstone"
-      subject: ":Fred_Flintstone"
+      graphSubject: ":Fred_Flintstone"
       template: "pshapes:ContactInfoShape"
     - id: "http://www.example.org/mia/graphs/graph-29"
       claimant: ":Self"
-      subject: ":Self"
+      graphSubject: ":Self"
       template: "pshapes:ContactInfoShape"
 ---
 

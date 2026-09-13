@@ -11,9 +11,9 @@
 @base <http://mee.foundation/ontologies/service> .
 
 <http://mee.foundation/ontologies/service> rdf:type owl:Ontology ;
-    owl:versionIRI <http://mee.foundation/ontologies/service/2.1.0> ;
-    dc:date "2026-09-12"^^xsd:date ;
-    owl:versionInfo "Version 2.1.0 - comment terminology aligned on 'service' and on cell:serviceTag, the tag a member's own service module writes"@en ;
+    owl:versionIRI <http://mee.foundation/ontologies/service/2.2.0> ;
+    dc:date "2026-09-13"^^xsd:date ;
+    owl:versionInfo "Version 2.2.0 - comments aligned on cell.ttl's cell:graphSubject (cell:SCGraph) and cell:graphTopic (cell:TCGraph)"@en ;
     owl:imports <https://w3id.org/cco-domains/cco/AgentOntology> ,
                 <http://mee.foundation/ontologies/prov-upper-subset> ;
     rdfs:label "Service Ontology"@en ;
@@ -26,8 +26,8 @@
                     A cell's members are only ever
                     p:Person or service:Service individuals: o:Organization
                     (organization.ttl) is not itself member-capable, and reaches a cell only
-                    as a cell:topic subject, as a cell:claimant, or as service:providedBy's
-                    own range. A service:Service is never a cell:creator (cell.ttl) — and can
+                    as a cell:topic graph's cell:graphTopic, as a cell:claimant, or as
+                    service:providedBy's own range. A service:Service is never a cell:creator (cell.ttl) — and can
                     never be promoted to cell:owner either — only ever a cell:member
                     participant and a cell:claimant of the content it contributes.
                     p:Person/o:Organization (persona.ttl/organization.ttl) are referenced by
@@ -241,8 +241,8 @@ service:ServiceProvider rdf:type owl:Class ;
                     service:AgentService: a provider service acts for the organization that
                     provides it, recorded by service:providedBy, not for any p:Person member
                     of the cell. That is the whole of the difference between the two branches. It is the
-                    cell:member subject, but not the cell:claimant, of the content the
-                    organization contributes: the claims are attributed to the providing
+                    cell:graphSubject, but not the cell:claimant, of the cell:member entry the
+                    organization takes part through: the claims are attributed to the providing
                     o:Organization itself, since that is the party really making them and the
                     one an eventual cryptographic signature would name (see cell:claimant).
                     Not to be confused with CCO's own cco:ont00000509 ("Service Provider"),

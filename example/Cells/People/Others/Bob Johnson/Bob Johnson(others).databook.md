@@ -17,19 +17,19 @@ mia:
   member:
     - id: "http://www.example.org/mia/graphs/graph-02"
       claimant: ":Bob_Johnson"
-      subject: ":Bob_Johnson"
+      graphSubject: ":Bob_Johnson"
       template: "pshapes:ContactInfoShape"
     - id: "http://www.example.org/mia/graphs/graph-12"
       claimant: ":Self"
-      subject: ":Self"
+      graphSubject: ":Self"
       template: "pshapes:ContactInfoShape"
     - id: "http://www.example.org/mia/graphs/graph-04"
       claimant: ":Self"
-      subject: ":Bob_Johnson"
+      graphSubject: ":Bob_Johnson"
       template: "pshapes:ContactInfoShape"
     - id: "http://www.example.org/mia/graphs/graph-08"
       claimant: ":Bob_Johnson"
-      subject: ":Self"
+      graphSubject: ":Self"
       template: "pshapes:ContactInfoShape"
 ---
 

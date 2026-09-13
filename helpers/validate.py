@@ -20,8 +20,8 @@ Each cell gets two passes:
    against the four general shapes files — cell-shacl (the cell model
    itself), persona-shacl, organization-shacl, service-shacl. The graph Turtle
    has to be in here, not just the frontmatter triples: cell-shacl's
-   :MemberCellShape constrains creator/owner with `sh:class p:Person` and its
-   :SCGraphShape constrains claimant with
+   :MemberCellShape constrains creator/owner with `sh:class p:Person` and
+   :CGraphShape constrains claimant with
    `sh:or ( [sh:class p:Person] [sh:class o:Organization] [sh:class service:Service] )`,
    and those individuals are typed only in the graph Turtle.
 
@@ -49,10 +49,10 @@ an incidental one such as the bare `:Self rdf:type ... persona:Person` every
 graph re-asserts under the self-containment convention, which is not the
 graph's own real subject and may legitimately lack a GivenName.
 
-The graph's own YAML `subject:` isn't a safe stand-in for "the individual to
-validate" here either — a member graph's `subject` can legitimately name a
-non-`persona:Person` party (e.g. a Kyoto trip's agent member has `subject:
-":Alice_Travel_Agent"`, a `service:ChatGPT`, while the real
+The graph's own YAML `graphSubject:` isn't a safe stand-in for "the individual
+to validate" here either — a member graph's `graphSubject` can legitimately name
+a non-`persona:Person` party (e.g. a Kyoto trip's agent member has
+`graphSubject: ":Alice_Travel_Agent"`, a `service:ChatGPT`, while the real
 ContactInfo-conformant content is asserted on `:Self` in that same graph). So whenever the resolved
 shape's own declared target is exactly `sh:targetClass persona:Person`,
 `scope_shape` (below) instead re-targets it at every *substantive*

@@ -191,8 +191,8 @@ def process_cell_databook(fm, triples):
     # tree-position-only cell with no member content; a category node with
     # nothing substantive to say still carries a minimal stub cell:member
     # entry rather than omitting member content. Member count itself is
-    # never stored — it's simply the number of distinct subjects among
-    # mia.member/mia.topic, derivable by counting whenever needed.
+    # never stored — it's simply the number of distinct graphSubject
+    # values among mia.member, derivable by counting whenever needed.
     emit_type(triples, subj, CELL + "MemberCell")
 
     if mia.get("creator"):
@@ -236,7 +236,7 @@ def process_cell_databook(fm, triples):
 
     for entry in as_list(mia.get("member")):
         emit_obj(triples, subj, CELL + "member", entry["id"])
-        process_embedded_graph(entry, triples)
+        process_embedded_graph(entry, triples, "member")
 
     topic = as_list(mia.get("topic"))
     if topic:
@@ -246,12 +246,14 @@ def process_cell_databook(fm, triples):
         emit_type(triples, subj, CELL + "TopicCell")
     for entry in topic:
         emit_obj(triples, subj, CELL + "topic", entry["id"])
-        process_embedded_graph(entry, triples)
+        process_embedded_graph(entry, triples, "topic")
 
-    # No cell:subject synthesis: who/what a cell is about is derivable
-    # directly from members/topic (cell.ttl's cell:topic comment) rather
-    # than an independently-asserted fact, so it is never stored as its
-    # own triple.
+    # No cell-level subject synthesis: who/what a cell is about is
+    # derivable directly from members/topic — the distinct
+    # cell:graphTopic values if any topic is linked, else the distinct
+    # cell:graphSubject values among members (cell.ttl's cell:topic
+    # comment) — rather than an independently-asserted fact, so it is
+    # never stored as its own triple.
 
     # No cell:shape synthesis either (cell.ttl 3.45.0 removed the
     # property): a cell:MemberCell's validation shape is derivable from
@@ -259,24 +261,31 @@ def process_cell_databook(fm, triples):
     # rather than stored per-instance.
 
 
-def process_embedded_graph(graph, triples):
-    """Emit cell:SCGraph/claimant/subject/template for one mia.member[]/
-    mia.topic[] entry — replaces the old process_topic_databook, which read
-    the same fields from a separate graph-databook file's own frontmatter."""
+def process_embedded_graph(graph, triples, kind):
+    """Emit the graph typing plus claimant/about-ness/template for one
+    mia.member[]/mia.topic[] entry. `kind` is "member" or "topic", and is what
+    decides both the type and which about-ness property the entry carries —
+    cell:SCGraph/cell:graphSubject for a member entry, cell:TCGraph/
+    cell:graphTopic for a topic entry (cell.ttl's two disjoint cell:CGraph
+    leaves). Nothing in the entry itself marks which kind it is; the list it
+    was read from settles it, matching cell:member's and cell:topic's own
+    ranges."""
+    is_member = kind == "member"
+    about_key = "graphSubject" if is_member else "graphTopic"
     claimant = graph.get("claimant")
-    subject = graph.get("subject")
-    if not (claimant and subject):
-        return  # no subject/claimant — not an SCGraph, skip
+    about = graph.get(about_key)
+    if not (claimant and about):
+        return  # missing claimant or about-ness value — not a well-formed graph, skip
     subj = graph["id"]
-    emit_type(triples, subj, CELL + "SCGraph")
+    emit_type(triples, subj, CELL + ("SCGraph" if is_member else "TCGraph"))
     emit_obj(triples, subj, CELL + "claimant", resolve(claimant))
-    emit_obj(triples, subj, CELL + "subject", resolve(subject))
+    emit_obj(triples, subj, CELL + about_key, resolve(about))
 
-    # cell:template — domain cell:Graph, 0..N, present only on graphs that
-    # contain instance(s) of a template type label class (e.g.
-    # identitydocuments:Passport, cell.ttl's graph.png diagram). A graph may
-    # hold more than one template's worth of content at once (e.g. a single
-    # graph combining ServiceAccount, DebitCard, and CheckingAccount
+    # cell:template — domain cell:Graph, so it applies to both kinds, 0..N,
+    # present only on graphs that contain instance(s) of a template type label
+    # class (e.g. identitydocuments:Passport, cell.ttl's graph.png diagram). A
+    # graph may hold more than one template's worth of content at once (e.g. a
+    # single graph combining ServiceAccount, DebitCard, and CheckingAccount
     # instances), so this accepts either a bare string or a YAML list.
     for template in as_list(graph.get("template")):
         emit_obj(triples, subj, CELL + "template", resolve(template))

@@ -19,20 +19,20 @@ mia:
   member:
     - id: "http://www.example.org/mia/graphs/graph-27"
       claimant: ":Citibank"
-      subject: ":Citibank_Service"
+      graphSubject: ":Citibank_Service"
       template: "pshapes:ContactInfoShape"
     - id: "http://www.example.org/mia/graphs/graph-77"
       claimant: ":Self"
-      subject: ":Self"
+      graphSubject: ":Self"
       template: "pshapes:ContactInfoShape"
   topic:
     - id: "http://www.example.org/mia/graphs/graph-75"
       claimant: ":Self"
-      subject: ":Self"
+      graphTopic: ":Self"
       template: "sashapes:ServiceAccountShape"
     - id: "http://www.example.org/mia/graphs/graph-76"
       claimant: ":Citibank"
-      subject: ":Self"
+      graphTopic: ":Self"
       template:
         - "sashapes:ServiceAccountShape"
         - "bankingshapes:DebitCardShape"
@@ -46,7 +46,7 @@ mia:
 
 #### Overview
 
-This graph captures the identity Citibank presents as one of the cell's two members — the bank's side of the relationship. An `o:Organization` is never itself a `cell:member` subject, so what joins the cell is `:Citibank_Service`, the `service:ServiceProvider` the bank provides, carrying `service:providedBy :Citibank`. The bank's name, website, and short institutional self-description sit on `:Citibank` itself, where they belong; its own claimed record about Alice (debit card, checking account, online service account) is the cell's `cell:topic` instead, graph 76. Citibank — the organization, not the service — is the claimant, since it is the party really making the claim and the one an eventual cryptographic signature would name. Alice's own notes about banking here are her claim, not the bank's, and live in her own member graph instead (graph 77).
+This graph captures the identity Citibank presents as one of the cell's two members — the bank's side of the relationship. An `o:Organization` is never itself a `cell:member` graph's `cell:graphSubject`, so what joins the cell is `:Citibank_Service`, the `service:ServiceProvider` the bank provides, carrying `service:providedBy :Citibank`. The bank's name, website, and short institutional self-description sit on `:Citibank` itself, where they belong; its own claimed record about Alice (debit card, checking account, online service account) is the cell's `cell:topic` instead, graph 76. Citibank — the organization, not the service — is the claimant, since it is the party really making the claim and the one an eventual cryptographic signature would name. Alice's own notes about banking here are her claim, not the bank's, and live in her own member graph instead (graph 77).
 
 #### Graph
 
@@ -83,7 +83,7 @@ This graph captures the identity Citibank presents as one of the cell's two memb
 
 #### Overview
 
-This graph is one of the cell's two required `member` entries, claimed by and about `:Self` — a minimal given-name stub, so `:Self` is a genuine member of this cell (see Check 21) alongside `:Citibank_Service` (graph 27), matching the diagram's two member shapes. It also carries Alice's own notes about Citibank as an institution, asserted on `:Citibank` where they belong: these are her claims about why she banks there, not the bank's, so they sit in the graph she claims rather than in Citibank's own member graph. Note: this makes the cell's own `member` subjects (`:Self`, `:Citibank_Service`) overlap with its `topic` subject (`:Self`, from graphs 75/76) — a known, deliberately-deferred Check 18 tension.
+This graph is one of the cell's two required `member` entries, claimed by and about `:Self` — a minimal given-name stub, so `:Self` is a genuine member of this cell (see Check 21) alongside `:Citibank_Service` (graph 27), matching the diagram's two member shapes. It also carries Alice's own notes about Citibank as an institution, asserted on `:Citibank` where they belong: these are her claims about why she banks there, not the bank's, so they sit in the graph she claims rather than in Citibank's own member graph. Note: this makes the cell's own `member` `graphSubject` values (`:Self`, `:Citibank_Service`) overlap with its `topic` `graphTopic` value (`:Self`, from graphs 75/76) — a known, deliberately-deferred Check 18 tension.
 
 #### Graph
 

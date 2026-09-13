@@ -23,28 +23,28 @@ mia:
   member:
     - id: "http://www.example.org/mia/graphs/graph-66"
       claimant: ":Self"
-      subject: ":Self"
+      graphSubject: ":Self"
       template: "pshapes:ContactInfoShape"
     - id: "http://www.example.org/mia/graphs/graph-67"
       claimant: ":Alice_Travel_Agent"
-      subject: ":Alice_Travel_Agent"
+      graphSubject: ":Alice_Travel_Agent"
       template: "pshapes:ContactInfoShape"
     - id: "http://www.example.org/mia/graphs/graph-68"
       claimant: ":Dave"
-      subject: ":Dave"
+      graphSubject: ":Dave"
       template: "pshapes:ContactInfoShape"
   topic:
     - id: "http://www.example.org/mia/graphs/graph-69"
       claimant: ":Self"
-      subject: ":Kyoto_Trip_2027"
+      graphTopic: ":Kyoto_Trip_2027"
       template: "itineraryshapes:ItineraryShape"
     - id: "http://www.example.org/mia/graphs/graph-70"
       claimant: ":Alice_Travel_Agent"
-      subject: ":Kyoto_Trip_2027"
+      graphTopic: ":Kyoto_Trip_2027"
       template: "itineraryshapes:ItineraryShape"
     - id: "http://www.example.org/mia/graphs/graph-91"
       claimant: ":Dave"
-      subject: ":Kyoto_Trip_2027"
+      graphTopic: ":Kyoto_Trip_2027"
       template: "itineraryshapes:ItineraryShape"
 ---
 
@@ -129,7 +129,7 @@ This graph is another of the cell's three required `member` entries — Alice's 
 
 #### Overview
 
-This graph is the cell's third required `member` entry — Dave's own self-claimed bare given-name persona, transmitted from Dave's own instance of the app to Alice's over the PDN once she invited him to this cell, the same "self-claimed member" pattern Bob Johnson's own graphs use. This third distinct `member` subject (alongside `:Self` and `:Alice_Travel_Agent`) is what makes the cell a three-member cell rather than a two-member cell.
+This graph is the cell's third required `member` entry — Dave's own self-claimed bare given-name persona, transmitted from Dave's own instance of the app to Alice's over the PDN once she invited him to this cell, the same "self-claimed member" pattern Bob Johnson's own graphs use. This third distinct `member` `graphSubject` (alongside `:Self` and `:Alice_Travel_Agent`) is what makes the cell a three-member cell rather than a two-member cell.
 
 #### Graph
 

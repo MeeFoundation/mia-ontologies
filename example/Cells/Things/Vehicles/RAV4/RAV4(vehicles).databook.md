@@ -18,12 +18,12 @@ mia:
   member:
     id: "http://www.example.org/mia/graphs/graph-62"
     claimant: ":Self"
-    subject: ":Self"
+    graphSubject: ":Self"
     template: "pshapes:ContactInfoShape"
   topic:
     id: "http://www.example.org/mia/graphs/graph-63"
     claimant: ":Self"
-    subject: ":Alice_RAV4"
+    graphTopic: ":Alice_RAV4"
     template: "vehicleshapes:VehicleShape"
 ---
 

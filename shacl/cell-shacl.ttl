@@ -13,10 +13,10 @@
 @prefix dc: <http://purl.org/dc/elements/1.1/> .
 
 <http://mee.foundation/ontologies/cell/shapes> rdf:type owl:Ontology ;
-    owl:versionIRI <http://mee.foundation/ontologies/cell/shapes/3.39.0> ;
-    dc:date "2026-09-12"^^xsd:date ;
+    owl:versionIRI <http://mee.foundation/ontologies/cell/shapes/3.40.0> ;
+    dc:date "2026-09-13"^^xsd:date ;
     rdfs:label "Cell Ontology SHACL Validation Shapes"@en ;
-    rdfs:comment "SHACL validation shapes for cell:Cell DataBook instances (the content facet of a cell) and cell:SCGraph DataBook instances (the graph DataBooks a cell links to) in the Cell Ontology."@en .
+    rdfs:comment "SHACL validation shapes for cell:Cell DataBook instances (the content facet of a cell) and the graph DataBook instances a cell links to — cell:SCGraph via cell:member, cell:TCGraph via cell:topic — in the Cell Ontology."@en .
 
 
 #################################################################
@@ -133,15 +133,15 @@
 #  stays exactly one); cell:topic's requirement of at least one value, no
 #  upper bound (on the cell:TopicCell subclass only) is enforced by
 #  :TopicCellShape, not here. Every cell:owner value must also be one of
-#  the cell's active cell:member subjects — an invariant not itself
-#  SHACL-expressible (it requires dereferencing each linked graph's own
-#  subject), so it is checked only by CLAUDE.md's own integrity check
-#  (Check 23), not here. There is no subject property on cell:Cell/
-#  cell:MemberCell itself to constrain — a cell's own subject is
-#  derived from cell:member/cell:topic's linked graphs' own
-#  cell:subject values, rather than asserted directly (see cell.ttl's
-#  cell:topic comment; :SCGraphShape below constrains that graph-level
-#  cell:subject instead). There is likewise no
+#  the cell's active cell:member cell:graphSubject values — an invariant
+#  not itself SHACL-expressible (it requires dereferencing each linked
+#  graph's own cell:graphSubject), so it is checked only by CLAUDE.md's
+#  own integrity check (Check 23), not here. There is no subject property
+#  on cell:Cell/cell:MemberCell itself to constrain — a cell's own subject
+#  is derived from cell:member/cell:topic's linked graphs' own
+#  cell:graphSubject/cell:graphTopic values, rather than asserted directly
+#  (see cell.ttl's cell:topic comment; :SCGraphShape and :TCGraphShape
+#  below constrain those graph-level properties instead). There is likewise no
 #  cell:shape to constrain — a MemberCell's validation shape is derived
 #  from its own cell:category value (reverse-lookup the cell:TemplateCell
 #  with the same cell:category, cat-templates.ttl) rather than stored on
@@ -304,18 +304,34 @@
     # here; the real cap (one per cell member) is integrity.md's Check 25.
     sh:property [
         sh:path cell:topic ;
-        sh:class cell:SCGraph ;
+        sh:class cell:TCGraph ;
         sh:minCount 1 ;
-        sh:message "A cell:TopicCell must have at least one cell:topic value, and each must be a cell:SCGraph."@en
+        sh:message "A cell:TopicCell must have at least one cell:topic value, and each must be a cell:TCGraph."@en
     ] .
 
 
 #################################################################
-#  Graph DataBook (cell:SCGraph)
-#  Validates the subject/claimant classification fields on every
-#  graph DataBook — a graph DataBook only ever exists to be linked
-#  from a cell (via cell:member/cell:topic above), so its shape lives
-#  here alongside the cell shapes rather than in a separate file.
+#  Graph DataBooks (cell:CGraph and its two leaves)
+#  Validates the classification fields on every graph DataBook a cell
+#  links to — a graph DataBook only ever exists to be linked from a
+#  cell (via cell:member/cell:topic above), so its shapes live here
+#  alongside the cell shapes rather than in a separate file.
+#
+#  Three shapes, mirroring cell.ttl's three levels. :CGraphShape
+#  carries the cell:claimant constraint common to both kinds;
+#  :SCGraphShape and :TCGraphShape each carry the one about-ness
+#  property their own class defines, plus an sh:maxCount 0 on the
+#  other's, which is how the owl:disjointWith between the two leaves
+#  becomes something a validator can actually fail on.
+#
+#  :CGraphShape deliberately targets the two leaf classes rather than
+#  cell:CGraph itself. sh:targetClass reaches subclass instances only
+#  under rdfs:subClassOf entailment, and helpers/validate.py runs no
+#  reasoner — helpers/databook_graphs.py emits the leaf type alone
+#  (cell:SCGraph or cell:TCGraph, never a bare cell:CGraph), so
+#  targeting the abstract superclass would silently match nothing.
+#  Listing both leaves keeps the claimant constraint declared once
+#  while still firing on real data.
 #################################################################
 
 # cell:template (domain cell:Graph, range sh:NodeShape) is deliberately left
@@ -328,21 +344,56 @@
 # that the cell pass's own shapes deliberately exclude — asserting
 # sh:class here would spuriously fail there.
 
-:SCGraphShape
+:CGraphShape
     a sh:NodeShape ;
-    sh:targetClass cell:SCGraph ;
-    sh:message "SCGraph validation: claimant must be exactly one Person, Organization, or Service; subject must be exactly one IRI."@en ;
-    sh:property [
-        sh:path cell:subject ;
-        sh:minCount 1 ;
-        sh:maxCount 1 ;
-        sh:nodeKind sh:IRI ;
-        sh:message "cell:subject must have exactly one value, and it must be an IRI."@en
-    ] ;
+    sh:targetClass cell:SCGraph, cell:TCGraph ;
+    sh:message "CGraph validation: claimant must be exactly one Person, Organization, or Service."@en ;
     sh:property [
         sh:path cell:claimant ;
         sh:minCount 1 ;
         sh:maxCount 1 ;
         sh:or ( [ sh:class p:Person ] [ sh:class o:Organization ] [ sh:class service:Service ] ) ;
         sh:message "cell:claimant must have exactly one value, and it must be a p:Person, o:Organization, or service:Service."@en
+    ] .
+
+:SCGraphShape
+    a sh:NodeShape ;
+    sh:targetClass cell:SCGraph ;
+    sh:message "SCGraph validation: graphSubject must be exactly one IRI, and no graphTopic may be present."@en ;
+    sh:property [
+        sh:path cell:graphSubject ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:nodeKind sh:IRI ;
+        sh:message "cell:graphSubject must have exactly one value, and it must be an IRI."@en
+    ] ;
+    # The disjointness between the two leaves, made checkable: a
+    # cell:member graph records who the member is, never what the cell
+    # is about (cell.ttl's cell:SCGraph comment).
+    sh:property [
+        sh:path cell:graphTopic ;
+        sh:maxCount 0 ;
+        sh:message "A cell:SCGraph must not carry cell:graphTopic — that property belongs to cell:TCGraph, its disjoint sibling."@en
+    ] .
+
+:TCGraphShape
+    a sh:NodeShape ;
+    sh:targetClass cell:TCGraph ;
+    sh:message "TCGraph validation: graphTopic must be exactly one IRI, and no graphSubject may be present."@en ;
+    sh:property [
+        sh:path cell:graphTopic ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:nodeKind sh:IRI ;
+        sh:message "cell:graphTopic must have exactly one value, and it must be an IRI."@en
+    ] ;
+    # Only sh:nodeKind sh:IRI is asserted, deliberately — unlike a
+    # cell:graphSubject, a cell:graphTopic value need not name a party
+    # with a PDN node subject identity, and may be an individual of any
+    # other/*.ttl domain ontology (a pets:Pet, a vehicles:Vehicle), so
+    # no sh:class or sh:or could enumerate what is allowed here.
+    sh:property [
+        sh:path cell:graphSubject ;
+        sh:maxCount 0 ;
+        sh:message "A cell:TCGraph must not carry cell:graphSubject — that property belongs to cell:SCGraph, its disjoint sibling."@en
     ] .
