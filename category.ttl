@@ -8,7 +8,7 @@
 @base <http://mee.foundation/ontologies/category> .
 
 <http://mee.foundation/ontologies/category> rdf:type owl:Ontology ;
-    owl:versionIRI <http://mee.foundation/ontologies/category/2.7.0> ;
+    owl:versionIRI <http://mee.foundation/ontologies/category/2.8.0> ;
     dc:date "2026-09-13"^^xsd:date ;
     rdfs:label "Category Taxonomy"@en ;
     rdfs:comment """Category Taxonomy for the V4 App."""@en .
@@ -45,15 +45,15 @@ cat:Organization rdf:type skos:Concept ;
 #################################################################
 
 #################################################################
-#    cat:Affiliations and narrower concepts
+#    cat:Groups and narrower concepts
 #################################################################
 
 
-cat:Affiliations rdf:type skos:Concept ;
-    skos:prefLabel "Affiliations"@en ;
+cat:Groups rdf:type skos:Concept ;
+    skos:prefLabel "Groups"@en ;
     skos:broader cat:Person ;
     skos:inScheme cat:CategoryScheme ;
-    rdfs:comment "A catch-all for clubs, charities, faith groups, and other group affiliations that are not covered by a more specific category (e.g. cat:SportsEntertainment, cat:Food, etc.)."@en .
+    rdfs:comment "A catch-all for clubs, charities, faith groups, and other groups that are not covered by a more specific category (e.g. cat:SportsEntertainment, cat:Food, etc.)."@en .
 
 
 #################################################################
@@ -378,7 +378,7 @@ cat:Events rdf:type skos:Concept ;
     skos:prefLabel "Events"@en ;
     skos:broader cat:Person ;
     skos:inScheme cat:CategoryScheme ;
-    rdfs:comment "Participation in or relationship to a specific event or gathering. This is the catch-all category. Sporting events, concerts, etc. would be in cat:SportsEntertainment. Events put on by clubs, faith groups, and other affiliations would be in cat:Affiliations."@en .
+    rdfs:comment "Participation in or relationship to a specific event or gathering. This is the catch-all category. Sporting events, concerts, etc. would be in cat:SportsEntertainment. Events put on by clubs, faith groups, and other groups would be in cat:Groups."@en .
 
 
 #################################################################
@@ -435,7 +435,7 @@ cat:Information rdf:type skos:Concept ;
     skos:prefLabel "Information"@en ;
     skos:broader cat:Person ;
     skos:inScheme cat:CategoryScheme ;
-    rdfs:comment "Information about anything; articles, web links, documents, images. Includes topics that interest and inspire you (e.g. drawing, painting, dancing, religion, gaming, music). See cat:SportsEntertainment for sports and entertainment, and cat:Affiliations for formal memberships tied to a hobby or interest."@en .
+    rdfs:comment "Information about anything; articles, web links, documents, images. Includes topics that interest and inspire you (e.g. drawing, painting, dancing, religion, gaming, music). See cat:SportsEntertainment for sports and entertainment, and cat:Groups for formal memberships tied to a hobby or interest."@en .
 
 #################################################################
 #    cat:Things and narrower concepts

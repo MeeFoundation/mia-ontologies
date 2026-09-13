@@ -1,0 +1,18 @@
+flowchart TD
+    classDef person fill:#fffacd,stroke:#aaa,color:#333
+    classDef org    fill:#cce5ff,stroke:#aaa,color:#333
+    classDef service fill:#e6e6e6,stroke:#aaa,color:#333
+    classDef lit    fill:none,stroke:none,font-style:italic,color:#2a7a2a
+    classDef meta   fill:#f5f5ff,stroke:#9999cc,color:#333
+
+    subgraph ctx["Graph"]
+        direction LR
+        ctx_meta["claimant: :Marcy\ngraphSubject: :Marcy\ntemplate: pshapes:ContactInfoShape"]:::meta
+    end
+
+    n6d365cdbdf56[":Marcy\n(Person)"]:::person
+    n7d0b6b8283f7("Marcy"):::lit
+    n32344761ad3e("marcy@example.com"):::lit
+
+    n6d365cdbdf56 -->|"GivenName"| n7d0b6b8283f7
+    n6d365cdbdf56 -->|"EmailAddress"| n32344761ad3e

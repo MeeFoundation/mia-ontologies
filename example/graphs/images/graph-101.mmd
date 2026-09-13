@@ -1,0 +1,20 @@
+flowchart TD
+    classDef person fill:#fffacd,stroke:#aaa,color:#333
+    classDef org    fill:#cce5ff,stroke:#aaa,color:#333
+    classDef service fill:#e6e6e6,stroke:#aaa,color:#333
+    classDef lit    fill:none,stroke:none,font-style:italic,color:#2a7a2a
+    classDef meta   fill:#f5f5ff,stroke:#9999cc,color:#333
+
+    subgraph ctx["Graph"]
+        direction LR
+        ctx_meta["claimant: :Self\ngraphTopic: :CHVA\ntemplate: oshapes:OrganizationShape"]:::meta
+    end
+
+    na28bd289d30c[":CHVA\n(Organization)"]:::org
+    n1c9b4a10a37c("64"):::lit
+    nda8c8bfea4f9("https://chestnuthillvillage.example.org"):::lit
+    nd811b0654a96("A neighborhood association of the homeowners on the three streets that make up Chestnut Hill Village. Members include Alice Walker, Marcy, and Henry."):::lit
+
+    na28bd289d30c -->|"numMembers"| n1c9b4a10a37c
+    na28bd289d30c -->|"hasWebsite"| nda8c8bfea4f9
+    na28bd289d30c -->|"ont00001917"| nd811b0654a96
