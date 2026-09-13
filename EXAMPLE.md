@@ -332,7 +332,7 @@ cell's instance data, so merging those in doesn't break the isolation.
 Each cell gets two passes.
 
 **1 — the cell pass.** The cell's whole content at once: every one of its embedded graphs' Turtle,
-plus the `c:` triples synthesized from its own `mia.*` frontmatter
+plus the `c:` triples synthesized from its own `v4.*` frontmatter
 (`databook_graphs.process_cell_databook()`). This is validated against the four general shapes
 files — `shacl/cell-shacl.ttl` (the cell model itself: `c:category` cardinality, the
 `c:TemplateCell`/`c:MemberCell` split, `c:creator`/`c:owner`/`c:member`/`c:topic`, and
@@ -345,7 +345,7 @@ in the graph Turtle.
 
 **2 — the template pass.** Each graph carrying a `template:` value, checked on its own against the
 shape that value names. Driven entirely by data already in each cell-databook's own
-`mia.member[]`/`mia.topic[]` entries — there is no hand-maintained per-graph command list to keep in
+`v4.member[]`/`v4.topic[]` entries — there is no hand-maintained per-graph command list to keep in
 sync. Since `c:template`'s range is `sh:NodeShape` (`cell.ttl`), the value already *names the shape
 itself* (e.g. `idocshapes:PassportShape`), with no label-to-shape resolution; the only work left is
 locating which physical `*-shacl.ttl` file defines a shape of that name — `pshapes:` shapes are
@@ -391,9 +391,9 @@ integrity.md's Check 4 ("no orphan Persons"), whose reachability question only m
 cell at once, and loading the example into a triplestore for ad-hoc SPARQL. To produce it:
 
 ```bash
-python3 helpers/extract-all.py example > /tmp/mia-data.ttl   # every embedded graph's turtle
-python3 helpers/yaml-to-rdf.py . > /tmp/mia-yaml.ttl         # the c: triples from every cell's frontmatter
-riot --output=turtle /tmp/mia-data.ttl /tmp/mia-yaml.ttl > /tmp/mia-merged.ttl
+python3 helpers/extract-all.py example > /tmp/v4-data.ttl   # every embedded graph's turtle
+python3 helpers/yaml-to-rdf.py . > /tmp/v4-yaml.ttl         # the c: triples from every cell's frontmatter
+riot --output=turtle /tmp/v4-data.ttl /tmp/v4-yaml.ttl > /tmp/v4-merged.ttl
 ```
 
 Do **not** run the general SHACL shapes against this merged file — that is exactly the global-merge

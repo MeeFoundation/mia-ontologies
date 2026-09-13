@@ -1,5 +1,5 @@
 ---
-id: http://www.example.org/mia/cells/cell-52
+id: http://www.example.org/v4/cells/cell-52
 title: "Hilton"
 type: cell-databook
 version: 1.3.0
@@ -15,17 +15,17 @@ description: >
   that topic is template-driven and the cell is typed cell:TopicCell from the start.
   The cell carries no tag: what makes it findable is the loyaltyProgramID in its
   own topic graph, which a search for that property returns directly.
-mia:
+v4:
   category: "cat:TravelProvider"
   creator: ":Self"
   owner: ":Self"
   member:
-    id: "http://www.example.org/mia/graphs/graph-99"
+    id: "http://www.example.org/v4/graphs/graph-99"
     claimant: ":Self"
     graphSubject: ":Self"
     template: "pshapes:ContactInfoShape"
   topic:
-    id: "http://www.example.org/mia/graphs/graph-84"
+    id: "http://www.example.org/v4/graphs/graph-84"
     claimant: ":Self"
     graphTopic: ":Alice_Hilton_Account"
     template: "sashapes:ServiceAccountShape"
@@ -44,8 +44,8 @@ This graph is the cell's one required `member` entry, claimed by and about `:Sel
 
 ```turtle
 <!-- databook:id: alice-hilton-member-graph -->
-<!-- databook:graph: http://www.example.org/mia/graphs/graph-99#graph -->
-@prefix : <http://www.example.org/mia#> .
+<!-- databook:graph: http://www.example.org/v4/graphs/graph-99#graph -->
+@prefix : <http://www.example.org/v4#> .
 @prefix persona: <http://mee.foundation/ontologies/persona#> .
 @prefix cco: <https://w3id.org/cco-domains/cco/> .
 @prefix owl: <http://www.w3.org/2002/07/owl#> .
@@ -71,8 +71,8 @@ This graph captures Alice's own claim about her Hilton Honors account — the ce
 
 ```turtle
 <!-- databook:id: alice-hilton-account-graph -->
-<!-- databook:graph: http://www.example.org/mia/graphs/graph-84#graph -->
-@prefix : <http://www.example.org/mia#> .
+<!-- databook:graph: http://www.example.org/v4/graphs/graph-84#graph -->
+@prefix : <http://www.example.org/v4#> .
 @prefix persona: <http://mee.foundation/ontologies/persona#> .
 @prefix cco: <https://w3id.org/cco-domains/cco/> .
 @prefix owl: <http://www.w3.org/2002/07/owl#> .

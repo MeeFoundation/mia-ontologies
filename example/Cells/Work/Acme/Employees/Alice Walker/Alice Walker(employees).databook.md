@@ -1,17 +1,17 @@
 ---
-id: http://www.example.org/mia/cells/cell-18
+id: http://www.example.org/v4/cells/cell-18
 title: "Alice Walker"
 type: cell-databook
 version: 1.2.0
 created: 2026-07-10
 description: >
   Cell DataBook for folder "Alice Walker" (cell:category: cat:Employees, reusing its parent "Employees" cell's own origin, mirroring how e.g. "Ginger" reuses its parent "Pets" folder's own category rather than a separately-minted narrower one). It is a one-member cell with one member entry about :Self.
-mia:
+v4:
   category: "cat:Employees"
   creator: ":Self"
   owner: ":Self"
   member:
-    id: "http://www.example.org/mia/graphs/graph-10"
+    id: "http://www.example.org/v4/graphs/graph-10"
     claimant: ":Self"
     graphSubject: ":Self"
     template: "pshapes:ContactInfoShape"
@@ -30,8 +30,8 @@ This graph captures Alice Walker's professional contact info in ContactInfo form
 
 ```turtle
 <!-- databook:id: alice-contact-info-graph -->
-<!-- databook:graph: http://www.example.org/mia/graphs/graph-10#graph -->
-@prefix : <http://www.example.org/mia#> .
+<!-- databook:graph: http://www.example.org/v4/graphs/graph-10#graph -->
+@prefix : <http://www.example.org/v4#> .
 @prefix persona: <http://mee.foundation/ontologies/persona#> .
 @prefix cco: <https://w3id.org/cco-domains/cco/> .
 @prefix owl: <http://www.w3.org/2002/07/owl#> .

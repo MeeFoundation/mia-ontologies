@@ -175,7 +175,7 @@ SKIP_PROPS = {
 }
 
 SKIP_TYPES = {OWL.NamedIndividual, OWL.Thing, OWL.Ontology}
-MIA_NS = "http://www.example.org/mia#"
+V4_NS = "http://www.example.org/v4#"
 
 
 def lbl(iri: URIRef) -> str:
@@ -199,7 +199,7 @@ def esc(s: str) -> str:
 def load_databook(path: Path, graph_id: str | None = None):
     """Parse a cell-databook's frontmatter, and (when graph_id is given)
     isolate just that one embedded graph's turtle fence — a merged cell
-    file's body may contain several fences, one per mia.member/mia.topic
+    file's body may contain several fences, one per v4.member/v4.topic
     entry, so concatenating all of them (the old, pre-merge behavior) would
     wrongly combine sibling graphs' RDF into one graph."""
     content = path.read_text()
@@ -263,22 +263,22 @@ def _dyad_label(dyad_iri: str, src_dir: Path | None) -> str:
     return stem
 
 
-def _meta_subgraph(mia: dict, src_dir: Path | None = None) -> list[str]:
-    """Build a Mermaid subgraph showing the mia: YAML properties as a metadata box."""
+def _meta_subgraph(v4: dict, src_dir: Path | None = None) -> list[str]:
+    """Build a Mermaid subgraph showing the v4: YAML properties as a metadata box."""
     props = []
-    if name := mia.get("name"):
+    if name := v4.get("name"):
         props.append(f"name: {name}")
-    if cat := mia.get("contextCategory"):
+    if cat := v4.get("contextCategory"):
         props.append(f"category: {cat.removeprefix('context:')}")
-    if claimant := mia.get("claimant"):
+    if claimant := v4.get("claimant"):
         props.append(f"claimant: {claimant}")
-    if graph_subject := mia.get("graphSubject"):
+    if graph_subject := v4.get("graphSubject"):
         props.append(f"graphSubject: {graph_subject}")
-    if graph_topic := mia.get("graphTopic"):
+    if graph_topic := v4.get("graphTopic"):
         props.append(f"graphTopic: {graph_topic}")
-    if template := mia.get("template"):
+    if template := v4.get("template"):
         props.append(f"template: {template}")
-    if dyad := mia.get("dyad"):
+    if dyad := v4.get("dyad"):
         props.append(f"dyad: {_dyad_label(str(dyad), src_dir)}")
     if not props:
         return []
@@ -292,8 +292,8 @@ def _meta_subgraph(mia: dict, src_dir: Path | None = None) -> list[str]:
 
 
 def build_mermaid(g: Graph, frontmatter: dict | None = None, src_dir: Path | None = None) -> str:
-    mia = (frontmatter or {}).get("mia") or {}
-    context_category_label = mia.get("contextCategory")
+    v4 = (frontmatter or {}).get("v4") or {}
+    context_category_label = v4.get("contextCategory")
 
     header = []
     if context_category_label:
@@ -395,7 +395,7 @@ def build_mermaid(g: Graph, frontmatter: dict | None = None, src_dir: Path | Non
             elif isinstance(obj, URIRef):
                 if obj in individuals:
                     edge_lines.append(f'    {src} -->|"{esc(plabel)}"| {ensure_ind(obj)}')
-                elif str(obj).startswith(MIA_NS):
+                elif str(obj).startswith(V4_NS):
                     edge_lines.append(f'    {src} -->|"{esc(plabel)}"| {ensure_ext(obj)}')
                 else:
                     val = lbl(obj)
@@ -406,7 +406,7 @@ def build_mermaid(g: Graph, frontmatter: dict | None = None, src_dir: Path | Non
                 tgt = ensure_lit(str(obj), str(ind) + str(pred) + str(obj))
                 edge_lines.append(f'    {src} -->|"{esc(plabel)}"| {tgt}')
 
-    meta_lines = _meta_subgraph(mia, src_dir)
+    meta_lines = _meta_subgraph(v4, src_dir)
 
     parts = header + [""]
     if meta_lines:
@@ -483,11 +483,11 @@ def main() -> None:
             )
         graph_arg = sys.argv[2]
         _, cell_fm = load_databook(src)  # frontmatter only — no graph_id yet
-        mia = cell_fm.get("mia") or {}
-        entries = as_list(mia.get("member")) + as_list(mia.get("topic"))
+        v4 = cell_fm.get("v4") or {}
+        entries = as_list(v4.get("member")) + as_list(v4.get("topic"))
         match = find_graph_entry(entries, graph_arg)
         if not match:
-            sys.exit(f"No mia.member/mia.topic entry with id/local-name {graph_arg!r} in {src}")
+            sys.exit(f"No v4.member/v4.topic entry with id/local-name {graph_arg!r} in {src}")
         graph_id = match["id"]
         stem = graph_id.rsplit("/", 1)[-1]  # unchanged filename-stem convention
         g, _ = load_databook(src, graph_id)
@@ -497,10 +497,10 @@ def main() -> None:
         # `individuals` set (built from an in-graph owl:NamedIndividual typing)
         # picks it up from the graph's own content like any other individual.
         # Use this one graph's own claimant/subject/template for the "Graph"
-        # metadata box — not the owning cell's aggregate mia.creator
-        # (the cell has no aggregate mia.subject of its own any more; a
+        # metadata box — not the owning cell's aggregate v4.creator
+        # (the cell has no aggregate v4.subject of its own any more; a
         # cell's subject is derived from its members/topic).
-        frontmatter = {"mia": {
+        frontmatter = {"v4": {
             "claimant": match.get("claimant"),
             "graphSubject": match.get("graphSubject"),
             "graphTopic": match.get("graphTopic"),
@@ -515,7 +515,7 @@ def main() -> None:
         if ontology_iri:
             ctype = g.value(ontology_iri, PERSONA.contextType)
             if ctype:
-                frontmatter = {"mia": {"contextCategory": lbl(ctype)}}
+                frontmatter = {"v4": {"contextCategory": lbl(ctype)}}
         stem = src.stem
         # Write to images/ subdirectory if it exists, otherwise alongside the source
         images_dir = src.parent / "images"

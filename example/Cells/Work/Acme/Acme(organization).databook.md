@@ -1,5 +1,5 @@
 ---
-id: http://www.example.org/mia/cells/cell-35
+id: http://www.example.org/v4/cells/cell-35
 title: "Acme"
 type: cell-databook
 version: 1.2.0
@@ -9,17 +9,17 @@ description: >
   one-member cell with one member entry about :Self, plus one topic graph about
   :Acme itself — Alice's employer's own o:Organization profile, required now that
   cat:Organization's own TemplateCell is isTopicCell: true (Check 31).
-mia:
+v4:
   category: "cat:Organization"
   creator: ":Self"
   owner: ":Self"
   member:
-    id: "http://www.example.org/mia/graphs/graph-53"
+    id: "http://www.example.org/v4/graphs/graph-53"
     claimant: ":Self"
     graphSubject: ":Self"
     template: "pshapes:ContactInfoShape"
   topic:
-    id: "http://www.example.org/mia/graphs/graph-94"
+    id: "http://www.example.org/v4/graphs/graph-94"
     claimant: ":Self"
     graphTopic: ":Acme"
     template: "oshapes:OrganizationShape"
@@ -38,8 +38,8 @@ This graph is the cell's one required `member` entry — a cell with a single `m
 
 ```turtle
 <!-- databook:id: alice-acme-member-graph -->
-<!-- databook:graph: http://www.example.org/mia/graphs/graph-53#graph -->
-@prefix : <http://www.example.org/mia#> .
+<!-- databook:graph: http://www.example.org/v4/graphs/graph-53#graph -->
+@prefix : <http://www.example.org/v4#> .
 @prefix cco: <https://w3id.org/cco-domains/cco/> .
 @prefix owl: <http://www.w3.org/2002/07/owl#> .
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
@@ -68,8 +68,8 @@ about Acme.
 
 ```turtle
 <!-- databook:id: alice-acme-org-profile-graph -->
-<!-- databook:graph: http://www.example.org/mia/graphs/graph-94#graph -->
-@prefix : <http://www.example.org/mia#> .
+<!-- databook:graph: http://www.example.org/v4/graphs/graph-94#graph -->
+@prefix : <http://www.example.org/v4#> .
 @prefix o: <http://mee.foundation/ontologies/organization#> .
 @prefix owl: <http://www.w3.org/2002/07/owl#> .
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .

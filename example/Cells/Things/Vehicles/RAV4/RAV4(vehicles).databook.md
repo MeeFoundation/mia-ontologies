@@ -1,5 +1,5 @@
 ---
-id: http://www.example.org/mia/cells/cell-44
+id: http://www.example.org/v4/cells/cell-44
 title: "RAV4"
 type: cell-databook
 version: 1.0.0
@@ -11,17 +11,17 @@ description: >
   entry about :Self and one graph about :Alice_RAV4 (the cell's subject), typed vehicles:Vehicle and
   carrying its vehicle type, make, model, model year, VIN, color, body type, fuel type, drive wheel
   configuration, odometer reading, and engine specification.
-mia:
+v4:
   category: "cat:Vehicles"
   creator: ":Self"
   owner: ":Self"
   member:
-    id: "http://www.example.org/mia/graphs/graph-62"
+    id: "http://www.example.org/v4/graphs/graph-62"
     claimant: ":Self"
     graphSubject: ":Self"
     template: "pshapes:ContactInfoShape"
   topic:
-    id: "http://www.example.org/mia/graphs/graph-63"
+    id: "http://www.example.org/v4/graphs/graph-63"
     claimant: ":Self"
     graphTopic: ":Alice_RAV4"
     template: "vehicleshapes:VehicleShape"
@@ -40,8 +40,8 @@ This graph is the cell's one required `member` entry — a cell with a single `m
 
 ```turtle
 <!-- databook:id: alice-rav4-member-graph -->
-<!-- databook:graph: http://www.example.org/mia/graphs/graph-62#graph -->
-@prefix : <http://www.example.org/mia#> .
+<!-- databook:graph: http://www.example.org/v4/graphs/graph-62#graph -->
+@prefix : <http://www.example.org/v4#> .
 @prefix cco: <https://w3id.org/cco-domains/cco/> .
 @prefix owl: <http://www.w3.org/2002/07/owl#> .
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
@@ -75,8 +75,8 @@ This graph captures Alice's basic claim about her car itself — just enough to 
 
 ```turtle
 <!-- databook:id: alice-rav4-subject-graph -->
-<!-- databook:graph: http://www.example.org/mia/graphs/graph-63#graph -->
-@prefix : <http://www.example.org/mia#> .
+<!-- databook:graph: http://www.example.org/v4/graphs/graph-63#graph -->
+@prefix : <http://www.example.org/v4#> .
 @prefix persona: <http://mee.foundation/ontologies/persona#> .
 @prefix vehicles: <http://mee.foundation/ontologies/vehicles#> .
 @prefix wd: <http://www.wikidata.org/entity/> .

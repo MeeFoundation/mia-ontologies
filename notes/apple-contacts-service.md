@@ -48,7 +48,7 @@ Note that these tags never propagate when a cell is shared: they are one member'
 
 vCard supports custom extension fields (`X-` prefix). Storing app IRIs in these fields lets the app re-identify records on re-import without duplication or drift:
 
-- `X-CELLULA-PERSON-IRI` on a contact record — points to the `p:Person` individual IRI
+- `X-V4-PERSON-IRI` on a contact record — points to the `p:Person` individual IRI
 
 Groups need no anchor field of their own: the hidden service tag already holds the group's name verbatim on the cell, and re-identification is by that value (see the rename-safety note above for when a `groupID` tag is worth writing alongside it).
 
@@ -60,7 +60,7 @@ These fields are ignored by Apple Contacts and other vCard consumers but survive
 
 | Dimension | Import | Export | Lossless? |
 |-----------|--------|--------|-----------|
-| Contact fields | Direct field mapping | Merge all graphs into one vCard | Yes, with `X-CELLULA-PERSON-IRI` anchor |
+| Contact fields | Direct field mapping | Merge all graphs into one vCard | Yes, with `X-V4-PERSON-IRI` anchor |
 | Multiple graphs per person | Each → a separate graph embedded in the person's cell DataBook | Flatten to single vCard; multiple values per label are correct | Yes |
 | Group membership | Each group → one hidden service tag on the cell | Tags in this module's namespace with key `group` → group membership | Yes — the group name round-trips verbatim |
-| App-specific metadata | Stored in graph DataBook | Store IRI in `X-CELLULA-*` vCard field | Yes, with anchor fields |
+| App-specific metadata | Stored in graph DataBook | Store IRI in `X-V4-*` vCard field | Yes, with anchor fields |

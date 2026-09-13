@@ -16,7 +16,7 @@ Each cell gets two passes:
 
 1. **Cell pass** — the cell's whole content at once: every one of its
    embedded graphs' Turtle, plus the `cell:` triples synthesized from its own
-   `mia.*` frontmatter (databook_graphs.process_cell_databook). Validated
+   `v4.*` frontmatter (databook_graphs.process_cell_databook). Validated
    against the four general shapes files — cell-shacl (the cell model
    itself), persona-shacl, organization-shacl, service-shacl. The graph Turtle
    has to be in here, not just the frontmatter triples: cell-shacl's
@@ -347,7 +347,7 @@ def main():
         fm, body = frontmatter(cell_path)
         if not fm or fm.get("type") != "cell-databook":
             continue
-        mia = fm.get("mia", {}) or {}
+        v4 = fm.get("v4", {}) or {}
 
         # --- Cell pass: the cell's whole content against the general shapes.
         data_path = cell_data(cell_path, fm, body, cell_base_path)
@@ -360,7 +360,7 @@ def main():
             violations += 1
 
         # --- Template pass: each templated graph against its own shape.
-        for entry in as_list(mia.get("member")) + as_list(mia.get("topic")):
+        for entry in as_list(v4.get("member")) + as_list(v4.get("topic")):
             if not isinstance(entry, dict):
                 continue
             gid = entry["id"]

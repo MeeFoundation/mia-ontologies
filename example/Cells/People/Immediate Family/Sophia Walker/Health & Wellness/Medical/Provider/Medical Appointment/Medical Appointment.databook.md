@@ -1,26 +1,26 @@
 ---
-id: http://www.example.org/mia/cells/cell-15
+id: http://www.example.org/v4/cells/cell-15
 title: "Medical Appointment"
 type: cell-databook
 version: 2.0.0
 created: 2026-07-10
 description: >
   Cell DataBook for folder "Medical Appointment" (cell:category: cat:MedicalAppointment). It is a two-member cell with two members about :Dave and :Self and one topic about :Sophia_Walker, Alice and Dave's daughter.
-mia:
+v4:
   category: "cat:MedicalAppointment"
   creator: ":Self"
   owner: ":Self"
   member:
-    - id: "http://www.example.org/mia/graphs/graph-28"
+    - id: "http://www.example.org/v4/graphs/graph-28"
       claimant: ":Dave"
       graphSubject: ":Dave"
       template: "pshapes:ContactInfoShape"
-    - id: "http://www.example.org/mia/graphs/graph-30"
+    - id: "http://www.example.org/v4/graphs/graph-30"
       claimant: ":Self"
       graphSubject: ":Self"
       template: "pshapes:ContactInfoShape"
   topic:
-    id: "http://www.example.org/mia/graphs/graph-26"
+    id: "http://www.example.org/v4/graphs/graph-26"
     claimant: ":Self"
     graphTopic: ":Sophia_Walker"
     template: "mashapes:MedicalAppointmentRecordShape"
@@ -39,8 +39,8 @@ This graph captures Alice's shared record of the claims needed to arrange a medi
 
 ```turtle
 <!-- databook:id: alice-sophia-medical-appointment-graph -->
-<!-- databook:graph: http://www.example.org/mia/graphs/graph-26#graph -->
-@prefix : <http://www.example.org/mia#> .
+<!-- databook:graph: http://www.example.org/v4/graphs/graph-26#graph -->
+@prefix : <http://www.example.org/v4#> .
 @prefix persona: <http://mee.foundation/ontologies/persona#> .
 @prefix cco: <https://w3id.org/cco-domains/cco/> .
 @prefix owl: <http://www.w3.org/2002/07/owl#> .
@@ -118,8 +118,8 @@ This graph captures Dave's own self-claimed persona and contact info, shared dir
 
 ```turtle
 <!-- databook:id: dave-self-graph -->
-<!-- databook:graph: http://www.example.org/mia/graphs/graph-28#graph -->
-@prefix : <http://www.example.org/mia#> .
+<!-- databook:graph: http://www.example.org/v4/graphs/graph-28#graph -->
+@prefix : <http://www.example.org/v4#> .
 @prefix persona: <http://mee.foundation/ontologies/persona#> .
 @prefix cco: <https://w3id.org/cco-domains/cco/> .
 @prefix owl: <http://www.w3.org/2002/07/owl#> .
@@ -167,8 +167,8 @@ This graph captures Alice Walker's own self-claimed contact info, kept in this c
 
 ```turtle
 <!-- databook:id: alice-self-graph -->
-<!-- databook:graph: http://www.example.org/mia/graphs/graph-30#graph -->
-@prefix : <http://www.example.org/mia#> .
+<!-- databook:graph: http://www.example.org/v4/graphs/graph-30#graph -->
+@prefix : <http://www.example.org/v4#> .
 @prefix cco: <https://w3id.org/cco-domains/cco/> .
 @prefix owl: <http://www.w3.org/2002/07/owl#> .
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .

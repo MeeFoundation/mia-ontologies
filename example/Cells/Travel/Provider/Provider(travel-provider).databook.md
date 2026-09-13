@@ -1,5 +1,5 @@
 ---
-id: http://www.example.org/mia/cells/cell-51
+id: http://www.example.org/v4/cells/cell-51
 title: "Provider"
 type: cell-databook
 version: 1.1.0
@@ -12,17 +12,17 @@ description: >
   topic cat:TravelProvider's own TemplateCell now requires (cell:isTopicCell true),
   deliberately empty, since its real content lives in its own leaf cell (Hilton)
   instead.
-mia:
+v4:
   category: "cat:TravelProvider"
   creator: ":Self"
   owner: ":Self"
   member:
-    id: "http://www.example.org/mia/graphs/graph-98"
+    id: "http://www.example.org/v4/graphs/graph-98"
     claimant: ":Self"
     graphSubject: ":Self"
     template: "pshapes:ContactInfoShape"
   topic:
-    id: "http://www.example.org/mia/graphs/graph-56"
+    id: "http://www.example.org/v4/graphs/graph-56"
     claimant: ":Self"
     graphTopic: ":Self"
 ---
@@ -40,8 +40,8 @@ This graph is the cell's one required `member` entry — a cell with a single `m
 
 ```turtle
 <!-- databook:id: alice-travel-provider-member-graph -->
-<!-- databook:graph: http://www.example.org/mia/graphs/graph-98#graph -->
-@prefix : <http://www.example.org/mia#> .
+<!-- databook:graph: http://www.example.org/v4/graphs/graph-98#graph -->
+@prefix : <http://www.example.org/v4#> .
 @prefix persona: <http://mee.foundation/ontologies/persona#> .
 @prefix cco: <https://w3id.org/cco-domains/cco/> .
 @prefix owl: <http://www.w3.org/2002/07/owl#> .
@@ -67,5 +67,5 @@ This graph is the cell's required `topic` — required now that `cat:TravelProvi
 
 ```turtle
 <!-- databook:id: alice-travel-provider-topic-graph -->
-<!-- databook:graph: http://www.example.org/mia/graphs/graph-56#graph -->
+<!-- databook:graph: http://www.example.org/v4/graphs/graph-56#graph -->
 ```

@@ -1,5 +1,5 @@
 ---
-id: http://www.example.org/mia/cells/cell-50
+id: http://www.example.org/v4/cells/cell-50
 title: "Arca"
 type: cell-databook
 version: 1.1.0
@@ -13,21 +13,21 @@ description: >
   a backup service is not any one member's delegate and has no service:actsFor value — it serves the
   cell itself. The account Alice holds with Arca is the cell's topic (graph-97), the same
   sa:ServiceAccount pattern the Google and ATT cells already use.
-mia:
+v4:
   category: "cat:Companies"
   creator: ":Self"
   owner: ":Self"
   member:
-    - id: "http://www.example.org/mia/graphs/graph-95"
+    - id: "http://www.example.org/v4/graphs/graph-95"
       claimant: ":Self"
       graphSubject: ":Self"
       template: "pshapes:ContactInfoShape"
-    - id: "http://www.example.org/mia/graphs/graph-96"
+    - id: "http://www.example.org/v4/graphs/graph-96"
       claimant: ":Arca_Backup"
       graphSubject: ":Arca_Backup"
       template: "pshapes:ContactInfoShape"
   topic:
-    - id: "http://www.example.org/mia/graphs/graph-97"
+    - id: "http://www.example.org/v4/graphs/graph-97"
       claimant: ":Self"
       graphTopic: ":Alice_Arca_Account"
       template: "sashapes:ServiceAccountShape"
@@ -46,8 +46,8 @@ This graph is one of the cell's two required `member` entries — Alice's own ba
 
 ```turtle
 <!-- databook:id: alice-arca-member-graph -->
-<!-- databook:graph: http://www.example.org/mia/graphs/graph-95#graph -->
-@prefix : <http://www.example.org/mia#> .
+<!-- databook:graph: http://www.example.org/v4/graphs/graph-95#graph -->
+@prefix : <http://www.example.org/v4#> .
 @prefix persona: <http://mee.foundation/ontologies/persona#> .
 @prefix cco: <https://w3id.org/cco-domains/cco/> .
 @prefix owl: <http://www.w3.org/2002/07/owl#> .
@@ -75,8 +75,8 @@ Like graph 01 and graph 27, this `member` graph declares `pshapes:ContactInfoSha
 
 ```turtle
 <!-- databook:id: arca-backup-member-graph -->
-<!-- databook:graph: http://www.example.org/mia/graphs/graph-96#graph -->
-@prefix : <http://www.example.org/mia#> .
+<!-- databook:graph: http://www.example.org/v4/graphs/graph-96#graph -->
+@prefix : <http://www.example.org/v4#> .
 @prefix o: <http://mee.foundation/ontologies/organization#> .
 @prefix persona: <http://mee.foundation/ontologies/persona#> .
 @prefix service: <http://mee.foundation/ontologies/service#> .
@@ -111,8 +111,8 @@ This graph captures Alice's basic claim about her Arca account itself — as the
 
 ```turtle
 <!-- databook:id: alice-arca-subject-graph -->
-<!-- databook:graph: http://www.example.org/mia/graphs/graph-97#graph -->
-@prefix : <http://www.example.org/mia#> .
+<!-- databook:graph: http://www.example.org/v4/graphs/graph-97#graph -->
+@prefix : <http://www.example.org/v4#> .
 @prefix persona: <http://mee.foundation/ontologies/persona#> .
 @prefix cco: <https://w3id.org/cco-domains/cco/> .
 @prefix owl: <http://www.w3.org/2002/07/owl#> .

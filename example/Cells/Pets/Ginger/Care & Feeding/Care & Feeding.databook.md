@@ -1,28 +1,28 @@
 ---
-id: http://www.example.org/mia/cells/cell-42
+id: http://www.example.org/v4/cells/cell-42
 title: "Care & Feeding"
 type: cell-databook
 version: 1.1.0
 created: 2026-08-29
 description: >
   Cell DataBook for folder "Care & Feeding" (cell:category: cat:PetsCareAndFeeding). It is a two-member cell, shared by Alice with Paula, with two members (about :Self and :Paula_Walker) and one graph about :Ginger, Alice's cat (the cell's subject) — the day-to-day instructions for looking after Ginger, alongside her Medical cell's sibling record of her medical care.
-mia:
+v4:
   category: "cat:PetsCareAndFeeding"
   creator: ":Self"
   owner: ":Self"
   userTag:
     - "Ginger"
   member:
-    - id: "http://www.example.org/mia/graphs/graph-58"
+    - id: "http://www.example.org/v4/graphs/graph-58"
       claimant: ":Self"
       graphSubject: ":Self"
       template: "pshapes:ContactInfoShape"
-    - id: "http://www.example.org/mia/graphs/graph-59"
+    - id: "http://www.example.org/v4/graphs/graph-59"
       claimant: ":Paula_Walker"
       graphSubject: ":Paula_Walker"
       template: "pshapes:ContactInfoShape"
   topic:
-    id: "http://www.example.org/mia/graphs/graph-60"
+    id: "http://www.example.org/v4/graphs/graph-60"
     claimant: ":Self"
     graphTopic: ":Ginger"
 ---
@@ -40,8 +40,8 @@ This graph is one of the cell's two `member` entries, satisfying the two-member 
 
 ```turtle
 <!-- databook:id: alice-ginger-care-feeding-member-graph -->
-<!-- databook:graph: http://www.example.org/mia/graphs/graph-58#graph -->
-@prefix : <http://www.example.org/mia#> .
+<!-- databook:graph: http://www.example.org/v4/graphs/graph-58#graph -->
+@prefix : <http://www.example.org/v4#> .
 @prefix persona: <http://mee.foundation/ontologies/persona#> .
 @prefix cco: <https://w3id.org/cco-domains/cco/> .
 @prefix owl: <http://www.w3.org/2002/07/owl#> .
@@ -66,8 +66,8 @@ This cell was created by Alice and later shared with Paula, making the cell a tw
 
 ```turtle
 <!-- databook:id: paula-ginger-care-feeding-member-graph -->
-<!-- databook:graph: http://www.example.org/mia/graphs/graph-59#graph -->
-@prefix : <http://www.example.org/mia#> .
+<!-- databook:graph: http://www.example.org/v4/graphs/graph-59#graph -->
+@prefix : <http://www.example.org/v4#> .
 @prefix persona: <http://mee.foundation/ontologies/persona#> .
 @prefix cco: <https://w3id.org/cco-domains/cco/> .
 @prefix owl: <http://www.w3.org/2002/07/owl#> .
@@ -92,8 +92,8 @@ This graph captures Alice's day-to-day care and feeding instructions for her cat
 
 ```turtle
 <!-- databook:id: ginger-care-feeding-graph -->
-<!-- databook:graph: http://www.example.org/mia/graphs/graph-60#graph -->
-@prefix : <http://www.example.org/mia#> .
+<!-- databook:graph: http://www.example.org/v4/graphs/graph-60#graph -->
+@prefix : <http://www.example.org/v4#> .
 @prefix owl: <http://www.w3.org/2002/07/owl#> .
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .

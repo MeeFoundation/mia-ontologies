@@ -1,5 +1,5 @@
 ---
-id: http://www.example.org/mia/cells/cell-47
+id: http://www.example.org/v4/cells/cell-47
 title: "Kyoto Trip 2027"
 type: cell-databook
 version: 1.2.0
@@ -16,33 +16,33 @@ description: >
   cell:topic's real upper bound (one value per member, see Check 25) and mirroring how a
   cell:topic may be claimed from more than one side (see the Medical Appointment cell's two
   "Med. Appt mt." squares in README.md's Representative Cells diagram).
-mia:
+v4:
   category: "cat:Trips"
   creator: ":Self"
   owner: ":Self"
   member:
-    - id: "http://www.example.org/mia/graphs/graph-66"
+    - id: "http://www.example.org/v4/graphs/graph-66"
       claimant: ":Self"
       graphSubject: ":Self"
       template: "pshapes:ContactInfoShape"
-    - id: "http://www.example.org/mia/graphs/graph-67"
+    - id: "http://www.example.org/v4/graphs/graph-67"
       claimant: ":Alice_Travel_Agent"
       graphSubject: ":Alice_Travel_Agent"
       template: "pshapes:ContactInfoShape"
-    - id: "http://www.example.org/mia/graphs/graph-68"
+    - id: "http://www.example.org/v4/graphs/graph-68"
       claimant: ":Dave"
       graphSubject: ":Dave"
       template: "pshapes:ContactInfoShape"
   topic:
-    - id: "http://www.example.org/mia/graphs/graph-69"
+    - id: "http://www.example.org/v4/graphs/graph-69"
       claimant: ":Self"
       graphTopic: ":Kyoto_Trip_2027"
       template: "itineraryshapes:ItineraryShape"
-    - id: "http://www.example.org/mia/graphs/graph-70"
+    - id: "http://www.example.org/v4/graphs/graph-70"
       claimant: ":Alice_Travel_Agent"
       graphTopic: ":Kyoto_Trip_2027"
       template: "itineraryshapes:ItineraryShape"
-    - id: "http://www.example.org/mia/graphs/graph-91"
+    - id: "http://www.example.org/v4/graphs/graph-91"
       claimant: ":Dave"
       graphTopic: ":Kyoto_Trip_2027"
       template: "itineraryshapes:ItineraryShape"
@@ -61,8 +61,8 @@ This graph is one of the cell's three required `member` entries — Alice's own 
 
 ```turtle
 <!-- databook:id: alice-kyoto-trip-member-graph -->
-<!-- databook:graph: http://www.example.org/mia/graphs/graph-66#graph -->
-@prefix : <http://www.example.org/mia#> .
+<!-- databook:graph: http://www.example.org/v4/graphs/graph-66#graph -->
+@prefix : <http://www.example.org/v4#> .
 @prefix persona: <http://mee.foundation/ontologies/persona#> .
 @prefix cco: <https://w3id.org/cco-domains/cco/> .
 @prefix owl: <http://www.w3.org/2002/07/owl#> .
@@ -102,8 +102,8 @@ This graph is another of the cell's three required `member` entries — Alice's 
 
 ```turtle
 <!-- databook:id: alice-travel-agent-member-graph -->
-<!-- databook:graph: http://www.example.org/mia/graphs/graph-67#graph -->
-@prefix : <http://www.example.org/mia#> .
+<!-- databook:graph: http://www.example.org/v4/graphs/graph-67#graph -->
+@prefix : <http://www.example.org/v4#> .
 @prefix service: <http://mee.foundation/ontologies/service#> .
 @prefix owl: <http://www.w3.org/2002/07/owl#> .
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
@@ -135,8 +135,8 @@ This graph is the cell's third required `member` entry — Dave's own self-claim
 
 ```turtle
 <!-- databook:id: dave-dave-member-graph -->
-<!-- databook:graph: http://www.example.org/mia/graphs/graph-68#graph -->
-@prefix : <http://www.example.org/mia#> .
+<!-- databook:graph: http://www.example.org/v4/graphs/graph-68#graph -->
+@prefix : <http://www.example.org/v4#> .
 @prefix persona: <http://mee.foundation/ontologies/persona#> .
 @prefix cco: <https://w3id.org/cco-domains/cco/> .
 @prefix owl: <http://www.w3.org/2002/07/owl#> .
@@ -163,8 +163,8 @@ This graph is one of the cell's two `topic` entries — Alice's own basic claim 
 
 ```turtle
 <!-- databook:id: alice-kyoto-trip-topic-graph -->
-<!-- databook:graph: http://www.example.org/mia/graphs/graph-69#graph -->
-@prefix : <http://www.example.org/mia#> .
+<!-- databook:graph: http://www.example.org/v4/graphs/graph-69#graph -->
+@prefix : <http://www.example.org/v4#> .
 @prefix persona: <http://mee.foundation/ontologies/persona#> .
 @prefix owl: <http://www.w3.org/2002/07/owl#> .
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
@@ -187,8 +187,8 @@ This graph is one of the cell's three `topic` entries — Alice's travel agent's
 
 ```turtle
 <!-- databook:id: alice-travel-agent-kyoto-trip-topic-graph -->
-<!-- databook:graph: http://www.example.org/mia/graphs/graph-70#graph -->
-@prefix : <http://www.example.org/mia#> .
+<!-- databook:graph: http://www.example.org/v4/graphs/graph-70#graph -->
+@prefix : <http://www.example.org/v4#> .
 @prefix persona: <http://mee.foundation/ontologies/persona#> .
 @prefix owl: <http://www.w3.org/2002/07/owl#> .
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
@@ -211,8 +211,8 @@ This graph is the cell's third `topic` entry — Dave's own contribution to the 
 
 ```turtle
 <!-- databook:id: dave-kyoto-trip-topic-graph -->
-<!-- databook:graph: http://www.example.org/mia/graphs/graph-91#graph -->
-@prefix : <http://www.example.org/mia#> .
+<!-- databook:graph: http://www.example.org/v4/graphs/graph-91#graph -->
+@prefix : <http://www.example.org/v4#> .
 @prefix persona: <http://mee.foundation/ontologies/persona#> .
 @prefix owl: <http://www.w3.org/2002/07/owl#> .
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .

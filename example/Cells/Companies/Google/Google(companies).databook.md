@@ -1,5 +1,5 @@
 ---
-id: http://www.example.org/mia/cells/cell-03
+id: http://www.example.org/v4/cells/cell-03
 title: "Google"
 type: cell-databook
 version: 2.0.0
@@ -9,17 +9,17 @@ description: >
   member entry about :Self and one graph about :Alice_Google_Account (the cell's subject), typed
   serviceaccounts:ServiceAccount and cco:ent00000033 (Online Service Account), carrying the service name,
   account username, and password for Alice's Google account.
-mia:
+v4:
   category: "cat:Companies"
   creator: ":Self"
   owner: ":Self"
   member:
-    id: "http://www.example.org/mia/graphs/graph-16"
+    id: "http://www.example.org/v4/graphs/graph-16"
     claimant: ":Self"
     graphSubject: ":Self"
     template: "pshapes:ContactInfoShape"
   topic:
-    id: "http://www.example.org/mia/graphs/graph-73"
+    id: "http://www.example.org/v4/graphs/graph-73"
     claimant: ":Self"
     graphTopic: ":Alice_Google_Account"
     template: "sashapes:ServiceAccountShape"
@@ -38,8 +38,8 @@ This graph is the cell's one required `member` entry — a cell with a single `m
 
 ```turtle
 <!-- databook:id: alice-google-member-graph -->
-<!-- databook:graph: http://www.example.org/mia/graphs/graph-16#graph -->
-@prefix : <http://www.example.org/mia#> .
+<!-- databook:graph: http://www.example.org/v4/graphs/graph-16#graph -->
+@prefix : <http://www.example.org/v4#> .
 @prefix cco: <https://w3id.org/cco-domains/cco/> .
 @prefix owl: <http://www.w3.org/2002/07/owl#> .
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
@@ -73,8 +73,8 @@ This graph captures Alice's basic claim about her Google account itself — just
 
 ```turtle
 <!-- databook:id: alice-google-subject-graph -->
-<!-- databook:graph: http://www.example.org/mia/graphs/graph-73#graph -->
-@prefix : <http://www.example.org/mia#> .
+<!-- databook:graph: http://www.example.org/v4/graphs/graph-73#graph -->
+@prefix : <http://www.example.org/v4#> .
 @prefix persona: <http://mee.foundation/ontologies/persona#> .
 @prefix cco: <https://w3id.org/cco-domains/cco/> .
 @prefix owl: <http://www.w3.org/2002/07/owl#> .

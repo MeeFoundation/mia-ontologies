@@ -28,11 +28,11 @@ def main():
     text = open(path, encoding="utf-8").read()
     fm_text, _, body = split_frontmatter(text)
     fm = yaml.safe_load(fm_text)
-    mia = fm.get("mia") or {}
-    entries = as_list(mia.get("member")) + as_list(mia.get("topic"))
+    v4 = fm.get("v4") or {}
+    entries = as_list(v4.get("member")) + as_list(v4.get("topic"))
     match = find_graph_entry(entries, graph_arg)
     if not match:
-        sys.exit(f"No mia.member/mia.topic entry with id/local-name {graph_arg!r} in {path}")
+        sys.exit(f"No v4.member/v4.topic entry with id/local-name {graph_arg!r} in {path}")
     lines = extract_graph_block(body, f"{match['id']}#graph")
     if lines is None:
         sys.exit(f"No turtle block found for {match['id']!r} in {path}")

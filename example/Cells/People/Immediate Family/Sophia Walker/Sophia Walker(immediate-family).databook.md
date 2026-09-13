@@ -1,26 +1,26 @@
 ---
-id: http://www.example.org/mia/cells/cell-12
+id: http://www.example.org/v4/cells/cell-12
 title: "Sophia Walker"
 type: cell-databook
 version: 2.0.0
 created: 2026-07-10
 description: >
   Cell DataBook for folder "Sophia Walker" (cell:category: cat:ImmediateFamily). It is a two-member cell — Alice (:Self) and her husband Dave — that is also a cell:TopicCell, with one topic about :Sophia_Walker, Alice's daughter. Sophia has no instance of the app, so she is the cell's subject rather than one of its members: Alice added the topic manually and chose the Contact Info template (pshapes:ContactInfoShape) for it, even though cat:ImmediateFamily's own template cell carries cell:isTopicCell false.
-mia:
+v4:
   category: "cat:ImmediateFamily"
   creator: ":Self"
   owner: ":Self"
   member:
-    - id: "http://www.example.org/mia/graphs/graph-21"
+    - id: "http://www.example.org/v4/graphs/graph-21"
       claimant: ":Self"
       graphSubject: ":Self"
       template: "pshapes:ContactInfoShape"
-    - id: "http://www.example.org/mia/graphs/graph-05"
+    - id: "http://www.example.org/v4/graphs/graph-05"
       claimant: ":Dave"
       graphSubject: ":Dave"
       template: "pshapes:ContactInfoShape"
   topic:
-    - id: "http://www.example.org/mia/graphs/graph-07"
+    - id: "http://www.example.org/v4/graphs/graph-07"
       claimant: ":Self"
       graphTopic: ":Sophia_Walker"
       template: "pshapes:ContactInfoShape"
@@ -39,8 +39,8 @@ This graph captures Dave's self-claimed family persona as transmitted from Dave'
 
 ```turtle
 <!-- databook:id: dave-family-dave-graph -->
-<!-- databook:graph: http://www.example.org/mia/graphs/graph-05#graph -->
-@prefix : <http://www.example.org/mia#> .
+<!-- databook:graph: http://www.example.org/v4/graphs/graph-05#graph -->
+@prefix : <http://www.example.org/v4#> .
 @prefix persona: <http://mee.foundation/ontologies/persona#> .
 @prefix cco: <https://w3id.org/cco-domains/cco/> .
 @prefix owl: <http://www.w3.org/2002/07/owl#> .
@@ -68,8 +68,8 @@ This graph captures Alice's Contact Info record of her daughter Sophia Walker. S
 
 ```turtle
 <!-- databook:id: sophia-family-alice-graph -->
-<!-- databook:graph: http://www.example.org/mia/graphs/graph-07#graph -->
-@prefix : <http://www.example.org/mia#> .
+<!-- databook:graph: http://www.example.org/v4/graphs/graph-07#graph -->
+@prefix : <http://www.example.org/v4#> .
 @prefix persona: <http://mee.foundation/ontologies/persona#> .
 @prefix cco: <https://w3id.org/cco-domains/cco/> .
 @prefix owl: <http://www.w3.org/2002/07/owl#> .
@@ -102,8 +102,8 @@ This graph captures Alice Walker's family relationships. It records that Sophia 
 
 ```turtle
 <!-- databook:id: alice-family-graph -->
-<!-- databook:graph: http://www.example.org/mia/graphs/graph-21#graph -->
-@prefix : <http://www.example.org/mia#> .
+<!-- databook:graph: http://www.example.org/v4/graphs/graph-21#graph -->
+@prefix : <http://www.example.org/v4#> .
 @prefix persona: <http://mee.foundation/ontologies/persona#> .
 @prefix cco: <https://w3id.org/cco-domains/cco/> .
 @prefix owl: <http://www.w3.org/2002/07/owl#> .

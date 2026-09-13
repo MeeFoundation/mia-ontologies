@@ -1,5 +1,5 @@
 ---
-id: http://www.example.org/mia/cells/cell-07
+id: http://www.example.org/v4/cells/cell-07
 title: "Boston"
 type: cell-databook
 version: 2.0.0
@@ -8,17 +8,17 @@ description: >
   Cell DataBook for folder "Boston" (cell:category: cat:Home). It is a one-member cell with one
   member entry about :Self and one topic graph about :Self (the cell's subject), typed
   residences:Residence, carrying Alice's previous Boston address.
-mia:
+v4:
   category: "cat:Home"
   creator: ":Self"
   owner: ":Self"
   member:
-    id: "http://www.example.org/mia/graphs/graph-13"
+    id: "http://www.example.org/v4/graphs/graph-13"
     claimant: ":Self"
     graphSubject: ":Self"
     template: "pshapes:ContactInfoShape"
   topic:
-    id: "http://www.example.org/mia/graphs/graph-82"
+    id: "http://www.example.org/v4/graphs/graph-82"
     claimant: ":Self"
     graphTopic: ":Self"
     template: "residenceshapes:ResidenceShape"
@@ -37,8 +37,8 @@ This graph is the cell's one required `member` entry — a cell with a single `m
 
 ```turtle
 <!-- databook:id: alice-boston-member-graph -->
-<!-- databook:graph: http://www.example.org/mia/graphs/graph-13#graph -->
-@prefix : <http://www.example.org/mia#> .
+<!-- databook:graph: http://www.example.org/v4/graphs/graph-13#graph -->
+@prefix : <http://www.example.org/v4#> .
 @prefix cco: <https://w3id.org/cco-domains/cco/> .
 @prefix owl: <http://www.w3.org/2002/07/owl#> .
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
@@ -64,8 +64,8 @@ This graph captures Alice Walker's previous residential address: 456 Commonwealt
 
 ```turtle
 <!-- databook:id: alice-boston-graph -->
-<!-- databook:graph: http://www.example.org/mia/graphs/graph-82#graph -->
-@prefix : <http://www.example.org/mia#> .
+<!-- databook:graph: http://www.example.org/v4/graphs/graph-82#graph -->
+@prefix : <http://www.example.org/v4#> .
 @prefix persona: <http://mee.foundation/ontologies/persona#> .
 @prefix cco: <https://w3id.org/cco-domains/cco/> .
 @prefix owl: <http://www.w3.org/2002/07/owl#> .

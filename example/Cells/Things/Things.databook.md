@@ -1,17 +1,17 @@
 ---
-id: http://www.example.org/mia/cells/cell-11
+id: http://www.example.org/v4/cells/cell-11
 title: "Things"
 type: cell-databook
 version: 1.1.0
 created: 2026-07-10
 description: >
   Cell DataBook for folder "Things" (cell:category: cat:Things). It is a one-member cell with one member entry about :Self.
-mia:
+v4:
   category: "cat:Things"
   creator: ":Self"
   owner: ":Self"
   member:
-    id: "http://www.example.org/mia/graphs/graph-22"
+    id: "http://www.example.org/v4/graphs/graph-22"
     claimant: ":Self"
     graphSubject: ":Self"
     template: "pshapes:ContactInfoShape"
@@ -30,8 +30,8 @@ This graph captures Alice Walker's day-to-day physical possessions. Her wallet h
 
 ```turtle
 <!-- databook:id: alice-possessions-graph -->
-<!-- databook:graph: http://www.example.org/mia/graphs/graph-22#graph -->
-@prefix : <http://www.example.org/mia#> .
+<!-- databook:graph: http://www.example.org/v4/graphs/graph-22#graph -->
+@prefix : <http://www.example.org/v4#> .
 @prefix persona: <http://mee.foundation/ontologies/persona#> .
 @prefix cco: <https://w3id.org/cco-domains/cco/> .
 @prefix owl: <http://www.w3.org/2002/07/owl#> .

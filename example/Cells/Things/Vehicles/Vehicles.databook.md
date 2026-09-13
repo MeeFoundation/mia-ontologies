@@ -1,5 +1,5 @@
 ---
-id: http://www.example.org/mia/cells/cell-43
+id: http://www.example.org/v4/cells/cell-43
 title: "Vehicles"
 type: cell-databook
 version: 1.1.0
@@ -11,17 +11,17 @@ description: >
   membership. Also carries an empty topic graph, required now that cat:Vehicles's own TemplateCell
   is isTopicCell: true (Check 31) — the real topic content lives in this category's own leaf cell
   (RAV4) instead.
-mia:
+v4:
   category: "cat:Vehicles"
   creator: ":Self"
   owner: ":Self"
   member:
-    id: "http://www.example.org/mia/graphs/graph-61"
+    id: "http://www.example.org/v4/graphs/graph-61"
     claimant: ":Self"
     graphSubject: ":Self"
     template: "pshapes:ContactInfoShape"
   topic:
-    id: "http://www.example.org/mia/graphs/graph-89"
+    id: "http://www.example.org/v4/graphs/graph-89"
     claimant: ":Self"
     graphTopic: ":Self"
 ---
@@ -39,8 +39,8 @@ This graph is the cell's one required `member` entry — a cell with a single `m
 
 ```turtle
 <!-- databook:id: alice-vehicles-member-graph -->
-<!-- databook:graph: http://www.example.org/mia/graphs/graph-61#graph -->
-@prefix : <http://www.example.org/mia#> .
+<!-- databook:graph: http://www.example.org/v4/graphs/graph-61#graph -->
+@prefix : <http://www.example.org/v4#> .
 @prefix cco: <https://w3id.org/cco-domains/cco/> .
 @prefix owl: <http://www.w3.org/2002/07/owl#> .
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
@@ -66,5 +66,5 @@ This graph is the cell's required `topic` — required now that `cat:Vehicles`'s
 
 ```turtle
 <!-- databook:id: alice-vehicles-topic-graph -->
-<!-- databook:graph: http://www.example.org/mia/graphs/graph-89#graph -->
+<!-- databook:graph: http://www.example.org/v4/graphs/graph-89#graph -->
 ```

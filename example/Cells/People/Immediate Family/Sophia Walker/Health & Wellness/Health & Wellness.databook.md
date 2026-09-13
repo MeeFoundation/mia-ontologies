@@ -1,22 +1,22 @@
 ---
-id: http://www.example.org/mia/cells/cell-13
+id: http://www.example.org/v4/cells/cell-13
 title: "Health & Wellness"
 type: cell-databook
 version: 1.3.0
 created: 2026-07-10
 description: >
   Cell DataBook for folder "Health & Wellness" (cell:category: cat:HealthWellness). It is a one-member cell with one member entry about :Self and one graph about :Sophia_Walker (the cell's subject).
-mia:
+v4:
   category: "cat:HealthWellness"
   creator: ":Self"
   owner: ":Self"
   member:
-    id: "http://www.example.org/mia/graphs/graph-35"
+    id: "http://www.example.org/v4/graphs/graph-35"
     claimant: ":Self"
     graphSubject: ":Self"
     template: "pshapes:ContactInfoShape"
   topic:
-    id: "http://www.example.org/mia/graphs/graph-17"
+    id: "http://www.example.org/v4/graphs/graph-17"
     claimant: ":Self"
     graphTopic: ":Sophia_Walker"
     template: "pshapes:HealthWellnessShape"
@@ -35,8 +35,8 @@ This graph captures Alice's own bare identity claim (just her given name) — th
 
 ```turtle
 <!-- databook:id: alice-health-wellness-member-graph -->
-<!-- databook:graph: http://www.example.org/mia/graphs/graph-35#graph -->
-@prefix : <http://www.example.org/mia#> .
+<!-- databook:graph: http://www.example.org/v4/graphs/graph-35#graph -->
+@prefix : <http://www.example.org/v4#> .
 @prefix cco: <https://w3id.org/cco-domains/cco/> .
 @prefix owl: <http://www.w3.org/2002/07/owl#> .
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
@@ -62,8 +62,8 @@ This graph captures Sophia Walker's physical body characteristics — properties
 
 ```turtle
 <!-- databook:id: sophia-health-graph -->
-<!-- databook:graph: http://www.example.org/mia/graphs/graph-17#graph -->
-@prefix : <http://www.example.org/mia#> .
+<!-- databook:graph: http://www.example.org/v4/graphs/graph-17#graph -->
+@prefix : <http://www.example.org/v4#> .
 @prefix persona: <http://mee.foundation/ontologies/persona#> .
 @prefix cco: <https://w3id.org/cco-domains/cco/> .
 @prefix owl: <http://www.w3.org/2002/07/owl#> .

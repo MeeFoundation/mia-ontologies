@@ -1,12 +1,12 @@
 ---
-id: http://www.example.org/mia/cells/cell-16
+id: http://www.example.org/v4/cells/cell-16
 title: "Bob Johnson"
 type: cell-databook
 version: 1.3.0
 created: 2026-07-10
 description: >
   Cell DataBook for folder "Bob Johnson" (cell:category: cat:Others). It is a two-member cell with four members (two about :Bob_Johnson and two about :Self).
-mia:
+v4:
   category: "cat:Others"
   creator: ":Self"
   owner: ":Self"
@@ -15,19 +15,19 @@ mia:
       key: "group"
       value: "Christmas List"
   member:
-    - id: "http://www.example.org/mia/graphs/graph-02"
+    - id: "http://www.example.org/v4/graphs/graph-02"
       claimant: ":Bob_Johnson"
       graphSubject: ":Bob_Johnson"
       template: "pshapes:ContactInfoShape"
-    - id: "http://www.example.org/mia/graphs/graph-12"
+    - id: "http://www.example.org/v4/graphs/graph-12"
       claimant: ":Self"
       graphSubject: ":Self"
       template: "pshapes:ContactInfoShape"
-    - id: "http://www.example.org/mia/graphs/graph-04"
+    - id: "http://www.example.org/v4/graphs/graph-04"
       claimant: ":Self"
       graphSubject: ":Bob_Johnson"
       template: "pshapes:ContactInfoShape"
-    - id: "http://www.example.org/mia/graphs/graph-08"
+    - id: "http://www.example.org/v4/graphs/graph-08"
       claimant: ":Bob_Johnson"
       graphSubject: ":Self"
       template: "pshapes:ContactInfoShape"
@@ -46,8 +46,8 @@ This graph captures Bob Johnson's self-claimed Bob-graph persona, transmitted fr
 
 ```turtle
 <!-- databook:id: bob-bob-bob-graph -->
-<!-- databook:graph: http://www.example.org/mia/graphs/graph-02#graph -->
-@prefix : <http://www.example.org/mia#> .
+<!-- databook:graph: http://www.example.org/v4/graphs/graph-02#graph -->
+@prefix : <http://www.example.org/v4#> .
 @prefix persona: <http://mee.foundation/ontologies/persona#> .
 @prefix cco: <https://w3id.org/cco-domains/cco/> .
 @prefix owl: <http://www.w3.org/2002/07/owl#> .
@@ -89,8 +89,8 @@ This graph captures Alice's record of Bob Johnson in their 1:1 relationship grap
 
 ```turtle
 <!-- databook:id: bob-bob-alice-graph -->
-<!-- databook:graph: http://www.example.org/mia/graphs/graph-04#graph -->
-@prefix : <http://www.example.org/mia#> .
+<!-- databook:graph: http://www.example.org/v4/graphs/graph-04#graph -->
+@prefix : <http://www.example.org/v4#> .
 @prefix persona: <http://mee.foundation/ontologies/persona#> .
 @prefix cco: <https://w3id.org/cco-domains/cco/> .
 @prefix owl: <http://www.w3.org/2002/07/owl#> .
@@ -123,8 +123,8 @@ This graph captures Bob's record of Alice in their 1:1 relationship graph, trans
 
 ```turtle
 <!-- databook:id: alice-bob-bob-graph -->
-<!-- databook:graph: http://www.example.org/mia/graphs/graph-08#graph -->
-@prefix : <http://www.example.org/mia#> .
+<!-- databook:graph: http://www.example.org/v4/graphs/graph-08#graph -->
+@prefix : <http://www.example.org/v4#> .
 @prefix persona: <http://mee.foundation/ontologies/persona#> .
 @prefix cco: <https://w3id.org/cco-domains/cco/> .
 @prefix owl: <http://www.w3.org/2002/07/owl#> .
@@ -156,8 +156,8 @@ This graph captures Alice Walker's self-claimed persona in her 1:1 relationship 
 
 ```turtle
 <!-- databook:id: alice-bob-alice-graph -->
-<!-- databook:graph: http://www.example.org/mia/graphs/graph-12#graph -->
-@prefix : <http://www.example.org/mia#> .
+<!-- databook:graph: http://www.example.org/v4/graphs/graph-12#graph -->
+@prefix : <http://www.example.org/v4#> .
 @prefix persona: <http://mee.foundation/ontologies/persona#> .
 @prefix cco: <https://w3id.org/cco-domains/cco/> .
 @prefix owl: <http://www.w3.org/2002/07/owl#> .

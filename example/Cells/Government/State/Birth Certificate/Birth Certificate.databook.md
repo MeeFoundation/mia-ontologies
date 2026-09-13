@@ -1,5 +1,5 @@
 ---
-id: http://www.example.org/mia/cells/cell-10
+id: http://www.example.org/v4/cells/cell-10
 title: "Birth Certificate"
 type: cell-databook
 version: 2.0.0
@@ -9,17 +9,17 @@ description: >
   one-member cell with one member entry about :Self and one topic graph about :Self (the cell's
   subject), typed identitydocuments:BirthCertificate, carrying Alice's Texas birth certificate
   identity data.
-mia:
+v4:
   category: "cat:BirthCertificate"
   creator: ":Self"
   owner: ":Self"
   member:
-    id: "http://www.example.org/mia/graphs/graph-24"
+    id: "http://www.example.org/v4/graphs/graph-24"
     claimant: ":Self"
     graphSubject: ":Self"
     template: "pshapes:ContactInfoShape"
   topic:
-    id: "http://www.example.org/mia/graphs/graph-78"
+    id: "http://www.example.org/v4/graphs/graph-78"
     claimant: ":Self"
     graphTopic: ":Self"
     template: "idocshapes:BirthCertificateShape"
@@ -38,8 +38,8 @@ This graph is the cell's one required `member` entry — a cell with a single `m
 
 ```turtle
 <!-- databook:id: alice-birth-certificate-member-graph -->
-<!-- databook:graph: http://www.example.org/mia/graphs/graph-24#graph -->
-@prefix : <http://www.example.org/mia#> .
+<!-- databook:graph: http://www.example.org/v4/graphs/graph-24#graph -->
+@prefix : <http://www.example.org/v4#> .
 @prefix cco: <https://w3id.org/cco-domains/cco/> .
 @prefix owl: <http://www.w3.org/2002/07/owl#> .
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
@@ -65,8 +65,8 @@ This graph captures Alice Walker's Texas birth certificate identity data — mov
 
 ```turtle
 <!-- databook:id: alice-tx-birth-cert-graph -->
-<!-- databook:graph: http://www.example.org/mia/graphs/graph-78#graph -->
-@prefix : <http://www.example.org/mia#> .
+<!-- databook:graph: http://www.example.org/v4/graphs/graph-78#graph -->
+@prefix : <http://www.example.org/v4#> .
 @prefix persona: <http://mee.foundation/ontologies/persona#> .
 @prefix identitydocuments: <http://mee.foundation/ontologies/identity-documents#> .
 @prefix cco: <https://w3id.org/cco-domains/cco/> .

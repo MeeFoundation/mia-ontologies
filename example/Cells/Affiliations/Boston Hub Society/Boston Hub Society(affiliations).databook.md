@@ -1,5 +1,5 @@
 ---
-id: http://www.example.org/mia/cells/cell-01
+id: http://www.example.org/v4/cells/cell-01
 title: "Boston Hub Society"
 type: cell-databook
 version: 1.4.0
@@ -10,25 +10,25 @@ description: >
   itself — the society's own organizational profile. An o:Organization is not member-capable, so the
   society participates through :BHS_Service, the service:ServiceProvider it provides; both of its graphs
   are still claimed by :BHS itself, the party really making those claims.
-mia:
+v4:
   category: "cat:Affiliations"
   creator: ":Self"
   owner: ":Self"
   member:
-    - id: "http://www.example.org/mia/graphs/graph-01"
+    - id: "http://www.example.org/v4/graphs/graph-01"
       claimant: ":BHS"
       graphSubject: ":BHS_Service"
       template: "pshapes:ContactInfoShape"
-    - id: "http://www.example.org/mia/graphs/graph-14"
+    - id: "http://www.example.org/v4/graphs/graph-14"
       claimant: ":Self"
       graphSubject: ":Self"
       template: "pshapes:ContactInfoShape"
-    - id: "http://www.example.org/mia/graphs/graph-03"
+    - id: "http://www.example.org/v4/graphs/graph-03"
       claimant: ":Bob_Johnson"
       graphSubject: ":Bob_Johnson"
       template: "pshapes:ContactInfoShape"
   topic:
-    - id: "http://www.example.org/mia/graphs/graph-92"
+    - id: "http://www.example.org/v4/graphs/graph-92"
       claimant: ":BHS"
       graphTopic: ":BHS"
       template: "oshapes:OrganizationShape"
@@ -47,8 +47,8 @@ This graph captures the identity the Boston Hub Society presents as one of the c
 
 ```turtle
 <!-- databook:id: bhs-org-graph -->
-<!-- databook:graph: http://www.example.org/mia/graphs/graph-01#graph -->
-@prefix : <http://www.example.org/mia#> .
+<!-- databook:graph: http://www.example.org/v4/graphs/graph-01#graph -->
+@prefix : <http://www.example.org/v4#> .
 @prefix o: <http://mee.foundation/ontologies/organization#> .
 @prefix service: <http://mee.foundation/ontologies/service#> .
 @prefix cco: <https://w3id.org/cco-domains/cco/> .
@@ -82,8 +82,8 @@ This graph captures Bob Johnson's BHS profile as transmitted from Bob's own inst
 
 ```turtle
 <!-- databook:id: bob-bhs-graph -->
-<!-- databook:graph: http://www.example.org/mia/graphs/graph-03#graph -->
-@prefix : <http://www.example.org/mia#> .
+<!-- databook:graph: http://www.example.org/v4/graphs/graph-03#graph -->
+@prefix : <http://www.example.org/v4#> .
 @prefix persona: <http://mee.foundation/ontologies/persona#> .
 @prefix cco: <https://w3id.org/cco-domains/cco/> .
 @prefix owl: <http://www.w3.org/2002/07/owl#> .
@@ -116,8 +116,8 @@ This graph captures Alice Walker's BHS profile — the identity data she shares 
 
 ```turtle
 <!-- databook:id: alice-bhs-graph -->
-<!-- databook:graph: http://www.example.org/mia/graphs/graph-14#graph -->
-@prefix : <http://www.example.org/mia#> .
+<!-- databook:graph: http://www.example.org/v4/graphs/graph-14#graph -->
+@prefix : <http://www.example.org/v4#> .
 @prefix persona: <http://mee.foundation/ontologies/persona#> .
 @prefix cco: <https://w3id.org/cco-domains/cco/> .
 @prefix owl: <http://www.w3.org/2002/07/owl#> .
@@ -198,8 +198,8 @@ BHS presents as one of the three parties to this cell. BHS is the claimant.
 
 ```turtle
 <!-- databook:id: bhs-org-profile-graph -->
-<!-- databook:graph: http://www.example.org/mia/graphs/graph-92#graph -->
-@prefix : <http://www.example.org/mia#> .
+<!-- databook:graph: http://www.example.org/v4/graphs/graph-92#graph -->
+@prefix : <http://www.example.org/v4#> .
 @prefix o: <http://mee.foundation/ontologies/organization#> .
 @prefix owl: <http://www.w3.org/2002/07/owl#> .
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .

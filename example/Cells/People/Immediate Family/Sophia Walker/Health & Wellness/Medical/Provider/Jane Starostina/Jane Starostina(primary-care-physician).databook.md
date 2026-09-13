@@ -1,22 +1,22 @@
 ---
-id: http://www.example.org/mia/cells/cell-14
+id: http://www.example.org/v4/cells/cell-14
 title: "Jane Starostina"
 type: cell-databook
 version: 1.4.0
 created: 2026-07-10
 description: >
   Cell DataBook for folder "Jane Starostina" (cell:category: cat:PrimaryCarePhysician). It is a one-member cell with one member entry about :Self and one graph about :Jane_Starostina (the cell's subject).
-mia:
+v4:
   category: "cat:PrimaryCarePhysician"
   creator: ":Self"
   owner: ":Self"
   member:
-    id: "http://www.example.org/mia/graphs/graph-34"
+    id: "http://www.example.org/v4/graphs/graph-34"
     claimant: ":Self"
     graphSubject: ":Self"
     template: "pshapes:ContactInfoShape"
   topic:
-    id: "http://www.example.org/mia/graphs/graph-25"
+    id: "http://www.example.org/v4/graphs/graph-25"
     claimant: ":Self"
     graphTopic: ":Jane_Starostina"
     template:
@@ -37,8 +37,8 @@ This graph captures Alice's own bare identity claim (just her given name) — th
 
 ```turtle
 <!-- databook:id: alice-jane-starostina-member-graph -->
-<!-- databook:graph: http://www.example.org/mia/graphs/graph-34#graph -->
-@prefix : <http://www.example.org/mia#> .
+<!-- databook:graph: http://www.example.org/v4/graphs/graph-34#graph -->
+@prefix : <http://www.example.org/v4#> .
 @prefix cco: <https://w3id.org/cco-domains/cco/> .
 @prefix owl: <http://www.w3.org/2002/07/owl#> .
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
@@ -64,8 +64,8 @@ This graph captures Alice's record of Dr. Jane Starostina, who is the primary ca
 
 ```turtle
 <!-- databook:id: jane-starostina-alice-graph -->
-<!-- databook:graph: http://www.example.org/mia/graphs/graph-25#graph -->
-@prefix : <http://www.example.org/mia#> .
+<!-- databook:graph: http://www.example.org/v4/graphs/graph-25#graph -->
+@prefix : <http://www.example.org/v4#> .
 @prefix persona: <http://mee.foundation/ontologies/persona#> .
 @prefix cco: <https://w3id.org/cco-domains/cco/> .
 @prefix owl: <http://www.w3.org/2002/07/owl#> .

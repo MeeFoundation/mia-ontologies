@@ -1,5 +1,5 @@
 ---
-id: http://www.example.org/mia/cells/cell-33
+id: http://www.example.org/v4/cells/cell-33
 title: "Others"
 type: cell-databook
 version: 1.1.0
@@ -11,12 +11,12 @@ description: >
   Alice's required membership, though that member entry now carries a
   minimal ContactInfo-style claim (given name,
   organization name, email), per cat:Others's own cell:TemplateCell.
-mia:
+v4:
   category: "cat:Others"
   creator: ":Self"
   owner: ":Self"
   member:
-    id: "http://www.example.org/mia/graphs/graph-51"
+    id: "http://www.example.org/v4/graphs/graph-51"
     claimant: ":Self"
     graphSubject: ":Self"
     template: "pshapes:ContactInfoShape"
@@ -35,8 +35,8 @@ This graph is the cell's one required `member` entry — a cell with a single `m
 
 ```turtle
 <!-- databook:id: alice-others-member-graph -->
-<!-- databook:graph: http://www.example.org/mia/graphs/graph-51#graph -->
-@prefix : <http://www.example.org/mia#> .
+<!-- databook:graph: http://www.example.org/v4/graphs/graph-51#graph -->
+@prefix : <http://www.example.org/v4#> .
 @prefix cco: <https://w3id.org/cco-domains/cco/> .
 @prefix owl: <http://www.w3.org/2002/07/owl#> .
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .

@@ -1,21 +1,21 @@
 ---
-id: http://www.example.org/mia/cells/cell-19
+id: http://www.example.org/v4/cells/cell-19
 title: "Paula Walker"
 type: cell-databook
 version: 1.3.0
 created: 2026-07-10
 description: >
   Cell DataBook for folder "Paula Walker" (cell:category: cat:Employees, reusing its parent "Employees" cell's own origin, mirroring how e.g. "Ginger" reuses its parent "Pets" folder's own category rather than a separately-minted narrower one). It is a two-member cell with member entries about :Self and :Paula_Walker.
-mia:
+v4:
   category: "cat:Employees"
   creator: ":Self"
   owner: ":Self"
   member:
-    - id: "http://www.example.org/mia/graphs/graph-20"
+    - id: "http://www.example.org/v4/graphs/graph-20"
       claimant: ":Self"
       graphSubject: ":Self"
       template: "pshapes:ContactInfoShape"
-    - id: "http://www.example.org/mia/graphs/graph-06"
+    - id: "http://www.example.org/v4/graphs/graph-06"
       claimant: ":Self"
       graphSubject: ":Paula_Walker"
       template: "pshapes:ContactInfoShape"
@@ -34,8 +34,8 @@ This graph captures Alice's record of her colleague Paula Walker in their shared
 
 ```turtle
 <!-- databook:id: paula-acme-graph -->
-<!-- databook:graph: http://www.example.org/mia/graphs/graph-06#graph -->
-@prefix : <http://www.example.org/mia#> .
+<!-- databook:graph: http://www.example.org/v4/graphs/graph-06#graph -->
+@prefix : <http://www.example.org/v4#> .
 @prefix persona: <http://mee.foundation/ontologies/persona#> .
 @prefix cco: <https://w3id.org/cco-domains/cco/> .
 @prefix owl: <http://www.w3.org/2002/07/owl#> .
@@ -63,8 +63,8 @@ This graph captures Alice Walker's employee identity at Acme. It records her wor
 
 ```turtle
 <!-- databook:id: alice-acme-graph -->
-<!-- databook:graph: http://www.example.org/mia/graphs/graph-20#graph -->
-@prefix : <http://www.example.org/mia#> .
+<!-- databook:graph: http://www.example.org/v4/graphs/graph-20#graph -->
+@prefix : <http://www.example.org/v4#> .
 @prefix persona: <http://mee.foundation/ontologies/persona#> .
 @prefix cco: <https://w3id.org/cco-domains/cco/> .
 @prefix owl: <http://www.w3.org/2002/07/owl#> .

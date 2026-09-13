@@ -1,14 +1,14 @@
 #!/usr/bin/env python3
 """
-yaml-to-rdf.py  —  Synthesize cell: triples from the `mia.` YAML
+yaml-to-rdf.py  —  Synthesize cell: triples from the `v4.` YAML
 frontmatter of cell-databooks.
 
 Why this exists: Turtle-block extraction only pulls fenced Turtle out of a
-DataBook — but cell-databook files carry most of their content as `mia.`
+DataBook — but cell-databook files carry most of their content as `v4.`
 YAML frontmatter, not Turtle. Without this script, cell:Cell individuals
 (and cell:SCGraph's subject/claimant) never appear in the graph SHACL
 validates, so shacl/cell-shacl.ttl's :SCGraphShape never fires against real
-instance data. This script closes that gap by mapping each `mia.` field to
+instance data. This script closes that gap by mapping each `v4.` field to
 its corresponding ontology property, matching the mapping tables
 documented in README.md's Cell Ontology section.
 
@@ -18,21 +18,21 @@ outright, along with cat:child/cat:cell/cat:category/cat:catType/cat:label.
 A folder's tree position is now purely a filesystem fact (which cell-databook
 file physically lives in it), with no RDF individual representing the folder
 at all. The only remaining RDF-level record of a cell's classification is
-cell:category (cell.ttl 3.20.0), read directly from the explicit `mia.category`
+cell:category (cell.ttl 3.20.0), read directly from the explicit `v4.category`
 YAML field below — never derived from filename-parsing.
 
 Since graph-databooks were merged into their owning cell-databooks (each
 graph's Turtle content and Overview now live in that cell file's body; its
 `id`/`claimant`/`template`, plus the `graphSubject` or `graphTopic` its own
 list calls for, now live directly on that same graph's own
-`mia.member`/`mia.topic` entry — see CLAUDE.md's "Graph ID Naming
+`v4.member`/`v4.topic` entry — see CLAUDE.md's "Graph ID Naming
 Convention" section), there is no separate `example/graphs/*.databook.md`
 glob any more: `process_cell_databook` below also emits the same triples per
 `member`/`topic` entry that a standalone graph-databook file's frontmatter
 used to supply.
 
 A graph's `claimant` and its about-ness value are typed on its plain
-`mia.member[]`/`mia.topic[].id`, not that id + "#graph" — matching cell.ttl's
+`v4.member[]`/`v4.topic[].id`, not that id + "#graph" — matching cell.ttl's
 cell:claimant/cell:graphSubject/cell:graphTopic doc comments, and the IRI
 cell:member/cell:topic actually reference.
 

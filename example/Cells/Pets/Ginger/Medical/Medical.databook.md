@@ -1,28 +1,28 @@
 ---
-id: http://www.example.org/mia/cells/cell-40
+id: http://www.example.org/v4/cells/cell-40
 title: "Medical"
 type: cell-databook
 version: 2.2.0
 created: 2026-08-21
 description: >
   Cell DataBook for folder "Medical" (cell:category: cat:PetsMedical). Formerly two nested cells — an organizational "Medical" scaffold (cell-38, retired) wrapping a "Medications" content cell (this cell, cell-40) — now flattened into one, since cat:PetsMedications was merged into cat:PetsMedical and the extra nesting no longer served a purpose. It is a two-member cell, shared by Alice with Paula, with two members (about :Self and :Paula_Walker) and one graph about :Ginger, Alice's cat (the cell's subject).
-mia:
+v4:
   category: "cat:PetsMedical"
   creator: ":Self"
   owner: ":Self"
   userTag:
     - "Ginger"
   member:
-    - id: "http://www.example.org/mia/graphs/graph-33"
+    - id: "http://www.example.org/v4/graphs/graph-33"
       claimant: ":Self"
       graphSubject: ":Self"
       template: "pshapes:ContactInfoShape"
-    - id: "http://www.example.org/mia/graphs/graph-57"
+    - id: "http://www.example.org/v4/graphs/graph-57"
       claimant: ":Paula_Walker"
       graphSubject: ":Paula_Walker"
       template: "pshapes:ContactInfoShape"
   topic:
-    id: "http://www.example.org/mia/graphs/graph-32"
+    id: "http://www.example.org/v4/graphs/graph-32"
     claimant: ":Self"
     graphTopic: ":Ginger"
     template: "petshapes:PetMedicationRecordShape"
@@ -41,8 +41,8 @@ This graph is one of the cell's two `member` entries, satisfying the two-member 
 
 ```turtle
 <!-- databook:id: alice-ginger-medications-member-graph -->
-<!-- databook:graph: http://www.example.org/mia/graphs/graph-33#graph -->
-@prefix : <http://www.example.org/mia#> .
+<!-- databook:graph: http://www.example.org/v4/graphs/graph-33#graph -->
+@prefix : <http://www.example.org/v4#> .
 @prefix cco: <https://w3id.org/cco-domains/cco/> .
 @prefix owl: <http://www.w3.org/2002/07/owl#> .
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
@@ -76,8 +76,8 @@ This cell was created by Alice and later shared with Paula, making the cell a tw
 
 ```turtle
 <!-- databook:id: paula-ginger-medications-member-graph -->
-<!-- databook:graph: http://www.example.org/mia/graphs/graph-57#graph -->
-@prefix : <http://www.example.org/mia#> .
+<!-- databook:graph: http://www.example.org/v4/graphs/graph-57#graph -->
+@prefix : <http://www.example.org/v4#> .
 @prefix persona: <http://mee.foundation/ontologies/persona#> .
 @prefix cco: <https://w3id.org/cco-domains/cco/> .
 @prefix owl: <http://www.w3.org/2002/07/owl#> .
@@ -112,8 +112,8 @@ This graph captures Alice's record of her cat Ginger's medications — an amoxic
 
 ```turtle
 <!-- databook:id: ginger-medications-graph -->
-<!-- databook:graph: http://www.example.org/mia/graphs/graph-32#graph -->
-@prefix : <http://www.example.org/mia#> .
+<!-- databook:graph: http://www.example.org/v4/graphs/graph-32#graph -->
+@prefix : <http://www.example.org/v4#> .
 @prefix pets: <http://mee.foundation/ontologies/pets#> .
 @prefix cco: <https://w3id.org/cco-domains/cco/> .
 @prefix owl: <http://www.w3.org/2002/07/owl#> .

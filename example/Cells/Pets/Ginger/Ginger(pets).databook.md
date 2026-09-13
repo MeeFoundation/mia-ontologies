@@ -1,24 +1,24 @@
 ---
-id: http://www.example.org/mia/cells/cell-41
+id: http://www.example.org/v4/cells/cell-41
 title: "Ginger"
 type: cell-databook
 version: 1.5.0
 created: 2026-08-22
 description: >
   Cell DataBook for folder "Ginger" (cell:category: cat:Pets). A user-defined instance folder for Alice's specific cat, Ginger, nested under the generic Pets category — mirroring how e.g. "Bob Johnson" reuses its parent "Others" folder's own origin class rather than being Custom. It is a one-member cell with one member entry about :Self and one graph about :Ginger (the cell's subject), typed pets:Pet and carrying her name, species, breed, birth date, current body weight, sex, and spay/neuter status.
-mia:
+v4:
   category: "cat:Pets"
   creator: ":Self"
   owner: ":Self"
   userTag:
     - "Ginger"
   member:
-    id: "http://www.example.org/mia/graphs/graph-36"
+    id: "http://www.example.org/v4/graphs/graph-36"
     claimant: ":Self"
     graphSubject: ":Self"
     template: "pshapes:ContactInfoShape"
   topic:
-    id: "http://www.example.org/mia/graphs/graph-37"
+    id: "http://www.example.org/v4/graphs/graph-37"
     claimant: ":Self"
     graphTopic: ":Ginger"
     template: "petshapes:PetShape"
@@ -37,8 +37,8 @@ This graph is the cell's one required `member` entry — a cell with a single `m
 
 ```turtle
 <!-- databook:id: alice-ginger-member-graph -->
-<!-- databook:graph: http://www.example.org/mia/graphs/graph-36#graph -->
-@prefix : <http://www.example.org/mia#> .
+<!-- databook:graph: http://www.example.org/v4/graphs/graph-36#graph -->
+@prefix : <http://www.example.org/v4#> .
 @prefix cco: <https://w3id.org/cco-domains/cco/> .
 @prefix owl: <http://www.w3.org/2002/07/owl#> .
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
@@ -72,8 +72,8 @@ This graph captures Alice's basic claim about Ginger herself — just enough to 
 
 ```turtle
 <!-- databook:id: alice-ginger-subject-graph -->
-<!-- databook:graph: http://www.example.org/mia/graphs/graph-37#graph -->
-@prefix : <http://www.example.org/mia#> .
+<!-- databook:graph: http://www.example.org/v4/graphs/graph-37#graph -->
+@prefix : <http://www.example.org/v4#> .
 @prefix persona: <http://mee.foundation/ontologies/persona#> .
 @prefix pets: <http://mee.foundation/ontologies/pets#> .
 @prefix cco: <https://w3id.org/cco-domains/cco/> .

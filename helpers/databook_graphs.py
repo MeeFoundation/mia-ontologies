@@ -7,14 +7,14 @@ extract-graph.py, extract-all.py, yaml-to-rdf.py and validate.py.
 
 Since graph-databooks were merged into their owning cell-databooks, a cell
 file's body may contain several ```turtle fences — one per embedded graph
-(each `mia.member`/`mia.topic` entry in that cell's frontmatter is one such
+(each `v4.member`/`v4.topic` entry in that cell's frontmatter is one such
 graph's own metadata dict). Each fence still carries its own
 `<!-- databook:graph: {graph_id}#graph -->` marker, computed from the
 graph's own `id` per the unchanged `{id}#graph` named-graph convention
 (CLAUDE.md's "DataBook IRI convention") — so isolating one graph's fence
 only requires knowing that graph's `id`, no new marker scheme.
 
-Also carries `resolve()`/`as_list()` — needed wherever a `mia.*` YAML value
+Also carries `resolve()`/`as_list()` — needed wherever a `v4.*` YAML value
 (a CURIE or a bare `:X` local name) must become the same full IRI — and the
 `cell:` triple synthesis (`process_cell_databook()`/`process_embedded_graph()`)
 that turns one cell-databook's frontmatter into Turtle. Both `yaml-to-rdf.py`
@@ -26,7 +26,7 @@ import re
 
 FRONTMATTER_RE = re.compile(r"^(---\n)(.*?\n)(---\n?)(.*)$", re.DOTALL)
 
-MIA_NS = "http://www.example.org/mia#"
+V4_NS = "http://www.example.org/v4#"
 CELL = "http://mee.foundation/ontologies/cell#"
 
 PREFIXES = {
@@ -35,7 +35,7 @@ PREFIXES = {
     "persona": "http://mee.foundation/ontologies/persona#",
     "pets": "http://mee.foundation/ontologies/pets#",
     "vehicles": "http://mee.foundation/ontologies/vehicles#",
-    # Shape namespaces — a mia.member[]/mia.topic[].template value is now a
+    # Shape namespaces — a v4.member[]/v4.topic[].template value is now a
     # sh:NodeShape CURIE (cell:template's range, cell.ttl), not a template
     # type label class name, so these three must resolve too. Same base URIs
     # cat-templates.ttl's own @prefix block declares.
@@ -44,7 +44,7 @@ PREFIXES = {
     "vehicleshapes": "http://mee.foundation/ontologies/vehicles/shapes#",
 }
 
-# The three sub-keys of one mia.serviceTag entry, mapped to the
+# The three sub-keys of one v4.serviceTag entry, mapped to the
 # cell:ServiceTag datatype property each becomes (cell.ttl's Service
 # Tag section). Spelled out rather than derived from the key name, so a grep
 # for cell:tagNamespace finds this line.
@@ -56,19 +56,19 @@ TAG_SUBKEYS = {
 
 
 def resolve(val):
-    """Resolve a YAML-string value (curie or bare MIA local name) to a full
-    IRI. A `mia.member`/`mia.topic` entry's own `id` is already a full IRI
+    """Resolve a YAML-string value (curie or bare V4 local name) to a full
+    IRI. A `v4.member`/`v4.topic` entry's own `id` is already a full IRI
     (it doubles as the graph's actual named-graph identity), so it's used
     directly rather than passed through here."""
     if val.startswith("http://") or val.startswith("https://"):
         return val
     if val.startswith(":"):
-        return MIA_NS + val[1:]
+        return V4_NS + val[1:]
     if ":" in val:
         prefix, local = val.split(":", 1)
         if prefix in PREFIXES:
             return PREFIXES[prefix] + local
-    return MIA_NS + val
+    return V4_NS + val
 
 
 def as_list(v):
@@ -126,7 +126,7 @@ def extract_graph_block(body_text, target_graph):
 
 def find_graph_entry(entries, graph_arg):
     """Match graph_arg (an id or id-local-name) against an iterable of
-    mia.member/mia.topic entry dicts — callers pass in the concatenation of
+    v4.member/v4.topic entry dicts — callers pass in the concatenation of
     both fields, since either can hold the graph being looked for."""
     for g in entries or []:
         if not isinstance(g, dict):
@@ -148,7 +148,7 @@ def term(node):
 def tag_node(cell_id, index):
     """A stable blank-node label for one cell:ServiceTag value node,
     derived from the cell's own id local-name plus the value's position in
-    mia.serviceTag. Turtle scopes a blank-node label to one document and
+    v4.serviceTag. Turtle scopes a blank-node label to one document and
     yaml-to-rdf.py emits every cell in the tree into a single document, so a
     label unique only within one process_cell_databook() call would silently
     merge two cells' tag nodes into one. A cell id is already globally unique
@@ -167,7 +167,7 @@ def emit_obj(triples, subj, prop, obj_iri):
 
 def emit_lit(triples, subj, prop, lit):
     """Emit an xsd:string-typed literal triple — cell:userTag and the three
-    cell:ServiceTag parts are the only `mia.` values that are literals
+    cell:ServiceTag parts are the only `v4.` values that are literals
     rather than IRIs, so they can't go through emit_obj()/resolve(): a tag is
     a plain string, never a CURIE or a local name."""
     escaped = str(lit).replace("\\", "\\\\").replace('"', '\\"')
@@ -178,45 +178,45 @@ def emit_lit(triples, subj, prop, lit):
 
 def process_cell_databook(fm, triples):
     subj = fm["id"]
-    mia = fm.get("mia", {}) or {}
+    v4 = fm.get("v4", {}) or {}
 
     emit_type(triples, subj, CELL + "Cell")
 
-    if mia.get("category"):
+    if v4.get("category"):
         # cell:category — domain cell:Cell, so asserted on every cell
         # regardless of facet (cell.ttl 3.45.0, renamed from cell:origin).
-        emit_obj(triples, subj, CELL + "category", resolve(mia["category"]))
+        emit_obj(triples, subj, CELL + "category", resolve(v4["category"]))
 
     # Every real cell-databook is always also typed cell:MemberCell — no bare
     # tree-position-only cell with no member content; a category node with
     # nothing substantive to say still carries a minimal stub cell:member
     # entry rather than omitting member content. Member count itself is
     # never stored — it's simply the number of distinct graphSubject
-    # values among mia.member, derivable by counting whenever needed.
+    # values among v4.member, derivable by counting whenever needed.
     emit_type(triples, subj, CELL + "MemberCell")
 
-    if mia.get("creator"):
-        emit_obj(triples, subj, CELL + "creator", resolve(mia["creator"]))
+    if v4.get("creator"):
+        emit_obj(triples, subj, CELL + "creator", resolve(v4["creator"]))
 
     # cell:owner — one or more p:Person IRIs, resolved the same way as
     # cell:creator (never a bare graph-local-name).
-    for owner_iri in as_list(mia.get("owner")):
+    for owner_iri in as_list(v4.get("owner")):
         emit_obj(triples, subj, CELL + "owner", resolve(owner_iri))
 
     # cell:userTag — 0..N plain xsd:string values, domain cell:MemberCell
     # (cell.ttl's Cell Tags section), so emitted after the cell:MemberCell
     # typing above. as_list() lets a single bare string stand in for a
-    # one-element list, the same latitude mia.owner and a graph entry's own
+    # one-element list, the same latitude v4.owner and a graph entry's own
     # template already get. No resolve() here — a user tag is a literal, not
     # a CURIE.
-    for tag in as_list(mia.get("userTag")):
+    for tag in as_list(v4.get("userTag")):
         emit_lit(triples, subj, CELL + "userTag", tag)
 
     # cell:serviceTag — 0..N, each value a cell:ServiceTag node
     # rather than a literal (an owl:ObjectProperty), carrying exactly one
     # cell:tagNamespace/cell:tagKey/cell:tagValue. as_list() applies to the
     # outer sequence only — a lone mapping may stand in for a one-element
-    # list, the same latitude mia.member gets — and never to the three
+    # list, the same latitude v4.member gets — and never to the three
     # sub-values, each of which is exactly one scalar; coercing there would
     # turn a YAML error into a confusing sh:maxCount violation. The node and
     # its type are emitted even when the entry is malformed, so a missing
@@ -224,7 +224,7 @@ def process_cell_databook(fm, triples):
     # rather than the tag vanishing from the synthesized graph unremarked;
     # integrity.md's Check 36 catches the same thing at YAML level, where it
     # can name the file and the sub-key.
-    for i, tag in enumerate(as_list(mia.get("serviceTag"))):
+    for i, tag in enumerate(as_list(v4.get("serviceTag"))):
         node = tag_node(subj, i)
         emit_obj(triples, subj, CELL + "serviceTag", node)
         emit_type(triples, node, CELL + "ServiceTag")
@@ -234,11 +234,11 @@ def process_cell_databook(fm, triples):
             if sub_key in tag:
                 emit_lit(triples, node, CELL + prop, tag[sub_key])
 
-    for entry in as_list(mia.get("member")):
+    for entry in as_list(v4.get("member")):
         emit_obj(triples, subj, CELL + "member", entry["id"])
         process_embedded_graph(entry, triples, "member")
 
-    topic = as_list(mia.get("topic"))
+    topic = as_list(v4.get("topic"))
     if topic:
         # cell:TopicCell — the subclass of cell:MemberCell for a cell
         # that actually carries a cell:topic value (cell.ttl 3.37.0). See
@@ -263,7 +263,7 @@ def process_cell_databook(fm, triples):
 
 def process_embedded_graph(graph, triples, kind):
     """Emit the graph typing plus claimant/about-ness/template for one
-    mia.member[]/mia.topic[] entry. `kind` is "member" or "topic", and is what
+    v4.member[]/v4.topic[] entry. `kind` is "member" or "topic", and is what
     decides both the type and which about-ness property the entry carries —
     cell:SCGraph/cell:graphSubject for a member entry, cell:TCGraph/
     cell:graphTopic for a topic entry (cell.ttl's two disjoint cell:CGraph

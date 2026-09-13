@@ -1,5 +1,5 @@
 ---
-id: http://www.example.org/mia/cells/cell-23
+id: http://www.example.org/v4/cells/cell-23
 title: "Finances"
 type: cell-databook
 version: 1.1.0
@@ -9,12 +9,12 @@ description: >
   one-member cell with one member entry about :Self — a minimal stub,
   since "Finances" is a purely organizational category node with no
   content or relationship of its own beyond Alice's required membership.
-mia:
+v4:
   category: "cat:Finances"
   creator: ":Self"
   owner: ":Self"
   member:
-    id: "http://www.example.org/mia/graphs/graph-41"
+    id: "http://www.example.org/v4/graphs/graph-41"
     claimant: ":Self"
     graphSubject: ":Self"
     template: "pshapes:ContactInfoShape"
@@ -33,8 +33,8 @@ This graph is the cell's one required `member` entry — a cell with a single `m
 
 ```turtle
 <!-- databook:id: alice-finances-member-graph -->
-<!-- databook:graph: http://www.example.org/mia/graphs/graph-41#graph -->
-@prefix : <http://www.example.org/mia#> .
+<!-- databook:graph: http://www.example.org/v4/graphs/graph-41#graph -->
+@prefix : <http://www.example.org/v4#> .
 @prefix cco: <https://w3id.org/cco-domains/cco/> .
 @prefix owl: <http://www.w3.org/2002/07/owl#> .
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .

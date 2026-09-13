@@ -1,5 +1,5 @@
 ---
-id: http://www.example.org/mia/cells/cell-04
+id: http://www.example.org/v4/cells/cell-04
 title: "Citibank"
 type: cell-databook
 version: 2.1.0
@@ -12,25 +12,25 @@ description: >
   member-capable, so the bank participates through :Citibank_Service, the service:ServiceProvider
   it provides; both that member graph and the topic graph are claimed by :Citibank itself, the
   party really making those claims.
-mia:
+v4:
   category: "cat:BankingPayments"
   creator: ":Self"
   owner: ":Self"
   member:
-    - id: "http://www.example.org/mia/graphs/graph-27"
+    - id: "http://www.example.org/v4/graphs/graph-27"
       claimant: ":Citibank"
       graphSubject: ":Citibank_Service"
       template: "pshapes:ContactInfoShape"
-    - id: "http://www.example.org/mia/graphs/graph-77"
+    - id: "http://www.example.org/v4/graphs/graph-77"
       claimant: ":Self"
       graphSubject: ":Self"
       template: "pshapes:ContactInfoShape"
   topic:
-    - id: "http://www.example.org/mia/graphs/graph-75"
+    - id: "http://www.example.org/v4/graphs/graph-75"
       claimant: ":Self"
       graphTopic: ":Self"
       template: "sashapes:ServiceAccountShape"
-    - id: "http://www.example.org/mia/graphs/graph-76"
+    - id: "http://www.example.org/v4/graphs/graph-76"
       claimant: ":Citibank"
       graphTopic: ":Self"
       template:
@@ -52,8 +52,8 @@ This graph captures the identity Citibank presents as one of the cell's two memb
 
 ```turtle
 <!-- databook:id: citibank-org-graph -->
-<!-- databook:graph: http://www.example.org/mia/graphs/graph-27#graph -->
-@prefix : <http://www.example.org/mia#> .
+<!-- databook:graph: http://www.example.org/v4/graphs/graph-27#graph -->
+@prefix : <http://www.example.org/v4#> .
 @prefix o: <http://mee.foundation/ontologies/organization#> .
 @prefix service: <http://mee.foundation/ontologies/service#> .
 @prefix cco: <https://w3id.org/cco-domains/cco/> .
@@ -89,8 +89,8 @@ This graph is one of the cell's two required `member` entries, claimed by and ab
 
 ```turtle
 <!-- databook:id: alice-citibank-member-graph -->
-<!-- databook:graph: http://www.example.org/mia/graphs/graph-77#graph -->
-@prefix : <http://www.example.org/mia#> .
+<!-- databook:graph: http://www.example.org/v4/graphs/graph-77#graph -->
+@prefix : <http://www.example.org/v4#> .
 @prefix o: <http://mee.foundation/ontologies/organization#> .
 @prefix cco: <https://w3id.org/cco-domains/cco/> .
 @prefix owl: <http://www.w3.org/2002/07/owl#> .
@@ -127,8 +127,8 @@ This graph is Alice's own self-asserted claim about her Citibank online service 
 
 ```turtle
 <!-- databook:id: alice-citibank-self-asserted-account-graph -->
-<!-- databook:graph: http://www.example.org/mia/graphs/graph-75#graph -->
-@prefix : <http://www.example.org/mia#> .
+<!-- databook:graph: http://www.example.org/v4/graphs/graph-75#graph -->
+@prefix : <http://www.example.org/v4#> .
 @prefix persona: <http://mee.foundation/ontologies/persona#> .
 @prefix cco: <https://w3id.org/cco-domains/cco/> .
 @prefix owl: <http://www.w3.org/2002/07/owl#> .
@@ -158,8 +158,8 @@ This graph captures Alice Walker's financial relationship with Citibank. Citiban
 
 ```turtle
 <!-- databook:id: citibank-graph -->
-<!-- databook:graph: http://www.example.org/mia/graphs/graph-76#graph -->
-@prefix : <http://www.example.org/mia#> .
+<!-- databook:graph: http://www.example.org/v4/graphs/graph-76#graph -->
+@prefix : <http://www.example.org/v4#> .
 @prefix persona: <http://mee.foundation/ontologies/persona#> .
 @prefix o: <http://mee.foundation/ontologies/organization#> .
 @prefix cco: <https://w3id.org/cco-domains/cco/> .
