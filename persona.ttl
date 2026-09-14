@@ -15,12 +15,12 @@
 @base <http://mee.foundation/ontologies/persona> .
 
 <http://mee.foundation/ontologies/persona> rdf:type owl:Ontology ;
-    owl:versionIRI <http://mee.foundation/ontologies/persona/4.20.0> ;
+    owl:versionIRI <http://mee.foundation/ontologies/persona/4.21.0> ;
     owl:imports <https://w3id.org/cco-domains/domains/PersonOntology> ;
     owl:imports <https://w3id.org/cco-domains/domains/AddressOntology> ;
     owl:imports <https://w3id.org/cco-domains/domains/StagingOntology> ;
     dc:date "2026-09-13"^^xsd:date ;
-    owl:versionInfo "Version 4.20.0 - V4 named as the app in the Person class comments"@en ;
+    owl:versionInfo "Version 4.21.0 - V4 named as the app in the Person class comments"@en ;
     rdfs:label "Persona Ontology"@en ;
     rdfs:comment """Persona Ontology for the V4 App.
 
@@ -514,7 +514,7 @@ p:specialty rdf:type owl:DatatypeProperty ;
                     other/medical-appointments.ttl alongside
                     medicalappointments:MedicalAppointmentRecord's own claim properties, whose
                     domain is that record individual rather than a Person. Backs
-                    cat:PrimaryCarePhysician's own cell:toolShape,
+                    cat:PrimaryCarePhysician's own cell:formShape,
                     pshapes:PrimaryCarePhysicianShape (shacl/persona-shacl.ttl)."""@en .
 
 

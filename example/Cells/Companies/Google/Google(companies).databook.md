@@ -20,7 +20,7 @@ v4:
     shape: "pshapes:ContactInfoShape"
   tool:
     - type: "form"
-      toolTopic: ":Alice_Google_Account"
+      formTopic: ":Alice_Google_Account"
       graph:
         - id: "http://www.example.org/v4/graphs/graph-73"
           claimant: ":Self"

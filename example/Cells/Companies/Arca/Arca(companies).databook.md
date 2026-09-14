@@ -28,7 +28,7 @@ v4:
       shape: "pshapes:ContactInfoShape"
   tool:
     - type: "form"
-      toolTopic: ":Alice_Arca_Account"
+      formTopic: ":Alice_Arca_Account"
       graph:
         - id: "http://www.example.org/v4/graphs/graph-97"
           claimant: ":Self"

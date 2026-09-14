@@ -17,7 +17,7 @@ v4:
     shape: "pshapes:ContactInfoShape"
   tool:
     - type: "form"
-      toolTopic: ":Sophia_Walker"
+      formTopic: ":Sophia_Walker"
       graph:
         - id: "http://www.example.org/v4/graphs/graph-17"
           claimant: ":Self"

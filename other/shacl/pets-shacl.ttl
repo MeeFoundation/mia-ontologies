@@ -10,7 +10,7 @@
 
 <http://mee.foundation/ontologies/pets/shapes> rdf:type owl:Ontology ;
     owl:imports <http://mee.foundation/ontologies/pets> ;
-    owl:versionIRI <http://mee.foundation/ontologies/pets/shapes/1.5.0> ;
+    owl:versionIRI <http://mee.foundation/ontologies/pets/shapes/1.6.0> ;
     dc:date "2026-09-05"^^xsd:date ;
     rdfs:label "Pets Template SHACL Shapes"@en ;
     rdfs:comment """SHACL shapes for validating graph files carrying cell:shape petshapes:PetShape or
@@ -96,7 +96,7 @@
 
 
 #################################################################
-#  Care & Feeding Shape (cat:PetsCareAndFeeding's own cell:toolShape)
+#  Care & Feeding Shape (cat:PetsCareAndFeeding's own cell:formShape)
 #  Mirrors :PetShape's own property list — the same properties Ginger's
 #  own pet-identity graph (graph-37) actually asserts — but with every
 #  property optional, including name/hasSpecies (required by :PetShape

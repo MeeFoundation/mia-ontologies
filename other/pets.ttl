@@ -12,9 +12,9 @@
     owl:imports <http://mee.foundation/ontologies/dron-upper-subset> ,
                 <http://mee.foundation/ontologies/ncbitaxon-subset> ,
                 <http://mee.foundation/ontologies/vbo-subset> ;
-    owl:versionIRI <http://mee.foundation/ontologies/pets/1.10.0> ;
+    owl:versionIRI <http://mee.foundation/ontologies/pets/1.11.0> ;
     dc:date "2026-09-05"^^xsd:date ;
-    owl:versionInfo "Version 1.10.0 - pets:Pet/pets:PetMedicationRecord no longer rdfs:subClassOf persona:PersonaTemplate, which was removed; each is now an independent class targeted directly by its own SHACL shape."@en ;
+    owl:versionInfo "Version 1.11.0 - pets:Pet/pets:PetMedicationRecord no longer rdfs:subClassOf persona:PersonaTemplate, which was removed; each is now an independent class targeted directly by its own SHACL shape."@en ;
     persona:usesDrOnClass <http://purl.obolibrary.org/obo/DRON_00000074> ,  # drug product
                     <http://purl.obolibrary.org/obo/DRON_00000028> ,  # active ingredient (role)
                     <http://purl.obolibrary.org/obo/DRON_00000022> ,  # drug tablet
@@ -69,7 +69,7 @@ pets:Pet rdf:type owl:Class ;
                     directly (a pet has no persona:Person individual of its own). Validated by the SHACL
                     shape :PetShape in
                     other/shacl/pets-shacl.ttl, linked from cat:Pets's template cell (cat-templates.ttl) via
-                    cell:toolShape."""@en .
+                    cell:formShape."""@en .
 
 pets:hasSpecies rdf:type owl:ObjectProperty ;
     rdfs:domain pets:Pet ;
@@ -175,7 +175,7 @@ pets:PetMedicationRecord rdf:type owl:Class ;
                     pet with its own identity graph, via pets:Pet). Asserted via rdf:type directly on the
                     graph file's own individual, validated by the SHACL shape :PetMedicationRecordShape in
                     other/shacl/pets-shacl.ttl, linked from cat:PetsMedical's template cell (cat-templates.ttl)
-                    via cell:toolShape. Named "Record" rather than "Document" since this class is not a
+                    via cell:formShape. Named "Record" rather than "Document" since this class is not a
                     identitydocuments:IdentityDocument, matching medicalappointments:MedicalAppointmentRecord's identical naming
                     reasoning."""@en .
 

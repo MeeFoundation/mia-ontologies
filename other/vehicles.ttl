@@ -12,9 +12,9 @@
 <http://mee.foundation/ontologies/vehicles> rdf:type owl:Ontology ;
     owl:imports <http://mee.foundation/ontologies/wikidata-vehicle-makes-subset> ,
                 <http://mee.foundation/ontologies/wikidata-vehicle-models-subset> ;
-    owl:versionIRI <http://mee.foundation/ontologies/vehicles/1.7.0> ;
+    owl:versionIRI <http://mee.foundation/ontologies/vehicles/1.8.0> ;
     dc:date "2026-09-05"^^xsd:date ;
-    owl:versionInfo "Version 1.7.0 - vehicles:Vehicle no longer rdfs:subClassOf persona:PersonaTemplate, which was removed; it is now an independent class targeted directly by its own SHACL shape."@en ;
+    owl:versionInfo "Version 1.8.0 - vehicles:Vehicle no longer rdfs:subClassOf persona:PersonaTemplate, which was removed; it is now an independent class targeted directly by its own SHACL shape."@en ;
     rdfs:label "Vehicles Ontology"@en ;
     rdfs:comment """The second of this project's other/ peer ontologies (after other/pets.ttl) — small,
                     mostly-vendored ontologies for domains a person merely *has* (a pet, a vehicle) rather
@@ -105,7 +105,7 @@ vehicles:Vehicle rdf:type owl:Class ;
                     the vehicle individual directly (a vehicle has no persona:Person individual of its own).
                     Validated by the SHACL shape :VehicleShape in other/shacl/vehicles-shacl.ttl, whose own CURIE —
                     not this class — is what the graph's cell:shape value names; linked from cat:Vehicles's template cell
-                    (cat-templates.ttl) via cell:toolShape."""@en .
+                    (cat-templates.ttl) via cell:formShape."""@en .
 
 vehicles:hasMake rdf:type owl:ObjectProperty ;
     rdfs:domain vehicles:Vehicle ;

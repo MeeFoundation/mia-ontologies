@@ -274,8 +274,8 @@ def _meta_subgraph(v4: dict, src_dir: Path | None = None) -> list[str]:
         props.append(f"claimant: {claimant}")
     if graph_subject := v4.get("graphSubject"):
         props.append(f"graphSubject: {graph_subject}")
-    if tool_topic := v4.get("toolTopic"):
-        props.append(f"toolTopic: {tool_topic}")
+    if tool_topic := v4.get("formTopic"):
+        props.append(f"formTopic: {tool_topic}")
     if form_shape := v4.get("shape"):
         props.append(f"shape: {form_shape}")
     if dyad := v4.get("dyad"):
@@ -503,7 +503,7 @@ def main() -> None:
         frontmatter = {"v4": {
             "claimant": match.get("claimant"),
             "graphSubject": match.get("graphSubject"),
-            "toolTopic": match.get("toolTopic"),
+            "formTopic": match.get("formTopic"),
             "shape": match.get("shape"),
         }}
         out_dir = Path("example/graphs/images")  # fixed — graph PNGs never move

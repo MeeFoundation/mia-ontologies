@@ -138,11 +138,11 @@ def graph_entries(v4):
     """Every graph entry a cell links, flattened into one list: its v4.member
     entries first, then the graphs nested under each v4.tool. Tool graphs sit
     one level deeper than member entries because a tool states its own
-    toolTopic once, above them; so that a caller reading a single graph does
+    formTopic once, above them; so that a caller reading a single graph does
     not have to walk back up to find it, each tool graph is returned with its
-    tool's `type` and `toolTopic` copied onto it. Those two keys are a
+    tool's `type` and `formTopic` copied onto it. Those two keys are a
     read-time convenience only and are never written back to a databook —
-    storing them per graph is exactly what carrying toolTopic on the tool
+    storing them per graph is exactly what carrying formTopic on the tool
     avoids."""
     out = list(as_list(v4.get("member")))
     for tool in as_list(v4.get("tool")):
@@ -151,7 +151,7 @@ def graph_entries(v4):
         for g in as_list(tool.get("graph")):
             if isinstance(g, dict):
                 g = {**g, "type": tool.get("type", "form"),
-                     "toolTopic": tool.get("toolTopic")}
+                     "formTopic": tool.get("formTopic")}
             out.append(g)
     return out
 
@@ -284,7 +284,7 @@ def process_cell_databook(fm, triples):
 
     # cell:tool — zero or more per cell, each a blank node holding this
     # cell's structured content. The node's rdf:type comes from the entry's
-    # own `type` key (form/calendar/canvas); cell:toolTopic, what the tool's
+    # own `type` key (form/calendar/canvas); cell:formTopic, what the tool's
     # content is about, is carried once by the tool rather than repeated on
     # each graph beneath it, which is what makes its graphs unable to
     # disagree about what they are about.
@@ -292,15 +292,15 @@ def process_cell_databook(fm, triples):
         node = tool_node(subj, i)
         emit_obj(triples, subj, CELL + "tool", node)
         emit_type(triples, node, CELL + TOOL_TYPES[entry.get("type", "form")])
-        if entry.get("toolTopic"):
-            emit_obj(triples, node, CELL + "toolTopic", resolve(entry["toolTopic"]))
+        if entry.get("formTopic"):
+            emit_obj(triples, node, CELL + "formTopic", resolve(entry["formTopic"]))
         for graph in as_list(entry.get("graph")):
-            emit_obj(triples, node, CELL + "toolGraph", graph["id"])
+            emit_obj(triples, node, CELL + "formGraph", graph["id"])
             process_embedded_graph(graph, triples, "tool")
 
     # No cell-level subject synthesis: who/what a cell is about is
     # derivable directly from tools/members — the distinct
-    # cell:toolTopic values if any tool is present, else the distinct
+    # cell:formTopic values if any tool is present, else the distinct
     # cell:graphSubject values among members (cell.ttl's cell:tool
     # comment) — rather than an independently-asserted fact, so it is
     # never stored as its own triple.
@@ -316,9 +316,9 @@ def process_embedded_graph(graph, triples, kind):
     the type: cell:MemberGraph for a member entry, cell:ToolGraph for a tool's own
     graph (cell.ttl's two disjoint cell:CGraph leaves). Nothing in the entry
     itself marks which kind it is; the list it was read from settles it,
-    matching cell:member's and cell:toolGraph's own ranges. Only a member
+    matching cell:member's and cell:formGraph's own ranges. Only a member
     entry carries an about-ness property of its own (cell:graphSubject); a
-    tool graph's is cell:toolTopic, held once by the tool above it."""
+    tool graph's is cell:formTopic, held once by the tool above it."""
     is_member = kind == "member"
     claimant = graph.get("claimant")
     about = graph.get("graphSubject") if is_member else None

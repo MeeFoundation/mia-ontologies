@@ -13,7 +13,7 @@ description: >
   by three topic graphs sharing one subject (:Kyoto_Trip_2027), one per member, each with a
   distinct claimant — Alice's own basic claim (graph-69), her agent's own evolving,
   collaboratively-drafted itinerary (graph-70), and Dave's own contribution (graph-91) — reaching
-  cell:toolGraph's real upper bound (one graph per member, see Check 25) and mirroring how a
+  cell:formGraph's real upper bound (one graph per member, see Check 25) and mirroring how a
   tool's topic may be claimed from more than one side (see the Medical Appointment cell's two
   "Med. Appt mt." squares in README.md's Representative Cells diagram).
 v4:
@@ -35,7 +35,7 @@ v4:
       shape: "pshapes:ContactInfoShape"
   tool:
     - type: "form"
-      toolTopic: ":Kyoto_Trip_2027"
+      formTopic: ":Kyoto_Trip_2027"
       graph:
         - id: "http://www.example.org/v4/graphs/graph-69"
           claimant: ":Self"
@@ -205,7 +205,7 @@ This graph is one of the cell's three `topic` entries — Alice's travel agent's
 
 #### Overview
 
-This graph is the cell's third `topic` entry — Dave's own contribution to the trip, claimed by him directly rather than routed through Alice or her travel agent. With this graph, the cell reaches `cell:toolGraph`'s real upper bound: one graph per member, each with a distinct claimant (Self, the agent, and now Dave — see Check 25), the same subject `:Kyoto_Trip_2027` claimed from all three sides at once.
+This graph is the cell's third `topic` entry — Dave's own contribution to the trip, claimed by him directly rather than routed through Alice or her travel agent. With this graph, the cell reaches `cell:formGraph`'s real upper bound: one graph per member, each with a distinct claimant (Self, the agent, and now Dave — see Check 25), the same subject `:Kyoto_Trip_2027` claimed from all three sides at once.
 
 #### Graph
 

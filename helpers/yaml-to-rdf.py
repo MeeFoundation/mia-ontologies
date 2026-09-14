@@ -34,7 +34,7 @@ used to supply.
 A graph's `claimant` and its about-ness value are typed on its plain
 `v4.member[]`/`v4.tool[].graph[].id`, not that id + "#graph" — matching cell.ttl's
 cell:claimant/cell:graphSubject doc comments, and the IRI
-cell:member/cell:toolGraph actually reference.
+cell:member/cell:formGraph actually reference.
 
 Usage:   python3 helpers/yaml-to-rdf.py [repo-root] > yaml-data.ttl
 Output:  Turtle triples on stdout — merge with `riot` alongside data extracted

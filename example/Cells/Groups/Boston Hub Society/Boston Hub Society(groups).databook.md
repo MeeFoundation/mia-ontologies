@@ -29,7 +29,7 @@ v4:
       shape: "pshapes:ContactInfoShape"
   tool:
     - type: "form"
-      toolTopic: ":BHS"
+      formTopic: ":BHS"
       graph:
         - id: "http://www.example.org/v4/graphs/graph-92"
           claimant: ":BHS"

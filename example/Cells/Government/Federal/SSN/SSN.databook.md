@@ -19,7 +19,7 @@ v4:
     shape: "pshapes:ContactInfoShape"
   tool:
     - type: "form"
-      toolTopic: ":Self"
+      formTopic: ":Self"
       graph:
         - id: "http://www.example.org/v4/graphs/graph-80"
           claimant: ":Self"
@@ -60,7 +60,7 @@ This graph is the cell's one required `member` entry — a cell with a single `m
 
 #### Overview
 
-This graph captures Alice Walker's Social Security Administration record — moved here, as this cell's tool content, from the cell's former `member` graph-23. Alice self-enters her SSN (123-45-6788) from her physical Social Security card. The SSA is not a PDN node, so this data is self-claimed rather than received from the SSA directly. Validated by `shacl/persona-shacl.ttl`'s `:SSNShape` (reused directly as this cell's declared tool's `cell:toolShape`, since the SSN designator has no separate document class of its own). Alice is the claimant.
+This graph captures Alice Walker's Social Security Administration record — moved here, as this cell's tool content, from the cell's former `member` graph-23. Alice self-enters her SSN (123-45-6788) from her physical Social Security card. The SSA is not a PDN node, so this data is self-claimed rather than received from the SSA directly. Validated by `shacl/persona-shacl.ttl`'s `:SSNShape` (reused directly as this cell's declared tool's `cell:formShape`, since the SSN designator has no separate document class of its own). Alice is the claimant.
 
 #### Graph
 

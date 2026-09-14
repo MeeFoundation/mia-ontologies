@@ -21,7 +21,7 @@ v4:
     shape: "pshapes:ContactInfoShape"
   tool:
     - type: "form"
-      toolTopic: ":Self"
+      formTopic: ":Self"
       graph:
         - id: "http://www.example.org/v4/graphs/graph-90"
           claimant: ":Self"

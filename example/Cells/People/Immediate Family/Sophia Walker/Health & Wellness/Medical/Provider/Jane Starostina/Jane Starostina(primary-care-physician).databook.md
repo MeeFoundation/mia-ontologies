@@ -17,7 +17,7 @@ v4:
     shape: "pshapes:ContactInfoShape"
   tool:
     - type: "form"
-      toolTopic: ":Jane_Starostina"
+      formTopic: ":Jane_Starostina"
       graph:
         - id: "http://www.example.org/v4/graphs/graph-25"
           claimant: ":Self"
@@ -60,7 +60,7 @@ This graph captures Alice's own bare identity claim (just her given name) — th
 
 #### Overview
 
-This graph captures Alice's record of Dr. Jane Starostina, who is the primary care physician for Alice's daughter, Sophia Walker, including her medical specialty (Endocrinology), via `persona:specialty` — the `cell:toolShape` of the tool `cat:PrimaryCarePhysician` declares (`:PrimaryCarePhysicianShape`). Alice keeps this information so she and her husband Dave can coordinate Sophia's medical appointments. Alice is the claimant; Jane is the cell's `subject` but, since this cell now has a real member entry (graph 34, above) about Alice herself, Jane's graph is held by the cell's form tool rather than being one of the required `member` entries.
+This graph captures Alice's record of Dr. Jane Starostina, who is the primary care physician for Alice's daughter, Sophia Walker, including her medical specialty (Endocrinology), via `persona:specialty` — the `cell:formShape` of the tool `cat:PrimaryCarePhysician` declares (`:PrimaryCarePhysicianShape`). Alice keeps this information so she and her husband Dave can coordinate Sophia's medical appointments. Alice is the claimant; Jane is the cell's `subject` but, since this cell now has a real member entry (graph 34, above) about Alice herself, Jane's graph is held by the cell's form tool rather than being one of the required `member` entries.
 
 #### Graph
 

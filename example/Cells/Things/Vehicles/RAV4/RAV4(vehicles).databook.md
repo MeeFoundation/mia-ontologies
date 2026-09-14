@@ -22,7 +22,7 @@ v4:
     shape: "pshapes:ContactInfoShape"
   tool:
     - type: "form"
-      toolTopic: ":Alice_RAV4"
+      formTopic: ":Alice_RAV4"
       graph:
         - id: "http://www.example.org/v4/graphs/graph-63"
           claimant: ":Self"

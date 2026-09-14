@@ -27,7 +27,7 @@ v4:
       shape: "pshapes:ContactInfoShape"
   tool:
     - type: "form"
-      toolTopic: ":Self"
+      formTopic: ":Self"
       graph:
         - id: "http://www.example.org/v4/graphs/graph-75"
           claimant: ":Self"
@@ -84,7 +84,7 @@ This graph captures the identity Citibank presents as one of the cell's two memb
 
 #### Overview
 
-This graph is one of the cell's two required `member` entries, claimed by and about `:Self` — a minimal given-name stub, so `:Self` is a genuine member of this cell (see Check 21) alongside `:Citibank_Service` (graph 27), matching the diagram's two member shapes. It also carries Alice's own notes about Citibank as an institution, asserted on `:Citibank` where they belong: these are her claims about why she banks there, not the bank's, so they sit in the graph she claims rather than in Citibank's own member graph. Note: this makes the cell's own `member` `graphSubject` values (`:Self`, `:Citibank_Service`) overlap with its tool's `toolTopic` value (`:Self`, from graphs 75/76) — a known, deliberately-deferred Check 18 tension.
+This graph is one of the cell's two required `member` entries, claimed by and about `:Self` — a minimal given-name stub, so `:Self` is a genuine member of this cell (see Check 21) alongside `:Citibank_Service` (graph 27), matching the diagram's two member shapes. It also carries Alice's own notes about Citibank as an institution, asserted on `:Citibank` where they belong: these are her claims about why she banks there, not the bank's, so they sit in the graph she claims rather than in Citibank's own member graph. Note: this makes the cell's own `member` `graphSubject` values (`:Self`, `:Citibank_Service`) overlap with its tool's `formTopic` value (`:Self`, from graphs 75/76) — a known, deliberately-deferred Check 18 tension.
 
 #### Graph
 

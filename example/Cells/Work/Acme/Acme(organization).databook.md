@@ -20,7 +20,7 @@ v4:
     shape: "pshapes:ContactInfoShape"
   tool:
     - type: "form"
-      toolTopic: ":Acme"
+      formTopic: ":Acme"
       graph:
         - id: "http://www.example.org/v4/graphs/graph-94"
           claimant: ":Self"

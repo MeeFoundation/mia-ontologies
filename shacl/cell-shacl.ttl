@@ -13,10 +13,10 @@
 @prefix dc: <http://purl.org/dc/elements/1.1/> .
 
 <http://mee.foundation/ontologies/cell/shapes> rdf:type owl:Ontology ;
-    owl:versionIRI <http://mee.foundation/ontologies/cell/shapes/5.0.0> ;
+    owl:versionIRI <http://mee.foundation/ontologies/cell/shapes/6.0.0> ;
     dc:date "2026-09-13"^^xsd:date ;
     rdfs:label "Cell Ontology SHACL Validation Shapes"@en ;
-    rdfs:comment "SHACL validation shapes for cell:Cell DataBook instances (the content facet of a cell) the cell:Tool nodes a cell carries, and the graph DataBook instances a cell links to — cell:MemberGraph via cell:member, cell:ToolGraph via a tool's own cell:toolGraph — in the Cell Ontology."@en .
+    rdfs:comment "SHACL validation shapes for cell:Cell DataBook instances (the content facet of a cell) the cell:Tool nodes a cell carries, and the graph DataBook instances a cell links to — cell:MemberGraph via cell:member, cell:ToolGraph via a tool's own cell:formGraph — in the Cell Ontology."@en .
 
 
 #################################################################
@@ -133,7 +133,7 @@
 #  graph's own cell:graphSubject), so it is checked only by CLAUDE.md's
 #  own integrity check (Check 23), not here. There is no subject property
 #  on cell:Cell/cell:InstanceCell itself to constrain — a cell's own subject
-#  is derived from its tools' own cell:toolTopic values, or failing those
+#  is derived from its tools' own cell:formTopic values, or failing those
 #  from its cell:member graphs' own cell:graphSubject values, rather than
 #  asserted directly (see cell.ttl's cell:tool comment; :LiveToolShape and
 #  :MemberGraphShape below constrain those properties instead). There is likewise no
@@ -293,16 +293,20 @@
 #  tool classes (cell:FormTool, cell:CalendarTool, cell:CanvasTool).
 #  So these two shapes target sh:targetObjectsOf, never sh:targetClass:
 #
-#    :LiveToolShape         — a live tool, reached by cell:tool from a
-#                         cell:InstanceCell. Carries cell:toolTopic
-#                         (exactly one) and, for a cell:FormTool,
-#                         cell:toolGraph (at least one); never a shape.
+#    :LiveToolShape     — a live tool, reached by cell:tool from a
+#                         cell:InstanceCell. A live cell:FormTool
+#                         carries cell:formTopic (exactly one) and
+#                         cell:formGraph (at least one), never a shape;
+#                         a live cell:CalendarTool or cell:CanvasTool
+#                         carries none of the three, so each
+#                         requirement is conditioned on cell:FormTool
+#                         rather than asserted outright.
 #    :DeclaredToolShape — a declaration, reached by cell:declaresTool
 #                         from a cell:TemplateCell. Carries
-#                         cell:toolShape alone: a template cannot
+#                         cell:formShape alone: a template cannot
 #                         know what a future cell's tool will be about.
 #
-#  cell:toolGraph's real upper bound — one value per cell member, each
+#  cell:formGraph's real upper bound — one value per cell member, each
 #  with a distinct claimant — is a cross-property invariant SHACL can't
 #  check here; see integrity.md's Check 25.
 #################################################################
@@ -312,43 +316,48 @@
     sh:targetObjectsOf cell:tool ;
     sh:message "Tool validation."@en ;
 
-    # cell:toolTopic — required, exactly one value: what the tool's
+    # All three tool-content properties are scoped to cell:FormTool
+    # (cell.ttl), the one tool class with a content model, so the
+    # requirements below are conditioned on the tool's class rather than
+    # asserted outright: this shape targets every live tool, and a
+    # cell:CalendarTool or cell:CanvasTool legitimately carries none of
+    # them. A blanket sh:minCount here would fail those two.
+    #
+    # A live cell:FormTool carries cell:formTopic exactly once — what its
     # content is about, stated once on the tool rather than repeated on
     # each graph beneath it, so several members' claims about one thing
-    # cannot disagree about what that thing is.
-    sh:property [
-        sh:path cell:toolTopic ;
-        sh:minCount 1 ;
-        sh:maxCount 1 ;
-        sh:message "A cell:Tool must have exactly one cell:toolTopic value."@en
-    ] ;
-
-    # cell:toolGraph — each value a cell:ToolGraph, whatever the tool kind.
-    sh:property [
-        sh:path cell:toolGraph ;
-        sh:class cell:ToolGraph ;
-        sh:message "A cell:Tool's cell:toolGraph values must each be a cell:ToolGraph."@en
-    ] ;
-
-    # A live cell:FormTool must hold at least one graph. The minimum is
-    # conditioned on the class rather than asserted outright, since this
-    # shape targets every live tool and the two stub kinds
-    # (cell:CalendarTool, cell:CanvasTool) legitimately hold no
-    # cell:toolGraph at all — a blanket sh:minCount 1 would fail them.
-    # SHACL enforces only this minimum; the per-tool upper bound, one graph
-    # per cell member each with a distinct claimant, is integrity.md's
-    # Check 25.
+    # cannot disagree about what that thing is — and at least one
+    # cell:formGraph. SHACL enforces only that minimum; the per-tool upper
+    # bound, one graph per cell member each with a distinct claimant, is
+    # integrity.md's Check 25.
     sh:or (
         [ sh:not [ sh:class cell:FormTool ] ]
-        [ sh:property [ sh:path cell:toolGraph ; sh:minCount 1 ] ]
+        [ sh:property [
+              sh:path cell:formTopic ;
+              sh:minCount 1 ;
+              sh:maxCount 1 ;
+              sh:message "A live cell:FormTool must have exactly one cell:formTopic value."@en
+          ] ;
+          sh:property [
+              sh:path cell:formGraph ;
+              sh:minCount 1 ;
+              sh:message "A live cell:FormTool must have at least one cell:formGraph value."@en
+          ] ]
     ) ;
+
+    # Whatever the tool kind, each cell:formGraph value is a cell:ToolGraph.
+    sh:property [
+        sh:path cell:formGraph ;
+        sh:class cell:ToolGraph ;
+        sh:message "A cell:Tool's cell:formGraph values must each be a cell:ToolGraph."@en
+    ] ;
 
     # A live tool never carries a shape — that belongs to the declared
     # role, on a cell:TemplateCell's own cell:declaresTool node.
     sh:property [
-        sh:path cell:toolShape ;
+        sh:path cell:formShape ;
         sh:maxCount 0 ;
-        sh:message "A live cell:Tool (reached by cell:tool) must not carry cell:toolShape — that belongs to a declared tool."@en
+        sh:message "A live cell:Tool (reached by cell:tool) must not carry cell:formShape — that belongs to a declared tool."@en
     ] .
 
 :DeclaredToolShape
@@ -356,27 +365,27 @@
     sh:targetObjectsOf cell:declaresTool ;
     sh:message "Declared Tool validation."@en ;
 
-    # cell:toolShape — zero or more values. Not constrained to
+    # cell:formShape — zero or more values. Not constrained to
     # sh:class sh:NodeShape here, for the same reason cell:memberShape
     # isn't: the individuals it points at are only typed sh:NodeShape in
     # the per-template other/shacl/*.ttl files, which the cell pass
     # deliberately excludes from its shapes.
     sh:property [
-        sh:path cell:toolShape ;
-        sh:message "cell:toolShape links a declared cell:Tool to zero or more sh:NodeShape values."@en
+        sh:path cell:formShape ;
+        sh:message "cell:formShape links a declared cell:Tool to zero or more sh:NodeShape values."@en
     ] ;
 
     # A declared tool carries neither of the live-tool properties.
     sh:property [
-        sh:path cell:toolTopic ;
+        sh:path cell:formTopic ;
         sh:maxCount 0 ;
-        sh:message "A declared cell:Tool must not carry cell:toolTopic — a template cannot know what a future cell's tool will be about."@en
+        sh:message "A declared cell:Tool must not carry cell:formTopic — a template cannot know what a future cell's tool will be about."@en
     ] ;
 
     sh:property [
-        sh:path cell:toolGraph ;
+        sh:path cell:formGraph ;
         sh:maxCount 0 ;
-        sh:message "A declared cell:Tool must not carry cell:toolGraph — it declares a shape, not live content."@en
+        sh:message "A declared cell:Tool must not carry cell:formGraph — it declares a shape, not live content."@en
     ] .
 
 
@@ -384,7 +393,7 @@
 #  Graph DataBooks (cell:CGraph and its two leaves)
 #  Validates the classification fields on every graph DataBook a cell
 #  links to — a graph DataBook only ever exists to be linked from a
-#  cell (via cell:member, or via a tool's own cell:toolGraph, above),
+#  cell (via cell:member, or via a tool's own cell:formGraph, above),
 #  so its shapes live here
 #  alongside the cell shapes rather than in a separate file.
 #
@@ -393,7 +402,7 @@
 #  :MemberGraphShape carries cell:graphSubject, the one about-ness property
 #  a leaf still defines, and :ToolGraphShape asserts that a tool graph
 #  carries none — its about-ness is the holding tool's own
-#  cell:toolTopic (:LiveToolShape above). That sh:maxCount 0 is how the
+#  cell:formTopic (:LiveToolShape above). That sh:maxCount 0 is how the
 #  owl:disjointWith between the two leaves becomes something a
 #  validator can actually fail on.
 #
@@ -410,7 +419,7 @@
 # cell:shape (domain cell:Graph, range sh:NodeShape) is deliberately left
 # unconstrained by any shape here, for the identical reason :TemplateCellShape's
 # own comment above already gives for not constraining cell:memberShape
-# and cell:toolShape to sh:class sh:NodeShape: the individuals a cell:shape
+# and cell:formShape to sh:class sh:NodeShape: the individuals a cell:shape
 # value points at (e.g. idocshapes:PassportShape) are only typed
 # sh:NodeShape in files (shacl/persona-shacl.ttl,
 # shacl/contactinfo-shacl.ttl, and every other/shacl/*-shacl.ttl file)
@@ -447,7 +456,7 @@
     sh:message "ToolGraph validation: no graphSubject may be present."@en ;
     # The disjointness between the two leaves, made checkable: a tool's
     # graph records who is claiming, never who a member is. What the
-    # content is about is the holding tool's own cell:toolTopic, stated
+    # content is about is the holding tool's own cell:formTopic, stated
     # once for all the graphs beneath it (:LiveToolShape above), so a
     # cell:ToolGraph carries no about-ness property of its own at all.
     sh:property [

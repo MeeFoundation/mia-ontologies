@@ -23,7 +23,7 @@ v4:
       shape: "pshapes:ContactInfoShape"
   tool:
     - type: "form"
-      toolTopic: ":Ginger"
+      formTopic: ":Ginger"
       graph:
         - id: "http://www.example.org/v4/graphs/graph-32"
           claimant: ":Self"
