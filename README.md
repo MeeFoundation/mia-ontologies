@@ -182,25 +182,25 @@ A cell is a secure container of information that can remain private to the user 
 
 <p align="center"><img src="images/cell-ontology/cell-dimensions.png" alt="Cell dimensions"></p>
 
-A regular cell holds various kinds of information:
+A cell holds various kinds of information:
 
 - **Note** — a jointly writable document that may contain links to other cells.
 - **Chat** — a chat stream shared with all members (and supports 1:1 messaging).
-- **Members** — contact information about the members.
-- **Attachments** (📎) — an optional set of file attachments.
+- **Members** — information about the members. Usually just contact information, although some cells will add richness.
+- **Attachments** (📎) — an optional set of one or more files. Some common filetypes (images, video, PDFs, Markdown) will show previews whereas others (Excel spreadsheets, Word documents, etc.) might not.
 - **Tags** — an optional set of short text labels for finding the cell again later. Tags cut across the tree rather than placing the cell in it, so they are independent of the cell's category; see [Tags](#tags) below, and [Finding Cells by Tag](APP-BEHAVIOR.md#finding-cells-by-tag) in APP-BEHAVIOR.md.
 
-Cells can have one or more kinds of **tools**. The most common is the Form tool that allows the entry of structured data according to a one of a set of pre-defined form "shapes" (the schema of fields and values). By "structured" we mean fields and values. For example, if the topic is taking care of a pet, the structured information might include species:dog, breed:Labradoodle, weight:26 pounds, and so on. If the topic is a credit card, it would have fields like name, card number, expiration date, and CVV code. Other planned tools include calendar and drawing canvas tools. 
+Cells can have one or more kinds of **tools**. The most common is the Form tool that allows the entry of structured data according to a one of a set of pre-defined form "shapes" (schemas of fields and values). By "structured" we mean fields and values. For example, if the topic is taking care of a pet, the structured information might include species:dog, breed:Labradoodle, weight:26 pounds, and so on. If the topic is a credit card, it would have fields like name, card number, expiration date, and CVV code. Other planned tools include calendar and drawing canvas tools. 
 
 The app contains two pre-defined, non-user-editable taxonomies of **categories**. One is focused on helping organize the information in a person's personal life (Family, Home, Pets, etc.), and the other on their work life (Employer, Employees, etc.). For some of these categories, the app includes a *template cell* that may contain some starter content (or may be empty) and/or may have a schema for the structured fields and values that a cell of this category might contain.
 
 A cell has a **name**. Often this name is just a copy of the name of the category. For example, if the category is "People", the cell might be called "People". However, the user can give the cell a name of their own choosing.
 
-A cell usually has a **category** — a `skos:Concept` individual in the app's pre-defined scheme, identifying which kind of personal information (e.g. "People", "Pets", "Things") the cell holds. Some categories come with a pre-defined template cell supplying starter content.
+A cell may have been assigned a **category** — a `skos:Concept` individual in the app's pre-defined scheme, identifying which kind of personal information (e.g. "People", "Pets", "Things") the cell holds. Some categories come with a pre-defined template cell supplying starter content for the note, and predefined form types.
 
 A cell has a **creator**, which is the identity of the user who created it. This creator is automatically considered to be a cell **owner**. Any owner can invite a new member as an owner, or promote an existing member to owner. A cell owner has an elevated set of permissions for managing cell contents.
 
-A cell can be **shared**. The creator of a cell can invite people, or services — one's own AI agent, a cell backup service, or the service of an organization compatible with The Mee Foundation's PDN protocols — to join the cell. When they do, they gain access to the cell. Cells are alive: any change made to a cell's contents by any member is visible to all members. Cells are self-contained and may be nested inside other cells by any app user. The organization of these multi-cellular structures is personal to the app user and not shared. The structures will be similar between users to the extent that they are leveraging the app's built-in tree of categories.
+A cell can be **shared**. The creator of a cell can invite people, or services — one's own AI agent, a cell backup service, or the service of an organization compatible with The Mee Foundation's PDN protocols — to join the cell. If they accept the invitation, they gain access to the cell. Cells are dynamic, not static: any change made to a cell's contents by any member is visible to all members. Cells are self-contained and may be nested inside other cells by any app user. The organization of these multi-cellular structures is personal to the app user and not shared. The structures will be similar between users to the extent that they leverage the app's built-in tree of categories.
 
 Cells can be **linked**. Cells have globally unique identifiers (see [Cell Id](#cell-id) below). This allows the note of a "source" cell to include a link to a "target" cell. The user can follow a link in a source cell if they also have access to the target cell.
 
