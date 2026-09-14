@@ -72,7 +72,9 @@ The format will change, though. It has so far been exercised by one worked examp
 validation pipeline around it, not by an implementation, and the v4 implementation team will find
 requirements it does not yet meet — a field that has to be added, a convention that holds across the
 example tree but not across a real user's, a distinction that only matters once cells are syncing
-between real instances. This document tracks the format as it stands rather than freezing it; what
+between real instances. The largest known gap is tools: three of the four kinds have no data format
+at all yet. See [Open Questions](#open-questions) at the end for that and the rest of what is
+still unsettled. This document tracks the format as it stands rather than freezing it; what
 keeps a proposed change honest is that [integrity.md](integrity.md)'s checks and the tree under
 `example/Cells/` make its blast radius visible before it is made.
 
@@ -515,3 +517,83 @@ No single tool checks the whole format. It is enforced in three places:
   `v4.member[].{id,claimant,subject,shape}`; and
   `v4.tool[].{type,formTopic,graph[].{id,claimant,shape}}`. No other key is consumed anywhere; an
   unrecognized key is silently ignored.
+
+## Open Questions
+
+What this format does not settle. Each is a change to this document when it is settled, and each is
+listed because a reader hitting it should be able to tell that it is genuinely open rather than an
+omission.
+
+### Where chat content goes
+
+Every cell has one chat stream, always — `c:chat`, 1..1, present even when empty — and nothing
+anywhere says where it is stored. It is not in the DataBook, and unlike the note and the attachments
+it has no place in the folder either: it is the one piece of a cell's content with no specified
+storage at all. It is also the piece least like the others. A note is one document that is rewritten;
+a chat is append-only, authored per message, potentially far larger, and read at its tail far more
+often than in full.
+
+Two constraints narrow the answer. Dropping a transcript into the cell's folder as a plain file makes
+it an attachment unless something says otherwise, and puts it in the user's PKM vault — which may be
+a feature or a mess, but is not currently a choice anyone has made. And a private 1:1 thread between
+a member and their own agent is not visible to other members
+(see [Chat Area](APP-BEHAVIOR.md#chat-area) in APP-BEHAVIOR.md), so it cannot live in shared, synced
+cell content the way the group stream can — whatever holds a cell's chat has to hold at least two
+things with different propagation rules. A cell already has one piece of content that does not
+propagate on a share, `c:serviceTag`, so the precedent exists; what is new is that here the split
+runs *within* one feature rather than between two properties.
+
+### Where a non-form tool's content goes
+
+Only `c:Form` has a data format today. Its content is graphs, and a graph is Turtle, which is why
+every one of the 101 fences across this repo's example tree is a ```` ```turtle ```` one.
+`c:Calendar`, `c:Canvas` and `c:Map` are declared with no content model at all, so this document has
+nothing to say about what a calendar's entries or a canvas's drawing surface look like on disk.
+
+Settling any of them lands in two places: a `v4.tool` entry needs whatever keys that kind's data
+calls for alongside `type`, and the body needs somewhere to put the content.
+`formTopic`/`formGraph` are scoped to `c:Form` precisely so a kind with a different shape is not
+forced through them. A calendar's entries are plausibly still graphs, and so still Turtle; a canvas's
+drawing surface is plausibly not, which runs into the next question.
+
+### Where a tool's binary content goes
+
+A drawing surface, a scanned document, a map's cached tiles — some of what a tool holds will not be
+text. It belongs in **its own file in the cell's folder, referenced from the graph**, not encoded
+into a body section. The example tree already works this way for the one binary-ish thing it
+carries: a passport photo and a driver's license photo, each an `xsd:anyURI` value on `p:hasPhoto`
+rather than image data. Git, a diff, and the sync layer all get to treat a PNG as a PNG.
+
+Putting it in the DataBook instead spends most of what recommends this format in the first place.
+There are two ways to try, and the objection to both is the same:
+
+- **Base64 inside the Turtle**, as an `xsd:base64Binary` literal, is legal RDF and needs no format
+  change at all. But a megabyte of drawing becomes a single unbreakable line a third larger than the
+  original — no longer readable as text, no longer diffable, and rewritten whole in git on every
+  stroke.
+- **A separate fenced block** tagged as something other than `turtle` carries the same size cost,
+  and adds one of its own: `helpers/databook_graphs.py` matches the literal ```` ```turtle ````
+  opener, so a differently tagged fence is passed over rather than rejected. Content put in one
+  today is silently invisible to every tool in this repo rather than failing loudly.
+
+Either could still be right for something small and genuinely inseparable from the claim carrying it
+— a signature, a thumbnail — but not for a tool's working data, and the threshold at which "small"
+stops applying is itself unset.
+
+What stays open is the reference rather than the storage. A relative path is the obvious thing for a
+graph to hold, but a graph is claim content that propagates between members on a share, so whatever
+it holds has to still resolve in a recipient's own copy of the cell — after the folder has been
+renamed, renested, or received under a collision-suffixed name (see
+[Naming, Renaming, and Sharing](APP-BEHAVIOR.md#naming-renaming-and-sharing) in APP-BEHAVIOR.md).
+A path relative to the cell's own folder survives all three; anything anchored higher does not.
+
+### How a tool's own files are told apart from the user's
+
+This follows directly from preferring option 1 above. Every plain file sitting in a cell's folder is
+currently an **attachment**, shown to the user in the Attachments area — that is the whole
+definition, and it is what makes adding a file to a cell as simple as putting a file in its folder.
+But a canvas's backing image is not something the user attached, and showing it there alongside the
+files they did attach misrepresents both. Telling the two apart needs a rule the format does not
+have: a reserved filename prefix, a subdirectory that is neither a descendant cell nor a
+pass-through, or an explicit manifest — the last of which would cost the property that adding a file
+requires no DataBook edit.
