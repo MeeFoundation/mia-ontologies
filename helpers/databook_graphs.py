@@ -11,7 +11,7 @@ file's body may contain several ```turtle fences — one per embedded graph
 graph's own metadata dict). Each fence still carries its own
 `<!-- databook:graph: {graph_id}#graph -->` marker, computed from the
 graph's own `id` per the unchanged `{id}#graph` named-graph convention
-(CLAUDE.md's "DataBook IRI convention") — so isolating one graph's fence
+(cell-databook.md's "Graph Ids and Named Graphs") — so isolating one graph's fence
 only requires knowing that graph's `id`, no new marker scheme.
 
 Also carries `resolve()`/`as_list()` — needed wherever a `v4.*` YAML value

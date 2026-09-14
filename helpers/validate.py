@@ -9,8 +9,8 @@ schema, not another cell's instance data, so merging those in doesn't violate
 this.) Isolation is the whole point — every graph re-asserts shared
 individuals such as `:Self` under the self-containment convention, so a
 global merge would union facts that were never meant to co-exist and
-manufacture violations that no real query would ever see (CLAUDE.md's "Named
-graph scoping of BFO_0000115" makes the same point about queries).
+manufacture violations that no real query would ever see (README.md's "Named Graph Scoping
+and Graph-Specific Membership" makes the same point about queries).
 
 Each cell gets two passes:
 

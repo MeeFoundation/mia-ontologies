@@ -207,7 +207,7 @@ A summary of every narratively-illustrated cell under `example/Cells/`, grouped 
 
 ## Graphs
 
-The graphs in the table below are *about* Alice and claimed *by* Alice. The "Cell DataBook" link jumps straight to each graph's own `### Graph NN` section inside its owning cell-databook file under `example/Cells/`.
+The graphs in the table below are *about* Alice and claimed *by* Alice. The "Cell DataBook" link jumps straight to each graph's own `### Graph NN` section inside its owning cell-databook file under `example/Cells/`. See [cell-databook.md](cell-databook.md#body) for that body structure.
 
 | #  | Cell DataBook                                                                          | Category | Key data                                                         | Diagram |
 |--- |:--------------------------------------------------------------------------------------|:-------------|:-----------------------------------------------------------------|:--------|

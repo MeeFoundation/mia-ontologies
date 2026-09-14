@@ -10,7 +10,7 @@ YAML frontmatter, not Turtle. Without this script, cell:Cell individuals
 validates, so shacl/cell-shacl.ttl's :MemberGraphShape never fires against real
 instance data. This script closes that gap by mapping each `v4.` field to
 its corresponding ontology property, matching the mapping tables
-documented in README.md's Cell Ontology section.
+documented in cell-databook.md's "The `v4` Block" section.
 
 There is no category-side synthesis here at all — category.ttl 1.31.0
 deleted cat:Folder and its subclasses cat:CategoryDefined/cat:UserDefined
@@ -25,8 +25,8 @@ Since graph-databooks were merged into their owning cell-databooks (each
 graph's Turtle content and Overview now live in that cell file's body; its
 `id`/`claimant`/`shape`, plus the `subject` a member entry carries
 list calls for, now live directly on that same graph's own
-`v4.member`/`v4.tool[].graph` entry — see CLAUDE.md's "Graph ID Naming
-Convention" section), there is no separate `example/graphs/*.databook.md`
+`v4.member`/`v4.tool[].graph` entry — see cell-databook.md's "Graph Ids
+and Named Graphs" section), there is no separate `example/graphs/*.databook.md`
 glob any more: `process_cell_databook` below also emits the same triples per
 `member`/`tool[].graph` entry that a standalone graph-databook file's frontmatter
 used to supply.
