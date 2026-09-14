@@ -292,22 +292,6 @@ Note: neither is ever carried by a `c:TemplateCell` — their domain is `c:Insta
 
 Note: A `c:InstanceCell`'s applicable validation shape is derived: reverse-lookup the `c:TemplateCell` sharing this cell's own `c:category` value and read either its `c:memberShape` (for one of this cell's own `c:member` graphs) or the `c:formShape` of the matching declared tool (for one of a tool's own graphs), depending on which list the graph in question belongs to.
 
-#### Cell Id
-
-A cell's id is globally unique across every user's independent tree, not merely within one person's own. It is flat and opaque, never derived from the cell's own name or category, and no registry or central coordination assigns it — consistent with no cell, and nothing about it, ever being held by a cloud provider or third party (see [Cell Storage](APP-BEHAVIOR.md#cell-storage)), and with `:Self`'s purely-local identifier (see [`:Self` IRI convention](CLAUDE.md#key-architectural-patterns)). Instead, it is derived from its creator's identity and freshly generated random bytes. For Alice creating a cell (`‖` is byte concatenation):
-
-```
-nonce     = 16 random bytes
-cell_id   = BLAKE3 derive_key("pdn/cell-id/v1", pdn_id ‖ announcement_pubkey ‖ nonce), first 16 bytes
-signature = sign(announcement_secret, "pdn/cell-founding/v1" ‖ pdn_id ‖ announcement_pubkey ‖ nonce)
-```
-
-`pdn_id` is Alice's PDN ID; the announcement key pair belongs to her identity, shared by all her devices, not to one device. The id is written as 32 lowercase hex characters. `pdn_id`, `announcement_pubkey`, `nonce` and `signature` are stored in the cell's founding event — the first event in the cell's membership store; the id itself is not stored.
-
-A founding event is valid only when the id recomputed from its fields matches and its signature verifies (see [Deriving and Checking a Cell Id](APP-BEHAVIOR.md#deriving-and-checking-a-cell-id)). This is what prevents a member from feeding a device that already knows the id (from its identity's records or a note link) a forged history with a different founder — a random id such as a v4 UUID names no one and cannot. The context strings keep this hash and signature apart from any other made over the same bytes; without the founding event, which only members hold, the id reveals neither creator nor creation time.
-
-This repo's own example data uses sequential `cell-<NN>` ids instead (see integrity.md's Check 9) — the same flat, opaque shape, deliberately simple for one worked example living entirely under a single shared example domain, and not unique once real cells belong to many different users' independent instances.
-
 ### ServiceTag
 
 A `c:ServiceTag` is one service-written tag on a `c:InstanceCell`: a namespaced label, recorded as a node rather than a literal so that the writing module's identity travels alongside the label instead of being encoded into it by a convention nothing enforces. It takes no part in the `c:Cell` hierarchy — it is a value node `c:serviceTag` points at, with no `rdfs:subClassOf` of its own — and is never shared between cells or reused: each `c:serviceTag` value is its own node, and removing the tag removes the node with it. In practice it is a blank node, since a tag node has no identity worth naming and a cell DataBook's frontmatter has nowhere to mint an IRI; a named individual is equally legal.
@@ -402,17 +386,62 @@ The diagram below shows seven representative cells.
 
 Each cell's fill color and cell name text color follow a display convention rooted in the cell's own DataBook — see [Filesystem Persistence](APP-BEHAVIOR.md#filesystem-persistence) in APP-BEHAVIOR.md for the full rules. In short: tan fill for `People`/`Bob Johnson`/`BHS`/`Medical Appointment` (Person-rooted category), light blue for `Employee` (Organization-rooted category), purple for `Friends` (no category at all, Custom); `Bob Johnson`'s category is `cat:Others`, so its name doesn't match the label and is shown in black text, while `People`'s name matches its own category's label and is shown in green. This is purely a display choice about the cell's own DataBook box and name, not a separate RDF property.
 
-Regular cells contain one or more circles that represent structured information about the cell members. A Topic Cell also contains a square "topic" that contains structured information about a non-member person, organization or any other topic.
+Regular cells contain one or more circles that represent structured information about the cell members. A cell carrying a form tool also contains a square, holding structured information about whatever that tool is about — a non-member person, an organization, or anything else.
 
-Two independent facts are drawn on each graph shape. **Shape** says what the graph is and, for a member, who that member is: a square for a tool's own graph, a circle for a `c:member` whose subject is a human (`p:Person`), and an octagon for a `c:member` whose subject is an `s:Service` — an invited agent service of any kind (an AI assistant, a contact sync, a backup service) or an organization's own service (see [Service Ontology](#service-ontology)). **Fill color** says only who claimed that graph: green for a graph claimed by anyone other than the self, and an outlined (unfilled) shape for one claimed by the self (the user). The two are deliberately orthogonal, so a shape's fill can be read without knowing anything about its claimant's type — an AI agent's claims are green like any other non-self party's, and the fact that it *is* an agent is carried by its octagon, not by its fill. For example, the `Bob Johnson` cell has four circles — two claimed by Bob, two claimed by Self. The `BHS` cell, a Topic Cell, has three circles (Self, Bob, and BHS's own member graphs) plus one square (BHS's organization profile, held by a form tool). The `Medical Appointment` cell shows that a single topic can be claimed more than once: it has two squares alongside its two member circles — both about the same subject, one claimed by each side. A tool only ever has one topic; what `c:formGraph` holds is one graph per member asserting it. The `Kyoto Trip 2027` cell (see EXAMPLE.md's [Planning a Trip with an Agent](EXAMPLE.md#planning-a-trip-with-an-agent)) is the one box here drawn from real example data rather than generically: one of its three members is Alice's own invited travel agent, drawn as an octagon rather than a circle since its subject is an `s:ChatGPT` rather than a `p:Person` — and claim-filled green like any other non-self party, since claim fill is a two-state self/not-self fact with no third "delegate" state, and one of its three tool-graph squares — all about the same trip — is claimed by that agent rather than by Alice or Dave. With one tool-graph square per member, this cell also demonstrates `c:formGraph`'s real upper bound in practice (see [Tools](#tools) above).
+Two independent facts are drawn on each graph shape. **Shape** says what the graph is and, for a member, who that member is: a square for a tool's own graph, a circle for a `c:member` whose subject is a human (`p:Person`), and an octagon for a `c:member` whose subject is an `s:Service` — an invited agent service of any kind (an AI assistant, a contact sync, a backup service) or an organization's own service (see [Service Ontology](#service-ontology)). **Fill color** says only who claimed that graph: green for a graph claimed by anyone other than the self, and an outlined (unfilled) shape for one claimed by the self (the user). The two are deliberately orthogonal, so a shape's fill can be read without knowing anything about its claimant's type — an AI agent's claims are green like any other non-self party's, and the fact that it *is* an agent is carried by its octagon, not by its fill. For example, the `Bob Johnson` cell has four circles — two claimed by Bob, two claimed by Self. The `BHS` cell, which carries a form tool, has three circles (Self, Bob, and BHS's own member graphs) plus one square (BHS's organization profile, held by a form tool). The `Medical Appointment` cell shows that a single topic can be claimed more than once: it has two squares alongside its two member circles — both about the same subject, one claimed by each side. A tool only ever has one topic; what `c:formGraph` holds is one graph per member asserting it. The `Kyoto Trip 2027` cell (see EXAMPLE.md's [Planning a Trip with an Agent](EXAMPLE.md#planning-a-trip-with-an-agent)) is the one box here drawn from real example data rather than generically: one of its three members is Alice's own invited travel agent, drawn as an octagon rather than a circle since its subject is an `s:ChatGPT` rather than a `p:Person` — and claim-filled green like any other non-self party, since claim fill is a two-state self/not-self fact with no third "delegate" state, and one of its three tool-graph squares — all about the same trip — is claimed by that agent rather than by Alice or Dave. With one tool-graph square per member, this cell also demonstrates `c:formGraph`'s real upper bound in practice (see [Tools](#tools) above).
 
 Cell box border style does not vary by member count — every cell box uses one uniform style. A cell's member count is never stored at all; it is simply derived by counting distinct `c:subject` values among its member graphs when needed, and is not visualized in any diagram.
 
 A category's template cell (`cat-templates.ttl`) may also carry validation metadata declared in the paired per-template `*-shacl.ttl` file. This metadata lives on the class-level template only.
 
-#### DataBook YAML Properties
+### Cell DataBook Frontmatter Fields
 
-The following properties are defined in `cell.ttl` and represented as `v4.` YAML fields in cell DataBooks:
+Every cell DataBook opens with the same six YAML frontmatter fields, above its `v4:` block and in this order: `id`, `title`, `type`, `version`, `created`, `description`. They describe the DataBook itself rather than the cell's content — only `id` reaches RDF at all, and none of the six corresponds to a property in `cell.ttl`. The cell's content proper is the `v4.` block below them, documented in [DataBook `v4` Properties](#databook-v4-properties).
+
+<a id="cell-id"></a>
+
+#### `id`
+
+The cell's own id, and the RDF subject every triple synthesized from this DataBook hangs off — `helpers/databook_graphs.py` reads it directly as the subject IRI of the `c:Cell` individual. It is the one frontmatter field with ontology weight, and the one field a DataBook cannot omit. It is deliberately *not* derived from the folder name or the filename (see [Cell DataBook Filename Convention](CLAUDE.md#cell-databook-filename-convention)): encoding a name into it would risk a collision the moment two folders elsewhere in the tree shared both a name and a category, and nothing depends on the id's string structure.
+
+
+A cell's id is globally unique across every user's independent tree, not merely within one person's own. It is flat and opaque, never derived from the cell's own name or category, and no registry or central coordination assigns it — consistent with no cell, and nothing about it, ever being held by a cloud provider or third party (see [Cell Storage](APP-BEHAVIOR.md#cell-storage)), and with `:Self`'s purely-local identifier (see [`:Self` IRI convention](CLAUDE.md#key-architectural-patterns)). Instead, it is derived from its creator's identity and freshly generated random bytes. For Alice creating a cell (`‖` is byte concatenation):
+
+```
+nonce     = 16 random bytes
+cell_id   = BLAKE3 derive_key("pdn/cell-id/v1", pdn_id ‖ announcement_pubkey ‖ nonce), first 16 bytes
+signature = sign(announcement_secret, "pdn/cell-founding/v1" ‖ pdn_id ‖ announcement_pubkey ‖ nonce)
+```
+
+`pdn_id` is Alice's PDN ID; the announcement key pair belongs to her identity, shared by all her devices, not to one device. The id is written as 32 lowercase hex characters. `pdn_id`, `announcement_pubkey`, `nonce` and `signature` are stored in the cell's founding event — the first event in the cell's membership store; the id itself is not stored.
+
+A founding event is valid only when the id recomputed from its fields matches and its signature verifies (see [Deriving and Checking a Cell Id](APP-BEHAVIOR.md#deriving-and-checking-a-cell-id)). This is what prevents a member from feeding a device that already knows the id (from its identity's records or a note link) a forged history with a different founder — a random id such as a v4 UUID names no one and cannot. The context strings keep this hash and signature apart from any other made over the same bytes; without the founding event, which only members hold, the id reveals neither creator nor creation time.
+
+This repo's own example data uses sequential `cell-<NN>` ids instead (see integrity.md's Check 9) — the same flat, opaque shape, deliberately simple for one worked example living entirely under a single shared example domain, and not unique once real cells belong to many different users' independent instances.
+
+#### `title`
+
+The cell's own name, and always exactly the name of the filesystem folder holding the DataBook — verbatim, same case, spacing and punctuation. The folder is authoritative: renaming the folder means updating `title:` to match, never the reverse, and `title:` is never an independent display-name override (integrity.md's Check 19, which also treats it as authoritative for what a cell "is called" when matching diagram box labels). It is shared, synced cell content, kept identical across every member's copy, and any member may rename the cell — see [Naming, Renaming, and Sharing](APP-BEHAVIOR.md#naming-renaming-and-sharing) in APP-BEHAVIOR.md for the one exception, a bare two-member cell, whose name is instead independent per member.
+
+#### `type`
+
+Always the literal `cell-databook` — the only DataBook type in a user's own instance tree, which is what lets the folder ownership boundary rule identify a cell by the mere presence of a `*.databook.md` file without needing any further marker. It is also the tooling's file filter: both `helpers/yaml-to-rdf.py` and `helpers/validate.py` skip any DataBook whose `type` is anything else, so a wrong value silently drops the cell from RDF synthesis and validation alike rather than raising. No integrity check asserts the value.
+
+#### `version`
+
+A hand-maintained [semantic version](https://semver.org/) for this one DataBook's own content. No integrity check enforces it and the repo defines no bump rule, so it carries whatever meaning its author gave it; in the example tree the values run from `1.0.0` to `2.2.0`, always with a zero patch component. It is not synthesized into RDF. JSContact's `updated` property maps onto this field rather than onto any ontology property — see the JSContact mapping table under [Contact-Related Classes and Properties](#contact-related-classes-and-properties).
+
+#### `created`
+
+An unquoted ISO 8601 calendar date, `YYYY-MM-DD`, recording when the cell was created. Hand-entered: no check reads it, nothing derives it from the filesystem or from git, and it is not synthesized into RDF.
+
+#### `description`
+
+A prose summary of the cell, written as a folded block scalar (`description: >`). Not used by any tooling and not synthesized into RDF. Throughout the example tree it follows one house style: it opens `Cell DataBook for folder "<title>" (cell:category: cat:<Concept>)`, optionally noting where the cell is nested or whose category it reuses, then characterizes the cell's own shape — how many members it has, and what its tool is about if it carries one.
+
+### DataBook `v4` Properties
+
+The following properties are defined in `cell.ttl` and represented as `v4.` YAML fields in cell DataBooks. The link-valued ones — `v4.member` and `v4.tool`, and the graphs beneath a tool — are the rest of the same `v4.` block, documented under [Graph Link Properties](#graph-link-properties) below:
 
 | YAML field | Ontology property | Cardinality | Meaning |
 |------------|-------------------|-------------|---------|
