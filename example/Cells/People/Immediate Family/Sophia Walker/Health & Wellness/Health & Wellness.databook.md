@@ -14,14 +14,14 @@ v4:
     id: "http://www.example.org/v4/graphs/graph-35"
     claimant: ":Self"
     graphSubject: ":Self"
-    formShape: "pshapes:ContactInfoShape"
+    shape: "pshapes:ContactInfoShape"
   tool:
     - type: "form"
       toolTopic: ":Sophia_Walker"
       graph:
         - id: "http://www.example.org/v4/graphs/graph-17"
           claimant: ":Self"
-          formShape: "pshapes:HealthWellnessShape"
+          shape: "pshapes:HealthWellnessShape"
 ---
 
 ## Graphs

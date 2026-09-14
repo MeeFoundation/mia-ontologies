@@ -14,7 +14,7 @@ v4:
     id: "http://www.example.org/v4/graphs/graph-10"
     claimant: ":Self"
     graphSubject: ":Self"
-    formShape: "pshapes:ContactInfoShape"
+    shape: "pshapes:ContactInfoShape"
 ---
 
 ## Graphs

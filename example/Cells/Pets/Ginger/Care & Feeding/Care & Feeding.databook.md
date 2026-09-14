@@ -16,11 +16,11 @@ v4:
     - id: "http://www.example.org/v4/graphs/graph-58"
       claimant: ":Self"
       graphSubject: ":Self"
-      formShape: "pshapes:ContactInfoShape"
+      shape: "pshapes:ContactInfoShape"
     - id: "http://www.example.org/v4/graphs/graph-59"
       claimant: ":Paula_Walker"
       graphSubject: ":Paula_Walker"
-      formShape: "pshapes:ContactInfoShape"
+      shape: "pshapes:ContactInfoShape"
   tool:
     - type: "form"
       toolTopic: ":Ginger"

@@ -6,8 +6,8 @@ frontmatter of cell-databooks.
 Why this exists: Turtle-block extraction only pulls fenced Turtle out of a
 DataBook — but cell-databook files carry most of their content as `v4.`
 YAML frontmatter, not Turtle. Without this script, cell:Cell individuals
-(and cell:SCGraph's subject/claimant) never appear in the graph SHACL
-validates, so shacl/cell-shacl.ttl's :SCGraphShape never fires against real
+(and cell:MemberGraph's subject/claimant) never appear in the graph SHACL
+validates, so shacl/cell-shacl.ttl's :MemberGraphShape never fires against real
 instance data. This script closes that gap by mapping each `v4.` field to
 its corresponding ontology property, matching the mapping tables
 documented in README.md's Cell Ontology section.
@@ -23,7 +23,7 @@ YAML field below — never derived from filename-parsing.
 
 Since graph-databooks were merged into their owning cell-databooks (each
 graph's Turtle content and Overview now live in that cell file's body; its
-`id`/`claimant`/`formShape`, plus the `graphSubject` a member entry carries
+`id`/`claimant`/`shape`, plus the `graphSubject` a member entry carries
 list calls for, now live directly on that same graph's own
 `v4.member`/`v4.tool[].graph` entry — see CLAUDE.md's "Graph ID Naming
 Convention" section), there is no separate `example/graphs/*.databook.md`

@@ -14,18 +14,18 @@ v4:
     - id: "http://www.example.org/v4/graphs/graph-21"
       claimant: ":Self"
       graphSubject: ":Self"
-      formShape: "pshapes:ContactInfoShape"
+      shape: "pshapes:ContactInfoShape"
     - id: "http://www.example.org/v4/graphs/graph-05"
       claimant: ":Dave"
       graphSubject: ":Dave"
-      formShape: "pshapes:ContactInfoShape"
+      shape: "pshapes:ContactInfoShape"
   tool:
     - type: "form"
       toolTopic: ":Sophia_Walker"
       graph:
         - id: "http://www.example.org/v4/graphs/graph-07"
           claimant: ":Self"
-          formShape: "pshapes:ContactInfoShape"
+          shape: "pshapes:ContactInfoShape"
 ---
 
 ## Graphs
@@ -35,7 +35,7 @@ v4:
 
 #### Overview
 
-This graph captures Dave's self-claimed family persona as transmitted from Dave's own instance of the app to Alice's over the PDN, plus his given name, required by the `ContactInfoShape` every templated cell's `member` content is now expected to conform to (`cell:memberGraphShape`). Dave is the claimant — this is the cell's second `member` entry, alongside Alice's own (graph 21), making it a two-member cell.
+This graph captures Dave's self-claimed family persona as transmitted from Dave's own instance of the app to Alice's over the PDN, plus his given name, required by the `ContactInfoShape` every templated cell's `member` content is now expected to conform to (`cell:memberShape`). Dave is the claimant — this is the cell's second `member` entry, alongside Alice's own (graph 21), making it a two-member cell.
 
 #### Graph
 
@@ -98,7 +98,7 @@ This graph captures Alice's Contact Info record of her daughter Sophia Walker. S
 
 #### Overview
 
-This graph captures Alice Walker's family relationships. It records that Sophia Walker is her daughter and her family social network, which includes Sophia Walker and Dave (Alice's husband) as members, plus her own given name, required by the `ContactInfoShape` every templated cell's `member` content is now expected to conform to (`cell:memberGraphShape`). Dave's own family graph (`graph-05`) is the peer record in this relationship; his own claimed record about their daughter appears separately in the "Medical Appointment" cell (graph 28). Alice is the claimant.
+This graph captures Alice Walker's family relationships. It records that Sophia Walker is her daughter and her family social network, which includes Sophia Walker and Dave (Alice's husband) as members, plus her own given name, required by the `ContactInfoShape` every templated cell's `member` content is now expected to conform to (`cell:memberShape`). Dave's own family graph (`graph-05`) is the peer record in this relationship; his own claimed record about their daughter appears separately in the "Medical Appointment" cell (graph 28). Alice is the claimant.
 
 #### Graph
 

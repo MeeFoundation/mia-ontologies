@@ -276,8 +276,8 @@ def _meta_subgraph(v4: dict, src_dir: Path | None = None) -> list[str]:
         props.append(f"graphSubject: {graph_subject}")
     if tool_topic := v4.get("toolTopic"):
         props.append(f"toolTopic: {tool_topic}")
-    if form_shape := v4.get("formShape"):
-        props.append(f"formShape: {form_shape}")
+    if form_shape := v4.get("shape"):
+        props.append(f"shape: {form_shape}")
     if dyad := v4.get("dyad"):
         props.append(f"dyad: {_dyad_label(str(dyad), src_dir)}")
     if not props:
@@ -496,7 +496,7 @@ def main() -> None:
         # more separate example/graphs/self.ttl to merge in) — build_mermaid's
         # `individuals` set (built from an in-graph owl:NamedIndividual typing)
         # picks it up from the graph's own content like any other individual.
-        # Use this one graph's own claimant/subject/formShape for the "Graph"
+        # Use this one graph's own claimant/subject/shape for the "Graph"
         # metadata box — not the owning cell's aggregate v4.creator
         # (the cell has no aggregate v4.subject of its own any more; a
         # cell's subject is derived from its tools/members).
@@ -504,7 +504,7 @@ def main() -> None:
             "claimant": match.get("claimant"),
             "graphSubject": match.get("graphSubject"),
             "toolTopic": match.get("toolTopic"),
-            "formShape": match.get("formShape"),
+            "shape": match.get("shape"),
         }}
         out_dir = Path("example/graphs/images")  # fixed — graph PNGs never move
     else:

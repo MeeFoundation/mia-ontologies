@@ -21,18 +21,18 @@ v4:
     - id: "http://www.example.org/v4/graphs/graph-95"
       claimant: ":Self"
       graphSubject: ":Self"
-      formShape: "pshapes:ContactInfoShape"
+      shape: "pshapes:ContactInfoShape"
     - id: "http://www.example.org/v4/graphs/graph-96"
       claimant: ":Arca_Backup"
       graphSubject: ":Arca_Backup"
-      formShape: "pshapes:ContactInfoShape"
+      shape: "pshapes:ContactInfoShape"
   tool:
     - type: "form"
       toolTopic: ":Alice_Arca_Account"
       graph:
         - id: "http://www.example.org/v4/graphs/graph-97"
           claimant: ":Self"
-          formShape: "sashapes:ServiceAccountShape"
+          shape: "sashapes:ServiceAccountShape"
 ---
 
 ## Graphs
@@ -42,7 +42,7 @@ v4:
 
 #### Overview
 
-This graph is one of the cell's two required `member` entries — Alice's own bare given-name claim (see Check 21: `:Self` must be a member of every cell in the user's own tree, regardless of member count), carrying the given name `ContactInfoShape` requires as this template's `cell:memberGraphShape`. Alice is both the claimant and the subject.
+This graph is one of the cell's two required `member` entries — Alice's own bare given-name claim (see Check 21: `:Self` must be a member of every cell in the user's own tree, regardless of member count), carrying the given name `ContactInfoShape` requires as this template's `cell:memberShape`. Alice is both the claimant and the subject.
 
 #### Graph
 

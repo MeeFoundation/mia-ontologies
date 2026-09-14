@@ -35,8 +35,8 @@ PREFIXES = {
     "persona": "http://mee.foundation/ontologies/persona#",
     "pets": "http://mee.foundation/ontologies/pets#",
     "vehicles": "http://mee.foundation/ontologies/vehicles#",
-    # Shape namespaces — a v4.member[]/v4.tool[].graph[].formShape value is a
-    # sh:NodeShape CURIE (cell:formShape's range, cell.ttl), not a type label
+    # Shape namespaces — a v4.member[]/v4.tool[].graph[].shape value is a
+    # sh:NodeShape CURIE (cell:shape's range, cell.ttl), not a type label
     # class name, so these three must resolve too. Same base URIs
     # cat-templates.ttl's own @prefix block declares.
     "pshapes": "http://mee.foundation/ontologies/persona/shapes#",
@@ -305,15 +305,15 @@ def process_cell_databook(fm, triples):
     # comment) — rather than an independently-asserted fact, so it is
     # never stored as its own triple.
 
-    # No cell:shape synthesis either: a cell:InstanceCell's validation
+    # No cell-level shape synthesis either: a cell:InstanceCell's validation
     # shape is derivable from its own cell:category value via a reverse
     # lookup on cat-templates.ttl rather than stored per-instance.
 
 
 def process_embedded_graph(graph, triples, kind):
-    """Emit the graph typing plus claimant/formShape for one v4.member[] or
+    """Emit the graph typing plus claimant/shape for one v4.member[] or
     v4.tool[].graph[] entry. `kind` is "member" or "tool", and is what decides
-    the type: cell:SCGraph for a member entry, cell:ToolGraph for a tool's own
+    the type: cell:MemberGraph for a member entry, cell:ToolGraph for a tool's own
     graph (cell.ttl's two disjoint cell:CGraph leaves). Nothing in the entry
     itself marks which kind it is; the list it was read from settles it,
     matching cell:member's and cell:toolGraph's own ranges. Only a member
@@ -325,16 +325,16 @@ def process_embedded_graph(graph, triples, kind):
     if not claimant or (is_member and not about):
         return  # missing claimant or subject — not a well-formed graph, skip
     subj = graph["id"]
-    emit_type(triples, subj, CELL + ("SCGraph" if is_member else "ToolGraph"))
+    emit_type(triples, subj, CELL + ("MemberGraph" if is_member else "ToolGraph"))
     emit_obj(triples, subj, CELL + "claimant", resolve(claimant))
     if is_member:
         emit_obj(triples, subj, CELL + "graphSubject", resolve(about))
 
-    # cell:formShape — domain cell:Graph, so it applies to both kinds, 0..N,
+    # cell:shape — domain cell:Graph, so it applies to both kinds, 0..N,
     # present only on graphs that contain instance(s) of a shape's own type
     # label class (e.g. identitydocuments:Passport, cell.ttl's graph.png
     # diagram). A graph may satisfy more than one shape at once (e.g. a single
     # graph combining ServiceAccount, DebitCard, and CheckingAccount
     # instances), so this accepts either a bare string or a YAML list.
-    for shape in as_list(graph.get("formShape")):
-        emit_obj(triples, subj, CELL + "formShape", resolve(shape))
+    for shape in as_list(graph.get("shape")):
+        emit_obj(triples, subj, CELL + "shape", resolve(shape))

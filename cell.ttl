@@ -12,10 +12,10 @@
 @base <http://mee.foundation/ontologies/cell> .
 
 <http://mee.foundation/ontologies/cell> rdf:type owl:Ontology ;
-    owl:versionIRI <http://mee.foundation/ontologies/cell/4.0.0> ;
+    owl:versionIRI <http://mee.foundation/ontologies/cell/5.0.0> ;
     dc:date "2026-09-13"^^xsd:date ;
     rdfs:label "Cell Ontology"@en ;
-    rdfs:comment """Cell Ontology for the V4 App. A cell is the atomic unit of the user's tree: a filesystem folder holding exactly one cell-databook file, folder and file together forming one tree node. Defines cell:Cell — the self-contained content facet of a cell, carried by that cell-databook file's own triples. cell:Cell stores no property recording the cell's own tree position: that position is simply whichever folder the cell-databook currently lives in, not a fact this RDF individual needs to carry. cell:Cell splits into two disjoint kinds: cell:TemplateCell (a reusable, class-level template) and cell:InstanceCell (an actual cell instantiated in a user's own tree) — a cell is always exactly one of the two, never both. There are no further kinds of cell: an instance cell that holds structured content beyond its cell:member baseline holds it in a cell:Tool (cell:FormTool, cell:CalendarTool, cell:CanvasTool), zero or more per cell, rather than in a subclass of its own. cell:InstanceCell also carries the two tag properties — cell:userTag, a plain xsd:string, and cell:serviceTag, whose values are cell:ServiceTag nodes (also defined here) carrying a namespace, a key and a label — each zero or more values, a retrieval dimension orthogonal to cell:category's single filing hint. Also defines the graph-DataBook classes cell:member/cell:toolGraph link to — cell:Graph, its abstract cell:CGraph subclass, and that class's two disjoint leaves cell:SCGraph (cell:member's range) and cell:ToolGraph (cell:toolGraph's range) — along with their cell:formShape/cell:claimant/cell:graphSubject annotation properties, since a graph DataBook only ever exists to be linked from a cell. cell:SCGraph and cell:ToolGraph are split apart because a cell:graphSubject value always maps to a PDN node subject identity while a cell:toolTopic value — the tool-level statement of what the tool's content is about — need not."""@en .
+    rdfs:comment """Cell Ontology for the V4 App. A cell is the atomic unit of the user's tree: a filesystem folder holding exactly one cell-databook file, folder and file together forming one tree node. Defines cell:Cell — the self-contained content facet of a cell, carried by that cell-databook file's own triples. cell:Cell stores no property recording the cell's own tree position: that position is simply whichever folder the cell-databook currently lives in, not a fact this RDF individual needs to carry. cell:Cell splits into two disjoint kinds: cell:TemplateCell (a reusable, class-level template) and cell:InstanceCell (an actual cell instantiated in a user's own tree) — a cell is always exactly one of the two, never both. There are no further kinds of cell: an instance cell that holds structured content beyond its cell:member baseline holds it in a cell:Tool (cell:FormTool, cell:CalendarTool, cell:CanvasTool), zero or more per cell, rather than in a subclass of its own. cell:InstanceCell also carries the two tag properties — cell:userTag, a plain xsd:string, and cell:serviceTag, whose values are cell:ServiceTag nodes (also defined here) carrying a namespace, a key and a label — each zero or more values, a retrieval dimension orthogonal to cell:category's single filing hint. Also defines the graph-DataBook classes cell:member/cell:toolGraph link to — cell:Graph, its abstract cell:CGraph subclass, and that class's two disjoint leaves cell:MemberGraph (cell:member's range) and cell:ToolGraph (cell:toolGraph's range) — along with their cell:shape/cell:claimant/cell:graphSubject annotation properties, since a graph DataBook only ever exists to be linked from a cell. cell:MemberGraph and cell:ToolGraph are split apart because a cell:graphSubject value always maps to a PDN node subject identity while a cell:toolTopic value — the tool-level statement of what the tool's content is about — need not."""@en .
 
 
 #################################################################
@@ -54,7 +54,7 @@ cell:abstract rdf:type owl:AnnotationProperty ;
 #    cell:Cell itself carries only what's common to every cell
 #    regardless of facet: inherent classification (cell:category).
 #    Everything facet-specific — including cell:member (its linked
-#    cell:SCGraph container(s)) and cell:tool (its cell:Tool nodes) —
+#    cell:MemberGraph container(s)) and cell:tool (its cell:Tool nodes) —
 #    lives on cell:TemplateCell or cell:InstanceCell below. There is
 #    no stored property recording who or what a cell's relationship is
 #    about: that fact is derivable directly from cell:member/cell:tool
@@ -64,7 +64,7 @@ cell:abstract rdf:type owl:AnnotationProperty ;
 #    value was always mechanically computable from the
 #    cell:graphSubject values of the graphs already linked and the
 #    cell:toolTopic values of the tools. Those two properties (below)
-#    are different, surviving properties, scoped to cell:SCGraph and
+#    are different, surviving properties, scoped to cell:MemberGraph and
 #    cell:Tool respectively rather than to cell:Cell — see the "Cell
 #    Graph and Tool Links" section further down for how they relate.
 #################################################################
@@ -84,12 +84,12 @@ cell:Cell rdf:type owl:Class ;
 #    cell:TemplateCell — a reusable, class-level template. Carries
 #    cell:category, naming the category concept (a skos:Concept in
 #    cat:CategoryScheme, category.ttl) it's a template for;
-#    cell:memberGraphShape, zero or more sh:NodeShape values
+#    cell:memberShape, zero or more sh:NodeShape values
 #    describing what a graph filed in the eventual InstanceCell's
 #    cell:member list is expected to look like once instantiated; and
 #    cell:declaresTool, zero or more cell:Tool nodes naming the tools
 #    a cell of that category is created with, each carrying its own
-#    cell:toolGraphShape. Finding the template for a given category is
+#    cell:toolShape. Finding the template for a given category is
 #    a reverse lookup (?tc cell:category cat:X) rather than a forward
 #    property chain — category.ttl no longer points at
 #    cat-templates.ttl at all. Every cell:TemplateCell individual
@@ -98,20 +98,20 @@ cell:Cell rdf:type owl:Class ;
 #    cell:InstanceCell — an actual cell instantiated in a user's own
 #    tree. Carries cell:creator, cell:owner (one or more of the cell's
 #    members holding the owner role — see cell:owner's own comment),
-#    cell:member, its required baseline of linked cell:SCGraph
+#    cell:member, its required baseline of linked cell:MemberGraph
 #    containers, one per member in the relationship (no fixed upper
 #    bound), and cell:tool, zero or more cell:Tool nodes holding
 #    whatever structured content the cell carries beyond that
-#    baseline. There is no stored cell:shape any more — an
+#    baseline. A cell stores no shape of its own — an
 #    InstanceCell's own validation expectation is derivable by the
 #    same reverse cell:category lookup that finds its TemplateCell,
-#    then reading either that TemplateCell's cell:memberGraphShape
-#    (for a cell:member graph) or the cell:toolGraphShape on the
+#    then reading either that TemplateCell's cell:memberShape
+#    (for a cell:member graph) or the cell:toolShape on the
 #    matching declared tool (for a cell:toolGraph graph), so storing a
 #    second copy on the InstanceCell itself was pure redundancy (the
 #    same reasoning that already removed cell:Cell's own subject
 #    property — not to be confused with cell:graphSubject, the
-#    surviving annotation property scoped to cell:SCGraph, below).
+#    surviving annotation property scoped to cell:MemberGraph, below).
 #
 #    There is no third kind and no mixin subclass. Every cell is
 #    about something — a two-member cell with no tool and an empty
@@ -123,7 +123,7 @@ cell:Cell rdf:type owl:Class ;
 #
 #    cell:TemplateCell and cell:InstanceCell are owl:disjointWith one
 #    another: every individual in cat-templates.ttl is typed
-#    cell:TemplateCell only, carrying cell:memberGraphShape and
+#    cell:TemplateCell only, carrying cell:memberShape and
 #    cell:declaresTool and nothing from cell:InstanceCell's side — it
 #    is reusable template content, not itself a piece of
 #    member-classified content. When Lazy Instantiation clones that
@@ -137,24 +137,24 @@ cell:TemplateCell rdf:type owl:Class ;
     rdfs:subClassOf cell:Cell ;
     owl:disjointWith cell:InstanceCell ;
     rdfs:label "Template Cell"@en ;
-    rdfs:comment """A reusable, class-level cell template — one of the two disjoint kinds of cell:Cell, the other being cell:InstanceCell. A cell:TemplateCell individual carries its own cell:category value naming the category concept (a skos:Concept in cat:CategoryScheme, category.ttl) it's a template for — it's what the app clones into a new cell when a category of that concept is first instantiated into a user's tree (Lazy Instantiation). Finding the template for a given category concept is a reverse lookup (?tc cell:category cat:X), since category.ttl carries no forward pointer of its own any more. Carries cell:memberGraphShape, zero or more values linking to the sh:NodeShape(s) describing the content expected of a graph filed in the eventual InstanceCell's cell:member list, and cell:declaresTool, zero or more cell:Tool nodes naming the tools a cell of this category is created with — each declared tool carrying its own cell:toolGraphShape and nothing else, since a declared tool is a statement about what the clone should get, not a tool holding live content. A template declaring no tool at all is the common case: most categories have nothing structured to say beyond their member baseline, and a cell cloned from such a template can still gain tools later, chosen by the user. Disjoint with cell:InstanceCell: a cell:TemplateCell individual is never also typed cell:InstanceCell — see cat-templates.ttl, where every template individual is typed solely cell:Cell, cell:TemplateCell."""@en .
+    rdfs:comment """A reusable, class-level cell template — one of the two disjoint kinds of cell:Cell, the other being cell:InstanceCell. A cell:TemplateCell individual carries its own cell:category value naming the category concept (a skos:Concept in cat:CategoryScheme, category.ttl) it's a template for — it's what the app clones into a new cell when a category of that concept is first instantiated into a user's tree (Lazy Instantiation). Finding the template for a given category concept is a reverse lookup (?tc cell:category cat:X), since category.ttl carries no forward pointer of its own any more. Carries cell:memberShape, zero or more values linking to the sh:NodeShape(s) describing the content expected of a graph filed in the eventual InstanceCell's cell:member list, and cell:declaresTool, zero or more cell:Tool nodes naming the tools a cell of this category is created with — each declared tool carrying its own cell:toolShape and nothing else, since a declared tool is a statement about what the clone should get, not a tool holding live content. A template declaring no tool at all is the common case: most categories have nothing structured to say beyond their member baseline, and a cell cloned from such a template can still gain tools later, chosen by the user. Disjoint with cell:InstanceCell: a cell:TemplateCell individual is never also typed cell:InstanceCell — see cat-templates.ttl, where every template individual is typed solely cell:Cell, cell:TemplateCell."""@en .
 
-cell:memberGraphShape rdf:type owl:ObjectProperty ;
+cell:memberShape rdf:type owl:ObjectProperty ;
     rdfs:domain cell:TemplateCell ;
     rdfs:range sh:NodeShape ;
-    rdfs:label "memberGraphShape"@en ;
-    rdfs:comment """Links a cell:TemplateCell individual to the sh:NodeShape(s) that describe the content a graph filed in the eventual cell:InstanceCell's cell:member list, under that template's own cell:category concept, is expected to conform to — e.g. ctpl:PassportTemplateCell (cat-templates.ttl) carries cell:category cat:Passport and cell:memberGraphShape pshapes:ContactInfoShape (shacl/contactinfo-shacl.ttl); its real document shape, idocshapes:PassportShape (other/shacl/identity-documents-shacl.ttl), is instead the cell:toolGraphShape of a declared tool, see that property's own comment. Zero or more values, no fixed upper bound — a single cell:member graph may need to satisfy more than one shape at once. A cell:member cell:SCGraph's own cell:formShape value is set from whichever cell:memberGraphShape value(s) apply, via the same reverse cell:category lookup cell:toolGraphShape uses for tool graphs (see its own comment, and cell:InstanceCell's). A real cell:InstanceCell cloned from this template does not carry its own copy of this value — there is no cell:shape property — since it is always reachable on demand from the InstanceCell's own cell:category value via this same reverse lookup (?tc cell:category cat:X ; cell:memberGraphShape ?shape), making a stored per-instance copy pure redundancy."""@en .
+    rdfs:label "memberShape"@en ;
+    rdfs:comment """Links a cell:TemplateCell individual to the sh:NodeShape(s) that describe the content a graph filed in the eventual cell:InstanceCell's cell:member list, under that template's own cell:category concept, is expected to conform to — e.g. ctpl:PassportTemplateCell (cat-templates.ttl) carries cell:category cat:Passport and cell:memberShape pshapes:ContactInfoShape (shacl/contactinfo-shacl.ttl); its real document shape, idocshapes:PassportShape (other/shacl/identity-documents-shacl.ttl), is instead the cell:toolShape of a declared tool, see that property's own comment. Zero or more values, no fixed upper bound — a single cell:member graph may need to satisfy more than one shape at once. A cell:member cell:MemberGraph's own cell:shape value is set from whichever cell:memberShape value(s) apply, via the same reverse cell:category lookup cell:toolShape uses for tool graphs (see its own comment, and cell:InstanceCell's). A real cell:InstanceCell cloned from this template does not carry its own copy of this value — a cell stores no shape of its own — since it is always reachable on demand from the InstanceCell's own cell:category value via this same reverse lookup (?tc cell:category cat:X ; cell:memberShape ?shape), making a stored per-instance copy pure redundancy."""@en .
 
 cell:declaresTool rdf:type owl:ObjectProperty ;
     rdfs:domain cell:TemplateCell ;
     rdfs:range cell:Tool ;
     rdfs:label "declaresTool"@en ;
-    rdfs:comment """Links a cell:TemplateCell individual to the cell:Tool node(s) describing which tools a cell of that template's own cell:category concept is created with by Lazy Instantiation — e.g. ctpl:MedicalAppointmentTemplateCell (cat-templates.ttl) declares one cell:FormTool carrying cell:toolGraphShape mashapes:MedicalAppointmentRecordShape. Zero or more values, no fixed upper bound; most templates declare none, since most categories have nothing structured to say beyond their cell:member baseline. A declared tool is a specification, not a live tool: it carries cell:toolGraphShape and never cell:toolTopic or cell:toolGraph, which only a tool holding real content in an instantiated cell can have (the reverse of cell:tool's own nodes — see that property's comment). This presence-or-absence is the whole of what the template says about tools: there is no boolean flag declaring whether a cell of this category will hold structured content, because declaring the tool already says it, and saying it twice invites the two statements to disagree. A cell may also gain tools its template never declared, chosen by the user at any time and as many as they like, so this property constrains what Lazy Instantiation produces, never what the resulting cell may later hold."""@en .
+    rdfs:comment """Links a cell:TemplateCell individual to the cell:Tool node(s) describing which tools a cell of that template's own cell:category concept is created with by Lazy Instantiation — e.g. ctpl:MedicalAppointmentTemplateCell (cat-templates.ttl) declares one cell:FormTool carrying cell:toolShape mashapes:MedicalAppointmentRecordShape. Zero or more values, no fixed upper bound; most templates declare none, since most categories have nothing structured to say beyond their cell:member baseline. A declared tool is a specification, not a live tool: it carries cell:toolShape and never cell:toolTopic or cell:toolGraph, which only a tool holding real content in an instantiated cell can have (the reverse of cell:tool's own nodes — see that property's comment). This presence-or-absence is the whole of what the template says about tools: there is no boolean flag declaring whether a cell of this category will hold structured content, because declaring the tool already says it, and saying it twice invites the two statements to disagree. A cell may also gain tools its template never declared, chosen by the user at any time and as many as they like, so this property constrains what Lazy Instantiation produces, never what the resulting cell may later hold."""@en .
 
 cell:InstanceCell rdf:type owl:Class ;
     rdfs:subClassOf cell:Cell ;
     rdfs:label "Member Cell"@en ;
-    rdfs:comment """An actual cell instantiated in a user's own tree — real, member-classified content, as opposed to a reusable class-level template (cell:TemplateCell). Carries cell:creator (required, exactly one value), cell:owner (required, one or more values — the members holding the owner role, as opposed to the regular member role every other member defaults to; cell:creator's own value is always included, as the cell's initial owner — see cell:owner's own comment for the full owner/regular-member role semantics), cell:member (required, one or more cell:SCGraph containers backing the cell's content — one per member in the relationship, no fixed upper bound), cell:tool (zero or more cell:Tool nodes holding whatever structured content the cell carries beyond that baseline — see the Cell Tools section below), and the two tag properties cell:userTag (a plain xsd:string) and cell:serviceTag (whose values are cell:ServiceTag nodes), each zero or more values, no fixed upper bound — see the Cell Tags section below. There is no cell:shape property: a cell:InstanceCell's applicable validation shape is not stored at all, only derived, via its own cell:category value — find the cell:TemplateCell with the same cell:category (cat-templates.ttl) and read either its cell:memberGraphShape (for one of this cell's own cell:member graphs) or the cell:toolGraphShape of the matching declared tool (for one of a tool's own cell:toolGraph graphs). There is no subclass for a cell that holds structured content: such a cell simply carries one or more cell:tool values, and a cell with none is not a lesser kind of cell — it is the ordinary case. Who or what the cell's relationship is about is not a stored fact either — it is derivable directly from cell:tool/cell:member: the full set of distinct cell:toolTopic values among cell:tool if any are present, else the full set of distinct cell:graphSubject values among cell:member (see cell:tool's own comment). Every real cell:Cell individual in a user's own tree is typed directly cell:InstanceCell — its member count is never itself stored as a class, simply counted from cell:member when needed. Disjoint with cell:TemplateCell (see cell:TemplateCell's own comment): every cell:Cell individual in a user's own tree is typed cell:InstanceCell, never cell:TemplateCell, which is reserved for the reusable templates in cat-templates.ttl. Even a purely organizational cell with nothing substantive to say carries a minimal stub cell:member entry (claimed by and about cell:creator's own :Self, who is then also that cell's sole cell:owner value) rather than omitting member content altogether — such a cell has no structured content to hold, so it carries no cell:tool."""@en .
+    rdfs:comment """An actual cell instantiated in a user's own tree — real, member-classified content, as opposed to a reusable class-level template (cell:TemplateCell). Carries cell:creator (required, exactly one value), cell:owner (required, one or more values — the members holding the owner role, as opposed to the regular member role every other member defaults to; cell:creator's own value is always included, as the cell's initial owner — see cell:owner's own comment for the full owner/regular-member role semantics), cell:member (required, one or more cell:MemberGraph containers backing the cell's content — one per member in the relationship, no fixed upper bound), cell:tool (zero or more cell:Tool nodes holding whatever structured content the cell carries beyond that baseline — see the Cell Tools section below), and the two tag properties cell:userTag (a plain xsd:string) and cell:serviceTag (whose values are cell:ServiceTag nodes), each zero or more values, no fixed upper bound — see the Cell Tags section below. A cell stores no shape of its own: a cell:InstanceCell's applicable validation shape is not stored at all, only derived, via its own cell:category value — find the cell:TemplateCell with the same cell:category (cat-templates.ttl) and read either its cell:memberShape (for one of this cell's own cell:member graphs) or the cell:toolShape of the matching declared tool (for one of a tool's own cell:toolGraph graphs). There is no subclass for a cell that holds structured content: such a cell simply carries one or more cell:tool values, and a cell with none is not a lesser kind of cell — it is the ordinary case. Who or what the cell's relationship is about is not a stored fact either — it is derivable directly from cell:tool/cell:member: the full set of distinct cell:toolTopic values among cell:tool if any are present, else the full set of distinct cell:graphSubject values among cell:member (see cell:tool's own comment). Every real cell:Cell individual in a user's own tree is typed directly cell:InstanceCell — its member count is never itself stored as a class, simply counted from cell:member when needed. Disjoint with cell:TemplateCell (see cell:TemplateCell's own comment): every cell:Cell individual in a user's own tree is typed cell:InstanceCell, never cell:TemplateCell, which is reserved for the reusable templates in cat-templates.ttl. Even a purely organizational cell with nothing substantive to say carries a minimal stub cell:member entry (claimed by and about cell:creator's own :Self, who is then also that cell's sole cell:owner value) rather than omitting member content altogether — such a cell has no structured content to hold, so it carries no cell:tool."""@en .
 
 cell:creator rdf:type owl:ObjectProperty ;
     rdfs:domain cell:InstanceCell ;
@@ -180,7 +180,7 @@ rep(#    property is the fact" economy cell:member/cell:tool already to cell:own
 #    its kind — there is no separate kind marker, the same "the
 #    property is the fact" economy cell:member/cell:tool already
 #    use to distinguish a cell's two graph lists — which, since those
-#    lists have different ranges (cell:SCGraph and cell:ToolGraph),
+#    lists have different ranges (cell:MemberGraph and cell:ToolGraph),
 #    also record which kind each graph is.
 #
 #    The two are not the same shape, because they do not have the
@@ -324,7 +324,7 @@ cell:tagValue rdf:type owl:DatatypeProperty ;
 #    Three concrete tools are defined. cell:FormTool is the one with
 #    content today: it holds one or more cell:ToolGraph DataBooks via
 #    cell:toolGraph, whose fields the app renders from the
-#    cell:toolGraphShape that governs it. cell:CalendarTool and
+#    cell:toolShape that governs it. cell:CalendarTool and
 #    cell:CanvasTool are defined with no properties of their own yet —
 #    named here so that the extension point is visibly plural, and so
 #    that adding a tool later is a new subclass rather than a new
@@ -344,10 +344,10 @@ cell:tagValue rdf:type owl:DatatypeProperty ;
 #    property points at it rather than by its class:
 #      - reached by cell:tool, from a cell:InstanceCell: a live tool,
 #        carrying cell:toolTopic and (for a cell:FormTool)
-#        cell:toolGraph, never cell:toolGraphShape.
+#        cell:toolGraph, never cell:toolShape.
 #      - reached by cell:declaresTool, from a cell:TemplateCell: a
 #        declaration of a tool the clone should get, carrying
-#        cell:toolGraphShape alone.
+#        cell:toolShape alone.
 #    shacl/cell-shacl.ttl enforces the two with sh:targetObjectsOf on
 #    those properties rather than sh:targetClass, since both roles use
 #    the same tool classes.
@@ -365,7 +365,7 @@ cell:Tool rdf:type owl:Class ;
 cell:FormTool rdf:type owl:Class ;
     rdfs:subClassOf cell:Tool ;
     rdfs:label "Form Tool"@en ;
-    rdfs:comment """A tool holding structured content as one or more graph DataBooks (cell:ToolGraph, via cell:toolGraph), each conforming to the sh:NodeShape that governs the tool — the cell:toolGraphShape of the corresponding declared tool on the cell's category template, or a shape the user picked themselves for a tool no template declared. The app renders it as an editable form, deriving each input field from that shape's own sh:property constraints (see APP-BEHAVIOR.md's Form Fields from SHACL Shapes) rather than from a hand-coded form per category. One graph per claiming member: several of a cell's members may each hold their own view of the tool's cell:toolTopic, which is why cell:toolGraph is a list rather than a single value, and why its upper bound is the cell's own member count (integrity.md's Check 25)."""@en .
+    rdfs:comment """A tool holding structured content as one or more graph DataBooks (cell:ToolGraph, via cell:toolGraph), each conforming to the sh:NodeShape that governs the tool — the cell:toolShape of the corresponding declared tool on the cell's category template, or a shape the user picked themselves for a tool no template declared. The app renders it as an editable form, deriving each input field from that shape's own sh:property constraints (see APP-BEHAVIOR.md's Form Fields from SHACL Shapes) rather than from a hand-coded form per category. One graph per claiming member: several of a cell's members may each hold their own view of the tool's cell:toolTopic, which is why cell:toolGraph is a list rather than a single value, and why its upper bound is the cell's own member count (integrity.md's Check 25)."""@en .
 
 cell:CalendarTool rdf:type owl:Class ;
     rdfs:subClassOf cell:Tool ;
@@ -381,7 +381,7 @@ cell:tool rdf:type owl:ObjectProperty ;
     rdfs:domain cell:InstanceCell ;
     rdfs:range cell:Tool ;
     rdfs:label "tool"@en ;
-    rdfs:comment """Links an actual (instantiated) cell to the cell:Tool node(s) holding whatever structured content it carries beyond its cell:member baseline. Zero or more values, no fixed upper bound — a cell with none is the ordinary case, not a lesser kind of cell, and no subclass marks the difference either way. A cell receives one tool per cell:declaresTool on its category's own cell:TemplateCell when Lazy Instantiation clones it, and may gain further tools at any time, chosen by the user from the app's full list of tools and shapes: nothing caps how many a cell may hold, nor requires its category to have declared them. A tool reached this way is a live tool — it carries cell:toolTopic and, for a cell:FormTool, cell:toolGraph, and never cell:toolGraphShape, which belongs to the declared-tool role instead (see cell:declaresTool). Together with cell:member this is also how a consumer derives who or what the cell's relationship is about, now that there is no separate stored fact for it: if the cell has any tools, the full set of distinct cell:toolTopic values among them is the answer; otherwise the answer is the full set of distinct cell:graphSubject values found among cell:member (for a single-member cell this is trivially :Self; for a cell with more members and no tool, it is every one of that cell's active members — e.g. a two-member cell with no tool is understood as being about the connection between its two members)."""@en .
+    rdfs:comment """Links an actual (instantiated) cell to the cell:Tool node(s) holding whatever structured content it carries beyond its cell:member baseline. Zero or more values, no fixed upper bound — a cell with none is the ordinary case, not a lesser kind of cell, and no subclass marks the difference either way. A cell receives one tool per cell:declaresTool on its category's own cell:TemplateCell when Lazy Instantiation clones it, and may gain further tools at any time, chosen by the user from the app's full list of tools and shapes: nothing caps how many a cell may hold, nor requires its category to have declared them. A tool reached this way is a live tool — it carries cell:toolTopic and, for a cell:FormTool, cell:toolGraph, and never cell:toolShape, which belongs to the declared-tool role instead (see cell:declaresTool). Together with cell:member this is also how a consumer derives who or what the cell's relationship is about, now that there is no separate stored fact for it: if the cell has any tools, the full set of distinct cell:toolTopic values among them is the answer; otherwise the answer is the full set of distinct cell:graphSubject values found among cell:member (for a single-member cell this is trivially :Self; for a cell with more members and no tool, it is every one of that cell's active members — e.g. a two-member cell with no tool is understood as being about the connection between its two members)."""@en .
 
 cell:toolTopic rdf:type owl:AnnotationProperty ;
     rdfs:domain cell:Tool ;
@@ -393,13 +393,13 @@ cell:toolGraph rdf:type owl:ObjectProperty ;
     rdfs:domain cell:FormTool ;
     rdfs:range cell:ToolGraph ;
     rdfs:label "toolGraph"@en ;
-    rdfs:comment """Links a cell:FormTool to the Tool-Claimant classified graph DataBook(s) (cell:ToolGraph) holding its content. Required on a live form tool, at least one value — enforced by shacl/cell-shacl.ttl's :ToolShape. SHACL enforces only that minimum; the real upper bound is the cell's own member count, since each value is one of the cell's own members making their own claim about the tool's single cell:toolTopic — its cell:claimant must be a distinct one of that cell's cell:member cell:graphSubject values, so the number of values can never exceed the number of members. This is a cross-property invariant, not an OWL/SHACL-expressible cardinality restriction (it requires dereferencing each linked graph's own cell:claimant/cell:graphSubject, not just counting links), so it's enforced by integrity.md's Check 25 instead. Which shape those graphs conform to comes from the tool's own governing cell:toolGraphShape when the cell's category declared the tool, and from the user's own choice when it did not — in the latter case nothing about the category constrains it. Range cell:ToolGraph, never cell:SCGraph: the two are disjoint, and which list a graph is linked from is the whole of what fixes its kind."""@en .
+    rdfs:comment """Links a cell:FormTool to the Tool-Claimant classified graph DataBook(s) (cell:ToolGraph) holding its content. Required on a live form tool, at least one value — enforced by shacl/cell-shacl.ttl's :LiveToolShape. SHACL enforces only that minimum; the real upper bound is the cell's own member count, since each value is one of the cell's own members making their own claim about the tool's single cell:toolTopic — its cell:claimant must be a distinct one of that cell's cell:member cell:graphSubject values, so the number of values can never exceed the number of members. This is a cross-property invariant, not an OWL/SHACL-expressible cardinality restriction (it requires dereferencing each linked graph's own cell:claimant/cell:graphSubject, not just counting links), so it's enforced by integrity.md's Check 25 instead. Which shape those graphs conform to comes from the tool's own governing cell:toolShape when the cell's category declared the tool, and from the user's own choice when it did not — in the latter case nothing about the category constrains it. Range cell:ToolGraph, never cell:MemberGraph: the two are disjoint, and which list a graph is linked from is the whole of what fixes its kind."""@en .
 
-cell:toolGraphShape rdf:type owl:ObjectProperty ;
+cell:toolShape rdf:type owl:ObjectProperty ;
     rdfs:domain cell:Tool ;
     rdfs:range sh:NodeShape ;
-    rdfs:label "toolGraphShape"@en ;
-    rdfs:comment """Links a declared tool — a cell:Tool reached by cell:declaresTool from a cell:TemplateCell — to the sh:NodeShape(s) describing the content a graph held by the corresponding live tool is expected to conform to, e.g. the cell:FormTool declared by ctpl:MedicalAppointmentTemplateCell (cat-templates.ttl) carries cell:toolGraphShape mashapes:MedicalAppointmentRecordShape (other/shacl/medical-appointments-shacl.ttl). Zero or more values, no fixed upper bound, mirroring cell:memberGraphShape's own cardinality — see its comment for the shared rationale (a stored per-instance copy on the eventual InstanceCell would be pure redundancy) and for how a linked cell:ToolGraph's own cell:formShape value gets set from it. Carried only in the declared-tool role, never by a live cell:tool node, and never by a template for a tool it does not declare: a category that declares no tool offers no shape hint either, so a user adding a tool to such a cell picks its shape themselves from the app's full list."""@en .
+    rdfs:label "toolShape"@en ;
+    rdfs:comment """Links a declared tool — a cell:Tool reached by cell:declaresTool from a cell:TemplateCell — to the sh:NodeShape(s) describing the content a graph held by the corresponding live tool is expected to conform to, e.g. the cell:FormTool declared by ctpl:MedicalAppointmentTemplateCell (cat-templates.ttl) carries cell:toolShape mashapes:MedicalAppointmentRecordShape (other/shacl/medical-appointments-shacl.ttl). Zero or more values, no fixed upper bound, mirroring cell:memberShape's own cardinality — see its comment for the shared rationale (a stored per-instance copy on the eventual InstanceCell would be pure redundancy) and for how a linked cell:ToolGraph's own cell:shape value gets set from it. Carried only in the declared-tool role, never by a live cell:tool node, and never by a template for a tool it does not declare: a category that declares no tool offers no shape hint either, so a user adding a tool to such a cell picks its shape themselves from the app's full list."""@en .
 
 
 #################################################################
@@ -411,10 +411,10 @@ cell:toolGraphShape rdf:type owl:ObjectProperty ;
 #    ontology/file.
 #
 #    Four properties across three levels of the graph hierarchy:
-#    cell:formShape on cell:Graph (every graph DataBook), cell:claimant
+#    cell:shape on cell:Graph (every graph DataBook), cell:claimant
 #    on cell:CGraph (every graph a cell actually links to), and then
 #    one property apiece on the two disjoint leaves below it —
-#    cell:graphSubject on cell:SCGraph, and nothing of its own on
+#    cell:graphSubject on cell:MemberGraph, and nothing of its own on
 #    cell:ToolGraph, whose about-ness lives one level up on the tool
 #    holding it (cell:toolTopic). That split is the whole point of the
 #    hierarchy: a cell:claimant or cell:graphSubject value is always a
@@ -446,8 +446,8 @@ cell:claimant rdf:type owl:AnnotationProperty ;
                     cell:member/cell:toolGraph link to from the cell side — not to the
                     `#graph`-suffixed `graph.named_graph` IRI, and not to the
                     Person/Organization/Service individual. Domain cell:CGraph, not
-                    cell:SCGraph: a claimant is carried by every graph a cell links to,
-                    whether it is a cell:member graph (cell:SCGraph) or a tool's own
+                    cell:MemberGraph: a claimant is carried by every graph a cell links to,
+                    whether it is a cell:member graph (cell:MemberGraph) or a tool's own
                     graph (cell:ToolGraph) — a tool graph's claim is made by a party
                     exactly as a member graph's is. Every claimant value maps to a PDN
                     node subject identity, since only a party holding one can make a
@@ -458,7 +458,7 @@ cell:claimant rdf:type owl:AnnotationProperty ;
 
 cell:graphSubject rdf:type owl:AnnotationProperty ;
     rdfs:label "graphSubject"@en ;
-    rdfs:comment """Annotates a cell:SCGraph — a graph a cell links via cell:member — with the
+    rdfs:comment """Annotates a cell:MemberGraph — a graph a cell links via cell:member — with the
                     party whose member entry it is. Required, exactly one value. That party is
                     always a real participant in the cell's relationship: a p:Person, or a
                     service:Service standing in for one (e.g. :Self, a p:Person;
@@ -471,23 +471,23 @@ cell:graphSubject rdf:type owl:AnnotationProperty ;
                     `graph.named_graph` IRI, and not to the subject resource itself. Not to be
                     confused with a cell's own (derived, never-stored) subject — see cell:Cell's
                     own comment and the "Cell Graph and Tool Links" section below."""@en ;
-    rdfs:domain cell:SCGraph ;
+    rdfs:domain cell:MemberGraph ;
     rdfs:range xsd:anyURI .
 
-cell:formShape rdf:type owl:AnnotationProperty ;
+cell:shape rdf:type owl:AnnotationProperty ;
     rdfs:label "template"@en ;
     rdfs:comment """Annotates a graph DataBook with the sh:NodeShape(s) it should be validated
                     against. Each value names a shape such as idocshapes:PassportShape,
                     pshapes:ContactInfoShape, petshapes:PetShape, or
                     vehicleshapes:VehicleShape — the same shape CURIEs a category's
-                    cell:TemplateCell individual carries via cell:memberGraphShape, or via the
-                    cell:toolGraphShape of a tool it declares (cat-templates.ttl), so a graph's
+                    cell:TemplateCell individual carries via cell:memberShape, or via the
+                    cell:toolShape of a tool it declares (cat-templates.ttl), so a graph's
                     declared value can be checked directly, by CURIE equality, against its cell's
                     own TemplateCell requirement, with no indirection through the shape's own sh:targetClass. Zero
                     or more values, no fixed upper bound (0..N) — a single graph may still hold
                     more than one template's worth of content at once (e.g. a graph combining
                     ServiceAccount, DebitCard, and CheckingAccount content all together), each
-                    contributing its own cell:formShape value naming that content's own shape.
+                    contributing its own cell:shape value naming that content's own shape.
                     Named for the form the app renders from it — the shape IS the form's field
                     list — and deliberately not "template", which names the wholly different
                     class-level cell:TemplateCell.
@@ -502,7 +502,7 @@ cell:formShape rdf:type owl:AnnotationProperty ;
 
 
 #################################################################
-#    Graph (DataBook), CGraph, SCGraph and ToolGraph
+#    Graph (DataBook), CGraph, MemberGraph and ToolGraph
 #
 #    Four classes on three levels. cell:Graph is any graph DataBook at
 #    all; cell:CGraph adds the claimant every graph a cell actually
@@ -510,7 +510,7 @@ cell:formShape rdf:type owl:AnnotationProperty ;
 #    on what the graph is about and, with it, on whether that value is
 #    a PDN node subject identity:
 #
-#      cell:SCGraph — cell:member's range. Carries cell:graphSubject,
+#      cell:MemberGraph — cell:member's range. Carries cell:graphSubject,
 #      the party whose member entry it is: always a real participant
 #      in the relationship, so always PDN-mappable.
 #
@@ -537,25 +537,25 @@ cell:formShape rdf:type owl:AnnotationProperty ;
 cell:Graph rdf:type owl:Class ;
     cell:abstract true ;
     rdfs:label "Graph"@en ;
-    rdfs:comment """A graph DataBook — a named graph of claims about some resource, filed in a specific relationship or situation, extracted into a named graph (graph.named_graph, the DataBook's own `id` plus a `#graph` fragment) — since this class's instances represent exactly the content that becomes that named graph, see the '#### Graph' DataBook section heading convention. The resource it is about need not be a person's identity — see cell:toolTopic. Carries cell:formShape, the one annotation every graph DataBook may take regardless of kind; cell:claimant is one level down, on cell:CGraph, and cell:graphSubject one level down again, on cell:SCGraph. Instances of this class and its annotations (cell:formShape, cell:claimant, cell:graphSubject) are typed and asserted on the DataBook's own `id` IRI, not the `#graph`-suffixed named graph IRI that wraps its extracted content."""@en .
+    rdfs:comment """A graph DataBook — a named graph of claims about some resource, filed in a specific relationship or situation, extracted into a named graph (graph.named_graph, the DataBook's own `id` plus a `#graph` fragment) — since this class's instances represent exactly the content that becomes that named graph, see the '#### Graph' DataBook section heading convention. The resource it is about need not be a person's identity — see cell:toolTopic. Carries cell:shape, the one annotation every graph DataBook may take regardless of kind; cell:claimant is one level down, on cell:CGraph, and cell:graphSubject one level down again, on cell:MemberGraph. Instances of this class and its annotations (cell:shape, cell:claimant, cell:graphSubject) are typed and asserted on the DataBook's own `id` IRI, not the `#graph`-suffixed named graph IRI that wraps its extracted content."""@en .
 
 cell:CGraph rdf:type owl:Class ;
     cell:abstract true ;
     rdfs:subClassOf cell:Graph ;
     rdfs:label "CGraph"@en ;
-    rdfs:comment """Claimant graph: a graph DataBook that carries a cell:claimant — i.e. every graph reachable from a cell, since a cell links a graph only via cell:member or via a tool's own cell:toolGraph and both kinds record who is making the claim. Abstract: no graph is ever typed cell:CGraph directly, because every real one is either a cell:SCGraph or a cell:ToolGraph, and those two are owl:disjointWith one another. This class exists so that cell:claimant is declared once, at the level where it is genuinely common, instead of twice on the two leaves — leaving cell:SCGraph to carry the one property that distinguishes it (cell:graphSubject) and cell:ToolGraph to carry none, its about-ness having moved up onto the tool."""@en .
+    rdfs:comment """Claimant graph: a graph DataBook that carries a cell:claimant — i.e. every graph reachable from a cell, since a cell links a graph only via cell:member or via a tool's own cell:toolGraph and both kinds record who is making the claim. Abstract: no graph is ever typed cell:CGraph directly, because every real one is either a cell:MemberGraph or a cell:ToolGraph, and those two are owl:disjointWith one another. This class exists so that cell:claimant is declared once, at the level where it is genuinely common, instead of twice on the two leaves — leaving cell:MemberGraph to carry the one property that distinguishes it (cell:graphSubject) and cell:ToolGraph to carry none, its about-ness having moved up onto the tool."""@en .
 
-cell:SCGraph rdf:type owl:Class ;
+cell:MemberGraph rdf:type owl:Class ;
     rdfs:subClassOf cell:CGraph ;
     owl:disjointWith cell:ToolGraph ;
-    rdfs:label "SCGraph"@en ;
-    rdfs:comment """Subject-Claimant graph: the class every graph in a cell's cell:member list is typed as — cell:member's own range. Carries cell:graphSubject (the party whose member entry it is) alongside the cell:claimant it inherits from cell:CGraph; the four self-vs-other cases (self-by-self, other-by-self, other-by-other, self-by-other) are determined directly from the combination of those two, not from a further subclass — this class has none. Both of its values always map to a PDN node subject identity, which is precisely what separates it from its disjoint sibling cell:ToolGraph, whose holding tool's cell:toolTopic value need not. A cell:SCGraph is never held by a tool."""@en .
+    rdfs:label "MemberGraph"@en ;
+    rdfs:comment """Subject-Claimant graph: the class every graph in a cell's cell:member list is typed as — cell:member's own range. Carries cell:graphSubject (the party whose member entry it is) alongside the cell:claimant it inherits from cell:CGraph; the four self-vs-other cases (self-by-self, other-by-self, other-by-other, self-by-other) are determined directly from the combination of those two, not from a further subclass — this class has none. Both of its values always map to a PDN node subject identity, which is precisely what separates it from its disjoint sibling cell:ToolGraph, whose holding tool's cell:toolTopic value need not. A cell:MemberGraph is never held by a tool."""@en .
 
 cell:ToolGraph rdf:type owl:Class ;
     rdfs:subClassOf cell:CGraph ;
-    owl:disjointWith cell:SCGraph ;
+    owl:disjointWith cell:MemberGraph ;
     rdfs:label "ToolGraph"@en ;
-    rdfs:comment """Tool-Claimant graph: the class every graph held by a cell:FormTool is typed as — cell:toolGraph's own range. Carries only the cell:claimant it inherits from cell:CGraph, and has no subclasses of its own. Unlike its disjoint sibling cell:SCGraph it carries no about-ness property: what its content is about is cell:toolTopic, stated once by the tool holding it rather than repeated on each graph beneath, so that several members' claims about one thing cannot disagree about what that thing is. It remains a separate class from cell:SCGraph, rather than the same class linked by a different property, for the reason that split was made in the first place: a cell:claimant or a cell:graphSubject always names a party holding a PDN node subject identity, whereas the cell:toolTopic above a cell:ToolGraph routinely names something that has none and could never be given one — a pets:Pet, a vehicles:Vehicle, an identitydocuments:Passport, a recipe, a poem. A consumer resolving a graph's IRIs over the PDN can therefore tell from the graph's own type which of its values are resolvable identities, with nothing to look up and no per-value guesswork. A cell:ToolGraph never carries a cell:graphSubject: its claimant already records who is speaking, and the cell's members are derivable from its cell:member graphs."""@en .
+    rdfs:comment """Tool-Claimant graph: the class every graph held by a cell:FormTool is typed as — cell:toolGraph's own range. Carries only the cell:claimant it inherits from cell:CGraph, and has no subclasses of its own. Unlike its disjoint sibling cell:MemberGraph it carries no about-ness property: what its content is about is cell:toolTopic, stated once by the tool holding it rather than repeated on each graph beneath, so that several members' claims about one thing cannot disagree about what that thing is. It remains a separate class from cell:MemberGraph, rather than the same class linked by a different property, for the reason that split was made in the first place: a cell:claimant or a cell:graphSubject always names a party holding a PDN node subject identity, whereas the cell:toolTopic above a cell:ToolGraph routinely names something that has none and could never be given one — a pets:Pet, a vehicles:Vehicle, an identitydocuments:Passport, a recipe, a poem. A consumer resolving a graph's IRIs over the PDN can therefore tell from the graph's own type which of its values are resolvable identities, with nothing to look up and no per-value guesswork. A cell:ToolGraph never carries a cell:graphSubject: its claimant already records who is speaking, and the cell's members are derivable from its cell:member graphs."""@en .
 
 
 #################################################################
@@ -568,17 +568,17 @@ cell:ToolGraph rdf:type owl:Class ;
 #    the ordinary case and not a distinct kind of cell.
 #
 #    The two differ in what they link to. cell:member's range is
-#    cell:SCGraph, a graph DataBook directly. cell:tool's range is
+#    cell:MemberGraph, a graph DataBook directly. cell:tool's range is
 #    cell:Tool, a node that in turn holds its own graphs — for a
 #    cell:FormTool, one or more cell:ToolGraph values via
 #    cell:toolGraph. That extra level is what gives the tool's single
 #    cell:toolTopic somewhere to live. Which leaf a graph is typed as
 #    still follows from the list it is linked from, and nothing else
-#    has to mark it: cell:member's graphs are cell:SCGraph,
+#    has to mark it: cell:member's graphs are cell:MemberGraph,
 #    cell:toolGraph's are cell:ToolGraph, and the two are disjoint.
 #
 #    cell:member is the required baseline — at least one
-#    cell:SCGraph per member in the relationship, no fixed upper bound
+#    cell:MemberGraph per member in the relationship, no fixed upper bound
 #    (enforced by shacl/cell-shacl.ttl's :InstanceCellShape).
 #    cell:tool is zero or more, no upper bound: a cell gets one per
 #    tool its category's template declares, and the user may add more
@@ -600,9 +600,9 @@ cell:ToolGraph rdf:type owl:Class ;
 
 cell:member rdf:type owl:ObjectProperty ;
     rdfs:domain cell:InstanceCell ;
-    rdfs:range cell:SCGraph ;
+    rdfs:range cell:MemberGraph ;
     rdfs:label "member"@en ;
-    rdfs:comment """Links an actual (instantiated) cell to its required baseline of Subject-Claimant classified graph DataBooks (cell:SCGraph, which has no subclasses) — at least one per member in the relationship, no fixed upper bound (enforced by shacl/cell-shacl.ttl's :InstanceCellShape) — a cell is not expected to ever have more than a couple dozen members, but nothing here caps it. Which self-vs-other case a given value represents comes from that graph's own cell:graphSubject/cell:claimant combination, not from a further rdf:type below cell:SCGraph. Every cell:member graph's cell:graphSubject is a real relationship participant — a p:Person or a service:Service (service.ttl); those two, and only those two, are member-capable, and both always hold a PDN node subject identity, which is what cell:graphSubject's own comment guarantees and what separates cell:SCGraph from cell:ToolGraph. An o:Organization is never a member subject: an organization participates in a cell through the service:ServiceProvider it provides (e.g. a large Groups cell's members can include :BHS_Service, the society's own service, alongside p:Person individuals), and an invited service:AgentService, once a member invites their own agent — an AI assistant, a contact sync, a backup service — into the cell, gets its own self-claimed cell:member entry alongside the human members. So cell:member content never reaches into an other/*.ttl domain ontology (e.g. pets:Pet); only a tool can, via its own cell:toolTopic (see cell:toolTopic's own comment). Unlike cell:member, cell:creator's and cell:owner's own range is p:Person alone — a service:Service can join a cell as a member but never creates one and can never be promoted to owner (see cell:owner's own comment). Together with cell:tool, this is also the sole basis for deriving who or what the cell's relationship is about — see cell:tool's own comment for the rule."""@en .
+    rdfs:comment """Links an actual (instantiated) cell to its required baseline of Subject-Claimant classified graph DataBooks (cell:MemberGraph, which has no subclasses) — at least one per member in the relationship, no fixed upper bound (enforced by shacl/cell-shacl.ttl's :InstanceCellShape) — a cell is not expected to ever have more than a couple dozen members, but nothing here caps it. Which self-vs-other case a given value represents comes from that graph's own cell:graphSubject/cell:claimant combination, not from a further rdf:type below cell:MemberGraph. Every cell:member graph's cell:graphSubject is a real relationship participant — a p:Person or a service:Service (service.ttl); those two, and only those two, are member-capable, and both always hold a PDN node subject identity, which is what cell:graphSubject's own comment guarantees and what separates cell:MemberGraph from cell:ToolGraph. An o:Organization is never a member subject: an organization participates in a cell through the service:ServiceProvider it provides (e.g. a large Groups cell's members can include :BHS_Service, the society's own service, alongside p:Person individuals), and an invited service:AgentService, once a member invites their own agent — an AI assistant, a contact sync, a backup service — into the cell, gets its own self-claimed cell:member entry alongside the human members. So cell:member content never reaches into an other/*.ttl domain ontology (e.g. pets:Pet); only a tool can, via its own cell:toolTopic (see cell:toolTopic's own comment). Unlike cell:member, cell:creator's and cell:owner's own range is p:Person alone — a service:Service can join a cell as a member but never creates one and can never be promoted to owner (see cell:owner's own comment). Together with cell:tool, this is also the sole basis for deriving who or what the cell's relationship is about — see cell:tool's own comment for the rule."""@en .
 
 
 

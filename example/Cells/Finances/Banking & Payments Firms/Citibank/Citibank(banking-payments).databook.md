@@ -20,21 +20,21 @@ v4:
     - id: "http://www.example.org/v4/graphs/graph-27"
       claimant: ":Citibank"
       graphSubject: ":Citibank_Service"
-      formShape: "pshapes:ContactInfoShape"
+      shape: "pshapes:ContactInfoShape"
     - id: "http://www.example.org/v4/graphs/graph-77"
       claimant: ":Self"
       graphSubject: ":Self"
-      formShape: "pshapes:ContactInfoShape"
+      shape: "pshapes:ContactInfoShape"
   tool:
     - type: "form"
       toolTopic: ":Self"
       graph:
         - id: "http://www.example.org/v4/graphs/graph-75"
           claimant: ":Self"
-          formShape: "sashapes:ServiceAccountShape"
+          shape: "sashapes:ServiceAccountShape"
         - id: "http://www.example.org/v4/graphs/graph-76"
           claimant: ":Citibank"
-          formShape:
+          shape:
             - "sashapes:ServiceAccountShape"
             - "bankingshapes:DebitCardShape"
             - "bankingshapes:CheckingAccountShape"

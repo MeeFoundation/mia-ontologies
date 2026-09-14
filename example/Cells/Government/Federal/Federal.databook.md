@@ -17,7 +17,7 @@ v4:
     id: "http://www.example.org/v4/graphs/graph-44"
     claimant: ":Self"
     graphSubject: ":Self"
-    formShape: "pshapes:ContactInfoShape"
+    shape: "pshapes:ContactInfoShape"
 ---
 
 ## Graphs
@@ -27,7 +27,7 @@ v4:
 
 #### Overview
 
-This graph is the cell's one required `member` entry — a cell with a single `member` entry in the user's own category-cell tree always has `:Self` as that member (see Check 21), regardless of what the cell's `subject` is — here, Alice herself. The "Federal" cell is a purely organizational category node (`cell:category: cat:Federal`) with no relationship or subject of its own beyond Alice's required membership, so this stub carries no further claims. Alice is both the claimant and the subject. It carries her given name, satisfying the `ContactInfoShape` `ctpl:FederalTemplateCell` sets as `cell:memberGraphShape` — no longer deliberately empty.
+This graph is the cell's one required `member` entry — a cell with a single `member` entry in the user's own category-cell tree always has `:Self` as that member (see Check 21), regardless of what the cell's `subject` is — here, Alice herself. The "Federal" cell is a purely organizational category node (`cell:category: cat:Federal`) with no relationship or subject of its own beyond Alice's required membership, so this stub carries no further claims. Alice is both the claimant and the subject. It carries her given name, satisfying the `ContactInfoShape` `ctpl:FederalTemplateCell` sets as `cell:memberShape` — no longer deliberately empty.
 
 #### Graph
 

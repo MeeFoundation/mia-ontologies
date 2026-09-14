@@ -7,16 +7,16 @@ flowchart TD
 
     subgraph ctx["Graph"]
         direction LR
-        ctx_meta["claimant: :Self\ngraphSubject: :Self\nformShape: pshapes:ContactInfoShape"]:::meta
+        ctx_meta["claimant: :Self\ngraphSubject: :Self\nshape: pshapes:ContactInfoShape"]:::meta
     end
 
     n51f59fdbffe5[":Alice_Dave_Network\n(SocialNetwork)"]
     nb69bdc5e9e9b[":Dave\n(Person)"]:::person
-    n1bc059c4a943("Dave"):::lit
+    nf9545fa626e2("Dave"):::lit
     n655e442e50be[":Self\n(Person)"]:::person
-    nbcf3fff48b38("Alice"):::lit
+    n3504dcb92bec("Alice"):::lit
 
     n51f59fdbffe5 -->|"hasMemberPart"| nb69bdc5e9e9b
-    nb69bdc5e9e9b -->|"GivenName"| n1bc059c4a943
-    n655e442e50be -->|"GivenName"| nbcf3fff48b38
+    nb69bdc5e9e9b -->|"GivenName"| nf9545fa626e2
+    n655e442e50be -->|"GivenName"| n3504dcb92bec
     n655e442e50be -->|"hasSocialNetwork"| n51f59fdbffe5

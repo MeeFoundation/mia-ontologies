@@ -16,14 +16,14 @@ v4:
     id: "http://www.example.org/v4/graphs/graph-36"
     claimant: ":Self"
     graphSubject: ":Self"
-    formShape: "pshapes:ContactInfoShape"
+    shape: "pshapes:ContactInfoShape"
   tool:
     - type: "form"
       toolTopic: ":Ginger"
       graph:
         - id: "http://www.example.org/v4/graphs/graph-37"
           claimant: ":Self"
-          formShape: "petshapes:PetShape"
+          shape: "petshapes:PetShape"
 ---
 
 ## Graphs
@@ -33,7 +33,7 @@ v4:
 
 #### Overview
 
-This graph is the cell's one required `member` entry — a cell with a single `member` entry in the user's own category-cell tree always has `:Self` as that member (see Check 21), regardless of what the cell's `subject` is — here, Ginger herself. Alice is both the claimant and the subject. It carries her given name, plus a minimal organization name and email, so `:Self` satisfies the `ContactInfoShape` every templated cell's `member` content is now expected to conform to (`cell:memberGraphShape`) — no longer deliberately empty now that this requirement applies.
+This graph is the cell's one required `member` entry — a cell with a single `member` entry in the user's own category-cell tree always has `:Self` as that member (see Check 21), regardless of what the cell's `subject` is — here, Ginger herself. Alice is both the claimant and the subject. It carries her given name, plus a minimal organization name and email, so `:Self` satisfies the `ContactInfoShape` every templated cell's `member` content is now expected to conform to (`cell:memberShape`) — no longer deliberately empty now that this requirement applies.
 
 #### Graph
 

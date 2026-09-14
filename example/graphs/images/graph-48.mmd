@@ -7,14 +7,14 @@ flowchart TD
 
     subgraph ctx["Graph"]
         direction LR
-        ctx_meta["claimant: :Self\ngraphSubject: :Self\nformShape: pshapes:ContactInfoShape"]:::meta
+        ctx_meta["claimant: :Self\ngraphSubject: :Self\nshape: pshapes:ContactInfoShape"]:::meta
     end
 
     n655e442e50be[":Self\n(Person)"]:::person
-    n300a35fdca30("Alice"):::lit
-    n44008885b434("Acme"):::lit
-    n46a28bec9b2f("alice@acme.com"):::lit
+    na47d9261e97b("Alice"):::lit
+    ne291d4ac7934("Acme"):::lit
+    ne3b8ca9780a5("alice@acme.com"):::lit
 
-    n655e442e50be -->|"GivenName"| n300a35fdca30
-    n655e442e50be -->|"OrganizationName"| n44008885b434
-    n655e442e50be -->|"EmailAddress"| n46a28bec9b2f
+    n655e442e50be -->|"GivenName"| na47d9261e97b
+    n655e442e50be -->|"OrganizationName"| ne291d4ac7934
+    n655e442e50be -->|"EmailAddress"| ne3b8ca9780a5

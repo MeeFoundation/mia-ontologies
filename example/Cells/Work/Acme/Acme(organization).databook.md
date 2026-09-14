@@ -17,14 +17,14 @@ v4:
     id: "http://www.example.org/v4/graphs/graph-53"
     claimant: ":Self"
     graphSubject: ":Self"
-    formShape: "pshapes:ContactInfoShape"
+    shape: "pshapes:ContactInfoShape"
   tool:
     - type: "form"
       toolTopic: ":Acme"
       graph:
         - id: "http://www.example.org/v4/graphs/graph-94"
           claimant: ":Self"
-          formShape: "oshapes:OrganizationShape"
+          shape: "oshapes:OrganizationShape"
 ---
 
 ## Graphs
@@ -34,7 +34,7 @@ v4:
 
 #### Overview
 
-This graph is the cell's one required `member` entry — a cell with a single `member` entry in the user's own category-cell tree always has `:Self` as that member (see Check 21), regardless of what the cell's `subject` is — here, Alice herself. The "Acme" cell's own subject is Alice's employer, carried by its tool graph (graph 94) rather than by this member stub. Alice is both the claimant and the subject. It carries her given name, satisfying the `ContactInfoShape` `ctpl:OrganizationTemplateCell` sets as `cell:memberGraphShape` — no longer deliberately empty.
+This graph is the cell's one required `member` entry — a cell with a single `member` entry in the user's own category-cell tree always has `:Self` as that member (see Check 21), regardless of what the cell's `subject` is — here, Alice herself. The "Acme" cell's own subject is Alice's employer, carried by its tool graph (graph 94) rather than by this member stub. Alice is both the claimant and the subject. It carries her given name, satisfying the `ContactInfoShape` `ctpl:OrganizationTemplateCell` sets as `cell:memberShape` — no longer deliberately empty.
 
 #### Graph
 

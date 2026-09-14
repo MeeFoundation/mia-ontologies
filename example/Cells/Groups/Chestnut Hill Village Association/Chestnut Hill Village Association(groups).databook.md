@@ -19,22 +19,22 @@ v4:
     - id: "http://www.example.org/v4/graphs/graph-09"
       claimant: ":Self"
       graphSubject: ":Self"
-      formShape: "pshapes:ContactInfoShape"
+      shape: "pshapes:ContactInfoShape"
     - id: "http://www.example.org/v4/graphs/graph-45"
       claimant: ":Marcy"
       graphSubject: ":Marcy"
-      formShape: "pshapes:ContactInfoShape"
+      shape: "pshapes:ContactInfoShape"
     - id: "http://www.example.org/v4/graphs/graph-100"
       claimant: ":Henry"
       graphSubject: ":Henry"
-      formShape: "pshapes:ContactInfoShape"
+      shape: "pshapes:ContactInfoShape"
   tool:
     - type: "form"
       toolTopic: ":CHVA"
       graph:
         - id: "http://www.example.org/v4/graphs/graph-101"
           claimant: ":Self"
-          formShape: "oshapes:OrganizationShape"
+          shape: "oshapes:OrganizationShape"
 ---
 
 ## Graphs

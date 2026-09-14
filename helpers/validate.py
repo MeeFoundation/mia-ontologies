@@ -25,15 +25,15 @@ Each cell gets two passes:
    `sh:or ( [sh:class p:Person] [sh:class o:Organization] [sh:class service:Service] )`,
    and those individuals are typed only in the graph Turtle.
 
-2. **Template pass** — each graph that carries a `formShape:` value, checked
-   on its own against the shape that value names. A graph's `formShape:` is
+2. **Template pass** — each graph that carries a `shape:` value, checked
+   on its own against the shape that value names. A graph's `shape:` is
    the *sole* indicator of what to validate it against, and since
-   `cell:formShape`'s range is `sh:NodeShape` (cell.ttl) the value already
+   `cell:shape`'s range is `sh:NodeShape` (cell.ttl) the value already
    *names the shape itself* (e.g. `idocshapes:PassportShape`), with no
    label-to-shape resolution step. The only work left is locating which
    physical `*-shacl.ttl` file defines a shape of that name — since
    `pshapes:` shapes are split across two files — done via the SHAPE_TO_FILE
-   table below. A graph with no `formShape:` value is skipped outright.
+   table below. A graph with no `shape:` value is skipped outright.
 
 The two passes use different base merges. cat-templates.ttl is in the
 template pass's base but deliberately out of the cell pass's, so cell-shacl
@@ -111,7 +111,7 @@ SHAPE_NS = {
 }
 
 # --- template CURIE prefix -> candidate shapes files ------------------------
-# A cell:formShape value's own CURIE prefix narrows which physical files could
+# A cell:shape value's own CURIE prefix narrows which physical files could
 # define it — pshapes: alone is split across two files, so the shape's own
 # local name (below) picks the exact one; every other prefix maps to exactly
 # one file.
@@ -129,7 +129,7 @@ PREFIX_TO_FILES = {
 }
 
 # --- shape local name -> shapes file -----------------------------------------
-# cell:formShape's range is sh:NodeShape (cell.ttl), so the value already
+# cell:shape's range is sh:NodeShape (cell.ttl), so the value already
 # *names the shape directly* — no more label-to-shape resolution, and no more
 # named exceptions (there's no label/target mismatch left to except). This
 # table exists purely to locate which physical *-shacl.ttl file defines a
@@ -158,7 +158,7 @@ SHAPE_TO_FILE = {
 
 
 def resolve_shape_file(template):
-    """Resolve a cell:formShape value (a shape CURIE, e.g.
+    """Resolve a cell:shape value (a shape CURIE, e.g.
     'idocshapes:PassportShape') to (shapes_file, shape_local_name).
     Returns None if the prefix is unrecognized or the local name has no
     SHAPE_TO_FILE entry."""
@@ -366,9 +366,9 @@ def main():
                 continue
             gid = entry["id"]
             gid_local = gid.rsplit("/", 1)[-1]
-            templates = as_list(entry.get("formShape"))
+            templates = as_list(entry.get("shape"))
             if not templates:
-                print(f"SKIP     {cell_path} {gid_local} (no formShape)")
+                print(f"SKIP     {cell_path} {gid_local} (no shape)")
                 skipped += 1
                 continue
 
@@ -405,7 +405,7 @@ def main():
                     violations += 1
 
     print()
-    print(f"Cells: {cells}   Checked: {checked}   Skipped (no formShape): {skipped}   "
+    print(f"Cells: {cells}   Checked: {checked}   Skipped (no shape): {skipped}   "
           f"Violations: {violations}   Unresolved: {unresolved}")
     sys.exit(1 if (violations or unresolved) else 0)
 

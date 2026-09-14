@@ -7,18 +7,18 @@ flowchart TD
 
     subgraph ctx["Graph"]
         direction LR
-        ctx_meta["claimant: :Self\ngraphSubject: :Self\nformShape: pshapes:ContactInfoShape"]:::meta
+        ctx_meta["claimant: :Self\ngraphSubject: :Self\nshape: pshapes:ContactInfoShape"]:::meta
     end
 
     n614c8153a57c[":Alice_Acme_Network\n(SocialNetwork)"]
     n679aafec7a4b[":Paula_Walker\n(Person)"]:::person
     n655e442e50be[":Self\n(Person)"]:::person
-    n14275a890944("Alice"):::lit
-    n39ef37c3927d("Alice Walker"):::lit
-    nf9fa1e485f88("alice@acme.com"):::lit
+    n15710e577dce("Alice"):::lit
+    n1758874e84a6("Alice Walker"):::lit
+    n6fb87a25df92("alice@acme.com"):::lit
 
     n614c8153a57c -->|"hasMemberPart"| n679aafec7a4b
-    n655e442e50be -->|"GivenName"| n14275a890944
-    n655e442e50be -->|"AlternateName"| n39ef37c3927d
-    n655e442e50be -->|"EmailAddress"| nf9fa1e485f88
+    n655e442e50be -->|"GivenName"| n15710e577dce
+    n655e442e50be -->|"AlternateName"| n1758874e84a6
+    n655e442e50be -->|"EmailAddress"| n6fb87a25df92
     n655e442e50be -->|"hasSocialNetwork"| n614c8153a57c

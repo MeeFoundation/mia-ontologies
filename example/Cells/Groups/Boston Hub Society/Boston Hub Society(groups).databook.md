@@ -18,22 +18,22 @@ v4:
     - id: "http://www.example.org/v4/graphs/graph-01"
       claimant: ":BHS"
       graphSubject: ":BHS_Service"
-      formShape: "pshapes:ContactInfoShape"
+      shape: "pshapes:ContactInfoShape"
     - id: "http://www.example.org/v4/graphs/graph-14"
       claimant: ":Self"
       graphSubject: ":Self"
-      formShape: "pshapes:ContactInfoShape"
+      shape: "pshapes:ContactInfoShape"
     - id: "http://www.example.org/v4/graphs/graph-03"
       claimant: ":Bob_Johnson"
       graphSubject: ":Bob_Johnson"
-      formShape: "pshapes:ContactInfoShape"
+      shape: "pshapes:ContactInfoShape"
   tool:
     - type: "form"
       toolTopic: ":BHS"
       graph:
         - id: "http://www.example.org/v4/graphs/graph-92"
           claimant: ":BHS"
-          formShape: "oshapes:OrganizationShape"
+          shape: "oshapes:OrganizationShape"
 ---
 
 ## Graphs

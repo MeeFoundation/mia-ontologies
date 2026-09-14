@@ -17,14 +17,14 @@ v4:
     id: "http://www.example.org/v4/graphs/graph-15"
     claimant: ":Self"
     graphSubject: ":Self"
-    formShape: "pshapes:ContactInfoShape"
+    shape: "pshapes:ContactInfoShape"
   tool:
     - type: "form"
       toolTopic: ":Self"
       graph:
         - id: "http://www.example.org/v4/graphs/graph-79"
           claimant: ":Self"
-          formShape: "idocshapes:DriversLicenseShape"
+          shape: "idocshapes:DriversLicenseShape"
 ---
 
 ## Graphs
@@ -34,7 +34,7 @@ v4:
 
 #### Overview
 
-This graph is the cell's one required `member` entry — a cell with a single `member` entry in the user's own category-cell tree always has `:Self` as that member (see Check 21). Alice is both the claimant and the subject. It carries her given name, satisfying the `ContactInfoShape` every templated cell's `member` content is now expected to conform to (`cell:memberGraphShape`) — no longer the driver's license document content, which now lives in this cell's tool graph instead (graph 79).
+This graph is the cell's one required `member` entry — a cell with a single `member` entry in the user's own category-cell tree always has `:Self` as that member (see Check 21). Alice is both the claimant and the subject. It carries her given name, satisfying the `ContactInfoShape` every templated cell's `member` content is now expected to conform to (`cell:memberShape`) — no longer the driver's license document content, which now lives in this cell's tool graph instead (graph 79).
 
 #### Graph
 

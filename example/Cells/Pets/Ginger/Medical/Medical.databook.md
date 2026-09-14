@@ -16,18 +16,18 @@ v4:
     - id: "http://www.example.org/v4/graphs/graph-33"
       claimant: ":Self"
       graphSubject: ":Self"
-      formShape: "pshapes:ContactInfoShape"
+      shape: "pshapes:ContactInfoShape"
     - id: "http://www.example.org/v4/graphs/graph-57"
       claimant: ":Paula_Walker"
       graphSubject: ":Paula_Walker"
-      formShape: "pshapes:ContactInfoShape"
+      shape: "pshapes:ContactInfoShape"
   tool:
     - type: "form"
       toolTopic: ":Ginger"
       graph:
         - id: "http://www.example.org/v4/graphs/graph-32"
           claimant: ":Self"
-          formShape: "petshapes:PetMedicationRecordShape"
+          shape: "petshapes:PetMedicationRecordShape"
 ---
 
 ## Graphs
@@ -37,7 +37,7 @@ v4:
 
 #### Overview
 
-This graph is one of the cell's two `member` entries, satisfying the two-member baseline alongside graph 57 (Paula's own claim, below). Alice is both the claimant and the subject. It carries her given name, plus a minimal organization name and email, so `:Self` satisfies the `ContactInfoShape` every templated cell's `member` content is now expected to conform to (`cell:memberGraphShape`) — no longer deliberately empty now that this requirement applies.
+This graph is one of the cell's two `member` entries, satisfying the two-member baseline alongside graph 57 (Paula's own claim, below). Alice is both the claimant and the subject. It carries her given name, plus a minimal organization name and email, so `:Self` satisfies the `ContactInfoShape` every templated cell's `member` content is now expected to conform to (`cell:memberShape`) — no longer deliberately empty now that this requirement applies.
 
 #### Graph
 
@@ -72,7 +72,7 @@ This graph is one of the cell's two `member` entries, satisfying the two-member 
 
 #### Overview
 
-This cell was created by Alice and later shared with Paula, making the cell a two-member cell. This graph is Paula's own identity claim — her given name is what actually satisfies the `ContactInfoShape` every templated cell's `member` content is now expected to conform to (`cell:memberGraphShape`); the organization name and phone below are optional extra detail, not a requirement — the cell's second `member` entry, satisfying the two-member baseline alongside graph 33 (Alice's own claim, above). Paula is both the claimant and the subject.
+This cell was created by Alice and later shared with Paula, making the cell a two-member cell. This graph is Paula's own identity claim — her given name is what actually satisfies the `ContactInfoShape` every templated cell's `member` content is now expected to conform to (`cell:memberShape`); the organization name and phone below are optional extra detail, not a requirement — the cell's second `member` entry, satisfying the two-member baseline alongside graph 33 (Alice's own claim, above). Paula is both the claimant and the subject.
 
 #### Graph
 

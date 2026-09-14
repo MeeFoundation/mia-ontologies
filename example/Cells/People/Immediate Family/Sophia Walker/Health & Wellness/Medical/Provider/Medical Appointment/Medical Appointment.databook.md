@@ -14,18 +14,18 @@ v4:
     - id: "http://www.example.org/v4/graphs/graph-28"
       claimant: ":Dave"
       graphSubject: ":Dave"
-      formShape: "pshapes:ContactInfoShape"
+      shape: "pshapes:ContactInfoShape"
     - id: "http://www.example.org/v4/graphs/graph-30"
       claimant: ":Self"
       graphSubject: ":Self"
-      formShape: "pshapes:ContactInfoShape"
+      shape: "pshapes:ContactInfoShape"
   tool:
     - type: "form"
       toolTopic: ":Sophia_Walker"
       graph:
         - id: "http://www.example.org/v4/graphs/graph-26"
           claimant: ":Self"
-          formShape: "mashapes:MedicalAppointmentRecordShape"
+          shape: "mashapes:MedicalAppointmentRecordShape"
 ---
 
 ## Graphs
@@ -114,7 +114,7 @@ This graph captures Alice's shared record of the claims needed to arrange a medi
 
 #### Overview
 
-This graph captures Dave's own self-claimed persona and contact info, shared directly from his own instance of the app to Alice's over the PDN — his given name already satisfies the `ContactInfoShape` every templated cell's `member` content is now expected to conform to (`cell:memberGraphShape`); the organization name below is optional extra detail, not what the shape actually requires. This cell's two members are Alice and Dave (its derived subject, `:Sophia_Walker` (from its sole `topic` entry), is a third party the cell is *about*, not one of its members) — this graph and its counterpart (graph 30, Alice's own self-claimed contact info) together represent those two members, alongside graph 26 (Alice's claims about Sophia's medical appointment). Dave is the claimant.
+This graph captures Dave's own self-claimed persona and contact info, shared directly from his own instance of the app to Alice's over the PDN — his given name already satisfies the `ContactInfoShape` every templated cell's `member` content is now expected to conform to (`cell:memberShape`); the organization name below is optional extra detail, not what the shape actually requires. This cell's two members are Alice and Dave (its derived subject, `:Sophia_Walker` (from its sole `topic` entry), is a third party the cell is *about*, not one of its members) — this graph and its counterpart (graph 30, Alice's own self-claimed contact info) together represent those two members, alongside graph 26 (Alice's claims about Sophia's medical appointment). Dave is the claimant.
 
 #### Graph
 
@@ -163,7 +163,7 @@ This graph captures Dave's own self-claimed persona and contact info, shared dir
 
 #### Overview
 
-This graph captures Alice Walker's own self-claimed contact info, kept in this cell so Dave can reach her while coordinating Sophia's medical appointments, plus her given name, which is what actually satisfies the `ContactInfoShape` every templated cell's `member` content is now expected to conform to (`cell:memberGraphShape`) — the organization name below is optional extra detail, not a requirement. This cell's two members are Alice and Dave (its derived subject, `:Sophia_Walker` (from its sole `topic` entry), is a third party the cell is *about*, not one of its members) — this graph and its counterpart (graph 28, Dave's own self-claimed persona) together represent those two members, alongside graph 26 (Alice's claims about Sophia's medical appointment). Alice is the claimant.
+This graph captures Alice Walker's own self-claimed contact info, kept in this cell so Dave can reach her while coordinating Sophia's medical appointments, plus her given name, which is what actually satisfies the `ContactInfoShape` every templated cell's `member` content is now expected to conform to (`cell:memberShape`) — the organization name below is optional extra detail, not a requirement. This cell's two members are Alice and Dave (its derived subject, `:Sophia_Walker` (from its sole `topic` entry), is a third party the cell is *about*, not one of its members) — this graph and its counterpart (graph 28, Dave's own self-claimed persona) together represent those two members, alongside graph 26 (Alice's claims about Sophia's medical appointment). Alice is the claimant.
 
 #### Graph
 

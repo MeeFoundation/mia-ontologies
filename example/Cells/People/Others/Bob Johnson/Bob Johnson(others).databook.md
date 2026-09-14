@@ -18,19 +18,19 @@ v4:
     - id: "http://www.example.org/v4/graphs/graph-02"
       claimant: ":Bob_Johnson"
       graphSubject: ":Bob_Johnson"
-      formShape: "pshapes:ContactInfoShape"
+      shape: "pshapes:ContactInfoShape"
     - id: "http://www.example.org/v4/graphs/graph-12"
       claimant: ":Self"
       graphSubject: ":Self"
-      formShape: "pshapes:ContactInfoShape"
+      shape: "pshapes:ContactInfoShape"
     - id: "http://www.example.org/v4/graphs/graph-04"
       claimant: ":Self"
       graphSubject: ":Bob_Johnson"
-      formShape: "pshapes:ContactInfoShape"
+      shape: "pshapes:ContactInfoShape"
     - id: "http://www.example.org/v4/graphs/graph-08"
       claimant: ":Bob_Johnson"
       graphSubject: ":Self"
-      formShape: "pshapes:ContactInfoShape"
+      shape: "pshapes:ContactInfoShape"
 ---
 
 ## Graphs
@@ -83,7 +83,7 @@ This graph captures Bob Johnson's self-claimed Bob-graph persona, transmitted fr
 
 #### Overview
 
-This graph captures Alice's record of Bob Johnson in their 1:1 relationship graph. Alice notes Bob's favorite drink and given name, the latter required by the `ContactInfoShape` every templated cell's `member` content is now expected to conform to (`cell:memberGraphShape`). Alice is the claimant.
+This graph captures Alice's record of Bob Johnson in their 1:1 relationship graph. Alice notes Bob's favorite drink and given name, the latter required by the `ContactInfoShape` every templated cell's `member` content is now expected to conform to (`cell:memberShape`). Alice is the claimant.
 
 #### Graph
 
@@ -117,7 +117,7 @@ This graph captures Alice's record of Bob Johnson in their 1:1 relationship grap
 
 #### Overview
 
-This graph captures Bob's record of Alice in their 1:1 relationship graph, transmitted from Bob's own instance of the app to Alice's over the PDN. Bob notes Alice's favorite drink and given name, the latter required by the `ContactInfoShape` every templated cell's `member` content is now expected to conform to (`cell:memberGraphShape`). Bob is the claimant.
+This graph captures Bob's record of Alice in their 1:1 relationship graph, transmitted from Bob's own instance of the app to Alice's over the PDN. Bob notes Alice's favorite drink and given name, the latter required by the `ContactInfoShape` every templated cell's `member` content is now expected to conform to (`cell:memberShape`). Bob is the claimant.
 
 #### Graph
 

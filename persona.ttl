@@ -15,12 +15,12 @@
 @base <http://mee.foundation/ontologies/persona> .
 
 <http://mee.foundation/ontologies/persona> rdf:type owl:Ontology ;
-    owl:versionIRI <http://mee.foundation/ontologies/persona/4.19.0> ;
+    owl:versionIRI <http://mee.foundation/ontologies/persona/4.20.0> ;
     owl:imports <https://w3id.org/cco-domains/domains/PersonOntology> ;
     owl:imports <https://w3id.org/cco-domains/domains/AddressOntology> ;
     owl:imports <https://w3id.org/cco-domains/domains/StagingOntology> ;
     dc:date "2026-09-13"^^xsd:date ;
-    owl:versionInfo "Version 4.19.0 - V4 named as the app in the Person class comments"@en ;
+    owl:versionInfo "Version 4.20.0 - V4 named as the app in the Person class comments"@en ;
     rdfs:label "Persona Ontology"@en ;
     rdfs:comment """Persona Ontology for the V4 App.
 
@@ -293,7 +293,7 @@ p:ContactInfo rdf:type owl:Class ;
     rdfs:comment """Label for a graph whose purpose is to carry professional
                     contact details in the JSContact (RFC 9553) format. OrganizationName and
                     at least one contact channel (email or phone) are required. Never asserted
-                    via rdf:type anywhere — a label only; the graph's own cell:formShape
+                    via rdf:type anywhere — a label only; the graph's own cell:shape
                     value instead names the validating shape, pshapes:ContactInfoShape
                     (shacl/contactinfo-shacl.ttl), directly. Unlike the record/document classes
                     that moved out to other/*.ttl peer ontologies, everything in this section is
@@ -514,7 +514,7 @@ p:specialty rdf:type owl:DatatypeProperty ;
                     other/medical-appointments.ttl alongside
                     medicalappointments:MedicalAppointmentRecord's own claim properties, whose
                     domain is that record individual rather than a Person. Backs
-                    cat:PrimaryCarePhysician's own cell:toolGraphShape,
+                    cat:PrimaryCarePhysician's own cell:toolShape,
                     pshapes:PrimaryCarePhysicianShape (shacl/persona-shacl.ttl)."""@en .
 
 

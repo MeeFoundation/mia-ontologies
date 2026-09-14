@@ -7,16 +7,16 @@ flowchart TD
 
     subgraph ctx["Graph"]
         direction LR
-        ctx_meta["claimant: :Self\ngraphSubject: :Self\nformShape: pshapes:ContactInfoShape"]:::meta
+        ctx_meta["claimant: :Self\ngraphSubject: :Self\nshape: pshapes:ContactInfoShape"]:::meta
     end
 
     n655e442e50be[":Self\n(Person)"]:::person
-    n4fe9ee8255a2("Alice"):::lit
-    n1cabc4d83ced("+15108149999"):::lit
-    n760ec63c8800("Acme"):::lit
-    n47a1e147a6a5("Best reached by text for scheduling Sophia's appointments."):::lit
+    n8a9487f9eb00("Alice"):::lit
+    n5d2baddd039a("+15108149999"):::lit
+    n48599fd75515("Acme"):::lit
+    n36523aac6a74("Best reached by text for scheduling Sophia's appointments."):::lit
 
-    n655e442e50be -->|"GivenName"| n4fe9ee8255a2
-    n655e442e50be -->|"TelephoneNumber"| n1cabc4d83ced
-    n655e442e50be -->|"OrganizationName"| n760ec63c8800
-    n655e442e50be -->|"ont00001917"| n47a1e147a6a5
+    n655e442e50be -->|"GivenName"| n8a9487f9eb00
+    n655e442e50be -->|"TelephoneNumber"| n5d2baddd039a
+    n655e442e50be -->|"OrganizationName"| n48599fd75515
+    n655e442e50be -->|"ont00001917"| n36523aac6a74
