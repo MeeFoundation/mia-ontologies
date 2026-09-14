@@ -313,7 +313,7 @@ def process_cell_databook(fm, triples):
 def process_embedded_graph(graph, triples, kind):
     """Emit the graph typing plus claimant/shape for one v4.member[] or
     v4.tool[].graph[] entry. `kind` is "member" or "tool", and is what decides
-    the type: cell:MemberGraph for a member entry, cell:ToolGraph for a tool's own
+    the type: cell:MemberGraph for a member entry, cell:FormGraph for a tool's own
     graph (cell.ttl's two disjoint cell:CGraph leaves). Nothing in the entry
     itself marks which kind it is; the list it was read from settles it,
     matching cell:member's and cell:formGraph's own ranges. Only a member
@@ -325,7 +325,7 @@ def process_embedded_graph(graph, triples, kind):
     if not claimant or (is_member and not about):
         return  # missing claimant or subject — not a well-formed graph, skip
     subj = graph["id"]
-    emit_type(triples, subj, CELL + ("MemberGraph" if is_member else "ToolGraph"))
+    emit_type(triples, subj, CELL + ("MemberGraph" if is_member else "FormGraph"))
     emit_obj(triples, subj, CELL + "claimant", resolve(claimant))
     if is_member:
         emit_obj(triples, subj, CELL + "graphSubject", resolve(about))
