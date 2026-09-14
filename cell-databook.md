@@ -23,8 +23,8 @@ For real files, see `example/Cells/` and [EXAMPLE.md](EXAMPLE.md).
 
 ## Why This Format
 
-This is how the app persists a cell, in an extended form of what is specified below. Three
-properties are what make the format the right shape for it.
+This is how the app persists a cell. Three properties are what make the format the right shape for
+it.
 
 **It is human-readable.** A cell DataBook is Markdown with YAML frontmatter, so a cell can be
 navigated, inspected, and edited with ordinary tools rather than only through the app. Maintaining
@@ -45,6 +45,14 @@ express, and [CLAUDE.md](CLAUDE.md) records the conventions behind both. Togethe
 diagnostic independent of the app — a second reading of the same rules, against which whatever
 validation v4 implements internally can be checked. A single implementation has nothing to disagree
 with.
+
+The format will change, though. It has so far been exercised by one worked example and the
+validation pipeline around it, not by an implementation, and the v4 implementation team will find
+requirements it does not yet meet — a field that has to be added, a convention that holds across the
+example tree but not across a real user's, a distinction that only matters once cells are syncing
+between real instances. This document tracks the format as it stands rather than freezing it; what
+keeps a proposed change honest is that [integrity.md](integrity.md)'s checks and the tree under
+`example/Cells/` make its blast radius visible before it is made.
 
 ## Filename Convention
 
