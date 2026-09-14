@@ -7,24 +7,24 @@ flowchart TD
 
     subgraph ctx["Graph"]
         direction LR
-        ctx_meta["claimant: :Self\ngraphSubject: :Self\ntemplate: pshapes:ContactInfoShape"]:::meta
+        ctx_meta["claimant: :Self\ngraphSubject: :Self\nformShape: pshapes:ContactInfoShape"]:::meta
     end
 
-    ne0c3ba92f1db[":Self\n(Person)"]:::person
-    n541b83fe51af("Alice"):::lit
-    n7c773ed56765("Walker"):::lit
-    n605d4b505ad9("alice@acme.com"):::lit
-    nd1a0951c7054("+15108149999"):::lit
-    n158f2e2b3e9b("Acme"):::lit
-    n0a1564bead73("Engineering"):::lit
-    nfe118ea8e107("Software Engineer"):::lit
-    n45e681d6afcb("https://www.linkedin.com/in/alicewalker"):::lit
+    n655e442e50be[":Self\n(Person)"]:::person
+    n45a2befe4989("Alice"):::lit
+    n61b85785de77("Walker"):::lit
+    n98baf1d49798("alice@acme.com"):::lit
+    na8f39804b84b("+15108149999"):::lit
+    n06f7f6cd9c3c("Acme"):::lit
+    ne699ac958e08("Engineering"):::lit
+    nef96618d4700("Software Engineer"):::lit
+    n4b9984e5db81("https://www.linkedin.com/in/alicewalker"):::lit
 
-    ne0c3ba92f1db -->|"GivenName"| n541b83fe51af
-    ne0c3ba92f1db -->|"FamilyName"| n7c773ed56765
-    ne0c3ba92f1db -->|"EmailAddress"| n605d4b505ad9
-    ne0c3ba92f1db -->|"TelephoneNumber"| nd1a0951c7054
-    ne0c3ba92f1db -->|"OrganizationName"| n158f2e2b3e9b
-    ne0c3ba92f1db -->|"OrganizationUnit"| n0a1564bead73
-    ne0c3ba92f1db -->|"JobTitle"| nfe118ea8e107
-    ne0c3ba92f1db -->|"WebURL"| n45e681d6afcb
+    n655e442e50be -->|"GivenName"| n45a2befe4989
+    n655e442e50be -->|"FamilyName"| n61b85785de77
+    n655e442e50be -->|"EmailAddress"| n98baf1d49798
+    n655e442e50be -->|"TelephoneNumber"| na8f39804b84b
+    n655e442e50be -->|"OrganizationName"| n06f7f6cd9c3c
+    n655e442e50be -->|"OrganizationUnit"| ne699ac958e08
+    n655e442e50be -->|"JobTitle"| nef96618d4700
+    n655e442e50be -->|"WebURL"| n4b9984e5db81

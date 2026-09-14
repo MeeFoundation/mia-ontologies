@@ -9,7 +9,7 @@
 
 <http://mee.foundation/ontologies/organization/shapes> rdf:type owl:Ontology ;
     owl:imports <http://mee.foundation/ontologies/organization> ;
-    owl:versionIRI <http://mee.foundation/ontologies/organization/shapes/1.3.0> ;
+    owl:versionIRI <http://mee.foundation/ontologies/organization/shapes/1.4.0> ;
     dc:date "2026-09-13"^^xsd:date ;
     rdfs:label "Organization Ontology SHACL Validation Shapes"@en ;
     rdfs:comment "SHACL validation shapes for the Organization Ontology."@en .
@@ -25,7 +25,7 @@
     sh:message "Organization validation."@en ;
 
     # Both properties are optional — most organizations in the example data are
-    # named only as a cell:claimant or a cell:topic graph's cell:graphTopic, with
+    # named only as a cell:claimant or a tool's own cell:toolTopic, with
     # no profile of their own — an organization is never a cell:graphSubject, since it
     # participates in a cell through the service:ServiceProvider it provides.
     sh:property [

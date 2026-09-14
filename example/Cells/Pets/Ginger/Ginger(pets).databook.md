@@ -16,12 +16,14 @@ v4:
     id: "http://www.example.org/v4/graphs/graph-36"
     claimant: ":Self"
     graphSubject: ":Self"
-    template: "pshapes:ContactInfoShape"
-  topic:
-    id: "http://www.example.org/v4/graphs/graph-37"
-    claimant: ":Self"
-    graphTopic: ":Ginger"
-    template: "petshapes:PetShape"
+    formShape: "pshapes:ContactInfoShape"
+  tool:
+    - type: "form"
+      toolTopic: ":Ginger"
+      graph:
+        - id: "http://www.example.org/v4/graphs/graph-37"
+          claimant: ":Self"
+          formShape: "petshapes:PetShape"
 ---
 
 ## Graphs

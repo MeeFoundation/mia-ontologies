@@ -7,7 +7,7 @@ extract-graph.py, extract-all.py, yaml-to-rdf.py and validate.py.
 
 Since graph-databooks were merged into their owning cell-databooks, a cell
 file's body may contain several ```turtle fences — one per embedded graph
-(each `v4.member`/`v4.topic` entry in that cell's frontmatter is one such
+(each `v4.member`/`v4.tool[].graph` entry in that cell's frontmatter is one such
 graph's own metadata dict). Each fence still carries its own
 `<!-- databook:graph: {graph_id}#graph -->` marker, computed from the
 graph's own `id` per the unchanged `{id}#graph` named-graph convention
@@ -35,9 +35,9 @@ PREFIXES = {
     "persona": "http://mee.foundation/ontologies/persona#",
     "pets": "http://mee.foundation/ontologies/pets#",
     "vehicles": "http://mee.foundation/ontologies/vehicles#",
-    # Shape namespaces — a v4.member[]/v4.topic[].template value is now a
-    # sh:NodeShape CURIE (cell:template's range, cell.ttl), not a template
-    # type label class name, so these three must resolve too. Same base URIs
+    # Shape namespaces — a v4.member[]/v4.tool[].graph[].formShape value is a
+    # sh:NodeShape CURIE (cell:formShape's range, cell.ttl), not a type label
+    # class name, so these three must resolve too. Same base URIs
     # cat-templates.ttl's own @prefix block declares.
     "pshapes": "http://mee.foundation/ontologies/persona/shapes#",
     "petshapes": "http://mee.foundation/ontologies/pets/shapes#",
@@ -54,10 +54,20 @@ TAG_SUBKEYS = {
     "value": "tagValue",
 }
 
+# Which cell:Tool subclass a v4.tool entry's own `type` key names (cell.ttl's
+# Cell Tools section). Spelled out rather than title-cased from the key, so a
+# grep for cell:FormTool finds this line, and so an unknown type is a
+# KeyError here rather than a triple naming a class that does not exist.
+TOOL_TYPES = {
+    "form": "FormTool",
+    "calendar": "CalendarTool",
+    "canvas": "CanvasTool",
+}
+
 
 def resolve(val):
     """Resolve a YAML-string value (curie or bare V4 local name) to a full
-    IRI. A `v4.member`/`v4.topic` entry's own `id` is already a full IRI
+    IRI. A `v4.member`/`v4.tool[].graph` entry's own `id` is already a full IRI
     (it doubles as the graph's actual named-graph identity), so it's used
     directly rather than passed through here."""
     if val.startswith("http://") or val.startswith("https://"):
@@ -124,10 +134,32 @@ def extract_graph_block(body_text, target_graph):
     return None
 
 
+def graph_entries(v4):
+    """Every graph entry a cell links, flattened into one list: its v4.member
+    entries first, then the graphs nested under each v4.tool. Tool graphs sit
+    one level deeper than member entries because a tool states its own
+    toolTopic once, above them; so that a caller reading a single graph does
+    not have to walk back up to find it, each tool graph is returned with its
+    tool's `type` and `toolTopic` copied onto it. Those two keys are a
+    read-time convenience only and are never written back to a databook —
+    storing them per graph is exactly what carrying toolTopic on the tool
+    avoids."""
+    out = list(as_list(v4.get("member")))
+    for tool in as_list(v4.get("tool")):
+        if not isinstance(tool, dict):
+            continue
+        for g in as_list(tool.get("graph")):
+            if isinstance(g, dict):
+                g = {**g, "type": tool.get("type", "form"),
+                     "toolTopic": tool.get("toolTopic")}
+            out.append(g)
+    return out
+
+
 def find_graph_entry(entries, graph_arg):
-    """Match graph_arg (an id or id-local-name) against an iterable of
-    v4.member/v4.topic entry dicts — callers pass in the concatenation of
-    both fields, since either can hold the graph being looked for."""
+    """Match graph_arg (an id or id-local-name) against an iterable of graph
+    entry dicts — callers pass in graph_entries(v4), since a member entry or
+    any tool's own graph can hold the graph being looked for."""
     for g in entries or []:
         if not isinstance(g, dict):
             continue
@@ -155,6 +187,16 @@ def tag_node(cell_id, index):
     (integrity.md's Check 9), so deriving from it needs no counter carried
     between calls and gives the same label on every run."""
     return f"_:tag_{cell_id.rsplit('/', 1)[-1]}_{index}"
+
+
+def tool_node(cell_id, index):
+    """A stable blank-node label for one cell:Tool value node, derived the
+    same way tag_node() derives a cell:ServiceTag's — from the cell's own id
+    local-name plus the tool's position in v4.tool — and for the same reason:
+    yaml-to-rdf.py emits every cell in the tree into one Turtle document, so a
+    label unique only within a single process_cell_databook() call would
+    silently merge two cells' tools into one node."""
+    return f"_:tool_{cell_id.rsplit('/', 1)[-1]}_{index}"
 
 
 def emit_type(triples, subj, type_iri):
@@ -187,13 +229,15 @@ def process_cell_databook(fm, triples):
         # regardless of facet (cell.ttl 3.45.0, renamed from cell:origin).
         emit_obj(triples, subj, CELL + "category", resolve(v4["category"]))
 
-    # Every real cell-databook is always also typed cell:MemberCell — no bare
-    # tree-position-only cell with no member content; a category node with
-    # nothing substantive to say still carries a minimal stub cell:member
-    # entry rather than omitting member content. Member count itself is
-    # never stored — it's simply the number of distinct graphSubject
-    # values among v4.member, derivable by counting whenever needed.
-    emit_type(triples, subj, CELL + "MemberCell")
+    # Every real cell-databook is always also typed cell:InstanceCell — no
+    # bare tree-position-only cell with no member content; a category node
+    # with nothing substantive to say still carries a minimal stub
+    # cell:member entry rather than omitting member content. Member count
+    # itself is never stored — it's simply the number of distinct
+    # graphSubject values among v4.member, derivable by counting whenever
+    # needed. There is no second cell type to emit: a cell that holds
+    # structured content carries cell:tool values, not a subclass.
+    emit_type(triples, subj, CELL + "InstanceCell")
 
     if v4.get("creator"):
         emit_obj(triples, subj, CELL + "creator", resolve(v4["creator"]))
@@ -203,8 +247,8 @@ def process_cell_databook(fm, triples):
     for owner_iri in as_list(v4.get("owner")):
         emit_obj(triples, subj, CELL + "owner", resolve(owner_iri))
 
-    # cell:userTag — 0..N plain xsd:string values, domain cell:MemberCell
-    # (cell.ttl's Cell Tags section), so emitted after the cell:MemberCell
+    # cell:userTag — 0..N plain xsd:string values, domain cell:InstanceCell
+    # (cell.ttl's Cell Tags section), so emitted after the cell:InstanceCell
     # typing above. as_list() lets a single bare string stand in for a
     # one-element list, the same latitude v4.owner and a graph entry's own
     # template already get. No resolve() here — a user tag is a literal, not
@@ -238,54 +282,59 @@ def process_cell_databook(fm, triples):
         emit_obj(triples, subj, CELL + "member", entry["id"])
         process_embedded_graph(entry, triples, "member")
 
-    topic = as_list(v4.get("topic"))
-    if topic:
-        # cell:TopicCell — the subclass of cell:MemberCell for a cell
-        # that actually carries a cell:topic value (cell.ttl 3.37.0). See
-        # CLAUDE.md's TopicCell integrity check.
-        emit_type(triples, subj, CELL + "TopicCell")
-    for entry in topic:
-        emit_obj(triples, subj, CELL + "topic", entry["id"])
-        process_embedded_graph(entry, triples, "topic")
+    # cell:tool — zero or more per cell, each a blank node holding this
+    # cell's structured content. The node's rdf:type comes from the entry's
+    # own `type` key (form/calendar/canvas); cell:toolTopic, what the tool's
+    # content is about, is carried once by the tool rather than repeated on
+    # each graph beneath it, which is what makes its graphs unable to
+    # disagree about what they are about.
+    for i, entry in enumerate(as_list(v4.get("tool"))):
+        node = tool_node(subj, i)
+        emit_obj(triples, subj, CELL + "tool", node)
+        emit_type(triples, node, CELL + TOOL_TYPES[entry.get("type", "form")])
+        if entry.get("toolTopic"):
+            emit_obj(triples, node, CELL + "toolTopic", resolve(entry["toolTopic"]))
+        for graph in as_list(entry.get("graph")):
+            emit_obj(triples, node, CELL + "toolGraph", graph["id"])
+            process_embedded_graph(graph, triples, "tool")
 
     # No cell-level subject synthesis: who/what a cell is about is
-    # derivable directly from members/topic — the distinct
-    # cell:graphTopic values if any topic is linked, else the distinct
-    # cell:graphSubject values among members (cell.ttl's cell:topic
+    # derivable directly from tools/members — the distinct
+    # cell:toolTopic values if any tool is present, else the distinct
+    # cell:graphSubject values among members (cell.ttl's cell:tool
     # comment) — rather than an independently-asserted fact, so it is
     # never stored as its own triple.
 
-    # No cell:shape synthesis either (cell.ttl 3.45.0 removed the
-    # property): a cell:MemberCell's validation shape is derivable from
-    # its own cell:category value via a reverse lookup on cat-templates.ttl
-    # rather than stored per-instance.
+    # No cell:shape synthesis either: a cell:InstanceCell's validation
+    # shape is derivable from its own cell:category value via a reverse
+    # lookup on cat-templates.ttl rather than stored per-instance.
 
 
 def process_embedded_graph(graph, triples, kind):
-    """Emit the graph typing plus claimant/about-ness/template for one
-    v4.member[]/v4.topic[] entry. `kind` is "member" or "topic", and is what
-    decides both the type and which about-ness property the entry carries —
-    cell:SCGraph/cell:graphSubject for a member entry, cell:TCGraph/
-    cell:graphTopic for a topic entry (cell.ttl's two disjoint cell:CGraph
-    leaves). Nothing in the entry itself marks which kind it is; the list it
-    was read from settles it, matching cell:member's and cell:topic's own
-    ranges."""
+    """Emit the graph typing plus claimant/formShape for one v4.member[] or
+    v4.tool[].graph[] entry. `kind` is "member" or "tool", and is what decides
+    the type: cell:SCGraph for a member entry, cell:ToolGraph for a tool's own
+    graph (cell.ttl's two disjoint cell:CGraph leaves). Nothing in the entry
+    itself marks which kind it is; the list it was read from settles it,
+    matching cell:member's and cell:toolGraph's own ranges. Only a member
+    entry carries an about-ness property of its own (cell:graphSubject); a
+    tool graph's is cell:toolTopic, held once by the tool above it."""
     is_member = kind == "member"
-    about_key = "graphSubject" if is_member else "graphTopic"
     claimant = graph.get("claimant")
-    about = graph.get(about_key)
-    if not (claimant and about):
-        return  # missing claimant or about-ness value — not a well-formed graph, skip
+    about = graph.get("graphSubject") if is_member else None
+    if not claimant or (is_member and not about):
+        return  # missing claimant or subject — not a well-formed graph, skip
     subj = graph["id"]
-    emit_type(triples, subj, CELL + ("SCGraph" if is_member else "TCGraph"))
+    emit_type(triples, subj, CELL + ("SCGraph" if is_member else "ToolGraph"))
     emit_obj(triples, subj, CELL + "claimant", resolve(claimant))
-    emit_obj(triples, subj, CELL + about_key, resolve(about))
+    if is_member:
+        emit_obj(triples, subj, CELL + "graphSubject", resolve(about))
 
-    # cell:template — domain cell:Graph, so it applies to both kinds, 0..N,
-    # present only on graphs that contain instance(s) of a template type label
-    # class (e.g. identitydocuments:Passport, cell.ttl's graph.png diagram). A
-    # graph may hold more than one template's worth of content at once (e.g. a
-    # single graph combining ServiceAccount, DebitCard, and CheckingAccount
+    # cell:formShape — domain cell:Graph, so it applies to both kinds, 0..N,
+    # present only on graphs that contain instance(s) of a shape's own type
+    # label class (e.g. identitydocuments:Passport, cell.ttl's graph.png
+    # diagram). A graph may satisfy more than one shape at once (e.g. a single
+    # graph combining ServiceAccount, DebitCard, and CheckingAccount
     # instances), so this accepts either a bare string or a YAML list.
-    for template in as_list(graph.get("template")):
-        emit_obj(triples, subj, CELL + "template", resolve(template))
+    for shape in as_list(graph.get("formShape")):
+        emit_obj(triples, subj, CELL + "formShape", resolve(shape))

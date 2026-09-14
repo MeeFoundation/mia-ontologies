@@ -7,20 +7,20 @@ flowchart TD
 
     subgraph ctx["Graph"]
         direction LR
-        ctx_meta["claimant: :Self\ngraphTopic: :Alice_ATT_Account\ntemplate: sashapes:ServiceAccountShape"]:::meta
+        ctx_meta["claimant: :Self\ntoolTopic: :Alice_ATT_Account\nformShape: sashapes:ServiceAccountShape"]:::meta
     end
 
-    n6b841a14e1a6[":Alice_ATT_Account\n(ServiceAccount)"]
-    nb207e27d4b3f("AT&T"):::lit
-    n9e9b92220f65("+15108149999"):::lit
-    n30d72c0afa33("https://www.att.com/my/"):::lit
-    n14149baff2f5("Alice#ATT2026!"):::lit
-    ne0c3ba92f1db[":Self\n(Person)"]:::person
-    n51a9e2da028a("+15108149999"):::lit
+    n404d6c29806d[":Alice_ATT_Account\n(ServiceAccount)"]
+    n61663b4ed63d("AT&T"):::lit
+    n778b62984e69("+15108149999"):::lit
+    n16e1aa46dbe5("https://www.att.com/my/"):::lit
+    n4689cb9fe606("Alice#ATT2026!"):::lit
+    n655e442e50be[":Self\n(Person)"]:::person
+    na748b0c78237("+15108149999"):::lit
 
-    n6b841a14e1a6 -->|"serviceName"| nb207e27d4b3f
-    n6b841a14e1a6 -->|"userHandle"| n9e9b92220f65
-    n6b841a14e1a6 -->|"serviceURI"| n30d72c0afa33
-    n6b841a14e1a6 -->|"hasPassword"| n14149baff2f5
-    ne0c3ba92f1db -->|"TelephoneNumber"| n51a9e2da028a
-    ne0c3ba92f1db -->|"holdsUserAccount"| n6b841a14e1a6
+    n404d6c29806d -->|"serviceName"| n61663b4ed63d
+    n404d6c29806d -->|"userHandle"| n778b62984e69
+    n404d6c29806d -->|"serviceURI"| n16e1aa46dbe5
+    n404d6c29806d -->|"hasPassword"| n4689cb9fe606
+    n655e442e50be -->|"TelephoneNumber"| na748b0c78237
+    n655e442e50be -->|"holdsUserAccount"| n404d6c29806d

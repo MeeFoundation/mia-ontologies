@@ -7,33 +7,33 @@ flowchart TD
 
     subgraph ctx["Graph"]
         direction LR
-        ctx_meta["claimant: :Self\ngraphTopic: :Self\ntemplate: idocshapes:PassportShape"]:::meta
+        ctx_meta["claimant: :Self\ntoolTopic: :Self\nformShape: idocshapes:PassportShape"]:::meta
     end
 
-    n104df4bab92a[":Alice_Passport_Number\n(PassportNumber)"]
-    n1e9b86ff4c78[":Alice_US_Passport\n(Passport)"]
-    nf2e2e95b9ff4("Margery"):::lit
-    nda25900ac73e("Alice"):::lit
-    n9c2375ecae97("Walker"):::lit
-    n12bae9534178("1985-07-04"):::lit
-    nb079cc259424("USA"):::lit
-    n324350439699("Austin, Texas, USA"):::lit
-    nc36f7a6408d7("F"):::lit
-    n7d4ea386fc8b("2021-07-04"):::lit
-    nb4d8f63647cc("2031-07-04"):::lit
-    n0b3af7b5a715("https://example.org/alice-passport-photo.jpg"):::lit
-    ne0c3ba92f1db[":Self\n(Person)"]:::person
+    nd96254b4c8cc[":Alice_Passport_Number\n(PassportNumber)"]
+    n83d9a191ecbb[":Alice_US_Passport\n(Passport)"]
+    n3742e72d3213("Margery"):::lit
+    nb0fd4167e7d6("Alice"):::lit
+    n1ce4670fb782("Walker"):::lit
+    n50c406ffa6ec("1985-07-04"):::lit
+    nc68e1b7f5663("USA"):::lit
+    ne88152bdf1aa("Austin, Texas, USA"):::lit
+    n374a55f9a32e("F"):::lit
+    n9b0093d89cd3("2021-07-04"):::lit
+    nd1ef526621cb("2031-07-04"):::lit
+    n4e91cb2a7051("https://example.org/alice-passport-photo.jpg"):::lit
+    n655e442e50be[":Self\n(Person)"]:::person
 
-    n1e9b86ff4c78 -->|"GivenName"| nf2e2e95b9ff4
-    n1e9b86ff4c78 -->|"AdditionalName"| nda25900ac73e
-    n1e9b86ff4c78 -->|"FamilyName"| n9c2375ecae97
-    n1e9b86ff4c78 -->|"ent00000046"| n12bae9534178
-    n1e9b86ff4c78 -->|"IssuingJurisdiction"| nb079cc259424
-    n1e9b86ff4c78 -->|"PlaceOfBirth"| n324350439699
-    n1e9b86ff4c78 -->|"GenderMarker"| nc36f7a6408d7
-    n1e9b86ff4c78 -->|"IssueDate"| n7d4ea386fc8b
-    n1e9b86ff4c78 -->|"ExpirationDate"| nb4d8f63647cc
-    n1e9b86ff4c78 -->|"isCarrierOf"| n104df4bab92a
-    n1e9b86ff4c78 -->|"hasPhoto"| n0b3af7b5a715
-    ne0c3ba92f1db -->|"hasIdentityDocument"| n1e9b86ff4c78
-    ne0c3ba92f1db -->|"designated by"| n104df4bab92a
+    n83d9a191ecbb -->|"GivenName"| n3742e72d3213
+    n83d9a191ecbb -->|"AdditionalName"| nb0fd4167e7d6
+    n83d9a191ecbb -->|"FamilyName"| n1ce4670fb782
+    n83d9a191ecbb -->|"ent00000046"| n50c406ffa6ec
+    n83d9a191ecbb -->|"IssuingJurisdiction"| nc68e1b7f5663
+    n83d9a191ecbb -->|"PlaceOfBirth"| ne88152bdf1aa
+    n83d9a191ecbb -->|"GenderMarker"| n374a55f9a32e
+    n83d9a191ecbb -->|"IssueDate"| n9b0093d89cd3
+    n83d9a191ecbb -->|"ExpirationDate"| nd1ef526621cb
+    n83d9a191ecbb -->|"isCarrierOf"| nd96254b4c8cc
+    n83d9a191ecbb -->|"hasPhoto"| n4e91cb2a7051
+    n655e442e50be -->|"hasIdentityDocument"| n83d9a191ecbb
+    n655e442e50be -->|"designated by"| nd96254b4c8cc

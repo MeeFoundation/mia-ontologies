@@ -7,23 +7,23 @@ flowchart TD
 
     subgraph ctx["Graph"]
         direction LR
-        ctx_meta["claimant: :Self\ngraphTopic: :Sophia_Walker\ntemplate: pshapes:HealthWellnessShape"]:::meta
+        ctx_meta["claimant: :Self\ntoolTopic: :Sophia_Walker\nformShape: pshapes:HealthWellnessShape"]:::meta
     end
 
-    nc2b33ffe0c84[":Sophia_Height\n(Height)"]
-    n82d3b4cd3934[":Sophia_Height_Measurement\n(RatioMeasurementICE)"]
-    n92798e8f15b9("Inch"):::lit
-    nfda21726ea9a("52"):::lit
-    n2862909bb09a[":Sophia_Walker\n(Person)"]:::person
-    n0671a0837f8f{"BlueEyeColor"}
-    n60f212cab6dd{"ScalpHair"}
-    n7d5984022733("Brown"):::lit
+    n667d12f5388b[":Sophia_Height\n(Height)"]
+    nb0b40fbd2ee8[":Sophia_Height_Measurement\n(RatioMeasurementICE)"]
+    n0017fb84a2e7("Inch"):::lit
+    n3832f0698848("52"):::lit
+    ndcbfaa4fbe46[":Sophia_Walker\n(Person)"]:::person
+    n94a58ef965f6{"BlueEyeColor"}
+    nd3fc0004c5c3{"ScalpHair"}
+    n000b16fcc46b("Brown"):::lit
 
-    n82d3b4cd3934 -->|"isRatioMeasurementOf"| nc2b33ffe0c84
-    n82d3b4cd3934 -->|"usesMeasurementUnit"| n92798e8f15b9
-    n82d3b4cd3934 -->|"hasDecimalValue"| nfda21726ea9a
-    n2862909bb09a -->|"bearerOf"| nc2b33ffe0c84
-    n2862909bb09a -->|"bearerOf"| n82d3b4cd3934
-    n2862909bb09a -->|"bearerOf"| n0671a0837f8f
-    n2862909bb09a -->|"hasContinuantPart"| n60f212cab6dd
-    n60f212cab6dd -->|"HairColor"| n7d5984022733
+    nb0b40fbd2ee8 -->|"isRatioMeasurementOf"| n667d12f5388b
+    nb0b40fbd2ee8 -->|"usesMeasurementUnit"| n0017fb84a2e7
+    nb0b40fbd2ee8 -->|"hasDecimalValue"| n3832f0698848
+    ndcbfaa4fbe46 -->|"bearerOf"| n667d12f5388b
+    ndcbfaa4fbe46 -->|"bearerOf"| nb0b40fbd2ee8
+    ndcbfaa4fbe46 -->|"bearerOf"| n94a58ef965f6
+    ndcbfaa4fbe46 -->|"hasContinuantPart"| nd3fc0004c5c3
+    nd3fc0004c5c3 -->|"HairColor"| n000b16fcc46b

@@ -5,7 +5,7 @@ type: cell-databook
 version: 2.0.0
 created: 2026-07-10
 description: >
-  Cell DataBook for folder "Sophia Walker" (cell:category: cat:ImmediateFamily). It is a two-member cell — Alice (:Self) and her husband Dave — that is also a cell:TopicCell, with one topic about :Sophia_Walker, Alice's daughter. Sophia has no instance of the app, so she is the cell's subject rather than one of its members: Alice added the topic manually and chose the Contact Info template (pshapes:ContactInfoShape) for it, even though cat:ImmediateFamily's own template cell carries cell:isTopicCell false.
+  Cell DataBook for folder "Sophia Walker" (cell:category: cat:ImmediateFamily). It is a two-member cell — Alice (:Self) and her husband Dave — that also carries a form tool about :Sophia_Walker, Alice's daughter. Sophia has no instance of the app, so she is the cell's subject rather than one of its members: Alice added the topic manually and chose the Contact Info template (pshapes:ContactInfoShape) for it, even though cat:ImmediateFamily's own template cell declares no tool.
 v4:
   category: "cat:ImmediateFamily"
   creator: ":Self"
@@ -14,16 +14,18 @@ v4:
     - id: "http://www.example.org/v4/graphs/graph-21"
       claimant: ":Self"
       graphSubject: ":Self"
-      template: "pshapes:ContactInfoShape"
+      formShape: "pshapes:ContactInfoShape"
     - id: "http://www.example.org/v4/graphs/graph-05"
       claimant: ":Dave"
       graphSubject: ":Dave"
-      template: "pshapes:ContactInfoShape"
-  topic:
-    - id: "http://www.example.org/v4/graphs/graph-07"
-      claimant: ":Self"
-      graphTopic: ":Sophia_Walker"
-      template: "pshapes:ContactInfoShape"
+      formShape: "pshapes:ContactInfoShape"
+  tool:
+    - type: "form"
+      toolTopic: ":Sophia_Walker"
+      graph:
+        - id: "http://www.example.org/v4/graphs/graph-07"
+          claimant: ":Self"
+          formShape: "pshapes:ContactInfoShape"
 ---
 
 ## Graphs
@@ -62,7 +64,7 @@ This graph captures Dave's self-claimed family persona as transmitted from Dave'
 
 #### Overview
 
-This graph captures Alice's Contact Info record of her daughter Sophia Walker. Sophia has no instance of the app, so she cannot join this cell as a member: Alice added this graph manually as the cell's `cell:topic` and chose the Contact Info template (`pshapes:ContactInfoShape`) for it, which is what makes an otherwise ordinary `cat:ImmediateFamily` cell a `cell:TopicCell`. Sophia is therefore the cell's derived subject rather than one of its two members. Alice is the claimant.
+This graph captures Alice's Contact Info record of her daughter Sophia Walker. Sophia has no instance of the app, so she cannot join this cell as a member: Alice added this graph manually, in a form tool she added herself, and chose the Contact Info template (`pshapes:ContactInfoShape`) for it, which is what gives an otherwise ordinary `cat:ImmediateFamily` cell structured content of its own. Sophia is therefore the cell's derived subject rather than one of its two members. Alice is the claimant.
 
 #### Graph
 

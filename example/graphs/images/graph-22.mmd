@@ -7,26 +7,26 @@ flowchart TD
 
     subgraph ctx["Graph"]
         direction LR
-        ctx_meta["claimant: :Self\ngraphSubject: :Self\ntemplate: pshapes:ContactInfoShape"]:::meta
+        ctx_meta["claimant: :Self\ngraphSubject: :Self\nformShape: pshapes:ContactInfoShape"]:::meta
     end
 
-    n8020f1e0dda3[":Alice_DriversLicense\n(PhysicalDriversLicense)"]
-    ne031334f4c41[":Alice_Wallet\n(Wallet)"]
-    n16319a7d9aaf("file:///scans/alice-drivers-license.png"):::lit
-    n45648c6e1691[":Alice_HealthInsuranceCard\n(PhysicalHealthInsuranceCard)"]
-    n5aa16707069d("file:///scans/alice-health-insurance-card.png"):::lit
-    n424bc5303466[":Alice_PaymentCard\n(PhysicalPaymentCard)"]
-    nfb9947b1c0ef[":Alice_SSNCard\n(PhysicalSocialSecurityCard)"]
-    ne0c3ba92f1db[":Self\n(Person)"]:::person
-    n1f1793a7e151("Alice"):::lit
+    n0303611a7c60[":Alice_DriversLicense\n(PhysicalDriversLicense)"]
+    nb98293d697a1[":Alice_Wallet\n(Wallet)"]
+    neecb76977951("file:///scans/alice-drivers-license.png"):::lit
+    nfe3c9ccef900[":Alice_HealthInsuranceCard\n(PhysicalHealthInsuranceCard)"]
+    nb1cfdd713e7a("file:///scans/alice-health-insurance-card.png"):::lit
+    n090977cab091[":Alice_PaymentCard\n(PhysicalPaymentCard)"]
+    n13a319213254[":Alice_SSNCard\n(PhysicalSocialSecurityCard)"]
+    n655e442e50be[":Self\n(Person)"]:::person
+    ne7e186b4c869("Alice"):::lit
 
-    n8020f1e0dda3 -->|"continuantPartOf"| ne031334f4c41
-    n8020f1e0dda3 -->|"hasImageScan"| n16319a7d9aaf
-    n45648c6e1691 -->|"hasImageScan"| n5aa16707069d
-    n424bc5303466 -->|"continuantPartOf"| ne031334f4c41
-    ne0c3ba92f1db -->|"GivenName"| n1f1793a7e151
-    ne0c3ba92f1db -->|"hasWallet"| ne031334f4c41
-    ne0c3ba92f1db -->|"hasPhysicalCard"| n45648c6e1691
-    ne0c3ba92f1db -->|"hasPhysicalCard"| nfb9947b1c0ef
-    ne0c3ba92f1db -->|"hasPhysicalCard"| n8020f1e0dda3
-    ne0c3ba92f1db -->|"hasPhysicalCard"| n424bc5303466
+    n0303611a7c60 -->|"continuantPartOf"| nb98293d697a1
+    n0303611a7c60 -->|"hasImageScan"| neecb76977951
+    nfe3c9ccef900 -->|"hasImageScan"| nb1cfdd713e7a
+    n090977cab091 -->|"continuantPartOf"| nb98293d697a1
+    n655e442e50be -->|"GivenName"| ne7e186b4c869
+    n655e442e50be -->|"hasWallet"| nb98293d697a1
+    n655e442e50be -->|"hasPhysicalCard"| nfe3c9ccef900
+    n655e442e50be -->|"hasPhysicalCard"| n13a319213254
+    n655e442e50be -->|"hasPhysicalCard"| n0303611a7c60
+    n655e442e50be -->|"hasPhysicalCard"| n090977cab091

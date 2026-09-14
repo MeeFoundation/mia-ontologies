@@ -16,12 +16,14 @@ v4:
     id: "http://www.example.org/v4/graphs/graph-18"
     claimant: ":Self"
     graphSubject: ":Self"
-    template: "pshapes:ContactInfoShape"
-  topic:
-    id: "http://www.example.org/v4/graphs/graph-83"
-    claimant: ":Self"
-    graphTopic: ":Self"
-    template: "residenceshapes:ResidenceShape"
+    formShape: "pshapes:ContactInfoShape"
+  tool:
+    - type: "form"
+      toolTopic: ":Self"
+      graph:
+        - id: "http://www.example.org/v4/graphs/graph-83"
+          claimant: ":Self"
+          formShape: "residenceshapes:ResidenceShape"
 ---
 
 ## Graphs
@@ -31,7 +33,7 @@ v4:
 
 #### Overview
 
-This graph is the cell's one required `member` entry — a cell with a single `member` entry in the user's own category-cell tree always has `:Self` as that member (see Check 21). Alice is both the claimant and the subject. It carries her given name, satisfying the `ContactInfoShape` every templated cell's `member` content is now expected to conform to (`cell:memberGraphShape`) — no longer the address content, which now lives in this cell's `cell:topic` graph instead (graph 83).
+This graph is the cell's one required `member` entry — a cell with a single `member` entry in the user's own category-cell tree always has `:Self` as that member (see Check 21). Alice is both the claimant and the subject. It carries her given name, satisfying the `ContactInfoShape` every templated cell's `member` content is now expected to conform to (`cell:memberGraphShape`) — no longer the address content, which now lives in this cell's tool graph instead (graph 83).
 
 #### Graph
 
@@ -58,7 +60,7 @@ This graph is the cell's one required `member` entry — a cell with a single `m
 
 #### Overview
 
-This graph captures Alice Walker's current residential address: 123 Sleepy Hollow, Paradise, CA 95969 — moved here, as this cell's `cell:topic` content, from the cell's former `member` graph-18. The address designation has a start date of September 2025 and no end date, indicating it is her current residence. See graph 82 for her previous address. Validated by the `ResidenceShape` per-template SHACL shape. Alice is the claimant.
+This graph captures Alice Walker's current residential address: 123 Sleepy Hollow, Paradise, CA 95969 — moved here, as this cell's tool content, from the cell's former `member` graph-18. The address designation has a start date of September 2025 and no end date, indicating it is her current residence. See graph 82 for her previous address. Validated by the `ResidenceShape` per-template SHACL shape. Alice is the claimant.
 
 #### Graph
 

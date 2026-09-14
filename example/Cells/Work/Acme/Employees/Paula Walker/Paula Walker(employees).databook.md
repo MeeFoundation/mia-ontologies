@@ -14,11 +14,11 @@ v4:
     - id: "http://www.example.org/v4/graphs/graph-20"
       claimant: ":Self"
       graphSubject: ":Self"
-      template: "pshapes:ContactInfoShape"
+      formShape: "pshapes:ContactInfoShape"
     - id: "http://www.example.org/v4/graphs/graph-06"
       claimant: ":Self"
       graphSubject: ":Paula_Walker"
-      template: "pshapes:ContactInfoShape"
+      formShape: "pshapes:ContactInfoShape"
 ---
 
 ## Graphs
@@ -28,7 +28,7 @@ v4:
 
 #### Overview
 
-This graph captures Alice's record of her colleague Paula Walker in their shared Acme employment graph — one of the cell's two required `member` entries, satisfying `ContactInfoShape`'s required GivenName alongside her existing `rdfs:label` (moved here from `cell:topic` once the cell's category, then `cat:Employee`, reverted to `isTopicCell: false`; `cat:Employee` has since been deleted entirely, and this cell now reuses `cat:Employees` directly). Alice is the claimant.
+This graph captures Alice's record of her colleague Paula Walker in their shared Acme employment graph — one of the cell's two required `member` entries, satisfying `ContactInfoShape`'s required GivenName alongside her existing `rdfs:label` (this cell's category declares no tool, so its content belongs in the member graph; `cat:Employee` has since been deleted entirely, and this cell now reuses `cat:Employees` directly). Alice is the claimant.
 
 #### Graph
 

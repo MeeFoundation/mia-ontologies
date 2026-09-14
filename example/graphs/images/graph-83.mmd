@@ -7,26 +7,26 @@ flowchart TD
 
     subgraph ctx["Graph"]
         direction LR
-        ctx_meta["claimant: :Self\ngraphTopic: :Self\ntemplate: residenceshapes:ResidenceShape"]:::meta
+        ctx_meta["claimant: :Self\ntoolTopic: :Self\nformShape: residenceshapes:ResidenceShape"]:::meta
     end
 
-    ndbcf44a48000[":Address_Paradise\n(PostalAddress)"]
-    n96bc7ccab5d0("123 Sleepy Hollow"):::lit
-    n0bfe32f6b6ed("Paradise"):::lit
-    na61aa844eb33("CA"):::lit
-    n078f7ca1c7ea("95969"):::lit
-    nac5b8fc02a7f("USA"):::lit
-    naf26563dc3c8[":Interval_2025_Present\n(TemporalInterval)"]
-    nd5dae2a8dede("2025-09-01"):::lit
-    n0eecd6ebe039[":Paradise_Residence\n(Residence)"]
-    ne0c3ba92f1db[":Self\n(Person)"]:::person
+    n7e906253e991[":Address_Paradise\n(PostalAddress)"]
+    n2daaca7a9a1d("123 Sleepy Hollow"):::lit
+    ncf6574c43e54("Paradise"):::lit
+    n44145db5ad98("CA"):::lit
+    need4a28b8c43("95969"):::lit
+    n9fcbf8e9b41a("USA"):::lit
+    nc3290dbef551[":Interval_2025_Present\n(TemporalInterval)"]
+    nc8a51dd5d2ab("2025-09-01"):::lit
+    n99ff4c41baea[":Paradise_Residence\n(Residence)"]
+    n655e442e50be[":Self\n(Person)"]:::person
 
-    ndbcf44a48000 -->|"hasContinuantPart"| n96bc7ccab5d0
-    ndbcf44a48000 -->|"hasContinuantPart"| n0bfe32f6b6ed
-    ndbcf44a48000 -->|"hasContinuantPart"| na61aa844eb33
-    ndbcf44a48000 -->|"hasContinuantPart"| n078f7ca1c7ea
-    ndbcf44a48000 -->|"hasContinuantPart"| nac5b8fc02a7f
-    naf26563dc3c8 -->|"hasStartDate"| nd5dae2a8dede
-    n0eecd6ebe039 -->|"hasParticipant"| ne0c3ba92f1db
-    n0eecd6ebe039 -->|"ent00000324"| ndbcf44a48000
-    n0eecd6ebe039 -->|"BFO_0000199"| naf26563dc3c8
+    n7e906253e991 -->|"hasContinuantPart"| n2daaca7a9a1d
+    n7e906253e991 -->|"hasContinuantPart"| ncf6574c43e54
+    n7e906253e991 -->|"hasContinuantPart"| n44145db5ad98
+    n7e906253e991 -->|"hasContinuantPart"| need4a28b8c43
+    n7e906253e991 -->|"hasContinuantPart"| n9fcbf8e9b41a
+    nc3290dbef551 -->|"hasStartDate"| nc8a51dd5d2ab
+    n99ff4c41baea -->|"hasParticipant"| n655e442e50be
+    n99ff4c41baea -->|"ent00000324"| n7e906253e991
+    n99ff4c41baea -->|"BFO_0000199"| nc3290dbef551

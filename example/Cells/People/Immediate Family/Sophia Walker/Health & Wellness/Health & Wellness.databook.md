@@ -14,12 +14,14 @@ v4:
     id: "http://www.example.org/v4/graphs/graph-35"
     claimant: ":Self"
     graphSubject: ":Self"
-    template: "pshapes:ContactInfoShape"
-  topic:
-    id: "http://www.example.org/v4/graphs/graph-17"
-    claimant: ":Self"
-    graphTopic: ":Sophia_Walker"
-    template: "pshapes:HealthWellnessShape"
+    formShape: "pshapes:ContactInfoShape"
+  tool:
+    - type: "form"
+      toolTopic: ":Sophia_Walker"
+      graph:
+        - id: "http://www.example.org/v4/graphs/graph-17"
+          claimant: ":Self"
+          formShape: "pshapes:HealthWellnessShape"
 ---
 
 ## Graphs
@@ -56,7 +58,7 @@ This graph captures Alice's own bare identity claim (just her given name) — th
 
 #### Overview
 
-This graph captures Sophia Walker's physical body characteristics — properties that are intrinsic to her as a person and do not belong to any particular institutional or social graph — as recorded by Alice. Height is recorded as a CCO Height quality with a RatioMeasurementICE (52 inches). Eye color is modeled as Sophia bearing a BlueEyeColor quality directly. Hair color is borne by her ScalpHair continuant part. Alice is the claimant; Sophia is the cell's `subject` but, since this cell now has a real member entry (graph 35, above) about Alice herself, Sophia's graph is linked via `cell:topic` rather than as one of the required `member` entries.
+This graph captures Sophia Walker's physical body characteristics — properties that are intrinsic to her as a person and do not belong to any particular institutional or social graph — as recorded by Alice. Height is recorded as a CCO Height quality with a RatioMeasurementICE (52 inches). Eye color is modeled as Sophia bearing a BlueEyeColor quality directly. Hair color is borne by her ScalpHair continuant part. Alice is the claimant; Sophia is the cell's `subject` but, since this cell now has a real member entry (graph 35, above) about Alice herself, Sophia's graph is held by the cell's form tool rather than being one of the required `member` entries.
 
 #### Graph
 

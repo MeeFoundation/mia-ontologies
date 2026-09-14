@@ -7,18 +7,18 @@ flowchart TD
 
     subgraph ctx["Graph"]
         direction LR
-        ctx_meta["claimant: :Self\ngraphSubject: :Self\ntemplate: pshapes:ContactInfoShape"]:::meta
+        ctx_meta["claimant: :Self\ngraphSubject: :Self\nformShape: pshapes:ContactInfoShape"]:::meta
     end
 
-    n2ed3865285b0[":Alice_Acme_Network\n(SocialNetwork)"]
-    nf4296ab13de4[":Paula_Walker\n(Person)"]:::person
-    ne0c3ba92f1db[":Self\n(Person)"]:::person
-    n916c1aa712d8("Alice"):::lit
-    n12da1b411959("Alice Walker"):::lit
-    nba3cc8dd92a5("alice@acme.com"):::lit
+    n614c8153a57c[":Alice_Acme_Network\n(SocialNetwork)"]
+    n679aafec7a4b[":Paula_Walker\n(Person)"]:::person
+    n655e442e50be[":Self\n(Person)"]:::person
+    n14275a890944("Alice"):::lit
+    n39ef37c3927d("Alice Walker"):::lit
+    nf9fa1e485f88("alice@acme.com"):::lit
 
-    n2ed3865285b0 -->|"hasMemberPart"| nf4296ab13de4
-    ne0c3ba92f1db -->|"GivenName"| n916c1aa712d8
-    ne0c3ba92f1db -->|"AlternateName"| n12da1b411959
-    ne0c3ba92f1db -->|"EmailAddress"| nba3cc8dd92a5
-    ne0c3ba92f1db -->|"hasSocialNetwork"| n2ed3865285b0
+    n614c8153a57c -->|"hasMemberPart"| n679aafec7a4b
+    n655e442e50be -->|"GivenName"| n14275a890944
+    n655e442e50be -->|"AlternateName"| n39ef37c3927d
+    n655e442e50be -->|"EmailAddress"| nf9fa1e485f88
+    n655e442e50be -->|"hasSocialNetwork"| n614c8153a57c

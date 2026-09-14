@@ -7,20 +7,20 @@ flowchart TD
 
     subgraph ctx["Graph"]
         direction LR
-        ctx_meta["claimant: :Self\ngraphTopic: :Alice_Hilton_Account\ntemplate: sashapes:ServiceAccountShape"]:::meta
+        ctx_meta["claimant: :Self\ntoolTopic: :Alice_Hilton_Account\nformShape: sashapes:ServiceAccountShape"]:::meta
     end
 
-    nef8132741846[":Alice_Hilton_Account\n(ServiceAccount)"]
-    ne3681795f7ad("Hilton Honors"):::lit
-    n843f1ab64e62("awalker@gmail.com"):::lit
-    n5506993a8c08("https://www.hilton.com/en/hilton-honors"):::lit
-    nfd12b98f5976("Alice#Hilton2026!"):::lit
-    nf6143b9a68f8("602194837"):::lit
-    ne0c3ba92f1db[":Self\n(Person)"]:::person
+    n43544c792f91[":Alice_Hilton_Account\n(ServiceAccount)"]
+    n86d40e3c8f24("Hilton Honors"):::lit
+    n2e39deefa85a("awalker@gmail.com"):::lit
+    n992a1107962b("https://www.hilton.com/en/hilton-honors"):::lit
+    n4176cc6b4969("Alice#Hilton2026!"):::lit
+    nb31cff004e92("602194837"):::lit
+    n655e442e50be[":Self\n(Person)"]:::person
 
-    nef8132741846 -->|"serviceName"| ne3681795f7ad
-    nef8132741846 -->|"userHandle"| n843f1ab64e62
-    nef8132741846 -->|"serviceURI"| n5506993a8c08
-    nef8132741846 -->|"hasPassword"| nfd12b98f5976
-    nef8132741846 -->|"loyaltyProgramID"| nf6143b9a68f8
-    ne0c3ba92f1db -->|"holdsUserAccount"| nef8132741846
+    n43544c792f91 -->|"serviceName"| n86d40e3c8f24
+    n43544c792f91 -->|"userHandle"| n2e39deefa85a
+    n43544c792f91 -->|"serviceURI"| n992a1107962b
+    n43544c792f91 -->|"hasPassword"| n4176cc6b4969
+    n43544c792f91 -->|"loyaltyProgramID"| nb31cff004e92
+    n655e442e50be -->|"holdsUserAccount"| n43544c792f91

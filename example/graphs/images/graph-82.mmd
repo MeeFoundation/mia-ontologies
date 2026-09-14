@@ -7,26 +7,26 @@ flowchart TD
 
     subgraph ctx["Graph"]
         direction LR
-        ctx_meta["claimant: :Self\ngraphTopic: :Self\ntemplate: residenceshapes:ResidenceShape"]:::meta
+        ctx_meta["claimant: :Self\ntoolTopic: :Self\nformShape: residenceshapes:ResidenceShape"]:::meta
     end
 
-    nc67f0317dd3d[":Address_Boston\n(PostalAddress)"]
-    na0c2b79e8f9b("456 Commonwealth Ave"):::lit
-    nbf6f97f1297d("Boston"):::lit
-    nc3bd5ca4c01a("MA"):::lit
-    ne4cec26894ef("02215"):::lit
-    n596b411b2d6f[":Boston_Residence\n(Residence)"]
-    ne0c3ba92f1db[":Self\n(Person)"]:::person
-    n712165170b98[":Interval_2020_2025\n(TemporalInterval)"]
-    na357c4eb4a16("2020-01-01"):::lit
-    nbf2895943c37("2025-08-31"):::lit
+    nc282917bad21[":Address_Boston\n(PostalAddress)"]
+    n6d6508dc9a1d("456 Commonwealth Ave"):::lit
+    nabbcf4640404("Boston"):::lit
+    nbf61d63058e8("MA"):::lit
+    nd0ef1ab0985b("02215"):::lit
+    nf7331d9360b8[":Boston_Residence\n(Residence)"]
+    n655e442e50be[":Self\n(Person)"]:::person
+    n4052c78424fa[":Interval_2020_2025\n(TemporalInterval)"]
+    n5e44f5e7f869("2020-01-01"):::lit
+    n8ea048281512("2025-08-31"):::lit
 
-    nc67f0317dd3d -->|"hasContinuantPart"| na0c2b79e8f9b
-    nc67f0317dd3d -->|"hasContinuantPart"| nbf6f97f1297d
-    nc67f0317dd3d -->|"hasContinuantPart"| nc3bd5ca4c01a
-    nc67f0317dd3d -->|"hasContinuantPart"| ne4cec26894ef
-    n596b411b2d6f -->|"hasParticipant"| ne0c3ba92f1db
-    n596b411b2d6f -->|"ent00000324"| nc67f0317dd3d
-    n596b411b2d6f -->|"BFO_0000199"| n712165170b98
-    n712165170b98 -->|"hasStartDate"| na357c4eb4a16
-    n712165170b98 -->|"hasEndDate"| nbf2895943c37
+    nc282917bad21 -->|"hasContinuantPart"| n6d6508dc9a1d
+    nc282917bad21 -->|"hasContinuantPart"| nabbcf4640404
+    nc282917bad21 -->|"hasContinuantPart"| nbf61d63058e8
+    nc282917bad21 -->|"hasContinuantPart"| nd0ef1ab0985b
+    nf7331d9360b8 -->|"hasParticipant"| n655e442e50be
+    nf7331d9360b8 -->|"ent00000324"| nc282917bad21
+    nf7331d9360b8 -->|"BFO_0000199"| n4052c78424fa
+    n4052c78424fa -->|"hasStartDate"| n5e44f5e7f869
+    n4052c78424fa -->|"hasEndDate"| n8ea048281512

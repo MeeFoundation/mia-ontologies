@@ -19,20 +19,22 @@ v4:
     - id: "http://www.example.org/v4/graphs/graph-09"
       claimant: ":Self"
       graphSubject: ":Self"
-      template: "pshapes:ContactInfoShape"
+      formShape: "pshapes:ContactInfoShape"
     - id: "http://www.example.org/v4/graphs/graph-45"
       claimant: ":Marcy"
       graphSubject: ":Marcy"
-      template: "pshapes:ContactInfoShape"
+      formShape: "pshapes:ContactInfoShape"
     - id: "http://www.example.org/v4/graphs/graph-100"
       claimant: ":Henry"
       graphSubject: ":Henry"
-      template: "pshapes:ContactInfoShape"
-  topic:
-    - id: "http://www.example.org/v4/graphs/graph-101"
-      claimant: ":Self"
-      graphTopic: ":CHVA"
-      template: "oshapes:OrganizationShape"
+      formShape: "pshapes:ContactInfoShape"
+  tool:
+    - type: "form"
+      toolTopic: ":CHVA"
+      graph:
+        - id: "http://www.example.org/v4/graphs/graph-101"
+          claimant: ":Self"
+          formShape: "oshapes:OrganizationShape"
 ---
 
 ## Graphs
@@ -150,7 +152,7 @@ This graph captures Henry's Chestnut Hill Village Association profile as transmi
 
 #### Overview
 
-This graph captures the Chestnut Hill Village Association's own organizational profile — the association as an `o:Organization` in its own right, with the number of households it covers and its public website — as the cell's `cell:topic`. Where the Boston Hub Society claims its own profile (graph 92) from its own PDN node, the association has none, so Alice self-enters this one: she is the claimant, and `:CHVA` is never a `cell:member` subject at all. The association's day-to-day working material — its recommended contractors (plumbers, electricians, lawn care and the like), the dates of its annual in-person meeting and its annual spring cleanup event, the name of the current president, and its annual dues — is free text rather than modeled data, and lives in this cell's folder note — `Chestnut Hill Village Association.md`, shown in the app's Note area rather than its Attachments area — instead of here.
+This graph captures the Chestnut Hill Village Association's own organizational profile — the association as an `o:Organization` in its own right, with the number of households it covers and its public website — as the cell's tool graph. Where the Boston Hub Society claims its own profile (graph 92) from its own PDN node, the association has none, so Alice self-enters this one: she is the claimant, and `:CHVA` is never a `cell:member` subject at all. The association's day-to-day working material — its recommended contractors (plumbers, electricians, lawn care and the like), the dates of its annual in-person meeting and its annual spring cleanup event, the name of the current president, and its annual dues — is free text rather than modeled data, and lives in this cell's folder note — `Chestnut Hill Village Association.md`, shown in the app's Note area rather than its Attachments area — instead of here.
 
 #### Graph
 

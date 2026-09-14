@@ -18,19 +18,19 @@ v4:
     - id: "http://www.example.org/v4/graphs/graph-02"
       claimant: ":Bob_Johnson"
       graphSubject: ":Bob_Johnson"
-      template: "pshapes:ContactInfoShape"
+      formShape: "pshapes:ContactInfoShape"
     - id: "http://www.example.org/v4/graphs/graph-12"
       claimant: ":Self"
       graphSubject: ":Self"
-      template: "pshapes:ContactInfoShape"
+      formShape: "pshapes:ContactInfoShape"
     - id: "http://www.example.org/v4/graphs/graph-04"
       claimant: ":Self"
       graphSubject: ":Bob_Johnson"
-      template: "pshapes:ContactInfoShape"
+      formShape: "pshapes:ContactInfoShape"
     - id: "http://www.example.org/v4/graphs/graph-08"
       claimant: ":Bob_Johnson"
       graphSubject: ":Self"
-      template: "pshapes:ContactInfoShape"
+      formShape: "pshapes:ContactInfoShape"
 ---
 
 ## Graphs

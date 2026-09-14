@@ -13,8 +13,8 @@ description: >
   by three topic graphs sharing one subject (:Kyoto_Trip_2027), one per member, each with a
   distinct claimant — Alice's own basic claim (graph-69), her agent's own evolving,
   collaboratively-drafted itinerary (graph-70), and Dave's own contribution (graph-91) — reaching
-  cell:topic's real upper bound (one value per member, see Check 25) and mirroring how a
-  cell:topic may be claimed from more than one side (see the Medical Appointment cell's two
+  cell:toolGraph's real upper bound (one graph per member, see Check 25) and mirroring how a
+  tool's topic may be claimed from more than one side (see the Medical Appointment cell's two
   "Med. Appt mt." squares in README.md's Representative Cells diagram).
 v4:
   category: "cat:Trips"
@@ -24,28 +24,28 @@ v4:
     - id: "http://www.example.org/v4/graphs/graph-66"
       claimant: ":Self"
       graphSubject: ":Self"
-      template: "pshapes:ContactInfoShape"
+      formShape: "pshapes:ContactInfoShape"
     - id: "http://www.example.org/v4/graphs/graph-67"
       claimant: ":Alice_Travel_Agent"
       graphSubject: ":Alice_Travel_Agent"
-      template: "pshapes:ContactInfoShape"
+      formShape: "pshapes:ContactInfoShape"
     - id: "http://www.example.org/v4/graphs/graph-68"
       claimant: ":Dave"
       graphSubject: ":Dave"
-      template: "pshapes:ContactInfoShape"
-  topic:
-    - id: "http://www.example.org/v4/graphs/graph-69"
-      claimant: ":Self"
-      graphTopic: ":Kyoto_Trip_2027"
-      template: "itineraryshapes:ItineraryShape"
-    - id: "http://www.example.org/v4/graphs/graph-70"
-      claimant: ":Alice_Travel_Agent"
-      graphTopic: ":Kyoto_Trip_2027"
-      template: "itineraryshapes:ItineraryShape"
-    - id: "http://www.example.org/v4/graphs/graph-91"
-      claimant: ":Dave"
-      graphTopic: ":Kyoto_Trip_2027"
-      template: "itineraryshapes:ItineraryShape"
+      formShape: "pshapes:ContactInfoShape"
+  tool:
+    - type: "form"
+      toolTopic: ":Kyoto_Trip_2027"
+      graph:
+        - id: "http://www.example.org/v4/graphs/graph-69"
+          claimant: ":Self"
+          formShape: "itineraryshapes:ItineraryShape"
+        - id: "http://www.example.org/v4/graphs/graph-70"
+          claimant: ":Alice_Travel_Agent"
+          formShape: "itineraryshapes:ItineraryShape"
+        - id: "http://www.example.org/v4/graphs/graph-91"
+          claimant: ":Dave"
+          formShape: "itineraryshapes:ItineraryShape"
 ---
 
 ## Graphs
@@ -205,7 +205,7 @@ This graph is one of the cell's three `topic` entries — Alice's travel agent's
 
 #### Overview
 
-This graph is the cell's third `topic` entry — Dave's own contribution to the trip, claimed by him directly rather than routed through Alice or her travel agent. With this graph, the cell reaches `cell:topic`'s real upper bound: one topic value per member, each with a distinct claimant (Self, the agent, and now Dave — see Check 25), the same subject `:Kyoto_Trip_2027` claimed from all three sides at once.
+This graph is the cell's third `topic` entry — Dave's own contribution to the trip, claimed by him directly rather than routed through Alice or her travel agent. With this graph, the cell reaches `cell:toolGraph`'s real upper bound: one graph per member, each with a distinct claimant (Self, the agent, and now Dave — see Check 25), the same subject `:Kyoto_Trip_2027` claimed from all three sides at once.
 
 #### Graph
 

@@ -7,28 +7,28 @@ flowchart TD
 
     subgraph ctx["Graph"]
         direction LR
-        ctx_meta["claimant: :Self\ngraphTopic: :Ginger\ntemplate: petshapes:PetShape"]:::meta
+        ctx_meta["claimant: :Self\ntoolTopic: :Ginger\nformShape: petshapes:PetShape"]:::meta
     end
 
-    nd44f902e3f9e[":Ginger\n(Pet)"]
-    n3ca0c7faebe5("Ginger"):::lit
-    n956f63fdbc96("NCBITaxon_9685"):::lit
-    n9e505e1dc69a("VBO_0100262"):::lit
-    ne20592b7b4fa("2020-06-15"):::lit
-    nd98aabc76a0e[":Ginger_Weight\n(BodyWeight)"]
-    ne6f075283022("Female"):::lit
-    nc22e9031e2b9("true"):::lit
-    nd93284aad1dc("9.5"):::lit
-    nfacd527fabed("ont00001728"):::lit
-    ne0c3ba92f1db[":Self\n(Person)"]:::person
+    n8c49398c722e[":Ginger\n(Pet)"]
+    n501e80e40f64("Ginger"):::lit
+    ncb60ed920d0b("NCBITaxon_9685"):::lit
+    nfa3aa3f99d5b("VBO_0100262"):::lit
+    n74ac8c3d6df5("2020-06-15"):::lit
+    n62e93d3f5324[":Ginger_Weight\n(BodyWeight)"]
+    ne42aabd190a5("Female"):::lit
+    nf972faa53823("true"):::lit
+    nc4062761723e("9.5"):::lit
+    n383a5917db61("ont00001728"):::lit
+    n655e442e50be[":Self\n(Person)"]:::person
 
-    nd44f902e3f9e -->|"name"| n3ca0c7faebe5
-    nd44f902e3f9e -->|"hasSpecies"| n956f63fdbc96
-    nd44f902e3f9e -->|"hasBreed"| n9e505e1dc69a
-    nd44f902e3f9e -->|"birthDate"| ne20592b7b4fa
-    nd44f902e3f9e -->|"hasBodyWeight"| nd98aabc76a0e
-    nd44f902e3f9e -->|"sex"| ne6f075283022
-    nd44f902e3f9e -->|"isSpayedOrNeutered"| nc22e9031e2b9
-    nd98aabc76a0e -->|"hasDecimalValue"| nd93284aad1dc
-    nd98aabc76a0e -->|"usesMeasurementUnit"| nfacd527fabed
-    ne0c3ba92f1db -->|"hasPet"| nd44f902e3f9e
+    n8c49398c722e -->|"name"| n501e80e40f64
+    n8c49398c722e -->|"hasSpecies"| ncb60ed920d0b
+    n8c49398c722e -->|"hasBreed"| nfa3aa3f99d5b
+    n8c49398c722e -->|"birthDate"| n74ac8c3d6df5
+    n8c49398c722e -->|"hasBodyWeight"| n62e93d3f5324
+    n8c49398c722e -->|"sex"| ne42aabd190a5
+    n8c49398c722e -->|"isSpayedOrNeutered"| nf972faa53823
+    n62e93d3f5324 -->|"hasDecimalValue"| nc4062761723e
+    n62e93d3f5324 -->|"usesMeasurementUnit"| n383a5917db61
+    n655e442e50be -->|"hasPet"| n8c49398c722e

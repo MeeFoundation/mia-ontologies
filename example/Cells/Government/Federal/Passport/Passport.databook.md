@@ -16,12 +16,14 @@ v4:
     id: "http://www.example.org/v4/graphs/graph-19"
     claimant: ":Self"
     graphSubject: ":Self"
-    template: "pshapes:ContactInfoShape"
-  topic:
-    id: "http://www.example.org/v4/graphs/graph-81"
-    claimant: ":Self"
-    graphTopic: ":Self"
-    template: "idocshapes:PassportShape"
+    formShape: "pshapes:ContactInfoShape"
+  tool:
+    - type: "form"
+      toolTopic: ":Self"
+      graph:
+        - id: "http://www.example.org/v4/graphs/graph-81"
+          claimant: ":Self"
+          formShape: "idocshapes:PassportShape"
 ---
 
 ## Graphs
@@ -31,7 +33,7 @@ v4:
 
 #### Overview
 
-This graph is the cell's one required `member` entry — a cell with a single `member` entry in the user's own category-cell tree always has `:Self` as that member (see Check 21). Alice is both the claimant and the subject. It carries her given name, satisfying the `ContactInfoShape` every templated cell's `member` content is now expected to conform to (`cell:memberGraphShape`) — no longer the passport document content, which now lives in this cell's `cell:topic` graph instead (graph 81).
+This graph is the cell's one required `member` entry — a cell with a single `member` entry in the user's own category-cell tree always has `:Self` as that member (see Check 21). Alice is both the claimant and the subject. It carries her given name, satisfying the `ContactInfoShape` every templated cell's `member` content is now expected to conform to (`cell:memberGraphShape`) — no longer the passport document content, which now lives in this cell's tool graph instead (graph 81).
 
 #### Graph
 
@@ -58,7 +60,7 @@ This graph is the cell's one required `member` entry — a cell with a single `m
 
 #### Overview
 
-This graph captures Alice Walker's US passport identity data — moved here, as this cell's `cell:topic` content, from the cell's former `member` graph-19. Alice self-enters her legal name (Margery Alice Walker), date of birth (1985-07-04), US passport number (123456789), issue date (2021-07-04), expiration date (2031-07-04), place of birth (Austin, Texas, USA), gender marker (F), and a photo. Validated by the `PassportShape` per-template SHACL shape (`other/shacl/identity-documents-shacl.ttl`). Alice is the claimant.
+This graph captures Alice Walker's US passport identity data — moved here, as this cell's tool content, from the cell's former `member` graph-19. Alice self-enters her legal name (Margery Alice Walker), date of birth (1985-07-04), US passport number (123456789), issue date (2021-07-04), expiration date (2031-07-04), place of birth (Austin, Texas, USA), gender marker (F), and a photo. Validated by the `PassportShape` per-template SHACL shape (`other/shacl/identity-documents-shacl.ttl`). Alice is the claimant.
 
 #### Graph
 

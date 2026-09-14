@@ -7,16 +7,16 @@ flowchart TD
 
     subgraph ctx["Graph"]
         direction LR
-        ctx_meta["claimant: :Bob_Johnson\ngraphSubject: :Bob_Johnson\ntemplate: pshapes:ContactInfoShape"]:::meta
+        ctx_meta["claimant: :Bob_Johnson\ngraphSubject: :Bob_Johnson\nformShape: pshapes:ContactInfoShape"]:::meta
     end
 
-    n19c34148fc05[":Bob_Bob_Network\n(SocialNetwork)"]
-    n89768dce3f8b[":Self"]
-    n166b15bd501b[":Bob_Johnson\n(Person)"]:::person
-    na8c851c3e00d("Bob"):::lit
-    n977b35c48509("Johnson"):::lit
+    neae384a4670c[":Bob_Bob_Network\n(SocialNetwork)"]
+    nca0dda0e6750[":Self"]
+    ncec7d6304e56[":Bob_Johnson\n(Person)"]:::person
+    n06c156afc905("Bob"):::lit
+    ned55b19a54ec("Johnson"):::lit
 
-    n19c34148fc05 -->|"hasMemberPart"| n89768dce3f8b
-    n166b15bd501b -->|"GivenName"| na8c851c3e00d
-    n166b15bd501b -->|"FamilyName"| n977b35c48509
-    n166b15bd501b -->|"hasSocialNetwork"| n19c34148fc05
+    neae384a4670c -->|"hasMemberPart"| nca0dda0e6750
+    ncec7d6304e56 -->|"GivenName"| n06c156afc905
+    ncec7d6304e56 -->|"FamilyName"| ned55b19a54ec
+    ncec7d6304e56 -->|"hasSocialNetwork"| neae384a4670c

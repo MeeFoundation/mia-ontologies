@@ -20,20 +20,20 @@ Each cell gets two passes:
    against the four general shapes files — cell-shacl (the cell model
    itself), persona-shacl, organization-shacl, service-shacl. The graph Turtle
    has to be in here, not just the frontmatter triples: cell-shacl's
-   :MemberCellShape constrains creator/owner with `sh:class p:Person` and
+   :InstanceCellShape constrains creator/owner with `sh:class p:Person` and
    :CGraphShape constrains claimant with
    `sh:or ( [sh:class p:Person] [sh:class o:Organization] [sh:class service:Service] )`,
    and those individuals are typed only in the graph Turtle.
 
-2. **Template pass** — each graph that carries a `template:` value, checked
-   on its own against the shape that value names. A graph's `template:` is
+2. **Template pass** — each graph that carries a `formShape:` value, checked
+   on its own against the shape that value names. A graph's `formShape:` is
    the *sole* indicator of what to validate it against, and since
-   `cell:template`'s range is `sh:NodeShape` (cell.ttl) the value already
+   `cell:formShape`'s range is `sh:NodeShape` (cell.ttl) the value already
    *names the shape itself* (e.g. `idocshapes:PassportShape`), with no
    label-to-shape resolution step. The only work left is locating which
    physical `*-shacl.ttl` file defines a shape of that name — since
    `pshapes:` shapes are split across two files — done via the SHAPE_TO_FILE
-   table below. A graph with no `template:` value is skipped outright.
+   table below. A graph with no `formShape:` value is skipped outright.
 
 The two passes use different base merges. cat-templates.ttl is in the
 template pass's base but deliberately out of the cell pass's, so cell-shacl
@@ -87,6 +87,7 @@ from rdflib.namespace import OWL, RDF, SH
 from databook_graphs import (
     as_list,
     extract_graph_block,
+    graph_entries,
     iter_graph_blocks,
     process_cell_databook,
     split_frontmatter,
@@ -110,7 +111,7 @@ SHAPE_NS = {
 }
 
 # --- template CURIE prefix -> candidate shapes files ------------------------
-# A cell:template value's own CURIE prefix narrows which physical files could
+# A cell:formShape value's own CURIE prefix narrows which physical files could
 # define it — pshapes: alone is split across two files, so the shape's own
 # local name (below) picks the exact one; every other prefix maps to exactly
 # one file.
@@ -128,7 +129,7 @@ PREFIX_TO_FILES = {
 }
 
 # --- shape local name -> shapes file -----------------------------------------
-# cell:template's range is sh:NodeShape (cell.ttl), so a template value already
+# cell:formShape's range is sh:NodeShape (cell.ttl), so the value already
 # *names the shape directly* — no more label-to-shape resolution, and no more
 # named exceptions (there's no label/target mismatch left to except). This
 # table exists purely to locate which physical *-shacl.ttl file defines a
@@ -157,7 +158,7 @@ SHAPE_TO_FILE = {
 
 
 def resolve_shape_file(template):
-    """Resolve a cell:template value (a shape CURIE, e.g.
+    """Resolve a cell:formShape value (a shape CURIE, e.g.
     'idocshapes:PassportShape') to (shapes_file, shape_local_name).
     Returns None if the prefix is unrecognized or the local name has no
     SHAPE_TO_FILE entry."""
@@ -360,14 +361,14 @@ def main():
             violations += 1
 
         # --- Template pass: each templated graph against its own shape.
-        for entry in as_list(v4.get("member")) + as_list(v4.get("topic")):
+        for entry in graph_entries(v4):
             if not isinstance(entry, dict):
                 continue
             gid = entry["id"]
             gid_local = gid.rsplit("/", 1)[-1]
-            templates = as_list(entry.get("template"))
+            templates = as_list(entry.get("formShape"))
             if not templates:
-                print(f"SKIP     {cell_path} {gid_local} (no template)")
+                print(f"SKIP     {cell_path} {gid_local} (no formShape)")
                 skipped += 1
                 continue
 
@@ -404,7 +405,7 @@ def main():
                     violations += 1
 
     print()
-    print(f"Cells: {cells}   Checked: {checked}   Skipped (no template): {skipped}   "
+    print(f"Cells: {cells}   Checked: {checked}   Skipped (no formShape): {skipped}   "
           f"Violations: {violations}   Unresolved: {unresolved}")
     sys.exit(1 if (violations or unresolved) else 0)
 

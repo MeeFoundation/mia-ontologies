@@ -7,12 +7,12 @@ flowchart TD
 
     subgraph ctx["Graph"]
         direction LR
-        ctx_meta["claimant: :Self\ngraphTopic: :Acme\ntemplate: oshapes:OrganizationShape"]:::meta
+        ctx_meta["claimant: :Self\ntoolTopic: :Acme\nformShape: oshapes:OrganizationShape"]:::meta
     end
 
-    n7bff298e566c[":Acme\n(Organization)"]:::org
-    nba4c41a7cdce("2400"):::lit
-    n61c6723fdb01("https://acme.example.com"):::lit
+    n45f84c28301d[":Acme\n(Organization)"]:::org
+    n10f32227a649("2400"):::lit
+    n7a3902c14602("https://acme.example.com"):::lit
 
-    n7bff298e566c -->|"numMembers"| nba4c41a7cdce
-    n7bff298e566c -->|"hasWebsite"| n61c6723fdb01
+    n45f84c28301d -->|"numMembers"| n10f32227a649
+    n45f84c28301d -->|"hasWebsite"| n7a3902c14602

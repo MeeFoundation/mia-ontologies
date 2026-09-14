@@ -21,16 +21,18 @@ v4:
     - id: "http://www.example.org/v4/graphs/graph-95"
       claimant: ":Self"
       graphSubject: ":Self"
-      template: "pshapes:ContactInfoShape"
+      formShape: "pshapes:ContactInfoShape"
     - id: "http://www.example.org/v4/graphs/graph-96"
       claimant: ":Arca_Backup"
       graphSubject: ":Arca_Backup"
-      template: "pshapes:ContactInfoShape"
-  topic:
-    - id: "http://www.example.org/v4/graphs/graph-97"
-      claimant: ":Self"
-      graphTopic: ":Alice_Arca_Account"
-      template: "sashapes:ServiceAccountShape"
+      formShape: "pshapes:ContactInfoShape"
+  tool:
+    - type: "form"
+      toolTopic: ":Alice_Arca_Account"
+      graph:
+        - id: "http://www.example.org/v4/graphs/graph-97"
+          claimant: ":Self"
+          formShape: "sashapes:ServiceAccountShape"
 ---
 
 ## Graphs

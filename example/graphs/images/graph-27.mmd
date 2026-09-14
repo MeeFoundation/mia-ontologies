@@ -7,14 +7,14 @@ flowchart TD
 
     subgraph ctx["Graph"]
         direction LR
-        ctx_meta["claimant: :Citibank\ngraphSubject: :Citibank_Service\ntemplate: pshapes:ContactInfoShape"]:::meta
+        ctx_meta["claimant: :Citibank\ngraphSubject: :Citibank_Service\nformShape: pshapes:ContactInfoShape"]:::meta
     end
 
-    n0415a88486d3[":Citibank\n(Organization)"]:::org
-    n53e51b30af9b("https://citibank.com"):::lit
-    n8f4dddfb95f7("A national consumer bank offering checking and savings accounts, debit and credit cards, lending, and online banking."):::lit
-    n228242fe6160[":Citibank_Service\n(ServiceProvider)"]:::service
+    n6889d2df6624[":Citibank\n(Organization)"]:::org
+    n51e2d53579af("https://citibank.com"):::lit
+    n27fcde8b1bf4("A national consumer bank offering checking and savings accounts, debit and credit cards, lending, and online banking."):::lit
+    n2b31cae95ec3[":Citibank_Service\n(ServiceProvider)"]:::service
 
-    n0415a88486d3 -->|"hasWebsite"| n53e51b30af9b
-    n0415a88486d3 -->|"ont00001917"| n8f4dddfb95f7
-    n228242fe6160 -->|"providedBy"| n0415a88486d3
+    n6889d2df6624 -->|"hasWebsite"| n51e2d53579af
+    n6889d2df6624 -->|"ont00001917"| n27fcde8b1bf4
+    n2b31cae95ec3 -->|"providedBy"| n6889d2df6624

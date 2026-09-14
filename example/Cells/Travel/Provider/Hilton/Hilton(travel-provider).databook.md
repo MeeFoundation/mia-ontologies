@@ -11,8 +11,8 @@ description: >
   category" pattern Ginger/Pets and Citibank/Banking & Payments Firms already use.
   It is a one-member cell with one member entry about :Self and one topic about
   her Hilton Honors account. cat:TravelProvider's own cell:TemplateCell
-  is cell:isTopicCell true with cell:topicGraphShape sashapes:ServiceAccountShape, so
-  that topic is template-driven and the cell is typed cell:TopicCell from the start.
+  declares a form tool carrying cell:toolGraphShape sashapes:ServiceAccountShape, so
+  that tool is template-driven and the cell carries it from the start.
   The cell carries no tag: what makes it findable is the loyaltyProgramID in its
   own topic graph, which a search for that property returns directly.
 v4:
@@ -23,12 +23,14 @@ v4:
     id: "http://www.example.org/v4/graphs/graph-99"
     claimant: ":Self"
     graphSubject: ":Self"
-    template: "pshapes:ContactInfoShape"
-  topic:
-    id: "http://www.example.org/v4/graphs/graph-84"
-    claimant: ":Self"
-    graphTopic: ":Alice_Hilton_Account"
-    template: "sashapes:ServiceAccountShape"
+    formShape: "pshapes:ContactInfoShape"
+  tool:
+    - type: "form"
+      toolTopic: ":Alice_Hilton_Account"
+      graph:
+        - id: "http://www.example.org/v4/graphs/graph-84"
+          claimant: ":Self"
+          formShape: "sashapes:ServiceAccountShape"
 ---
 
 ## Graphs
@@ -65,7 +67,7 @@ This graph is the cell's one required `member` entry, claimed by and about `:Sel
 
 #### Overview
 
-This graph captures Alice's own claim about her Hilton Honors account — the cell's sole `topic`, so its `subject: ":Alice_Hilton_Account"` is what the cell's derived subject resolves to (see Check 18). It is typed `serviceaccounts:ServiceAccount` and multi-typed `cco:ent00000033` (Online Service Account), the same pattern her Google, AT&T and Arca account graphs use, and is validated by `other/shacl/service-accounts-shacl.ttl`'s `:ServiceAccountShape`. Alongside the usual service name, username, service URI and password, it carries `serviceaccounts:loyaltyProgramID` — her Hilton Honors membership number, the value she quotes when booking or claiming points, distinct from the username she logs in with. It is the one example graph exercising that property; every other service-account graph here (Google, AT&T, Arca, Citibank) belongs to a provider running no loyalty program, so all of them legitimately omit it. `cat:TravelProvider`'s own `cell:TemplateCell` carries `cell:isTopicCell true` and declares `cell:topicGraphShape sashapes:ServiceAccountShape`, so this topic is template-driven rather than hand-added: [Lazy Instantiation](../../../../../APP-BEHAVIOR.md#lazy-instantiation) stamps its `template:` value straight from that shape, and Check 27 checks the two agree. Its real upper bound is the cell's own member count (Check 25) — one topic per member, each with a distinct claimant — which for this one-member cell means exactly this one. Alice is both the claimant and the account holder.
+This graph captures Alice's own claim about her Hilton Honors account — the cell's sole `topic`, so its `subject: ":Alice_Hilton_Account"` is what the cell's derived subject resolves to (see Check 18). It is typed `serviceaccounts:ServiceAccount` and multi-typed `cco:ent00000033` (Online Service Account), the same pattern her Google, AT&T and Arca account graphs use, and is validated by `other/shacl/service-accounts-shacl.ttl`'s `:ServiceAccountShape`. Alongside the usual service name, username, service URI and password, it carries `serviceaccounts:loyaltyProgramID` — her Hilton Honors membership number, the value she quotes when booking or claiming points, distinct from the username she logs in with. It is the one example graph exercising that property; every other service-account graph here (Google, AT&T, Arca, Citibank) belongs to a provider running no loyalty program, so all of them legitimately omit it. `cat:TravelProvider`'s own `cell:TemplateCell` declares a form tool carrying `cell:toolGraphShape sashapes:ServiceAccountShape`, so this tool is template-driven rather than hand-added: [Lazy Instantiation](../../../../../APP-BEHAVIOR.md#lazy-instantiation) stamps its `template:` value straight from that shape, and Check 27 checks the two agree. Its real upper bound is the cell's own member count (Check 25) — one topic per member, each with a distinct claimant — which for this one-member cell means exactly this one. Alice is both the claimant and the account holder.
 
 #### Graph
 

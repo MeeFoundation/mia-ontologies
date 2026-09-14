@@ -7,18 +7,18 @@ flowchart TD
 
     subgraph ctx["Graph"]
         direction LR
-        ctx_meta["claimant: :Self\ngraphTopic: :Alice_Arca_Account\ntemplate: sashapes:ServiceAccountShape"]:::meta
+        ctx_meta["claimant: :Self\ntoolTopic: :Alice_Arca_Account\nformShape: sashapes:ServiceAccountShape"]:::meta
     end
 
-    n7a1e356de3c9[":Alice_Arca_Account\n(ServiceAccount)"]
-    n367ed95820d7("Arca"):::lit
-    n55acb94bc8e0("awalker@gmail.com"):::lit
-    n2d7adaf1ca04("https://arca.example.com/account"):::lit
-    n917e04fa4120("Alice#Arca2026!"):::lit
-    ne0c3ba92f1db[":Self\n(Person)"]:::person
+    n865adc8ba2a1[":Alice_Arca_Account\n(ServiceAccount)"]
+    neac6eebe8608("Arca"):::lit
+    neec9acb11e1f("awalker@gmail.com"):::lit
+    nfac75ff81c93("https://arca.example.com/account"):::lit
+    n1a08478e4e3c("Alice#Arca2026!"):::lit
+    n655e442e50be[":Self\n(Person)"]:::person
 
-    n7a1e356de3c9 -->|"serviceName"| n367ed95820d7
-    n7a1e356de3c9 -->|"userHandle"| n55acb94bc8e0
-    n7a1e356de3c9 -->|"serviceURI"| n2d7adaf1ca04
-    n7a1e356de3c9 -->|"hasPassword"| n917e04fa4120
-    ne0c3ba92f1db -->|"holdsUserAccount"| n7a1e356de3c9
+    n865adc8ba2a1 -->|"serviceName"| neac6eebe8608
+    n865adc8ba2a1 -->|"userHandle"| neec9acb11e1f
+    n865adc8ba2a1 -->|"serviceURI"| nfac75ff81c93
+    n865adc8ba2a1 -->|"hasPassword"| n1a08478e4e3c
+    n655e442e50be -->|"holdsUserAccount"| n865adc8ba2a1

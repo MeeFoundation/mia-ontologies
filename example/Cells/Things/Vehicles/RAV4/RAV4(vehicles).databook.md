@@ -19,12 +19,14 @@ v4:
     id: "http://www.example.org/v4/graphs/graph-62"
     claimant: ":Self"
     graphSubject: ":Self"
-    template: "pshapes:ContactInfoShape"
-  topic:
-    id: "http://www.example.org/v4/graphs/graph-63"
-    claimant: ":Self"
-    graphTopic: ":Alice_RAV4"
-    template: "vehicleshapes:VehicleShape"
+    formShape: "pshapes:ContactInfoShape"
+  tool:
+    - type: "form"
+      toolTopic: ":Alice_RAV4"
+      graph:
+        - id: "http://www.example.org/v4/graphs/graph-63"
+          claimant: ":Self"
+          formShape: "vehicleshapes:VehicleShape"
 ---
 
 ## Graphs

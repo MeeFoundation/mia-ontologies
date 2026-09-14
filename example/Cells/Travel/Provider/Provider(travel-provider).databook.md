@@ -9,7 +9,7 @@ description: >
   one-member cell with one member entry about :Self — a minimal stub, since
   "Provider" is a purely organizational category node with no content or
   relationship of its own beyond Alice's required membership. It also carries the
-  topic cat:TravelProvider's own TemplateCell now requires (cell:isTopicCell true),
+  tool graph cat:TravelProvider's own TemplateCell requires,
   deliberately empty, since its real content lives in its own leaf cell (Hilton)
   instead.
 v4:
@@ -20,11 +20,13 @@ v4:
     id: "http://www.example.org/v4/graphs/graph-98"
     claimant: ":Self"
     graphSubject: ":Self"
-    template: "pshapes:ContactInfoShape"
-  topic:
-    id: "http://www.example.org/v4/graphs/graph-56"
-    claimant: ":Self"
-    graphTopic: ":Self"
+    formShape: "pshapes:ContactInfoShape"
+  tool:
+    - type: "form"
+      toolTopic: ":Self"
+      graph:
+        - id: "http://www.example.org/v4/graphs/graph-56"
+          claimant: ":Self"
 ---
 
 ## Graphs
@@ -61,7 +63,7 @@ This graph is the cell's one required `member` entry — a cell with a single `m
 
 #### Overview
 
-This graph is the cell's required `topic` — required now that `cat:TravelProvider`'s own `TemplateCell` is `isTopicCell: true` (Check 31), even though "Provider" is a purely organizational scaffold cell with no topic content of its own (the real content lives in this category's own leaf cell, Hilton, instead). Deliberately empty — no triples at all, per Check 32's own allowance — and so carries no `template:` value either, the same as every other scaffold cell's empty topic. Alice is both the claimant and the subject.
+This graph is the cell's required tool graph — required since `cat:TravelProvider`'s own `TemplateCell` declares a form tool, even though "Provider" is a purely organizational scaffold cell with no topic content of its own (the real content lives in this category's own leaf cell, Hilton, instead). Deliberately empty — no triples at all, per Check 32's own allowance — and so carries no `template:` value either, the same as every other scaffold cell's empty topic. Alice is both the claimant and the subject.
 
 #### Graph
 

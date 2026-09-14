@@ -7,18 +7,18 @@ flowchart TD
 
     subgraph ctx["Graph"]
         direction LR
-        ctx_meta["claimant: :Self\ngraphTopic: :Alice_Google_Account\ntemplate: sashapes:ServiceAccountShape"]:::meta
+        ctx_meta["claimant: :Self\ntoolTopic: :Alice_Google_Account\nformShape: sashapes:ServiceAccountShape"]:::meta
     end
 
-    nb70624797640[":Alice_Google_Account\n(ServiceAccount)"]
-    n0f068188a8fa("Google"):::lit
-    nba6e63e440e9("awalker@gmail.com"):::lit
-    n04ffdd1fe842("https://myaccount.google.com"):::lit
-    nf76839aefb51("Alice#Google2026!"):::lit
-    ne0c3ba92f1db[":Self\n(Person)"]:::person
+    n8d7dca1237fd[":Alice_Google_Account\n(ServiceAccount)"]
+    n35d074c33c5d("Google"):::lit
+    nd714d648af48("awalker@gmail.com"):::lit
+    nb7978efc0346("https://myaccount.google.com"):::lit
+    n5fd6b2767583("Alice#Google2026!"):::lit
+    n655e442e50be[":Self\n(Person)"]:::person
 
-    nb70624797640 -->|"serviceName"| n0f068188a8fa
-    nb70624797640 -->|"userHandle"| nba6e63e440e9
-    nb70624797640 -->|"serviceURI"| n04ffdd1fe842
-    nb70624797640 -->|"hasPassword"| nf76839aefb51
-    ne0c3ba92f1db -->|"holdsUserAccount"| nb70624797640
+    n8d7dca1237fd -->|"serviceName"| n35d074c33c5d
+    n8d7dca1237fd -->|"userHandle"| nd714d648af48
+    n8d7dca1237fd -->|"serviceURI"| nb7978efc0346
+    n8d7dca1237fd -->|"hasPassword"| n5fd6b2767583
+    n655e442e50be -->|"holdsUserAccount"| n8d7dca1237fd

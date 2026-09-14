@@ -7,34 +7,34 @@ flowchart TD
 
     subgraph ctx["Graph"]
         direction LR
-        ctx_meta["claimant: :Citibank\ngraphTopic: :Self\ntemplate: ['sashapes:ServiceAccountShape', 'bankingshapes:DebitCardShape', 'bankingshapes:CheckingAccountShape']"]:::meta
+        ctx_meta["claimant: :Citibank\ntoolTopic: :Self\nformShape: ['sashapes:ServiceAccountShape', 'bankingshapes:DebitCardShape', 'bankingshapes:CheckingAccountShape']"]:::meta
     end
 
-    naadb4eb7dbfe[":Alice_Checking_Account\n(CheckingAccount)"]
-    nc48245e411f2("9876543210"):::lit
-    n9bd0421b44b7("021000089"):::lit
-    nd168547b019a[":Alice_Citibank_Online\n(ServiceAccount)"]
-    nc9432ab45295("Citibank"):::lit
-    n6ca0a0131dbe("awalker@gmail.com"):::lit
-    nc8206224677c("https://online.citi.com"):::lit
-    n7342ed3a24fa("C1t1b@nk#2024!"):::lit
-    ne33644105d79[":Alice_Debit_Card\n(DebitCard)"]
-    n19203b6760b3("4111-1111-1111-1111"):::lit
-    ndf2d200b9759("123"):::lit
-    n9d77610adf61("12/28"):::lit
-    n0415a88486d3[":Citibank\n(Organization)"]:::org
-    ne0c3ba92f1db[":Self\n(Person)"]:::person
+    nfcabce2898c4[":Alice_Checking_Account\n(CheckingAccount)"]
+    n4b1ce7095409("9876543210"):::lit
+    nfa77ae18722e("021000089"):::lit
+    n075fd8d7ca17[":Alice_Citibank_Online\n(ServiceAccount)"]
+    ncfea1672ed58("Citibank"):::lit
+    nff8118a747ca("awalker@gmail.com"):::lit
+    n9c25c9cade18("https://online.citi.com"):::lit
+    nf0ebb1137af5("C1t1b@nk#2024!"):::lit
+    ncd4672cb485d[":Alice_Debit_Card\n(DebitCard)"]
+    ne18fb6d054d9("4111-1111-1111-1111"):::lit
+    n9d193f04c8b4("123"):::lit
+    n157980cfc275("12/28"):::lit
+    n6889d2df6624[":Citibank\n(Organization)"]:::org
+    n655e442e50be[":Self\n(Person)"]:::person
 
-    naadb4eb7dbfe -->|"AccountNumber"| nc48245e411f2
-    naadb4eb7dbfe -->|"RoutingNumber"| n9bd0421b44b7
-    nd168547b019a -->|"serviceName"| nc9432ab45295
-    nd168547b019a -->|"userHandle"| n6ca0a0131dbe
-    nd168547b019a -->|"serviceURI"| nc8206224677c
-    nd168547b019a -->|"hasPassword"| n7342ed3a24fa
-    ne33644105d79 -->|"CardNumber"| n19203b6760b3
-    ne33644105d79 -->|"CVV"| ndf2d200b9759
-    ne33644105d79 -->|"ExpirationDate"| n9d77610adf61
-    ne33644105d79 -->|"accessesBankAccount"| naadb4eb7dbfe
-    ne0c3ba92f1db -->|"hasPaymentCard"| ne33644105d79
-    ne0c3ba92f1db -->|"hasBankAccount"| naadb4eb7dbfe
-    ne0c3ba92f1db -->|"holdsUserAccount"| nd168547b019a
+    nfcabce2898c4 -->|"AccountNumber"| n4b1ce7095409
+    nfcabce2898c4 -->|"RoutingNumber"| nfa77ae18722e
+    n075fd8d7ca17 -->|"serviceName"| ncfea1672ed58
+    n075fd8d7ca17 -->|"userHandle"| nff8118a747ca
+    n075fd8d7ca17 -->|"serviceURI"| n9c25c9cade18
+    n075fd8d7ca17 -->|"hasPassword"| nf0ebb1137af5
+    ncd4672cb485d -->|"CardNumber"| ne18fb6d054d9
+    ncd4672cb485d -->|"CVV"| n9d193f04c8b4
+    ncd4672cb485d -->|"ExpirationDate"| n157980cfc275
+    ncd4672cb485d -->|"accessesBankAccount"| nfcabce2898c4
+    n655e442e50be -->|"hasPaymentCard"| ncd4672cb485d
+    n655e442e50be -->|"hasBankAccount"| nfcabce2898c4
+    n655e442e50be -->|"holdsUserAccount"| n075fd8d7ca17

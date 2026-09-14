@@ -8,9 +8,8 @@ description: >
   Cell DataBook for folder "Trips" (cell:category: cat:Trips), nested under "Travel". It is a
   one-member cell with one member entry about :Self — a minimal stub, since "Trips" is a purely
   organizational category node with no content or relationship of its own beyond Alice's required
-  membership. Nested inside it is the "Kyoto Trip 2027" cell for a specific trip. Also carries an
-  empty topic graph, required now that cat:Trips's own TemplateCell is isTopicCell: true (Check 31)
-  — the real topic content lives in this category's own leaf cell (Kyoto Trip 2027) instead.
+  membership. Nested inside it is the "Kyoto Trip 2027" cell for a specific trip. also carries an empty tool graph, since cat:Trips's own
+  TemplateCell declares a form tool — the real content lives in this category's own leaf cell (Kyoto Trip 2027) instead.
 v4:
   category: "cat:Trips"
   creator: ":Self"
@@ -19,11 +18,13 @@ v4:
     id: "http://www.example.org/v4/graphs/graph-65"
     claimant: ":Self"
     graphSubject: ":Self"
-    template: "pshapes:ContactInfoShape"
-  topic:
-    id: "http://www.example.org/v4/graphs/graph-90"
-    claimant: ":Self"
-    graphTopic: ":Self"
+    formShape: "pshapes:ContactInfoShape"
+  tool:
+    - type: "form"
+      toolTopic: ":Self"
+      graph:
+        - id: "http://www.example.org/v4/graphs/graph-90"
+          claimant: ":Self"
 ---
 
 ## Graphs
@@ -60,7 +61,7 @@ This graph is the cell's one required `member` entry — a cell with a single `m
 
 #### Overview
 
-This graph is the cell's required `topic` — required now that `cat:Trips`'s own `TemplateCell` is `isTopicCell: true` (Check 31), even though "Trips" is a purely organizational scaffold cell with no topic content of its own (the real content lives in this category's own leaf cell, Kyoto Trip 2027, instead). Deliberately empty — no triples at all, per Check 32's own allowance. Alice is both the claimant and the subject.
+This graph is the cell's required tool graph — required since `cat:Trips`'s own `TemplateCell` declares a form tool, even though "Trips" is a purely organizational scaffold cell with no topic content of its own (the real content lives in this category's own leaf cell, Kyoto Trip 2027, instead). Deliberately empty — no triples at all, per Check 32's own allowance. Alice is both the claimant and the subject.
 
 #### Graph
 

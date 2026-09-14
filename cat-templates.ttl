@@ -19,12 +19,12 @@
 @base <http://mee.foundation/ontologies/cell-templates> .
 
 <http://mee.foundation/ontologies/cell-templates> rdf:type owl:Ontology ;
-    owl:versionIRI <http://mee.foundation/ontologies/cell-templates/2.29.0> ;
+    owl:versionIRI <http://mee.foundation/ontologies/cell-templates/3.0.0> ;
     dc:date "2026-09-13"^^xsd:date ;
     owl:imports <http://mee.foundation/ontologies/cell> ;
-    owl:versionInfo "Version 2.29.0 - the catch-all clubs, charities, and faith groups category is now cat:Groups, with ctpl:GroupsTemplateCell as its template cell"@en ;
+    owl:versionInfo "Version 3.0.0 - each template declares, via cell:declaresTool, the tools a cell of its category is created with"@en ;
     rdfs:label "Cell Templates"@en ;
-    rdfs:comment """Class-level cell:Cell templates for category concepts (category.ttl's cat:CategoryScheme). Each individual here is what the app clones into a new cell when a folder representing its own cell:category concept is first instantiated into a user's tree (Lazy Instantiation) — finding the template for a given category is a reverse lookup (?tc cell:category cat:X), since category.ttl carries no forward pointer of its own. Each is typed solely cell:TemplateCell."""@en .
+    rdfs:comment """Class-level cell:Cell templates for category concepts (category.ttl's cat:CategoryScheme). Each individual here is what the app clones into a new cell when a folder representing its own cell:category concept is first instantiated into a user's tree (Lazy Instantiation) — finding the template for a given category is a reverse lookup (?tc cell:category cat:X), since category.ttl carries no forward pointer of its own. Each is typed solely cell:TemplateCell, and carries cell:memberGraphShape for the member baseline plus zero or more cell:declaresTool nodes naming the tools — a cell:FormTool and its governing cell:toolGraphShape — a cell of that category is created with. Most declare none: most categories have nothing structured to say beyond their member baseline, and a cell cloned from such a template can still gain tools later, chosen by the user."""@en .
 
 #################################################################
 #  cat:Person  (SKOS top concept)
@@ -36,10 +36,9 @@ ctpl:PersonTemplateCell rdf:type cell:Cell, cell:TemplateCell ;
                     instantiated directly as bare "Person" is the root of a user's own tree of
                     cells — purely organizational, with no document, account or third party of its
                     own — so it carries only the contact-info member view every template shares,
-                    and cell:isTopicCell false."""@en ;
+                    and declares no tool."""@en ;
     cell:category cat:Person ;
-    cell:memberGraphShape pshapes:ContactInfoShape ;
-    cell:isTopicCell false .
+    cell:memberGraphShape pshapes:ContactInfoShape .
 
 #################################################################
 #  cat:Organization  (SKOS top concept)
@@ -49,13 +48,13 @@ ctpl:OrganizationTemplateCell rdf:type cell:Cell, cell:TemplateCell ;
     rdfs:label "Organization Template Cell"@en ;
     rdfs:comment """The template for cat:Organization, one of the scheme's two SKOS top concepts. A
                     cell instantiated directly as bare "Organization" stands for the organization
-                    itself — an employer, say — so its cell:topic carries that organization's own
-                    o:Organization profile, the same oshapes:OrganizationShape cat:Groups
-                    uses."""@en ;
+                    itself — an employer, say — so it declares a cell:FormTool carrying that
+                    organization's own o:Organization profile, the same
+                    oshapes:OrganizationShape cat:Groups uses."""@en ;
     cell:category cat:Organization ;
     cell:memberGraphShape pshapes:ContactInfoShape ;
-    cell:topicGraphShape oshapes:OrganizationShape ;
-    cell:isTopicCell true .
+    cell:declaresTool [ rdf:type cell:FormTool ;
+                        cell:toolGraphShape oshapes:OrganizationShape ] .
 
 #################################################################
 #  cat:Passport
@@ -65,8 +64,8 @@ ctpl:PassportTemplateCell rdf:type cell:Cell, cell:TemplateCell ;
     rdfs:label "Passport Template Cell"@en ;
     cell:category cat:Passport ;
     cell:memberGraphShape pshapes:ContactInfoShape ;
-    cell:topicGraphShape idocshapes:PassportShape ;
-    cell:isTopicCell true .
+    cell:declaresTool [ rdf:type cell:FormTool ;
+                        cell:toolGraphShape idocshapes:PassportShape ] .
 
 #################################################################
 #  cat:SSN
@@ -76,8 +75,8 @@ ctpl:SSNTemplateCell rdf:type cell:Cell, cell:TemplateCell ;
     rdfs:label "SSN Template Cell"@en ;
     cell:category cat:SSN ;
     cell:memberGraphShape pshapes:ContactInfoShape ;
-    cell:topicGraphShape pshapes:SSNShape ;
-    cell:isTopicCell true .
+    cell:declaresTool [ rdf:type cell:FormTool ;
+                        cell:toolGraphShape pshapes:SSNShape ] .
 
 #################################################################
 #  cat:Home
@@ -87,8 +86,8 @@ ctpl:HomeTemplateCell rdf:type cell:Cell, cell:TemplateCell ;
     rdfs:label "Home Template Cell"@en ;
     cell:category cat:Home ;
     cell:memberGraphShape pshapes:ContactInfoShape ;
-    cell:topicGraphShape residenceshapes:ResidenceShape ;
-    cell:isTopicCell true .
+    cell:declaresTool [ rdf:type cell:FormTool ;
+                        cell:toolGraphShape residenceshapes:ResidenceShape ] .
 
 #################################################################
 #  cat:Trips
@@ -98,8 +97,8 @@ ctpl:TripsTemplateCell rdf:type cell:Cell, cell:TemplateCell ;
     rdfs:label "Trips Template Cell"@en ;
     cell:category cat:Trips ;
     cell:memberGraphShape pshapes:ContactInfoShape ;
-    cell:topicGraphShape itineraryshapes:ItineraryShape ;
-    cell:isTopicCell true .
+    cell:declaresTool [ rdf:type cell:FormTool ;
+                        cell:toolGraphShape itineraryshapes:ItineraryShape ] .
 
 #################################################################
 #  No category (Custom / UserDefined cells)
@@ -118,8 +117,7 @@ ctpl:UserDefinedTemplateCell rdf:type cell:Cell, cell:TemplateCell ;
                     category selected. Carries only cell:memberGraphShape
                     pshapes:ContactInfoShape — a Custom cell has no document type and no
                     topic content of its own, only ever a contact-info view of its member(s)."""@en ;
-    cell:memberGraphShape pshapes:ContactInfoShape ;
-    cell:isTopicCell false .
+    cell:memberGraphShape pshapes:ContactInfoShape .
 
 #################################################################
 #  cat:BirthCertificate
@@ -129,8 +127,8 @@ ctpl:BirthCertificateTemplateCell rdf:type cell:Cell, cell:TemplateCell ;
     rdfs:label "Birth Certificate Template Cell"@en ;
     cell:category cat:BirthCertificate ;
     cell:memberGraphShape pshapes:ContactInfoShape ;
-    cell:topicGraphShape idocshapes:BirthCertificateShape ;
-    cell:isTopicCell true .
+    cell:declaresTool [ rdf:type cell:FormTool ;
+                        cell:toolGraphShape idocshapes:BirthCertificateShape ] .
 
 #################################################################
 #  cat:DriversLicense
@@ -140,8 +138,8 @@ ctpl:DriversLicenseTemplateCell rdf:type cell:Cell, cell:TemplateCell ;
     rdfs:label "Drivers License Template Cell"@en ;
     cell:category cat:DriversLicense ;
     cell:memberGraphShape pshapes:ContactInfoShape ;
-    cell:topicGraphShape idocshapes:DriversLicenseShape ;
-    cell:isTopicCell true .
+    cell:declaresTool [ rdf:type cell:FormTool ;
+                        cell:toolGraphShape idocshapes:DriversLicenseShape ] .
 
 #################################################################
 #  cat:MedicalAppointment
@@ -151,8 +149,8 @@ ctpl:MedicalAppointmentTemplateCell rdf:type cell:Cell, cell:TemplateCell ;
     rdfs:label "Medical Appointment Template Cell"@en ;
     cell:category cat:MedicalAppointment ;
     cell:memberGraphShape pshapes:ContactInfoShape ;
-    cell:topicGraphShape mashapes:MedicalAppointmentRecordShape ;
-    cell:isTopicCell true .
+    cell:declaresTool [ rdf:type cell:FormTool ;
+                        cell:toolGraphShape mashapes:MedicalAppointmentRecordShape ] .
 
 #################################################################
 #  cat:PetsMedical
@@ -162,8 +160,8 @@ ctpl:PetMedicationsTemplateCell rdf:type cell:Cell, cell:TemplateCell ;
     rdfs:label "Pet Medications Template Cell"@en ;
     cell:category cat:PetsMedical ;
     cell:memberGraphShape pshapes:ContactInfoShape ;
-    cell:topicGraphShape petshapes:PetMedicationRecordShape ;
-    cell:isTopicCell true .
+    cell:declaresTool [ rdf:type cell:FormTool ;
+                        cell:toolGraphShape petshapes:PetMedicationRecordShape ] .
 
 #################################################################
 #  cat:Pets
@@ -173,8 +171,8 @@ ctpl:PetProfileTemplateCell rdf:type cell:Cell, cell:TemplateCell ;
     rdfs:label "Pet Profile Template Cell"@en ;
     cell:category cat:Pets ;
     cell:memberGraphShape pshapes:ContactInfoShape ;
-    cell:topicGraphShape petshapes:PetShape ;
-    cell:isTopicCell true .
+    cell:declaresTool [ rdf:type cell:FormTool ;
+                        cell:toolGraphShape petshapes:PetShape ] .
 
 #################################################################
 #  cat:Vehicles
@@ -184,8 +182,8 @@ ctpl:VehicleProfileTemplateCell rdf:type cell:Cell, cell:TemplateCell ;
     rdfs:label "Vehicle Profile Template Cell"@en ;
     cell:category cat:Vehicles ;
     cell:memberGraphShape pshapes:ContactInfoShape ;
-    cell:topicGraphShape vehicleshapes:VehicleShape ;
-    cell:isTopicCell true .
+    cell:declaresTool [ rdf:type cell:FormTool ;
+                        cell:toolGraphShape vehicleshapes:VehicleShape ] .
 
 #################################################################
 #  cat:People
@@ -194,8 +192,7 @@ ctpl:VehicleProfileTemplateCell rdf:type cell:Cell, cell:TemplateCell ;
 ctpl:PeopleTemplateCell rdf:type cell:Cell, cell:TemplateCell ;
     rdfs:label "People Template Cell"@en ;
     cell:category cat:People ;
-    cell:memberGraphShape pshapes:ContactInfoShape ;
-    cell:isTopicCell false .
+    cell:memberGraphShape pshapes:ContactInfoShape .
 
 #################################################################
 #  cat:ImmediateFamily
@@ -204,9 +201,7 @@ ctpl:PeopleTemplateCell rdf:type cell:Cell, cell:TemplateCell ;
 ctpl:ImmediateFamilyTemplateCell rdf:type cell:Cell, cell:TemplateCell ;
     rdfs:label "Immediate Family Template Cell"@en ;
     cell:category cat:ImmediateFamily ;
-    cell:memberGraphShape pshapes:ContactInfoShape ;
-    cell:topicGraphShape pshapes:ContactInfoShape ;
-    cell:isTopicCell false .
+    cell:memberGraphShape pshapes:ContactInfoShape .
 
 #################################################################
 #  cat:ExtendedFamily
@@ -215,8 +210,7 @@ ctpl:ImmediateFamilyTemplateCell rdf:type cell:Cell, cell:TemplateCell ;
 ctpl:ExtendedFamilyTemplateCell rdf:type cell:Cell, cell:TemplateCell ;
     rdfs:label "Extended Family Template Cell"@en ;
     cell:category cat:ExtendedFamily ;
-    cell:memberGraphShape pshapes:ContactInfoShape ;
-    cell:isTopicCell false .
+    cell:memberGraphShape pshapes:ContactInfoShape .
 
 #################################################################
 #  cat:InLawsStepFamily
@@ -225,8 +219,7 @@ ctpl:ExtendedFamilyTemplateCell rdf:type cell:Cell, cell:TemplateCell ;
 ctpl:InLawsStepFamilyTemplateCell rdf:type cell:Cell, cell:TemplateCell ;
     rdfs:label "In-Laws / Step-Family Template Cell"@en ;
     cell:category cat:InLawsStepFamily ;
-    cell:memberGraphShape pshapes:ContactInfoShape ;
-    cell:isTopicCell false .
+    cell:memberGraphShape pshapes:ContactInfoShape .
 
 #################################################################
 #  cat:Others
@@ -235,8 +228,7 @@ ctpl:InLawsStepFamilyTemplateCell rdf:type cell:Cell, cell:TemplateCell ;
 ctpl:OthersTemplateCell rdf:type cell:Cell, cell:TemplateCell ;
     rdfs:label "Others Template Cell"@en ;
     cell:category cat:Others ;
-    cell:memberGraphShape pshapes:ContactInfoShape ;
-    cell:isTopicCell false .
+    cell:memberGraphShape pshapes:ContactInfoShape .
 
 #################################################################
 #  cat:Companies
@@ -246,8 +238,8 @@ ctpl:CompaniesTemplateCell rdf:type cell:Cell, cell:TemplateCell ;
     rdfs:label "Companies Template Cell"@en ;
     cell:category cat:Companies ;
     cell:memberGraphShape pshapes:ContactInfoShape ;
-    cell:topicGraphShape sashapes:ServiceAccountShape ;
-    cell:isTopicCell true .
+    cell:declaresTool [ rdf:type cell:FormTool ;
+                        cell:toolGraphShape sashapes:ServiceAccountShape ] .
 
 #################################################################
 #  cat:BankingPayments
@@ -257,8 +249,8 @@ ctpl:BankingPaymentsTemplateCell rdf:type cell:Cell, cell:TemplateCell ;
     rdfs:label "Banking & Payments Firms Template Cell"@en ;
     cell:category cat:BankingPayments ;
     cell:memberGraphShape pshapes:ContactInfoShape ;
-    cell:topicGraphShape sashapes:ServiceAccountShape , bankingshapes:DebitCardShape , bankingshapes:CheckingAccountShape ;
-    cell:isTopicCell true .
+    cell:declaresTool [ rdf:type cell:FormTool ;
+                        cell:toolGraphShape sashapes:ServiceAccountShape , bankingshapes:DebitCardShape , bankingshapes:CheckingAccountShape ] .
 
 #################################################################
 #  cat:Advisors
@@ -267,8 +259,7 @@ ctpl:BankingPaymentsTemplateCell rdf:type cell:Cell, cell:TemplateCell ;
 ctpl:AdvisorsTemplateCell rdf:type cell:Cell, cell:TemplateCell ;
     rdfs:label "Advisors Template Cell"@en ;
     cell:category cat:Advisors ;
-    cell:memberGraphShape pshapes:ContactInfoShape ;
-    cell:isTopicCell false .
+    cell:memberGraphShape pshapes:ContactInfoShape .
 
 #################################################################
 #  cat:Advisory
@@ -277,8 +268,7 @@ ctpl:AdvisorsTemplateCell rdf:type cell:Cell, cell:TemplateCell ;
 ctpl:AdvisoryTemplateCell rdf:type cell:Cell, cell:TemplateCell ;
     rdfs:label "Advisory Firms Template Cell"@en ;
     cell:category cat:Advisory ;
-    cell:memberGraphShape pshapes:ContactInfoShape ;
-    cell:isTopicCell false .
+    cell:memberGraphShape pshapes:ContactInfoShape .
 
 #################################################################
 #  cat:Advisory(org)
@@ -287,8 +277,7 @@ ctpl:AdvisoryTemplateCell rdf:type cell:Cell, cell:TemplateCell ;
 ctpl:AdvisoryOrgTemplateCell rdf:type cell:Cell, cell:TemplateCell ;
     rdfs:label "Advisory (org) Template Cell"@en ;
     cell:category cat:Advisory\(org\) ;
-    cell:memberGraphShape pshapes:ContactInfoShape ;
-    cell:isTopicCell false .
+    cell:memberGraphShape pshapes:ContactInfoShape .
 
 #################################################################
 #  cat:BankingPayments(org)
@@ -297,8 +286,7 @@ ctpl:AdvisoryOrgTemplateCell rdf:type cell:Cell, cell:TemplateCell ;
 ctpl:BankingPaymentsOrgTemplateCell rdf:type cell:Cell, cell:TemplateCell ;
     rdfs:label "Banking & Payments (org) Template Cell"@en ;
     cell:category cat:BankingPayments\(org\) ;
-    cell:memberGraphShape pshapes:ContactInfoShape ;
-    cell:isTopicCell false .
+    cell:memberGraphShape pshapes:ContactInfoShape .
 
 #################################################################
 #  cat:BoardOfDirectors
@@ -307,8 +295,7 @@ ctpl:BankingPaymentsOrgTemplateCell rdf:type cell:Cell, cell:TemplateCell ;
 ctpl:BoardOfDirectorsTemplateCell rdf:type cell:Cell, cell:TemplateCell ;
     rdfs:label "Board of Directors Template Cell"@en ;
     cell:category cat:BoardOfDirectors ;
-    cell:memberGraphShape pshapes:ContactInfoShape ;
-    cell:isTopicCell false .
+    cell:memberGraphShape pshapes:ContactInfoShape .
 
 #################################################################
 #  cat:Bookkeeping
@@ -317,8 +304,7 @@ ctpl:BoardOfDirectorsTemplateCell rdf:type cell:Cell, cell:TemplateCell ;
 ctpl:BookkeepingTemplateCell rdf:type cell:Cell, cell:TemplateCell ;
     rdfs:label "Bookkeeping Template Cell"@en ;
     cell:category cat:Bookkeeping ;
-    cell:memberGraphShape pshapes:ContactInfoShape ;
-    cell:isTopicCell false .
+    cell:memberGraphShape pshapes:ContactInfoShape .
 
 #################################################################
 #  cat:Colleagues
@@ -327,8 +313,7 @@ ctpl:BookkeepingTemplateCell rdf:type cell:Cell, cell:TemplateCell ;
 ctpl:ColleaguesTemplateCell rdf:type cell:Cell, cell:TemplateCell ;
     rdfs:label "Colleagues Template Cell"@en ;
     cell:category cat:Colleagues ;
-    cell:memberGraphShape pshapes:ContactInfoShape ;
-    cell:isTopicCell false .
+    cell:memberGraphShape pshapes:ContactInfoShape .
 
 #################################################################
 #  cat:Conferences
@@ -337,8 +322,7 @@ ctpl:ColleaguesTemplateCell rdf:type cell:Cell, cell:TemplateCell ;
 ctpl:ConferencesTemplateCell rdf:type cell:Cell, cell:TemplateCell ;
     rdfs:label "Conferences Template Cell"@en ;
     cell:category cat:Conferences ;
-    cell:memberGraphShape pshapes:ContactInfoShape ;
-    cell:isTopicCell false .
+    cell:memberGraphShape pshapes:ContactInfoShape .
 
 #################################################################
 #  cat:Consultants
@@ -347,8 +331,7 @@ ctpl:ConferencesTemplateCell rdf:type cell:Cell, cell:TemplateCell ;
 ctpl:ConsultantsTemplateCell rdf:type cell:Cell, cell:TemplateCell ;
     rdfs:label "Consultants Template Cell"@en ;
     cell:category cat:Consultants ;
-    cell:memberGraphShape pshapes:ContactInfoShape ;
-    cell:isTopicCell false .
+    cell:memberGraphShape pshapes:ContactInfoShape .
 
 #################################################################
 #  cat:Customers
@@ -357,8 +340,7 @@ ctpl:ConsultantsTemplateCell rdf:type cell:Cell, cell:TemplateCell ;
 ctpl:CustomersTemplateCell rdf:type cell:Cell, cell:TemplateCell ;
     rdfs:label "Customers Template Cell"@en ;
     cell:category cat:Customers ;
-    cell:memberGraphShape pshapes:ContactInfoShape ;
-    cell:isTopicCell false .
+    cell:memberGraphShape pshapes:ContactInfoShape .
 
 #################################################################
 #  cat:Dental
@@ -367,8 +349,7 @@ ctpl:CustomersTemplateCell rdf:type cell:Cell, cell:TemplateCell ;
 ctpl:DentalTemplateCell rdf:type cell:Cell, cell:TemplateCell ;
     rdfs:label "Dental Template Cell"@en ;
     cell:category cat:Dental ;
-    cell:memberGraphShape pshapes:ContactInfoShape ;
-    cell:isTopicCell false .
+    cell:memberGraphShape pshapes:ContactInfoShape .
 
 #################################################################
 #  cat:DentalAppointment
@@ -377,8 +358,7 @@ ctpl:DentalTemplateCell rdf:type cell:Cell, cell:TemplateCell ;
 ctpl:DentalAppointmentTemplateCell rdf:type cell:Cell, cell:TemplateCell ;
     rdfs:label "Dental Appointment Template Cell"@en ;
     cell:category cat:DentalAppointment ;
-    cell:memberGraphShape pshapes:ContactInfoShape ;
-    cell:isTopicCell false .
+    cell:memberGraphShape pshapes:ContactInfoShape .
 
 #################################################################
 #  cat:DentalHistory
@@ -387,8 +367,7 @@ ctpl:DentalAppointmentTemplateCell rdf:type cell:Cell, cell:TemplateCell ;
 ctpl:DentalHistoryTemplateCell rdf:type cell:Cell, cell:TemplateCell ;
     rdfs:label "History Template Cell"@en ;
     cell:category cat:DentalHistory ;
-    cell:memberGraphShape pshapes:ContactInfoShape ;
-    cell:isTopicCell false .
+    cell:memberGraphShape pshapes:ContactInfoShape .
 
 #################################################################
 #  cat:DentalInsurance
@@ -397,8 +376,7 @@ ctpl:DentalHistoryTemplateCell rdf:type cell:Cell, cell:TemplateCell ;
 ctpl:DentalInsuranceTemplateCell rdf:type cell:Cell, cell:TemplateCell ;
     rdfs:label "Insurance Template Cell"@en ;
     cell:category cat:DentalInsurance ;
-    cell:memberGraphShape pshapes:ContactInfoShape ;
-    cell:isTopicCell false .
+    cell:memberGraphShape pshapes:ContactInfoShape .
 
 #################################################################
 #  cat:DentalProvider
@@ -407,8 +385,7 @@ ctpl:DentalInsuranceTemplateCell rdf:type cell:Cell, cell:TemplateCell ;
 ctpl:DentalProviderTemplateCell rdf:type cell:Cell, cell:TemplateCell ;
     rdfs:label "Provider Template Cell"@en ;
     cell:category cat:DentalProvider ;
-    cell:memberGraphShape pshapes:ContactInfoShape ;
-    cell:isTopicCell false .
+    cell:memberGraphShape pshapes:ContactInfoShape .
 
 #################################################################
 #  cat:Dentist
@@ -417,8 +394,7 @@ ctpl:DentalProviderTemplateCell rdf:type cell:Cell, cell:TemplateCell ;
 ctpl:DentistTemplateCell rdf:type cell:Cell, cell:TemplateCell ;
     rdfs:label "Dentist Template Cell"@en ;
     cell:category cat:Dentist ;
-    cell:memberGraphShape pshapes:ContactInfoShape ;
-    cell:isTopicCell false .
+    cell:memberGraphShape pshapes:ContactInfoShape .
 
 #################################################################
 #  cat:DirectReports
@@ -427,8 +403,7 @@ ctpl:DentistTemplateCell rdf:type cell:Cell, cell:TemplateCell ;
 ctpl:DirectReportsTemplateCell rdf:type cell:Cell, cell:TemplateCell ;
     rdfs:label "Direct Reports Template Cell"@en ;
     cell:category cat:DirectReports ;
-    cell:memberGraphShape pshapes:ContactInfoShape ;
-    cell:isTopicCell false .
+    cell:memberGraphShape pshapes:ContactInfoShape .
 
 #################################################################
 #  cat:Education
@@ -437,8 +412,7 @@ ctpl:DirectReportsTemplateCell rdf:type cell:Cell, cell:TemplateCell ;
 ctpl:EducationTemplateCell rdf:type cell:Cell, cell:TemplateCell ;
     rdfs:label "Education Template Cell"@en ;
     cell:category cat:Education ;
-    cell:memberGraphShape pshapes:ContactInfoShape ;
-    cell:isTopicCell false .
+    cell:memberGraphShape pshapes:ContactInfoShape .
 
 #################################################################
 #  cat:Employees
@@ -447,8 +421,7 @@ ctpl:EducationTemplateCell rdf:type cell:Cell, cell:TemplateCell ;
 ctpl:EmployeesTemplateCell rdf:type cell:Cell, cell:TemplateCell ;
     rdfs:label "Employees Template Cell"@en ;
     cell:category cat:Employees ;
-    cell:memberGraphShape pshapes:ContactInfoShape ;
-    cell:isTopicCell false .
+    cell:memberGraphShape pshapes:ContactInfoShape .
 
 #################################################################
 #  cat:Events
@@ -457,8 +430,7 @@ ctpl:EmployeesTemplateCell rdf:type cell:Cell, cell:TemplateCell ;
 ctpl:EventsTemplateCell rdf:type cell:Cell, cell:TemplateCell ;
     rdfs:label "Events Template Cell"@en ;
     cell:category cat:Events ;
-    cell:memberGraphShape pshapes:ContactInfoShape ;
-    cell:isTopicCell false .
+    cell:memberGraphShape pshapes:ContactInfoShape .
 
 #################################################################
 #  cat:Events(org)
@@ -467,8 +439,7 @@ ctpl:EventsTemplateCell rdf:type cell:Cell, cell:TemplateCell ;
 ctpl:EventsOrgTemplateCell rdf:type cell:Cell, cell:TemplateCell ;
     rdfs:label "Events (org) Template Cell"@en ;
     cell:category cat:Events\(org\) ;
-    cell:memberGraphShape pshapes:ContactInfoShape ;
-    cell:isTopicCell false .
+    cell:memberGraphShape pshapes:ContactInfoShape .
 
 #################################################################
 #  cat:EyeDoctor
@@ -477,8 +448,7 @@ ctpl:EventsOrgTemplateCell rdf:type cell:Cell, cell:TemplateCell ;
 ctpl:EyeDoctorTemplateCell rdf:type cell:Cell, cell:TemplateCell ;
     rdfs:label "Eye Doctor Template Cell"@en ;
     cell:category cat:EyeDoctor ;
-    cell:memberGraphShape pshapes:ContactInfoShape ;
-    cell:isTopicCell false .
+    cell:memberGraphShape pshapes:ContactInfoShape .
 
 #################################################################
 #  cat:Federal
@@ -487,8 +457,7 @@ ctpl:EyeDoctorTemplateCell rdf:type cell:Cell, cell:TemplateCell ;
 ctpl:FederalTemplateCell rdf:type cell:Cell, cell:TemplateCell ;
     rdfs:label "Federal Template Cell"@en ;
     cell:category cat:Federal ;
-    cell:memberGraphShape pshapes:ContactInfoShape ;
-    cell:isTopicCell false .
+    cell:memberGraphShape pshapes:ContactInfoShape .
 
 #################################################################
 #  cat:Finances
@@ -497,8 +466,7 @@ ctpl:FederalTemplateCell rdf:type cell:Cell, cell:TemplateCell ;
 ctpl:FinancesTemplateCell rdf:type cell:Cell, cell:TemplateCell ;
     rdfs:label "Finances Template Cell"@en ;
     cell:category cat:Finances ;
-    cell:memberGraphShape pshapes:ContactInfoShape ;
-    cell:isTopicCell false .
+    cell:memberGraphShape pshapes:ContactInfoShape .
 
 #################################################################
 #  cat:Finances(org)
@@ -507,8 +475,7 @@ ctpl:FinancesTemplateCell rdf:type cell:Cell, cell:TemplateCell ;
 ctpl:FinancesOrgTemplateCell rdf:type cell:Cell, cell:TemplateCell ;
     rdfs:label "Finances (org) Template Cell"@en ;
     cell:category cat:Finances\(org\) ;
-    cell:memberGraphShape pshapes:ContactInfoShape ;
-    cell:isTopicCell false .
+    cell:memberGraphShape pshapes:ContactInfoShape .
 
 #################################################################
 #  cat:Fitness
@@ -517,8 +484,7 @@ ctpl:FinancesOrgTemplateCell rdf:type cell:Cell, cell:TemplateCell ;
 ctpl:FitnessTemplateCell rdf:type cell:Cell, cell:TemplateCell ;
     rdfs:label "Fitness Template Cell"@en ;
     cell:category cat:Fitness ;
-    cell:memberGraphShape pshapes:ContactInfoShape ;
-    cell:isTopicCell false .
+    cell:memberGraphShape pshapes:ContactInfoShape .
 
 #################################################################
 #  cat:FitnessProvider
@@ -527,8 +493,7 @@ ctpl:FitnessTemplateCell rdf:type cell:Cell, cell:TemplateCell ;
 ctpl:FitnessProviderTemplateCell rdf:type cell:Cell, cell:TemplateCell ;
     rdfs:label "Provider Template Cell"@en ;
     cell:category cat:FitnessProvider ;
-    cell:memberGraphShape pshapes:ContactInfoShape ;
-    cell:isTopicCell false .
+    cell:memberGraphShape pshapes:ContactInfoShape .
 
 #################################################################
 #  cat:Food
@@ -537,8 +502,7 @@ ctpl:FitnessProviderTemplateCell rdf:type cell:Cell, cell:TemplateCell ;
 ctpl:FoodTemplateCell rdf:type cell:Cell, cell:TemplateCell ;
     rdfs:label "Food Template Cell"@en ;
     cell:category cat:Food ;
-    cell:memberGraphShape pshapes:ContactInfoShape ;
-    cell:isTopicCell false .
+    cell:memberGraphShape pshapes:ContactInfoShape .
 
 #################################################################
 #  cat:Government
@@ -547,8 +511,7 @@ ctpl:FoodTemplateCell rdf:type cell:Cell, cell:TemplateCell ;
 ctpl:GovernmentTemplateCell rdf:type cell:Cell, cell:TemplateCell ;
     rdfs:label "Government Template Cell"@en ;
     cell:category cat:Government ;
-    cell:memberGraphShape pshapes:ContactInfoShape ;
-    cell:isTopicCell false .
+    cell:memberGraphShape pshapes:ContactInfoShape .
 
 #################################################################
 #  cat:Government(org)
@@ -557,8 +520,7 @@ ctpl:GovernmentTemplateCell rdf:type cell:Cell, cell:TemplateCell ;
 ctpl:GovernmentOrgTemplateCell rdf:type cell:Cell, cell:TemplateCell ;
     rdfs:label "Government (org) Template Cell"@en ;
     cell:category cat:Government\(org\) ;
-    cell:memberGraphShape pshapes:ContactInfoShape ;
-    cell:isTopicCell false .
+    cell:memberGraphShape pshapes:ContactInfoShape .
 
 #################################################################
 #  cat:Groups
@@ -568,8 +530,8 @@ ctpl:GroupsTemplateCell rdf:type cell:Cell, cell:TemplateCell ;
     rdfs:label "Groups Template Cell"@en ;
     cell:category cat:Groups ;
     cell:memberGraphShape pshapes:ContactInfoShape ;
-    cell:topicGraphShape oshapes:OrganizationShape ;
-    cell:isTopicCell true .
+    cell:declaresTool [ rdf:type cell:FormTool ;
+                        cell:toolGraphShape oshapes:OrganizationShape ] .
 
 #################################################################
 #  cat:HealthWellness
@@ -579,8 +541,8 @@ ctpl:HealthWellnessTemplateCell rdf:type cell:Cell, cell:TemplateCell ;
     rdfs:label "Health & Wellness Template Cell"@en ;
     cell:category cat:HealthWellness ;
     cell:memberGraphShape pshapes:ContactInfoShape ;
-    cell:topicGraphShape pshapes:HealthWellnessShape ;
-    cell:isTopicCell true .
+    cell:declaresTool [ rdf:type cell:FormTool ;
+                        cell:toolGraphShape pshapes:HealthWellnessShape ] .
 
 #################################################################
 #  cat:Information
@@ -589,8 +551,7 @@ ctpl:HealthWellnessTemplateCell rdf:type cell:Cell, cell:TemplateCell ;
 ctpl:InformationTemplateCell rdf:type cell:Cell, cell:TemplateCell ;
     rdfs:label "Information Template Cell"@en ;
     cell:category cat:Information ;
-    cell:memberGraphShape pshapes:ContactInfoShape ;
-    cell:isTopicCell false .
+    cell:memberGraphShape pshapes:ContactInfoShape .
 
 #################################################################
 #  cat:Insurance
@@ -599,8 +560,7 @@ ctpl:InformationTemplateCell rdf:type cell:Cell, cell:TemplateCell ;
 ctpl:InsuranceTemplateCell rdf:type cell:Cell, cell:TemplateCell ;
     rdfs:label "Insurance Firms Template Cell"@en ;
     cell:category cat:Insurance ;
-    cell:memberGraphShape pshapes:ContactInfoShape ;
-    cell:isTopicCell false .
+    cell:memberGraphShape pshapes:ContactInfoShape .
 
 #################################################################
 #  cat:Insurance(org)
@@ -609,8 +569,7 @@ ctpl:InsuranceTemplateCell rdf:type cell:Cell, cell:TemplateCell ;
 ctpl:InsuranceOrgTemplateCell rdf:type cell:Cell, cell:TemplateCell ;
     rdfs:label "Insurance (org) Template Cell"@en ;
     cell:category cat:Insurance\(org\) ;
-    cell:memberGraphShape pshapes:ContactInfoShape ;
-    cell:isTopicCell false .
+    cell:memberGraphShape pshapes:ContactInfoShape .
 
 #################################################################
 #  cat:Investing
@@ -619,8 +578,7 @@ ctpl:InsuranceOrgTemplateCell rdf:type cell:Cell, cell:TemplateCell ;
 ctpl:InvestingTemplateCell rdf:type cell:Cell, cell:TemplateCell ;
     rdfs:label "Investment Firms Template Cell"@en ;
     cell:category cat:Investing ;
-    cell:memberGraphShape pshapes:ContactInfoShape ;
-    cell:isTopicCell false .
+    cell:memberGraphShape pshapes:ContactInfoShape .
 
 #################################################################
 #  cat:Investing(org)
@@ -629,8 +587,7 @@ ctpl:InvestingTemplateCell rdf:type cell:Cell, cell:TemplateCell ;
 ctpl:InvestingOrgTemplateCell rdf:type cell:Cell, cell:TemplateCell ;
     rdfs:label "Investing (org) Template Cell"@en ;
     cell:category cat:Investing\(org\) ;
-    cell:memberGraphShape pshapes:ContactInfoShape ;
-    cell:isTopicCell false .
+    cell:memberGraphShape pshapes:ContactInfoShape .
 
 #################################################################
 #  cat:KB
@@ -639,8 +596,7 @@ ctpl:InvestingOrgTemplateCell rdf:type cell:Cell, cell:TemplateCell ;
 ctpl:KBTemplateCell rdf:type cell:Cell, cell:TemplateCell ;
     rdfs:label "KB Template Cell"@en ;
     cell:category cat:KB ;
-    cell:memberGraphShape pshapes:ContactInfoShape ;
-    cell:isTopicCell false .
+    cell:memberGraphShape pshapes:ContactInfoShape .
 
 #################################################################
 #  cat:Legal
@@ -649,8 +605,7 @@ ctpl:KBTemplateCell rdf:type cell:Cell, cell:TemplateCell ;
 ctpl:LegalTemplateCell rdf:type cell:Cell, cell:TemplateCell ;
     rdfs:label "Legal Template Cell"@en ;
     cell:category cat:Legal ;
-    cell:memberGraphShape pshapes:ContactInfoShape ;
-    cell:isTopicCell false .
+    cell:memberGraphShape pshapes:ContactInfoShape .
 
 #################################################################
 #  cat:Legal(org)
@@ -659,8 +614,7 @@ ctpl:LegalTemplateCell rdf:type cell:Cell, cell:TemplateCell ;
 ctpl:LegalOrgTemplateCell rdf:type cell:Cell, cell:TemplateCell ;
     rdfs:label "Legal (org) Template Cell"@en ;
     cell:category cat:Legal\(org\) ;
-    cell:memberGraphShape pshapes:ContactInfoShape ;
-    cell:isTopicCell false .
+    cell:memberGraphShape pshapes:ContactInfoShape .
 
 #################################################################
 #  cat:LendingCredit
@@ -669,8 +623,7 @@ ctpl:LegalOrgTemplateCell rdf:type cell:Cell, cell:TemplateCell ;
 ctpl:LendingCreditTemplateCell rdf:type cell:Cell, cell:TemplateCell ;
     rdfs:label "Lending & Credit Firms Template Cell"@en ;
     cell:category cat:LendingCredit ;
-    cell:memberGraphShape pshapes:ContactInfoShape ;
-    cell:isTopicCell false .
+    cell:memberGraphShape pshapes:ContactInfoShape .
 
 #################################################################
 #  cat:LendingCredit(org)
@@ -679,8 +632,7 @@ ctpl:LendingCreditTemplateCell rdf:type cell:Cell, cell:TemplateCell ;
 ctpl:LendingCreditOrgTemplateCell rdf:type cell:Cell, cell:TemplateCell ;
     rdfs:label "Lending & Credit (org) Template Cell"@en ;
     cell:category cat:LendingCredit\(org\) ;
-    cell:memberGraphShape pshapes:ContactInfoShape ;
-    cell:isTopicCell false .
+    cell:memberGraphShape pshapes:ContactInfoShape .
 
 #################################################################
 #  cat:Managers
@@ -689,8 +641,7 @@ ctpl:LendingCreditOrgTemplateCell rdf:type cell:Cell, cell:TemplateCell ;
 ctpl:ManagersTemplateCell rdf:type cell:Cell, cell:TemplateCell ;
     rdfs:label "Manager(s) Template Cell"@en ;
     cell:category cat:Managers ;
-    cell:memberGraphShape pshapes:ContactInfoShape ;
-    cell:isTopicCell false .
+    cell:memberGraphShape pshapes:ContactInfoShape .
 
 #################################################################
 #  cat:Marketing
@@ -699,8 +650,7 @@ ctpl:ManagersTemplateCell rdf:type cell:Cell, cell:TemplateCell ;
 ctpl:MarketingTemplateCell rdf:type cell:Cell, cell:TemplateCell ;
     rdfs:label "Marketing Template Cell"@en ;
     cell:category cat:Marketing ;
-    cell:memberGraphShape pshapes:ContactInfoShape ;
-    cell:isTopicCell false .
+    cell:memberGraphShape pshapes:ContactInfoShape .
 
 #################################################################
 #  cat:Medical
@@ -709,8 +659,7 @@ ctpl:MarketingTemplateCell rdf:type cell:Cell, cell:TemplateCell ;
 ctpl:MedicalTemplateCell rdf:type cell:Cell, cell:TemplateCell ;
     rdfs:label "Medical Template Cell"@en ;
     cell:category cat:Medical ;
-    cell:memberGraphShape pshapes:ContactInfoShape ;
-    cell:isTopicCell false .
+    cell:memberGraphShape pshapes:ContactInfoShape .
 
 #################################################################
 #  cat:MedicalHistory
@@ -719,8 +668,7 @@ ctpl:MedicalTemplateCell rdf:type cell:Cell, cell:TemplateCell ;
 ctpl:MedicalHistoryTemplateCell rdf:type cell:Cell, cell:TemplateCell ;
     rdfs:label "History Template Cell"@en ;
     cell:category cat:MedicalHistory ;
-    cell:memberGraphShape pshapes:ContactInfoShape ;
-    cell:isTopicCell false .
+    cell:memberGraphShape pshapes:ContactInfoShape .
 
 #################################################################
 #  cat:MedicalInsurance
@@ -729,8 +677,7 @@ ctpl:MedicalHistoryTemplateCell rdf:type cell:Cell, cell:TemplateCell ;
 ctpl:MedicalInsuranceTemplateCell rdf:type cell:Cell, cell:TemplateCell ;
     rdfs:label "Insurance Template Cell"@en ;
     cell:category cat:MedicalInsurance ;
-    cell:memberGraphShape pshapes:ContactInfoShape ;
-    cell:isTopicCell false .
+    cell:memberGraphShape pshapes:ContactInfoShape .
 
 #################################################################
 #  cat:MedicalProvider
@@ -739,8 +686,7 @@ ctpl:MedicalInsuranceTemplateCell rdf:type cell:Cell, cell:TemplateCell ;
 ctpl:MedicalProviderTemplateCell rdf:type cell:Cell, cell:TemplateCell ;
     rdfs:label "Provider Template Cell"@en ;
     cell:category cat:MedicalProvider ;
-    cell:memberGraphShape pshapes:ContactInfoShape ;
-    cell:isTopicCell false .
+    cell:memberGraphShape pshapes:ContactInfoShape .
 
 #################################################################
 #  cat:Meetings
@@ -749,8 +695,7 @@ ctpl:MedicalProviderTemplateCell rdf:type cell:Cell, cell:TemplateCell ;
 ctpl:MeetingsTemplateCell rdf:type cell:Cell, cell:TemplateCell ;
     rdfs:label "Meetings Template Cell"@en ;
     cell:category cat:Meetings ;
-    cell:memberGraphShape pshapes:ContactInfoShape ;
-    cell:isTopicCell false .
+    cell:memberGraphShape pshapes:ContactInfoShape .
 
 #################################################################
 #  cat:MentalHealth
@@ -759,8 +704,7 @@ ctpl:MeetingsTemplateCell rdf:type cell:Cell, cell:TemplateCell ;
 ctpl:MentalHealthTemplateCell rdf:type cell:Cell, cell:TemplateCell ;
     rdfs:label "Mental Health Template Cell"@en ;
     cell:category cat:MentalHealth ;
-    cell:memberGraphShape pshapes:ContactInfoShape ;
-    cell:isTopicCell false .
+    cell:memberGraphShape pshapes:ContactInfoShape .
 
 #################################################################
 #  cat:MentalHealthHistory
@@ -769,8 +713,7 @@ ctpl:MentalHealthTemplateCell rdf:type cell:Cell, cell:TemplateCell ;
 ctpl:MentalHealthHistoryTemplateCell rdf:type cell:Cell, cell:TemplateCell ;
     rdfs:label "History Template Cell"@en ;
     cell:category cat:MentalHealthHistory ;
-    cell:memberGraphShape pshapes:ContactInfoShape ;
-    cell:isTopicCell false .
+    cell:memberGraphShape pshapes:ContactInfoShape .
 
 #################################################################
 #  cat:MentalHealthInsurance
@@ -779,8 +722,7 @@ ctpl:MentalHealthHistoryTemplateCell rdf:type cell:Cell, cell:TemplateCell ;
 ctpl:MentalHealthInsuranceTemplateCell rdf:type cell:Cell, cell:TemplateCell ;
     rdfs:label "Insurance Template Cell"@en ;
     cell:category cat:MentalHealthInsurance ;
-    cell:memberGraphShape pshapes:ContactInfoShape ;
-    cell:isTopicCell false .
+    cell:memberGraphShape pshapes:ContactInfoShape .
 
 #################################################################
 #  cat:MentalHealthProvider
@@ -789,8 +731,7 @@ ctpl:MentalHealthInsuranceTemplateCell rdf:type cell:Cell, cell:TemplateCell ;
 ctpl:MentalHealthProviderTemplateCell rdf:type cell:Cell, cell:TemplateCell ;
     rdfs:label "Provider Template Cell"@en ;
     cell:category cat:MentalHealthProvider ;
-    cell:memberGraphShape pshapes:ContactInfoShape ;
-    cell:isTopicCell false .
+    cell:memberGraphShape pshapes:ContactInfoShape .
 
 #################################################################
 #  cat:Nutrition
@@ -799,8 +740,7 @@ ctpl:MentalHealthProviderTemplateCell rdf:type cell:Cell, cell:TemplateCell ;
 ctpl:NutritionTemplateCell rdf:type cell:Cell, cell:TemplateCell ;
     rdfs:label "Nutrition Template Cell"@en ;
     cell:category cat:Nutrition ;
-    cell:memberGraphShape pshapes:ContactInfoShape ;
-    cell:isTopicCell false .
+    cell:memberGraphShape pshapes:ContactInfoShape .
 
 #################################################################
 #  cat:NutritionHistory
@@ -809,8 +749,7 @@ ctpl:NutritionTemplateCell rdf:type cell:Cell, cell:TemplateCell ;
 ctpl:NutritionHistoryTemplateCell rdf:type cell:Cell, cell:TemplateCell ;
     rdfs:label "History Template Cell"@en ;
     cell:category cat:NutritionHistory ;
-    cell:memberGraphShape pshapes:ContactInfoShape ;
-    cell:isTopicCell false .
+    cell:memberGraphShape pshapes:ContactInfoShape .
 
 #################################################################
 #  cat:NutritionProvider
@@ -819,8 +758,7 @@ ctpl:NutritionHistoryTemplateCell rdf:type cell:Cell, cell:TemplateCell ;
 ctpl:NutritionProviderTemplateCell rdf:type cell:Cell, cell:TemplateCell ;
     rdfs:label "Provider Template Cell"@en ;
     cell:category cat:NutritionProvider ;
-    cell:memberGraphShape pshapes:ContactInfoShape ;
-    cell:isTopicCell false .
+    cell:memberGraphShape pshapes:ContactInfoShape .
 
 #################################################################
 #  cat:Others(org)
@@ -829,8 +767,7 @@ ctpl:NutritionProviderTemplateCell rdf:type cell:Cell, cell:TemplateCell ;
 ctpl:OthersOrgTemplateCell rdf:type cell:Cell, cell:TemplateCell ;
     rdfs:label "Others (org) Template Cell"@en ;
     cell:category cat:Others\(org\) ;
-    cell:memberGraphShape pshapes:ContactInfoShape ;
-    cell:isTopicCell false .
+    cell:memberGraphShape pshapes:ContactInfoShape .
 
 #################################################################
 #  cat:Partners
@@ -839,8 +776,7 @@ ctpl:OthersOrgTemplateCell rdf:type cell:Cell, cell:TemplateCell ;
 ctpl:PartnersTemplateCell rdf:type cell:Cell, cell:TemplateCell ;
     rdfs:label "Partners Template Cell"@en ;
     cell:category cat:Partners ;
-    cell:memberGraphShape pshapes:ContactInfoShape ;
-    cell:isTopicCell false .
+    cell:memberGraphShape pshapes:ContactInfoShape .
 
 #################################################################
 #  cat:People(org)
@@ -849,8 +785,7 @@ ctpl:PartnersTemplateCell rdf:type cell:Cell, cell:TemplateCell ;
 ctpl:PeopleOrgTemplateCell rdf:type cell:Cell, cell:TemplateCell ;
     rdfs:label "People (org) Template Cell"@en ;
     cell:category cat:People\(org\) ;
-    cell:memberGraphShape pshapes:ContactInfoShape ;
-    cell:isTopicCell false .
+    cell:memberGraphShape pshapes:ContactInfoShape .
 
 #################################################################
 #  cat:PersonalTrainer
@@ -859,8 +794,7 @@ ctpl:PeopleOrgTemplateCell rdf:type cell:Cell, cell:TemplateCell ;
 ctpl:PersonalTrainerTemplateCell rdf:type cell:Cell, cell:TemplateCell ;
     rdfs:label "Personal Trainer Template Cell"@en ;
     cell:category cat:PersonalTrainer ;
-    cell:memberGraphShape pshapes:ContactInfoShape ;
-    cell:isTopicCell false .
+    cell:memberGraphShape pshapes:ContactInfoShape .
 
 #################################################################
 #  cat:Personality
@@ -869,8 +803,7 @@ ctpl:PersonalTrainerTemplateCell rdf:type cell:Cell, cell:TemplateCell ;
 ctpl:PersonalityTemplateCell rdf:type cell:Cell, cell:TemplateCell ;
     rdfs:label "Personality Template Cell"@en ;
     cell:category cat:Personality ;
-    cell:memberGraphShape pshapes:ContactInfoShape ;
-    cell:isTopicCell false .
+    cell:memberGraphShape pshapes:ContactInfoShape .
 
 #################################################################
 #  cat:PetsCareAndFeeding
@@ -880,8 +813,8 @@ ctpl:PetsCareAndFeedingTemplateCell rdf:type cell:Cell, cell:TemplateCell ;
     rdfs:label "Care & Feeding Template Cell"@en ;
     cell:category cat:PetsCareAndFeeding ;
     cell:memberGraphShape pshapes:ContactInfoShape ;
-    cell:topicGraphShape petshapes:PetsCareAndFeedingShape ;
-    cell:isTopicCell true .
+    cell:declaresTool [ rdf:type cell:FormTool ;
+                        cell:toolGraphShape petshapes:PetsCareAndFeedingShape ] .
 
 #################################################################
 #  cat:PetsDevices
@@ -890,8 +823,7 @@ ctpl:PetsCareAndFeedingTemplateCell rdf:type cell:Cell, cell:TemplateCell ;
 ctpl:PetsDevicesTemplateCell rdf:type cell:Cell, cell:TemplateCell ;
     rdfs:label "Devices Template Cell"@en ;
     cell:category cat:PetsDevices ;
-    cell:memberGraphShape pshapes:ContactInfoShape ;
-    cell:isTopicCell false .
+    cell:memberGraphShape pshapes:ContactInfoShape .
 
 #################################################################
 #  cat:PetsVeterinarians
@@ -900,8 +832,7 @@ ctpl:PetsDevicesTemplateCell rdf:type cell:Cell, cell:TemplateCell ;
 ctpl:PetsVeterinariansTemplateCell rdf:type cell:Cell, cell:TemplateCell ;
     rdfs:label "Veterinarians Template Cell"@en ;
     cell:category cat:PetsVeterinarians ;
-    cell:memberGraphShape pshapes:ContactInfoShape ;
-    cell:isTopicCell false .
+    cell:memberGraphShape pshapes:ContactInfoShape .
 
 #################################################################
 #  cat:PhysicalTherapy
@@ -910,8 +841,7 @@ ctpl:PetsVeterinariansTemplateCell rdf:type cell:Cell, cell:TemplateCell ;
 ctpl:PhysicalTherapyTemplateCell rdf:type cell:Cell, cell:TemplateCell ;
     rdfs:label "Physical Therapy Template Cell"@en ;
     cell:category cat:PhysicalTherapy ;
-    cell:memberGraphShape pshapes:ContactInfoShape ;
-    cell:isTopicCell false .
+    cell:memberGraphShape pshapes:ContactInfoShape .
 
 #################################################################
 #  cat:PhysicalTherapyHistory
@@ -920,8 +850,7 @@ ctpl:PhysicalTherapyTemplateCell rdf:type cell:Cell, cell:TemplateCell ;
 ctpl:PhysicalTherapyHistoryTemplateCell rdf:type cell:Cell, cell:TemplateCell ;
     rdfs:label "History Template Cell"@en ;
     cell:category cat:PhysicalTherapyHistory ;
-    cell:memberGraphShape pshapes:ContactInfoShape ;
-    cell:isTopicCell false .
+    cell:memberGraphShape pshapes:ContactInfoShape .
 
 #################################################################
 #  cat:PhysicalTherapyProvider
@@ -930,8 +859,7 @@ ctpl:PhysicalTherapyHistoryTemplateCell rdf:type cell:Cell, cell:TemplateCell ;
 ctpl:PhysicalTherapyProviderTemplateCell rdf:type cell:Cell, cell:TemplateCell ;
     rdfs:label "Provider Template Cell"@en ;
     cell:category cat:PhysicalTherapyProvider ;
-    cell:memberGraphShape pshapes:ContactInfoShape ;
-    cell:isTopicCell false .
+    cell:memberGraphShape pshapes:ContactInfoShape .
 
 #################################################################
 #  cat:Previous
@@ -940,8 +868,7 @@ ctpl:PhysicalTherapyProviderTemplateCell rdf:type cell:Cell, cell:TemplateCell ;
 ctpl:PreviousTemplateCell rdf:type cell:Cell, cell:TemplateCell ;
     rdfs:label "Previous Template Cell"@en ;
     cell:category cat:Previous ;
-    cell:memberGraphShape pshapes:ContactInfoShape ;
-    cell:isTopicCell false .
+    cell:memberGraphShape pshapes:ContactInfoShape .
 
 #################################################################
 #  cat:PrimaryCarePhysician
@@ -951,8 +878,8 @@ ctpl:PrimaryCarePhysicianTemplateCell rdf:type cell:Cell, cell:TemplateCell ;
     rdfs:label "Primary Care Physician Template Cell"@en ;
     cell:category cat:PrimaryCarePhysician ;
     cell:memberGraphShape pshapes:ContactInfoShape ;
-    cell:topicGraphShape pshapes:PrimaryCarePhysicianShape , pshapes:ContactInfoShape ;
-    cell:isTopicCell true .
+    cell:declaresTool [ rdf:type cell:FormTool ;
+                        cell:toolGraphShape pshapes:PrimaryCarePhysicianShape , pshapes:ContactInfoShape ] .
 
 #################################################################
 #  cat:Projects
@@ -961,8 +888,7 @@ ctpl:PrimaryCarePhysicianTemplateCell rdf:type cell:Cell, cell:TemplateCell ;
 ctpl:ProjectsTemplateCell rdf:type cell:Cell, cell:TemplateCell ;
     rdfs:label "Projects Template Cell"@en ;
     cell:category cat:Projects ;
-    cell:memberGraphShape pshapes:ContactInfoShape ;
-    cell:isTopicCell false .
+    cell:memberGraphShape pshapes:ContactInfoShape .
 
 #################################################################
 #  cat:Projects(org)
@@ -971,8 +897,7 @@ ctpl:ProjectsTemplateCell rdf:type cell:Cell, cell:TemplateCell ;
 ctpl:ProjectsOrgTemplateCell rdf:type cell:Cell, cell:TemplateCell ;
     rdfs:label "Projects (org) Template Cell"@en ;
     cell:category cat:Projects\(org\) ;
-    cell:memberGraphShape pshapes:ContactInfoShape ;
-    cell:isTopicCell false .
+    cell:memberGraphShape pshapes:ContactInfoShape .
 
 #################################################################
 #  cat:Prospects
@@ -981,8 +906,7 @@ ctpl:ProjectsOrgTemplateCell rdf:type cell:Cell, cell:TemplateCell ;
 ctpl:ProspectsTemplateCell rdf:type cell:Cell, cell:TemplateCell ;
     rdfs:label "Prospects Template Cell"@en ;
     cell:category cat:Prospects ;
-    cell:memberGraphShape pshapes:ContactInfoShape ;
-    cell:isTopicCell false .
+    cell:memberGraphShape pshapes:ContactInfoShape .
 
 #################################################################
 #  cat:SportsEntertainment
@@ -991,8 +915,7 @@ ctpl:ProspectsTemplateCell rdf:type cell:Cell, cell:TemplateCell ;
 ctpl:SportsEntertainmentTemplateCell rdf:type cell:Cell, cell:TemplateCell ;
     rdfs:label "Sports & Entertainment Template Cell"@en ;
     cell:category cat:SportsEntertainment ;
-    cell:memberGraphShape pshapes:ContactInfoShape ;
-    cell:isTopicCell false .
+    cell:memberGraphShape pshapes:ContactInfoShape .
 
 #################################################################
 #  cat:State
@@ -1001,8 +924,7 @@ ctpl:SportsEntertainmentTemplateCell rdf:type cell:Cell, cell:TemplateCell ;
 ctpl:StateTemplateCell rdf:type cell:Cell, cell:TemplateCell ;
     rdfs:label "State Template Cell"@en ;
     cell:category cat:State ;
-    cell:memberGraphShape pshapes:ContactInfoShape ;
-    cell:isTopicCell false .
+    cell:memberGraphShape pshapes:ContactInfoShape .
 
 #################################################################
 #  cat:Suppliers
@@ -1011,8 +933,7 @@ ctpl:StateTemplateCell rdf:type cell:Cell, cell:TemplateCell ;
 ctpl:SuppliersTemplateCell rdf:type cell:Cell, cell:TemplateCell ;
     rdfs:label "Suppliers Template Cell"@en ;
     cell:category cat:Suppliers ;
-    cell:memberGraphShape pshapes:ContactInfoShape ;
-    cell:isTopicCell false .
+    cell:memberGraphShape pshapes:ContactInfoShape .
 
 #################################################################
 #  cat:Therapist
@@ -1021,8 +942,7 @@ ctpl:SuppliersTemplateCell rdf:type cell:Cell, cell:TemplateCell ;
 ctpl:TherapistTemplateCell rdf:type cell:Cell, cell:TemplateCell ;
     rdfs:label "Therapist Template Cell"@en ;
     cell:category cat:Therapist ;
-    cell:memberGraphShape pshapes:ContactInfoShape ;
-    cell:isTopicCell false .
+    cell:memberGraphShape pshapes:ContactInfoShape .
 
 #################################################################
 #  cat:Things
@@ -1031,8 +951,7 @@ ctpl:TherapistTemplateCell rdf:type cell:Cell, cell:TemplateCell ;
 ctpl:ThingsTemplateCell rdf:type cell:Cell, cell:TemplateCell ;
     rdfs:label "Things Template Cell"@en ;
     cell:category cat:Things ;
-    cell:memberGraphShape pshapes:ContactInfoShape ;
-    cell:isTopicCell false .
+    cell:memberGraphShape pshapes:ContactInfoShape .
 
 #################################################################
 #  cat:Travel
@@ -1041,8 +960,7 @@ ctpl:ThingsTemplateCell rdf:type cell:Cell, cell:TemplateCell ;
 ctpl:TravelTemplateCell rdf:type cell:Cell, cell:TemplateCell ;
     rdfs:label "Travel Template Cell"@en ;
     cell:category cat:Travel ;
-    cell:memberGraphShape pshapes:ContactInfoShape ;
-    cell:isTopicCell false .
+    cell:memberGraphShape pshapes:ContactInfoShape .
 
 #################################################################
 #  cat:TravelProvider
@@ -1052,8 +970,8 @@ ctpl:TravelProviderTemplateCell rdf:type cell:Cell, cell:TemplateCell ;
     rdfs:label "Provider Template Cell"@en ;
     cell:category cat:TravelProvider ;
     cell:memberGraphShape pshapes:ContactInfoShape ;
-    cell:topicGraphShape sashapes:ServiceAccountShape ;
-    cell:isTopicCell true .
+    cell:declaresTool [ rdf:type cell:FormTool ;
+                        cell:toolGraphShape sashapes:ServiceAccountShape ] .
 
 #################################################################
 #  cat:VehiclesProvider
@@ -1062,8 +980,7 @@ ctpl:TravelProviderTemplateCell rdf:type cell:Cell, cell:TemplateCell ;
 ctpl:VehiclesProviderTemplateCell rdf:type cell:Cell, cell:TemplateCell ;
     rdfs:label "Provider Template Cell"@en ;
     cell:category cat:VehiclesProvider ;
-    cell:memberGraphShape pshapes:ContactInfoShape ;
-    cell:isTopicCell false .
+    cell:memberGraphShape pshapes:ContactInfoShape .
 
 #################################################################
 #  cat:Vision
@@ -1072,8 +989,7 @@ ctpl:VehiclesProviderTemplateCell rdf:type cell:Cell, cell:TemplateCell ;
 ctpl:VisionTemplateCell rdf:type cell:Cell, cell:TemplateCell ;
     rdfs:label "Vision Template Cell"@en ;
     cell:category cat:Vision ;
-    cell:memberGraphShape pshapes:ContactInfoShape ;
-    cell:isTopicCell false .
+    cell:memberGraphShape pshapes:ContactInfoShape .
 
 #################################################################
 #  cat:VisionAppointment
@@ -1082,8 +998,7 @@ ctpl:VisionTemplateCell rdf:type cell:Cell, cell:TemplateCell ;
 ctpl:VisionAppointmentTemplateCell rdf:type cell:Cell, cell:TemplateCell ;
     rdfs:label "Vision Appointment Template Cell"@en ;
     cell:category cat:VisionAppointment ;
-    cell:memberGraphShape pshapes:ContactInfoShape ;
-    cell:isTopicCell false .
+    cell:memberGraphShape pshapes:ContactInfoShape .
 
 #################################################################
 #  cat:VisionHistory
@@ -1092,8 +1007,7 @@ ctpl:VisionAppointmentTemplateCell rdf:type cell:Cell, cell:TemplateCell ;
 ctpl:VisionHistoryTemplateCell rdf:type cell:Cell, cell:TemplateCell ;
     rdfs:label "History Template Cell"@en ;
     cell:category cat:VisionHistory ;
-    cell:memberGraphShape pshapes:ContactInfoShape ;
-    cell:isTopicCell false .
+    cell:memberGraphShape pshapes:ContactInfoShape .
 
 #################################################################
 #  cat:VisionInsurance
@@ -1102,8 +1016,7 @@ ctpl:VisionHistoryTemplateCell rdf:type cell:Cell, cell:TemplateCell ;
 ctpl:VisionInsuranceTemplateCell rdf:type cell:Cell, cell:TemplateCell ;
     rdfs:label "Insurance Template Cell"@en ;
     cell:category cat:VisionInsurance ;
-    cell:memberGraphShape pshapes:ContactInfoShape ;
-    cell:isTopicCell false .
+    cell:memberGraphShape pshapes:ContactInfoShape .
 
 #################################################################
 #  cat:VisionProvider
@@ -1112,8 +1025,7 @@ ctpl:VisionInsuranceTemplateCell rdf:type cell:Cell, cell:TemplateCell ;
 ctpl:VisionProviderTemplateCell rdf:type cell:Cell, cell:TemplateCell ;
     rdfs:label "Provider Template Cell"@en ;
     cell:category cat:VisionProvider ;
-    cell:memberGraphShape pshapes:ContactInfoShape ;
-    cell:isTopicCell false .
+    cell:memberGraphShape pshapes:ContactInfoShape .
 
 #################################################################
 #  cat:Work
@@ -1122,5 +1034,4 @@ ctpl:VisionProviderTemplateCell rdf:type cell:Cell, cell:TemplateCell ;
 ctpl:WorkTemplateCell rdf:type cell:Cell, cell:TemplateCell ;
     rdfs:label "Work Template Cell"@en ;
     cell:category cat:Work ;
-    cell:memberGraphShape pshapes:ContactInfoShape ;
-    cell:isTopicCell false .
+    cell:memberGraphShape pshapes:ContactInfoShape .

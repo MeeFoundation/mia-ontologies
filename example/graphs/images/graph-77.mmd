@@ -7,13 +7,13 @@ flowchart TD
 
     subgraph ctx["Graph"]
         direction LR
-        ctx_meta["claimant: :Self\ngraphSubject: :Self\ntemplate: pshapes:ContactInfoShape"]:::meta
+        ctx_meta["claimant: :Self\ngraphSubject: :Self\nformShape: pshapes:ContactInfoShape"]:::meta
     end
 
-    n0415a88486d3[":Citibank\n(Organization)"]:::org
-    n1d86683d44d0("My primary checking account is here — used for rent and bill-pay autopay. Opened 2019."):::lit
-    ne0c3ba92f1db[":Self\n(Person)"]:::person
-    n653f80ed0c9c("Alice"):::lit
+    n6889d2df6624[":Citibank\n(Organization)"]:::org
+    ncab6e93341a3("My primary checking account is here — used for rent and bill-pay autopay. Opened 2019."):::lit
+    n655e442e50be[":Self\n(Person)"]:::person
+    nf2e372169484("Alice"):::lit
 
-    n0415a88486d3 -->|"ont00001917"| n1d86683d44d0
-    ne0c3ba92f1db -->|"GivenName"| n653f80ed0c9c
+    n6889d2df6624 -->|"ont00001917"| ncab6e93341a3
+    n655e442e50be -->|"GivenName"| nf2e372169484

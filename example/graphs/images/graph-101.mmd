@@ -7,14 +7,14 @@ flowchart TD
 
     subgraph ctx["Graph"]
         direction LR
-        ctx_meta["claimant: :Self\ngraphTopic: :CHVA\ntemplate: oshapes:OrganizationShape"]:::meta
+        ctx_meta["claimant: :Self\ntoolTopic: :CHVA\nformShape: oshapes:OrganizationShape"]:::meta
     end
 
     na28bd289d30c[":CHVA\n(Organization)"]:::org
     n1c9b4a10a37c("64"):::lit
     nda8c8bfea4f9("https://chestnuthillvillage.example.org"):::lit
-    nd811b0654a96("A neighborhood association of the homeowners on the three streets that make up Chestnut Hill Village. Members include Alice Walker, Marcy, and Henry."):::lit
+    n316833624575("A neighborhood association of the homeowners on the three streets that make up Chestnut Hill Village. Members include Alice Walker, Marcy, and Henry."):::lit
 
     na28bd289d30c -->|"numMembers"| n1c9b4a10a37c
     na28bd289d30c -->|"hasWebsite"| nda8c8bfea4f9
-    na28bd289d30c -->|"ont00001917"| nd811b0654a96
+    na28bd289d30c -->|"ont00001917"| n316833624575

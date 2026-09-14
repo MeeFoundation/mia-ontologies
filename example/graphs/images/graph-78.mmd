@@ -7,18 +7,18 @@ flowchart TD
 
     subgraph ctx["Graph"]
         direction LR
-        ctx_meta["claimant: :Self\ngraphTopic: :Self\ntemplate: idocshapes:BirthCertificateShape"]:::meta
+        ctx_meta["claimant: :Self\ntoolTopic: :Self\nformShape: idocshapes:BirthCertificateShape"]:::meta
     end
 
-    n0b5b9e968f7f[":Alice_TX_Birth_Certificate\n(BirthCertificate)"]
-    ndae4d9394e70("Margery"):::lit
-    n1eb107154963("Alice"):::lit
-    na237b93265bb("Walker"):::lit
-    n1e22bdfb2072("Margery Alice Arnold"):::lit
-    ne0c3ba92f1db[":Self\n(Person)"]:::person
+    n054683d504ba[":Alice_TX_Birth_Certificate\n(BirthCertificate)"]
+    nec7d3df5d0fd("Margery"):::lit
+    na964da6f7bf0("Alice"):::lit
+    ncfb1e795d524("Walker"):::lit
+    nc5b8e2716229("Margery Alice Arnold"):::lit
+    n655e442e50be[":Self\n(Person)"]:::person
 
-    n0b5b9e968f7f -->|"GivenName"| ndae4d9394e70
-    n0b5b9e968f7f -->|"AdditionalName"| n1eb107154963
-    n0b5b9e968f7f -->|"FamilyName"| na237b93265bb
-    n0b5b9e968f7f -->|"AlternateName"| n1e22bdfb2072
-    ne0c3ba92f1db -->|"hasIdentityDocument"| n0b5b9e968f7f
+    n054683d504ba -->|"GivenName"| nec7d3df5d0fd
+    n054683d504ba -->|"AdditionalName"| na964da6f7bf0
+    n054683d504ba -->|"FamilyName"| ncfb1e795d524
+    n054683d504ba -->|"AlternateName"| nc5b8e2716229
+    n655e442e50be -->|"hasIdentityDocument"| n054683d504ba

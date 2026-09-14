@@ -8,8 +8,8 @@ description: >
   Cell DataBook for folder "Vehicles" (cell:category: cat:Vehicles), nested under "Things". It is a
   one-member cell with one member entry about :Self — a minimal stub, since "Vehicles" is a purely
   organizational category node with no content or relationship of its own beyond Alice's required
-  membership. Also carries an empty topic graph, required now that cat:Vehicles's own TemplateCell
-  is isTopicCell: true (Check 31) — the real topic content lives in this category's own leaf cell
+  membership. Also carries an empty tool graph, since cat:Vehicles's own TemplateCell
+  declares a form tool — the real content lives in this category's own leaf cell
   (RAV4) instead.
 v4:
   category: "cat:Vehicles"
@@ -19,11 +19,13 @@ v4:
     id: "http://www.example.org/v4/graphs/graph-61"
     claimant: ":Self"
     graphSubject: ":Self"
-    template: "pshapes:ContactInfoShape"
-  topic:
-    id: "http://www.example.org/v4/graphs/graph-89"
-    claimant: ":Self"
-    graphTopic: ":Self"
+    formShape: "pshapes:ContactInfoShape"
+  tool:
+    - type: "form"
+      toolTopic: ":Self"
+      graph:
+        - id: "http://www.example.org/v4/graphs/graph-89"
+          claimant: ":Self"
 ---
 
 ## Graphs
@@ -60,7 +62,7 @@ This graph is the cell's one required `member` entry — a cell with a single `m
 
 #### Overview
 
-This graph is the cell's required `topic` — required now that `cat:Vehicles`'s own `TemplateCell` is `isTopicCell: true` (Check 31), even though "Vehicles" is a purely organizational scaffold cell with no topic content of its own (the real content lives in this category's own leaf cell, RAV4, instead). Deliberately empty — no triples at all, per Check 32's own allowance. Alice is both the claimant and the subject.
+This graph is the cell's required tool graph — required since `cat:Vehicles`'s own `TemplateCell` declares a form tool, even though "Vehicles" is a purely organizational scaffold cell with no topic content of its own (the real content lives in this category's own leaf cell, RAV4, instead). Deliberately empty — no triples at all, per Check 32's own allowance. Alice is both the claimant and the subject.
 
 #### Graph
 

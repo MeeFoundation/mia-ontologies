@@ -16,15 +16,17 @@ v4:
     - id: "http://www.example.org/v4/graphs/graph-58"
       claimant: ":Self"
       graphSubject: ":Self"
-      template: "pshapes:ContactInfoShape"
+      formShape: "pshapes:ContactInfoShape"
     - id: "http://www.example.org/v4/graphs/graph-59"
       claimant: ":Paula_Walker"
       graphSubject: ":Paula_Walker"
-      template: "pshapes:ContactInfoShape"
-  topic:
-    id: "http://www.example.org/v4/graphs/graph-60"
-    claimant: ":Self"
-    graphTopic: ":Ginger"
+      formShape: "pshapes:ContactInfoShape"
+  tool:
+    - type: "form"
+      toolTopic: ":Ginger"
+      graph:
+        - id: "http://www.example.org/v4/graphs/graph-60"
+          claimant: ":Self"
 ---
 
 ## Graphs
@@ -86,7 +88,7 @@ This cell was created by Alice and later shared with Paula, making the cell a tw
 
 #### Overview
 
-This graph captures Alice's day-to-day care and feeding instructions for her cat Ginger — what to feed her and when, and where she sleeps — so that Paula (or anyone else looking after Ginger) knows how to care for her. Alice is the claimant; Ginger is the cell's `subject` but, since she has no `p:Person` individual of her own, her graph is linked via `cell:topic` rather than as one of the required `member` entries (graphs 58 and 59, above, fill those slots instead). No formal template governs this content (unlike her sibling Medical cell's `pets:PetMedicationRecord`, or her own basic identifying claim in graph 37, now governed by `pets:Pet`) — no `cell:TemplateCell` points its `cell:category` at `cat:PetsCareAndFeeding` — so it is asserted directly as a plain comment.
+This graph captures Alice's day-to-day care and feeding instructions for her cat Ginger — what to feed her and when, and where she sleeps — so that Paula (or anyone else looking after Ginger) knows how to care for her. Alice is the claimant; Ginger is the cell's `subject` but, since she has no `p:Person` individual of her own, her graph is held by the cell's form tool rather than being one of the required `member` entries (graphs 58 and 59, above, fill those slots instead). No formal template governs this content (unlike her sibling Medical cell's `pets:PetMedicationRecord`, or her own basic identifying claim in graph 37, now governed by `pets:Pet`) — no `cell:TemplateCell` points its `cell:category` at `cat:PetsCareAndFeeding` — so it is asserted directly as a plain comment.
 
 #### Graph
 

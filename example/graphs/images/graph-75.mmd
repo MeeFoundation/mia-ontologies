@@ -7,14 +7,14 @@ flowchart TD
 
     subgraph ctx["Graph"]
         direction LR
-        ctx_meta["claimant: :Self\ngraphTopic: :Self\ntemplate: sashapes:ServiceAccountShape"]:::meta
+        ctx_meta["claimant: :Self\ntoolTopic: :Self\nformShape: sashapes:ServiceAccountShape"]:::meta
     end
 
-    nd168547b019a[":Alice_Citibank_Online\n(ServiceAccount)"]
-    n6ca0a0131dbe("awalker@gmail.com"):::lit
-    n7342ed3a24fa("C1t1b@nk#2024!"):::lit
-    ne0c3ba92f1db[":Self\n(Person)"]:::person
+    n075fd8d7ca17[":Alice_Citibank_Online\n(ServiceAccount)"]
+    nff8118a747ca("awalker@gmail.com"):::lit
+    nf0ebb1137af5("C1t1b@nk#2024!"):::lit
+    n655e442e50be[":Self\n(Person)"]:::person
 
-    nd168547b019a -->|"userHandle"| n6ca0a0131dbe
-    nd168547b019a -->|"hasPassword"| n7342ed3a24fa
-    ne0c3ba92f1db -->|"holdsUserAccount"| nd168547b019a
+    n075fd8d7ca17 -->|"userHandle"| nff8118a747ca
+    n075fd8d7ca17 -->|"hasPassword"| nf0ebb1137af5
+    n655e442e50be -->|"holdsUserAccount"| n075fd8d7ca17

@@ -7,27 +7,27 @@ flowchart TD
 
     subgraph ctx["Graph"]
         direction LR
-        ctx_meta["claimant: :Self\ngraphTopic: :Self\ntemplate: idocshapes:DriversLicenseShape"]:::meta
+        ctx_meta["claimant: :Self\ntoolTopic: :Self\nformShape: idocshapes:DriversLicenseShape"]:::meta
     end
 
-    naafab809f865[":Alice_CA_DriversLicense\n(DriversLicense)"]
-    n447690bc2432("Margery"):::lit
-    n14d9a22e54ba("Alice"):::lit
-    n09f42dbc8fc0("Walker"):::lit
-    n4052c58bed30("1985-07-04"):::lit
-    n548c2552f79c("CA"):::lit
-    n3cf167fca869("2031-07-04"):::lit
-    nf5e99e32e234[":Alice_DL_Number\n(DriversLicenseNumber)"]
-    n2d7288ec7ae7("https://example.org/alice-dl-photo.jpg"):::lit
-    ne0c3ba92f1db[":Self\n(Person)"]:::person
+    ndd245ccbe354[":Alice_CA_DriversLicense\n(DriversLicense)"]
+    nc3dfb8c8a2cd("Margery"):::lit
+    ne781625c3b8f("Alice"):::lit
+    na7880e6893aa("Walker"):::lit
+    n87e481f94914("1985-07-04"):::lit
+    n0f9f4fb13b88("CA"):::lit
+    n7891a884ae40("2031-07-04"):::lit
+    ne31ed13ce6e2[":Alice_DL_Number\n(DriversLicenseNumber)"]
+    na3d0899650d5("https://example.org/alice-dl-photo.jpg"):::lit
+    n655e442e50be[":Self\n(Person)"]:::person
 
-    naafab809f865 -->|"GivenName"| n447690bc2432
-    naafab809f865 -->|"AdditionalName"| n14d9a22e54ba
-    naafab809f865 -->|"FamilyName"| n09f42dbc8fc0
-    naafab809f865 -->|"ent00000046"| n4052c58bed30
-    naafab809f865 -->|"IssuingJurisdiction"| n548c2552f79c
-    naafab809f865 -->|"ExpirationDate"| n3cf167fca869
-    naafab809f865 -->|"isCarrierOf"| nf5e99e32e234
-    naafab809f865 -->|"hasPhoto"| n2d7288ec7ae7
-    ne0c3ba92f1db -->|"hasIdentityDocument"| naafab809f865
-    ne0c3ba92f1db -->|"designated by"| nf5e99e32e234
+    ndd245ccbe354 -->|"GivenName"| nc3dfb8c8a2cd
+    ndd245ccbe354 -->|"AdditionalName"| ne781625c3b8f
+    ndd245ccbe354 -->|"FamilyName"| na7880e6893aa
+    ndd245ccbe354 -->|"ent00000046"| n87e481f94914
+    ndd245ccbe354 -->|"IssuingJurisdiction"| n0f9f4fb13b88
+    ndd245ccbe354 -->|"ExpirationDate"| n7891a884ae40
+    ndd245ccbe354 -->|"isCarrierOf"| ne31ed13ce6e2
+    ndd245ccbe354 -->|"hasPhoto"| na3d0899650d5
+    n655e442e50be -->|"hasIdentityDocument"| ndd245ccbe354
+    n655e442e50be -->|"designated by"| ne31ed13ce6e2

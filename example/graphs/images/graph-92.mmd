@@ -7,12 +7,12 @@ flowchart TD
 
     subgraph ctx["Graph"]
         direction LR
-        ctx_meta["claimant: :BHS\ngraphTopic: :BHS\ntemplate: oshapes:OrganizationShape"]:::meta
+        ctx_meta["claimant: :BHS\ntoolTopic: :BHS\nformShape: oshapes:OrganizationShape"]:::meta
     end
 
-    n0644db9ef116[":BHS\n(Organization)"]:::org
-    nf8befe7cf64a("80"):::lit
-    n2ee2b41d4b64("https://bostonhubsociety.example.org"):::lit
+    n8eb8cf796f42[":BHS\n(Organization)"]:::org
+    n24ef17d1a331("80"):::lit
+    n5a8eccd9442d("https://bostonhubsociety.example.org"):::lit
 
-    n0644db9ef116 -->|"numMembers"| nf8befe7cf64a
-    n0644db9ef116 -->|"hasWebsite"| n2ee2b41d4b64
+    n8eb8cf796f42 -->|"numMembers"| n24ef17d1a331
+    n8eb8cf796f42 -->|"hasWebsite"| n5a8eccd9442d

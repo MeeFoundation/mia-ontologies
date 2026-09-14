@@ -17,12 +17,14 @@ v4:
     id: "http://www.example.org/v4/graphs/graph-24"
     claimant: ":Self"
     graphSubject: ":Self"
-    template: "pshapes:ContactInfoShape"
-  topic:
-    id: "http://www.example.org/v4/graphs/graph-78"
-    claimant: ":Self"
-    graphTopic: ":Self"
-    template: "idocshapes:BirthCertificateShape"
+    formShape: "pshapes:ContactInfoShape"
+  tool:
+    - type: "form"
+      toolTopic: ":Self"
+      graph:
+        - id: "http://www.example.org/v4/graphs/graph-78"
+          claimant: ":Self"
+          formShape: "idocshapes:BirthCertificateShape"
 ---
 
 ## Graphs
@@ -32,7 +34,7 @@ v4:
 
 #### Overview
 
-This graph is the cell's one required `member` entry — a cell with a single `member` entry in the user's own category-cell tree always has `:Self` as that member (see Check 21). Alice is both the claimant and the subject. It carries her given name, satisfying the `ContactInfoShape` every templated cell's `member` content is now expected to conform to (`cell:memberGraphShape`) — no longer the birth certificate document content, which now lives in this cell's `cell:topic` graph instead (graph 78).
+This graph is the cell's one required `member` entry — a cell with a single `member` entry in the user's own category-cell tree always has `:Self` as that member (see Check 21). Alice is both the claimant and the subject. It carries her given name, satisfying the `ContactInfoShape` every templated cell's `member` content is now expected to conform to (`cell:memberGraphShape`) — no longer the birth certificate document content, which now lives in this cell's tool graph instead (graph 78).
 
 #### Graph
 
@@ -59,7 +61,7 @@ This graph is the cell's one required `member` entry — a cell with a single `m
 
 #### Overview
 
-This graph captures Alice Walker's Texas birth certificate identity data — moved here, as this cell's `cell:topic` content, from the cell's former `member` graph-24. Alice self-enters her legal name (Margery Alice Walker) and maiden name (Margery Alice Arnold) from her physical birth certificate. Validated by the `BirthCertificateShape` per-template SHACL shape (`other/shacl/identity-documents-shacl.ttl`). Alice is the claimant.
+This graph captures Alice Walker's Texas birth certificate identity data — moved here, as this cell's tool content, from the cell's former `member` graph-24. Alice self-enters her legal name (Margery Alice Walker) and maiden name (Margery Alice Arnold) from her physical birth certificate. Validated by the `BirthCertificateShape` per-template SHACL shape (`other/shacl/identity-documents-shacl.ttl`). Alice is the claimant.
 
 #### Graph
 

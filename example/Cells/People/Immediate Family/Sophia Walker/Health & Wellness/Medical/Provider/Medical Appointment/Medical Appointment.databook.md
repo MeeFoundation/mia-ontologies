@@ -14,16 +14,18 @@ v4:
     - id: "http://www.example.org/v4/graphs/graph-28"
       claimant: ":Dave"
       graphSubject: ":Dave"
-      template: "pshapes:ContactInfoShape"
+      formShape: "pshapes:ContactInfoShape"
     - id: "http://www.example.org/v4/graphs/graph-30"
       claimant: ":Self"
       graphSubject: ":Self"
-      template: "pshapes:ContactInfoShape"
-  topic:
-    id: "http://www.example.org/v4/graphs/graph-26"
-    claimant: ":Self"
-    graphTopic: ":Sophia_Walker"
-    template: "mashapes:MedicalAppointmentRecordShape"
+      formShape: "pshapes:ContactInfoShape"
+  tool:
+    - type: "form"
+      toolTopic: ":Sophia_Walker"
+      graph:
+        - id: "http://www.example.org/v4/graphs/graph-26"
+          claimant: ":Self"
+          formShape: "mashapes:MedicalAppointmentRecordShape"
 ---
 
 ## Graphs

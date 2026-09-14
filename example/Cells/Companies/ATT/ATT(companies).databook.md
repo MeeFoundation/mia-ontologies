@@ -17,12 +17,14 @@ v4:
     id: "http://www.example.org/v4/graphs/graph-11"
     claimant: ":Self"
     graphSubject: ":Self"
-    template: "pshapes:ContactInfoShape"
-  topic:
-    id: "http://www.example.org/v4/graphs/graph-74"
-    claimant: ":Self"
-    graphTopic: ":Alice_ATT_Account"
-    template: "sashapes:ServiceAccountShape"
+    formShape: "pshapes:ContactInfoShape"
+  tool:
+    - type: "form"
+      toolTopic: ":Alice_ATT_Account"
+      graph:
+        - id: "http://www.example.org/v4/graphs/graph-74"
+          claimant: ":Self"
+          formShape: "sashapes:ServiceAccountShape"
 ---
 
 ## Graphs

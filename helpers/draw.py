@@ -33,7 +33,7 @@ from pathlib import Path
 from rdflib import BNode, Graph, Literal, Namespace, URIRef
 from rdflib.namespace import OWL, RDF, RDFS
 
-from databook_graphs import as_list, extract_graph_block, find_graph_entry, split_frontmatter
+from databook_graphs import as_list, extract_graph_block, find_graph_entry, graph_entries, split_frontmatter
 
 # ── Namespaces ─────────────────────────────────────────────────────────────────
 PERSONA = Namespace("http://mee.foundation/ontologies/persona#")
@@ -199,7 +199,7 @@ def esc(s: str) -> str:
 def load_databook(path: Path, graph_id: str | None = None):
     """Parse a cell-databook's frontmatter, and (when graph_id is given)
     isolate just that one embedded graph's turtle fence — a merged cell
-    file's body may contain several fences, one per v4.member/v4.topic
+    file's body may contain several fences, one per v4.member/v4.tool graph
     entry, so concatenating all of them (the old, pre-merge behavior) would
     wrongly combine sibling graphs' RDF into one graph."""
     content = path.read_text()
@@ -274,10 +274,10 @@ def _meta_subgraph(v4: dict, src_dir: Path | None = None) -> list[str]:
         props.append(f"claimant: {claimant}")
     if graph_subject := v4.get("graphSubject"):
         props.append(f"graphSubject: {graph_subject}")
-    if graph_topic := v4.get("graphTopic"):
-        props.append(f"graphTopic: {graph_topic}")
-    if template := v4.get("template"):
-        props.append(f"template: {template}")
+    if tool_topic := v4.get("toolTopic"):
+        props.append(f"toolTopic: {tool_topic}")
+    if form_shape := v4.get("formShape"):
+        props.append(f"formShape: {form_shape}")
     if dyad := v4.get("dyad"):
         props.append(f"dyad: {_dyad_label(str(dyad), src_dir)}")
     if not props:
@@ -484,10 +484,10 @@ def main() -> None:
         graph_arg = sys.argv[2]
         _, cell_fm = load_databook(src)  # frontmatter only — no graph_id yet
         v4 = cell_fm.get("v4") or {}
-        entries = as_list(v4.get("member")) + as_list(v4.get("topic"))
+        entries = graph_entries(v4)
         match = find_graph_entry(entries, graph_arg)
         if not match:
-            sys.exit(f"No v4.member/v4.topic entry with id/local-name {graph_arg!r} in {src}")
+            sys.exit(f"No v4.member or v4.tool[].graph entry with id/local-name {graph_arg!r} in {src}")
         graph_id = match["id"]
         stem = graph_id.rsplit("/", 1)[-1]  # unchanged filename-stem convention
         g, _ = load_databook(src, graph_id)
@@ -496,15 +496,15 @@ def main() -> None:
         # more separate example/graphs/self.ttl to merge in) — build_mermaid's
         # `individuals` set (built from an in-graph owl:NamedIndividual typing)
         # picks it up from the graph's own content like any other individual.
-        # Use this one graph's own claimant/subject/template for the "Graph"
+        # Use this one graph's own claimant/subject/formShape for the "Graph"
         # metadata box — not the owning cell's aggregate v4.creator
         # (the cell has no aggregate v4.subject of its own any more; a
-        # cell's subject is derived from its members/topic).
+        # cell's subject is derived from its tools/members).
         frontmatter = {"v4": {
             "claimant": match.get("claimant"),
             "graphSubject": match.get("graphSubject"),
-            "graphTopic": match.get("graphTopic"),
-            "template": match.get("template"),
+            "toolTopic": match.get("toolTopic"),
+            "formShape": match.get("formShape"),
         }}
         out_dir = Path("example/graphs/images")  # fixed — graph PNGs never move
     else:

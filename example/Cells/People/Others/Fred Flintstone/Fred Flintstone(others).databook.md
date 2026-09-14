@@ -18,11 +18,11 @@ v4:
     - id: "http://www.example.org/v4/graphs/graph-31"
       claimant: ":Fred_Flintstone"
       graphSubject: ":Fred_Flintstone"
-      template: "pshapes:ContactInfoShape"
+      formShape: "pshapes:ContactInfoShape"
     - id: "http://www.example.org/v4/graphs/graph-29"
       claimant: ":Self"
       graphSubject: ":Self"
-      template: "pshapes:ContactInfoShape"
+      formShape: "pshapes:ContactInfoShape"
 ---
 
 ## Graphs
