@@ -324,9 +324,9 @@ The division of labor between its three parts is what makes one module's bookkee
 
 ### Tools
 
-<p align="center"><img src="images/cell-ontology/tool.png" alt="tool hierarchy"></p>
-
 A **tool** is a holder of structured content inside a cell — what a user recognizes as "this cell has a form on it", sitting alongside the cell's unstructured note and its attachments. A cell carries zero or more, via `c:tool`; a cell with none is the ordinary case, not a lesser kind of cell.
+
+<p align="center"><img src="images/cell-ontology/tool.png" alt="tool hierarchy"></p>
 
 Three tool classes are defined. `c:FormTool` is the one with content today: it holds one or more `c:FormGraph` DataBooks, whose fields the app renders from the SHACL shape governing the tool (see [Form Fields from SHACL Shapes](APP-BEHAVIOR.md#form-fields-from-shacl-shapes) in APP-BEHAVIOR.md). `c:CalendarTool` and `c:CanvasTool` carry no properties of their own yet — they are defined so the extension point is visibly plural, and so that adding a tool later is a new subclass rather than a new property on `c:InstanceCell`.
 
