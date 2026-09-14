@@ -235,8 +235,8 @@ def process_cell_databook(fm, triples):
     # cell:member entry rather than omitting member content. Member count
     # itself is never stored — it's simply the number of distinct
     # subject values among v4.member, derivable by counting whenever
-    # needed. There is no second cell type to emit: a cell that holds
-    # structured content carries cell:tool values, not a subclass.
+    # needed. There is no second cell type to emit: a cell that carries
+    # a tool holds cell:tool values, not a subclass.
     emit_type(triples, subj, CELL + "InstanceCell")
 
     if v4.get("creator"):
@@ -282,8 +282,9 @@ def process_cell_databook(fm, triples):
         emit_obj(triples, subj, CELL + "member", entry["id"])
         process_embedded_graph(entry, triples, "member")
 
-    # cell:tool — zero or more per cell, each a blank node holding this
-    # cell's structured content. The node's rdf:type comes from the entry's
+    # cell:tool — zero or more per cell, each a blank node for one object
+    # the cell carries: a form, a calendar or a drawing canvas, each with
+    # its own data format. The node's rdf:type comes from the entry's
     # own `type` key (form/calendar/canvas); cell:formTopic, what the tool's
     # content is about, is carried once by the tool rather than repeated on
     # each graph beneath it, which is what makes its graphs unable to

@@ -64,7 +64,7 @@ This graph captures Dave's self-claimed family persona as transmitted from Dave'
 
 #### Overview
 
-This graph captures Alice's Contact Info record of her daughter Sophia Walker. Sophia has no instance of the app, so she cannot join this cell as a member: Alice added this graph manually, in a form tool she added herself, and chose the Contact Info template (`pshapes:ContactInfoShape`) for it, which is what gives an otherwise ordinary `cat:ImmediateFamily` cell structured content of its own. Sophia is therefore the cell's derived subject rather than one of its two members. Alice is the claimant.
+This graph captures Alice's Contact Info record of her daughter Sophia Walker. Sophia has no instance of the app, so she cannot join this cell as a member: Alice added this graph manually, in a form tool she added herself, and chose the Contact Info template (`pshapes:ContactInfoShape`) for it, which is what gives an otherwise ordinary `cat:ImmediateFamily` cell a tool of its own. Sophia is therefore the cell's derived subject rather than one of its two members. Alice is the claimant.
 
 #### Graph
 
