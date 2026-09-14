@@ -17,11 +17,11 @@ v4:
   member:
     - id: "http://www.example.org/v4/graphs/graph-31"
       claimant: ":Fred_Flintstone"
-      graphSubject: ":Fred_Flintstone"
+      subject: ":Fred_Flintstone"
       shape: "pshapes:ContactInfoShape"
     - id: "http://www.example.org/v4/graphs/graph-29"
       claimant: ":Self"
-      graphSubject: ":Self"
+      subject: ":Self"
       shape: "pshapes:ContactInfoShape"
 ---
 

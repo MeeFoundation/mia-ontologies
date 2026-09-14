@@ -16,7 +16,7 @@ v4:
   member:
     id: "http://www.example.org/v4/graphs/graph-43"
     claimant: ":Self"
-    graphSubject: ":Self"
+    subject: ":Self"
     shape: "pshapes:ContactInfoShape"
 ---
 

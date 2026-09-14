@@ -7,16 +7,16 @@ flowchart TD
 
     subgraph ctx["Graph"]
         direction LR
-        ctx_meta["claimant: :Bob_Johnson\ngraphSubject: :Bob_Johnson\nshape: pshapes:ContactInfoShape"]:::meta
+        ctx_meta["claimant: :Bob_Johnson\nsubject: :Bob_Johnson\nshape: pshapes:ContactInfoShape"]:::meta
     end
 
     neae384a4670c[":Bob_Bob_Network\n(SocialNetwork)"]
     nca0dda0e6750[":Self"]
     ncec7d6304e56[":Bob_Johnson\n(Person)"]:::person
-    nc15c8b79a971("Bob"):::lit
-    n8596c4136ed9("Johnson"):::lit
+    n70109c923182("Bob"):::lit
+    n00743738fdff("Johnson"):::lit
 
     neae384a4670c -->|"hasMemberPart"| nca0dda0e6750
-    ncec7d6304e56 -->|"GivenName"| nc15c8b79a971
-    ncec7d6304e56 -->|"FamilyName"| n8596c4136ed9
+    ncec7d6304e56 -->|"GivenName"| n70109c923182
+    ncec7d6304e56 -->|"FamilyName"| n00743738fdff
     ncec7d6304e56 -->|"hasSocialNetwork"| neae384a4670c

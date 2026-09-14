@@ -7,12 +7,12 @@ flowchart TD
 
     subgraph ctx["Graph"]
         direction LR
-        ctx_meta["claimant: :Alice_Travel_Agent\ngraphSubject: :Alice_Travel_Agent\nshape: pshapes:ContactInfoShape"]:::meta
+        ctx_meta["claimant: :Alice_Travel_Agent\nsubject: :Alice_Travel_Agent\nshape: pshapes:ContactInfoShape"]:::meta
     end
 
     n3db039067d6d[":Alice_Travel_Agent\n(ChatGPT)"]:::service
     n655e442e50be[":Self\n(Person)"]:::person
-    nf66724669e78("Alice"):::lit
+    n453e0472403c("Alice"):::lit
 
     n3db039067d6d -->|"actsFor"| n655e442e50be
-    n655e442e50be -->|"GivenName"| nf66724669e78
+    n655e442e50be -->|"GivenName"| n453e0472403c

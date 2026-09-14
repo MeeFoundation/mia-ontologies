@@ -7,14 +7,14 @@ flowchart TD
 
     subgraph ctx["Graph"]
         direction LR
-        ctx_meta["claimant: :Paula_Walker\ngraphSubject: :Paula_Walker\nshape: pshapes:ContactInfoShape"]:::meta
+        ctx_meta["claimant: :Paula_Walker\nsubject: :Paula_Walker\nshape: pshapes:ContactInfoShape"]:::meta
     end
 
     n679aafec7a4b[":Paula_Walker\n(Person)"]:::person
-    nf09cdc092d01("Paula"):::lit
-    n1addbe4f2eea("Retired"):::lit
-    n770cb4b8e788("+19165550172"):::lit
+    nf9f3540afb21("Paula"):::lit
+    n1fda0674cb68("Retired"):::lit
+    n4f76ec01d829("+19165550172"):::lit
 
-    n679aafec7a4b -->|"GivenName"| nf09cdc092d01
-    n679aafec7a4b -->|"OrganizationName"| n1addbe4f2eea
-    n679aafec7a4b -->|"TelephoneNumber"| n770cb4b8e788
+    n679aafec7a4b -->|"GivenName"| nf9f3540afb21
+    n679aafec7a4b -->|"OrganizationName"| n1fda0674cb68
+    n679aafec7a4b -->|"TelephoneNumber"| n4f76ec01d829

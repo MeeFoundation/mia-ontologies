@@ -20,11 +20,11 @@ v4:
   member:
     - id: "http://www.example.org/v4/graphs/graph-95"
       claimant: ":Self"
-      graphSubject: ":Self"
+      subject: ":Self"
       shape: "pshapes:ContactInfoShape"
     - id: "http://www.example.org/v4/graphs/graph-96"
       claimant: ":Arca_Backup"
-      graphSubject: ":Arca_Backup"
+      subject: ":Arca_Backup"
       shape: "pshapes:ContactInfoShape"
   tool:
     - type: "form"

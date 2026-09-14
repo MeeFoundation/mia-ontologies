@@ -272,8 +272,8 @@ def _meta_subgraph(v4: dict, src_dir: Path | None = None) -> list[str]:
         props.append(f"category: {cat.removeprefix('context:')}")
     if claimant := v4.get("claimant"):
         props.append(f"claimant: {claimant}")
-    if graph_subject := v4.get("graphSubject"):
-        props.append(f"graphSubject: {graph_subject}")
+    if graph_subject := v4.get("subject"):
+        props.append(f"subject: {graph_subject}")
     if tool_topic := v4.get("formTopic"):
         props.append(f"formTopic: {tool_topic}")
     if form_shape := v4.get("shape"):
@@ -498,11 +498,12 @@ def main() -> None:
         # picks it up from the graph's own content like any other individual.
         # Use this one graph's own claimant/subject/shape for the "Graph"
         # metadata box — not the owning cell's aggregate v4.creator
-        # (the cell has no aggregate v4.subject of its own any more; a
-        # cell's subject is derived from its tools/members).
+        # (the cell has no aggregate v4.subject of its own; the subject
+        # key sits inside each member entry, and a cell's own subject is
+        # derived from its tools/members).
         frontmatter = {"v4": {
             "claimant": match.get("claimant"),
-            "graphSubject": match.get("graphSubject"),
+            "subject": match.get("subject"),
             "formTopic": match.get("formTopic"),
             "shape": match.get("shape"),
         }}

@@ -234,7 +234,7 @@ def process_cell_databook(fm, triples):
     # with nothing substantive to say still carries a minimal stub
     # cell:member entry rather than omitting member content. Member count
     # itself is never stored — it's simply the number of distinct
-    # graphSubject values among v4.member, derivable by counting whenever
+    # subject values among v4.member, derivable by counting whenever
     # needed. There is no second cell type to emit: a cell that holds
     # structured content carries cell:tool values, not a subclass.
     emit_type(triples, subj, CELL + "InstanceCell")
@@ -301,7 +301,7 @@ def process_cell_databook(fm, triples):
     # No cell-level subject synthesis: who/what a cell is about is
     # derivable directly from tools/members — the distinct
     # cell:formTopic values if any tool is present, else the distinct
-    # cell:graphSubject values among members (cell.ttl's cell:tool
+    # cell:subject values among members (cell.ttl's cell:tool
     # comment) — rather than an independently-asserted fact, so it is
     # never stored as its own triple.
 
@@ -317,18 +317,18 @@ def process_embedded_graph(graph, triples, kind):
     graph (cell.ttl's two disjoint cell:CGraph leaves). Nothing in the entry
     itself marks which kind it is; the list it was read from settles it,
     matching cell:member's and cell:formGraph's own ranges. Only a member
-    entry carries an about-ness property of its own (cell:graphSubject); a
+    entry carries an about-ness property of its own (cell:subject); a
     tool graph's is cell:formTopic, held once by the tool above it."""
     is_member = kind == "member"
     claimant = graph.get("claimant")
-    about = graph.get("graphSubject") if is_member else None
+    about = graph.get("subject") if is_member else None
     if not claimant or (is_member and not about):
         return  # missing claimant or subject — not a well-formed graph, skip
     subj = graph["id"]
     emit_type(triples, subj, CELL + ("MemberGraph" if is_member else "FormGraph"))
     emit_obj(triples, subj, CELL + "claimant", resolve(claimant))
     if is_member:
-        emit_obj(triples, subj, CELL + "graphSubject", resolve(about))
+        emit_obj(triples, subj, CELL + "subject", resolve(about))
 
     # cell:shape — domain cell:Graph, so it applies to both kinds, 0..N,
     # present only on graphs that contain instance(s) of a shape's own type

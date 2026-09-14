@@ -7,18 +7,18 @@ flowchart TD
 
     subgraph ctx["Graph"]
         direction LR
-        ctx_meta["claimant: :Dave\ngraphSubject: :Dave\nshape: pshapes:ContactInfoShape"]:::meta
+        ctx_meta["claimant: :Dave\nsubject: :Dave\nshape: pshapes:ContactInfoShape"]:::meta
     end
 
     nb69bdc5e9e9b[":Dave\n(Person)"]:::person
-    ne66b8c41aa10("Dave"):::lit
-    n6c005e5fedf3("Walker"):::lit
-    n252ac5aa2f31("+19165550198"):::lit
-    n57318c7c43dc("Self-Employed"):::lit
-    n3f4dabf29f5d("Usually available weekday evenings and weekends for Sophia's appointments."):::lit
+    nbf5c27f579ef("Dave"):::lit
+    n7cf41deda217("Walker"):::lit
+    nc031b0bb7296("+19165550198"):::lit
+    nb9e02e219567("Self-Employed"):::lit
+    n09c071164fd0("Usually available weekday evenings and weekends for Sophia's appointments."):::lit
 
-    nb69bdc5e9e9b -->|"GivenName"| ne66b8c41aa10
-    nb69bdc5e9e9b -->|"FamilyName"| n6c005e5fedf3
-    nb69bdc5e9e9b -->|"TelephoneNumber"| n252ac5aa2f31
-    nb69bdc5e9e9b -->|"OrganizationName"| n57318c7c43dc
-    nb69bdc5e9e9b -->|"ont00001917"| n3f4dabf29f5d
+    nb69bdc5e9e9b -->|"GivenName"| nbf5c27f579ef
+    nb69bdc5e9e9b -->|"FamilyName"| n7cf41deda217
+    nb69bdc5e9e9b -->|"TelephoneNumber"| nc031b0bb7296
+    nb69bdc5e9e9b -->|"OrganizationName"| nb9e02e219567
+    nb69bdc5e9e9b -->|"ont00001917"| n09c071164fd0

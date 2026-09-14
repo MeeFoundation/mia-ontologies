@@ -345,7 +345,7 @@ plus the `c:` triples synthesized from its own `v4.*` frontmatter
 (`databook_graphs.process_cell_databook()`). This is validated against the four general shapes
 files — `shacl/cell-shacl.ttl` (the cell model itself: `c:category` cardinality, the
 `c:TemplateCell`/`c:InstanceCell` split, `c:creator`/`c:owner`/`c:member`/`c:tool`, and
-`c:CGraph`'s `c:claimant` and `c:MemberGraph`'s `c:graphSubject`), plus `shacl/persona-shacl.ttl`,
+`c:CGraph`'s `c:claimant` and `c:MemberGraph`'s `c:subject`), plus `shacl/persona-shacl.ttl`,
 `shacl/organization-shacl.ttl` and `shacl/service-shacl.ttl` — merged into one shapes graph with
 `owl:imports` stripped. The graph Turtle has to be in this data, not just the frontmatter triples:
 `:InstanceCellShape` and `:CGraphShape` constrain `c:creator`/`c:owner`/`c:claimant` with

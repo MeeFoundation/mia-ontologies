@@ -15,11 +15,11 @@ v4:
   member:
     - id: "http://www.example.org/v4/graphs/graph-33"
       claimant: ":Self"
-      graphSubject: ":Self"
+      subject: ":Self"
       shape: "pshapes:ContactInfoShape"
     - id: "http://www.example.org/v4/graphs/graph-57"
       claimant: ":Paula_Walker"
-      graphSubject: ":Paula_Walker"
+      subject: ":Paula_Walker"
       shape: "pshapes:ContactInfoShape"
   tool:
     - type: "form"

@@ -7,7 +7,7 @@ flowchart TD
 
     subgraph ctx["Graph"]
         direction LR
-        ctx_meta["claimant: :Self\ngraphSubject: :Self\nshape: pshapes:ContactInfoShape"]:::meta
+        ctx_meta["claimant: :Self\nsubject: :Self\nshape: pshapes:ContactInfoShape"]:::meta
     end
 
     n0303611a7c60[":Alice_DriversLicense\n(PhysicalDriversLicense)"]
@@ -18,13 +18,13 @@ flowchart TD
     n090977cab091[":Alice_PaymentCard\n(PhysicalPaymentCard)"]
     n13a319213254[":Alice_SSNCard\n(PhysicalSocialSecurityCard)"]
     n655e442e50be[":Self\n(Person)"]:::person
-    n2d8aadd83f68("Alice"):::lit
+    na70c13c4d01e("Alice"):::lit
 
     n0303611a7c60 -->|"continuantPartOf"| nb98293d697a1
     n0303611a7c60 -->|"hasImageScan"| neecb76977951
     nfe3c9ccef900 -->|"hasImageScan"| nb1cfdd713e7a
     n090977cab091 -->|"continuantPartOf"| nb98293d697a1
-    n655e442e50be -->|"GivenName"| n2d8aadd83f68
+    n655e442e50be -->|"GivenName"| na70c13c4d01e
     n655e442e50be -->|"hasWallet"| nb98293d697a1
     n655e442e50be -->|"hasPhysicalCard"| nfe3c9ccef900
     n655e442e50be -->|"hasPhysicalCard"| n13a319213254

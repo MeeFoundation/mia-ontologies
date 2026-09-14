@@ -18,15 +18,15 @@ v4:
   member:
     - id: "http://www.example.org/v4/graphs/graph-09"
       claimant: ":Self"
-      graphSubject: ":Self"
+      subject: ":Self"
       shape: "pshapes:ContactInfoShape"
     - id: "http://www.example.org/v4/graphs/graph-45"
       claimant: ":Marcy"
-      graphSubject: ":Marcy"
+      subject: ":Marcy"
       shape: "pshapes:ContactInfoShape"
     - id: "http://www.example.org/v4/graphs/graph-100"
       claimant: ":Henry"
-      graphSubject: ":Henry"
+      subject: ":Henry"
       shape: "pshapes:ContactInfoShape"
   tool:
     - type: "form"

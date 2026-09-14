@@ -23,15 +23,15 @@ v4:
   member:
     - id: "http://www.example.org/v4/graphs/graph-66"
       claimant: ":Self"
-      graphSubject: ":Self"
+      subject: ":Self"
       shape: "pshapes:ContactInfoShape"
     - id: "http://www.example.org/v4/graphs/graph-67"
       claimant: ":Alice_Travel_Agent"
-      graphSubject: ":Alice_Travel_Agent"
+      subject: ":Alice_Travel_Agent"
       shape: "pshapes:ContactInfoShape"
     - id: "http://www.example.org/v4/graphs/graph-68"
       claimant: ":Dave"
-      graphSubject: ":Dave"
+      subject: ":Dave"
       shape: "pshapes:ContactInfoShape"
   tool:
     - type: "form"
@@ -129,7 +129,7 @@ This graph is another of the cell's three required `member` entries — Alice's 
 
 #### Overview
 
-This graph is the cell's third required `member` entry — Dave's own self-claimed bare given-name persona, transmitted from Dave's own instance of the app to Alice's over the PDN once she invited him to this cell, the same "self-claimed member" pattern Bob Johnson's own graphs use. This third distinct `member` `graphSubject` (alongside `:Self` and `:Alice_Travel_Agent`) is what makes the cell a three-member cell rather than a two-member cell.
+This graph is the cell's third required `member` entry — Dave's own self-claimed bare given-name persona, transmitted from Dave's own instance of the app to Alice's over the PDN once she invited him to this cell, the same "self-claimed member" pattern Bob Johnson's own graphs use. This third distinct `member` `subject` (alongside `:Self` and `:Alice_Travel_Agent`) is what makes the cell a three-member cell rather than a two-member cell.
 
 #### Graph
 

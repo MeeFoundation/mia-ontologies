@@ -17,19 +17,19 @@ v4:
   member:
     - id: "http://www.example.org/v4/graphs/graph-02"
       claimant: ":Bob_Johnson"
-      graphSubject: ":Bob_Johnson"
+      subject: ":Bob_Johnson"
       shape: "pshapes:ContactInfoShape"
     - id: "http://www.example.org/v4/graphs/graph-12"
       claimant: ":Self"
-      graphSubject: ":Self"
+      subject: ":Self"
       shape: "pshapes:ContactInfoShape"
     - id: "http://www.example.org/v4/graphs/graph-04"
       claimant: ":Self"
-      graphSubject: ":Bob_Johnson"
+      subject: ":Bob_Johnson"
       shape: "pshapes:ContactInfoShape"
     - id: "http://www.example.org/v4/graphs/graph-08"
       claimant: ":Bob_Johnson"
-      graphSubject: ":Self"
+      subject: ":Self"
       shape: "pshapes:ContactInfoShape"
 ---
 

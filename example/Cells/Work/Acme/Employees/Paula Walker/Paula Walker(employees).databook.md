@@ -13,11 +13,11 @@ v4:
   member:
     - id: "http://www.example.org/v4/graphs/graph-20"
       claimant: ":Self"
-      graphSubject: ":Self"
+      subject: ":Self"
       shape: "pshapes:ContactInfoShape"
     - id: "http://www.example.org/v4/graphs/graph-06"
       claimant: ":Self"
-      graphSubject: ":Paula_Walker"
+      subject: ":Paula_Walker"
       shape: "pshapes:ContactInfoShape"
 ---
 

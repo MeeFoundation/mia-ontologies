@@ -7,31 +7,31 @@ flowchart TD
 
     subgraph ctx["Graph"]
         direction LR
-        ctx_meta["claimant: :Self\ngraphSubject: :Self\nshape: pshapes:ContactInfoShape"]:::meta
+        ctx_meta["claimant: :Self\nsubject: :Self\nshape: pshapes:ContactInfoShape"]:::meta
     end
 
     n83041f53e81b[":Address_BHS\n(PostalAddress)"]
-    n07c294ad213f("123 Sleepy Hollow"):::lit
-    nbd0daa39b730("Paradise"):::lit
-    n6dade5fdc5fb("CA"):::lit
-    n8ed1cfe0488e("95969"):::lit
-    n8949491a5979("USA"):::lit
+    n15598f3e4334("123 Sleepy Hollow"):::lit
+    nc2d959bd961b("Paradise"):::lit
+    nc0a5ebb88ab9("CA"):::lit
+    n922a4448866e("95969"):::lit
+    nc5b05af1bd08("USA"):::lit
     n671ed2c2e917[":BHS_AddressDesignation\n(AddressDesignation)"]
     n655e442e50be[":Self\n(Person)"]:::person
-    nbbb4b4c4b362("Alice"):::lit
-    n122490f7b530("Alice Walker"):::lit
-    n77bb1782b3f5("+15108149999"):::lit
-    n19949499dccc("awalker@gmail.com"):::lit
+    n34aebc63e25c("Alice"):::lit
+    n42a16703c60a("Alice Walker"):::lit
+    n32d772bbf9c3("+15108149999"):::lit
+    n8ef53930730b("awalker@gmail.com"):::lit
 
-    n83041f53e81b -->|"hasContinuantPart"| n07c294ad213f
-    n83041f53e81b -->|"hasContinuantPart"| nbd0daa39b730
-    n83041f53e81b -->|"hasContinuantPart"| n6dade5fdc5fb
-    n83041f53e81b -->|"hasContinuantPart"| n8ed1cfe0488e
-    n83041f53e81b -->|"hasContinuantPart"| n8949491a5979
+    n83041f53e81b -->|"hasContinuantPart"| n15598f3e4334
+    n83041f53e81b -->|"hasContinuantPart"| nc2d959bd961b
+    n83041f53e81b -->|"hasContinuantPart"| nc0a5ebb88ab9
+    n83041f53e81b -->|"hasContinuantPart"| n922a4448866e
+    n83041f53e81b -->|"hasContinuantPart"| nc5b05af1bd08
     n671ed2c2e917 -->|"hasParticipant"| n655e442e50be
     n671ed2c2e917 -->|"ent00000324"| n83041f53e81b
-    n655e442e50be -->|"GivenName"| nbbb4b4c4b362
-    n655e442e50be -->|"AlternateName"| n122490f7b530
-    n655e442e50be -->|"TelephoneNumber"| n77bb1782b3f5
-    n655e442e50be -->|"EmailAddress"| n19949499dccc
+    n655e442e50be -->|"GivenName"| n34aebc63e25c
+    n655e442e50be -->|"AlternateName"| n42a16703c60a
+    n655e442e50be -->|"TelephoneNumber"| n32d772bbf9c3
+    n655e442e50be -->|"EmailAddress"| n8ef53930730b
     n655e442e50be -->|"ent00000324"| n83041f53e81b

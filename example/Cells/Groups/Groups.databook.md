@@ -20,7 +20,7 @@ v4:
   member:
     id: "http://www.example.org/v4/graphs/graph-39"
     claimant: ":Self"
-    graphSubject: ":Self"
+    subject: ":Self"
     shape: "pshapes:ContactInfoShape"
   tool:
     - type: "form"

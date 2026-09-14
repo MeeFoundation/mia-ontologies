@@ -17,15 +17,15 @@ v4:
   member:
     - id: "http://www.example.org/v4/graphs/graph-01"
       claimant: ":BHS"
-      graphSubject: ":BHS_Service"
+      subject: ":BHS_Service"
       shape: "pshapes:ContactInfoShape"
     - id: "http://www.example.org/v4/graphs/graph-14"
       claimant: ":Self"
-      graphSubject: ":Self"
+      subject: ":Self"
       shape: "pshapes:ContactInfoShape"
     - id: "http://www.example.org/v4/graphs/graph-03"
       claimant: ":Bob_Johnson"
-      graphSubject: ":Bob_Johnson"
+      subject: ":Bob_Johnson"
       shape: "pshapes:ContactInfoShape"
   tool:
     - type: "form"
@@ -43,7 +43,7 @@ v4:
 
 #### Overview
 
-This graph captures the identity the Boston Hub Society presents as one of the cell's three parties. In our example BHS is compatible with PDN and participates directly, alongside Alice and Bob — but an `o:Organization` is never itself a `cell:member` graph's `cell:graphSubject`, so what joins the cell is `:BHS_Service`, the `service:ServiceProvider` the society provides, carrying `service:providedBy :BHS`. The society's name and short self-description sit on `:BHS` itself, where they belong; its own organizational facts (member count, website) are the cell's tool graph instead, graph 92. BHS — the organization, not the service — is the claimant, since it is the party really making the claim and the one an eventual cryptographic signature would name.
+This graph captures the identity the Boston Hub Society presents as one of the cell's three parties. In our example BHS is compatible with PDN and participates directly, alongside Alice and Bob — but an `o:Organization` is never itself a `cell:member` graph's `cell:subject`, so what joins the cell is `:BHS_Service`, the `service:ServiceProvider` the society provides, carrying `service:providedBy :BHS`. The society's name and short self-description sit on `:BHS` itself, where they belong; its own organizational facts (member count, website) are the cell's tool graph instead, graph 92. BHS — the organization, not the service — is the claimant, since it is the party really making the claim and the one an eventual cryptographic signature would name.
 
 #### Graph
 

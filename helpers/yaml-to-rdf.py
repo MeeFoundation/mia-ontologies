@@ -23,7 +23,7 @@ YAML field below — never derived from filename-parsing.
 
 Since graph-databooks were merged into their owning cell-databooks (each
 graph's Turtle content and Overview now live in that cell file's body; its
-`id`/`claimant`/`shape`, plus the `graphSubject` a member entry carries
+`id`/`claimant`/`shape`, plus the `subject` a member entry carries
 list calls for, now live directly on that same graph's own
 `v4.member`/`v4.tool[].graph` entry — see CLAUDE.md's "Graph ID Naming
 Convention" section), there is no separate `example/graphs/*.databook.md`
@@ -33,7 +33,7 @@ used to supply.
 
 A graph's `claimant` and its about-ness value are typed on its plain
 `v4.member[]`/`v4.tool[].graph[].id`, not that id + "#graph" — matching cell.ttl's
-cell:claimant/cell:graphSubject doc comments, and the IRI
+cell:claimant/cell:subject doc comments, and the IRI
 cell:member/cell:formGraph actually reference.
 
 Usage:   python3 helpers/yaml-to-rdf.py [repo-root] > yaml-data.ttl
