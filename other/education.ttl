@@ -1,0 +1,106 @@
+@prefix education: <http://mee.foundation/ontologies/education#> .
+@prefix persona: <http://mee.foundation/ontologies/persona#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix dc: <http://purl.org/dc/elements/1.1/> .
+@base <http://mee.foundation/ontologies/education> .
+
+<http://mee.foundation/ontologies/education> rdf:type owl:Ontology ;
+    owl:versionIRI <http://mee.foundation/ontologies/education/1.0.0> ;
+    dc:date "2026-09-14"^^xsd:date ;
+    owl:versionInfo "Version 1.0.0 - education:EducationRecord, backing cat:Education and the schooling rows of a membership directory profile"@en ;
+    rdfs:label "Education Ontology"@en ;
+    rdfs:comment """A small other/ peer ontology (see other/pets.ttl's own rdfs:comment for the
+                    general pattern) for a domain a person merely *has* — a record of one stage of
+                    their schooling — rather than *is*, kept out of persona.ttl the same way
+                    pet/vehicle/identity-document domain-modeling already is. The exact parallel of
+                    other/medical-appointments.ttl's ma:MedicalAppointmentRecord: a reified record
+                    individual, not a property of the person.
+
+                    Every property declared here has rdfs:domain education:EducationRecord, never
+                    persona:Person. That is what keeps this file in other/ rather than persona-ext/:
+                    a file whose properties describe the person directly belongs there instead (see
+                    persona-ext/directory-profile.ttl).
+
+                    persona.ttl carries the thin link, persona:hasEducation (domain p:Person, range
+                    education:EducationRecord), referenced by name with no owl:imports in either
+                    direction — the same pattern persona:hasPet/hasVehicle/hasIdentityDocument
+                    already establish.
+
+                    education:EducationRecord is an independent template type label class, asserted
+                    via rdf:type directly on the graph's own content individual and targeted directly
+                    by its own SHACL shape (other/shacl/education-shacl.ttl) — independent of
+                    cell.ttl's cell:shape property, whose own range is sh:NodeShape (the validating
+                    shape, not the content's own class)."""@en .
+
+
+#################################################################
+#    EducationRecord
+#################################################################
+
+education:EducationRecord rdf:type owl:Class ;
+    rdfs:label "Education Record"@en ;
+    rdfs:comment """One stage of a person's schooling — a secondary school, a college or
+                    university, or any further qualification. A person may hold any number of
+                    these, linked from persona:Person via persona:hasEducation; which stage a
+                    given record represents is carried by education:educationLevel rather than by
+                    a separate property per stage, so that a form asking for exactly one high
+                    school and one college expresses that as a cardinality constraint in its own
+                    SHACL shape rather than as vocabulary (see
+                    category-ext/shacl/boston-hub-society-shacl.ttl).
+
+                    Asserted via rdf:type directly on the record individual, validated by the SHACL
+                    shape :EducationRecordShape in other/shacl/education-shacl.ttl."""@en .
+
+education:educationLevel rdf:type owl:DatatypeProperty ;
+    rdfs:label "education level"@en ;
+    rdfs:comment """Which stage of schooling this record represents. Controlled vocabulary,
+                    enumerated in other/shacl/education-shacl.ttl rather than here (the same
+                    SHACL-enumeration pattern vehicles:fuelType and pets:sex already use):
+                    'high school', 'college', 'other'. 'other' covers any further qualification —
+                    a graduate degree, a professional certification — that is neither of the
+                    first two."""@en ;
+    rdfs:domain education:EducationRecord ;
+    rdfs:range xsd:string .
+
+education:schoolName rdf:type owl:DatatypeProperty ;
+    rdfs:label "school name"@en ;
+    rdfs:comment """The name of the school, college, or awarding institution. The one required
+                    property of an education:EducationRecord — a record naming no institution
+                    records nothing."""@en ;
+    rdfs:domain education:EducationRecord ;
+    rdfs:range xsd:string .
+
+education:schoolCity rdf:type owl:DatatypeProperty ;
+    rdfs:label "school city"@en ;
+    rdfs:comment """The city the institution is in. A bare string rather than a reference to a
+                    cco:ent00000012 (City) designator: this locates the institution for a reader,
+                    it is not part of anyone's postal address."""@en ;
+    rdfs:domain education:EducationRecord ;
+    rdfs:range xsd:string .
+
+education:schoolState rdf:type owl:DatatypeProperty ;
+    rdfs:label "school state"@en ;
+    rdfs:comment """The state, province, or region the institution is in — or the country, where
+                    no smaller subdivision applies. A bare string, for the same reason
+                    education:schoolCity is."""@en ;
+    rdfs:domain education:EducationRecord ;
+    rdfs:range xsd:string .
+
+education:yearGraduated rdf:type owl:DatatypeProperty ;
+    rdfs:label "year graduated"@en ;
+    rdfs:comment """The year the person graduated, as xsd:gYear ('YYYY'). A year rather than a
+                    date: no directory form, and few people's memories, carry the day."""@en ;
+    rdfs:domain education:EducationRecord ;
+    rdfs:range xsd:gYear .
+
+education:degree rdf:type owl:DatatypeProperty ;
+    rdfs:label "degree"@en ;
+    rdfs:comment """A degree or qualification awarded — e.g. 'BSEE', 'MBA', 'PhD'. Repeat the
+                    property where one institution awarded more than one. A bare string, not a
+                    persona:Credential: that class is a post-nominal designator attached to a
+                    person's name, whereas this is an attribute of the record."""@en ;
+    rdfs:domain education:EducationRecord ;
+    rdfs:range xsd:string .

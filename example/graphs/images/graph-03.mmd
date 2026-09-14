@@ -7,12 +7,28 @@ flowchart TD
 
     subgraph ctx["Graph"]
         direction LR
-        ctx_meta["claimant: :Bob_Johnson\nsubject: :Bob_Johnson\nshape: pshapes:ContactInfoShape"]:::meta
+        ctx_meta["claimant: :Bob_Johnson\nsubject: :Bob_Johnson\nshape: bhsshapes:MemberShape"]:::meta
     end
 
+    n0699203bf0c8[":Bob_College\n(EducationRecord)"]
+    n97d212577de9("college"):::lit
+    n24ed84422da3("Brown University"):::lit
+    n0c786a8253ba("1998"):::lit
     ncec7d6304e56[":Bob_Johnson\n(Person)"]:::person
-    n1830fcdcbd21("Bob"):::lit
-    n15f83b24f95b("Johnson"):::lit
+    n94853aa883da("Bob"):::lit
+    n509384f962be("Johnson"):::lit
+    n73b0fb556cba("bob.johnson@example.com"):::lit
+    nc32061e1c940("2019-04-02"):::lit
+    n4c6d84778b68("Finance"):::lit
+    nd935a647c06b("Providence, Rhode Island, USA"):::lit
 
-    ncec7d6304e56 -->|"GivenName"| n1830fcdcbd21
-    ncec7d6304e56 -->|"FamilyName"| n15f83b24f95b
+    n0699203bf0c8 -->|"educationLevel"| n97d212577de9
+    n0699203bf0c8 -->|"schoolName"| n24ed84422da3
+    n0699203bf0c8 -->|"yearGraduated"| n0c786a8253ba
+    ncec7d6304e56 -->|"GivenName"| n94853aa883da
+    ncec7d6304e56 -->|"FamilyName"| n509384f962be
+    ncec7d6304e56 -->|"EmailAddress"| n73b0fb556cba
+    ncec7d6304e56 -->|"memberSince"| nc32061e1c940
+    ncec7d6304e56 -->|"industry"| n4c6d84778b68
+    ncec7d6304e56 -->|"hometown"| nd935a647c06b
+    ncec7d6304e56 -->|"hasEducation"| n0699203bf0c8

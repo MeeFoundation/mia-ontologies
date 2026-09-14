@@ -1,0 +1,87 @@
+@prefix : <http://mee.foundation/ontologies/education/shapes#> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix education: <http://mee.foundation/ontologies/education#> .
+@prefix dc: <http://purl.org/dc/elements/1.1/> .
+
+<http://mee.foundation/ontologies/education/shapes> rdf:type owl:Ontology ;
+    owl:imports <http://mee.foundation/ontologies/education> ;
+    owl:versionIRI <http://mee.foundation/ontologies/education/shapes/1.0.0> ;
+    dc:date "2026-09-14"^^xsd:date ;
+    rdfs:label "Education Template SHACL Shapes"@en ;
+    rdfs:comment """SHACL shapes for validating graph files carrying cell:shape
+                    educationshapes:EducationRecordShape. Paired with other/education.ttl, the
+                    ontology it validates.
+
+                    This is a structural baseline only: it fixes each property's datatype, caps the
+                    single-valued ones, requires the one property without which the record says
+                    nothing (education:schoolName), and freezes the education:educationLevel value
+                    list. It deliberately requires nothing else. Which stages a person must supply,
+                    and how many of each, is the asking organization's business and belongs in that
+                    organization's own shape — see category-ext/shacl/boston-hub-society-shacl.ttl,
+                    which constrains a member to at most one 'high school' record and at most one
+                    'college' record."""@en .
+
+
+#################################################################
+#  EducationRecord Shape
+#  Targets education:EducationRecord individuals.
+#  Required: schoolName (1..1)
+#  Optional: educationLevel (0..1, enumerated), schoolCity (0..1),
+#            schoolState (0..1), yearGraduated (0..1), degree (0..N)
+#################################################################
+
+:EducationRecordShape
+    a sh:NodeShape ;
+    sh:targetClass education:EducationRecord ;
+    sh:message "An EducationRecord must name exactly one institution."@en ;
+
+    sh:property [
+        sh:path education:schoolName ;
+        sh:datatype xsd:string ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:message "An EducationRecord must have exactly one education:schoolName."@en
+    ] ;
+
+    # ── Optional fields ──────────────────────────────────────────────────────
+    # The value list is frozen here rather than in other/education.ttl, the same
+    # SHACL-enumeration pattern vehicles:fuelType and pets:sex already use.
+    sh:property [
+        sh:path education:educationLevel ;
+        sh:datatype xsd:string ;
+        sh:maxCount 1 ;
+        sh:in ( "high school" "college" "other" ) ;
+        sh:message "education:educationLevel must be one of 'high school', 'college', 'other'."@en
+    ] ;
+
+    sh:property [
+        sh:path education:schoolCity ;
+        sh:datatype xsd:string ;
+        sh:maxCount 1 ;
+        sh:message "An EducationRecord may have at most one education:schoolCity."@en
+    ] ;
+
+    sh:property [
+        sh:path education:schoolState ;
+        sh:datatype xsd:string ;
+        sh:maxCount 1 ;
+        sh:message "An EducationRecord may have at most one education:schoolState."@en
+    ] ;
+
+    sh:property [
+        sh:path education:yearGraduated ;
+        sh:datatype xsd:gYear ;
+        sh:maxCount 1 ;
+        sh:message "An EducationRecord may have at most one education:yearGraduated, an xsd:gYear."@en
+    ] ;
+
+    # No sh:maxCount — one institution may award more than one degree.
+    sh:property [
+        sh:path education:degree ;
+        sh:datatype xsd:string ;
+        sh:message "Each education:degree value must be a string."@en
+    ] .

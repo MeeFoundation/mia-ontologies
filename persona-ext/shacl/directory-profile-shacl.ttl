@@ -1,0 +1,151 @@
+@prefix : <http://mee.foundation/ontologies/directory-profile/shapes#> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix persona: <http://mee.foundation/ontologies/persona#> .
+@prefix directoryprofile: <http://mee.foundation/ontologies/directory-profile#> .
+@prefix dc: <http://purl.org/dc/elements/1.1/> .
+
+<http://mee.foundation/ontologies/directory-profile/shapes> rdf:type owl:Ontology ;
+    owl:imports <http://mee.foundation/ontologies/directory-profile> ;
+    owl:versionIRI <http://mee.foundation/ontologies/directory-profile/shapes/1.0.0> ;
+    dc:date "2026-09-14"^^xsd:date ;
+    rdfs:label "Directory Profile SHACL Shapes"@en ;
+    rdfs:comment """SHACL shapes for persona-ext/directory-profile.ttl, the ontology they validate.
+
+                    A structural baseline only: each property's datatype, and a maximum of one
+                    value on every property a directory asks as a single question. Nothing here is
+                    required, and directoryprofile:industry is left unenumerated — which fields an
+                    organization demands, and which industry values it permits, is that
+                    organization's business and belongs in its own shape (see
+                    category-ext/shacl/boston-hub-society-shacl.ttl).
+
+                    Targets persona:Person, since every property in this ontology has that domain.
+                    It is therefore subject to helpers/validate.py's substantive-person retargeting,
+                    the same as pshapes:ContactInfoShape."""@en .
+
+
+#################################################################
+#  Directory Profile Shape
+#  Targets persona:Person — every directoryprofile: property's domain.
+#  Nothing required; every single-question field capped at one value.
+#  directoryprofile:industry is uncapped and unenumerated on purpose.
+#################################################################
+
+:DirectoryProfileShape
+    a sh:NodeShape ;
+    sh:targetClass persona:Person ;
+    sh:message "Directory profile validation: datatypes and single-value caps."@en ;
+
+    # ── Membership ───────────────────────────────────────────────────────────
+    sh:property [
+        sh:path directoryprofile:memberSince ;
+        sh:datatype xsd:date ;
+        sh:maxCount 1 ;
+        sh:message "A directory profile may have at most one memberSince, an xsd:date."@en
+    ] ;
+    sh:property [
+        sh:path directoryprofile:sponsoredBy ;
+        sh:datatype xsd:string ;
+        sh:maxCount 1 ;
+        sh:message "A directory profile may have at most one sponsoredBy."@en
+    ] ;
+
+    # ── Professional ─────────────────────────────────────────────────────────
+    # No sh:maxCount and no sh:in: a person may work across several industries,
+    # and each organization enumerates its own permitted values in its own shape.
+    sh:property [
+        sh:path directoryprofile:industry ;
+        sh:datatype xsd:string ;
+        sh:message "Each industry value must be a string."@en
+    ] ;
+    sh:property [
+        sh:path directoryprofile:industryOther ;
+        sh:datatype xsd:string ;
+        sh:maxCount 1 ;
+        sh:message "A directory profile may have at most one industryOther."@en
+    ] ;
+    sh:property [
+        sh:path directoryprofile:assistantName ;
+        sh:datatype xsd:string ;
+        sh:maxCount 1 ;
+        sh:message "A directory profile may have at most one assistantName."@en
+    ] ;
+    sh:property [
+        sh:path directoryprofile:assistantEmail ;
+        sh:datatype xsd:string ;
+        sh:maxCount 1 ;
+        sh:message "A directory profile may have at most one assistantEmail."@en
+    ] ;
+    sh:property [
+        sh:path directoryprofile:previousPositions ;
+        sh:datatype xsd:string ;
+        sh:maxCount 1 ;
+        sh:message "A directory profile may have at most one previousPositions."@en
+    ] ;
+    sh:property [
+        sh:path directoryprofile:directorships ;
+        sh:datatype xsd:string ;
+        sh:maxCount 1 ;
+        sh:message "A directory profile may have at most one directorships."@en
+    ] ;
+    sh:property [
+        sh:path directoryprofile:nonProfitPositions ;
+        sh:datatype xsd:string ;
+        sh:maxCount 1 ;
+        sh:message "A directory profile may have at most one nonProfitPositions."@en
+    ] ;
+    sh:property [
+        sh:path directoryprofile:recognitions ;
+        sh:datatype xsd:string ;
+        sh:maxCount 1 ;
+        sh:message "A directory profile may have at most one recognitions."@en
+    ] ;
+
+    # ── Family ───────────────────────────────────────────────────────────────
+    sh:property [
+        sh:path directoryprofile:spousePartnerName ;
+        sh:datatype xsd:string ;
+        sh:maxCount 1 ;
+        sh:message "A directory profile may have at most one spousePartnerName."@en
+    ] ;
+    sh:property [
+        sh:path directoryprofile:spousePartnerBirthDate ;
+        sh:datatype xsd:date ;
+        sh:maxCount 1 ;
+        sh:message "A directory profile may have at most one spousePartnerBirthDate, an xsd:date."@en
+    ] ;
+    sh:property [
+        sh:path directoryprofile:family ;
+        sh:datatype xsd:string ;
+        sh:maxCount 1 ;
+        sh:message "A directory profile may have at most one family."@en
+    ] ;
+
+    # ── Background and personal ──────────────────────────────────────────────
+    sh:property [
+        sh:path directoryprofile:hometown ;
+        sh:datatype xsd:string ;
+        sh:maxCount 1 ;
+        sh:message "A directory profile may have at most one hometown."@en
+    ] ;
+    sh:property [
+        sh:path directoryprofile:dietaryRestrictions ;
+        sh:datatype xsd:string ;
+        sh:maxCount 1 ;
+        sh:message "A directory profile may have at most one dietaryRestrictions."@en
+    ] ;
+    sh:property [
+        sh:path directoryprofile:personalGoals ;
+        sh:datatype xsd:string ;
+        sh:maxCount 1 ;
+        sh:message "A directory profile may have at most one personalGoals."@en
+    ] ;
+    sh:property [
+        sh:path directoryprofile:lifeExperiences ;
+        sh:datatype xsd:string ;
+        sh:maxCount 1 ;
+        sh:message "A directory profile may have at most one lifeExperiences."@en
+    ] .

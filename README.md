@@ -18,6 +18,7 @@ The following **domain ontologies** model claims about people, organizations, an
   - **Medical Appointments ontology** (`other/medical-appointments.ttl`) — models the claims two people need to share in order to arrange a medical appointment on someone else's behalf: patient, physician, medications, allergies, insurance, pharmacy. See [Medical Appointments Ontology](#medical-appointments-ontology).
   - **Service Accounts ontology** (`other/service-accounts.ttl`) — models an online service account a person holds (e.g. with Google or AT&T): service name, username, service URI, password. See [Service Accounts Ontology](#service-accounts-ontology).
   - **Banking ontology** (`other/banking.ttl`) — models a debit card and the checking account it draws on. See [Banking Ontology](#banking-ontology).
+  - **Education ontology** (`other/education.ttl`) — models one stage of a person's schooling: school name, city, state, year graduated, degrees. See [Education Ontology](#education-ontology).
   - **Residences ontology** (`other/residences.ttl`) — models a place a person has lived, current or past. See [Residences Ontology](#residences-ontology).
   - **Itineraries ontology** (`other/itineraries.ttl`) — models a specific trip a person is planning or taking. See [Itineraries Ontology](#itineraries-ontology).
 
@@ -44,6 +45,8 @@ See [**EXAMPLE.md**](EXAMPLE.md) for an illustration of the use of these ontolog
 ## Category Taxonomy
 
 To help the user organize their information, the app comes with a pre-defined tree structure of categories. Although the user is free to organize their cells however they like, we think many users will choose to create their own tree of cells based on the pattern of the tree of category concepts. Cells that are created based on a pre-defined category have a `c:category` property whose value is that category.
+
+The tree below is the taxonomy the app ships with. An organization can add a category of its own without it being added here, by publishing a **category extension** — its own SKOS concept scheme, linked into this tree by `skos:broadMatch`. See [Category Extensions](#category-extensions).
 
 <p align="center"><img src="images/category-ontology/category.png" alt="Category hierarchy"></p>
 
@@ -173,6 +176,38 @@ As we've mentioned, the user is free to create cells not included in the pre-def
 **`category.ttl`** — The Category taxonomy, defining a `skos:ConceptScheme` rather than an OWL class hierarchy:
   - *Individuals*: `cat:CategoryScheme` (a `skos:ConceptScheme`), `cat:Person`/`cat:Organization` (its two `skos:hasTopConcept` top concepts), and every other category concept — each a plain `skos:Concept`, with a `skos:prefLabel` for its display name, a `skos:broader` value naming its parent concept, and `skos:inScheme cat:CategoryScheme`. There is no `cat:Category` class at all — a category concept's type is just `skos:Concept`, scoped to the app's own scheme via `skos:inScheme` rather than a dedicated class.
   - No `cat:` property of its own — each `cat-templates.ttl` template cell instead carries its own `c:category` value naming the concept it's a template for (see [Cell Ontology File](#cell-ontology-files) below).
+
+### Category Extensions
+
+A **category extension** (`category-ext/`) is a bundle an organization publishes so that other instances of the app can file and validate cells of a category the app's own taxonomy does not define. One self-contained file per publisher carries three things: the publisher's own `skos:ConceptScheme`, the `skos:Concept` individuals in it, and a `c:TemplateCell` for each. The member shape those templates name sits beside it in `category-ext/shacl/`.
+
+#### Why an extension rather than a new category concept
+
+`cat:CategoryScheme` is this app's curated taxonomy of the *kinds* of thing a person tracks — Groups, Medical, Vehicles. A single named organization is not one of those kinds; it is an instance of one. Adding it there would grow the shipped taxonomy by one concept per organization anyone ever joins, and would oblige `cat-templates.ttl` to grow with it (integrity.md's Check 29 requires a template per concept).
+
+Neither file changes to accommodate an extension. Two useful consequences follow: `images/category-ontology/category.png` (Check 14) stays correct as extensions are added, and Check 30's invariant — every template in `cat-templates.ttl` carries `c:memberShape pshapes:ContactInfoShape`, with no exception — stays **true**, because an extension's template is not in that file. Variation arrives only with an extension.
+
+#### How an extension links to the taxonomy
+
+With `skos:broadMatch`, never `skos:broader`. SKOS reserves `skos:broader` for hierarchy *within* one concept scheme and provides the `skos:mappingRelation` family — of which `skos:broadMatch` is one — for links *between* schemes. An extension concept is by definition in another scheme, so `skos:broadMatch` is the correct predicate and `skos:broader` would be a misuse.
+
+That link is load-bearing, not decorative: a recipient whose app does not have the extension installed still needs somewhere to file an incoming cell, and the `broadMatch` target is that somewhere. `shacl/cell-shacl.ttl`'s `:CellShape` accordingly requires a `c:category` value to be a `skos:Concept` in *some* `skos:ConceptScheme` rather than in `cat:CategoryScheme` specifically; integrity.md's **Check 39** carries what SHACL cannot, requiring every extension concept to sit in its own file's scheme, carry exactly one `skos:broadMatch` to a `cat:` concept, never use `skos:broader` across schemes, and have a matching `c:TemplateCell` in the same file.
+
+#### What a bundle contains
+
+One file per publisher, holding three things:
+
+- a `skos:ConceptScheme` of the publisher's own;
+- one or more `skos:Concept` individuals in it, each carrying exactly one `skos:broadMatch` into `cat:CategoryScheme`;
+- a `c:TemplateCell` per concept, naming whichever `c:memberShape` that publisher requires.
+
+Its shapes file sits beside it in `category-ext/shacl/`.
+
+That third item is the point of the mechanism. Every template in `cat-templates.ttl` names the same `c:memberShape`, `pshapes:ContactInfoShape`, so a member graph is validated as a generic contact-info profile whatever its category. An extension's template may name a different shape — which is what makes `c:memberShape` a genuine per-category hook rather than a constant.
+
+An extension is expected to mint **no vocabulary of its own**. The terms its shape constrains should already exist in `persona.ttl`, `other/`, or `persona-ext/`; what belongs to the publisher is the shape — which fields it requires, how many values it permits, and which values it recognizes. See [Where a New Term Goes](CLAUDE.md#where-a-new-term-goes), whose rule 5 is what usually leaves an extension with nothing to declare beyond its scheme, template, and shape.
+
+For a worked extension — a society's member directory form, its concept, template and shape, and the cell whose member graphs it validates — see [EXAMPLE.md](EXAMPLE.md#boston-hub-society).
 
 ## Cell Ontology
 
@@ -439,7 +474,7 @@ An unquoted ISO 8601 calendar date, `YYYY-MM-DD`, recording when the cell was cr
 
 A prose summary of the cell, written as a folded block scalar (`description: >`). Not used by any tooling and not synthesized into RDF. Throughout the example tree it follows one house style: it opens `Cell DataBook for folder "<title>" (cell:category: cat:<Concept>)`, optionally noting where the cell is nested or whose category it reuses, then characterizes the cell's own shape — how many members it has, and what its tool is about if it carries one.
 
-### DataBook `v4` Properties
+### Cell DataBook `v4` Properties
 
 The following properties are defined in `cell.ttl` and represented as `v4.` YAML fields in cell DataBooks. The link-valued ones — `v4.member` and `v4.tool`, and the graphs beneath a tool — are the rest of the same `v4.` block, documented under [Graph Link Properties](#graph-link-properties) below:
 
@@ -556,6 +591,7 @@ This section describes properties and classes related to things a person has, ho
 - `p:hasVehicle` — links a `p:Person` to a `v:Vehicle` individual (range referenced by name only, no `owl:imports`). What a vehicle *is* — type, make, model, specifications — is modeled entirely in the [Vehicles Ontology](#vehicles-ontology) below, a separate `other/vehicles.ttl` peer ontology, following the exact same thin-link pattern as `p:hasPet`.
 - `p:hasIdentityDocument` — links a `p:Person` to an `idoc:IdentityDocument` individual (range referenced by name only, no `owl:imports`). What an identity document *is* — its subclasses `idoc:BirthCertificate`/`idoc:DriversLicense`/`idoc:Passport` and their identity claims — is modeled entirely in the [Identity Documents Ontology](#identity-documents-ontology) below, a separate `other/identity-documents.ttl` peer ontology, following the exact same thin-link pattern as `p:hasPet`/`p:hasVehicle` — and the one place where that pattern's abstract-superclass fan-out really earns its keep, since a single link property here serves three concrete document subtypes there.
 - `p:hasBankAccount` — links a `p:Person` to a `banking:CheckingAccount` individual (range referenced by name only, no `owl:imports`). What a checking account, and the `banking:DebitCard` that draws on it, *are* is modeled entirely in the [Banking Ontology](#banking-ontology) below, a separate `other/banking.ttl` peer ontology, following the same thin-link pattern. See [Finance-Related Classes and Properties](#finance-related-classes-and-properties).
+- `p:hasEducation` — links a `p:Person` to an `education:EducationRecord` individual (range referenced by name only, no `owl:imports`). What a stage of schooling *is* — institution, location, year, degrees — is modeled entirely in the [Education Ontology](#education-ontology). Repeat the property for each stage; which stage a record represents is carried there by `education:educationLevel`, so one link property serves them all.
 
 ### Accounts
 
@@ -684,7 +720,7 @@ The SSN designator class `cco:ent00000008` has no template label class of its ow
 
 - **`persona.ttl`** — The Persona ontology. Imports the domain ontologies above and documents which classes and properties the app uses (required vs. optional). Defines `p:Person` (V4-specific subclass of CCO `Person`), the thin `hasX` link properties into the `other/` peer ontologies (`p:hasPet`, `p:hasVehicle`, `p:hasIdentityDocument`, `p:hasBankAccount` — each referenced by name with no `owl:imports` in either direction), app-specific extension properties (`p:hasSocialNetwork` and others), the physical card and wallet classes, and the whole JSContact (RFC 9553) alignment layer: `p:ContactInfo` (the one template type label class this file declares — never asserted via `rdf:type` anywhere), the designator classes `p:Credential`/`p:WebURL`/`p:OrganizationUnit`/`p:JobTitle`, the annotation properties `p:contactContext`/`p:phoneFeature`/`p:serviceLabel`, `p:hasPhoto`, and the `p:Anniversary`, `p:PersonalInfo`, and `p:PersonalityAssessment` classes with their own properties (see [Contact-Related Classes and Properties](#contact-related-classes-and-properties) and [Personality-Related Classes and Properties](#personality-related-classes-and-properties)). Everything here is either a property of a `p:Person` directly or a thin link out to a domain modeled elsewhere; each record/document class a person merely *has* lives in its own `other/*.ttl` peer ontology instead. Also defines `p:specialty` — a physician's medical specialty (e.g. "Endocrinology"), domain `p:Person` directly rather than `ma:MedicalAppointmentRecord`, since it describes the physician themselves, not the appointment; backs the tool `cat:PrimaryCarePhysician` declares.
 
-- **`cat-templates.ttl`** — Class-level `c:Cell` templates for category concepts, 106 in total. Holds one template cell individual per `category.ttl` concept, the two SKOS top concepts `cat:Person`/`cat:Organization` included (see integrity.md's Check 29 — a cell may legitimately be instantiated as either: `Cells(person)` is the root of the user's own tree, `Acme(organization)` stands for an employer) — plus one, `ctpl:UserDefinedTemplateCell`, with **no** `c:category` value at all, the fallback for a cell created with no category selected (the Custom/UserDefined case — see [Lazy Instantiation](APP-BEHAVIOR.md#lazy-instantiation) in APP-BEHAVIOR.md). Each of the other 105 carries its own `c:category` value naming the concept it's a template for — the sole route to a template individual (Lazy Instantiation clones it into a new cell when a cell matching that concept is first created in a user's tree). Each is typed solely `c:TemplateCell` — `c:TemplateCell` and `c:InstanceCell` are disjoint, so a template cell carries no member composition of its own, just its shape property/properties pointing to SHACL shape(s) — in `shacl/persona-shacl.ttl` or `shacl/contactinfo-shacl.ttl` for a template targeting a `persona:`-defined class, otherwise in the `other/shacl/*-shacl.ttl` file paired with whichever `other/*.ttl` peer ontology declares that template label class (see the table in [Persona Templates](#persona-templates)) — following two patterns: (1) `c:memberShape pshapes:ContactInfoShape` plus a `c:declaresTool` node whose `c:formShape` carries the category's own real shape — the 18 whose real content is held by a form tool (Passport, SSN, BirthCertificate, DriversLicense, MedicalAppointment, PetMedications, PetProfile, VehicleProfile, Companies, BankingPayments, Home, Trips, TravelProvider, Groups, Organization — each a reified document/account/organization type, TravelProvider's being the loyalty/service account held with that provider — plus HealthWellness, PrimaryCarePhysician, and PetsCareAndFeeding, each a more modest shape with every property optional) — `cat:BankingPayments` carries three `c:formShape` values at once (`ServiceAccountShape`, `DebitCardShape`, `CheckingAccountShape`), since a single Citibank-claimed topic graph there holds all three templates' content together — `cat:PrimaryCarePhysician` similarly carries two (`PrimaryCarePhysicianShape`, `ContactInfoShape`), since Dr. Jane Starostina's own topic graph (graph-25) doubles as both her optional specialty record and a contact-info profile; (2) `c:memberShape pshapes:ContactInfoShape` alone, declaring no tool, for every other templated category (88 of them, including `ctpl:PersonTemplateCell`, `ctpl:PeopleTemplateCell` and its four direct `skos:broader` children), plus `ctpl:UserDefinedTemplateCell` — each either a purely organizational category or the no-category fallback, with no document type or topic content of its own. There is no longer a pattern where `c:memberShape` carries a template's own document shape directly (Passport/BirthCertificate/DriversLicense used to work this way before all three were flipped to pattern (1) above). `c:memberShape pshapes:ContactInfoShape` itself is asserted directly and identically on all 106 individuals with no exception (integrity.md's Check 30) — not hoisted onto the `c:TemplateCell` class via an OWL restriction, since nothing in this project's validation pipeline runs a reasoner to materialize such an entailment. A template's declaring a tool, or not, is the whole of what it says on the matter: there is no separate boolean, since declaring the tool already says it. Imports `cell.ttl` directly — `category.ttl` is referenced by name only in each `c:category` value, no `owl:imports` either direction.
+- **`cat-templates.ttl`** — Class-level `c:Cell` templates for category concepts, 106 in total. Holds one template cell individual per `category.ttl` concept, the two SKOS top concepts `cat:Person`/`cat:Organization` included (see integrity.md's Check 29 — a cell may legitimately be instantiated as either: `Cells(person)` is the root of the user's own tree, `Acme(organization)` stands for an employer) — plus one, `ctpl:UserDefinedTemplateCell`, with **no** `c:category` value at all, the fallback for a cell created with no category selected (the Custom/UserDefined case — see [Lazy Instantiation](APP-BEHAVIOR.md#lazy-instantiation) in APP-BEHAVIOR.md). Each of the other 105 carries its own `c:category` value naming the concept it's a template for — the sole route to a template individual (Lazy Instantiation clones it into a new cell when a cell matching that concept is first created in a user's tree). Each is typed solely `c:TemplateCell` — `c:TemplateCell` and `c:InstanceCell` are disjoint, so a template cell carries no member composition of its own, just its shape property/properties pointing to SHACL shape(s) — in `shacl/persona-shacl.ttl` or `shacl/contactinfo-shacl.ttl` for a template targeting a `persona:`-defined class, otherwise in the `other/shacl/*-shacl.ttl` file paired with whichever `other/*.ttl` peer ontology declares that template label class (see the table in [Persona Templates](#persona-templates)) — following two patterns: (1) `c:memberShape pshapes:ContactInfoShape` plus a `c:declaresTool` node whose `c:formShape` carries the category's own real shape — the 18 whose real content is held by a form tool (Passport, SSN, BirthCertificate, DriversLicense, MedicalAppointment, PetMedications, PetProfile, VehicleProfile, Companies, BankingPayments, Home, Trips, TravelProvider, Groups, Organization — each a reified document/account/organization type, TravelProvider's being the loyalty/service account held with that provider — plus HealthWellness, PrimaryCarePhysician, and PetsCareAndFeeding, each a more modest shape with every property optional) — `cat:BankingPayments` carries three `c:formShape` values at once (`ServiceAccountShape`, `DebitCardShape`, `CheckingAccountShape`), since a single Citibank-claimed topic graph there holds all three templates' content together — `cat:PrimaryCarePhysician` similarly carries two (`PrimaryCarePhysicianShape`, `ContactInfoShape`), since Dr. Jane Starostina's own topic graph (graph-25) doubles as both her optional specialty record and a contact-info profile; (2) `c:memberShape pshapes:ContactInfoShape` alone, declaring no tool, for every other templated category (88 of them, including `ctpl:PersonTemplateCell`, `ctpl:PeopleTemplateCell` and its four direct `skos:broader` children), plus `ctpl:UserDefinedTemplateCell` — each either a purely organizational category or the no-category fallback, with no document type or topic content of its own. There is no longer a pattern where `c:memberShape` carries a template's own document shape directly (Passport/BirthCertificate/DriversLicense used to work this way before all three were flipped to pattern (1) above). `c:memberShape pshapes:ContactInfoShape` itself is asserted directly and identically on all 106 individuals in this file, with no exception (integrity.md's Check 30) — a uniformity scoped to `cat-templates.ttl` on purpose, since a template published by a [category extension](#category-extensions) may name any member shape it likes — not hoisted onto the `c:TemplateCell` class via an OWL restriction, since nothing in this project's validation pipeline runs a reasoner to materialize such an entailment. A template's declaring a tool, or not, is the whole of what it says on the matter: there is no separate boolean, since declaring the tool already says it. Imports `cell.ttl` directly — `category.ttl` is referenced by name only in each `c:category` value, no `owl:imports` either direction.
 
 - **`other/shacl/*-shacl.ttl`** — the per-template shapes, each paired with the `other/*.ttl` peer ontology whose template label class it targets, and each linked from the tool its `cat-templates.ttl` template cell declares, via that tool's `c:formShape` (not merely co-located by naming convention). Every one of these templates holds its real content in a form tool, alongside a separate bare-given-name `c:member` stub. See the table in [Persona Templates](#persona-templates) for which file holds which shape, and each ontology's own section for its field-level requirements: [Pets](#pets-ontology), [Vehicles](#vehicles-ontology), [Identity Documents](#identity-documents-ontology), [Medical Appointments](#medical-appointments-ontology), [Service Accounts](#service-accounts-ontology), [Banking](#banking-ontology), [Residences](#residences-ontology), [Itineraries](#itineraries-ontology).
 
@@ -1004,6 +1040,97 @@ Throughout this section, `itineraries:` is both the file's real Turtle prefix an
 ### Itineraries Ontology Validation
 
 `other/shacl/itineraries-shacl.ttl` runs against individual graphs (the template pass). See [Validation](EXAMPLE.md#validation).
+
+## Education Ontology
+
+The Education ontology (`other/education.ttl`) is a small `other/` peer ontology for a domain a person merely *has* — a record of one stage of their schooling — rather than *is*. It is the exact parallel of `other/medical-appointments.ttl`'s `ma:MedicalAppointmentRecord`: a reified record individual, not a property of the person. `p:hasEducation` (`persona.ttl`) is the thin link into it.
+
+It backs `cat:Education`, which until now had no vocabulary at all behind it, and supplies the High School and College rows of a membership directory profile.
+
+Throughout this section, `education:` is both the file's real Turtle prefix and its doc alias (`http://mee.foundation/ontologies/education#`).
+
+### Education-Related Classes and Properties
+
+**Classes:**
+
+- `education:EducationRecord` — one stage of a person's schooling: a secondary school, a college or university, or a further qualification. An independent template type label class, asserted via `rdf:type` directly on the record individual and targeted directly by its own SHACL shape. A person may hold any number.
+
+**Properties** (every one with domain `education:EducationRecord`, never `p:Person` — that is what keeps this file in `other/` rather than `persona-ext/`):
+
+- `education:schoolName` — the name of the school, college, or awarding institution. The one required property: a record naming no institution records nothing.
+- `education:educationLevel` — which stage this record represents. A controlled vocabulary enumerated in the shapes file rather than the ontology (the same pattern `v:fuelType` and `pets:sex` use): `"high school"`, `"college"`, `"other"`. Carrying the stage as a value rather than as a property per stage is deliberate — it lets a form asking for exactly one high school and one college express that as a cardinality constraint in its own shape instead of as vocabulary.
+- `education:schoolCity` — the city the institution is in. A bare string: this locates the institution for a reader, it is not part of anyone's postal address.
+- `education:schoolState` — the state, province, or region — or the country, where no smaller subdivision applies.
+- `education:yearGraduated` — the year of graduation, an `xsd:gYear`. A year rather than a date, since no form and few memories carry the day.
+- `education:degree` — a degree or qualification awarded, e.g. `"BSEE"`. Repeat where one institution awarded more than one. A bare string, not a `p:Credential`: that class is a post-nominal designator attached to a person's name, whereas this is an attribute of the record.
+
+### Education Ontology Files
+
+- **`other/education.ttl`** — Defines the class and properties above. Carries no `owl:imports`.
+- **`other/shacl/education-shacl.ttl`** — `:EducationRecordShape`. A structural baseline only: datatypes, single-value caps, `education:schoolName` required, and the `education:educationLevel` value list. It requires nothing else — which stages a person must supply, and how many of each, is the asking organization's business and belongs in that organization's own shape.
+
+### Education Ontology Validation
+
+`other/shacl/education-shacl.ttl` runs against individual graphs (the template pass). See [Validation](EXAMPLE.md#validation).
+
+## Directory Profile Ontology
+
+The Directory Profile ontology (`persona-ext/directory-profile.ttl`) is the first **persona extension** — the sibling family to `other/`, for terms whose subject is the `p:Person` themselves but which are too narrow to earn a place in `persona.ttl`.
+
+The two families are told apart by one test, the **domain** of the properties in the file. An `other/` file's properties describe a record, document, or possession (`pets:hasSpecies` on a `pets:Pet`, `education:schoolName` on an `education:EducationRecord`). A `persona-ext/` file's properties have domain `p:Person` directly. `other/` never takes a `p:Person` property — that is what this folder exists to prevent.
+
+What keeps these particular terms out of `persona.ttl` is breadth rather than subject: `persona.ttl` carries what any application recording a person needs, and — per `p:ContactInfo`'s own comment — what is "reused across every category's member graph". These fields are asked by membership directories and by nothing else.
+
+No individual organization's requirements appear in this file. Which of these fields a given organization requires, caps, or restricts to a fixed value list is a SHACL matter, carried by that organization's own shape — see [Category Extensions](#category-extensions). Any club, alumni association, or professional directory can reuse the whole file.
+
+Throughout this section, `dp:` is the doc alias; the file's own real Turtle prefix is the verbose `directoryprofile:` (`http://mee.foundation/ontologies/directory-profile#`), the same verbose-internal/short-alias split as `v:` and `idoc:`.
+
+### Directory-Profile-Related Classes and Properties
+
+**Classes:**
+
+- `dp:DirectoryProfile` — label for a graph whose purpose is to carry a person's entry in a membership directory. Never asserted via `rdf:type` anywhere — a label only, exactly like `p:ContactInfo`, and for the same reason: the individual a directory profile describes is already a `p:Person`. An organization's member shape therefore targets `p:Person`, not this class.
+
+**Properties** (every one with domain `p:Person`):
+
+*Membership*
+
+- `dp:memberSince` — the date the person joined, an `xsd:date`. Which organization is settled by the cell the graph sits in, not by the property.
+- `dp:sponsoredBy` — the name of the member who sponsored or nominated them, where the organization admits members that way. A bare string: the sponsor is named on a form, and the directory makes no claim they are a user of this app.
+
+*Professional*
+
+- `dp:industry` — the industry the person works in; repeat for several. Deliberately left unenumerated in the ontology, since every directory has its own list — the permitted values are fixed by the asking organization's shape.
+- `dp:industryOther` — the free-text industry given when none of an organization's listed industries fits. Separate from `dp:industry` precisely because that property's values are constrained to a list.
+- `dp:assistantName`, `dp:assistantEmail` — the person's work assistant, where a directory routes contact through one. `dp:assistantEmail` is a bare string rather than a CCO `EmailAddress` designator: it designates the assistant, not the member.
+- `dp:previousPositions` — previous work and life positions, including military service, with years.
+- `dp:directorships` — board directorships, past and present.
+- `dp:nonProfitPositions` — positions held with non-profit organizations.
+- `dp:recognitions` — awards, honors, and recognitions.
+
+*Family*
+
+- `dp:spousePartnerName` — the spouse or partner's name. A bare string rather than a link to a `p:Person` or a `p:hasSocialNetwork` membership: a directory prints the name it was given. Where a real modeled relationship is wanted, that belongs in a cell of its own under `cat:ImmediateFamily`.
+- `dp:spousePartnerBirthDate` — their birth date, an `xsd:date`. Both are single-valued, so no reification is needed to keep the name and the date together.
+- `dp:family` — children and other family, with years of birth.
+
+*Background and personal*
+
+- `dp:hometown` — the city, state, and country where the person grew up. Free text, not a CCO `PostalAddress`: a place a person names, not an address anything is delivered to.
+- `dp:dietaryRestrictions` — restrictions the organization needs when catering events.
+- `dp:personalGoals` — what the person is working toward, in their own words.
+- `dp:lifeExperiences` — the biographical answer a directory prints alongside the factual fields. Distinct from `p:PersonalInfo`, which carries hobbies, interests, and expertise as structured kind/value pairs — a directory's Interests/Hobbies question reuses that class rather than adding a property here.
+
+The free-text properties above are free text on purpose: **one text box on a form is one string property**. A directory asks "Recognitions" as a single written answer, so it is stored as one rather than acquiring a structure the question never had.
+
+### Directory Profile Ontology Files
+
+- **`persona-ext/directory-profile.ttl`** — Defines the class and properties above. Carries no `owl:imports`; `p:Person` is referenced by name.
+- **`persona-ext/shacl/directory-profile-shacl.ttl`** — `:DirectoryProfileShape`, targeting `p:Person`. Datatypes and a single-value cap on every field a directory asks as one question; nothing required, and `dp:industry` left uncapped and unenumerated on purpose.
+
+### Directory Profile Ontology Validation
+
+`persona-ext/shacl/directory-profile-shacl.ttl` runs against individual graphs (the template pass). Because it targets `p:Person`, it is subject to the same substantive-person retargeting as `pshapes:ContactInfoShape`. See [Validation](EXAMPLE.md#validation).
 
 ## Organization Ontology
 

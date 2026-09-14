@@ -35,13 +35,30 @@ PREFIXES = {
     "persona": "http://mee.foundation/ontologies/persona#",
     "pets": "http://mee.foundation/ontologies/pets#",
     "vehicles": "http://mee.foundation/ontologies/vehicles#",
+    # A category extension's own namespace (category-ext/). A v4.category
+    # value may name a concept in an extension's scheme rather than in
+    # cat:CategoryScheme — see cell.ttl's cell:category comment. One entry
+    # per published extension.
+    "bhscat": "http://mee.foundation/ontologies/category-ext/boston-hub-society#",
     # Shape namespaces — a v4.member[]/v4.tool[].graph[].shape value is a
     # sh:NodeShape CURIE (cell:shape's range, cell.ttl), not a type label
-    # class name, so these three must resolve too. Same base URIs
-    # cat-templates.ttl's own @prefix block declares.
+    # class name, so these must resolve too. Same base URIs cat-templates.ttl
+    # and each extension's own @prefix block declare. An unlisted prefix does
+    # not raise — resolve() falls through to the v4 example namespace — so a
+    # missing row here is silent, and every shape prefix in use needs one.
     "pshapes": "http://mee.foundation/ontologies/persona/shapes#",
     "petshapes": "http://mee.foundation/ontologies/pets/shapes#",
     "vehicleshapes": "http://mee.foundation/ontologies/vehicles/shapes#",
+    "idocshapes": "http://mee.foundation/ontologies/identity-documents/shapes#",
+    "mashapes": "http://mee.foundation/ontologies/medical-appointments/shapes#",
+    "sashapes": "http://mee.foundation/ontologies/service-accounts/shapes#",
+    "bankingshapes": "http://mee.foundation/ontologies/banking/shapes#",
+    "residenceshapes": "http://mee.foundation/ontologies/residences/shapes#",
+    "itineraryshapes": "http://mee.foundation/ontologies/itineraries/shapes#",
+    "oshapes": "http://mee.foundation/ontologies/organization/shapes#",
+    "educationshapes": "http://mee.foundation/ontologies/education/shapes#",
+    "dpshapes": "http://mee.foundation/ontologies/directory-profile/shapes#",
+    "bhsshapes": "http://mee.foundation/ontologies/category-ext/boston-hub-society/shapes#",
 }
 
 # The three sub-keys of one v4.serviceTag entry, mapped to the

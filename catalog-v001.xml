@@ -49,6 +49,24 @@
          uri="other/itineraries.ttl"/>
     <uri id="itineraries-shacl"          name="http://mee.foundation/ontologies/itineraries/shapes"
          uri="other/shacl/itineraries-shacl.ttl"/>
+    <uri id="education"                   name="http://mee.foundation/ontologies/education"
+         uri="other/education.ttl"/>
+    <uri id="education-shacl"             name="http://mee.foundation/ontologies/education/shapes"
+         uri="other/shacl/education-shacl.ttl"/>
+
+    <!-- Persona extension ontologies (persona-ext/): peer ontologies whose
+         properties have domain p:Person, too narrow for persona.ttl itself -->
+    <uri id="directory-profile"           name="http://mee.foundation/ontologies/directory-profile"
+         uri="persona-ext/directory-profile.ttl"/>
+    <uri id="directory-profile-shacl"     name="http://mee.foundation/ontologies/directory-profile/shapes"
+         uri="persona-ext/shacl/directory-profile-shacl.ttl"/>
+
+    <!-- Category extensions (category-ext/): a publisher's own skos:ConceptScheme,
+         its cell:TemplateCell individuals, and the member shape they name -->
+    <uri id="bhs-category-ext"            name="http://mee.foundation/ontologies/category-ext/boston-hub-society"
+         uri="category-ext/boston-hub-society.ttl"/>
+    <uri id="bhs-category-ext-shacl"      name="http://mee.foundation/ontologies/category-ext/boston-hub-society/shapes"
+         uri="category-ext/shacl/boston-hub-society-shacl.ttl"/>
     <!-- First non-CCO/non-mee.foundation external ontology this project vendors -->
     <uri id="dron-upper-subset"        name="http://mee.foundation/ontologies/dron-upper-subset"
          uri="project_files/dron-upper.ttl"/>

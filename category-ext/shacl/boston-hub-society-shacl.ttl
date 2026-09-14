@@ -1,0 +1,258 @@
+@prefix : <http://mee.foundation/ontologies/category-ext/boston-hub-society/shapes#> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix cco: <https://w3id.org/cco-domains/cco/> .
+@prefix persona: <http://mee.foundation/ontologies/persona#> .
+@prefix directoryprofile: <http://mee.foundation/ontologies/directory-profile#> .
+@prefix education: <http://mee.foundation/ontologies/education#> .
+@prefix dc: <http://purl.org/dc/elements/1.1/> .
+
+<http://mee.foundation/ontologies/category-ext/boston-hub-society/shapes> rdf:type owl:Ontology ;
+    owl:imports <http://mee.foundation/ontologies/category-ext/boston-hub-society> ;
+    owl:versionIRI <http://mee.foundation/ontologies/category-ext/boston-hub-society/shapes/1.0.0> ;
+    dc:date "2026-09-14"^^xsd:date ;
+    rdfs:label "Boston Hub Society Member SHACL Shapes"@en ;
+    rdfs:comment """The Boston Hub Society's own member shape — the second half of the category
+                    extension in category-ext/boston-hub-society.ttl, and the shape that template's
+                    cell:memberShape names. It validates every cell:MemberGraph of a cell whose
+                    cell:category is bhscat:BostonHubSociety, in place of pshapes:ContactInfoShape.
+
+                    It is reverse-engineered from the society's two-page "Personal Page for BHS 2026
+                    Directory" form, and it mints no vocabulary of its own. Every term it constrains
+                    is defined elsewhere and shared: name, birth date, organization, job title,
+                    address, phone, and email come from CCO and persona.ttl; the directory questions
+                    from persona-ext/directory-profile.ttl; the schooling rows from
+                    other/education.ttl. What is particular to this organization is only which of
+                    those fields it requires, how many values it permits, and which industry values
+                    it recognizes — that is, a shape, not an ontology. Another society's form would
+                    be another shape over the same vocabulary.
+
+                    Targets persona:Person, exactly as pshapes:ContactInfoShape does, and is
+                    therefore subject to helpers/validate.py's substantive-person retargeting — a
+                    member graph carrying no persona:Person at all (the society's own member stub,
+                    graph-01) conforms vacuously.
+
+                    Apply in addition to shacl/persona-shacl.ttl,
+                    persona-ext/shacl/directory-profile-shacl.ttl, and
+                    other/shacl/education-shacl.ttl, which carry the datatype and structural
+                    baselines this shape layers the society's own requirements on top of."""@en .
+
+
+#################################################################
+#  BHS Member Shape
+#  Targets persona:Person — the subject of a BHS cell's member graph.
+#
+#  Required: GivenName ("First full Name"), FamilyName ("Last Name")
+#  Everything else on the form is optional, as the form itself is.
+#
+#  Stricter than pshapes:ContactInfoShape in one respect: that shape
+#  requires a GivenName only and allows FamilyName 0..1. The BHS form
+#  requires both, so this shape requires both.
+#################################################################
+
+:MemberShape
+    a sh:NodeShape ;
+    sh:targetClass persona:Person ;
+    sh:message "BHS directory member validation: First full Name and Last Name are both required."@en ;
+
+    # ── Name components ──────────────────────────────────────────────────────
+    sh:property [
+        sh:path <https://w3id.org/cco-domains/cco/ont00001879> ;  # designated by
+        sh:qualifiedValueShape [ sh:class cco:ent00000002 ] ;  # GivenName
+        sh:qualifiedMinCount 1 ;
+        sh:qualifiedMaxCount 1 ;
+        sh:message "A BHS member must have exactly one GivenName (the form's 'First full Name')."@en
+    ] ;
+    sh:property [
+        sh:path <https://w3id.org/cco-domains/cco/ont00001879> ;
+        sh:qualifiedValueShape [ sh:class cco:ent00000004 ] ;  # FamilyName
+        sh:qualifiedMinCount 1 ;
+        sh:qualifiedMaxCount 1 ;
+        sh:message "A BHS member must have exactly one FamilyName (the form's 'Last Name'). This is stricter than ContactInfoShape, which allows none."@en
+    ] ;
+    # The form asks for a middle *initial*, not a middle name. That is not
+    # enforced here: an sh:pattern inside sh:qualifiedValueShape would make a
+    # non-conforming value stop *counting* toward the qualified shape rather
+    # than report a violation, so a full middle name would pass silently. The
+    # cardinality is what is checked; the single-letter convention is advisory.
+    sh:property [
+        sh:path <https://w3id.org/cco-domains/cco/ont00001879> ;
+        sh:qualifiedValueShape [ sh:class cco:ent00000003 ] ;  # AdditionalName
+        sh:qualifiedMaxCount 1 ;
+        sh:message "A BHS member may have at most one AdditionalName (the form's 'Middle Initial', conventionally a single letter)."@en
+    ] ;
+    sh:property [
+        sh:path <https://w3id.org/cco-domains/cco/ont00001879> ;
+        sh:qualifiedValueShape [ sh:class cco:ent00000006 ] ;  # AlternateName
+        sh:qualifiedMaxCount 1 ;
+        sh:message "A BHS member may have at most one AlternateName (the form's 'Preferred first name')."@en
+    ] ;
+    sh:property [
+        sh:path <https://w3id.org/cco-domains/cco/ont00001879> ;
+        sh:qualifiedValueShape [ sh:class cco:ent00000046 ] ;  # Birthdate
+        sh:qualifiedMaxCount 1 ;
+        sh:message "A BHS member may have at most one Birthdate."@en
+    ] ;
+
+    # ── Employment ───────────────────────────────────────────────────────────
+    sh:property [
+        sh:path <https://w3id.org/cco-domains/cco/ont00001879> ;
+        sh:qualifiedValueShape [ sh:class cco:ent00000047 ] ;  # OrganizationName
+        sh:qualifiedMaxCount 1 ;
+        sh:message "A BHS member may have at most one OrganizationName (the form's 'Business Name')."@en
+    ] ;
+    sh:property [
+        sh:path <https://w3id.org/cco-domains/cco/ont00001879> ;
+        sh:qualifiedValueShape [ sh:class persona:JobTitle ] ;
+        sh:qualifiedMaxCount 1 ;
+        sh:message "A BHS member may have at most one JobTitle (the form's 'Current Title')."@en
+    ] ;
+
+    # ── Contact channels ─────────────────────────────────────────────────────
+    # The form has two of each — work and home — distinguished in the data by
+    # persona:contactContext, an annotation property SHACL does not see.
+    sh:property [
+        sh:path <https://w3id.org/cco-domains/cco/ont00001879> ;
+        sh:qualifiedValueShape [ sh:class cco:ent00000024 ] ;  # EmailAddress
+        sh:qualifiedMaxCount 2 ;
+        sh:message "A BHS member may have at most two email addresses (the form's Work and Home Email)."@en
+    ] ;
+    sh:property [
+        sh:path <https://w3id.org/cco-domains/cco/ont00001879> ;
+        sh:qualifiedValueShape [ sh:class cco:ent00000023 ] ;  # TelephoneNumber
+        sh:qualifiedMaxCount 2 ;
+        sh:message "A BHS member may have at most two phone numbers (the form's Office and Cell Phone)."@en
+    ] ;
+    sh:property [
+        sh:path <https://w3id.org/cco-domains/domains/AddressOntology#ent00000324> ;  # has address
+        sh:class cco:ent00000010 ;  # USPostalAddress
+        sh:maxCount 2 ;
+        sh:message "A BHS member may have at most two addresses (the form's Business and Home Address)."@en
+    ] ;
+
+    # ── Membership ───────────────────────────────────────────────────────────
+    sh:property [
+        sh:path directoryprofile:memberSince ;
+        sh:datatype xsd:date ;
+        sh:maxCount 1 ;
+        sh:message "A BHS member may record at most one date of joining."@en
+    ] ;
+    sh:property [
+        sh:path directoryprofile:sponsoredBy ;
+        sh:datatype xsd:string ;
+        sh:maxCount 1 ;
+        sh:message "A BHS member may name at most one sponsor."@en
+    ] ;
+
+    # ── Industry ─────────────────────────────────────────────────────────────
+    # The society's own list, frozen here and nowhere else: directoryprofile:industry
+    # is deliberately unenumerated in its own ontology, since every directory has a
+    # different list. A member ticking none of these uses industryOther instead.
+    sh:property [
+        sh:path directoryprofile:industry ;
+        sh:datatype xsd:string ;
+        sh:in ( "Agriculture" "Banking" "BioTech" "Construction" "Consulting"
+                "Education" "Energy" "Finance" "Government" "Health Care & Wellness"
+                "Insurance" "Investment" "Law" "Manufacturing" "Medical Devices"
+                "Medicine" "Non-Profit" "Real Estate" "Technology" ) ;
+        sh:message "A BHS industry must be one of the 19 on the society's directory form; anything else belongs in industryOther."@en
+    ] ;
+    sh:property [
+        sh:path directoryprofile:industryOther ;
+        sh:datatype xsd:string ;
+        sh:maxCount 1 ;
+        sh:message "A BHS member may give at most one 'Other' industry."@en
+    ] ;
+
+    # ── Schooling ────────────────────────────────────────────────────────────
+    # The form has one High School row and one College row, so at most one
+    # education:EducationRecord of each level. Further qualifications go in a
+    # record at level 'other', which is uncapped — the form's 'Other degrees'.
+    sh:property [
+        sh:path persona:hasEducation ;
+        sh:class education:EducationRecord ;
+        sh:qualifiedValueShape [
+            sh:property [ sh:path education:educationLevel ; sh:hasValue "high school" ]
+        ] ;
+        sh:qualifiedMaxCount 1 ;
+        sh:message "A BHS member may record at most one high school."@en
+    ] ;
+    sh:property [
+        sh:path persona:hasEducation ;
+        sh:class education:EducationRecord ;
+        sh:qualifiedValueShape [
+            sh:property [ sh:path education:educationLevel ; sh:hasValue "college" ]
+        ] ;
+        sh:qualifiedMaxCount 1 ;
+        sh:message "A BHS member may record at most one college."@en
+    ] ;
+
+    # ── The remaining directory questions, one answer each ────────────────────
+    sh:property [
+        sh:path directoryprofile:assistantName ;
+        sh:datatype xsd:string ; sh:maxCount 1 ;
+        sh:message "At most one work assistant name."@en
+    ] ;
+    sh:property [
+        sh:path directoryprofile:assistantEmail ;
+        sh:datatype xsd:string ; sh:maxCount 1 ;
+        sh:message "At most one assistant email."@en
+    ] ;
+    sh:property [
+        sh:path directoryprofile:previousPositions ;
+        sh:datatype xsd:string ; sh:maxCount 1 ;
+        sh:message "At most one previous work/life positions answer."@en
+    ] ;
+    sh:property [
+        sh:path directoryprofile:recognitions ;
+        sh:datatype xsd:string ; sh:maxCount 1 ;
+        sh:message "At most one recognitions answer."@en
+    ] ;
+    sh:property [
+        sh:path directoryprofile:directorships ;
+        sh:datatype xsd:string ; sh:maxCount 1 ;
+        sh:message "At most one directorships answer."@en
+    ] ;
+    sh:property [
+        sh:path directoryprofile:nonProfitPositions ;
+        sh:datatype xsd:string ; sh:maxCount 1 ;
+        sh:message "At most one non-profit positions answer."@en
+    ] ;
+    sh:property [
+        sh:path directoryprofile:spousePartnerName ;
+        sh:datatype xsd:string ; sh:maxCount 1 ;
+        sh:message "At most one spouse/partner name."@en
+    ] ;
+    sh:property [
+        sh:path directoryprofile:spousePartnerBirthDate ;
+        sh:datatype xsd:date ; sh:maxCount 1 ;
+        sh:message "At most one spouse/partner date of birth."@en
+    ] ;
+    sh:property [
+        sh:path directoryprofile:family ;
+        sh:datatype xsd:string ; sh:maxCount 1 ;
+        sh:message "At most one family answer."@en
+    ] ;
+    sh:property [
+        sh:path directoryprofile:hometown ;
+        sh:datatype xsd:string ; sh:maxCount 1 ;
+        sh:message "At most one hometown."@en
+    ] ;
+    sh:property [
+        sh:path directoryprofile:dietaryRestrictions ;
+        sh:datatype xsd:string ; sh:maxCount 1 ;
+        sh:message "At most one dietary restrictions answer."@en
+    ] ;
+    sh:property [
+        sh:path directoryprofile:personalGoals ;
+        sh:datatype xsd:string ; sh:maxCount 1 ;
+        sh:message "At most one personal goals answer."@en
+    ] ;
+    sh:property [
+        sh:path directoryprofile:lifeExperiences ;
+        sh:datatype xsd:string ; sh:maxCount 1 ;
+        sh:message "At most one interesting life experiences answer."@en
+    ] .

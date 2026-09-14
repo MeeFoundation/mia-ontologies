@@ -12,15 +12,16 @@
 @prefix vehicles: <http://mee.foundation/ontologies/vehicles#> .
 @prefix identitydocuments: <http://mee.foundation/ontologies/identity-documents#> .
 @prefix banking: <http://mee.foundation/ontologies/banking#> .
+@prefix education: <http://mee.foundation/ontologies/education#> .
 @base <http://mee.foundation/ontologies/persona> .
 
 <http://mee.foundation/ontologies/persona> rdf:type owl:Ontology ;
-    owl:versionIRI <http://mee.foundation/ontologies/persona/4.21.0> ;
+    owl:versionIRI <http://mee.foundation/ontologies/persona/4.22.0> ;
     owl:imports <https://w3id.org/cco-domains/domains/PersonOntology> ;
     owl:imports <https://w3id.org/cco-domains/domains/AddressOntology> ;
     owl:imports <https://w3id.org/cco-domains/domains/StagingOntology> ;
     dc:date "2026-09-13"^^xsd:date ;
-    owl:versionInfo "Version 4.21.0 - V4 named as the app in the Person class comments"@en ;
+    owl:versionInfo "Version 4.22.0 - added p:hasEducation and the 'mobile' phone feature"@en ;
     rdfs:label "Persona Ontology"@en ;
     rdfs:comment """Persona Ontology for the V4 App.
 
@@ -230,6 +231,24 @@ p:hasBankAccount rdf:type owl:ObjectProperty ;
                     direction. banking:accessesBankAccount (DebitCard → CheckingAccount) lives there too,
                     since neither of its endpoints is a p:Person."""@en .
 
+#################################################################
+#    Education-related
+#################################################################
+
+p:hasEducation rdf:type owl:ObjectProperty ;
+    rdfs:domain p:Person ;
+    rdfs:range education:EducationRecord ;    # other/education.ttl, referenced by name — no owl:imports either direction
+    rdfs:label "has education"@en ;
+    rdfs:comment """Links a Person to a record of one stage of their schooling — a secondary school, a
+                    college or university, or a further qualification. Repeat the property for each:
+                    a person has as many records as they have stages. What an education record *is*
+                    lives in the peer other/education.ttl ontology, not here — the same thin has-link
+                    pattern p:hasPet/p:hasVehicle/p:hasIdentityDocument/p:hasBankAccount already
+                    establish; education:EducationRecord is referenced by name only, no owl:imports
+                    either direction. Which stage a given record represents is carried there by
+                    education:educationLevel, so this one property serves every stage rather than
+                    there being a separate link per stage."""@en .
+
 
 #################################################################
 #    Physical Belongings: Physical cards
@@ -316,7 +335,7 @@ p:phoneFeature rdf:type owl:AnnotationProperty ;
     rdfs:label "phone feature"@en ;
     rdfs:comment """JSContact phone 'features' flag. Repeat the property for multiple features.
                     Controlled vocabulary: 'voice', 'fax', 'text', 'video', 'pager',
-                    'textphone'."""@en ;
+                    'textphone', 'mobile'."""@en ;
     rdfs:range xsd:string .
 
 p:serviceLabel rdf:type owl:AnnotationProperty ;

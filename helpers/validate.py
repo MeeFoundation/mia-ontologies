@@ -108,6 +108,9 @@ SHAPE_NS = {
     "other/shacl/residences-shacl.ttl":   "http://mee.foundation/ontologies/residences/shapes#",
     "other/shacl/itineraries-shacl.ttl":  "http://mee.foundation/ontologies/itineraries/shapes#",
     "shacl/organization-shacl.ttl":       "http://mee.foundation/ontologies/organization/shapes#",
+    "other/shacl/education-shacl.ttl":    "http://mee.foundation/ontologies/education/shapes#",
+    "persona-ext/shacl/directory-profile-shacl.ttl": "http://mee.foundation/ontologies/directory-profile/shapes#",
+    "category-ext/shacl/boston-hub-society-shacl.ttl": "http://mee.foundation/ontologies/category-ext/boston-hub-society/shapes#",
 }
 
 # --- template CURIE prefix -> candidate shapes files ------------------------
@@ -126,6 +129,9 @@ PREFIX_TO_FILES = {
     "residenceshapes": ["other/shacl/residences-shacl.ttl"],
     "itineraryshapes": ["other/shacl/itineraries-shacl.ttl"],
     "oshapes": ["shacl/organization-shacl.ttl"],
+    "educationshapes": ["other/shacl/education-shacl.ttl"],
+    "dpshapes": ["persona-ext/shacl/directory-profile-shacl.ttl"],
+    "bhsshapes": ["category-ext/shacl/boston-hub-society-shacl.ttl"],
 }
 
 # --- shape local name -> shapes file -----------------------------------------
@@ -154,6 +160,9 @@ SHAPE_TO_FILE = {
     "PetsCareAndFeedingShape":       "other/shacl/pets-shacl.ttl",
     "VehicleShape":                  "other/shacl/vehicles-shacl.ttl",
     "OrganizationShape":             "shacl/organization-shacl.ttl",
+    "EducationRecordShape":          "other/shacl/education-shacl.ttl",
+    "DirectoryProfileShape":         "persona-ext/shacl/directory-profile-shacl.ttl",
+    "MemberShape":                   "category-ext/shacl/boston-hub-society-shacl.ttl",
 }
 
 
@@ -190,13 +199,22 @@ BASE_ONTOLOGY_FILES = [
     "other/pets.ttl", "other/vehicles.ttl", "other/identity-documents.ttl",
     "other/medical-appointments.ttl", "other/service-accounts.ttl",
     "other/banking.ttl", "other/residences.ttl", "other/itineraries.ttl",
+    "other/education.ttl",
+    "persona-ext/directory-profile.ttl",
     "organization.ttl", "service.ttl",
-]
+] + sorted(glob.glob("category-ext/*.ttl"))
 
 # The template pass additionally merges cat-templates.ttl; the cell pass
 # deliberately does not, so cell-shacl's :CellShape can't fire on the 102
 # ctpl:*TemplateCell individuals — generic class-level content bound to no
 # real person, and not what a cell-databook's own validation is about.
+# Category extensions (category-ext/) are bundles: each file carries a
+# publisher's own skos:ConceptScheme *and* its cell:TemplateCell individuals.
+# The scheme half has to reach the cell pass, so that a cell:category value
+# naming an extension concept resolves against cell-shacl's sh:class
+# skos:Concept / skos:ConceptScheme checks; the template half is harmless
+# there, being a single well-formed cell:TemplateCell rather than
+# cat-templates.ttl's 106.
 TEMPLATE_PASS_ONTOLOGY_FILES = BASE_ONTOLOGY_FILES + ["cat-templates.ttl"]
 
 # The four general shapes files the cell pass runs, all at once. The

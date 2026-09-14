@@ -7,31 +7,132 @@ flowchart TD
 
     subgraph ctx["Graph"]
         direction LR
-        ctx_meta["claimant: :Self\nsubject: :Self\nshape: pshapes:ContactInfoShape"]:::meta
+        ctx_meta["claimant: :Self\nsubject: :Self\nshape: bhsshapes:MemberShape"]:::meta
     end
 
-    n83041f53e81b[":Address_BHS\n(PostalAddress)"]
-    n15598f3e4334("123 Sleepy Hollow"):::lit
-    nc2d959bd961b("Paradise"):::lit
-    nc0a5ebb88ab9("CA"):::lit
-    n922a4448866e("95969"):::lit
-    nc5b05af1bd08("USA"):::lit
-    n671ed2c2e917[":BHS_AddressDesignation\n(AddressDesignation)"]
+    n5ccf7b91c511[":Address_BHS_Home\n(PostalAddress)"]
+    n659dde4aa27a("home"):::lit
+    n571644399880("123 Sleepy Hollow"):::lit
+    n8ae0d69e0fbd("Paradise"):::lit
+    ned134f9e5d64("CA"):::lit
+    n37a4b7943888("95969"):::lit
+    na9592a4a1ff5("USA"):::lit
+    n825c1a4e8cba[":Address_BHS_Work\n(PostalAddress)"]
+    nf2f7bd0253f1("work"):::lit
+    n1b489618487e("2200 Zanker Road"):::lit
+    nd172d94fe154("San Jose"):::lit
+    na219b4b1066d("CA"):::lit
+    n3859dd2528d3("95131"):::lit
+    n60b7bc9dc9e1("USA"):::lit
+    n30a04b46d07b[":Alice_College\n(EducationRecord)"]
+    ncb02a12a76ea("college"):::lit
+    ne73e61a91de5("University of Texas at Austin"):::lit
+    nef455ec20fb8("Austin"):::lit
+    n16baaef8313a("TX"):::lit
+    n624ea64690fa("2007"):::lit
+    n30f5222e16d1("BS Computer Science"):::lit
+    n29e56b707ad6[":Alice_HighSchool\n(EducationRecord)"]
+    n1c67c2ed423b("high school"):::lit
+    ne267305d56fb("Westlake High School"):::lit
+    nb6331df50c6f("Austin"):::lit
+    ne790500f6289("TX"):::lit
+    n9b664055591b("2003"):::lit
+    n9865ab682a27[":Alice_Hobby_Cycling\n(PersonalInfo)"]
+    n7f91bb0e0a34("hobby"):::lit
+    nd0b34917cb63("long-distance cycling"):::lit
+    n226301fd3a2a[":Alice_Hobby_Piano\n(PersonalInfo)"]
+    n39c08edf42c2("hobby"):::lit
+    n612ec955b2e0("piano"):::lit
+    n2c30be919c0b[":BHS_HomeAddressDesignation\n(AddressDesignation)"]
     n655e442e50be[":Self\n(Person)"]:::person
-    n34aebc63e25c("Alice"):::lit
-    n42a16703c60a("Alice Walker"):::lit
-    n32d772bbf9c3("+15108149999"):::lit
-    n8ef53930730b("awalker@gmail.com"):::lit
+    nd0c0385d3d6a[":BHS_WorkAddressDesignation\n(AddressDesignation)"]
+    n35f48e2eaceb("Alice"):::lit
+    n2c5437b88d51("Walker"):::lit
+    n5c39d26a75b9("M"):::lit
+    n1d193962300f("Ali"):::lit
+    n8d0051cc7100("1985-03-12"):::lit
+    n38898cce72a3("Acme"):::lit
+    na6c99b32c440("Software Engineer"):::lit
+    n2ca47a03a79a("+14085550143"):::lit
+    n2c064083d54c("+15108149999"):::lit
+    n089f70a92f64("alice@acme.com"):::lit
+    n945fe099b468("awalker@gmail.com"):::lit
+    ne1b0e20acff3("2021-09-15"):::lit
+    n45143c560d95("Marcy Chen"):::lit
+    n9c9f515ca54c("Technology"):::lit
+    nf51583c21e7e("Non-Profit"):::lit
+    na26a53a5aed2("Software engineer at Northbridge Systems (2008-2014); staff engineer at Vireo Labs (2014-2019)."):::lit
+    n44c533604ef8("Acme Engineering Excellence Award (2023)."):::lit
+    n852eec8bb3e4("Present: Chestnut Hill Village Association. Past: Vireo Labs technical advisory board."):::lit
+    n741c78f33b7b("Volunteer instructor, Boston Coding Outreach (present)."):::lit
+    n5a6ee6292ce8("Dave Walker"):::lit
+    nc73d4b9f96e9("1983-06-04"):::lit
+    n0aed1d144e57("Sophia Walker (2012)"):::lit
+    n7d909cf5a1b1("Austin, Texas, USA"):::lit
+    n76bb7b476f6d("Vegetarian"):::lit
+    nfc7de65c8fba("Mentor more early-career engineers. Finish the coast-to-coast ride."):::lit
+    n03ba7cb21a60("Cycled from Boston to Portland over six weeks in 2019, mostly on gravel."):::lit
 
-    n83041f53e81b -->|"hasContinuantPart"| n15598f3e4334
-    n83041f53e81b -->|"hasContinuantPart"| nc2d959bd961b
-    n83041f53e81b -->|"hasContinuantPart"| nc0a5ebb88ab9
-    n83041f53e81b -->|"hasContinuantPart"| n922a4448866e
-    n83041f53e81b -->|"hasContinuantPart"| nc5b05af1bd08
-    n671ed2c2e917 -->|"hasParticipant"| n655e442e50be
-    n671ed2c2e917 -->|"ent00000324"| n83041f53e81b
-    n655e442e50be -->|"GivenName"| n34aebc63e25c
-    n655e442e50be -->|"AlternateName"| n42a16703c60a
-    n655e442e50be -->|"TelephoneNumber"| n32d772bbf9c3
-    n655e442e50be -->|"EmailAddress"| n8ef53930730b
-    n655e442e50be -->|"ent00000324"| n83041f53e81b
+    n5ccf7b91c511 -->|"contactContext"| n659dde4aa27a
+    n5ccf7b91c511 -->|"hasContinuantPart"| n571644399880
+    n5ccf7b91c511 -->|"hasContinuantPart"| n8ae0d69e0fbd
+    n5ccf7b91c511 -->|"hasContinuantPart"| ned134f9e5d64
+    n5ccf7b91c511 -->|"hasContinuantPart"| n37a4b7943888
+    n5ccf7b91c511 -->|"hasContinuantPart"| na9592a4a1ff5
+    n825c1a4e8cba -->|"contactContext"| nf2f7bd0253f1
+    n825c1a4e8cba -->|"hasContinuantPart"| n1b489618487e
+    n825c1a4e8cba -->|"hasContinuantPart"| nd172d94fe154
+    n825c1a4e8cba -->|"hasContinuantPart"| na219b4b1066d
+    n825c1a4e8cba -->|"hasContinuantPart"| n3859dd2528d3
+    n825c1a4e8cba -->|"hasContinuantPart"| n60b7bc9dc9e1
+    n30a04b46d07b -->|"educationLevel"| ncb02a12a76ea
+    n30a04b46d07b -->|"schoolName"| ne73e61a91de5
+    n30a04b46d07b -->|"schoolCity"| nef455ec20fb8
+    n30a04b46d07b -->|"schoolState"| n16baaef8313a
+    n30a04b46d07b -->|"yearGraduated"| n624ea64690fa
+    n30a04b46d07b -->|"degree"| n30f5222e16d1
+    n29e56b707ad6 -->|"educationLevel"| n1c67c2ed423b
+    n29e56b707ad6 -->|"schoolName"| ne267305d56fb
+    n29e56b707ad6 -->|"schoolCity"| nb6331df50c6f
+    n29e56b707ad6 -->|"schoolState"| ne790500f6289
+    n29e56b707ad6 -->|"yearGraduated"| n9b664055591b
+    n9865ab682a27 -->|"personalInfoKind"| n7f91bb0e0a34
+    n9865ab682a27 -->|"personalInfoValue"| nd0b34917cb63
+    n226301fd3a2a -->|"personalInfoKind"| n39c08edf42c2
+    n226301fd3a2a -->|"personalInfoValue"| n612ec955b2e0
+    n2c30be919c0b -->|"hasParticipant"| n655e442e50be
+    n2c30be919c0b -->|"ent00000324"| n5ccf7b91c511
+    nd0c0385d3d6a -->|"hasParticipant"| n655e442e50be
+    nd0c0385d3d6a -->|"ent00000324"| n825c1a4e8cba
+    n655e442e50be -->|"GivenName"| n35f48e2eaceb
+    n655e442e50be -->|"FamilyName"| n2c5437b88d51
+    n655e442e50be -->|"AdditionalName"| n5c39d26a75b9
+    n655e442e50be -->|"AlternateName"| n1d193962300f
+    n655e442e50be -->|"ent00000046"| n8d0051cc7100
+    n655e442e50be -->|"OrganizationName"| n38898cce72a3
+    n655e442e50be -->|"JobTitle"| na6c99b32c440
+    n655e442e50be -->|"TelephoneNumber"| n2ca47a03a79a
+    n655e442e50be -->|"TelephoneNumber"| n2c064083d54c
+    n655e442e50be -->|"EmailAddress"| n089f70a92f64
+    n655e442e50be -->|"EmailAddress"| n945fe099b468
+    n655e442e50be -->|"ent00000324"| n825c1a4e8cba
+    n655e442e50be -->|"ent00000324"| n5ccf7b91c511
+    n655e442e50be -->|"memberSince"| ne1b0e20acff3
+    n655e442e50be -->|"sponsoredBy"| n45143c560d95
+    n655e442e50be -->|"industry"| n9c9f515ca54c
+    n655e442e50be -->|"industry"| nf51583c21e7e
+    n655e442e50be -->|"hasEducation"| n29e56b707ad6
+    n655e442e50be -->|"hasEducation"| n30a04b46d07b
+    n655e442e50be -->|"previousPositions"| na26a53a5aed2
+    n655e442e50be -->|"recognitions"| n44c533604ef8
+    n655e442e50be -->|"directorships"| n852eec8bb3e4
+    n655e442e50be -->|"nonProfitPositions"| n741c78f33b7b
+    n655e442e50be -->|"spousePartnerName"| n5a6ee6292ce8
+    n655e442e50be -->|"spousePartnerBirthDate"| nc73d4b9f96e9
+    n655e442e50be -->|"family"| n0aed1d144e57
+    n655e442e50be -->|"hometown"| n7d909cf5a1b1
+    n655e442e50be -->|"dietaryRestrictions"| n76bb7b476f6d
+    n655e442e50be -->|"personalGoals"| nfc7de65c8fba
+    n655e442e50be -->|"lifeExperiences"| n03ba7cb21a60
+    n655e442e50be -->|"hasPersonalInfo"| n9865ab682a27
+    n655e442e50be -->|"hasPersonalInfo"| n226301fd3a2a

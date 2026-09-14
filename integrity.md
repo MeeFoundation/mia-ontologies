@@ -306,7 +306,7 @@ The split into two leaves is the diagram's substantive claim, and it is a PDN-la
   - `Friends` (purple/Custom fill, black text, no category at all, shown as `()`, two circles: a white "Self" member — the cell's required `member` entry, per Check 21 — and a green "Fred", since Fred is the derived subject but not a member; no squares; two members)
   - `Employee` (light-blue/`Organization` fill, green text — folder name matches category `(Employee)`'s own label exactly, one white "Self" circle, no squares; one member)
   - `Bob Johnson` (tan/`Person` fill, black text — category `(Others)` ≠ folder name, four circles — two white/Self, two green/Other, all four `c:member` link types filled; no squares; two members)
-  - `BHS` (tan/`Person` fill, black text — category `(Groups)` ≠ folder name, two circles and one octagon (Self white circle, Bob green circle, and a green **octagon** for the third `c:member`, whose `c:subject` is `:BHS_Service`, an `s:ServiceProvider`, rather than `:BHS` itself — though its claim is still attributed to the organization, which is why the fill is green/Other) plus one green square (BHS's own organization profile, held by a form tool) — illustrative only, not tied to real cell-01 data (which carries no tool at all, see Check 18); three or more members)
+  - `Boston Hub Society` (tan/`Person` fill, green text — the folder name matches its category `bhscat:BostonHubSociety`'s own `skos:prefLabel` exactly, so no category parenthetical is shown, correctly compressed the same way `People` is; the category is an extension concept (`category-ext/boston-hub-society.ttl`) rather than one of `cat:CategoryScheme`'s own, and the tan Person fill still applies because it reaches `cat:Person` through its single `skos:broadMatch cat:Groups`, two circles and one octagon (Self white circle, Bob green circle, and a green **octagon** for the third `c:member`, whose `c:subject` is `:BHS_Service`, an `s:ServiceProvider`, rather than `:BHS` itself — though its claim is still attributed to the organization, which is why the fill is green/Other) plus one green square (BHS's own organization profile, held by a form tool) — illustrative only, not tied to real cell-01 data (which carries no tool at all, see Check 18); three or more members)
   - `People` (tan/`Person` fill, green text — no category parenthetical shown, correctly compressed since the category's label already equals the folder name, one white "Self" circle, no squares; one member)
   - `Kyoto Trip 2027` (tan/`Person` fill, black text — category `(Trips)` ≠ folder name; the one box drawn from real example data, `cell-47`. Two circles and one octagon — "Self" (white circle), "Dave" (green circle), and "Chat-GPT" (green **octagon**, since its `c:subject` is Alice's invited `s:ChatGPT` rather than a `p:Person`; its green fill is the ordinary Other fill, the same one Dave's circle carries) — and three squares, all labeled "Kyoto" and all about the same subject `:Kyoto_Trip_2027`, one per claimant: white/Self (graph-69), green/Other (graph-70), green/Other (graph-91). This is the diagram's only worked example of a tool reaching its real upper bound of one graph per member, each with a distinct claimant — Check 25; three members)
 
@@ -376,7 +376,7 @@ print('OK — no IRI-root violations found.' if errors == 0 else f'{errors} viol
 
 If a violation is found, rename the offending file's `owl:Ontology`/`id:` IRI to the correct root, and update every catalog entry and cross-reference that pointed at the old IRI to match (see Check 5's validation commands, which also hardcode these IRIs).
 
-**Check 18 — a cell's subject is derived from its tools plus `member`, never stored**: There is no independently-asserted cell-level subject property (nor a cell-level `v4.subject` field — the `subject:` key sits inside each `v4.member` entry, naming that member) — who or what a cell's relationship is about is computed, not stored, by a simple two-branch rule. The two branches read properties at *different levels*, since a tool states its topic once for all the graphs beneath it while a member entry carries its own subject directly (`cell.ttl`): a `member` entry is a `cell:MemberGraph` carrying `cell:subject`, while a tool's graphs are `cell:FormGraph`s carrying no about-ness of their own, the tool's single `cell:formTopic` standing for all of them. **If the cell has any form tools**, the full set of distinct `cell:formTopic` values among them is the cell's subject (e.g. `Medical Appointment.databook.md`, a two-member cell: `member` holds Dave's and Self's graphs, and its one form tool is about Sophia — subject is `:Sophia_Walker`); **otherwise** the subject is the full set of distinct `cell:subject` values among `member` — the cell's own active members (e.g. `Bob Johnson(others).databook.md`, a two-member cell with no tool: subject is `:Self` and `:Bob_Johnson` together; `Fred Flintstone(others).databook.md`, likewise: `:Self` and `:Fred_Flintstone` together). `Boston Hub Society(groups).databook.md` shows the first branch taking over from the second: as a three-member cell it would derive `:BHS_Service`, `:Bob_Johnson`, and `:Self` together, but its one manually-added form tool — BHS's own organizational profile, claimed by BHS — narrows the derived subject to `:BHS` alone. Every real example cell today carries at most one tool, but the rule and this check both generalize to any number, a cell being free to hold as many tools as it likes. A tool's topic is explicitly **allowed** to duplicate a `member` subject — this is the normal shape for every template-declared form tool whose cell's `cell:member` content is just the generic `ContactInfoShape` contact-info stub (claimed by and about `:Self`) while the cell's real content lives in the tool, also about `:Self` (e.g. `Google(companies).databook.md`, `SSN.databook.md`, `Paradise(home).databook.md`): the stub `member` isn't a distinct party the derived subject needs to separately surface, so the derivation switching to the tool set alone (ignoring `member`) is intended, not a masking bug. This check therefore only reports each cell's derived subject for reference — it does not flag member/tool subject overlap as a violation. Run:
+**Check 18 — a cell's subject is derived from its tools plus `member`, never stored**: There is no independently-asserted cell-level subject property (nor a cell-level `v4.subject` field — the `subject:` key sits inside each `v4.member` entry, naming that member) — who or what a cell's relationship is about is computed, not stored, by a simple two-branch rule. The two branches read properties at *different levels*, since a tool states its topic once for all the graphs beneath it while a member entry carries its own subject directly (`cell.ttl`): a `member` entry is a `cell:MemberGraph` carrying `cell:subject`, while a tool's graphs are `cell:FormGraph`s carrying no about-ness of their own, the tool's single `cell:formTopic` standing for all of them. **If the cell has any form tools**, the full set of distinct `cell:formTopic` values among them is the cell's subject (e.g. `Medical Appointment.databook.md`, a two-member cell: `member` holds Dave's and Self's graphs, and its one form tool is about Sophia — subject is `:Sophia_Walker`); **otherwise** the subject is the full set of distinct `cell:subject` values among `member` — the cell's own active members (e.g. `Bob Johnson(others).databook.md`, a two-member cell with no tool: subject is `:Self` and `:Bob_Johnson` together; `Fred Flintstone(others).databook.md`, likewise: `:Self` and `:Fred_Flintstone` together). `Boston Hub Society.databook.md` shows the first branch taking over from the second: as a three-member cell it would derive `:BHS_Service`, `:Bob_Johnson`, and `:Self` together, but its one manually-added form tool — BHS's own organizational profile, claimed by BHS — narrows the derived subject to `:BHS` alone. Every real example cell today carries at most one tool, but the rule and this check both generalize to any number, a cell being free to hold as many tools as it likes. A tool's topic is explicitly **allowed** to duplicate a `member` subject — this is the normal shape for every template-declared form tool whose cell's `cell:member` content is just the generic `ContactInfoShape` contact-info stub (claimed by and about `:Self`) while the cell's real content lives in the tool, also about `:Self` (e.g. `Google(companies).databook.md`, `SSN.databook.md`, `Paradise(home).databook.md`): the stub `member` isn't a distinct party the derived subject needs to separately surface, so the derivation switching to the tool set alone (ignoring `member`) is intended, not a masking bug. This check therefore only reports each cell's derived subject for reference — it does not flag member/tool subject overlap as a violation. Run:
 
 ```python
 import re, yaml, glob
@@ -579,7 +579,7 @@ If a violation is found: for (a), add the missing creator value to `v4.owner`. F
 
 **Check 25 — `cell:formGraph`'s real upper bound is the cell's own member count: one graph per member, each with a distinct claimant**: `cell:formGraph` carries no OWL/SHACL-expressible maximum — `shacl/cell-shacl.ttl`'s `:LiveToolShape` asserts only `sh:minCount 1` — but in practice its upper bound is exactly the cell's own member count, since every value represents one of the cell's own members making their own claim about the tool's single `cell:formTopic` (see README.md's Tools section). Concretely, two things must both hold for every tool on every cell-databook under `example/Cells/` (excluding `under-development/`): (a) each tool graph's `cell:claimant` must resolve to one of that same cell's own members — a tool's graph is never claimed by a non-member; and (b) within one tool, no two graphs may share the same claimant — each member gets at most one claim on that tool's topic. Together these two facts are what actually cap the count at the member count, rather than any cardinality restriction. The cap is per tool, not per cell: a cell carrying several tools may hold as many graphs in total as it has tools times members. This is not itself an OWL/SHACL-expressible constraint (same reasoning as Checks 18/21/23 — it requires dereferencing each graph's own `claimant`, and each `member` value's own `subject`, not just counting or matching cardinalities), so it's checked here instead.
 
-"Resolves to one of the cell's members" is satisfied two ways, because a claimant is the party *really* making the claim rather than the member that mechanically carries it (see `cell.ttl`'s `cell:claimant` comment). Either the claimant **is** a `v4.member` subject directly — the ordinary case, covering every `p:Person` and every `service:Service` that claims under its own IRI — or it is the `service:providedBy` organization **of** a member subject, which is how a `service:ServiceProvider` member's content gets attributed to the organization behind it. Both of the example tree's organization claimants take the second route: `Boston Hub Society(groups).databook.md`'s graph-92 is claimed by `:BHS` while the member subject is `:BHS_Service`, and `Citibank(banking-payments).databook.md`'s graph-76 is claimed by `:Citibank` while the member subject is `:Citibank_Service`. The `providedBy` link lives in the graph Turtle, not the frontmatter, so the script below reads it out of the cell's own embedded graph bodies. Run:
+"Resolves to one of the cell's members" is satisfied two ways, because a claimant is the party *really* making the claim rather than the member that mechanically carries it (see `cell.ttl`'s `cell:claimant` comment). Either the claimant **is** a `v4.member` subject directly — the ordinary case, covering every `p:Person` and every `service:Service` that claims under its own IRI — or it is the `service:providedBy` organization **of** a member subject, which is how a `service:ServiceProvider` member's content gets attributed to the organization behind it. Both of the example tree's organization claimants take the second route: `Boston Hub Society.databook.md`'s graph-92 is claimed by `:BHS` while the member subject is `:BHS_Service`, and `Citibank(banking-payments).databook.md`'s graph-76 is claimed by `:Citibank` while the member subject is `:Citibank_Service`. The `providedBy` link lives in the graph Turtle, not the frontmatter, so the script below reads it out of the cell's own embedded graph bodies. Run:
 
 ```python
 import re, yaml, glob
@@ -636,7 +636,7 @@ print('All cells satisfy the tool-graph claimant invariants (member-only, distin
 
 If a violation is found: for a tool graph claimed by a non-member, either add that claimant as a new `member` entry first, or — if the claimant is the organization behind a `service:ServiceProvider` that is already a member — add the missing `service:providedBy` triple to that service's own member graph, or reconsider whether the claim really belongs in this cell's tool at all. For a repeated claimant within one tool, merge the two graphs' content into one — a single member can only make one claim about a given tool's topic, not two.
 
-**Check 26 — `cell:shape`'s declared shape must resolve to an `rdf:type` actually asserted in the graph's own embedded Turtle body**: `cell:shape` (`cell.ttl`) is a real `owl:AnnotationProperty` (domain `cell:Graph`, range `sh:NodeShape`, cardinality 0..N), synthesized into RDF from each `v4.member[]`/`v4.tool[].graph[].shape` YAML value by `helpers/yaml-to-rdf.py`. But SHACL validation of a templated graph never actually reads this synthesized triple — each per-template shape (e.g. `:PassportShape`) fires purely via its own `sh:targetClass`, matching whatever `rdf:type` is asserted directly in the graph's body (e.g. `:Alice_US_Passport rdf:type identitydocuments:Passport`), completely independent of `shape:`. So nothing else cross-checks that a graph's declared `shape:` shape's own `sh:targetClass` actually names a class asserted on an individual in its own body — a typo'd or stale `shape:` value would go undetected, silently decoupled from what SHACL is actually validating. This is not itself an OWL/SHACL-expressible constraint (same reasoning as Checks 18/21/23/25 — it requires dereferencing the graph's own embedded Turtle content, not just its YAML frontmatter), so it's checked here instead. For every cell-databook under `example/Cells/` (excluding `under-development/`) with a `v4.member[]`/`v4.tool[].graph[].shape` value, resolve that shape CURIE to its own `sh:targetClass` (scanning `shacl/persona-shacl.ttl`/`shacl/contactinfo-shacl.ttl` and every `other/shacl/*-shacl.ttl` file for the matching shape, the same scan Check 27 already runs), then verify that same graph's own embedded Turtle body asserts `rdf:type` (directly, on some individual) to that resolved class. **Exempt**: `pshapes:ContactInfoShape` — per `helpers/validate.py`'s own module docstring, this is the one broad, class-wide shape (`sh:targetClass persona:Person`) that `helpers/validate.py` re-targets, at actual validation time, at only the *substantive* `persona:Person` individual(s) present in a graph, precisely because it's legitimate for a `cell:member`-list graph (required to carry this shape unconditionally, per Check 30) to contain none at all — e.g. graph-01 (`Boston Hub Society(groups).databook.md`) is the society's own member stub, typing `:BHS_Service` as `service:ServiceProvider` and `:BHS` as `o:Organization`, never `persona:Person`; graph-27 (`Citibank(banking-payments).databook.md`) is the bank's own member stub, carrying its name, website, and institutional self-description, typing `:Citibank_Service`/`:Citibank` the same way; and graph-96 (`Arca(companies).databook.md`) is a backup service's own member stub, typing `:Arca_Backup` as `service:ArcaBackup` and `:Arca` as `o:Organization` — both correctly, vacuously satisfy `ContactInfoShape` in real SHACL validation with zero `persona:Person` individuals present. Every other shape (e.g. `idocshapes:PassportShape`, `bankingshapes:DebitCardShape`) targets a narrow, specific document/account class that a declaring graph always does instantiate for real (e.g. the real Citibank debit-card graph asserts `rdf:type cco:ent00000051` directly, alongside `banking:DebitCard`), so no other exemption is needed. Run:
+**Check 26 — `cell:shape`'s declared shape must resolve to an `rdf:type` actually asserted in the graph's own embedded Turtle body**: `cell:shape` (`cell.ttl`) is a real `owl:AnnotationProperty` (domain `cell:Graph`, range `sh:NodeShape`, cardinality 0..N), synthesized into RDF from each `v4.member[]`/`v4.tool[].graph[].shape` YAML value by `helpers/yaml-to-rdf.py`. But SHACL validation of a templated graph never actually reads this synthesized triple — each per-template shape (e.g. `:PassportShape`) fires purely via its own `sh:targetClass`, matching whatever `rdf:type` is asserted directly in the graph's body (e.g. `:Alice_US_Passport rdf:type identitydocuments:Passport`), completely independent of `shape:`. So nothing else cross-checks that a graph's declared `shape:` shape's own `sh:targetClass` actually names a class asserted on an individual in its own body — a typo'd or stale `shape:` value would go undetected, silently decoupled from what SHACL is actually validating. This is not itself an OWL/SHACL-expressible constraint (same reasoning as Checks 18/21/23/25 — it requires dereferencing the graph's own embedded Turtle content, not just its YAML frontmatter), so it's checked here instead. For every cell-databook under `example/Cells/` (excluding `under-development/`) with a `v4.member[]`/`v4.tool[].graph[].shape` value, resolve that shape CURIE to its own `sh:targetClass` (scanning `shacl/persona-shacl.ttl`/`shacl/contactinfo-shacl.ttl` and every `other/shacl/`, `persona-ext/shacl/`, and `category-ext/shacl/` shapes file for the matching shape — the recursive `**/shacl/*.ttl` glob Check 16 already describes, and the same scan Check 27 runs), then verify that same graph's own embedded Turtle body asserts `rdf:type` (directly, on some individual) to that resolved class. **Exempt**: `pshapes:ContactInfoShape` and `bhsshapes:MemberShape` — per `helpers/validate.py`'s own module docstring, these are the broad, class-wide shapes (`sh:targetClass persona:Person`) that `helpers/validate.py` re-targets, at actual validation time, at only the *substantive* `persona:Person` individual(s) present in a graph, precisely because it's legitimate for a `cell:member`-list graph (required to carry this shape unconditionally, per Check 30) to contain none at all — e.g. graph-01 (`Boston Hub Society.databook.md`, whose member shape is `bhsshapes:MemberShape` rather than `ContactInfoShape` — the exemption covers both for exactly the same reason) is the society's own member stub, typing `:BHS_Service` as `service:ServiceProvider` and `:BHS` as `o:Organization`, never `persona:Person`; graph-27 (`Citibank(banking-payments).databook.md`) is the bank's own member stub, carrying its name, website, and institutional self-description, typing `:Citibank_Service`/`:Citibank` the same way; and graph-96 (`Arca(companies).databook.md`) is a backup service's own member stub, typing `:Arca_Backup` as `service:ArcaBackup` and `:Arca` as `o:Organization` — both correctly, vacuously satisfy `ContactInfoShape` in real SHACL validation with zero `persona:Person` individuals present. Every other shape (e.g. `idocshapes:PassportShape`, `bankingshapes:DebitCardShape`) targets a narrow, specific document/account class that a declaring graph always does instantiate for real (e.g. the real Citibank debit-card graph asserts `rdf:type cco:ent00000051` directly, alongside `banking:DebitCard`), so no other exemption is needed. Run:
 
 ```python
 import re, yaml, glob
@@ -658,6 +658,9 @@ SHAPES_FILES = {
     'residenceshapes': ['other/shacl/residences-shacl.ttl'],
     'itineraryshapes': ['other/shacl/itineraries-shacl.ttl'],
     'oshapes': ['shacl/organization-shacl.ttl'],
+    'educationshapes': ['other/shacl/education-shacl.ttl'],
+    'dpshapes': ['persona-ext/shacl/directory-profile-shacl.ttl'],
+    'bhsshapes': ['category-ext/shacl/boston-hub-society-shacl.ttl'],
 }
 target_class = {}
 for prefix, paths in SHAPES_FILES.items():
@@ -690,8 +693,13 @@ for f in glob.glob('example/Cells/**/*.databook.md', recursive=True):
         templates = raw if isinstance(raw, list) else [raw]  # shape: may be a scalar or a list
         block = None
         for shape in templates:
-            if shape == 'pshapes:ContactInfoShape':
-                continue  # broad, vacuously-satisfiable shape exemption — see prose above
+            # Broad, vacuously-satisfiable shape exemption — see prose above.
+            # Both target persona:Person class-wide, so helpers/validate.py
+            # re-targets them at substantive persona:Person individuals only,
+            # and a member graph containing none (a society's or bank's own
+            # member stub) conforms with nothing to check.
+            if shape in ('pshapes:ContactInfoShape', 'bhsshapes:MemberShape'):
+                continue
             resolved = target_class.get(shape)
             if resolved is None:
                 violations += 1
@@ -912,36 +920,45 @@ print("Every category concept, top concepts included, has a matching TemplateCel
 
 If a violation is found: add a new `ctpl:XTemplateCell` individual to `cat-templates.ttl` for the missing category, following the standard pattern for a category with no document type of its own — `cell:memberShape pshapes:ContactInfoShape` and no `cell:declaresTool` at all — unless the category genuinely has its own document/record type, in which case follow the pattern of an existing tool-declaring template instead (see `cat-templates.ttl`'s row in core-files.md). Adding a new `TemplateCell` also brings the category into scope for Check 27/28 and `helpers/validate.py` — re-run those afterward, since any real cell already using that category will now need its own `v4.member` graph(s) tagged with the matching `c:shape` value (Check 28) and may need minimal `GivenName` content added if it doesn't already have any (Check 26 and the template pass).
 
-**Check 30 — every `cell:TemplateCell` individual carries `cell:memberShape pshapes:ContactInfoShape`**: Every one of the 18 (now more) `cell:memberShape` values in `cat-templates.ttl` happens to be the identical `pshapes:ContactInfoShape` — a `c:member` graph is always validated as a basic contact-info profile, regardless of category, while any category-specific content lives in a tool instead (see `APP-BEHAVIOR.md`'s Lazy Instantiation section). This is asserted directly and explicitly on every individual, on purpose — not hoisted onto the `cell:TemplateCell` class itself via an OWL restriction, since nothing in this project's own validation pipeline runs a reasoner to materialize such an entailment (`helpers/validate.py` validates literal asserted triples only, via `riot`/`shacl validate`), and Check 27/28/29 above all rely on literally finding this triple in each individual's own block. This check exists to catch a new `TemplateCell` added without it (e.g. by hand, skipping the standard pattern), which SHACL itself wouldn't catch either (`shacl/cell-shacl.ttl`'s `:TemplateCellShape` allows zero or more `cell:memberShape` values, no minimum). This is not itself an OWL/SHACL-expressible constraint (same reasoning as Check 29 above), so it's checked here instead. Run:
+**Check 30 — every `cell:TemplateCell` individual carries a `cell:memberShape`, and every one in `cat-templates.ttl` carries `pshapes:ContactInfoShape`**: Every `cell:memberShape` value in `cat-templates.ttl` is the identical `pshapes:ContactInfoShape` — a `c:member` graph is always validated as a basic contact-info profile, regardless of category, while any category-specific content lives in a tool instead (see `APP-BEHAVIOR.md`'s Lazy Instantiation section). This is asserted directly and explicitly on every individual, on purpose — not hoisted onto the `cell:TemplateCell` class itself via an OWL restriction, since nothing in this project's own validation pipeline runs a reasoner to materialize such an entailment (`helpers/validate.py` validates literal asserted triples only, via `riot`/`shacl validate`), and Check 27/28/29 above all rely on literally finding this triple in each individual's own block. This check exists to catch a new `TemplateCell` added without it (e.g. by hand, skipping the standard pattern), which SHACL itself wouldn't catch either (`shacl/cell-shacl.ttl`'s `:TemplateCellShape` allows zero or more `cell:memberShape` values, no minimum). This is not itself an OWL/SHACL-expressible constraint (same reasoning as Check 29 above), so it's checked here instead.
+
+The uniformity claim is scoped to `cat-templates.ttl` deliberately, and that scoping is the whole point: a template cell published by a **category extension** (`category-ext/`, see Check 39) may name any member shape it likes, which is what `cell:memberShape` exists for. `bhscat:BostonHubSocietyTemplateCell` is the first to exercise this, naming `bhsshapes:MemberShape` — the Boston Hub Society's own two-page directory form — in place of `ContactInfoShape`. So the check runs in two halves: **every** `cell:TemplateCell` anywhere must carry at least one `cell:memberShape` value (a template naming none validates nothing, which is always a mistake), and every one **in `cat-templates.ttl`** must carry `pshapes:ContactInfoShape` specifically (the app's own shipped templates stay uniform; variation arrives only with an extension). Run:
 
 ```python
-import re
+import glob, re
 
 def read(path):
     return open(path, encoding='utf-8').read()
 
-ct_text = read('cat-templates.ttl')
+# cat-templates.ttl plus every category extension bundle: an extension file
+# carries its own cell:TemplateCell individuals alongside its concept scheme.
+files = ['cat-templates.ttl'] + sorted(glob.glob('category-ext/*.ttl'))
 violations = 0
-for block in re.split(r'\n\n(?=ctpl:)', read('cat-templates.ttl')):
-    if 'rdf:type cell:Cell, cell:TemplateCell' not in block:
-        continue
-    m_name = re.search(r'^(ctpl:\w+)', block)
-    name = m_name.group(1) if m_name else '(unknown)'
-    # ^\s*cell:memberShape anchors to a real triple's own line — avoids
-    # matching the same words if they appear mid-sentence inside an
-    # rdfs:comment (e.g. ctpl:UserDefinedTemplateCell's own prose, which
-    # happens to describe this exact property in its explanatory text).
-    # The value list runs to its own line's terminator, which is ';' when a
-    # cell:declaresTool follows and '.' when the template declares no tool.
-    m_shapes = re.search(r'^\s*cell:memberShape\s+([^;.]+)[;.]', block, re.MULTILINE)
-    values = [v.strip() for v in m_shapes.group(1).split(',')] if m_shapes else []
-    if 'pshapes:ContactInfoShape' not in values:
-        violations += 1
-        print(f"VIOLATION: {name} does not carry cell:memberShape pshapes:ContactInfoShape")
-print("Every TemplateCell carries cell:memberShape pshapes:ContactInfoShape." if violations == 0 else f'{violations} violation(s) found.')
+for path in files:
+    core = (path == 'cat-templates.ttl')
+    for block in re.split(r'\n\n(?=\w+:)', read(path)):
+        if 'rdf:type cell:Cell, cell:TemplateCell' not in block:
+            continue
+        m_name = re.search(r'^(\w+:\w+)', block)
+        name = m_name.group(1) if m_name else '(unknown)'
+        # ^\s*cell:memberShape anchors to a real triple's own line — avoids
+        # matching the same words if they appear mid-sentence inside an
+        # rdfs:comment (e.g. ctpl:UserDefinedTemplateCell's own prose, which
+        # happens to describe this exact property in its explanatory text).
+        # The value list runs to its own line's terminator, which is ';' when a
+        # cell:declaresTool follows and '.' when the template declares no tool.
+        m_shapes = re.search(r'^\s*cell:memberShape\s+([^;.]+)[;.]', block, re.MULTILINE)
+        values = [v.strip() for v in m_shapes.group(1).split(',')] if m_shapes else []
+        if not values:
+            violations += 1
+            print(f"VIOLATION: {name} ({path}) carries no cell:memberShape at all")
+        elif core and 'pshapes:ContactInfoShape' not in values:
+            violations += 1
+            print(f"VIOLATION: {name} (cat-templates.ttl) does not carry cell:memberShape pshapes:ContactInfoShape")
+print("Every TemplateCell carries a memberShape; every cat-templates.ttl one carries ContactInfoShape." if violations == 0 else f'{violations} violation(s) found.')
 ```
 
-If a violation is found: add `cell:memberShape pshapes:ContactInfoShape` to the offending `TemplateCell` individual — every `TemplateCell`, with no exception, carries it.
+If a violation is found: add a `cell:memberShape` value to the offending `TemplateCell` individual. In `cat-templates.ttl` that value is `pshapes:ContactInfoShape`, with no exception. In a `category-ext/` bundle it is whichever shape that extension publishes — the point of an extension being that it may differ. A `TemplateCell` with no `cell:memberShape` at all is always wrong: Check 28 would then require nothing of that category's member graphs, and they would go unvalidated.
 
 **Check 33 — a graph shape's claim-fill color matches its graph's own `claimant`**: Check 10c settles a cell box's graph *shapes* (a circle per `member` entry, a square per tool graph) and explicitly defers their **fill** to Check 15's legend, as "a separate, independent fact showing who claimed that graph". Check 10i then checks only the *cell box*'s own Person/Organization/Custom fill and its folder-name-text color. So the claim-fill of the circles and squares themselves — the one color that encodes `cell:claimant` — was defined but verified nowhere, in any of the 12 diagrams. This check closes that gap. The rule, per Check 15's legend, is a three-way partition of every drawn graph shape, decided entirely by that graph's own `claimant`:
 
@@ -1234,3 +1251,60 @@ If a violation is found: quote a value that parsed as a number, trim the padding
 - **38d** — the hierarchy `Tool` → `Calendar`/`Canvas`/`Map`/`Form` matches `cell.ttl`'s actual `rdfs:subClassOf` relationships by class local name. The four leaves are **not** `owl:disjointWith` one another (unlike `cell:MemberGraph`/`cell:FormGraph`, and unlike `cell:TemplateCell`/`cell:InstanceCell`), so no disjointness is drawn between them.
 - **38e** — the class-label colors match `cell.ttl`'s `cell:abstract` annotations: `Tool` blue (`cell:abstract true`), the four leaves black (none carries it). The Key lists exactly the swatches this diagram uses — two here, since nothing in it is the green "concrete but hidden" case.
 - **38f** — no `tool` or `declaresTool` arrow is drawn *into* `Tool` here; both belong to `cell.png` (Check 12), which shows `c:Tool` only as a target box.
+
+**Check 39 — every category extension's concepts map into the core taxonomy, and each has a template cell**: A **category extension** (`category-ext/`) is a bundle an organization publishes so other instances can file and validate cells of a category `category.ttl` does not define: one file carrying the publisher's own `skos:ConceptScheme`, the concepts in it, and a `cell:TemplateCell` for each, with its member shape beside it in `category-ext/shacl/`. `category.ttl` and `cat-templates.ttl` never change to accommodate one — which is exactly why Checks 29 and 30 can keep their own scoping, and why `images/category-ontology/category.png` (Check 14) stays correct as extensions are added.
+
+The mechanism is SKOS's own. `skos:broader` is defined for hierarchy *within* one concept scheme; the `skos:mappingRelation` family, of which `skos:broadMatch` is one, is defined for links *between* schemes. An extension concept is by definition in another scheme, so it links to the core taxonomy with `skos:broadMatch` and never with `skos:broader`. That link is load-bearing rather than decorative: a recipient whose app does not have the extension installed still needs somewhere to file an incoming cell, and the `broadMatch` target is that somewhere.
+
+`shacl/cell-shacl.ttl`'s `:CellShape` carries half of this — a `cell:category` value must be a `skos:Concept` with at least one `skos:inScheme` value that is a `skos:ConceptScheme` — but it deliberately no longer pins that scheme to `cat:CategoryScheme`, since an extension concept is never in it. The other half is not SHACL-expressible (it requires dereferencing across `category-ext/` and `category.ttl` at once, the same reasoning as Checks 27/28/29), so it is checked here. For every `category-ext/*.ttl` file, every `skos:Concept` in it must:
+
+- **39a** — carry `skos:inScheme` naming a scheme declared in that same file, and **not** `cat:CategoryScheme`. An extension concept that claimed core-scheme membership would be caught by Check 29 as a core concept with no `cat-templates.ttl` entry.
+- **39b** — carry exactly one `skos:broadMatch`, whose value is a `cat:` concept. One, not zero (nowhere to file it) and not several (no single answer to where).
+- **39c** — carry no `skos:broader` at all, that predicate being reserved for within-scheme hierarchy. An extension with a hierarchy *of its own* may use `skos:broader` between two of its own concepts; what 39c forbids is a `skos:broader` pointing at a `cat:` concept, which is the misuse `skos:broadMatch` exists to replace.
+- **39d** — have a matching `cell:TemplateCell` in that same file, carrying that concept as its `cell:category` value — the extension's own analogue of Check 29, and what makes the reverse lookup in Checks 27/28 resolve for a cell of this category.
+
+Run:
+
+```python
+import glob, re
+
+def read(path):
+    return open(path, encoding='utf-8').read()
+
+violations = 0
+for path in sorted(glob.glob('category-ext/*.ttl')):
+    text = read(path)
+    schemes = set(re.findall(r'^(\w+:\w+)\s+rdf:type\s+skos:ConceptScheme', text, re.MULTILINE))
+    templates = set(re.findall(r'^\s*cell:category\s+(\S+?)\s*[;.]', text, re.MULTILINE))
+    # One self-contained block per concept, same shape as category.ttl's own.
+    for block in re.split(r'\n\n(?=\w+:\w+ rdf:type skos:Concept\b)', text):
+        m = re.match(r'(\w+:\w+) rdf:type skos:Concept\b', block)
+        if not m:
+            continue
+        name = m.group(1)
+        in_scheme = re.findall(r'skos:inScheme\s+(\S+?)\s*[;.]', block)
+        broad_match = re.findall(r'skos:broadMatch\s+(\S+?)\s*[;.]', block)
+        broader = re.findall(r'skos:broader\s+(\S+?)\s*[;.]', block)
+        if not in_scheme or not set(in_scheme) & schemes:          # 39a
+            violations += 1
+            print(f"VIOLATION 39a: {name} ({path}) is not in a scheme declared in its own file")
+        if 'cat:CategoryScheme' in in_scheme:                      # 39a
+            violations += 1
+            print(f"VIOLATION 39a: {name} ({path}) claims skos:inScheme cat:CategoryScheme")
+        if len(broad_match) != 1:                                  # 39b
+            violations += 1
+            print(f"VIOLATION 39b: {name} ({path}) has {len(broad_match)} skos:broadMatch values, expected exactly 1")
+        elif not broad_match[0].startswith('cat:'):                # 39b
+            violations += 1
+            print(f"VIOLATION 39b: {name} ({path}) skos:broadMatch {broad_match[0]} is not a cat: concept")
+        for b in broader:                                          # 39c
+            if b.startswith('cat:'):
+                violations += 1
+                print(f"VIOLATION 39c: {name} ({path}) uses skos:broader {b} across schemes; use skos:broadMatch")
+        if name not in templates:                                  # 39d
+            violations += 1
+            print(f"VIOLATION 39d: {name} ({path}) has no cell:TemplateCell naming it as cell:category")
+print("Every category extension concept maps into the core taxonomy and has a template cell." if violations == 0 else f'{violations} violation(s) found.')
+```
+
+If a violation is found: for **39a**/**39b**/**39c**, fix the concept's own block — it belongs to its publisher's scheme and reaches the core taxonomy only through a single `skos:broadMatch`. For **39d**, add a `cell:TemplateCell` for it to the same file, carrying `cell:category` naming the concept and a `cell:memberShape` naming whichever shape the extension publishes (Check 30's second half requires the `cell:memberShape`; unlike a `cat-templates.ttl` template, it need not be `pshapes:ContactInfoShape` — a bundle differing there is the entire purpose of an extension).
