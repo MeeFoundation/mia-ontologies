@@ -21,6 +21,31 @@ A graph has no file of its own: it lives inside the cell DataBook that links it,
 `v4.member`/`v4.tool[].graph` entry plus one body section. This document specifies all three parts.
 For real files, see `example/Cells/` and [EXAMPLE.md](EXAMPLE.md).
 
+## Why This Format
+
+This is how the app persists a cell, in an extended form of what is specified below. Three
+properties are what make the format the right shape for it.
+
+**It is human-readable.** A cell DataBook is Markdown with YAML frontmatter, so a cell can be
+navigated, inspected, and edited with ordinary tools rather than only through the app. Maintaining
+this repo's own example tree in VS Code and Claude Code is the demonstration: everything the format
+carries is legible as text, and anything wrong with it is visible in a diff.
+
+**It blends into the user's existing files and folders.** A cell *is* a folder; its attachments are
+the plain files sitting in it; its note is a Markdown file named after the folder, the same
+folder-note convention PKM tools already use. The result is that v4's storage is interoperable with
+a PKM vault rather than parallel to it — Obsidian in particular. Running v4 alongside an existing
+vault is a supported workflow, not a migration away from one: the two are built for different
+requirements — a PKM tool for a single author's own knowledge, v4 for sharing cells with friends,
+family, and groups — and adopting the second should not cost the user the first.
+
+**It is machine-verifiable.** The format is constrained from three directions: SHACL shapes
+validate a cell's synthesized triples, [integrity.md](integrity.md)'s checks cover what SHACL cannot
+express, and [CLAUDE.md](CLAUDE.md) records the conventions behind both. Together they are a
+diagnostic independent of the app — a second reading of the same rules, against which whatever
+validation v4 implements internally can be checked. A single implementation has nothing to disagree
+with.
+
 ## Filename Convention
 
 Cell-databook filenames follow (there is no separate category-databook file — a folder's sole
