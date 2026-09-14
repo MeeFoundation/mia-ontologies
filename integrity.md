@@ -1028,14 +1028,25 @@ for f in glob.glob('example/Cells/**/*.databook.md', recursive=True):
     if branch is None:
         continue
     v4 = fmatter.get('v4', {}) or {}
-    for field in ('member', 'topic'):
-        entries = v4.get(field) or []
-        entries = entries if isinstance(entries, list) else [entries]
-        for e in entries:
-            claimant = e.get('claimant')
-            if claimant == ':Self':
-                continue                      # unfilled — indistinguishable from background
-            expected[(branch, 'green')] += 1
+    # Every graph the cell links: its v4.member entries, plus the graphs nested
+    # under each v4.tool. A tool's graphs sit one level deeper than a member
+    # entry (the tool states its own formTopic once, above them), so they have
+    # to be walked into — they are drawn as squares and carry a claimant of
+    # their own exactly as member circles do.
+    entries = v4.get('member') or []
+    entries = list(entries) if isinstance(entries, list) else [entries]
+    tools = v4.get('tool') or []
+    for t in (tools if isinstance(tools, list) else [tools]):
+        if not isinstance(t, dict):
+            continue
+        gs = t.get('graph') or []
+        entries += gs if isinstance(gs, list) else [gs]
+    for e in entries:
+        if not isinstance(e, dict):
+            continue
+        if e.get('claimant') == ':Self':
+            continue                      # unfilled — indistinguishable from background
+        expected[(branch, 'green')] += 1
 
 violations = 0
 for branch in sorted(BRANCH):
