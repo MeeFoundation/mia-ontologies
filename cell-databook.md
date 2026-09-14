@@ -1,6 +1,6 @@
 # Cell DataBook File Format
 
-A **cell DataBook** is the file that carries a cell's content. It is a
+A **cell DataBook** is the file that carries a cell's structured content. It is a
 [DataBook](https://github.com/w3c-cg/holon/tree/main/architectures/databook) — a Markdown file with
 YAML frontmatter, extension `.databook.md` — and it is what makes its folder a cell: a folder
 holding exactly one cell DataBook is a cell, and a folder holding none is a plain filesystem folder,
@@ -11,14 +11,36 @@ persists a cell as a folder.
 One cell DataBook carries three things:
 
 - **document fields** — six YAML keys describing the file itself, above the `v4:` block;
-- **the `v4:` block** — the cell's own content, whose keys map onto properties defined in
-  `cell.ttl`. See [Cell Ontology](README.md#cell-ontology) in README.md for what each property
-  *means*; this document says how each is *written*;
+- **the `v4:` block** — the cell's category, its creator and owners, its tags, and its links to the
+  graphs below, whose keys map onto properties defined in `cell.ttl`. See
+  [Cell Ontology](README.md#cell-ontology) in README.md for what each property *means*; this
+  document says how each is *written*;
 - **the body** — one `### Graph NN` section per graph the `v4:` block links, each holding that
   graph's own Turtle.
 
 A graph has no file of its own: it lives inside the cell DataBook that links it, as one
-`v4.member`/`v4.tool[].graph` entry plus one body section. This document specifies all three parts.
+`v4.member`/`v4.tool[].graph` entry plus one body section.
+
+**The rest of a cell's content is not in this file.** The DataBook holds the structured content and
+the metadata about the cell itself; a cell's unstructured content sits beside it:
+
+- **the note** — one Markdown file named after the folder (`X.md` inside the folder `X`), shown in
+  the app's Note area. Naming it after its folder is the folder-note convention PKM tools such as
+  Obsidian already use, which is what lets a cell tree double as a vault;
+- **the attachments** — the plain files sitting directly inside the folder, flat, like email
+  attachments. A subfolder is never one: it is either a descendant cell, holding its own DataBook,
+  or a bare pass-through directory on the way to one;
+- **the chat** — a stream shared by the cell's members, not a file in the folder at all.
+
+None of the three is named or listed anywhere in the DataBook. There is no attachment manifest and
+no note-filename field: the note is found by its name and the attachments by reading the folder, so
+adding a file to a cell is just putting a file in that cell's folder, whether the app or the user
+does it. `c:note`, `c:attachment` and `c:chat` are documentation-only properties — described in
+README.md's [Documentation-only Properties](README.md#documentation-only-properties), declared in no
+ontology, and never written as a triple by anything (integrity.md's Check 12).
+
+This document specifies the DataBook file and nothing else; for how a cell's folder is laid out
+around it, see [Filesystem Persistence](APP-BEHAVIOR.md#filesystem-persistence) in APP-BEHAVIOR.md.
 For real files, see `example/Cells/` and [EXAMPLE.md](EXAMPLE.md).
 
 ## Why This Format
@@ -31,10 +53,10 @@ navigated, inspected, and edited with ordinary tools rather than only through th
 this repo's own example tree in VS Code and Claude Code is the demonstration: everything the format
 carries is legible as text, and anything wrong with it is visible in a diff.
 
-**It blends into the user's existing files and folders.** A cell *is* a folder; its attachments are
-the plain files sitting in it; its note is a Markdown file named after the folder, the same
-folder-note convention PKM tools already use. The result is that v4's storage is interoperable with
-a PKM vault rather than parallel to it — Obsidian in particular. Running v4 alongside an existing
+**It blends into the user's existing files and folders.** A cell *is* a folder, and most of what it
+holds is the ordinary files in it — the note and the attachments above, in the places a PKM tool
+already looks for them. The result is that v4's storage is interoperable with a PKM vault rather
+than parallel to it — Obsidian in particular. Running v4 alongside an existing
 vault is a supported workflow, not a migration away from one: the two are built for different
 requirements — a PKM tool for a single author's own knowledge, v4 for sharing cells with friends,
 family, and groups — and adopting the second should not cost the user the first.
