@@ -17,7 +17,7 @@
                     being planned or taken — rather than *is*, kept out of persona.ttl the same way
                     pet/vehicle/identity-document domain-modeling already are. persona.ttl carries no
                     thin hasX-link property of its own pointing at itineraries:Itinerary — an
-                    itinerary is always held by a cell:FormTool on its own Trips-category cell
+                    itinerary is always held by a cell:Form on its own Trips-category cell
                     (see cat:Trips's template cell, cat-templates.ttl), so no explicit Person-level
                     link is needed.
 

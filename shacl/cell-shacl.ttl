@@ -13,7 +13,7 @@
 @prefix dc: <http://purl.org/dc/elements/1.1/> .
 
 <http://mee.foundation/ontologies/cell/shapes> rdf:type owl:Ontology ;
-    owl:versionIRI <http://mee.foundation/ontologies/cell/shapes/8.0.0> ;
+    owl:versionIRI <http://mee.foundation/ontologies/cell/shapes/9.0.0> ;
     dc:date "2026-09-13"^^xsd:date ;
     rdfs:label "Cell Ontology SHACL Validation Shapes"@en ;
     rdfs:comment "SHACL validation shapes for cell:Cell DataBook instances (the content facet of a cell) the cell:Tool nodes a cell carries, and the graph DataBook instances a cell links to — cell:MemberGraph via cell:member, cell:FormGraph via a tool's own cell:formGraph — in the Cell Ontology."@en .
@@ -291,16 +291,16 @@
 #  Tools
 #  A cell:Tool node appears in two roles, told apart by which property
 #  points at it rather than by its class, since both roles use the same
-#  tool classes (cell:FormTool, cell:CalendarTool, cell:CanvasTool).
+#  tool classes (cell:Form, cell:Calendar, cell:Canvas, cell:Map).
 #  So these two shapes target sh:targetObjectsOf, never sh:targetClass:
 #
 #    :LiveToolShape     — a live tool, reached by cell:tool from a
-#                         cell:InstanceCell. A live cell:FormTool
+#                         cell:InstanceCell. A live cell:Form
 #                         carries cell:formTopic (exactly one) and
 #                         cell:formGraph (at least one), never a shape;
-#                         a live cell:CalendarTool or cell:CanvasTool
+#                         a live cell:Calendar or cell:Canvas
 #                         carries none of the three, so each
-#                         requirement is conditioned on cell:FormTool
+#                         requirement is conditioned on cell:Form
 #                         rather than asserted outright.
 #    :DeclaredToolShape — a declaration, reached by cell:declaresTool
 #                         from a cell:TemplateCell. Carries
@@ -317,14 +317,14 @@
     sh:targetObjectsOf cell:tool ;
     sh:message "Tool validation."@en ;
 
-    # All three tool-content properties are scoped to cell:FormTool
+    # All three tool-content properties are scoped to cell:Form
     # (cell.ttl), the one tool class with a content model, so the
     # requirements below are conditioned on the tool's class rather than
     # asserted outright: this shape targets every live tool, and a
-    # cell:CalendarTool or cell:CanvasTool legitimately carries none of
-    # them. A blanket sh:minCount here would fail those two.
+    # cell:Calendar, cell:Canvas or cell:Map legitimately carries none
+    # of them. A blanket sh:minCount here would fail those three.
     #
-    # A live cell:FormTool carries cell:formTopic exactly once — what its
+    # A live cell:Form carries cell:formTopic exactly once — what its
     # content is about, stated once on the tool rather than repeated on
     # each graph beneath it, so several members' claims about one thing
     # cannot disagree about what that thing is — and at least one
@@ -332,17 +332,17 @@
     # bound, one graph per cell member each with a distinct claimant, is
     # integrity.md's Check 25.
     sh:or (
-        [ sh:not [ sh:class cell:FormTool ] ]
+        [ sh:not [ sh:class cell:Form ] ]
         [ sh:property [
               sh:path cell:formTopic ;
               sh:minCount 1 ;
               sh:maxCount 1 ;
-              sh:message "A live cell:FormTool must have exactly one cell:formTopic value."@en
+              sh:message "A live cell:Form must have exactly one cell:formTopic value."@en
           ] ;
           sh:property [
               sh:path cell:formGraph ;
               sh:minCount 1 ;
-              sh:message "A live cell:FormTool must have at least one cell:formGraph value."@en
+              sh:message "A live cell:Form must have at least one cell:formGraph value."@en
           ] ]
     ) ;
 

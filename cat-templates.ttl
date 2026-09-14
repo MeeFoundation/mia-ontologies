@@ -24,7 +24,7 @@
     owl:imports <http://mee.foundation/ontologies/cell> ;
     owl:versionInfo "Version 4.1.0 - each template declares, via cell:declaresTool, the tools a cell of its category is created with"@en ;
     rdfs:label "Cell Templates"@en ;
-    rdfs:comment """Class-level cell:Cell templates for category concepts (category.ttl's cat:CategoryScheme). Each individual here is what the app clones into a new cell when a folder representing its own cell:category concept is first instantiated into a user's tree (Lazy Instantiation) — finding the template for a given category is a reverse lookup (?tc cell:category cat:X), since category.ttl carries no forward pointer of its own. Each is typed solely cell:TemplateCell, and carries cell:memberShape for the member baseline plus zero or more cell:declaresTool nodes naming the tools — a cell:FormTool and its governing cell:formShape — a cell of that category is created with. Most declare none: most categories have nothing structured to say beyond their member baseline, and a cell cloned from such a template can still gain tools later, chosen by the user."""@en .
+    rdfs:comment """Class-level cell:Cell templates for category concepts (category.ttl's cat:CategoryScheme). Each individual here is what the app clones into a new cell when a folder representing its own cell:category concept is first instantiated into a user's tree (Lazy Instantiation) — finding the template for a given category is a reverse lookup (?tc cell:category cat:X), since category.ttl carries no forward pointer of its own. Each is typed solely cell:TemplateCell, and carries cell:memberShape for the member baseline plus zero or more cell:declaresTool nodes naming the tools — a cell:Form and its governing cell:formShape — a cell of that category is created with. Most declare none: most categories have nothing structured to say beyond their member baseline, and a cell cloned from such a template can still gain tools later, chosen by the user."""@en .
 
 #################################################################
 #  cat:Person  (SKOS top concept)
@@ -48,12 +48,12 @@ ctpl:OrganizationTemplateCell rdf:type cell:Cell, cell:TemplateCell ;
     rdfs:label "Organization Template Cell"@en ;
     rdfs:comment """The template for cat:Organization, one of the scheme's two SKOS top concepts. A
                     cell instantiated directly as bare "Organization" stands for the organization
-                    itself — an employer, say — so it declares a cell:FormTool carrying that
+                    itself — an employer, say — so it declares a cell:Form carrying that
                     organization's own o:Organization profile, the same
                     oshapes:OrganizationShape cat:Groups uses."""@en ;
     cell:category cat:Organization ;
     cell:memberShape pshapes:ContactInfoShape ;
-    cell:declaresTool [ rdf:type cell:FormTool ;
+    cell:declaresTool [ rdf:type cell:Form ;
                         cell:formShape oshapes:OrganizationShape ] .
 
 #################################################################
@@ -64,7 +64,7 @@ ctpl:PassportTemplateCell rdf:type cell:Cell, cell:TemplateCell ;
     rdfs:label "Passport Template Cell"@en ;
     cell:category cat:Passport ;
     cell:memberShape pshapes:ContactInfoShape ;
-    cell:declaresTool [ rdf:type cell:FormTool ;
+    cell:declaresTool [ rdf:type cell:Form ;
                         cell:formShape idocshapes:PassportShape ] .
 
 #################################################################
@@ -75,7 +75,7 @@ ctpl:SSNTemplateCell rdf:type cell:Cell, cell:TemplateCell ;
     rdfs:label "SSN Template Cell"@en ;
     cell:category cat:SSN ;
     cell:memberShape pshapes:ContactInfoShape ;
-    cell:declaresTool [ rdf:type cell:FormTool ;
+    cell:declaresTool [ rdf:type cell:Form ;
                         cell:formShape pshapes:SSNShape ] .
 
 #################################################################
@@ -86,7 +86,7 @@ ctpl:HomeTemplateCell rdf:type cell:Cell, cell:TemplateCell ;
     rdfs:label "Home Template Cell"@en ;
     cell:category cat:Home ;
     cell:memberShape pshapes:ContactInfoShape ;
-    cell:declaresTool [ rdf:type cell:FormTool ;
+    cell:declaresTool [ rdf:type cell:Form ;
                         cell:formShape residenceshapes:ResidenceShape ] .
 
 #################################################################
@@ -97,7 +97,7 @@ ctpl:TripsTemplateCell rdf:type cell:Cell, cell:TemplateCell ;
     rdfs:label "Trips Template Cell"@en ;
     cell:category cat:Trips ;
     cell:memberShape pshapes:ContactInfoShape ;
-    cell:declaresTool [ rdf:type cell:FormTool ;
+    cell:declaresTool [ rdf:type cell:Form ;
                         cell:formShape itineraryshapes:ItineraryShape ] .
 
 #################################################################
@@ -127,7 +127,7 @@ ctpl:BirthCertificateTemplateCell rdf:type cell:Cell, cell:TemplateCell ;
     rdfs:label "Birth Certificate Template Cell"@en ;
     cell:category cat:BirthCertificate ;
     cell:memberShape pshapes:ContactInfoShape ;
-    cell:declaresTool [ rdf:type cell:FormTool ;
+    cell:declaresTool [ rdf:type cell:Form ;
                         cell:formShape idocshapes:BirthCertificateShape ] .
 
 #################################################################
@@ -138,7 +138,7 @@ ctpl:DriversLicenseTemplateCell rdf:type cell:Cell, cell:TemplateCell ;
     rdfs:label "Drivers License Template Cell"@en ;
     cell:category cat:DriversLicense ;
     cell:memberShape pshapes:ContactInfoShape ;
-    cell:declaresTool [ rdf:type cell:FormTool ;
+    cell:declaresTool [ rdf:type cell:Form ;
                         cell:formShape idocshapes:DriversLicenseShape ] .
 
 #################################################################
@@ -149,7 +149,7 @@ ctpl:MedicalAppointmentTemplateCell rdf:type cell:Cell, cell:TemplateCell ;
     rdfs:label "Medical Appointment Template Cell"@en ;
     cell:category cat:MedicalAppointment ;
     cell:memberShape pshapes:ContactInfoShape ;
-    cell:declaresTool [ rdf:type cell:FormTool ;
+    cell:declaresTool [ rdf:type cell:Form ;
                         cell:formShape mashapes:MedicalAppointmentRecordShape ] .
 
 #################################################################
@@ -160,7 +160,7 @@ ctpl:PetMedicationsTemplateCell rdf:type cell:Cell, cell:TemplateCell ;
     rdfs:label "Pet Medications Template Cell"@en ;
     cell:category cat:PetsMedical ;
     cell:memberShape pshapes:ContactInfoShape ;
-    cell:declaresTool [ rdf:type cell:FormTool ;
+    cell:declaresTool [ rdf:type cell:Form ;
                         cell:formShape petshapes:PetMedicationRecordShape ] .
 
 #################################################################
@@ -171,7 +171,7 @@ ctpl:PetProfileTemplateCell rdf:type cell:Cell, cell:TemplateCell ;
     rdfs:label "Pet Profile Template Cell"@en ;
     cell:category cat:Pets ;
     cell:memberShape pshapes:ContactInfoShape ;
-    cell:declaresTool [ rdf:type cell:FormTool ;
+    cell:declaresTool [ rdf:type cell:Form ;
                         cell:formShape petshapes:PetShape ] .
 
 #################################################################
@@ -182,7 +182,7 @@ ctpl:VehicleProfileTemplateCell rdf:type cell:Cell, cell:TemplateCell ;
     rdfs:label "Vehicle Profile Template Cell"@en ;
     cell:category cat:Vehicles ;
     cell:memberShape pshapes:ContactInfoShape ;
-    cell:declaresTool [ rdf:type cell:FormTool ;
+    cell:declaresTool [ rdf:type cell:Form ;
                         cell:formShape vehicleshapes:VehicleShape ] .
 
 #################################################################
@@ -238,7 +238,7 @@ ctpl:CompaniesTemplateCell rdf:type cell:Cell, cell:TemplateCell ;
     rdfs:label "Companies Template Cell"@en ;
     cell:category cat:Companies ;
     cell:memberShape pshapes:ContactInfoShape ;
-    cell:declaresTool [ rdf:type cell:FormTool ;
+    cell:declaresTool [ rdf:type cell:Form ;
                         cell:formShape sashapes:ServiceAccountShape ] .
 
 #################################################################
@@ -249,7 +249,7 @@ ctpl:BankingPaymentsTemplateCell rdf:type cell:Cell, cell:TemplateCell ;
     rdfs:label "Banking & Payments Firms Template Cell"@en ;
     cell:category cat:BankingPayments ;
     cell:memberShape pshapes:ContactInfoShape ;
-    cell:declaresTool [ rdf:type cell:FormTool ;
+    cell:declaresTool [ rdf:type cell:Form ;
                         cell:formShape sashapes:ServiceAccountShape , bankingshapes:DebitCardShape , bankingshapes:CheckingAccountShape ] .
 
 #################################################################
@@ -530,7 +530,7 @@ ctpl:GroupsTemplateCell rdf:type cell:Cell, cell:TemplateCell ;
     rdfs:label "Groups Template Cell"@en ;
     cell:category cat:Groups ;
     cell:memberShape pshapes:ContactInfoShape ;
-    cell:declaresTool [ rdf:type cell:FormTool ;
+    cell:declaresTool [ rdf:type cell:Form ;
                         cell:formShape oshapes:OrganizationShape ] .
 
 #################################################################
@@ -541,7 +541,7 @@ ctpl:HealthWellnessTemplateCell rdf:type cell:Cell, cell:TemplateCell ;
     rdfs:label "Health & Wellness Template Cell"@en ;
     cell:category cat:HealthWellness ;
     cell:memberShape pshapes:ContactInfoShape ;
-    cell:declaresTool [ rdf:type cell:FormTool ;
+    cell:declaresTool [ rdf:type cell:Form ;
                         cell:formShape pshapes:HealthWellnessShape ] .
 
 #################################################################
@@ -813,7 +813,7 @@ ctpl:PetsCareAndFeedingTemplateCell rdf:type cell:Cell, cell:TemplateCell ;
     rdfs:label "Care & Feeding Template Cell"@en ;
     cell:category cat:PetsCareAndFeeding ;
     cell:memberShape pshapes:ContactInfoShape ;
-    cell:declaresTool [ rdf:type cell:FormTool ;
+    cell:declaresTool [ rdf:type cell:Form ;
                         cell:formShape petshapes:PetsCareAndFeedingShape ] .
 
 #################################################################
@@ -878,7 +878,7 @@ ctpl:PrimaryCarePhysicianTemplateCell rdf:type cell:Cell, cell:TemplateCell ;
     rdfs:label "Primary Care Physician Template Cell"@en ;
     cell:category cat:PrimaryCarePhysician ;
     cell:memberShape pshapes:ContactInfoShape ;
-    cell:declaresTool [ rdf:type cell:FormTool ;
+    cell:declaresTool [ rdf:type cell:Form ;
                         cell:formShape pshapes:PrimaryCarePhysicianShape , pshapes:ContactInfoShape ] .
 
 #################################################################
@@ -970,7 +970,7 @@ ctpl:TravelProviderTemplateCell rdf:type cell:Cell, cell:TemplateCell ;
     rdfs:label "Provider Template Cell"@en ;
     cell:category cat:TravelProvider ;
     cell:memberShape pshapes:ContactInfoShape ;
-    cell:declaresTool [ rdf:type cell:FormTool ;
+    cell:declaresTool [ rdf:type cell:Form ;
                         cell:formShape sashapes:ServiceAccountShape ] .
 
 #################################################################

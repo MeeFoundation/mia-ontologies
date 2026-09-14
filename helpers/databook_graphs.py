@@ -56,12 +56,13 @@ TAG_SUBKEYS = {
 
 # Which cell:Tool subclass a v4.tool entry's own `type` key names (cell.ttl's
 # Cell Tools section). Spelled out rather than title-cased from the key, so a
-# grep for cell:FormTool finds this line, and so an unknown type is a
+# grep for cell:Form finds this line, and so an unknown type is a
 # KeyError here rather than a triple naming a class that does not exist.
 TOOL_TYPES = {
-    "form": "FormTool",
-    "calendar": "CalendarTool",
-    "canvas": "CanvasTool",
+    "form": "Form",
+    "calendar": "Calendar",
+    "canvas": "Canvas",
+    "map": "Map",
 }
 
 
@@ -283,9 +284,9 @@ def process_cell_databook(fm, triples):
         process_embedded_graph(entry, triples, "member")
 
     # cell:tool — zero or more per cell, each a blank node for one object
-    # the cell carries: a form, a calendar or a drawing canvas, each with
-    # its own data format. The node's rdf:type comes from the entry's
-    # own `type` key (form/calendar/canvas); cell:formTopic, what the tool's
+    # the cell carries: a form, a calendar, a drawing canvas or a map,
+    # each with its own data format. The node's rdf:type comes from the
+    # entry's own `type` key (form/calendar/canvas/map); cell:formTopic, what the tool's
     # content is about, is carried once by the tool rather than repeated on
     # each graph beneath it, which is what makes its graphs unable to
     # disagree about what they are about.
