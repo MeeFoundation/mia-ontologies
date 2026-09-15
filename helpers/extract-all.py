@@ -7,7 +7,7 @@ Why this exists: validation never merges the whole tree — `helpers/validate.py
 works one cell at a time on purpose — but a few things legitimately need the
 union: integrity.md's Check 4 ("no orphan Persons"), whose reachability question
 only makes sense across every cell at once, and loading the example into a
-triplestore for ad-hoc SPARQL. See EXAMPLE.md's "Merged whole-tree dump".
+triplestore for ad-hoc SPARQL. See example.md's "Merged whole-tree dump".
 
 Do NOT run the general SHACL shapes against this output: merging every cell
 unions facts the self-containment convention deliberately keeps per-graph,

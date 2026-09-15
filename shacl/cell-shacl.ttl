@@ -111,7 +111,7 @@
     # sh:NodeShape here: the individuals they point at (e.g.
     # idocshapes:PassportShape) are only typed sh:NodeShape in
     # the per-template other/shacl/*.ttl files, which the cell pass
-    # deliberately excludes from its shapes (see EXAMPLE.md's Validation
+    # deliberately excludes from its shapes (see example.md's Validation
     # section) — asserting sh:class here would spuriously fail there.
     sh:property [
         sh:path cell:memberShape ;

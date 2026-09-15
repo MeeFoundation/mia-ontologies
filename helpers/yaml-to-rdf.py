@@ -38,7 +38,7 @@ cell:member/cell:formGraph actually reference.
 
 Usage:   python3 helpers/yaml-to-rdf.py [repo-root] > yaml-data.ttl
 Output:  Turtle triples on stdout — merge with `riot` alongside data extracted
-         via `helpers/extract-all.py` (see EXAMPLE.md's Validation section).
+         via `helpers/extract-all.py` (see example.md's Validation section).
 
 Requires: pip install pyyaml
 """

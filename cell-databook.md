@@ -5,7 +5,7 @@ A **cell DataBook** is the file that carries a cell's structured content. It is 
 YAML frontmatter, extension `.databook.md` — and it is what makes its folder a cell: a folder
 holding exactly one cell DataBook is a cell, and a folder holding none is a plain filesystem folder,
 not a cell at all, even when cells of its own sit further down. See
-[Filesystem Persistence](APP-BEHAVIOR.md#filesystem-persistence) in APP-BEHAVIOR.md for how the app
+[Filesystem Persistence](app-behavior.md#filesystem-persistence) in app-behavior.md for how the app
 persists a cell as a folder.
 
 One cell DataBook carries three things:
@@ -49,8 +49,8 @@ README.md's [Documentation-only Properties](README.md#documentation-only-propert
 ontology, and never written as a triple by anything (integrity.md's Check 12).
 
 This document specifies the DataBook file and nothing else; for how a cell's folder is laid out
-around it, see [Filesystem Persistence](APP-BEHAVIOR.md#filesystem-persistence) in APP-BEHAVIOR.md.
-For real files, see `example/Cells/` and [EXAMPLE.md](EXAMPLE.md).
+around it, see [Filesystem Persistence](app-behavior.md#filesystem-persistence) in app-behavior.md.
+For real files, see `example/Cells/` and [example.md](example.md).
 
 ## Why This Format
 
@@ -185,7 +185,7 @@ the id's string structure.
 A cell's id is globally unique across every user's independent tree, not merely within one person's
 own. It is flat and opaque, never derived from the cell's own name or category, and no registry or
 central coordination assigns it — consistent with no cell, and nothing about it, ever being held by
-a cloud provider or third party (see [Cell Storage](APP-BEHAVIOR.md#cell-storage)), and with
+a cloud provider or third party (see [Cell Storage](app-behavior.md#cell-storage)), and with
 `:Self`'s purely-local identifier (see
 [`:Self` IRI convention](CLAUDE.md#key-architectural-patterns)). Instead, it is derived from its
 creator's identity and freshly generated random bytes (`‖` is byte concatenation):
@@ -202,7 +202,7 @@ their devices, not to one device. The id is written as 32 lowercase hex characte
 event in the cell's membership store; the id itself is not stored.
 
 A founding event is valid only when the id recomputed from its fields matches and its signature
-verifies (see [Deriving and Checking a Cell Id](APP-BEHAVIOR.md#deriving-and-checking-a-cell-id)).
+verifies (see [Deriving and Checking a Cell Id](app-behavior.md#deriving-and-checking-a-cell-id)).
 This is what prevents a member from feeding a device that already knows the id (from its identity's
 records or a note link) a forged history with a different founder — a random id such as a v4 UUID
 names no one and cannot. The context strings keep this hash and signature apart from any other made
@@ -222,7 +222,7 @@ updating `title:` to match, never the reverse, and `title:` is never an independ
 override (integrity.md's Check 19, which also treats it as authoritative for what a cell "is called"
 when matching diagram box labels). It is shared, synced cell content, kept identical across every
 member's copy, and any member may rename the cell — see
-[Naming, Renaming, and Sharing](APP-BEHAVIOR.md#naming-renaming-and-sharing) in APP-BEHAVIOR.md for
+[Naming, Renaming, and Sharing](app-behavior.md#naming-renaming-and-sharing) in app-behavior.md for
 the one exception, a bare two-member cell, whose name is instead independent per member.
 
 ### `type`
@@ -403,7 +403,7 @@ separate disjoint classes.
 
 **Examples** (id local-name, which list it sits in, and the corresponding field values found in that
 same `v4.member`/`v4.tool[].graph` entry), drawn from the worked example in
-[EXAMPLE.md](EXAMPLE.md):
+[example.md](example.md):
 
 | Id local-name | List | About (`subject`/`formTopic`) | Claimed by | Containing cell |
 |----------|------|---------|-------------|---------------------|
@@ -426,7 +426,7 @@ came from; the frontmatter already settled that.
 Each graph contributes exactly four things, in this order:
 
 1. **An HTML anchor** — `<a id="graph-NN"></a>`, making the section linkable as
-   `<file>.databook.md#graph-NN`. EXAMPLE.md's tables link every graph this way.
+   `<file>.databook.md#graph-NN`. example.md's tables link every graph this way.
 2. **A `### Graph NN` heading**, with the same `NN` as the anchor and as the entry's own `id`.
 3. **A `#### Overview` subsection** — prose saying what the graph holds and why. By convention these
    open "This graph captures…".
@@ -547,7 +547,7 @@ No single tool checks the whole format. It is enforced in three places:
   (`v4.userTag`/`v4.serviceTag` well-formedness).
 - **`helpers/validate.py`** — synthesizes `c:` triples from the frontmatter and runs SHACL
   (`shacl/cell-shacl.ttl` and friends) against them, plus a per-graph template pass driven by each
-  entry's `shape:` value. See [Validation](EXAMPLE.md#validation) in EXAMPLE.md for the commands.
+  entry's `shape:` value. See [Validation](example.md#validation) in example.md for the commands.
 - **`helpers/databook_graphs.py`** — the parser, and the de facto machine-readable spec for which
   keys are actually consumed. It reads exactly: top-level `id` and `type`;
   `v4.category`, `v4.creator`, `v4.owner`, `v4.userTag`, `v4.serviceTag[].{namespace,key,value}`;
@@ -574,7 +574,7 @@ Two constraints narrow the answer. Dropping a transcript into the cell's folder 
 it an attachment unless something says otherwise, and puts it in the user's PKM vault — which may be
 a feature or a mess, but is not currently a choice anyone has made. And a private 1:1 thread between
 a member and their own agent is not visible to other members
-(see [Chat Area](APP-BEHAVIOR.md#chat-area) in APP-BEHAVIOR.md), so it cannot live in shared, synced
+(see [Chat Area](app-behavior.md#chat-area) in app-behavior.md), so it cannot live in shared, synced
 cell content the way the group stream can — whatever holds a cell's chat has to hold at least two
 things with different propagation rules. A cell already has one piece of content that does not
 propagate on a share, `c:serviceTag`, so the precedent exists; what is new is that here the split
@@ -621,7 +621,7 @@ What stays open is the reference rather than the storage. A relative path is the
 graph to hold, but a graph is claim content that propagates between members on a share, so whatever
 it holds has to still resolve in a recipient's own copy of the cell — after the folder has been
 renamed, renested, or received under a collision-suffixed name (see
-[Naming, Renaming, and Sharing](APP-BEHAVIOR.md#naming-renaming-and-sharing) in APP-BEHAVIOR.md).
+[Naming, Renaming, and Sharing](app-behavior.md#naming-renaming-and-sharing) in app-behavior.md).
 A path relative to the cell's own folder survives all three; anything anchored higher does not.
 
 ### How a tool's own files are told apart from the user's

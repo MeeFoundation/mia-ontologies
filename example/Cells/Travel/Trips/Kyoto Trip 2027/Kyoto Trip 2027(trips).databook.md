@@ -181,7 +181,7 @@ This graph is one of the cell's two `topic` entries — Alice's own basic claim 
 
 #### Overview
 
-This graph is one of the cell's three `topic` entries — Alice's travel agent's own evolving understanding of the trip, claimed by the agent rather than by Alice, Dave, or a third `p:Person`/`o:Organization`. This is the agent's single evolving graph — revised in place turn by turn as Alice and her agent go back and forth (see APP-BEHAVIOR.md's Agent Collaboration section), rather than a new graph per conversation turn. Typed `itineraries:Itinerary` (no existing CCO/domain class to multi-type alongside — there is no dedicated trip-planning domain ontology yet), validated by the `ItineraryShape` per-template SHACL shape, which requires only a human-readable label or description rather than any structured trip-planning fields.
+This graph is one of the cell's three `topic` entries — Alice's travel agent's own evolving understanding of the trip, claimed by the agent rather than by Alice, Dave, or a third `p:Person`/`o:Organization`. This is the agent's single evolving graph — revised in place turn by turn as Alice and her agent go back and forth (see app-behavior.md's Agent Collaboration section), rather than a new graph per conversation turn. Typed `itineraries:Itinerary` (no existing CCO/domain class to multi-type alongside — there is no dedicated trip-planning domain ontology yet), validated by the `ItineraryShape` per-template SHACL shape, which requires only a human-readable label or description rather than any structured trip-planning fields.
 
 #### Graph
 

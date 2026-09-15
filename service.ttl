@@ -176,7 +176,7 @@ service:ChatGPT rdf:type owl:Class ;
                     service:providedBy: the class already names the vendor, and no
                     o:Organization stands behind it inside the cell's own relationship —
                     contrast service:ArcaBackup, where the providing organization is a party
-                    to the arrangement. See APP-BEHAVIOR.md's ChatGPT Service Module
+                    to the arrangement. See app-behavior.md's ChatGPT Service Module
                     section for what it actually does once invited."""@en .
 
 
@@ -199,7 +199,7 @@ service:AppleContacts rdf:type owl:Class ;
                     member's instance runs a different service, or none, and could not
                     interpret or clear the value. Carries no service:providedBy — Apple is not
                     a party to the cell's relationship, it is merely where the data came from.
-                    See APP-BEHAVIOR.md's Apple Contacts Service Module section."""@en .
+                    See app-behavior.md's Apple Contacts Service Module section."""@en .
 
 
 #################################################################
