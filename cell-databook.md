@@ -21,6 +21,15 @@ One cell DataBook carries three things:
 A graph has no file of its own: it lives inside the cell DataBook that links it, as one
 `v4.member`/`v4.tool[].graph` entry plus one body section.
 
+**Nothing in the file records where the cell sits.** There is no tree-position field, no parent
+link, and no back-pointer from a graph to the cell that links it — a cell asserts `v4.member` and
+`v4.tool`, and that is the only direction the link runs. A cell's position is simply wherever its
+folder currently sits; a graph's containing cell is simply wherever its entry physically lives.
+That is what makes moving or renaming a folder a pure filesystem operation with nothing in any file
+to update, and what lets two members of a shared cell each file it wherever they like in their own
+tree without touching content the other sees. It is also why two cells can never share a folder: a
+file sitting in it would be ambiguously part of both.
+
 **The rest of a cell's content is not in this file.** The DataBook holds the structured content and
 the metadata about the cell itself; a cell's unstructured content sits beside it:
 
@@ -29,7 +38,7 @@ the metadata about the cell itself; a cell's unstructured content sits beside it
   Obsidian already use, which is what lets a cell tree double as a vault;
 - **the attachments** — the plain files sitting directly inside the folder, flat, like email
   attachments. A subfolder is never one: it is either a descendant cell, holding its own DataBook,
-  or a bare pass-through directory on the way to one;
+  or a bare pass-through directory on the way to one (integrity.md's Check 11);
 - **the chat** — a stream shared by the cell's members, not a file in the folder at all.
 
 None of the three is named or listed anywhere in the DataBook. There is no attachment manifest and
@@ -340,6 +349,22 @@ directly as its own `id` field — there's no separate list to cross-reference i
 `#graph` fragment — `named_graph` is always `{id}#graph`. The `databook:id` on a block is a fragment
 identifier making that block independently addressable as `{id}#{block-id}`.
 
+### `:Self` and Locally-Minted IRIs
+
+The three about-ness and attribution fields below all hold individual IRIs, minted by one
+convention. The user's own `p:Person` individual always uses the IRI `:Self`, in every graph in
+their own instance. Everyone else — other people, organizations, groups, services — gets a
+locally-minted named IRI (`:Bob_Johnson`, `:Acme`).
+
+`:Self` is local and is never exposed over the PDN, so two instances of the app never collide on it:
+in each instance it names that instance's own user, and nothing has to reconcile the two. A graph
+that arrives from a peer, where that peer was `:Self` in their own instance, is rewritten on receipt
+so `:Self` still means the receiving user; the peer is assigned a locally-minted identifier of the
+receiver's own, which resolves to or is replaced by their PDN ID once a connection is established.
+
+This is why the example tree can be read as one user's instance throughout even though some of its
+graphs were authored by other people: `:Self` is Alice's everywhere in it, whoever wrote the claim.
+
 ### `claimant` Vocabulary
 
 A `v4.member`/`v4.tool[].graph` entry's own `claimant:` field takes the local IRI of a `p:Person`,
@@ -420,10 +445,22 @@ reads — `helpers/databook_graphs.py` isolates one graph's fence in a multi-gra
 it. `databook:id:` is a human-readable slug making the block independently addressable; no script
 reads it. Both marker lines are stripped from the extracted Turtle.
 
-Every graph is **self-contained**: it re-asserts the `rdf:type` of each named individual it
-references rather than borrowing that declaration from another graph, so a single extracted graph
-validates on its own. See
-[Key Architectural Patterns](CLAUDE.md#key-architectural-patterns) in CLAUDE.md.
+### Self-Containment
+
+Every graph is self-contained: it carries everything needed to read it, and borrows nothing from any
+other graph. Concretely, a graph re-asserts the bare `rdf:type` of every named individual it
+references — `:Self rdf:type owl:NamedIndividual, p:Person` appears in each of the graphs that
+mention `:Self`, not once in some shared file the others merge in, and the same holds for every other
+named individual.
+
+The repeated type declarations look redundant and are not. A graph is the unit that gets extracted,
+validated, signed, and shared: one graph's Turtle pulled out on its own has to be complete RDF that
+validates against its shape without the rest of the tree present. Nothing else in the format
+guarantees that, and a single borrowed declaration would break it silently — the graph would validate
+in a merged dataset and fail alone.
+
+There is no separate file holding a user's identity data, and no exception for a named individual's
+own type declaration. Every substantive fact lives in the graph it belongs to.
 
 ## Skeleton
 
