@@ -97,7 +97,7 @@ Every cell in every table now carries a decided value. A cell reading `n/a` mark
 
 An attachment is any plain file held directly in the cell's own folder, shown in the app's Attachments area (see [Filesystem Persistence](#filesystem-persistence) above). An attachment is **immutable**: once added, its content is never updated in place by any role, so a correction means deleting it and adding the corrected file. Vladimir and Sergey call this an *immutable document*, a PDF being their example.
 
-| Capability | Owner | Person | Service | 
+| Capability | Owner | Member | Service | 
 |---|---|---|---|
 | Read own attachment | yes | yes | yes | 
 | Read another member's attachment | yes | yes | yes | 
@@ -119,7 +119,7 @@ An attachment is any plain file held directly in the cell's own folder, shown in
 
 A cell has **exactly one note** — its folder note, `X.md` inside folder `X` (see [Filesystem Persistence](#filesystem-persistence) above and [Note Area](#note-area) below) — never more. Vladimir and Sergey call this a *mergeable document*, and their own row labels distinguish a member's "own" document from "another member's"; with one note per cell that split does not arise, so the rows below are stated as capabilities on the cell's single note. Every member may write to it, regardless of ownership — reading and writing the note is the one surface where the owner/regular-member distinction does not apply at all. There is no commenting or suggested-edit mechanism of any kind — no margin comments, no proposed inline changes, and so no accept-or-reject step; a member simply edits the note, and every other member sees the result.
 
-| Capability | Owner | Person | Service | 
+| Capability | Owner | Member | Service | 
 |---|---|---|---|
 | Read the note | yes | yes | yes | 
 | Create the note | yes | yes | yes | 
@@ -141,7 +141,7 @@ Underneath, at the **PDN layer**, there is no update operation on a claim at all
 
 This document describes the first of those two layers, so every row below is the user-level rule. Vladimir and Sergey's own tables describe the second, which is why their `Update own claim` row reads `no` where this one reads `yes` — the two are not in conflict, they are the same behavior seen from either side of that boundary.
 
-| Capability | Owner | Person | Service | 
+| Capability | Owner | Member | Service | 
 |---|---|---|---|
 | Read own claim | yes | yes | yes |  
 | Read another member's claim | yes | yes | yes |  
@@ -164,7 +164,7 @@ This document describes the first of those two layers, so every row below is the
 
 ### Naming, Renaming, and Sharing
 
-For a single-member cell or a cell with three or more members — or a two-member cell that also carries a tool — any member of the cell — not just its creator or another owner — can rename it, and the new name propagates to every member: renaming is never gated by ownership, unlike direct note edits and other-member claim/attachment deletion (see [Permissions](#permissions) above). Chat likewise stays freely editable by every member regardless of ownership status, and any member may add or delete their own attachments — though no member may update an attachment in place, since an attachment is immutable. This mirrors how **Slack** and **Notion** handle renaming by default: any member/editor can rename a channel or page, and the new name propagates to everyone. It's a deliberate contrast with **Microsoft Teams** (channel owners only, by default), **Discord**, and **GitHub**, which restrict renaming to a privileged admin/Manage-Channels/owner role — a distinction the app's cell model doesn't have to begin with. A bare two-member cell — one carrying no tool — does *not* follow this rule — see the exception below.
+For a single-member cell or a cell with three or more members — or a two-member cell that also carries a tool — any member of the cell — not just its creator or another owner — can rename it, and the new name propagates to every member: renaming is never gated by ownership, unlike other-member claim/attachment deletion (see [Permissions](#permissions) above). Chat likewise stays freely editable by every member regardless of ownership status, and any member may add or delete their own attachments — though no member may update an attachment in place, since an attachment is immutable. This mirrors how **Slack** and **Notion** handle renaming by default: any member/editor can rename a channel or page, and the new name propagates to everyone. It's a deliberate contrast with **Microsoft Teams** (channel owners only, by default), **Discord**, and **GitHub**, which restrict renaming to a privileged admin/Manage-Channels/owner role — a distinction the app's cell model doesn't have to begin with. A bare two-member cell — one carrying no tool — does *not* follow this rule — see the exception below.
 
 A cell's name must be unique among its sibling cells — the cells directly nested under the same parent. When a user renames a cell — e.g. to give it a name of its own choosing, different from its category's label, the same convention followed by other PKM tools — to a name that already belongs to one of its siblings, the app doesn't prompt or reject the input: it silently appends the next available integer suffix (`"1"`, `"2"`, ...) to make the name unique. The same rule applies when creating a brand-new cell whose default name (e.g. copied verbatim from its category's own label) would otherwise collide with an existing sibling.
 
